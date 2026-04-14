@@ -9,7 +9,7 @@ Requirements per la prima release del bridge. Ogni requirement mappa a una phase
 
 ### Bridge Foundation (BRDG)
 
-- [ ] **BRDG-01**: Il package `@x9-forge/contracts` e distribuito via `git+ssh://<host>/<repo>#<SHA>` con `prepare` build script (nessun registry npm, nessun submodule)
+- [ ] **BRDG-01**: Il package `@x9-forge/contracts` e distribuito via `git+https://<host>/<repo>#<SHA>` con `prepare` build script (nessun registry npm, nessun submodule). NOTA: `git+https` invece di `git+ssh` perche Stefano usa gh CLI token keychain su local dev; SSH deploy key sul VPS gestita in plan Phase 1 quando inizia il consumo runtime. Per v1.1 valutare migrazione a `git+ssh` come hardening
 - [ ] **BRDG-02**: Il package esporta sub-path nominati (`/http`, `/capability`, `/agent`, `/vault`, `/model-router`, `/auth`) per tree-shaking e isolamento dominio
 - [ ] **BRDG-03**: `tsconfig` del package ha `strict: true`, `exactOptionalPropertyTypes: true`, `noUncheckedIndexedAccess: true`, target ES2023, NodeNext
 - [ ] **BRDG-04**: Zod v4 come source of truth; tipi TypeScript derivati via `z.infer<typeof schema>` (zero drift schema↔type)
