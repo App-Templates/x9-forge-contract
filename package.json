@@ -1,0 +1,46 @@
+{
+  "name": "@x9-forge/contracts",
+  "version": "0.0.0",
+  "private": false,
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./capability": "./dist/capability/index.js",
+    "./agent": "./dist/agent/index.js",
+    "./http": "./dist/http/index.js",
+    "./auth": "./dist/auth/index.js",
+    "./vault": "./dist/vault/index.js",
+    "./model-router": "./dist/model-router/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests",
+    "prepare": "pnpm build"
+  },
+  "peerDependencies": {
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "zod": "^4.3.6",
+    "typescript": "^6.0.2",
+    "vitest": "^3.0.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.39.4",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
