@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
-status: executing
-stopped_at: Plan 00-02 (zod v4) + Plan 00-03 (TS 6 + exactOptionalPropertyTypes) SHIPPED to forge-v2 main (merge 9512aef, pushed origin). Both deploy waves verified on staging (8/8 forge-v2 healthy, X9 zero downtime). Phase 0 at 75% (3/4 plans). Next: Plan 00-04 dev-loop verification.
-last_updated: "2026-04-14T17:55:00.000Z"
-last_activity: 2026-04-14 -- Plan 00-02 + 00-03 merged in main forge-v2
+status: ready-for-phase-1
+stopped_at: "PHASE 0 COMPLETE (4/4 plans). Dev-loop verified empirically on X9 (round-trip <5s). Forge partial verified (symlink OK, R-08 blocker documented: moduleResolution upgrade needed for bridge exports field resolution). All 3 repos clean post-cleanup. Bridge v1 Phase 1 ready to start with R-07 (web/MCP zod@3) + R-08 (Forge moduleResolution) carried as Phase 1 prerequisites."
+last_updated: "2026-04-14T20:15:00.000Z"
+last_activity: 2026-04-14 -- Phase 0 COMPLETE — Plan 00-04 dev-loop verify shipped
 progress:
   total_phases: 8
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 22
-  completed_plans: 3
-  percent: 14
+  completed_plans: 4
+  percent: 18
 ---
 
 # Project State
@@ -25,18 +25,25 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 
 ## Current Position
 
-Phase: 00 (prerequisites-bridge-foundation) — 75% DONE
-Plan: 3 of 4 (00-01, 00-02, 00-03 SHIPPED)
-Status: Waiting for Plan 00-04 (dev-loop verification)
-Last activity: 2026-04-14 -- Plan 00-02 + 00-03 merged in forge-v2 main
+Phase: 00 (prerequisites-bridge-foundation) — ✅ COMPLETE 4/4
+Status: Ready for Phase 1 (Capability Contracts)
+Last activity: 2026-04-14 -- Phase 0 fully closed, Plan 00-04 shipped
 
-Progress: █░░░░░░░░░ 14% (3/22 plans v1.0)
+Progress: ██░░░░░░░░ 18% (4/22 plans v1.0)
 
-### Phase 0 detail
+### Phase 0 detail (all done)
 - ✅ 00-01 Bridge scaffolding (2026-04-14, 6 commit on bridge main)
 - ✅ 00-02 Forge zod v3→v4 (2026-04-14, 6 commit, shipped via 9512aef merge)
 - ✅ 00-03 Forge TS 5→6 + exactOptionalPropertyTypes (2026-04-14, 2 commit, same merge)
-- ⏳ 00-04 Dev-loop verification (PENDING)
+- ✅ 00-04 Dev-loop verification (2026-04-14, X9 full, Forge partial with R-08)
+
+### Open risks carried to Phase 1
+- **R-07** web/ MCP SDK zod@3 hard peer-dep (documented in 00-02). Defer until MCP SDK releases zod@4-compatible version.
+- **R-08** Forge moduleResolution upgrade (new from 00-04). Phase 1 first Forge plan must upgrade `packages/types` + 5 services tsconfig from `node` classic to `node16`/`nodenext`/`bundler` before any `import` from `@x9-forge/contracts` in Forge.
+
+### Phase 1 prerequisites (pre-plan tasks)
+1. `phase-1-00-forge-moduleresolution-upgrade` (resolves R-08)
+2. Dockerfile `COPY packages/<bridge>` pattern (resolves P-15)
 
 ## Performance Metrics
 
