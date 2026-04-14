@@ -1,0 +1,77 @@
+import { z } from 'zod';
+import { MemoryStatusSchema, MemoryTypeSchema } from './enums.js';
+import { TemporalSemanticsSchema } from './temporal.js';
+
+/**
+ * MemoryEntry — forma serializzata di UNA entry recuperata dal recall.
+ *
+ * Superset comune tra tutti i type (profile/procedural/episodic/relationship).
+ * Il `content` resta opaque `z.unknown()` — il consumer applica una shape specifica
+ * per type/subtype usando Zod parse al suo layer.
+ *
+ * - `id`: identifier opaque persistito (ULID/UUID, formato non prescritto).
+ * - `status`: stato ciclo di vita (tipicamente `active` nel bundle, ma `superseded`
+ *   può emergere se il recall richiede versioni storiche).
+ * - `type`: ridondante col raggruppamento (profile/procedural/...) ma utile
+ *   per deserializzazione unificata.
+ * - `subtype`: refinement opaque.
+ * - `confidence`: 0-1 float.
+ * - `content`: payload opaco (vedi sopra).
+ * - `temporal`: timestamp canonici.
+ */
+export const MemoryEntrySchema = z.object({
+  id: z.string().min(1),
+  status: MemoryStatusSchema,
+  type: MemoryTypeSchema,
+  subtype: z.string().min(1).optional(),
+  confidence: z.number().min(0).max(1),
+  content: z.unknown(),
+  temporal: TemporalSemanticsSchema,
+});
+
+export type MemoryEntry = z.infer<typeof MemoryEntrySchema>;
+
+/**
+ * AuditMeta — metadati di osservabilità del recall stesso.
+ *
+ * - `recalledAt`: quando è stata generata questa bundle.
+ * - `latencyMs`: tempo elaborazione recall (diagnostico).
+ * - `sourceStoreVersion`: versione del memory store che ha servito (stringa opaca).
+ * - `policyApplied`: lista di nomi di policy applicate (scope filter, privacy filter,
+ *   retention filter, ecc.). Utile per debug + audit GDPR.
+ */
+export const AuditMetaSchema = z.object({
+  recalledAt: z.string().datetime({ offset: true }),
+  latencyMs: z.number().int().nonnegative(),
+  sourceStoreVersion: z.string().min(1),
+  policyApplied: z.array(z.string().min(1)),
+});
+
+export type AuditMeta = z.infer<typeof AuditMetaSchema>;
+
+/**
+ * RecallBundle — payload strutturato restituito dal memory-svc verso agent-core
+ * in risposta a una richiesta di recall (memoria rilevante per il turn corrente).
+ *
+ * Partizione per **type** (profile / procedural / relationships / episodes),
+ * che è il criterio di taxonomia principale. Separatare per type permette
+ * all'LLM di comporre il prompt con sezioni semanticamente distinte:
+ * - "Cosa so dell'utente" (profile)
+ * - "Cosa l'utente mi ha insegnato / preferenze operative" (procedural)
+ * - "Con chi si relaziona / dinamiche sociali" (relationships)
+ * - "Cosa è successo di rilevante" (episodes)
+ *
+ * Ordinamento dentro ogni sezione non prescritto dal bridge — il memory-svc
+ * decide (tipicamente per confidence desc + temporal recency).
+ *
+ * - `auditMeta`: diagnostica del recall stesso (non i singoli recuperi).
+ */
+export const RecallBundleSchema = z.object({
+  profile: z.array(MemoryEntrySchema),
+  procedural: z.array(MemoryEntrySchema),
+  relationships: z.array(MemoryEntrySchema),
+  episodes: z.array(MemoryEntrySchema),
+  auditMeta: AuditMetaSchema,
+});
+
+export type RecallBundle = z.infer<typeof RecallBundleSchema>;

@@ -13,7 +13,8 @@
     "./http": "./dist/http/index.js",
     "./auth": "./dist/auth/index.js",
     "./vault": "./dist/vault/index.js",
-    "./model-router": "./dist/model-router/index.js"
+    "./model-router": "./dist/model-router/index.js",
+    "./memory": "./dist/memory/index.js"
   },
   "files": [
     "dist",
