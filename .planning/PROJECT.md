@@ -232,14 +232,24 @@ La Phase 35 (Model Router — Two-Level Routing) introduce **5 nuovi contratti c
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Architettura package (npm/submodule/workspace/OpenAPI) | 4 opzioni, la ricerca GSD deve valutare | -- Pending research |
+| Architettura package = `git+ssh://...#<SHA>` + `prepare` build + `pnpm.overrides link:` dev loop | Scelta vincitrice research STACK: zero infra, zero registry, zero submodule, native pnpm | Decided 2026-04-14 |
+| Zod v4 come source of truth schema; TS types via `z.infer` | Source of truth unica, zero drift schema↔type (pitfall P-27 preventivo) | Decided 2026-04-14 |
+| ts-rest rifiutato per v1 | Peer-dep conflict `@ts-rest/core@3.52.1` con zod@4+fastify@5 verificato 2026-04-14. Rivalutare v1.1 | Decided 2026-04-14 |
+| Custom typed HTTP client zero-dep (~80 righe) | Alternativa a ts-rest/zodios/tRPC respinti; coprira Bug #15 via literal auth types | Decided 2026-04-14 |
+| Branded types solo su IDs (AgentId, OwnerId, TenantId, SessionId, ConversationId) | Brand di ogni stringa = anti-feature AF-02 (over-engineering) | Decided 2026-04-14 |
+| Forge zod@3→@4 + TS 5.9→6.0.2 + `exactOptionalPropertyTypes: true` = Phase 0 | Tecnicamente non negoziabile: bridge impone zod@4, X9 gia allineato, Forge deve allinearsi | Decided 2026-04-14 |
+| `CapabilityRegistryEntry` canonical shape = `{ host, port, version, protocol? }` + helper `toEndpoint` | Scelta tier-1: scalabilita (version pinning), manutenibilita (no URL parsing), estendibilita (TLS) | Decided 2026-04-14 |
+| `AgentContext` split: `Core` (bridge, cross-repo) + `Runtime` (X9-local) | Forge non deve sapere dove X9 scrive su disco (workspacePath, registryPath). Boundary rule pulito | Decided 2026-04-14 |
+| `X9_INTERNAL_SECRET` e tutte le env applicative = vault esclusivo (tier=platform default, tier=agent desync override) | Source of truth confermato da Stefano 2026-04-14. Vault nasce come escamotage di centralizzazione, e la verita. `PlatformBootstrapEnv` (VAULT_KEY, DB, CLERK) resta env server per ricorsione | Decided 2026-04-14 |
+| Bridge = package TypeScript tipi cross-repo (Interpretazione A, no runtime service) | Stefano ha confermato 2026-04-14 | Decided 2026-04-14 |
+| Master X9 peer dei cloni rispetto al vault (no gerarchia per chiavi) | Stefano ha corretto il modello mentale 2026-04-14 | Decided 2026-04-14 |
 | contract-bridge PRIMA di Phase 35 Model Router | Phase 35 introduce 5 nuovi contratti cross-repo, devono nascere nel package condiviso | Decided 2026-04-14 |
 | Model Router contracts inclusi nello scope v1 del bridge | Evitare retrofit: tier enum, tier mapping, modelPolicy, Model Push API, hot-reload nascono qui | Decided 2026-04-14 |
 | Vault 3-tier contracts inclusi nello scope v1 del bridge | Forge ha gia implementato il meccanismo, il bridge normalizza la semantica cross-repo | Decided 2026-04-14 |
-| `AgentCredentials` discriminated (no piu flat Record) | Oggi X9 `context.credentials` e `Record<string,string>` senza type safety | Decided 2026-04-14 — scope v1 |
+| `AgentCredentials` discriminated (no piu flat Record) | Oggi X9 `context.credentials` e `Record<string,string>` senza type safety | Decided 2026-04-14 |
 | "Synced vs overridden" = tier `platform \| owner` vs tier `agent` | Riconciliazione semantica, nessuna rivoluzione del modello Forge | Decided 2026-04-14 |
 | Multi-user dentro agent (userId filter in memory) | Gap reale di X9 ma fuori scope bridge (diventa nuova Phase di X9) | Decided 2026-04-14 (OUT) |
-| Hot-reload "live" push vault → X9 | Gap reale ma non blocker per bridge v1 | -- Pending research (dentro o fuori scope) |
+| Hot-reload "live" push vault → X9 | Gap reale ma non blocker per bridge v1 | Decided 2026-04-14 (OUT v1, differito) |
 | Phase 35 agent-x9 da rivedere dopo bridge v1 | La stesura preliminare non prevedeva il contract-bridge, deve importare dal bridge | -- Pending revisione (post bridge v1) |
 | Forge Phase 10 UI Model Router dipende da bridge + Phase 35 X9 | Ordine: bridge v1 → X9 Phase 35 → Forge Phase 10 | Decided 2026-04-14 |
 
@@ -261,4 +271,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-14 — Gap analysis verificato sul codice (Forge vault 3-tier gia implementato, X9 multi-agent ready), scope v1 esteso con vault contracts + AgentCredentials, research mandate aggiunto con 8 vincoli non negoziabili*
+*Last updated: 2026-04-14 — Research GSD completata (STACK+FEATURES+ARCHITECTURE+PITFALLS+SUMMARY), REQUIREMENTS.md (69 req) + ROADMAP.md (7 phase, 22 plans v1.0) + STATE.md scritti. Decisioni architetturali finalizzate. Ready for /gsd-plan-phase 0*
