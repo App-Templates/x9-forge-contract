@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
 status: executing
-stopped_at: Bridge repo pushato su github.com/App-Templates/x9-forge-contract (privato). Tag `pre-bridge-migration-2026-04-14` creato e pushato su agent-x9 + forge-v2. VPS snapshot eseguito da Stefano. Ready for /gsd-plan-phase 0.
-last_updated: "2026-04-14T14:46:17.665Z"
-last_activity: 2026-04-14 -- Phase 00 execution started
+stopped_at: Plan 00-02 (zod v4) + Plan 00-03 (TS 6 + exactOptionalPropertyTypes) SHIPPED to forge-v2 main (merge 9512aef, pushed origin). Both deploy waves verified on staging (8/8 forge-v2 healthy, X9 zero downtime). Phase 0 at 75% (3/4 plans). Next: Plan 00-04 dev-loop verification.
+last_updated: "2026-04-14T17:55:00.000Z"
+last_activity: 2026-04-14 -- Plan 00-02 + 00-03 merged in main forge-v2
 progress:
   total_phases: 8
   completed_phases: 0
-  total_plans: 5
-  completed_plans: 0
-  percent: 0
+  total_plans: 22
+  completed_plans: 3
+  percent: 14
 ---
 
 # Project State
@@ -25,12 +25,18 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 
 ## Current Position
 
-Phase: 00 (prerequisites-bridge-foundation) — EXECUTING
-Plan: 1 of 5
-Status: Executing Phase 00
-Last activity: 2026-04-14 -- Phase 00 execution started
+Phase: 00 (prerequisites-bridge-foundation) — 75% DONE
+Plan: 3 of 4 (00-01, 00-02, 00-03 SHIPPED)
+Status: Waiting for Plan 00-04 (dev-loop verification)
+Last activity: 2026-04-14 -- Plan 00-02 + 00-03 merged in forge-v2 main
 
-Progress: ░░░░░░░░░░ 0% (0/22 plans v1.0)
+Progress: █░░░░░░░░░ 14% (3/22 plans v1.0)
+
+### Phase 0 detail
+- ✅ 00-01 Bridge scaffolding (2026-04-14, 6 commit on bridge main)
+- ✅ 00-02 Forge zod v3→v4 (2026-04-14, 6 commit, shipped via 9512aef merge)
+- ✅ 00-03 Forge TS 5→6 + exactOptionalPropertyTypes (2026-04-14, 2 commit, same merge)
+- ⏳ 00-04 Dev-loop verification (PENDING)
 
 ## Performance Metrics
 
