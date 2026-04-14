@@ -45,7 +45,7 @@ Il bridge nasce come "strangler fig su tipi": il pacchetto `@x9-forge/contracts`
 **Plans**: 4 plans
 
 Plans:
-- [ ] 00-01: Bridge package scaffolding (`package.json`, `tsconfig.json` strict, `exports` field, `prepare` build, vitest setup, README skeleton)
+- [x] 00-01: Bridge package scaffolding (`package.json`, `tsconfig.json` strict, `exports` field, `prepare` build, vitest setup, README skeleton)
 - [ ] 00-02: Forge v2 zod@3 → zod@4 migration (Forge-side phase, tutti gli schema migrati, test verdi, deploy staging)
 - [ ] 00-03: Forge v2 TypeScript 5.9 → 6.0.2 bump + `exactOptionalPropertyTypes: true` alignment (fix tutti i type errors emergenti)
 - [ ] 00-04: Dev loop verification (`pnpm.overrides` con `link:` nel X9 e Forge, dummy contract end-to-end test)

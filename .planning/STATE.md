@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: Bridge Foundation
+status: executing
+stopped_at: Bridge repo pushato su github.com/App-Templates/x9-forge-contract (privato). Tag `pre-bridge-migration-2026-04-14` creato e pushato su agent-x9 + forge-v2. VPS snapshot eseguito da Stefano. Ready for /gsd-plan-phase 0.
+last_updated: "2026-04-14T14:46:17.665Z"
+last_activity: 2026-04-14 -- Phase 00 execution started
+progress:
+  total_phases: 8
+  completed_phases: 0
+  total_plans: 5
+  completed_plans: 0
+  percent: 0
+---
+
 # Project State
 
 ## Project Reference
@@ -5,20 +21,21 @@
 See: .planning/PROJECT.md (updated 2026-04-14)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilita DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 0 — Prerequisites + Bridge Foundation (ready to plan)
+**Current focus:** Phase 00 — prerequisites-bridge-foundation
 
 ## Current Position
 
-Phase: 0 of 7 (Prerequisites + Bridge Foundation)
-Plan: 0 of 4 in current phase
-Status: Ready to plan
-Last activity: 2026-04-14 — Research synthesis completed, REQUIREMENTS + ROADMAP scritti
+Phase: 00 (prerequisites-bridge-foundation) — EXECUTING
+Plan: 1 of 5
+Status: Executing Phase 00
+Last activity: 2026-04-14 -- Phase 00 execution started
 
 Progress: ░░░░░░░░░░ 0% (0/22 plans v1.0)
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: —
 - Total execution time: —
@@ -30,6 +47,7 @@ Progress: ░░░░░░░░░░ 0% (0/22 plans v1.0)
 | — | — | — | — |
 
 **Recent Trend:**
+
 - No plans executed yet
 
 ## Accumulated Context
