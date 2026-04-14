@@ -22,6 +22,9 @@ Un cambio di contratto cross-repo che rompe la compatibilita DEVE generare error
 - [ ] Naming asimmetrico env vars documentato e risolvibile (INTERNAL_SECRET vs X9_INTERNAL_SECRET)
 - [ ] Zero regressioni: nessun endpoint esistente si rompe durante la migrazione
 - [ ] Architettura del package (npm/submodule/workspace/OpenAPI) validata dalla ricerca
+- [ ] **Model Router — `ModelTier` enum + `ModelTierMapping` (tier -> modelId) tipizzati nel bridge v1** (prerequisito Phase 35)
+- [ ] **Model Router — `ModelPolicy` shape + `modelPolicy` field nel registry schema condiviso** (prerequisito Phase 35)
+- [ ] **Model Router — Forge Model Push API (request/response + auth header) tipizzato PRIMA dell'implementazione agent-x9** (prerequisito Phase 35)
 
 ### Out of Scope
 
@@ -63,14 +66,28 @@ X9 -> Forge (1 endpoint):
 
 Post-call webhook 401 silent (2026-04-11). X9 Phase 21.1 aggiunse header `X-Internal-Token` obbligatorio, Forge v2 continuava a chiamare senza. Nessun errore TS, scoperto solo per osservazione empirica in produzione. Con tipi condivisi il build di Forge sarebbe fallito.
 
-### Dipendenza: Phase 35 Model Router (agent-x9)
+### Dipendenza: Phase 35 Model Router (agent-x9) — contratti nativi del bridge v1
 
-La Phase 35 (Model Router — Two-Level Routing) introduce nuovi contratti cross-repo:
-- ROUTER-02: `modelPolicy` in registry.json che Forge deve leggere/pushare
-- ROUTER-05: Forge Model Push — Forge deve costruire il push layer leggendo l'implementazione X9
-- ROUTER-06: Hot-reload config — Forge UI -> API -> agent-core
+La Phase 35 (Model Router — Two-Level Routing) introduce **5 nuovi contratti cross-repo** che NON esistono oggi e che devono nascere nel bridge v1, non essere retrofittati dopo.
 
-**La Phase 35 va eseguita DOPO il contract-bridge**, cosi i nuovi tipi del Model Router nascono direttamente nel package condiviso. La stesura preliminare della Phase 35 nel roadmap agent-x9 NON prevedeva l'esistenza del contract-bridge e va rivista prima dell'esecuzione.
+**Contratti Model Router inclusi nello scope v1 del bridge:**
+
+1. **`ModelTier` enum** (ordered: `standard < advanced < reasoning`) — condiviso tra Forge UI (dropdown) e agent-x9 (validazione, ordering)
+2. **`ModelTierMapping`** (`{ tier: ModelTier -> modelId: string }`, es. `standard: "gpt-4.1-mini"`) — Forge push, X9 consume per hot-reload senza redeploy
+3. **`ModelPolicy`** (`{ min: ModelTier, max: ModelTier }`) + `modelPolicy` field nel `CapabilityRegistryEntry` / `CapabilityManifest` schema condiviso
+4. **Forge Model Push API** (`/internal/model-config` POST o equivalente): request payload (tier mappings + per-cap policy overrides), response shape, header di autenticazione. **Endpoint nuovo, non ancora esistente** in nessuno dei due repo
+5. **Hot-reload notification shape** (mtime check o webhook payload, a seconda di cosa decide la ricerca)
+
+**Allineamento con ROADMAP agent-x9 Phase 35:**
+- ROUTER-01 (Model Tier Registry) -> contratto #1, #2 nel bridge
+- ROUTER-02 (Capability Model Policy) -> contratto #3 nel bridge
+- ROUTER-05 (Forge Model Push) -> contratto #4 nel bridge
+- ROUTER-06 (Hot-Reload) -> contratto #5 nel bridge
+
+**Ordine di esecuzione:**
+- Phase 35 agent-x9 **va eseguita DOPO il contract-bridge**, cosi i nuovi tipi nascono direttamente nel package condiviso
+- La stesura preliminare della Phase 35 nel ROADMAP agent-x9 NON prevedeva il contract-bridge e **va rivista** prima dell'esecuzione (deve importare dal bridge, non definire tipi in locale)
+- Forge v2 Phase 10 (UI dropdown + push layer) dipende a sua volta da Phase 35 agent-x9
 
 ### Volume stimato
 
@@ -85,14 +102,16 @@ La Phase 35 (Model Router — Two-Level Routing) introduce nuovi contratti cross
 - **Compatibilita**: Zero breaking changes durante la migrazione — i due repo devono continuare a funzionare in ogni momento
 - **X9 continuity**: X9 in produzione NON deve mai smettere di funzionare (regola non negoziabile di Stefano)
 - **Repo scope**: Tocca 3 repo (contract-bridge nuovo + agent-x9 + forge-v2) — coordinamento chirurgico
+- **Model Router contracts born here**: i 5 contratti nuovi introdotti da Phase 35 (tier enum, tier mapping, modelPolicy, Model Push API, hot-reload) nascono nel bridge v1 — non retrofittati da agent-x9 o forge-v2
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Architettura package (npm/submodule/workspace/OpenAPI) | 4 opzioni, la ricerca GSD deve valutare | -- Pending |
-| contract-bridge PRIMA di Phase 35 Model Router | Phase 35 introduce nuovi contratti cross-repo, meglio che nascano nel package condiviso | -- Pending conferma ordine |
-| Phase 35 agent-x9 da rivedere | La stesura preliminare non prevedeva il contract-bridge | -- Pending revisione |
+| contract-bridge PRIMA di Phase 35 Model Router | Phase 35 introduce 5 nuovi contratti cross-repo, devono nascere nel package condiviso | Decided 2026-04-14 |
+| Model Router contracts inclusi nello scope v1 del bridge | Evitare retrofit: tier enum, tier mapping, modelPolicy, Model Push API, hot-reload nascono qui | Decided 2026-04-14 |
+| Phase 35 agent-x9 da rivedere dopo bridge v1 | La stesura preliminare non prevedeva il contract-bridge, deve importare dal bridge | -- Pending revisione (post bridge v1) |
 
 ## Evolution
 
@@ -112,4 +131,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-13 after initialization*
+*Last updated: 2026-04-14 — Model Router contracts (Phase 35) inclusi nello scope v1*
