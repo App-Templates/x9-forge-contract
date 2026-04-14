@@ -10,6 +10,34 @@ A breaking contract change between X9 and Forge v2 **must** fail at compile time
 
 With this package, Forge's build would have failed the moment X9 changed the contract.
 
+## Install
+
+Distribuzione via `git+https` URL con SHA pinning (BRDG-01). Nei consumer (X9 o Forge):
+
+```bash
+pnpm add "@x9-forge/contracts@git+https://github.com/App-Templates/x9-forge-contract.git#<SHA>"
+```
+
+Il `prepare` script builda il package al momento dell'install — `dist/` non è committato.
+
+## Dev locale (hot-reload)
+
+Per sviluppo locale senza republish a ogni modifica, nel `package.json` root del consumer (X9 o Forge) aggiungi (NON committare in main):
+
+```json
+{
+  "pnpm": {
+    "overrides": {
+      "@x9-forge/contracts": "link:../x9-forge-contract-bridge"
+    }
+  }
+}
+```
+
+Poi `pnpm install`. Modifiche al bridge → consumer le vede al successivo `tsc --noEmit`. Copre BRDG-06 (dev loop).
+
+Cleanup pre-merge: rimuovi il blocco `pnpm.overrides` prima di mergiare in main (il plan 00-04 valida questo flusso end-to-end).
+
 ## Scope v1
 
 ### Cross-repo HTTP contracts (existing, to consolidate)
@@ -58,6 +86,48 @@ Phase 35 (Model Router — Two-Level Routing) in agent-x9 introduces 5 new cross
 - Multi-user-within-agent (`userId` filter in memory recall) — X9 gap, separate phase
 - Tenant self-service UI (Forge scope)
 - Env var renaming (`INTERNAL_SECRET` vs `X9_INTERNAL_SECRET` etc.) — document asymmetry, don't rename
+
+## Contracts coverage
+
+Tabella popolata incrementalmente phase-per-phase (OBS-01). Oggi (Phase 0): **vuota — solo scaffolding**.
+
+| Dominio | Contratto | File | Phase aggiunto |
+|---------|-----------|------|----------------|
+| — | — | — | Phase 1+ |
+
+Sub-path exports disponibili (placeholder vuoti Phase 0):
+
+- `@x9-forge/contracts/capability`
+- `@x9-forge/contracts/agent`
+- `@x9-forge/contracts/http`
+- `@x9-forge/contracts/auth`
+- `@x9-forge/contracts/vault`
+- `@x9-forge/contracts/model-router`
+
+## How to add a new contract
+
+Procedura canonica (OBS-02):
+
+1. Identifica il dominio (capability/agent/http/auth/vault/model-router)
+2. Crea `src/<dominio>/<nome>.ts` con Zod schema + `z.infer<typeof schema>` type
+3. Esporta da `src/<dominio>/index.ts`
+4. Scrivi contract test in `tests/<dominio>/<nome>.test.ts` (schema + fixture valida + fixture invalida fail-loud)
+5. `pnpm build && pnpm test && pnpm lint` verdi
+6. Aggiorna la tabella **Contracts coverage** qui sopra con riga `dominio | contratto | file | phase`
+7. Bump SHA nei consumer **atomicamente** (entrambi X9 + Forge in un singolo PR coordinato)
+8. Verifica post-merge: `pnpm why @x9-forge/contracts` in entrambi i consumer mostra lo stesso SHA
+
+## Breaking change policy
+
+Regole non negoziabili (OBS-03):
+
+- **SHA-pinned** nei consumer — no semver tag mobile, no `^` né `~`
+- **Breaking change = bump SHA simultaneo nei 2 consumer**, mai uno solo. Se X9 bumpa senza Forge, Forge build rompe in staging
+- **Deprecation**: aggiungi `/** @deprecated use X instead */` JSDoc, mantieni export per ≥ 1 cycle di phase
+- **Rimozione**: solo dopo che entrambi i consumer hanno zero reference all'API deprecata (`grep -r "<nomeApi>" agent-x9/ forge-v2/` → zero risultati)
+- **Never force-push** sul main del bridge — history immutable
+- **Mai ruotare SHA senza PR cross-repo coordinato** — rollback = reset consumer al SHA precedente
+- **Contract test obbligatori** per ogni breaking change: test deve catturare la rottura PRIMA del merge
 
 ## Verified ground truth (2026-04-14)
 
