@@ -14,9 +14,11 @@ Il bridge nasce come "strangler fig su tipi": il pacchetto `@x9-forge/contracts`
 **Phase Numbering:**
 - Integer phases (0-7): Milestone work
 - Decimal phases (es. 2.1): Inserimenti urgenti (flag INSERTED)
+- Letter phases (es. M): Mini-phase standalone, non-blocking, parallel-capable
 
-- [ ] **Phase 0: Prerequisites + Bridge Foundation** — bump Forge zod/TS, skeleton package, dev loop verified
-- [ ] **Phase 1: Capability Contracts (Block A)** — valida il pattern shim su tipi simmetrici semplici
+- [x] **Phase 0: Prerequisites + Bridge Foundation** ✅ 2026-04-14 — bump Forge zod/TS, skeleton package, dev loop verified (X9 full, Forge partial R-08)
+- [x] **Phase M: Memory Engine v2 Contracts (mini-phase)** ✅ 2026-04-15 — 9 Zod schemas + TS types per envelope cross-repo Memory Engine v2 (scope/type/status/temporal/identity/write-candidate/recall-bundle/retention/corrective-action). Bridge-only, zero consumer touch. Sub-path `@x9-forge/contracts/memory`.
+- [ ] **Phase 1: Capability Contracts (Block A)** — valida il pattern shim su tipi simmetrici semplici (previo R-08 fix Forge moduleResolution)
 - [ ] **Phase 2: AgentContext Split (Block B)** — decisione architetturale core + AgentCredentials discriminated
 - [ ] **Phase 3: Auth Headers Discriminated (Block C)** — chiude Bug #15 compile-time
 - [ ] **Phase 4: HTTP Endpoint Contracts (Block D)** — 11 endpoint + typed HTTP client
