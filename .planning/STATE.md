@@ -64,6 +64,13 @@ None attivi. Research ha surfacciato 4 open questions da risolvere nei research-
 
 ## Session Continuity
 
-Last session: 2026-04-14 (research + requirements + roadmap)
-Stopped at: ROADMAP.md + REQUIREMENTS.md + STATE.md scritti, ready for /gsd-plan-phase 0
+Last session: 2026-04-14 (research + requirements + roadmap + remote setup)
+Stopped at: Bridge repo pushato su github.com/App-Templates/x9-forge-contract (privato). Tag `pre-bridge-migration-2026-04-14` creato e pushato su agent-x9 + forge-v2. VPS snapshot eseguito da Stefano. Ready for /gsd-plan-phase 0.
 Resume file: None
+
+## Remote & baseline
+
+- Bridge remote: `https://github.com/App-Templates/x9-forge-contract.git` (privato)
+- Baseline tag agent-x9: `pre-bridge-migration-2026-04-14` (origin)
+- Baseline tag forge-v2: `pre-bridge-migration-2026-04-14` (origin)
+- VPS Hostinger snapshot: eseguito 2026-04-14 by Stefano via hPanel
