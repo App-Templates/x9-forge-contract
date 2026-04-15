@@ -2,7 +2,8 @@ import { z } from 'zod';
 import { CapabilityToolSchema } from './capability-tool.js';
 
 /**
- * Manifest served by each capability service at GET /:cap/manifest.
+ * Manifest served by each capability service at GET /manifest
+ * (capability identity is conveyed by the caller's baseUrl, not a path prefix).
  *
  * - `endpoint`: full URL as reported by the service itself (e.g. "http://cap-calendar:3000").
  *   Reflects Docker hostname + port. Used by X9 generate-registry to seed CapabilityRegistryEntry.

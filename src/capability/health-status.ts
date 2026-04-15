@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
 /**
- * Health check response returned by GET /:cap/health on every service.
+ * Health check response returned by GET /health on every service
+ * (capability identity is conveyed by the caller's baseUrl, not a path prefix).
  *
  * - `status`: coarse-grained liveness signal.
  *   - `healthy`: all subsystems nominal.

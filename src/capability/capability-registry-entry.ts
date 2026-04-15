@@ -19,7 +19,7 @@ import { CapabilityToolSchema } from './capability-tool.js';
  *
  * @see toEndpoint
  * @see fromEndpoint
- * @see CapabilityManifest — manifest returned by GET /:cap/manifest
+ * @see CapabilityManifest — manifest returned by GET /manifest
  */
 export const CapabilityRegistryEntrySchema = z.object({
   name: z.string().min(1),
