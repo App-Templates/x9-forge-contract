@@ -1,0 +1,7 @@
+{
+  "_note": "SYNTHETIC — Phase 6 fixture",
+  "ok": false,
+  "code": "INVALID_POLICY",
+  "message": "ModelPolicy invariant violated for capability 'briefing': min=reasoning must be <= max=standard",
+  "details": [{ "capName": "briefing", "reason": "min > max" }]
+}

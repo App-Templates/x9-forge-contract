@@ -1,0 +1,6 @@
+{
+  "_note": "SYNTHETIC — Phase 6 fixture",
+  "ok": false,
+  "code": "INVALID_MAPPING",
+  "message": "ModelTierMapping for provider 'openai' is incomplete — missing mapping for tier(s): reasoning"
+}
