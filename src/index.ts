@@ -7,4 +7,4 @@
  *
  * @see README.md
  */
-export {};
+export * from './model-router/index.js';
