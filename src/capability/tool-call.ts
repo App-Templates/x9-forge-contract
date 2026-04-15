@@ -3,7 +3,12 @@ import { z } from 'zod';
 /**
  * Request sent by X9 agent-core to a capability service.
  *
- * Endpoint: POST /:cap/call/:tool
+ * Endpoint: POST /call/:tool — mounted at the capability service root
+ * (e.g. `http://cap-news:3000/call/news_digest`). The capability identity is
+ * conveyed by the caller's `baseUrl`, not a path prefix — each X9 capability
+ * service registers `app.post("/call/<toolName>", ...)` directly at root
+ * (see `agent-x9/services/cap-<name>/src/tools/`).
+ *
  * Auth: X-Internal-Secret (platform secret) — typed in Phase 3 auth contracts.
  *
  * `credentials`: per-request vault credentials injected by Forge at dispatch
