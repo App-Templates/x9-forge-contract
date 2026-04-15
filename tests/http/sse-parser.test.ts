@@ -157,4 +157,38 @@ describe('parseSseStream (async generator)', () => {
     expect(events).toHaveLength(1);
     expect(events[0]?.kind).toBe('frame');
   });
+
+  it('WR-05: normalizes CRLF frame boundaries (proxy-rewritten streams)', async () => {
+    // Some HTTP proxies rewrite \n to \r\n on text/event-stream. The SSE spec
+    // accepts \r\n\r\n (and \r\r) as frame delimiters equivalently to \n\n.
+    // Pre-fix, parseSseStream only looked for \n\n so CRLF streams were buffered
+    // as a single never-terminating frame. Post-fix, the reader normalizes
+    // \r\n and \r to \n before the boundary scan.
+    const sse =
+      'data: {"type":"text","delta":"a"}\r\n\r\n' +
+      'data: {"type":"text","delta":"b"}\r\n\r\n';
+
+    const events = await collect(stringToStream(sse));
+    expect(events).toHaveLength(2);
+    expect(events[0]?.kind).toBe('frame');
+    expect(events[1]?.kind).toBe('frame');
+    if (events[0]?.kind === 'frame' && events[0].frame.type === 'text') {
+      expect(events[0].frame.delta).toBe('a');
+    }
+    if (events[1]?.kind === 'frame' && events[1].frame.type === 'text') {
+      expect(events[1].frame.delta).toBe('b');
+    }
+  });
+
+  it('WR-05: normalizes lone CR frame boundaries', async () => {
+    // SSE spec also accepts \r\r (lone CR) as frame delimiter — rare but legal.
+    const sse =
+      'data: {"type":"text","delta":"x"}\r\r' +
+      'data: {"type":"text","delta":"y"}\r\r';
+
+    const events = await collect(stringToStream(sse));
+    expect(events).toHaveLength(2);
+    expect(events[0]?.kind).toBe('frame');
+    expect(events[1]?.kind).toBe('frame');
+  });
 });
