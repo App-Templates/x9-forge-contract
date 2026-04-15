@@ -1,8 +1,9 @@
 ---
 phase: 06-model-router-contracts-block-f
-reviewed: 2026-04-15T23:34:35Z
+reviewed: 2026-04-15T23:41:04Z
 depth: standard
-files_reviewed: 32
+iteration: 2
+files_reviewed: 34
 files_reviewed_list:
   - src/capability/capability-registry-entry.ts
   - src/http/endpoints/index.ts
@@ -40,82 +41,51 @@ files_reviewed_list:
   - tests/model-router/per-agent-model-override.test.ts
 findings:
   critical: 0
-  warning: 2
+  warning: 0
   info: 3
-  total: 5
+  total: 3
 status: issues_found
 ---
 
-# Phase 6: Code Review Report
+# Phase 6: Code Review Report (Iteration 2)
 
-**Reviewed:** 2026-04-15T23:34:35Z
+**Reviewed:** 2026-04-15T23:41:04Z
 **Depth:** standard
-**Files Reviewed:** 32
-**Status:** issues_found
+**Files Reviewed:** 34
+**Status:** issues_found (info-only — no blockers)
 
 ## Summary
 
-Phase 6 ships 7 Zod v4 schemas for the X9 Phase 35 model-router (tier, provider, tier-mapping, policy, per-agent override, push request/response, hot-reload notification), 2 HTTP endpoint contracts (`/internal/model-config`, `/internal/model-config/version`), an optional `modelPolicy` extension to `CapabilityRegistryEntry`, 8 synthetic fixtures, and an exhaustive barrel test. Code is tight, Zod v4 idioms are consistent with prior phases (superRefine for cross-field invariants, explicit `MODEL_*` literal tuples for exhaustiveness, discriminated union on `ok` for responses), fail-loud semantics are preserved, and the 381/381 test count matches the plan.
+Iteration 2 re-review of Phase 6 model-router contracts, following the fix pass for WR-01 and WR-02 flagged in iteration 1.
 
-The review found no critical defects and no security concerns (the package is a pure contract library — no I/O, no auth handling, no string concatenation beyond `toEndpoint`). Two warnings cover contract-vs-doc mismatches where schema permissiveness exceeds documented intent (empty `providers` record, empty `tierMapping`). Three info items cover minor hygiene (unused value import, redundant branch in superRefine, empty-object semantics).
+**Warnings resolved.** Both warnings from iteration 1 are now closed:
 
-None of these items block ship. They are worth addressing before X9 Phase 35 consumes the schemas to keep producer expectations aligned with parse behavior.
+- **WR-01** (empty `providers` record in `ModelPushRequest`): commit `12e588c` adds the recommended `.refine()` in `src/model-router/model-push.ts:26-28` that rejects any record where every value is `undefined`, with the exact message suggested in the iteration-1 fix. Two new negative tests were added in `tests/model-router/model-push.test.ts:36-46` — one for `{ providers: {} }` and one for `{ providers: { openai: undefined } }`. Both trip the refine and assert the message regex. Matches the iteration-1 recommendation.
+- **WR-02** (`tierMapping: {}` bypasses the at-least-one-of invariant in `PerAgentModelOverride`): commit `7048675` updates the superRefine in `src/model-router/per-agent-model-override.ts:29-43` to require at least one *defined* value in `tierMapping` (not just a non-empty key set). The implementation uses `Object.values(o.tierMapping).some((v) => v !== undefined)` rather than the `Object.keys(...).length > 0` suggested in iteration 1 — a stricter and more correct variant given Zod v4 `z.record` with enum keys materializes all enum keys with `undefined` for absent entries (a gotcha called out inline at lines 31-33). A new negative test covering `{ agentId, tierMapping: {} }` was added in `tests/model-router/per-agent-model-override.test.ts:33-39`. Matches the iteration-1 intent and improves on the suggested code.
 
-## Warnings
+**Test count.** 384/384 tests pass (up from 381 in iteration 1 — +3 tests, one each for the empty-providers, undefined-only-providers, and empty-tierMapping cases). No regressions.
 
-### WR-01: `ModelPushRequestSchema.providers` allows empty `{}` despite docstring claiming "at least one provider must be present"
+**Info items carried over.** The three info items from iteration 1 (IN-01, IN-02, IN-03) were explicitly out of scope for the fix pass and remain in the code unchanged. They are re-surfaced below verbatim with their original file:line references verified against current HEAD.
 
-**File:** `src/model-router/model-push.ts:18-29`
-**Issue:** The docstring above `providers` says "At least one provider must be present (deploy-time requirement)", but the schema `z.record(ModelProviderSchema, ModelTierMappingSchema.optional())` happily parses `{ providers: {} }`. A producer reading the doc would expect the schema to reject empty, but it does not. This is also untested — `tests/model-router/model-push.test.ts` only covers the `{ openai: FULL_MAPPING }` minimal case. Additionally, because inner values are `.optional()`, `{ providers: { openai: undefined } }` also parses, which is stricter-than-useless (the mapping was declared-but-absent).
+No new issues introduced. No critical defects. No security concerns (the package remains a pure contract library — no I/O, no auth handling, no string concatenation beyond `toEndpoint`).
 
-**Fix:** Either tighten the schema to match the doc, or soften the doc to match the schema. Recommended: tighten with a refine so parse-time matches producer expectations:
-```ts
-export const ModelPushRequestSchema = z.object({
-  providers: z.record(ModelProviderSchema, ModelTierMappingSchema.optional())
-    .refine((p) => Object.values(p).some((v) => v !== undefined), {
-      message: 'ModelPushRequest.providers must include at least one provider mapping',
-    }),
-  perCapPolicies: z.record(z.string().min(1), ModelPolicySchema).optional(),
-  perAgentOverrides: z.array(PerAgentModelOverrideSchema).optional(),
-});
-```
-Then add a test asserting `safeParse({ providers: {} }).success === false`. If the intent is genuinely "empty is legal at parse time, deploy-time guard lives downstream", update the docstring to say so and add a green test for `{ providers: {} }` to lock the behavior.
-
-### WR-02: `PerAgentModelOverride` refine treats `tierMapping: {}` as "provided", bypassing the "at-least-one-of" invariant
-
-**File:** `src/model-router/per-agent-model-override.ts:25-36`
-**Issue:** The superRefine at line 29-35 only checks `o.policy === undefined && o.tierMapping === undefined`. A consumer can submit `{ agentId, tierMapping: {} }` and pass the invariant while providing zero actual overrides — defeating the point of D-20. The partial-tierMapping allowance (D-22) is legitimate, but an empty object is semantically equivalent to "no override at all" and should be treated the same as `undefined`.
-
-**Fix:**
-```ts
-.superRefine((o, ctx) => {
-  const hasPolicy = o.policy !== undefined;
-  const hasMapping = o.tierMapping !== undefined && Object.keys(o.tierMapping).length > 0;
-  if (!hasPolicy && !hasMapping) {
-    ctx.addIssue({
-      code: 'custom',
-      message: 'PerAgentModelOverride must specify at least one of: policy, tierMapping (non-empty)',
-    });
-  }
-});
-```
-Add a matching negative test: `PerAgentModelOverrideSchema.safeParse({ agentId: AGENT_IDENTITY, tierMapping: {} }).success === false`.
+**Ship posture.** The two warnings that motivated iteration 1 are closed. The three remaining info items are style/hygiene suggestions that do not affect parse correctness or X9 Phase 35 consumability. Phase 6 is ready to ship.
 
 ## Info
 
 ### IN-01: Unused value import of `z` in `internal-model-config-version.ts`
 
 **File:** `src/http/endpoints/internal-model-config-version.ts:1`
-**Issue:** `import { z } from 'zod'` pulls `z` into the value namespace, but the file only uses it in the type position `z.infer<typeof ModelConfigVersionResponseSchema>`. TS strips this at emit, so there is no runtime cost, but ESLint `no-unused-vars` or `import/no-unused-modules` will eventually flag it, and it reads as if `z` were used at runtime.
+**Issue:** `import { z } from 'zod'` pulls `z` into the value namespace, but the file only uses it in the type position `z.infer<typeof ModelConfigVersionResponseSchema>` at line 17. TS strips this at emit, so there is no runtime cost, but ESLint `no-unused-vars` or `import/no-unused-modules` will eventually flag it, and it reads as if `z` were used at runtime.
 **Fix:** Either switch to a type-only import — `import type { z } from 'zod';` — or drop the import and replace the alias with an explicit type derivation (`type ModelConfigVersionResponse = ModelHotReloadNotification;` after importing the type).
 
 ### IN-02: Redundant `.length === 0` branch in `ModelTierMappingSchema` superRefine
 
 **File:** `src/model-router/model-tier-mapping.ts:22-30`
-**Issue:** The predicate `typeof m[t] !== 'string' || (m[t] ?? '').length === 0` is partially dead. The inner record value is `z.string().min(1).optional()`, so by the time superRefine runs, any present value is already a non-empty string — an empty string would have failed the inner parse and never reached this point. The `.length === 0` branch therefore cannot fire. Harmless but misleading: a future reader may assume empty strings are caught here when they are actually caught upstream.
+**Issue:** The predicate `typeof m[t] !== 'string' || (m[t] ?? '').length === 0` at line 23 is partially dead. The inner record value is `z.string().min(1).optional()`, so by the time superRefine runs, any present value is already a non-empty string — an empty string would have failed the inner parse and never reached this point. The `.length === 0` branch therefore cannot fire. Harmless but misleading: a future reader may assume empty strings are caught here when they are actually caught upstream.
 **Fix:** Simplify to `const missing = MODEL_TIERS.filter((t) => typeof m[t] !== 'string');` (or `(t) => m[t] === undefined` for clarity). Behavior is identical.
 
-### IN-03: Synthetic-fixture disclosure file is good, but fixtures could embed a version tag for future drift tracking
+### IN-03: Synthetic-fixture disclosure is good, but fixtures could embed a version tag for future drift tracking
 
 **File:** `tests/model-router/fixtures/SYNTHETIC-NOTES.md:1-19`
 **Issue:** The note correctly flags the fixtures as synthetic and explains the `_note` strip pattern. Once Phase 35 ships and staging captures replace these, there is no automated signal that a fixture was resnapshotted. Adding a field like `"_capturedFrom": "synthetic" | "staging@<sha>"` inside `_note` (or alongside it, since the test helper strips `_note` already) would make the Phase-35 handoff auditable.
@@ -123,6 +93,7 @@ Add a matching negative test: `PerAgentModelOverrideSchema.safeParse({ agentId: 
 
 ---
 
-_Reviewed: 2026-04-15T23:34:35Z_
+_Reviewed: 2026-04-15T23:41:04Z_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard_
+_Iteration: 2 (re-review after fix pass — WR-01 and WR-02 closed)_
