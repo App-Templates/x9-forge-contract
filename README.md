@@ -46,7 +46,7 @@ Cleanup pre-merge: rimuovi il blocco `pnpm.overrides` prima di mergiare in main 
 - `/internal/agents` (GET / reload / stop)
 - `/internal/turn`, `/internal/turn/stream` (SSE), `/internal/query`
 - `/webhook/post-call`
-- `/:cap/manifest`, `/:cap/env-schema`, `/:cap/health`
+- `/manifest`, `/env-schema`, `/health` (capability identity is implicit in the caller's `baseUrl` — Docker hostname/port — not a path prefix)
 
 **X9 → Forge** (1 endpoint):
 - `/api/voice/register`
