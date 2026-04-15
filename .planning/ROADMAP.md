@@ -121,8 +121,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Bridge — `Auth*` types, Zod schema header validator, `createBridgeClient` skeleton (fetch wrapper zero-dep), unit test Bug #15 regression
-- [ ] 03-02: Forge `X9Client` migration pilota — sostituisce una call con `createBridgeClient`, verifica compile + runtime identici
+- [x] 03-01: Bridge — `Auth*` types, Zod schema header validator, `createBridgeClient` skeleton (fetch wrapper zero-dep), unit test Bug #15 regression
+- [x] 03-02: Forge `X9Client` migration pilota — sostituisce una call con `createBridgeClient`, verifica compile + runtime identici
 
 ---
 
