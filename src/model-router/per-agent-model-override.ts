@@ -27,10 +27,17 @@ export const PerAgentModelOverrideSchema = z.object({
   policy: ModelPolicySchema.optional(),
   tierMapping: z.record(ModelTierSchema, z.string().min(1).optional()).optional(),
 }).superRefine((o, ctx) => {
-  if (o.policy === undefined && o.tierMapping === undefined) {
+  const hasPolicy = o.policy !== undefined;
+  // Zod v4 z.record with an enum key materializes all enum keys with `undefined`
+  // for absent entries, so `Object.keys` alone cannot distinguish `{}` from a
+  // partially-populated mapping. Check for at least one defined value.
+  const hasMapping =
+    o.tierMapping !== undefined &&
+    Object.values(o.tierMapping).some((v) => v !== undefined);
+  if (!hasPolicy && !hasMapping) {
     ctx.addIssue({
       code: 'custom',
-      message: 'PerAgentModelOverride must specify at least one of: policy, tierMapping',
+      message: 'PerAgentModelOverride must specify at least one of: policy, tierMapping (non-empty)',
     });
   }
 });

@@ -30,6 +30,13 @@ describe('PerAgentModelOverrideSchema — invalid', () => {
       expect(res.error.issues[0]!.message).toMatch(/must specify at least one of: policy, tierMapping/);
     }
   });
+  it('rejects override with empty tierMapping and no policy (WR-02 — D-20 invariant)', () => {
+    const res = PerAgentModelOverrideSchema.safeParse({ agentId: AGENT_IDENTITY, tierMapping: {} });
+    expect(res.success).toBe(false);
+    if (!res.success) {
+      expect(res.error.issues[0]!.message).toMatch(/must specify at least one of: policy, tierMapping/);
+    }
+  });
   it('rejects missing agentId', () => {
     const res = PerAgentModelOverrideSchema.safeParse({ policy: { min: 'standard', max: 'standard' } });
     expect(res.success).toBe(false);
