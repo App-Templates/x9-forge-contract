@@ -30,6 +30,7 @@ export type {
   BaseBridgeClient,
   SecretBridgeClient,
   TokenBridgeClient,
+  NoAuthBridgeClient,
 } from './bridge-client.js';
 
 // Endpoint contract type
