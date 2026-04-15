@@ -1,12 +1,12 @@
 import type { AuthInternalSecret, AuthInternalToken, AuthNone, EndpointAuthType } from '../auth/auth-headers.js';
 import type { BridgeErrorResponse } from './response.js';
 import type { ListAgentsResponse } from './endpoints/internal-agents-list.js';
-import type { ReloadAgentResponse } from './endpoints/internal-agents-reload.js';
-import type { StopAgentResponse } from './endpoints/internal-agents-stop.js';
-import type { InternalTurnRequest, InternalTurnResponse } from './endpoints/internal-turn.js';
-import type { InternalQueryRequest, InternalQueryResponse } from './endpoints/internal-query.js';
-import type { PostCallPayload, PostCallResponse } from './endpoints/webhook-post-call.js';
-import type { VoiceRegisterRequest, VoiceRegisterResponse } from './endpoints/voice-register.js';
+import { ReloadAgentParamsSchema, ReloadAgentResponseSchema, type ReloadAgentResponse } from './endpoints/internal-agents-reload.js';
+import { StopAgentParamsSchema, StopAgentResponseSchema, type StopAgentResponse } from './endpoints/internal-agents-stop.js';
+import { InternalTurnRequestSchema, InternalTurnResponseSchema, type InternalTurnRequest, type InternalTurnResponse } from './endpoints/internal-turn.js';
+import { InternalQueryRequestSchema, InternalQueryResponseSchema, type InternalQueryRequest, type InternalQueryResponse } from './endpoints/internal-query.js';
+import { PostCallPayloadSchema, PostCallResponseSchema, type PostCallPayload, type PostCallResponse } from './endpoints/webhook-post-call.js';
+import { VoiceRegisterRequestSchema, VoiceRegisterResponseSchema, type VoiceRegisterRequest, type VoiceRegisterResponse } from './endpoints/voice-register.js';
 import { parseSseStream } from './sse-parser.js';
 import type { ParsedSseEvent } from './sse-parser.js';
 
@@ -207,22 +207,30 @@ export function createBridgeClient<A extends 'secret' | 'token'>(
         return request<ListAgentsResponse>({ method: 'GET', path: '/internal/agents' });
       },
       async reloadAgent(agentId: string): Promise<ReloadAgentResponse> {
-        return request<ReloadAgentResponse>({
+        const { agentId: safe } = ReloadAgentParamsSchema.parse({ agentId });
+        const raw = await request<unknown>({
           method: 'POST',
-          path: `/internal/agents/${agentId}/reload`,
+          path: `/internal/agents/${safe}/reload`,
         });
+        return ReloadAgentResponseSchema.parse(raw);
       },
       async stopAgent(agentId: string): Promise<StopAgentResponse> {
-        return request<StopAgentResponse>({
+        const { agentId: safe } = StopAgentParamsSchema.parse({ agentId });
+        const raw = await request<unknown>({
           method: 'POST',
-          path: `/internal/agents/${agentId}/stop`,
+          path: `/internal/agents/${safe}/stop`,
         });
+        return StopAgentResponseSchema.parse(raw);
       },
       async internalTurn(body: InternalTurnRequest): Promise<InternalTurnResponse> {
-        return request<InternalTurnResponse>({ method: 'POST', path: '/internal/turn', body });
+        const safeBody = InternalTurnRequestSchema.parse(body);
+        const raw = await request<unknown>({ method: 'POST', path: '/internal/turn', body: safeBody });
+        return InternalTurnResponseSchema.parse(raw);
       },
       async internalQuery(body: InternalQueryRequest): Promise<InternalQueryResponse> {
-        return request<InternalQueryResponse>({ method: 'POST', path: '/internal/query', body });
+        const safeBody = InternalQueryRequestSchema.parse(body);
+        const raw = await request<unknown>({ method: 'POST', path: '/internal/query', body: safeBody });
+        return InternalQueryResponseSchema.parse(raw);
       },
       async internalTurnStream(
         body: InternalTurnRequest,
@@ -272,14 +280,18 @@ export function createBridgeClient<A extends 'secret' | 'token'>(
       return 'token';
     },
     async postCallWebhook(body: PostCallPayload): Promise<PostCallResponse> {
-      return request<PostCallResponse>({ method: 'POST', path: '/webhook/post-call', body });
+      const safeBody = PostCallPayloadSchema.parse(body);
+      const raw = await request<unknown>({ method: 'POST', path: '/webhook/post-call', body: safeBody });
+      return PostCallResponseSchema.parse(raw);
     },
     async voiceRegister(body: VoiceRegisterRequest): Promise<VoiceRegisterResponse> {
-      return request<VoiceRegisterResponse>({
+      const safeBody = VoiceRegisterRequestSchema.parse(body);
+      const raw = await request<unknown>({
         method: 'POST',
         path: '/api/voice/register',
-        body,
+        body: safeBody,
       });
+      return VoiceRegisterResponseSchema.parse(raw);
     },
   };
   return tokenClient as BridgeClient<A>;
