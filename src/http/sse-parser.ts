@@ -94,6 +94,7 @@ export async function* parseSseStream(
 ): AsyncGenerator<ParsedSseEvent> {
   const reader = stream.getReader();
   const decoder = new TextDecoder('utf-8');
+  const MAX_FRAME_BYTES = 1 << 20; // 1 MB cap to prevent unbounded buffer growth
   let buffer = '';
 
   try {
@@ -101,6 +102,9 @@ export async function* parseSseStream(
       const { done, value } = await reader.read();
       if (done) break;
       buffer += decoder.decode(value, { stream: true });
+      if (buffer.length > MAX_FRAME_BYTES) {
+        throw new Error(`SSE frame exceeded ${MAX_FRAME_BYTES} bytes without terminator`);
+      }
 
       let frameEnd: number;
       while ((frameEnd = buffer.indexOf('\n\n')) !== -1) {
