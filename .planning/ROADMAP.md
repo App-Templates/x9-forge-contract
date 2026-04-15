@@ -19,7 +19,7 @@ Il bridge nasce come "strangler fig su tipi": il pacchetto `@x9-forge/contracts`
 - [x] **Phase 0: Prerequisites + Bridge Foundation** ✅ 2026-04-14 — bump Forge zod/TS, skeleton package, dev loop verified (X9 full, Forge partial R-08)
 - [x] **Phase M: Memory Engine v2 Contracts (mini-phase)** ✅ 2026-04-15 — 9 Zod schemas + TS types per envelope cross-repo Memory Engine v2 (scope/type/status/temporal/identity/write-candidate/recall-bundle/retention/corrective-action). Bridge-only, zero consumer touch. Sub-path `@x9-forge/contracts/memory`.
 - [ ] **Phase 1: Capability Contracts (Block A)** — valida il pattern shim su tipi simmetrici semplici (previo R-08 fix Forge moduleResolution)
-- [ ] **Phase 2: AgentContext Split (Block B)** — decisione architetturale core + AgentCredentials discriminated
+- [x] **Phase 2: AgentContext Split (Block B)** ✅ 2026-04-15 — AgentContextCore + branded IDs + AgentCredentials 17 known keys + parseAgentContext, X9 AgentContextRuntime extends Core, Forge re-export
 - [ ] **Phase 3: Auth Headers Discriminated (Block C)** — chiude Bug #15 compile-time
 - [ ] **Phase 4: HTTP Endpoint Contracts (Block D)** — 11 endpoint + typed HTTP client
 - [ ] **Phase 5: Vault Contracts (Block E)** — 3-tier + sync state + AES encryption separation
@@ -98,9 +98,9 @@ Plans:
 **Plans**: 3 plans (con research-phase flag per edge case produzione)
 
 Plans:
-- [ ] 02-01: Research-phase — inventario context.json in produzione VPS, edge case detection (chiavi custom che non rientrano nel set noto), backward-compat requirement
-- [ ] 02-02: Bridge — `AgentIdentity` con branded types, `AgentContextCore`, `AgentCredentials` discriminated, `parseAgentContext` helper, unit tests
-- [ ] 02-03: X9 migration — `AgentContextRuntime` estende Core, `agent-manager.ts` usa `parseAgentContext`, compat shim in `packages/types/agent-context.ts`, VPS snapshot pre-deploy, rollback path testato
+- [x] 02-01: Research-phase — inventario context.json (VPS staging empty, shape from code), 3 fixtures, COMPAT-NOTES.md
+- [x] 02-02: Bridge — `AgentIdentity` branded, `AgentContextCore`, `AgentCredentials` 17 known keys + catchall, `parseAgentContext`, 31 unit tests
+- [x] 02-03: X9 migration — `AgentContextRuntime` extends Core, compat shim, agent-manager bridge-backed schema, Forge `X9AgentContext` re-export
 
 ---
 
@@ -238,7 +238,7 @@ Phase 4 e 5 sono parzialmente parallelizzabili (dopo 3). Phase 6 dipende da 1+4.
 |-------|----------------|--------|-----------|
 | 0. Prerequisites + Bridge Foundation | 0/4 | Not started | - |
 | 1. Capability Contracts (Block A) | 0/3 | Not started | - |
-| 2. AgentContext Split (Block B) | 0/3 | Not started | - |
+| 2. AgentContext Split (Block B) | 3/3 | Complete | 2026-04-15 |
 | 3. Auth Headers Discriminated (Block C) | 0/2 | Not started | - |
 | 4. HTTP Endpoint Contracts (Block D) | 0/4 | Not started | - |
 | 5. Vault Contracts (Block E) | 0/3 | Not started | - |
