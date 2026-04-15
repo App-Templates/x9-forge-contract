@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
 status: verifying
-stopped_at: Phase 5 complete — verification PASSED (6/6 success, 8/8 req, 287/287 bridge tests, 54/54 Forge vault tests). Ready for Phase 6 (Model Router, Block F).
-last_updated: "2026-04-15T23:55:00.000Z"
-last_activity: 2026-04-15 -- Phase 5 complete (auto chain discuss→plan→execute→verify)
+stopped_at: Phase 6 context gathered (auto mode)
+last_updated: "2026-04-15T22:21:28.770Z"
+last_activity: 2026-04-15
 progress:
   total_phases: 9
   completed_phases: 4
-  total_plans: 17
+  total_plans: 14
   completed_plans: 18
   percent: 100
 ---
@@ -154,9 +154,9 @@ None attivi. Research ha surfacciato 4 open questions da risolvere nei research-
 
 ## Session Continuity
 
-Last session: 2026-04-15T21:10:21.054Z
-Stopped at: Phase 5 context gathered (auto mode)
-Resume file: .planning/phases/05-vault-contracts-block-e/05-CONTEXT.md
+Last session: 2026-04-15T22:21:28.765Z
+Stopped at: Phase 6 context gathered (auto mode)
+Resume file: .planning/phases/06-model-router-contracts-block-f/06-CONTEXT.md
 Next action: `/gsd:discuss-phase 5` (memory-engine) — or `/gsd:code-review-fix 4` to close 5 warnings first
 
 ## Remote & baseline
