@@ -30,6 +30,9 @@ Il bridge tipizza i contratti di questo modello cross-repo. Non e un runtime ser
 - ✓ X9 `packages/types/` re-export shim from bridge (MGRT-04) — Phase 1
 - ✓ Forge `packages/types/src/x9.ts` re-export shim with aliases (MGRT-05) — Phase 1
 - ✓ Contract testing baseline: 57 bridge tests green, CI gate, real fixtures (TEST-01, TEST-02 partial, TEST-03, TEST-05) — Phase 1
+- ✓ `AgentIdentity` branded, `AgentContextCore`, `AgentCredentials` 17 known keys, `parseAgentContext` — Phase 2
+- ✓ `AuthInternalSecret` / `AuthInternalToken` literal discriminated types + `createBridgeClient` skeleton + Bug #15 compile-time regression guard — Phase 3
+- ✓ Forge `X9Client.reload()` pilot migration to `createBridgeClient<'secret'>` — Phase 3
 
 ### Active
 
