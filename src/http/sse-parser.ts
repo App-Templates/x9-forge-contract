@@ -40,9 +40,9 @@ export function parseSseFrame(rawFrame: string): ParsedSseEvent {
   }
 
   if (dataLines.length === 0) {
-    return isHeartbeatOnly
-      ? { kind: 'heartbeat' }
-      : { kind: 'parse_error', raw: rawFrame, error: 'No data: lines found' };
+    // Dataless frames (only event:/id:/retry: or comments) are spec-valid; treat as heartbeat.
+    void isHeartbeatOnly;
+    return { kind: 'heartbeat' };
   }
 
   const jsonStr = dataLines.join('\n');
