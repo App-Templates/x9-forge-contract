@@ -23,25 +23,18 @@ export type ParsedSseEvent =
 export function parseSseFrame(rawFrame: string): ParsedSseEvent {
   const lines = rawFrame.split('\n');
   const dataLines: string[] = [];
-  let isHeartbeatOnly = true;
 
   for (const line of lines) {
-    if (line.startsWith(':')) {
-      // SSE comment — heartbeat or keepalive
-      continue;
-    }
     if (line.startsWith('data:')) {
-      isHeartbeatOnly = false;
       dataLines.push(line.slice(5).trimStart());
-    } else if (line.trim().length > 0) {
-      // Non-empty, non-data, non-comment line (event:, id:, retry:)
-      isHeartbeatOnly = false;
     }
+    // Other line types (`:` comments, `event:`, `id:`, `retry:`, blank) are
+    // ignored for payload purposes — the dataLines.length check below
+    // decides frame vs heartbeat.
   }
 
   if (dataLines.length === 0) {
     // Dataless frames (only event:/id:/retry: or comments) are spec-valid; treat as heartbeat.
-    void isHeartbeatOnly;
     return { kind: 'heartbeat' };
   }
 
