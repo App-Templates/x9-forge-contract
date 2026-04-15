@@ -30,3 +30,13 @@ export type { ModelPolicy } from './model-policy.js';
 // Per-agent override
 export { PerAgentModelOverrideSchema } from './per-agent-model-override.js';
 export type { PerAgentModelOverride } from './per-agent-model-override.js';
+
+// Push request/response + contract
+export {
+  ModelPushRequestSchema,
+  ModelPushSuccessSchema,
+  ModelPushErrorSchema,
+  ModelPushResponseSchema,
+  pushModelConfigContract,
+} from './model-push.js';
+export type { ModelPushRequest, ModelPushResponse } from './model-push.js';

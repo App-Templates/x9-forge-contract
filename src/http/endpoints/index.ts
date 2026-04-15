@@ -12,6 +12,7 @@ export * from './internal-agents-stop.js';
 export * from './internal-turn.js';
 export * from './internal-turn-stream.js';
 export * from './internal-query.js';
+export * from './internal-model-config.js'; // Phase 6 — MDRT-05 / D-15
 
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from './webhook-post-call.js';
