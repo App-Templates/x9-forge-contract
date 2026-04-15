@@ -26,3 +26,7 @@ export type { ModelTierMapping } from './model-tier-mapping.js';
 // Policy
 export { ModelPolicySchema } from './model-policy.js';
 export type { ModelPolicy } from './model-policy.js';
+
+// Per-agent override
+export { PerAgentModelOverrideSchema } from './per-agent-model-override.js';
+export type { PerAgentModelOverride } from './per-agent-model-override.js';
