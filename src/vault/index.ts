@@ -42,3 +42,10 @@ export type {
 // Workspace file
 export { WorkspaceFileSchema } from './workspace-file.js';
 export type { WorkspaceFile } from './workspace-file.js';
+
+// Platform bootstrap env (type-only, mitigates T-05-02 — no runtime schema)
+export type { PlatformBootstrapEnv } from './platform-bootstrap-env.js';
+
+// Vaulted credentials alias (re-export of Phase 2 AgentCredentials)
+export { AgentVaultedCredentialsSchema } from './agent-vaulted-credentials.js';
+export type { AgentVaultedCredentials } from './agent-vaulted-credentials.js';
