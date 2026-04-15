@@ -196,6 +196,31 @@ describe('Typed endpoint method enforcement (Plan 04-01)', () => {
 
     expect(true).toBe(true);
   });
+
+  it('compile-time guards: secret/token clients do NOT have noauth methods (R-09)', () => {
+    // Regression guard for Plan 04.1-01: widening createBridgeClient to
+    // accept 'none' must NOT leak noauth methods onto the secret/token
+    // discriminated branches.
+
+    // @ts-expect-error — secret client does NOT have capManifest
+    const _noManifestOnSecret: typeof secretClient.capManifest = undefined;
+    // @ts-expect-error — secret client does NOT have capEnvSchema
+    const _noEnvSchemaOnSecret: typeof secretClient.capEnvSchema = undefined;
+    // @ts-expect-error — secret client does NOT have capHealth
+    const _noHealthOnSecret: typeof secretClient.capHealth = undefined;
+    // @ts-expect-error — token client does NOT have capManifest
+    const _noManifestOnToken: typeof tokenClient.capManifest = undefined;
+    // @ts-expect-error — token client does NOT have capHealth
+    const _noHealthOnToken: typeof tokenClient.capHealth = undefined;
+
+    void _noManifestOnSecret;
+    void _noEnvSchemaOnSecret;
+    void _noHealthOnSecret;
+    void _noManifestOnToken;
+    void _noHealthOnToken;
+
+    expect(true).toBe(true);
+  });
 });
 
 describe('Bug #15 regression — runtime auth type verification', () => {
