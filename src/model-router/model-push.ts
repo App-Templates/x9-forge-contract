@@ -19,9 +19,13 @@ export const ModelPushRequestSchema = z.object({
   /**
    * Per-provider tier mappings. Provider scoping lives here, not in the mapping (D-09).
    * At least one provider must be present (deploy-time requirement); additional providers
-   * are optional per-deployment. `.optional()` on inner value allows partial provider sets.
+   * are optional per-deployment. `.optional()` on inner value allows partial provider sets
+   * (declared-but-absent is rejected — see refine below).
    */
-  providers: z.record(ModelProviderSchema, ModelTierMappingSchema.optional()),
+  providers: z.record(ModelProviderSchema, ModelTierMappingSchema.optional())
+    .refine((p) => Object.values(p).some((v) => v !== undefined), {
+      message: 'ModelPushRequest.providers must include at least one provider mapping',
+    }),
   /** Capability-scoped policies keyed by capability name (opaque string, not branded). */
   perCapPolicies: z.record(z.string().min(1), ModelPolicySchema).optional(),
   /** Per-agent overrides — clone X specific model config (D-20). */

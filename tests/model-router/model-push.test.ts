@@ -33,6 +33,17 @@ describe('ModelPushRequestSchema', () => {
     const res = ModelPushRequestSchema.safeParse({ providers: { openai: { standard: 'x' } } });
     expect(res.success).toBe(false);
   });
+  it('rejects empty providers record (WR-01 — at least one provider required)', () => {
+    const res = ModelPushRequestSchema.safeParse({ providers: {} });
+    expect(res.success).toBe(false);
+    if (!res.success) {
+      expect(res.error.issues[0]!.message).toMatch(/at least one provider mapping/);
+    }
+  });
+  it('rejects providers record with only declared-but-undefined entries (WR-01)', () => {
+    const res = ModelPushRequestSchema.safeParse({ providers: { openai: undefined } });
+    expect(res.success).toBe(false);
+  });
 });
 
 describe('ModelPushResponseSchema — success arm', () => {
