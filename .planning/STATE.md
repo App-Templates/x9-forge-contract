@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 
 Phase: 5
 Plan: Not started
-Status: Phase 04 verified — ready for Phase 05
+Status: Phase 04.1 verified — ready for Phase 5
 Last activity: 2026-04-15
 
-Progress: ███████░░░ 63% (17/27 plans v1.0, Phases 0/1/2/3/4 done)
+Progress: ████████░░ 70% (19/27 plans v1.0, Phases 0/1/2/3/4/4.1 done)
 
 ### Phase 0 detail (all done)
 
