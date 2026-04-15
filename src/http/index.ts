@@ -27,6 +27,9 @@ export type {
   BridgeClientConfig,
   BridgeRequestOptions,
   BridgeClient,
+  BaseBridgeClient,
+  SecretBridgeClient,
+  TokenBridgeClient,
 } from './bridge-client.js';
 
 // Endpoint contract type
