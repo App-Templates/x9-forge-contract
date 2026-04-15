@@ -1,0 +1,5 @@
+{
+  "ok": true,
+  "synced": [{ "slug": "test-agent-a" }, { "slug": "test-agent-b" }],
+  "errors": []
+}

@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "synced": [
+    { "slug": "test-agent-a", "keys": 0 },
+    { "slug": "test-agent-b", "keys": 0 }
+  ],
+  "errors": [
+    { "slug": "test-agent-c", "error": "No directory configured — skipped" }
+  ]
+}

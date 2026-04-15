@@ -22,3 +22,23 @@ export {
   VaultEntryEncryptedSchema,
 } from './vault-entry.js';
 export type { VaultEntryPlain, VaultEntryEncrypted } from './vault-entry.js';
+
+// Sync event
+export {
+  SyncAgentResultSchema,
+  SyncAllRequestSchema,
+  SyncAllResponseSchema,
+  SyncAllErrorResponseSchema,
+  syncAllContract,
+} from './vault-sync-event.js';
+export type {
+  SyncAgentResult,
+  SyncAllRequest,
+  SyncAllResponse,
+  SyncAllErrorResponse,
+  VaultSyncEvent,
+} from './vault-sync-event.js';
+
+// Workspace file
+export { WorkspaceFileSchema } from './workspace-file.js';
+export type { WorkspaceFile } from './workspace-file.js';

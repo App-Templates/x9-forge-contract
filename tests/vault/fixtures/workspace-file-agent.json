@@ -1,0 +1,9 @@
+{
+  "agentId": 42,
+  "ownerId": 7,
+  "tier": "agent",
+  "path": ".claude/agents/custom.md",
+  "content": "# Custom agent override",
+  "isCustomized": true,
+  "updatedAt": "2026-04-15T12:00:00.000Z"
+}

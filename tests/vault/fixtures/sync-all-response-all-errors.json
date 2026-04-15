@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "synced": [],
+  "errors": [
+    { "slug": "test-agent-a", "error": "ENOENT: workspace not found" },
+    { "slug": "test-agent-b", "error": "EACCES: permission denied" }
+  ]
+}
