@@ -773,30 +773,35 @@ npx dpdm --no-tree --no-warning --exit-code circular:1 src/index.ts
 
 ---
 
-## Open Questions / Risks
+## Open Questions / Risks (RESOLVED)
 
 1. **Q1: `VaultEntryPlain.createdAt` vs `updatedAt`** (⚠ CONTEXT D-08 flag)
    - CONTEXT.md says `updatedAt`, but Drizzle schema has only `createdAt` on `vault_entries`.
    - **Recommendation:** rename to `createdAt`, optional. Or drop entirely (Forge doesn't expose it in DTO).
    - **Action:** Planner to confirm with user in Plan 05-02 task 0 before writing schema.
+   - **RESOLVED:** planner adopted `createdAt` per `05-01-PLAN.md` Task 1 (D-08 reconciliation). Implementation lands in `05-02-PLAN.md` Task 2 as the `createdAt` field on `VaultEntryPlainSchema` (see `05-02-PLAN.md` Task 2 action block, field `createdAt: z.string().datetime({ offset: true }).optional()`).
 
 2. **Q2: `WorkspaceFile.agentId` nullable?** (⚠ CONTEXT D-22 flag)
    - CONTEXT says `agentId: number` non-null; Drizzle says nullable.
    - **Recommendation:** use `number | null` (match DB). If Forge callers never pass null, Zod parses fine.
    - **Action:** Planner to align D-22 with DB truth in Plan 05-02 task 0.
+   - **RESOLVED:** planner aligned D-22 with DB truth per `05-01-PLAN.md` Task 1. Implementation lands in `05-02-PLAN.md` Task 2 as `agentId: z.number().int().nullable()` on `WorkspaceFileSchema` (see `05-02-PLAN.md` Task 2 action block, `WorkspaceFileSchema` field list).
 
 3. **Q3: `SyncAgentResult.keys` always 0 in Forge** — minor, documentary.
    - Document JSDoc. No action needed for Phase 5.
+   - **RESOLVED (documentary — no action):** JSDoc note only; no schema-level enforcement needed.
 
 4. **Q4: `VaultEntryPlain` without `id`?**
    - Some Forge contexts pass partial entries (e.g., `{ key, value, tier, isCustomized, ownerId, agentId }` for upsert payloads) without `id`.
    - CONTEXT D-08 implies `id` not listed. Current Forge interface has `id` (post-read). For API response DTO (primary use), `id` is present.
    - **Recommendation:** `id: z.number().int().nonnegative()` (required). For write-side payloads, Forge has its own shape (out of scope Phase 5).
+   - **RESOLVED (documentary — no action):** response DTO keeps `id` required; write-side payloads are Forge-internal and out of scope.
 
 5. **Q5: Should `VaultEntryEncrypted` ever appear in API responses?**
    - Short answer: NO. Forge always decrypts before sending. `VaultEntryEncrypted` is primarily the DB/wire storage type (pre-decrypt).
    - Bridge ships it anyway (VLT-04) for defensive typing — e.g., if a future endpoint exposes raw encrypted rows (credential export?), the schema is ready.
    - Document in JSDoc: "typically used for storage-layer types; API responses use `VaultEntryPlain`."
+   - **RESOLVED (documentary — no action):** JSDoc guidance only; schema ships regardless per VLT-04.
 
 ### Risks
 - **R-Phase5-01 (low):** Forge has no test coverage today for `syncGlobalToAllAgents` empty-list edge (zero agents). Bridge schema accepts `synced: [], errors: []`. Plan 05-03 contract test should cover.
