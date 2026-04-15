@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
-status: ready-for-phase-1
-stopped_at: "PHASE 0 + Mini-phase M COMPLETE. Phase 0 (4/4) chiusa 2026-04-14. Mini-phase M (Memory Engine v2 contracts) shipped 2026-04-15 via merge 7422bdf su bridge main — 9 Zod schemas + sub-path @x9-forge/contracts/memory pubblicato. Bridge v1 Phase 1 ready con R-07 (web/MCP zod@3) + R-08 (Forge moduleResolution) come prerequisites."
-last_updated: "2026-04-15T00:45:00.000Z"
-last_activity: 2026-04-15 -- Mini-phase M Memory Engine contracts shipped
+status: executing
+stopped_at: Bridge repo pushato su github.com/App-Templates/x9-forge-contract (privato). Tag `pre-bridge-migration-2026-04-14` creato e pushato su agent-x9 + forge-v2. VPS snapshot eseguito da Stefano. Ready for /gsd-plan-phase 0.
+last_updated: "2026-04-15T12:18:28.281Z"
+last_activity: 2026-04-15 -- Phase 1 planning complete
 progress:
-  total_phases: 9
-  completed_phases: 2
-  total_plans: 23
-  completed_plans: 5
-  percent: 22
+  total_phases: 8
+  completed_phases: 0
+  total_plans: 8
+  completed_plans: 4
+  percent: 50
 ---
 
 # Project State
@@ -26,28 +26,32 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: Phase 0 + Mini-phase M — ✅ COMPLETE
-Status: Ready for Phase 1 (Capability Contracts)
-Last activity: 2026-04-15 -- Mini-phase M Memory Engine contracts shipped (merge 7422bdf)
+Status: Ready to execute
+Last activity: 2026-04-15 -- Phase 1 planning complete
 
 Progress: ██░░░░░░░░ 22% (5/23 plans v1.0)
 
 ### Phase 0 detail (all done)
+
 - ✅ 00-01 Bridge scaffolding (2026-04-14, 6 commit on bridge main)
 - ✅ 00-02 Forge zod v3→v4 (2026-04-14, 6 commit, shipped via 9512aef merge)
 - ✅ 00-03 Forge TS 5→6 + exactOptionalPropertyTypes (2026-04-14, 2 commit, same merge)
 - ✅ 00-04 Dev-loop verification (2026-04-14, X9 full, Forge partial with R-08)
 
 ### Phase M (mini-phase) — ✅ 2026-04-15
+
 - 9 Zod schemas + TS types in `src/memory/`
 - Sub-path export `@x9-forge/contracts/memory`
 - 15 smoke test, zero consumer touch, zero runtime impact
 - Merge `7422bdf` preserva atomic commit `cbfbe1d`
 
 ### Open risks carried to Phase 1
+
 - **R-07** web/ MCP SDK zod@3 hard peer-dep (documented in 00-02). Defer until MCP SDK releases zod@4-compatible version.
 - **R-08** Forge moduleResolution upgrade (new from 00-04). Phase 1 first Forge plan must upgrade `packages/types` + 5 services tsconfig from `node` classic to `node16`/`nodenext`/`bundler` before any `import` from `@x9-forge/contracts` in Forge.
 
 ### Phase 1 prerequisites (pre-plan tasks)
+
 1. `phase-1-00-forge-moduleresolution-upgrade` (resolves R-08)
 2. Dockerfile `COPY packages/<bridge>` pattern (resolves P-15)
 
