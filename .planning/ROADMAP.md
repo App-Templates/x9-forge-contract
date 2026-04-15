@@ -23,7 +23,7 @@ Il bridge nasce come "strangler fig su tipi": il pacchetto `@x9-forge/contracts`
 - [ ] **Phase 3: Auth Headers Discriminated (Block C)** — chiude Bug #15 compile-time
 - [ ] **Phase 4: HTTP Endpoint Contracts (Block D)** — 11 endpoint + typed HTTP client
 - [x] **Phase 5: Vault Contracts (Block E)** ✅ 2026-04-15 — `VaultTier`+`SyncState`+`toSyncState`, `VaultEntryPlain`/`Encrypted` with T-05-01 `.refine()` guard, `SyncAll*`, `WorkspaceFile`, `PlatformBootstrapEnv` (type-only, T-05-02), `AgentVaultedCredentials` re-export. Sub-path `@x9-forge/contracts/vault`. Forge migration + drift guard (+47 bridge tests, +3 Forge contract tests)
-- [ ] **Phase 6: Model Router Contracts (Block F)** — greenfield, prerequisito Phase 35 X9
+- [x] **Phase 6: Model Router Contracts (Block F)** — greenfield, prerequisito Phase 35 X9 (completed 2026-04-15)
 - [ ] **Phase 7: Shim Removal + Final Consolidation** (opzionale) — rimuove compat shim, enforce direct imports
 
 ## Phase Details
@@ -207,9 +207,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 06-01: Research-phase — coordinamento con Phase 35 X9 (leggi design doc in `agent-x9/.planning/ROADMAP.md:328`, allinea nomi endpoint e payload)
-- [ ] 06-02: Bridge — `ModelTier`, `ModelTierMapping`, `ModelPolicy`, `ModelPushRequest`, `ModelPushResponse`, `ModelHotReloadNotification`, `PerAgentModelOverride` + Zod schema + unit test + fixture invented (no endpoint live ancora)
-- [ ] 06-03: `CapabilityRegistryEntry.modelPolicy?` aggiunta backward-compat + test migration path (cap esistenti senza modelPolicy continuano a funzionare)
+- [x] 06-01: Research-phase — coordinamento con Phase 35 X9 (leggi design doc in `agent-x9/.planning/ROADMAP.md:328`, allinea nomi endpoint e payload)
+- [x] 06-02: Bridge — `ModelTier`, `ModelTierMapping`, `ModelPolicy`, `ModelPushRequest`, `ModelPushResponse`, `ModelHotReloadNotification`, `PerAgentModelOverride` + Zod schema + unit test + fixture invented (no endpoint live ancora)
+- [x] 06-03: `CapabilityRegistryEntry.modelPolicy?` aggiunta backward-compat + test migration path (cap esistenti senza modelPolicy continuano a funzionare)
 
 ---
 
@@ -252,7 +252,7 @@ Phase 4 e 5 sono parzialmente parallelizzabili (dopo 3). Phase 6 dipende da 1+4.
 | 3. Auth Headers Discriminated (Block C) | 0/2 | Not started | - |
 | 4. HTTP Endpoint Contracts (Block D) | 0/4 | Not started | - |
 | 5. Vault Contracts (Block E) | 3/3 | Complete | 2026-04-15 |
-| 6. Model Router Contracts (Block F) | 0/3 | Not started | - |
+| 6. Model Router Contracts (Block F) | 3/3 | Complete   | 2026-04-15 |
 | 7. Shim Removal + Consolidation (opzionale) | 0/2 | Not started | - |
 
 **Totale v1.0:** 22 plans (Phase 0-6). Phase 7 opzionale: +2 plans.
