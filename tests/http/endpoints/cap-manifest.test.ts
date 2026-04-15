@@ -42,9 +42,10 @@ describe('CapManifestResponseSchema (re-exported from capability)', () => {
 });
 
 describe('capManifestContract', () => {
-  it('declares GET /:cap/manifest with NO auth (public discovery)', () => {
+  it('declares GET /manifest with NO auth (public discovery)', () => {
     expect(capManifestContract.method).toBe('GET');
-    expect(capManifestContract.path).toBe('/:cap/manifest');
+    // Wire path — capability identity is conveyed by baseUrl (not a path prefix).
+    expect(capManifestContract.path).toBe('/manifest');
     expect(capManifestContract.authType).toBe('none');
   });
 });

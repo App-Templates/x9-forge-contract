@@ -7,6 +7,9 @@ import { InternalTurnRequestSchema, InternalTurnResponseSchema, type InternalTur
 import { InternalQueryRequestSchema, InternalQueryResponseSchema, type InternalQueryRequest, type InternalQueryResponse } from './endpoints/internal-query.js';
 import { PostCallPayloadSchema, PostCallResponseSchema, type PostCallPayload, type PostCallResponse } from './endpoints/webhook-post-call.js';
 import { VoiceRegisterRequestSchema, VoiceRegisterResponseSchema, type VoiceRegisterRequest, type VoiceRegisterResponse } from './endpoints/voice-register.js';
+import { CapManifestResponseSchema, type CapManifestResponse } from './endpoints/cap-manifest.js';
+import { CapEnvSchemaResponseSchema, type CapEnvSchemaResponse } from './endpoints/cap-env-schema.js';
+import { CapHealthResponseSchema, type CapHealthResponse } from './endpoints/cap-health.js';
 import { parseSseStream } from './sse-parser.js';
 import type { ParsedSseEvent } from './sse-parser.js';
 
@@ -26,7 +29,7 @@ export type AuthForEndpoint<T extends EndpointAuthType> =
 /**
  * Configuration for creating a bridge client instance.
  */
-export interface BridgeClientConfig<A extends 'secret' | 'token'> {
+export interface BridgeClientConfig<A extends 'secret' | 'token' | 'none'> {
   /** Base URL of the target service (e.g., 'http://agent-core:4100') */
   baseUrl: string;
   /** Auth headers to attach to every request. Type determines which endpoints are callable. */
@@ -62,10 +65,10 @@ export class BridgeHttpError extends Error {
 }
 
 /**
- * Base bridge client shared between secret and token variants. Exposes the
- * generic `request<T>()` method plus auth type introspection.
+ * Base bridge client shared between secret, token, and noauth variants.
+ * Exposes the generic `request<T>()` method plus auth type introspection.
  */
-export interface BaseBridgeClient<A extends 'secret' | 'token'> {
+export interface BaseBridgeClient<A extends 'secret' | 'token' | 'none'> {
   /**
    * Generic request method. Returns parsed JSON body.
    * Throws BridgeHttpError on non-2xx status.
@@ -111,16 +114,34 @@ export interface TokenBridgeClient extends BaseBridgeClient<'token'> {
 }
 
 /**
+ * No-auth bridge client — used for capability discovery endpoints
+ * (`GET /manifest`, `GET /env-schema`, `GET /health`). Each capability service
+ * mounts these routes at root, so the capability identity is conveyed by the
+ * caller's `baseUrl` (e.g. `http://cap-voice:3500`), not a path segment.
+ *
+ * Compile-time guarantee: only noauth endpoints are callable; attempting to
+ * call a secret- or token-auth method (e.g. `listAgents`, `voiceRegister`) is
+ * a TS error.
+ */
+export interface NoAuthBridgeClient extends BaseBridgeClient<'none'> {
+  capManifest(signal?: AbortSignal): Promise<CapManifestResponse>;
+  capEnvSchema(signal?: AbortSignal): Promise<CapEnvSchemaResponse>;
+  capHealth(signal?: AbortSignal): Promise<CapHealthResponse>;
+}
+
+/**
  * Conditional client type: `createBridgeClient<'secret'>` returns a
- * `SecretBridgeClient`, `<'token'>` returns a `TokenBridgeClient`.
+ * `SecretBridgeClient`, `<'token'>` returns a `TokenBridgeClient`,
+ * `<'none'>` returns a `NoAuthBridgeClient`.
  *
  * The discriminated return type is what enforces Bug #15 at compile-time:
- * you cannot call `voiceRegister` on a secret client, nor `listAgents` on
- * a token client.
+ * you cannot call `voiceRegister` on a secret client, `listAgents` on a
+ * token client, or any auth'd method on a noauth client.
  */
-export type BridgeClient<A extends 'secret' | 'token' = 'secret' | 'token'> =
+export type BridgeClient<A extends 'secret' | 'token' | 'none' = 'secret' | 'token' | 'none'> =
   A extends 'secret' ? SecretBridgeClient :
   A extends 'token' ? TokenBridgeClient :
+  A extends 'none' ? NoAuthBridgeClient :
   never;
 
 /**
@@ -154,9 +175,17 @@ export type BridgeClient<A extends 'secret' | 'token' = 'secret' | 'token'> =
  * });
  * await voiceClient.postCallWebhook(payload);  // ✓ OK
  * // await voiceClient.listAgents();           // ✗ TS2339
+ *
+ * // No-auth client for capability discovery (manifest / env-schema / health)
+ * const capClient = createBridgeClient<'none'>({
+ *   baseUrl: 'http://cap-voice:3500',
+ *   auth: {},
+ * });
+ * await capClient.capManifest();               // ✓ OK
+ * // await capClient.listAgents();             // ✗ TS2339
  * ```
  */
-export function createBridgeClient<A extends 'secret' | 'token'>(
+export function createBridgeClient<A extends 'secret' | 'token' | 'none'>(
   config: BridgeClientConfig<A>,
 ): BridgeClient<A> {
   const { baseUrl, auth } = config;
@@ -196,6 +225,7 @@ export function createBridgeClient<A extends 'secret' | 'token'>(
   }
 
   const isSecret = 'X-Internal-Secret' in auth;
+  const isToken = 'X-Internal-Token' in auth;
 
   if (isSecret) {
     const secretClient: SecretBridgeClient = {
@@ -274,25 +304,55 @@ export function createBridgeClient<A extends 'secret' | 'token'>(
     return secretClient as BridgeClient<A>;
   }
 
-  const tokenClient: TokenBridgeClient = {
+  if (isToken) {
+    const tokenClient: TokenBridgeClient = {
+      request,
+      get authType(): 'token' {
+        return 'token';
+      },
+      async postCallWebhook(body: PostCallPayload): Promise<PostCallResponse> {
+        const safeBody = PostCallPayloadSchema.parse(body);
+        const raw = await request<unknown>({ method: 'POST', path: '/webhook/post-call', body: safeBody });
+        return PostCallResponseSchema.parse(raw);
+      },
+      async voiceRegister(body: VoiceRegisterRequest): Promise<VoiceRegisterResponse> {
+        const safeBody = VoiceRegisterRequestSchema.parse(body);
+        const raw = await request<unknown>({
+          method: 'POST',
+          path: '/api/voice/register',
+          body: safeBody,
+        });
+        return VoiceRegisterResponseSchema.parse(raw);
+      },
+    };
+    return tokenClient as BridgeClient<A>;
+  }
+
+  // No-auth client: capability discovery endpoints (manifest / env-schema / health).
+  // AuthNone = Record<string, never>, so neither secret nor token discriminator matched.
+  const noAuthClient: NoAuthBridgeClient = {
     request,
-    get authType(): 'token' {
-      return 'token';
+    get authType(): 'none' {
+      return 'none';
     },
-    async postCallWebhook(body: PostCallPayload): Promise<PostCallResponse> {
-      const safeBody = PostCallPayloadSchema.parse(body);
-      const raw = await request<unknown>({ method: 'POST', path: '/webhook/post-call', body: safeBody });
-      return PostCallResponseSchema.parse(raw);
+    async capManifest(signal?: AbortSignal): Promise<CapManifestResponse> {
+      const opts: BridgeRequestOptions = { method: 'GET', path: '/manifest' };
+      if (signal !== undefined) opts.signal = signal;
+      const raw = await request<unknown>(opts);
+      return CapManifestResponseSchema.parse(raw);
     },
-    async voiceRegister(body: VoiceRegisterRequest): Promise<VoiceRegisterResponse> {
-      const safeBody = VoiceRegisterRequestSchema.parse(body);
-      const raw = await request<unknown>({
-        method: 'POST',
-        path: '/api/voice/register',
-        body: safeBody,
-      });
-      return VoiceRegisterResponseSchema.parse(raw);
+    async capEnvSchema(signal?: AbortSignal): Promise<CapEnvSchemaResponse> {
+      const opts: BridgeRequestOptions = { method: 'GET', path: '/env-schema' };
+      if (signal !== undefined) opts.signal = signal;
+      const raw = await request<unknown>(opts);
+      return CapEnvSchemaResponseSchema.parse(raw);
+    },
+    async capHealth(signal?: AbortSignal): Promise<CapHealthResponse> {
+      const opts: BridgeRequestOptions = { method: 'GET', path: '/health' };
+      if (signal !== undefined) opts.signal = signal;
+      const raw = await request<unknown>(opts);
+      return CapHealthResponseSchema.parse(raw);
     },
   };
-  return tokenClient as BridgeClient<A>;
+  return noAuthClient as BridgeClient<A>;
 }

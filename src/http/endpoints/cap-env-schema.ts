@@ -1,17 +1,18 @@
 import { EnvSchemaDocSchema } from '../../capability/env-schema.js';
 
 /**
- * GET /:cap/env-schema — capability env schema discovery.
+ * GET /env-schema — capability env schema discovery.
  * Direction: Forge factory-svc -> X9 capability services
  * Auth: None
  * Requirement: HTTP-09
  *
  * Response is the EnvSchemaDoc schema (already defined in Phase 1).
+ * The capability identity is conveyed by the caller's `baseUrl`, not a path prefix.
  */
 
 export const capEnvSchemaContract = {
   method: 'GET' as const,
-  path: '/:cap/env-schema' as const,
+  path: '/env-schema' as const,
   authType: 'none' as const,
   responseSchema: EnvSchemaDocSchema,
 } as const;

@@ -44,9 +44,10 @@ describe('CapEnvSchemaResponseSchema', () => {
 });
 
 describe('capEnvSchemaContract', () => {
-  it('declares GET /:cap/env-schema with NO auth', () => {
+  it('declares GET /env-schema with NO auth', () => {
     expect(capEnvSchemaContract.method).toBe('GET');
-    expect(capEnvSchemaContract.path).toBe('/:cap/env-schema');
+    // Wire path — capability identity is conveyed by baseUrl (not a path prefix).
+    expect(capEnvSchemaContract.path).toBe('/env-schema');
     expect(capEnvSchemaContract.authType).toBe('none');
   });
 });

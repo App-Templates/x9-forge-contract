@@ -45,9 +45,10 @@ describe('CapHealthResponseSchema', () => {
 });
 
 describe('capHealthContract', () => {
-  it('declares GET /:cap/health with NO auth', () => {
+  it('declares GET /health with NO auth', () => {
     expect(capHealthContract.method).toBe('GET');
-    expect(capHealthContract.path).toBe('/:cap/health');
+    // Wire path — capability identity is conveyed by baseUrl (not a path prefix).
+    expect(capHealthContract.path).toBe('/health');
     expect(capHealthContract.authType).toBe('none');
   });
 });
