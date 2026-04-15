@@ -1,0 +1,11 @@
+{
+  "id": 2,
+  "key": "PUBLIC_APP_NAME",
+  "value": "not-a-secret",
+  "isSecret": false,
+  "isCustomized": false,
+  "tier": "platform",
+  "agentId": null,
+  "ownerId": null,
+  "createdAt": "2026-04-15T12:00:00.000Z"
+}

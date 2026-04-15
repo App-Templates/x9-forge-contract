@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "key": "OPENAI_API_KEY",
+  "value": "REDACTED",
+  "isSecret": true,
+  "isCustomized": true,
+  "tier": "agent",
+  "agentId": 42,
+  "ownerId": 7,
+  "createdAt": "2026-04-15T12:00:00.000Z"
+}

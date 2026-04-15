@@ -14,3 +14,11 @@ export type { VaultTier } from './vault-tier.js';
 // Sync state
 export { VaultSyncStateSchema, VAULT_SYNC_STATES, toSyncState } from './vault-sync-state.js';
 export type { VaultSyncState } from './vault-sync-state.js';
+
+// Entries
+export {
+  AES_WIRE_FORMAT_REGEX,
+  VaultEntryPlainSchema,
+  VaultEntryEncryptedSchema,
+} from './vault-entry.js';
+export type { VaultEntryPlain, VaultEntryEncrypted } from './vault-entry.js';

@@ -1,0 +1,12 @@
+{
+  "_synthetic": true,
+  "id": 4,
+  "key": "ANTHROPIC_API_KEY",
+  "value": "0123456789abcdef01234567:0123456789abcdef0123456789abcdef:cafebabe",
+  "isSecret": true,
+  "isCustomized": false,
+  "tier": "owner",
+  "agentId": null,
+  "ownerId": 7,
+  "createdAt": "2026-04-15T12:00:00.000Z"
+}
