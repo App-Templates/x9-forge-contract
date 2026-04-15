@@ -22,3 +22,7 @@ export type { ModelProvider } from './model-provider.js';
 // Tier mapping
 export { ModelTierMappingSchema } from './model-tier-mapping.js';
 export type { ModelTierMapping } from './model-tier-mapping.js';
+
+// Policy
+export { ModelPolicySchema } from './model-policy.js';
+export type { ModelPolicy } from './model-policy.js';
