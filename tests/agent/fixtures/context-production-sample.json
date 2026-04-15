@@ -1,0 +1,32 @@
+{
+  "agentId": "agent-stefano-prod-001",
+  "ownerId": "owner_clerk_abc123",
+  "workspacePath": "/data/workspaces/agent-stefano-prod-001",
+  "registryPath": "/data/agents/agent-stefano-prod-001/registry.json",
+  "credentials": {
+    "OPENAI_API_KEY": "sk-test-placeholder",
+    "ANTHROPIC_API_KEY": "sk-ant-test-placeholder",
+    "GOOGLE_API_KEY": "google-test-placeholder",
+    "AGENT_CHAT_MODEL": "gpt-4.1-mini",
+    "TELEGRAM_BOT_TOKEN": "123456789:ABCdefGHI_placeholder",
+    "ELEVENLABS_API_KEY": "el-test-placeholder",
+    "ELEVENLABS_VOICE_ID": "etz1gLgQTuQIYLCRkFJh",
+    "ELEVENLABS_MINDFULNESS_AGENT_ID": "mindfulness-agent-placeholder",
+    "FORGE_VOICE_REGISTER_TOKEN": "fvrt-test-placeholder",
+    "AGENTMAIL_API_KEY": "am-test-placeholder",
+    "AGENTMAIL_INBOX_ID": "inbox-test-placeholder",
+    "AGENT_EMAIL": "agent@test.example.com",
+    "GOOGLE_CALENDAR_CLIENT_ID": "gcal-client-id-placeholder",
+    "GOOGLE_CALENDAR_CLIENT_SECRET": "gcal-secret-placeholder",
+    "GOOGLE_CALENDAR_REFRESH_TOKEN": "gcal-refresh-placeholder",
+    "INTERNAL_SECRET": "test-internal-secret",
+    "X9_INTERNAL_SECRET": "test-x9-internal-secret"
+  },
+  "llmConfig": {
+    "provider": "openai",
+    "model": "gpt-4.1-mini"
+  },
+  "telegramBotToken": "123456789:ABCdefGHI_placeholder",
+  "telegramAllowFrom": ["123456789", "987654321"],
+  "displayName": "Stefano Agent"
+}

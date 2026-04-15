@@ -1,0 +1,24 @@
+{
+  "agentId": "agent-netatmo-001",
+  "ownerId": "owner_clerk_netatmo",
+  "workspacePath": "/data/workspaces/agent-netatmo-001",
+  "registryPath": "/data/agents/agent-netatmo-001/registry.json",
+  "credentials": {
+    "OPENAI_API_KEY": "sk-test-netatmo",
+    "TELEGRAM_BOT_TOKEN": "222222222:netatmo_placeholder",
+    "INTERNAL_SECRET": "test-internal-netatmo",
+    "NETATMO_CLIENT_ID": "netatmo-client-placeholder",
+    "NETATMO_CLIENT_SECRET": "netatmo-secret-placeholder",
+    "NETATMO_EMAIL": "netatmo@test.example.com",
+    "NETATMO_PASSWORD": "netatmo-pass-placeholder",
+    "NETATMO_HOME_ID": "62924c1cac184a31921e2c22",
+    "NETATMO_GATE_HOME_ID": "62deadb972383e52bd5c16be"
+  },
+  "llmConfig": {
+    "provider": "openai",
+    "model": "gpt-4.1-mini"
+  },
+  "telegramBotToken": "222222222:netatmo_placeholder",
+  "telegramAllowFrom": ["123456789"],
+  "displayName": "Netatmo Agent"
+}

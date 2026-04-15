@@ -1,0 +1,17 @@
+{
+  "agentId": "agent-minimal-001",
+  "ownerId": "owner_clerk_minimal",
+  "workspacePath": "/data/workspaces/agent-minimal-001",
+  "registryPath": "/data/agents/agent-minimal-001/registry.json",
+  "credentials": {
+    "OPENAI_API_KEY": "sk-test-minimal",
+    "TELEGRAM_BOT_TOKEN": "111111111:minimal_placeholder"
+  },
+  "llmConfig": {
+    "provider": "openai",
+    "model": "gpt-4o-mini"
+  },
+  "telegramBotToken": "111111111:minimal_placeholder",
+  "telegramAllowFrom": ["*"],
+  "displayName": "Minimal Agent"
+}
