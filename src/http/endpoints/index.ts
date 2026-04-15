@@ -2,8 +2,22 @@
  * HTTP endpoint contracts — all 11 cross-repo endpoints typed with
  * Zod request/response schemas and auth requirements.
  *
- * Populated incrementally in Plan 04-01.
- *
  * @module @x9-forge/contracts/http (endpoints sub-module)
  */
-export {};
+
+// Secret-auth endpoints (Forge -> X9 agent-core /internal/*)
+export * from './internal-agents-list.js';
+export * from './internal-agents-reload.js';
+export * from './internal-agents-stop.js';
+export * from './internal-turn.js';
+export * from './internal-turn-stream.js';
+export * from './internal-query.js';
+
+// Token-auth endpoints (cross-repo voice/webhook)
+export * from './webhook-post-call.js';
+export * from './voice-register.js';
+
+// No-auth endpoints (capability discovery)
+export * from './cap-manifest.js';
+export * from './cap-env-schema.js';
+export * from './cap-health.js';

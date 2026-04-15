@@ -28,3 +28,9 @@ export type {
   BridgeRequestOptions,
   BridgeClient,
 } from './bridge-client.js';
+
+// Endpoint contract type
+export type { EndpointContract } from './endpoint-contract.js';
+
+// All endpoint contracts (request/response schemas + contract metadata)
+export * from './endpoints/index.js';
