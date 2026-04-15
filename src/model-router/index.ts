@@ -40,3 +40,7 @@ export {
   pushModelConfigContract,
 } from './model-push.js';
 export type { ModelPushRequest, ModelPushResponse } from './model-push.js';
+
+// Hot reload
+export { ModelHotReloadNotificationSchema } from './model-hot-reload.js';
+export type { ModelHotReloadNotification } from './model-hot-reload.js';
