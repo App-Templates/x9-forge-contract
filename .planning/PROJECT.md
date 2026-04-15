@@ -24,15 +24,19 @@ Il bridge tipizza i contratti di questo modello cross-repo. Non e un runtime ser
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Risolvere divergenza `CapabilityRegistryEntry` — canonical shape `{ host, port, version, protocol?, tools? }` + `toEndpoint()`/`fromEndpoint()` — Phase 1
+- ✓ Risolvere divergenza `CapabilityManifest` vs `X9CapabilityManifest` — `serviceName?` optional nel bridge, alias re-export in Forge — Phase 1
+- ✓ Normalizzare `ToolCallRequest`/`ToolCallResponse` — discriminated union su `status`, 3 error codes — Phase 1
+- ✓ X9 `packages/types/` re-export shim from bridge (MGRT-04) — Phase 1
+- ✓ Forge `packages/types/src/x9.ts` re-export shim with aliases (MGRT-05) — Phase 1
+- ✓ Contract testing baseline: 57 bridge tests green, CI gate, real fixtures (TEST-01, TEST-02 partial, TEST-03, TEST-05) — Phase 1
 
 ### Active
 
 **Contratti HTTP esistenti (consolidamento):**
 - [ ] Tutti gli 11 contratti cross-repo esistenti tipizzati in un unico package
-- [ ] Risolvere divergenza `CapabilityRegistryEntry` (X9 usa `endpoint` URL / Forge usa `host + port + version`) — decidere canonical shape
-- [ ] Risolvere divergenza `CapabilityManifest` vs `X9CapabilityManifest` (Forge ha `serviceName?` extra)
-- [ ] Normalizzare `ToolCallRequest`/`ToolCallResponse` (X9 ha i tipi, Forge no)
+- [ ] Naming asimmetrico env vars documentato e risolvibile (INTERNAL_SECRET vs X9_INTERNAL_SECRET, FORGE_VOICE_REGISTER_TOKEN vs VOICE_REGISTER_TOKEN vs INTERNAL_SERVICE_TOKEN)
+- [ ] Risolvere incoerenza `X9_INTERNAL_SECRET` che vive sia in Forge platform env (`factory/src/env.ts:19`) sia nel vault per-agent (`voice.ts:95-98`) — decidere source of truth
 - [ ] Naming asimmetrico env vars documentato e risolvibile (INTERNAL_SECRET vs X9_INTERNAL_SECRET, FORGE_VOICE_REGISTER_TOKEN vs VOICE_REGISTER_TOKEN vs INTERNAL_SERVICE_TOKEN)
 - [ ] Risolvere incoerenza `X9_INTERNAL_SECRET` che vive sia in Forge platform env (`factory/src/env.ts:19`) sia nel vault per-agent (`voice.ts:95-98`) — decidere source of truth
 

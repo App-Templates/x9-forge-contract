@@ -18,10 +18,10 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-14)
+See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilita DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 00 — prerequisites-bridge-foundation
+**Current focus:** Phase 02 — AgentContext Split (Block B)
 
 ## Current Position
 
@@ -45,15 +45,16 @@ Progress: ██░░░░░░░░ 22% (5/23 plans v1.0)
 - 15 smoke test, zero consumer touch, zero runtime impact
 - Merge `7422bdf` preserva atomic commit `cbfbe1d`
 
-### Open risks carried to Phase 1
+### Phase 1 detail — ✅ 2026-04-15
+
+- ✅ 01-01 Bridge Zod schemas validated (57 tests, real fixtures added)
+- ✅ 01-02 X9 migration shim validated (agent-core dep fix, typecheck green)
+- ✅ 01-03 Forge x9.ts migrated to bridge re-exports (229 Forge tests green)
+- Verification: PASSED 17/17 must-haves
+
+### Open risks carried forward
 
 - **R-07** web/ MCP SDK zod@3 hard peer-dep (documented in 00-02). Defer until MCP SDK releases zod@4-compatible version.
-- **R-08** Forge moduleResolution upgrade (new from 00-04). Phase 1 first Forge plan must upgrade `packages/types` + 5 services tsconfig from `node` classic to `node16`/`nodenext`/`bundler` before any `import` from `@x9-forge/contracts` in Forge.
-
-### Phase 1 prerequisites (pre-plan tasks)
-
-1. `phase-1-00-forge-moduleresolution-upgrade` (resolves R-08)
-2. Dockerfile `COPY packages/<bridge>` pattern (resolves P-15)
 
 ## Performance Metrics
 
@@ -80,16 +81,12 @@ Progress: ██░░░░░░░░ 22% (5/23 plans v1.0)
 
 Recent decisions (full log in PROJECT.md Key Decisions):
 
-- **2026-04-14**: Bridge = package TypeScript tipi cross-repo (Interpretazione A, no runtime service)
-- **2026-04-14**: Master X9 peer dei cloni rispetto al vault (no gerarchia per chiavi)
-- **2026-04-14**: Sync state per-chiave per-agent = tier cascade Forge (platform/owner=synced, agent=overridden)
-- **2026-04-14**: Vault 3-tier contracts + Model Router contracts inclusi nello scope bridge v1
+- **2026-04-15**: Phase 1 shim pattern validated — re-export with alias is the canonical migration approach
+- **2026-04-15**: agent-core needs direct `@x9-forge/contracts` dep for registry.ts imports (not just via packages/types)
+- **2026-04-15**: R-08 resolved — Forge packages/types already had moduleResolution NodeNext
+- **2026-04-14**: CapabilityRegistryEntry canonical shape = `{ host, port, version, protocol? }` + helper derivation
 - **2026-04-14**: AgentCredentials discriminated (no piu flat Record<string,string>)
-- **2026-04-14**: CapabilityRegistryEntry canonical shape = `{ host, port, version, protocol? }` + helper derivation (scelta tier-1)
-- **2026-04-14**: X9_INTERNAL_SECRET e tutte le env applicative vivono esclusivamente nel vault (tier=platform default, tier=agent desync override). PlatformBootstrapEnv Forge (VAULT_KEY, DB, CLERK) resta env server per ricorsione
-- **2026-04-14**: Distribuzione bridge = `git+ssh://...#<SHA>` + `prepare` build + `pnpm.overrides link:` per dev locale. ts-rest rifiutato per peer-dep conflict zod@4+fastify@5
 - **2026-04-14**: Zod v4 source of truth per schema; TS types derivati via `z.infer`
-- **2026-04-14**: Forge zod@3→@4 + TS 5.9→6.0.2 + `exactOptionalPropertyTypes: true` alignment = Phase 0 prerequisito
 
 ### Pending Todos
 
@@ -106,8 +103,8 @@ None attivi. Research ha surfacciato 4 open questions da risolvere nei research-
 
 ## Session Continuity
 
-Last session: 2026-04-14 (research + requirements + roadmap + remote setup)
-Stopped at: Bridge repo pushato su github.com/App-Templates/x9-forge-contract (privato). Tag `pre-bridge-migration-2026-04-14` creato e pushato su agent-x9 + forge-v2. VPS snapshot eseguito da Stefano. Ready for /gsd-plan-phase 0.
+Last session: 2026-04-15
+Stopped at: Phase 01 complete, transitioning to Phase 02 (AgentContext Split)
 Resume file: None
 
 ## Remote & baseline
