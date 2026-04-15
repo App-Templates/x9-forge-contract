@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
 status: executing
-stopped_at: Phase 02 complete — ready for Phase 3 planning
-last_updated: "2026-04-15T17:01:08.669Z"
-last_activity: 2026-04-15
+stopped_at: Phase 04 complete — ready for Phase 5 (memory-engine) planning
+last_updated: "2026-04-15T21:15:00.000Z"
+last_activity: 2026-04-15 -- Phase 04 verification PASSED
 progress:
   total_phases: 8
-  completed_phases: 2
-  total_plans: 13
-  completed_plans: 9
-  percent: 69
+  completed_phases: 5
+  total_plans: 17
+  completed_plans: 17
+  percent: 63
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilita DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 02 — agentcontext-split-block-b
+**Current focus:** Phase 05 — memory-engine (pending planning)
 
 ## Current Position
 
-Phase: 4
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-04-15
+Phase: 04 (http-endpoint-contracts-block-d) — ✅ COMPLETE
+Plan: 4 of 4 (all PASSED verification)
+Status: Phase 04 verified — ready for Phase 05
+Last activity: 2026-04-15 -- Phase 04 execution + verification complete
 
-Progress: ████░░░░░░ 43% (10/23 plans v1.0, Phase 2 done)
+Progress: ███████░░░ 63% (17/27 plans v1.0, Phases 0/1/2/3/4 done)
 
 ### Phase 0 detail (all done)
 
@@ -62,9 +62,29 @@ Progress: ████░░░░░░ 43% (10/23 plans v1.0, Phase 2 done)
 - Branded type casts needed in 2 single-agent fallback paths (agent-core/src/index.ts)
 - Forge deploy.machine.ts: removed X9AgentContext type annotation (writes full shape, not Core-only)
 
+### Phase 3 detail — ✅ 2026-04-15
+
+- ✅ 03-01 Auth headers discriminated + createBridgeClient skeleton (bridge)
+- ✅ 03-02 Forge pilot — `X9Client.reload()` migrated to createBridgeClient
+- Bug #15 class compile-time regression guard landed
+
+### Phase 4 detail — ✅ 2026-04-15
+
+- ✅ 04-01 Bridge: 11 endpoint contracts + typed `createBridgeClient` (14 tasks, +115 tests)
+- ✅ 04-02 SSE frame discriminated schemas + parser + `internalTurnStream()` (6 tasks, +28 tests)
+- ✅ 04-03 X9 migration (cap-voice, agent-core, cap-glasses, contract test) — 8/9 tasks, VPS smoke deferred (04-03-09)
+- ✅ 04-04 Forge migration (factory X9Client, voice webhook) — 8/10 tasks, VPS fixtures+smoke deferred (04-04-09/-10)
+- Cross-repo drift guard CONFIRMED operational (agent-core contract test catches bridge schema drift)
+- Test totals: Bridge 228, X9 agent-core 61, X9 cap-voice 9, Forge factory 74, Forge voice 28 — 400 green
+- Commits: 20 bridge + 8 X9 + 8 forge-v2 = 36 atomic task commits across 3 repos
+- Code review: 0 critical / 5 warning / 4 info (see 04-REVIEW.md)
+
 ### Open risks carried forward
 
 - **R-07** web/ MCP SDK zod@3 hard peer-dep (documented in 00-02). Defer until MCP SDK releases zod@4-compatible version.
+- **R-09 (new)** `createBridgeClient` lacks `'none'` auth variant — `capBridgeClient` helpers duplicated in X9 + Forge. Consolidate in Phase 4.1 or early Phase 5.
+- **R-10 (new)** WR-01/02/03 from 04-REVIEW: typed methods skip runtime `.parse()`, headers override foot-gun, SSE buffer unbounded. Non-blocking but worth `/gsd-code-review-fix 4` before Phase 5.
+- **Operator action pending**: 3 VPS-SSH-dependent tasks (see `04-03-SMOKE.md` + `deferred-items.md`).
 
 ## Performance Metrics
 
@@ -119,9 +139,9 @@ None attivi. Research ha surfacciato 4 open questions da risolvere nei research-
 ## Session Continuity
 
 Last session: 2026-04-15
-Stopped at: Phase 02 complete — ready for Phase 3 planning
+Stopped at: Phase 04 complete — verification PASSED, ready for Phase 5 planning
 Resume file: None
-Next action: /gsd-plan-phase 3
+Next action: `/gsd:discuss-phase 5` (memory-engine) — or `/gsd:code-review-fix 4` to close 5 warnings first
 
 ## Remote & baseline
 

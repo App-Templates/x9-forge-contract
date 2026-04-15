@@ -145,10 +145,10 @@ Plans:
 **Plans**: 4 plans (parallelizable, blocchi indipendenti)
 
 Plans:
-- [ ] 04-01: Bridge — 11 endpoint contract (request/response/auth) + `createBridgeClient` full + unit test + fixture reali
-- [ ] 04-02: Bridge — SSE frame shape per `/internal/turn/stream` + parser helper
-- [ ] 04-03: X9 migration — cap-voice chiama Forge con `createBridgeClient`, agent-core internal routes usano schema bridge al boundary (Fastify schema integration)
-- [ ] 04-04: Forge migration — `x9.client.ts`, `voice.ts`, `factory.ts` usano `createBridgeClient` end-to-end
+- [x] 04-01: Bridge — 11 endpoint contract (request/response/auth) + `createBridgeClient` full + unit test + fixture reali
+- [x] 04-02: Bridge — SSE frame shape per `/internal/turn/stream` + parser helper
+- [x] 04-03: X9 migration — cap-voice chiama Forge con `createBridgeClient`, agent-core internal routes usano schema bridge al boundary (Fastify schema integration)
+- [x] 04-04: Forge migration — `x9.client.ts`, `voice.ts`, `factory.ts` usano `createBridgeClient` end-to-end
 
 ---
 
