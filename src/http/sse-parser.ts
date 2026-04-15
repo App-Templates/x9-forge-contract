@@ -101,7 +101,8 @@ export async function* parseSseStream(
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
-      buffer += decoder.decode(value, { stream: true });
+      // Normalize CRLF / CR to LF so frame-boundary scan works for proxies that rewrite line endings (SSE spec accepts \r\n\r\n and \r\r).
+      buffer += decoder.decode(value, { stream: true }).replace(/\r\n|\r/g, '\n');
       if (buffer.length > MAX_FRAME_BYTES) {
         throw new Error(`SSE frame exceeded ${MAX_FRAME_BYTES} bytes without terminator`);
       }
