@@ -36,7 +36,8 @@ export type AuthInternalToken = z.infer<typeof AuthInternalTokenSchema>;
 
 /**
  * No auth required. Used by capability discovery endpoints:
- * GET /:cap/manifest, GET /:cap/env-schema, GET /:cap/health.
+ * `GET /manifest`, `GET /env-schema`, `GET /health` (capability identity is
+ * conveyed by the caller's baseUrl, not a path prefix).
  */
 export type AuthNone = Record<string, never>;
 
