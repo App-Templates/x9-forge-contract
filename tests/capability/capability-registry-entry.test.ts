@@ -31,7 +31,26 @@ const X9_ENTRY: CapabilityRegistryEntry = {
   ],
 };
 
+// Fixture as Forge deploy.machine writes it (minimal, no tools, no protocol)
+const FORGE_DEPLOY_MACHINE_FIXTURE: CapabilityRegistryEntry = {
+  name: 'calendar',
+  enabled: true,
+  host: 'cap-calendar',
+  port: 3000,
+  version: '0.0.1',
+};
+
 describe('CapabilityRegistryEntrySchema', () => {
+  it('parses Forge deploy.machine fixture (TEST-02 conformance)', () => {
+    const result = CapabilityRegistryEntrySchema.safeParse(FORGE_DEPLOY_MACHINE_FIXTURE);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.name).toBe('calendar');
+      expect(result.data.tools).toBeUndefined();
+      expect(result.data.protocol).toBeUndefined();
+    }
+  });
+
   it('parses Forge-style entry (no tools, no protocol)', () => {
     const result = CapabilityRegistryEntrySchema.safeParse(FORGE_ENTRY);
     expect(result.success).toBe(true);

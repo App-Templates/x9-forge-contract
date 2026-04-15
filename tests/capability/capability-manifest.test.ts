@@ -66,4 +66,26 @@ describe('CapabilityManifestSchema', () => {
     const { tools: _, ...withoutTools } = REAL_MANIFEST_FIXTURE;
     expect(CapabilityManifestSchema.safeParse(withoutTools).success).toBe(false);
   });
+
+  it('parses real cap-calendar manifest (5 tools, TEST-02 conformance)', () => {
+    const CAP_CALENDAR_FIXTURE: CapabilityManifest = {
+      name: 'calendar',
+      version: '0.0.1',
+      endpoint: 'http://cap-calendar:3200',
+      tools: [
+        { name: 'calendar_today', description: "Get today's calendar events", inputSchema: { type: 'object', properties: {} } },
+        { name: 'calendar_week', description: 'Get calendar events for a specific week', inputSchema: { type: 'object', properties: { targetDate: { type: 'string' }, weekOffset: { type: 'number' } } } },
+        { name: 'calendar_create', description: 'Create a new event', inputSchema: { type: 'object', properties: { summary: { type: 'string' }, startTime: { type: 'string' }, endTime: { type: 'string' } }, required: ['summary', 'startTime', 'endTime'] } },
+        { name: 'calendar_update', description: 'Update an existing event', inputSchema: { type: 'object', properties: { eventId: { type: 'string' }, changes: { type: 'object' } }, required: ['eventId', 'changes'] } },
+        { name: 'calendar_delete', description: 'Delete an event', inputSchema: { type: 'object', properties: { eventId: { type: 'string' } }, required: ['eventId'] } },
+      ],
+    };
+    const result = CapabilityManifestSchema.safeParse(CAP_CALENDAR_FIXTURE);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.name).toBe('calendar');
+      expect(result.data.tools).toHaveLength(5);
+      expect(result.data.serviceName).toBeUndefined();
+    }
+  });
 });
