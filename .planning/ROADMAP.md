@@ -73,9 +73,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Contratti capability nel bridge (`CapabilityManifest`, `CapabilityTool`, `ToolCallRequest`, `ToolCallResponse`, `CapabilityRegistryEntry` canonical, `EnvSchemaField`, `EnvSchemaDoc`, `HealthStatus`) + Zod schemas + unit test + fixture reali
-- [ ] 01-02: X9 migration — `packages/types/` re-export + aggiornamento `scripts/generate-registry.ts` per produrre shape canonical + verifica registry.json generato equivalente semantico
-- [ ] 01-03: Forge v2 migration — `packages/types/src/x9.ts` re-export + aggiornamento `services/factory` per consumare canonical shape + contract test end-to-end
+- [x] 01-01: Contratti capability nel bridge (`CapabilityManifest`, `CapabilityTool`, `ToolCallRequest`, `ToolCallResponse`, `CapabilityRegistryEntry` canonical, `EnvSchemaField`, `EnvSchemaDoc`, `HealthStatus`) + Zod schemas + unit test + fixture reali
+- [x] 01-02: X9 migration — `packages/types/` re-export + aggiornamento `scripts/generate-registry.ts` per produrre shape canonical + verifica registry.json generato equivalente semantico
+- [x] 01-03: Forge v2 migration — `packages/types/src/x9.ts` re-export + aggiornamento `services/factory` per consumare canonical shape + contract test end-to-end
 
 ---
 
