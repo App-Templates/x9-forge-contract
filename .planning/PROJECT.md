@@ -33,6 +33,8 @@ Il bridge tipizza i contratti di questo modello cross-repo. Non e un runtime ser
 - ✓ `AgentIdentity` branded, `AgentContextCore`, `AgentCredentials` 17 known keys, `parseAgentContext` — Phase 2
 - ✓ `AuthInternalSecret` / `AuthInternalToken` literal discriminated types + `createBridgeClient` skeleton + Bug #15 compile-time regression guard — Phase 3
 - ✓ Forge `X9Client.reload()` pilot migration to `createBridgeClient<'secret'>` — Phase 3
+- ✓ 11 HTTP endpoint contracts typed + Forge/X9 consumers migrated + drift guard operational — Phase 4
+- ✓ `NoAuthBridgeClient` + `createBridgeClient<'none'>` factory branch; Forge `capBridgeClient` collapsed to ≤10-line wrapper (R-09) — Phase 4.1
 
 ### Active
 
@@ -150,4 +152,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-14 — Research GSD completata (STACK+FEATURES+ARCHITECTURE+PITFALLS+SUMMARY), REQUIREMENTS.md (69 req) + ROADMAP.md (7 phase, 22 plans v1.0) + STATE.md scritti. Decisioni architetturali finalizzate. Ready for /gsd-plan-phase 0*
+*Last updated: 2026-04-15 — Phase 4.1 complete (NoAuthBridgeClient + Forge capBridgeClient consolidation, R-09). Milestone v1.0 progress: 6/8 phases done. Next: Phase 5 (Vault Contracts — Block E).*
