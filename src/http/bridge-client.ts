@@ -7,6 +7,8 @@ import type { InternalTurnRequest, InternalTurnResponse } from './endpoints/inte
 import type { InternalQueryRequest, InternalQueryResponse } from './endpoints/internal-query.js';
 import type { PostCallPayload, PostCallResponse } from './endpoints/webhook-post-call.js';
 import type { VoiceRegisterRequest, VoiceRegisterResponse } from './endpoints/voice-register.js';
+import { parseSseStream } from './sse-parser.js';
+import type { ParsedSseEvent } from './sse-parser.js';
 
 /**
  * Maps an EndpointAuthType string to the required auth header type.
@@ -80,7 +82,9 @@ export interface BaseBridgeClient<A extends 'secret' | 'token'> {
  * Compile-time guarantee: only secret-auth endpoints are callable; attempting
  * to call a token-auth method (e.g. `voiceRegister`) is a TS error.
  *
- * Note: `internalTurnStream` is deferred to Plan 04-02 (SSE frames).
+ * The `internalTurnStream()` method opens an SSE connection to
+ * /internal/turn/stream and returns an AsyncGenerator of typed SSE frames
+ * (see sse-frames.ts + sse-parser.ts).
  */
 export interface SecretBridgeClient extends BaseBridgeClient<'secret'> {
   listAgents(): Promise<ListAgentsResponse>;
@@ -88,7 +92,10 @@ export interface SecretBridgeClient extends BaseBridgeClient<'secret'> {
   stopAgent(agentId: string): Promise<StopAgentResponse>;
   internalTurn(body: InternalTurnRequest): Promise<InternalTurnResponse>;
   internalQuery(body: InternalQueryRequest): Promise<InternalQueryResponse>;
-  // Phase 04-02: internalTurnStream(body, signal?) — returns AsyncIterable<TurnChunk>
+  internalTurnStream(
+    body: InternalTurnRequest,
+    signal?: AbortSignal,
+  ): Promise<AsyncGenerator<ParsedSseEvent>>;
 }
 
 /**
@@ -216,6 +223,44 @@ export function createBridgeClient<A extends 'secret' | 'token'>(
       },
       async internalQuery(body: InternalQueryRequest): Promise<InternalQueryResponse> {
         return request<InternalQueryResponse>({ method: 'POST', path: '/internal/query', body });
+      },
+      async internalTurnStream(
+        body: InternalTurnRequest,
+        signal?: AbortSignal,
+      ): Promise<AsyncGenerator<ParsedSseEvent>> {
+        const url = `${baseUrl.replace(/\/+$/, '')}/internal/turn/stream`;
+        const headers: Record<string, string> = {
+          ...auth,
+          'Content-Type': 'application/json',
+          Accept: 'text/event-stream',
+        };
+
+        const init: RequestInit = {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(body),
+        };
+        if (signal !== undefined) {
+          init.signal = signal;
+        }
+
+        const res = await fetch(url, init);
+
+        if (!res.ok) {
+          let errorBody: BridgeErrorResponse | null = null;
+          try {
+            errorBody = (await res.json()) as BridgeErrorResponse;
+          } catch {
+            // Response body is not JSON — errorBody stays null
+          }
+          throw new BridgeHttpError(res.status, errorBody);
+        }
+
+        if (!res.body) {
+          throw new Error('SSE response has no body stream');
+        }
+
+        return parseSseStream(res.body);
       },
     };
     return secretClient as BridgeClient<A>;
