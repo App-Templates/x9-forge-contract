@@ -1,5 +1,24 @@
 /**
- * Agent: placeholder Phase 0. I contratti reali arrivano in Phase 1+.
- * @see .planning/ROADMAP.md
+ * Agent domain — cross-repo contracts for agent identity, context, and credentials.
+ *
+ * @module @x9-forge/contracts/agent
+ * @see .planning/phases/02-agentcontext-split-block-b/02-RESEARCH.md
  */
-export {};
+
+// Identity (branded types)
+export { AgentIdSchema, OwnerIdSchema, AgentIdentitySchema } from './agent-identity.js';
+export type { AgentId, OwnerId, AgentIdentity } from './agent-identity.js';
+
+// Credentials (discriminated known keys + catchall)
+export {
+  KNOWN_CREDENTIAL_KEYS,
+  AgentCredentialsSchema,
+} from './agent-credentials.js';
+export type { KnownCredentialKey, AgentCredentials } from './agent-credentials.js';
+
+// Context Core (cross-repo contract)
+export { LlmConfigSchema, AgentContextCoreSchema } from './agent-context-core.js';
+export type { LlmConfig, AgentContextCore } from './agent-context-core.js';
+
+// Parser helper
+export { parseAgentContext } from './parse-agent-context.js';
