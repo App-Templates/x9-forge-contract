@@ -1,0 +1,122 @@
+import { SseFrameSchema, type SseFrame } from './sse-frames.js';
+
+/**
+ * Parsed SSE event from the text/event-stream protocol.
+ * Either a typed frame (Zod-validated) or a heartbeat/unknown.
+ */
+export type ParsedSseEvent =
+  | { kind: 'frame'; frame: SseFrame }
+  | { kind: 'heartbeat' }
+  | { kind: 'parse_error'; raw: string; error: string };
+
+/**
+ * Parse a single raw SSE frame (text between \n\n delimiters) into a typed event.
+ *
+ * SSE protocol:
+ * - Lines starting with `:` are comments (heartbeats). Return { kind: 'heartbeat' }.
+ * - Lines starting with `data:` contain JSON payload. Multiple data: lines are joined.
+ * - Other lines (event:, id:, retry:) are ignored.
+ *
+ * @param rawFrame - Raw text of one SSE frame (between \n\n boundaries)
+ * @returns Parsed event with Zod-validated frame or heartbeat/error
+ */
+export function parseSseFrame(rawFrame: string): ParsedSseEvent {
+  const lines = rawFrame.split('\n');
+  const dataLines: string[] = [];
+  let isHeartbeatOnly = true;
+
+  for (const line of lines) {
+    if (line.startsWith(':')) {
+      // SSE comment — heartbeat or keepalive
+      continue;
+    }
+    if (line.startsWith('data:')) {
+      isHeartbeatOnly = false;
+      dataLines.push(line.slice(5).trimStart());
+    } else if (line.trim().length > 0) {
+      // Non-empty, non-data, non-comment line (event:, id:, retry:)
+      isHeartbeatOnly = false;
+    }
+  }
+
+  if (dataLines.length === 0) {
+    return isHeartbeatOnly
+      ? { kind: 'heartbeat' }
+      : { kind: 'parse_error', raw: rawFrame, error: 'No data: lines found' };
+  }
+
+  const jsonStr = dataLines.join('\n');
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(jsonStr);
+  } catch {
+    return { kind: 'parse_error', raw: rawFrame, error: `Invalid JSON: ${jsonStr.slice(0, 100)}` };
+  }
+
+  const result = SseFrameSchema.safeParse(parsed);
+  if (result.success) {
+    return { kind: 'frame', frame: result.data };
+  }
+
+  return {
+    kind: 'parse_error',
+    raw: rawFrame,
+    error: `Schema validation failed: ${result.error.message.slice(0, 200)}`,
+  };
+}
+
+/**
+ * Async generator that reads a ReadableStream<Uint8Array> (from fetch Response.body)
+ * and yields typed SSE events. Handles buffering, frame splitting on \n\n,
+ * heartbeat detection, and JSON parse + Zod validation.
+ *
+ * This replaces the manual buffer management in cap-glasses agent-bridge.ts.
+ *
+ * @param stream - The Response.body ReadableStream from a fetch() call to /internal/turn/stream
+ * @yields ParsedSseEvent for each SSE frame
+ *
+ * @example
+ * ```typescript
+ * const res = await fetch(url, init);
+ * for await (const event of parseSseStream(res.body!)) {
+ *   if (event.kind === 'frame') {
+ *     switch (event.frame.type) {
+ *       case 'text': process.stdout.write(event.frame.delta); break;
+ *       case 'done': console.log('Done:', event.frame.reply); break;
+ *       case 'error': console.error('Error:', event.frame.message); break;
+ *     }
+ *   }
+ * }
+ * ```
+ */
+export async function* parseSseStream(
+  stream: ReadableStream<Uint8Array>,
+): AsyncGenerator<ParsedSseEvent> {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder('utf-8');
+  let buffer = '';
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      let frameEnd: number;
+      while ((frameEnd = buffer.indexOf('\n\n')) !== -1) {
+        const rawFrame = buffer.slice(0, frameEnd);
+        buffer = buffer.slice(frameEnd + 2);
+
+        if (rawFrame.trim().length === 0) continue;
+        yield parseSseFrame(rawFrame);
+      }
+    }
+
+    // Process any remaining buffer (stream ended without trailing \n\n)
+    if (buffer.trim().length > 0) {
+      yield parseSseFrame(buffer);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
