@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { CapabilityToolSchema } from './capability-tool.js';
+import { ModelPolicySchema } from '../model-router/model-policy.js';
 
 /**
  * Canonical cross-repo registry entry for a capability service.
@@ -13,6 +14,9 @@ import { CapabilityToolSchema } from './capability-tool.js';
  *   X9 runtime must handle both cases; see registry.ts.
  * - `protocol`: defaults to 'http' when absent. Omit for http-only services
  *   to keep registry.json compact.
+ * - `modelPolicy`: optional. Added in Phase 6 (MDRT-04). Consumer defaults
+ *   to { min: 'standard', max: 'standard' } when absent. See
+ *   @x9-forge/contracts/model-router.
  *
  * Use `toEndpoint()` to derive the full URL for HTTP calls.
  * Use `fromEndpoint()` to parse a legacy endpoint URL into this shape.
@@ -29,6 +33,20 @@ export const CapabilityRegistryEntrySchema = z.object({
   version: z.string().min(1),
   protocol: z.enum(['http', 'https']).optional(),
   tools: z.array(CapabilityToolSchema).optional(),
+  /**
+   * Optional Model Router policy — capability-scoped tier bound.
+   *
+   * Consumer MUST default to `{ min: 'standard', max: 'standard' }` when
+   * absent (D-24). The bridge does NOT supply a runtime default — that is
+   * intentionally a consumer decision to force an explicit fallback.
+   *
+   * Backward compat (D-23): entries without `modelPolicy` continue to parse
+   * green. This field is a non-breaking extension added in Phase 6.
+   *
+   * @see @x9-forge/contracts/model-router (ModelPolicySchema)
+   * @see CONTEXT D-23, D-24 (MDRT-04)
+   */
+  modelPolicy: ModelPolicySchema.optional(),
 });
 
 export type CapabilityRegistryEntry = z.infer<typeof CapabilityRegistryEntrySchema>;

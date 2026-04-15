@@ -1,0 +1,9 @@
+{
+  "_note": "SYNTHETIC — Phase 6 / MDRT-04 backward-compat (pre-Phase-6 registry shape)",
+  "name": "calendar",
+  "enabled": true,
+  "host": "cap-calendar",
+  "port": 3001,
+  "version": "1.0.0",
+  "protocol": "http"
+}
