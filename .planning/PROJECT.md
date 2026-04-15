@@ -40,8 +40,6 @@ Il bridge tipizza i contratti di questo modello cross-repo. Non e un runtime ser
 - [ ] Tutti gli 11 contratti cross-repo esistenti tipizzati in un unico package
 - [ ] Naming asimmetrico env vars documentato e risolvibile (INTERNAL_SECRET vs X9_INTERNAL_SECRET, FORGE_VOICE_REGISTER_TOKEN vs VOICE_REGISTER_TOKEN vs INTERNAL_SERVICE_TOKEN)
 - [ ] Risolvere incoerenza `X9_INTERNAL_SECRET` che vive sia in Forge platform env (`factory/src/env.ts:19`) sia nel vault per-agent (`voice.ts:95-98`) — decidere source of truth
-- [ ] Naming asimmetrico env vars documentato e risolvibile (INTERNAL_SECRET vs X9_INTERNAL_SECRET, FORGE_VOICE_REGISTER_TOKEN vs VOICE_REGISTER_TOKEN vs INTERNAL_SERVICE_TOKEN)
-- [ ] Risolvere incoerenza `X9_INTERNAL_SECRET` che vive sia in Forge platform env (`factory/src/env.ts:19`) sia nel vault per-agent (`voice.ts:95-98`) — decidere source of truth
 
 **Vault & multi-tenant contracts:**
 - [ ] Tipizzare `VaultEntry` shape (key, value encrypted, `tier: 'platform' | 'owner' | 'agent'`, `isCustomized`, `ownerId?`, `agentId?`)
@@ -75,157 +73,31 @@ Il bridge tipizza i contratti di questo modello cross-repo. Non e un runtime ser
 - **Implementazione Phase 35 Model Router** in X9 (il bridge tipizza i contratti; l'implementazione runtime resta scope di agent-x9 Phase 35)
 - **Vault credential rotation effettiva** (deferred da Stefano al lancio prodotto): il bridge tipizza i contratti di push/rotation, l'operazione concreta e deferred
 
-## Research Mandate (vincoli NON negoziabili per la ricerca GSD)
+## Research Mandate (vincoli NON negoziabili)
 
-La research e i plan derivati devono rispettare questi vincoli operativi. **Ogni plan che viola un vincolo va bloccato al plan-check.**
-
-### 1. Verificare TUTTO sul codice prima di scrivere tipi
-Non fidarsi delle descrizioni di questo PROJECT.md ne della memoria. **Per ogni contratto da tipizzare**:
-- Leggere il file sorgente in X9 e in Forge (cita `file:linea`)
-- Verificare request/response shape attuali (non teorici)
-- Verificare header auth attuali (non teorici)
-- Verificare payload JSON effettivo con un test curl o un sample dai log se possibile
-
-### 2. Zero regressioni — contract tests obbligatori
-Prima di cambiare un import in X9 o Forge:
-- Deve esistere un contract test che verifica shape request/response attuale
-- Il test deve essere green sul codice pre-modifica
-- Il test deve restare green dopo la migrazione al bridge
-- Test pyramid: unit (bridge) + integration (X9 e Forge building col bridge) + contract test cross-repo (curl end-to-end su staging)
-
-### 3. Migrazione incrementale, mai big-bang
-- Un contratto alla volta, migrato, verificato, merged — poi il prossimo
-- X9 e Forge devono compilare e funzionare DURANTE OGNI step della migrazione
-- Se uno step rompe uno dei due repo → rollback atomico del commit, no workarounds
-
-### 4. Backward compatibility cross-repo durante migration
-Mentre il bridge si popola, i vecchi tipi in `agent-x9/packages/types/` e `forge-v2/packages/types/src/x9.ts` possono **restare** come re-export dai tipi bridge (compat shim). Rimozione tipi legacy = **ultimo step** della migrazione, solo quando tutti i consumer importano da bridge.
-
-### 5. X9 production continuity
-Vincolo non negoziabile: X9 in produzione NON deve smettere di funzionare. VPS snapshot prima di ogni deploy. Rollback path testato.
-
-### 6. README update obbligatori (parte della Definition of Done)
-Quando un contratto viene migrato al bridge, aggiornare:
-- README bridge: nuovo contratto nella tabella "What this types"
-- README agent-x9: riferimento al bridge dove prima c'era tipo locale
-- README forge-v2: riferimento al bridge dove prima c'era tipo locale
-
-### 7. Non reinventare Forge multi-tenant
-Forge ha gia **3-tier vault cascade** (platform → owner → agent), `isCustomized` flag, ownership middleware, Clerk auth, deploy pipeline 10-step. **Il bridge tipizza quello che Forge fa gia**, non introduce un nuovo modello. Se la research vuole cambiare il modello Forge → deve spawnare una Phase separata in forge-v2, non infilarla nel bridge.
-
-### 8. Non reinventare X9 multi-agent
-X9 e multi-agent by design: `agent-core/src/core/agent-manager.ts` gia carica N agent da `/data/agents/*/context.json` con workspace/registry/credentials/sessioni/memoria isolate per `agentId`. **Il bridge tipizza quello che X9 fa gia**. Se la research scopre che serve un nuovo meccanismo runtime in X9 → Phase separata in agent-x9.
+1. **Verifica su codice** — leggere file:linea in X9+Forge prima di tipizzare, mai fidarsi di descrizioni
+2. **Zero regressioni** — contract test green pre e post migrazione (unit + integration + curl e2e)
+3. **Incrementale** — un contratto alla volta, mai big-bang. Rollback atomico se rompe
+4. **Backward compat** — vecchi tipi restano come re-export shim finché tutti importano da bridge
+5. **X9 continuity** — VPS snapshot prima di ogni deploy, rollback testato
+6. **README update** — aggiornare bridge+x9+forge README ad ogni contratto migrato
+7. **Non reinventare Forge** — il bridge tipizza il vault 3-tier esistente, non lo cambia
+8. **Non reinventare X9** — il bridge tipizza l'agent-manager esistente, non lo cambia
 
 ## Context
 
-### Gap analysis verificato sul codice (2026-04-14)
+### Contratti cross-repo: 11 identificati, 3 auth pattern
 
-**Verifica eseguita via Explore agent su entrambi i repo.** Citazioni file:linea disponibili nei report dei gap analysis.
+Forge→X9: 10 endpoint (6 con X-Internal-Secret, 1 con X-Internal-Token, 3 senza auth)
+X9→Forge: 1 endpoint (`/api/voice/register` POST, X-Internal-Token)
 
-#### Forge v2 — stato attuale (MOLTO avanzato)
-| Feature | Stato | Riferimento |
-|---------|-------|-------------|
-| DB multi-tenant (owners + agents.ownerId) | ✅ Implementato | `packages/db/src/schema.ts:13-39` |
-| Ownership check su routes | ✅ Middleware attivo | `services/factory/src/middleware/require-agent-ownership.ts` |
-| Vault centralizzato 3-tier (platform / owner / agent) | ✅ Implementato | `packages/db/src/schema.ts:41-55`, `services/vault/src/services/vault.service.ts:73-116` |
-| Encryption AES-256-GCM | ✅ `VAULT_KEY` env | `services/vault/src/services/vault.service.ts` |
-| Cascade resolve (agent > owner > platform) | ✅ | `vault.service.ts:73-116` |
-| `isCustomized` flag per-entry | ✅ | `vault.repo.ts:64`, `workspace_files.isCustomized` |
-| Bulk sync endpoint (`POST /api/vault/sync-all`) | ✅ | `services/vault/src/routes/vault.ts:167` |
-| Workspace sync master → agent (skip customized) | ✅ | `services/workspace/src/routes/sync.ts:88-128` |
-| UI Vault, GlobalEnv, GlobalModels | ✅ | `web/src/pages/agent/` |
-| LLM model slots per-agent | ⚠️ Parziale | default hardcoded in `AGENT_SLOT_DEFAULTS`, no tier policy |
-| Multi-tenant X9 routing (voice-svc) | ✅ Parziale | Voice-svc risolve X9 creds da vault per agent |
-| Internal API verso X9 (reload, stop, list) | ✅ | `services/factory/src/services/x9.client.ts` |
-| Push vault changes a X9 senza reload | ❌ Non esiste | Oggi: scrive context.json + `POST /reload` |
-| Tenant self-service UI | ❌ Non esiste | `SUPERADMIN_CLERK_ID` hardcoded env |
+Naming asimmetrico env: `INTERNAL_SECRET` (X9) ↔ `X9_INTERNAL_SECRET` (Forge). Bug #15 = motivazione del bridge (webhook 401 silent, zero errore TS).
 
-#### Agent X9 — stato attuale (multi-agent ready)
-| Feature | Stato | Riferimento |
-|---------|-------|-------------|
-| Multi-agent runtime (N agent da /data/agents) | ✅ Implementato | `agent-core/src/core/agent-manager.ts:1-67` |
-| AgentContext per-agent (workspace, registry, credentials) | ✅ | `agent-context.ts:1-14` |
-| Workspace isolato per `workspacePath` | ✅ | `workspace.ts:17-81` |
-| SessionStore isolato per `${agentId}-${chatId}` | ✅ | `session-store.ts:25-64` |
-| Memory Qdrant isolata per collection `agent_${agentId}_memories` | ✅ | `memory/src/client.ts:49-84` |
-| Hot-reload via `POST /internal/agents/:id/reload` | ✅ | `agent-core/src/index.ts:336-368` |
-| Endpoint `/internal/turn`, `/internal/turn/stream`, `/internal/query` | ✅ | `agent-core/src/index.ts:396-570` |
-| Endpoint `/webhook/post-call` | ❌ NON trovato | Il flow passa per Forge v2 voice-svc, non direttamente su X9 |
-| Hot-reload env var / model config senza /reload | ❌ | No watchers, no SIGHUP, solo /reload file-based |
-| Multi-user dentro singolo agent (userId filter in memory recall) | ❌ | userId nei payload ma recall non filtra |
-| Phase 35 Model Router (modelPolicy, classifier) | ❌ Not implemented | Solo design doc, zero codice |
-| `context.credentials` type-safe (non flat `Record<string,string>`) | ❌ | Flat record, zero type safety per chiave specifica |
+Gap analysis completo in `.planning/archive/research/ARCHITECTURE.md`. Forge: vault 3-tier + cascade + isCustomized ✅. X9: multi-agent runtime + hot-reload ✅. Synced vs overridden = tier platform|owner vs agent.
 
-#### Riconciliazione semantica "synced vs overridden" ↔ Forge 3-tier
-| Semantica Stefano | Forge-v2 semantica | Meccanismo |
-|-------------------|---------------------|------------|
-| `synced` (resync lo tocca) | tier `platform` o `owner` (cascade cascade da qui) | modifichi vault → propaga |
-| `overridden` (resync lo salta) | tier `agent` (cascade prende qui, override) | valore proprio, resync skip |
-| "Desync quando modifichi a mano sull'agent" | Scrivere con agentId popolato → entry tier=`agent` creata | identico |
+### Phase 35 Model Router — 5 contratti nativi del bridge
 
-Il meccanismo c'e gia in Forge — il bridge v1 deve **tipizzarlo e normalizzarlo**, non inventarlo.
-
-### Stato attuale dei contratti (scan 2026-04-13, verificato 2026-04-14)
-
-**11 contratti cross-repo identificati:**
-
-Forge -> X9 (10 endpoint):
-- `/internal/agents` GET — X-Internal-Secret
-- `/internal/agents/:id/reload` POST — X-Internal-Secret
-- `/internal/agents/:id/stop` POST — X-Internal-Secret
-- `/internal/turn` POST — X-Internal-Secret
-- `/internal/turn/stream` POST SSE — X-Internal-Secret
-- `/internal/query` POST — X-Internal-Secret
-- `/webhook/post-call` POST — X-Internal-Token
-- `/:cap/manifest` GET — nessuna auth
-- `/:cap/env-schema` GET — nessuna auth
-- `/:cap/health` GET — nessuna auth
-
-X9 -> Forge (1 endpoint):
-- `/api/voice/register` POST — X-Internal-Token
-
-**Tipi esistenti MA duplicati:**
-- X9 (`packages/types/src/capability.ts`): `ToolCallRequest`, `ToolCallResponse`, `CapabilityManifest`
-- Forge (`packages/types/src/x9.ts`): `X9AgentContext`, `X9CapabilityRegistryEntry`, `X9CapabilityManifest`, `X9EnvSchemaField`, `X9EnvSchemaDoc`
-- Divergenza concreta: `CapabilityManifest` vs `X9CapabilityManifest` — shape simile ma Forge ha `serviceName?` extra
-
-**Naming asimmetrico env vars:**
-- X9 `INTERNAL_SECRET` <-> Forge `X9_INTERNAL_SECRET`
-- X9 `FORGE_VOICE_REGISTER_TOKEN` <-> Forge `VOICE_REGISTER_TOKEN` / `INTERNAL_SERVICE_TOKEN`
-
-### Bug #15 — l'evidenza
-
-Post-call webhook 401 silent (2026-04-11). X9 Phase 21.1 aggiunse header `X-Internal-Token` obbligatorio, Forge v2 continuava a chiamare senza. Nessun errore TS, scoperto solo per osservazione empirica in produzione. Con tipi condivisi il build di Forge sarebbe fallito.
-
-### Dipendenza: Phase 35 Model Router (agent-x9) — contratti nativi del bridge v1
-
-La Phase 35 (Model Router — Two-Level Routing) introduce **5 nuovi contratti cross-repo** che NON esistono oggi e che devono nascere nel bridge v1, non essere retrofittati dopo.
-
-**Contratti Model Router inclusi nello scope v1 del bridge:**
-
-1. **`ModelTier` enum** (ordered: `standard < advanced < reasoning`) — condiviso tra Forge UI (dropdown) e agent-x9 (validazione, ordering)
-2. **`ModelTierMapping`** (`{ tier: ModelTier -> modelId: string }`, es. `standard: "gpt-4.1-mini"`) — Forge push, X9 consume per hot-reload senza redeploy
-3. **`ModelPolicy`** (`{ min: ModelTier, max: ModelTier }`) + `modelPolicy` field nel `CapabilityRegistryEntry` / `CapabilityManifest` schema condiviso
-4. **Forge Model Push API** (`/internal/model-config` POST o equivalente): request payload (tier mappings + per-cap policy overrides), response shape, header di autenticazione. **Endpoint nuovo, non ancora esistente** in nessuno dei due repo
-5. **Hot-reload notification shape** (mtime check o webhook payload, a seconda di cosa decide la ricerca)
-
-**Allineamento con ROADMAP agent-x9 Phase 35:**
-- ROUTER-01 (Model Tier Registry) -> contratto #1, #2 nel bridge
-- ROUTER-02 (Capability Model Policy) -> contratto #3 nel bridge
-- ROUTER-05 (Forge Model Push) -> contratto #4 nel bridge
-- ROUTER-06 (Hot-Reload) -> contratto #5 nel bridge
-
-**Ordine di esecuzione:**
-- Phase 35 agent-x9 **va eseguita DOPO il contract-bridge**, cosi i nuovi tipi nascono direttamente nel package condiviso
-- La stesura preliminare della Phase 35 nel ROADMAP agent-x9 NON prevedeva il contract-bridge e **va rivista** prima dell'esecuzione (deve importare dal bridge, non definire tipi in locale)
-- Forge v2 Phase 10 (UI dropdown + push layer) dipende a sua volta da Phase 35 agent-x9
-
-### Volume stimato
-
-- ~15-20 interfacce TypeScript
-- ~11 endpoint request/response da tipizzare
-- Import da aggiornare in entrambi i repo
-- Lavoro chirurgico, volume contenuto
+ModelTier enum, ModelTierMapping, ModelPolicy + modelPolicy field, Forge Model Push API (nuovo endpoint), Hot-reload notification. Ordine: bridge v1 → X9 Phase 35 → Forge Phase 10.
 
 ## Constraints
 
