@@ -6,15 +6,42 @@
     "access": "restricted"
   },
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./capability": "./dist/capability/index.js",
-    "./agent": "./dist/agent/index.js",
-    "./http": "./dist/http/index.js",
-    "./auth": "./dist/auth/index.js",
-    "./vault": "./dist/vault/index.js",
-    "./model-router": "./dist/model-router/index.js",
-    "./memory": "./dist/memory/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./capability": {
+      "types": "./dist/capability/index.d.ts",
+      "import": "./dist/capability/index.js"
+    },
+    "./agent": {
+      "types": "./dist/agent/index.d.ts",
+      "import": "./dist/agent/index.js"
+    },
+    "./http": {
+      "types": "./dist/http/index.d.ts",
+      "import": "./dist/http/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "import": "./dist/auth/index.js"
+    },
+    "./vault": {
+      "types": "./dist/vault/index.d.ts",
+      "import": "./dist/vault/index.js"
+    },
+    "./model-router": {
+      "types": "./dist/model-router/index.d.ts",
+      "import": "./dist/model-router/index.js"
+    },
+    "./memory": {
+      "types": "./dist/memory/index.d.ts",
+      "import": "./dist/memory/index.js"
+    }
   },
   "files": [
     "dist",
