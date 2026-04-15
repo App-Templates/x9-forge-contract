@@ -142,6 +142,62 @@ describe('BridgeHttpError', () => {
   });
 });
 
+describe('Typed endpoint method enforcement (Plan 04-01)', () => {
+  const secretClient = createBridgeClient({
+    baseUrl: 'http://agent-core:4100',
+    auth: { 'X-Internal-Secret': 'sec' },
+  });
+  const tokenClient = createBridgeClient({
+    baseUrl: 'http://cap-voice:3500',
+    auth: { 'X-Internal-Token': 'tok' },
+  });
+
+  it('secret client exposes listAgents as a function', () => {
+    expect(typeof secretClient.listAgents).toBe('function');
+  });
+
+  it('secret client exposes reloadAgent as a function', () => {
+    expect(typeof secretClient.reloadAgent).toBe('function');
+  });
+
+  it('secret client exposes stopAgent / internalTurn / internalQuery as functions', () => {
+    expect(typeof secretClient.stopAgent).toBe('function');
+    expect(typeof secretClient.internalTurn).toBe('function');
+    expect(typeof secretClient.internalQuery).toBe('function');
+  });
+
+  it('token client exposes postCallWebhook as a function', () => {
+    expect(typeof tokenClient.postCallWebhook).toBe('function');
+  });
+
+  it('token client exposes voiceRegister as a function', () => {
+    expect(typeof tokenClient.voiceRegister).toBe('function');
+  });
+
+  it('compile-time guards: secret client has no token methods (and vice versa)', () => {
+    // These permanent @ts-expect-error directives fail `tsc` if the type
+    // constraints are ever weakened (e.g., both client types expose all
+    // methods). `@ts-expect-error` on a valid property access becomes an
+    // "unused directive" error.
+
+    // @ts-expect-error — secret client does NOT have voiceRegister
+    const _noVoiceOnSecret: typeof secretClient.voiceRegister = undefined;
+    // @ts-expect-error — secret client does NOT have postCallWebhook
+    const _noPostCallOnSecret: typeof secretClient.postCallWebhook = undefined;
+    // @ts-expect-error — token client does NOT have listAgents
+    const _noListOnToken: typeof tokenClient.listAgents = undefined;
+    // @ts-expect-error — token client does NOT have reloadAgent
+    const _noReloadOnToken: typeof tokenClient.reloadAgent = undefined;
+
+    void _noVoiceOnSecret;
+    void _noPostCallOnSecret;
+    void _noListOnToken;
+    void _noReloadOnToken;
+
+    expect(true).toBe(true);
+  });
+});
+
 describe('Bug #15 regression — runtime auth type verification', () => {
   // Bug #15 context: Forge voice-svc called X9 /webhook/post-call without
   // X-Internal-Token header. With the bridge's discriminated auth types,
