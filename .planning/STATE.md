@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
-status: executing
-stopped_at: Phase 5 context gathered (auto mode)
-last_updated: "2026-04-15T21:41:34.984Z"
-last_activity: 2026-04-15 -- Phase 5 planning complete
+status: verifying
+stopped_at: Phase 5 complete — verification PASSED (6/6 success, 8/8 req, 287/287 bridge tests, 54/54 Forge vault tests). Ready for Phase 6 (Model Router, Block F).
+last_updated: "2026-04-15T23:55:00.000Z"
+last_activity: 2026-04-15 -- Phase 5 complete (auto chain discuss→plan→execute→verify)
 progress:
   total_phases: 9
-  completed_phases: 3
-  total_plans: 14
-  completed_plans: 15
+  completed_phases: 4
+  total_plans: 17
+  completed_plans: 18
   percent: 100
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilita DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 5 — Vault Contracts (Block E) — pending planning
+**Current focus:** Phase 6 — Model Router Contracts (Block F) — pending discuss/plan
 
 ## Current Position
 
-Phase: 5
+Phase: 6 (Model Router Contracts (Block F)) — NEXT
 Plan: Not started
-Status: Ready to execute
-Last activity: 2026-04-15 -- Phase 5 planning complete
+Status: Phase 5 verified — ready for Phase 6
+Last activity: 2026-04-15
 
-Progress: ████████░░ 70% (19/27 plans v1.0, Phases 0/1/2/3/4/4.1 done)
+Progress: ████████▓░ 81% (22/27 plans v1.0, Phases 0/1/2/3/4/4.1/5 done, Phase M mini-phase done)
 
 ### Phase 0 detail (all done)
 
@@ -67,6 +67,17 @@ Progress: ████████░░ 70% (19/27 plans v1.0, Phases 0/1/2/3/4
 - ✅ 03-01 Auth headers discriminated + createBridgeClient skeleton (bridge)
 - ✅ 03-02 Forge pilot — `X9Client.reload()` migrated to createBridgeClient
 - Bug #15 class compile-time regression guard landed
+
+### Phase 5 detail — ✅ 2026-04-15
+
+- ✅ 05-01 informational — research pointer + Q1/Q2 frozen resolutions + T-05-01/T-05-02 recorded (0 code changes)
+- ✅ 05-02 Bridge: `VaultTier`, `VaultSyncState`+`toSyncState`, `VaultEntryPlain`/`Encrypted` with T-05-01 `.refine()` guard, `SyncAllRequest/Response` + `SyncAgentResult`, `WorkspaceFile`, `PlatformBootstrapEnv` (type-only), `AgentVaultedCredentials` re-export alias, barrel + sub-path `@x9-forge/contracts/vault` (+47 tests)
+- ✅ 05-03 Forge migration: `packages/types/src/vault.ts` shim (re-export), `vault.repo.ts` + `vault.service.ts` type-only imports from bridge, `sync-all.contract.test.ts` drift guard (+3 Forge tests)
+- Cross-repo drift guard CONFIRMED: bridge schema change → Forge contract test fails (Phase 4 pattern replicated)
+- Test totals: Bridge 287 (+59), Forge vault-svc 54 (+3) — all green
+- Auto-chain discuss → plan → execute → verify in one session (assumptions mode + 10 gray areas auto-resolved + planner iter 2 after 3 warnings)
+- Code deviations (non-blocking, documented in 05-03-SUMMARY): WorkspaceFile omitted from `@forge/types` barrel (name collision with Forge-local); test path uses plural `tests/routes/`; AES regex tightened `[0-9a-f]+` → `[0-9a-f]{2,}`
+- Resolved open risk: ~~Phase 5 AES wire format shape~~ (reconciled from `forge-v2/services/vault/src/lib/crypto.ts:29-36`)
 
 ### Phase 4 detail — ✅ 2026-04-15
 
@@ -137,7 +148,7 @@ None yet (use /gsd-add-todo se emergono idee).
 None attivi. Research ha surfacciato 4 open questions da risolvere nei research-phase dedicati:
 
 - ~~Phase 2: edge case context.json produzione~~ RESOLVED — VPS staging empty, shape from code analysis, 17 known keys cataloged
-- Phase 5: shape esatto AES encryption vault (iv/authTag/encoding) in `vault.service.ts`
+- ~~Phase 5: shape esatto AES encryption vault (iv/authTag/encoding) in `vault.service.ts`~~ RESOLVED 2026-04-15 — regex `^[0-9a-f]{24}:[0-9a-f]{32}:[0-9a-f]{2,}$` adopted from `forge-v2/services/vault/src/lib/crypto.ts:29-36`
 - Phase 6: coordinamento shape Model Router con agent-x9 Phase 35 design
 - Phase 4: verifica Dockerfile X9 per evitare P-15 (monorepo hoisting failures)
 

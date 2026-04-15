@@ -22,7 +22,7 @@ Il bridge nasce come "strangler fig su tipi": il pacchetto `@x9-forge/contracts`
 - [x] **Phase 2: AgentContext Split (Block B)** ✅ 2026-04-15 — AgentContextCore + branded IDs + AgentCredentials 17 known keys + parseAgentContext, X9 AgentContextRuntime extends Core, Forge re-export
 - [ ] **Phase 3: Auth Headers Discriminated (Block C)** — chiude Bug #15 compile-time
 - [ ] **Phase 4: HTTP Endpoint Contracts (Block D)** — 11 endpoint + typed HTTP client
-- [ ] **Phase 5: Vault Contracts (Block E)** — 3-tier + sync state + AES encryption separation
+- [x] **Phase 5: Vault Contracts (Block E)** ✅ 2026-04-15 — `VaultTier`+`SyncState`+`toSyncState`, `VaultEntryPlain`/`Encrypted` with T-05-01 `.refine()` guard, `SyncAll*`, `WorkspaceFile`, `PlatformBootstrapEnv` (type-only, T-05-02), `AgentVaultedCredentials` re-export. Sub-path `@x9-forge/contracts/vault`. Forge migration + drift guard (+47 bridge tests, +3 Forge contract tests)
 - [ ] **Phase 6: Model Router Contracts (Block F)** — greenfield, prerequisito Phase 35 X9
 - [ ] **Phase 7: Shim Removal + Final Consolidation** (opzionale) — rimuove compat shim, enforce direct imports
 
@@ -181,9 +181,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: Research-phase — shape esatto AES encryption in Forge (iv/authTag/encoding) via `vault.service.ts`, shape canonical `VaultSyncEvent` payload
-- [ ] 05-02: Bridge — `VaultTier`, `VaultSyncState`, `VaultEntryPlain`, `VaultEntryEncrypted`, `VaultSyncEvent`, `WorkspaceFile`, `PlatformBootstrapEnv`, `AgentVaultedCredentials` + Zod schemas + unit test
-- [ ] 05-03: Forge migration — `vault.service.ts`, `vault.repo.ts`, `workspace.service.ts` usano schema bridge, contract test bulk sync
+- [x] 05-01: Research-phase — AES wire format + VaultSyncEvent payload reconciled (RESEARCH.md 867 lines, HIGH confidence)
+- [x] 05-02: Bridge — 7 modules + barrel + sub-path `@x9-forge/contracts/vault` + 47 tests (T-05-01 guard live)
+- [x] 05-03: Forge migration — `packages/types/src/vault.ts` shim + vault.repo/service type imports + sync-all contract drift guard (+3 Forge tests)
 
 ---
 
@@ -251,7 +251,7 @@ Phase 4 e 5 sono parzialmente parallelizzabili (dopo 3). Phase 6 dipende da 1+4.
 | 2. AgentContext Split (Block B) | 3/3 | Complete | 2026-04-15 |
 | 3. Auth Headers Discriminated (Block C) | 0/2 | Not started | - |
 | 4. HTTP Endpoint Contracts (Block D) | 0/4 | Not started | - |
-| 5. Vault Contracts (Block E) | 0/3 | Not started | - |
+| 5. Vault Contracts (Block E) | 3/3 | Complete | 2026-04-15 |
 | 6. Model Router Contracts (Block F) | 0/3 | Not started | - |
 | 7. Shim Removal + Consolidation (opzionale) | 0/2 | Not started | - |
 
