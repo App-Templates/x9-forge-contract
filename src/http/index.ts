@@ -37,3 +37,27 @@ export type { EndpointContract } from './endpoint-contract.js';
 
 // All endpoint contracts (request/response schemas + contract metadata)
 export * from './endpoints/index.js';
+
+// SSE frame shapes for /internal/turn/stream
+export {
+  SseTextFrameSchema,
+  SseToolCallStartFrameSchema,
+  SseToolCallEndFrameSchema,
+  SseDoneFrameSchema,
+  SseErrorFrameSchema,
+  SseAbortedFrameSchema,
+  SseFrameSchema,
+} from './sse-frames.js';
+export type {
+  SseTextFrame,
+  SseToolCallStartFrame,
+  SseToolCallEndFrame,
+  SseDoneFrame,
+  SseErrorFrame,
+  SseAbortedFrame,
+  SseFrame,
+} from './sse-frames.js';
+
+// SSE parser helpers
+export { parseSseFrame, parseSseStream } from './sse-parser.js';
+export type { ParsedSseEvent } from './sse-parser.js';
