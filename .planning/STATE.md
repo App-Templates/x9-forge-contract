@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
 status: verifying
-stopped_at: Phase 04 complete — verification PASSED, ready for Phase 5 planning
+stopped_at: Phase 04.1 complete — verification PASSED (9/9 must-haves), ready for Phase 5 planning (Vault Contracts Block E)
 last_updated: "2026-04-15T20:41:35.288Z"
 last_activity: 2026-04-15
 progress:
@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilita DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 05 — memory-engine (pending planning)
+**Current focus:** Phase 5 — Vault Contracts (Block E) — pending planning
 
 ## Current Position
 
