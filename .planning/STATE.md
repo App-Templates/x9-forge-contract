@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Bridge Foundation
 status: executing
-stopped_at: Phase 01 complete, transitioning to Phase 02 (AgentContext Split)
-last_updated: "2026-04-15T14:27:19.401Z"
-last_activity: 2026-04-15 -- Phase 2 planning complete
+stopped_at: Phase 02 planned (3 plans, 3 waves), ready to execute
+last_updated: "2026-04-15T16:30:00.000Z"
+last_activity: 2026-04-15 -- Phase 2 planned (research + 3 plans + validation + checker passed)
 progress:
   total_phases: 8
-  completed_phases: 1
-  total_plans: 11
+  completed_phases: 2
+  total_plans: 12
   completed_plans: 7
-  percent: 64
+  percent: 58
 ---
 
 # Project State
@@ -29,7 +29,7 @@ Phase: 2
 Status: Ready to execute
 Last activity: 2026-04-15 -- Phase 2 planning complete
 
-Progress: ██░░░░░░░░ 22% (5/23 plans v1.0)
+Progress: ███░░░░░░░ 30% (7/23 plans v1.0, Phase 2 planned)
 
 ### Phase 0 detail (all done)
 
@@ -51,6 +51,15 @@ Progress: ██░░░░░░░░ 22% (5/23 plans v1.0)
 - ✅ 01-02 X9 migration shim validated (agent-core dep fix, typecheck green)
 - ✅ 01-03 Forge x9.ts migrated to bridge re-exports (229 Forge tests green)
 - Verification: PASSED 17/17 must-haves
+
+### Phase 2 detail — Planned, ready to execute
+
+- ○ 02-01 VPS context.json inventory + edge case detection (wave 1, **non-autonomous — SSH**)
+- ○ 02-02 Bridge: AgentIdentity branded, AgentContextCore, AgentCredentials 16 keys, parseAgentContext (wave 2)
+- ○ 02-03 X9 migration: AgentContextRuntime extends Core, agent-manager, compat shim (wave 3)
+- Research: 02-RESEARCH.md committed
+- Validation: 02-VALIDATION.md committed
+- Checker: passed after 1 revision (7 warnings fixed, 0 blockers)
 
 ### Open risks carried forward
 
@@ -104,8 +113,9 @@ None attivi. Research ha surfacciato 4 open questions da risolvere nei research-
 ## Session Continuity
 
 Last session: 2026-04-15
-Stopped at: Phase 01 complete, transitioning to Phase 02 (AgentContext Split)
+Stopped at: Phase 02 planned (3 plans, 3 waves), ready to execute. Plan 02-01 is non-autonomous (SSH to VPS needed).
 Resume file: None
+Next action: /gsd-execute-phase 2
 
 ## Remote & baseline
 
