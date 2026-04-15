@@ -247,3 +247,60 @@ describe('Bug #15 regression — runtime auth type verification', () => {
     // TS compile-time: createBridgeClient<'secret'>({ auth: { 'X-Internal-Token': 'x' } }) would be a type error
   });
 });
+
+describe('WR-02 regression — auth headers are not overridable by options.headers', () => {
+  // WR-02 context (04-REVIEW.md): a caller passing `headers: { 'X-Internal-Secret': 'hijacked' }`
+  // to request() could accidentally (or maliciously) override the auth configured
+  // at createBridgeClient() time. Fix landed as `...options.headers` BEFORE `...auth`
+  // in the header merge at bridge-client.ts — auth always wins.
+  // This test asserts the invariant via a mock fetch.
+  const originalFetch = globalThis.fetch;
+  const makeMockFetch = (captured: { headers?: Record<string, string> } = {}) => {
+    return async (_url: string | URL | Request, init?: RequestInit): Promise<Response> => {
+      captured.headers = init?.headers as Record<string, string>;
+      return new Response(JSON.stringify({ ok: true, data: {} }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    };
+  };
+
+  it('caller-supplied options.headers CANNOT override configured auth header', async () => {
+    const captured: { headers?: Record<string, string> } = {};
+    globalThis.fetch = makeMockFetch(captured) as typeof fetch;
+    try {
+      const client = createBridgeClient({
+        baseUrl: 'http://agent-core:4100',
+        auth: { 'X-Internal-Secret': 'real-secret' },
+      });
+      await client.request({
+        method: 'GET',
+        path: '/x',
+        headers: { 'X-Internal-Secret': 'hijacked-by-caller' },
+      });
+      expect(captured.headers?.['X-Internal-Secret']).toBe('real-secret');
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('caller-supplied options.headers DO pass through for non-auth keys', async () => {
+    const captured: { headers?: Record<string, string> } = {};
+    globalThis.fetch = makeMockFetch(captured) as typeof fetch;
+    try {
+      const client = createBridgeClient({
+        baseUrl: 'http://agent-core:4100',
+        auth: { 'X-Internal-Secret': 'real-secret' },
+      });
+      await client.request({
+        method: 'GET',
+        path: '/x',
+        headers: { 'X-Request-Id': 'req-42' },
+      });
+      expect(captured.headers?.['X-Request-Id']).toBe('req-42');
+      expect(captured.headers?.['X-Internal-Secret']).toBe('real-secret');
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+});
