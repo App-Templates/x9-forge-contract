@@ -52,28 +52,27 @@ export type MemoryStatus = z.infer<typeof MemoryStatusSchema>;
 /**
  * MemoryCorrectiveAction — operazioni correttive applicabili a una memory entry.
  *
+ * Allineato 1:1 con ADR §14.3 `POST /internal/memory/correct` e ADR §8.7
+ * `memory_feedback.action` allowed values.
+ *
  * - `invalidate`: marca come `invalidated` (contraddetta).
+ * - `forget`: hard delete (compliance / erasure request). Distruttivo.
+ * - `redact`: rimuove contenuto, mantiene metadata (compliance / GDPR).
  * - `pin`: forza alta priorità nel recall.
  * - `promote`: innalza scope (es. agent → owner) quando emerge rilevanza cross-agent.
  * - `demote`: abbassa scope.
- * - `redact`: rimuove contenuto, mantiene metadata (compliance / GDPR).
- * - `merge`: consolida N entry in 1 (deduplicazione semantica). Deprecated: preferire `merge_entity`.
- * - `forget`: hard delete (compliance / erasure request). Distruttivo.
  * - `merge_entity`: consolida due entity canoniche in una (entity resolution admin action).
  * - `split_entity`: separa un'entity erroneamente mergiata in due distinte.
  * - `mark_sensitive`: eleva `privacy_level` a `sensitive`/`secret` — disattiva Qdrant projection se policy lo richiede.
  * - `change_retention`: modifica `retention_class` / `ttl_days` su una memory entry specifica.
- *
- * Phase 36.1 (Memory Engine v2): +4 values allineati con ADR §14.3 API surface.
  */
 export const MemoryCorrectiveActionSchema = z.enum([
   'invalidate',
+  'forget',
+  'redact',
   'pin',
   'promote',
   'demote',
-  'redact',
-  'merge',
-  'forget',
   'merge_entity',
   'split_entity',
   'mark_sensitive',

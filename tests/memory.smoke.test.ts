@@ -56,19 +56,25 @@ describe('memory contracts — enums', () => {
     expect(MemoryStatusSchema.safeParse('unknown').success).toBe(false);
   });
 
-  it('MemoryCorrectiveAction covers original 7 actions', () => {
-    for (const a of ['invalidate', 'pin', 'promote', 'demote', 'redact', 'merge', 'forget']) {
+  it('MemoryCorrectiveAction accepts all 10 actions aligned with ADR §14.3', () => {
+    for (const a of [
+      'invalidate',
+      'forget',
+      'redact',
+      'pin',
+      'promote',
+      'demote',
+      'merge_entity',
+      'split_entity',
+      'mark_sensitive',
+      'change_retention',
+    ]) {
       expect(MemoryCorrectiveActionSchema.safeParse(a).success).toBe(true);
     }
     expect(MemoryCorrectiveActionSchema.safeParse('delete').success).toBe(false);
-  });
-
-  it('MemoryCorrectiveAction Phase 36.1 additions (merge_entity/split_entity/mark_sensitive/change_retention)', () => {
-    for (const a of ['merge_entity', 'split_entity', 'mark_sensitive', 'change_retention']) {
-      expect(MemoryCorrectiveActionSchema.safeParse(a).success).toBe(true);
-    }
-    // Total 11 values; nothing else passes
     expect(MemoryCorrectiveActionSchema.safeParse('archive').success).toBe(false);
+    // Legacy 'merge' was removed — use 'merge_entity'
+    expect(MemoryCorrectiveActionSchema.safeParse('merge').success).toBe(false);
   });
 });
 
