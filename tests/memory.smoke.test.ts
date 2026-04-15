@@ -44,11 +44,31 @@ describe('memory contracts — enums', () => {
     expect(MemoryStatusSchema.safeParse('pending').success).toBe(false);
   });
 
-  it('MemoryCorrectiveAction covers invalidate/pin/promote/demote/redact/merge/forget', () => {
+  it('MemoryStatus Phase 36.1 additions (draft/rejected/needs_review)', () => {
+    for (const s of ['draft', 'rejected', 'needs_review']) {
+      expect(MemoryStatusSchema.safeParse(s).success).toBe(true);
+    }
+    // Backward compat: old 5 values still valid
+    for (const s of ['active', 'invalidated', 'superseded', 'redacted', 'archived']) {
+      expect(MemoryStatusSchema.safeParse(s).success).toBe(true);
+    }
+    // Total 8 values, nothing else passes
+    expect(MemoryStatusSchema.safeParse('unknown').success).toBe(false);
+  });
+
+  it('MemoryCorrectiveAction covers original 7 actions', () => {
     for (const a of ['invalidate', 'pin', 'promote', 'demote', 'redact', 'merge', 'forget']) {
       expect(MemoryCorrectiveActionSchema.safeParse(a).success).toBe(true);
     }
     expect(MemoryCorrectiveActionSchema.safeParse('delete').success).toBe(false);
+  });
+
+  it('MemoryCorrectiveAction Phase 36.1 additions (merge_entity/split_entity/mark_sensitive/change_retention)', () => {
+    for (const a of ['merge_entity', 'split_entity', 'mark_sensitive', 'change_retention']) {
+      expect(MemoryCorrectiveActionSchema.safeParse(a).success).toBe(true);
+    }
+    // Total 11 values; nothing else passes
+    expect(MemoryCorrectiveActionSchema.safeParse('archive').success).toBe(false);
   });
 });
 

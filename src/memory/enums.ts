@@ -25,18 +25,27 @@ export type MemoryType = z.infer<typeof MemoryTypeSchema>;
 /**
  * MemoryStatus — stato del ciclo di vita della memoria.
  *
+ * - `draft`: scritta ma non ancora promossa ad attiva (extraction candidate in attesa di conflict resolution o gate).
  * - `active`: in uso, recuperabile dal recall.
  * - `invalidated`: rigettata (dato errato / contraddetto). Non più recuperabile ma conservata per audit.
  * - `superseded`: sostituita da una versione successiva (vedi TemporalSemantics.supersededBy).
  * - `redacted`: contenuto rimosso per privacy / compliance, metadata ritenuti.
  * - `archived`: fuori da recall attivo ma preservata (retention policy cold).
+ * - `rejected`: classificata ma NON promossa — contenuto banale / low-confidence / assistant self-talk.
+ * - `needs_review`: ambigua — entity ambiguity, conflict unresolved, privacy uncertain; richiede admin review.
+ *
+ * Phase 36.1 (Memory Engine v2): +3 values (`draft`, `rejected`, `needs_review`) per ADR §5.1.
+ * Consumers con exhaustive switch devono aggiornare per evitare TS narrowing errors.
  */
 export const MemoryStatusSchema = z.enum([
+  'draft',
   'active',
   'invalidated',
   'superseded',
   'redacted',
   'archived',
+  'rejected',
+  'needs_review',
 ]);
 export type MemoryStatus = z.infer<typeof MemoryStatusSchema>;
 
@@ -48,8 +57,14 @@ export type MemoryStatus = z.infer<typeof MemoryStatusSchema>;
  * - `promote`: innalza scope (es. agent → owner) quando emerge rilevanza cross-agent.
  * - `demote`: abbassa scope.
  * - `redact`: rimuove contenuto, mantiene metadata (compliance / GDPR).
- * - `merge`: consolida N entry in 1 (deduplicazione semantica).
+ * - `merge`: consolida N entry in 1 (deduplicazione semantica). Deprecated: preferire `merge_entity`.
  * - `forget`: hard delete (compliance / erasure request). Distruttivo.
+ * - `merge_entity`: consolida due entity canoniche in una (entity resolution admin action).
+ * - `split_entity`: separa un'entity erroneamente mergiata in due distinte.
+ * - `mark_sensitive`: eleva `privacy_level` a `sensitive`/`secret` — disattiva Qdrant projection se policy lo richiede.
+ * - `change_retention`: modifica `retention_class` / `ttl_days` su una memory entry specifica.
+ *
+ * Phase 36.1 (Memory Engine v2): +4 values allineati con ADR §14.3 API surface.
  */
 export const MemoryCorrectiveActionSchema = z.enum([
   'invalidate',
@@ -59,5 +74,9 @@ export const MemoryCorrectiveActionSchema = z.enum([
   'redact',
   'merge',
   'forget',
+  'merge_entity',
+  'split_entity',
+  'mark_sensitive',
+  'change_retention',
 ]);
 export type MemoryCorrectiveAction = z.infer<typeof MemoryCorrectiveActionSchema>;
