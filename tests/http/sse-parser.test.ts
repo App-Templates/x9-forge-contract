@@ -50,6 +50,26 @@ describe('parseSseFrame (pure function)', () => {
     expect(result.kind).toBe('heartbeat');
   });
 
+  it('WR-04: returns heartbeat for event:-only frame (dataless but non-empty)', () => {
+    // An `event: ping` frame with no `data:` lines is spec-valid SSE
+    // (see: https://html.spec.whatwg.org/multipage/server-sent-events.html).
+    // Pre-fix, a non-data line set isHeartbeatOnly=false and frames were not
+    // classified as heartbeat; post-fix, dataLines.length===0 short-circuits
+    // to heartbeat regardless of event:/id:/retry: presence.
+    const result = parseSseFrame('event: ping');
+    expect(result.kind).toBe('heartbeat');
+  });
+
+  it('WR-04: returns heartbeat for id:-only frame (dataless but non-empty)', () => {
+    const result = parseSseFrame('id: 42');
+    expect(result.kind).toBe('heartbeat');
+  });
+
+  it('WR-04: returns heartbeat for retry:-only frame (dataless but non-empty)', () => {
+    const result = parseSseFrame('retry: 5000');
+    expect(result.kind).toBe('heartbeat');
+  });
+
   it('returns parse_error for invalid JSON in data line', () => {
     const result = parseSseFrame('data: not-valid-json');
     expect(result.kind).toBe('parse_error');
