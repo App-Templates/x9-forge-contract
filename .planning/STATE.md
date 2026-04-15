@@ -109,6 +109,10 @@ Progress: ███████░░░ 63% (17/27 plans v1.0, Phases 0/1/2/3/4
 
 ## Accumulated Context
 
+### Roadmap Evolution
+
+- Phase 04.1 inserted after Phase 4 (2026-04-15): NoAuthBridgeClient + consolidate capBridgeClient helpers (R-09) — surfaced during Phase 4 execution, both 04-03 (X9) and 04-04 (Forge) had to write local `capBridgeClient` helpers because `createBridgeClient` lacks `'none'` auth variant. Surgical mini-phase to add `NoAuthBridgeClient` to bridge then collapse the duplicated helpers.
+
 ### Decisions
 
 Recent decisions (full log in PROJECT.md Key Decisions):

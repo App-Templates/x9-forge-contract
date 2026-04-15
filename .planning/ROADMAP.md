@@ -152,6 +152,16 @@ Plans:
 
 ---
 
+### Phase 04.1: NoAuthBridgeClient + consolidate capBridgeClient helpers (R-09) (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 4
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 04.1 to break down)
+
 ### Phase 5: Vault Contracts (Block E)
 
 **Goal**: I contratti del vault 3-tier sono tipizzati nel bridge. `VaultEntryEncrypted` (AES wire format) e distinto da `VaultEntryPlain` (post-decrypt DTO). `VaultSyncState` riconcilia la semantica "synced/overridden" con i tier platform/owner/agent. `PlatformBootstrapEnv` distingue le env bootstrap (non-vaulted) dalle `AgentVaultedCredentials`. Il `POST /api/vault/sync-all` esistente in Forge viene tipizzato.
