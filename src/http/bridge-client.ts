@@ -164,9 +164,9 @@ export function createBridgeClient<A extends 'secret' | 'token'>(
   async function request<T = unknown>(options: BridgeRequestOptions): Promise<T> {
     const url = `${baseUrl.replace(/\/+$/, '')}${options.path}`;
     const headers: Record<string, string> = {
-      ...auth,
-      ...(options.body !== undefined ? { 'Content-Type': 'application/json' } : {}),
       ...options.headers,
+      ...(options.body !== undefined ? { 'Content-Type': 'application/json' } : {}),
+      ...auth,
     };
 
     const init: RequestInit = {
