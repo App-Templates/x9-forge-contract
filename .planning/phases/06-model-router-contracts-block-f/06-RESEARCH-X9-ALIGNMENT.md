@@ -101,11 +101,14 @@ Summary handoff:
 
 ## Cross-Repo Handoff Record
 
-_Populated by task 06-01-03 after agent-x9 ROADMAP commit._
+Populated by task 06-01-03 after agent-x9 ROADMAP commit.
 
-- agent-x9 branch: (pending — see 06-01-03 execution notes)
-- agent-x9 commit SHA: (pending)
+- agent-x9 branch: `chore/bridge-v1.0-resync-and-mdrt07` (off main `8fb75ca`)
+- agent-x9 commit SHA: `43adee5`
 - agent-x9 commit message: `docs(phase-35): cite bridge @x9-forge/contracts/model-router as SSOT (from x9-forge-contract-bridge 06-01-03)`
-- Date: (pending)
+- Companion commit (re-vendor): `29bc2c1` `chore(vendor): resync bridge to b4863ab (v1.0 + IN-02/03 cleanup)`
+- Bridge SHA cited / vendored: `b4863ab` (v1.0 + IN-02 + IN-03)
+- Date: 2026-04-16
+- PR: not yet opened — branch pushed to origin; opening PR is operator's call
 
 ## RESEARCH-X9-ALIGNMENT COMPLETE
