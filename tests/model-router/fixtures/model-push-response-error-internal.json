@@ -1,0 +1,6 @@
+{
+  "_note": "SYNTHETIC — Phase 6 fixture",
+  "ok": false,
+  "code": "INTERNAL_ERROR",
+  "message": "Unexpected server error during model config apply"
+}

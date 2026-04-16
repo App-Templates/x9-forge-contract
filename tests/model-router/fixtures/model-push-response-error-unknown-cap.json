@@ -1,0 +1,7 @@
+{
+  "_note": "SYNTHETIC — Phase 6 fixture",
+  "ok": false,
+  "code": "UNKNOWN_CAP",
+  "message": "perCapPolicies references capabilities not found in registry",
+  "details": [{ "capName": "xyz", "reason": "not in registry" }]
+}

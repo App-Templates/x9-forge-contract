@@ -1,0 +1,6 @@
+{
+  "_note": "SYNTHETIC — Phase 6 fixture, see SYNTHETIC-NOTES.md",
+  "providers": {
+    "openai": { "standard": "gpt-4.1-mini", "advanced": "o4-mini", "reasoning": "o3" }
+  }
+}

@@ -1,10 +1,20 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   CapabilityRegistryEntrySchema,
   toEndpoint,
   fromEndpoint,
   type CapabilityRegistryEntry,
 } from '../../src/capability/index';
+
+const FIXTURES_DIR = join(fileURLToPath(new URL('.', import.meta.url)), 'fixtures');
+function loadFixture(name: string): Record<string, unknown> {
+  const raw = JSON.parse(readFileSync(join(FIXTURES_DIR, name), 'utf8')) as Record<string, unknown>;
+  const { _note: _ignored, ...rest } = raw;
+  return rest;
+}
 
 // Canonical entries as Forge writes them (no tools, no protocol)
 const FORGE_ENTRY: CapabilityRegistryEntry = {
@@ -134,5 +144,39 @@ describe('fromEndpoint', () => {
 
   it('throws on malformed URL', () => {
     expect(() => fromEndpoint('not-a-url', { name: 'x', enabled: true, version: '1.0.0' })).toThrow();
+  });
+});
+
+describe('CapabilityRegistryEntrySchema — modelPolicy extension (MDRT-04)', () => {
+  it('accepts entry with valid modelPolicy (fixture f)', () => {
+    const entry = loadFixture('registry-entry-with-model-policy.json');
+    const parsed = CapabilityRegistryEntrySchema.parse(entry);
+    expect(parsed.modelPolicy).toEqual({ min: 'standard', max: 'reasoning' });
+  });
+
+  it('accepts entry without modelPolicy — backward-compat (fixture g)', () => {
+    const entry = loadFixture('registry-entry-without-model-policy.json');
+    const parsed = CapabilityRegistryEntrySchema.parse(entry);
+    expect(parsed.modelPolicy).toBeUndefined();
+  });
+
+  it('rejects entry with invalid modelPolicy (min > max) — transitive refine', () => {
+    const bad = {
+      name: 'x', enabled: true, host: 'h', port: 1, version: '1',
+      modelPolicy: { min: 'reasoning', max: 'standard' },
+    };
+    const res = CapabilityRegistryEntrySchema.safeParse(bad);
+    expect(res.success).toBe(false);
+    if (!res.success) {
+      const msgs = res.error.issues.map((i) => i.message).join(' | ');
+      expect(msgs).toMatch(/min=reasoning.*max=standard/);
+    }
+  });
+
+  it('toEndpoint / fromEndpoint baselines unchanged (modelPolicy does not affect helpers)', () => {
+    const entry = CapabilityRegistryEntrySchema.parse(loadFixture('registry-entry-with-model-policy.json'));
+    expect(toEndpoint(entry)).toBe('http://cap-briefing:3000');
+    const round = fromEndpoint('http://cap-briefing:3000', { name: 'briefing', enabled: true, version: '1.0.0' });
+    expect(round.modelPolicy).toBeUndefined();
   });
 });

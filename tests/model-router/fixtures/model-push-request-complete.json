@@ -1,0 +1,19 @@
+{
+  "_note": "SYNTHETIC — Phase 6 fixture, see SYNTHETIC-NOTES.md",
+  "providers": {
+    "openai":    { "standard": "gpt-4.1-mini", "advanced": "o4-mini", "reasoning": "o3" },
+    "anthropic": { "standard": "claude-haiku", "advanced": "claude-sonnet", "reasoning": "claude-opus-4-6" },
+    "google":    { "standard": "gemini-flash", "advanced": "gemini-pro", "reasoning": "gemini-ultra" }
+  },
+  "perCapPolicies": {
+    "briefing": { "min": "standard", "max": "advanced" },
+    "calendar": { "min": "standard", "max": "standard" }
+  },
+  "perAgentOverrides": [
+    {
+      "agentId": { "agentId": "stefano", "ownerId": "owner_1" },
+      "policy": { "min": "reasoning", "max": "reasoning" },
+      "tierMapping": { "reasoning": "claude-opus-4-6" }
+    }
+  ]
+}

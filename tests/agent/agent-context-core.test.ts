@@ -74,17 +74,17 @@ describe('AgentContextCoreSchema', () => {
   });
 
   it('rejects missing agentId', () => {
-    const { agentId, ...rest } = VALID_CORE;
+    const { agentId: _agentId, ...rest } = VALID_CORE;
     expect(() => AgentContextCoreSchema.parse(rest)).toThrow();
   });
 
   it('rejects missing credentials', () => {
-    const { credentials, ...rest } = VALID_CORE;
+    const { credentials: _credentials, ...rest } = VALID_CORE;
     expect(() => AgentContextCoreSchema.parse(rest)).toThrow();
   });
 
   it('rejects missing llmConfig', () => {
-    const { llmConfig, ...rest } = VALID_CORE;
+    const { llmConfig: _llmConfig, ...rest } = VALID_CORE;
     expect(() => AgentContextCoreSchema.parse(rest)).toThrow();
   });
 });

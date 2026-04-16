@@ -1,0 +1,9 @@
+{
+  "_note": "SYNTHETIC — Phase 6 / MDRT-04 happy path",
+  "name": "briefing",
+  "enabled": true,
+  "host": "cap-briefing",
+  "port": 3000,
+  "version": "1.0.0",
+  "modelPolicy": { "min": "standard", "max": "reasoning" }
+}
