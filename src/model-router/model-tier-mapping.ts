@@ -20,7 +20,7 @@ import { ModelTierSchema, MODEL_TIERS, type ModelTier } from './model-tier.js';
 const _RawModelTierMappingSchema = z.record(ModelTierSchema, z.string().min(1).optional());
 
 export const ModelTierMappingSchema = _RawModelTierMappingSchema.superRefine((m, ctx) => {
-  const missing = MODEL_TIERS.filter((t) => typeof m[t] !== 'string' || (m[t] ?? '').length === 0);
+  const missing = MODEL_TIERS.filter((t) => m[t] === undefined);
   if (missing.length > 0) {
     ctx.addIssue({
       code: 'custom',
