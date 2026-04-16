@@ -17,3 +17,16 @@ Fixtures embed a `"_note"` field at the root level. Bridge schemas use
 default-strip semantics (Zod v4 `z.object()` drops unknown top-level keys
 on `.safeParse()`), but the test helper strips `_note` explicitly so fixtures
 stay self-documenting without impacting parse semantics.
+
+## Lineage convention (Phase 35 handoff)
+
+When a fixture is replaced with a real capture from staging or production,
+update its `_note` to the canonical form:
+
+    "_note": "STAGING — captured 2026-MM-DD from agent-x9@<sha>"
+    "_note": "PROD — captured 2026-MM-DD from agent-x9@<sha>"
+
+Synthetic fixtures retain the free-form `"_note"` they have today. The
+`STAGING — captured` / `PROD — captured` prefixes act as a grep-able audit
+signal so PR review can see fixture lineage drift at a glance without
+opening each JSON.
