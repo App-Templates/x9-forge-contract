@@ -34,12 +34,13 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 
 ## Last Milestone Summary (v1.0)
 
-- **Phases:** 8 (0, 1, 2, 3, 4, 04.1, 5, 6) + Phase M letter mini-phase
+- **Phases:** 8 (0, 1, 2, 3, 4, 04.1, 5, 6) + Phase M letter mini-phase — all archived under `.planning/milestones/v1.0-phases/`
 - **Plans:** 24 + 1
 - **Tests:** 384/384 pass across 42 files
 - **Sub-paths built:** 8/8 (`./capability`, `./agent`, `./auth`, `./http`, `./vault`, `./model-router`, `./memory`, root)
-- **Closing PR:** #1 (commit `1d709a1` on `main`)
-- **Audit verdict:** `gaps_found` (bookkeeping only — code shipped clean, accepted as Path B per `milestones/v1.0-MILESTONE-AUDIT.md`)
+- **Closing PR:** #1 (code commit `1d709a1` on `main`)
+- **Audit history:** initial `gaps_found` (bookkeeping) → re-audit `passed` after 11-commit chirurgico backfill (2026-04-16). Verdict: 65/66 in-scope satisfied + 1 operator-deferred (TEST-04); 0 partial/unsatisfied/orphaned.
+- **Tag:** `v1.0` re-anchored at HEAD `cccb722` (full archive bundle) — local-only, push pending OK
 
 ## v1.1 Carry-Forward (when ready)
 
