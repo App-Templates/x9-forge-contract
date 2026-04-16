@@ -20,49 +20,79 @@ Tutti gli agenti (**master X9 incluso, NON parent dei cloni per chiavi**) eredit
 
 Il bridge tipizza i contratti di questo modello cross-repo. Non e un runtime service, e un package di tipi compile-time.
 
+## Current State
+
+**v1.0 Bridge Foundation** SHIPPED 2026-04-16 (PR #1 merged, git tag `v1.0`).
+
+- 8 phases (0–6) + Phase 04.1 INSERTED + Phase M letter mini-phase = 24+1 plans
+- 384/384 tests pass across 42 files
+- 8/8 sub-paths built and exported (`./capability`, `./agent`, `./auth`, `./http`, `./vault`, `./model-router`, `./memory`, root)
+- 11 HTTP endpoints + SSE frame schemas + vault 3-tier + Model Router 7 schemas all wired
+- Bug #15 compile-time guard live (Forge `X9Client.reload()` migrated to `createBridgeClient<'secret'>` as pilot, then expanded to all cross-repo calls in Phase 4)
+- Cross-repo drift guards operational in agent-x9 + forge-v2
+
+**Pending external (cross-repo, not bridge-side):**
+- MDRT-07 SC#7 — agent-x9 Phase 35 ROADMAP cross-repo cite
+- agent-x9 vendor re-sync via `scripts/sync-bridge.sh` on `fix/docker-bridge-build-context` branch
+
 ## Requirements
 
 ### Validated
 
-- ✓ Risolvere divergenza `CapabilityRegistryEntry` — canonical shape `{ host, port, version, protocol?, tools? }` + `toEndpoint()`/`fromEndpoint()` — Phase 1
-- ✓ Risolvere divergenza `CapabilityManifest` vs `X9CapabilityManifest` — `serviceName?` optional nel bridge, alias re-export in Forge — Phase 1
-- ✓ Normalizzare `ToolCallRequest`/`ToolCallResponse` — discriminated union su `status`, 3 error codes — Phase 1
-- ✓ X9 `packages/types/` re-export shim from bridge (MGRT-04) — Phase 1
-- ✓ Forge `packages/types/src/x9.ts` re-export shim with aliases (MGRT-05) — Phase 1
-- ✓ Contract testing baseline: 57 bridge tests green, CI gate, real fixtures (TEST-01, TEST-02 partial, TEST-03, TEST-05) — Phase 1
-- ✓ `AgentIdentity` branded, `AgentContextCore`, `AgentCredentials` 17 known keys, `parseAgentContext` — Phase 2
-- ✓ `AuthInternalSecret` / `AuthInternalToken` literal discriminated types + `createBridgeClient` skeleton + Bug #15 compile-time regression guard — Phase 3
-- ✓ Forge `X9Client.reload()` pilot migration to `createBridgeClient<'secret'>` — Phase 3
-- ✓ 11 HTTP endpoint contracts typed + Forge/X9 consumers migrated + drift guard operational — Phase 4
-- ✓ `NoAuthBridgeClient` + `createBridgeClient<'none'>` factory branch; Forge `capBridgeClient` collapsed to ≤10-line wrapper (R-09) — Phase 4.1
+**v1.0 — shipped 2026-04-16:**
+
+- ✓ Bridge package scaffolding + Zod v4 + sub-path exports + dev loop verificato (BRDG-01..05, BRDG-06 partial Forge) — v1.0 Phase 0
+- ✓ Forge zod@4 + TS 6.0.2 + `exactOptionalPropertyTypes: true` (MGRT-01..03) — v1.0 Phase 0
+- ✓ README contracts table + "How to add" + breaking change policy (OBS-01..03) — v1.0 Phase 0
+- ✓ Risolvere divergenza `CapabilityRegistryEntry` — canonical `{host, port, version, protocol?}` + `toEndpoint()`/`fromEndpoint()` (CAPA-04) — v1.0 Phase 1
+- ✓ Risolvere divergenza `CapabilityManifest` vs `X9CapabilityManifest` — `serviceName?` optional, alias re-export Forge (CAPA-01) — v1.0 Phase 1
+- ✓ Normalizzare `ToolCallRequest`/`ToolCallResponse` — discriminated su `status`, 3 error codes (CAPA-02) — v1.0 Phase 1
+- ✓ X9 `packages/types/` re-export shim from bridge (MGRT-04) — v1.0 Phase 1
+- ✓ Forge `packages/types/src/x9.ts` re-export shim (MGRT-05) — v1.0 Phase 1
+- ✓ Contract testing baseline: 57 bridge tests, CI gate, real fixtures (TEST-01,02,03,05) — v1.0 Phase 1
+- ✓ `AgentIdentity` branded, `AgentContextCore`, `AgentCredentials` 17 known keys + catchall, `parseAgentContext` (AGNT-01..05) — v1.0 Phase 2
+- ✓ `AuthInternalSecret` / `AuthInternalToken` literal discriminated + `createBridgeClient` + Bug #15 compile-time regression guard (AUTH-01..04) — v1.0 Phase 3
+- ✓ Forge `X9Client.reload()` pilot migration to `createBridgeClient<'secret'>` (HTTP-12 partial) — v1.0 Phase 3
+- ✓ 11 HTTP endpoint contracts typed + SSE frame schemas + Forge/X9 consumers migrated + drift guard operational (HTTP-01..14) — v1.0 Phase 4
+- ✓ `NoAuthBridgeClient` + `createBridgeClient<'none'>` factory branch; Forge `capBridgeClient` collapsed to ≤10-line wrapper (R-09) — v1.0 Phase 4.1
+- ✓ Vault 3-tier contracts: `VaultTier`, `VaultSyncState`, `VaultEntryPlain`/`Encrypted` with T-05-01 guard, `SyncAll*`, `WorkspaceFile`, `PlatformBootstrapEnv` type-only, `AgentVaultedCredentials` (VLT-01..08) — v1.0 Phase 5
+- ✓ Model Router 7 schemas greenfield: `ModelTier`, `ModelTierMapping`, `ModelPolicy`, `ModelPushRequest/Response`, `ModelHotReloadNotification`, `PerAgentModelOverride` + `modelPolicy?` su `CapabilityRegistryEntry` (MDRT-01..08, MDRT-07 SC#7 partial — agent-x9 cite deferred) — v1.0 Phase 6
+- ✓ Memory Engine v2 contracts: 9 schemas + sub-path `@x9-forge/contracts/memory` (no REQ-ID, orphan) — v1.0 Phase M
+- ✓ Naming asimmetrico env vars documentato (`INTERNAL_SECRET` ↔ `X9_INTERNAL_SECRET`, ecc.) — v1.0 (Phase 0–4)
+- ✓ Entrambi i repo importano tipi dal package via `git+https#SHA` — v1.0
+- ✓ Cambio breaking genera errore TS compile-time in entrambi i repo — v1.0 (Bug #15 guard live)
+- ✓ Zero regressioni durante migrazione (X9 produzione mai fermo) — v1.0
+- ✓ Architettura `git+https#SHA` + `prepare` build + `pnpm.overrides link:` validata — v1.0 Phase 0
+- ✓ README mapping contratti → file + policy breaking change + procedure update — v1.0 Phase 0
 
 ### Active
 
-**Contratti HTTP esistenti (consolidamento):**
-- [ ] Tutti gli 11 contratti cross-repo esistenti tipizzati in un unico package
-- [ ] Naming asimmetrico env vars documentato e risolvibile (INTERNAL_SECRET vs X9_INTERNAL_SECRET, FORGE_VOICE_REGISTER_TOKEN vs VOICE_REGISTER_TOKEN vs INTERNAL_SERVICE_TOKEN)
-- [ ] Risolvere incoerenza `X9_INTERNAL_SECRET` che vive sia in Forge platform env (`factory/src/env.ts:19`) sia nel vault per-agent (`voice.ts:95-98`) — decidere source of truth
+**v1.1 Shim Cleanup + Bookkeeping:**
 
-**Vault & multi-tenant contracts:**
-- [ ] Tipizzare `VaultEntry` shape (key, value encrypted, `tier: 'platform' | 'owner' | 'agent'`, `isCustomized`, `ownerId?`, `agentId?`)
-- [ ] Tipizzare `VaultTier` enum con semantica "synced vs overridden" documentata (platform/owner = synced, agent = overridden)
-- [ ] Tipizzare `VaultSyncEvent` (bulk resync payload, tocca solo entries non-agent-tier)
-- [ ] Tipizzare `AgentIdentity` (`agentId`, `tenantId/ownerId`) — base per multi-tenant discriminated
-- [ ] Tipizzare `AgentCredentials` discriminated (sostituisce `Record<string, string>` flat di X9 `context.credentials` → type safety per chiave specifica: `OPENAI_API_KEY`, `TELEGRAM_BOT_TOKEN`, `X9_INTERNAL_SECRET`, etc.)
-- [ ] Tipizzare `WorkspaceFile` shape condiviso (path, content, tier, isCustomized, ownerId, agentId)
+- [ ] Phase 7: Shim Removal — rimuovi compat shim `agent-x9/packages/types/` + `forge-v2/packages/types/src/x9.ts`, ESLint `no-restricted-imports` enforce (MGRT-06)
+- [ ] CODEOWNERS nei 2 consumer per paths che importano dal bridge (OBS-05)
+- [ ] JSDoc su ogni tipo esportato (descrizione + cross-reference) (OBS-04)
 
-**Model Router contracts (Phase 35 prerequisite):**
-- [ ] `ModelTier` enum + `ModelTierMapping` (tier -> modelId) tipizzati nel bridge v1
-- [ ] `ModelPolicy` shape + `modelPolicy` field nel registry schema condiviso
-- [ ] Forge Model Push API (request/response + auth header) tipizzato PRIMA dell'implementazione agent-x9
-- [ ] `ModelOverridePerAgent` (estensione Phase 35 per clone-specific model override, es. "clone X su Opus 4.6")
+**Bookkeeping cleanup (optional, can roll into Phase 7):**
 
-**Integrazione & meta:**
-- [ ] Entrambi i repo (agent-x9, forge-v2) importano tipi dal package — import path unificato
-- [ ] Un cambio breaking genera errore TS in compile-time in entrambi i repo
-- [ ] Zero regressioni: nessun endpoint esistente si rompe durante la migrazione (contract tests green)
-- [ ] Architettura del package (npm/submodule/workspace/OpenAPI) validata dalla ricerca
-- [ ] README x9-forge-contract-bridge con mapping contratti → file, policy di breaking change, procedure update
+- [ ] Back-fill VERIFICATION.md per Phases 0, 2, 6, M
+- [ ] Flip stale VALIDATION.md frontmatter (Phases 02, 03, 05, 06)
+- [ ] Add CHANGELOG.md (RLSE-04 closure)
+- [ ] Document atomic SHA bump procedure (RLSE-02) + `@deprecated` workflow (RLSE-03)
+- [ ] Update REQUIREMENTS.md cosmetic: `HealthStatus` enum says `'unhealthy'`, code uses `'down'` (CAPA-06)
+
+**External cross-repo follow-ups (post-v1.0):**
+
+- [ ] MDRT-07 SC#7 — agent-x9 Phase 35 ROADMAP cross-repo cite (operator action in agent-x9)
+- [ ] agent-x9 vendor re-sync via `scripts/sync-bridge.sh` on `fix/docker-bridge-build-context` branch
+- [ ] Resolve `X9_INTERNAL_SECRET` source-of-truth ambiguity (vault per-agent vs Forge platform env hardcoded)
+
+**Operator-deferred staging tasks (carried from v1.0):**
+
+- [ ] 04-03-09 X9 staging deploy
+- [ ] 04-04-09 staging fixture capture
+- [ ] 04-04-10 e2e staging smoke
+- [ ] 05-03 vault sync-all live smoke (POST /api/vault/sync-all)
 
 ### Out of Scope
 
@@ -88,18 +118,36 @@ Il bridge tipizza i contratti di questo modello cross-repo. Non e un runtime ser
 
 ## Context
 
-### Contratti cross-repo: 11 identificati, 3 auth pattern
+### Post v1.0 codebase state
 
-Forge→X9: 10 endpoint (6 con X-Internal-Secret, 1 con X-Internal-Token, 3 senza auth)
-X9→Forge: 1 endpoint (`/api/voice/register` POST, X-Internal-Token)
+- **2,768 LOC TypeScript** in `src/` across 8 domains (capability, agent, auth, http, vault, model-router, memory, root)
+- **42 test files, 384 assertions** — full green
+- **8 sub-path exports** built into `dist/` (`./capability`, `./agent`, `./auth`, `./http`, `./vault`, `./model-router`, `./memory`, root)
+- **No dead schemas, no mis-wires** (gsd-integration-checker confirms)
+- Distribution: `git+https#SHA` (no registry, no submodule), `pnpm.overrides link:` for dev hot-reload
+- Tech stack: Zod v4, TypeScript 6.0.2, vitest, pnpm workspace
 
-Naming asimmetrico env: `INTERNAL_SECRET` (X9) ↔ `X9_INTERNAL_SECRET` (Forge). Bug #15 = motivazione del bridge (webhook 401 silent, zero errore TS).
+### Contratti cross-repo (consolidati in v1.0)
 
-Gap analysis completo in `.planning/archive/research/ARCHITECTURE.md`. Forge: vault 3-tier + cascade + isCustomized ✅. X9: multi-agent runtime + hot-reload ✅. Synced vs overridden = tier platform|owner vs agent.
+11 endpoint (10 Forge→X9 + 1 X9→Forge `/api/voice/register`) tutti tipizzati con discriminated `Auth*`. Bug #15 (webhook 401 silent) chiuso compile-time. Drift guards operativi in agent-x9 + forge-v2.
 
-### Phase 35 Model Router — 5 contratti nativi del bridge
+Vault 3-tier (platform → owner → agent) tipizzato. `VaultEntryPlain` ≠ `VaultEntryEncrypted` per evitare leak wire-format come plain. `VaultSyncState` riconcilia "synced/overridden" con tier hierarchy.
 
-ModelTier enum, ModelTierMapping, ModelPolicy + modelPolicy field, Forge Model Push API (nuovo endpoint), Hot-reload notification. Ordine: bridge v1 → X9 Phase 35 → Forge Phase 10.
+### Phase 35 Model Router — 7 contratti nativi del bridge (greenfield in v1.0)
+
+ModelTier ordered enum, ModelTierMapping (per-provider), ModelPolicy con invariant `min ≤ max`, ModelPushRequest/Response (POST `/internal/model-config`), ModelHotReloadNotification (versioned polling), PerAgentModelOverride. `modelPolicy?` aggiunto opzionale a `CapabilityRegistryEntry` (backward compat default `{standard, standard}`).
+
+**Contratti freezati. Phase 35 X9 e Phase 10 Forge consumeranno questi tipi senza retrofit.**
+
+### v1.0 known gaps (carried forward)
+
+Audit `milestones/v1.0-MILESTONE-AUDIT.md` returned `gaps_found` (bookkeeping only — code shipped clean):
+- VERIFICATION.md missing for Phases 0, 2, 6, M
+- VALIDATION.md missing or stale frontmatter for 7 of 9 phases
+- REQUIREMENTS.md traceability never ticked off (0/72)
+- RLSE-02..05 cross-cutting reqs orphaned
+
+These are explicitly accepted as v1.0 tech debt. Substantive work shipped + verified by integration checker + 384/384 tests.
 
 ## Constraints
 
@@ -133,6 +181,11 @@ ModelTier enum, ModelTierMapping, ModelPolicy + modelPolicy field, Forge Model P
 | Hot-reload "live" push vault → X9 | Gap reale ma non blocker per bridge v1 | Decided 2026-04-14 (OUT v1, differito) |
 | Phase 35 agent-x9 da rivedere dopo bridge v1 | La stesura preliminare non prevedeva il contract-bridge, deve importare dal bridge | -- Pending revisione (post bridge v1) |
 | Forge Phase 10 UI Model Router dipende da bridge + Phase 35 X9 | Ordine: bridge v1 → X9 Phase 35 → Forge Phase 10 | Decided 2026-04-14 |
+| Phase 04.1 INSERTED dopo Phase 4 per chiudere R-09 (NoAuthBridgeClient) | `createBridgeClient` mancava `'none'` variant, X9+Forge duplicavano `capBridgeClient` helpers | ✓ Good — Decided + shipped 2026-04-15 |
+| Phase M letter mini-phase per Memory Engine v2 contracts (parallel-capable, no REQ assignment) | Mini-phase non-blocking, scope orthogonal a Phase 0–6 | ✓ Good — shipped 2026-04-15 |
+| Bridge v1.0 chiuso con `gaps_found` audit accettato (bookkeeping debt) | Code shipped clean (PR #1, 384/384 tests, integration checker pass); paper trail incomplete (VERIFICATION mancanti P0/P2/P6/M, RLSE-02..05 orphan) — backfill retroattivo non aggiunge valore | ✓ Good — Decided 2026-04-16 (Path B in audit recommendation) |
+| Custom typed HTTP client (~80 lines) preferred over ts-rest/zodios | Peer-dep conflict zod@4+fastify@5; AUTH-04 compile-time guard ottenuto con discriminated `AuthForEndpoint<T>` mapping | ✓ Good — Bug #15 reintroduzione impossibile |
+| Legacy endpoint success responses NOT standardized to `{ok, data}` envelope in v1.0 | Preserva backward compat consumer-side; standardized envelope wired into error path; bump deferred | ⚠ Revisit nel prossimo bump SHA |
 
 ## Evolution
 
@@ -152,4 +205,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-15 — Phase 4.1 complete (NoAuthBridgeClient + Forge capBridgeClient consolidation, R-09). Milestone v1.0 progress: 6/8 phases done. Next: Phase 5 (Vault Contracts — Block E).*
+*Last updated: 2026-04-16 after v1.0 milestone close. Bridge Foundation SHIPPED (PR #1 merged, git tag v1.0). Next: v1.1 Shim Cleanup + Bookkeeping (Phase 7 + tech debt closure) when ready.*
