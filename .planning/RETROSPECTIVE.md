@@ -70,6 +70,20 @@ A cross-repo TypeScript contracts package consolidating 11 HTTP endpoints, vault
 - **Notable efficiency win:** integration checker as a 1-shot subagent at audit time replaced the need for retroactive per-phase verification — saved a half-dozen agent runs.
 - **Notable inefficiency:** Zod v4 gotchas in Phase 6 (superRefine migration, record-enum optional) cost extra iteration the planning didn't anticipate.
 
+### Post-shipping Backfill (2026-04-16)
+
+After v1.0 was already merged (PR #1, commit `1d709a1`) and `/gsd-complete-milestone` had archived (commit `14c5c82`), the audit returned `gaps_found` (bookkeeping only). The pragmatic Path B (archive with Known Gaps) was initially chosen — Stefano then directed "10/10 chirurgico" closure.
+
+**8 atomic backfill commits closed all bookkeeping debt** (`c2e5527`, `9ecd580`, `8c52cba`, `b77951b`, `384ce11`, `0de7982`, `a5020ad`, `6a2db18`) plus a re-audit (`1d8464c`) flipping verdict to `passed`. Total ~9 commits authored from authoritative sources (existing SUMMARYs + on-disk src/ + tests + integration checker findings + project memory). No code touched — purely paper-trail formalization.
+
+**Why it was real verification, not theater:**
+- Test suite was already 384/384 green (re-run during backfill confirmed)
+- Integration checker had already validated all cross-phase wires
+- Source code was already on disk and exported via sub-paths
+- The backfill consisted of WRITING the verification artifacts that summarize what the test suite + integration checker had already proven, not REDOING the verification
+
+**Lesson:** Path B vs Path A trade-off matters more in long retro-fits than in fresh debt. Here, the gap was 1 day old (paper missed during execution), source data was fully available, and re-auditing was cheap — so chirurgico was the right call. For older gaps (months), reconstruction risk grows fast and Path B (acknowledge + move on) often wins.
+
 ---
 
 ## Cross-Milestone Trends
@@ -78,7 +92,7 @@ A cross-repo TypeScript contracts package consolidating 11 HTTP endpoints, vault
 
 | Milestone | Phases | Plans | Tests at close | Audit verdict | Tech debt items | Operator-deferred |
 |-----------|--------|-------|----------------|---------------|-----------------|-------------------|
-| v1.0 Bridge Foundation | 8 (+1 mini) | 24 (+1) | 384/384 | gaps_found (bookkeeping) | 9 | 4 staging + 1 vendor sync + MDRT-07 SC#7 |
+| v1.0 Bridge Foundation | 8 (+1 mini) | 24 (+1) | 384/384 | passed (after backfill — initial gaps_found bookkeeping-only) | 9 | 4 staging + 1 vendor sync + MDRT-07 SC#7 |
 
 ### Recurring Patterns to Watch
 

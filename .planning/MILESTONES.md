@@ -46,38 +46,44 @@ The first cross-repo TypeScript contracts package consolidating 11 HTTP endpoint
 - Branded IDs only for `AgentId/OwnerId/TenantId/SessionId/ConversationId` (anti-pattern AF-02 avoided)
 - Sub-path exports per domain — root `index.ts` does not kitchen-sink
 
-### Known Gaps (accepted as tech debt)
+### Known Gaps — CLOSED via 2026-04-16 backfill
 
-The audit `milestones/v1.0-MILESTONE-AUDIT.md` returned `gaps_found` due to bookkeeping/paper-trail gaps. The substantive work shipped clean (PR #1 merged, 384/384 tests pass, integration checker found no critical wiring gaps). These gaps are explicitly accepted at v1.0 close:
+The original audit `milestones/v1.0-MILESTONE-AUDIT.md` returned `gaps_found` (bookkeeping only). Per Stefano's "10/10 chirurgico" directive, all bookkeeping debt was closed via 8 atomic backfill commits. **Re-audit verdict 2026-04-16T16:50: `passed`.**
 
-**Critical bookkeeping (4 phases):**
-- **Phase 02 (AgentContext Split)** — 3 PLAN files exist, **0 SUMMARYs**, **no VERIFICATION.md**. Code shipped (integration checker confirms `AgentContextCore`, branded IDs, `parseAgentContext` in `src/agent/`); paper trail did not get written. AGNT-01..05 unverifiable from `.planning/` artifacts but corroborated by project memory + tests + sub-path build.
-- **Phase 06 (Model Router)** — **no VERIFICATION.md** despite Bridge v1.0 PR #1 merged. MDRT-01..08 claimed in 06-02/06-03 SUMMARYs and confirmed wired by integration checker (incl. Phase 6 → Phase 1 `modelPolicy` link), but no formal verifier sign-off artifact.
-- **Phase 00 (Prerequisites)** — **no VERIFICATION.md**. 12 REQs claimed across 4 SUMMARYs.
-- **Phase M (Memory Engine v2 mini-phase)** — PLAN-only directory, no SUMMARY/VERIFICATION. `dist/memory/` artifact present per integration checker, but execution status indeterminate from `.planning/`.
+**Backfill commits (chronological):**
 
-**Stale Nyquist VALIDATION.md frontmatter (4 phases):**
-- Phases 02, 03, 05, 06 all show `nyquist_compliant: false` / `status: draft` despite phase being verified passed (where VERIFICATION exists). Frontmatter never flipped post-execution.
+| # | Commit | Closure |
+|---|--------|---------|
+| 1 | `c2e5527` | docs(phase-02): backfill SUMMARYs (3) + VERIFICATION + flip VALIDATION to passed |
+| 2 | `9ecd580` | docs(phase-06): backfill VERIFICATION + flip VALIDATION to passed |
+| 3 | `8c52cba` | docs(phase-00): backfill VERIFICATION + VALIDATION (Nyquist) |
+| 4 | `b77951b` | docs(phase-M): backfill SUMMARY + VERIFICATION + VALIDATION + assign MEM-01..09 |
+| 5 | `384ce11` | docs(validation): flip stale Nyquist frontmatter for Phases 03 + 05 |
+| 6 | `0de7982` | docs(validation): backfill VALIDATION.md for Phases 01, 04, 04.1 |
+| 7 | `a5020ad` | docs: add CHANGELOG.md — closes RLSE-04 + documents RLSE-02/03 workflow |
+| 8 | `6a2db18` | docs(v1.0-archive): update REQUIREMENTS to reflect post-backfill clean state |
+| 9 | `1d8464c` | docs(audit): re-audit v1.0 — verdict passed after chirurgico backfill |
 
-**Missing VALIDATION.md (5 phases):** 00, 01, 04, 04.1, M.
+**Post-backfill state:**
+- ✅ All 9 phases (0, 1, 2, 3, 4, 04.1, 5, 6, M) have VERIFICATION.md on disk with status `passed`
+- ✅ All 9 phases have VALIDATION.md with `nyquist_compliant: true` / `wave_0_complete: true`
+- ✅ REQUIREMENTS traceability: 65/66 in-scope satisfied + 1 operator-deferred (TEST-04); 0 unsatisfied / 0 partial / 0 orphaned
+- ✅ R-09 (Phase 04.1) added to traceability table
+- ✅ MEM-01..09 (Phase M) added to traceability table — closes Phase M orphan
+- ✅ CHANGELOG.md added at repo root (closes RLSE-04)
+- ✅ RLSE-02 (atomic SHA bump) + RLSE-03 (@deprecated workflow) explicitly documented in CHANGELOG.md "How releases work" section
+- ✅ RLSE-05 (README updates per migration) attested in archive
 
-**Cross-cutting orphaned requirements:**
-- **RLSE-02..05** never explicitly attested in any SUMMARY frontmatter (atomic SHA bump discipline / `@deprecated` JSDoc workflow / CHANGELOG.md / per-migration README updates). Practice was followed implicitly (PR #1 merge demonstrates RLSE-01 SHA-pin) but not formally attested.
-
-**Orphan REQs added post-roadmap:**
-- **R-09** (Phase 04.1) addressed but never back-filled into REQUIREMENTS.md traceability table.
-- **Phase M** (Memory Engine v2) has no REQ-ID assignment in roadmap.
-
-**REQUIREMENTS.md traceability:** 0 of 72 boxes ever ticked off during execution; final per-REQ status reconstructed in `milestones/v1.0-REQUIREMENTS.md`.
+### Carried-forward Operator Items (NOT bookkeeping gaps — explicit v1.0 deferrals)
 
 **Operator-deferred (3 staging tasks + 1 vault smoke):**
 - 04-03-09 X9 staging deploy
 - 04-04-09 staging fixture capture
-- 04-04-10 e2e staging smoke
+- 04-04-10 e2e staging smoke (briefing + voice + webhook + internal/turn streaming)
 - 05-03 vault sync-all live smoke
 
-**External hand-offs (cross-repo, not bridge):**
-- **MDRT-07 SC#7** — agent-x9 Phase 35 ROADMAP cross-repo cite (tracked in MEMORY.md)
+**External cross-repo hand-offs (not bridge-side):**
+- **MDRT-07 SC#7** — agent-x9 Phase 35 ROADMAP cross-repo cite (text template in `06-01-PLAN.md` task 06-01-03; tracked in MEMORY.md)
 - **agent-x9 vendor re-sync** post Phase 6 (`scripts/sync-bridge.sh` on `fix/docker-bridge-build-context` branch in agent-x9)
 
 ### Tech Debt Carried Forward
@@ -94,7 +100,10 @@ The audit `milestones/v1.0-MILESTONE-AUDIT.md` returned `gaps_found` due to book
 
 - **Phase 7 "Shim Removal + Final Consolidation"** (opzionale, originally part of v1.0 scope, deferred)
 - Address MGRT-06 (ESLint enforce), OBS-04 (JSDoc on every export), OBS-05 (CODEOWNERS in 2 consumers)
-- Optionally: bookkeeping cleanup (back-fill VERIFICATION for Phases 0/2/6/M, fix stale VALIDATION frontmatter)
+- Standardize legacy endpoint success responses to `{ok, data}` envelope at next breaking SHA bump
+- Optional: doc-side cleanup CAPA-06 cosmetic (REQUIREMENTS.md `'unhealthy'` → `'down'` to match canonical code)
+
+**Process improvement for v1.1:** Auto-chain mode (discuss → plan → execute → verify in one session) silently skipped SUMMARY/VERIFICATION/VALIDATION write steps for several v1.0 phases — necessitating the 8-commit backfill above. v1.1 should either gate the chain harder OR run verify as a separate session to keep paper trail in sync with code as it ships.
 
 ---
 
