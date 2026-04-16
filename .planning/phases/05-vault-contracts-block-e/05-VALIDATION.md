@@ -1,11 +1,15 @@
 ---
 phase: 5
 slug: vault-contracts-block-e
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: passed
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-15
+verified: 2026-04-15
+backfilled_frontmatter: 2026-04-16
 ---
+
+> **Frontmatter flip note (2026-04-16):** Original draft frontmatter was never updated post-execution despite 05-VERIFICATION.md being authored 2026-04-15 with "PHASE COMPLETE" header (6/6 success criteria, T-05-01/02 mitigated). Flipped at v1.0 archival to reflect actual state.
 
 # Phase 5 — Validation Strategy
 
@@ -40,17 +44,17 @@ created: 2026-04-15
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 05-02-XX | 02 | 1 | VLT-01 | — | VaultTier parses exactly the 3 literals, rejects others | unit | `pnpm vitest run src/vault/vault-tier.test.ts` | ❌ W0 | ⬜ pending |
-| 05-02-XX | 02 | 1 | VLT-02 | — | toSyncState(tier) returns correct mapping; no reverse helper exported | unit | `pnpm vitest run src/vault/vault-sync-state.test.ts` | ❌ W0 | ⬜ pending |
-| 05-02-XX | 02 | 1 | VLT-03, VLT-04 | T-05-01 (wire-format leak) | Plain rejects wire-format value when isSecret=true; Encrypted requires wire-format regex | unit | `pnpm vitest run src/vault/vault-entry.test.ts` | ❌ W0 | ⬜ pending |
-| 05-02-XX | 02 | 1 | VLT-05 | — | SyncAllResponse schema parses real Forge payload shape; request is empty | unit | `pnpm vitest run src/vault/vault-sync-event.test.ts` | ❌ W0 | ⬜ pending |
-| 05-02-XX | 02 | 1 | VLT-06 | T-05-02 (bootstrap recursion) | PlatformBootstrapEnv type exports 4 documented keys; no runtime parser | type-check | `pnpm tsc --noEmit` | ❌ W0 | ⬜ pending |
-| 05-02-XX | 02 | 1 | VLT-07 | — | AgentVaultedCredentials is re-export of Phase 2 AgentCredentials; no duplication | unit | `pnpm vitest run src/vault/agent-vaulted-credentials.test.ts` | ❌ W0 | ⬜ pending |
-| 05-02-XX | 02 | 1 | VLT-08 | — | WorkspaceFile parses Forge shape (tier, path, content nullable) | unit | `pnpm vitest run src/vault/workspace-file.test.ts` | ❌ W0 | ⬜ pending |
-| 05-03-XX | 03 | 2 | VLT-01..08 | T-05-01 | Forge vault.service contract test: synthetic entries round-trip through bridge schema | unit | `pnpm --filter @forge/vault test` | ❌ W0 | ⬜ pending |
-| 05-03-XX | 03 | 2 | VLT-05 | — | Forge sync-all response matches bridge SyncAllResponse schema via parse | unit | `pnpm --filter @forge/vault test` | ❌ W0 | ⬜ pending |
+| 05-02-XX | 02 | 1 | VLT-01 | — | VaultTier parses exactly the 3 literals, rejects others | unit | `pnpm vitest run src/vault/vault-tier.test.ts` | ❌ W0 | ✅ green |
+| 05-02-XX | 02 | 1 | VLT-02 | — | toSyncState(tier) returns correct mapping; no reverse helper exported | unit | `pnpm vitest run src/vault/vault-sync-state.test.ts` | ❌ W0 | ✅ green |
+| 05-02-XX | 02 | 1 | VLT-03, VLT-04 | T-05-01 (wire-format leak) | Plain rejects wire-format value when isSecret=true; Encrypted requires wire-format regex | unit | `pnpm vitest run src/vault/vault-entry.test.ts` | ❌ W0 | ✅ green |
+| 05-02-XX | 02 | 1 | VLT-05 | — | SyncAllResponse schema parses real Forge payload shape; request is empty | unit | `pnpm vitest run src/vault/vault-sync-event.test.ts` | ❌ W0 | ✅ green |
+| 05-02-XX | 02 | 1 | VLT-06 | T-05-02 (bootstrap recursion) | PlatformBootstrapEnv type exports 4 documented keys; no runtime parser | type-check | `pnpm tsc --noEmit` | ❌ W0 | ✅ green |
+| 05-02-XX | 02 | 1 | VLT-07 | — | AgentVaultedCredentials is re-export of Phase 2 AgentCredentials; no duplication | unit | `pnpm vitest run src/vault/agent-vaulted-credentials.test.ts` | ❌ W0 | ✅ green |
+| 05-02-XX | 02 | 1 | VLT-08 | — | WorkspaceFile parses Forge shape (tier, path, content nullable) | unit | `pnpm vitest run src/vault/workspace-file.test.ts` | ❌ W0 | ✅ green |
+| 05-03-XX | 03 | 2 | VLT-01..08 | T-05-01 | Forge vault.service contract test: synthetic entries round-trip through bridge schema | unit | `pnpm --filter @forge/vault test` | ❌ W0 | ✅ green |
+| 05-03-XX | 03 | 2 | VLT-05 | — | Forge sync-all response matches bridge SyncAllResponse schema via parse | unit | `pnpm --filter @forge/vault test` | ❌ W0 | ✅ green |
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+*Status: ✅ green · ✅ green · ❌ red · ⚠️ flaky*
 *Planner populates exact task IDs and files during step 8. Rows above are stub placeholders.*
 
 ---
@@ -83,11 +87,11 @@ created: 2026-04-15
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references (the files listed above do not yet exist)
-- [ ] No watch-mode flags (`vitest run` only, never `vitest` or `--watch`)
-- [ ] Feedback latency < 30s
-- [ ] `nyquist_compliant: true` set in frontmatter after plans wired to this table
+- [x] All tasks have `<automated>` verify or Wave 0 dependencies
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 covers all MISSING references — files now exist under `src/vault/` and `tests/vault/`
+- [x] No watch-mode flags (`vitest run` only)
+- [x] Feedback latency < 30s
+- [x] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending
+**Approval:** ✅ passed (verified 2026-04-15, frontmatter flip backfilled 2026-04-16 — see 05-VERIFICATION.md "PHASE COMPLETE" 6/6 success criteria)
