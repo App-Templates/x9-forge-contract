@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import {
   KNOWN_CREDENTIAL_KEYS,
   AgentCredentialsSchema,
-  type KnownCredentialKey,
 } from '../../src/agent/agent-credentials.js';
 
 describe('KNOWN_CREDENTIAL_KEYS', () => {
