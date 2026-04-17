@@ -13,6 +13,7 @@ export const KNOWN_CREDENTIAL_KEYS = [
   'TELEGRAM_BOT_TOKEN',
   'ELEVENLABS_API_KEY',
   'ELEVENLABS_VOICE_ID',
+  'ELEVENLABS_MODEL_ID',                     // NEW — Phase 39 REQ-39-01
   'ELEVENLABS_MINDFULNESS_AGENT_ID',
   'FORGE_VOICE_REGISTER_TOKEN',
   'AGENTMAIL_API_KEY',
@@ -41,6 +42,7 @@ export const AgentCredentialsSchema = z
     TELEGRAM_BOT_TOKEN: z.string().optional(),
     ELEVENLABS_API_KEY: z.string().optional(),
     ELEVENLABS_VOICE_ID: z.string().optional(),
+    ELEVENLABS_MODEL_ID: z.string().optional(),     // NEW — Phase 39 REQ-39-01
     ELEVENLABS_MINDFULNESS_AGENT_ID: z.string().optional(),
     FORGE_VOICE_REGISTER_TOKEN: z.string().optional(),
     AGENTMAIL_API_KEY: z.string().optional(),
