@@ -18,6 +18,7 @@ export * from './internal-model-config-version.js'; // Phase 6 — MDRT-07 polli
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from './webhook-post-call.js';
 export * from './voice-register.js';
+export * from './vault-resolve.js'; // Phase 38 — HTTP-12 / R-14 closure
 
 // No-auth endpoints (capability discovery)
 export * from './cap-manifest.js';
