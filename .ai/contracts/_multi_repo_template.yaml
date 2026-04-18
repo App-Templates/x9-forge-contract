@@ -1,0 +1,60 @@
+# Multi-repo task contract for bridge-driven changes.
+# Bridge is the contract source; consumers (X9, Forge, storefront) update in lockstep.
+
+task_id: TASK-000
+title: "Describe cross-repo change"
+status: DRAFT
+risk: high
+
+summary: >
+  New or modified contract in the bridge that X9/Forge/storefront need
+  to consume. Bridge change MUST land first (this repo), then consumers.
+
+repos:
+  bridge:
+    required: true
+    path: "."
+    allowed_paths:
+      - "src/**"
+      - "tests/**"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "package.json"
+  agent_x9:
+    required: false
+    path: "../agent-x9"
+  forge_v2:
+    required: false
+    path: "../forge-v2"
+  storefront:
+    required: false
+    path: "../forge-storefront"
+
+cross_repo_contract:
+  required: true
+  bridge_package: "@x9-forge/contracts"
+  consumers_must_pin_same_sha: true
+  version_bump_required: true
+
+risk_assessment:
+  touches_bridge: true
+
+acceptance_criteria:
+  AC1: "Bridge exposes the new symbol and bridge tests pass."
+  AC2: "Each required consumer imports from @x9-forge/contracts/<subpath>."
+  AC3: "Version bumped + CHANGELOG entry listing consumer-facing changes."
+
+evidence_map:
+  AC1:
+    - repo: bridge
+      command: "pnpm build && pnpm test"
+      expected_exit_code: 0
+
+release:
+  deploy_allowed: false
+  rollback_required: true
+  human_approval_required: true
+
+completion:
+  required_artifact: ".ai/artifacts/<task_id>/verification.json"
+  done_when: "status is VERIFIED"

@@ -1,0 +1,17 @@
+{
+  "_comment": "Repo-level settings for x9-forge-contract-bridge. Global hooks (~/.claude/settings.json) cover path guard, bash gates, stop guard, audit. This file adds bridge-specific deny rules.",
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./credentials/**)",
+      "Write(./.env*)",
+      "Write(./secrets/**)",
+      "Write(./credentials/**)",
+      "Write(./dist/**)",
+      "Bash(pnpm publish*)",
+      "Bash(npm publish*)"
+    ]
+  }
+}

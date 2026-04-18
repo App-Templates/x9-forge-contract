@@ -1,0 +1,71 @@
+# Single-repo task contract template
+# Copy to .ai/contracts/<TASK_ID>/contract.yaml and fill in.
+# Governance runbook: MC-FORGE-X9 (installed 2026-04-18).
+
+task_id: TASK-000
+title: "Describe task in one line"
+status: DRAFT
+risk: medium
+created_at: "YYYY-MM-DD"
+owner: claude-code
+
+summary: >
+  One to three sentences describing the goal.
+
+scope:
+  files_allowed:
+    - "src/**"
+    - "tests/**"
+    - "README.md"
+    - "CHANGELOG.md"
+    - "package.json"
+  files_forbidden:
+    - ".env*"
+    - "secrets/**"
+    - "credentials/**"
+    - "dist/**"
+
+non_goals:
+  - "No publish to npm/private registry."
+  - "No unrelated refactor."
+
+risk_assessment:
+  touches_runtime: false
+  touches_control_plane: false
+  touches_bridge: true
+  touches_db_schema: false
+  touches_qdrant: false
+  touches_memory: false
+  touches_privacy: false
+  touches_vendor: false
+  touches_deploy: false
+  data_loss_risk: false
+  consumers_require_update: true
+
+cross_repo_contract:
+  required: true
+  bridge_package: "@x9-forge/contracts"
+  consumers_must_pin_same_sha: true
+
+acceptance_criteria:
+  AC1: "Zod schema + TypeScript type exported and covered by at least one valid-input test and one invalid-input test."
+
+evidence_map:
+  AC1:
+    - command: "pnpm build && pnpm test"
+      expected_exit_code: 0
+
+verification:
+  static:
+    - "pnpm build"
+  unit:
+    - "pnpm test"
+
+release:
+  deploy_allowed: false
+  rollback_required: true
+  human_approval_required: true
+
+completion:
+  required_artifact: ".ai/artifacts/<task_id>/verification.json"
+  done_when: "status is VERIFIED"
