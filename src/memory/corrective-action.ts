@@ -55,6 +55,8 @@ export const MemoryCorrectiveActionRequestSchema = z.object({
   action: MemoryCorrectiveActionSchema,
   target_type: MemoryTargetTypeSchema,
   target_id: z.string().min(1),
+  /** 40.6: destination entity ID for merge_entity action. Required when action=merge_entity. */
+  destination_entity_id: z.string().uuid().optional(),
   reason: z.string().max(1000).optional(),
 });
 export type MemoryCorrectiveActionRequest = z.infer<typeof MemoryCorrectiveActionRequestSchema>;
