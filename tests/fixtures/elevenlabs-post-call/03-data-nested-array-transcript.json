@@ -1,0 +1,14 @@
+{
+  "type": "post_call_transcription",
+  "data": {
+    "status": "done",
+    "conversation_id": "conv_fixture_03",
+    "transcript": [
+      { "role": "agent", "message": "Pronto, chi parla?", "time_in_call_secs": 0.4 },
+      { "role": "user", "message": "Ciao, sono Anna.", "time_in_call_secs": 1.9 },
+      { "role": "agent", "message": "Come posso aiutarti Anna?", "time_in_call_secs": 3.1 }
+    ],
+    "analysis": { "transcript_summary": "Greeting + intent discovery" },
+    "dynamic_variables": { "contact_name": "Anna" }
+  }
+}

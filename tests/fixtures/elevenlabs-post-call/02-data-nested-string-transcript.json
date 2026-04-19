@@ -1,0 +1,10 @@
+{
+  "type": "post_call_transcription",
+  "data": {
+    "status": "done",
+    "conversation_id": "conv_fixture_02",
+    "transcript": "Agente: Come posso aiutarti?\nUtente: Vorrei prenotare...",
+    "analysis": { "transcript_summary": "Booking request" },
+    "dynamic_variables": { "contact_name": "Luca" }
+  }
+}

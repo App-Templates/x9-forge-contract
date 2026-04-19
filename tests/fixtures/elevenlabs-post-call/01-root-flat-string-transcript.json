@@ -1,0 +1,9 @@
+{
+  "type": "post_call_transcription",
+  "status": "done",
+  "conversation_id": "conv_fixture_01",
+  "transcript": "Agente: Pronto?\nUtente: Ciao, sono Marco.",
+  "analysis": { "transcript_summary": "Short greeting" },
+  "dynamic_variables": { "contact_name": "Marco" },
+  "agentId": "1"
+}
