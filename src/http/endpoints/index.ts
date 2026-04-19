@@ -18,6 +18,7 @@ export * from './internal-model-config-version.js'; // Phase 6 — MDRT-07 polli
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from './webhook-post-call.js';
 export * from './voice-register.js';
+export * from './voice.js'; // Phase 42 — CAP-Voice v2.2 path + method constants
 
 // No-auth endpoints (capability discovery)
 export * from './cap-manifest.js';

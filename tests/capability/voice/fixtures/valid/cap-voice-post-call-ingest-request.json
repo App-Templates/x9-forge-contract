@@ -1,0 +1,15 @@
+{
+  "normalized_event": {
+    "call_id": "call-test-010",
+    "agent_id": "1",
+    "owner_id": "owner-stefano",
+    "tenant_id": "tenant-default",
+    "conversation_id": "conv-el-def-456",
+    "event_type": "post_call_transcription",
+    "received_at": "2026-04-19T21:30:00+02:00",
+    "raw_event_hash": "abcdef0123456789abcdef0123456789",
+    "signature_valid": true,
+    "provider": "elevenlabs",
+    "payload": { "status": "done" }
+  }
+}

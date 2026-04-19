@@ -1,0 +1,18 @@
+{
+  "can_search_context": true,
+  "can_get_calendar_availability": true,
+  "can_check_calendar_conflicts": true,
+  "can_release_calendar_block": true,
+  "can_draft_email": true,
+  "can_notify_stefano": true,
+  "can_update_calendar": false,
+  "can_create_calendar_event": true,
+  "can_block_calendar_slot": true,
+  "can_send_email_recap": false,
+  "can_create_reminder": false,
+  "can_commit_costs": false,
+  "can_cancel_services": false,
+  "can_accept_contract_terms": false,
+  "can_share_sensitive_pii": false,
+  "can_act_outside_brief": false
+}

@@ -1,0 +1,11 @@
+{
+  "type": "post_call_audio",
+  "event_timestamp": 1745098802,
+  "data": {
+    "conversation_id": "conv-el-abc-123",
+    "audio_base64": "SGVsbG8gd29ybGQ=",
+    "mime_type": "audio/mpeg",
+    "duration_sec": 72
+  },
+  "extra_provider_field": "lenient passthrough accepts this"
+}

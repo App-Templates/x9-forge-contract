@@ -10,6 +10,58 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## [1.2.0] - 2026-04-19 (Phase 42 — CAP-Voice v2.2 foundation)
+
+### Added
+
+- `@x9-forge/contracts/voice` sub-path with 27 canonical schemas for the CAP-Voice v2.2 runtime (ADR-cap-voice.md §5.2 / D-04):
+  - **Brief + authorization (2):** `VoiceCallBriefSchema`, `AuthorizedActionsSchema` (includes W-06 flags `can_share_sensitive_pii` + `can_act_outside_brief`).
+  - **Call lifecycle (2):** `VoiceCallStartRequestSchema`, `VoiceCallStartResponseSchema`.
+  - **Tool surface (4):** `VoiceToolNameSchema` (12-tool enum per D-16), `VoiceToolStatusSchema`, `VoiceToolCallRequestSchema` (superRefine enforces D-17 idempotency for mutating tools), `VoiceToolCallResponseSchema`.
+  - **Calendar tool shapes (8):** `CalendarAvailability{Request,Response}Schema`, `CalendarConflict{Request,Response}Schema`, `CalendarHold{Request,Response}Schema`, `CalendarHoldRelease{Request,Response}Schema`.
+  - **ElevenLabs webhook events (4):** `ElevenLabsWebhookEventTypeSchema` (enum) + `ElevenLabsPostCallTranscriptionEventSchema` / `ElevenLabsPostCallAudioEventSchema` / `ElevenLabsCallInitiationFailureEventSchema` (all LENIENT — `z.unknown()` + `.passthrough()` per external-provider-lenient policy).
+  - **Forge normalized event (1):** `ForgeVoiceWebhookNormalizedEventSchema` (STRICT — internal X9↔Forge contract, no passthrough, signature_valid literal true).
+  - **cap-voice ingest (2):** `CapVoicePostCallIngestRequestSchema`, `CapVoicePostCallIngestResponseSchema`.
+  - **Reconciled outcome (1):** `VoiceCallOutcomeSchema` (16 fields per ADR §14.2).
+  - **Tool log (1):** `VoiceCallToolLogSchema` (row shape for `call_tool_calls` table per D-27).
+  - **Memory handoff (1):** `VoiceCallMemoryIngestPayloadSchema` (Phase 42 CONTRACT-ONLY STUB — extractor branch is Phase 43 scope per D-21/D-22).
+  - **Privacy (1):** `VoicePrivacyMetadataSchema` (literal `source_type="voice_call"` + privacy level + jurisdiction flags).
+  - Plus supporting named enums (no inline `z.enum`): `VoiceToolCallSourceSchema`, `VoiceCallOutcomeKindSchema`, `VoiceRecipientSentimentSchema`, `VoicePrivacyLevelSchema`, `CapVoiceIngestStatusSchema`.
+  - Runtime helper: `MUTATING_VOICE_TOOLS` Set for idempotency gating.
+- HTTP endpoint contracts under `src/http/endpoints/voice.ts` (re-exported from `@x9-forge/contracts/http`):
+  - `FORGE_VOICE_WEBHOOK_POST_CALL_PATH` = `/webhooks/elevenlabs/post-call` (Forge voice-svc public ElevenLabs ingress).
+  - `CAP_VOICE_INTERNAL_POST_CALL_PATH` = `/internal/voice/post-call` (Forge -> cap-voice forward).
+  - `CAP_VOICE_CALL_START_PATH` = `/call-start` (cap-voice outbound init).
+  - `CAP_VOICE_CALL_TOOL_PATH(tool)` typed path builder + `CAP_VOICE_CALL_TOOL_PATHS` frozen map of all 12 tool paths.
+  - Matching `*_METHOD` constants.
+- Golden fixtures under `tests/capability/voice/fixtures/{valid,invalid}/` — ≥1 valid + ≥1 invalid fixture per schema (27 + 27 minimum).
+- New test suites:
+  - `tests/capability/voice/schemas.test.ts` — parse/reject behavior for every schema, D-17 idempotency gate, W-06 authorized-actions defaults, ElevenLabs lenient passthrough, strict normalized-event missing-field rejection.
+  - `tests/http/endpoints/voice.test.ts` — endpoint path + method constant equality, tool path builder R-14 compliance.
+
+### Why
+
+Phase 42 foundation (CAP-Voice v2.2). The ADR mandates `@x9-forge/contracts/voice` as the canonical source of truth (D-03) for every shape crossing the Forge↔X9 boundary. Plans 03 (forge-v2 voice-svc rebuild) and 04 (agent-x9 cap-voice internal receiver) SHA-pin to a bridge commit from this release before consuming any of these schemas — bridge ships FIRST per D-30 / R-14.
+
+### Constraints
+
+- ElevenLabs webhook event schemas are LENIENT (`z.unknown()` + `.passthrough()`) per `feedback_external_provider_schema_lenient.md`. Normalization happens at the Forge consumer boundary after HMAC validation.
+- `ForgeVoiceWebhookNormalizedEventSchema` is STRICT — it is the internal X9↔Forge contract. Bug #15-style drift MUST fail at compile time.
+- `VoiceCallMemoryIngestPayloadSchema` is CONTRACT-ONLY in Phase 42. Memory v2 `source_type="voice_call"` extractor is Phase 43 scope (lock-zone).
+- All named enums and header constants reused — NO inline `z.enum([...])` in consumer-typed fields, NO literal `"X-Internal-Token"` / `"X-Internal-Secret"` strings (R-14 compliance).
+
+### Rollback (per D-32 §23.1)
+
+If bridge tests regress or consumers fail typecheck post-SHA-bump: pin agent-x9 + forge-v2 to the previous bridge SHA (`00cd9d92`), keep `@x9-forge/contracts/voice` exports marked `@deprecated` for ≥1 rollout cycle before removal, and document the revert commit in the next CHANGELOG entry.
+
+### Consumer migration (plans 03, 04, 05, 06)
+
+- `forge-v2/services/voice-svc/**` (Plan 03): `import { ForgeVoiceWebhookNormalizedEventSchema, ElevenLabsWebhookEventTypeSchema, FORGE_VOICE_WEBHOOK_POST_CALL_PATH, CAP_VOICE_INTERNAL_POST_CALL_PATH } from '@x9-forge/contracts/voice'` / `@x9-forge/contracts/http`.
+- `agent-x9/services/cap-voice/**` (Plan 04 + 05): `import { CapVoicePostCallIngestRequestSchema, VoiceToolNameSchema, AuthorizedActionsSchema, VoiceCallOutcomeSchema, VoiceCallToolLogSchema, CalendarHoldRequestSchema, ... } from '@x9-forge/contracts/voice'`.
+- `agent-x9/services/cap-voice/src/memory-handoff/**` (Plan 04 Task 3): `import { VoiceCallMemoryIngestPayloadSchema } from '@x9-forge/contracts/voice'`.
+
+---
+
 ## [1.1.0] - 2026-04-16
 
 ### Added

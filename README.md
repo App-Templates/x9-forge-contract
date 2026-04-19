@@ -95,7 +95,7 @@ Tabella popolata incrementalmente phase-per-phase (OBS-01). Oggi (Phase 0): **vu
 |---------|-----------|------|----------------|
 | — | — | — | Phase 1+ |
 
-Sub-path exports disponibili (placeholder vuoti Phase 0):
+Sub-path exports disponibili:
 
 - `@x9-forge/contracts/capability`
 - `@x9-forge/contracts/agent`
@@ -103,6 +103,21 @@ Sub-path exports disponibili (placeholder vuoti Phase 0):
 - `@x9-forge/contracts/auth`
 - `@x9-forge/contracts/vault`
 - `@x9-forge/contracts/model-router`
+- `@x9-forge/contracts/memory`
+- `@x9-forge/contracts/voice` (Phase 42 — CAP-Voice v2.2 runtime, 27 schemas)
+
+### Coverage per sub-path
+
+| Sub-path | Schemas | Covers |
+|----------|---------|--------|
+| `capability` | 7 | `CapabilityManifest`, `ToolCall{Request,Response}`, env-schema, registry entry shapes |
+| `agent` | 5 | `AgentId`, `OwnerId`, `AgentIdentity`, `AgentContext`, `AgentCredentials` |
+| `auth` | 2 | `INTERNAL_SECRET_HEADER`, `INTERNAL_TOKEN_HEADER`, `AuthInternal{Secret,Token}Schema` |
+| `http` | 11+ | `createBridgeClient`, endpoint contracts (incl. Phase 42 `voice.ts` path + method constants) |
+| `vault` | 8 | `VaultTier`, `VaultEntry`, `VaultSyncEvent`, `AgentVaultedCredentials`, `WorkspaceFile` |
+| `model-router` | 8 | `ModelTier`, `ModelTierMapping`, `ModelPolicy {min,max}`, hot-reload notification |
+| `memory` | 9 | `MemoryStatus`, `MemoryCorrectiveAction`, console read shapes |
+| `voice` | 27 | **Phase 42 — CAP-Voice v2.2.** Call brief, authorized actions, call-start req/resp, 12-tool surface, 8 calendar tool shapes, 3 lenient ElevenLabs event schemas, strict Forge normalized event, cap-voice ingest req/resp, reconciled outcome, tool log, Memory v2 handoff payload (stub), privacy metadata. |
 
 ## How to add a new contract
 

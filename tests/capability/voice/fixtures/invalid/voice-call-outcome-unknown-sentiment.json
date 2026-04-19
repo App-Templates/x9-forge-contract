@@ -1,0 +1,13 @@
+{
+  "call_id": "call-test-011",
+  "outcome": "completed_task_done",
+  "task_completed": true,
+  "summary_for_stefano": "x",
+  "follow_up_required": false,
+  "calendar_update_required": false,
+  "recap_required": false,
+  "recipient_sentiment": "euphoric",
+  "tool_failure": false,
+  "calendar_verified_during_call": false,
+  "calendar_hold_placed": false
+}

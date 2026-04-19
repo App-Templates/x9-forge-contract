@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -41,6 +41,10 @@
     "./memory": {
       "types": "./dist/memory/index.d.ts",
       "import": "./dist/memory/index.js"
+    },
+    "./voice": {
+      "types": "./dist/capability/voice/index.d.ts",
+      "import": "./dist/capability/voice/index.js"
     }
   },
   "files": [

@@ -1,0 +1,12 @@
+{
+  "call_id": "call-test-003",
+  "agent_id": "1",
+  "tool": "create_calendar_event",
+  "idempotency_key": "call-test-003:create_calendar_event:5c3b2a1d8e",
+  "input": {
+    "calendar_id": "stefano@example.test",
+    "summary": "Dentist — Dr. Rossi",
+    "start_iso": "2026-04-23T10:00:00+02:00",
+    "end_iso": "2026-04-23T10:30:00+02:00"
+  }
+}
