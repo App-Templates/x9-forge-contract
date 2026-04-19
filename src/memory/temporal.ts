@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { InvalidationReasonSchema } from './enums.js';
 
 /**
  * TemporalSemantics — campi canonici della validità temporale di una memoria.
@@ -25,3 +26,75 @@ export const TemporalSemanticsSchema = z.object({
 });
 
 export type TemporalSemantics = z.infer<typeof TemporalSemanticsSchema>;
+
+// ---------------------------------------------------------------------------
+// Phase 41 — Graphiti Alignment additions (ADR-MEM-GRAPHITI-ALIGNMENT)
+// ---------------------------------------------------------------------------
+
+/**
+ * RecallTemporalMode — modalità di query temporale per il recall bundle.
+ *
+ * - `current`: fatti attivi ora (default, zero behavior change).
+ * - `valid_at`: fatti validi nel mondo a un dato istante.
+ * - `known_at`: fatti registrati/accettati da X9 a un dato istante.
+ * - `valid_between`: fatti/eventi validi in un intervallo.
+ * - `history`: catena di supersession/invalidation per slot/entity.
+ */
+export const RecallTemporalModeSchema = z.enum([
+  'current',
+  'valid_at',
+  'known_at',
+  'valid_between',
+  'history',
+]);
+export type RecallTemporalMode = z.infer<typeof RecallTemporalModeSchema>;
+
+/**
+ * RecallTemporalFilter — filtro temporale per richieste recall bundle.
+ *
+ * `mode` seleziona la semantica; i campi opzionali forniscono i parametri
+ * necessari per ciascuna modalità (validazione a livello applicativo).
+ */
+export const RecallTemporalFilterSchema = z.object({
+  mode: RecallTemporalModeSchema,
+  validAt: z.string().datetime({ offset: true }).optional(),
+  knownAt: z.string().datetime({ offset: true }).optional(),
+  validFrom: z.string().datetime({ offset: true }).optional(),
+  validTo: z.string().datetime({ offset: true }).optional(),
+  includeInvalidated: z.boolean().optional(),
+  includeSuperseded: z.boolean().optional(),
+});
+export type RecallTemporalFilter = z.infer<typeof RecallTemporalFilterSchema>;
+
+/**
+ * BitemporalFields — campi bitemporali aggiunti a facts/rules/edges.
+ *
+ * Due assi temporali:
+ * 1. **Validity time** (valid_from / valid_to): quando il fatto è vero nel mondo.
+ * 2. **Transaction time** (recorded_at / record_invalidated_at): quando X9 lo ha registrato/invalidato.
+ *
+ * `asserted_at` e `source_observed_at` sono metadati ausiliari opzionali.
+ */
+export const BitemporalFieldsSchema = z.object({
+  validFrom: z.string().datetime({ offset: true }).nullable(),
+  validTo: z.string().datetime({ offset: true }).nullable(),
+  recordedAt: z.string().datetime({ offset: true }),
+  recordInvalidatedAt: z.string().datetime({ offset: true }).nullable(),
+  assertedAt: z.string().datetime({ offset: true }).nullable(),
+  sourceObservedAt: z.string().datetime({ offset: true }).nullable(),
+});
+export type BitemporalFields = z.infer<typeof BitemporalFieldsSchema>;
+
+/**
+ * InvalidationMetadata — metadati strutturati associati all'invalidazione di una memoria.
+ *
+ * Cattura il motivo (enum), la sorgente che ha causato l'invalidazione,
+ * l'attore e una nota opzionale.
+ */
+export const InvalidationMetadataSchema = z.object({
+  reason: InvalidationReasonSchema,
+  sourceId: z.string().min(1).optional(),
+  actor: z.string().min(1).optional(),
+  note: z.string().max(500).optional(),
+});
+export type InvalidationMetadata = z.infer<typeof InvalidationMetadataSchema>;

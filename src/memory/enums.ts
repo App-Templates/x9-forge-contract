@@ -79,3 +79,33 @@ export const MemoryCorrectiveActionSchema = z.enum([
   'change_retention',
 ]);
 export type MemoryCorrectiveAction = z.infer<typeof MemoryCorrectiveActionSchema>;
+
+/**
+ * InvalidationReason — motivazione strutturata per l'invalidazione di una memoria.
+ *
+ * Allineato con ADR-MEM-GRAPHITI-ALIGNMENT §4.4.
+ *
+ * - `superseded_by_new_fact`: fatto sostituito da uno più recente (conflict resolution).
+ * - `user_correction`: l'utente ha corretto esplicitamente il fatto.
+ * - `admin_correction`: correzione da admin/forge console.
+ * - `source_deleted`: la sorgente originale è stata rimossa.
+ * - `privacy_redaction`: redazione per privacy/compliance.
+ * - `retention_expired`: scaduta per retention policy (TTL / archive lifecycle).
+ * - `entity_merge`: invalidata a seguito di merge di due entità.
+ * - `entity_split`: invalidata a seguito di split di un'entità.
+ * - `low_confidence_rejected`: rigettata per confidenza insufficiente all'extraction.
+ * - `conflict_unresolved`: conflitto non risolvibile automaticamente.
+ */
+export const InvalidationReasonSchema = z.enum([
+  'superseded_by_new_fact',
+  'user_correction',
+  'admin_correction',
+  'source_deleted',
+  'privacy_redaction',
+  'retention_expired',
+  'entity_merge',
+  'entity_split',
+  'low_confidence_rejected',
+  'conflict_unresolved',
+]);
+export type InvalidationReason = z.infer<typeof InvalidationReasonSchema>;
