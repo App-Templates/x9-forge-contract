@@ -201,6 +201,43 @@ See `.planning/ROADMAP.md` for the live roadmap.
 | agent-x9 | Phase 41 — Memory v2 Graphiti alignment | Executing | Imports temporal primitives added in v1.4.0 |
 | forge-v2 | Phase 10 — Model Router UI | Planned | Depends on X9 Phase 35 + model-router sub-path |
 
+## Verified ground truth
+
+Don't trust this README or `.planning/PROJECT.md` descriptions blindly. Every contract decision must cite `file:line` from the actual code. Verified snapshots (re-grep before citing in new planning docs — code may have moved):
+
+**Forge v2** (mature multi-tenant control plane):
+- 3-tier vault cascade: `services/vault/src/services/vault.service.ts` (cascade platform→owner→agent)
+- DB schema + migrations: `packages/db/src/schema.ts`, `drizzle/`
+- Ownership middleware (every agent route): `services/factory/src/middleware/require-agent-ownership.ts`
+- Bulk sync endpoint: `POST /api/vault/sync-all` in `services/vault/src/routes/vault.ts` (touches only `tier=platform|owner`, skips `tier=agent`)
+- Resolve endpoint (X9 → Forge live-resolve): `GET /resolve/:agentId/:key` in `services/vault/src/routes/vault.ts` (typed by `vaultResolveContract`, bridge v1.3.0)
+- X9 HTTP client: `services/factory/src/services/x9.client.ts`
+
+**Agent X9** (multi-agent by design):
+- Multi-agent loader: `services/agent-core/src/core/agent-manager.ts`
+- `AgentContext` per-agent with workspace/registry/credentials isolated
+- SessionStore keyed `${agentId}-${chatId}`: `services/agent-core/src/channel/session-store.ts`
+- Memory v1 (legacy) isolated per `agent_${agentId}_memories` in Qdrant: `services/memory/src/client.ts`
+- Memory v2 (Phase 40 complete, Phase 41 Graphiti-aligned) in Postgres `x9_memory` schema + Qdrant v2 projection: `services/memory/src/db/schema.ts`, `services/memory/src/projection/`
+- Hot-reload: `POST /internal/agents/:id/reload` in `services/agent-core/src/index.ts`
+- Model Router (Phase 35 shipped): `services/agent-core/src/core/model-router.ts` (turn-level selection + per-cap `modelPolicy` guardrail)
+- VaultClient (Phase 38, live-resolve): `packages/capability-sdk/src/vault-client.ts` (imports `vaultResolveContract`, `VaultTierSchema`, `INTERNAL_TOKEN_HEADER` from bridge — R-14 compliant)
+- `AgentCredentials`: discriminated shape via bridge `@x9-forge/contracts/agent` (replaces legacy flat `Record<string, string>`; shim re-export in `packages/types/` slated for removal in bridge v1.1 Phase 7)
+- **No** `/webhook/post-call` endpoint on X9 — flow goes ElevenLabs → Forge voice-svc → cap-voice (multi-tenant routing by `conversationId → agentId`)
+
+## Discipline for adding or changing a contract
+
+Non-negotiable rules that protect bridge correctness across the X9 ↔ Forge boundary:
+
+1. **Verify everything on code before typing.** Cite `file:line` for every contract — not PROJECT.md, not memory, not a previous README. Code is the source of truth.
+2. **Zero regressions.** Contract tests must be green **before** and **after** any bridge change. A failing contract test blocks merge.
+3. **Incremental migration.** One contract at a time — never big-bang. Each commit lands one bridge additive + its consumer updates, ready to revert independently.
+4. **Backward compat during migration.** Old types can re-export from the bridge as compat shims for the deprecation window (≥ 1 milestone cycle). Shims removed last, only after both consumers grep clean.
+5. **X9 production continuity is non-negotiable.** Production on `/opt/x9` cannot go down during a bridge migration. Every SHA bump is atomic, rollback-anchored, and paired with a VPS snapshot before deploy (R-04 + R-16).
+6. **README updates are part of DoD.** When a contract moves/ships/deprecates, update this README + agent-x9 README + forge-v2 README in the same PR or follow-up. Drift between bridge reality and docs causes R-14 bypass.
+7. **Don't reinvent Forge multi-tenant.** The 3-tier vault cascade (platform → owner → agent) already exists and works — the bridge types it, does not reshape it.
+8. **Don't reinvent X9 multi-agent.** The runtime already supports N agents per stack with isolated workspace/registry/credentials/memory — the bridge types existing behavior, does not redesign it.
+
 ## See also
 
 - [`agent-x9/README.md`](../agent-x9/README.md) — runtime, services, multi-tenancy
