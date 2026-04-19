@@ -1,28 +1,32 @@
 # x9-forge-contract-bridge
 
-> TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for all cross-repo types: HTTP endpoints, request/response shapes, auth headers, vault entries, model router contracts.
+> TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Status:** Planning phase (research not yet started). PROJECT.md + config.json committed.
+**Package:** `@x9-forge/contracts` · **Current version:** `1.4.0` · **Last milestone:** v1.0 Bridge Foundation shipped 2026-04-16 (git tag `v1.0` at commit `1d709a1`) · **Status:** between milestones, v1.1 (Shim Cleanup) planned
 
-## Why
+## Why this repo exists (R-14 NON NEGOZIABILE)
 
-A breaking contract change between X9 and Forge v2 **must** fail at compile time in both repos — never in production. This package exists because Bug #15 happened: X9 Phase 21.1 added a required `X-Internal-Token` header on `/webhook/post-call`, Forge v2 kept calling without it. No TypeScript error. Discovered empirically in production 2026-04-11.
+A breaking contract change between X9 and Forge v2 **must** fail at compile time in both repos — never in production. This package exists because **Bug #15** happened: X9 Phase 21.1 added a required `X-Internal-Token` header on `/webhook/post-call`, Forge v2 kept calling without it, no TypeScript error, discovered empirically in production 2026-04-11.
 
-With this package, Forge's build would have failed the moment X9 changed the contract.
+With this package, Forge's build fails the moment X9 changes the contract. The rule is enforced globally (see [`~/.claude/CLAUDE.md` R-14](../../../.claude/CLAUDE.md)):
+
+> Qualsiasi tipo, endpoint, header, schema, o costante condivisa tra X9 e Forge v2 DEVE essere importata da `@x9-forge/contracts`. Zero eccezioni.
+
+**Enforcement:** planners list required bridge imports in `files_to_read`; executors that see inline `z.enum(...)`, literal `"X-Internal-Token"`, or hardcoded `/internal/*` URLs must STOP and extend the bridge first; verifiers reject PRs that skip the bridge.
 
 ## Install
 
-Distribuzione via `git+https` URL con SHA pinning (BRDG-01). Nei consumer (X9 o Forge):
+Bridge is distributed via `git+https` URL with SHA pinning (RLSE-01). In consumers (X9, Forge v2, storefront when consuming X9 types):
 
 ```bash
 pnpm add "@x9-forge/contracts@git+https://github.com/App-Templates/x9-forge-contract.git#<SHA>"
 ```
 
-Il `prepare` script builda il package al momento dell'install — `dist/` non è committato.
+The `prepare` script builds the package at install time — `dist/` is not committed. Repo is private; consumers need GitHub access (or use the dev-link override below).
 
 ## Dev locale (hot-reload)
 
-Per sviluppo locale senza republish a ogni modifica, nel `package.json` root del consumer (X9 o Forge) aggiungi (NON committare in main):
+For local development without re-publishing on every edit, in the consumer's root `package.json` (X9 or Forge) add **without committing to main**:
 
 ```json
 {
@@ -34,186 +38,176 @@ Per sviluppo locale senza republish a ogni modifica, nel `package.json` root del
 }
 ```
 
-Poi `pnpm install`. Modifiche al bridge → consumer le vede al successivo `tsc --noEmit`. Copre BRDG-06 (dev loop).
-
-Cleanup pre-merge: rimuovi il blocco `pnpm.overrides` prima di mergiare in main (il plan 00-04 valida questo flusso end-to-end).
-
-## Scope v1
-
-### Cross-repo HTTP contracts (existing, to consolidate)
-
-**Forge → X9** (10 endpoints, `X-Internal-Secret` or `X-Internal-Token`):
-- `/internal/agents` (GET / reload / stop)
-- `/internal/turn`, `/internal/turn/stream` (SSE), `/internal/query`
-- `/webhook/post-call`
-- `/manifest`, `/env-schema`, `/health` (capability identity is implicit in the caller's `baseUrl` — Docker hostname/port — not a path prefix)
-
-**X9 → Forge** (1 endpoint):
-- `/api/voice/register`
-
-Existing duplicated types to unify:
-- X9: `ToolCallRequest`, `ToolCallResponse`, `CapabilityManifest` in `packages/types/src/capability.ts`
-- Forge: `X9AgentContext`, `X9CapabilityRegistryEntry`, `X9CapabilityManifest`, `X9EnvSchemaField`, `X9EnvSchemaDoc` in `packages/types/src/x9.ts`
-- Known divergence: `CapabilityRegistryEntry` (X9 uses `endpoint` URL) vs `X9CapabilityRegistryEntry` (Forge uses `host + port + version`)
-
-### Vault & multi-tenant contracts
-
-Forge v2 already implements **3-tier vault cascade**: `platform → owner → agent`. The bridge types this mechanism so X9 can consume it safely.
-
-- `VaultEntry` shape (key, encrypted value, `tier`, `isCustomized`, `ownerId?`, `agentId?`)
-- `VaultTier` enum: `platform | owner | agent` — normalizes the "synced vs overridden" semantic
-  - `synced` (resync propagates) = `tier === 'platform' | 'owner'`
-  - `overridden` (resync skips) = `tier === 'agent'`
-- `VaultSyncEvent` (bulk resync payload, touches only non-agent-tier entries)
-- `AgentIdentity` (`agentId`, `ownerId/tenantId`) — basis for multi-tenant routing
-- `AgentCredentials` discriminated shape (replaces X9's flat `Record<string, string>` in `context.credentials` for per-key type safety)
-- `WorkspaceFile` shape (path, content, tier, isCustomized)
-
-### Model Router contracts (Phase 35 prerequisite)
-
-Phase 35 (Model Router — Two-Level Routing) in agent-x9 introduces 5 new cross-repo contracts. They **must be born in this bridge**, not retrofitted:
-
-- `ModelTier` ordered enum (`standard < advanced < reasoning`)
-- `ModelTierMapping` (`tier → modelId`, e.g. `standard: "gpt-4.1-mini"`)
-- `ModelPolicy` (`{ min, max }`) + `modelPolicy` field in registry
-- Forge Model Push API (`POST /internal/model-config` or equivalent) — **new endpoint, not yet implemented**
-- Hot-reload notification shape
-
-### Out of scope (v1)
-
-- CI/CD publish pipeline (add after v1 stabilizes)
-- Hot-reload "live" push vault → X9 bypassing context.json (real gap, but not a bridge blocker)
-- Multi-user-within-agent (`userId` filter in memory recall) — X9 gap, separate phase
-- Tenant self-service UI (Forge scope)
-- Env var renaming (`INTERNAL_SECRET` vs `X9_INTERNAL_SECRET` etc.) — document asymmetry, don't rename
-
-## Contracts coverage
-
-Tabella popolata incrementalmente phase-per-phase (OBS-01). Oggi (Phase 0): **vuota — solo scaffolding**.
-
-| Dominio | Contratto | File | Phase aggiunto |
-|---------|-----------|------|----------------|
-| — | — | — | Phase 1+ |
-
-Sub-path exports disponibili (placeholder vuoti Phase 0):
-
-- `@x9-forge/contracts/capability`
-- `@x9-forge/contracts/agent`
-- `@x9-forge/contracts/http`
-- `@x9-forge/contracts/auth`
-- `@x9-forge/contracts/vault`
-- `@x9-forge/contracts/model-router`
-
-## How to add a new contract
-
-Procedura canonica (OBS-02):
-
-1. Identifica il dominio (capability/agent/http/auth/vault/model-router)
-2. Crea `src/<dominio>/<nome>.ts` con Zod schema + `z.infer<typeof schema>` type
-3. Esporta da `src/<dominio>/index.ts`
-4. Scrivi contract test in `tests/<dominio>/<nome>.test.ts` (schema + fixture valida + fixture invalida fail-loud)
-5. `pnpm build && pnpm test && pnpm lint` verdi
-6. Aggiorna la tabella **Contracts coverage** qui sopra con riga `dominio | contratto | file | phase`
-7. Bump SHA nei consumer **atomicamente** (entrambi X9 + Forge in un singolo PR coordinato)
-8. Verifica post-merge: `pnpm why @x9-forge/contracts` in entrambi i consumer mostra lo stesso SHA
-
-## Breaking change policy
-
-Regole non negoziabili (OBS-03):
-
-- **SHA-pinned** nei consumer — no semver tag mobile, no `^` né `~`
-- **Breaking change = bump SHA simultaneo nei 2 consumer**, mai uno solo. Se X9 bumpa senza Forge, Forge build rompe in staging
-- **Deprecation**: aggiungi `/** @deprecated use X instead */` JSDoc, mantieni export per ≥ 1 cycle di phase
-- **Rimozione**: solo dopo che entrambi i consumer hanno zero reference all'API deprecata (`grep -r "<nomeApi>" agent-x9/ forge-v2/` → zero risultati)
-- **Never force-push** sul main del bridge — history immutable
-- **Mai ruotare SHA senza PR cross-repo coordinato** — rollback = reset consumer al SHA precedente
-- **Contract test obbligatori** per ogni breaking change: test deve catturare la rottura PRIMA del merge
-
-## Verified ground truth (2026-04-14)
-
-Don't trust this README or `.planning/PROJECT.md` descriptions. Every contract decision must cite `file:line` from the actual code. Verified snapshots:
-
-**Forge v2** (very mature already):
-- 3-tier vault cascade implemented: `services/vault/src/services/vault.service.ts:73-116`
-- DB schema: `packages/db/src/schema.ts:13-70`
-- Ownership middleware: `services/factory/src/middleware/require-agent-ownership.ts`
-- Bulk sync endpoint: `POST /api/vault/sync-all` (`services/vault/src/routes/vault.ts:167`)
-- X9 client: `services/factory/src/services/x9.client.ts`
-
-**Agent X9** (multi-agent by design):
-- Multi-agent manager: `services/agent-core/src/core/agent-manager.ts:1-67`
-- AgentContext per-agent with workspace/registry/credentials isolated
-- SessionStore keyed `${agentId}-${chatId}`: `session-store.ts:25-64`
-- Qdrant memory isolated per `agent_${agentId}_memories`: `memory/src/client.ts:49-84`
-- Hot-reload: `POST /internal/agents/:id/reload` (`agent-core/src/index.ts:336-368`)
-- **No** `/webhook/post-call` endpoint on X9 — flow goes Forge voice-svc → cap-voice
-- **No** Phase 35 Model Router code yet (only design doc)
-- `context.credentials` is flat `Record<string, string>` (zero per-key type safety)
-
-## Research mandate (non-negotiable)
-
-1. **Verify everything on code** before typing — cite `file:line` for every contract
-2. **Zero regressions** — contract tests green before AND after migration
-3. **Incremental migration** — one contract at a time, never big-bang
-4. **Backward compat during migration** — old types can re-export from bridge as compat shim, removed last
-5. **X9 production continuity** — cannot go down during migration (Stefano's non-negotiable rule)
-6. **README updates are part of DoD** — update this README + X9 + Forge READMEs when a contract moves
-7. **Don't reinvent Forge multi-tenant** — the 3-tier vault already exists, bridge types it
-8. **Don't reinvent X9 multi-agent** — already designed for clones, bridge types existing behavior
-
-Full research mandate: [`.planning/PROJECT.md`](.planning/PROJECT.md).
+Then `pnpm install`. Bridge edits are visible to the consumer on the next `tsc --noEmit`. Remove the `pnpm.overrides` block before merging to main — the SHA pin is the only valid production dependency.
 
 ## Architecture relationship
 
 ```
-                ┌────────────────────────────────────┐
-                │            FORGE v2                │
-                │  Control plane + vault centralized │
-                │  (3-tier: platform / owner / agent)│
-                └─────────────┬──────────────────────┘
-                              │ HTTP push (reload, sync)
-                              │ typed by bridge
-         ┌────────────────────┴──────────────────┐
-         │   x9-forge-contract-bridge (pkg)      │  ← types, no runtime
-         │   HTTP contracts + vault + model      │
-         └────────────────────┬──────────────────┘
-                              │ both repos import
-                              │ from here
-         ┌────────────────────┴──────────────────┐
-         │   AGENT X9 — Master Chief runtime     │
-         │   Multi-agent: N agents per stack,    │
-         │   each with isolated workspace,       │
-         │   registry, credentials, memory       │
-         └───────────────────────────────────────┘
+                ┌──────────────────────────────────────────────┐
+                │                FORGE v2                      │
+                │  Control plane + 3-tier vault (platform →    │
+                │  owner → agent) + factory + workspace +      │
+                │  docker mgmt + voice webhook relay           │
+                └────────────┬─────────────────────────────────┘
+                             │  HTTP push (reload / sync / env)
+                             │  typed by bridge
+       ┌─────────────────────┴────────────────────────────────┐
+       │  x9-forge-contract-bridge  ·  @x9-forge/contracts    │  ← types, no runtime
+       │  Zod schemas + TS types + endpoint contracts         │
+       │  8 sub-paths · 67 contract files · 384 tests         │
+       └─────────────────────┬────────────────────────────────┘
+                             │  both repos import from here
+                             │  (SHA-pinned, no semver drift)
+       ┌─────────────────────┴────────────────────────────────┐
+       │         AGENT X9 — Master Chief runtime              │
+       │  17 services · multi-agent: N agents per stack       │
+       │  each with isolated workspace, registry,             │
+       │  credentials, memory (Qdrant + Postgres)             │
+       └──────────────────────────────────────────────────────┘
 ```
 
-The bridge is a **compile-time** contract package. No runtime, no server. When Forge UI pushes a new key or model tier to X9, the types ensure both sides agree on the shape.
+The bridge is a **compile-time** contract package. No runtime, no server. When Forge pushes a new key or model tier to X9, the shared Zod schemas guarantee both sides agree on the shape.
 
-## Status & next steps
+## Sub-paths and coverage
 
-- [x] Repo initialized, `.git/` + `.planning/PROJECT.md` + `.planning/config.json` committed
-- [x] Gap analysis verified on both repos (2026-04-14)
-- [ ] GSD research phase (next)
-- [ ] REQUIREMENTS.md
-- [ ] ROADMAP.md
-- [ ] Implementation
+8 sub-path exports. Import via `@x9-forge/contracts/<sub-path>`.
 
-To resume:
+| Sub-path | Files | Covers |
+|----------|-------|--------|
+| `capability` | 7 | `CapabilityManifest`, `ToolCall{Request,Response}`, env-schema, registry entry shapes |
+| `agent` | 5 | `AgentId`, `OwnerId`, `AgentIdentity`, `AgentContext`, `AgentCredentials` (discriminated replacement for X9's legacy flat `Record<string, string>`) |
+| `auth` | 2 | `INTERNAL_SECRET_HEADER`, `INTERNAL_TOKEN_HEADER`, `AuthInternal{Secret,Token}Schema` (discriminated per endpoint) |
+| `http` | 22 | `createBridgeClient`, `NoAuthBridgeClient`, `sse-parser`, standardized `BridgeResponse`, one contract file per cross-repo endpoint under `endpoints/` |
+| `vault` | 8 | `VaultTier` (platform/owner/agent ordered), `VaultEntry`, `VaultSyncEvent`, `AgentVaultedCredentials`, `WorkspaceFile` |
+| `model-router` | 8 | `ModelTier` (standard < advanced < reasoning), `ModelTierMapping`, `ModelPolicy {min,max}`, hot-reload notification, model-push endpoint |
+| `memory` | 9 | `MemoryStatus`, `MemoryCorrectiveAction`, `InvalidationReason`, `RecallTemporalMode`, `RecallTemporalFilter`, `BitemporalFields`, `TemporalSemantics`, `InvalidationMetadata` (Phase 41 Graphiti alignment) |
+| `rag` | 6 | cap-rag cross-repo contracts (Phase 37.7): source sync, document open/list, topic intelligence shapes |
 
-```bash
-cd /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge
-cat .planning/PROJECT.md    # read full research mandate
-# then: /gsd-new-project (resumes from where it left off) or /gsd-progress
+Full contract-by-contract coverage and ownership in `milestones/v1.0-REQUIREMENTS.md` and [`CHANGELOG.md`](CHANGELOG.md).
+
+## HTTP endpoint contracts (authoritative list)
+
+Each endpoint ships as `src/http/endpoints/<name>.ts` with `paramsSchema`, `requestSchema`, `responseSchema`, `authType`, `method`, `path`. Consumers import the contract object, not individual fields.
+
+**Forge → X9** (control-plane push, auth: `X-Internal-Secret`):
+- `GET  /internal/agents` — list
+- `POST /internal/agents/:agentId/reload` — hot-reload context.json
+- `POST /internal/agents/:agentId/stop` — graceful bot stop
+- `POST /internal/turn` — synchronous turn (Forge tools, worker contexts)
+- `POST /internal/turn/stream` — SSE turn with heartbeat
+- `POST /internal/query` — self-test harness (Phase 31-F)
+- `POST /internal/model-config` — push model tier mapping / per-cap policy (Phase 39)
+
+**Forge → X9 capability services** (per-capability identity implicit in `baseUrl`):
+- `GET  /:cap/manifest` — tool definitions
+- `GET  /:cap/env-schema` — required env vars
+- `GET  /:cap/health` — health probe
+
+**X9 capabilities → Forge vault-svc** (auth: `X-Internal-Token`):
+- `GET  /resolve/:agentId/:key` — per-agent credential resolve via 3-tier cascade (v1.3.0, 2026-04-18 — closes R-14 gap from Phase 38 Wave 1)
+
+**X9 cap-voice → Forge voice-svc** (auth: `X-Internal-Secret`):
+- `POST /api/voice/register` — register voice session for post-call routing
+
+**ElevenLabs / Twilio → Forge voice-svc → X9 cap-voice** (HMAC signed):
+- `POST /webhook/post-call` — forwarded by Forge with `agentId` resolved from `conversationId`
+
+## Release history
+
+See [`CHANGELOG.md`](CHANGELOG.md) for full detail.
+
+| Version | Date | Highlight |
+|---------|------|-----------|
+| **1.4.0** | 2026-04-19 | Memory v2 Graphiti alignment: `InvalidationReason` (10-enum), `RecallTemporalMode`, `RecallTemporalFilter`, `BitemporalFields`, `InvalidationMetadata` + 45 unit tests (Phase 41 prerequisite) |
+| **1.3.0** | 2026-04-18 | `vaultResolveContract` for `GET /resolve/:agentId/:key` (closes R-14 gap from Phase 38 Wave 1 VaultClient violation) |
+| **1.2.0** | 2026-04-17 | `@x9-forge/contracts/rag` sub-path (Phase 37.7 — cap-rag cross-repo types) |
+| **1.0.0** | 2026-04-16 | **v1.0 Bridge Foundation shipped.** 8 sub-paths, 384/384 tests, Phases 0–6 + 04.1 + M, PR #1 merged, git tag `v1.0` at `1d709a1` |
+
+## How to add a new contract (canonical procedure)
+
+1. **Identify the domain** — capability / agent / http / auth / vault / model-router / memory / rag. If none fits, propose a new sub-path in the same PR.
+2. **Write the schema** — `src/<domain>/<name>.ts` with Zod + `z.infer<typeof schema>` type.
+3. **Write the test** — `tests/<domain>/<name>.test.ts` covering at least one valid fixture + one invalid fixture (fail-loud).
+4. **Export** — add to `src/<domain>/index.ts` so consumers can import from `@x9-forge/contracts/<domain>`.
+5. **Build + test + lint** — `pnpm build && pnpm test && pnpm lint` all green.
+6. **Bump version + CHANGELOG** — additive = minor bump; breaking = major bump + removal milestone noted; document consumer migration steps.
+7. **Atomic consumer bump** — update X9 and Forge SHA pins in the **same** PR window (RLSE-02 breaking-change policy).
+8. **Post-merge verify** — `pnpm why @x9-forge/contracts` in both consumers shows identical SHA.
+
+## Breaking-change policy (RLSE)
+
+Non-negotiable rules:
+
+- **SHA-pinned**, never semver tag — no `^`, no `~`, no `latest`.
+- **Atomic SHA bump across consumers** — X9 and Forge flip together. A unilateral bump breaks the other repo's staging build.
+- **Deprecation** — `/** @deprecated use X instead (removal in v<X.Y>) */` JSDoc with explicit removal milestone. Minimum 1 milestone cycle grace period.
+- **Removal** — only after both consumers grep clean (`grep -r <apiName> agent-x9/ forge-v2/` → zero references).
+- **No force-push on `main`** — history is immutable.
+- **Contract test mandatory on breaking change** — test must catch the rupture before merge.
+
+## Repository layout
+
+```
+x9-forge-contract-bridge/
+├── src/
+│   ├── agent/            # AgentId, OwnerId, AgentIdentity, AgentContext, AgentCredentials
+│   ├── auth/             # INTERNAL_*_HEADER constants + discriminated auth schemas
+│   ├── capability/       # CapabilityManifest, ToolCall*, env-schema, registry entry
+│   ├── http/
+│   │   ├── bridge-client.ts        # createBridgeClient<authType>
+│   │   ├── no-auth-bridge-client.ts  # public/unauthenticated variant (R-09)
+│   │   ├── sse-parser.ts           # SSE event parser for /internal/turn/stream
+│   │   ├── response.ts             # BridgeResponse { ok, data | error }
+│   │   └── endpoints/              # 1 file per cross-repo endpoint contract
+│   ├── memory/           # Memory v2 (ADR + Graphiti alignment)
+│   ├── model-router/     # Phase 35 two-level routing contracts
+│   ├── rag/              # Phase 37.7 cap-rag contracts
+│   └── vault/            # 3-tier cascade, AgentVaultedCredentials, WorkspaceFile
+├── tests/                # Mirrors src/ — 384+ unit tests across 42+ files
+├── .planning/
+│   ├── PROJECT.md        # Project mandate + decisions
+│   ├── ROADMAP.md        # v1.0 shipped, v1.1 planned
+│   ├── STATE.md          # Current milestone cursor
+│   ├── RETROSPECTIVE.md  # Post-milestone retro
+│   └── milestones/v1.0-phases/  # Archived v1.0 Phase 0-6 + 04.1 + M
+├── CHANGELOG.md
+├── package.json          # prepare = pnpm build
+└── tsconfig.json
 ```
 
-## Related phases
+## v1.1 roadmap (next milestone)
 
-| Repo | Phase | Status | Dependency |
-|------|-------|--------|------------|
-| agent-x9 | Phase 35 — Model Router | Planned | **Depends on bridge v1** — Phase 35 must import contracts from here, not define locally |
-| forge-v2 | Phase 10 — Model Router UI | Planned | Depends on X9 Phase 35 + bridge v1 |
-| agent-x9 | Multi-user-in-agent (userId filter) | Not scoped | Separate X9 phase, not bridge scope |
-| forge-v2 | Tenant self-service UI | Not scoped | Separate Forge phase, not bridge scope |
+Planned scope:
+
+- **Phase 7 — Shim Removal (opzionale)**: remove compat re-export shims in `agent-x9/packages/types/capability.ts` and `forge-v2/packages/types/src/x9.ts`. Consumers already import from `@x9-forge/contracts/<sub-path>` directly; the shims exist for migration safety and can go.
+- **Bookkeeping cleanup**: back-fill VERIFICATION.md for Phases 0/2/6/M, flip stale VALIDATION frontmatter, document atomic SHA bump procedure (RLSE-02) and `@deprecated` workflow (RLSE-03), add release notes template.
+
+See `.planning/ROADMAP.md` for the live roadmap.
+
+## Open risks carried from v1.0
+
+- **R-07** — `forge-v2/web/` stuck on `zod@3` (MCP SDK upstream peer-dep chain). Defer until MCP SDK releases zod@4-compatible.
+- **R-08** — Forge v2 `moduleResolution=node` legacy (partial close in v1.0 Phase 1). Stretches when next consumer migrates.
+
+## Related phases in consumer repos
+
+| Repo | Phase | Status | Bridge dependency |
+|------|-------|--------|-------------------|
+| forge-v2 | Phase 17 — Bridge Docker Integration | Executing (Waves 1–2 done) | Dockerfiles + compose build bridge via `git+https#SHA` pin (RLSE-01 realization) |
+| agent-x9 | Phase 35 — Model Router | Shipped | Imports `@x9-forge/contracts/model-router` |
+| agent-x9 | Phase 37.x — cap-rag | 37.6 executing | Imports `@x9-forge/contracts/rag` (v1.2.0) |
+| agent-x9 | Phase 38 — Voice credentials via Forge vault | Waves 1–2 merged | Imports `@x9-forge/contracts/{vault,auth}` + `vaultResolveContract` (v1.3.0) |
+| agent-x9 | Phase 40 — Memory v2 completion | Complete | Imports `@x9-forge/contracts/memory` |
+| agent-x9 | Phase 41 — Memory v2 Graphiti alignment | Executing | Imports temporal primitives added in v1.4.0 |
+| forge-v2 | Phase 10 — Model Router UI | Planned | Depends on X9 Phase 35 + model-router sub-path |
+
+## See also
+
+- [`agent-x9/README.md`](../agent-x9/README.md) — runtime, services, multi-tenancy
+- [`forge-v2/README.md`](../forge-v2/README.md) — control plane, vault, factory
+- [`CLAUDE.md`](CLAUDE.md) — repo guidelines + R-14 enforcement procedure
+- [`CHANGELOG.md`](CHANGELOG.md) — full version history
+- [`~/.claude/CLAUDE.md`](../../../.claude/CLAUDE.md) — global rules R-01 through R-16
 
 ## License
 
