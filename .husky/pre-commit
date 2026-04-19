@@ -1,0 +1,14 @@
+#!/bin/sh
+# quick-260419-m2a: L3 gate — run webhook-post-call test when bridge
+# webhook-post-call schema/tests/fixtures are staged. Zero-cost when
+# unrelated files change.
+
+STAGED=$(git diff --cached --name-only)
+if echo "$STAGED" | grep -qE '^(src/http/endpoints/webhook-post-call\.ts|tests/http/endpoints/webhook-post-call\.test\.ts|tests/fixtures/elevenlabs-post-call/)' ; then
+  echo "[husky] webhook-post-call files staged — running gate test…"
+  pnpm test -- webhook-post-call || {
+    echo "[husky] BLOCK: webhook-post-call tests failed. Fix before commit."
+    exit 1
+  }
+fi
+exit 0
