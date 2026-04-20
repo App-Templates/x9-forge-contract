@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for all cross-repo types: HTTP endpoints, request/response shapes, auth headers, vault entries, model router contracts.
 
-**Status:** Planning phase (research not yet started). PROJECT.md + config.json committed.
+**Status:** v1.2.0 shipped (Phase 42 — CAP-Voice v2.2 foundation). Branch `phase/42-voice-contracts` (SHA `1f624dd`). See [CHANGELOG.md](./CHANGELOG.md) for full version history.
 
 ## Why
 
@@ -161,7 +161,7 @@ Don't trust this README or `.planning/PROJECT.md` descriptions. Every contract d
 - SessionStore keyed `${agentId}-${chatId}`: `session-store.ts:25-64`
 - Qdrant memory isolated per `agent_${agentId}_memories`: `memory/src/client.ts:49-84`
 - Hot-reload: `POST /internal/agents/:id/reload` (`agent-core/src/index.ts:336-368`)
-- **No** `/webhook/post-call` endpoint on X9 — flow goes Forge voice-svc → cap-voice
+- **cap-voice topology (Phase 42):** ElevenLabs → Forge voice-svc → cap-voice `/internal/voice/post-call` (D-01: no public X9 ElevenLabs webhook). See [ADR-cap-voice.md](../agent-x9/docs/adr/ADR-cap-voice.md) v2.2.
 - **No** Phase 35 Model Router code yet (only design doc)
 - `context.credentials` is flat `Record<string, string>` (zero per-key type safety)
 
@@ -204,27 +204,29 @@ Full research mandate: [`.planning/PROJECT.md`](.planning/PROJECT.md).
 
 The bridge is a **compile-time** contract package. No runtime, no server. When Forge UI pushes a new key or model tier to X9, the types ensure both sides agree on the shape.
 
-## Status & next steps
+## Status & history
 
 - [x] Repo initialized, `.git/` + `.planning/PROJECT.md` + `.planning/config.json` committed
 - [x] Gap analysis verified on both repos (2026-04-14)
-- [ ] GSD research phase (next)
-- [ ] REQUIREMENTS.md
-- [ ] ROADMAP.md
-- [ ] Implementation
+- [x] v1.0 shipped — 8 sub-paths: capability, agent, auth, http, vault, model-router, memory, rag (2026-04-16)
+- [x] v1.1.0 — Memory governance schemas (MemoryConsole*, corrective actions) (2026-04-16)
+- [x] v1.2.0 — `@x9-forge/contracts/voice` sub-path (27 schemas, Phase 42 CAP-Voice v2.2) (2026-04-19)
 
-To resume:
+**Current active branch:** `phase/42-voice-contracts` (SHA `1f624dd74f5b2134699093a66b35d98f3bc4e0e3`)
+
+To resume development:
 
 ```bash
-cd /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge
-cat .planning/PROJECT.md    # read full research mandate
-# then: /gsd-new-project (resumes from where it left off) or /gsd-progress
+git -C /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge log --oneline -5
+cat CHANGELOG.md    # version history
 ```
 
 ## Related phases
 
 | Repo | Phase | Status | Dependency |
 |------|-------|--------|------------|
+| agent-x9 + forge-v2 | Phase 42 — CAP-Voice v2.2 foundation + shadow | **SHIPPED** (local, pending push) | Ships bridge v1.2.0 (`@x9-forge/contracts/voice`, 27 schemas). Branch `phase/42-voice-contracts` @ `1f624dd`. |
+| agent-x9 + forge-v2 | Phase 43 — CAP-Voice controlled automation + memory visibility | Planned | Depends on Phase 42 verified in production shadow + Phase 41 memory extractor lock zone released. |
 | agent-x9 | Phase 35 — Model Router | Planned | **Depends on bridge v1** — Phase 35 must import contracts from here, not define locally |
 | forge-v2 | Phase 10 — Model Router UI | Planned | Depends on X9 Phase 35 + bridge v1 |
 | agent-x9 | Multi-user-in-agent (userId filter) | Not scoped | Separate X9 phase, not bridge scope |
