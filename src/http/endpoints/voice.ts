@@ -59,3 +59,13 @@ export const CAP_VOICE_CALL_TOOL_PATHS: Readonly<Record<VoiceToolName, string>> 
     VoiceToolNameSchema.options.map((tool) => [tool, CAP_VOICE_CALL_TOOL_PATH(tool)]),
   ) as Record<VoiceToolName, string>,
 );
+
+// -- cap-voice internal admin endpoints (cap-scheduler → cap-voice) ----------
+
+/**
+ * Admin endpoint: trigger hold sweep manually or via cap-scheduler cron.
+ * cap-scheduler POSTs to this path every 15 minutes (ADR §10.11, D-15 sweeper).
+ * Protected by INTERNAL_TOKEN_HEADER + INTERNAL_SECRET_HEADER.
+ */
+export const CAP_VOICE_ADMIN_SWEEP_HOLDS_PATH = '/internal/admin/sweep-holds' as const;
+export const CAP_VOICE_ADMIN_SWEEP_HOLDS_METHOD = 'POST' as const;
