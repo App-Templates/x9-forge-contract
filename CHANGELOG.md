@@ -10,6 +10,38 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## [1.4.1+blindatura-transcript] - 2026-04-20 — CRITICAL consumer bump required
+
+### Fixed (latent, exposed 2026-04-20)
+
+- **`PostCallPayloadSchema.transcript`** — ElevenLabs changed the post-call webhook shape on some calls so that `data.transcript` arrives as an **array of transcript turns** (structured objects) rather than a plain string. The historical `transcript: z.string().optional()` was too strict — the typed `postCallWebhook()` bridge client would throw `ZodError: expected string, received array`, dropping the whole forward from forge voice-svc → cap-voice and silently breaking the Telegram post-call recap.
+- The fix (`z.unknown().optional()` on `transcript` both at the root and under `data.*`) was first landed in bridge commit `189dd850eef2e85a3cedf5972cc6615672e3cc59` ("quick-260419-m2a") on 2026-04-19, verified via golden fixtures + husky pre-commit gate.
+- **Consumer status as of 2026-04-20T22:45Z:**
+  - `agent-x9` (cap-voice): already consumes post-189dd850 bridge via workspace link + vendor sync — no action needed.
+  - `forge-v2` (voice-svc): package.json pin stayed at `00cd9d92` (pre-blindatura) through Phase 45 planning. **Bumped to `1c9c73baddc7db4ab5476270fecec72960ae3058` on 2026-04-20** to unblock the post-call webhook forward.
+
+### Required consumer pin (minimum)
+
+Any repo consuming `PostCallPayloadSchema` MUST pin at or after `189dd850`. Before that SHA the schema rejects array-shaped transcripts and the entire post-call pipeline fails silently (voice-svc returns 200 to ElevenLabs per Pitfall 4, but the cap-voice forward never completes).
+
+| Consumer | Path | Minimum SHA | As of |
+|----------|------|-------------|-------|
+| agent-x9 | `services/cap-voice/src/webhooks/post-call.ts` + vendor `src/http/endpoints/webhook-post-call.ts` | `189dd850` | ≥1c9c73b (vendored + workspace link) |
+| forge-v2 | `services/voice/src/routes/voice.ts` (imports `PostCallPayloadSchema`) | `189dd850` | `1c9c73b` (bumped 2026-04-20) |
+
+### Why this is non-obvious
+
+The 2026-04-19 "quick" session added a 5-layer blindatura (bridge lenient schema + cap-voice normalizer + golden fixtures + husky hook + Claude hook) but the layers only protect the agent-x9 side. forge-v2 has no husky hook and its bridge pin was never atomically bumped per RLSE-02. A future edit to `PostCallPayloadSchema.transcript` that re-tightens the type (e.g. a well-intentioned "make types stricter" refactor) would re-break the same path — the bridge's own husky pre-commit gate (`.husky/pre-commit` running `webhook-post-call` tests) is the backstop.
+
+### How to extend this blindatura
+
+If future breaking changes to this schema are proposed:
+1. Run `pnpm test -- webhook-post-call` — it MUST still pass with array-transcript fixtures under `tests/fixtures/elevenlabs-post-call/`.
+2. Bump SHA atomically in both `agent-x9/vendor/x9-forge-contract-bridge/` (run `scripts/sync-bridge.sh`) AND `forge-v2/package.json` (`pnpm.overrides.@x9-forge/contracts`) in the same deploy (RLSE-02).
+3. Add a new CHANGELOG entry listing all consumers and their new pin. If the change is not additive, bump `[1.5.0]` per SemVer milestone.
+
+---
+
 ## [1.4.0] - 2026-04-19
 
 ### Added
