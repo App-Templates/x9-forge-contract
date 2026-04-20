@@ -18,6 +18,7 @@
 
 export * from './console.js';
 export * from './corrective-action.js';
+export * from './delete.js';
 export * from './enums.js';
 export * from './identity.js';
 export * from './recall-bundle.js';
