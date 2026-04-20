@@ -1,0 +1,12 @@
+{
+  "id": "tool-log-uuid-001",
+  "call_id": "call-test-011",
+  "tool": "get_calendar_availability",
+  "tool_call_source": "elevenlabs",
+  "authorized": true,
+  "status": "ok",
+  "input_json": { "calendar_id": "stefano@example.test" },
+  "output_json": { "slots_count": 3 },
+  "duration_ms": 180,
+  "created_at": "2026-04-19T21:25:00+02:00"
+}

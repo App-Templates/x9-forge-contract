@@ -1,0 +1,5 @@
+{
+  "call_id": "call-test-002",
+  "recipient_phone": "+39XXXXXXXXX",
+  "prompt_version": "outbound-call/v1.it"
+}

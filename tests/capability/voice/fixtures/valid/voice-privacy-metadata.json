@@ -1,0 +1,10 @@
+{
+  "third_party": true,
+  "source_type": "voice_call",
+  "privacy_level": "standard",
+  "retention_class": "voice_transcript_default",
+  "call_transcription_allowed": true,
+  "voicemail_allowed": true,
+  "audio_retention_allowed": false,
+  "recipient_notice_required": false
+}

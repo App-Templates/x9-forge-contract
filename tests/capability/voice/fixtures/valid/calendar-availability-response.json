@@ -1,0 +1,9 @@
+{
+  "call_id": "call-test-006",
+  "calendar_id": "stefano@example.test",
+  "slots": [
+    { "start_iso": "2026-04-23T09:00:00+02:00", "end_iso": "2026-04-23T09:30:00+02:00" },
+    { "start_iso": "2026-04-23T10:00:00+02:00", "end_iso": "2026-04-23T10:30:00+02:00" }
+  ],
+  "source": "google:primary"
+}

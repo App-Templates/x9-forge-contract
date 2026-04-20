@@ -1,0 +1,6 @@
+{
+  "call_id": "call-test-008",
+  "hold_id": "hold-uuid-abc123",
+  "released": true,
+  "status": "released"
+}

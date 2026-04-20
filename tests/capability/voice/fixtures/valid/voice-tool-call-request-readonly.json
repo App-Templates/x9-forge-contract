@@ -1,0 +1,9 @@
+{
+  "call_id": "call-test-004",
+  "agent_id": "1",
+  "tool": "search_context",
+  "input": {
+    "query": "last meeting with Dr. Rossi",
+    "max_results": 3
+  }
+}

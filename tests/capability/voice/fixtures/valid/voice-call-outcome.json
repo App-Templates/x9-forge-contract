@@ -1,0 +1,17 @@
+{
+  "call_id": "call-test-011",
+  "outcome": "completed_task_done",
+  "task_completed": true,
+  "summary_for_stefano": "Appuntamento confermato giovedì 10:00 con Dr. Rossi.",
+  "agreed_next_step": "Nessuna azione richiesta.",
+  "follow_up_required": false,
+  "calendar_update_required": true,
+  "calendar_change_details": "Evento creato giovedì 10:00–10:30.",
+  "recap_required": false,
+  "recipient_sentiment": "positive",
+  "tool_failure": false,
+  "calendar_verified_during_call": true,
+  "calendar_hold_placed": true,
+  "calendar_hold_id": "hold-uuid-abc123",
+  "recipient_consent_given": true
+}

@@ -1,0 +1,44 @@
+{
+  "source_type": "voice_call",
+  "source_ref": "call:call-test-011",
+  "call_id": "call-test-011",
+  "agent_id": "1",
+  "owner_id": "owner-stefano",
+  "tenant_id": "tenant-default",
+  "transcript": "Agent: Pronto. User: Conferma giovedì 10:00. Agent: Perfetto.",
+  "transcript_metadata": {
+    "duration_sec": 72,
+    "speaker_turns": 6,
+    "language": "it"
+  },
+  "analysis_raw_from_elevenlabs": {
+    "task_completed": true,
+    "summary_for_stefano": "Appuntamento confermato"
+  },
+  "outcome_reconciled": {
+    "call_id": "call-test-011",
+    "outcome": "completed_task_done",
+    "task_completed": true,
+    "summary_for_stefano": "Appuntamento confermato giovedì 10:00.",
+    "follow_up_required": false,
+    "calendar_update_required": true,
+    "recap_required": false,
+    "recipient_sentiment": "positive",
+    "tool_failure": false,
+    "calendar_verified_during_call": true,
+    "calendar_hold_placed": true,
+    "calendar_hold_id": "hold-uuid-abc123"
+  },
+  "privacy": {
+    "third_party": true,
+    "source_type": "voice_call",
+    "privacy_level": "standard",
+    "retention_class": "voice_transcript_default",
+    "call_transcription_allowed": true,
+    "voicemail_allowed": true,
+    "audio_retention_allowed": false,
+    "recipient_notice_required": false
+  },
+  "asserted_at": "2026-04-19T21:30:00+02:00",
+  "source_observed_at": "2026-04-19T21:15:00+02:00"
+}

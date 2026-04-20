@@ -1,0 +1,5 @@
+{
+  "call_id": "call-test-003",
+  "tool": "create_calendar_event",
+  "status": "pending"
+}

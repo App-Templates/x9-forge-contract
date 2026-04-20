@@ -1,0 +1,9 @@
+{
+  "call_id": "call-test-003",
+  "agent_id": "1",
+  "tool": "create_calendar_event",
+  "input": {
+    "calendar_id": "stefano@example.test",
+    "summary": "Dentist"
+  }
+}

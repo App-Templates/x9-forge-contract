@@ -1,0 +1,9 @@
+{
+  "call_id": "call-test-001",
+  "agent_id": "1",
+  "owner_id": "owner-stefano",
+  "call_goal_short": "",
+  "recipient_name": "Dr. Rossi",
+  "recipient_context": "stale",
+  "timezone": "Europe/Rome"
+}

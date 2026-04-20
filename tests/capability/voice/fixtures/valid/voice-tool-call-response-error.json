@@ -1,0 +1,7 @@
+{
+  "call_id": "call-test-005",
+  "tool": "block_calendar_slot",
+  "status": "invariant_rejected",
+  "error": "CALENDAR_VERIFICATION_REQUIRED — no prior successful get_calendar_availability or check_calendar_conflicts for this call_id",
+  "duration_ms": 12
+}

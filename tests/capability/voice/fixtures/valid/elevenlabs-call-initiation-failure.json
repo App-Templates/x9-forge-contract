@@ -1,0 +1,10 @@
+{
+  "type": "call_initiation_failure",
+  "event_timestamp": 1745098810,
+  "data": {
+    "conversation_id": "conv-el-fail-456",
+    "reason": "upstream_provider_busy",
+    "provider": "elevenlabs",
+    "retryable": true
+  }
+}

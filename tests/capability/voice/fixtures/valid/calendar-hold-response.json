@@ -1,0 +1,9 @@
+{
+  "call_id": "call-test-008",
+  "hold_id": "hold-uuid-abc123",
+  "calendar_event_id": "evt-gcal-hold-42",
+  "status": "active",
+  "start_iso": "2026-04-23T10:00:00+02:00",
+  "end_iso": "2026-04-23T10:30:00+02:00",
+  "expires_at": "2026-04-23T10:45:00+02:00"
+}
