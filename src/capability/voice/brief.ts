@@ -28,6 +28,14 @@ export const VoiceCallBriefSchema = z.object({
   call_goal_short: z.string().min(1),
   /** Recipient display name (used in dynamic variables). */
   recipient_name: z.string().min(1),
+  /**
+   * Recipient email address. Optional at the contract level — when absent
+   * the ElevenLabs prompt instructs the agent to ask the recipient before
+   * calling send_recap_email. When present, the model is told to use it
+   * verbatim without asking (avoids the "che email ha?" question for
+   * contacts already in the tenant address book).
+   */
+  recipient_email: z.string().email().optional(),
   /** Free-form recipient context (past calls, relationship, topic hints). */
   recipient_context: z.string(),
   /** IANA timezone string. Default is Europe/Rome per Stefano locale. */
