@@ -10,6 +10,31 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## [1.3.0] - 2026-04-22 (quick 260422-qhc — Bug A email hallucination structural fix)
+
+### Added
+
+- `@x9-forge/contracts/voice` — `VoiceToolNameSchema` extended with `'confirm_recipient_email'` (13-tool surface; was 12).
+- `ConfirmRecipientEmailInputSchema = z.object({ email: z.string().email() })` + `ConfirmRecipientEmailOutputSchema = z.object({ confirmed, email, shadow?, message? })` + `ConfirmRecipientEmailInput` / `ConfirmRecipientEmailOutput` types.
+- Re-exports wired in `src/capability/voice/index.ts` (tool-surface group).
+- Schema tests: 6 new cases under `describe('ConfirmRecipientEmail schemas …')` + enum-length assertion updated 12 → 13 + `MUTATING_VOICE_TOOLS` exclusion test.
+
+### Why
+
+Closes Bug A (email hallucination) per ADR-cap-voice §13.5 D-16 evolution — server-authoritative `recipient_email`. Live evidence `conv_2501kptzb3nffjctrr9zc5tne1ek` (2026-04-22 16:11-16:13) showed the voice LLM inventing `stefano.argiolas@example.com` when `{{recipient_email}}` was empty. Removing the `to` foot-gun from `send_recap_email` requires a mid-call server-side path to populate the brief — that is `confirm_recipient_email`. Consumer cap-voice changes land in sibling agent-x9 commit.
+
+### Compat
+
+- **Additive.** Existing 12-tool consumers continue to parse their own subset via `VoiceToolNameSchema` without change.
+- **`MUTATING_VOICE_TOOLS` unchanged** (still 7 tools). `confirm_recipient_email` is intentionally excluded — it is a brief-population prerequisite, not a downstream side-effecting mutation, so `idempotency_key` is not required.
+- **Prior consumers of `send_recap_email`:** tool surface input shape does not narrow in the bridge (the bridge already treats `input` as `z.record(z.string(), z.unknown())`); the `to` foot-gun is removed by the consumer handler rewrite in cap-voice, not by a bridge schema narrowing.
+
+### Rollback
+
+If cap-voice consumer diverges or the new tool misbehaves in smoke: pin agent-x9 to bridge `1.2.0` (commit `b4fd9e4`). No DB migration dependency — `VoiceCallBriefSchema.recipient_email` was already optional prior to this release.
+
+---
+
 ## [1.2.0] - 2026-04-19 (Phase 42 — CAP-Voice v2.2 foundation)
 
 ### Added

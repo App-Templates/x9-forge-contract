@@ -15,6 +15,9 @@ import {
   VoiceToolCallRequestSchema,
   VoiceToolCallResponseSchema,
   MUTATING_VOICE_TOOLS,
+  ConfirmRecipientEmailInputSchema,
+  ConfirmRecipientEmailOutputSchema,
+  type VoiceToolName,
   // calendar tools
   CalendarAvailabilityRequestSchema,
   CalendarAvailabilityResponseSchema,
@@ -154,17 +157,21 @@ describe('VoiceCallStartResponseSchema', () => {
 // ===========================================================================
 
 describe('VoiceToolNameSchema', () => {
-  it('parses search_context (in 12-tool enum)', () => {
+  it('parses search_context (in 13-tool enum)', () => {
     expect(VoiceToolNameSchema.parse(loadValid('voice-tool-name.json'))).toBe('search_context');
   });
 
-  it('rejects delete_everything (not in 12-tool enum)', () => {
+  it('rejects delete_everything (not in 13-tool enum)', () => {
     const result = VoiceToolNameSchema.safeParse(loadInvalid('voice-tool-name-unknown.json'));
     expect(result.success).toBe(false);
   });
 
-  it('enum covers all 12 D-16 tools', () => {
-    expect(VoiceToolNameSchema.options).toHaveLength(12);
+  it('enum covers all 13 D-16 tools', () => {
+    expect(VoiceToolNameSchema.options).toHaveLength(13);
+  });
+
+  it('parses confirm_recipient_email (Bug A structural fix, 13-tool surface)', () => {
+    expect(VoiceToolNameSchema.parse('confirm_recipient_email')).toBe('confirm_recipient_email');
   });
 });
 
@@ -175,6 +182,54 @@ describe('MUTATING_VOICE_TOOLS Set (D-17)', () => {
 
   it('excludes search_context (read-only)', () => {
     expect(MUTATING_VOICE_TOOLS.has('search_context')).toBe(false);
+  });
+
+  it('EXCLUDES confirm_recipient_email (brief-population prerequisite, not mutation — ADR §13.5)', () => {
+    expect(MUTATING_VOICE_TOOLS.has('confirm_recipient_email' as VoiceToolName)).toBe(false);
+  });
+});
+
+describe('ConfirmRecipientEmail schemas (Bug A — ADR §13.5)', () => {
+  it('accepts valid email in input', () => {
+    const result = ConfirmRecipientEmailInputSchema.safeParse({ email: 'guido.rossi@studio.it' });
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects invalid email format', () => {
+    const result = ConfirmRecipientEmailInputSchema.safeParse({ email: 'not-an-email' });
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects missing email field', () => {
+    const result = ConfirmRecipientEmailInputSchema.safeParse({});
+    expect(result.success).toBe(false);
+  });
+
+  it('output round-trips with shadow=true + message', () => {
+    const result = ConfirmRecipientEmailOutputSchema.safeParse({
+      confirmed: true,
+      email: 'a@b.it',
+      shadow: true,
+      message: 'ok',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('output rejects non-boolean shadow', () => {
+    const result = ConfirmRecipientEmailOutputSchema.safeParse({
+      confirmed: true,
+      email: 'a@b.it',
+      shadow: 'yes',
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it('output accepts minimal shape (confirmed + email)', () => {
+    const result = ConfirmRecipientEmailOutputSchema.safeParse({
+      confirmed: true,
+      email: 'x@y.it',
+    });
+    expect(result.success).toBe(true);
   });
 });
 

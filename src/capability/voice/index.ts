@@ -29,17 +29,21 @@ export {
   type VoiceCallStartResponse,
 } from './call-start.js';
 
-// -- Tool surface (4 schemas + 1 runtime helper) ---------------------------
+// -- Tool surface (4 schemas + 1 runtime helper + confirm_recipient_email pair) ---
 export {
   VoiceToolNameSchema,
   VoiceToolStatusSchema,
   VoiceToolCallRequestSchema,
   VoiceToolCallResponseSchema,
   MUTATING_VOICE_TOOLS,
+  ConfirmRecipientEmailInputSchema,
+  ConfirmRecipientEmailOutputSchema,
   type VoiceToolName,
   type VoiceToolStatus,
   type VoiceToolCallRequest,
   type VoiceToolCallResponse,
+  type ConfirmRecipientEmailInput,
+  type ConfirmRecipientEmailOutput,
 } from './tools.js';
 
 // -- Calendar tool shapes (8 schemas + 2 supporting enums) -----------------

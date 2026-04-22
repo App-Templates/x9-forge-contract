@@ -52,15 +52,21 @@ describe('CAP_VOICE_CALL_TOOL_PATH builder (R-14 typed)', () => {
   });
 });
 
-describe('CAP_VOICE_CALL_TOOL_PATHS frozen map (all 12 D-16 tools)', () => {
+describe('CAP_VOICE_CALL_TOOL_PATHS frozen map (all 13 D-16 tools)', () => {
   it('contains a path for every VoiceToolName enum option', () => {
     for (const tool of VoiceToolNameSchema.options) {
       expect(CAP_VOICE_CALL_TOOL_PATHS[tool]).toBe(`/call/${tool}`);
     }
   });
 
-  it('has exactly 12 entries', () => {
-    expect(Object.keys(CAP_VOICE_CALL_TOOL_PATHS)).toHaveLength(12);
+  it('has exactly 13 entries (12 pre-v1.3.0 + confirm_recipient_email)', () => {
+    expect(Object.keys(CAP_VOICE_CALL_TOOL_PATHS)).toHaveLength(13);
+  });
+
+  it('includes /call/confirm_recipient_email (Bug A structural fix — ADR §13.5)', () => {
+    expect(CAP_VOICE_CALL_TOOL_PATHS.confirm_recipient_email).toBe(
+      '/call/confirm_recipient_email',
+    );
   });
 
   it('is frozen (no runtime mutation)', () => {

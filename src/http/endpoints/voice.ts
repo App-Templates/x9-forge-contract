@@ -49,10 +49,12 @@ export const CAP_VOICE_CALL_TOOL_PATH = (tool: VoiceToolName): `/call/${VoiceToo
 export const CAP_VOICE_CALL_TOOL_METHOD = 'POST' as const;
 
 /**
- * Frozen list of all 12 concrete tool paths for introspection / registry
+ * Frozen list of all 13 concrete tool paths for introspection / registry
  * wiring. Callers that need a static enumeration (workspace generator,
  * agent-core registry writer) can iterate this instead of rebuilding the
  * list from `VoiceToolNameSchema`.
+ *
+ * v1.3.0: +confirm_recipient_email (ADR §13.5 Bug A structural fix).
  */
 export const CAP_VOICE_CALL_TOOL_PATHS: Readonly<Record<VoiceToolName, string>> = Object.freeze(
   Object.fromEntries(

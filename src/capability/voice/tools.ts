@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * 12-tool voice surface per ADR §13.1 / D-16.
+ * 13-tool voice surface per ADR §13.1 / D-16.
  *
  * Exported as a named Zod enum so consumers can reference `VoiceToolNameSchema`
  * instead of inline `z.enum([...])` — R-14 compliance.
@@ -15,6 +15,7 @@ export const VoiceToolNameSchema = z.enum([
   'block_calendar_slot',
   'release_calendar_block',
   'send_recap_email',
+  'confirm_recipient_email',
   'draft_recap_email',
   'create_reminder',
   'notify_stefano',
@@ -28,6 +29,10 @@ export type VoiceToolName = z.infer<typeof VoiceToolNameSchema>;
  *
  * Idempotency key format (enforced caller-side):
  *   `${call_id}:${tool_name}:${normalized_action_hash}`
+ *
+ * NOTE: `confirm_recipient_email` is intentionally excluded — it is a brief-
+ * population prerequisite, not a downstream mutation. No idempotency_key
+ * required. See ADR §13.5 (Bug A server-authoritative recipient_email).
  */
 export const MUTATING_VOICE_TOOLS: ReadonlySet<VoiceToolName> = new Set<VoiceToolName>([
   'update_calendar_event',
@@ -105,3 +110,28 @@ export const VoiceToolCallResponseSchema = z.object({
   idempotency_replayed: z.boolean().optional(),
 });
 export type VoiceToolCallResponse = z.infer<typeof VoiceToolCallResponseSchema>;
+
+/**
+ * confirm_recipient_email input — RFC-5322 email address confirmed by the
+ * user during the call. Populates VoiceCallBrief.recipient_email server-side,
+ * closing the foot-gun where the LLM could forge a `to` param on send_recap_email.
+ *
+ * @see ADR-cap-voice §13 (D-16 — server-authoritative recipient_email)
+ * @see services/cap-voice/src/tools/confirm-recipient-email.ts (consumer)
+ */
+export const ConfirmRecipientEmailInputSchema = z.object({
+  email: z.string().email(),
+});
+export type ConfirmRecipientEmailInput = z.infer<typeof ConfirmRecipientEmailInputSchema>;
+
+/**
+ * confirm_recipient_email output. `shadow: true` when CAP_VOICE_SHADOW_MODE=true
+ * (no DB write occurred); `message` is a human-readable summary for logs.
+ */
+export const ConfirmRecipientEmailOutputSchema = z.object({
+  confirmed: z.boolean(),
+  email: z.string().email(),
+  shadow: z.boolean().optional(),
+  message: z.string().optional(),
+});
+export type ConfirmRecipientEmailOutput = z.infer<typeof ConfirmRecipientEmailOutputSchema>;
