@@ -47,6 +47,17 @@ export const CapabilityRegistryEntrySchema = z.object({
    * @see CONTEXT D-23, D-24 (MDRT-04)
    */
   modelPolicy: ModelPolicySchema.optional(),
+  /**
+   * Capability names this service depends on at runtime (HTTP).
+   * agent-core validates at boot: every entry here must be present AND
+   * enabled in the registry — fail-fast on config drift.
+   *
+   * Optional for backward-compat (pre-v1.5.0 entries omit entirely).
+   * Empty array [] is valid explicit "zero runtime deps".
+   *
+   * @since v1.5.0 (Bug D1 — quick-260422-wrz)
+   */
+  requires: z.array(z.string().min(1)).optional(),
 });
 
 export type CapabilityRegistryEntry = z.infer<typeof CapabilityRegistryEntrySchema>;

@@ -147,6 +147,71 @@ describe('fromEndpoint', () => {
   });
 });
 
+describe('CapabilityRegistryEntrySchema — requires extension (Bug D1 quick-260422-wrz)', () => {
+  it('parses registry entry with requires', () => {
+    const entry = { ...FORGE_ENTRY, requires: ['calendar'] };
+    const result = CapabilityRegistryEntrySchema.safeParse(entry);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.requires).toEqual(['calendar']);
+    }
+  });
+
+  it('parses registry entry without requires (backward-compat)', () => {
+    const result = CapabilityRegistryEntrySchema.safeParse(FORGE_ENTRY);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.requires).toBeUndefined();
+    }
+  });
+
+  it('parses registry entry with empty requires', () => {
+    const entry = { ...FORGE_ENTRY, requires: [] };
+    const result = CapabilityRegistryEntrySchema.safeParse(entry);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.requires).toEqual([]);
+    }
+  });
+
+  it('rejects registry entry with non-string requires', () => {
+    const entry = { ...FORGE_ENTRY, requires: [42] };
+    expect(CapabilityRegistryEntrySchema.safeParse(entry).success).toBe(false);
+  });
+
+  it('rejects registry entry with empty-string requires entry', () => {
+    const entry = { ...FORGE_ENTRY, requires: [''] };
+    expect(CapabilityRegistryEntrySchema.safeParse(entry).success).toBe(false);
+  });
+
+  it('modelPolicy + requires can co-exist', () => {
+    const entry = {
+      ...FORGE_ENTRY,
+      modelPolicy: { min: 'standard' as const, max: 'reasoning' as const },
+      requires: ['calendar', 'memory'],
+    };
+    const result = CapabilityRegistryEntrySchema.safeParse(entry);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.modelPolicy).toEqual({ min: 'standard', max: 'reasoning' });
+      expect(result.data.requires).toEqual(['calendar', 'memory']);
+    }
+  });
+
+  it('tools + requires can co-exist (regression guard — W2 fix)', () => {
+    const entry = {
+      ...X9_ENTRY,
+      requires: ['calendar'],
+    };
+    const result = CapabilityRegistryEntrySchema.safeParse(entry);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.tools).toHaveLength(1);
+      expect(result.data.requires).toEqual(['calendar']);
+    }
+  });
+});
+
 describe('CapabilityRegistryEntrySchema — modelPolicy extension (MDRT-04)', () => {
   it('accepts entry with valid modelPolicy (fixture f)', () => {
     const entry = loadFixture('registry-entry-with-model-policy.json');

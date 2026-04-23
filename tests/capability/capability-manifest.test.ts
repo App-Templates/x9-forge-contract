@@ -67,6 +67,44 @@ describe('CapabilityManifestSchema', () => {
     expect(CapabilityManifestSchema.safeParse(withoutTools).success).toBe(false);
   });
 
+  // -- Bug D1 (quick-260422-wrz) — optional `requires` field ------------------
+
+  it('parses manifest with optional requires array (Bug D1)', () => {
+    const withRequires = { ...REAL_MANIFEST_FIXTURE, requires: ['calendar', 'memory'] };
+    const result = CapabilityManifestSchema.safeParse(withRequires);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.requires).toEqual(['calendar', 'memory']);
+    }
+  });
+
+  it('parses manifest without requires (backward-compat, Bug D1)', () => {
+    const result = CapabilityManifestSchema.safeParse(REAL_MANIFEST_FIXTURE);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.requires).toBeUndefined();
+    }
+  });
+
+  it('parses manifest with empty requires array (Bug D1)', () => {
+    const withEmptyRequires = { ...REAL_MANIFEST_FIXTURE, requires: [] };
+    const result = CapabilityManifestSchema.safeParse(withEmptyRequires);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.requires).toEqual([]);
+    }
+  });
+
+  it('rejects manifest with non-string requires entries (Bug D1)', () => {
+    const invalid = { ...REAL_MANIFEST_FIXTURE, requires: [123] };
+    expect(CapabilityManifestSchema.safeParse(invalid).success).toBe(false);
+  });
+
+  it('rejects manifest with empty-string requires entry (Bug D1)', () => {
+    const invalid = { ...REAL_MANIFEST_FIXTURE, requires: [''] };
+    expect(CapabilityManifestSchema.safeParse(invalid).success).toBe(false);
+  });
+
   it('parses real cap-calendar manifest (5 tools, TEST-02 conformance)', () => {
     const CAP_CALENDAR_FIXTURE: CapabilityManifest = {
       name: 'calendar',

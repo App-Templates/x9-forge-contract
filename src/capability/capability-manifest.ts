@@ -17,6 +17,17 @@ export const CapabilityManifestSchema = z.object({
   endpoint: z.string().min(1),
   serviceName: z.string().min(1).optional(),
   tools: z.array(CapabilityToolSchema),
+  /**
+   * Capability names this service depends on at runtime (HTTP).
+   * agent-core validates at boot: every entry here must be present AND
+   * enabled in the registry — fail-fast on config drift.
+   *
+   * Optional for backward-compat (pre-v1.5.0 manifests omit entirely).
+   * Empty array [] is valid explicit "zero runtime deps".
+   *
+   * @since v1.5.0 (Bug D1 — quick-260422-wrz)
+   */
+  requires: z.array(z.string().min(1)).optional(),
 });
 
 export type CapabilityManifest = z.infer<typeof CapabilityManifestSchema>;
