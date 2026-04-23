@@ -10,6 +10,25 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## [1.5.0] - 2026-04-22 — Bug D1: cap dependency registry
+
+### Added
+
+- **`CapabilityManifestSchema.requires?: string[]`** — optional array of cap names this service depends on at runtime.
+- **`CapabilityRegistryEntrySchema.requires?: string[]`** — same field on the registry-entry shape written by X9 generate-registry and Forge deploy.machine.
+
+### Why
+
+Bug D1 (quick-260422-wrz). Today cap-voice can be enabled while cap-calendar is disabled with ZERO error until the first live voice call tries to HTTP-dispatch calendar_today/week/etc. and the LLM hallucinates. `requires` lets agent-core's new `validateDependencies(registry)` fail-fast at boot on config drift.
+
+### Consumer impact
+
+- **Additive only.** Pre-v1.5.0 manifests/entries parse unchanged (`requires: undefined`).
+- agent-x9 starts consuming in agent-core `registry.ts` + `validate-dependencies.ts`.
+- forge-v2 D2 (storefront bundling + pricing schema) will consume later — OUT OF SCOPE for this release (parked M46).
+
+---
+
 ## [1.4.1+blindatura-transcript] - 2026-04-20 — CRITICAL consumer bump required
 
 ### Fixed (latent, exposed 2026-04-20)
