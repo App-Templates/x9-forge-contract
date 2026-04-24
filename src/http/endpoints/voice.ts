@@ -60,6 +60,23 @@ export const CAP_VOICE_CALL_TOOL_PATHS: Readonly<Record<VoiceToolName, string>> 
   ) as Record<VoiceToolName, string>,
 );
 
+// -- cap-voice voice_prepare_call (outbound brief composer, M46 VORIG-04) ------
+
+/**
+ * M46 Phase 46.0 — structured-brief composer endpoint. cap-voice accepts a
+ * `VoicePrepareCallRequest` (`raw_instruction` + `call_id` +
+ * `requested_contact?`) and returns a `VoicePrepareCallResponse`
+ * (server-composed `VoiceCallBrief` + `AuthorizedActions` + classified
+ * intent + provenance chain). R-14: callers MUST import this constant
+ * — no hardcoded `'/call/voice_prepare_call'` literals anywhere in X9 or
+ * Forge v2.
+ *
+ * @see @x9-forge/contracts/capability/voice prepare-call.ts
+ * @see .planning/phases/46.0-bridge-voice-origination/46.0-CONTEXT.md §D-05
+ */
+export const CAP_VOICE_PREPARE_CALL_PATH = '/call/voice_prepare_call' as const;
+export const CAP_VOICE_PREPARE_CALL_METHOD = 'POST' as const;
+
 // -- cap-voice internal admin endpoints (cap-scheduler → cap-voice) ----------
 
 /**

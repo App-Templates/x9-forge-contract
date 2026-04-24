@@ -21,14 +21,18 @@ export {
   type AuthorizedActions,
 } from './authorized-actions.js';
 
-// -- M46 origination (intent enum + prepare-call request/response + provenance) ----
-// VORIG-01 (intent) + VORIG-02 (prepare-call + provenance) per Phase 46.0.
+// -- M46 origination (intent enum + provenance + prepare-call request/response) ----
+// VORIG-01 (intent) + VORIG-02 (prepare-call) + VORIG-03 (provenance) per Phase 46.0.
+// provenance.ts is a separate module (not co-located in prepare-call.ts) to
+// avoid a module-initialization cycle with brief.ts — see 46.0-RESEARCH §12 pitfall #2.
 export { VoiceCallIntentSchema, VOICE_CALL_INTENTS, type VoiceCallIntent } from './intent.js';
 export {
   VoiceCallProvenanceEntrySchema,
+  type VoiceCallProvenanceEntry,
+} from './provenance.js';
+export {
   VoicePrepareCallRequestSchema,
   VoicePrepareCallResponseSchema,
-  type VoiceCallProvenanceEntry,
   type VoicePrepareCallRequest,
   type VoicePrepareCallResponse,
 } from './prepare-call.js';

@@ -1,11 +1,16 @@
 import { describe, it, expect } from 'vitest';
 import {
+  VoiceCallBriefSchema,
   VoiceCallIntentSchema,
   VOICE_CALL_INTENTS,
   VoiceCallProvenanceEntrySchema,
   VoicePrepareCallRequestSchema,
   VoicePrepareCallResponseSchema,
 } from '../../../src/capability/voice/index.js';
+import {
+  CAP_VOICE_PREPARE_CALL_PATH,
+  CAP_VOICE_PREPARE_CALL_METHOD,
+} from '../../../src/http/endpoints/voice.js';
 
 /**
  * M46 Phase 46.0 Plan 02 — origination contracts tests.
@@ -241,5 +246,130 @@ describe('VoicePrepareCallResponseSchema (VORIG-02)', () => {
         provenance: [{ source: '' }],
       }).success,
     ).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// VORIG-03 — VoiceCallBriefSchema backward-compat + additive fields
+// ---------------------------------------------------------------------------
+
+describe('VoiceCallBriefSchema backward compat (VORIG-03)', () => {
+  const legacyBrief = {
+    call_id: 'c1',
+    agent_id: '1',
+    owner_id: 'o1',
+    call_goal_short: 'Remind about meeting',
+    recipient_name: 'Marco',
+    recipient_context: 'Works at ACME',
+    recipient_email: 'marco@acme.it',
+  };
+
+  it('parses existing brief without any M46 fields (non-breaking)', () => {
+    const result = VoiceCallBriefSchema.safeParse(legacyBrief);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.intent).toBeUndefined();
+      expect(result.data.memory_context).toBeUndefined();
+      expect(result.data.relationship_context).toBeUndefined();
+      expect(result.data.provenance).toBeUndefined();
+    }
+  });
+
+  it('parses brief with all 4 M46 optional fields', () => {
+    const full = {
+      ...legacyBrief,
+      intent: 'reminder',
+      memory_context: 'Previous call went well',
+      relationship_context: 'Close friend since 2020',
+      provenance: [
+        { source: 'strategic_file' },
+        { source: 'memory_v2', ref_id: 'm-1' },
+      ],
+    };
+    expect(VoiceCallBriefSchema.safeParse(full).success).toBe(true);
+  });
+
+  it('rejects intent outside VoiceCallIntentSchema enum', () => {
+    expect(
+      VoiceCallBriefSchema.safeParse({ ...legacyBrief, intent: 'marketing' }).success,
+    ).toBe(false);
+  });
+});
+
+describe('VoiceCallBriefSchema bounds (VORIG-03)', () => {
+  const base = {
+    call_id: 'c1',
+    agent_id: '1',
+    owner_id: 'o1',
+    call_goal_short: 'x',
+    recipient_name: 'M',
+    recipient_context: '',
+  };
+
+  it('accepts memory_context at 2000 chars', () => {
+    expect(
+      VoiceCallBriefSchema.safeParse({ ...base, memory_context: 'x'.repeat(2000) }).success,
+    ).toBe(true);
+  });
+
+  it('rejects memory_context at 2001 chars', () => {
+    expect(
+      VoiceCallBriefSchema.safeParse({ ...base, memory_context: 'x'.repeat(2001) }).success,
+    ).toBe(false);
+  });
+
+  it('accepts relationship_context at 500 chars', () => {
+    expect(
+      VoiceCallBriefSchema.safeParse({ ...base, relationship_context: 'x'.repeat(500) })
+        .success,
+    ).toBe(true);
+  });
+
+  it('rejects relationship_context at 501 chars', () => {
+    expect(
+      VoiceCallBriefSchema.safeParse({ ...base, relationship_context: 'x'.repeat(501) })
+        .success,
+    ).toBe(false);
+  });
+
+  it('accepts provenance array with valid entries', () => {
+    expect(
+      VoiceCallBriefSchema.safeParse({ ...base, provenance: [{ source: 'cap_contacts' }] })
+        .success,
+    ).toBe(true);
+  });
+
+  it('rejects provenance entry with empty source', () => {
+    expect(
+      VoiceCallBriefSchema.safeParse({ ...base, provenance: [{ source: '' }] }).success,
+    ).toBe(false);
+  });
+
+  it('accepts brief with all 7 valid intent values', () => {
+    for (const intent of VOICE_CALL_INTENTS) {
+      expect(VoiceCallBriefSchema.safeParse({ ...base, intent }).success).toBe(true);
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// VORIG-04 — CAP_VOICE_PREPARE_CALL_PATH + METHOD endpoint constants
+// ---------------------------------------------------------------------------
+
+describe('CAP_VOICE_PREPARE_CALL_PATH + METHOD (VORIG-04)', () => {
+  it('path equals /call/voice_prepare_call', () => {
+    expect(CAP_VOICE_PREPARE_CALL_PATH).toBe('/call/voice_prepare_call');
+  });
+
+  it('method is POST', () => {
+    expect(CAP_VOICE_PREPARE_CALL_METHOD).toBe('POST');
+  });
+
+  it('path is readonly `as const` literal type', () => {
+    // TypeScript-level check: the constant's value is structurally equal
+    // to the literal. Runtime equality guards against future accidental
+    // mutation (TypeScript would catch it at compile time).
+    const expected: '/call/voice_prepare_call' = '/call/voice_prepare_call';
+    expect(CAP_VOICE_PREPARE_CALL_PATH).toBe(expected);
   });
 });
