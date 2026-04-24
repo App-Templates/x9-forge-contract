@@ -57,3 +57,25 @@ export const AgentCredentialsSchema = z
   .catchall(z.string());
 
 export type AgentCredentials = z.infer<typeof AgentCredentialsSchema>;
+
+/**
+ * Subset of KNOWN_CREDENTIAL_KEYS that MUST be fail-fast (`:?`) in
+ * compose environment blocks. Empty-fallback patterns silently drop
+ * auth on deploy (Bug E class, 2026-04-23 CAP_VOICE_INTERNAL_TOKEN).
+ *
+ * Does NOT include ELEVENLABS_WEBHOOK_SECRET — that is service-local
+ * HMAC validator (cap-voice @bridge-optout), not cross-repo.
+ *
+ * Consumed by agent-x9 scripts/validate-credentials-compose.ts (CONTRACT-06).
+ *
+ * Added 2026-04-24 Option δ Front P2 — Auditor B FINDING-B-04.
+ */
+export const AUTH_GATE_FIELDS = [
+  'INTERNAL_SECRET',
+  'INTERNAL_TOKEN',
+  'FORGE_VOICE_REGISTER_TOKEN',
+  'X9_INTERNAL_SECRET',
+  // ELEVENLABS_WEBHOOK_SECRET intentionally excluded — service-local
+  // HMAC validator, declared @bridge-optout in cap-voice env.ts.
+] as const;
+export type AuthGateField = (typeof AUTH_GATE_FIELDS)[number];

@@ -13,8 +13,9 @@ export type { AgentId, OwnerId, AgentIdentity } from './agent-identity.js';
 export {
   KNOWN_CREDENTIAL_KEYS,
   AgentCredentialsSchema,
+  AUTH_GATE_FIELDS,
 } from './agent-credentials.js';
-export type { KnownCredentialKey, AgentCredentials } from './agent-credentials.js';
+export type { KnownCredentialKey, AgentCredentials, AuthGateField } from './agent-credentials.js';
 
 // Context Core (cross-repo contract)
 export { LlmConfigSchema, AgentContextCoreSchema } from './agent-context-core.js';
