@@ -10,6 +10,67 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## [1.6.0] - 2026-04-24 — M46 Phase 46.0: Voice Origination Contracts
+
+### Added
+
+- **`VoiceCallIntentSchema`** — 7-enum `reminder|information|sales|legal|logistics|social|other` (VORIG-01).
+  Exported from `src/capability/voice/intent.ts` + barrel `index.ts`. Order is part of the contract.
+  Consumers: 46.1 intent classifier (classifier output), 46.2 workspace prompt dynVar wiring.
+- **`VoiceCallProvenanceEntrySchema`** — minimal `{source, ref_id?, summary?(≤500), timestamp?}` (VORIG-03).
+  Lives in `src/capability/voice/provenance.ts` (new file). Traces data sources
+  (`strategic_file` / `cap_contacts` / `memory_v2` / `cap_calendar` / …) that composed a `VoiceCallBrief`.
+  Placed in its own module (not co-located with `prepare-call.ts`) to avoid a module-initialization cycle
+  with `brief.ts` — see `46.0-RESEARCH.md` §12 pitfall #2.
+- **`VoicePrepareCallRequestSchema`** — `{call_id, raw_instruction, requested_contact?}` (VORIG-02).
+- **`VoicePrepareCallResponseSchema`** — `{brief, authorized_actions, intent, intent_confidence?, provenance, preview_markdown?}` (VORIG-02).
+- **`CAP_VOICE_PREPARE_CALL_PATH = '/call/voice_prepare_call'`** + `CAP_VOICE_PREPARE_CALL_METHOD = 'POST'` (VORIG-04).
+  Exported from `src/http/endpoints/voice.ts`; re-exported via `src/http/endpoints/index.ts`.
+
+### Changed (additive, non-breaking)
+
+- **`VoiceCallBriefSchema`** extended with 4 optional fields (VORIG-03):
+  - `intent?: VoiceCallIntentSchema`
+  - `memory_context?: z.string().max(2000)` — ElevenLabs dynVar `{{memory_context}}` (wired in 46.2)
+  - `relationship_context?: z.string().max(500)` — prior-interaction summary
+  - `provenance?: VoiceCallProvenanceEntry[]` — data-source audit trail
+
+### Why
+
+M46 Voice Origination Composer (phases 46.0-46.4). Replaces free-form `voice_call`
+prose with structured `voice_prepare_call` → `voice_call_start` pipeline. 46.0 is
+bridge-FIRST per R-14 — no consumer code ships until bridge contracts are locked.
+
+Q11 decision (CONTEXT.md): explicit `memory_context` field on brief (vs enriched string)
+for typed validation + 2000-char bound enforcement at bridge layer. Sanitizer
+implementation is 46.1 scope.
+
+### Consumer impact
+
+- **Additive only.** All 4 new `VoiceCallBriefSchema` fields are `.optional()` — pre-v1.6.0
+  consumers compile and parse unchanged. No migration required for 46.0 (VORIG-05).
+- **46.1 (cap-voice, upcoming)**: imports `VoiceCallIntentSchema`, `VoicePrepareCallRequestSchema`,
+  `VoicePrepareCallResponseSchema`, `VoiceCallProvenanceEntrySchema` from `@x9-forge/contracts/capability/voice`
+  (or the shorter `@x9-forge/contracts/voice` subpath). Also imports `CAP_VOICE_PREPARE_CALL_PATH` +
+  `CAP_VOICE_PREPARE_CALL_METHOD` from `@x9-forge/contracts/http`.
+- **46.2 (agent-core, upcoming)**: imports `CAP_VOICE_PREPARE_CALL_PATH` for workspace prompt wiring.
+- **forge-v2**: no action in 46.0.
+- **Vendor sync (agent-x9)**: Plan 03 syncs this version into `vendor/x9-forge-contract-bridge/`;
+  consumers do NOT pick up until vendor update committed (VORIG-05).
+
+### Tests
+
+- `tests/capability/voice/origination.test.ts` — 37 tests covering VORIG-01..04:
+  - Enum exhaustive (all 7 accepted, unknown/case-variant rejected, order preserved, length=7)
+  - Provenance minimal + full round-trip + 500-char summary bound + datetime validation
+  - Prepare-call request/response valid + invalid shape + empty-string rejection + optional fields
+  - Response bounds `intent_confidence [0,1]` + enum enforcement + provenance array edge cases
+  - Brief backward compat (legacy parses unchanged, 4 fields undefined) + 4 new-field accept
+  - Brief bounds 2000/500 boundary + over-limit reject
+  - Endpoint constant equality (`/call/voice_prepare_call` + `POST`)
+
+---
+
 ## [1.5.0] - 2026-04-22 — Bug D1: cap dependency registry
 
 ### Added
