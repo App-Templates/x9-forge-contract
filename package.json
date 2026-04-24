@@ -49,6 +49,10 @@
     "./voice": {
       "types": "./dist/capability/voice/index.d.ts",
       "import": "./dist/capability/voice/index.js"
+    },
+    "./capability/stt": {
+      "types": "./dist/capability/stt/index.d.ts",
+      "import": "./dist/capability/stt/index.js"
     }
   },
   "files": [
