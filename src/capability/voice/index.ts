@@ -21,6 +21,18 @@ export {
   type AuthorizedActions,
 } from './authorized-actions.js';
 
+// -- M46 origination (intent enum + prepare-call request/response + provenance) ----
+// VORIG-01 (intent) + VORIG-02 (prepare-call + provenance) per Phase 46.0.
+export { VoiceCallIntentSchema, VOICE_CALL_INTENTS, type VoiceCallIntent } from './intent.js';
+export {
+  VoiceCallProvenanceEntrySchema,
+  VoicePrepareCallRequestSchema,
+  VoicePrepareCallResponseSchema,
+  type VoiceCallProvenanceEntry,
+  type VoicePrepareCallRequest,
+  type VoicePrepareCallResponse,
+} from './prepare-call.js';
+
 // -- Call lifecycle (2 schemas) --------------------------------------------
 export {
   VoiceCallStartRequestSchema,
