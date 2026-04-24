@@ -55,6 +55,11 @@ export const MemoryDeleteBySourceRefResponseSchema = z.object({
   deleted_facts: z.number().int().nonnegative(),
   deleted_rules: z.number().int().nonnegative(),
   deleted_edges: z.number().int().nonnegative(),
+  // Phase 45.2 Task 1 — additive optional fields (backward-compatible).
+  // Memory v2 will populate these when it begins graph + episode GC.
+  // Older memory responses without these fields still parse successfully.
+  deleted_episodes: z.number().int().nonnegative().optional().default(0),
+  deleted_dedupe_keys: z.number().int().nonnegative().optional().default(0),
 });
 export type MemoryDeleteBySourceRefResponse = z.infer<
   typeof MemoryDeleteBySourceRefResponseSchema

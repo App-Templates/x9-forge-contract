@@ -20,6 +20,7 @@ export * from './internal-memory-extract.js'; // Phase 36.9 — async extraction
 export * from './webhook-post-call.js';
 export * from './voice-register.js';
 export * from './vault-resolve.js'; // Phase 38 — HTTP-12 / R-14 closure
+export * from './voice.js'; // Phase 42 — CAP-Voice v2.2 path + method constants
 
 // No-auth endpoints (capability discovery)
 export * from './cap-manifest.js';

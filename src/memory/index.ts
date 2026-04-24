@@ -25,3 +25,15 @@ export * from './recall-bundle.js';
 export * from './retention.js';
 export * from './temporal.js';
 export * from './write-candidate.js';
+
+/**
+ * Phase 45.2 Task 1 — memory voice-ingest endpoint path constant.
+ *
+ * Cap-voice calls MEMORY_VOICE_INGEST_PATH (not /internal/ingest) for
+ * voice-call memory handoff so the memory service can route to the
+ * voice-specific extraction pipeline. R-14: callers MUST import this
+ * constant — hardcoded path literals are forbidden.
+ *
+ * @see docs/adr/ADR-cap-voice.md §15 (D-21 memory handoff)
+ */
+export const MEMORY_VOICE_INGEST_PATH = '/internal/memory/voice-ingest' as const;
