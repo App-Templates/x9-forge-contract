@@ -51,7 +51,7 @@ export const VoiceRecipientSentimentSchema = z.enum([
 export type VoiceRecipientSentiment = z.infer<typeof VoiceRecipientSentimentSchema>;
 
 /** Lenient schema for parsing provider payload fields (never canonical alone). */
-export const VoiceRecipientSentimentLenientSchema = z.string().min(1).optional();
+export const VoiceRecipientSentimentLenientSchema = z.string().optional();
 
 /** Normalize any provider-supplied string to a canonical sentiment value. */
 export function normalizeSentiment(v: string | undefined | null): KnownVoiceRecipientSentiment {
