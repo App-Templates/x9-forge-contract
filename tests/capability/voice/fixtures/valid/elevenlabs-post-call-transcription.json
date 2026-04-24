@@ -1,0 +1,22 @@
+{
+  "type": "post_call_transcription",
+  "event_timestamp": 1745098800,
+  "data": {
+    "status": "done",
+    "conversation_id": "conv-el-abc-123",
+    "transcript": [
+      { "role": "agent", "message": "Pronto, sono Anna per conto di Stefano." },
+      { "role": "user", "message": "Sì, mi dica." }
+    ],
+    "analysis": {
+      "transcript_summary": "Breve conferma appuntamento dentista.",
+      "task_completed": true,
+      "call_outcome": "completed_task_done"
+    },
+    "metadata": {
+      "call_duration_sec": 72,
+      "cost_cents": 4
+    },
+    "unknown_future_field": "this is allowed by lenient schema"
+  }
+}

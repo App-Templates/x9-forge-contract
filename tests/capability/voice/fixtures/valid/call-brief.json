@@ -1,0 +1,16 @@
+{
+  "call_id": "call-test-001",
+  "agent_id": "1",
+  "owner_id": "owner-stefano",
+  "tenant_id": "tenant-default",
+  "call_goal_short": "Conferma appuntamento dentista giovedì 10:00",
+  "recipient_name": "Dr. Rossi",
+  "recipient_context": "Dentista di fiducia dal 2022. Ultima visita marzo 2026.",
+  "timezone": "Europe/Rome",
+  "constraints": {
+    "available_slots": [
+      { "start_iso": "2026-04-23T10:00:00+02:00", "end_iso": "2026-04-23T10:30:00+02:00" }
+    ]
+  },
+  "notes": "Paziente preferisce appuntamenti mattutini"
+}

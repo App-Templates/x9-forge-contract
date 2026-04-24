@@ -1,0 +1,29 @@
+{
+  "source_type": "chat_message",
+  "source_ref": "call:xxx",
+  "call_id": "xxx",
+  "agent_id": "1",
+  "owner_id": "owner-stefano",
+  "transcript": "text",
+  "transcript_metadata": {},
+  "outcome_reconciled": {
+    "call_id": "xxx",
+    "outcome": "completed_task_done",
+    "task_completed": true,
+    "summary_for_stefano": "x",
+    "follow_up_required": false,
+    "calendar_update_required": false,
+    "recap_required": false,
+    "recipient_sentiment": "positive",
+    "tool_failure": false,
+    "calendar_verified_during_call": false,
+    "calendar_hold_placed": false
+  },
+  "privacy": {
+    "third_party": true,
+    "source_type": "voice_call",
+    "privacy_level": "standard"
+  },
+  "asserted_at": "2026-04-19T21:30:00+02:00",
+  "source_observed_at": "2026-04-19T21:15:00+02:00"
+}

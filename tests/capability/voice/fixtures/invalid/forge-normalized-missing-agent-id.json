@@ -1,0 +1,12 @@
+{
+  "call_id": "call-test-009",
+  "owner_id": "owner-stefano",
+  "tenant_id": "tenant-default",
+  "conversation_id": "conv-el-abc-123",
+  "event_type": "post_call_transcription",
+  "received_at": "2026-04-19T21:20:00+02:00",
+  "raw_event_hash": "hash",
+  "signature_valid": true,
+  "provider": "elevenlabs",
+  "payload": {}
+}

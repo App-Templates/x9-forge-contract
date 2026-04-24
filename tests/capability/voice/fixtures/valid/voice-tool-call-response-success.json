@@ -1,0 +1,11 @@
+{
+  "call_id": "call-test-003",
+  "tool": "create_calendar_event",
+  "status": "ok",
+  "output": {
+    "event_id": "evt-gcal-789",
+    "html_link": "https://calendar.example.test/event/evt-gcal-789"
+  },
+  "duration_ms": 432,
+  "idempotency_replayed": false
+}

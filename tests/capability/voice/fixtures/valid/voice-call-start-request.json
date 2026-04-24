@@ -1,0 +1,35 @@
+{
+  "call_id": "call-test-002",
+  "recipient_phone": "+39XXXXXXXXX",
+  "brief": {
+    "call_id": "call-test-002",
+    "agent_id": "1",
+    "owner_id": "owner-stefano",
+    "tenant_id": "tenant-default",
+    "call_goal_short": "Prenotazione ristorante sabato sera",
+    "recipient_name": "Trattoria Prova",
+    "recipient_context": "Mai chiamato prima — cercato su Google Maps",
+    "timezone": "Europe/Rome",
+    "constraints": {}
+  },
+  "authorized_actions": {
+    "can_search_context": true,
+    "can_get_calendar_availability": true,
+    "can_check_calendar_conflicts": true,
+    "can_release_calendar_block": true,
+    "can_draft_email": true,
+    "can_notify_stefano": true,
+    "can_update_calendar": false,
+    "can_create_calendar_event": false,
+    "can_block_calendar_slot": false,
+    "can_send_email_recap": false,
+    "can_create_reminder": false,
+    "can_commit_costs": false,
+    "can_cancel_services": false,
+    "can_accept_contract_terms": false,
+    "can_share_sensitive_pii": false,
+    "can_act_outside_brief": false
+  },
+  "prompt_version": "outbound-call/v1.it",
+  "locale": "it-IT"
+}

@@ -1,0 +1,9 @@
+{
+  "call_id": "call-test-008",
+  "idempotency_key": "call-test-008:block_calendar_slot:9f2c1b0a7d",
+  "calendar_id": "stefano@example.test",
+  "start_iso": "2026-04-23T10:00:00+02:00",
+  "end_iso": "2026-04-23T10:30:00+02:00",
+  "reason": "X9 voice call hold — pending recipient confirmation",
+  "expires_at": "2026-04-23T10:45:00+02:00"
+}
