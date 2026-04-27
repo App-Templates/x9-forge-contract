@@ -135,3 +135,32 @@ export const ConfirmRecipientEmailOutputSchema = z.object({
   message: z.string().optional(),
 });
 export type ConfirmRecipientEmailOutput = z.infer<typeof ConfirmRecipientEmailOutputSchema>;
+
+/**
+ * send_recap_email input — narrowed from the generic `z.record(z.string(), z.unknown())`
+ * envelope (D-16). Bug C fold-in (Phase 46.1) makes the recap body server-composed,
+ * so the LLM only supplies an optional intent hint. Subject + body are produced
+ * server-side via `composeRecapBody()` — zero hallucination surface.
+ *
+ * @see docs/adr/ADR-cap-voice.md §13.5 (server-authoritative D-16 pattern)
+ * @see project_bug_c_decided_fold_in_m46_2026_04_23.md
+ */
+export const SendRecapEmailInputSchema = z.object({
+  intent: z.string().max(200).optional(),
+});
+export type SendRecapEmailInput = z.infer<typeof SendRecapEmailInputSchema>;
+
+/**
+ * send_recap_email output. `body_source` is currently `template`-only; M47+
+ * may widen to `z.enum(['template', 'llm_synthesis'])` after observing template
+ * adequacy on N live calls (Phase 46.1 D-15 — deferred).
+ */
+export const SendRecapEmailOutputSchema = z.object({
+  sent: z.boolean(),
+  recipient_email: z.string().email(),
+  subject: z.string(),
+  message_id: z.string(),
+  body_source: z.enum(['template']),
+  shadow: z.boolean().optional(),
+});
+export type SendRecapEmailOutput = z.infer<typeof SendRecapEmailOutputSchema>;

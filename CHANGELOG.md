@@ -10,6 +10,30 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## [1.6.1] - 2026-04-25 — M46 Phase 46.1: Bug C send_recap_email narrowing
+
+### Added
+
+- **`SendRecapEmailInputSchema`** — narrowed `send_recap_email` input shape (`{intent?: z.string().max(200).optional()}`). Replaces the generic `z.record(z.string(), z.unknown())` at the cap-voice handler boundary. LLM no longer supplies `subject`/`body`/`to` (Bug A closed `to`; Bug C closes `subject`/`body`).
+- **`SendRecapEmailOutputSchema`** — narrowed output shape with `body_source: z.enum(['template'])`. Single value first cut; widens M47+ if LLM-synthesis fallback is enabled.
+
+### Changed
+
+- (additive only — no breaking changes; envelope `VoiceToolCallRequestSchema.input` stays `z.record` to preserve the 13-tool generic dispatch)
+
+### Why
+
+Bug C fold-in per `project_bug_c_decided_fold_in_m46_2026_04_23.md`. The recap email body is now composed server-side by `services/cap-voice/src/brief-composer/recap-body-composer.ts`. LLM-supplied body content is IGNORED. Eliminates the hallucination foot-gun observed in conv_2501 and quick-260422-qhc Ferrari test.
+
+### Consumer impact
+
+- **Additive only.** Envelope schema unchanged.
+- cap-voice consumes the new schemas in `services/cap-voice/src/tools/send-recap-email.ts`.
+- ElevenLabs dashboard tool description tightens via `sync-elevenlabs-tools.ts` PATCH at end of Phase 46.1 (D-13).
+- Old consumers passing `subject`/`body`/`to` continue to work at envelope level — those fields are now silently ignored by the cap-voice handler. Tool count stays 13.
+
+---
+
 ## [1.6.0] - 2026-04-24 — M46 Phase 46.0: Voice Origination Contracts
 
 ### Added

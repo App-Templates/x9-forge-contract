@@ -45,7 +45,7 @@ export {
   type VoiceCallStartResponse,
 } from './call-start.js';
 
-// -- Tool surface (4 schemas + 1 runtime helper + confirm_recipient_email pair) ---
+// -- Tool surface (4 schemas + 1 runtime helper + confirm_recipient_email pair + send_recap_email pair) ---
 export {
   VoiceToolNameSchema,
   VoiceToolStatusSchema,
@@ -54,12 +54,16 @@ export {
   MUTATING_VOICE_TOOLS,
   ConfirmRecipientEmailInputSchema,
   ConfirmRecipientEmailOutputSchema,
+  SendRecapEmailInputSchema,
+  SendRecapEmailOutputSchema,
   type VoiceToolName,
   type VoiceToolStatus,
   type VoiceToolCallRequest,
   type VoiceToolCallResponse,
   type ConfirmRecipientEmailInput,
   type ConfirmRecipientEmailOutput,
+  type SendRecapEmailInput,
+  type SendRecapEmailOutput,
 } from './tools.js';
 
 // -- Calendar tool shapes (8 schemas + 2 supporting enums) -----------------
