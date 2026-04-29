@@ -151,16 +151,17 @@ export const SendRecapEmailInputSchema = z.object({
 export type SendRecapEmailInput = z.infer<typeof SendRecapEmailInputSchema>;
 
 /**
- * send_recap_email output. `body_source` is currently `template`-only; M47+
- * may widen to `z.enum(['template', 'llm_synthesis'])` after observing template
- * adequacy on N live calls (Phase 46.1 D-15 — deferred).
+ * send_recap_email output. `body_source` distinguishes between the normal-path
+ * template composition (`'template'`) and the post-call webhook server-side
+ * fallback (`'server_fallback'`) introduced in Phase 46.1.1. M47+ may add
+ * `'llm_synthesis'` after Phase 46.1 D-15 observability gate.
  */
 export const SendRecapEmailOutputSchema = z.object({
   sent: z.boolean(),
   recipient_email: z.string().email(),
   subject: z.string(),
   message_id: z.string(),
-  body_source: z.enum(['template']),
+  body_source: z.enum(['template', 'server_fallback']),
   shadow: z.boolean().optional(),
 });
 export type SendRecapEmailOutput = z.infer<typeof SendRecapEmailOutputSchema>;

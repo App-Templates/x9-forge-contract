@@ -18,7 +18,7 @@ import { VoiceToolNameSchema, VoiceToolStatusSchema } from './tools.js';
  */
 
 /** Named enum for the source column (no inline `z.enum`). */
-export const VoiceToolCallSourceSchema = z.enum(['elevenlabs', 'system', 'retry', 'admin']);
+export const VoiceToolCallSourceSchema = z.enum(['elevenlabs', 'system', 'retry', 'admin', 'server_fallback']);
 export type VoiceToolCallSource = z.infer<typeof VoiceToolCallSourceSchema>;
 
 export const VoiceCallToolLogSchema = z.object({

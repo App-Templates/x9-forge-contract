@@ -10,6 +10,29 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## [1.6.2] - 2026-04-29 — M46 Phase 46.1.1: post-call recap fallback enums
+
+### Added
+
+- **`SendRecapEmailOutputSchema.body_source`** — widened to `z.enum(['template', 'server_fallback'])`. Adds `'server_fallback'` value for cap-voice's post-call webhook fallback path (Phase 46.1.1 — when the LLM confirms `recipient_email` but never invokes `send_recap_email`, the post-call reconciler composes + sends the recap server-side using the canonical D-09 outcome).
+- **`VoiceToolCallSourceSchema`** — widened to `z.enum(['elevenlabs', 'system', 'retry', 'admin', 'server_fallback'])`. Adds `'server_fallback'` value to tag tool-log entries written by the new post-call fallback (idempotency + audit trail per D-46.1.1-03).
+
+### Changed
+
+- (additive only — no breaking changes; existing consumers matching on `body_source === 'template'` or `tool_call_source === 'elevenlabs'` continue to behave identically since the new value is only emitted by the cap-voice post-call fallback path introduced in Phase 46.1.1)
+
+### Why
+
+Bug A pattern recurrence (Phase 46.1 smoke FAIL 2026-04-29 conv_9801kqc77n5ffzc8hzma5teytzc2): agent confirmed `s.argio@gmail.com` via `confirm_recipient_email` but never called `send_recap_email`. Post-call webhook fallback (Option A' — D-09 compliant) is the structural fix. These enum widenings are the bridge-side prerequisites for cap-voice's `maybeSendRecapFallback` (Phase 46.1.1 Plan 02). R-14 enforcement: any cross-repo enum widening MUST land in the bridge first; cap-voice imports the new values from `@x9-forge/contracts/voice`.
+
+### Consumer impact
+
+- **Additive only.** Existing typed consumers compile unchanged.
+- cap-voice imports the widened types in `services/cap-voice/src/webhooks/post-call.ts` (Plan 02). No other consumer references `body_source` or `tool_call_source` for pattern matching today (verified by audit grep: agent-A invariants matrix §51 + agent-B feasibility audit §3).
+- No breaking change → patch bump (1.6.1 → 1.6.2).
+
+---
+
 ## [1.6.1] - 2026-04-25 — M46 Phase 46.1: Bug C send_recap_email narrowing
 
 ### Added
