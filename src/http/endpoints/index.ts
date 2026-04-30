@@ -26,3 +26,7 @@ export * from './voice.js'; // Phase 42 — CAP-Voice v2.2 path + method constan
 export * from './cap-manifest.js';
 export * from './cap-env-schema.js';
 export * from './cap-health.js';
+
+// Memory v2 internal endpoints (Phase 18 D3 — R-14 closure)
+export * from './memory-correct.js'; // POST /internal/memory/correct, secret auth
+export * from './memory-console.js'; // GET /internal/memory/console/:kind, secret auth

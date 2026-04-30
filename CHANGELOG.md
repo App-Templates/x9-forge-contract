@@ -10,6 +10,19 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.6.2 — 2026-04-30
+
+### Added
+- `@x9-forge/contracts/memory`: `MEMORY_CORRECT_PATH`, `MEMORY_CORRECT_METHOD`, `MEMORY_CONSOLE_LIST_PATH_TEMPLATE`, `MEMORY_CONSOLE_LIST_METHOD` path constants (Phase 18 D3).
+- `@x9-forge/contracts/http`: `memoryCorrectContract` endpoint contract (POST /internal/memory/correct, secret auth) and `memoryConsoleListContract` metadata + `memoryConsoleParamsSchema` + `MemoryConsoleKindSchema` (GET /internal/memory/console/:kind, secret auth).
+- Tests: `tests/http/endpoints/memory-correct.test.ts`, `tests/http/endpoints/memory-console.test.ts`.
+
+### Notes
+- Closes forge-v2 Phase 18 D3 (R-14 cross-repo URL hygiene for memory-v2 routes).
+- No breaking changes — additive only. Consumers can upgrade transparently.
+
+---
+
 ## [1.6.1] - 2026-04-25 — M46 Phase 46.1: Bug C send_recap_email narrowing
 
 ### Added

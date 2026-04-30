@@ -37,3 +37,10 @@ export * from './write-candidate.js';
  * @see docs/adr/ADR-cap-voice.md §15 (D-21 memory handoff)
  */
 export const MEMORY_VOICE_INGEST_PATH = '/internal/memory/voice-ingest' as const;
+
+/**
+ * Phase 18 D3 closure — memory v2 HTTP path constants.
+ * MEMORY_CORRECT_PATH, MEMORY_CORRECT_METHOD, MEMORY_CONSOLE_LIST_PATH_TEMPLATE,
+ * MEMORY_CONSOLE_LIST_METHOD — see src/memory/paths.ts.
+ */
+export * from './paths.js';
