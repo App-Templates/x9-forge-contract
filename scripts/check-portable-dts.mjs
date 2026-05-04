@@ -1,5 +1,18 @@
 #!/usr/bin/env node
 /**
+ * Phase 18.1 extension (2026-05-05)
+ * ----------------------------------
+ * Walker now collects .d.cts and .d.mts files in addition to .d.ts. Reason:
+ * the dual ESM+CJS build (added in Phase 18.1 Plan 00 via zshy) emits both
+ * .d.ts and .d.cts per subpath. A TS2883-class regression in the .d.cts half
+ * (because zshy's CJS pass uses a different module/moduleResolution profile
+ * than the ESM pass) would slip past the original .d.ts-only walker.
+ *
+ * The portability VIOLATION_PATTERNS below are agnostic to the file
+ * extension — only the walker scope changed. Behavior on .d.ts files is
+ * unchanged. Function renamed walkDts -> walkDeclarationFiles for accuracy.
+ */
+/**
  * check-portable-dts.mjs — guardrail against TS2883-class regressions in
  * emitted bridge declaration files.
  *
@@ -76,7 +89,7 @@ const VIOLATION_PATTERNS = [
   },
 ];
 
-async function* walkDts(dir) {
+async function* walkDeclarationFiles(dir) {
   let entries;
   try {
     entries = await readdir(dir, { withFileTypes: true });
@@ -87,8 +100,13 @@ async function* walkDts(dir) {
   for (const entry of entries) {
     const full = join(dir, entry.name);
     if (entry.isDirectory()) {
-      yield* walkDts(full);
-    } else if (entry.isFile() && entry.name.endsWith(".d.ts")) {
+      yield* walkDeclarationFiles(full);
+    } else if (
+      entry.isFile() &&
+      (entry.name.endsWith(".d.ts") ||
+        entry.name.endsWith(".d.cts") ||
+        entry.name.endsWith(".d.mts"))
+    ) {
       yield full;
     }
   }
@@ -115,7 +133,7 @@ async function main() {
 
   const violations = [];
   let scanned = 0;
-  for await (const file of walkDts(distRoot)) {
+  for await (const file of walkDeclarationFiles(distRoot)) {
     scanned += 1;
     const content = await readFile(file, "utf8");
     for (const { regex, label } of VIOLATION_PATTERNS) {
