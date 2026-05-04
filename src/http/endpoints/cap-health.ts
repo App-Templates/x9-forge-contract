@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { HealthStatusSchema } from '../../capability/health-status.js';
 
 /**

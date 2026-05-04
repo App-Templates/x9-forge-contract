@@ -10,6 +10,7 @@
  * (T-18-00-03 mitigation). Const-narrowing only — no structural `satisfies`
  * check, matching repo precedent in voice-register.ts and vault-resolve.ts.
  */
+import { z } from 'zod';
 import {
   MemoryCorrectiveActionRequestSchema,
   MemoryCorrectiveActionResponseSchema,

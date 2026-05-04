@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { CapabilityManifestSchema } from '../../capability/capability-manifest.js';
 
 /**

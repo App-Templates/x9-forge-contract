@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { EnvSchemaDocSchema } from '../../capability/env-schema.js';
 
 /**
