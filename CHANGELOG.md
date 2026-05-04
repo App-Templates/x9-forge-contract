@@ -10,6 +10,23 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.6.3 — 2026-05-04
+
+### Fixed
+- `src/http/endpoints/{cap-env-schema,cap-health,cap-manifest,memory-correct}.ts`: added `import { z } from 'zod'` so emitted `.d.ts` uses the portable `z.ZodObject<...>` named form instead of a synthesized `import("zod").ZodObject<...>` string. Without the in-scope `z`, TypeScript writes a string-literal import that a pnpm 10 consumer resolves through its temp prepare store (`_tmp_<hash>/`), producing TS2883 declaration emit errors.
+
+### Added
+- `scripts/check-portable-dts.mjs` — guardrail that fails the build if any emitted `.d.ts` contains a non-portable synthesized import (`import("zod")`, pnpm temp-store paths, or any `node_modules/` path). Wired as the second step of `pnpm build`, so every local build, every consumer `prepare`, and bridge CI catch a regression of this class at build time. Verified positive (700/700 tests, 89 portable `.d.ts`) and negative (injected violation → exit 1 with file + count + sample + fix recipe).
+
+### Notes
+- No breaking changes — pure declaration-emit fix; runtime behavior and public API identical to 1.6.2.
+- Asymptomatic on bridge own CI (Node 22 / pnpm 10) because the bridge builds in a stable layout. Manifested only when a fresh pnpm 10 consumer fetched the package and ran `prepare` in a temp store.
+- Incident reference: forge-v2 GH Actions run 25328536024 (2026-05-04) — Phase 19 deploy CI failed at `pnpm install --frozen-lockfile` during bridge `prepare` step.
+- Rollback anchor: tag `pre-ts2883-fix-2026-05-04` on bridge commit `7f718c17b1d65c6549ee8d43ceae2e814e3ad37c` (v1.6.2).
+- Consumer follow-up: forge-v2 must bump `pnpm.overrides["@x9-forge/contracts"]` to the new bridge SHA (atomic SHA bump per RLSE-02). agent-x9 currently uses `link:` and is unaffected.
+
+---
+
 ## v1.6.2 — 2026-04-30
 
 ### Added
