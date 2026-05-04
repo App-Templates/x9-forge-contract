@@ -10,6 +10,39 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.7.0 — 2026-05-05
+
+### Added
+- **Dual ESM+CJS build pipeline.** `pnpm build` now uses [`zshy`](https://github.com/colinhacks/zshy) (the same toolchain zod uses) to emit both ESM (`.js` + `.d.ts`) AND CJS (`.cjs` + `.d.cts`) artifacts for every public subpath. `package.json#/exports` declares `"types"` + `"import"` + `"require"` triples for all 11 subpaths (auto-written by zshy). `package.json#/main` flips to `./dist/index.cjs`, `package.json#/types` flips to `./dist/index.d.cts`, while `"type": "module"` and the `"import"` condition stay unchanged for ESM consumers.
+- **`./capability/stt` subpath now has source.** The exports entry was declared in commit `43f7ef5` (X9 Phase 47.0) but no source file existed in the bridge — agent-x9's `services/cap-stt` consumes the subpath via link mode but a fresh git+https install would have failed. New `src/capability/stt/index.ts` exports `CAP_STT_DEFAULT_PORT` (number, =4011), `TranscribeProviderSchema` (zod enum: openai|elevenlabs), `TranscribeRequestSchema`, `TranscribeResponseSchema` + types. Symbol set derived from agent-x9 import sites (4 files in services/cap-stt/src).
+- **CJS resolution smoke test.** `tests/cjs/smoke.cjs` is a pure-CommonJS file that runs via `node tests/cjs/smoke.cjs` (NOT vitest — vitest's loader is ESM and does not exercise the bug class that crashed forge-v2 vault-svc on 2026-05-04). The smoke `require()`s every public subpath + asserts known named symbols.
+- **ESM smoke test.** `tests/esm/smoke.test.ts` mirrors the CJS smoke under vitest, proving ESM consumers (agent-x9 link mode + future ESM forge-v2) are unaffected by the dual build.
+- **`publint` + `@arethetypeswrong/cli` validation layers.** Wired into `pnpm check:pack` (separated from `build` to avoid a recursive `prepare`-script fork-bomb — see Plan 01 Deviation #1). publint catches malformed `exports` map entries (missing files, wrong condition order). attw catches types-resolution failures across node10 / node16-cjs / node16-esm / bundler conditions. attw runs with `--profile node16 --ignore-rules false-cjs` to suppress the documented benign "Masquerading as CJS" warning that follows from the standard zod pattern (`"type": "module"` + `"types"` → `.d.cts`). New `pnpm validate` aggregator runs build + check:pack + test as a one-shot CI/pre-release entry point.
+- **`scripts/check-portable-dts.mjs` walker extension.** Now scans `.d.cts` and `.d.mts` in addition to `.d.ts`. Function rename `walkDts` → `walkDeclarationFiles`. The TS2883 portable-dts guardrail introduced in v1.6.3 stays effective on the new artifact class.
+
+### Notes
+- **No breaking changes for existing ESM consumers.** Public API surface is byte-identical for the 9 pre-existing subpaths (verified via R-14 byte-identity diff: `find dist -name '*.d.ts' | xargs grep -hE '^export ' | sort -u` produces zero removed lines). Net-new exports come ONLY from the back-filled `./capability/stt` subpath (additive).
+- **agent-x9 unaffected** by the dual build — it consumes via `link:` (file-system path), reads `dist/` directly, and the dual build adds CJS files alongside ESM without removing anything. agent-x9 stays on its current bridge link.
+- **forge-v2 must bump `pnpm.overrides["@x9-forge/contracts"]`** to the new bridge SHA per RLSE-02 (atomic consumer bump). This is the post-release follow-up tracked in forge-v2 Phase 18.1 Plan 02 Task 4.
+
+### Why
+Forge-v2 Phase 19 deploy attempt (2026-05-04) crashed vault-svc with `ERR_PACKAGE_PATH_NOT_EXPORTED` on `@x9-forge/contracts/auth`. Root cause: bridge was full-ESM (`"type": "module"` + only `"import"` condition); all 5 forge-v2 services compile CJS (`tsconfig.json "module": "CommonJS"`); tsc emits `require("@x9-forge/contracts/auth")`; Node CJS resolver finds no `"require"` field in exports → throws. The latent bug was introduced in Phase 18-04 R-14 hygiene sweep (commits `20f0af1`, `ea24add`) which migrated subpath imports into vault, factory, voice. Local vitest passed because it runs the ESM resolver. First runtime exposure was Phase 19 deploy → PATH C Hostinger snapshot restore. Phase 18.1 closes the structural bug in the bridge so Phase 19 retry can succeed.
+
+### Consumer impact
+- **agent-x9:** zero impact (link mode reads `dist/` directly; new `./capability/stt` source resolves what was previously dangling — actually IMPROVES the install path for fresh consumer scenarios).
+- **forge-v2:** atomic SHA bump required (Phase 18.1 Plan 02 Task 4-6). After bump, forge-v2 services compile + boot under CJS without the ERR_PACKAGE_PATH_NOT_EXPORTED crash. Phase 19 deploy retry unblocked.
+
+### Rollback anchor
+- Bridge tag `pre-phase-18.1-2026-05-05` at commit `4f2da00d0a7ae68ef4ca65c6b9664d63389e360d` (the v1.6.3 release commit).
+- Bridge tag `pre-ts2883-fix-2026-05-04` at commit `7f718c17b1d65c6549ee8d43ceae2e814e3ad37c` (v1.6.2) remains valid.
+
+### Incident reference
+- forge-v2 Phase 19 Plan 02 deploy log: `forge-v2/.planning/phases/19-coordinated-phase17-18-deploy/19-DEPLOY-LOG.md` §"Task 2 — INCIDENT + ROLLBACK"
+- forge-v2 Phase 18.1: `forge-v2/.planning/phases/18.1-bridge-dual-esm-cjs-build/`
+- Memory: `project_phase19_paused_cjs_esm_bug_2026_05_04.md`
+
+---
+
 ## v1.6.3 — 2026-05-04
 
 ### Fixed
