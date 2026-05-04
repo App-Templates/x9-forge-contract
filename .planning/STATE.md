@@ -42,6 +42,34 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 - **Audit history:** initial `gaps_found` (bookkeeping) → re-audit `passed` after 11-commit chirurgico backfill (2026-04-16). Verdict: 65/66 in-scope satisfied + 1 operator-deferred (TEST-04); 0 partial/unsatisfied/orphaned.
 - **Tag:** `v1.0` re-anchored at HEAD `cccb722` (full archive bundle) — local-only, push pending OK
 
+## v1.7.0 Hotfix Release (2026-05-05)
+
+**Status:** Released locally on `phase/37.7-bridge-rag-contracts`; pushed to origin pending Stefano R-05 OK.
+
+**Trigger:** forge-v2 Phase 19 Plan 02 deploy attempt 2026-05-04 — vault-svc crashed with `ERR_PACKAGE_PATH_NOT_EXPORTED` on `@x9-forge/contracts/auth` because bridge was full-ESM and forge-v2 services compile to CJS. Phase 19 PAUSED; Phase 18.1 opened to fix the structural bug in the bridge.
+
+**Scope (6 atomic commits ahead of `4f2da00` v1.6.3 baseline):**
+1. `build(bridge)`: dual ESM+CJS via zshy + back-fill `./capability/stt` source (Plan 00 Task 1) — `5b7e9c7`
+2. `chore(scripts)`: extend `check-portable-dts.mjs` walker to `.d.cts` + `.d.mts` (Plan 00 Task 2) — `60a0598`
+3. `test(bridge)`: add CJS + ESM smoke tests for every public subpath (Plan 01 Task 1) — `2aeafb8`
+4. `chore(deps,scripts)`: wire publint + ATTW + cjs-smoke into `pnpm test/check:pack` (Plan 01 Task 2) — `10bcae8`
+5. `docs(changelog)`: v1.7.0 entry (Plan 02 Task 1) — `db881ab`
+6. `release: 1.6.3 → 1.7.0` (Plan 02 Task 2) — `8fa71b0`
+
+**Tags:**
+- `v1.7.0` → `8fa71b0` (release commit)
+- `pre-phase-18.1-2026-05-05` → `4f2da00` (rollback anchor)
+
+**Validation:** All four layers green — `cjs/smoke.cjs` 13/13, `esm/smoke.test.ts` 11/11 (vitest 711/711 total), `publint`, `attw --pack . --profile node16 --ignore-rules false-cjs` (per RESEARCH.md Pattern 4 — documented benign).
+
+**Consumer follow-up:** forge-v2 `pnpm.overrides["@x9-forge/contracts"]` must bump to v1.7.0 release SHA `8fa71b0` (forge-v2 Phase 18.1 Plan 02 Tasks 4-5).
+
+**No breaking changes for ESM consumers.** Public API surface byte-identical for the 9 pre-existing subpaths (R-14 invariant verified). Net-new exports come only from back-filled `./capability/stt`.
+
+**v1.1 milestone status:** still pending. v1.7.0 is a hotfix release outside the v1.1 scope; v1.1 carry-forward items (Phase 7 Shim Removal, etc.) remain un-started.
+
+---
+
 ## v1.1 Carry-Forward (when ready)
 
 **Active scope:**
