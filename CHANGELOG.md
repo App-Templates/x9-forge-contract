@@ -10,6 +10,49 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.7.1 — 2026-05-05
+
+**Hotfix release.** Closes the Node 20 consumability gap that broke forge-v2 CI on the v1.7.0 pin bump (`986634b`, CI run 25377004134). Public API surface byte-equivalent to v1.7.0 (R-14).
+
+### Fixed
+- **`engines.node` lowered** from `">=22.0.0"` to `">=20.0.0"` (Phase 18.1.1 D-18.1.1-1). Forge-v2 CI runs Node 20.20.2 — the previous constraint produced `WARN Unsupported engine` on install + downstream zshy ran on unsupported runtime, emitting `.d.cts` Node 20 NodeNext could not resolve (TS2307 across every subpath consumer).
+- **`prepare`-in-temp-store dependency eliminated** (D-18.1.1-2). Bridge tarball now ships `dist/` pre-built; consumer `pnpm install --frozen-lockfile` no longer invokes zshy in pnpm 10 temp store. `package.json#/scripts.prepare` narrowed from `"husky && pnpm build"` to `"husky"` only; new `prepublishOnly` script keeps the npm publish path running `pnpm build`. `.gitignore` no longer excludes `dist/`.
+
+### Added
+- **`tests/consumer-cjs/` synthetic fixture + `consumer-cjs-node20` CI gate** (D-18.1.1-3). New required job in `.github/workflows/ci.yml` spins Node 20 + ubuntu + pnpm 10, runs `pnpm pack`, installs the tarball into a CommonJS-shaped fixture (`tsconfig.json` `moduleResolution: NodeNext` + `module: NodeNext` + `skipLibCheck: false`), runs `tsc --noEmit`. Catches every Phase-19-class subpath-resolution bug AT THE BRIDGE PR, not at consumer install time. Closes the producer-only-validation gap that let v1.7.0 ship broken.
+- **`dist`-staleness CI gate** (companion to D-18.1.1-2). Existing Node 22 `test` job now asserts `git diff --quiet -- dist/` after `pnpm build` — committed dist must stay in lockstep with src.
+
+### Notes
+- **No breaking changes for ESM consumers.** Public API surface byte-identical to v1.7.0 (R-14 verified via `find dist -name '*.d.ts' -o -name '*.d.cts' | xargs grep -hE '^export ' | sort -u` → 735 export lines, zero-diff against v1.7.0 baseline).
+- **agent-x9 unaffected** by the dist commit — it consumes via `link:` mode (file-system path), reads `dist/` directly. Tracked dist/ adds nothing for link consumers.
+- **forge-v2 must bump `pnpm.overrides["@x9-forge/contracts"]`** to v1.7.1 SHA per RLSE-02 (atomic consumer bump). Tracked in forge-v2 Phase 18.1.1 Plan 02 Task 4.
+- **v1.7.0 tag preserved on origin** as historical record (first dual-build attempt with engines/prepare flaws). v1.7.1 is the working release pointer.
+
+### Why
+Phase 18.1 attempted 2026-05-05. Bridge v1.7.0 ran 4 producer-side validation layers (vitest 711+/711+, cjs-smoke 13/13, publint, attw) all green LOCALLY on Node 22 + pnpm 9. Pushed; tagged. Forge-v2 pin bump `986634b` pushed to main → CI run 25377004134 FAILED with TS2307 across every bridge subpath consumer (`Cannot find module './agent-identity.cjs'` etc.). Local pin install passed (Node ≥22); CI on Node 20 failed.
+
+3-auditor consensus 2026-05-05 (x9-verifier + x9-contract-bridge-auditor + x9-release-auditor):
+- Smoking gun: `engines.node = ">=22.0.0"` mismatch with CI Node 20.20.2.
+- Root cause: zshy `prepare` brittleness in pnpm 10 temp-store on CI (RESEARCH.md §Pitfall #3 — Fix C explicitly endorsed: commit dist/ to git).
+- Validation gap: producer-side validation (publint+ATTW+vitest+cjs-smoke) all run INSIDE the bridge — none replicated a fresh consumer install on the consumer's runtime. Bridge-side CI gate added.
+
+### Consumer impact
+- **agent-x9:** zero impact (link mode reads `dist/` directly; engines lower is more permissive, not less).
+- **forge-v2:** atomic SHA bump required (Phase 18.1.1 Plan 02 Task 4-5). After bump, fresh `pnpm install --frozen-lockfile` exits 0 on Node 20 + ubuntu + pnpm 10. Phase 19 deploy retry unblocked.
+
+### Rollback anchor
+- Bridge tag `pre-phase-18.1.1-2026-05-05` (LOCAL only) at commit `2520403` (post-Phase-18.1 v1.7.0 release commit + STATE update).
+- Bridge tag `v1.7.0` on origin remains valid as the previous (broken-on-Node-20) release pointer.
+- Bridge tag `pre-phase-18.1-2026-05-05` (LOCAL only) at `4f2da00` remains as v1.6.3 baseline.
+
+### Incident reference
+- forge-v2 CI run that surfaced the bug: GitHub Actions run `25377004134` on commit `986634b` (2026-05-05).
+- forge-v2 Phase 18.1 handoff: `forge-v2/.planning/phases/18.1-bridge-dual-esm-cjs-build/18.1-HANDOFF.md`
+- forge-v2 Phase 18.1.1: `forge-v2/.planning/phases/18.1.1-bridge-v1.7.1-hotfix/`
+- Memory: `project_phase19_paused_cjs_esm_bug_2026_05_04.md` (2026-05-05 update section)
+
+---
+
 ## v1.7.0 — 2026-05-05
 
 ### Added
