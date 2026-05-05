@@ -94,7 +94,8 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests",
-    "prepare": "husky && pnpm build"
+    "prepare": "husky",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "zod": "^4.0.0"
