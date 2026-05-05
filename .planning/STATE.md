@@ -42,6 +42,41 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 - **Audit history:** initial `gaps_found` (bookkeeping) → re-audit `passed` after 11-commit chirurgico backfill (2026-04-16). Verdict: 65/66 in-scope satisfied + 1 operator-deferred (TEST-04); 0 partial/unsatisfied/orphaned.
 - **Tag:** `v1.0` re-anchored at HEAD `cccb722` (full archive bundle) — local-only, push pending OK
 
+## v1.7.1 Hotfix Release (2026-05-05)
+
+**Status:** Released locally on `phase/37.7-bridge-rag-contracts`; pushed to origin pending Stefano R-05 OK (GATE 1 + GATE 2).
+
+**Trigger:** Phase 18.1 v1.7.0 ship-broken on Node 20. Forge-v2 pin bump `986634b` pushed to main 2026-05-05 → CI run `25377004134` FAILED with TS2307 across every bridge subpath consumer (`Cannot find module './<sub>/index.cjs'`). 3-auditor consensus 2026-05-05 (x9-verifier + x9-contract-bridge-auditor + x9-release-auditor): fix-forward as v1.7.1; preserve v1.7.0 on origin as historical record.
+
+**Scope (7 atomic commits ahead of `2520403` post-Phase-18.1 STATE update; equivalently 13 commits ahead of `4f2da00` v1.6.3 baseline):**
+1. `chore(engines): lower bridge engines.node from >=22 to >=20` (Plan 00 Task 1) — `c589655`
+2. `build(bridge): commit dist/ to git, narrow prepare to husky-only` (Plan 00 Task 2) — `493b88d`
+3. `build(bridge): commit dist/ tree (zshy v1.7.1 build output)` (Plan 00 Task 3) — `62c39ac`
+4. `ci: add Node 20 consumer-cjs gate + dist-staleness invariant` (Plan 01) — `73b1233`
+5. `docs(changelog): add v1.7.1 entry — engines lower + dist commit + CI gate` (Plan 02 Task 1) — `c76b58f`
+6. `release: 1.7.0 → 1.7.1 (Node 20 consumability hotfix)` (Plan 02 Task 2) — `211a6f0`
+7. (this) `docs(.planning): record v1.7.1 hotfix release in bridge STATE.md (R-09)` (Plan 02 Task 3) — pending
+
+**Tags:**
+- `v1.7.1` → `211a6f0` (release commit, Plan 02 Task 2) — local pending Stefano R-05 GATE 2
+- `v1.7.0` → `8fa71b0` (existing on origin, preserved as historical per D-18.1.1-4)
+- `pre-phase-18.1.1-2026-05-05` → `2520403` (LOCAL only, R-04 rollback anchor — NOT to be pushed)
+
+**Validation:** All 5 layers green on Node 20.20.2 + pnpm 10.33.0:
+- vitest 711/711 pass (54 files)
+- `[cjs-smoke] summary: 13 passed, 0 failed`
+- publint clean
+- `attw --pack . --profile node16 --ignore-rules false-cjs` clean
+- consumer-cjs end-to-end (pnpm pack → install fixture from canonical `x9-forge-contracts-1.7.1.tgz` → tsc --noEmit) exits 0
+
+**Consumer follow-up:** forge-v2 `pnpm.overrides["@x9-forge/contracts"]` must bump `4f2da00` → v1.7.1 release SHA `211a6f0db58e8190bcde214faa90cee26c6978c8` (forge-v2 Phase 18.1.1 Plan 02 Task 4-5).
+
+**No breaking changes for ESM consumers.** Public API surface byte-identical to v1.7.0 (R-14 invariant verified — 735 export lines, 0 diff). Net new content: tracked dist/ tree + consumer-cjs fixture + CI workflow extension.
+
+**v1.1 milestone status:** still pending. v1.7.1 is a hotfix release outside the v1.1 scope; v1.1 carry-forward items remain un-started.
+
+---
+
 ## v1.7.0 Hotfix Release (2026-05-05)
 
 **Status:** Released locally on `phase/37.7-bridge-rag-contracts`; pushed to origin pending Stefano R-05 OK.
