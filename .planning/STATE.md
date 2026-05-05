@@ -48,18 +48,19 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 
 **Trigger:** Phase 18.1 v1.7.0 ship-broken on Node 20. Forge-v2 pin bump `986634b` pushed to main 2026-05-05 → CI run `25377004134` FAILED with TS2307 across every bridge subpath consumer (`Cannot find module './<sub>/index.cjs'`). 3-auditor consensus 2026-05-05 (x9-verifier + x9-contract-bridge-auditor + x9-release-auditor): fix-forward as v1.7.1; preserve v1.7.0 on origin as historical record.
 
-**Scope (7 atomic commits ahead of `2520403` post-Phase-18.1 STATE update; equivalently 13 commits ahead of `4f2da00` v1.6.3 baseline):**
+**Scope (8 atomic commits ahead of `2520403` post-Phase-18.1 STATE update; equivalently 14 commits ahead of `4f2da00` v1.6.3 baseline):**
 1. `chore(engines): lower bridge engines.node from >=22 to >=20` (Plan 00 Task 1) — `c589655`
 2. `build(bridge): commit dist/ to git, narrow prepare to husky-only` (Plan 00 Task 2) — `493b88d`
 3. `build(bridge): commit dist/ tree (zshy v1.7.1 build output)` (Plan 00 Task 3) — `62c39ac`
 4. `ci: add Node 20 consumer-cjs gate + dist-staleness invariant` (Plan 01) — `73b1233`
 5. `docs(changelog): add v1.7.1 entry — engines lower + dist commit + CI gate` (Plan 02 Task 1) — `c76b58f`
-6. `release: 1.7.0 → 1.7.1 (Node 20 consumability hotfix)` (Plan 02 Task 2) — `211a6f0`
-7. (this) `docs(.planning): record v1.7.1 hotfix release in bridge STATE.md (R-09)` (Plan 02 Task 3) — pending
+6. `release: 1.7.0 → 1.7.1 (Node 20 consumability hotfix)` (Plan 02 Task 2 version-bump) — `211a6f0`
+7. `docs(.planning): record v1.7.1 hotfix release in bridge STATE.md (R-09)` (Plan 02 Task 3 first stamp) — `1b72b5f`
+8. `chore(ci,lint): trigger CI on phase/** + silence intentional z import` (Plan 02 Task 3 pre-push tech-debt closure) — `c7dd8ef`
 
 **Tags:**
-- `v1.7.1` → `211a6f0` (release commit, Plan 02 Task 2) — local pending Stefano R-05 GATE 2
-- `v1.7.0` → `8fa71b0` (existing on origin, preserved as historical per D-18.1.1-4)
+- `v1.7.1` → `c7dd8ef` (annotated, release pointer = HEAD with all 8 commits) — local pending Stefano R-05 GATE 2
+- `v1.7.0` → `8fa71b0` (annotated, existing on origin, preserved as historical per D-18.1.1-4)
 - `pre-phase-18.1.1-2026-05-05` → `2520403` (LOCAL only, R-04 rollback anchor — NOT to be pushed)
 
 **Validation:** All 5 layers green on Node 20.20.2 + pnpm 10.33.0:
