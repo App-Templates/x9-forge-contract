@@ -1,0 +1,1 @@
+{"version":3,"file":"cap-manifest.js","sourceRoot":"","sources":["../../../src/http/endpoints/cap-manifest.ts"],"names":[],"mappings":";;;AACA,qFAAmF;AAoB9C,0GApB5B,iDAAwB,OAoB6B;AAlB9D;;;;;;;;;GASG;AAEU,QAAA,mBAAmB,GAAG;IACjC,MAAM,EAAE,KAAc;IACtB,IAAI,EAAE,WAAoB;IAC1B,QAAQ,EAAE,MAAe;IACzB,cAAc,EAAE,iDAAwB;CAChC,CAAC"}
