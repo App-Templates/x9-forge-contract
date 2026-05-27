@@ -43,7 +43,24 @@ export type AuthNone = Record<string, never>;
 export type AuthHeaders = AuthInternalSecret | AuthInternalToken | AuthNone;
 /**
  * String literal union for endpoint auth requirement declarations.
- * Used by endpoint contracts (Phase 4) to annotate required auth type.
+ * Used by endpoint contracts (Phase 4 onward) to annotate required auth type.
+ *
+ * Values:
+ *   - `'secret'`            — X-Internal-Secret header (Forge→X9 `/internal/*`)
+ *   - `'token'`             — X-Internal-Token header (cross-repo s2s,
+ *                             Bug #15 endpoint family — preserve this meaning
+ *                             strictly; don't dilute with provider webhooks)
+ *   - `'none'`              — no auth (discovery endpoints)
+ *   - `'external_provider'` — auth supplied by an external provider's own
+ *                             scheme (Svix HMAC for AgentMail, Telegram bot
+ *                             secret-token, ElevenLabs HMAC). The bridge
+ *                             does NOT type the header shape — each consumer
+ *                             owns its own provider-specific verification
+ *                             (matches the precedent of cap-voice's direct
+ *                             ElevenLabs HMAC path, see
+ *                             `http/endpoints/webhook-post-call.ts:6`).
+ *                             Added in Phase 11.A (v1.8.0) for inbound
+ *                             webhooks from AgentMail + Telegram.
  */
-export type EndpointAuthType = 'secret' | 'token' | 'none';
+export type EndpointAuthType = 'secret' | 'token' | 'none' | 'external_provider';
 //# sourceMappingURL=auth-headers.d.ts.map

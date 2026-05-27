@@ -15,6 +15,13 @@ import { VoiceCallIntentSchema } from "@x9-forge/contracts/voice";
 import { CAP_STT_DEFAULT_PORT, TranscribeRequestSchema } from "@x9-forge/contracts/capability/stt";
 import { vaultResolveContract } from "@x9-forge/contracts/http";
 import { MEMORY_CORRECT_PATH } from "@x9-forge/contracts/memory";
+import {
+  ChannelTypeSchema,
+  IncomingMessageEnvelopeSchema,
+  IncomingMessageAttachmentSchema,
+  AgentEmailInboxSchema,
+  AgentTelegramBotSchema,
+} from "@x9-forge/contracts/messaging";
 import { ModelTierSchema } from "@x9-forge/contracts/model-router";
 import { RagQueryRequestSchema } from "@x9-forge/contracts/rag";
 import { VaultTierSchema } from "@x9-forge/contracts/vault";
@@ -31,6 +38,11 @@ void CAP_STT_DEFAULT_PORT;
 void TranscribeRequestSchema;
 void vaultResolveContract;
 void MEMORY_CORRECT_PATH;
+void ChannelTypeSchema;
+void IncomingMessageEnvelopeSchema;
+void IncomingMessageAttachmentSchema;
+void AgentEmailInboxSchema;
+void AgentTelegramBotSchema;
 void ModelTierSchema;
 void RagQueryRequestSchema;
 void VaultTierSchema;

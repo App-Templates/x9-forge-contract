@@ -46,6 +46,11 @@ const PROBES = [
   { specifier: '@x9-forge/contracts/capability/stt',   knownSymbol: 'TranscribeRequestSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/http',             knownSymbol: 'vaultResolveContract',  expectedType: 'object' },
   { specifier: '@x9-forge/contracts/memory',           knownSymbol: 'MEMORY_CORRECT_PATH',   expectedType: 'string', expectedValue: '/internal/memory/correct' },
+  // Phase 11.A — messaging subpath (5 schemas). ChannelTypeSchema is the enum probe; others type-checked in consumer-cjs.
+  { specifier: '@x9-forge/contracts/messaging',        knownSymbol: 'ChannelTypeSchema',     expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/messaging',        knownSymbol: 'IncomingMessageEnvelopeSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/messaging',        knownSymbol: 'AgentEmailInboxSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/messaging',        knownSymbol: 'AgentTelegramBotSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/model-router',     knownSymbol: 'ModelTierSchema',       expectedType: 'object' },
   // RagQueryRequestSchema is a top-level Zod schema export from rag/index.cjs (see dist/rag/index.d.cts).
   { specifier: '@x9-forge/contracts/rag',              knownSymbol: 'RagQueryRequestSchema', expectedType: 'object' },

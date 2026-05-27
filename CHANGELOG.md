@@ -10,6 +10,45 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.8.0 — 2026-05-27
+
+**Minor release — additive only.** Phase 11.A. New `messaging` subpath + 2 inbound webhook endpoint contracts + new `EndpointAuthType` literal. Zero rename, zero removal, zero shape change of existing schemas. Public API surface 100% backward-compatible with v1.7.1.
+
+### Added
+- **New subpath `./messaging`** — cross-channel inbound messaging contracts. 5 schemas:
+  - `ChannelTypeSchema` — `z.enum(['telegram','email','voice','whatsapp'])`. Bridge-owned source-of-truth for the 4 channels X9/Forge address. Parallel mirrors locally per Hard Rule 21 (memoria 21) — JSDoc cross-link both files; update in lockstep.
+  - `IncomingMessageAttachmentSchema` — reusable attachment subschema (`mime`, `filename`, `size_bytes`, `url`/`inline_b64`).
+  - `IncomingMessageEnvelopeSchema` — STRICT internal boundary envelope emitted by cap-email (post-Svix verify) and telegram-router-svc (post-bot-secret verify). `signature_valid: z.literal(true)` enforces D-09 no-fallback (invalid-signature events MUST be dropped at the boundary, never propagated). `raw_provider_event: z.unknown()` is the LENIENT escape hatch for provider drift. Mirrors `capability/voice/normalized-event.ts` pattern.
+  - `AgentEmailInboxSchema` — per-agent AgentMail inbox identity (matches Forge `agentmail.service.ts` return shape `{inboxId, email}`). Zero secret material in schema; vault carries the API key under existing `AGENTMAIL_API_KEY` credential (R-17).
+  - `AgentTelegramBotSchema` — per-agent Telegram bot identity (`bot_username`, `bot_token_ref` vault pointer, `chat_allow_list` as string array to preserve int64 supergroup ids). NO `bot_token` field — vault carries the value (R-17). Pattern: `botTokenRef` references existing `TELEGRAM_BOT_TOKEN` credential.
+- **2 new endpoint contracts in `./http`**:
+  - `webhookInboundTelegramContract` (`POST /webhook/inbound/telegram`) — telegram-router-svc inbound. `authType: 'external_provider'` (provider-set secret-token header).
+  - `webhookInboundEmailContract` (`POST /webhook/agentmail/inbound`) — cap-email inbound. `authType: 'external_provider'` (Svix HMAC).
+- **New `EndpointAuthType` literal: `'external_provider'`** in `src/auth/auth-headers.ts`. Additive — `'secret' | 'token' | 'none'` unchanged. Documents the semantic where auth is supplied by an external provider's own scheme (Svix HMAC, Telegram bot secret-token, ElevenLabs HMAC). Bridge does NOT type the provider header shape; each consumer owns verification. Mirrors precedent in `webhook-post-call.ts:6` JSDoc.
+- **Consumer-cjs probe + cjs-smoke** updated with all 5 messaging symbols (`ChannelTypeSchema`, `IncomingMessageEnvelopeSchema`, `IncomingMessageAttachmentSchema`, `AgentEmailInboxSchema`, `AgentTelegramBotSchema`). consumer-cjs-node20 CI gate now exercises the new subpath under NodeNext + Node 20 (Phase 18.1.1 D-18.1.1-3 mechanism).
+- **Unit tests** under `tests/messaging/`: 6 files covering happy paths + STRICT boundary rejection cases (`signature_valid: false` rejected, int64 chat-id preservation, branded type safety, etc.).
+
+### Notes
+- **NOT added to bridge**: `AGENTMAIL_WEBHOOK_SECRET` is service-local in cap-email `env.ts` with `@bridge-optout` documentation (R-17 service-instance pattern). Mirrors the `ELEVENLABS_WEBHOOK_SECRET` exclusion at `agent-credentials.ts:67-79`. Webhook secrets are per-registration, not per-agent, so they don't belong in `AgentCredentialsSchema`.
+- **Voice keeps `capability/voice/`** subpath — call-shaped contract predates the generic envelope and remains canonical for voice (transcript, conversation_id, post-call recap). Messaging subpath covers everything that is NOT call-shaped.
+- **Snake_case convention** maintained across messaging transport payloads (`message_id`, `body_text`, `received_at`, `provider_event_hash`) — matches `normalized-event.ts` template.
+- **`'external_provider'` auth literal** is intentionally distinct from `'token'` to preserve Bug #15 semantics (`'token'` reserved for `X-Internal-Token` forwarded across X9/Forge).
+- **No removal, no rename, no shape change of existing schemas.** Public API surface byte-equivalent for v1.7.1 imports.
+
+### Consumer impact
+- **agent-x9**: zero install impact (link mode reads `dist/` directly). Consumers of `./messaging` subpath will become cap-email (Phase 11.B) and telegram-router-svc (Phase 11.C). Forge factory-svc may also import `AgentEmailInboxSchema` for cross-repo provisioning handshake.
+- **forge-v2**: atomic SHA bump of `pnpm.overrides["@x9-forge/contracts"]` from `41d8ee5...` to the new v1.8.0 HEAD SHA. Same wave as bridge merge (RLSE-02 atomic). Forge factory-svc will optionally consume `AgentEmailInboxSchema` to type the `agentmail.service.ts` return value cross-repo.
+- **parallel**: atomic SHA bump of `pnpm-lock.yaml` + `scripts/verify-bridge-pin.mjs` (replace SHA constant). 16 services in `*` pattern resolve via override. Parallel uses the messaging subpath in Phase 11.E inbound→Director→outbound loop.
+
+### Rollback anchor
+- Pre-Phase-11 baseline: tag `pre-phase-11-2026-05-27` at commit `41d8ee5` (v1.7.1 + STATE doc update). Restore via `git reset --hard pre-phase-11-2026-05-27` + atomic SHA revert in forge-v2/parallel.
+
+### Incident reference
+- Phase 11 plan + intel: `/Users/admintemp/Downloads/Claude/parallel/.planning/phases/11-multi-canale-routing/` (Parallel-side planning).
+- Phase 10.11 night work that exposed the gap (outbound-only demo, no inbound loop): `/Users/admintemp/Downloads/Claude/parallel/.planning/phases/10-director-runtime-narrative-loop/10-11-NIGHT-FINAL.md`.
+
+---
+
 ## v1.7.1 — 2026-05-05
 
 **Hotfix release.** Closes the Node 20 consumability gap that broke forge-v2 CI on the v1.7.0 pin bump (`986634b`, CI run 25377004134). Public API surface byte-equivalent to v1.7.0 (R-14).

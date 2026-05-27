@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -19,6 +19,7 @@
       "./capability/stt": "./src/capability/stt/index.ts",
       "./http": "./src/http/index.ts",
       "./memory": "./src/memory/index.ts",
+      "./messaging": "./src/messaging/index.ts",
       "./model-router": "./src/model-router/index.ts",
       "./rag": "./src/rag/index.ts",
       "./vault": "./src/vault/index.ts"
@@ -64,6 +65,11 @@
       "types": "./dist/memory/index.d.cts",
       "import": "./dist/memory/index.js",
       "require": "./dist/memory/index.cjs"
+    },
+    "./messaging": {
+      "types": "./dist/messaging/index.d.cts",
+      "import": "./dist/messaging/index.js",
+      "require": "./dist/messaging/index.cjs"
     },
     "./model-router": {
       "types": "./dist/model-router/index.d.cts",
