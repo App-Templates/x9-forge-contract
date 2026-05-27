@@ -10,6 +10,34 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.9.0 — 2026-05-27
+
+**Minor release — additive only.** Phase 12.A. Adds `cc: string[]` to
+`IncomingMessageEnvelopeSchema` as the knowledge-propagation primitive
+for the Phase 12 awareness graph. Zero rename, zero removal. Default `[]`
+keeps v1.8.0 consumers parsing v1.9.0 payloads without code change
+(backward-compat invariant).
+
+### Added
+- **`IncomingMessageEnvelopeSchema.cc`** (`messaging/incoming-message-envelope.ts:84-95`) — array of CC recipients (email primarily; empty for channels without CC semantics like telegram/voice). Capped at 50 entries (DoS bound). Each entry follows the channel-native address format of `from`/`to`. Phase 12.A consumers (cap-email inbound webhook, topic-svc extractor) use this field to propagate `awareness=full` to CC'd characters when extracting topics from the message body.
+
+### Notes
+- **`.default([])`** is the backward-compat hinge: v1.8.0 producers that don't emit `cc[]` continue to parse cleanly under v1.9.0. v1.8.0 consumers ignoring `cc` will simply miss the propagation source (no error, just degraded awareness coverage until they upgrade).
+- **Tests** (`tests/messaging/incoming-message-envelope.test.ts`) cover: default empty when omitted, single-CC, multi-CC, 50-cap rejection, empty-string entry rejection.
+- **NOT in v1.9.0**: `bcc` field (Phase 13 candidate — BCC implies hidden awareness, the model gets richer).
+
+### Consumer impact
+- **agent-x9 cap-email**: `src/webhooks/inbound.ts` `IncomingMessageEnvelopeSchema.parse({...})` call must populate `cc: typed.message.cc ?? []`. Currently passes implicit default `[]` (still works), but explicit harvest is required to actually surface CC awareness downstream.
+- **agent-x9 telegram-router-svc**: no change needed — telegram has no CC concept; the default `[]` is correct.
+- **parallel inbound-router-svc**: no change needed — `cc` flows through transparently to topic-svc consumer.
+- **parallel topic-svc** (Phase 12.C, new): consumes `envelope.cc` directly when computing `propagateAwareness(envelope, topics)`.
+- **forge-v2**: atomic SHA bump of `pnpm.overrides["@x9-forge/contracts"]` from `946baf5` (v1.8.0) → v1.9.0 HEAD SHA. Same wave as bridge merge (RLSE-02 atomic).
+
+### Rollback anchor
+- Pre-Phase-12 baseline: tag `pre-phase-12-2026-05-27` at commit `946baf5` (v1.8.0 final). Restore via `git reset --hard pre-phase-12-2026-05-27` + atomic SHA revert in forge-v2/parallel/agent-x9.
+
+---
+
 ## v1.8.0 — 2026-05-27
 
 **Minor release — additive only.** Phase 11.A. New `messaging` subpath + 2 inbound webhook endpoint contracts + new `EndpointAuthType` literal. Zero rename, zero removal, zero shape change of existing schemas. Public API surface 100% backward-compatible with v1.7.1.

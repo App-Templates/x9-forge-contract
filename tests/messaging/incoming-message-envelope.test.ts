@@ -26,6 +26,54 @@ describe('IncomingMessageEnvelopeSchema — happy paths', () => {
     expect(IncomingMessageEnvelopeSchema.safeParse(baseValid).success).toBe(true);
   });
 
+  it('Phase 12.A — defaults cc=[] when omitted (backward-compat with v1.8.0 consumers)', () => {
+    const { cc: _drop, ...withoutCc } = baseValid as typeof baseValid & { cc?: unknown };
+    void _drop;
+    const r = IncomingMessageEnvelopeSchema.safeParse(withoutCc);
+    expect(r.success).toBe(true);
+    if (r.success) {
+      expect(r.data.cc).toEqual([]);
+    }
+  });
+
+  it('Phase 12.A — parses email envelope with single CC', () => {
+    const r = IncomingMessageEnvelopeSchema.safeParse({
+      ...baseValid,
+      cc: ['carla.martelli@agentmail.to'],
+    });
+    expect(r.success).toBe(true);
+    if (r.success) {
+      expect(r.data.cc).toEqual(['carla.martelli@agentmail.to']);
+    }
+  });
+
+  it('Phase 12.A — parses email envelope with multiple CCs', () => {
+    const r = IncomingMessageEnvelopeSchema.safeParse({
+      ...baseValid,
+      cc: ['carla.martelli@agentmail.to', 'ines.carrera@agentmail.to'],
+    });
+    expect(r.success).toBe(true);
+    if (r.success) {
+      expect(r.data.cc).toHaveLength(2);
+    }
+  });
+
+  it('Phase 12.A — rejects more than 50 CCs (DoS bound)', () => {
+    const r = IncomingMessageEnvelopeSchema.safeParse({
+      ...baseValid,
+      cc: Array.from({ length: 51 }, (_, i) => `cc${i}@agentmail.to`),
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('Phase 12.A — rejects empty-string entries in cc[]', () => {
+    const r = IncomingMessageEnvelopeSchema.safeParse({
+      ...baseValid,
+      cc: ['valid@x.test', ''],
+    });
+    expect(r.success).toBe(false);
+  });
+
   it('parses resolved envelope (agent_id/owner_id/tenant_id/session_id all set)', () => {
     const r = IncomingMessageEnvelopeSchema.safeParse({
       ...baseValid,

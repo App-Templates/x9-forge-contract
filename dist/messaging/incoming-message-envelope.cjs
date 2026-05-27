@@ -77,6 +77,18 @@ exports.IncomingMessageEnvelopeSchema = zod_1.z.object({
     from: zod_1.z.string().min(1).max(500),
     /** Recipient address in channel-native format (same convention as `from`). */
     to: zod_1.z.string().min(1).max(500),
+    /**
+     * Carbon-copy recipients (email primarily). Phase 12.A — knowledge
+     * propagation primitive: characters in `cc[]` acquire `awareness=full`
+     * on every topic extracted from the message body (mirrors the
+     * `to[]` primary addressee). Always an array — empty for channels
+     * without CC semantics (telegram, voice). Each entry follows the
+     * same channel-native format as `from`/`to`.
+     *
+     * Default `[]` so v1.8.0 consumers continue to parse v1.9.0 payloads
+     * even when they don't yet harvest CC (backward-compat invariant).
+     */
+    cc: zod_1.z.array(zod_1.z.string().min(1).max(500)).max(50).default([]),
     /** Plain-text rendering of the message body. Always present (max 64KB). */
     body_text: zod_1.z.string().max(65536),
     /**

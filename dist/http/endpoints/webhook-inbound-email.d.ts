@@ -60,6 +60,7 @@ export declare const WebhookInboundEmailNormalizedSchema: z.ZodObject<{
     session_id: z.ZodNullable<z.ZodString>;
     from: z.ZodString;
     to: z.ZodString;
+    cc: z.ZodDefault<z.ZodArray<z.ZodString>>;
     body_text: z.ZodString;
     body_html: z.ZodNullable<z.ZodString>;
     attachments: z.ZodArray<z.ZodObject<{
