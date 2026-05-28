@@ -10,6 +10,28 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.10.0 — 2026-05-28
+
+**Minor release — additive only.** X9-CORE-3. Adds optional `inboundForwardUrl` to `AgentContextCoreSchema` as the per-agent override of the global `INBOUND_FORWARD_URL` env consumed by agent-core's X9-CORE-2 Telegram forward gate (and any future channel adapter that consumes AgentContextCore). Zero rename, zero removal. Field is optional + nullable so v1.9.0 producers / context.json files keep parsing under v1.10.0 without change (backward-compat invariant).
+
+### Added
+- **`AgentContextCoreSchema.inboundForwardUrl`** (`agent/agent-context-core.ts:34-60`) — optional, nullable URL. When set, X9 consumers route inbound messages addressed to this agent to the configured URL instead of running the local LLM turn loop. Resolution precedence at the consumer: (1) `AgentContext.inboundForwardUrl` (this field), (2) `INBOUND_FORWARD_URL` env (X9-CORE-2 global fallback), (3) neither → no-op.
+
+### Notes
+- **`.url().nullable().optional()`** keeps the field forward-compatible: producers may emit `undefined` (legacy v1.9.0 shape), `null` (explicit "no override"), or a concrete URL.
+- **Tests** (`tests/agent/agent-context-core.test.ts:91-141`) cover: valid HTTPS, HTTP Docker-net address, null, absent (back-compat), malformed URL rejection, empty-string rejection.
+- **R-17 N/A** — `inboundForwardUrl` is config (URL), not a credential. The auth secret the consumer attaches at POST time stays in the canonical `INTERNAL_SECRET` env / vault entry.
+- **NOT in v1.10.0**: bridge-level subscriber registry (`agent-subscribers.ts`) or vault-resolve-subscriber endpoint — those are deferred to a future X9-CORE-3-EXTEND when multi-bot per-deployment patterns concretize.
+
+### Consumer impact
+- **agent-x9 agent-core**: `src/index.ts` `bootAgentFromContext()` reads `ctx.inboundForwardUrl ?? env.INBOUND_FORWARD_URL` and passes the resolved value into `TelegramBotOptions.forwardEnv.INBOUND_FORWARD_URL`. Per-agent overrides global. PR follow-up in agent-x9 covers this.
+- **forge-v2 vault sync**: writes `inboundForwardUrl` into agent context.json for Parallel character bots (control-plane responsibility, no immediate consumer code change required; field is opt-in).
+
+### Migration
+- v1.9.0 → v1.10.0 is **non-breaking**. SHA bump consumers when ready; no flag day required.
+
+---
+
 ## v1.9.0 — 2026-05-27
 
 **Minor release — additive only.** Phase 12.A. Adds `cc: string[]` to
