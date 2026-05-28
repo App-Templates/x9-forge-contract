@@ -10,6 +10,166 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.9.0 — 2026-05-27
+
+**Minor release — additive only.** Phase 12.A. Adds `cc: string[]` to
+`IncomingMessageEnvelopeSchema` as the knowledge-propagation primitive
+for the Phase 12 awareness graph. Zero rename, zero removal. Default `[]`
+keeps v1.8.0 consumers parsing v1.9.0 payloads without code change
+(backward-compat invariant).
+
+### Added
+- **`IncomingMessageEnvelopeSchema.cc`** (`messaging/incoming-message-envelope.ts:84-95`) — array of CC recipients (email primarily; empty for channels without CC semantics like telegram/voice). Capped at 50 entries (DoS bound). Each entry follows the channel-native address format of `from`/`to`. Phase 12.A consumers (cap-email inbound webhook, topic-svc extractor) use this field to propagate `awareness=full` to CC'd characters when extracting topics from the message body.
+
+### Notes
+- **`.default([])`** is the backward-compat hinge: v1.8.0 producers that don't emit `cc[]` continue to parse cleanly under v1.9.0. v1.8.0 consumers ignoring `cc` will simply miss the propagation source (no error, just degraded awareness coverage until they upgrade).
+- **Tests** (`tests/messaging/incoming-message-envelope.test.ts`) cover: default empty when omitted, single-CC, multi-CC, 50-cap rejection, empty-string entry rejection.
+- **NOT in v1.9.0**: `bcc` field (Phase 13 candidate — BCC implies hidden awareness, the model gets richer).
+
+### Consumer impact
+- **agent-x9 cap-email**: `src/webhooks/inbound.ts` `IncomingMessageEnvelopeSchema.parse({...})` call must populate `cc: typed.message.cc ?? []`. Currently passes implicit default `[]` (still works), but explicit harvest is required to actually surface CC awareness downstream.
+- **agent-x9 telegram-router-svc**: no change needed — telegram has no CC concept; the default `[]` is correct.
+- **parallel inbound-router-svc**: no change needed — `cc` flows through transparently to topic-svc consumer.
+- **parallel topic-svc** (Phase 12.C, new): consumes `envelope.cc` directly when computing `propagateAwareness(envelope, topics)`.
+- **forge-v2**: atomic SHA bump of `pnpm.overrides["@x9-forge/contracts"]` from `946baf5` (v1.8.0) → v1.9.0 HEAD SHA. Same wave as bridge merge (RLSE-02 atomic).
+
+### Rollback anchor
+- Pre-Phase-12 baseline: tag `pre-phase-12-2026-05-27` at commit `946baf5` (v1.8.0 final). Restore via `git reset --hard pre-phase-12-2026-05-27` + atomic SHA revert in forge-v2/parallel/agent-x9.
+
+---
+
+## v1.8.0 — 2026-05-27
+
+**Minor release — additive only.** Phase 11.A. New `messaging` subpath + 2 inbound webhook endpoint contracts + new `EndpointAuthType` literal. Zero rename, zero removal, zero shape change of existing schemas. Public API surface 100% backward-compatible with v1.7.1.
+
+### Added
+- **New subpath `./messaging`** — cross-channel inbound messaging contracts. 5 schemas:
+  - `ChannelTypeSchema` — `z.enum(['telegram','email','voice','whatsapp'])`. Bridge-owned source-of-truth for the 4 channels X9/Forge address. Parallel mirrors locally per Hard Rule 21 (memoria 21) — JSDoc cross-link both files; update in lockstep.
+  - `IncomingMessageAttachmentSchema` — reusable attachment subschema (`mime`, `filename`, `size_bytes`, `url`/`inline_b64`).
+  - `IncomingMessageEnvelopeSchema` — STRICT internal boundary envelope emitted by cap-email (post-Svix verify) and telegram-router-svc (post-bot-secret verify). `signature_valid: z.literal(true)` enforces D-09 no-fallback (invalid-signature events MUST be dropped at the boundary, never propagated). `raw_provider_event: z.unknown()` is the LENIENT escape hatch for provider drift. Mirrors `capability/voice/normalized-event.ts` pattern.
+  - `AgentEmailInboxSchema` — per-agent AgentMail inbox identity (matches Forge `agentmail.service.ts` return shape `{inboxId, email}`). Zero secret material in schema; vault carries the API key under existing `AGENTMAIL_API_KEY` credential (R-17).
+  - `AgentTelegramBotSchema` — per-agent Telegram bot identity (`bot_username`, `bot_token_ref` vault pointer, `chat_allow_list` as string array to preserve int64 supergroup ids). NO `bot_token` field — vault carries the value (R-17). Pattern: `botTokenRef` references existing `TELEGRAM_BOT_TOKEN` credential.
+- **2 new endpoint contracts in `./http`**:
+  - `webhookInboundTelegramContract` (`POST /webhook/inbound/telegram`) — telegram-router-svc inbound. `authType: 'external_provider'` (provider-set secret-token header).
+  - `webhookInboundEmailContract` (`POST /webhook/agentmail/inbound`) — cap-email inbound. `authType: 'external_provider'` (Svix HMAC).
+- **New `EndpointAuthType` literal: `'external_provider'`** in `src/auth/auth-headers.ts`. Additive — `'secret' | 'token' | 'none'` unchanged. Documents the semantic where auth is supplied by an external provider's own scheme (Svix HMAC, Telegram bot secret-token, ElevenLabs HMAC). Bridge does NOT type the provider header shape; each consumer owns verification. Mirrors precedent in `webhook-post-call.ts:6` JSDoc.
+- **Consumer-cjs probe + cjs-smoke** updated with all 5 messaging symbols (`ChannelTypeSchema`, `IncomingMessageEnvelopeSchema`, `IncomingMessageAttachmentSchema`, `AgentEmailInboxSchema`, `AgentTelegramBotSchema`). consumer-cjs-node20 CI gate now exercises the new subpath under NodeNext + Node 20 (Phase 18.1.1 D-18.1.1-3 mechanism).
+- **Unit tests** under `tests/messaging/`: 6 files covering happy paths + STRICT boundary rejection cases (`signature_valid: false` rejected, int64 chat-id preservation, branded type safety, etc.).
+
+### Notes
+- **NOT added to bridge**: `AGENTMAIL_WEBHOOK_SECRET` is service-local in cap-email `env.ts` with `@bridge-optout` documentation (R-17 service-instance pattern). Mirrors the `ELEVENLABS_WEBHOOK_SECRET` exclusion at `agent-credentials.ts:67-79`. Webhook secrets are per-registration, not per-agent, so they don't belong in `AgentCredentialsSchema`.
+- **Voice keeps `capability/voice/`** subpath — call-shaped contract predates the generic envelope and remains canonical for voice (transcript, conversation_id, post-call recap). Messaging subpath covers everything that is NOT call-shaped.
+- **Snake_case convention** maintained across messaging transport payloads (`message_id`, `body_text`, `received_at`, `provider_event_hash`) — matches `normalized-event.ts` template.
+- **`'external_provider'` auth literal** is intentionally distinct from `'token'` to preserve Bug #15 semantics (`'token'` reserved for `X-Internal-Token` forwarded across X9/Forge).
+- **No removal, no rename, no shape change of existing schemas.** Public API surface byte-equivalent for v1.7.1 imports.
+
+### Consumer impact
+- **agent-x9**: zero install impact (link mode reads `dist/` directly). Consumers of `./messaging` subpath will become cap-email (Phase 11.B) and telegram-router-svc (Phase 11.C). Forge factory-svc may also import `AgentEmailInboxSchema` for cross-repo provisioning handshake.
+- **forge-v2**: atomic SHA bump of `pnpm.overrides["@x9-forge/contracts"]` from `41d8ee5...` to the new v1.8.0 HEAD SHA. Same wave as bridge merge (RLSE-02 atomic). Forge factory-svc will optionally consume `AgentEmailInboxSchema` to type the `agentmail.service.ts` return value cross-repo.
+- **parallel**: atomic SHA bump of `pnpm-lock.yaml` + `scripts/verify-bridge-pin.mjs` (replace SHA constant). 16 services in `*` pattern resolve via override. Parallel uses the messaging subpath in Phase 11.E inbound→Director→outbound loop.
+
+### Rollback anchor
+- Pre-Phase-11 baseline: tag `pre-phase-11-2026-05-27` at commit `41d8ee5` (v1.7.1 + STATE doc update). Restore via `git reset --hard pre-phase-11-2026-05-27` + atomic SHA revert in forge-v2/parallel.
+
+### Incident reference
+- Phase 11 plan + intel: `/Users/admintemp/Downloads/Claude/parallel/.planning/phases/11-multi-canale-routing/` (Parallel-side planning).
+- Phase 10.11 night work that exposed the gap (outbound-only demo, no inbound loop): `/Users/admintemp/Downloads/Claude/parallel/.planning/phases/10-director-runtime-narrative-loop/10-11-NIGHT-FINAL.md`.
+
+---
+
+## v1.7.1 — 2026-05-05
+
+**Hotfix release.** Closes the Node 20 consumability gap that broke forge-v2 CI on the v1.7.0 pin bump (`986634b`, CI run 25377004134). Public API surface byte-equivalent to v1.7.0 (R-14).
+
+### Fixed
+- **`engines.node` lowered** from `">=22.0.0"` to `">=20.0.0"` (Phase 18.1.1 D-18.1.1-1). Forge-v2 CI runs Node 20.20.2 — the previous constraint produced `WARN Unsupported engine` on install + downstream zshy ran on unsupported runtime, emitting `.d.cts` Node 20 NodeNext could not resolve (TS2307 across every subpath consumer).
+- **`prepare`-in-temp-store dependency eliminated** (D-18.1.1-2). Bridge tarball now ships `dist/` pre-built; consumer `pnpm install --frozen-lockfile` no longer invokes zshy in pnpm 10 temp store. `package.json#/scripts.prepare` narrowed from `"husky && pnpm build"` to `"husky"` only; new `prepublishOnly` script keeps the npm publish path running `pnpm build`. `.gitignore` no longer excludes `dist/`.
+
+### Added
+- **`tests/consumer-cjs/` synthetic fixture + `consumer-cjs-node20` CI gate** (D-18.1.1-3). New required job in `.github/workflows/ci.yml` spins Node 20 + ubuntu + pnpm 10, runs `pnpm pack`, installs the tarball into a CommonJS-shaped fixture (`tsconfig.json` `moduleResolution: NodeNext` + `module: NodeNext` + `skipLibCheck: false`), runs `tsc --noEmit`. Catches every Phase-19-class subpath-resolution bug AT THE BRIDGE PR, not at consumer install time. Closes the producer-only-validation gap that let v1.7.0 ship broken.
+- **`dist`-staleness CI gate** (companion to D-18.1.1-2). Existing Node 22 `test` job now asserts `git diff --quiet -- dist/` after `pnpm build` — committed dist must stay in lockstep with src.
+
+### Notes
+- **No breaking changes for ESM consumers.** Public API surface byte-identical to v1.7.0 (R-14 verified via `find dist -name '*.d.ts' -o -name '*.d.cts' | xargs grep -hE '^export ' | sort -u` → 735 export lines, zero-diff against v1.7.0 baseline).
+- **agent-x9 unaffected** by the dist commit — it consumes via `link:` mode (file-system path), reads `dist/` directly. Tracked dist/ adds nothing for link consumers.
+- **forge-v2 must bump `pnpm.overrides["@x9-forge/contracts"]`** to v1.7.1 SHA per RLSE-02 (atomic consumer bump). Tracked in forge-v2 Phase 18.1.1 Plan 02 Task 4.
+- **v1.7.0 tag preserved on origin** as historical record (first dual-build attempt with engines/prepare flaws). v1.7.1 is the working release pointer.
+
+### Why
+Phase 18.1 attempted 2026-05-05. Bridge v1.7.0 ran 4 producer-side validation layers (vitest 711+/711+, cjs-smoke 13/13, publint, attw) all green LOCALLY on Node 22 + pnpm 9. Pushed; tagged. Forge-v2 pin bump `986634b` pushed to main → CI run 25377004134 FAILED with TS2307 across every bridge subpath consumer (`Cannot find module './agent-identity.cjs'` etc.). Local pin install passed (Node ≥22); CI on Node 20 failed.
+
+3-auditor consensus 2026-05-05 (x9-verifier + x9-contract-bridge-auditor + x9-release-auditor):
+- Smoking gun: `engines.node = ">=22.0.0"` mismatch with CI Node 20.20.2.
+- Root cause: zshy `prepare` brittleness in pnpm 10 temp-store on CI (RESEARCH.md §Pitfall #3 — Fix C explicitly endorsed: commit dist/ to git).
+- Validation gap: producer-side validation (publint+ATTW+vitest+cjs-smoke) all run INSIDE the bridge — none replicated a fresh consumer install on the consumer's runtime. Bridge-side CI gate added.
+
+### Consumer impact
+- **agent-x9:** zero impact (link mode reads `dist/` directly; engines lower is more permissive, not less).
+- **forge-v2:** atomic SHA bump required (Phase 18.1.1 Plan 02 Task 4-5). After bump, fresh `pnpm install --frozen-lockfile` exits 0 on Node 20 + ubuntu + pnpm 10. Phase 19 deploy retry unblocked.
+
+### Rollback anchor
+- Bridge tag `pre-phase-18.1.1-2026-05-05` (LOCAL only) at commit `2520403` (post-Phase-18.1 v1.7.0 release commit + STATE update).
+- Bridge tag `v1.7.0` on origin remains valid as the previous (broken-on-Node-20) release pointer.
+- Bridge tag `pre-phase-18.1-2026-05-05` (LOCAL only) at `4f2da00` remains as v1.6.3 baseline.
+
+### Incident reference
+- forge-v2 CI run that surfaced the bug: GitHub Actions run `25377004134` on commit `986634b` (2026-05-05).
+- forge-v2 Phase 18.1 handoff: `forge-v2/.planning/phases/18.1-bridge-dual-esm-cjs-build/18.1-HANDOFF.md`
+- forge-v2 Phase 18.1.1: `forge-v2/.planning/phases/18.1.1-bridge-v1.7.1-hotfix/`
+- Memory: `project_phase19_paused_cjs_esm_bug_2026_05_04.md` (2026-05-05 update section)
+
+---
+
+## v1.7.0 — 2026-05-05
+
+### Added
+- **Dual ESM+CJS build pipeline.** `pnpm build` now uses [`zshy`](https://github.com/colinhacks/zshy) (the same toolchain zod uses) to emit both ESM (`.js` + `.d.ts`) AND CJS (`.cjs` + `.d.cts`) artifacts for every public subpath. `package.json#/exports` declares `"types"` + `"import"` + `"require"` triples for all 11 subpaths (auto-written by zshy). `package.json#/main` flips to `./dist/index.cjs`, `package.json#/types` flips to `./dist/index.d.cts`, while `"type": "module"` and the `"import"` condition stay unchanged for ESM consumers.
+- **`./capability/stt` subpath now has source.** The exports entry was declared in commit `43f7ef5` (X9 Phase 47.0) but no source file existed in the bridge — agent-x9's `services/cap-stt` consumes the subpath via link mode but a fresh git+https install would have failed. New `src/capability/stt/index.ts` exports `CAP_STT_DEFAULT_PORT` (number, =4011), `TranscribeProviderSchema` (zod enum: openai|elevenlabs), `TranscribeRequestSchema`, `TranscribeResponseSchema` + types. Symbol set derived from agent-x9 import sites (4 files in services/cap-stt/src).
+- **CJS resolution smoke test.** `tests/cjs/smoke.cjs` is a pure-CommonJS file that runs via `node tests/cjs/smoke.cjs` (NOT vitest — vitest's loader is ESM and does not exercise the bug class that crashed forge-v2 vault-svc on 2026-05-04). The smoke `require()`s every public subpath + asserts known named symbols.
+- **ESM smoke test.** `tests/esm/smoke.test.ts` mirrors the CJS smoke under vitest, proving ESM consumers (agent-x9 link mode + future ESM forge-v2) are unaffected by the dual build.
+- **`publint` + `@arethetypeswrong/cli` validation layers.** Wired into `pnpm check:pack` (separated from `build` to avoid a recursive `prepare`-script fork-bomb — see Plan 01 Deviation #1). publint catches malformed `exports` map entries (missing files, wrong condition order). attw catches types-resolution failures across node10 / node16-cjs / node16-esm / bundler conditions. attw runs with `--profile node16 --ignore-rules false-cjs` to suppress the documented benign "Masquerading as CJS" warning that follows from the standard zod pattern (`"type": "module"` + `"types"` → `.d.cts`). New `pnpm validate` aggregator runs build + check:pack + test as a one-shot CI/pre-release entry point.
+- **`scripts/check-portable-dts.mjs` walker extension.** Now scans `.d.cts` and `.d.mts` in addition to `.d.ts`. Function rename `walkDts` → `walkDeclarationFiles`. The TS2883 portable-dts guardrail introduced in v1.6.3 stays effective on the new artifact class.
+
+### Notes
+- **No breaking changes for existing ESM consumers.** Public API surface is byte-identical for the 9 pre-existing subpaths (verified via R-14 byte-identity diff: `find dist -name '*.d.ts' | xargs grep -hE '^export ' | sort -u` produces zero removed lines). Net-new exports come ONLY from the back-filled `./capability/stt` subpath (additive).
+- **agent-x9 unaffected** by the dual build — it consumes via `link:` (file-system path), reads `dist/` directly, and the dual build adds CJS files alongside ESM without removing anything. agent-x9 stays on its current bridge link.
+- **forge-v2 must bump `pnpm.overrides["@x9-forge/contracts"]`** to the new bridge SHA per RLSE-02 (atomic consumer bump). This is the post-release follow-up tracked in forge-v2 Phase 18.1 Plan 02 Task 4.
+
+### Why
+Forge-v2 Phase 19 deploy attempt (2026-05-04) crashed vault-svc with `ERR_PACKAGE_PATH_NOT_EXPORTED` on `@x9-forge/contracts/auth`. Root cause: bridge was full-ESM (`"type": "module"` + only `"import"` condition); all 5 forge-v2 services compile CJS (`tsconfig.json "module": "CommonJS"`); tsc emits `require("@x9-forge/contracts/auth")`; Node CJS resolver finds no `"require"` field in exports → throws. The latent bug was introduced in Phase 18-04 R-14 hygiene sweep (commits `20f0af1`, `ea24add`) which migrated subpath imports into vault, factory, voice. Local vitest passed because it runs the ESM resolver. First runtime exposure was Phase 19 deploy → PATH C Hostinger snapshot restore. Phase 18.1 closes the structural bug in the bridge so Phase 19 retry can succeed.
+
+### Consumer impact
+- **agent-x9:** zero impact (link mode reads `dist/` directly; new `./capability/stt` source resolves what was previously dangling — actually IMPROVES the install path for fresh consumer scenarios).
+- **forge-v2:** atomic SHA bump required (Phase 18.1 Plan 02 Task 4-6). After bump, forge-v2 services compile + boot under CJS without the ERR_PACKAGE_PATH_NOT_EXPORTED crash. Phase 19 deploy retry unblocked.
+
+### Rollback anchor
+- Bridge tag `pre-phase-18.1-2026-05-05` at commit `4f2da00d0a7ae68ef4ca65c6b9664d63389e360d` (the v1.6.3 release commit).
+- Bridge tag `pre-ts2883-fix-2026-05-04` at commit `7f718c17b1d65c6549ee8d43ceae2e814e3ad37c` (v1.6.2) remains valid.
+
+### Incident reference
+- forge-v2 Phase 19 Plan 02 deploy log: `forge-v2/.planning/phases/19-coordinated-phase17-18-deploy/19-DEPLOY-LOG.md` §"Task 2 — INCIDENT + ROLLBACK"
+- forge-v2 Phase 18.1: `forge-v2/.planning/phases/18.1-bridge-dual-esm-cjs-build/`
+- Memory: `project_phase19_paused_cjs_esm_bug_2026_05_04.md`
+
+---
+
+## v1.6.3 — 2026-05-04
+
+### Fixed
+- `src/http/endpoints/{cap-env-schema,cap-health,cap-manifest,memory-correct}.ts`: added `import { z } from 'zod'` so emitted `.d.ts` uses the portable `z.ZodObject<...>` named form instead of a synthesized `import("zod").ZodObject<...>` string. Without the in-scope `z`, TypeScript writes a string-literal import that a pnpm 10 consumer resolves through its temp prepare store (`_tmp_<hash>/`), producing TS2883 declaration emit errors.
+
+### Added
+- `scripts/check-portable-dts.mjs` — guardrail that fails the build if any emitted `.d.ts` contains a non-portable synthesized import (`import("zod")`, pnpm temp-store paths, or any `node_modules/` path). Wired as the second step of `pnpm build`, so every local build, every consumer `prepare`, and bridge CI catch a regression of this class at build time. Verified positive (700/700 tests, 89 portable `.d.ts`) and negative (injected violation → exit 1 with file + count + sample + fix recipe).
+
+### Notes
+- No breaking changes — pure declaration-emit fix; runtime behavior and public API identical to 1.6.2.
+- Asymptomatic on bridge own CI (Node 22 / pnpm 10) because the bridge builds in a stable layout. Manifested only when a fresh pnpm 10 consumer fetched the package and ran `prepare` in a temp store.
+- Incident reference: forge-v2 GH Actions run 25328536024 (2026-05-04) — Phase 19 deploy CI failed at `pnpm install --frozen-lockfile` during bridge `prepare` step.
+- Rollback anchor: tag `pre-ts2883-fix-2026-05-04` on bridge commit `7f718c17b1d65c6549ee8d43ceae2e814e3ad37c` (v1.6.2).
+- Consumer follow-up: forge-v2 must bump `pnpm.overrides["@x9-forge/contracts"]` to the new bridge SHA (atomic SHA bump per RLSE-02). agent-x9 currently uses `link:` and is unaffected.
+
+---
+
 ## v1.6.2 — 2026-04-30
 
 ### Added

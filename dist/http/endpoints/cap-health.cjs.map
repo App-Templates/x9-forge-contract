@@ -1,0 +1,1 @@
+{"version":3,"file":"cap-health.js","sourceRoot":"","sources":["../../../src/http/endpoints/cap-health.ts"],"names":[],"mappings":";;;AAEA,yEAAuE;AAmBxC,wGAnBtB,qCAAkB,OAmB2B;AAjBtD;;;;;;;;GAQG;AAEU,QAAA,iBAAiB,GAAG;IAC/B,MAAM,EAAE,KAAc;IACtB,IAAI,EAAE,SAAkB;IACxB,QAAQ,EAAE,MAAe;IACzB,cAAc,EAAE,qCAAkB;CAC1B,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"cap-health.d.ts","sourceRoot":"","sources":["../../../src/http/endpoints/cap-health.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,CAAC,EAAE,MAAM,KAAK,CAAC;AACxB,OAAO,EAAE,kBAAkB,EAAE,2CAA0C;AAEvE;;;;;;;;GAQG;AAEH,eAAO,MAAM,iBAAiB;;;;;;;;;;;;;;;;;;;CAKpB,CAAC;AAEX,OAAO,EAAE,kBAAkB,IAAI,uBAAuB,EAAE,CAAC;AACzD,YAAY,EAAE,YAAY,IAAI,iBAAiB,EAAE,2CAA0C"}

@@ -1,58 +1,90 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.6.2",
+  "version": "1.9.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
   },
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
+  "zshy": {
+    "exports": {
+      ".": "./src/index.ts",
+      "./auth": "./src/auth/index.ts",
+      "./agent": "./src/agent/index.ts",
+      "./capability": "./src/capability/index.ts",
+      "./voice": "./src/capability/voice/index.ts",
+      "./capability/stt": "./src/capability/stt/index.ts",
+      "./http": "./src/http/index.ts",
+      "./memory": "./src/memory/index.ts",
+      "./messaging": "./src/messaging/index.ts",
+      "./model-router": "./src/model-router/index.ts",
+      "./rag": "./src/rag/index.ts",
+      "./vault": "./src/vault/index.ts"
+    }
+  },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./capability": {
-      "types": "./dist/capability/index.d.ts",
-      "import": "./dist/capability/index.js"
-    },
-    "./agent": {
-      "types": "./dist/agent/index.d.ts",
-      "import": "./dist/agent/index.js"
-    },
-    "./http": {
-      "types": "./dist/http/index.d.ts",
-      "import": "./dist/http/index.js"
+      "types": "./dist/index.d.cts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./auth": {
-      "types": "./dist/auth/index.d.ts",
-      "import": "./dist/auth/index.js"
+      "types": "./dist/auth/index.d.cts",
+      "import": "./dist/auth/index.js",
+      "require": "./dist/auth/index.cjs"
     },
-    "./vault": {
-      "types": "./dist/vault/index.d.ts",
-      "import": "./dist/vault/index.js"
+    "./agent": {
+      "types": "./dist/agent/index.d.cts",
+      "import": "./dist/agent/index.js",
+      "require": "./dist/agent/index.cjs"
     },
-    "./model-router": {
-      "types": "./dist/model-router/index.d.ts",
-      "import": "./dist/model-router/index.js"
-    },
-    "./memory": {
-      "types": "./dist/memory/index.d.ts",
-      "import": "./dist/memory/index.js"
-    },
-    "./rag": {
-      "types": "./dist/rag/index.d.ts",
-      "import": "./dist/rag/index.js"
+    "./capability": {
+      "types": "./dist/capability/index.d.cts",
+      "import": "./dist/capability/index.js",
+      "require": "./dist/capability/index.cjs"
     },
     "./voice": {
-      "types": "./dist/capability/voice/index.d.ts",
-      "import": "./dist/capability/voice/index.js"
+      "types": "./dist/capability/voice/index.d.cts",
+      "import": "./dist/capability/voice/index.js",
+      "require": "./dist/capability/voice/index.cjs"
     },
     "./capability/stt": {
-      "types": "./dist/capability/stt/index.d.ts",
-      "import": "./dist/capability/stt/index.js"
+      "types": "./dist/capability/stt/index.d.cts",
+      "import": "./dist/capability/stt/index.js",
+      "require": "./dist/capability/stt/index.cjs"
+    },
+    "./http": {
+      "types": "./dist/http/index.d.cts",
+      "import": "./dist/http/index.js",
+      "require": "./dist/http/index.cjs"
+    },
+    "./memory": {
+      "types": "./dist/memory/index.d.cts",
+      "import": "./dist/memory/index.js",
+      "require": "./dist/memory/index.cjs"
+    },
+    "./messaging": {
+      "types": "./dist/messaging/index.d.cts",
+      "import": "./dist/messaging/index.js",
+      "require": "./dist/messaging/index.cjs"
+    },
+    "./model-router": {
+      "types": "./dist/model-router/index.d.cts",
+      "import": "./dist/model-router/index.js",
+      "require": "./dist/model-router/index.cjs"
+    },
+    "./rag": {
+      "types": "./dist/rag/index.d.cts",
+      "import": "./dist/rag/index.js",
+      "require": "./dist/rag/index.cjs"
+    },
+    "./vault": {
+      "types": "./dist/vault/index.d.cts",
+      "import": "./dist/vault/index.js",
+      "require": "./dist/vault/index.cjs"
     }
   },
   "files": [
@@ -60,28 +92,35 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -b",
-    "test": "vitest run",
+    "build": "zshy && node scripts/check-portable-dts.mjs",
+    "check:dts": "node scripts/check-portable-dts.mjs",
+    "check:pack": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
+    "validate": "pnpm build && pnpm check:pack && pnpm test",
+    "test": "vitest run && node tests/cjs/smoke.cjs",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests",
-    "prepare": "husky && pnpm build"
+    "prepare": "husky",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
     "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "eslint": "^9.39.4",
     "husky": "^9",
+    "publint": "^0.3.18",
     "typescript": "^6.0.2",
     "vitest": "^3.0.0",
-    "zod": "^4.3.6"
+    "zod": "^4.3.6",
+    "zshy": "^0.7.2"
   },
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
   }
 }

@@ -1,0 +1,17 @@
+{
+  "name": "@x9-forge-bridge-tests/consumer-cjs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Synthetic Node 20 CommonJS consumer fixture — type-checks fresh-tarball install of the parent bridge. Exists to catch Phase-19-incident-class bugs (TS2307 on .d.cts → .cjs resolution) before bridge merge. See ../../.github/workflows/ci.yml `consumer-cjs-node20` job.",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@x9-forge/contracts": "file:../../x9-forge-contracts-1.7.1.tgz",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2",
+    "@types/node": "^20.0.0"
+  }
+}

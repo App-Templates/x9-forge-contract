@@ -1,12 +1,15 @@
 name: CI
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - 'phase/**'
   pull_request:
     branches: [main]
 
 jobs:
   test:
+    name: Test (Node 22)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,4 +23,55 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm build
+      - name: Verify dist/ committed in lockstep with src/ (Phase 18.1.1 D-18.1.1-2 invariant)
+        run: |
+          if ! git diff --quiet -- dist/; then
+            echo "::error::dist/ drift detected — committed dist/ does NOT match a fresh `pnpm build`."
+            echo "Phase 18.1.1 D-18.1.1-2 requires dist/ to be tracked in git AND in lockstep with src/."
+            echo "Fix: locally run `pnpm build`, commit the dist/ changes alongside the source change."
+            git --no-pager diff --stat -- dist/ | head -50
+            exit 1
+          fi
+          echo "dist/ in lockstep with src/ — invariant holds."
       - run: pnpm test
+      - run: pnpm check:pack
+
+  consumer-cjs-node20:
+    name: Consumer CJS Type-Check (Node 20)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - name: Install bridge devDeps (Node 20 — engines.node now permits this)
+        run: pnpm install --frozen-lockfile
+      - name: Build bridge (regenerate dist/ via zshy under Node 20 — proves zshy works on the consumer's runtime)
+        run: pnpm build
+      - name: Pack bridge into tarball
+        id: pack
+        run: |
+          TARBALL=$(pnpm pack --pack-destination "$GITHUB_WORKSPACE" | tail -n1)
+          echo "tarball=$(basename $TARBALL)" >> "$GITHUB_OUTPUT"
+          echo "Tarball produced: $TARBALL"
+          ls -la "$GITHUB_WORKSPACE"/x9-forge-contracts-*.tgz
+      - name: Wire fixture to actual tarball name
+        run: |
+          # Replace the canonical 1.7.1 reference with whatever pnpm pack actually emitted
+          # (handles version bumps without re-editing the fixture each release).
+          ACTUAL=${{ steps.pack.outputs.tarball }}
+          sed -i "s|x9-forge-contracts-[^\"]*\.tgz|$ACTUAL|" tests/consumer-cjs/package.json
+          grep -F "$ACTUAL" tests/consumer-cjs/package.json
+      - name: Install fixture deps from local tarball
+        working-directory: tests/consumer-cjs
+        run: pnpm install --no-frozen-lockfile --ignore-workspace
+      - name: TypeCheck synthetic CommonJS consumer (proves bridge subpaths resolve under NodeNext on Node 20)
+        working-directory: tests/consumer-cjs
+        run: pnpm typecheck
+      - name: Reset fixture package.json (audit hygiene — workflow leaves no diff in source tree)
+        if: always()
+        run: git checkout -- tests/consumer-cjs/package.json || true
