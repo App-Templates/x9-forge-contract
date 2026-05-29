@@ -13,6 +13,7 @@ export * from "./internal-query.js";
 export * from "./internal-model-config.js";
 export * from "./internal-model-config-version.js";
 export * from "./internal-memory-extract.js";
+export * from "./internal-agent-send.js";
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
 export * from "./vault-resolve.js";
