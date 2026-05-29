@@ -17,6 +17,7 @@ export * from "./webhook-post-call.cjs";
 export * from "./voice-register.cjs";
 export * from "./vault-resolve.cjs";
 export * from "./voice.cjs";
+export * from "./internal-factory-deploy.cjs";
 export * from "./cap-manifest.cjs";
 export * from "./cap-env-schema.cjs";
 export * from "./cap-health.cjs";

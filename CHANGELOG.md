@@ -10,6 +10,42 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.11.0 — 2026-05-29
+
+**Minor release — additive only.** Parallel Wave 2 (per-character agent delivery).
+Two additive contract changes, zero rename/removal:
+
+1. **Re-adds `inboundForwardUrl` to `AgentContextCoreSchema`**
+   (`z.string().url().nullable().optional()`). This field was introduced in
+   v1.10.0, then reverted in the Wave-1 contamination decontamination
+   (2026-05-29) because the agent-x9 X9-CORE-2 *global* forward gate that
+   consumed it was contaminating Stefano's personal agent. v1.11.0 brings the
+   field back for the *per-agent* mechanism only: Forge writes it into a
+   character-agent's `context.json`; agent-core forwards that agent's inbound
+   to the URL. Agents without the field (e.g. the personal `x9` agent) never
+   forward. Back-compat: absent/null → no override.
+
+2. **Adds `internal-factory-deploy` endpoint contract**
+   (`POST /api/internal/factory/deploy`, `authType: 'token'`). S2S sibling of
+   the Clerk-gated `/api/factory/deploy` — lets trusted control-plane services
+   (Parallel `workspace-seeder-svc`) provision agents programmatically via the
+   shared `INTERNAL_SERVICE_TOKEN`. Request carries optional `inboundForwardUrl`
+   threaded into the deployed agent's `context.json`.
+
+**Affected consumers:**
+- `forge-v2` factory-svc — imports `internalFactoryDeployContract` +
+  `InternalFactoryDeployRequestSchema`; adds the S2S route + `requireInternalAuth`
+  middleware (bridge `INTERNAL_TOKEN_HEADER`); threads `inboundForwardUrl` into
+  `deploy.machine` context.json write. Pin bump 41d8ee5 → v1.11.0.
+- `agent-x9` agent-core — re-adds the *per-agent* `inboundForwardUrl` forward
+  (clean X9-CORE-3, no global env var). Vendor re-sync to v1.11.0.
+- `parallel` workspace-seeder-svc — builds the deploy request (client side).
+
+(v1.10.0 is intentionally skipped: it was reverted; v1.11.0 supersedes it with
+the same field plus the new endpoint.)
+
+---
+
 ## v1.9.0 — 2026-05-27
 
 **Minor release — additive only.** Phase 12.A. Adds `cc: string[]` to

@@ -35,6 +35,7 @@ __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);
 __exportStar(require("./vault-resolve.cjs"), exports); // Phase 38 — HTTP-12 / R-14 closure
 __exportStar(require("./voice.cjs"), exports); // Phase 42 — CAP-Voice v2.2 path + method constants
+__exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.11.0) — Parallel S2S agent deploy
 // No-auth endpoints (capability discovery)
 __exportStar(require("./cap-manifest.cjs"), exports);
 __exportStar(require("./cap-env-schema.cjs"), exports);
