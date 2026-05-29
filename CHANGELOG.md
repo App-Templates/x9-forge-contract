@@ -10,6 +10,46 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.11.2 — 2026-05-30
+
+**Minor (additive only) — Parallel Wave 3 proactive telegram delivery.**
+Adds one new secret-auth endpoint contract, zero changes to existing schemas:
+
+- **New `internal-agent-send.ts`**: `POST /internal/agents/:agentId/send`,
+  `authType: 'secret'` (X-Internal-Secret). The proactive-delivery sibling of
+  `/internal/turn` — runs NO LLM turn, a pure send. agent-core resolves the
+  agent's already-booted grammy bot in its `activeBots` map (keyed by agentId)
+  and calls `bot.api.sendMessage(chatId, text)`.
+  - `InternalAgentSendParamsSchema` `{ agentId: /^[a-z0-9-]+$/ }`
+  - `InternalAgentSendRequestSchema` `{ chatId: z.string().min(1), text: z.string().min(1) }`
+    — `chatId` is a **string** (telegram chat ids are 64-bit, exceed JS-safe
+    range, and may be negative for groups; passed straight to grammy).
+  - `InternalAgentSendResponseSchema` `{ ok: true, messageId?: number }`
+  - `InternalAgentSendErrorResponseSchema` `{ ok: false, error: string }`
+  - `internalAgentSendContract` (method/path/authType/paramsSchema/bodySchema/responseSchema)
+  - exported from `src/http/endpoints/index.ts`.
+
+**R-17:** the contract carries NO Telegram bot token. The token is an
+X9/Forge credential that lives only in agent-core (loaded from the agent's
+`context.json` at boot, held in the in-memory bot). The caller supplies only
+`{ chatId, text }`; the server resolves the bot by `agentId`; the response
+never echoes or logs the token. This is the mechanism Parallel uses to deliver
+proactive narrative hooks on Telegram without the per-character bot token ever
+existing in Parallel's DB/vault or an HTTP body (supersedes the rejected
+token-holding TelegramDirectAdapter design).
+
+**Affected consumers:**
+- agent-x9 agent-core — implements the route (server side; resolves the bot,
+  sends, returns `{ok, messageId}` / `{ok:false,error}`; 404 agent/bot missing,
+  500 send failure). Vendor re-synced to v1.11.2.
+- parallel proactive narrative delivery — builds the request (client side;
+  follow-up, not in this release).
+
+19 new unit tests (786 → 805). agent-x9 + parallel pin v1.11.2; forge-v2 may
+stay at v1.11.1 (does not consume this endpoint).
+
+---
+
 ## v1.11.1 — 2026-05-29
 
 **Patch — contract alignment (no consumer shipped against v1.11.0 yet).**
