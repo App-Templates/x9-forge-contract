@@ -28,37 +28,36 @@ import { z } from 'zod';
  *   - forge-v2 factory-svc — validates the body + runs deploy() (server side)
  *   - parallel workspace-seeder-svc — builds the request (client side)
  */
-/**
- * Capability slug pattern accepted by the factory registry step.
- * Mirrors the docker hostname constraint used by deploy.machine write-registry.
- */
-const CapabilitySlugSchema = z.string().regex(/^[a-z0-9-]+$/);
+// Mirrors forge-v2 factory deployBodySchema field-for-field (constraints
+// included) so factory-svc can `InternalFactoryDeployRequestSchema.parse(body)`
+// and pass straight to `deploy()`. The ONLY addition is `inboundForwardUrl`.
 export const InternalFactoryDeployRequestSchema = z.object({
     /** Human-readable display name for the agent. */
-    name: z.string().min(1),
+    name: z.string().min(1).max(50),
     /**
      * Globally-unique agent slug (= agentId). Optional — factory derives one
      * from `name` when omitted. Lowercase alphanumeric + dash.
      */
-    slug: CapabilitySlugSchema.optional(),
-    /** Owner id for vault/workspace tenancy + audit attribution. */
-    ownerId: z.string().min(1).optional(),
+    slug: z.string().min(1).max(30).regex(/^[a-z0-9-]+$/).optional(),
+    objective: z.string().max(500).optional(),
+    creature: z.string().max(100).optional(),
+    vibe: z.string().max(200).optional(),
+    emoji: z.string().max(10).optional(),
     /** Docker hostnames of capabilities to enable (e.g. ['cap-email']). */
-    selectedCapabilities: z.array(CapabilitySlugSchema).default([]),
+    selectedCapabilities: z.array(z.string()).optional().default([]),
+    telegram_bot_token: z.string().optional(),
+    telegram_user_id: z.string().optional().nullable(),
+    /** Operator-specified Telegram allow-list (FACT-08). */
+    telegram_allow_from: z.array(z.string()).optional().default([]),
+    /** Owner id for vault/workspace tenancy + audit (numeric, Forge DB id). */
+    ownerId: z.number().int().positive().optional().nullable(),
+    llmProvider: z.string().optional(),
+    llmModel: z.string().optional(),
     /**
-     * Per-agent inbound forward target written to context.json.
+     * NEW (Wave 2) — per-agent inbound forward target written to context.json.
      * `.url().nullable().optional()` — back-compat with non-forwarding agents.
      */
     inboundForwardUrl: z.string().url().nullable().optional(),
-    /** Optional persona fields (mirror the Clerk-gated deployBodySchema). */
-    objective: z.string().optional(),
-    creature: z.string().optional(),
-    vibe: z.string().optional(),
-    emoji: z.string().optional(),
-    llmProvider: z.string().optional(),
-    llmModel: z.string().optional(),
-    /** Telegram allow-list for the deployed agent's bot. */
-    telegram_allow_from: z.array(z.string()).optional(),
 });
 export const InternalFactoryDeployResponseSchema = z.object({
     ok: z.literal(true),

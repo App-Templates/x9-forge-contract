@@ -17,12 +17,13 @@ describe('InternalFactoryDeployRequestSchema', () => {
     const r = InternalFactoryDeployRequestSchema.parse({
       name: 'Giovanni Bellotti',
       slug: 'char-bellotti-abc123',
-      ownerId: 'owner-1',
+      ownerId: 1,
       selectedCapabilities: ['cap-email'],
       inboundForwardUrl: 'http://parallel-prod-inbound-router-svc:4034/webhook/inbound',
       telegram_allow_from: ['6244251507'],
     });
     expect(r.slug).toBe('char-bellotti-abc123');
+    expect(r.ownerId).toBe(1);
     expect(r.inboundForwardUrl).toBe(
       'http://parallel-prod-inbound-router-svc:4034/webhook/inbound',
     );
@@ -55,10 +56,21 @@ describe('InternalFactoryDeployRequestSchema', () => {
     expect(() => InternalFactoryDeployRequestSchema.parse({ name: '' })).toThrow();
   });
 
-  it('rejects a non-slug capability hostname', () => {
+  it('rejects a name over 50 chars (mirrors Forge deployBodySchema)', () => {
     expect(() =>
-      InternalFactoryDeployRequestSchema.parse({ name: 'X', selectedCapabilities: ['Cap Email'] }),
+      InternalFactoryDeployRequestSchema.parse({ name: 'x'.repeat(51) }),
     ).toThrow();
+  });
+
+  it('rejects a string ownerId (must be numeric Forge DB id)', () => {
+    expect(() =>
+      InternalFactoryDeployRequestSchema.parse({ name: 'X', ownerId: 'owner-1' }),
+    ).toThrow();
+  });
+
+  it('accepts null ownerId (platform-owned)', () => {
+    const r = InternalFactoryDeployRequestSchema.parse({ name: 'X', ownerId: null });
+    expect(r.ownerId).toBeNull();
   });
 });
 

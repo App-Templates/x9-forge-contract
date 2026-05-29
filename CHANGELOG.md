@@ -10,6 +10,24 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.11.1 — 2026-05-29
+
+**Patch — contract alignment (no consumer shipped against v1.11.0 yet).**
+Aligns `InternalFactoryDeployRequestSchema` field-for-field with forge-v2
+factory `deployBodySchema` so factory-svc can parse the body and pass it
+straight to `deploy()`:
+- `ownerId`: `string` → `z.number().int().positive().nullable().optional()`
+  (Forge owner ids are numeric DB ids — v1.11.0 had the wrong type).
+- Added `name.max(50)`, `slug.max(30)`, `objective.max(500)`, `creature.max(100)`,
+  `vibe.max(200)`, `emoji.max(10)`, `telegram_bot_token`, `telegram_user_id`
+  to mirror Forge constraints exactly.
+- `selectedCapabilities`: plain `z.array(z.string())` (matches Forge; the
+  registry step validates docker hostnames downstream).
+`inboundForwardUrl` unchanged. agent-x9 (consumes only `inboundForwardUrl`,
+unchanged) may stay pinned at v1.11.0; forge-v2 + parallel pin v1.11.1.
+
+---
+
 ## v1.11.0 — 2026-05-29
 
 **Minor release — additive only.** Parallel Wave 2 (per-character agent delivery).
