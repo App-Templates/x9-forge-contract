@@ -20,6 +20,8 @@ export declare const ToolCallRequestSchema: z.ZodObject<{
     agentId: z.ZodString;
     sessionId: z.ZodString;
     credentials: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>;
+    tenantId: z.ZodOptional<z.ZodString>;
+    ownerId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
 export declare const ToolCallSuccessResponseSchema: z.ZodObject<{

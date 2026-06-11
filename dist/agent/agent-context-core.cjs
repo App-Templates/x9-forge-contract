@@ -56,6 +56,22 @@ exports.AgentContextCoreSchema = zod_1.z
      * `INTERNAL_SECRET` env / vault entry.
      */
     inboundForwardUrl: zod_1.z.string().url().nullable().optional(),
+    /**
+     * F-2 (v1.13.0) — Optional per-agent tenant scope.
+     *
+     * The X9 memory engine scopes every read/write by the
+     * (tenantId, ownerId, agentId) triple. ownerId and agentId were always
+     * per-agent (fields above); tenantId historically came from the
+     * process-global `X9_TENANT_ID` env var — fine for one tenant per
+     * process, wrong for real multi-tenancy.
+     *
+     * When set, X9 consumers (turn-memory extraction, tool dispatch) use
+     * this value for the agent's memory scope. When absent, they fall back
+     * to the process env (`X9_TENANT_ID`, default "1") — existing
+     * single-tenant deployments are unaffected. Forge writes it when the
+     * control plane assigns the agent to a tenant.
+     */
+    tenantId: zod_1.z.string().min(1).optional(),
 })
     .passthrough();
 //# sourceMappingURL=agent-context-core.js.map

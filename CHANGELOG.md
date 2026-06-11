@@ -10,6 +10,26 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.13.0 — 2026-06-12
+
+**Additive — F-2: per-agent (tenant, owner) memory-scope identity.**
+
+- `AgentContextCoreSchema` gains optional `tenantId` (min 1). The memory
+  engine scopes by the (tenantId, ownerId, agentId) triple; ownerId/agentId
+  were always per-agent, tenantId came from process-global `X9_TENANT_ID` —
+  collapsing all agents of a multi-agent runtime onto one tenant. Absent ⇒
+  consumers fall back to env (single-tenant unchanged).
+- `ToolCallRequestSchema` gains optional `tenantId` + `ownerId` (min 1) —
+  agent-core's tool-router attaches the dispatching agent's identity so
+  capability services (memory_capture / memory_recall in memory-svc) can
+  scope per-agent instead of per-process env.
+- Affected consumers (same-night PRs): agent-x9 `services/agent-core`
+  (extractor + tool-router thread ctx identity), `services/memory`
+  (tool-handlers prefer dispatched identity over env). forge-v2: none yet
+  (factory may write tenantId at deploy when control-plane tenancy lands).
+
+---
+
 ## v1.12.0 — 2026-06-11
 
 **Additive — F-1: canonical full `context.json` contract; bot-less agents are legal.**

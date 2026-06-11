@@ -21,6 +21,19 @@ export const ToolCallRequestSchema = z.object({
   agentId: z.string().min(1),
   sessionId: z.string().min(1),
   credentials: z.record(z.string(), z.string()).optional(),
+  /**
+   * F-2 (v1.13.0) — Optional per-agent memory-scope identity, attached by
+   * agent-core's tool-router from the dispatching agent's context.json.
+   *
+   * Capability services that scope state by the (tenant, owner, agent)
+   * triple (memory-svc memory_capture/memory_recall) MUST prefer these
+   * over process-global env (`X9_TENANT_ID`/`X9_OWNER_ID`) — the env was
+   * per-process and collapsed all agents of a multi-agent runtime onto one
+   * owner. Optional for backward compat: absent ⇒ consumer falls back to
+   * its env defaults (single-tenant behavior unchanged).
+   */
+  tenantId: z.string().min(1).optional(),
+  ownerId: z.string().min(1).optional(),
 });
 
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;

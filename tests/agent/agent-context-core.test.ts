@@ -32,6 +32,16 @@ describe('LlmConfigSchema', () => {
 });
 
 describe('AgentContextCoreSchema', () => {
+  // F-2 (v1.13.0): optional per-agent tenant scope
+  it('parses optional tenantId and preserves it', () => {
+    const result = AgentContextCoreSchema.parse({ ...VALID_CORE, tenantId: 'tenant-7' });
+    expect((result as { tenantId?: string }).tenantId).toBe('tenant-7');
+  });
+
+  it('rejects empty tenantId (no silent "" scope)', () => {
+    expect(() => AgentContextCoreSchema.parse({ ...VALID_CORE, tenantId: '' })).toThrow();
+  });
+
   it('parses valid Core fields', () => {
     const result = AgentContextCoreSchema.parse(VALID_CORE);
     expect(result.agentId).toBe('agent-stefano-prod-001');

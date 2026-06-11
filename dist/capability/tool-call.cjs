@@ -23,6 +23,19 @@ exports.ToolCallRequestSchema = zod_1.z.object({
     agentId: zod_1.z.string().min(1),
     sessionId: zod_1.z.string().min(1),
     credentials: zod_1.z.record(zod_1.z.string(), zod_1.z.string()).optional(),
+    /**
+     * F-2 (v1.13.0) — Optional per-agent memory-scope identity, attached by
+     * agent-core's tool-router from the dispatching agent's context.json.
+     *
+     * Capability services that scope state by the (tenant, owner, agent)
+     * triple (memory-svc memory_capture/memory_recall) MUST prefer these
+     * over process-global env (`X9_TENANT_ID`/`X9_OWNER_ID`) — the env was
+     * per-process and collapsed all agents of a multi-agent runtime onto one
+     * owner. Optional for backward compat: absent ⇒ consumer falls back to
+     * its env defaults (single-tenant behavior unchanged).
+     */
+    tenantId: zod_1.z.string().min(1).optional(),
+    ownerId: zod_1.z.string().min(1).optional(),
 });
 // -- Response variants -------------------------------------------------------
 exports.ToolCallSuccessResponseSchema = zod_1.z.object({

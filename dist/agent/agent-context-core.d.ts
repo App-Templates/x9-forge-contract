@@ -49,6 +49,7 @@ export declare const AgentContextCoreSchema: z.ZodObject<{
     }, z.core.$strip>;
     telegramAllowFrom: z.ZodArray<z.ZodString>;
     inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    tenantId: z.ZodOptional<z.ZodString>;
 }, z.core.$loose>;
 export type AgentContextCore = z.infer<typeof AgentContextCoreSchema>;
 //# sourceMappingURL=agent-context-core.d.ts.map

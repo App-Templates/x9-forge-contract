@@ -62,6 +62,7 @@ export declare const AgentContextFileSchema: z.ZodObject<{
     }, z.core.$strip>;
     telegramAllowFrom: z.ZodArray<z.ZodString>;
     inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    tenantId: z.ZodOptional<z.ZodString>;
     workspacePath: z.ZodString;
     registryPath: z.ZodString;
     telegramBotToken: z.ZodOptional<z.ZodString>;
