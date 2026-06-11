@@ -10,6 +10,17 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.13.2 — 2026-06-12
+
+**Additive — reload response describes the bot-less wire shape.**
+
+- `ReloadAgentResponseSchema` gains optional `telegram: z.literal('skipped')`
+  — X9 sends it for bot-less reloads since v1.12.0 consumers. Zod default
+  parsing strips unknown keys, so no consumer ever errored; this makes the
+  contract truthful. Found by the F-1/F-2 independent audit.
+
+---
+
 ## v1.13.1 — 2026-06-12
 
 **Additive — INTERNAL_MEMORY_INGEST_PATH (D-1 unblock).**

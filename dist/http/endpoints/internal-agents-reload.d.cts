@@ -18,6 +18,7 @@ export type ReloadAgentParams = z.infer<typeof ReloadAgentParamsSchema>;
 export declare const ReloadAgentResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     agentId: z.ZodString;
+    telegram: z.ZodOptional<z.ZodLiteral<"skipped">>;
 }, z.core.$strip>;
 export type ReloadAgentResponse = z.infer<typeof ReloadAgentResponseSchema>;
 export declare const ReloadAgentErrorResponseSchema: z.ZodObject<{
@@ -35,6 +36,7 @@ export declare const reloadAgentContract: {
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
         agentId: z.ZodString;
+        telegram: z.ZodOptional<z.ZodLiteral<"skipped">>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agents-reload.d.ts.map

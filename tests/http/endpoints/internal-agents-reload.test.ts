@@ -35,6 +35,16 @@ describe('ReloadAgentParamsSchema', () => {
 });
 
 describe('ReloadAgentResponseSchema', () => {
+  // v1.13.2: bot-less reload marker (F-1 follow-up)
+  it("parses the bot-less response { ok, agentId, telegram: 'skipped' }", () => {
+    const r = ReloadAgentResponseSchema.parse({ ok: true, agentId: 'a-1', telegram: 'skipped' });
+    expect(r.telegram).toBe('skipped');
+  });
+
+  it('rejects unknown telegram values (only the skipped marker is legal)', () => {
+    expect(ReloadAgentResponseSchema.safeParse({ ok: true, agentId: 'a-1', telegram: 'on' }).success).toBe(false);
+  });
+
   it('parses a valid success response (real fixture)', () => {
     const result = ReloadAgentResponseSchema.parse(validResponse);
     expect(result.ok).toBe(true);

@@ -13,8 +13,8 @@ import { z } from 'zod';
  */
 export declare const RagDocumentParseStatusSchema: z.ZodEnum<{
     success: "success";
-    failed: "failed";
     skipped: "skipped";
+    failed: "failed";
     blocked_secret: "blocked_secret";
 }>;
 export type RagDocumentParseStatus = z.infer<typeof RagDocumentParseStatusSchema>;
@@ -63,8 +63,8 @@ export declare const RagDocumentRevisionRefSchema: z.ZodObject<{
     created_at: z.ZodString;
     parse_status: z.ZodOptional<z.ZodEnum<{
         success: "success";
-        failed: "failed";
         skipped: "skipped";
+        failed: "failed";
         blocked_secret: "blocked_secret";
     }>>;
 }, z.core.$strip>;
@@ -170,8 +170,8 @@ export declare const RagDocumentOpenResponseSchema: z.ZodObject<{
         created_at: z.ZodString;
         parse_status: z.ZodOptional<z.ZodEnum<{
             success: "success";
-            failed: "failed";
             skipped: "skipped";
+            failed: "failed";
             blocked_secret: "blocked_secret";
         }>>;
     }, z.core.$strip>;

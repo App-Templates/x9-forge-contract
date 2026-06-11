@@ -20,6 +20,15 @@ exports.ReloadAgentParamsSchema = zod_1.z.object({
 exports.ReloadAgentResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(true),
     agentId: zod_1.z.string().min(1),
+    /**
+     * v1.13.2 (F-1 follow-up) — present and 'skipped' when the reloaded agent
+     * is bot-less (no/empty telegramBotToken): context registered, Telegram
+     * channel intentionally not booted. Absent for agents with a bot.
+     * NOTE: zod default object parsing STRIPS unknown keys, so older pins
+     * never errored on this field — this addition makes the contract describe
+     * the real wire shape rather than fixing a runtime failure.
+     */
+    telegram: zod_1.z.literal('skipped').optional(),
 });
 exports.ReloadAgentErrorResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
