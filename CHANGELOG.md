@@ -10,6 +10,34 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.12.0 — 2026-06-11
+
+**Additive — F-1: canonical full `context.json` contract; bot-less agents are legal.**
+
+- NEW `src/agent/agent-context-file.ts`:
+  - `AgentContextRuntimeFieldsSchema` — the Runtime fields Forge WRITES and
+    X9 READS (`workspacePath`, `registryPath`, `telegramBotToken`,
+    `displayName`). Previously re-declared X9-side only → drift.
+  - `AgentContextFileSchema` = Core + Runtime — the FULL on-disk
+    `context.json` contract. **`telegramBotToken` is `.optional()`** —
+    absent or `''` (the Forge writer shape) ⇒ bot-less agent, LEGAL.
+  - `hasTelegramBot(ctx)` — canonical bot-less discriminator (trims; `''`
+    and whitespace = no bot). Consumers MUST use this to decide whether to
+    boot a Telegram channel.
+  - `parseAgentContextFile(json)` — fail-loud boundary parser for both the
+    Forge writer (validate-before-write) and the X9 reader.
+- WHY (Bug #15 class, F-1 in E2E-FINDINGS-2026-06-11): X9 required
+  `telegramBotToken: min(1)` while Forge wrote `''` for bot-less agents →
+  X9 reload threw, Forge swallowed, agent silently never registered.
+- Affected consumers (same-night PRs): agent-x9 `packages/types`
+  (AgentContextSchema now derives from `AgentContextFileSchema`),
+  `services/agent-core` (boot/reload skip Telegram via `hasTelegramBot`,
+  no quarantine for bot-less); forge-v2 `services/factory`
+  (deploy.machine validates context against the bridge schema before
+  write + stops swallowing X9 reload failures).
+
+---
+
 ## v1.11.2 — 2026-06-11
 
 **Additive — internal-memory-recall-bundle endpoint contract (R-14 closure, Block B).**

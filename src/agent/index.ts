@@ -21,5 +21,14 @@ export type { KnownCredentialKey, AgentCredentials, AuthGateField } from './agen
 export { LlmConfigSchema, AgentContextCoreSchema } from './agent-context-core.js';
 export type { LlmConfig, AgentContextCore } from './agent-context-core.js';
 
+// Context File (FULL context.json contract: Core + Runtime fields — F-1)
+export {
+  AgentContextRuntimeFieldsSchema,
+  AgentContextFileSchema,
+  hasTelegramBot,
+  parseAgentContextFile,
+} from './agent-context-file.js';
+export type { AgentContextRuntimeFields, AgentContextFile } from './agent-context-file.js';
+
 // Parser helper
 export { parseAgentContext } from './parse-agent-context.js';

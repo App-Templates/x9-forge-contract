@@ -10,5 +10,7 @@ export { KNOWN_CREDENTIAL_KEYS, AgentCredentialsSchema, AUTH_GATE_FIELDS, } from
 export type { KnownCredentialKey, AgentCredentials, AuthGateField } from "./agent-credentials.js";
 export { LlmConfigSchema, AgentContextCoreSchema } from "./agent-context-core.js";
 export type { LlmConfig, AgentContextCore } from "./agent-context-core.js";
+export { AgentContextRuntimeFieldsSchema, AgentContextFileSchema, hasTelegramBot, parseAgentContextFile, } from "./agent-context-file.js";
+export type { AgentContextRuntimeFields, AgentContextFile } from "./agent-context-file.js";
 export { parseAgentContext } from "./parse-agent-context.js";
 //# sourceMappingURL=index.d.ts.map
