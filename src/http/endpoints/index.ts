@@ -31,6 +31,7 @@ export * from './cap-health.js';
 // Memory v2 internal endpoints (Phase 18 D3 — R-14 closure)
 export * from './memory-correct.js'; // POST /internal/memory/correct, secret auth
 export * from './memory-console.js'; // GET /internal/memory/console/:kind, secret auth
+export * from './internal-memory-recall-bundle.js'; // POST /internal/memory/recall/bundle, secret auth (v1.11.2)
 
 // Inbound messaging webhooks (Phase 11.A — external_provider auth)
 export * from './webhook-inbound-telegram.js'; // POST /webhook/inbound/telegram, telegram-router-svc

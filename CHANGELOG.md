@@ -10,6 +10,23 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.11.2 — 2026-06-11
+
+**Additive — internal-memory-recall-bundle endpoint contract (R-14 closure, Block B).**
+
+- NEW `src/http/endpoints/internal-memory-recall-bundle.ts`:
+  `INTERNAL_MEMORY_RECALL_BUNDLE_PATH`, `internalMemoryRecallBundleContract`,
+  request/response/entry/audit schemas mirroring the live
+  `services/memory/src/routes/internal-recall-bundle.ts` route (incl. Phase 41
+  temporal filter via existing `RecallTemporalFilterSchema`).
+- Exported from `http/endpoints` index. Unit tests added (valid+invalid,
+  temporal, contract pin).
+- Affected consumers: agent-x9 `services/memory` (route + integration tests
+  import the path constant — wired in Block B multi-tenant work). forge-v2:
+  none yet (console may adopt later).
+
+---
+
 ## v1.11.1 — 2026-05-29
 
 **Patch — contract alignment (no consumer shipped against v1.11.0 yet).**
