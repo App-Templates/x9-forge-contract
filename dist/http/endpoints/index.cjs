@@ -43,6 +43,7 @@ __exportStar(require("./cap-health.cjs"), exports);
 // Memory v2 internal endpoints (Phase 18 D3 — R-14 closure)
 __exportStar(require("./memory-correct.cjs"), exports); // POST /internal/memory/correct, secret auth
 __exportStar(require("./memory-console.cjs"), exports); // GET /internal/memory/console/:kind, secret auth
+__exportStar(require("./internal-memory-recall-bundle.cjs"), exports); // POST /internal/memory/recall/bundle, secret auth (v1.11.2)
 // Inbound messaging webhooks (Phase 11.A — external_provider auth)
 __exportStar(require("./webhook-inbound-telegram.cjs"), exports); // POST /webhook/inbound/telegram, telegram-router-svc
 __exportStar(require("./webhook-inbound-email.cjs"), exports); // POST /webhook/agentmail/inbound, X9 cap-email
