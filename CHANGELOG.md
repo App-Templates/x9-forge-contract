@@ -10,6 +10,19 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.13.1 — 2026-06-12
+
+**Additive — INTERNAL_MEMORY_INGEST_PATH (D-1 unblock).**
+
+- `src/memory/paths.ts`: `INTERNAL_MEMORY_INGEST_PATH` (`/internal/memory/ingest`)
+  + METHOD. Was the missing constant blocking agent-core chat-turn episode
+  ingest (FOLLOW-UP D-1) and forcing the memory tool-handlers to hardcode
+  the URL (R-14 path-guard now enforces it).
+- Consumers: agent-x9 memory tool-handlers (same-night F-2 PR); agent-core
+  D-1 ingest when implemented; Parallel canon finalizer mirror.
+
+---
+
 ## v1.13.0 — 2026-06-12
 
 **Additive — F-2: per-agent (tenant, owner) memory-scope identity.**

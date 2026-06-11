@@ -21,7 +21,7 @@ import { CapabilityManifestSchema } from '@x9-forge/contracts/capability';
 import { VoiceCallIntentSchema } from '@x9-forge/contracts/voice';
 import { CAP_STT_DEFAULT_PORT, TranscribeRequestSchema } from '@x9-forge/contracts/capability/stt';
 import { vaultResolveContract } from '@x9-forge/contracts/http';
-import { MEMORY_CORRECT_PATH } from '@x9-forge/contracts/memory';
+import { MEMORY_CORRECT_PATH, INTERNAL_MEMORY_INGEST_PATH } from '@x9-forge/contracts/memory';
 import { ModelTierSchema } from '@x9-forge/contracts/model-router';
 import { RagQueryRequestSchema } from '@x9-forge/contracts/rag';
 import { VaultTierSchema } from '@x9-forge/contracts/vault';
@@ -60,6 +60,7 @@ describe('ESM smoke — every public bridge subpath resolves via import', () => 
 
   it('memory subpath: MEMORY_CORRECT_PATH literal preserved', () => {
     expect(MEMORY_CORRECT_PATH).toBe('/internal/memory/correct');
+    expect(INTERNAL_MEMORY_INGEST_PATH).toBe('/internal/memory/ingest');
   });
 
   it('model-router subpath: ModelTierSchema is a Zod schema', () => {
