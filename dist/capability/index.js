@@ -16,6 +16,7 @@ export { CapabilityToolSchema, } from "./capability-tool.js";
 export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, } from "./tool-call.js";
 export { CapabilityManifestSchema, } from "./capability-manifest.js";
 export { CapabilityRegistryEntrySchema, toEndpoint, fromEndpoint, } from "./capability-registry-entry.js";
+export { AgentRegistryFileSchema, } from "./agent-registry-file.js";
 export { EnvSchemaFieldSchema, EnvSchemaDocSchema, } from "./env-schema.js";
 export { HealthStatusSchema, } from "./health-status.js";
 //# sourceMappingURL=index.js.map

@@ -10,6 +10,36 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.15.0 — 2026-06-13
+
+**Additive — canonical per-agent `registry.json` file wrapper (Bug #15-class drift fix, R-14).**
+
+- NEW `src/capability/agent-registry-file.ts`: `AgentRegistryFileSchema` /
+  `AgentRegistryFile` — the FILE-level wrapper `{ capabilities:
+  CapabilityRegistryEntry[] }` shared between Forge factory-svc (writer) and
+  X9 agent-core (reader). The per-ENTRY shape was already owned by the bridge
+  (`CapabilityRegistryEntrySchema`), but the file wrapper never was — and it
+  drifted: Forge `deploy.machine` write-registry + `capabilities.service` wrote
+  a **bare array** (`[]` / `[{...}]`) while X9 `loadRegistry` expected
+  `{ capabilities: [...] }`. Every factory-provisioned (Parallel character)
+  agent failed reload with Zod `"expected object, received array"` (HTTP 500 →
+  agent `degraded`). This is the exact cross-repo on-disk drift R-14 exists to
+  prevent. Defining the wrapper here makes both sides import ONE contract.
+- Exported from `@x9-forge/contracts/capability`.
+- Tests: `tests/capability/agent-registry-file.test.ts` — valid wrapper, empty
+  `capabilities: []`, plus NEGATIVE guards that a bare array (the pre-fix Forge
+  shape) and a malformed entry both FAIL (Bug #15 lesson — the broken shape
+  must never silently re-validate).
+
+**Affected consumers (must update under the same GSD phase, RLSE-02):**
+- `forge-v2` `services/factory/src/services/deploy.machine.ts` (write-registry,
+  backup, disableAgent) + `services/factory/src/services/capabilities.service.ts`
+  (getAgentCapabilities, toggleCapability) — write/read the wrapper, validate
+  with `AgentRegistryFileSchema`.
+- `agent-x9` `services/agent-core/src/registry/registry.ts` — already reads the
+  wrapper (its `RegistryFileSchema` is a deliberate superset); add a compat-guard
+  test proving a bridge `AgentRegistryFile` parses green under X9's reader.
+
 ## v1.14.0 — 2026-06-13
 
 **Additive — canonical agent on-disk path helpers (Bug #15 path-drift fix).**

@@ -16,6 +16,7 @@ export { CapabilityToolSchema, type CapabilityTool, } from "./capability-tool.js
 export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, type ToolCallRequest, type ToolCallSuccessResponse, type ToolCallErrorResponse, type ToolCallResponse, } from "./tool-call.js";
 export { CapabilityManifestSchema, type CapabilityManifest, } from "./capability-manifest.js";
 export { CapabilityRegistryEntrySchema, type CapabilityRegistryEntry, toEndpoint, fromEndpoint, } from "./capability-registry-entry.js";
+export { AgentRegistryFileSchema, type AgentRegistryFile, } from "./agent-registry-file.js";
 export { EnvSchemaFieldSchema, EnvSchemaDocSchema, type EnvSchemaField, type EnvSchemaDoc, } from "./env-schema.js";
 export { HealthStatusSchema, type HealthStatus, } from "./health-status.js";
 //# sourceMappingURL=index.d.ts.map

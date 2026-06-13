@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.CapabilityToolSchema = void 0;
+exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.CapabilityToolSchema = void 0;
 /**
  * Capability contracts — sub-path `@x9-forge/contracts/capability`.
  *
@@ -28,6 +28,8 @@ var capability_registry_entry_js_1 = require("./capability-registry-entry.cjs");
 Object.defineProperty(exports, "CapabilityRegistryEntrySchema", { enumerable: true, get: function () { return capability_registry_entry_js_1.CapabilityRegistryEntrySchema; } });
 Object.defineProperty(exports, "toEndpoint", { enumerable: true, get: function () { return capability_registry_entry_js_1.toEndpoint; } });
 Object.defineProperty(exports, "fromEndpoint", { enumerable: true, get: function () { return capability_registry_entry_js_1.fromEndpoint; } });
+var agent_registry_file_js_1 = require("./agent-registry-file.cjs");
+Object.defineProperty(exports, "AgentRegistryFileSchema", { enumerable: true, get: function () { return agent_registry_file_js_1.AgentRegistryFileSchema; } });
 var env_schema_js_1 = require("./env-schema.cjs");
 Object.defineProperty(exports, "EnvSchemaFieldSchema", { enumerable: true, get: function () { return env_schema_js_1.EnvSchemaFieldSchema; } });
 Object.defineProperty(exports, "EnvSchemaDocSchema", { enumerable: true, get: function () { return env_schema_js_1.EnvSchemaDocSchema; } });

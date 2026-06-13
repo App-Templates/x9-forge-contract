@@ -41,6 +41,11 @@ export {
 } from './capability-registry-entry.js';
 
 export {
+  AgentRegistryFileSchema,
+  type AgentRegistryFile,
+} from './agent-registry-file.js';
+
+export {
   EnvSchemaFieldSchema,
   EnvSchemaDocSchema,
   type EnvSchemaField,
