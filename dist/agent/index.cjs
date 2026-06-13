@@ -6,7 +6,7 @@
  * @see .planning/phases/02-agentcontext-split-block-b/02-RESEARCH.md
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseAgentContext = exports.parseAgentContextFile = exports.hasTelegramBot = exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = exports.AgentContextCoreSchema = exports.LlmConfigSchema = exports.AUTH_GATE_FIELDS = exports.AgentCredentialsSchema = exports.KNOWN_CREDENTIAL_KEYS = exports.AgentIdentitySchema = exports.OwnerIdSchema = exports.AgentIdSchema = void 0;
+exports.parseAgentContext = exports.agentContextJsonPath = exports.agentRegistryPath = exports.agentWorkspacePath = exports.parseAgentContextFile = exports.hasTelegramBot = exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = exports.AgentContextCoreSchema = exports.LlmConfigSchema = exports.AUTH_GATE_FIELDS = exports.AgentCredentialsSchema = exports.KNOWN_CREDENTIAL_KEYS = exports.AgentIdentitySchema = exports.OwnerIdSchema = exports.AgentIdSchema = void 0;
 // Identity (branded types)
 var agent_identity_js_1 = require("./agent-identity.cjs");
 Object.defineProperty(exports, "AgentIdSchema", { enumerable: true, get: function () { return agent_identity_js_1.AgentIdSchema; } });
@@ -27,6 +27,11 @@ Object.defineProperty(exports, "AgentContextRuntimeFieldsSchema", { enumerable: 
 Object.defineProperty(exports, "AgentContextFileSchema", { enumerable: true, get: function () { return agent_context_file_js_1.AgentContextFileSchema; } });
 Object.defineProperty(exports, "hasTelegramBot", { enumerable: true, get: function () { return agent_context_file_js_1.hasTelegramBot; } });
 Object.defineProperty(exports, "parseAgentContextFile", { enumerable: true, get: function () { return agent_context_file_js_1.parseAgentContextFile; } });
+// Canonical on-disk path derivation (Bug #15 path-drift fix — F-path)
+var agent_paths_js_1 = require("./agent-paths.cjs");
+Object.defineProperty(exports, "agentWorkspacePath", { enumerable: true, get: function () { return agent_paths_js_1.agentWorkspacePath; } });
+Object.defineProperty(exports, "agentRegistryPath", { enumerable: true, get: function () { return agent_paths_js_1.agentRegistryPath; } });
+Object.defineProperty(exports, "agentContextJsonPath", { enumerable: true, get: function () { return agent_paths_js_1.agentContextJsonPath; } });
 // Parser helper
 var parse_agent_context_js_1 = require("./parse-agent-context.cjs");
 Object.defineProperty(exports, "parseAgentContext", { enumerable: true, get: function () { return parse_agent_context_js_1.parseAgentContext; } });

@@ -30,5 +30,12 @@ export {
 } from './agent-context-file.js';
 export type { AgentContextRuntimeFields, AgentContextFile } from './agent-context-file.js';
 
+// Canonical on-disk path derivation (Bug #15 path-drift fix — F-path)
+export {
+  agentWorkspacePath,
+  agentRegistryPath,
+  agentContextJsonPath,
+} from './agent-paths.js';
+
 // Parser helper
 export { parseAgentContext } from './parse-agent-context.js';

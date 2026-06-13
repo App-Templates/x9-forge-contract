@@ -12,5 +12,6 @@ export { LlmConfigSchema, AgentContextCoreSchema } from "./agent-context-core.cj
 export type { LlmConfig, AgentContextCore } from "./agent-context-core.cjs";
 export { AgentContextRuntimeFieldsSchema, AgentContextFileSchema, hasTelegramBot, parseAgentContextFile, } from "./agent-context-file.cjs";
 export type { AgentContextRuntimeFields, AgentContextFile } from "./agent-context-file.cjs";
+export { agentWorkspacePath, agentRegistryPath, agentContextJsonPath, } from "./agent-paths.cjs";
 export { parseAgentContext } from "./parse-agent-context.cjs";
 //# sourceMappingURL=index.d.ts.map

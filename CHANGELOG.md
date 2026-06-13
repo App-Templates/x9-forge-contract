@@ -10,6 +10,24 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.14.0 — 2026-06-13
+
+**Additive — canonical agent on-disk path helpers (Bug #15 path-drift fix).**
+
+- NEW `src/agent/agent-paths.ts`: `agentWorkspacePath(dataDir, agentId)`,
+  `agentRegistryPath(dataDir, agentId)`, `agentContextJsonPath(dataDir, agentId)`.
+  The workspace-path convention (`/data/workspaces/{agentId}`) was previously
+  only DOCUMENTED in a comment and never enforced — the Parallel
+  workspace-seeder drifted to `/data/workspaces/owner-{id}/{slug}`, so every
+  seeded character workspace landed where X9 agent-core never looked
+  ("IDENTITY.md not found" → every character agent failed to boot). Promoted
+  the convention to an enforced shared helper.
+- Consumers (same-day): forge-v2 factory `deploy.machine` (writer — uses the
+  helper + becomes non-clobbering for pre-seeded workspaces); Parallel
+  workspace-seeder (pre-seeder — writes to the canonical path, not owner-N/slug).
+
+---
+
 ## v1.13.2 — 2026-06-12
 
 **Additive — reload response describes the bot-less wire shape.**
