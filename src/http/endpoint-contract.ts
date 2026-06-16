@@ -13,7 +13,7 @@ import type { EndpointAuthType } from '../auth/auth-headers.js';
  * @see src/http/endpoints/*.ts
  */
 export interface EndpointContract<
-  TMethod extends 'GET' | 'POST',
+  TMethod extends 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
   TPath extends string,
   TAuth extends EndpointAuthType,
   TParams extends z.ZodType = z.ZodUndefined,

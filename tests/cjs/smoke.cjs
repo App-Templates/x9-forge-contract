@@ -45,6 +45,9 @@ const PROBES = [
   { specifier: '@x9-forge/contracts/capability/stt',   knownSymbol: 'CAP_STT_DEFAULT_PORT',  expectedType: 'number', expectedValue: 4011 },
   { specifier: '@x9-forge/contracts/capability/stt',   knownSymbol: 'TranscribeRequestSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/http',             knownSymbol: 'vaultResolveContract',  expectedType: 'object' },
+  // Phase 21 (v1.16.0) — TOKROT-01 token-rotate PATCH contract + request schema (CJS resolution).
+  { specifier: '@x9-forge/contracts/http',             knownSymbol: 'internalFactoryTelegramTokenContract', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/http',             knownSymbol: 'InternalFactoryTelegramTokenRequestSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/memory',           knownSymbol: 'MEMORY_CORRECT_PATH',   expectedType: 'string', expectedValue: '/internal/memory/correct' },
   // Phase 11.A — messaging subpath (5 schemas). ChannelTypeSchema is the enum probe; others type-checked in consumer-cjs.
   { specifier: '@x9-forge/contracts/messaging',        knownSymbol: 'ChannelTypeSchema',     expectedType: 'object' },

@@ -10,6 +10,24 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.16.0 — 2026-06-16 — Phase 21 Factory Telegram-Token Rotate
+
+### Added (additive — MINOR)
+- New HTTP endpoint contract (`@x9-forge/contracts/http`):
+  - `internalFactoryTelegramTokenContract` (PATCH /api/internal/factory/agents/:slug/telegram-token, token-auth)
+  - `InternalFactoryTelegramTokenParamsSchema` ({ slug })
+  - `InternalFactoryTelegramTokenRequestSchema` ({ telegram_bot_token: string min 1, telegram_bot_username?: string })
+  - `InternalFactoryTelegramTokenResponseSchema` ({ ok, slug, telegramBotUsername?, reloaded }) + `...ErrorResponseSchema`
+- `EndpointContract` `TMethod` union widened additively to include `'PUT' | 'DELETE' | 'PATCH'` (hygiene — the doc-type now honestly admits the PATCH contract; zero existing GET/POST contracts affected).
+
+### Validation gates
+- CJS smoke (`tests/cjs/smoke.cjs`) asserts the new contract + request schema resolve via require()
+- Engines `>=20.0.0`, dist committed (Phase 18.1.1 pattern)
+
+### Consumer migration
+- forge-v2 factory-svc bumps `pnpm.overrides["@x9-forge/contracts"]` to git+https#<v1.16.0-sha> (Phase 21 Plan 21-01).
+- No agent-x9 / forge-storefront change required this phase.
+
 ## v1.15.0 — 2026-06-13
 
 **Additive — canonical per-agent `registry.json` file wrapper (Bug #15-class drift fix, R-14).**

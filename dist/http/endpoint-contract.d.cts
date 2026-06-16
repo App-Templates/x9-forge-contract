@@ -11,7 +11,7 @@ import type { EndpointAuthType } from "../auth/auth-headers.cjs";
  *
  * @see src/http/endpoints/*.ts
  */
-export interface EndpointContract<TMethod extends 'GET' | 'POST', TPath extends string, TAuth extends EndpointAuthType, TParams extends z.ZodType = z.ZodUndefined, TBody extends z.ZodType = z.ZodUndefined, TResponse extends z.ZodType = z.ZodUnknown> {
+export interface EndpointContract<TMethod extends 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH', TPath extends string, TAuth extends EndpointAuthType, TParams extends z.ZodType = z.ZodUndefined, TBody extends z.ZodType = z.ZodUndefined, TResponse extends z.ZodType = z.ZodUnknown> {
     readonly method: TMethod;
     readonly path: TPath;
     readonly authType: TAuth;
