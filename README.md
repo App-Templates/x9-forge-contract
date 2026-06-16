@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Package:** `@x9-forge/contracts` · **Current version:** `1.4.0` · **Last milestone:** v1.0 Bridge Foundation shipped 2026-04-16 (git tag `v1.0` at commit `1d709a1`) · **Status:** between milestones, v1.1 (Shim Cleanup) planned
+**Package:** `@x9-forge/contracts` · **Current version:** `1.16.0` (2026-06-16, Phase 21 — `internal-factory-telegram-token` PATCH contract) · **Foundation:** v1.0 shipped 2026-04-16 (git tag `v1.0` at `1d709a1`) · **Status:** active, additive releases per consuming phase
 
 ## Why this repo exists (R-14 NON NEGOZIABILE)
 
@@ -112,12 +112,18 @@ Each endpoint ships as `src/http/endpoints/<name>.ts` with `paramsSchema`, `requ
 **ElevenLabs / Twilio → Forge voice-svc → X9 cap-voice** (HMAC signed):
 - `POST /webhook/post-call` — forwarded by Forge with `agentId` resolved from `conversationId`
 
+**Operator / S2S → Forge factory-svc** (auth: `X-Internal-Token`):
+- `POST  /api/internal/factory/deploy` — provision/deploy an agent over S2S (`internalFactoryDeployContract`)
+- `PATCH /api/internal/factory/agents/:slug/telegram-token` — rotate an existing agent's Telegram bot token across DB + on-disk `context.json` (atomic, validate-before-write) + live X9 `reload`, **without** deprovision+redeploy (`internalFactoryTelegramTokenContract`, v1.16.0, Phase 21). Closes the fleet-wide gap where a token could not be changed without destroying the agent's workspace/memory.
+
 ## Release history
 
 See [`CHANGELOG.md`](CHANGELOG.md) for full detail.
 
 | Version | Date | Highlight |
 |---------|------|-----------|
+| **1.16.0** | 2026-06-16 | `internalFactoryTelegramTokenContract` (`PATCH /api/internal/factory/agents/:slug/telegram-token`) — fleet-wide Telegram bot-token rotation without deprovision+redeploy; `EndpointContract` `TMethod` union widened to admit `PUT`/`DELETE`/`PATCH` (Phase 21). Tag `v1.16.0` at `e271405` |
+| _1.5.0 – 1.15.0_ | 2026-04 → 06 | Intermediate additive releases (voice origination contracts, `inboundForwardUrl`, `internal-factory-deploy`, dual ESM/CJS build hardening, et al.) — see [`CHANGELOG.md`](CHANGELOG.md) for the full per-version detail |
 | **1.4.0** | 2026-04-19 | Memory v2 Graphiti alignment: `InvalidationReason` (10-enum), `RecallTemporalMode`, `RecallTemporalFilter`, `BitemporalFields`, `InvalidationMetadata` + 45 unit tests (Phase 41 prerequisite) |
 | **1.3.0** | 2026-04-18 | `vaultResolveContract` for `GET /resolve/:agentId/:key` (closes R-14 gap from Phase 38 Wave 1 VaultClient violation) |
 | **1.2.0** | 2026-04-17 | `@x9-forge/contracts/rag` sub-path (Phase 37.7 — cap-rag cross-repo types) |
