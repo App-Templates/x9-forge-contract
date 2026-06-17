@@ -10,6 +10,31 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.17.0 — 2026-06-16 — Phase 22 Forge Live Agent Runtime Status
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/http` `internal-agents-list`:
+  - `RuntimeAgentStatusSchema` — the 5 real per-agent wire states agent-core emits:
+    `running | degraded | starting | stopped | bot-less`. agent-core imports this
+    (it can never emit `unknown`).
+  - `ForgeRuntimeStatusSchema` — the 5 states + `unknown` (Forge-side overlay value,
+    produced when agent-core is unreachable; never emitted on the wire).
+  - `RuntimeErrorKindSchema` — `auth | poll-death | transient` (nullable), mirrors
+    agent-core BotErrorKind.
+  - `ListAgentsAgentSchema` gains 4 **optional** fields: `runtimeStatus`, `loaded`,
+    `errorKind`, `lastError`. The existing required `agentId`/`displayName`/`ownerId`
+    are untouched → a response WITHOUT the new fields still validates (old agent-core).
+- Purpose: the Forge admin panel reflects LIVE per-agent runtime status instead of the
+  stale stored `agents.status` (incident 2026-06-16: panel showed agents "running" while down).
+
+### Affected consumers (atomic SHA bump in the same phase — RLSE-02)
+- `agent-x9/services/agent-core/src/index.ts` — `GET /internal/agents` route emits
+  `runtimeStatus` from AgentManager + BotSupervisor (imports `RuntimeAgentStatusSchema`).
+- `forge-v2/services/factory/src/services/x9.client.ts` + `routes/owner.routes.ts` —
+  `listAgentsDetailed()` + overlay live status (imports `ForgeRuntimeStatusSchema`).
+
+---
+
 ## v1.16.0 — 2026-06-16 — Phase 21 Factory Telegram-Token Rotate
 
 ### Added (additive — MINOR)
