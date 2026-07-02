@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Package:** `@x9-forge/contracts` · **Current version:** `1.16.0` (2026-06-16, Phase 21 — `internal-factory-telegram-token` PATCH contract) · **Foundation:** v1.0 shipped 2026-04-16 (git tag `v1.0` at `1d709a1`) · **Status:** active, additive releases per consuming phase
+**Package:** `@x9-forge/contracts` · **Current version:** `1.17.0` (2026-06-16, Phase 22 — Forge live agent runtime status, `202603b`) · **Foundation:** v1.0 shipped 2026-04-16 (git tag `v1.0` at `1d709a1`) · **Status:** active, additive releases per consuming phase
 
 ## Why this repo exists (R-14 NON NEGOZIABILE)
 
