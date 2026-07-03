@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   LLMMessageSchema,
+  TurnAttachmentSchema,
   InternalTurnRequestSchema,
   InternalTurnResponseSchema,
   internalTurnContract,
@@ -100,6 +101,55 @@ describe('InternalTurnRequestSchema', () => {
     expect(() =>
       InternalTurnRequestSchema.parse({ ...validRequest, message: '' }),
     ).toThrow();
+  });
+
+  it('parses a valid request WITH attachment (photo + fileUrl + mimeType)', () => {
+    const result = InternalTurnRequestSchema.parse({
+      ...validRequest,
+      attachment: {
+        type: 'photo' as const,
+        fileUrl: 'https://api.telegram.org/file/bot123/photos/file_1.jpg',
+        mimeType: 'image/jpeg',
+      },
+    });
+    expect(result.attachment?.type).toBe('photo');
+    expect(result.attachment?.mimeType).toBe('image/jpeg');
+  });
+
+  it('parses a valid request WITHOUT attachment (optional — non-breaking)', () => {
+    const result = InternalTurnRequestSchema.parse(validRequest);
+    expect(result.attachment).toBeUndefined();
+  });
+
+  it('rejects attachment with invalid type', () => {
+    expect(() =>
+      InternalTurnRequestSchema.parse({
+        ...validRequest,
+        attachment: { type: 'audio', fileUrl: 'https://example.com/f.ogg' },
+      }),
+    ).toThrow();
+  });
+
+  it('rejects attachment with non-URL fileUrl', () => {
+    expect(() =>
+      InternalTurnRequestSchema.parse({
+        ...validRequest,
+        attachment: { type: 'photo', fileUrl: 'not-a-url' },
+      }),
+    ).toThrow();
+  });
+});
+
+describe('TurnAttachmentSchema', () => {
+  it('is exported and standalone-parses a document attachment with filename', () => {
+    const result = TurnAttachmentSchema.parse({
+      type: 'document',
+      fileUrl: 'https://api.telegram.org/file/bot123/documents/file_2.pdf',
+      mimeType: 'application/pdf',
+      filename: 'contract.pdf',
+    });
+    expect(result.type).toBe('document');
+    expect(result.filename).toBe('contract.pdf');
   });
 });
 
