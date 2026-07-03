@@ -10,6 +10,9 @@ import { z } from 'zod';
  *   - sessionId: regex /^[a-z0-9-]{1,64}$/
  *   - message: string min 1
  *   - history?: array of LLMMessage objects
+ *   - attachment?: optional channel-attachment reference (TurnAttachmentSchema —
+ *     photo/document/video + fileUrl) carried alongside the message when the
+ *     inbound arrived with a file
  *
  * Response: `{ ok: true, reply: string, updatedHistory: LLMMessage[] }`
  *
@@ -34,6 +37,25 @@ export declare const LLMMessageSchema: z.ZodObject<{
     }, z.core.$strip>>>;
 }, z.core.$strip>;
 export type LLMMessage = z.infer<typeof LLMMessageSchema>;
+/**
+ * Optional channel-attachment carried alongside the turn message.
+ * Direction-agnostic and consumer-agnostic: any caller forwarding an inbound
+ * that arrived with a file (Telegram photo/document/video today; any channel
+ * tomorrow) can attach the file reference. `fileUrl` may be provider-scoped
+ * (e.g. Telegram bot-token file URLs) — consumers MUST treat it as sensitive:
+ * internal use only, do not log at info level, do not persist verbatim.
+ */
+export declare const TurnAttachmentSchema: z.ZodObject<{
+    type: z.ZodEnum<{
+        photo: "photo";
+        document: "document";
+        video: "video";
+    }>;
+    fileUrl: z.ZodString;
+    mimeType: z.ZodOptional<z.ZodString>;
+    filename: z.ZodOptional<z.ZodString>;
+}, z.core.$strip>;
+export type TurnAttachment = z.infer<typeof TurnAttachmentSchema>;
 export declare const InternalTurnRequestSchema: z.ZodObject<{
     channelId: z.ZodString;
     sessionId: z.ZodString;
@@ -54,6 +76,16 @@ export declare const InternalTurnRequestSchema: z.ZodObject<{
             input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
         }, z.core.$strip>>>;
     }, z.core.$strip>>>;
+    attachment: z.ZodOptional<z.ZodObject<{
+        type: z.ZodEnum<{
+            photo: "photo";
+            document: "document";
+            video: "video";
+        }>;
+        fileUrl: z.ZodString;
+        mimeType: z.ZodOptional<z.ZodString>;
+        filename: z.ZodOptional<z.ZodString>;
+    }, z.core.$strip>>;
 }, z.core.$strip>;
 export type InternalTurnRequest = z.infer<typeof InternalTurnRequestSchema>;
 export declare const InternalTurnResponseSchema: z.ZodObject<{
@@ -106,6 +138,16 @@ export declare const internalTurnContract: {
                 input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
             }, z.core.$strip>>>;
         }, z.core.$strip>>>;
+        attachment: z.ZodOptional<z.ZodObject<{
+            type: z.ZodEnum<{
+                photo: "photo";
+                document: "document";
+                video: "video";
+            }>;
+            fileUrl: z.ZodString;
+            mimeType: z.ZodOptional<z.ZodString>;
+            filename: z.ZodOptional<z.ZodString>;
+        }, z.core.$strip>>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

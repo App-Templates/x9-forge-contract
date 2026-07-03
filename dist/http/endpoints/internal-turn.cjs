@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalTurnContract = exports.InternalTurnErrorResponseSchema = exports.InternalTurnResponseSchema = exports.InternalTurnRequestSchema = exports.LLMMessageSchema = void 0;
+exports.internalTurnContract = exports.InternalTurnErrorResponseSchema = exports.InternalTurnResponseSchema = exports.InternalTurnRequestSchema = exports.TurnAttachmentSchema = exports.LLMMessageSchema = void 0;
 const zod_1 = require("zod");
 /**
  * POST /internal/turn — channel-agnostic synchronous turn.
@@ -13,6 +13,9 @@ const zod_1 = require("zod");
  *   - sessionId: regex /^[a-z0-9-]{1,64}$/
  *   - message: string min 1
  *   - history?: array of LLMMessage objects
+ *   - attachment?: optional channel-attachment reference (TurnAttachmentSchema —
+ *     photo/document/video + fileUrl) carried alongside the message when the
+ *     inbound arrived with a file
  *
  * Response: `{ ok: true, reply: string, updatedHistory: LLMMessage[] }`
  *
@@ -33,11 +36,26 @@ exports.LLMMessageSchema = zod_1.z.object({
     }))
         .optional(),
 });
+/**
+ * Optional channel-attachment carried alongside the turn message.
+ * Direction-agnostic and consumer-agnostic: any caller forwarding an inbound
+ * that arrived with a file (Telegram photo/document/video today; any channel
+ * tomorrow) can attach the file reference. `fileUrl` may be provider-scoped
+ * (e.g. Telegram bot-token file URLs) — consumers MUST treat it as sensitive:
+ * internal use only, do not log at info level, do not persist verbatim.
+ */
+exports.TurnAttachmentSchema = zod_1.z.object({
+    type: zod_1.z.enum(['photo', 'document', 'video']),
+    fileUrl: zod_1.z.string().url(),
+    mimeType: zod_1.z.string().min(1).max(100).optional(),
+    filename: zod_1.z.string().min(1).max(255).optional(),
+});
 exports.InternalTurnRequestSchema = zod_1.z.object({
     channelId: zod_1.z.string().regex(/^[a-z0-9-]{1,64}$/),
     sessionId: zod_1.z.string().regex(/^[a-z0-9-]{1,64}$/),
     message: zod_1.z.string().min(1),
     history: zod_1.z.array(exports.LLMMessageSchema).optional(),
+    attachment: exports.TurnAttachmentSchema.optional(),
 });
 exports.InternalTurnResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(true),

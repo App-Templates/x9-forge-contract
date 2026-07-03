@@ -10,6 +10,9 @@ import { z } from 'zod';
  *   - sessionId: regex /^[a-z0-9-]{1,64}$/
  *   - message: string min 1
  *   - history?: array of LLMMessage objects
+ *   - attachment?: optional channel-attachment reference (TurnAttachmentSchema —
+ *     photo/document/video + fileUrl) carried alongside the message when the
+ *     inbound arrived with a file
  *
  * Response: `{ ok: true, reply: string, updatedHistory: LLMMessage[] }`
  *
@@ -30,11 +33,26 @@ export const LLMMessageSchema = z.object({
     }))
         .optional(),
 });
+/**
+ * Optional channel-attachment carried alongside the turn message.
+ * Direction-agnostic and consumer-agnostic: any caller forwarding an inbound
+ * that arrived with a file (Telegram photo/document/video today; any channel
+ * tomorrow) can attach the file reference. `fileUrl` may be provider-scoped
+ * (e.g. Telegram bot-token file URLs) — consumers MUST treat it as sensitive:
+ * internal use only, do not log at info level, do not persist verbatim.
+ */
+export const TurnAttachmentSchema = z.object({
+    type: z.enum(['photo', 'document', 'video']),
+    fileUrl: z.string().url(),
+    mimeType: z.string().min(1).max(100).optional(),
+    filename: z.string().min(1).max(255).optional(),
+});
 export const InternalTurnRequestSchema = z.object({
     channelId: z.string().regex(/^[a-z0-9-]{1,64}$/),
     sessionId: z.string().regex(/^[a-z0-9-]{1,64}$/),
     message: z.string().min(1),
     history: z.array(LLMMessageSchema).optional(),
+    attachment: TurnAttachmentSchema.optional(),
 });
 export const InternalTurnResponseSchema = z.object({
     ok: z.literal(true),

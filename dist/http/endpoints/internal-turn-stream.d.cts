@@ -48,6 +48,16 @@ export declare const internalTurnStreamContract: {
                 input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
             }, z.core.$strip>>>;
         }, z.core.$strip>>>;
+        attachment: z.ZodOptional<z.ZodObject<{
+            type: z.ZodEnum<{
+                photo: "photo";
+                document: "document";
+                video: "video";
+            }>;
+            fileUrl: z.ZodString;
+            mimeType: z.ZodOptional<z.ZodString>;
+            filename: z.ZodOptional<z.ZodString>;
+        }, z.core.$strip>>;
     }, z.core.$strip>;
     /** Response is an SSE stream (Content-Type: text/event-stream). Frame schemas in sse-frames.ts (04-02). */
     readonly responseType: "sse";
