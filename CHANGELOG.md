@@ -10,6 +10,36 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.18.0 — 2026-07-03 — X9-ATTACH-01 Photo Forward Attachment
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/http` `internal-turn`:
+  - `TurnAttachmentSchema` + `TurnAttachment` — optional channel-attachment
+    reference: `{ type: 'photo' | 'document' | 'video', fileUrl: url,
+    mimeType?, filename? }`. Direction- and consumer-agnostic (any channel,
+    any consumer). `fileUrl` may be provider-scoped (e.g. Telegram bot-token
+    file URLs) — consumers MUST treat it as sensitive: internal use only,
+    no info-level logging, no verbatim persistence.
+  - `InternalTurnRequestSchema` gains **optional** `attachment` field — a
+    payload WITHOUT it still validates (non-breaking, regression-guarded).
+    `internal-turn-stream` reuses the same request schema, so the stream
+    body gains the field automatically (additive there too).
+- Purpose: X9 was image-blind on the forward boundary — the Telegram photo
+  handler built the file URL internally but discarded it (telegram.ts:395),
+  forwarding only `[Foto]\n{caption}` text.
+
+### Affected consumers (atomic SHA bump in the same phase — RLSE-02)
+- `agent-x9/services/agent-core/src/channel/forward.ts` — includes
+  `attachment` in the POST body only when present (imports `TurnAttachment`).
+- `agent-x9/services/agent-core/src/channel/telegram.ts` — photo handler
+  passes `{ type: 'photo', fileUrl, mimeType }` into the forward gate.
+- `parallel/services/inbound-router-svc/src/app.ts` — InboundRequestSchema
+  accepts optional attachment via `TurnAttachmentSchema` import.
+- `parallel/services/inbound-router-svc/src/handler.ts` — carries optional
+  attachment fail-soft (absent attachment = byte-identical behavior).
+
+---
+
 ## v1.17.0 — 2026-06-16 — Phase 22 Forge Live Agent Runtime Status
 
 ### Added (additive — MINOR, backward-compatible)
