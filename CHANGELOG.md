@@ -10,6 +10,16 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.21.0 — 2026-09-12 — Phase 50-06 web ingress contracts (browser live voice)
+
+### Added (additive — MINOR)
+- `@x9-forge/contracts/capability/voice-live`: `VoiceLiveWebSessionRequestSchema` (`{sdp, conversation_id?}`, strict)
+  + `VoiceLiveWebSessionResponseSchema` (`{session_id, conversation_id, sdp, voice, model}`).
+- `@x9-forge/contracts/http`: `CAP_VOICE_LIVE_WEB_SESSION_PATH` (`/live/web/session`), `CAP_VOICE_LIVE_WEB_PAGE_PATH` (`/live/web/`).
+- `@x9-forge/contracts/agent` credential key `LIVE_WEB_AUTH_TOKEN`.
+- Purpose: "parlare con X9 in live senza telefonata" — the browser does WebRTC straight to GPT-Live; cap-voice-live
+  mints the session (`POST /v1/live/sessions` with the SDP offer) and observes it over the sideband.
+
 ## v1.20.0 — 2026-09-12 — Phase 50 voice provider lane: GPT-Live-1 calls via cap-voice-live
 
 ### Added (additive — MINOR, backward-compatible)

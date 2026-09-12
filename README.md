@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Package:** `@x9-forge/contracts` · **Current version:** `1.20.0` (2026-09-12, Phase 50 — `VoiceProviderSchema` + `capability/voice-live` contracts for GPT-Live-1 calls; 1.19.0 same day added `capability/tts`) · **Foundation:** v1.0 shipped 2026-04-16 (git tag `v1.0` at `1d709a1`) · **Status:** active, additive releases per consuming phase
+**Package:** `@x9-forge/contracts` · **Current version:** `1.21.0` (2026-09-12, Phase 50-06 — web live-voice ingress contracts; 1.20.0 same day: `VoiceProviderSchema` + `capability/voice-live`; 1.19.0: `capability/tts`) · **Foundation:** v1.0 shipped 2026-04-16 (git tag `v1.0` at `1d709a1`) · **Status:** active, additive releases per consuming phase
 
 ## Why this repo exists (R-14 NON NEGOZIABILE)
 
