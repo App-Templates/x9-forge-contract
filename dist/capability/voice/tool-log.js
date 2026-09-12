@@ -16,7 +16,7 @@ import { VoiceToolNameSchema, VoiceToolStatusSchema } from "./tools.js";
  * @see docs/adr/ADR-cap-voice.md §17 / D-27 (call_tool_calls additions)
  */
 /** Named enum for the source column (no inline `z.enum`). */
-export const VoiceToolCallSourceSchema = z.enum(['elevenlabs', 'system', 'retry', 'admin']);
+export const VoiceToolCallSourceSchema = z.enum(['elevenlabs', 'openai_live', 'system', 'retry', 'admin']);
 export const VoiceCallToolLogSchema = z.object({
     /** Row id (generated cap-voice-side). */
     id: z.string().min(1),

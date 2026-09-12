@@ -19,7 +19,7 @@ const tools_js_1 = require("./tools.cjs");
  * @see docs/adr/ADR-cap-voice.md §17 / D-27 (call_tool_calls additions)
  */
 /** Named enum for the source column (no inline `z.enum`). */
-exports.VoiceToolCallSourceSchema = zod_1.z.enum(['elevenlabs', 'system', 'retry', 'admin']);
+exports.VoiceToolCallSourceSchema = zod_1.z.enum(['elevenlabs', 'openai_live', 'system', 'retry', 'admin']);
 exports.VoiceCallToolLogSchema = zod_1.z.object({
     /** Row id (generated cap-voice-side). */
     id: zod_1.z.string().min(1),

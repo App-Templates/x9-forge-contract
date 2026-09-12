@@ -35,6 +35,7 @@ __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);
 __exportStar(require("./vault-resolve.cjs"), exports); // Phase 38 — HTTP-12 / R-14 closure
 __exportStar(require("./voice.cjs"), exports); // Phase 42 — CAP-Voice v2.2 path + method constants
+__exportStar(require("./voice-live.cjs"), exports); // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 __exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.11.0) — Parallel S2S agent deploy
 __exportStar(require("./internal-factory-telegram-token.cjs"), exports); // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)

@@ -8,10 +8,10 @@ import { z } from 'zod';
  * - `user`: visibile solo ad una conversazione utente (finest grain). Es. preferenze chat utente.
  */
 export declare const MemoryScopeSchema: z.ZodEnum<{
+    agent: "agent";
     user: "user";
     platform: "platform";
     owner: "owner";
-    agent: "agent";
 }>;
 export type MemoryScope = z.infer<typeof MemoryScopeSchema>;
 /**

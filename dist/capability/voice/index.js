@@ -23,6 +23,8 @@ export { AuthorizedActionsSchema, } from "./authorized-actions.js";
 export { VoiceCallIntentSchema, VOICE_CALL_INTENTS } from "./intent.js";
 export { VoiceCallProvenanceEntrySchema, } from "./provenance.js";
 export { VoicePrepareCallRequestSchema, VoicePrepareCallResponseSchema, } from "./prepare-call.js";
+// -- Provider lane (Phase 50) ----------------------------------------------
+export { VoiceProviderSchema, OPENAI_LIVE_MODEL, OPENAI_LIVE_DEFAULT_VOICE, OPENAI_LIVE_DEFAULT_BACKEND_MODEL, } from "./provider.js";
 // -- Call lifecycle (2 schemas) --------------------------------------------
 export { VoiceCallStartRequestSchema, VoiceCallStartResponseSchema, } from "./call-start.js";
 // -- Tool surface (4 schemas + 1 runtime helper + confirm_recipient_email pair + send_recap_email pair) ---

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.webhookPostCallContract = exports.PostCallErrorResponseSchema = exports.PostCallResponseSchema = exports.PostCallPayloadSchema = exports.TranscriptTurnSchema = void 0;
 const zod_1 = require("zod");
+const provider_js_1 = require("../../capability/voice/provider.cjs");
 /**
  * POST /webhook/post-call — ElevenLabs post-call webhook (direct or Forge-forwarded).
  * Direction: Forge voice-svc -> X9 cap-voice (cross-repo, Bug #15 endpoint)
@@ -86,6 +87,11 @@ exports.PostCallPayloadSchema = zod_1.z
         .optional(),
     /** Added by Forge voice-svc when forwarding (voice.ts:112). */
     agentId: zod_1.z.string().optional(),
+    /**
+     * Phase 50: stamped by cap-voice-live (`openai_live`) on synthesized
+     * post-call payloads. Absent ⇒ ElevenLabs (direct or Forge-forwarded).
+     */
+    provider: provider_js_1.VoiceProviderSchema.optional(),
 })
     .passthrough();
 exports.PostCallResponseSchema = zod_1.z.object({

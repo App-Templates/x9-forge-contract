@@ -74,7 +74,11 @@ export type VoiceCallStartRequest = z.infer<typeof VoiceCallStartRequestSchema>;
 export declare const VoiceCallStartResponseSchema: z.ZodObject<{
     call_id: z.ZodString;
     conversation_id: z.ZodString;
-    elevenlabs_agent_id: z.ZodString;
+    elevenlabs_agent_id: z.ZodOptional<z.ZodString>;
+    provider: z.ZodOptional<z.ZodEnum<{
+        elevenlabs: "elevenlabs";
+        openai_live: "openai_live";
+    }>>;
     started_at: z.ZodString;
 }, z.core.$strip>;
 export type VoiceCallStartResponse = z.infer<typeof VoiceCallStartResponseSchema>;

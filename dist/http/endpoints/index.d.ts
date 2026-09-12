@@ -17,6 +17,7 @@ export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
 export * from "./vault-resolve.js";
 export * from "./voice.js";
+export * from "./voice-live.js";
 export * from "./internal-factory-deploy.js";
 export * from "./internal-factory-telegram-token.js";
 export * from "./cap-manifest.js";

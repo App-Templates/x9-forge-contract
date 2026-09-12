@@ -50,6 +50,13 @@ export declare const AgentContextFileSchema: z.ZodObject<{
         OPENAI_TTS_VOICE: z.ZodOptional<z.ZodString>;
         STT_PRIMARY_PROVIDER: z.ZodOptional<z.ZodString>;
         OPENAI_STT_MODEL: z.ZodOptional<z.ZodString>;
+        VOICE_CALL_PROVIDER: z.ZodOptional<z.ZodString>;
+        OPENAI_LIVE_VOICE: z.ZodOptional<z.ZodString>;
+        OPENAI_LIVE_BACKEND_MODEL: z.ZodOptional<z.ZodString>;
+        TELNYX_API_KEY: z.ZodOptional<z.ZodString>;
+        TELNYX_CONNECTION_ID: z.ZodOptional<z.ZodString>;
+        TELNYX_FROM_NUMBER: z.ZodOptional<z.ZodString>;
+        TELNYX_PUBLIC_KEY: z.ZodOptional<z.ZodString>;
         ELEVENLABS_MINDFULNESS_AGENT_ID: z.ZodOptional<z.ZodString>;
         FORGE_VOICE_REGISTER_TOKEN: z.ZodOptional<z.ZodString>;
         AGENTMAIL_API_KEY: z.ZodOptional<z.ZodString>;

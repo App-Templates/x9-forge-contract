@@ -54,10 +54,10 @@ export declare const RagJobTypeSchema: z.ZodEnum<{
 }>;
 export type RagJobType = z.infer<typeof RagJobTypeSchema>;
 export declare const RagJobStatusSchema: z.ZodEnum<{
-    running: "running";
-    pending: "pending";
     completed: "completed";
     failed: "failed";
+    running: "running";
+    pending: "pending";
     cancelled: "cancelled";
 }>;
 export type RagJobStatus = z.infer<typeof RagJobStatusSchema>;
@@ -81,10 +81,10 @@ export declare const RagSyncJobSummarySchema: z.ZodObject<{
         topic_eval: "topic_eval";
     }>;
     status: z.ZodEnum<{
-        running: "running";
-        pending: "pending";
         completed: "completed";
         failed: "failed";
+        running: "running";
+        pending: "pending";
         cancelled: "cancelled";
     }>;
     source_connection_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;
@@ -140,10 +140,10 @@ export declare const RagSourceStatusSchema: z.ZodObject<{
             topic_eval: "topic_eval";
         }>;
         status: z.ZodEnum<{
-            running: "running";
-            pending: "pending";
             completed: "completed";
             failed: "failed";
+            running: "running";
+            pending: "pending";
             cancelled: "cancelled";
         }>;
         source_connection_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;
@@ -233,10 +233,10 @@ export declare const RagSourceStatusResponseSchema: z.ZodObject<{
                 topic_eval: "topic_eval";
             }>;
             status: z.ZodEnum<{
-                running: "running";
-                pending: "pending";
                 completed: "completed";
                 failed: "failed";
+                running: "running";
+                pending: "pending";
                 cancelled: "cancelled";
             }>;
             source_connection_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;

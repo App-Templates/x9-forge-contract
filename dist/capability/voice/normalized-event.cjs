@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeVoiceWebhookNormalizedEventSchema = void 0;
 const zod_1 = require("zod");
 const webhook_events_js_1 = require("./webhook-events.cjs");
+const provider_js_1 = require("./provider.cjs");
 /**
  * Normalized voice webhook event — emitted by Forge voice-svc after HMAC
  * validation + conversation->agent routing + vault credential lookup, and
@@ -43,8 +44,12 @@ exports.ForgeVoiceWebhookNormalizedEventSchema = zod_1.z.object({
      * here it's a Forge bug, caught by this strict schema.
      */
     signature_valid: zod_1.z.literal(true),
-    /** Webhook provider — literal "elevenlabs" today; extensible later. */
-    provider: zod_1.z.literal('elevenlabs'),
+    /**
+     * Webhook provider. Phase 50: widened from `z.literal('elevenlabs')` to the
+     * shared `VoiceProviderSchema` (`elevenlabs` | `openai_live`). Existing
+     * producers keep emitting `elevenlabs`; cap-voice-live emits `openai_live`.
+     */
+    provider: provider_js_1.VoiceProviderSchema,
     /**
      * Event-type-specific payload. Kept as `unknown` at the bridge boundary
      * because cap-voice narrows via `event_type` discriminator internally;

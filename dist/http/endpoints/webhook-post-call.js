@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { VoiceProviderSchema } from "../../capability/voice/provider.js";
 /**
  * POST /webhook/post-call — ElevenLabs post-call webhook (direct or Forge-forwarded).
  * Direction: Forge voice-svc -> X9 cap-voice (cross-repo, Bug #15 endpoint)
@@ -83,6 +84,11 @@ export const PostCallPayloadSchema = z
         .optional(),
     /** Added by Forge voice-svc when forwarding (voice.ts:112). */
     agentId: z.string().optional(),
+    /**
+     * Phase 50: stamped by cap-voice-live (`openai_live`) on synthesized
+     * post-call payloads. Absent ⇒ ElevenLabs (direct or Forge-forwarded).
+     */
+    provider: VoiceProviderSchema.optional(),
 })
     .passthrough();
 export const PostCallResponseSchema = z.object({

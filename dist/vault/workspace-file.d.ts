@@ -18,9 +18,9 @@ export declare const WorkspaceFileSchema: z.ZodObject<{
     agentId: z.ZodNullable<z.ZodNumber>;
     ownerId: z.ZodNullable<z.ZodNumber>;
     tier: z.ZodEnum<{
+        agent: "agent";
         platform: "platform";
         owner: "owner";
-        agent: "agent";
     }>;
     path: z.ZodString;
     content: z.ZodNullable<z.ZodString>;

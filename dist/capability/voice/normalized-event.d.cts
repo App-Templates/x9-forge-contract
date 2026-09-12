@@ -29,7 +29,10 @@ export declare const ForgeVoiceWebhookNormalizedEventSchema: z.ZodObject<{
     forwarded_at: z.ZodOptional<z.ZodString>;
     raw_event_hash: z.ZodString;
     signature_valid: z.ZodLiteral<true>;
-    provider: z.ZodLiteral<"elevenlabs">;
+    provider: z.ZodEnum<{
+        elevenlabs: "elevenlabs";
+        openai_live: "openai_live";
+    }>;
     payload: z.ZodUnknown;
     failure_reason: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;

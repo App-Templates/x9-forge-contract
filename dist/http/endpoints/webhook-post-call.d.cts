@@ -48,6 +48,10 @@ export declare const PostCallPayloadSchema: z.ZodObject<{
         }, z.core.$loose>>;
     }, z.core.$loose>>;
     agentId: z.ZodOptional<z.ZodString>;
+    provider: z.ZodOptional<z.ZodEnum<{
+        elevenlabs: "elevenlabs";
+        openai_live: "openai_live";
+    }>>;
 }, z.core.$loose>;
 export type PostCallPayload = z.infer<typeof PostCallPayloadSchema>;
 export declare const PostCallResponseSchema: z.ZodObject<{
@@ -86,6 +90,10 @@ export declare const webhookPostCallContract: {
             }, z.core.$loose>>;
         }, z.core.$loose>>;
         agentId: z.ZodOptional<z.ZodString>;
+        provider: z.ZodOptional<z.ZodEnum<{
+            elevenlabs: "elevenlabs";
+            openai_live: "openai_live";
+        }>>;
     }, z.core.$loose>;
     readonly responseSchema: z.ZodObject<{
         received: z.ZodLiteral<true>;
