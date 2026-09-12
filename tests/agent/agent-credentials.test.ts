@@ -22,7 +22,7 @@ describe('KNOWN_CREDENTIAL_KEYS', () => {
   it('Phase 50: includes voice-note provider-lane keys', () => {
     const keys: readonly string[] = KNOWN_CREDENTIAL_KEYS;
     for (const k of ['TTS_PROVIDER', 'OPENAI_TTS_MODEL', 'OPENAI_TTS_VOICE', 'STT_PRIMARY_PROVIDER', 'OPENAI_STT_MODEL',
-      'VOICE_CALL_PROVIDER', 'OPENAI_LIVE_VOICE', 'OPENAI_LIVE_BACKEND_MODEL', 'TELNYX_API_KEY', 'TELNYX_CONNECTION_ID', 'TELNYX_FROM_NUMBER', 'TELNYX_PUBLIC_KEY']) {
+      'VOICE_CALL_PROVIDER', 'OPENAI_LIVE_VOICE', 'OPENAI_LIVE_BACKEND_MODEL', 'TELNYX_API_KEY', 'TELNYX_CONNECTION_ID', 'TELNYX_FROM_NUMBER', 'TELNYX_PUBLIC_KEY', 'LIVE_WEB_AUTH_TOKEN', 'QDRANT_API_KEY']) {
       expect(keys).toContain(k);
     }
     expect(AgentCredentialsSchema.parse({ TTS_PROVIDER: 'openai' }).TTS_PROVIDER).toBe('openai');
