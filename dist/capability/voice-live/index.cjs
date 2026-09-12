@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VoiceLiveCallEndReasonSchema = exports.VoiceLiveTranscriptTurnSchema = exports.VoiceLiveCallStartResponseSchema = exports.VoiceLiveCallStartRequestSchema = exports.VoiceLiveToolDefinitionSchema = exports.CAP_VOICE_LIVE_DEFAULT_PORT = void 0;
+exports.VoiceLiveCallEndReasonSchema = exports.VoiceLiveWebSessionResponseSchema = exports.VoiceLiveWebSessionRequestSchema = exports.VoiceLiveTranscriptTurnSchema = exports.VoiceLiveCallStartResponseSchema = exports.VoiceLiveCallStartRequestSchema = exports.VoiceLiveToolDefinitionSchema = exports.CAP_VOICE_LIVE_DEFAULT_PORT = void 0;
 /**
  * cap-voice-live contracts — sub-path `@x9-forge/contracts/capability/voice-live`.
  *
@@ -78,6 +78,25 @@ exports.VoiceLiveTranscriptTurnSchema = zod_1.z.object({
     role: zod_1.z.enum(['agent', 'user']),
     message: zod_1.z.string(),
     time_in_call_secs: zod_1.z.number().nonnegative(),
+});
+/**
+ * Web ingress (Phase 50-06): browser → cap-voice-live `POST /live/web/session`.
+ * The browser sends its WebRTC SDP offer; cap-voice-live creates the GPT-Live
+ * session server-side (API key never leaves the server) and returns the answer.
+ */
+exports.VoiceLiveWebSessionRequestSchema = zod_1.z.strictObject({
+    /** Browser RTCPeerConnection local description (offer), SDP text. */
+    sdp: zod_1.z.string().min(1),
+    /** Optional caller-chosen conversation id (lowercase, dashes) — reused to keep agent-core history. */
+    conversation_id: zod_1.z.string().regex(/^[a-z0-9-]{1,64}$/).optional(),
+});
+exports.VoiceLiveWebSessionResponseSchema = zod_1.z.object({
+    session_id: zod_1.z.string().min(1),
+    conversation_id: zod_1.z.string().regex(/^[a-z0-9-]{1,64}$/),
+    /** OpenAI SDP answer to apply as the remote description. */
+    sdp: zod_1.z.string().min(1),
+    voice: zod_1.z.string().min(1),
+    model: zod_1.z.string().min(1),
 });
 /** Terminal states of a live call as observed by cap-voice-live. */
 exports.VoiceLiveCallEndReasonSchema = zod_1.z.enum([

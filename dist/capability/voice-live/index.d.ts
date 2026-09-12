@@ -83,6 +83,26 @@ export declare const VoiceLiveTranscriptTurnSchema: z.ZodObject<{
     time_in_call_secs: z.ZodNumber;
 }, z.core.$strip>;
 export type VoiceLiveTranscriptTurn = z.infer<typeof VoiceLiveTranscriptTurnSchema>;
+/**
+ * Web ingress (Phase 50-06): browser → cap-voice-live `POST /live/web/session`.
+ * The browser sends its WebRTC SDP offer; cap-voice-live creates the GPT-Live
+ * session server-side (API key never leaves the server) and returns the answer.
+ */
+export declare const VoiceLiveWebSessionRequestSchema: z.ZodObject<{
+    /** Browser RTCPeerConnection local description (offer), SDP text. */
+    sdp: z.ZodString;
+    /** Optional caller-chosen conversation id (lowercase, dashes) — reused to keep agent-core history. */
+    conversation_id: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type VoiceLiveWebSessionRequest = z.infer<typeof VoiceLiveWebSessionRequestSchema>;
+export declare const VoiceLiveWebSessionResponseSchema: z.ZodObject<{
+    session_id: z.ZodString;
+    conversation_id: z.ZodString;
+    sdp: z.ZodString;
+    voice: z.ZodString;
+    model: z.ZodString;
+}, z.core.$strip>;
+export type VoiceLiveWebSessionResponse = z.infer<typeof VoiceLiveWebSessionResponseSchema>;
 /** Terminal states of a live call as observed by cap-voice-live. */
 export declare const VoiceLiveCallEndReasonSchema: z.ZodEnum<{
     no_answer: "no_answer";

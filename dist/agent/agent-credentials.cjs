@@ -28,6 +28,7 @@ exports.KNOWN_CREDENTIAL_KEYS = [
     'TELNYX_CONNECTION_ID', // Phase 50 — Telnyx Call Control app id
     'TELNYX_FROM_NUMBER', // Phase 50 — E.164 caller id
     'TELNYX_PUBLIC_KEY', // Phase 50 — Ed25519 webhook verification key
+    'LIVE_WEB_AUTH_TOKEN', // Phase 50-06 — bearer for the browser live-voice ingress
     'ELEVENLABS_MINDFULNESS_AGENT_ID',
     'FORGE_VOICE_REGISTER_TOKEN',
     'AGENTMAIL_API_KEY',
@@ -66,6 +67,7 @@ exports.AgentCredentialsSchema = zod_1.z
     TELNYX_CONNECTION_ID: zod_1.z.string().optional(), // Phase 50
     TELNYX_FROM_NUMBER: zod_1.z.string().optional(), // Phase 50
     TELNYX_PUBLIC_KEY: zod_1.z.string().optional(), // Phase 50
+    LIVE_WEB_AUTH_TOKEN: zod_1.z.string().optional(), // Phase 50-06
     ELEVENLABS_MINDFULNESS_AGENT_ID: zod_1.z.string().optional(),
     FORGE_VOICE_REGISTER_TOKEN: zod_1.z.string().optional(),
     AGENTMAIL_API_KEY: zod_1.z.string().optional(),
