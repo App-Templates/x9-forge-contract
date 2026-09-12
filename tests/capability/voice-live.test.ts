@@ -5,6 +5,8 @@ import {
   VoiceLiveCallStartResponseSchema,
   VoiceLiveTranscriptTurnSchema,
   VoiceLiveCallEndReasonSchema,
+  VoiceLiveWebSessionRequestSchema,
+  VoiceLiveWebSessionResponseSchema,
 } from '../../src/capability/voice-live/index.js';
 import {
   VoiceProviderSchema,
@@ -19,6 +21,8 @@ import {
   CAP_VOICE_LIVE_CALL_START_PATH,
   CAP_VOICE_LIVE_STREAM_PATH,
   CAP_VOICE_LIVE_TELNYX_WEBHOOK_PATH,
+  CAP_VOICE_LIVE_WEB_SESSION_PATH,
+  CAP_VOICE_LIVE_WEB_PAGE_PATH,
 } from '../../src/http/endpoints/voice-live.js';
 
 const validStart = {
@@ -95,6 +99,15 @@ describe('Phase 50 — capability/voice-live contracts', () => {
     expect(VoiceLiveCallStartResponseSchema.parse(ok).provider).toBe('openai_live');
     expect(() => VoiceLiveCallStartResponseSchema.parse({ ...ok, conversation_id: '' })).toThrow();
   });
+  it('web ingress (50-06): strict request, response shape, endpoint constants', () => {
+    expect(VoiceLiveWebSessionRequestSchema.parse({ sdp: 'v=0...' }).conversation_id).toBeUndefined();
+    expect(() => VoiceLiveWebSessionRequestSchema.parse({ sdp: 'v=0', extra: 1 })).toThrow();
+    expect(() => VoiceLiveWebSessionRequestSchema.parse({ sdp: 'v=0', conversation_id: 'Bad_ID' })).toThrow();
+    expect(VoiceLiveWebSessionResponseSchema.parse({ session_id: 'live_1', conversation_id: 'web-1', sdp: 'v=0', voice: 'marin', model: 'gpt-live-1' }).session_id).toBe('live_1');
+    expect(CAP_VOICE_LIVE_WEB_SESSION_PATH).toBe('/live/web/session');
+    expect(CAP_VOICE_LIVE_WEB_PAGE_PATH).toBe('/live/web/');
+  });
+
   it('transcript turn + end reasons', () => {
     expect(VoiceLiveTranscriptTurnSchema.parse({ role: 'agent', message: 'Pronto', time_in_call_secs: 0.5 }).role).toBe('agent');
     expect(() => VoiceLiveTranscriptTurnSchema.parse({ role: 'assistant', message: 'x', time_in_call_secs: 0 })).toThrow();

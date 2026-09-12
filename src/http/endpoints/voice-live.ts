@@ -18,4 +18,11 @@ export const CAP_VOICE_LIVE_STREAM_PATH = (callId: string): `/live/stream/${stri
   `${CAP_VOICE_LIVE_STREAM_PATH_PREFIX}/${encodeURIComponent(callId)}` as `/live/stream/${string}`;
 
 export const CAP_VOICE_LIVE_TELNYX_WEBHOOK_PATH = '/webhook/telnyx' as const;
+
+// -- Web ingress (Phase 50-06): browser WebRTC session to GPT-Live, minted server-side ----
+/** POST: `{ sdp }` (browser offer) → `{ session_id, sdp }` (OpenAI answer). Bearer LIVE_WEB_AUTH_TOKEN. */
+export const CAP_VOICE_LIVE_WEB_SESSION_PATH = '/live/web/session' as const;
+export const CAP_VOICE_LIVE_WEB_SESSION_METHOD = 'POST' as const;
+/** GET: the static single-page voice client served by cap-voice-live. */
+export const CAP_VOICE_LIVE_WEB_PAGE_PATH = '/live/web/' as const;
 export const CAP_VOICE_LIVE_TELNYX_WEBHOOK_METHOD = 'POST' as const;

@@ -86,6 +86,29 @@ export const VoiceLiveTranscriptTurnSchema = z.object({
 });
 export type VoiceLiveTranscriptTurn = z.infer<typeof VoiceLiveTranscriptTurnSchema>;
 
+/**
+ * Web ingress (Phase 50-06): browser → cap-voice-live `POST /live/web/session`.
+ * The browser sends its WebRTC SDP offer; cap-voice-live creates the GPT-Live
+ * session server-side (API key never leaves the server) and returns the answer.
+ */
+export const VoiceLiveWebSessionRequestSchema = z.strictObject({
+  /** Browser RTCPeerConnection local description (offer), SDP text. */
+  sdp: z.string().min(1),
+  /** Optional caller-chosen conversation id (lowercase, dashes) — reused to keep agent-core history. */
+  conversation_id: z.string().regex(/^[a-z0-9-]{1,64}$/).optional(),
+});
+export type VoiceLiveWebSessionRequest = z.infer<typeof VoiceLiveWebSessionRequestSchema>;
+
+export const VoiceLiveWebSessionResponseSchema = z.object({
+  session_id: z.string().min(1),
+  conversation_id: z.string().regex(/^[a-z0-9-]{1,64}$/),
+  /** OpenAI SDP answer to apply as the remote description. */
+  sdp: z.string().min(1),
+  voice: z.string().min(1),
+  model: z.string().min(1),
+});
+export type VoiceLiveWebSessionResponse = z.infer<typeof VoiceLiveWebSessionResponseSchema>;
+
 /** Terminal states of a live call as observed by cap-voice-live. */
 export const VoiceLiveCallEndReasonSchema = z.enum([
   'completed',
