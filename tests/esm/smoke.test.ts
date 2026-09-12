@@ -19,7 +19,8 @@ import { INTERNAL_TOKEN_HEADER, INTERNAL_SECRET_HEADER } from '@x9-forge/contrac
 import { AgentIdSchema } from '@x9-forge/contracts/agent';
 import { CapabilityManifestSchema } from '@x9-forge/contracts/capability';
 import { VoiceCallIntentSchema } from '@x9-forge/contracts/voice';
-import { CAP_STT_DEFAULT_PORT, TranscribeRequestSchema } from '@x9-forge/contracts/capability/stt';
+import { CAP_STT_DEFAULT_PORT, TranscribeRequestSchema, DEFAULT_STT_PRIMARY_PROVIDER } from '@x9-forge/contracts/capability/stt';
+import { TtsProviderSchema, DEFAULT_TTS_PROVIDER } from '@x9-forge/contracts/capability/tts';
 import { vaultResolveContract } from '@x9-forge/contracts/http';
 import { MEMORY_CORRECT_PATH, INTERNAL_MEMORY_INGEST_PATH } from '@x9-forge/contracts/memory';
 import { ModelTierSchema } from '@x9-forge/contracts/model-router';
@@ -51,6 +52,12 @@ describe('ESM smoke — every public bridge subpath resolves via import', () => 
   it('capability/stt subpath (Phase 18.1 back-filled): port + request schema', () => {
     expect(CAP_STT_DEFAULT_PORT).toBe(4011);
     expect(typeof TranscribeRequestSchema.parse).toBe('function');
+  });
+
+  it('capability/tts subpath (Phase 50): provider enum + elevenlabs default', () => {
+    expect(TtsProviderSchema.parse('openai')).toBe('openai');
+    expect(DEFAULT_TTS_PROVIDER).toBe('elevenlabs');
+    expect(DEFAULT_STT_PRIMARY_PROVIDER).toBe('elevenlabs');
   });
 
   it('http subpath: vaultResolveContract is a contract object', () => {

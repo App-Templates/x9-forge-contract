@@ -18,6 +18,14 @@ describe('KNOWN_CREDENTIAL_KEYS', () => {
     expect(keys).toContain('GOOGLE_CALENDAR_CLIENT_ID');
     expect(keys).toContain('ELEVENLABS_API_KEY');
   });
+
+  it('Phase 50: includes voice-note provider-lane keys', () => {
+    const keys: readonly string[] = KNOWN_CREDENTIAL_KEYS;
+    for (const k of ['TTS_PROVIDER', 'OPENAI_TTS_MODEL', 'OPENAI_TTS_VOICE', 'STT_PRIMARY_PROVIDER', 'OPENAI_STT_MODEL']) {
+      expect(keys).toContain(k);
+    }
+    expect(AgentCredentialsSchema.parse({ TTS_PROVIDER: 'openai' }).TTS_PROVIDER).toBe('openai');
+  });
 });
 
 describe('AgentCredentialsSchema', () => {

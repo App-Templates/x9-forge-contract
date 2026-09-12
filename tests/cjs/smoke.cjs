@@ -44,6 +44,9 @@ const PROBES = [
   { specifier: '@x9-forge/contracts/voice',            knownSymbol: 'VoiceCallIntentSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/capability/stt',   knownSymbol: 'CAP_STT_DEFAULT_PORT',  expectedType: 'number', expectedValue: 4011 },
   { specifier: '@x9-forge/contracts/capability/stt',   knownSymbol: 'TranscribeRequestSchema', expectedType: 'object' },
+  // Phase 50 (v1.19.0) — voice-note provider lanes (CJS resolution).
+  { specifier: '@x9-forge/contracts/capability/tts',   knownSymbol: 'TtsProviderSchema',      expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/capability/tts',   knownSymbol: 'DEFAULT_TTS_PROVIDER',   expectedType: 'string', expectedValue: 'elevenlabs' },
   { specifier: '@x9-forge/contracts/http',             knownSymbol: 'vaultResolveContract',  expectedType: 'object' },
   // Phase 21 (v1.16.0) — TOKROT-01 token-rotate PATCH contract + request schema (CJS resolution).
   { specifier: '@x9-forge/contracts/http',             knownSymbol: 'internalFactoryTelegramTokenContract', expectedType: 'object' },
