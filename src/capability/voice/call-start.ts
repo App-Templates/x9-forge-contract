@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { VoiceCallBriefSchema } from './brief.js';
 import { AuthorizedActionsSchema } from './authorized-actions.js';
+import { VoiceProviderSchema } from './provider.js';
 
 /**
  * Request sent by X9 (agent-core or cap-voice tool layer) to cap-voice to
@@ -35,8 +36,13 @@ export const VoiceCallStartResponseSchema = z.object({
   call_id: z.string().min(1),
   /** ElevenLabs conversation id (unique per call). */
   conversation_id: z.string().min(1),
-  /** ElevenLabs agent id (the conversational agent, not the Forge agent). */
-  elevenlabs_agent_id: z.string().min(1),
+  /**
+   * ElevenLabs agent id (the conversational agent, not the Forge agent).
+   * Phase 50: optional — absent when `provider === 'openai_live'`.
+   */
+  elevenlabs_agent_id: z.string().min(1).optional(),
+  /** Phase 50: which lane placed the call. Absent ⇒ `elevenlabs` (pre-50 producers). */
+  provider: VoiceProviderSchema.optional(),
   /** RFC-3339 timestamp when cap-voice acknowledged the outbound init. */
   started_at: z.string().datetime({ offset: true }),
 });

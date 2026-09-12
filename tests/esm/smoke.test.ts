@@ -21,6 +21,9 @@ import { CapabilityManifestSchema } from '@x9-forge/contracts/capability';
 import { VoiceCallIntentSchema } from '@x9-forge/contracts/voice';
 import { CAP_STT_DEFAULT_PORT, TranscribeRequestSchema, DEFAULT_STT_PRIMARY_PROVIDER } from '@x9-forge/contracts/capability/stt';
 import { TtsProviderSchema, DEFAULT_TTS_PROVIDER } from '@x9-forge/contracts/capability/tts';
+import { CAP_VOICE_LIVE_DEFAULT_PORT, VoiceLiveCallStartRequestSchema } from '@x9-forge/contracts/capability/voice-live';
+import { VoiceProviderSchema } from '@x9-forge/contracts/voice';
+import { CAP_VOICE_LIVE_CALL_START_PATH } from '@x9-forge/contracts/http';
 import { vaultResolveContract } from '@x9-forge/contracts/http';
 import { MEMORY_CORRECT_PATH, INTERNAL_MEMORY_INGEST_PATH } from '@x9-forge/contracts/memory';
 import { ModelTierSchema } from '@x9-forge/contracts/model-router';
@@ -58,6 +61,13 @@ describe('ESM smoke — every public bridge subpath resolves via import', () => 
     expect(TtsProviderSchema.parse('openai')).toBe('openai');
     expect(DEFAULT_TTS_PROVIDER).toBe('elevenlabs');
     expect(DEFAULT_STT_PRIMARY_PROVIDER).toBe('elevenlabs');
+  });
+
+  it('capability/voice-live subpath (Phase 50): port + request schema + provider enum + endpoint', () => {
+    expect(CAP_VOICE_LIVE_DEFAULT_PORT).toBe(3217);
+    expect(typeof VoiceLiveCallStartRequestSchema.parse).toBe('function');
+    expect(VoiceProviderSchema.parse('openai_live')).toBe('openai_live');
+    expect(CAP_VOICE_LIVE_CALL_START_PATH).toBe('/internal/live/call-start');
   });
 
   it('http subpath: vaultResolveContract is a contract object', () => {

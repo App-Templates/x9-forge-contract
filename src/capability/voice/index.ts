@@ -37,6 +37,14 @@ export {
   type VoicePrepareCallResponse,
 } from './prepare-call.js';
 
+// -- Provider lane (Phase 50) ----------------------------------------------
+export {
+  VoiceProviderSchema,
+  OPENAI_LIVE_MODEL,
+  OPENAI_LIVE_DEFAULT_VOICE,
+  OPENAI_LIVE_DEFAULT_BACKEND_MODEL,
+  type VoiceProvider,
+} from './provider.js';
 // -- Call lifecycle (2 schemas) --------------------------------------------
 export {
   VoiceCallStartRequestSchema,

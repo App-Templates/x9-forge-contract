@@ -19,6 +19,13 @@ export const KNOWN_CREDENTIAL_KEYS = [
   'OPENAI_TTS_VOICE',                        // Phase 50 — default marin
   'STT_PRIMARY_PROVIDER',                    // Phase 50 — voice-note STT primary (elevenlabs | openai)
   'OPENAI_STT_MODEL',                        // Phase 50 — default gpt-transcribe
+  'VOICE_CALL_PROVIDER',                     // Phase 50 — call lane (elevenlabs | openai_live)
+  'OPENAI_LIVE_VOICE',                       // Phase 50 — GPT-Live stock voice (default marin)
+  'OPENAI_LIVE_BACKEND_MODEL',               // Phase 50 — delegation.responses model
+  'TELNYX_API_KEY',                          // Phase 50 — cap-voice-live PSTN originator
+  'TELNYX_CONNECTION_ID',                    // Phase 50 — Telnyx Call Control app id
+  'TELNYX_FROM_NUMBER',                      // Phase 50 — E.164 caller id
+  'TELNYX_PUBLIC_KEY',                       // Phase 50 — Ed25519 webhook verification key
   'ELEVENLABS_MINDFULNESS_AGENT_ID',
   'FORGE_VOICE_REGISTER_TOKEN',
   'AGENTMAIL_API_KEY',
@@ -53,6 +60,13 @@ export const AgentCredentialsSchema = z
     OPENAI_TTS_VOICE: z.string().optional(),        // Phase 50
     STT_PRIMARY_PROVIDER: z.string().optional(),    // Phase 50 — validated against TranscribeProviderSchema by the consumer
     OPENAI_STT_MODEL: z.string().optional(),        // Phase 50
+    VOICE_CALL_PROVIDER: z.string().optional(),     // Phase 50 — validated against VoiceProviderSchema by the consumer
+    OPENAI_LIVE_VOICE: z.string().optional(),       // Phase 50
+    OPENAI_LIVE_BACKEND_MODEL: z.string().optional(), // Phase 50
+    TELNYX_API_KEY: z.string().optional(),          // Phase 50
+    TELNYX_CONNECTION_ID: z.string().optional(),    // Phase 50
+    TELNYX_FROM_NUMBER: z.string().optional(),      // Phase 50
+    TELNYX_PUBLIC_KEY: z.string().optional(),       // Phase 50
     ELEVENLABS_MINDFULNESS_AGENT_ID: z.string().optional(),
     FORGE_VOICE_REGISTER_TOKEN: z.string().optional(),
     AGENTMAIL_API_KEY: z.string().optional(),
