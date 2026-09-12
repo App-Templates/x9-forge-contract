@@ -10,6 +10,30 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.19.0 — 2026-09-12 — Phase 50 voice-note provider lanes (TTS + STT)
+
+### Added (additive — MINOR, backward-compatible)
+- New sub-path `@x9-forge/contracts/capability/tts`:
+  - `TtsProviderSchema = z.enum(['elevenlabs', 'openai'])` + `TtsProvider`
+  - `DEFAULT_TTS_PROVIDER = 'elevenlabs'` (zero behaviour change on rollout)
+  - `OPENAI_TTS_DEFAULT_MODEL = 'gpt-4o-mini-tts'`, `OPENAI_TTS_DEFAULT_VOICE = 'marin'`
+- `@x9-forge/contracts/capability/stt`:
+  - `DEFAULT_STT_PRIMARY_PROVIDER = 'elevenlabs'` (which provider cap-stt tries first;
+    the other stays the automatic fallback — enum unchanged: `TranscribeProviderSchema`)
+  - `OPENAI_STT_DEFAULT_MODEL = 'gpt-transcribe'`
+- `@x9-forge/contracts/agent` `KNOWN_CREDENTIAL_KEYS` + `AgentCredentialsSchema`
+  gain five optional per-agent config keys (vault-resolvable, same pattern as
+  `ELEVENLABS_MODEL_ID`): `TTS_PROVIDER`, `OPENAI_TTS_MODEL`, `OPENAI_TTS_VOICE`,
+  `STT_PRIMARY_PROVIDER`, `OPENAI_STT_MODEL`.
+- Purpose: agent-x9 Phase 50 — let Stefano choose, per agent, whether Telegram
+  voice notes are synthesised/transcribed by ElevenLabs (today) or OpenAI,
+  without removing either lane. Calls (GPT-Live-1) are Phase 50.1 and will
+  bring `VoiceProviderSchema` in a later release.
+
+### Consumers
+- agent-x9 `services/agent-core` (TTS_PROVIDER), `services/cap-stt` (STT_PRIMARY_PROVIDER).
+- forge-v2: no change required (keys flow through the existing vault catchall).
+
 ## v1.18.0 — 2026-07-03 — X9-ATTACH-01 Photo Forward Attachment
 
 ### Added (additive — MINOR, backward-compatible)

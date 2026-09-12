@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.18.0",
+  "version": "1.19.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -17,6 +17,7 @@
       "./capability": "./src/capability/index.ts",
       "./voice": "./src/capability/voice/index.ts",
       "./capability/stt": "./src/capability/stt/index.ts",
+      "./capability/tts": "./src/capability/tts/index.ts",
       "./http": "./src/http/index.ts",
       "./memory": "./src/memory/index.ts",
       "./messaging": "./src/messaging/index.ts",
@@ -55,6 +56,11 @@
       "types": "./dist/capability/stt/index.d.cts",
       "import": "./dist/capability/stt/index.js",
       "require": "./dist/capability/stt/index.cjs"
+    },
+    "./capability/tts": {
+      "types": "./dist/capability/tts/index.d.cts",
+      "import": "./dist/capability/tts/index.js",
+      "require": "./dist/capability/tts/index.cjs"
     },
     "./http": {
       "types": "./dist/http/index.d.cts",
