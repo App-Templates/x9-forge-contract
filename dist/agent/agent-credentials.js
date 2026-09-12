@@ -26,6 +26,7 @@ export const KNOWN_CREDENTIAL_KEYS = [
     'TELNYX_FROM_NUMBER', // Phase 50 — E.164 caller id
     'TELNYX_PUBLIC_KEY', // Phase 50 — Ed25519 webhook verification key
     'LIVE_WEB_AUTH_TOKEN', // Phase 50-06 — bearer for the browser live-voice ingress
+    'QDRANT_API_KEY', // Security 2026-09-12 — X9 Qdrant API key (memory-svc, cap-rag; Forge factory reads Qdrant too)
     'ELEVENLABS_MINDFULNESS_AGENT_ID',
     'FORGE_VOICE_REGISTER_TOKEN',
     'AGENTMAIL_API_KEY',
@@ -65,6 +66,7 @@ export const AgentCredentialsSchema = z
     TELNYX_FROM_NUMBER: z.string().optional(), // Phase 50
     TELNYX_PUBLIC_KEY: z.string().optional(), // Phase 50
     LIVE_WEB_AUTH_TOKEN: z.string().optional(), // Phase 50-06
+    QDRANT_API_KEY: z.string().optional(), // Security 2026-09-12
     ELEVENLABS_MINDFULNESS_AGENT_ID: z.string().optional(),
     FORGE_VOICE_REGISTER_TOKEN: z.string().optional(),
     AGENTMAIL_API_KEY: z.string().optional(),
