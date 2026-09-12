@@ -10,6 +10,11 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.21.1 — 2026-09-12 — credential key QDRANT_API_KEY
+
+### Added (PATCH)
+- `@x9-forge/contracts/agent` credential key `QDRANT_API_KEY` (optional) — X9 Qdrant API key consumed by memory-svc (and cap-rag). Enabling it in production requires Forge factory-svc (raw fetch to Qdrant) to send it too.
+
 ## v1.21.0 — 2026-09-12 — Phase 50-06 web ingress contracts (browser live voice)
 
 ### Added (additive — MINOR)
