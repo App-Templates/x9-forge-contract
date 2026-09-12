@@ -32,6 +32,11 @@ export declare const AgentContextCoreSchema: z.ZodObject<{
         ELEVENLABS_API_KEY: z.ZodOptional<z.ZodString>;
         ELEVENLABS_VOICE_ID: z.ZodOptional<z.ZodString>;
         ELEVENLABS_MODEL_ID: z.ZodOptional<z.ZodString>;
+        TTS_PROVIDER: z.ZodOptional<z.ZodString>;
+        OPENAI_TTS_MODEL: z.ZodOptional<z.ZodString>;
+        OPENAI_TTS_VOICE: z.ZodOptional<z.ZodString>;
+        STT_PRIMARY_PROVIDER: z.ZodOptional<z.ZodString>;
+        OPENAI_STT_MODEL: z.ZodOptional<z.ZodString>;
         ELEVENLABS_MINDFULNESS_AGENT_ID: z.ZodOptional<z.ZodString>;
         FORGE_VOICE_REGISTER_TOKEN: z.ZodOptional<z.ZodString>;
         AGENTMAIL_API_KEY: z.ZodOptional<z.ZodString>;

@@ -49,6 +49,20 @@ export declare const TranscribeProviderSchema: z.ZodEnum<{
 }>;
 export type TranscribeProvider = z.infer<typeof TranscribeProviderSchema>;
 /**
+ * Phase 50 (2026-09-12) — which provider cap-stt tries FIRST. The other one
+ * stays the automatic fallback. Same enum as `TranscribeProviderSchema`; the
+ * value travels Forge vault → cap-stt (`STT_PRIMARY_PROVIDER`), hence declared
+ * here (R-14). Default preserves today's behaviour (ElevenLabs Scribe first).
+ */
+export declare const DEFAULT_STT_PRIMARY_PROVIDER: TranscribeProvider;
+/**
+ * OpenAI transcription model used by cap-stt's OpenAI provider when it is
+ * PRIMARY (Phase 50). `gpt-transcribe` is OpenAI's recommended file model
+ * (developers.openai.com/api/docs/models/gpt-transcribe, 2026-09). `whisper-1`
+ * remains the model for the legacy fallback path.
+ */
+export declare const OPENAI_STT_DEFAULT_MODEL = "gpt-transcribe";
+/**
  * STT request envelope. Sent as the `input` field of a ToolCallRequest to
  * `POST /call/transcribe` on cap-stt. Validated by
  * services/cap-stt/src/routes/transcribe.ts against this exact schema.

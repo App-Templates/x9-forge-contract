@@ -16,6 +16,11 @@ exports.KNOWN_CREDENTIAL_KEYS = [
     'ELEVENLABS_API_KEY',
     'ELEVENLABS_VOICE_ID',
     'ELEVENLABS_MODEL_ID', // NEW — Phase 39 REQ-39-01
+    'TTS_PROVIDER', // Phase 50 — voice-note TTS lane (elevenlabs | openai)
+    'OPENAI_TTS_MODEL', // Phase 50 — default gpt-4o-mini-tts
+    'OPENAI_TTS_VOICE', // Phase 50 — default marin
+    'STT_PRIMARY_PROVIDER', // Phase 50 — voice-note STT primary (elevenlabs | openai)
+    'OPENAI_STT_MODEL', // Phase 50 — default gpt-transcribe
     'ELEVENLABS_MINDFULNESS_AGENT_ID',
     'FORGE_VOICE_REGISTER_TOKEN',
     'AGENTMAIL_API_KEY',
@@ -42,6 +47,11 @@ exports.AgentCredentialsSchema = zod_1.z
     ELEVENLABS_API_KEY: zod_1.z.string().optional(),
     ELEVENLABS_VOICE_ID: zod_1.z.string().optional(),
     ELEVENLABS_MODEL_ID: zod_1.z.string().optional(), // NEW — Phase 39 REQ-39-01
+    TTS_PROVIDER: zod_1.z.string().optional(), // Phase 50 — validated against TtsProviderSchema by the consumer
+    OPENAI_TTS_MODEL: zod_1.z.string().optional(), // Phase 50
+    OPENAI_TTS_VOICE: zod_1.z.string().optional(), // Phase 50
+    STT_PRIMARY_PROVIDER: zod_1.z.string().optional(), // Phase 50 — validated against TranscribeProviderSchema by the consumer
+    OPENAI_STT_MODEL: zod_1.z.string().optional(), // Phase 50
     ELEVENLABS_MINDFULNESS_AGENT_ID: zod_1.z.string().optional(),
     FORGE_VOICE_REGISTER_TOKEN: zod_1.z.string().optional(),
     AGENTMAIL_API_KEY: zod_1.z.string().optional(),

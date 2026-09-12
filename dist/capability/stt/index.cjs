@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TranscribeResponseSchema = exports.TranscribeRequestSchema = exports.TranscribeProviderSchema = exports.CAP_STT_DEFAULT_PORT = void 0;
+exports.TranscribeResponseSchema = exports.TranscribeRequestSchema = exports.OPENAI_STT_DEFAULT_MODEL = exports.DEFAULT_STT_PRIMARY_PROVIDER = exports.TranscribeProviderSchema = exports.CAP_STT_DEFAULT_PORT = void 0;
 /**
  * Speech-to-text capability contracts — sub-path `@x9-forge/contracts/capability/stt`.
  *
@@ -47,6 +47,20 @@ exports.CAP_STT_DEFAULT_PORT = 4011;
  * (fallback).
  */
 exports.TranscribeProviderSchema = zod_1.z.enum(['elevenlabs', 'openai']);
+/**
+ * Phase 50 (2026-09-12) — which provider cap-stt tries FIRST. The other one
+ * stays the automatic fallback. Same enum as `TranscribeProviderSchema`; the
+ * value travels Forge vault → cap-stt (`STT_PRIMARY_PROVIDER`), hence declared
+ * here (R-14). Default preserves today's behaviour (ElevenLabs Scribe first).
+ */
+exports.DEFAULT_STT_PRIMARY_PROVIDER = 'elevenlabs';
+/**
+ * OpenAI transcription model used by cap-stt's OpenAI provider when it is
+ * PRIMARY (Phase 50). `gpt-transcribe` is OpenAI's recommended file model
+ * (developers.openai.com/api/docs/models/gpt-transcribe, 2026-09). `whisper-1`
+ * remains the model for the legacy fallback path.
+ */
+exports.OPENAI_STT_DEFAULT_MODEL = 'gpt-transcribe';
 /**
  * STT request envelope. Sent as the `input` field of a ToolCallRequest to
  * `POST /call/transcribe` on cap-stt. Validated by
