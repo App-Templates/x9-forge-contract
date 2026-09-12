@@ -10,6 +10,35 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.20.0 — 2026-09-12 — Phase 50 voice provider lane: GPT-Live-1 calls via cap-voice-live
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/voice`:
+  - `VoiceProviderSchema = z.enum(['elevenlabs', 'openai_live'])` + `VoiceProvider`
+  - `OPENAI_LIVE_MODEL = 'gpt-live-1'`, `OPENAI_LIVE_DEFAULT_VOICE = 'marin'`,
+    `OPENAI_LIVE_DEFAULT_BACKEND_MODEL = 'gpt-5.6-terra'`
+  - `ForgeVoiceWebhookNormalizedEventSchema.provider` widened from
+    `z.literal('elevenlabs')` to `VoiceProviderSchema` (existing producers unchanged)
+  - `VoiceToolCallSourceSchema` gains `'openai_live'`
+  - `VoiceCallStartResponseSchema`: `elevenlabs_agent_id` now optional; new optional `provider`
+- New sub-path `@x9-forge/contracts/capability/voice-live` (strict, internal X9 boundary):
+  `CAP_VOICE_LIVE_DEFAULT_PORT = 3217`, `VoiceLiveToolDefinitionSchema`,
+  `VoiceLiveCallStartRequestSchema` / `VoiceLiveCallStartResponseSchema`,
+  `VoiceLiveTranscriptTurnSchema`, `VoiceLiveCallEndReasonSchema`.
+- `@x9-forge/contracts/http`: `CAP_VOICE_LIVE_CALL_START_PATH` (`/internal/live/call-start`),
+  `CAP_VOICE_LIVE_STREAM_PATH(callId)` (`/live/stream/:callId`), `CAP_VOICE_LIVE_TELNYX_WEBHOOK_PATH`;
+  `PostCallPayloadSchema` gains optional `provider` (stamped by cap-voice-live).
+- `@x9-forge/contracts/agent` credential keys: `VOICE_CALL_PROVIDER`, `OPENAI_LIVE_VOICE`,
+  `OPENAI_LIVE_BACKEND_MODEL`, `TELNYX_API_KEY`, `TELNYX_CONNECTION_ID`, `TELNYX_FROM_NUMBER`,
+  `TELNYX_PUBLIC_KEY`.
+- Purpose: agent-x9 Phase 50 — outbound calls selectable per agent / per call between
+  ElevenLabs ConvAI and OpenAI GPT-Live-1 (Telnyx originator + `services/cap-voice-live`
+  media bridge). ElevenLabs path byte-for-byte unchanged.
+
+### Consumers
+- agent-x9 `services/cap-voice` (provider layer), new `services/cap-voice-live`.
+- forge-v2 voice-svc: no change required (still emits `provider: 'elevenlabs'`).
+
 ## v1.19.0 — 2026-09-12 — Phase 50 voice-note provider lanes (TTS + STT)
 
 ### Added (additive — MINOR, backward-compatible)
