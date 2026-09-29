@@ -5,6 +5,7 @@ exports.createBridgeClient = createBridgeClient;
 const internal_agents_reload_js_1 = require("./endpoints/internal-agents-reload.cjs");
 const internal_agents_stop_js_1 = require("./endpoints/internal-agents-stop.cjs");
 const internal_turn_js_1 = require("./endpoints/internal-turn.cjs");
+const internal_agent_turn_js_1 = require("./endpoints/internal-agent-turn.cjs");
 const internal_query_js_1 = require("./endpoints/internal-query.cjs");
 const webhook_post_call_js_1 = require("./endpoints/webhook-post-call.cjs");
 const voice_register_js_1 = require("./endpoints/voice-register.cjs");
@@ -132,6 +133,12 @@ function createBridgeClient(config) {
                 const safeBody = internal_turn_js_1.InternalTurnRequestSchema.parse(body);
                 const raw = await request({ method: 'POST', path: '/internal/turn', body: safeBody });
                 return internal_turn_js_1.InternalTurnResponseSchema.parse(raw);
+            },
+            async internalAgentTurn(agentId, body) {
+                const path = (0, internal_agent_turn_js_1.internalAgentTurnPath)(agentId);
+                const safeBody = internal_agent_turn_js_1.InternalAgentTurnRequestSchema.parse(body);
+                const raw = await request({ method: 'POST', path, body: safeBody });
+                return internal_agent_turn_js_1.InternalAgentTurnResponseSchema.parse(raw);
             },
             async internalQuery(body) {
                 const safeBody = internal_query_js_1.InternalQueryRequestSchema.parse(body);

@@ -20,6 +20,7 @@ exports.VoiceLiveCallEndReasonSchema = exports.VoiceLiveWebSessionResponseSchema
  */
 const zod_1 = require("zod");
 const provider_js_1 = require("../voice/provider.cjs");
+const internal_agent_turn_js_1 = require("../../http/endpoints/internal-agent-turn.cjs");
 /** Default TCP port of cap-voice-live inside the X9 docker network. */
 exports.CAP_VOICE_LIVE_DEFAULT_PORT = 3217;
 /**
@@ -89,6 +90,13 @@ exports.VoiceLiveWebSessionRequestSchema = zod_1.z.strictObject({
     sdp: zod_1.z.string().min(1),
     /** Optional caller-chosen conversation id (lowercase, dashes) — reused to keep agent-core history. */
     conversation_id: zod_1.z.string().regex(/^[a-z0-9-]{1,64}$/).optional(),
+    /**
+     * v1.22.0 (EA M0) — optional agent id: when present the session talks to
+     * THAT agent (agent-core `POST /internal/agents/:agentId/turn`) instead of
+     * the personal primary agent. Same regex as the agent-core agentId param.
+     * Absent ⇒ behaviour identical to v1.21.
+     */
+    agent_id: internal_agent_turn_js_1.InternalAgentTurnParamsSchema.shape.agentId.optional(),
 });
 exports.VoiceLiveWebSessionResponseSchema = zod_1.z.object({
     session_id: zod_1.z.string().min(1),

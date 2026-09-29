@@ -1,6 +1,7 @@
 import { ReloadAgentParamsSchema, ReloadAgentResponseSchema } from "./endpoints/internal-agents-reload.js";
 import { StopAgentParamsSchema, StopAgentResponseSchema } from "./endpoints/internal-agents-stop.js";
 import { InternalTurnRequestSchema, InternalTurnResponseSchema } from "./endpoints/internal-turn.js";
+import { InternalAgentTurnRequestSchema, InternalAgentTurnResponseSchema, internalAgentTurnPath } from "./endpoints/internal-agent-turn.js";
 import { InternalQueryRequestSchema, InternalQueryResponseSchema } from "./endpoints/internal-query.js";
 import { PostCallPayloadSchema, PostCallResponseSchema } from "./endpoints/webhook-post-call.js";
 import { VoiceRegisterRequestSchema, VoiceRegisterResponseSchema } from "./endpoints/voice-register.js";
@@ -127,6 +128,12 @@ export function createBridgeClient(config) {
                 const safeBody = InternalTurnRequestSchema.parse(body);
                 const raw = await request({ method: 'POST', path: '/internal/turn', body: safeBody });
                 return InternalTurnResponseSchema.parse(raw);
+            },
+            async internalAgentTurn(agentId, body) {
+                const path = internalAgentTurnPath(agentId);
+                const safeBody = InternalAgentTurnRequestSchema.parse(body);
+                const raw = await request({ method: 'POST', path, body: safeBody });
+                return InternalAgentTurnResponseSchema.parse(raw);
             },
             async internalQuery(body) {
                 const safeBody = InternalQueryRequestSchema.parse(body);

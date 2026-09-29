@@ -10,6 +10,7 @@ export * from "./internal-agents-reload.js";
 export * from "./internal-agents-stop.js";
 export * from "./internal-turn.js";
 export * from "./internal-turn-stream.js";
+export * from "./internal-agent-turn.js"; // v1.22.0 — EA M0 per-agent turn
 export * from "./internal-query.js";
 export * from "./internal-model-config.js"; // Phase 6 — MDRT-05 / D-15
 export * from "./internal-model-config-version.js"; // Phase 6 — MDRT-07 polling (06-01 decision)
