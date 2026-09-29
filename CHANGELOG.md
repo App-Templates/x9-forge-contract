@@ -10,6 +10,22 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.22.0 — 2026-09-29 — Enterprise Adoption M0: per-agent turn
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/http`: `internalAgentTurnContract` — `POST /internal/agents/:agentId/turn`, secret auth
+  (`INTERNAL_SECRET_HEADER`). Body/success response = the existing `InternalTurnRequestSchema` /
+  `InternalTurnResponseSchema`; `InternalAgentTurnParamsSchema` uses the reload/stop agentId regex.
+  Error codes `INTERNAL_AGENT_TURN_UNKNOWN_AGENT` (`unknown_agent`, 404) and
+  `INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN` (`primary_agent_forbidden`, 403); helper `internalAgentTurnPath(agentId)`.
+- `SecretBridgeClient.internalAgentTurn(agentId, body)`.
+- `@x9-forge/contracts/capability/voice-live`: `VoiceLiveWebSessionRequestSchema.agent_id` (optional, same regex).
+  Absent ⇒ identical to v1.21.
+- Purpose: a voice session bound to a Forge-created agent talks to THAT agent (its workspace, registry and
+  memory identity) and never to the personal primary agent served by `/internal/turn`.
+- Consumers: agent-x9 `services/agent-core/src/routes/internal-agent-turn.ts` (server),
+  agent-x9 `services/cap-voice-live/src/web/x9-ask.ts` + `routes/web-session.ts` (client).
+
 ## v1.21.1 — 2026-09-12 — credential key QDRANT_API_KEY
 
 ### Added (PATCH)
