@@ -163,6 +163,7 @@ describe('Typed endpoint method enforcement (Plan 04-01)', () => {
   it('secret client exposes stopAgent / internalTurn / internalQuery as functions', () => {
     expect(typeof secretClient.stopAgent).toBe('function');
     expect(typeof secretClient.internalTurn).toBe('function');
+    expect(typeof secretClient.internalAgentTurn).toBe('function');
     expect(typeof secretClient.internalQuery).toBe('function');
   });
 
