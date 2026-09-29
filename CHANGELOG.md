@@ -25,6 +25,11 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
   memory identity) and never to the personal primary agent served by `/internal/turn`.
 - Consumers: agent-x9 `services/agent-core/src/routes/internal-agent-turn.ts` (server),
   agent-x9 `services/cap-voice-live/src/web/x9-ask.ts` + `routes/web-session.ts` (client).
+- `@x9-forge/contracts/http`: `InternalFactoryDeployRequestSchema.email_enabled` (optional boolean).
+  `false` ⇒ factory-svc skips the AgentMail inbox step (no inbox, no `AGENT_EMAIL` in `context.json`) —
+  Enterprise Adoption MVP keeps agent email in standby. Absent or `true` ⇒ identical to v1.21 (inbox created),
+  so Parallel workspace-seeder-svc and every other existing caller are unaffected.
+  Consumer: forge-v2 `services/factory` (S2S route `/api/internal/factory/deploy` → `deploy.machine.ts`).
 
 ## v1.21.1 — 2026-09-12 — credential key QDRANT_API_KEY
 
