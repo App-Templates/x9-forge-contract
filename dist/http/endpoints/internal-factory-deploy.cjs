@@ -33,8 +33,8 @@ const zod_1 = require("zod");
  */
 // Mirrors forge-v2 factory deployBodySchema field-for-field (constraints
 // included) so factory-svc can `InternalFactoryDeployRequestSchema.parse(body)`
-// and pass straight to `deploy()`. The ONLY additions are `inboundForwardUrl`
-// and `email_enabled`.
+// and pass straight to `deploy()`. The ONLY additions are `inboundForwardUrl`,
+// `email_enabled` and `telegram_enabled`.
 exports.InternalFactoryDeployRequestSchema = zod_1.z.object({
     /** Human-readable display name for the agent. */
     name: zod_1.z.string().min(1).max(50),
@@ -70,6 +70,17 @@ exports.InternalFactoryDeployRequestSchema = zod_1.z.object({
      * before (back-compat: every existing caller, Parallel included).
      */
     email_enabled: zod_1.z.boolean().optional(),
+    /**
+     * NEW (v1.23.0, Enterprise Adoption MVP) — per-deploy switch for the
+     * BotFather step. `false` ⇒ factory skips `create-telegram-bot`: no
+     * conversation with BotFather, no bot, no TELEGRAM_* in context.json — same
+     * outcome as when the Telegram API credentials are not configured. Absent
+     * or `true` ⇒ bot auto-created as before when no token is passed
+     * (back-compat: every existing caller, Parallel included). A
+     * `telegram_bot_token` passed together with `false` is not used to create
+     * anything; the caller should simply not send one.
+     */
+    telegram_enabled: zod_1.z.boolean().optional(),
 });
 exports.InternalFactoryDeployResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(true),
