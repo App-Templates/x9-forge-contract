@@ -97,6 +97,26 @@ describe('InternalFactoryDeployRequestSchema', () => {
       InternalFactoryDeployRequestSchema.parse({ name: 'X', email_enabled: null }),
     ).toThrow();
   });
+
+  it('leaves telegram_enabled undefined when absent (back-compat: bot auto-created)', () => {
+    const r = InternalFactoryDeployRequestSchema.parse({ name: 'X' });
+    expect(r.telegram_enabled).toBeUndefined();
+    expect('telegram_enabled' in r).toBe(false);
+  });
+
+  it('accepts telegram_enabled false (EA MVP: no BotFather, no bot) and true', () => {
+    expect(InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: false }).telegram_enabled).toBe(false);
+    expect(InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: true }).telegram_enabled).toBe(true);
+  });
+
+  it('rejects a non-boolean telegram_enabled (no string coercion)', () => {
+    expect(() =>
+      InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: 'false' }),
+    ).toThrow();
+    expect(() =>
+      InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: null }),
+    ).toThrow();
+  });
 });
 
 describe('InternalFactoryDeployResponseSchema', () => {
