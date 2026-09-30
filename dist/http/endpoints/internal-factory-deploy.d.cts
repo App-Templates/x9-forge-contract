@@ -43,6 +43,8 @@ export declare const InternalFactoryDeployRequestSchema: z.ZodObject<{
     llmProvider: z.ZodOptional<z.ZodString>;
     llmModel: z.ZodOptional<z.ZodString>;
     inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    email_enabled: z.ZodOptional<z.ZodBoolean>;
+    telegram_enabled: z.ZodOptional<z.ZodBoolean>;
 }, z.core.$strip>;
 export type InternalFactoryDeployRequest = z.infer<typeof InternalFactoryDeployRequestSchema>;
 export declare const InternalFactoryDeployResponseSchema: z.ZodObject<{
@@ -77,6 +79,8 @@ export declare const internalFactoryDeployContract: {
         llmProvider: z.ZodOptional<z.ZodString>;
         llmModel: z.ZodOptional<z.ZodString>;
         inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        email_enabled: z.ZodOptional<z.ZodBoolean>;
+        telegram_enabled: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

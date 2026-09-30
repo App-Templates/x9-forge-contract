@@ -9,6 +9,7 @@ export * from "./internal-agents-reload.js";
 export * from "./internal-agents-stop.js";
 export * from "./internal-turn.js";
 export * from "./internal-turn-stream.js";
+export * from "./internal-agent-turn.js";
 export * from "./internal-query.js";
 export * from "./internal-model-config.js";
 export * from "./internal-model-config-version.js";

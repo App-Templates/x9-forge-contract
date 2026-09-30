@@ -76,8 +76,8 @@ export type VoiceLiveCallStartResponse = z.infer<typeof VoiceLiveCallStartRespon
 /** One transcript turn as reconstructed from GPT-Live transcript deltas. */
 export declare const VoiceLiveTranscriptTurnSchema: z.ZodObject<{
     role: z.ZodEnum<{
-        agent: "agent";
         user: "user";
+        agent: "agent";
     }>;
     message: z.ZodString;
     time_in_call_secs: z.ZodNumber;
@@ -93,6 +93,13 @@ export declare const VoiceLiveWebSessionRequestSchema: z.ZodObject<{
     sdp: z.ZodString;
     /** Optional caller-chosen conversation id (lowercase, dashes) — reused to keep agent-core history. */
     conversation_id: z.ZodOptional<z.ZodString>;
+    /**
+     * v1.22.0 (EA M0) — optional agent id: when present the session talks to
+     * THAT agent (agent-core `POST /internal/agents/:agentId/turn`) instead of
+     * the personal primary agent. Same regex as the agent-core agentId param.
+     * Absent ⇒ behaviour identical to v1.21.
+     */
+    agent_id: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type VoiceLiveWebSessionRequest = z.infer<typeof VoiceLiveWebSessionRequestSchema>;
 export declare const VoiceLiveWebSessionResponseSchema: z.ZodObject<{

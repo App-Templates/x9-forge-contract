@@ -4,6 +4,7 @@ import type { ListAgentsResponse } from './endpoints/internal-agents-list.js';
 import { ReloadAgentParamsSchema, ReloadAgentResponseSchema, type ReloadAgentResponse } from './endpoints/internal-agents-reload.js';
 import { StopAgentParamsSchema, StopAgentResponseSchema, type StopAgentResponse } from './endpoints/internal-agents-stop.js';
 import { InternalTurnRequestSchema, InternalTurnResponseSchema, type InternalTurnRequest, type InternalTurnResponse } from './endpoints/internal-turn.js';
+import { InternalAgentTurnRequestSchema, InternalAgentTurnResponseSchema, internalAgentTurnPath, type InternalAgentTurnRequest, type InternalAgentTurnResponse } from './endpoints/internal-agent-turn.js';
 import { InternalQueryRequestSchema, InternalQueryResponseSchema, type InternalQueryRequest, type InternalQueryResponse } from './endpoints/internal-query.js';
 import { PostCallPayloadSchema, PostCallResponseSchema, type PostCallPayload, type PostCallResponse } from './endpoints/webhook-post-call.js';
 import { VoiceRegisterRequestSchema, VoiceRegisterResponseSchema, type VoiceRegisterRequest, type VoiceRegisterResponse } from './endpoints/voice-register.js';
@@ -94,6 +95,8 @@ export interface SecretBridgeClient extends BaseBridgeClient<'secret'> {
   reloadAgent(agentId: string): Promise<ReloadAgentResponse>;
   stopAgent(agentId: string): Promise<StopAgentResponse>;
   internalTurn(body: InternalTurnRequest): Promise<InternalTurnResponse>;
+  /** v1.22.0 — turn addressed to one specific (non-primary) agent. */
+  internalAgentTurn(agentId: string, body: InternalAgentTurnRequest): Promise<InternalAgentTurnResponse>;
   internalQuery(body: InternalQueryRequest): Promise<InternalQueryResponse>;
   internalTurnStream(
     body: InternalTurnRequest,
@@ -256,6 +259,12 @@ export function createBridgeClient<A extends 'secret' | 'token' | 'none'>(
         const safeBody = InternalTurnRequestSchema.parse(body);
         const raw = await request<unknown>({ method: 'POST', path: '/internal/turn', body: safeBody });
         return InternalTurnResponseSchema.parse(raw);
+      },
+      async internalAgentTurn(agentId: string, body: InternalAgentTurnRequest): Promise<InternalAgentTurnResponse> {
+        const path = internalAgentTurnPath(agentId);
+        const safeBody = InternalAgentTurnRequestSchema.parse(body);
+        const raw = await request<unknown>({ method: 'POST', path, body: safeBody });
+        return InternalAgentTurnResponseSchema.parse(raw);
       },
       async internalQuery(body: InternalQueryRequest): Promise<InternalQueryResponse> {
         const safeBody = InternalQueryRequestSchema.parse(body);

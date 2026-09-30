@@ -4,6 +4,7 @@ import type { ListAgentsResponse } from "./endpoints/internal-agents-list.cjs";
 import { type ReloadAgentResponse } from "./endpoints/internal-agents-reload.cjs";
 import { type StopAgentResponse } from "./endpoints/internal-agents-stop.cjs";
 import { type InternalTurnRequest, type InternalTurnResponse } from "./endpoints/internal-turn.cjs";
+import { type InternalAgentTurnRequest, type InternalAgentTurnResponse } from "./endpoints/internal-agent-turn.cjs";
 import { type InternalQueryRequest, type InternalQueryResponse } from "./endpoints/internal-query.cjs";
 import { type PostCallPayload, type PostCallResponse } from "./endpoints/webhook-post-call.cjs";
 import { type VoiceRegisterRequest, type VoiceRegisterResponse } from "./endpoints/voice-register.cjs";
@@ -75,6 +76,8 @@ export interface SecretBridgeClient extends BaseBridgeClient<'secret'> {
     reloadAgent(agentId: string): Promise<ReloadAgentResponse>;
     stopAgent(agentId: string): Promise<StopAgentResponse>;
     internalTurn(body: InternalTurnRequest): Promise<InternalTurnResponse>;
+    /** v1.22.0 — turn addressed to one specific (non-primary) agent. */
+    internalAgentTurn(agentId: string, body: InternalAgentTurnRequest): Promise<InternalAgentTurnResponse>;
     internalQuery(body: InternalQueryRequest): Promise<InternalQueryResponse>;
     internalTurnStream(body: InternalTurnRequest, signal?: AbortSignal): Promise<AsyncGenerator<ParsedSseEvent>>;
 }

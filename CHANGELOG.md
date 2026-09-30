@@ -10,6 +10,38 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.23.0 — 2026-09-30 — Enterprise Adoption MVP: deploy without a Telegram bot
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/http`: `InternalFactoryDeployRequestSchema.telegram_enabled` (optional boolean).
+  `false` ⇒ factory-svc skips the BotFather step (`create-telegram-bot`): no conversation with BotFather, no bot,
+  no `TELEGRAM_*` in `context.json`. Absent or `true` ⇒ identical to v1.22 (bot auto-created when no token is
+  passed), so Parallel workspace-seeder-svc and every other existing caller are unaffected.
+  Consumer: forge-v2 `services/factory` (S2S route `/api/internal/factory/deploy` → `deploy.machine.ts`).
+
+---
+
+## v1.22.0 — 2026-09-29 — Enterprise Adoption M0: per-agent turn
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/http`: `internalAgentTurnContract` — `POST /internal/agents/:agentId/turn`, secret auth
+  (`INTERNAL_SECRET_HEADER`). Body/success response = the existing `InternalTurnRequestSchema` /
+  `InternalTurnResponseSchema`; `InternalAgentTurnParamsSchema` uses the reload/stop agentId regex.
+  Error codes `INTERNAL_AGENT_TURN_UNKNOWN_AGENT` (`unknown_agent`, 404) and
+  `INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN` (`primary_agent_forbidden`, 403); helper `internalAgentTurnPath(agentId)`.
+- `SecretBridgeClient.internalAgentTurn(agentId, body)`.
+- `@x9-forge/contracts/capability/voice-live`: `VoiceLiveWebSessionRequestSchema.agent_id` (optional, same regex).
+  Absent ⇒ identical to v1.21.
+- Purpose: a voice session bound to a Forge-created agent talks to THAT agent (its workspace, registry and
+  memory identity) and never to the personal primary agent served by `/internal/turn`.
+- Consumers: agent-x9 `services/agent-core/src/routes/internal-agent-turn.ts` (server),
+  agent-x9 `services/cap-voice-live/src/web/x9-ask.ts` + `routes/web-session.ts` (client).
+- `@x9-forge/contracts/http`: `InternalFactoryDeployRequestSchema.email_enabled` (optional boolean).
+  `false` ⇒ factory-svc skips the AgentMail inbox step (no inbox, no `AGENT_EMAIL` in `context.json`) —
+  Enterprise Adoption MVP keeps agent email in standby. Absent or `true` ⇒ identical to v1.21 (inbox created),
+  so Parallel workspace-seeder-svc and every other existing caller are unaffected.
+  Consumer: forge-v2 `services/factory` (S2S route `/api/internal/factory/deploy` → `deploy.machine.ts`).
+
 ## v1.21.1 — 2026-09-12 — credential key QDRANT_API_KEY
 
 ### Added (PATCH)

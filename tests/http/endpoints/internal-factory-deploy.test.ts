@@ -72,6 +72,51 @@ describe('InternalFactoryDeployRequestSchema', () => {
     const r = InternalFactoryDeployRequestSchema.parse({ name: 'X', ownerId: null });
     expect(r.ownerId).toBeNull();
   });
+
+  it('leaves email_enabled undefined when absent (back-compat: inbox created)', () => {
+    const r = InternalFactoryDeployRequestSchema.parse({ name: 'X' });
+    expect(r.email_enabled).toBeUndefined();
+    expect('email_enabled' in r).toBe(false);
+  });
+
+  it('accepts email_enabled false (EA MVP: no AgentMail inbox)', () => {
+    const r = InternalFactoryDeployRequestSchema.parse({ name: 'X', email_enabled: false });
+    expect(r.email_enabled).toBe(false);
+  });
+
+  it('accepts email_enabled true', () => {
+    const r = InternalFactoryDeployRequestSchema.parse({ name: 'X', email_enabled: true });
+    expect(r.email_enabled).toBe(true);
+  });
+
+  it('rejects a non-boolean email_enabled (no string coercion)', () => {
+    expect(() =>
+      InternalFactoryDeployRequestSchema.parse({ name: 'X', email_enabled: 'false' }),
+    ).toThrow();
+    expect(() =>
+      InternalFactoryDeployRequestSchema.parse({ name: 'X', email_enabled: null }),
+    ).toThrow();
+  });
+
+  it('leaves telegram_enabled undefined when absent (back-compat: bot auto-created)', () => {
+    const r = InternalFactoryDeployRequestSchema.parse({ name: 'X' });
+    expect(r.telegram_enabled).toBeUndefined();
+    expect('telegram_enabled' in r).toBe(false);
+  });
+
+  it('accepts telegram_enabled false (EA MVP: no BotFather, no bot) and true', () => {
+    expect(InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: false }).telegram_enabled).toBe(false);
+    expect(InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: true }).telegram_enabled).toBe(true);
+  });
+
+  it('rejects a non-boolean telegram_enabled (no string coercion)', () => {
+    expect(() =>
+      InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: 'false' }),
+    ).toThrow();
+    expect(() =>
+      InternalFactoryDeployRequestSchema.parse({ name: 'X', telegram_enabled: null }),
+    ).toThrow();
+  });
 });
 
 describe('InternalFactoryDeployResponseSchema', () => {
