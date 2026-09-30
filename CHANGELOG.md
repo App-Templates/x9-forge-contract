@@ -10,6 +10,17 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.23.0 — 2026-09-30 — Enterprise Adoption MVP: deploy without a Telegram bot
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/http`: `InternalFactoryDeployRequestSchema.telegram_enabled` (optional boolean).
+  `false` ⇒ factory-svc skips the BotFather step (`create-telegram-bot`): no conversation with BotFather, no bot,
+  no `TELEGRAM_*` in `context.json`. Absent or `true` ⇒ identical to v1.22 (bot auto-created when no token is
+  passed), so Parallel workspace-seeder-svc and every other existing caller are unaffected.
+  Consumer: forge-v2 `services/factory` (S2S route `/api/internal/factory/deploy` → `deploy.machine.ts`).
+
+---
+
 ## v1.22.0 — 2026-09-29 — Enterprise Adoption M0: per-agent turn
 
 ### Added (additive — MINOR, backward-compatible)
