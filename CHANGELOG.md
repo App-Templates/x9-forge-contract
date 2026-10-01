@@ -10,6 +10,22 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.25.0 — 2026-10-01 — Platform-internal credentials stay out of tenant contexts
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/vault`: `PLATFORM_INTERNAL_CREDENTIAL_KEYS` (`TELEGRAM_SESSION_STRING`),
+  `isPlatformInternalCredentialKey`, `stripPlatformInternalCredentials`, type `PlatformInternalCredentialKey`.
+  Platform-tier keys that only a platform service uses (Forge factory-svc → @BotFather) and that must never be
+  projected into an agent's `credentials` (context.json, vault `/resolve`, agent `.env`).
+- `@x9-forge/contracts/agent`: `AgentContextFileWriteSchema` + `parseAgentContextFileForWrite` — writer-side gate
+  that rejects those keys. `AgentContextFileSchema` / `parseAgentContextFile` (reader) are unchanged.
+- Why: SEC 2026-10-01 — Forge copied every platform-tier vault row into every tenant `context.json`, so the
+  BotFather userbot session reached all agents of all owners. No X9 code reads it from a tenant context.
+- Consumers: forge-v2 factory-svc (`deploy.machine` filters + validates with the write schema), vault-svc
+  (cascade/`/resolve` exclude the keys). agent-x9: no change required.
+
+---
+
 ## v1.24.0 — 2026-10-01 — Capability context: what a capability knows about the agent, at every turn
 
 ### Added (additive — MINOR, backward-compatible)
