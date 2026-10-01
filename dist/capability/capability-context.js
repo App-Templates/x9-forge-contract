@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { InternalMemoryExtractRequestSchema } from "../http/endpoints/internal-memory-extract.js";
 /**
  * Capability context — what a capability knows about the agent it serves, put in front of the model by the runtime
  * at every turn (v1.24.0).
@@ -31,6 +32,8 @@ export const CapabilityContextDeclarationSchema = z.object({
 export const CapabilityContextRequestSchema = z.object({
     agentId: z.string().min(1),
     sessionId: z.string().min(1),
+    /** Scope of the authenticated end user's context; absent preserves agent scope. */
+    userId: InternalMemoryExtractRequestSchema.shape.userId,
     channelId: z.string().min(1).optional(),
 });
 export const CapabilityContextResponseSchema = z.object({

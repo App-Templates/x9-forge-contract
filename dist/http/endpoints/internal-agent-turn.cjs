@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnParamsSchema = void 0;
 exports.internalAgentTurnPath = internalAgentTurnPath;
 const zod_1 = require("zod");
+const internal_memory_extract_js_1 = require("./internal-memory-extract.cjs");
 const internal_turn_js_1 = require("./internal-turn.cjs");
 /**
  * POST /internal/agents/:agentId/turn — synchronous turn addressed to ONE
@@ -17,7 +18,8 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
  * memory. agent-core refuses the primary agent id here (403): the personal
  * agent stays reachable only through the existing routes.
  *
- * Body and success response are the SAME schemas as `/internal/turn`.
+ * Body extends `/internal/turn` with an optional authenticated caller's userId.
+ * The personal `/internal/turn` schema and the success response stay unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -31,7 +33,10 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
 exports.InternalAgentTurnParamsSchema = zod_1.z.object({
     agentId: zod_1.z.string().regex(/^[a-z0-9-]+$/),
 });
-exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestSchema;
+exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestSchema.extend({
+    /** Trusted caller identity, never taken from model text or tool input. */
+    userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
+});
 exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema;
 exports.InternalAgentTurnErrorResponseSchema = internal_turn_js_1.InternalTurnErrorResponseSchema;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */

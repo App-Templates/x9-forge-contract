@@ -19,6 +19,7 @@ export declare const ToolCallRequestSchema: z.ZodObject<{
     input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
     agentId: z.ZodString;
     sessionId: z.ZodString;
+    userId: z.ZodOptional<z.ZodString>;
     credentials: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>;
     tenantId: z.ZodOptional<z.ZodString>;
     ownerId: z.ZodOptional<z.ZodString>;

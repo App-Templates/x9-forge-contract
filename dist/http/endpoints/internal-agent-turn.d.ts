@@ -12,7 +12,8 @@ import { z } from 'zod';
  * memory. agent-core refuses the primary agent id here (403): the personal
  * agent stays reachable only through the existing routes.
  *
- * Body and success response are the SAME schemas as `/internal/turn`.
+ * Body extends `/internal/turn` with an optional authenticated caller's userId.
+ * The personal `/internal/turn` schema and the success response stay unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -57,6 +58,7 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         mimeType: z.ZodOptional<z.ZodString>;
         filename: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>>;
+    userId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
@@ -128,6 +130,7 @@ export declare const internalAgentTurnContract: {
             mimeType: z.ZodOptional<z.ZodString>;
             filename: z.ZodOptional<z.ZodString>;
         }, z.core.$strip>>;
+        userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { InternalMemoryExtractRequestSchema } from '../http/endpoints/internal-memory-extract.js';
 
 /**
  * Request sent by X9 agent-core to a capability service.
@@ -20,6 +21,8 @@ export const ToolCallRequestSchema = z.object({
   input: z.record(z.string(), z.unknown()),
   agentId: z.string().min(1),
   sessionId: z.string().min(1),
+  /** Authenticated end user, injected by the runtime rather than the model. */
+  userId: InternalMemoryExtractRequestSchema.shape.userId,
   credentials: z.record(z.string(), z.string()).optional(),
   /**
    * F-2 (v1.13.0) — Optional per-agent memory-scope identity, attached by

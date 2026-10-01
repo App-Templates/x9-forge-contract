@@ -31,6 +31,7 @@ export type CapabilityContextDeclaration = z.infer<typeof CapabilityContextDecla
 export declare const CapabilityContextRequestSchema: z.ZodObject<{
     agentId: z.ZodString;
     sessionId: z.ZodString;
+    userId: z.ZodOptional<z.ZodString>;
     channelId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type CapabilityContextRequest = z.infer<typeof CapabilityContextRequestSchema>;

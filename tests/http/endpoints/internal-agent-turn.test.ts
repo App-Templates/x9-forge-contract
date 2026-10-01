@@ -42,8 +42,8 @@ describe('InternalAgentTurnParamsSchema', () => {
 });
 
 describe('InternalAgentTurn body/response', () => {
-  it('body and success response ARE the /internal/turn schemas', () => {
-    expect(InternalAgentTurnRequestSchema).toBe(InternalTurnRequestSchema);
+  it('legacy body parses identically and success response IS the /internal/turn schema', () => {
+    expect(JSON.stringify(InternalAgentTurnRequestSchema.parse(validBody))).toBe(JSON.stringify(InternalTurnRequestSchema.parse(validBody)));
     expect(InternalAgentTurnResponseSchema).toBe(InternalTurnResponseSchema);
   });
 
