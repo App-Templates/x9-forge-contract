@@ -10,6 +10,21 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.25.0 — proposta in review — MVP-07: guida dei turni facoltativa
+
+- Turno strutturato `opening | answer | incomplete | delivery` sulla sola rotta per agente;
+  risposta con `moveId` facoltativo per correlare ciò che la voce ha pronunciato.
+- Dichiarazione `turnLead: {}` facoltativa nel manifest e nel registry; contratto autenticato
+  `capTurnLeadContract` (`POST /turn`) con `speak` oppure `release`.
+- Payload legacy compatibili, contratto della rotta personale invariato, nessuna attivazione predefinita.
+- Segue solo §0 del piano MVP-07 tappa 5: esclusi budget voce, negoziazione versione, organizzazione
+  nel deploy ed eventi 004. Nessun runtime implementato in questo pacchetto.
+- Consumer da aggiornare in PR successive: X9 cap-voice-live (`web/x9-ask.ts`, sessione web),
+  agent-core (`routes/internal-agent-turn.ts`, registry), Forge factory (`deploy.machine.ts`), ea-core.
+- Verifiche: Node 20, 903 test, 28 controlli CJS, 28 mutazioni nuove; denominatori in README/STATO.
+
+---
+
 ## v1.24.0 — 2026-10-01 — Capability context: what a capability knows about the agent, at every turn
 
 ### Added (additive — MINOR, backward-compatible)
