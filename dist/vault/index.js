@@ -16,6 +16,8 @@ export { AES_WIRE_FORMAT_REGEX, VaultEntryPlainSchema, VaultEntryEncryptedSchema
 export { SyncAgentResultSchema, SyncAllRequestSchema, SyncAllResponseSchema, SyncAllErrorResponseSchema, syncAllContract, } from "./vault-sync-event.js";
 // Workspace file
 export { WorkspaceFileSchema } from "./workspace-file.js";
+// Platform-internal credentials (platform tier, never projected into a tenant)
+export { PLATFORM_INTERNAL_CREDENTIAL_KEYS, isPlatformInternalCredentialKey, stripPlatformInternalCredentials, } from "./platform-internal-credentials.js";
 // Vaulted credentials alias (re-export of Phase 2 AgentCredentials)
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.js";
 //# sourceMappingURL=index.js.map
