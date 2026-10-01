@@ -4,6 +4,7 @@ import {
   AgentContextRuntimeFieldsSchema,
   hasTelegramBot,
   parseAgentContextFile,
+  parseAgentContextFileForWrite,
 } from '../../src/agent/agent-context-file.js';
 
 const VALID_FULL = {
@@ -91,5 +92,33 @@ describe('parseAgentContextFile', () => {
   it('throws on garbage', () => {
     expect(() => parseAgentContextFile(null)).toThrow();
     expect(() => parseAgentContextFile({ agentId: 'x' })).toThrow();
+  });
+});
+
+describe('parseAgentContextFileForWrite (writer-side, v1.25.0)', () => {
+  const withSession = {
+    ...VALID_FULL,
+    credentials: { ...VALID_FULL.credentials, TELEGRAM_SESSION_STRING: 'userbot-session-value' },
+  };
+
+  it('accepts a context without platform-internal credentials', () => {
+    expect(parseAgentContextFileForWrite(VALID_FULL).agentId).toBe('agent-stefano-prod-001');
+  });
+
+  it('rejects a context that carries the platform Telegram session', () => {
+    expect(() => parseAgentContextFileForWrite(withSession)).toThrow(/TELEGRAM_SESSION_STRING/);
+  });
+
+  it('never echoes the credential value in the error', () => {
+    try {
+      parseAgentContextFileForWrite(withSession);
+      expect.unreachable();
+    } catch (e) {
+      expect(String(e)).not.toContain('userbot-session-value');
+    }
+  });
+
+  it('the reader stays lenient so pre-v1.25 contexts still load', () => {
+    expect(parseAgentContextFile(withSession).agentId).toBe('agent-stefano-prod-001');
   });
 });

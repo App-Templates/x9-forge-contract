@@ -46,6 +46,14 @@ export type { WorkspaceFile } from './workspace-file.js';
 // Platform bootstrap env (type-only, mitigates T-05-02 — no runtime schema)
 export type { PlatformBootstrapEnv } from './platform-bootstrap-env.js';
 
+// Platform-internal credentials (platform tier, never projected into a tenant)
+export {
+  PLATFORM_INTERNAL_CREDENTIAL_KEYS,
+  isPlatformInternalCredentialKey,
+  stripPlatformInternalCredentials,
+} from './platform-internal-credentials.js';
+export type { PlatformInternalCredentialKey } from './platform-internal-credentials.js';
+
 // Vaulted credentials alias (re-export of Phase 2 AgentCredentials)
 export { AgentVaultedCredentialsSchema } from './agent-vaulted-credentials.js';
 export type { AgentVaultedCredentials } from './agent-vaulted-credentials.js';
