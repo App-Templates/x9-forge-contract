@@ -20,4 +20,5 @@ export { CapabilityRegistryEntrySchema, toEndpoint, fromEndpoint, } from "./capa
 export { AgentRegistryFileSchema, } from "./agent-registry-file.js";
 export { EnvSchemaFieldSchema, EnvSchemaDocSchema, } from "./env-schema.js";
 export { HealthStatusSchema, } from "./health-status.js";
+export * from "./capability-turn-lead.js";
 //# sourceMappingURL=index.js.map

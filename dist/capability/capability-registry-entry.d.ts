@@ -53,6 +53,7 @@ export declare const CapabilityRegistryEntrySchema: z.ZodObject<{
     context: z.ZodOptional<z.ZodObject<{
         maxChars: z.ZodNumber;
     }, z.core.$strip>>;
+    turnLead: z.ZodOptional<z.ZodObject<{}, z.core.$strict>>;
 }, z.core.$strip>;
 export type CapabilityRegistryEntry = z.infer<typeof CapabilityRegistryEntrySchema>;
 /**

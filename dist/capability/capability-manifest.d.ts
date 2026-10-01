@@ -23,6 +23,7 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
     context: z.ZodOptional<z.ZodObject<{
         maxChars: z.ZodNumber;
     }, z.core.$strip>>;
+    turnLead: z.ZodOptional<z.ZodObject<{}, z.core.$strict>>;
 }, z.core.$strip>;
 export type CapabilityManifest = z.infer<typeof CapabilityManifestSchema>;
 //# sourceMappingURL=capability-manifest.d.ts.map

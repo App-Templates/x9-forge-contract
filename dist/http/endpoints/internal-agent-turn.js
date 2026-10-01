@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AgentTurnSchema, AgentTurnMoveIdSchema } from "../../capability/capability-turn-lead.js";
 import { InternalTurnRequestSchema, InternalTurnResponseSchema, InternalTurnErrorResponseSchema, } from "./internal-turn.js";
 /**
  * POST /internal/agents/:agentId/turn — synchronous turn addressed to ONE
@@ -13,7 +14,8 @@ import { InternalTurnRequestSchema, InternalTurnResponseSchema, InternalTurnErro
  * memory. agent-core refuses the primary agent id here (403): the personal
  * agent stays reachable only through the existing routes.
  *
- * Body and success response are the SAME schemas as `/internal/turn`.
+ * Legacy bodies and responses remain valid. Only this per-agent route adds
+ * optional `turn` and response `moveId` (v1.25.0); the personal route is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -27,8 +29,8 @@ import { InternalTurnRequestSchema, InternalTurnResponseSchema, InternalTurnErro
 export const InternalAgentTurnParamsSchema = z.object({
     agentId: z.string().regex(/^[a-z0-9-]+$/),
 });
-export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema;
-export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema;
+export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema.extend({ turn: AgentTurnSchema.optional() });
+export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional() });
 export const InternalAgentTurnErrorResponseSchema = InternalTurnErrorResponseSchema;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 export const INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';

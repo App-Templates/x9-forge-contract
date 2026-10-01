@@ -40,3 +40,5 @@ export * from './internal-memory-recall-bundle.js'; // POST /internal/memory/rec
 // Inbound messaging webhooks (Phase 11.A — external_provider auth)
 export * from './webhook-inbound-telegram.js'; // POST /webhook/inbound/telegram, telegram-router-svc
 export * from './webhook-inbound-email.js'; // POST /webhook/agentmail/inbound, X9 cap-email
+
+export * from './cap-turn-lead.js';
