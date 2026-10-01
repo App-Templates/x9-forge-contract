@@ -20,8 +20,10 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
   request is now an extension rather than an alias; its response remains identical.
 - Follow-up consumers: agent-x9 B2 (`internal-agent-turn`, `auto-recall`,
   `memory-extractor`, `capability-context`, `tool-router`), cap-meditation B3/B4.
-  No extra service endpoint is needed: tools use the existing tool-call envelope,
-  and context uses the existing `capContextContract`.
+  Tools use the existing tool-call envelope and context uses `capContextContract`.
+- Export the existing generic capability route as `capToolCallContract` /
+  `capToolCallPath`, with validated parameters. B3 imports this URL rather than
+  duplicating it. No new route or service-specific wire schema is introduced.
 - Version 1.25.0 is reserved for the separate Enterprise Adoption step 5.
   Claude owns review, merge and release tags; this branch adds no tag.
 

@@ -14,4 +14,5 @@ export * from "./endpoints/index.js";
 export { SseTextFrameSchema, SseToolCallStartFrameSchema, SseToolCallEndFrameSchema, SseDoneFrameSchema, SseErrorFrameSchema, SseAbortedFrameSchema, SseFrameSchema, } from "./sse-frames.js";
 // SSE parser helpers
 export { parseSseFrame, parseSseStream } from "./sse-parser.js";
+export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from "./endpoints/cap-tool-call.js";
 //# sourceMappingURL=index.js.map

@@ -1,5 +1,5 @@
 // Synthetic Node 20 CommonJS consumer: optional identity on all three envelopes.
-import { InternalAgentTurnRequestSchema, type InternalAgentTurnRequest } from '@x9-forge/contracts/http';
+import { InternalAgentTurnRequestSchema, type InternalAgentTurnRequest, capToolCallPath, capToolCallContract } from '@x9-forge/contracts/http';
 import { ToolCallRequestSchema, CapabilityContextRequestSchema, type ToolCallRequest, type CapabilityContextRequest } from '@x9-forge/contracts/capability';
 
 const turn: InternalAgentTurnRequest = { channelId: 'meditation-test', sessionId: 'synthetic-session', message: 'Synthetic greeting', userId: 'clerk:synthetic-a' };
@@ -7,3 +7,5 @@ const tool: ToolCallRequest = { callId: 'synthetic-call', tool: 'synthetic_tool'
 const context: CapabilityContextRequest = { agentId: tool.agentId, sessionId: turn.sessionId, userId: turn.userId };
 
 export const parsed = [InternalAgentTurnRequestSchema.parse(turn), ToolCallRequestSchema.parse(tool), CapabilityContextRequestSchema.parse(context)];
+export const toolPath = capToolCallPath(tool.tool);
+export const toolEnvelope = capToolCallContract.bodySchema.parse(tool);
