@@ -10,6 +10,22 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.24.0 — 2026-10-01 — Capability context: what a capability knows about the agent, at every turn
+
+### Added (additive — MINOR, backward-compatible)
+- `@x9-forge/contracts/capability`: `CapabilityContextDeclarationSchema`, `CapabilityContextRequestSchema`,
+  `CapabilityContextResponseSchema`, `CAPABILITY_CONTEXT_MAX_CHARS` (6000), `CAPABILITY_CONTEXT_TIMEOUT_MS` (1500).
+  Optional `context: { maxChars }` on `CapabilityManifestSchema` and `CapabilityRegistryEntrySchema`.
+- `@x9-forge/contracts/http`: `capContextContract` — `POST /context`, secret auth (`INTERNAL_SECRET_HEADER`).
+- Why: an Enterprise Adoption onboarding agent asked its person again, at every new call, what she had already told
+  it (2026-10-01): the history is per session and nothing put the capability's knowledge in front of the model.
+  The runtime (X9 agent-core) now asks each capability that declares `context` before the model answers.
+- Consumers: X9 agent-core (reads `context` from the agent registry, calls `/context`), Forge factory
+  `deploy.machine` (copies `context` from the manifest into the registry, like `tools`), enterprise-adoption ea-core
+  (declares and serves it). Manifests and registries without `context` are unchanged.
+
+---
+
 ## v1.23.0 — 2026-09-30 — Enterprise Adoption MVP: deploy without a Telegram bot
 
 ### Added (additive — MINOR, backward-compatible)

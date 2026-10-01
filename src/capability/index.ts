@@ -29,6 +29,17 @@ export {
 } from './tool-call.js';
 
 export {
+  CAPABILITY_CONTEXT_MAX_CHARS,
+  CAPABILITY_CONTEXT_TIMEOUT_MS,
+  CapabilityContextDeclarationSchema,
+  CapabilityContextRequestSchema,
+  CapabilityContextResponseSchema,
+  type CapabilityContextDeclaration,
+  type CapabilityContextRequest,
+  type CapabilityContextResponse,
+} from './capability-context.js';
+
+export {
   CapabilityManifestSchema,
   type CapabilityManifest,
 } from './capability-manifest.js';

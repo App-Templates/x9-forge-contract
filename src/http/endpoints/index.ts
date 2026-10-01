@@ -28,6 +28,7 @@ export * from './internal-factory-telegram-token.js'; // Phase 21 (v1.16.0) — 
 
 // No-auth endpoints (capability discovery)
 export * from './cap-manifest.js';
+export * from './cap-context.js';
 export * from './cap-env-schema.js';
 export * from './cap-health.js';
 

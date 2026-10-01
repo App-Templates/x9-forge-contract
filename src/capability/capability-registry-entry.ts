@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { CapabilityToolSchema } from './capability-tool.js';
+import { CapabilityContextDeclarationSchema } from './capability-context.js';
 import { ModelPolicySchema } from '../model-router/model-policy.js';
 
 /**
@@ -58,6 +59,13 @@ export const CapabilityRegistryEntrySchema = z.object({
    * @since v1.5.0 (Bug D1 — quick-260422-wrz)
    */
   requires: z.array(z.string().min(1)).optional(),
+  /**
+   * Copied from the manifest's `context` by the registry writer (Forge deploy.machine), like `tools`: the runtime
+   * asks this capability for the agent's context at every turn. Absent: never asked.
+   *
+   * @since v1.24.0
+   */
+  context: CapabilityContextDeclarationSchema.optional(),
 });
 
 export type CapabilityRegistryEntry = z.infer<typeof CapabilityRegistryEntrySchema>;

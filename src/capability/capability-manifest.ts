@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { CapabilityToolSchema } from './capability-tool.js';
+import { CapabilityContextDeclarationSchema } from './capability-context.js';
 
 /**
  * Manifest served by each capability service at GET /manifest
@@ -28,6 +29,13 @@ export const CapabilityManifestSchema = z.object({
    * @since v1.5.0 (Bug D1 — quick-260422-wrz)
    */
   requires: z.array(z.string().min(1)).optional(),
+  /**
+   * The capability serves `POST /context`: what it knows about an agent, put in front of the model by the runtime
+   * at every turn (see capability-context.ts). Absent: no context (every manifest before v1.24.0).
+   *
+   * @since v1.24.0
+   */
+  context: CapabilityContextDeclarationSchema.optional(),
 });
 
 export type CapabilityManifest = z.infer<typeof CapabilityManifestSchema>;
