@@ -58,6 +58,9 @@ export declare const AgentRegistryFileSchema: z.ZodObject<{
             }>;
         }, z.core.$strip>>;
         requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        context: z.ZodOptional<z.ZodObject<{
+            maxChars: z.ZodNumber;
+        }, z.core.$strip>>;
     }, z.core.$strip>>;
 }, z.core.$strip>;
 export type AgentRegistryFile = z.infer<typeof AgentRegistryFileSchema>;

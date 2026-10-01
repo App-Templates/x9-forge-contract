@@ -50,6 +50,9 @@ export declare const CapabilityRegistryEntrySchema: z.ZodObject<{
         }>;
     }, z.core.$strip>>;
     requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    context: z.ZodOptional<z.ZodObject<{
+        maxChars: z.ZodNumber;
+    }, z.core.$strip>>;
 }, z.core.$strip>;
 export type CapabilityRegistryEntry = z.infer<typeof CapabilityRegistryEntrySchema>;
 /**

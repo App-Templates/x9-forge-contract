@@ -62,8 +62,8 @@ export type MemoryPrivacyFlags = z.infer<typeof MemoryPrivacyFlagsSchema>;
  */
 export declare const MemoryWriteCandidateSchema: z.ZodObject<{
     scope: z.ZodEnum<{
-        agent: "agent";
         user: "user";
+        agent: "agent";
         platform: "platform";
         owner: "owner";
     }>;

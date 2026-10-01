@@ -25,6 +25,9 @@ export declare const capManifestContract: {
             inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
         }, z.core.$strip>>;
         requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        context: z.ZodOptional<z.ZodObject<{
+            maxChars: z.ZodNumber;
+        }, z.core.$strip>>;
     }, z.core.$strip>;
 };
 export { CapabilityManifestSchema as CapManifestResponseSchema };

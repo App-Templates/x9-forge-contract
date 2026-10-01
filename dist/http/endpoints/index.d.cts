@@ -22,6 +22,7 @@ export * from "./voice-live.cjs";
 export * from "./internal-factory-deploy.cjs";
 export * from "./internal-factory-telegram-token.cjs";
 export * from "./cap-manifest.cjs";
+export * from "./cap-context.cjs";
 export * from "./cap-env-schema.cjs";
 export * from "./cap-health.cjs";
 export * from "./memory-correct.cjs";

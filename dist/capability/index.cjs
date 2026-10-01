@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.CapabilityToolSchema = void 0;
+exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.CapabilityContextResponseSchema = exports.CapabilityContextRequestSchema = exports.CapabilityContextDeclarationSchema = exports.CAPABILITY_CONTEXT_TIMEOUT_MS = exports.CAPABILITY_CONTEXT_MAX_CHARS = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.CapabilityToolSchema = void 0;
 /**
  * Capability contracts — sub-path `@x9-forge/contracts/capability`.
  *
@@ -22,6 +22,12 @@ Object.defineProperty(exports, "ToolCallRequestSchema", { enumerable: true, get:
 Object.defineProperty(exports, "ToolCallSuccessResponseSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallSuccessResponseSchema; } });
 Object.defineProperty(exports, "ToolCallErrorResponseSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallErrorResponseSchema; } });
 Object.defineProperty(exports, "ToolCallResponseSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallResponseSchema; } });
+var capability_context_js_1 = require("./capability-context.cjs");
+Object.defineProperty(exports, "CAPABILITY_CONTEXT_MAX_CHARS", { enumerable: true, get: function () { return capability_context_js_1.CAPABILITY_CONTEXT_MAX_CHARS; } });
+Object.defineProperty(exports, "CAPABILITY_CONTEXT_TIMEOUT_MS", { enumerable: true, get: function () { return capability_context_js_1.CAPABILITY_CONTEXT_TIMEOUT_MS; } });
+Object.defineProperty(exports, "CapabilityContextDeclarationSchema", { enumerable: true, get: function () { return capability_context_js_1.CapabilityContextDeclarationSchema; } });
+Object.defineProperty(exports, "CapabilityContextRequestSchema", { enumerable: true, get: function () { return capability_context_js_1.CapabilityContextRequestSchema; } });
+Object.defineProperty(exports, "CapabilityContextResponseSchema", { enumerable: true, get: function () { return capability_context_js_1.CapabilityContextResponseSchema; } });
 var capability_manifest_js_1 = require("./capability-manifest.cjs");
 Object.defineProperty(exports, "CapabilityManifestSchema", { enumerable: true, get: function () { return capability_manifest_js_1.CapabilityManifestSchema; } });
 var capability_registry_entry_js_1 = require("./capability-registry-entry.cjs");

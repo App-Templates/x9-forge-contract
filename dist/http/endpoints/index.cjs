@@ -41,6 +41,7 @@ __exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.1
 __exportStar(require("./internal-factory-telegram-token.cjs"), exports); // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 __exportStar(require("./cap-manifest.cjs"), exports);
+__exportStar(require("./cap-context.cjs"), exports);
 __exportStar(require("./cap-env-schema.cjs"), exports);
 __exportStar(require("./cap-health.cjs"), exports);
 // Memory v2 internal endpoints (Phase 18 D3 — R-14 closure)

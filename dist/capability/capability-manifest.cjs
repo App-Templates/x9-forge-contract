@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityManifestSchema = void 0;
 const zod_1 = require("zod");
 const capability_tool_js_1 = require("./capability-tool.cjs");
+const capability_context_js_1 = require("./capability-context.cjs");
 /**
  * Manifest served by each capability service at GET /manifest
  * (capability identity is conveyed by the caller's baseUrl, not a path prefix).
@@ -30,5 +31,12 @@ exports.CapabilityManifestSchema = zod_1.z.object({
      * @since v1.5.0 (Bug D1 — quick-260422-wrz)
      */
     requires: zod_1.z.array(zod_1.z.string().min(1)).optional(),
+    /**
+     * The capability serves `POST /context`: what it knows about an agent, put in front of the model by the runtime
+     * at every turn (see capability-context.ts). Absent: no context (every manifest before v1.24.0).
+     *
+     * @since v1.24.0
+     */
+    context: capability_context_js_1.CapabilityContextDeclarationSchema.optional(),
 });
 //# sourceMappingURL=capability-manifest.js.map

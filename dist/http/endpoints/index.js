@@ -25,6 +25,7 @@ export * from "./internal-factory-deploy.js"; // Wave 2 (v1.11.0) — Parallel S
 export * from "./internal-factory-telegram-token.js"; // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 export * from "./cap-manifest.js";
+export * from "./cap-context.js";
 export * from "./cap-env-schema.js";
 export * from "./cap-health.js";
 // Memory v2 internal endpoints (Phase 18 D3 — R-14 closure)

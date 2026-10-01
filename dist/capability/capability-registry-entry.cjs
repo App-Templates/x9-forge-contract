@@ -5,6 +5,7 @@ exports.toEndpoint = toEndpoint;
 exports.fromEndpoint = fromEndpoint;
 const zod_1 = require("zod");
 const capability_tool_js_1 = require("./capability-tool.cjs");
+const capability_context_js_1 = require("./capability-context.cjs");
 const model_policy_js_1 = require("../model-router/model-policy.cjs");
 /**
  * Canonical cross-repo registry entry for a capability service.
@@ -62,6 +63,13 @@ exports.CapabilityRegistryEntrySchema = zod_1.z.object({
      * @since v1.5.0 (Bug D1 — quick-260422-wrz)
      */
     requires: zod_1.z.array(zod_1.z.string().min(1)).optional(),
+    /**
+     * Copied from the manifest's `context` by the registry writer (Forge deploy.machine), like `tools`: the runtime
+     * asks this capability for the agent's context at every turn. Absent: never asked.
+     *
+     * @since v1.24.0
+     */
+    context: capability_context_js_1.CapabilityContextDeclarationSchema.optional(),
 });
 // -- Helpers ------------------------------------------------------------------
 /**

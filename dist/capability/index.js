@@ -14,6 +14,7 @@
  */
 export { CapabilityToolSchema, } from "./capability-tool.js";
 export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, } from "./tool-call.js";
+export { CAPABILITY_CONTEXT_MAX_CHARS, CAPABILITY_CONTEXT_TIMEOUT_MS, CapabilityContextDeclarationSchema, CapabilityContextRequestSchema, CapabilityContextResponseSchema, } from "./capability-context.js";
 export { CapabilityManifestSchema, } from "./capability-manifest.js";
 export { CapabilityRegistryEntrySchema, toEndpoint, fromEndpoint, } from "./capability-registry-entry.js";
 export { AgentRegistryFileSchema, } from "./agent-registry-file.js";

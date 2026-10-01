@@ -20,6 +20,9 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
         inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
     }, z.core.$strip>>;
     requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    context: z.ZodOptional<z.ZodObject<{
+        maxChars: z.ZodNumber;
+    }, z.core.$strip>>;
 }, z.core.$strip>;
 export type CapabilityManifest = z.infer<typeof CapabilityManifestSchema>;
 //# sourceMappingURL=capability-manifest.d.ts.map
