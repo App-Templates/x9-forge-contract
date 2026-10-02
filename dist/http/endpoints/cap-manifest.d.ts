@@ -28,6 +28,7 @@ export declare const capManifestContract: {
         context: z.ZodOptional<z.ZodObject<{
             maxChars: z.ZodNumber;
         }, z.core.$strip>>;
+        turnLead: z.ZodOptional<z.ZodObject<{}, z.core.$strict>>;
     }, z.core.$strip>;
 };
 export { CapabilityManifestSchema as CapManifestResponseSchema };

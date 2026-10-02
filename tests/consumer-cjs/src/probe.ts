@@ -53,3 +53,11 @@ const _internalTokenHeader: string = INTERNAL_TOKEN_HEADER;
 const _capSttPort: number = CAP_STT_DEFAULT_PORT;
 const _memoryCorrectPath: string = MEMORY_CORRECT_PATH;
 void _internalTokenHeader; void _capSttPort; void _memoryCorrectPath;
+
+// Synthetic MVP turn-leading contracts, also required by CJS consumers.
+import { AgentTurnSchema, type AgentTurn, CapabilityTurnLeadResponseSchema } from "@x9-forge/contracts/capability";
+import { capTurnLeadContract, InternalAgentTurnResponseSchema } from "@x9-forge/contracts/http";
+const syntheticTurn: AgentTurn = AgentTurnSchema.parse({ kind: "answer", turnId: "synthetic-turn", text: "TEST sì" });
+capTurnLeadContract.bodySchema.parse({ agentId: "synthetic-agent", sessionId: "synthetic-session", turn: syntheticTurn });
+CapabilityTurnLeadResponseSchema.parse({ kind: "release" });
+InternalAgentTurnResponseSchema.parse({ ok: true, reply: "TEST?", updatedHistory: [], moveId: "synthetic-move" });

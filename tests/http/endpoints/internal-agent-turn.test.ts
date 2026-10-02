@@ -42,9 +42,9 @@ describe('InternalAgentTurnParamsSchema', () => {
 });
 
 describe('InternalAgentTurn body/response', () => {
-  it('body and success response ARE the /internal/turn schemas', () => {
-    expect(InternalAgentTurnRequestSchema).toBe(InternalTurnRequestSchema);
-    expect(InternalAgentTurnResponseSchema).toBe(InternalTurnResponseSchema);
+  it('legacy bodies and success responses still parse exactly as on the personal route', () => {
+    expect(InternalAgentTurnRequestSchema.parse(validBody)).toEqual(InternalTurnRequestSchema.parse(validBody));
+    expect(InternalAgentTurnResponseSchema.parse(validResponse)).toEqual(InternalTurnResponseSchema.parse(validResponse));
   });
 
   it('parses a valid body and rejects a bad channelId', () => {

@@ -1,4 +1,18 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.CapabilityContextResponseSchema = exports.CapabilityContextRequestSchema = exports.CapabilityContextDeclarationSchema = exports.CAPABILITY_CONTEXT_TIMEOUT_MS = exports.CAPABILITY_CONTEXT_MAX_CHARS = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.CapabilityToolSchema = void 0;
 /**
@@ -41,4 +55,5 @@ Object.defineProperty(exports, "EnvSchemaFieldSchema", { enumerable: true, get: 
 Object.defineProperty(exports, "EnvSchemaDocSchema", { enumerable: true, get: function () { return env_schema_js_1.EnvSchemaDocSchema; } });
 var health_status_js_1 = require("./health-status.cjs");
 Object.defineProperty(exports, "HealthStatusSchema", { enumerable: true, get: function () { return health_status_js_1.HealthStatusSchema; } });
+__exportStar(require("./capability-turn-lead.cjs"), exports);
 //# sourceMappingURL=index.js.map
