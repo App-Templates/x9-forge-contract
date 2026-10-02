@@ -34,6 +34,9 @@ const assert = require('node:assert/strict');
 
 /** @type {Array<{ specifier: string, knownSymbol: string, expectedType?: string, expectedValue?: unknown }>} */
 const PROBES = [
+  { specifier: '@x9-forge/contracts/capability', knownSymbol: 'AgentTurnSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/capability', knownSymbol: 'CapabilityTurnLeadResponseSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/http', knownSymbol: 'capTurnLeadContract', expectedType: 'object' },
   // Root: `@x9-forge/contracts` re-exports ONLY model-router (per src/index.ts and dist/index.d.cts).
   // ModelTierSchema is the canonical Zod schema in the model-router subpath; pick it as the root probe.
   { specifier: '@x9-forge/contracts',                  knownSymbol: 'ModelTierSchema',       expectedType: 'object' },

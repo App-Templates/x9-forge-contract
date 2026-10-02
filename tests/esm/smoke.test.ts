@@ -92,3 +92,12 @@ describe('ESM smoke — every public bridge subpath resolves via import', () => 
     expect(typeof VaultTierSchema.parse).toBe('function');
   });
 });
+
+import { AgentTurnSchema, CapabilityTurnLeadResponseSchema } from '@x9-forge/contracts/capability';
+import { capTurnLeadContract } from '@x9-forge/contracts/http';
+it('MVP turn-leading exports retain their payloads in the built ESM package', () => {
+  const turn = { kind: 'answer', turnId: 'synthetic-turn', text: ' TEST sì. ' };
+  expect(AgentTurnSchema.parse(turn)).toEqual(turn);
+  expect(capTurnLeadContract.bodySchema.parse({ agentId: 'synthetic-agent', sessionId: 'synthetic-session', turn })).toHaveProperty('turn', turn);
+  expect(CapabilityTurnLeadResponseSchema.parse({ kind: 'speak', moveId: 'synthetic-move', text: 'TEST domanda?' })).toHaveProperty('moveId', 'synthetic-move');
+});

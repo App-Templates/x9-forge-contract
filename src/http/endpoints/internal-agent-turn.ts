@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { InternalMemoryExtractRequestSchema } from './internal-memory-extract.js';
+import { AgentTurnSchema, AgentTurnMoveIdSchema } from '../../capability/capability-turn-lead.js';
 import {
   InternalTurnRequestSchema,
   InternalTurnResponseSchema,
@@ -19,8 +20,9 @@ import {
  * memory. agent-core refuses the primary agent id here (403): the personal
  * agent stays reachable only through the existing routes.
  *
- * Body extends `/internal/turn` with an optional authenticated caller's userId.
- * The personal `/internal/turn` schema and the success response stay unchanged.
+ * Legacy bodies and responses remain valid. Only this per-agent route adds
+ * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
+ * caller's `userId` (v1.26.0); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -38,12 +40,13 @@ export const InternalAgentTurnParamsSchema = z.object({
 export type InternalAgentTurnParams = z.infer<typeof InternalAgentTurnParamsSchema>;
 
 export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema.extend({
+  turn: AgentTurnSchema.optional(),
   /** Trusted caller identity, never taken from model text or tool input. */
   userId: InternalMemoryExtractRequestSchema.shape.userId,
 });
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 
-export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema;
+export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional() });
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 
 export const InternalAgentTurnErrorResponseSchema = InternalTurnErrorResponseSchema;

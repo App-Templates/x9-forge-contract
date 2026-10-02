@@ -51,4 +51,5 @@ __exportStar(require("./internal-memory-recall-bundle.cjs"), exports); // POST /
 // Inbound messaging webhooks (Phase 11.A — external_provider auth)
 __exportStar(require("./webhook-inbound-telegram.cjs"), exports); // POST /webhook/inbound/telegram, telegram-router-svc
 __exportStar(require("./webhook-inbound-email.cjs"), exports); // POST /webhook/agentmail/inbound, X9 cap-email
+__exportStar(require("./cap-turn-lead.cjs"), exports);
 //# sourceMappingURL=index.js.map

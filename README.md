@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Package:** `@x9-forge/contracts` · **Current version:** `1.23.0` (2026-09-30, optional `telegram_enabled` on the S2S factory deploy; 1.22.0: 2026-09-29, Enterprise Adoption M0 — per-agent turn `POST /internal/agents/:agentId/turn` + optional `agent_id` on the web live session + optional `email_enabled` on the S2S factory deploy; 1.21.1: `QDRANT_API_KEY`; 1.21.0: Phase 50-06 web live-voice ingress contracts; 1.20.0 same day: `VoiceProviderSchema` + `capability/voice-live`; 1.19.0: `capability/tts`) · **Foundation:** v1.0 shipped 2026-04-16 (git tag `v1.0` at `1d709a1`) · **Status:** active, additive releases per consuming phase
+**Package:** `@x9-forge/contracts` · **Versione proposta:** `1.25.0` (MVP-07 B0, guida dei turni facoltativa; in review, non rilasciata). Precedente: `1.24.0`, contesto per turno.
 
 ## Why this repo exists (R-14 NON NEGOZIABILE)
 
@@ -22,7 +22,9 @@ Bridge is distributed via `git+https` URL with SHA pinning (RLSE-01). In consume
 pnpm add "@x9-forge/contracts@git+https://github.com/App-Templates/x9-forge-contract.git#<SHA>"
 ```
 
-The `prepare` script builds the package at install time — `dist/` is not committed. Repo is private; consumers need GitHub access (or use the dev-link override below).
+`dist/` è versionata dal rilascio 1.7.1: ogni modifica ai sorgenti include la build ESM/CJS aggiornata,
+verificata su Node 20. `prepare` installa solo gli hook. Il repository è privato; i consumer usano uno SHA
+approvato (oppure il collegamento locale per lo sviluppo).
 
 ## Dev locale (hot-reload)
 
@@ -255,3 +257,45 @@ Non-negotiable rules that protect bridge correctness across the X9 ↔ Forge bou
 ## License
 
 Private. Not for distribution.
+
+
+## MVP-07 B0 — guida dei turni, contratto 1.25.0
+
+Implementa esclusivamente §0 «Taglio MVP» del piano della tappa 5 in enterprise-adoption.
+`turnLead: {}` nel manifest/registry abilita la guida per quell’agente; senza il campo il percorso resta
+identico a oggi. Nessuna attivazione implicita e nessun campo di negoziazione versione o budget voce.
+
+- La rotta per agente conserva `message` e aggiunge `turn` facoltativo. `AgentTurnSchema` accetta solo
+  `opening`, `answer`, `incomplete`, `delivery`, con `turnId` stabile nei reinvii. Il runtime fornisce i dati;
+  non sono argomenti di uno strumento del modello.
+- Apertura: `text: ''`. Risposta: parole originali non vuote, senza riscrittura degli spazi. Interruzione:
+  parole parziali, eventualmente vuote. Ricevuta: `text: ''`, `moveId` e `spokenText`, anche vuoto se nulla
+  è stato pronunciato. Testi limitati a 32.000 caratteri, mai troncati dal contratto.
+- `capTurnLeadContract`: `POST /turn`, autenticazione secret esistente. Richiesta con `agentId`, `sessionId`,
+  `channelId` facoltativo e `turn`. Identità fornita dal runtime; per l’MVP una sola azienda.
+- Risposta capability: `{ kind: 'speak', moveId, text }` (massimo 6.000 caratteri non vuoti) oppure
+  `{ kind: 'release' }`. Timeout condiviso 150 secondi: tre chiamate del motore da 45 secondi più margine.
+- **Dettaglio necessario all’integrazione:** la risposta della rotta per agente aggiunge `moveId`
+  facoltativo accanto a `reply`. La voce lo usa per la ricevuta. La risposta della rotta personale non cambia.
+- Una ricevuta aggiorna lo stato: il consumer inoltra `delivery` senza pronunciare di nuovo l’eventuale
+  `speak` restituito (la mossa corrente) e senza aprire un turno libero del modello. Solo apertura/risposta
+  possono dare testo da dire o tornare al ciclo normale su `release`. Queste semantiche saranno
+  implementate e provate nei consumer; B0 fornisce i contratti.
+
+Codice verificato per il raccordo: `agent-x9/services/agent-core/src/routes/internal-agent-turn.ts`
+(identità per agente, schema della richiesta e ritorno di `reply`), `services/cap-voice-live/src/web/x9-ask.ts`
+(client bridge e storico), `services/cap-voice-live/src/web/agent-turns.ts` (buffer, apertura e deduplica).
+Manifest, registry e contratto del contesto esistenti sono riusati nel bridge.
+
+Prove Node 20.20.2: **903/903 test**, **28/28** verifiche CommonJS, build, typecheck, lint e controllo del
+pacchetto verdi; consumer CommonJS installato da archivio locale e compilato. **28/28** mutazioni dei
+controlli nuovi rilevate da asserzioni (`python3 scripts/mutate-turn-lead.py`), ripristino verde.
+Tutti i dati nuovi sono sintetici, incluso il giro HTTP reale locale del client. Il test del bridge che
+verificava l’identità dei due oggetti-schema ora verifica la compatibilità dei payload: l’estensione deve
+esistere solo sulla rotta per agente. Nessun file protetto di X9/città modificato.
+
+Consegna: PR B0 prima dei consumer; poi PR distinte per voce, agent-core, Forge e adattatore ea-core.
+Claude rivede, unisce e tagga il bridge dopo approvazione; i consumer importano lo SHA concordato.
+Nessun tag, pubblicazione, deploy o workflow manuale eseguito. Voce reale e percorso completo non ancora
+collaudati da questo blocco. Negoziazione versioni, budget voce, organizzazione in Forge ed eventi 004
+restano fuori dal taglio MVP.

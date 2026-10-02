@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { CapabilityTurnLeadDeclarationSchema } from "./capability-turn-lead.js";
 import { CapabilityToolSchema } from "./capability-tool.js";
 import { CapabilityContextDeclarationSchema } from "./capability-context.js";
 /**
@@ -35,5 +36,7 @@ export const CapabilityManifestSchema = z.object({
      * @since v1.24.0
      */
     context: CapabilityContextDeclarationSchema.optional(),
+    /** Opt-in turn leading for this agent; absent leaves the normal conversation unchanged. @since v1.25.0 */
+    turnLead: CapabilityTurnLeadDeclarationSchema.optional(),
 });
 //# sourceMappingURL=capability-manifest.js.map

@@ -20,4 +20,5 @@ export { CapabilityRegistryEntrySchema, type CapabilityRegistryEntry, toEndpoint
 export { AgentRegistryFileSchema, type AgentRegistryFile, } from "./agent-registry-file.js";
 export { EnvSchemaFieldSchema, EnvSchemaDocSchema, type EnvSchemaField, type EnvSchemaDoc, } from "./env-schema.js";
 export { HealthStatusSchema, type HealthStatus, } from "./health-status.js";
+export * from "./capability-turn-lead.js";
 //# sourceMappingURL=index.d.ts.map

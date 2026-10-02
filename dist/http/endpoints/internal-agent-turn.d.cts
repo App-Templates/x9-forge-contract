@@ -12,8 +12,9 @@ import { z } from 'zod';
  * memory. agent-core refuses the primary agent id here (403): the personal
  * agent stays reachable only through the existing routes.
  *
- * Body extends `/internal/turn` with an optional authenticated caller's userId.
- * The personal `/internal/turn` schema and the success response stay unchanged.
+ * Legacy bodies and responses remain valid. Only this per-agent route adds
+ * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
+ * caller's `userId` (v1.26.0); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -58,6 +59,25 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         mimeType: z.ZodOptional<z.ZodString>;
         filename: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>>;
+    turn: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"opening">;
+        turnId: z.ZodString;
+        text: z.ZodLiteral<"">;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"answer">;
+        turnId: z.ZodString;
+        text: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"incomplete">;
+        turnId: z.ZodString;
+        text: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"delivery">;
+        turnId: z.ZodString;
+        text: z.ZodLiteral<"">;
+        moveId: z.ZodString;
+        spokenText: z.ZodString;
+    }, z.core.$strict>], "kind">>;
     userId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
@@ -80,6 +100,7 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
             input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
         }, z.core.$strip>>>;
     }, z.core.$strip>>;
+    moveId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
@@ -130,6 +151,25 @@ export declare const internalAgentTurnContract: {
             mimeType: z.ZodOptional<z.ZodString>;
             filename: z.ZodOptional<z.ZodString>;
         }, z.core.$strip>>;
+        turn: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"opening">;
+            turnId: z.ZodString;
+            text: z.ZodLiteral<"">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"answer">;
+            turnId: z.ZodString;
+            text: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"incomplete">;
+            turnId: z.ZodString;
+            text: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            turnId: z.ZodString;
+            text: z.ZodLiteral<"">;
+            moveId: z.ZodString;
+            spokenText: z.ZodString;
+        }, z.core.$strict>], "kind">>;
         userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
@@ -151,6 +191,7 @@ export declare const internalAgentTurnContract: {
                 input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
             }, z.core.$strip>>>;
         }, z.core.$strip>>;
+        moveId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agent-turn.d.ts.map
