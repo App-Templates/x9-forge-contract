@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnParamsSchema = void 0;
 exports.internalAgentTurnPath = internalAgentTurnPath;
 const zod_1 = require("zod");
+const internal_memory_extract_js_1 = require("./internal-memory-extract.cjs");
 const capability_turn_lead_js_1 = require("../../capability/capability-turn-lead.cjs");
 const internal_turn_js_1 = require("./internal-turn.cjs");
 /**
@@ -19,7 +20,8 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
  * agent stays reachable only through the existing routes.
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
- * optional `turn` and response `moveId` (v1.25.0); the personal route is unchanged.
+ * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
+ * caller's `userId` (v1.26.0); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -33,7 +35,11 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
 exports.InternalAgentTurnParamsSchema = zod_1.z.object({
     agentId: zod_1.z.string().regex(/^[a-z0-9-]+$/),
 });
-exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestSchema.extend({ turn: capability_turn_lead_js_1.AgentTurnSchema.optional() });
+exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestSchema.extend({
+    turn: capability_turn_lead_js_1.AgentTurnSchema.optional(),
+    /** Trusted caller identity, never taken from model text or tool input. */
+    userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
+});
 exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema.extend({ moveId: capability_turn_lead_js_1.AgentTurnMoveIdSchema.optional() });
 exports.InternalAgentTurnErrorResponseSchema = internal_turn_js_1.InternalTurnErrorResponseSchema;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */

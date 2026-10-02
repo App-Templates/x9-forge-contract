@@ -15,6 +15,7 @@ export declare const capContextContract: {
     readonly bodySchema: z.ZodObject<{
         agentId: z.ZodString;
         sessionId: z.ZodString;
+        userId: z.ZodOptional<z.ZodString>;
         channelId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{

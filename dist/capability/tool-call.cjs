@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = void 0;
 const zod_1 = require("zod");
+const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
 /**
  * Request sent by X9 agent-core to a capability service.
  *
@@ -22,6 +23,8 @@ exports.ToolCallRequestSchema = zod_1.z.object({
     input: zod_1.z.record(zod_1.z.string(), zod_1.z.unknown()),
     agentId: zod_1.z.string().min(1),
     sessionId: zod_1.z.string().min(1),
+    /** Authenticated end user, injected by the runtime rather than the model. */
+    userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
     credentials: zod_1.z.record(zod_1.z.string(), zod_1.z.string()).optional(),
     /**
      * F-2 (v1.13.0) — Optional per-agent memory-scope identity, attached by

@@ -32,6 +32,7 @@ export type CapabilityTurnLeadDeclaration = z.infer<typeof CapabilityTurnLeadDec
 export declare const CapabilityTurnLeadRequestSchema: z.ZodObject<{
     agentId: z.ZodString;
     sessionId: z.ZodString;
+    userId: z.ZodOptional<z.ZodString>;
     channelId: z.ZodOptional<z.ZodString>;
     turn: z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"opening">;

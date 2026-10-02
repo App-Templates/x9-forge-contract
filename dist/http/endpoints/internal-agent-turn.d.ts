@@ -13,7 +13,8 @@ import { z } from 'zod';
  * agent stays reachable only through the existing routes.
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
- * optional `turn` and response `moveId` (v1.25.0); the personal route is unchanged.
+ * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
+ * caller's `userId` (v1.26.0); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -77,6 +78,7 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         moveId: z.ZodString;
         spokenText: z.ZodString;
     }, z.core.$strict>], "kind">>;
+    userId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
@@ -168,6 +170,7 @@ export declare const internalAgentTurnContract: {
             moveId: z.ZodString;
             spokenText: z.ZodString;
         }, z.core.$strict>], "kind">>;
+        userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

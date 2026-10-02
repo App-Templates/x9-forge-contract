@@ -20,7 +20,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseSseStream = exports.parseSseFrame = exports.SseFrameSchema = exports.SseAbortedFrameSchema = exports.SseErrorFrameSchema = exports.SseDoneFrameSchema = exports.SseToolCallEndFrameSchema = exports.SseToolCallStartFrameSchema = exports.SseTextFrameSchema = exports.BridgeHttpError = exports.createBridgeClient = exports.BridgeResponseSchema = exports.BridgeSuccessResponseSchema = exports.BridgeErrorResponseSchema = void 0;
+exports.CapToolCallParamsSchema = exports.capToolCallPath = exports.capToolCallContract = exports.parseSseStream = exports.parseSseFrame = exports.SseFrameSchema = exports.SseAbortedFrameSchema = exports.SseErrorFrameSchema = exports.SseDoneFrameSchema = exports.SseToolCallEndFrameSchema = exports.SseToolCallStartFrameSchema = exports.SseTextFrameSchema = exports.BridgeHttpError = exports.createBridgeClient = exports.BridgeResponseSchema = exports.BridgeSuccessResponseSchema = exports.BridgeErrorResponseSchema = void 0;
 // Response shapes
 var response_js_1 = require("./response.cjs");
 Object.defineProperty(exports, "BridgeErrorResponseSchema", { enumerable: true, get: function () { return response_js_1.BridgeErrorResponseSchema; } });
@@ -45,4 +45,8 @@ Object.defineProperty(exports, "SseFrameSchema", { enumerable: true, get: functi
 var sse_parser_js_1 = require("./sse-parser.cjs");
 Object.defineProperty(exports, "parseSseFrame", { enumerable: true, get: function () { return sse_parser_js_1.parseSseFrame; } });
 Object.defineProperty(exports, "parseSseStream", { enumerable: true, get: function () { return sse_parser_js_1.parseSseStream; } });
+var cap_tool_call_js_1 = require("./endpoints/cap-tool-call.cjs");
+Object.defineProperty(exports, "capToolCallContract", { enumerable: true, get: function () { return cap_tool_call_js_1.capToolCallContract; } });
+Object.defineProperty(exports, "capToolCallPath", { enumerable: true, get: function () { return cap_tool_call_js_1.capToolCallPath; } });
+Object.defineProperty(exports, "CapToolCallParamsSchema", { enumerable: true, get: function () { return cap_tool_call_js_1.CapToolCallParamsSchema; } });
 //# sourceMappingURL=index.js.map

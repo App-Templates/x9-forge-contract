@@ -14,4 +14,5 @@ export { SseTextFrameSchema, SseToolCallStartFrameSchema, SseToolCallEndFrameSch
 export type { SseTextFrame, SseToolCallStartFrame, SseToolCallEndFrame, SseDoneFrame, SseErrorFrame, SseAbortedFrame, SseFrame, } from "./sse-frames.cjs";
 export { parseSseFrame, parseSseStream } from "./sse-parser.cjs";
 export type { ParsedSseEvent } from "./sse-parser.cjs";
+export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from "./endpoints/cap-tool-call.cjs";
 //# sourceMappingURL=index.d.ts.map

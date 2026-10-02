@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityContextResponseSchema = exports.CapabilityContextRequestSchema = exports.CapabilityContextDeclarationSchema = exports.CAPABILITY_CONTEXT_TIMEOUT_MS = exports.CAPABILITY_CONTEXT_MAX_CHARS = void 0;
 const zod_1 = require("zod");
+const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
 /**
  * Capability context — what a capability knows about the agent it serves, put in front of the model by the runtime
  * at every turn (v1.24.0).
@@ -34,6 +35,8 @@ exports.CapabilityContextDeclarationSchema = zod_1.z.object({
 exports.CapabilityContextRequestSchema = zod_1.z.object({
     agentId: zod_1.z.string().min(1),
     sessionId: zod_1.z.string().min(1),
+    /** Scope of the authenticated end user's context; absent preserves agent scope. */
+    userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
     channelId: zod_1.z.string().min(1).optional(),
 });
 exports.CapabilityContextResponseSchema = zod_1.z.object({

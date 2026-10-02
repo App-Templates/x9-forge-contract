@@ -62,3 +62,4 @@ export type {
 // SSE parser helpers
 export { parseSseFrame, parseSseStream } from './sse-parser.js';
 export type { ParsedSseEvent } from './sse-parser.js';
+export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from './endpoints/cap-tool-call.js';

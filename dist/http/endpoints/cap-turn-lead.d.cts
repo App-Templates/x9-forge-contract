@@ -7,6 +7,7 @@ export declare const capTurnLeadContract: {
     readonly bodySchema: z.ZodObject<{
         agentId: z.ZodString;
         sessionId: z.ZodString;
+        userId: z.ZodOptional<z.ZodString>;
         channelId: z.ZodOptional<z.ZodString>;
         turn: z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"opening">;
