@@ -21,7 +21,8 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
- * caller's `userId` (v1.26.0); the personal `/internal/turn` schema is unchanged.
+ * caller's `userId` (v1.26.0), and the voice-led `prepare`/`exchange` turns with response
+ * `lead`/`note` (v1.27.0); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -40,7 +41,9 @@ exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestS
     /** Trusted caller identity, never taken from model text or tool input. */
     userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
 });
-exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema.extend({ moveId: capability_turn_lead_js_1.AgentTurnMoveIdSchema.optional() });
+/** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
+exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema.extend({ moveId: capability_turn_lead_js_1.AgentTurnMoveIdSchema.optional(),
+    lead: capability_turn_lead_js_1.CapabilityLeadInstructionsSchema.optional(), note: capability_turn_lead_js_1.CapabilityNoteSchema.optional() });
 exports.InternalAgentTurnErrorResponseSchema = internal_turn_js_1.InternalTurnErrorResponseSchema;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';

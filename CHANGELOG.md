@@ -10,6 +10,21 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.27.0 — proposta in review — Enterprise Adoption: onboarding condotto dalla voce
+
+### Added (additive, backward-compatible)
+- `AgentTurnSchema`: `prepare` (prima di creare la sessione vocale, senza parole né effetti) ed `exchange`
+  (ciò che la voce ha detto, poi le parole della persona, e `ended` a fine sessione).
+- `CapabilityTurnLeadResponseSchema`: `lead` (istruzioni dell'intera sessione: la voce conduce da sola)
+  e `noted` (ricevuto, con una `note` facoltativa: contesto per la voce, mai parole da dire).
+- `InternalAgentTurnResponseSchema`: `lead` e `note` facoltativi, con `reply` vuoto. Rotta personale invariata.
+- Costanti `CAPABILITY_LEAD_MAX_INSTRUCTIONS_CHARS` (16000) e `CAPABILITY_NOTE_MAX_CHARS` (1200);
+  schemi `CapabilityLeadInstructionsSchema` e `CapabilityNoteSchema`.
+- Consumer: agent-x9 agent-core (`core/capability-turn-lead.ts`, `routes/internal-agent-turn.ts`),
+  cap-voice-live (`web/web-session-manager.ts`, `web/x9-ask.ts`), enterprise-adoption ea-core (`http/turn-route.ts`).
+- Ordine di rilascio: bridge, poi ea-core e X9 insieme. Un consumer vecchio rifiuta i turni nuovi (400), mai in silenzio.
+- Verifiche: `tests/capability/voice-led-onboarding.test.ts`; mutazioni `scripts/mutate-voice-led.py`.
+
 ## v1.26.0 — 2026-10-02 — X9 Meditazione B1: authenticated end-user identity
 
 ### Added (additive, backward-compatible)

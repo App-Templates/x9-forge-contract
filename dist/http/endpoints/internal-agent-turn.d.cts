@@ -14,7 +14,8 @@ import { z } from 'zod';
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
- * caller's `userId` (v1.26.0); the personal `/internal/turn` schema is unchanged.
+ * caller's `userId` (v1.26.0), and the voice-led `prepare`/`exchange` turns with response
+ * `lead`/`note` (v1.27.0); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -77,10 +78,21 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         text: z.ZodLiteral<"">;
         moveId: z.ZodString;
         spokenText: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"prepare">;
+        turnId: z.ZodString;
+        text: z.ZodLiteral<"">;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"exchange">;
+        turnId: z.ZodString;
+        text: z.ZodString;
+        spokenText: z.ZodString;
+        ended: z.ZodBoolean;
     }, z.core.$strict>], "kind">>;
     userId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
+/** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
 export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     reply: z.ZodString;
@@ -101,6 +113,8 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
         }, z.core.$strip>>>;
     }, z.core.$strip>>;
     moveId: z.ZodOptional<z.ZodString>;
+    lead: z.ZodOptional<z.ZodString>;
+    note: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
@@ -169,6 +183,16 @@ export declare const internalAgentTurnContract: {
             text: z.ZodLiteral<"">;
             moveId: z.ZodString;
             spokenText: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"prepare">;
+            turnId: z.ZodString;
+            text: z.ZodLiteral<"">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"exchange">;
+            turnId: z.ZodString;
+            text: z.ZodString;
+            spokenText: z.ZodString;
+            ended: z.ZodBoolean;
         }, z.core.$strict>], "kind">>;
         userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
@@ -192,6 +216,8 @@ export declare const internalAgentTurnContract: {
             }, z.core.$strip>>>;
         }, z.core.$strip>>;
         moveId: z.ZodOptional<z.ZodString>;
+        lead: z.ZodOptional<z.ZodString>;
+        note: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agent-turn.d.ts.map

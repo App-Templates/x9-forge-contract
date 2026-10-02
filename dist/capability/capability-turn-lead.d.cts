@@ -4,6 +4,13 @@ export declare const AGENT_TURN_MAX_TEXT_CHARS = 32000;
 export declare const CAPABILITY_TURN_LEAD_MAX_CHARS = 6000;
 /** Interpreter, one repair and formatter (45 seconds each), with transport margin. */
 export declare const CAPABILITY_TURN_LEAD_TIMEOUT_MS = 150000;
+/** Voice-led sessions (v1.27.0): instructions for the whole session and short in-session notes. */
+export declare const CAPABILITY_LEAD_MAX_INSTRUCTIONS_CHARS = 16000;
+export declare const CAPABILITY_NOTE_MAX_CHARS = 1200;
+/** Whole-session instructions for a voice-led session (v1.27.0). */
+export declare const CapabilityLeadInstructionsSchema: z.ZodString;
+/** In-session context for the voice, never words to say (v1.27.0). */
+export declare const CapabilityNoteSchema: z.ZodString;
 /** Runtime-owned source, never a model tool argument. Preserve transcript whitespace verbatim. */
 export declare const AgentTurnSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"opening">;
@@ -23,6 +30,16 @@ export declare const AgentTurnSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     text: z.ZodLiteral<"">;
     moveId: z.ZodString;
     spokenText: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"prepare">;
+    turnId: z.ZodString;
+    text: z.ZodLiteral<"">;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"exchange">;
+    turnId: z.ZodString;
+    text: z.ZodString;
+    spokenText: z.ZodString;
+    ended: z.ZodBoolean;
 }, z.core.$strict>], "kind">;
 export type AgentTurn = z.infer<typeof AgentTurnSchema>;
 /** Presence opts in; absence is legacy. Forge copies this declaration without inventing defaults. */
@@ -52,6 +69,16 @@ export declare const CapabilityTurnLeadRequestSchema: z.ZodObject<{
         text: z.ZodLiteral<"">;
         moveId: z.ZodString;
         spokenText: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"prepare">;
+        turnId: z.ZodString;
+        text: z.ZodLiteral<"">;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"exchange">;
+        turnId: z.ZodString;
+        text: z.ZodString;
+        spokenText: z.ZodString;
+        ended: z.ZodBoolean;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
 export type CapabilityTurnLeadRequest = z.infer<typeof CapabilityTurnLeadRequestSchema>;
@@ -61,6 +88,12 @@ export declare const CapabilityTurnLeadResponseSchema: z.ZodDiscriminatedUnion<[
     text: z.ZodString;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"release">;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"lead">;
+    instructions: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"noted">;
+    note: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>], "kind">;
 export type CapabilityTurnLeadResponse = z.infer<typeof CapabilityTurnLeadResponseSchema>;
 /** Correlates voice delivery on the per-agent route; never added to the personal route. */

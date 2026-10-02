@@ -27,6 +27,16 @@ export declare const capTurnLeadContract: {
             text: z.ZodLiteral<"">;
             moveId: z.ZodString;
             spokenText: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"prepare">;
+            turnId: z.ZodString;
+            text: z.ZodLiteral<"">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"exchange">;
+            turnId: z.ZodString;
+            text: z.ZodString;
+            spokenText: z.ZodString;
+            ended: z.ZodBoolean;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -35,6 +45,12 @@ export declare const capTurnLeadContract: {
         text: z.ZodString;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"release">;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"lead">;
+        instructions: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"noted">;
+        note: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>], "kind">;
 };
 //# sourceMappingURL=cap-turn-lead.d.ts.map
