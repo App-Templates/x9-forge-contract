@@ -13,7 +13,7 @@ M = [
     ('B0-07', 'src/capability/capability-turn-lead.ts', 'moveId: id, spokenText: sourceText', 'moveId: id.optional(), spokenText: sourceText'),
     ('B0-08', 'src/capability/capability-turn-lead.ts', 'moveId: id, spokenText: sourceText', 'moveId: id, spokenText: sourceText.optional()'),
     ('B0-09', 'src/capability/capability-turn-lead.ts', "kind: z.literal('incomplete')", "kind: z.enum(['incomplete', 'resume'])"),
-    ('B0-10', 'src/capability/capability-turn-lead.ts', "text: z.literal('') }).strict()", "text: z.literal('') })"),
+    ('B0-10', 'src/capability/capability-turn-lead.ts', "kind: z.literal('opening'), turnId: id, text: z.literal('') }).strict()", "kind: z.literal('opening'), turnId: id, text: z.literal('') })"),
     ('B0-11', 'src/capability/capability-turn-lead.ts', "'Expected spoken words') }).strict()", "'Expected spoken words') })"),
     ('B0-12', 'src/capability/capability-turn-lead.ts', 'text: sourceText }).strict()', 'text: sourceText })'),
     ('B0-13', 'src/capability/capability-turn-lead.ts', 'spokenText: sourceText }).strict()', 'spokenText: sourceText })'),
@@ -28,8 +28,8 @@ M = [
     ('B0-22', 'src/capability/capability-registry-entry.ts', 'turnLead: CapabilityTurnLeadDeclarationSchema.optional(),', 'turnLead: CapabilityTurnLeadDeclarationSchema.optional().default({}),'),
     ('B0-23', 'src/capability/capability-manifest.ts', 'turnLead: CapabilityTurnLeadDeclarationSchema.optional(),', ''),
     ('B0-24', 'src/capability/capability-registry-entry.ts', 'turnLead: CapabilityTurnLeadDeclarationSchema.optional(),', ''),
-    ('B0-25', 'src/http/endpoints/internal-agent-turn.ts', '.extend({ turn: AgentTurnSchema.optional() })', ''),
-    ('B0-26', 'src/http/endpoints/internal-agent-turn.ts', '.extend({ moveId: AgentTurnMoveIdSchema.optional() })', ''),
+    ('B0-25', 'src/http/endpoints/internal-agent-turn.ts', 'turn: AgentTurnSchema.optional(),', ''),
+    ('B0-26', 'src/http/endpoints/internal-agent-turn.ts', 'moveId: AgentTurnMoveIdSchema.optional(),', ''),
     ('B0-27', 'src/http/endpoints/cap-turn-lead.ts', "authType: 'secret'", "authType: 'none'"),
 ]
 
