@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { InternalMemoryExtractRequestSchema } from './internal-memory-extract.js';
-import { AgentTurnSchema, AgentTurnMoveIdSchema } from '../../capability/capability-turn-lead.js';
+import { AgentTurnSchema, AgentTurnMoveIdSchema, CapabilityLeadInstructionsSchema, CapabilityNoteSchema } from '../../capability/capability-turn-lead.js';
 import {
   InternalTurnRequestSchema,
   InternalTurnResponseSchema,
@@ -22,7 +22,8 @@ import {
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
- * caller's `userId` (v1.26.0); the personal `/internal/turn` schema is unchanged.
+ * caller's `userId` (v1.26.0), and the voice-led `prepare`/`exchange` turns with response
+ * `lead`/`note` (v1.27.0); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -46,7 +47,9 @@ export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema.extend({
 });
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 
-export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional() });
+/** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
+export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional(),
+  lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional() });
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 
 export const InternalAgentTurnErrorResponseSchema = InternalTurnErrorResponseSchema;

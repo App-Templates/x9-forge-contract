@@ -1,3 +1,12 @@
+# STATO
+
+## 02/10/2026 — v1.27.0, onboarding condotto dalla voce (Claude, `feat/voice-led-onboarding`)
+
+Turni `prepare`/`exchange`, risposte `lead`/`noted`, campi `lead`/`note` sulla rotta per agente. Solo aggiunte.
+926/926 test (74 file), 28/28 CJS, typecheck, lint, build e controllo del pacchetto verdi. Mutazioni nuove
+**12/12** (`scripts/mutate-voice-led.py`); B0 riallineate e rieseguite **28/28** (B0-10 e B0-26 spostate dalle
+aggiunte, B0-25 già fuori ancoraggio dalla v1.26.0). Nessun tag né rilascio: merge e tag a Claude/Stefano.
+
 # STATO — MVP-07, bridge B0
 
 01/10/2026. Branch `codex/mvp07-t5-bridge`, worktree proprio, base `b64c605`.
