@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { InternalAgentTurnParamsSchema } from '../../http/endpoints/internal-agent-turn.js';
 
 /**
  * The project — the unit a research budget belongs to (v1.28.0, Phase 54).
@@ -81,7 +82,7 @@ export const ResearchProjectConfigSchema = z.object({
   models: ResearchModelsSchema,
   research: ResearchParamsSchema,
   sourceRule: SourceRuleSchema,
-  /** The agents allowed to spend on this project. */
-  agents: z.array(z.string().min(1).max(100)).min(1).max(100),
+  /** The agents allowed to spend on this project (agent-core ids, as in `/internal/agents/:agentId/turn`). */
+  agents: z.array(InternalAgentTurnParamsSchema.shape.agentId).min(1).max(100),
 }).strict();
 export type ResearchProjectConfig = z.infer<typeof ResearchProjectConfigSchema>;

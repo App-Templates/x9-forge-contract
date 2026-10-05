@@ -59,6 +59,11 @@ describe('cap-ricerca project config (v1.28.0)', () => {
     fails(ResearchProjectConfigSchema.safeParse({ ...project, extra: true }), 'extra');
   });
 
+  it('agents are agent-core ids', () => {
+    fails(ResearchProjectConfigSchema.safeParse({ ...project, agents: ['Samira'] }), 'uppercase id');
+    fails(ResearchProjectConfigSchema.safeParse({ ...project, agents: [] }), 'no agent');
+  });
+
   it('tool calls per research are bounded', () => {
     fails(ResearchProjectConfigSchema.safeParse({ ...project, research: { ...project.research, maxToolCalls: 0 } }), '0');
     fails(ResearchProjectConfigSchema.safeParse({ ...project, research: { ...project.research, maxToolCalls: 101 } }), '101');
