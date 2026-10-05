@@ -1,4 +1,4 @@
-"""cap-ricerca / cap-lab / project routes (v1.28.0, Phase 54) guard mutations: assertion failure required, always restore sources."""
+"""cap-ricerca / cap-lab / per-agent capability routes (v1.28.0, Phase 54) guard mutations: green baseline first, assertion failure required, always restore sources."""
 import pathlib, subprocess, sys, tempfile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 TESTS = ['tests/capability/ricerca/ricerca.test.ts', 'tests/capability/lab/lab.test.ts', 'tests/http/internal-capability-agent.test.ts']
@@ -34,6 +34,9 @@ M = [
 ]
 selected = [m for m in M if not sys.argv[1:] or m[0].split()[0] in sys.argv[1:]]
 logs = pathlib.Path(tempfile.mkdtemp(prefix='ricerca-lab-mutations-'))
+# A mutation counts only against a green baseline: a failing or flaky suite would «kill» everything.
+if subprocess.run(['pnpm', 'exec', 'vitest', 'run', '--maxWorkers=1', *TESTS], cwd=ROOT, capture_output=True).returncode != 0:
+    print('BASELINE RED: fix the suite before mutating'); sys.exit(1)
 results = []
 for name, file, before, after in selected:
     path = ROOT/file
@@ -42,7 +45,7 @@ for name, file, before, after in selected:
         print(name, 'SETUP ERROR', flush=True); results.append(False); continue
     try:
         path.write_text(original.replace(before, after))
-        run = subprocess.run(['pnpm', 'exec', 'vitest', 'run', *TESTS], cwd=ROOT, capture_output=True, text=True, timeout=180)
+        run = subprocess.run(['pnpm', 'exec', 'vitest', 'run', '--maxWorkers=1', *TESTS], cwd=ROOT, capture_output=True, text=True, timeout=300)
         output = run.stdout + run.stderr
         (logs/(name.split()[0]+'.log')).write_text(output)
         killed = run.returncode != 0 and 'AssertionError' in output and 'failed' in output

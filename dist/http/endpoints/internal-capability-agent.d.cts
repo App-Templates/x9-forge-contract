@@ -184,6 +184,7 @@ export declare const AgentSpendResponseSchema: z.ZodObject<{
         webCalls: z.ZodNumber;
         budgetStops: z.ZodNumber;
         budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
+        overrunAt: z.ZodNullable<z.ZodISODateTime>;
     }, z.core.$strict>>;
     queuedNow: z.ZodNumber;
 }, z.core.$strict>;
@@ -212,6 +213,7 @@ export declare const ricercaAgentSpendContract: {
             webCalls: z.ZodNumber;
             budgetStops: z.ZodNumber;
             budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
+            overrunAt: z.ZodNullable<z.ZodISODateTime>;
         }, z.core.$strict>>;
         queuedNow: z.ZodNumber;
     }, z.core.$strict>;

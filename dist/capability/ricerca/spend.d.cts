@@ -24,6 +24,7 @@ export declare const AgentSpendDaySchema: z.ZodObject<{
     webCalls: z.ZodNumber;
     budgetStops: z.ZodNumber;
     budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
+    overrunAt: z.ZodNullable<z.ZodISODateTime>;
 }, z.core.$strict>;
 export type AgentSpendDay = z.infer<typeof AgentSpendDaySchema>;
 //# sourceMappingURL=spend.d.ts.map

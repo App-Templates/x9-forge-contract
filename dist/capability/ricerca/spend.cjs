@@ -24,9 +24,14 @@ exports.AgentSpendDaySchema = zod_1.z.object({
     capUsd: zod_1.z.number().positive().finite(),
     calls: zod_1.z.number().int().nonnegative(),
     webCalls: zod_1.z.number().int().nonnegative(),
-    /** Researches that day ended because the budget was spent. */
+    /** Researches that day stopped because the DAY's budget was spent (a research's own ceiling is not counted here). */
     budgetStops: zod_1.z.number().int().nonnegative(),
-    /** When the first research of that day was stopped by the budget («finito alle 15:52»); null if it never was. */
+    /** When the first research of that day was stopped by the day's budget («finito alle 15:52»); null if it never was. */
     budgetReachedAt: zod_1.z.iso.datetime().nullable(),
+    /**
+     * When a call cost more than its worst-case reservation that day: the agent's day was closed at that moment (nothing
+     * else is reserved until its midnight). null if it never happened. The residual risk of hosted web reading.
+     */
+    overrunAt: zod_1.z.iso.datetime().nullable(),
 }).strict();
 //# sourceMappingURL=spend.js.map

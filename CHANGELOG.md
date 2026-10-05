@@ -21,7 +21,7 @@ Nessun «progetto» dentro le capability.
   obiettivo, budget giornaliero e per ricerca col fuso orario, modelli, parametri di ricerca, regola delle fonti),
   `ResearchRequestSchema` / `ResearchResultSchema` (ricerca a cascata con `parentResearchId`, scoperte con origine
   `web` e almeno una fonte, nuove domande, costo vero), `AgentSpendDaySchema` (per agente, capability e giorno, con
-  gli stop per budget e `budgetReachedAt`), `RICERCA_TOOLS`, `RicercaToolErrorSchema` (motivo nel testo di un errore `TOOL_EXEC_FAILED`
+  gli stop per il budget del giorno, `budgetReachedAt` e `overrunAt`), `RICERCA_TOOLS`, `RicercaToolErrorSchema` (motivo nel testo di un errore `TOOL_EXEC_FAILED`
   o `TOOL_CALL_INVALID` del bridge). Nessun default per budget, modelli e regola delle fonti.
 - Sottopercorso `@x9-forge/contracts/capability/lab`: `LabAgentConfigSchema` (dominio, convenzioni, tipi di pagina e
   di collegamento scelti per agente), la LLM Wiki (`WikiSourceSchema` con impronta del testo, `WikiPageSchema`

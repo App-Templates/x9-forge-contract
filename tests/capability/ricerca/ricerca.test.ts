@@ -110,7 +110,7 @@ describe('cap-ricerca research and result (v1.28.0)', () => {
 });
 
 describe('cap-ricerca spend, tools and errors (v1.28.0)', () => {
-  const day = { agentId: 'samira', capability: 'ricerca', day: '2026-10-05', spentUsd: 12.4, reservedUsd: 1.5, capUsd: 17, calls: 30, webCalls: 110, budgetStops: 1, budgetReachedAt: '2026-10-05T13:52:00Z' };
+  const day = { agentId: 'samira', capability: 'ricerca', day: '2026-10-05', spentUsd: 12.4, reservedUsd: 1.5, capUsd: 17, calls: 30, webCalls: 110, budgetStops: 1, budgetReachedAt: '2026-10-05T13:52:00Z', overrunAt: null };
 
   it('a day of spend is per agent and per capability, dated, never negative', () => {
     expect(AgentSpendDaySchema.safeParse(day).success).toBe(true);
@@ -121,6 +121,9 @@ describe('cap-ricerca spend, tools and errors (v1.28.0)', () => {
     fails(AgentSpendDaySchema.safeParse({ ...day, capability: 'voice' }), 'capability');
     expect(AgentSpendDaySchema.safeParse({ ...day, budgetStops: 0, budgetReachedAt: null }).success).toBe(true);
     fails(AgentSpendDaySchema.safeParse({ ...day, budgetReachedAt: '15:52' }), 'not an instant');
+    expect(AgentSpendDaySchema.safeParse({ ...day, overrunAt: '2026-10-05T14:00:00Z' }).success).toBe(true);
+    const { overrunAt: _o, ...noOverrun } = day;
+    fails(AgentSpendDaySchema.safeParse(noOverrun), 'overrunAt required (nullable)');
   });
 
   it('tool names are exported, so callers build the path from the contract', () => {
