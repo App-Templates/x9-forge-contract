@@ -27,5 +27,7 @@ export const AgentSpendDaySchema = z.object({
   webCalls: z.number().int().nonnegative(),
   /** Researches that day ended because the budget was spent. */
   budgetStops: z.number().int().nonnegative(),
+  /** When the first research of that day was stopped by the budget («finito alle 15:52»); null if it never was. */
+  budgetReachedAt: z.iso.datetime().nullable(),
 }).strict();
 export type AgentSpendDay = z.infer<typeof AgentSpendDaySchema>;

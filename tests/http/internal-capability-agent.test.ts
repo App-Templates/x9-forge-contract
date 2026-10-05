@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   AgentConfigStaleSchema,
+  AgentSpendResponseSchema,
   AgentGrowthResponseSchema,
   AgentSpendQuerySchema,
   CapabilityAgentRouteErrorSchema,
@@ -43,6 +44,11 @@ describe('per-agent capability routes (v1.28.0)', () => {
     expect(AgentSpendQuerySchema.safeParse({ from: '2026-02-30', to: '2026-03-01' }).success).toBe(false);
     expect(AgentSpendQuerySchema.safeParse({ from: '2025-01-01', to: '2026-10-05' }).success).toBe(false);
     expect(AgentSpendQuerySchema.safeParse({ from: '2025-09-01', to: '2026-10-04' }).success).toBe(true);
+  });
+
+  it('spend carries the days and the researches queued right now', () => {
+    expect(AgentSpendResponseSchema.safeParse({ days: [], queuedNow: 2 }).success).toBe(true);
+    expect(AgentSpendResponseSchema.safeParse({ days: [] }).success).toBe(false);
   });
 
   it('growth carries the graph, the gaps and the wiki counts of one agent', () => {

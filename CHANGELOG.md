@@ -21,7 +21,7 @@ Nessun «progetto» dentro le capability.
   obiettivo, budget giornaliero e per ricerca col fuso orario, modelli, parametri di ricerca, regola delle fonti),
   `ResearchRequestSchema` / `ResearchResultSchema` (ricerca a cascata con `parentResearchId`, scoperte con origine
   `web` e almeno una fonte, nuove domande, costo vero), `AgentSpendDaySchema` (per agente, capability e giorno, con
-  gli stop per budget), `RICERCA_TOOLS`, `RicercaToolErrorSchema` (motivo nel testo di un errore `TOOL_EXEC_FAILED`
+  gli stop per budget e `budgetReachedAt`), `RICERCA_TOOLS`, `RicercaToolErrorSchema` (motivo nel testo di un errore `TOOL_EXEC_FAILED`
   o `TOOL_CALL_INVALID` del bridge). Nessun default per budget, modelli e regola delle fonti.
 - Sottopercorso `@x9-forge/contracts/capability/lab`: `LabAgentConfigSchema` (dominio, convenzioni, tipi di pagina e
   di collegamento scelti per agente), la LLM Wiki (`WikiSourceSchema` con impronta del testo, `WikiPageSchema`
@@ -30,7 +30,7 @@ Nessun «progetto» dentro le capability.
 - `@x9-forge/contracts/http`: rotte per agente di ogni capability `PUT/GET /internal/capability/agents/:agentId/config`
   (versione che solo cresce: 409 `stale_version`; rifiuti dichiarati in `CapabilityAgentRouteErrorSchema`, compreso
   `budget_below_minimum`),
-  `GET …/spend?from&to` (cap-ricerca, finestra ≤ 400 giorni, date reali), `GET …/growth` (cap-lab);
+  `GET …/spend?from&to` (cap-ricerca, finestra ≤ 400 giorni, date reali, `queuedNow`), `GET …/growth` (cap-lab);
   `capAgentConfigPath`, `capAgentSpendPath`, `capAgentGrowthPath` validano l'id.
 - Consumer previsti: agent-x9 `services/cap-ricerca`, `services/cap-lab`, `services/cap-food`; forge-v2 gestione degli
   agenti (PIANO-SVILUPPI §B2/B3); enterprise-adoption ea-core dopo la migrazione.

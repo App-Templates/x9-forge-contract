@@ -79,7 +79,11 @@ exports.AGENT_SPEND_MAX_DAYS = 400;
 exports.AgentSpendQuerySchema = zod_1.z.object({ from: spend_js_1.AgentDaySchema, to: spend_js_1.AgentDaySchema }).strict()
     .refine(q => q.from <= q.to, { message: 'from after to' })
     .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < exports.AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
-exports.AgentSpendResponseSchema = zod_1.z.object({ days: zod_1.z.array(spend_js_1.AgentSpendDaySchema).max(exports.AGENT_SPEND_MAX_DAYS) }).strict();
+exports.AgentSpendResponseSchema = zod_1.z.object({
+    days: zod_1.z.array(spend_js_1.AgentSpendDaySchema).max(exports.AGENT_SPEND_MAX_DAYS),
+    /** Researches of the agent waiting in the queue right now. */
+    queuedNow: zod_1.z.number().int().nonnegative(),
+}).strict();
 exports.ricercaAgentSpendContract = {
     method: 'GET',
     path: '/internal/capability/agents/:agentId/spend',

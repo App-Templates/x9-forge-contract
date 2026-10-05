@@ -26,5 +26,7 @@ exports.AgentSpendDaySchema = zod_1.z.object({
     webCalls: zod_1.z.number().int().nonnegative(),
     /** Researches that day ended because the budget was spent. */
     budgetStops: zod_1.z.number().int().nonnegative(),
+    /** When the first research of that day was stopped by the budget («finito alle 15:52»); null if it never was. */
+    budgetReachedAt: zod_1.z.iso.datetime().nullable(),
 }).strict();
 //# sourceMappingURL=spend.js.map

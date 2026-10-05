@@ -183,7 +183,9 @@ export declare const AgentSpendResponseSchema: z.ZodObject<{
         calls: z.ZodNumber;
         webCalls: z.ZodNumber;
         budgetStops: z.ZodNumber;
+        budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
     }, z.core.$strict>>;
+    queuedNow: z.ZodNumber;
 }, z.core.$strict>;
 export declare const ricercaAgentSpendContract: {
     readonly method: "GET";
@@ -209,7 +211,9 @@ export declare const ricercaAgentSpendContract: {
             calls: z.ZodNumber;
             webCalls: z.ZodNumber;
             budgetStops: z.ZodNumber;
+            budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
         }, z.core.$strict>>;
+        queuedNow: z.ZodNumber;
     }, z.core.$strict>;
 };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */

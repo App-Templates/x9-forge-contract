@@ -82,7 +82,11 @@ export const AGENT_SPEND_MAX_DAYS = 400;
 export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentDaySchema }).strict()
   .refine(q => q.from <= q.to, { message: 'from after to' })
   .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
-export const AgentSpendResponseSchema = z.object({ days: z.array(AgentSpendDaySchema).max(AGENT_SPEND_MAX_DAYS) }).strict();
+export const AgentSpendResponseSchema = z.object({
+  days: z.array(AgentSpendDaySchema).max(AGENT_SPEND_MAX_DAYS),
+  /** Researches of the agent waiting in the queue right now. */
+  queuedNow: z.number().int().nonnegative(),
+}).strict();
 export const ricercaAgentSpendContract = {
   method: 'GET' as const,
   path: '/internal/capability/agents/:agentId/spend' as const,
