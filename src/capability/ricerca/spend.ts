@@ -30,8 +30,9 @@ export const AgentSpendDaySchema = z.object({
   /** When the first research of that day was stopped by the day's budget («finito alle 15:52»); null if it never was. */
   budgetReachedAt: z.iso.datetime().nullable(),
   /**
-   * When a call cost more than its worst-case reservation that day: the agent's day was closed at that moment (nothing
-   * else is reserved until its midnight). null if it never happened. The residual risk of hosted web reading.
+   * When the agent's day was closed because a call may have cost more than its worst-case reservation: it did (overrun),
+   * or it was sent and ended without a reported usage (unknown cost). Nothing else is reserved until that day's
+   * midnight. null if it never happened. The residual risk of hosted web reading.
    */
   overrunAt: z.iso.datetime().nullable(),
 }).strict();
