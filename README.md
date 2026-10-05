@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Package:** `@x9-forge/contracts` · **Versione proposta:** `1.25.0` (MVP-07 B0, guida dei turni facoltativa; in review, non rilasciata). Precedente: `1.24.0`, contesto per turno.
+**Package:** `@x9-forge/contracts` · **Versione:** `1.27.1` (2026-10-05, chiavi interne di piattaforma fuori dai contesti degli agenti). Precedenti: `1.27.0` onboarding condotto dalla voce, `1.26.0` identità utente, `1.25.0` guida dei turni (MVP-07), `1.24.0` contesto per turno.
 
 ## Why this repo exists (R-14 NON NEGOZIABILE)
 
