@@ -16,6 +16,7 @@ export declare const RICERCA_TOOLS: {
 export type RicercaToolName = (typeof RICERCA_TOOLS)[keyof typeof RICERCA_TOOLS];
 /** Why a cap-ricerca tool call failed (the `error` text of a bridge tool-call error). */
 export declare const RicercaToolErrorSchema: z.ZodEnum<{
+    invalid_request: "invalid_request";
     not_configured: "not_configured";
     max_usd_above_agent: "max_usd_above_agent";
     unknown_parent: "unknown_parent";

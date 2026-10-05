@@ -28,7 +28,8 @@ Nessun «progetto» dentro le capability.
   versionata, `WikiClaimSchema` con almeno una fonte, `WikiLinkSchema`), `CompetenceNodeViewSchema` (scala 0..4 del
   motore del contest), `CompetenceGapSchema`, `LAB_TOOLS`. Il testo della wiki è dato, mai istruzione.
 - `@x9-forge/contracts/http`: rotte per agente di ogni capability `PUT/GET /internal/capability/agents/:agentId/config`
-  (versione che solo cresce: 409 `stale_version`; rifiuti dichiarati in `CapabilityAgentRouteErrorSchema`),
+  (versione che solo cresce: 409 `stale_version`; rifiuti dichiarati in `CapabilityAgentRouteErrorSchema`, compreso
+  `budget_below_minimum`),
   `GET …/spend?from&to` (cap-ricerca, finestra ≤ 400 giorni, date reali), `GET …/growth` (cap-lab);
   `capAgentConfigPath`, `capAgentSpendPath`, `capAgentGrowthPath` validano l'id.
 - Consumer previsti: agent-x9 `services/cap-ricerca`, `services/cap-lab`, `services/cap-food`; forge-v2 gestione degli

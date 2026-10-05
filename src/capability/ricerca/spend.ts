@@ -3,8 +3,9 @@ import { CapabilityAgentIdSchema } from './agent-config.js';
 
 /**
  * One day of spend of one agent on one capability (v1.28.0, Phase 54). Read by the control panel (Forge).
- * `day` is the date in the agent's time zone; `reservedUsd` is what running calls have reserved and not yet settled
- * (an unknown cost is never free: it stays reserved).
+ * `day` is the date in the agent's time zone. `spentUsd` is settled cost; `reservedUsd` is cost reserved and not settled:
+ * calls still running, and calls that ended without a reported usage (an unknown cost is never free: it stays reserved).
+ * `capUsd` is the daily budget in force that day (the highest, if it changed during the day).
  */
 export const AgentDaySchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d => {
   const t = new Date(d + 'T00:00:00Z');

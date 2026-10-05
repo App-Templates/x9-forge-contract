@@ -8,7 +8,8 @@ import { z } from 'zod';
  * identity is conveyed by the caller's `baseUrl`, not by the path. A configuration only moves forward: a `PUT` whose
  * `version` is not above the stored one is refused with 409 {@link AgentConfigStaleSchema}, never applied silently.
  * Errors: 400 {@link CapabilityAgentRouteErrorSchema} (`invalid_request`, `agent_mismatch`), 401 missing/wrong secret,
- * 404 `not_configured`, 409 stale version, 422 `invalid_config` / `unknown_model_rate`.
+ * 404 `not_configured`, 409 stale version, 422 `invalid_config` / `unknown_model_rate` / `budget_below_minimum` (a budget
+ * too small for even one research in the worst case: refused instead of stopping every research).
  *
  * Consumers (planned): agent-x9 services/cap-ricerca, services/cap-lab (servers); forge-v2 agent management (client).
  */
@@ -31,11 +32,12 @@ export declare const AgentConfigStaleSchema: z.ZodObject<{
 export declare const CapabilityAgentRouteErrorSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        not_configured: "not_configured";
         invalid_request: "invalid_request";
+        not_configured: "not_configured";
         agent_mismatch: "agent_mismatch";
         invalid_config: "invalid_config";
         unknown_model_rate: "unknown_model_rate";
+        budget_below_minimum: "budget_below_minimum";
     }>;
 }, z.core.$strict>;
 export type CapabilityAgentRouteError = z.infer<typeof CapabilityAgentRouteErrorSchema>;

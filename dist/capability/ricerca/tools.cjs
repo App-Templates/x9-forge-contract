@@ -19,6 +19,7 @@ exports.RICERCA_TOOLS = {
 };
 /** Why a cap-ricerca tool call failed (the `error` text of a bridge tool-call error). */
 exports.RicercaToolErrorSchema = zod_1.z.enum([
+    'invalid_request',
     'not_configured',
     'max_usd_above_agent',
     'unknown_parent',

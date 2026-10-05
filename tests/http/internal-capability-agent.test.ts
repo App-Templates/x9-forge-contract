@@ -30,7 +30,7 @@ describe('per-agent capability routes (v1.28.0)', () => {
 
   it('a stale version and the other refusals are declared', () => {
     expect(AgentConfigStaleSchema.safeParse({ ok: false, error: 'stale_version', currentVersion: 3 }).success).toBe(true);
-    for (const error of ['invalid_request', 'agent_mismatch', 'not_configured', 'invalid_config', 'unknown_model_rate']) {
+    for (const error of ['invalid_request', 'agent_mismatch', 'not_configured', 'invalid_config', 'unknown_model_rate', 'budget_below_minimum']) {
       expect(CapabilityAgentRouteErrorSchema.safeParse({ ok: false, error }).success, error).toBe(true);
     }
     expect(CapabilityAgentRouteErrorSchema.safeParse({ ok: false, error: 'boom' }).success).toBe(false);

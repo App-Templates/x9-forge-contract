@@ -15,7 +15,8 @@ const competence_js_1 = require("../../capability/lab/competence.cjs");
  * identity is conveyed by the caller's `baseUrl`, not by the path. A configuration only moves forward: a `PUT` whose
  * `version` is not above the stored one is refused with 409 {@link AgentConfigStaleSchema}, never applied silently.
  * Errors: 400 {@link CapabilityAgentRouteErrorSchema} (`invalid_request`, `agent_mismatch`), 401 missing/wrong secret,
- * 404 `not_configured`, 409 stale version, 422 `invalid_config` / `unknown_model_rate`.
+ * 404 `not_configured`, 409 stale version, 422 `invalid_config` / `unknown_model_rate` / `budget_below_minimum` (a budget
+ * too small for even one research in the worst case: refused instead of stopping every research).
  *
  * Consumers (planned): agent-x9 services/cap-ricerca, services/cap-lab (servers); forge-v2 agent management (client).
  */
@@ -38,7 +39,7 @@ exports.AgentConfigStaleSchema = zod_1.z.object({
 }).strict();
 exports.CapabilityAgentRouteErrorSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
-    error: zod_1.z.enum(['invalid_request', 'agent_mismatch', 'not_configured', 'invalid_config', 'unknown_model_rate']),
+    error: zod_1.z.enum(['invalid_request', 'agent_mismatch', 'not_configured', 'invalid_config', 'unknown_model_rate', 'budget_below_minimum']),
 }).strict();
 /** cap-ricerca's configuration of an agent: budget, models, research parameters, source rule. */
 exports.ricercaAgentConfigPutContract = {
