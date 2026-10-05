@@ -10,6 +10,17 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## (prenotata 1.31.0) — non rilasciata — B8: lettura dei gruppi «Progetto» di Forge
+
+### Added (additive, backward-compatible)
+- `forge-project-groups`: `GROUP_TYPES` / `GroupTypeSchema` (spostati da forge-v2 @forge/types), schemi strict per
+  elenco e dettaglio dei gruppi «Progetto» (agenti con sole capability attive: niente chiavi né parametri),
+  `listProjectGroupsContract` e `getProjectGroupContract` (GET, auth `token` con segreto di servizio dedicato in sola
+  lettura), `projectGroupPath`.
+- Consumer: forge-v2 factory-svc (rotte S2S, fase 30) e la vista di progetto esterna.
+- Numero prenotato in `~/.claude/agent-coordination/BRIDGE-VERSIONI.md`: si rilascia dopo 1.28-1.30 o si rinumera
+  d'accordo con le altre sessioni.
+
 ## v1.27.1 — 2026-10-05 — Chiavi interne di piattaforma fuori dai contesti degli agenti (sicurezza)
 
 ### Added (additive, backward-compatible)

@@ -42,3 +42,4 @@ export * from './webhook-inbound-telegram.js'; // POST /webhook/inbound/telegram
 export * from './webhook-inbound-email.js'; // POST /webhook/agentmail/inbound, X9 cap-email
 
 export * from './cap-turn-lead.js';
+export * from './forge-project-groups.js'; // B8 — read-only Progetto groups (reserved 1.31.0)
