@@ -41,6 +41,9 @@ describe('cap-ricerca project config (v1.28.0)', () => {
     fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, dailyUsd: 0 } }), 'daily 0');
     fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, dailyUsd: -1 } }), 'daily < 0');
     fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, perResearchMaxUsd: 18 } }), 'research > day');
+    // Positivity on its own (not through the per-research refine): both zero, and a zero research ceiling.
+    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, dailyUsd: 0, perResearchMaxUsd: 0 } }), 'both 0');
+    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, perResearchMaxUsd: 0 } }), 'research 0');
     expect(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, perResearchMaxUsd: 17 } }).success).toBe(true);
   });
 
