@@ -10,6 +10,28 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.28.0 — proposta in review — Fase 54: cap-ricerca, cap-lab, progetti
+
+### Added (additive, backward-compatible)
+- Sottopercorso `@x9-forge/contracts/capability/ricerca`: `ResearchProjectConfigSchema` (la parte del progetto di
+  cap-ricerca: budget giornaliero e per ricerca con fuso orario, modelli, parametri di ricerca, regola delle fonti,
+  agenti), `ResearchRequestSchema` / `ResearchResultSchema` (ricerca a cascata con `parentResearchId`, scoperte con
+  origine `web` e almeno una fonte, nuove domande, costo vero), `ProjectSpendDaySchema`, `RICERCA_TOOLS`.
+  Nessun default per budget, modelli e regola delle fonti: sono decisioni del progetto.
+- Sottopercorso `@x9-forge/contracts/capability/lab`: `LabProjectConfigSchema` (dominio, convenzioni, tipi di pagina
+  e di collegamento scelti dal progetto), la LLM Wiki (`WikiSourceSchema` con impronta del testo,
+  `WikiPageSchema` versionata, `WikiClaimSchema` con almeno una fonte, `WikiLinkSchema`), `CompetenceNodeViewSchema`
+  (scala 0..4 del motore del contest), `CompetenceGapSchema`, `LAB_TOOLS`. Il testo della wiki è dato, mai istruzione.
+- `@x9-forge/contracts/http`: rotte dei progetti `PUT/GET /internal/projects/:projectId/config` (una parte per
+  capability, versione che solo cresce: 409 `stale_version`), `GET …/spend?from&to` (cap-ricerca),
+  `GET …/growth` (cap-lab); `projectConfigPath`, `projectSpendPath`, `projectGrowthPath` validano l'id.
+- Consumer previsti: agent-x9 `services/cap-ricerca`, `services/cap-lab`, `services/cap-food`; forge-v2 pagina
+  Progetti; enterprise-adoption ea-core dopo la migrazione. Nessun consumer aggiornato in questa versione.
+- Verifiche: `tests/capability/ricerca/`, `tests/capability/lab/`, `tests/http/internal-project.test.ts`, smoke ESM e
+  CJS dei sottopercorsi nuovi; mutazioni `scripts/mutate-54-ricerca-lab.py` (17/17 rosse).
+- Nota: il branch locale `fix/sec-tg-session-fanout` (anch'esso numerato 1.25.0, mai pushato) va rifatto su questa
+  versione e numerato ≥ 1.29.0.
+
 ## v1.27.0 — proposta in review — Enterprise Adoption: onboarding condotto dalla voce
 
 ### Added (additive, backward-compatible)
