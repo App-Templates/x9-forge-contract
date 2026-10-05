@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = void 0;
+exports.AgentContextFileWriteSchema = exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = void 0;
 exports.hasTelegramBot = hasTelegramBot;
 exports.parseAgentContextFile = parseAgentContextFile;
+exports.parseAgentContextFileForWrite = parseAgentContextFileForWrite;
 const zod_1 = require("zod");
 const agent_context_core_js_1 = require("./agent-context-core.cjs");
+const platform_internal_credentials_js_1 = require("../vault/platform-internal-credentials.cjs");
 /**
  * AgentContextFile — the FULL canonical contract for `context.json` on disk.
  *
@@ -61,5 +63,33 @@ function hasTelegramBot(ctx) {
  */
 function parseAgentContextFile(json) {
     return exports.AgentContextFileSchema.parse(json);
+}
+/**
+ * Writer-side schema: the full context.json shape, plus no platform-internal
+ * credential (see `PLATFORM_INTERNAL_CREDENTIAL_KEYS` in `/vault`) in
+ * `credentials`. Writers (Forge `deploy.machine`) validate with this.
+ *
+ * The reader schema ({@link AgentContextFileSchema}) deliberately stays
+ * lenient: contexts written before v1.25.0 still carry such keys, and a
+ * strict reader would quarantine them instead of loading the agent.
+ */
+exports.AgentContextFileWriteSchema = exports.AgentContextFileSchema.superRefine((ctx, issue) => {
+    for (const key of Object.keys(ctx.credentials)) {
+        if ((0, platform_internal_credentials_js_1.isPlatformInternalCredentialKey)(key)) {
+            issue.addIssue({
+                code: zod_1.z.ZodIssueCode.custom,
+                path: ['credentials', key],
+                message: `platform-internal credential "${key}" must not be written into an agent context`,
+            });
+        }
+    }
+});
+/**
+ * Validate a context.json about to be WRITTEN. Fail-loud like
+ * {@link parseAgentContextFile}, and also rejects platform-internal
+ * credentials. Error messages carry key names only, never values.
+ */
+function parseAgentContextFileForWrite(json) {
+    return exports.AgentContextFileWriteSchema.parse(json);
 }
 //# sourceMappingURL=agent-context-file.js.map
