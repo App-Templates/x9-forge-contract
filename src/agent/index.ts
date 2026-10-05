@@ -25,8 +25,10 @@ export type { LlmConfig, AgentContextCore } from './agent-context-core.js';
 export {
   AgentContextRuntimeFieldsSchema,
   AgentContextFileSchema,
+  AgentContextFileWriteSchema,
   hasTelegramBot,
   parseAgentContextFile,
+  parseAgentContextFileForWrite,
 } from './agent-context-file.js';
 export type { AgentContextRuntimeFields, AgentContextFile } from './agent-context-file.js';
 

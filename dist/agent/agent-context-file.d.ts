@@ -94,4 +94,68 @@ export declare function hasTelegramBot(ctx: Pick<AgentContextFile, 'telegramBotT
  * the Forge writer (validate-before-write) and the X9 reader.
  */
 export declare function parseAgentContextFile(json: unknown): AgentContextFile;
+/**
+ * Writer-side schema: the full context.json shape, plus no platform-internal
+ * credential (see `PLATFORM_INTERNAL_CREDENTIAL_KEYS` in `/vault`) in
+ * `credentials`. Writers (Forge `deploy.machine`) validate with this.
+ *
+ * The reader schema ({@link AgentContextFileSchema}) deliberately stays
+ * lenient: contexts written before v1.25.0 still carry such keys, and a
+ * strict reader would quarantine them instead of loading the agent.
+ */
+export declare const AgentContextFileWriteSchema: z.ZodObject<{
+    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    credentials: z.ZodObject<{
+        OPENAI_API_KEY: z.ZodOptional<z.ZodString>;
+        ANTHROPIC_API_KEY: z.ZodOptional<z.ZodString>;
+        GOOGLE_API_KEY: z.ZodOptional<z.ZodString>;
+        AGENT_CHAT_MODEL: z.ZodOptional<z.ZodString>;
+        TELEGRAM_BOT_TOKEN: z.ZodOptional<z.ZodString>;
+        ELEVENLABS_API_KEY: z.ZodOptional<z.ZodString>;
+        ELEVENLABS_VOICE_ID: z.ZodOptional<z.ZodString>;
+        ELEVENLABS_MODEL_ID: z.ZodOptional<z.ZodString>;
+        TTS_PROVIDER: z.ZodOptional<z.ZodString>;
+        OPENAI_TTS_MODEL: z.ZodOptional<z.ZodString>;
+        OPENAI_TTS_VOICE: z.ZodOptional<z.ZodString>;
+        STT_PRIMARY_PROVIDER: z.ZodOptional<z.ZodString>;
+        OPENAI_STT_MODEL: z.ZodOptional<z.ZodString>;
+        VOICE_CALL_PROVIDER: z.ZodOptional<z.ZodString>;
+        OPENAI_LIVE_VOICE: z.ZodOptional<z.ZodString>;
+        OPENAI_LIVE_BACKEND_MODEL: z.ZodOptional<z.ZodString>;
+        TELNYX_API_KEY: z.ZodOptional<z.ZodString>;
+        TELNYX_CONNECTION_ID: z.ZodOptional<z.ZodString>;
+        TELNYX_FROM_NUMBER: z.ZodOptional<z.ZodString>;
+        TELNYX_PUBLIC_KEY: z.ZodOptional<z.ZodString>;
+        LIVE_WEB_AUTH_TOKEN: z.ZodOptional<z.ZodString>;
+        QDRANT_API_KEY: z.ZodOptional<z.ZodString>;
+        ELEVENLABS_MINDFULNESS_AGENT_ID: z.ZodOptional<z.ZodString>;
+        FORGE_VOICE_REGISTER_TOKEN: z.ZodOptional<z.ZodString>;
+        AGENTMAIL_API_KEY: z.ZodOptional<z.ZodString>;
+        AGENTMAIL_INBOX_ID: z.ZodOptional<z.ZodString>;
+        AGENT_EMAIL: z.ZodOptional<z.ZodString>;
+        GOOGLE_CALENDAR_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        GOOGLE_CALENDAR_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        GOOGLE_CALENDAR_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+    }, z.core.$catchall<z.ZodString>>;
+    llmConfig: z.ZodObject<{
+        provider: z.ZodString;
+        model: z.ZodString;
+    }, z.core.$strip>;
+    telegramAllowFrom: z.ZodArray<z.ZodString>;
+    inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    tenantId: z.ZodOptional<z.ZodString>;
+    workspacePath: z.ZodString;
+    registryPath: z.ZodString;
+    telegramBotToken: z.ZodOptional<z.ZodString>;
+    displayName: z.ZodString;
+}, z.core.$loose>;
+/**
+ * Validate a context.json about to be WRITTEN. Fail-loud like
+ * {@link parseAgentContextFile}, and also rejects platform-internal
+ * credentials. Error messages carry key names only, never values.
+ */
+export declare function parseAgentContextFileForWrite(json: unknown): AgentContextFile;
 //# sourceMappingURL=agent-context-file.d.ts.map
