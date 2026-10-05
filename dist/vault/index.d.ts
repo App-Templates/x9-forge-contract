@@ -17,6 +17,8 @@ export type { SyncAgentResult, SyncAllRequest, SyncAllResponse, SyncAllErrorResp
 export { WorkspaceFileSchema } from "./workspace-file.js";
 export type { WorkspaceFile } from "./workspace-file.js";
 export type { PlatformBootstrapEnv } from "./platform-bootstrap-env.js";
+export { PLATFORM_INTERNAL_CREDENTIAL_KEYS, isPlatformInternalCredentialKey, stripPlatformInternalCredentials, } from "./platform-internal-credentials.js";
+export type { PlatformInternalCredentialKey } from "./platform-internal-credentials.js";
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.js";
 export type { AgentVaultedCredentials } from "./agent-vaulted-credentials.js";
 //# sourceMappingURL=index.d.ts.map

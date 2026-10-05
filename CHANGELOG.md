@@ -36,7 +36,28 @@ Nessun «progetto» dentro le capability.
   agenti (PIANO-SVILUPPI §B2/B3); enterprise-adoption ea-core dopo la migrazione.
 - Verifiche: `tests/capability/ricerca/`, `tests/capability/lab/`, `tests/http/internal-capability-agent.test.ts`,
   smoke ESM e CJS; mutazioni `scripts/mutate-54-ricerca-lab.py` (20/20 rosse).
-- Nota: il branch locale `fix/sec-tg-session-fanout` (numerato 1.25.0, mai pushato) va rifatto e numerato ≥ 1.29.0.
+- Contiene la v1.27.1 (chiavi interne di piattaforma fuori dai contesti degli agenti, fix SEC del 01/10), unita da
+  `origin/main` prima del rilascio.
+## v1.27.1 — 2026-10-05 — Chiavi interne di piattaforma fuori dai contesti degli agenti (sicurezza)
+
+### Added (additive, backward-compatible)
+- `@x9-forge/contracts/vault`: `PLATFORM_INTERNAL_CREDENTIAL_KEYS` (`TELEGRAM_SESSION_STRING`),
+  `isPlatformInternalCredentialKey`, `stripPlatformInternalCredentials`, tipo `PlatformInternalCredentialKey`.
+  Chiavi di piattaforma usate solo da un servizio di piattaforma (factory-svc di Forge → @BotFather) che non devono
+  mai finire nelle `credentials` di un agente (context.json, `/resolve` del vault, `.env` dell'agente).
+- `@x9-forge/contracts/agent`: `AgentContextFileWriteSchema` + `parseAgentContextFileForWrite`, controllo lato
+  scrittura che rifiuta quelle chiavi. `AgentContextFileSchema` / `parseAgentContextFile` (lettura) invariati.
+- Perché: SEC 2026-10-01 — Forge copiava ogni riga di piattaforma del vault nel `context.json` di ogni agente, quindi
+  la sessione del userbot BotFather arrivava a tutti gli agenti di tutti gli owner. Nessun codice X9 la legge dal
+  contesto di un agente.
+- Numero di versione: aggiunta additiva, ma rilasciata come **patch** 1.27.1 per decisione di Stefano (05/10), così
+  la 1.28.0 resta ai contratti per agente di cap-ricerca/cap-lab (`feat/54-ricerca-lab-contracts`), che ripartono
+  da questa base senza cambiare numero.
+- Origine: `0f595b4` sul branch locale `fix/sec-tg-session-fanout` (era numerato 1.25.0, numero poi usato da MVP-07),
+  portato invariato sopra la 1.27.0.
+- Consumer: forge-v2 factory-svc (`deploy.machine` filtra e valida con lo schema di scrittura) e vault-svc
+  (cascata e `/resolve` escludono le chiavi). agent-x9: nessuna modifica richiesta.
+- Verifiche: `tests/vault/platform-internal-credentials.test.ts`, `tests/agent/agent-context-file.test.ts`.
 
 ## v1.27.0 — proposta in review — Enterprise Adoption: onboarding condotto dalla voce
 

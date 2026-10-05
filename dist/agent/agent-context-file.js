@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AgentContextCoreSchema } from "./agent-context-core.js";
+import { isPlatformInternalCredentialKey } from "../vault/platform-internal-credentials.js";
 /**
  * AgentContextFile — the FULL canonical contract for `context.json` on disk.
  *
@@ -56,5 +57,33 @@ export function hasTelegramBot(ctx) {
  */
 export function parseAgentContextFile(json) {
     return AgentContextFileSchema.parse(json);
+}
+/**
+ * Writer-side schema: the full context.json shape, plus no platform-internal
+ * credential (see `PLATFORM_INTERNAL_CREDENTIAL_KEYS` in `/vault`) in
+ * `credentials`. Writers (Forge `deploy.machine`) validate with this.
+ *
+ * The reader schema ({@link AgentContextFileSchema}) deliberately stays
+ * lenient: contexts written before v1.25.0 still carry such keys, and a
+ * strict reader would quarantine them instead of loading the agent.
+ */
+export const AgentContextFileWriteSchema = AgentContextFileSchema.superRefine((ctx, issue) => {
+    for (const key of Object.keys(ctx.credentials)) {
+        if (isPlatformInternalCredentialKey(key)) {
+            issue.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ['credentials', key],
+                message: `platform-internal credential "${key}" must not be written into an agent context`,
+            });
+        }
+    }
+});
+/**
+ * Validate a context.json about to be WRITTEN. Fail-loud like
+ * {@link parseAgentContextFile}, and also rejects platform-internal
+ * credentials. Error messages carry key names only, never values.
+ */
+export function parseAgentContextFileForWrite(json) {
+    return AgentContextFileWriteSchema.parse(json);
 }
 //# sourceMappingURL=agent-context-file.js.map

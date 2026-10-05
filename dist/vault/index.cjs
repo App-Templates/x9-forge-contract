@@ -8,7 +8,7 @@
  * @see .planning/phases/05-vault-contracts-block-e/05-RESEARCH.md
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentVaultedCredentialsSchema = exports.WorkspaceFileSchema = exports.syncAllContract = exports.SyncAllErrorResponseSchema = exports.SyncAllResponseSchema = exports.SyncAllRequestSchema = exports.SyncAgentResultSchema = exports.VaultEntryEncryptedSchema = exports.VaultEntryPlainSchema = exports.AES_WIRE_FORMAT_REGEX = exports.toSyncState = exports.VAULT_SYNC_STATES = exports.VaultSyncStateSchema = exports.compareTiers = exports.VAULT_TIERS = exports.VaultTierSchema = void 0;
+exports.AgentVaultedCredentialsSchema = exports.stripPlatformInternalCredentials = exports.isPlatformInternalCredentialKey = exports.PLATFORM_INTERNAL_CREDENTIAL_KEYS = exports.WorkspaceFileSchema = exports.syncAllContract = exports.SyncAllErrorResponseSchema = exports.SyncAllResponseSchema = exports.SyncAllRequestSchema = exports.SyncAgentResultSchema = exports.VaultEntryEncryptedSchema = exports.VaultEntryPlainSchema = exports.AES_WIRE_FORMAT_REGEX = exports.toSyncState = exports.VAULT_SYNC_STATES = exports.VaultSyncStateSchema = exports.compareTiers = exports.VAULT_TIERS = exports.VaultTierSchema = void 0;
 // Tier
 var vault_tier_js_1 = require("./vault-tier.cjs");
 Object.defineProperty(exports, "VaultTierSchema", { enumerable: true, get: function () { return vault_tier_js_1.VaultTierSchema; } });
@@ -34,6 +34,11 @@ Object.defineProperty(exports, "syncAllContract", { enumerable: true, get: funct
 // Workspace file
 var workspace_file_js_1 = require("./workspace-file.cjs");
 Object.defineProperty(exports, "WorkspaceFileSchema", { enumerable: true, get: function () { return workspace_file_js_1.WorkspaceFileSchema; } });
+// Platform-internal credentials (platform tier, never projected into a tenant)
+var platform_internal_credentials_js_1 = require("./platform-internal-credentials.cjs");
+Object.defineProperty(exports, "PLATFORM_INTERNAL_CREDENTIAL_KEYS", { enumerable: true, get: function () { return platform_internal_credentials_js_1.PLATFORM_INTERNAL_CREDENTIAL_KEYS; } });
+Object.defineProperty(exports, "isPlatformInternalCredentialKey", { enumerable: true, get: function () { return platform_internal_credentials_js_1.isPlatformInternalCredentialKey; } });
+Object.defineProperty(exports, "stripPlatformInternalCredentials", { enumerable: true, get: function () { return platform_internal_credentials_js_1.stripPlatformInternalCredentials; } });
 // Vaulted credentials alias (re-export of Phase 2 AgentCredentials)
 var agent_vaulted_credentials_js_1 = require("./agent-vaulted-credentials.cjs");
 Object.defineProperty(exports, "AgentVaultedCredentialsSchema", { enumerable: true, get: function () { return agent_vaulted_credentials_js_1.AgentVaultedCredentialsSchema; } });
