@@ -1,21 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectSpendDaySchema = exports.ProjectDaySchema = void 0;
+exports.AgentSpendDaySchema = exports.SpendingCapabilitySchema = exports.AgentDaySchema = void 0;
 const zod_1 = require("zod");
-const project_js_1 = require("./project.cjs");
+const agent_config_js_1 = require("./agent-config.cjs");
 /**
- * One project day of spend, as cap-ricerca counts it (v1.28.0, Phase 54). Read by the control panel (Forge).
- * `day` is the date in the project's time zone; `reservedUsd` is what running researches have reserved and not yet
- * settled (an unknown cost is never free: it stays reserved).
+ * One day of spend of one agent on one capability (v1.28.0, Phase 54). Read by the control panel (Forge).
+ * `day` is the date in the agent's time zone; `reservedUsd` is what running calls have reserved and not yet settled
+ * (an unknown cost is never free: it stays reserved).
  */
-exports.ProjectDaySchema = zod_1.z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
-exports.ProjectSpendDaySchema = zod_1.z.object({
-    projectId: project_js_1.ProjectIdSchema,
-    day: exports.ProjectDaySchema,
+exports.AgentDaySchema = zod_1.z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d => {
+    const t = new Date(d + 'T00:00:00Z');
+    return !Number.isNaN(t.getTime()) && t.toISOString().slice(0, 10) === d;
+}, 'not a calendar date');
+/** The capabilities that report spend this way. */
+exports.SpendingCapabilitySchema = zod_1.z.enum(['ricerca']);
+exports.AgentSpendDaySchema = zod_1.z.object({
+    agentId: agent_config_js_1.CapabilityAgentIdSchema,
+    capability: exports.SpendingCapabilitySchema,
+    day: exports.AgentDaySchema,
     spentUsd: zod_1.z.number().nonnegative().finite(),
     reservedUsd: zod_1.z.number().nonnegative().finite(),
     capUsd: zod_1.z.number().positive().finite(),
     calls: zod_1.z.number().int().nonnegative(),
     webCalls: zod_1.z.number().int().nonnegative(),
+    /** Researches that day ended because the budget was spent. */
+    budgetStops: zod_1.z.number().int().nonnegative(),
 }).strict();
 //# sourceMappingURL=spend.js.map

@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.ResearchIdSchema = void 0;
 const zod_1 = require("zod");
-const project_js_1 = require("./project.cjs");
+const agent_config_js_1 = require("./agent-config.cjs");
 /**
- * One research of cap-ricerca (v1.28.0, Phase 54): a question, researched on the web within the project's budget,
- * answered with findings that carry their sources. Research runs in cascades: a research may start from the new
- * questions of an earlier one (`parentResearchId`).
+ * One research of cap-ricerca (v1.28.0, Phase 54): a question of one agent, researched on the web within the agent's
+ * budget, answered with findings that carry their sources. Research runs in cascades: a research may start from the
+ * new questions of an earlier one of the same agent (`parentResearchId`). The agent is the one of the tool call.
  *
  * Everything that comes from the web — finding texts, titles, addresses — is DATA. Whoever puts it in front of a
  * model marks it as such and never uses it as instructions.
@@ -24,13 +24,12 @@ exports.WebUrlSchema = zod_1.z.string().max(2000).refine(u => {
 }, 'only http(s) addresses');
 const TextSchema = zod_1.z.string().trim().min(1).max(2000);
 exports.ResearchRequestSchema = zod_1.z.object({
-    projectId: project_js_1.ProjectIdSchema,
     question: TextSchema,
-    /** Why the question matters for the project (helps the research choose what to open). */
+    /** Why the question matters (helps the research choose what to open). */
     goal: TextSchema.optional(),
-    /** The research whose new questions this one follows (the cascade). */
+    /** The research of the same agent whose new questions this one follows (the cascade). */
     parentResearchId: exports.ResearchIdSchema.optional(),
-    /** A lower ceiling for this research, USD; the service checks it against the project's per-research maximum. */
+    /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
     maxUsd: zod_1.z.number().positive().finite().optional(),
 }).strict();
 exports.ResearchStateSchema = zod_1.z.enum(['queued', 'running', 'completed', 'failed', 'budget_exhausted']);
@@ -56,7 +55,7 @@ exports.ResearchCostSchema = zod_1.z.object({
 }).strict();
 exports.ResearchResultSchema = zod_1.z.object({
     researchId: exports.ResearchIdSchema,
-    projectId: project_js_1.ProjectIdSchema,
+    agentId: agent_config_js_1.CapabilityAgentIdSchema,
     state: exports.ResearchStateSchema,
     question: TextSchema,
     parentResearchId: exports.ResearchIdSchema.optional(),

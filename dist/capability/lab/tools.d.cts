@@ -1,6 +1,7 @@
 import { z } from 'zod';
 /**
- * The tools of cap-lab (v1.28.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`.
+ * The tools of cap-lab (v1.28.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
+ * the agent of the tool call envelope.
  * `lab_ingest` takes a cap-ricerca result as cap-ricerca defines it (imported, never copied).
  */
 export declare const LAB_TOOLS: {
@@ -17,7 +18,7 @@ export type LabToolName = (typeof LAB_TOOLS)[keyof typeof LAB_TOOLS];
 export declare const LabIngestInputSchema: z.ZodObject<{
     result: z.ZodObject<{
         researchId: z.ZodString;
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         state: z.ZodEnum<{
             completed: "completed";
             failed: "failed";
@@ -53,13 +54,12 @@ export declare const LabIngestOutputSchema: z.ZodObject<{
     claimsAdded: z.ZodNumber;
 }, z.core.$strict>;
 export declare const LabQueryInputSchema: z.ZodObject<{
-    projectId: z.ZodString;
     question: z.ZodString;
     limit: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export declare const LabQueryOutputSchema: z.ZodObject<{
     pages: z.ZodArray<z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         slug: z.ZodString;
         kind: z.ZodString;
         title: z.ZodString;
@@ -86,12 +86,11 @@ export declare const LabQueryOutputSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export declare const LabGapsInputSchema: z.ZodObject<{
-    projectId: z.ZodString;
     limit: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export declare const LabGapsOutputSchema: z.ZodObject<{
     gaps: z.ZodArray<z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         question: z.ZodString;
         nodeId: z.ZodOptional<z.ZodString>;
         reason: z.ZodEnum<{
@@ -102,9 +101,7 @@ export declare const LabGapsOutputSchema: z.ZodObject<{
         }>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
-export declare const LabCompetenceInputSchema: z.ZodObject<{
-    projectId: z.ZodString;
-}, z.core.$strict>;
+export declare const LabCompetenceInputSchema: z.ZodObject<{}, z.core.$strict>;
 export declare const LabCompetenceOutputSchema: z.ZodObject<{
     nodes: z.ZodArray<z.ZodObject<{
         nodeId: z.ZodString;

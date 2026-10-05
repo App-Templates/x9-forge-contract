@@ -5,7 +5,7 @@ import {
   CompetenceNodeViewSchema,
   LAB_TOOLS,
   LabIngestInputSchema,
-  LabProjectConfigSchema,
+  LabAgentConfigSchema,
   WikiClaimSchema,
   WikiLinkSchema,
   WikiPageSchema,
@@ -15,35 +15,39 @@ import { capToolCallPath } from '../../../src/http/index';
 
 const fails = (r: { success: boolean }, label: string) => expect(r.success, label).toBe(false);
 
-const labProject = {
-  projectId: 'food-samira', version: 1, domain: 'cucina',
+const labAgent = {
+  agentId: 'samira', version: 1, domain: 'cucina',
   conventions: 'Una pagina per tecnica o ingrediente; ogni affermazione con le sue fonti; dosi in grammi.',
   pageKinds: ['tecnica', 'ingrediente', 'abbinamento', 'domanda'],
   linkKinds: ['richiede', 'si_abbina_a', 'contraddice'],
 };
 
-describe('cap-lab project config (v1.28.0)', () => {
-  it('the project chooses its own kinds of pages and links', () => {
-    expect(LabProjectConfigSchema.safeParse(labProject).success).toBe(true);
-    expect(LabProjectConfigSchema.safeParse({ ...labProject, domain: 'processi', pageKinds: ['processo'], linkKinds: ['passa_a'] }).success).toBe(true);
+describe('cap-lab agent config (v1.28.0)', () => {
+  it('each agent chooses its own kinds of pages and links', () => {
+    expect(LabAgentConfigSchema.safeParse(labAgent).success).toBe(true);
+    expect(LabAgentConfigSchema.safeParse({ ...labAgent, domain: 'processi', pageKinds: ['processo'], linkKinds: ['passa_a'] }).success).toBe(true);
   });
 
   it('kinds are slugs, at least one, never repeated', () => {
-    fails(LabProjectConfigSchema.safeParse({ ...labProject, pageKinds: [] }), 'no page kinds');
-    fails(LabProjectConfigSchema.safeParse({ ...labProject, linkKinds: [] }), 'no link kinds');
-    fails(LabProjectConfigSchema.safeParse({ ...labProject, pageKinds: ['Tecnica'] }), 'uppercase');
-    fails(LabProjectConfigSchema.safeParse({ ...labProject, pageKinds: ['tecnica', 'tecnica'] }), 'repeated');
+    fails(LabAgentConfigSchema.safeParse({ ...labAgent, pageKinds: [] }), 'no page kinds');
+    fails(LabAgentConfigSchema.safeParse({ ...labAgent, linkKinds: [] }), 'no link kinds');
+    fails(LabAgentConfigSchema.safeParse({ ...labAgent, pageKinds: ['Tecnica'] }), 'uppercase');
+    fails(LabAgentConfigSchema.safeParse({ ...labAgent, pageKinds: ['tecnica', 'tecnica'] }), 'repeated');
+  });
+
+  it('there is no project: the wiki belongs to one agent', () => {
+    fails(LabAgentConfigSchema.safeParse({ ...labAgent, projectId: 'food' }), 'projectId');
   });
 
   it('the conventions are bounded and required', () => {
-    fails(LabProjectConfigSchema.safeParse({ ...labProject, conventions: '' }), 'empty');
-    fails(LabProjectConfigSchema.safeParse({ ...labProject, conventions: 'x'.repeat(8001) }), 'long');
+    fails(LabAgentConfigSchema.safeParse({ ...labAgent, conventions: '' }), 'empty');
+    fails(LabAgentConfigSchema.safeParse({ ...labAgent, conventions: 'x'.repeat(8001) }), 'long');
   });
 });
 
 describe('cap-lab wiki (v1.28.0)', () => {
   const source = {
-    id: 's-1', projectId: 'food-samira', url: 'https://e.org/hollandaise', fetchedAt: '2026-10-05T18:00:00Z',
+    id: 's-1', agentId: 'samira', url: 'https://e.org/hollandaise', fetchedAt: '2026-10-05T18:00:00Z',
     contentSha256: 'a'.repeat(64), origin: 'web',
   };
 
@@ -57,7 +61,7 @@ describe('cap-lab wiki (v1.28.0)', () => {
   });
 
   it('a page is versioned markdown of a kind', () => {
-    const page = { projectId: 'food-samira', slug: 'hollandaise', kind: 'tecnica', title: 'Hollandaise', body: '# Hollandaise', version: 1, updatedAt: '2026-10-05T18:00:00Z' };
+    const page = { agentId: 'samira', slug: 'hollandaise', kind: 'tecnica', title: 'Hollandaise', body: '# Hollandaise', version: 1, updatedAt: '2026-10-05T18:00:00Z' };
     expect(WikiPageSchema.safeParse(page).success).toBe(true);
     fails(WikiPageSchema.safeParse({ ...page, slug: 'Holl andaise' }), 'slug');
     fails(WikiPageSchema.safeParse({ ...page, version: 0 }), 'version');
@@ -87,13 +91,13 @@ describe('cap-lab competence and tools (v1.28.0)', () => {
   });
 
   it('a gap is a question with a reason', () => {
-    expect(CompetenceGapSchema.safeParse({ projectId: 'food-samira', question: 'Perché la béarnaise impazzisce?', reason: 'non_so' }).success).toBe(true);
-    fails(CompetenceGapSchema.safeParse({ projectId: 'food-samira', question: 'q', reason: 'boh' }), 'reason');
+    expect(CompetenceGapSchema.safeParse({ agentId: 'samira', question: 'Perché la béarnaise impazzisce?', reason: 'non_so' }).success).toBe(true);
+    fails(CompetenceGapSchema.safeParse({ agentId: 'samira', question: 'q', reason: 'boh' }), 'reason');
   });
 
   it('ingest takes a cap-ricerca result as cap-ricerca defines it', () => {
     const result = {
-      researchId: 'r-1', projectId: 'food-samira', state: 'completed', question: 'q',
+      researchId: 'r-1', agentId: 'samira', state: 'completed', question: 'q',
       findings: [{ text: 't', sourceUrls: ['https://e.org/a'], origin: 'web' }], newQuestions: [],
       sources: [{ url: 'https://e.org/a', opened: true }],
       cost: { usd: 0.3, inputTokens: 1, outputTokens: 1, webCalls: 1, uncertain: false },

@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WikiLinkSchema = exports.WikiClaimSchema = exports.WikiClaimStatusSchema = exports.WikiPageSchema = exports.WikiSourceSchema = exports.WikiPageSlugSchema = exports.WikiSourceIdSchema = exports.WikiOriginSchema = void 0;
 const zod_1 = require("zod");
-const project_js_1 = require("../ricerca/project.cjs");
+const agent_config_js_1 = require("../ricerca/agent-config.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
-const project_js_2 = require("./project.cjs");
+const agent_config_js_2 = require("./agent-config.cjs");
 /**
- * The project's wiki in cap-lab (v1.28.0, Phase 54) — an «LLM Wiki»: immutable raw sources, pages written and kept by
+ * An agent's wiki in cap-lab (v1.28.0, Phase 54) — an «LLM Wiki»: immutable raw sources, pages written and kept by
  * a model, the atomic claims each page makes with their sources, typed links between pages (the graph).
  *
  * DATA, NEVER INSTRUCTIONS: page bodies, claims, titles and sources come (directly or through a model) from the web,
@@ -18,7 +18,7 @@ exports.WikiSourceIdSchema = zod_1.z.string().min(1).max(100);
 exports.WikiPageSlugSchema = zod_1.z.string().regex(/^[a-z0-9][a-z0-9-]{0,119}$/);
 exports.WikiSourceSchema = zod_1.z.object({
     id: exports.WikiSourceIdSchema,
-    projectId: project_js_1.ProjectIdSchema,
+    agentId: agent_config_js_1.CapabilityAgentIdSchema,
     /** Absent for a dataset row or a person's note. */
     url: research_js_1.WebUrlSchema.optional(),
     title: zod_1.z.string().max(500).optional(),
@@ -28,10 +28,10 @@ exports.WikiSourceSchema = zod_1.z.object({
     origin: exports.WikiOriginSchema,
 }).strict().refine(s => s.origin !== 'web' || s.url !== undefined, { message: 'a web source has an address', path: ['url'] });
 exports.WikiPageSchema = zod_1.z.object({
-    projectId: project_js_1.ProjectIdSchema,
+    agentId: agent_config_js_1.CapabilityAgentIdSchema,
     slug: exports.WikiPageSlugSchema,
-    /** One of the project's `pageKinds` (checked by cap-lab against the project). */
-    kind: project_js_2.KindSlugSchema,
+    /** One of the agent's `pageKinds` (checked by cap-lab against the agent's configuration). */
+    kind: agent_config_js_2.KindSlugSchema,
     title: zod_1.z.string().trim().min(1).max(200),
     /** Markdown. */
     body: zod_1.z.string().max(40000),
@@ -52,7 +52,7 @@ exports.WikiClaimSchema = zod_1.z.object({
 exports.WikiLinkSchema = zod_1.z.object({
     from: exports.WikiPageSlugSchema,
     to: exports.WikiPageSlugSchema,
-    /** One of the project's `linkKinds`. */
-    kind: project_js_2.KindSlugSchema,
+    /** One of the agent's `linkKinds`. */
+    kind: agent_config_js_2.KindSlugSchema,
 }).strict().refine(l => l.from !== l.to, { message: 'a page does not link to itself' });
 //# sourceMappingURL=wiki.js.map

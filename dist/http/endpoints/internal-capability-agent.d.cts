@@ -1,47 +1,55 @@
 import { z } from 'zod';
 /**
- * Projects — the control panel's routes on the capabilities that serve a project (v1.28.0, Phase 54).
- * Direction: Forge (control panel) or an ops script -> the capability (cap-ricerca, cap-lab, …).
+ * A capability's routes for ONE agent it serves (v1.28.0, Phase 54).
+ * Direction: Forge (agent management) or an ops script -> the capability (cap-ricerca, cap-lab, …).
  * Auth: platform secret (`INTERNAL_SECRET_HEADER`), as `POST /call/:tool`.
  *
- * Every capability keeps ITS part of a project's configuration, keyed by `projectId`; the capability identity is
- * conveyed by the caller's `baseUrl`, not by a path prefix. A part only moves forward: a `PUT` whose `version` is not
- * above the stored one is refused with 409 {@link ProjectConfigStaleSchema}, never applied silently.
+ * Every capability keeps the configuration of each agent it is attached to, keyed by `agentId`; the capability
+ * identity is conveyed by the caller's `baseUrl`, not by the path. A configuration only moves forward: a `PUT` whose
+ * `version` is not above the stored one is refused with 409 {@link AgentConfigStaleSchema}, never applied silently.
+ * Errors: 400 {@link CapabilityAgentRouteErrorSchema} (`invalid_request`, `agent_mismatch`), 401 missing/wrong secret,
+ * 404 `not_configured`, 409 stale version, 422 `invalid_config` / `unknown_model_rate`.
  *
- * Consumers (planned): agent-x9 services/cap-ricerca, services/cap-lab (servers); forge-v2 Progetti (client).
+ * Consumers (planned): agent-x9 services/cap-ricerca, services/cap-lab (servers); forge-v2 agent management (client).
  */
-export declare const ProjectParamsSchema: z.ZodObject<{
-    projectId: z.ZodString;
+export declare const CapabilityAgentParamsSchema: z.ZodObject<{
+    agentId: z.ZodString;
 }, z.core.$strip>;
-/** Build the concrete config path for a project id (validated). */
-export declare function projectConfigPath(projectId: string): string;
-export declare function projectSpendPath(projectId: string): string;
-export declare function projectGrowthPath(projectId: string): string;
-export declare const ProjectConfigSavedSchema: z.ZodObject<{
+/** Build the concrete paths for an agent id (validated). */
+export declare const capAgentConfigPath: (agentId: string) => string;
+export declare const capAgentSpendPath: (agentId: string) => string;
+export declare const capAgentGrowthPath: (agentId: string) => string;
+export declare const AgentConfigSavedSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     version: z.ZodNumber;
 }, z.core.$strict>;
-export declare const ProjectConfigStaleSchema: z.ZodObject<{
+export declare const AgentConfigStaleSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodLiteral<"stale_version">;
     currentVersion: z.ZodNumber;
 }, z.core.$strict>;
-export declare const ProjectNotFoundSchema: z.ZodObject<{
+export declare const CapabilityAgentRouteErrorSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
-    error: z.ZodLiteral<"unknown_project">;
+    error: z.ZodEnum<{
+        not_configured: "not_configured";
+        invalid_request: "invalid_request";
+        agent_mismatch: "agent_mismatch";
+        invalid_config: "invalid_config";
+        unknown_model_rate: "unknown_model_rate";
+    }>;
 }, z.core.$strict>;
-/** cap-ricerca's part: budget, models, research parameters, source rule, agents. */
-export declare const ricercaProjectConfigPutContract: {
+export type CapabilityAgentRouteError = z.infer<typeof CapabilityAgentRouteErrorSchema>;
+/** cap-ricerca's configuration of an agent: budget, models, research parameters, source rule. */
+export declare const ricercaAgentConfigPutContract: {
     readonly method: "PUT";
-    readonly path: "/internal/projects/:projectId/config";
+    readonly path: "/internal/capability/agents/:agentId/config";
     readonly authType: "secret";
     readonly paramsSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
     }, z.core.$strip>;
     readonly bodySchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         version: z.ZodNumber;
-        name: z.ZodString;
         objective: z.ZodString;
         budget: z.ZodObject<{
             dailyUsd: z.ZodNumber;
@@ -70,24 +78,22 @@ export declare const ricercaProjectConfigPutContract: {
             opened_only: "opened_only";
             opened_or_search_result: "opened_or_search_result";
         }>;
-        agents: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
         version: z.ZodNumber;
     }, z.core.$strict>;
 };
-export declare const ricercaProjectConfigGetContract: {
+export declare const ricercaAgentConfigGetContract: {
     readonly method: "GET";
-    readonly path: "/internal/projects/:projectId/config";
+    readonly path: "/internal/capability/agents/:agentId/config";
     readonly authType: "secret";
     readonly paramsSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         version: z.ZodNumber;
-        name: z.ZodString;
         objective: z.ZodString;
         budget: z.ZodObject<{
             dailyUsd: z.ZodNumber;
@@ -116,19 +122,18 @@ export declare const ricercaProjectConfigGetContract: {
             opened_only: "opened_only";
             opened_or_search_result: "opened_or_search_result";
         }>;
-        agents: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
 };
-/** cap-lab's part: the wiki's domain, conventions, kinds of pages and links. */
-export declare const labProjectConfigPutContract: {
+/** cap-lab's configuration of an agent: the wiki's domain, conventions, kinds of pages and links. */
+export declare const labAgentConfigPutContract: {
     readonly method: "PUT";
-    readonly path: "/internal/projects/:projectId/config";
+    readonly path: "/internal/capability/agents/:agentId/config";
     readonly authType: "secret";
     readonly paramsSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
     }, z.core.$strip>;
     readonly bodySchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         version: z.ZodNumber;
         domain: z.ZodString;
         conventions: z.ZodString;
@@ -140,15 +145,15 @@ export declare const labProjectConfigPutContract: {
         version: z.ZodNumber;
     }, z.core.$strict>;
 };
-export declare const labProjectConfigGetContract: {
+export declare const labAgentConfigGetContract: {
     readonly method: "GET";
-    readonly path: "/internal/projects/:projectId/config";
+    readonly path: "/internal/capability/agents/:agentId/config";
     readonly authType: "secret";
     readonly paramsSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         version: z.ZodNumber;
         domain: z.ZodString;
         conventions: z.ZodString;
@@ -156,28 +161,34 @@ export declare const labProjectConfigGetContract: {
         linkKinds: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
 };
-/** GET /internal/projects/:projectId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — cap-ricerca, days in the project's zone. */
-export declare const ProjectSpendQuerySchema: z.ZodObject<{
+/** Longest window of one spend request, days (inclusive). */
+export declare const AGENT_SPEND_MAX_DAYS = 400;
+/** GET /internal/capability/agents/:agentId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — days in the agent's time zone. */
+export declare const AgentSpendQuerySchema: z.ZodObject<{
     from: z.ZodString;
     to: z.ZodString;
 }, z.core.$strict>;
-export declare const ProjectSpendResponseSchema: z.ZodObject<{
+export declare const AgentSpendResponseSchema: z.ZodObject<{
     days: z.ZodArray<z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
+        capability: z.ZodEnum<{
+            ricerca: "ricerca";
+        }>;
         day: z.ZodString;
         spentUsd: z.ZodNumber;
         reservedUsd: z.ZodNumber;
         capUsd: z.ZodNumber;
         calls: z.ZodNumber;
         webCalls: z.ZodNumber;
+        budgetStops: z.ZodNumber;
     }, z.core.$strict>>;
 }, z.core.$strict>;
-export declare const ricercaProjectSpendContract: {
+export declare const ricercaAgentSpendContract: {
     readonly method: "GET";
-    readonly path: "/internal/projects/:projectId/spend";
+    readonly path: "/internal/capability/agents/:agentId/spend";
     readonly authType: "secret";
     readonly paramsSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
     }, z.core.$strip>;
     readonly querySchema: z.ZodObject<{
         from: z.ZodString;
@@ -185,19 +196,23 @@ export declare const ricercaProjectSpendContract: {
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         days: z.ZodArray<z.ZodObject<{
-            projectId: z.ZodString;
+            agentId: z.ZodString;
+            capability: z.ZodEnum<{
+                ricerca: "ricerca";
+            }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;
             reservedUsd: z.ZodNumber;
             capUsd: z.ZodNumber;
             calls: z.ZodNumber;
             webCalls: z.ZodNumber;
+            budgetStops: z.ZodNumber;
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };
-/** GET /internal/projects/:projectId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
-export declare const ProjectGrowthResponseSchema: z.ZodObject<{
-    projectId: z.ZodString;
+/** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
+export declare const AgentGrowthResponseSchema: z.ZodObject<{
+    agentId: z.ZodString;
     nodes: z.ZodArray<z.ZodObject<{
         nodeId: z.ZodString;
         label: z.ZodString;
@@ -207,7 +222,7 @@ export declare const ProjectGrowthResponseSchema: z.ZodObject<{
         score: z.ZodNumber;
     }, z.core.$strict>>;
     gaps: z.ZodArray<z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         question: z.ZodString;
         nodeId: z.ZodOptional<z.ZodString>;
         reason: z.ZodEnum<{
@@ -225,15 +240,15 @@ export declare const ProjectGrowthResponseSchema: z.ZodObject<{
         sources: z.ZodNumber;
     }, z.core.$strict>;
 }, z.core.$strict>;
-export declare const labProjectGrowthContract: {
+export declare const labAgentGrowthContract: {
     readonly method: "GET";
-    readonly path: "/internal/projects/:projectId/growth";
+    readonly path: "/internal/capability/agents/:agentId/growth";
     readonly authType: "secret";
     readonly paramsSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
-        projectId: z.ZodString;
+        agentId: z.ZodString;
         nodes: z.ZodArray<z.ZodObject<{
             nodeId: z.ZodString;
             label: z.ZodString;
@@ -243,7 +258,7 @@ export declare const labProjectGrowthContract: {
             score: z.ZodNumber;
         }, z.core.$strict>>;
         gaps: z.ZodArray<z.ZodObject<{
-            projectId: z.ZodString;
+            agentId: z.ZodString;
             question: z.ZodString;
             nodeId: z.ZodOptional<z.ZodString>;
             reason: z.ZodEnum<{
@@ -262,9 +277,9 @@ export declare const labProjectGrowthContract: {
         }, z.core.$strict>;
     }, z.core.$strict>;
 };
-export type ProjectConfigSaved = z.infer<typeof ProjectConfigSavedSchema>;
-export type ProjectConfigStale = z.infer<typeof ProjectConfigStaleSchema>;
-export type ProjectSpendQuery = z.infer<typeof ProjectSpendQuerySchema>;
-export type ProjectSpendResponse = z.infer<typeof ProjectSpendResponseSchema>;
-export type ProjectGrowthResponse = z.infer<typeof ProjectGrowthResponseSchema>;
-//# sourceMappingURL=internal-project.d.ts.map
+export type AgentConfigSaved = z.infer<typeof AgentConfigSavedSchema>;
+export type AgentConfigStale = z.infer<typeof AgentConfigStaleSchema>;
+export type AgentSpendQuery = z.infer<typeof AgentSpendQuerySchema>;
+export type AgentSpendResponse = z.infer<typeof AgentSpendResponseSchema>;
+export type AgentGrowthResponse = z.infer<typeof AgentGrowthResponseSchema>;
+//# sourceMappingURL=internal-capability-agent.d.ts.map

@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { ProjectIdSchema } from './project.js';
+import { CapabilityAgentIdSchema } from './agent-config.js';
 
 /**
- * One research of cap-ricerca (v1.28.0, Phase 54): a question, researched on the web within the project's budget,
- * answered with findings that carry their sources. Research runs in cascades: a research may start from the new
- * questions of an earlier one (`parentResearchId`).
+ * One research of cap-ricerca (v1.28.0, Phase 54): a question of one agent, researched on the web within the agent's
+ * budget, answered with findings that carry their sources. Research runs in cascades: a research may start from the
+ * new questions of an earlier one of the same agent (`parentResearchId`). The agent is the one of the tool call.
  *
  * Everything that comes from the web — finding texts, titles, addresses — is DATA. Whoever puts it in front of a
  * model marks it as such and never uses it as instructions.
@@ -25,13 +25,12 @@ export const WebUrlSchema = z.string().max(2000).refine(u => {
 const TextSchema = z.string().trim().min(1).max(2000);
 
 export const ResearchRequestSchema = z.object({
-  projectId: ProjectIdSchema,
   question: TextSchema,
-  /** Why the question matters for the project (helps the research choose what to open). */
+  /** Why the question matters (helps the research choose what to open). */
   goal: TextSchema.optional(),
-  /** The research whose new questions this one follows (the cascade). */
+  /** The research of the same agent whose new questions this one follows (the cascade). */
   parentResearchId: ResearchIdSchema.optional(),
-  /** A lower ceiling for this research, USD; the service checks it against the project's per-research maximum. */
+  /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
   maxUsd: z.number().positive().finite().optional(),
 }).strict();
 export type ResearchRequest = z.infer<typeof ResearchRequestSchema>;
@@ -67,7 +66,7 @@ export type ResearchCost = z.infer<typeof ResearchCostSchema>;
 
 export const ResearchResultSchema = z.object({
   researchId: ResearchIdSchema,
-  projectId: ProjectIdSchema,
+  agentId: CapabilityAgentIdSchema,
   state: ResearchStateSchema,
   question: TextSchema,
   parentResearchId: ResearchIdSchema.optional(),

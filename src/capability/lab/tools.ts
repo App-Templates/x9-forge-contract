@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { ProjectIdSchema } from '../ricerca/project.js';
 import { ResearchResultSchema } from '../ricerca/research.js';
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from './competence.js';
 import { WikiClaimSchema, WikiPageSchema } from './wiki.js';
 
 /**
- * The tools of cap-lab (v1.28.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`.
+ * The tools of cap-lab (v1.28.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
+ * the agent of the tool call envelope.
  * `lab_ingest` takes a cap-ricerca result as cap-ricerca defines it (imported, never copied).
  */
 export const LAB_TOOLS = {
@@ -28,7 +28,6 @@ export const LabIngestOutputSchema = z.object({
 }).strict();
 
 export const LabQueryInputSchema = z.object({
-  projectId: ProjectIdSchema,
   question: z.string().trim().min(1).max(2000),
   limit: z.number().int().min(1).max(50).optional(),
 }).strict();
@@ -37,10 +36,10 @@ export const LabQueryOutputSchema = z.object({
   claims: z.array(WikiClaimSchema).max(200),
 }).strict();
 
-export const LabGapsInputSchema = z.object({ projectId: ProjectIdSchema, limit: z.number().int().min(1).max(50).optional() }).strict();
+export const LabGapsInputSchema = z.object({ limit: z.number().int().min(1).max(50).optional() }).strict();
 export const LabGapsOutputSchema = z.object({ gaps: z.array(CompetenceGapSchema).max(50) }).strict();
 
-export const LabCompetenceInputSchema = z.object({ projectId: ProjectIdSchema }).strict();
+export const LabCompetenceInputSchema = z.object({}).strict();
 export const LabCompetenceOutputSchema = z.object({ nodes: z.array(CompetenceNodeViewSchema).max(5000) }).strict();
 
 export type LabIngestInput = z.infer<typeof LabIngestInputSchema>;

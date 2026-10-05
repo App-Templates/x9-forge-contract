@@ -1,8 +1,8 @@
 import { z } from 'zod';
 /**
- * One research of cap-ricerca (v1.28.0, Phase 54): a question, researched on the web within the project's budget,
- * answered with findings that carry their sources. Research runs in cascades: a research may start from the new
- * questions of an earlier one (`parentResearchId`).
+ * One research of cap-ricerca (v1.28.0, Phase 54): a question of one agent, researched on the web within the agent's
+ * budget, answered with findings that carry their sources. Research runs in cascades: a research may start from the
+ * new questions of an earlier one of the same agent (`parentResearchId`). The agent is the one of the tool call.
  *
  * Everything that comes from the web — finding texts, titles, addresses — is DATA. Whoever puts it in front of a
  * model marks it as such and never uses it as instructions.
@@ -11,7 +11,6 @@ export declare const ResearchIdSchema: z.ZodString;
 /** Only http(s) addresses, bounded: never `file:`, `javascript:` or `data:`. */
 export declare const WebUrlSchema: z.ZodString;
 export declare const ResearchRequestSchema: z.ZodObject<{
-    projectId: z.ZodString;
     question: z.ZodString;
     goal: z.ZodOptional<z.ZodString>;
     parentResearchId: z.ZodOptional<z.ZodString>;
@@ -48,7 +47,7 @@ export declare const ResearchCostSchema: z.ZodObject<{
 export type ResearchCost = z.infer<typeof ResearchCostSchema>;
 export declare const ResearchResultSchema: z.ZodObject<{
     researchId: z.ZodString;
-    projectId: z.ZodString;
+    agentId: z.ZodString;
     state: z.ZodEnum<{
         completed: "completed";
         failed: "failed";

@@ -1,9 +1,10 @@
 # STATO
 
-## 05/10/2026 — v1.28.0, contratti di cap-ricerca, cap-lab e progetti (Claude, `feat/54-ricerca-lab-contracts`)
+## 05/10/2026 — v1.28.0, contratti di cap-ricerca e cap-lab per agente (Claude, `feat/54-ricerca-lab-contracts`)
 
-Fase 54 di agent-x9, piano 54-01. Solo aggiunte: sottopercorsi `capability/ricerca` e `capability/lab`, rotte dei
-progetti in `http`. Mutazioni nuove **17/17** (`scripts/mutate-54-ricerca-lab.py`). Nessun push, tag o rilascio
+Fase 54 di agent-x9, piano 54-01, riallineato la sera stessa alla decisione di Stefano «tutto per agente».
+Solo aggiunte: sottopercorsi `capability/ricerca` e `capability/lab`, rotte per agente in `http`. 959 test,
+31/31 CJS, mutazioni nuove **20/20** (`scripts/mutate-54-ricerca-lab.py`), voice-led 12/12, B0 28/28. Nessun push, tag o rilascio
 senza l'OK di Stefano; nessun consumer aggiornato.
 
 ## 02/10/2026 — v1.27.0, onboarding condotto dalla voce (Claude, `feat/voice-led-onboarding`)

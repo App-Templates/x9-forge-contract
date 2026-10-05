@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ProjectIdSchema } from "../ricerca/project.js";
+import { CapabilityAgentIdSchema } from "../ricerca/agent-config.js";
 /**
  * The competence graph cap-lab compiles from the wiki (v1.28.0, Phase 54), and the gaps it hands back to research.
  * The level is derived from an append-only ledger, never stored (the Parallel contest engine, as in Enterprise
@@ -19,7 +19,7 @@ export const CompetenceNodeViewSchema = z.object({
 }).strict();
 export const CompetenceGapReasonSchema = z.enum(['non_so', 'fonte_unica', 'contraddizione', 'prerequisito_mancante']);
 export const CompetenceGapSchema = z.object({
-    projectId: ProjectIdSchema,
+    agentId: CapabilityAgentIdSchema,
     /** The question research should answer next. */
     question: z.string().trim().min(1).max(2000),
     nodeId: CompetenceNodeIdSchema.optional(),

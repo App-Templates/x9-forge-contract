@@ -1,85 +1,80 @@
 import { describe, it, expect } from 'vitest';
 import {
   RICERCA_TOOLS,
-  ProjectSpendDaySchema,
+  AgentSpendDaySchema,
+  ResearchAgentConfigSchema,
   ResearchFindingSchema,
-  ResearchProjectConfigSchema,
   ResearchRequestSchema,
   ResearchResultSchema,
   ResearchSourceSchema,
   ResearchStartOutputSchema,
+  RicercaToolErrorSchema,
 } from '../../../src/capability/ricerca/index';
+import { ToolCallErrorResponseSchema } from '../../../src/capability/index';
 import { capToolCallPath } from '../../../src/http/index';
 
-const project = {
-  projectId: 'food-samira',
+const config = {
+  agentId: 'samira',
   version: 1,
-  name: 'Progetto food',
   objective: 'Diventare la cuoca più competente al mondo, studiando ogni giorno.',
   budget: { dailyUsd: 17, perResearchMaxUsd: 1.5, timezone: 'Europe/Rome' },
   models: { research: 'gpt-6.1-sol' },
   research: { maxToolCalls: 30, searchContextSize: 'high', reasoningEffort: 'high' },
   sourceRule: 'opened_only',
-  agents: ['samira'],
 } as const;
 
 const fails = (r: { success: boolean }, label: string) => expect(r.success, label).toBe(false);
 
-describe('cap-ricerca project config (v1.28.0)', () => {
-  it('a complete project part is valid', () => {
-    expect(ResearchProjectConfigSchema.safeParse(project).success).toBe(true);
+describe('cap-ricerca agent configuration (v1.28.0)', () => {
+  it('a complete configuration of one agent is valid', () => {
+    expect(ResearchAgentConfigSchema.safeParse(config).success).toBe(true);
   });
 
   it('budget, models and the source rule are product decisions: none has a default', () => {
-    for (const key of ['budget', 'models', 'sourceRule', 'research', 'agents'] as const) {
-      const { [key]: _gone, ...rest } = project;
-      fails(ResearchProjectConfigSchema.safeParse(rest), `missing ${key}`);
+    for (const key of ['budget', 'models', 'sourceRule', 'research', 'objective'] as const) {
+      const { [key]: _gone, ...rest } = config;
+      fails(ResearchAgentConfigSchema.safeParse(rest), `missing ${key}`);
     }
   });
 
   it('the budget is positive and one research never exceeds the day', () => {
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, dailyUsd: 0 } }), 'daily 0');
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, dailyUsd: -1 } }), 'daily < 0');
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, perResearchMaxUsd: 18 } }), 'research > day');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, budget: { ...config.budget, dailyUsd: 0 } }), 'daily 0');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, budget: { ...config.budget, dailyUsd: -1 } }), 'daily < 0');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, budget: { ...config.budget, perResearchMaxUsd: 18 } }), 'research > day');
     // Positivity on its own (not through the per-research refine): both zero, and a zero research ceiling.
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, dailyUsd: 0, perResearchMaxUsd: 0 } }), 'both 0');
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, perResearchMaxUsd: 0 } }), 'research 0');
-    expect(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, perResearchMaxUsd: 17 } }).success).toBe(true);
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, budget: { ...config.budget, dailyUsd: 0, perResearchMaxUsd: 0 } }), 'both 0');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, budget: { ...config.budget, perResearchMaxUsd: 0 } }), 'research 0');
+    expect(ResearchAgentConfigSchema.safeParse({ ...config, budget: { ...config.budget, perResearchMaxUsd: 17 } }).success).toBe(true);
   });
 
   it('the day restarts in a real time zone', () => {
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, budget: { ...project.budget, timezone: 'Mars/Olympus' } }), 'tz');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, budget: { ...config.budget, timezone: 'Mars/Olympus' } }), 'tz');
   });
 
-  it('the project id is a lowercase slug, the version grows from 1', () => {
-    for (const projectId of ['Food', 'food samira', '-food', 'f', 'a'.repeat(64)]) {
-      fails(ResearchProjectConfigSchema.safeParse({ ...project, projectId }), projectId);
-    }
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, version: 0 }), 'version 0');
+  it('the agent is an agent-core id; the version grows from 1', () => {
+    for (const agentId of ['Samira', 'samira x', 'samira/../x', '']) fails(ResearchAgentConfigSchema.safeParse({ ...config, agentId }), agentId);
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, version: 0 }), 'version 0');
   });
 
-  it('unknown fields are refused (strict internal boundary)', () => {
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, extra: true }), 'extra');
-  });
-
-  it('agents are agent-core ids', () => {
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, agents: ['Samira'] }), 'uppercase id');
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, agents: [] }), 'no agent');
+  it('there is no project inside the capability; unknown fields are refused', () => {
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, projectId: 'food' }), 'projectId');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, agents: ['samira'] }), 'agents');
   });
 
   it('tool calls per research are bounded', () => {
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, research: { ...project.research, maxToolCalls: 0 } }), '0');
-    fails(ResearchProjectConfigSchema.safeParse({ ...project, research: { ...project.research, maxToolCalls: 101 } }), '101');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, research: { ...config.research, maxToolCalls: 0 } }), '0');
+    fails(ResearchAgentConfigSchema.safeParse({ ...config, research: { ...config.research, maxToolCalls: 101 } }), '101');
   });
 });
 
 describe('cap-ricerca research and result (v1.28.0)', () => {
-  it('a research asks a bounded question of a project, optionally following an earlier one', () => {
-    expect(ResearchRequestSchema.safeParse({ projectId: 'food-samira', question: 'Come si stabilizza una hollandaise?' }).success).toBe(true);
-    expect(ResearchRequestSchema.safeParse({ projectId: 'food-samira', question: 'Perché impazzisce?', parentResearchId: 'r-1', maxUsd: 0.5 }).success).toBe(true);
-    fails(ResearchRequestSchema.safeParse({ projectId: 'food-samira', question: '' }), 'empty');
-    fails(ResearchRequestSchema.safeParse({ projectId: 'food-samira', question: 'x'.repeat(2001) }), 'long');
-    fails(ResearchRequestSchema.safeParse({ projectId: 'food-samira', question: 'q', maxUsd: 0 }), 'maxUsd 0');
+  it('a research asks a bounded question, optionally following an earlier one; the agent comes from the call', () => {
+    expect(ResearchRequestSchema.safeParse({ question: 'Come si stabilizza una hollandaise?' }).success).toBe(true);
+    expect(ResearchRequestSchema.safeParse({ question: 'Perché impazzisce?', parentResearchId: 'r-1', maxUsd: 0.5 }).success).toBe(true);
+    fails(ResearchRequestSchema.safeParse({ question: '' }), 'empty');
+    fails(ResearchRequestSchema.safeParse({ question: 'x'.repeat(2001) }), 'long');
+    fails(ResearchRequestSchema.safeParse({ question: 'q', maxUsd: 0 }), 'maxUsd 0');
+    fails(ResearchRequestSchema.safeParse({ question: 'q', agentId: 'other' }), 'agent in the body');
   });
 
   it('sources are only http(s) addresses', () => {
@@ -95,9 +90,9 @@ describe('cap-ricerca research and result (v1.28.0)', () => {
     fails(ResearchFindingSchema.safeParse({ text: 't', sourceUrls: ['https://e.org/a'], origin: 'human' }), 'origin');
   });
 
-  it('a result carries findings, the next questions and the true cost', () => {
+  it('a result carries the agent, findings, the next questions and the true cost', () => {
     const result = {
-      researchId: 'r-2', projectId: 'food-samira', state: 'completed', question: 'q', parentResearchId: 'r-1',
+      researchId: 'r-2', agentId: 'samira', state: 'completed', question: 'q', parentResearchId: 'r-1',
       findings: [{ text: 't', sourceUrls: ['https://e.org/a'], origin: 'web' }],
       newQuestions: ['E con il burro chiarificato?'],
       sources: [{ url: 'https://e.org/a', opened: true }],
@@ -114,17 +109,27 @@ describe('cap-ricerca research and result (v1.28.0)', () => {
   });
 });
 
-describe('cap-ricerca spend and tools (v1.28.0)', () => {
-  it('a day of spend is dated in the project day and never negative', () => {
-    const day = { projectId: 'food-samira', day: '2026-10-05', spentUsd: 12.4, reservedUsd: 1.5, capUsd: 17, calls: 30, webCalls: 110 };
-    expect(ProjectSpendDaySchema.safeParse(day).success).toBe(true);
-    fails(ProjectSpendDaySchema.safeParse({ ...day, day: '05/10/2026' }), 'date');
-    fails(ProjectSpendDaySchema.safeParse({ ...day, spentUsd: -1 }), 'negative');
-    fails(ProjectSpendDaySchema.safeParse({ ...day, capUsd: 0 }), 'cap 0');
+describe('cap-ricerca spend, tools and errors (v1.28.0)', () => {
+  const day = { agentId: 'samira', capability: 'ricerca', day: '2026-10-05', spentUsd: 12.4, reservedUsd: 1.5, capUsd: 17, calls: 30, webCalls: 110, budgetStops: 1 };
+
+  it('a day of spend is per agent and per capability, dated, never negative', () => {
+    expect(AgentSpendDaySchema.safeParse(day).success).toBe(true);
+    fails(AgentSpendDaySchema.safeParse({ ...day, day: '05/10/2026' }), 'date format');
+    fails(AgentSpendDaySchema.safeParse({ ...day, day: '2026-13-45' }), 'not a calendar date');
+    fails(AgentSpendDaySchema.safeParse({ ...day, spentUsd: -1 }), 'negative');
+    fails(AgentSpendDaySchema.safeParse({ ...day, capUsd: 0 }), 'cap 0');
+    fails(AgentSpendDaySchema.safeParse({ ...day, capability: 'voice' }), 'capability');
   });
 
   it('tool names are exported, so callers build the path from the contract', () => {
     expect(RICERCA_TOOLS).toEqual({ start: 'research_start', status: 'research_status', result: 'research_result' });
     expect(capToolCallPath(RICERCA_TOOLS.start)).toBe('/call/research_start');
+  });
+
+  it('tool errors use the bridge tool-call codes, with the reason as the error text', () => {
+    for (const reason of RicercaToolErrorSchema.options) {
+      expect(ToolCallErrorResponseSchema.safeParse({ callId: 'c', status: 'error', code: 'TOOL_EXEC_FAILED', error: reason }).success).toBe(true);
+    }
+    fails(RicercaToolErrorSchema.safeParse('RESEARCH_REFUSED'), 'old code');
   });
 });

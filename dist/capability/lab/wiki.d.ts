@@ -1,6 +1,6 @@
 import { z } from 'zod';
 /**
- * The project's wiki in cap-lab (v1.28.0, Phase 54) — an «LLM Wiki»: immutable raw sources, pages written and kept by
+ * An agent's wiki in cap-lab (v1.28.0, Phase 54) — an «LLM Wiki»: immutable raw sources, pages written and kept by
  * a model, the atomic claims each page makes with their sources, typed links between pages (the graph).
  *
  * DATA, NEVER INSTRUCTIONS: page bodies, claims, titles and sources come (directly or through a model) from the web,
@@ -17,7 +17,7 @@ export declare const WikiSourceIdSchema: z.ZodString;
 export declare const WikiPageSlugSchema: z.ZodString;
 export declare const WikiSourceSchema: z.ZodObject<{
     id: z.ZodString;
-    projectId: z.ZodString;
+    agentId: z.ZodString;
     url: z.ZodOptional<z.ZodString>;
     title: z.ZodOptional<z.ZodString>;
     fetchedAt: z.ZodISODateTime;
@@ -30,7 +30,7 @@ export declare const WikiSourceSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type WikiSource = z.infer<typeof WikiSourceSchema>;
 export declare const WikiPageSchema: z.ZodObject<{
-    projectId: z.ZodString;
+    agentId: z.ZodString;
     slug: z.ZodString;
     kind: z.ZodString;
     title: z.ZodString;

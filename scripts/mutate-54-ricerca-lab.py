@@ -1,21 +1,22 @@
 """cap-ricerca / cap-lab / project routes (v1.28.0, Phase 54) guard mutations: assertion failure required, always restore sources."""
 import pathlib, subprocess, sys, tempfile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-TESTS = ['tests/capability/ricerca/ricerca.test.ts', 'tests/capability/lab/lab.test.ts', 'tests/http/internal-project.test.ts']
-PRJ = 'src/capability/ricerca/project.ts'
+TESTS = ['tests/capability/ricerca/ricerca.test.ts', 'tests/capability/lab/lab.test.ts', 'tests/http/internal-capability-agent.test.ts']
+PRJ = 'src/capability/ricerca/agent-config.ts'
 RES = 'src/capability/ricerca/research.ts'
 SPD = 'src/capability/ricerca/spend.ts'
-LPR = 'src/capability/lab/project.ts'
+LPR = 'src/capability/lab/agent-config.ts'
 WIKI = 'src/capability/lab/wiki.ts'
 CMP = 'src/capability/lab/competence.ts'
-HTTP = 'src/http/endpoints/internal-project.ts'
+HTTP = 'src/http/endpoints/internal-capability-agent.ts'
+RIC_TOOLS = 'src/capability/ricerca/tools.ts'
 M = [
     ('RL-01 budget per research above day', PRJ, '.refine(b => b.perResearchMaxUsd <= b.dailyUsd,', '.refine(_b => true,'),
     ('RL-02 budget may be zero', PRJ, 'const UsdSchema = z.number().positive().finite();', 'const UsdSchema = z.number().finite();'),
-    ('RL-03 source rule optional', PRJ, '  sourceRule: SourceRuleSchema,\n  /** The agents', '  sourceRule: SourceRuleSchema.optional(),\n  /** The agents'),
+    ('RL-03 source rule optional', PRJ, '  sourceRule: SourceRuleSchema,\n}).strict();', '  sourceRule: SourceRuleSchema.optional(),\n}).strict();'),
     ('RL-04 models optional', PRJ, '  models: ResearchModelsSchema,', '  models: ResearchModelsSchema.optional(),'),
     ('RL-05 timezone unchecked', PRJ, "}, 'unknown IANA time zone');", "}, 'unknown IANA time zone').or(z.string());"),
-    ('RL-06 project not strict', PRJ, '  agents: z.array(InternalAgentTurnParamsSchema.shape.agentId).min(1).max(100),\n}).strict();', '  agents: z.array(InternalAgentTurnParamsSchema.shape.agentId).min(1).max(100),\n});'),
+    ('RL-06 config not strict', PRJ, '  sourceRule: SourceRuleSchema,\n}).strict();', '  sourceRule: SourceRuleSchema,\n});'),
     ('RL-07 any url scheme', RES, "return p === 'http:' || p === 'https:';", 'return p.length > 0;'),
     ('RL-08 finding without source', RES, 'sourceUrls: z.array(WebUrlSchema).min(1).max(20),', 'sourceUrls: z.array(WebUrlSchema).max(20),'),
     ('RL-09 negative cost', RES, '  usd: z.number().nonnegative().finite(),', '  usd: z.number().finite(),'),
@@ -25,8 +26,11 @@ M = [
     ('RL-13 claim without source', WIKI, 'sourceIds: z.array(WikiSourceIdSchema).min(1).max(50),', 'sourceIds: z.array(WikiSourceIdSchema).max(50),'),
     ('RL-14 self link', WIKI, ".refine(l => l.from !== l.to, { message: 'a page does not link to itself' });", ".refine(_l => true, { message: 'a page does not link to itself' });"),
     ('RL-15 level above scale', CMP, '  level: z.number().int().min(0).max(COMPETENCE_MAX_LEVEL),', '  level: z.number().min(0),'),
-    ('RL-16 spend window reversed', HTTP, ".refine(q => q.from <= q.to, { message: 'from after to' });", ".refine(_q => true, { message: 'from after to' });"),
-    ('RL-17 unvalidated project path', HTTP, 'return `/internal/projects/${ProjectParamsSchema.parse({ projectId }).projectId}/config`;', 'return `/internal/projects/${projectId}/config`;'),
+    ('RL-16 spend window reversed', HTTP, ".refine(q => q.from <= q.to, { message: 'from after to' })\n", ".refine(_q => true, { message: 'from after to' })\n"),
+    ('RL-17 unvalidated agent path', HTTP, 'return `/internal/capability/agents/${CapabilityAgentParamsSchema.parse({ agentId }).agentId}/${tail}`;', 'return `/internal/capability/agents/${agentId}/${tail}`;'),
+    ('RL-18 spend window unbounded', HTTP, "  .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < AGENT_SPEND_MAX_DAYS, { message: 'window too long' });", ';'),
+    ('RL-19 impossible date', SPD, "}, 'not a calendar date');", "}, 'not a calendar date').or(z.string());"),
+    ('RL-20 old error codes', RIC_TOOLS, "  'not_configured',\n", "  'not_configured',\n  'RESEARCH_REFUSED',\n"),
 ]
 selected = [m for m in M if not sys.argv[1:] or m[0].split()[0] in sys.argv[1:]]
 logs = pathlib.Path(tempfile.mkdtemp(prefix='ricerca-lab-mutations-'))

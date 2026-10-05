@@ -1,23 +1,21 @@
 import { z } from 'zod';
 /**
- * The project — the unit a research budget belongs to (v1.28.0, Phase 54).
+ * cap-ricerca's configuration for ONE agent (v1.28.0, Phase 54).
  *
- * A project is a goal of work that uses shared capabilities with its own parameters: the «food» project (an agent
- * that studies cooking on its own with a daily budget), the Enterprise Adoption analyses, and so on. Forge is the
- * source of the configuration (the control panel where it is edited); every capability keeps ITS part, keyed by
- * `projectId`, and Forge writes it with `PUT /internal/projects/:projectId/config` (see
- * `../../http/endpoints/internal-project-config.ts`).
+ * Forge manages agents: every capability attached to an agent keeps that agent's configuration, keyed by `agentId`,
+ * and Forge writes it with `PUT /internal/capability/agents/:agentId/config` (see
+ * `../../http/endpoints/internal-capability-agent.ts`). There is no «project» inside the capabilities: a view that
+ * groups agents lives outside Forge and reads them by agent.
  *
- * This file is cap-ricerca's part: the budget it enforces, the models it calls, how it researches. No field has a
- * default chosen here: the budget, the models and the source rule are product decisions, written by the project.
+ * No field has a default chosen here: the budget, the models and the source rule are product decisions.
+ * The budget is never exceeded: cap-ricerca reserves the worst case of every call before it runs.
  */
-/** A project id: lowercase slug, stable, used in paths. */
-export declare const ProjectIdSchema: z.ZodString;
-export type ProjectId = z.infer<typeof ProjectIdSchema>;
-/** Every change to a project's part raises its version; a capability refuses an older or equal one. */
-export declare const ProjectConfigVersionSchema: z.ZodNumber;
-/** IANA time zone of the project's day (the daily budget restarts at its midnight). */
-export declare const ProjectTimeZoneSchema: z.ZodString;
+/** An agent-core agent id, as in `/internal/agents/:agentId/turn`. */
+export declare const CapabilityAgentIdSchema: z.ZodString;
+/** Every change to an agent's configuration raises its version; a capability refuses an older or equal one. */
+export declare const AgentConfigVersionSchema: z.ZodNumber;
+/** IANA time zone of the agent's day (the daily budget restarts at its midnight). */
+export declare const AgentTimeZoneSchema: z.ZodString;
 export declare const ResearchBudgetSchema: z.ZodObject<{
     dailyUsd: z.ZodNumber;
     perResearchMaxUsd: z.ZodNumber;
@@ -59,10 +57,9 @@ export declare const SourceRuleSchema: z.ZodEnum<{
     opened_or_search_result: "opened_or_search_result";
 }>;
 export type SourceRule = z.infer<typeof SourceRuleSchema>;
-export declare const ResearchProjectConfigSchema: z.ZodObject<{
-    projectId: z.ZodString;
+export declare const ResearchAgentConfigSchema: z.ZodObject<{
+    agentId: z.ZodString;
     version: z.ZodNumber;
-    name: z.ZodString;
     objective: z.ZodString;
     budget: z.ZodObject<{
         dailyUsd: z.ZodNumber;
@@ -91,7 +88,6 @@ export declare const ResearchProjectConfigSchema: z.ZodObject<{
         opened_only: "opened_only";
         opened_or_search_result: "opened_or_search_result";
     }>;
-    agents: z.ZodArray<z.ZodString>;
 }, z.core.$strict>;
-export type ResearchProjectConfig = z.infer<typeof ResearchProjectConfigSchema>;
-//# sourceMappingURL=project.d.ts.map
+export type ResearchAgentConfig = z.infer<typeof ResearchAgentConfigSchema>;
+//# sourceMappingURL=agent-config.d.ts.map

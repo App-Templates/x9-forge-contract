@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompetenceGapSchema = exports.CompetenceGapReasonSchema = exports.CompetenceNodeViewSchema = exports.CompetenceNodeIdSchema = exports.COMPETENCE_MAX_LEVEL = void 0;
 const zod_1 = require("zod");
-const project_js_1 = require("../ricerca/project.cjs");
+const agent_config_js_1 = require("../ricerca/agent-config.cjs");
 /**
  * The competence graph cap-lab compiles from the wiki (v1.28.0, Phase 54), and the gaps it hands back to research.
  * The level is derived from an append-only ledger, never stored (the Parallel contest engine, as in Enterprise
@@ -22,7 +22,7 @@ exports.CompetenceNodeViewSchema = zod_1.z.object({
 }).strict();
 exports.CompetenceGapReasonSchema = zod_1.z.enum(['non_so', 'fonte_unica', 'contraddizione', 'prerequisito_mancante']);
 exports.CompetenceGapSchema = zod_1.z.object({
-    projectId: project_js_1.ProjectIdSchema,
+    agentId: agent_config_js_1.CapabilityAgentIdSchema,
     /** The question research should answer next. */
     question: zod_1.z.string().trim().min(1).max(2000),
     nodeId: exports.CompetenceNodeIdSchema.optional(),

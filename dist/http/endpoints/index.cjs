@@ -31,7 +31,7 @@ __exportStar(require("./internal-query.cjs"), exports);
 __exportStar(require("./internal-model-config.cjs"), exports); // Phase 6 — MDRT-05 / D-15
 __exportStar(require("./internal-model-config-version.cjs"), exports); // Phase 6 — MDRT-07 polling (06-01 decision)
 __exportStar(require("./internal-memory-extract.cjs"), exports); // Phase 36.9 — async extraction pipeline
-__exportStar(require("./internal-project.cjs"), exports); // v1.28.0 — Phase 54 projects (cap-ricerca / cap-lab)
+__exportStar(require("./internal-capability-agent.cjs"), exports); // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);

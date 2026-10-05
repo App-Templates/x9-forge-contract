@@ -24,7 +24,7 @@ export declare const CompetenceGapReasonSchema: z.ZodEnum<{
 }>;
 export type CompetenceGapReason = z.infer<typeof CompetenceGapReasonSchema>;
 export declare const CompetenceGapSchema: z.ZodObject<{
-    projectId: z.ZodString;
+    agentId: z.ZodString;
     question: z.ZodString;
     nodeId: z.ZodOptional<z.ZodString>;
     reason: z.ZodEnum<{

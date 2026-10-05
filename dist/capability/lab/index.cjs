@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LAB_TOOLS = exports.CompetenceGapSchema = exports.CompetenceGapReasonSchema = exports.CompetenceNodeViewSchema = exports.CompetenceNodeIdSchema = exports.COMPETENCE_MAX_LEVEL = exports.WikiLinkSchema = exports.WikiClaimSchema = exports.WikiClaimStatusSchema = exports.WikiPageSchema = exports.WikiSourceSchema = exports.WikiPageSlugSchema = exports.WikiSourceIdSchema = exports.WikiOriginSchema = exports.LabProjectConfigSchema = exports.KindSlugSchema = void 0;
+exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LAB_TOOLS = exports.CompetenceGapSchema = exports.CompetenceGapReasonSchema = exports.CompetenceNodeViewSchema = exports.CompetenceNodeIdSchema = exports.COMPETENCE_MAX_LEVEL = exports.WikiLinkSchema = exports.WikiClaimSchema = exports.WikiClaimStatusSchema = exports.WikiPageSchema = exports.WikiSourceSchema = exports.WikiPageSlugSchema = exports.WikiSourceIdSchema = exports.WikiOriginSchema = exports.LabAgentConfigSchema = exports.KindSlugSchema = void 0;
 /**
  * cap-lab contracts — sub-path `@x9-forge/contracts/capability/lab` (v1.28.0, Phase 54).
  *
- * Digests research into a project's wiki (an «LLM Wiki»: raw sources, pages, claims, typed links) and compiles a
+ * Digests research into an agent's wiki (an «LLM Wiki»: raw sources, pages, claims, typed links) and compiles a
  * competence graph with scores; hands the open gaps back to research. All wiki text is data, never instructions.
  *
  * Consumers (planned): agent-x9 services/cap-lab (server), services/cap-food and the scheduler's goals (callers),
- * forge-v2 Progetti (control panel), enterprise-adoption ea-core (after its migration).
+ * forge-v2 agent management (control panel), enterprise-adoption ea-core (after its migration).
  *
  * STRICT (internal boundary, R-14): no `.passthrough()`.
  */
-var project_js_1 = require("./project.cjs");
-Object.defineProperty(exports, "KindSlugSchema", { enumerable: true, get: function () { return project_js_1.KindSlugSchema; } });
-Object.defineProperty(exports, "LabProjectConfigSchema", { enumerable: true, get: function () { return project_js_1.LabProjectConfigSchema; } });
+var agent_config_js_1 = require("./agent-config.cjs");
+Object.defineProperty(exports, "KindSlugSchema", { enumerable: true, get: function () { return agent_config_js_1.KindSlugSchema; } });
+Object.defineProperty(exports, "LabAgentConfigSchema", { enumerable: true, get: function () { return agent_config_js_1.LabAgentConfigSchema; } });
 var wiki_js_1 = require("./wiki.cjs");
 Object.defineProperty(exports, "WikiOriginSchema", { enumerable: true, get: function () { return wiki_js_1.WikiOriginSchema; } });
 Object.defineProperty(exports, "WikiSourceIdSchema", { enumerable: true, get: function () { return wiki_js_1.WikiSourceIdSchema; } });

@@ -1,19 +1,29 @@
 import { z } from 'zod';
 /**
- * The tools of cap-ricerca (v1.28.0, Phase 54). Agents and other capabilities call them at
- * `capToolCallPath(RICERCA_TOOLS.<tool>)` — never with a hand-written path.
+ * The tools of cap-ricerca (v1.28.0, Phase 54). The agent is the one of the tool call envelope. Agents and other
+ * capabilities call them at `capToolCallPath(RICERCA_TOOLS.<tool>)` — never with a hand-written path.
+ * Errors use the bridge tool-call codes (`TOOL_CALL_INVALID`, `TOOL_EXEC_FAILED`) with a {@link RicercaToolError}
+ * as the error text.
  */
 export declare const RICERCA_TOOLS: {
     /** Queue a research; answers at once with its id. */
     readonly start: "research_start";
     /** Where a research is. */
     readonly status: "research_status";
-    /** The findings of a completed research. */
+    /** The findings of a finished research. */
     readonly result: "research_result";
 };
 export type RicercaToolName = (typeof RICERCA_TOOLS)[keyof typeof RICERCA_TOOLS];
+/** Why a cap-ricerca tool call failed (the `error` text of a bridge tool-call error). */
+export declare const RicercaToolErrorSchema: z.ZodEnum<{
+    not_configured: "not_configured";
+    max_usd_above_agent: "max_usd_above_agent";
+    unknown_parent: "unknown_parent";
+    unknown_research: "unknown_research";
+    not_ready: "not_ready";
+}>;
+export type RicercaToolError = z.infer<typeof RicercaToolErrorSchema>;
 export declare const ResearchStartInputSchema: z.ZodObject<{
-    projectId: z.ZodString;
     question: z.ZodString;
     goal: z.ZodOptional<z.ZodString>;
     parentResearchId: z.ZodOptional<z.ZodString>;
@@ -47,7 +57,7 @@ export declare const ResearchResultInputSchema: z.ZodObject<{
 }, z.core.$strict>;
 export declare const ResearchResultOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
-    projectId: z.ZodString;
+    agentId: z.ZodString;
     state: z.ZodEnum<{
         completed: "completed";
         failed: "failed";
