@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.27.0",
+  "version": "1.28.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -19,6 +19,8 @@
       "./capability/stt": "./src/capability/stt/index.ts",
       "./capability/tts": "./src/capability/tts/index.ts",
       "./capability/voice-live": "./src/capability/voice-live/index.ts",
+      "./capability/ricerca": "./src/capability/ricerca/index.ts",
+      "./capability/lab": "./src/capability/lab/index.ts",
       "./http": "./src/http/index.ts",
       "./memory": "./src/memory/index.ts",
       "./messaging": "./src/messaging/index.ts",
@@ -67,6 +69,16 @@
       "types": "./dist/capability/voice-live/index.d.cts",
       "import": "./dist/capability/voice-live/index.js",
       "require": "./dist/capability/voice-live/index.cjs"
+    },
+    "./capability/ricerca": {
+      "types": "./dist/capability/ricerca/index.d.cts",
+      "import": "./dist/capability/ricerca/index.js",
+      "require": "./dist/capability/ricerca/index.cjs"
+    },
+    "./capability/lab": {
+      "types": "./dist/capability/lab/index.d.cts",
+      "import": "./dist/capability/lab/index.js",
+      "require": "./dist/capability/lab/index.cjs"
     },
     "./http": {
       "types": "./dist/http/index.d.cts",
