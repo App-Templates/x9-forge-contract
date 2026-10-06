@@ -1,0 +1,8 @@
+mutation r4-catalog-menu-min: src/capability/voice/agent-voice-settings.ts
+- options: z.array(z.object({ id: AgentVoiceIdSchema, label: LabelSchema })).min(1) }),
++ options: z.array(z.object({ id: AgentVoiceIdSchema, label: LabelSchema })) }),
+result: KILLED
+× R4 provider catalog > rejects empty voice menu 5ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > rejects empty voice menu

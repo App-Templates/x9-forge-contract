@@ -57,4 +57,8 @@ __exportStar(require("./agent-runtime-identity.cjs"), exports);
 __exportStar(require("./agent-runtime-state.cjs"), exports);
 // Runtime list source availability and completeness
 __exportStar(require("./agent-runtime-source.cjs"), exports);
+// R1b logical management: lifecycle/apply-config commands, versions, per-target outcomes (v1.31.0)
+__exportStar(require("./agent-management.cjs"), exports);
+// Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
+__exportStar(require("./agent-scope-policy.cjs"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,395 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/agent/agent-management.test.ts (42 tests | 42 failed) 8ms
+   × R1b actions and request identity > separates logical lifecycle from apply-config 2ms
+     → Cannot read properties of undefined (reading 'options')
+   × R1b actions and request identity > accepts lifecycle start with a request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > accepts lifecycle stop with a request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > accepts lifecycle restart with a request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > accepts lifecycle reload with a request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects missing request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects short request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects request key with spaces 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects unknown action 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects apply without version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects apply with zero version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects lifecycle with version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects empty target list 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects duplicate targets 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > rejects extra field 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b actions and request identity > treats the same key and same command as a replay, regardless of target order 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b actions and request identity > flags a different command under the same key 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b actions and request identity > flags a different command under the same key 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b actions and request identity > flags a different command under the same key 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b versions > accepts desired ahead of applied and a failure between them 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b versions > rejects applied ahead of desired 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b versions > rejects failure not newer than applied 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b versions > rejects failure beyond desired 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > requires a reason exactly when a target is not ok 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > derives the overall outcome 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b per-target results and derived outcome > derives the overall outcome 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b per-target results and derived outcome > derives the overall outcome 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b per-target results and derived outcome > derives the overall outcome 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b per-target results and derived outcome > derives the overall outcome 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R1b per-target results and derived outcome > accepts a lifecycle result whose outcome matches its targets 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > never reports a global success over a failed target 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > rejects duplicate target results and an empty result list 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > applies config only when every target converged 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > rejects apply-config success without applied version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > rejects apply-config failure claiming the requested version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > rejects apply-config missing versions 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b per-target results and derived outcome > keeps versions out of lifecycle results 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b management state per target > describes what each target supports and why the others are not manageable 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b management state per target > rejects unmanageable target without reason 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b management state per target > rejects manageable target with reason 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b management state per target > rejects duplicate actions 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b management state per target > rejects duplicate targets 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/http/endpoints/internal-agents-management.test.ts (4 tests | 4 failed) 6ms
+   × R1b management endpoints > declares secret-auth command and state routes next to reload/stop 4ms
+     → expected undefined to match object { method: 'POST', …(2) }
+   × R1b management endpoints > builds validated paths 0ms
+     → (0 , agentCommandsPath) is not a function
+   × R1b management endpoints > distinguishes idempotency conflicts and stale versions 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R1b management endpoints > validates bodies and responses through the contract 0ms
+     → Cannot read properties of undefined (reading 'bodySchema')
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 46 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > separates logical lifecycle from apply-config
+TypeError: Cannot read properties of undefined (reading 'options')
+ ❯ tests/agent/agent-management.test.ts:23:39
+     21| describe('R1b actions and request identity', () => {
+     22|   it('separates logical lifecycle from apply-config', () => {
+     23|     expect(AgentLifecycleActionSchema.options).toEqual(['start', 'stop…
+       |                                       ^
+     24|     expect(AgentManagementActionSchema.options).toEqual(['start', 'sto…
+     25|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > accepts lifecycle start with a request key
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > accepts lifecycle stop with a request key
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > accepts lifecycle restart with a request key
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > accepts lifecycle reload with a request key
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:28:41
+     26| 
+     27|   it.each(['start', 'stop', 'restart', 'reload'])('accepts lifecycle %…
+     28|     expect(AgentManagementCommandSchema.safeParse({ action, requestId:…
+       |                                         ^
+     29|   });
+     30| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects missing request key
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects short request key
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects request key with spaces
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects unknown action
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects apply without version
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects apply with zero version
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects lifecycle with version
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects empty target list
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects duplicate targets
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects extra field
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:43:41
+     41|     ['extra field', { action: 'stop', requestId: 'req-00000001', compo…
+     42|   ])('rejects %s', (_label, input) => {
+     43|     expect(AgentManagementCommandSchema.safeParse(input).success).toBe…
+       |                                         ^
+     44|   });
+     45| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > treats the same key and same command as a replay, regardless of target order
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-management.test.ts:47:44
+     45| 
+     46|   it('treats the same key and same command as a replay, regardless of …
+     47|     const a = AgentManagementCommandSchema.parse({ action: 'restart', …
+       |                                            ^
+     48|     const b = AgentManagementCommandSchema.parse({ action: 'restart', …
+     49|     expect(sameAgentCommand(a, b)).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > flags a different command under the same key
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > flags a different command under the same key
+ FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > flags a different command under the same key
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-management.test.ts:57:58
+     55|     [{ action: 'apply-config', requestId: 'req-00000001', desiredVersi…
+     56|   ])('flags a different command under the same key', (left, right) => {
+     57|     expect(sameAgentCommand(AgentManagementCommandSchema.parse(left), …
+       |                                                          ^
+     58|   });
+     59| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b versions > accepts desired ahead of applied and a failure between them
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:63:42
+     61| describe('R1b versions', () => {
+     62|   it('accepts desired ahead of applied and a failure between them', ()…
+     63|     expect(AgentConfigVersionStateSchema.safeParse({ desired: 4, appli…
+       |                                          ^
+     64|     expect(AgentConfigVersionStateSchema.safeParse({ desired: 1, appli…
+     65|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b versions > rejects applied ahead of desired
+ FAIL  tests/agent/agent-management.test.ts > R1b versions > rejects failure not newer than applied
+ FAIL  tests/agent/agent-management.test.ts > R1b versions > rejects failure beyond desired
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:72:42
+     70|     ['failure beyond desired', { desired: 3, applied: 1, failed: { ver…
+     71|   ])('rejects %s', (_label, input) => {
+     72|     expect(AgentConfigVersionStateSchema.safeParse(input).success).toB…
+       |                                          ^
+     73|   });
+     74| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > requires a reason exactly when a target is not ok
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:78:46
+     76| describe('R1b per-target results and derived outcome', () => {
+     77|   it('requires a reason exactly when a target is not ok', () => {
+     78|     expect(AgentManagementTargetResultSchema.safeParse(ok(runtime)).su…
+       |                                              ^
+     79|     expect(AgentManagementTargetResultSchema.safeParse({ target: runti…
+     80|     expect(AgentManagementTargetResultSchema.safeParse({ target: runti…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > derives the overall outcome
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > derives the overall outcome
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > derives the overall outcome
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > derives the overall outcome
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > derives the overall outcome
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-management.test.ts:91:94
+     89|     [[shared(runtime)], 'unmanageable'],
+     90|   ])('derives the overall outcome', (results, expected) => {
+     91|     expect(deriveAgentManagementOutcome(results.map((r) => AgentManage…
+       |                                                                                              ^
+     92|   });
+     93| 
+ ❯ tests/agent/agent-management.test.ts:91:49
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > accepts a lifecycle result whose outcome matches its targets
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:95:47
+     93| 
+     94|   it('accepts a lifecycle result whose outcome matches its targets', (…
+     95|     expect(AgentManagementCommandResultSchema.safeParse({ ...base, act…
+       |                                               ^
+     96|   });
+     97| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > never reports a global success over a failed target
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:99:47
+     97| 
+     98|   it('never reports a global success over a failed target', () => {
+     99|     expect(AgentManagementCommandResultSchema.safeParse({ ...base, act…
+       |                                               ^
+    100|   });
+    101| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > rejects duplicate target results and an empty result list
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:103:47
+    101| 
+    102|   it('rejects duplicate target results and an empty result list', () =…
+    103|     expect(AgentManagementCommandResultSchema.safeParse({ ...base, act…
+       |                                               ^
+    104|     expect(AgentManagementCommandResultSchema.safeParse({ ...base, act…
+    105|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > applies config only when every target converged
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:109:47
+    107|   it('applies config only when every target converged', () => {
+    108|     const applied = { ...base, action: 'apply-config', requestedVersio…
+    109|     expect(AgentManagementCommandResultSchema.safeParse(applied).succe…
+       |                                               ^
+    110|     const keptPrevious = { ...applied, outcome: 'error', results: [fai…
+    111|     expect(AgentManagementCommandResultSchema.safeParse(keptPrevious).…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > rejects apply-config success without applied version
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > rejects apply-config failure claiming the requested version
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > rejects apply-config missing versions
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:120:47
+    118|   ])('rejects apply-config %s', (_label, patch) => {
+    119|     const input = { ...base, action: 'apply-config', requestedVersion:…
+    120|     expect(AgentManagementCommandResultSchema.safeParse(input).success…
+       |                                               ^
+    121|   });
+    122| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > keeps versions out of lifecycle results
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:125:47
+    123|   it('keeps versions out of lifecycle results', () => {
+    124|     const input = { ...base, action: 'restart', outcome: 'ok', results…
+    125|     expect(AgentManagementCommandResultSchema.safeParse(input).success…
+       |                                               ^
+    126|   });
+    127| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b management state per target > describes what each target supports and why the others are not manageable
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:141:39
+    139| 
+    140|   it('describes what each target supports and why the others are not m…
+    141|     expect(AgentManagementStateSchema.safeParse(state).success).toBe(t…
+       |                                       ^
+    142|     expect(AgentManagementStateSchema.safeParse({ ...state, versions: …
+    143|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/46]⎯
+
+ FAIL  tests/agent/agent-management.test.ts > R1b management state per target > rejects unmanageable target without reason
+ FAIL  tests/agent/agent-management.test.ts > R1b management state per target > rejects manageable target with reason
+ FAIL  tests/agent/agent-management.test.ts > R1b management state per target > rejects duplicate actions
+ FAIL  tests/agent/agent-management.test.ts > R1b management state per target > rejects duplicate targets
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-management.test.ts:151:39
+    149|     ['duplicate targets', [{ target: runtime, actions: ['stop'] }, { t…
+    150|   ])('rejects %s', (_label, targets) => {
+    151|     expect(AgentManagementStateSchema.safeParse({ ...state, targets })…
+       |                                       ^
+    152|   });
+    153| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/46]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-management.test.ts > R1b management endpoints > declares secret-auth command and state routes next to reload/stop
+AssertionError: expected undefined to match object { method: 'POST', …(2) }
+
+[32m- Expected:[39m 
+{
+  "authType": "secret",
+  "method": "POST",
+  "path": "/internal/agents/:agentId/commands",
+}
+
+[31m+ Received:[39m 
+undefined
+
+ ❯ tests/http/endpoints/internal-agents-management.test.ts:13:34
+     11| describe('R1b management endpoints', () => {
+     12|   it('declares secret-auth command and state routes next to reload/sto…
+     13|     expect(agentCommandContract).toMatchObject({ method: 'POST', path:…
+       |                                  ^
+     14|     expect(agentManagementStateContract).toMatchObject({ method: 'GET'…
+     15|     expect(agentCommandContract.paramsSchema).toBe(reloadAgentContract…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/46]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-management.test.ts > R1b management endpoints > builds validated paths
+TypeError: (0 , agentCommandsPath) is not a function
+ ❯ tests/http/endpoints/internal-agents-management.test.ts:19:12
+     17| 
+     18|   it('builds validated paths', () => {
+     19|     expect(agentCommandsPath('x9')).toBe('/internal/agents/x9/commands…
+       |            ^
+     20|     expect(agentManagementPath('x9-meditazione')).toBe('/internal/agen…
+     21|     expect(() => agentCommandsPath('../x9')).toThrow();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/46]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-management.test.ts > R1b management endpoints > distinguishes idempotency conflicts and stale versions
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/http/endpoints/internal-agents-management.test.ts:26:47
+     24| 
+     25|   it('distinguishes idempotency conflicts and stale versions', () => {
+     26|     expect(AgentManagementErrorResponseSchema.safeParse({ ok: false, e…
+       |                                               ^
+     27|     expect(AgentManagementErrorResponseSchema.safeParse({ ok: false, e…
+     28|     expect(AgentManagementErrorResponseSchema.safeParse({ ok: false, e…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/46]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-management.test.ts > R1b management endpoints > validates bodies and responses through the contract
+TypeError: Cannot read properties of undefined (reading 'bodySchema')
+ ❯ tests/http/endpoints/internal-agents-management.test.ts:33:33
+     31| 
+     32|   it('validates bodies and responses through the contract', () => {
+     33|     expect(agentCommandContract.bodySchema.safeParse({ action: 'apply-…
+       |                                 ^
+     34|     expect(agentCommandContract.responseSchema.safeParse({
+     35|       ok: true, agentId: 'x9', requestId: 'req-00000002', replayed: tr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/46]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  46 failed (46)
+   Start at  01:01:14
+   Duration  643ms (transform 183ms, setup 7ms, collect 353ms, tests 13ms, environment 0ms, prepare 71ms)
+

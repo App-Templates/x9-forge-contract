@@ -1,0 +1,8 @@
+mutation r6e-channel-kind: src/capability/agent-elevenlabs/index.ts
+-   if (status.channel.kind !== 'voice' && status.channel.kind !== 'web') {
++   if (false) {
+result: KILLED
+× R6 mapping and external channel state > rejects telegram as provider channel 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects telegram as provider channel

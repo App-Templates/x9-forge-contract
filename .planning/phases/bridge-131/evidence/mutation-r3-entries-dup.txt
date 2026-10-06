@@ -1,0 +1,8 @@
+mutation r3-entries-dup: src/vault/credential-link.ts
+-     if (seen.has(entry.key)) ctx.addIssue({ code: 'custom', path: ['entries', index, 'key'], message: `Duplicate key ${entry.key}` });
++ 
+result: KILLED
+× R3 per-agent key entries > lists each key once per agent 8ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > lists each key once per agent

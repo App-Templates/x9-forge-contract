@@ -1,0 +1,8 @@
+mutation r6s-same-scope-agent: src/capability/capability-call-context.ts
+- a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.agentId === b.agentId && a.userId === b.userId;
++ a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.userId === b.userId;
+result: KILLED
+× R3 capability call identity > derives agent and person scopes without redefining identity 4ms
+× R6 mapping and external channel state > rejects mapping for another agent 4ms
+Tests  2 failed | 48 passed (50)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

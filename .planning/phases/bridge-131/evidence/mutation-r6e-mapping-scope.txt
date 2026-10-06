@@ -1,0 +1,8 @@
+mutation r6e-mapping-scope: src/capability/agent-elevenlabs/index.ts
+-   if (status.mapping !== null && !sameScope(status.mapping.scope, status.scope)) {
++   if (false) {
+result: KILLED
+× R6 mapping and external channel state > rejects mapping for another agent 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects mapping for another agent

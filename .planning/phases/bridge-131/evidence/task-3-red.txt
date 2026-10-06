@@ -1,0 +1,199 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/capability/capability-call-context.test.ts (21 tests | 21 failed) 9ms
+   × R3 capability call identity > requires tenant, owner and agent; person optional 3ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call identity > rejects a missing tenantId (no default tenant) 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call identity > rejects a missing ownerId (no default tenant) 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call identity > rejects a missing agentId (no default tenant) 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call identity > rejects extra identity claims 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > carries only the credentials of this capability, each with its version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > rejects credential without version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > rejects version without credential 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > rejects platform-internal credential 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > rejects empty credential value 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > rejects missing capability 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > rejects the whole credential bag 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 capability call context > picks the minimum and lists what is missing 0ms
+     → (0 , pickCapabilityCredentials) is not a function
+   × R3 capability call context > feeds the 1.30 tool call without changing its shape 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R3 resolve endpoint > is a token-auth Forge vault route 2ms
+     → expected undefined to be '/resolve/capability-context' // Object.is equality
+   × R3 resolve endpoint > asks for declared keys of one capability 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 resolve endpoint > keeps missing key, unavailable source and disabled capability distinct 0ms
+     → Cannot read properties of undefined (reading 'options')
+   × R3 resolve endpoint > rejects missing key without the key list 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 resolve endpoint > rejects key list on another error 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 resolve endpoint > rejects unknown error 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 resolve endpoint > rejects success without context 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 21 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > requires tenant, owner and agent; person optional
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/capability-call-context.test.ts:26:41
+     24| describe('R3 capability call identity', () => {
+     25|   it('requires tenant, owner and agent; person optional', () => {
+     26|     expect(CapabilityCallIdentitySchema.safeParse(identity).success).t…
+       |                                         ^
+     27|     const { userId: _drop, ...agentScope } = identity;
+     28|     expect(CapabilityCallIdentitySchema.safeParse(agentScope).success)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > rejects a missing tenantId (no default tenant)
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > rejects a missing ownerId (no default tenant)
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > rejects a missing agentId (no default tenant)
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/capability-call-context.test.ts:34:41
+     32|     const input: Record<string, unknown> = { ...identity };
+     33|     delete input[key];
+     34|     expect(CapabilityCallIdentitySchema.safeParse(input).success).toBe…
+       |                                         ^
+     35|   });
+     36| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > rejects extra identity claims
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/capability-call-context.test.ts:38:41
+     36| 
+     37|   it('rejects extra identity claims', () => {
+     38|     expect(CapabilityCallIdentitySchema.safeParse({ ...identity, role:…
+       |                                         ^
+     39|   });
+     40| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > carries only the credentials of this capability, each with its version
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/capability-call-context.test.ts:44:40
+     42| describe('R3 capability call context', () => {
+     43|   it('carries only the credentials of this capability, each with its v…
+     44|     expect(CapabilityCallContextSchema.safeParse(context).success).toB…
+       |                                        ^
+     45|     expect(CapabilityCallContextSchema.safeParse({ ...context, credent…
+     46|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > rejects credential without version
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > rejects version without credential
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > rejects platform-internal credential
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > rejects empty credential value
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > rejects missing capability
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > rejects the whole credential bag
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/capability-call-context.test.ts:56:40
+     54|     ['the whole credential bag', { allCredentials: { OPENAI_API_KEY: '…
+     55|   ])('rejects %s', (_label, patch) => {
+     56|     expect(CapabilityCallContextSchema.safeParse({ ...context, ...patc…
+       |                                        ^
+     57|   });
+     58| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > picks the minimum and lists what is missing
+TypeError: (0 , pickCapabilityCredentials) is not a function
+ ❯ tests/capability/capability-call-context.test.ts:65:12
+     63|       TELEGRAM_SESSION_STRING: { value: 'internal', version: 1 },
+     64|     };
+     65|     expect(pickCapabilityCredentials(available, ['OPENAI_API_KEY'])).t…
+       |            ^
+     66|       ok: true, credentials: { OPENAI_API_KEY: 'sk' }, credentialVersi…
+     67|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > feeds the 1.30 tool call without changing its shape
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/capability/capability-call-context.test.ts:77:63
+     75| 
+     76|   it('feeds the 1.30 tool call without changing its shape', () => {
+     77|     const scope = toToolCallScope(CapabilityCallContextSchema.parse(co…
+       |                                                               ^
+     78|     expect(scope).toEqual({ agentId: 'agent-7', userId: 'person-9', te…
+     79|     expect(ToolCallRequestSchema.safeParse({ callId: 'c', tool: 'resea…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > is a token-auth Forge vault route
+AssertionError: expected undefined to be '/resolve/capability-context' // Object.is equality
+
+[32m- Expected:[39m 
+"/resolve/capability-context"
+
+[31m+ Received:[39m 
+undefined
+
+ ❯ tests/capability/capability-call-context.test.ts:87:42
+     85| describe('R3 resolve endpoint', () => {
+     86|   it('is a token-auth Forge vault route', () => {
+     87|     expect(CAPABILITY_CALL_CONTEXT_PATH).toBe('/resolve/capability-con…
+       |                                          ^
+     88|     expect(capabilityCallContextContract).toMatchObject({ method: 'POS…
+     89|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > asks for declared keys of one capability
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/capability-call-context.test.ts:92:47
+     90| 
+     91|   it('asks for declared keys of one capability', () => {
+     92|     expect(CapabilityCallContextRequestSchema.safeParse({ identity, ca…
+       |                                               ^
+     93|     expect(CapabilityCallContextRequestSchema.safeParse({ identity, ca…
+     94|     expect(CapabilityCallContextRequestSchema.safeParse({ identity, ca…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > keeps missing key, unavailable source and disabled capability distinct
+TypeError: Cannot read properties of undefined (reading 'options')
+ ❯ tests/capability/capability-call-context.test.ts:98:49
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/21]⎯
+
+ FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > rejects missing key without the key list
+ FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > rejects key list on another error
+ FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > rejects unknown error
+ FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > rejects success without context
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/capability-call-context.test.ts:111:48
+    109|     ['success without context', { ok: true }],
+    110|   ])('rejects %s', (_label, input) => {
+    111|     expect(CapabilityCallContextResponseSchema.safeParse(input).succes…
+       |                                                ^
+    112|   });
+    113| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/21]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  21 failed (21)
+   Start at  01:08:29
+   Duration  705ms (transform 262ms, setup 12ms, collect 482ms, tests 9ms, environment 0ms, prepare 57ms)
+

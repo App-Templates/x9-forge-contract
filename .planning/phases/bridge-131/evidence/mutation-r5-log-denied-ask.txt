@@ -1,0 +1,8 @@
+mutation r5-log-denied-ask: src/agent/agent-scope-policy.ts
+-   if (event.outcome === 'denied' && event.decision !== 'deny' && !approved) {
++   if (false) {
+result: KILLED
+× R5 action log event > rejects denied ask without approval 4ms
+× R5 action log event > rejects allowed but denied 0ms
+Tests  2 failed | 38 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

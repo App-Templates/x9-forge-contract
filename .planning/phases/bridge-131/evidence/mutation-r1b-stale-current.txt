@@ -1,0 +1,8 @@
+mutation r1b-stale-current: src/http/endpoints/internal-agents-management.ts
+-   if ((response.error === 'stale_version') !== (response.currentVersion !== undefined)) {
++   if (false) {
+result: KILLED
+× R1b management endpoints > distinguishes idempotency conflicts and stale versions 5ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/http/endpoints/internal-agents-management.test.ts > R1b management endpoints > distinguishes idempotency conflicts and stale versions

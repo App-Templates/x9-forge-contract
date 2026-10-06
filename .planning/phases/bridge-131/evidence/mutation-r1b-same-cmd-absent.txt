@@ -1,0 +1,8 @@
+mutation r1b-same-cmd-absent: src/agent/agent-management.ts
+- if (left === null || right === null) return left === right;
++ if (left === null || right === null) return true;
+result: KILLED
+× R1b actions and request identity > flags a different command under the same key 12ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > flags a different command under the same key

@@ -1,0 +1,8 @@
+mutation r6c-in-progress: src/capability/coach/index.ts
+-       if (!started || ended || measured) issue('status', 'An in-progress session has started and not ended');
++ 
+result: KILLED
+× R6 cap-coach person data isolated by tenant/owner/agent/person > rejects in progress with end 4ms
+Tests  1 failed | 40 passed (41)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects in progress with end

@@ -57,3 +57,6 @@ export type { PlatformInternalCredentialKey } from './platform-internal-credenti
 // Vaulted credentials alias (re-export of Phase 2 AgentCredentials)
 export { AgentVaultedCredentialsSchema } from './agent-vaulted-credentials.js';
 export type { AgentVaultedCredentials } from './agent-vaulted-credentials.js';
+
+// Keys linked to the Master Chief: provenance, versions, rotate/relink/unlink outcomes (R3, v1.31.0)
+export * from './credential-link.js';

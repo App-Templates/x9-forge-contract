@@ -1,0 +1,8 @@
+mutation r6e-tool-name: src/capability/agent-elevenlabs/index.ts
+-   name: CapToolCallParamsSchema.shape.tool,
++   name: z.string().min(1),
+result: KILLED
+× R6 cap-agent-elevenlabs provisioning on Apply > rejects config with tool name outside the /call rule 4ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with tool name outside the /call rule

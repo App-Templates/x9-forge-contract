@@ -1,0 +1,8 @@
+mutation r6e-unobserved-unknown: src/capability/agent-elevenlabs/index.ts
+-   if (status.observedAt === null && status.channel.state !== 'unknown') {
++   if (false) {
+result: KILLED
+× R6 mapping and external channel state > rejects unobserved channel claiming a state 4ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects unobserved channel claiming a state

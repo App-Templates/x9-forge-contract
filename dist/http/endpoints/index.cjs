@@ -24,6 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./internal-agents-list.cjs"), exports);
 __exportStar(require("./internal-agents-reload.cjs"), exports);
 __exportStar(require("./internal-agents-stop.cjs"), exports);
+__exportStar(require("./internal-agents-management.cjs"), exports); // v1.31.0 — R1b commands + management state
 __exportStar(require("./internal-turn.cjs"), exports);
 __exportStar(require("./internal-turn-stream.cjs"), exports);
 __exportStar(require("./internal-agent-turn.cjs"), exports); // v1.22.0 — EA M0 per-agent turn
@@ -32,10 +33,13 @@ __exportStar(require("./internal-model-config.cjs"), exports); // Phase 6 — MD
 __exportStar(require("./internal-model-config-version.cjs"), exports); // Phase 6 — MDRT-07 polling (06-01 decision)
 __exportStar(require("./internal-memory-extract.cjs"), exports); // Phase 36.9 — async extraction pipeline
 __exportStar(require("./internal-capability-agent.cjs"), exports); // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
+__exportStar(require("./internal-capability-elevenlabs.cjs"), exports); // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
+__exportStar(require("./internal-capability-coach.cjs"), exports); // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);
 __exportStar(require("./vault-resolve.cjs"), exports); // Phase 38 — HTTP-12 / R-14 closure
+__exportStar(require("./capability-call-context.cjs"), exports); // v1.31.0 — R3 per-call capability context
 __exportStar(require("./voice.cjs"), exports); // Phase 42 — CAP-Voice v2.2 path + method constants
 __exportStar(require("./voice-live.cjs"), exports); // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 __exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.11.0) — Parallel S2S agent deploy

@@ -1,0 +1,8 @@
+mutation r3-key-regex: src/vault/credential-link.ts
+- z.string().max(128).regex(/^[A-Za-z_][A-Za-z0-9_.-]*$/)
++ z.string().max(128)
+result: KILLED
+× R3 credential provenance > accepts capability keys and refuses platform-internal ones 5ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > accepts capability keys and refuses platform-internal ones

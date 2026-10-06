@@ -1,0 +1,8 @@
+mutation r3-linked-master: src/vault/credential-link.ts
+- z.object({ link: z.literal('linked'), source: z.literal('master') }).strict(),
++ z.object({ link: z.literal('linked'), source: z.string() }).strict(),
+result: KILLED
+× R3 credential provenance > rejects linked to a tier 4ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > rejects linked to a tier

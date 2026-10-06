@@ -1,0 +1,8 @@
+mutation r4-provider-id-regex: src/capability/voice/agent-voice-settings.ts
+- export const AgentVoiceProviderIdSchema = z.string().regex(/^[a-z][a-z0-9_]{1,63}$/);
++ export const AgentVoiceProviderIdSchema = z.string().min(1);
+result: KILLED
+× R4 per-agent voice settings > rejects provider id with spaces 5ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects provider id with spaces

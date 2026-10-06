@@ -1,0 +1,8 @@
+mutation r5-rule-key-tool: src/agent/agent-scope-policy.ts
+-     const key = `${rule.capability}/${rule.tool ?? '*'}`;
++     const key = `${rule.capability}`;
+result: KILLED
+× R5 scope policy > accepts a normal agent with native web search and a purpose-limited agent 5ms
+× R5 scope policy > resolves tool rule > capability rule > default 0ms
+× R5 scope policy > resolves tool rule > capability rule > default 0ms
+× R5 scope policy > resolves tool rule > capability rule > default 0ms

@@ -1,0 +1,10 @@
+mutation r3-entry-strict: src/vault/credential-link.ts
+-   isSecret: z.boolean(),
+}).strict().superRefine((entry, ctx) => {
++   isSecret: z.boolean(),
+}).superRefine((entry, ctx) => {
+result: KILLED
+× R3 per-agent key entries > describes a key without ever carrying its value 5ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > describes a key without ever carrying its value

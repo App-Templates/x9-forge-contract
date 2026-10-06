@@ -14,6 +14,20 @@
  * @see docs/adr/ADR-cap-voice.md
  * @see .planning/phases/42-cap-voice-v2.2-foundation-shadow/
  */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VoiceCallToolLogSchema = exports.VoiceCallMemoryIngestPayloadSchema = exports.CapVoiceIngestStatusSchema = exports.CapVoicePostCallIngestResponseSchema = exports.CapVoicePostCallIngestRequestSchema = exports.ForgeVoiceWebhookNormalizedEventSchema = exports.ElevenLabsCallInitiationFailureEventSchema = exports.ElevenLabsPostCallAudioEventSchema = exports.ElevenLabsPostCallTranscriptionEventSchema = exports.ElevenLabsWebhookEventTypeSchema = exports.VoicePrivacyLevelSchema = exports.VoicePrivacyMetadataSchema = exports.normalizeSentiment = exports.KnownSentiments = exports.VoiceRecipientSentimentLenientSchema = exports.VoiceRecipientSentimentSchema = exports.VoiceCallOutcomeKindSchema = exports.VoiceCallOutcomeSchema = exports.CalendarHoldReleaseStatusSchema = exports.CalendarHoldStatusSchema = exports.CalendarHoldReleaseResponseSchema = exports.CalendarHoldReleaseRequestSchema = exports.CalendarHoldResponseSchema = exports.CalendarHoldRequestSchema = exports.CalendarConflictResponseSchema = exports.CalendarConflictRequestSchema = exports.CalendarAvailabilityResponseSchema = exports.CalendarAvailabilityRequestSchema = exports.SendRecapEmailOutputSchema = exports.SendRecapEmailInputSchema = exports.ConfirmRecipientEmailOutputSchema = exports.ConfirmRecipientEmailInputSchema = exports.MUTATING_VOICE_TOOLS = exports.VoiceToolCallResponseSchema = exports.VoiceToolCallRequestSchema = exports.VoiceToolStatusSchema = exports.VoiceToolNameSchema = exports.VoiceCallStartResponseSchema = exports.VoiceCallStartRequestSchema = exports.OPENAI_LIVE_DEFAULT_BACKEND_MODEL = exports.OPENAI_LIVE_DEFAULT_VOICE = exports.OPENAI_LIVE_MODEL = exports.VoiceProviderSchema = exports.VoicePrepareCallResponseSchema = exports.VoicePrepareCallRequestSchema = exports.VoiceCallProvenanceEntrySchema = exports.VOICE_CALL_INTENTS = exports.VoiceCallIntentSchema = exports.AuthorizedActionsSchema = exports.VoiceCallBriefSchema = void 0;
 exports.VoiceToolCallSourceSchema = void 0;
@@ -100,4 +114,6 @@ Object.defineProperty(exports, "VoiceCallMemoryIngestPayloadSchema", { enumerabl
 var tool_log_js_1 = require("./tool-log.cjs");
 Object.defineProperty(exports, "VoiceCallToolLogSchema", { enumerable: true, get: function () { return tool_log_js_1.VoiceCallToolLogSchema; } });
 Object.defineProperty(exports, "VoiceToolCallSourceSchema", { enumerable: true, get: function () { return tool_log_js_1.VoiceToolCallSourceSchema; } });
+// -- Per-agent voice settings, provider catalog, outbound caller identity (R4, v1.31.0) --
+__exportStar(require("./agent-voice-settings.cjs"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,8 @@
+mutation r6e-display-name: src/capability/agent-elevenlabs/index.ts
+-   displayName: z.string().trim().min(1).max(80),
++   displayName: z.string().max(80),
+result: KILLED
+× R6 cap-agent-elevenlabs provisioning on Apply > rejects config with empty display name 4ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with empty display name

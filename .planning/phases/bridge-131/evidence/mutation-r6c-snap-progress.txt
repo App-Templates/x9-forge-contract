@@ -1,0 +1,8 @@
+mutation r6c-snap-progress: src/capability/coach/index.ts
+-     if (!sameCapabilityScope(entry.scope, snapshot.scope)) foreign(['progress', index, 'scope']);
++ 
+result: KILLED
+× R6 cap-coach snapshot, results and errors > rejects another agent's progress 4ms
+Tests  1 failed | 40 passed (41)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > rejects another agent's progress

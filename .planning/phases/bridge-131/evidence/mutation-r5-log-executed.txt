@@ -1,0 +1,8 @@
+mutation r5-log-executed: src/agent/agent-scope-policy.ts
+-   if ((event.outcome === 'executed' || event.outcome === 'failed') && event.decision !== 'allow' && !approved) {
++   if (false) {
+result: KILLED
+× R5 action log event > rejects executed ask without approval 3ms
+Tests  1 failed | 39 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects executed ask without approval

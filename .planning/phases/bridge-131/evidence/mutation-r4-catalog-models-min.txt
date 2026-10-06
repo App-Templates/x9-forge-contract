@@ -1,0 +1,8 @@
+mutation r4-catalog-models-min: src/capability/voice/agent-voice-settings.ts
+-   models: z.array(z.object({ id: AgentVoiceModelSchema, label: LabelSchema })).min(1),
++   models: z.array(z.object({ id: AgentVoiceModelSchema, label: LabelSchema })),
+result: KILLED
+× R4 provider catalog > rejects provider without models 6ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > rejects provider without models

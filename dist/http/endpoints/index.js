@@ -8,6 +8,7 @@
 export * from "./internal-agents-list.js";
 export * from "./internal-agents-reload.js";
 export * from "./internal-agents-stop.js";
+export * from "./internal-agents-management.js"; // v1.31.0 — R1b commands + management state
 export * from "./internal-turn.js";
 export * from "./internal-turn-stream.js";
 export * from "./internal-agent-turn.js"; // v1.22.0 — EA M0 per-agent turn
@@ -16,10 +17,13 @@ export * from "./internal-model-config.js"; // Phase 6 — MDRT-05 / D-15
 export * from "./internal-model-config-version.js"; // Phase 6 — MDRT-07 polling (06-01 decision)
 export * from "./internal-memory-extract.js"; // Phase 36.9 — async extraction pipeline
 export * from "./internal-capability-agent.js"; // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
+export * from "./internal-capability-elevenlabs.js"; // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
+export * from "./internal-capability-coach.js"; // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
 export * from "./vault-resolve.js"; // Phase 38 — HTTP-12 / R-14 closure
+export * from "./capability-call-context.js"; // v1.31.0 — R3 per-call capability context
 export * from "./voice.js"; // Phase 42 — CAP-Voice v2.2 path + method constants
 export * from "./voice-live.js"; // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 export * from "./internal-factory-deploy.js"; // Wave 2 (v1.11.0) — Parallel S2S agent deploy

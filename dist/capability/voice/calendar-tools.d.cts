@@ -58,9 +58,9 @@ export type CalendarConflictResponse = z.infer<typeof CalendarConflictResponseSc
  */
 export declare const CalendarHoldStatusSchema: z.ZodEnum<{
     active: "active";
+    expired: "expired";
     promoted: "promoted";
     released: "released";
-    expired: "expired";
     cleanup_required: "cleanup_required";
 }>;
 export type CalendarHoldStatus = z.infer<typeof CalendarHoldStatusSchema>;
@@ -90,9 +90,9 @@ export declare const CalendarHoldResponseSchema: z.ZodObject<{
     calendar_event_id: z.ZodString;
     status: z.ZodEnum<{
         active: "active";
+        expired: "expired";
         promoted: "promoted";
         released: "released";
-        expired: "expired";
         cleanup_required: "cleanup_required";
     }>;
     start_iso: z.ZodString;

@@ -50,3 +50,9 @@ export * from './agent-runtime-state.js';
 
 // Runtime list source availability and completeness
 export * from './agent-runtime-source.js';
+
+// R1b logical management: lifecycle/apply-config commands, versions, per-target outcomes (v1.31.0)
+export * from './agent-management.js';
+
+// Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
+export * from './agent-scope-policy.js';

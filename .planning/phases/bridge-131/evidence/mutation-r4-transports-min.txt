@@ -1,0 +1,8 @@
+mutation r4-transports-min: src/capability/voice/agent-voice-settings.ts
+- const TransportsSchema = z.array(AgentVoiceTransportSchema).min(1).max(2)
++ const TransportsSchema = z.array(AgentVoiceTransportSchema).max(2)
+result: KILLED
+× R4 per-agent voice settings > rejects no transport 8ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects no transport

@@ -1,0 +1,8 @@
+mutation r6e-loaded-needs-mapping: src/capability/agent-elevenlabs/index.ts
+-   if (status.mapping === null && status.channel.loaded === true) {
++   if (false) {
+result: KILLED
+× R6 mapping and external channel state > rejects active channel without provider resource 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects active channel without provider resource

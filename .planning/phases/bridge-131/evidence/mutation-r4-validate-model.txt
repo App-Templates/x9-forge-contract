@@ -1,0 +1,8 @@
+mutation r4-validate-model: src/capability/voice/agent-voice-settings.ts
+-   if (!entry.models.some((model) => model.id === settings.model)) issues.push('model_unsupported');
++ 
+result: KILLED
+× R4 provider catalog > reports unsupported choices 7ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices

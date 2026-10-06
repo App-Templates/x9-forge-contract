@@ -1,0 +1,176 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/compat/bridge-131-dist.test.ts (5 tests | 5 failed) 467ms
+   × 1.31 additive contracts are published from existing subpaths > exports 10 new symbols from ./agent in ESM and CJS 122ms
+     → expected [ …(10) ] to deeply equal []
+   × 1.31 additive contracts are published from existing subpaths > exports 6 new symbols from ./vault in ESM and CJS 28ms
+     → expected [ 'CredentialLinkSchema', …(5) ] to deeply equal []
+   × 1.31 additive contracts are published from existing subpaths > exports 15 new symbols from ./capability in ESM and CJS 107ms
+     → expected [ …(15) ] to deeply equal []
+   × 1.31 additive contracts are published from existing subpaths > exports 6 new symbols from ./voice in ESM and CJS 76ms
+     → expected [ 'AgentVoiceSettingsSchema', …(5) ] to deeply equal []
+   × 1.31 additive contracts are published from existing subpaths > exports 16 new symbols from ./http in ESM and CJS 134ms
+     → expected [ 'agentCommandContract', …(15) ] to deeply equal []
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/compat/bridge-131-dist.test.ts > 1.31 additive contracts are published from existing subpaths > exports 10 new symbols from ./agent in ESM and CJS
+AssertionError: expected [ …(10) ] to deeply equal []
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "AgentManagementCommandSchema",[39m
+[31m+   "AgentManagementCommandResultSchema",[39m
+[31m+   "AgentManagementStateSchema",[39m
+[31m+   "AgentConfigVersionStateSchema",[39m
+[31m+   "deriveAgentManagementOutcome",[39m
+[31m+   "sameAgentCommand",[39m
+[31m+   "AgentScopePolicySchema",[39m
+[31m+   "PolicyApprovalSchema",[39m
+[31m+   "AgentActionLogEventSchema",[39m
+[31m+   "resolvePolicyDecision",[39m
+[31m+ ][39m
+
+ ❯ tests/compat/bridge-131-dist.test.ts:49:54
+     47|       const esm = await import(new URL(target.import, root).href) as R…
+     48|       const cjs = createRequire(import.meta.url)(new URL(target.requir…
+     49|       expect(names.filter((name) => !(name in esm))).toEqual([]);
+       |                                                      ^
+     50|       expect(names.filter((name) => !(name in cjs))).toEqual([]);
+     51|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/compat/bridge-131-dist.test.ts > 1.31 additive contracts are published from existing subpaths > exports 6 new symbols from ./vault in ESM and CJS
+AssertionError: expected [ 'CredentialLinkSchema', …(5) ] to deeply equal []
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "CredentialLinkSchema",[39m
+[31m+   "AgentCredentialLinkEntrySchema",[39m
+[31m+   "AgentCredentialLinksSchema",[39m
+[31m+   "CredentialActionRequestSchema",[39m
+[31m+   "CredentialActionResultSchema",[39m
+[31m+   "CredentialActionErrorResponseSchema",[39m
+[31m+ ][39m
+
+ ❯ tests/compat/bridge-131-dist.test.ts:49:54
+     47|       const esm = await import(new URL(target.import, root).href) as R…
+     48|       const cjs = createRequire(import.meta.url)(new URL(target.requir…
+     49|       expect(names.filter((name) => !(name in esm))).toEqual([]);
+       |                                                      ^
+     50|       expect(names.filter((name) => !(name in cjs))).toEqual([]);
+     51|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/compat/bridge-131-dist.test.ts > 1.31 additive contracts are published from existing subpaths > exports 15 new symbols from ./capability in ESM and CJS
+AssertionError: expected [ …(15) ] to deeply equal []
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "CapabilityCallIdentitySchema",[39m
+[31m+   "CapabilityAgentScopeSchema",[39m
+[31m+   "CapabilityPersonScopeSchema",[39m
+[31m+   "CapabilityCallContextSchema",[39m
+[31m+   "CapabilityCallContextResponseSchema",[39m
+[31m+   "pickCapabilityCredentials",[39m
+[31m+   "toToolCallScope",[39m
+[31m+   "ElevenLabsProvisionRequestSchema",[39m
+[31m+   "ElevenLabsProvisionResultSchema",[39m
+[31m+   "ElevenLabsChannelStatusSchema",[39m
+[31m+   "CoachProgramSchema",[39m
+[31m+   "CoachSessionSchema",[39m
+[31m+   "CoachProgressSchema",[39m
+[31m+   "CoachMinuteBudgetSchema",[39m
+[31m+   "CoachPersonSnapshotSchema",[39m
+[31m+ ][39m
+
+ ❯ tests/compat/bridge-131-dist.test.ts:49:54
+     47|       const esm = await import(new URL(target.import, root).href) as R…
+     48|       const cjs = createRequire(import.meta.url)(new URL(target.requir…
+     49|       expect(names.filter((name) => !(name in esm))).toEqual([]);
+       |                                                      ^
+     50|       expect(names.filter((name) => !(name in cjs))).toEqual([]);
+     51|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/compat/bridge-131-dist.test.ts > 1.31 additive contracts are published from existing subpaths > exports 6 new symbols from ./voice in ESM and CJS
+AssertionError: expected [ 'AgentVoiceSettingsSchema', …(5) ] to deeply equal []
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "AgentVoiceSettingsSchema",[39m
+[31m+   "AgentVoiceConfigSchema",[39m
+[31m+   "VoiceProviderCatalogSchema",[39m
+[31m+   "OutboundCallerIdentitySchema",[39m
+[31m+   "validateAgentVoiceSettings",[39m
+[31m+   "outboundCallerIdentityFor",[39m
+[31m+ ][39m
+
+ ❯ tests/compat/bridge-131-dist.test.ts:49:54
+     47|       const esm = await import(new URL(target.import, root).href) as R…
+     48|       const cjs = createRequire(import.meta.url)(new URL(target.requir…
+     49|       expect(names.filter((name) => !(name in esm))).toEqual([]);
+       |                                                      ^
+     50|       expect(names.filter((name) => !(name in cjs))).toEqual([]);
+     51|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/compat/bridge-131-dist.test.ts > 1.31 additive contracts are published from existing subpaths > exports 16 new symbols from ./http in ESM and CJS
+AssertionError: expected [ 'agentCommandContract', …(15) ] to deeply equal []
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "agentCommandContract",[39m
+[31m+   "agentManagementStateContract",[39m
+[31m+   "agentCommandsPath",[39m
+[31m+   "agentManagementPath",[39m
+[31m+   "capabilityCallContextContract",[39m
+[31m+   "CAPABILITY_CALL_CONTEXT_PATH",[39m
+[31m+   "elevenLabsProvisionContract",[39m
+[31m+   "elevenLabsStatusContract",[39m
+[31m+   "capElevenLabsAgentPath",[39m
+[31m+   "coachProgramPutContract",[39m
+[31m+   "coachProgramGetContract",[39m
+[31m+   "coachSessionRecordContract",[39m
+[31m+   "coachPersonSnapshotContract",[39m
+[31m+   "capCoachProgramPath",[39m
+[31m+   "capCoachSessionsPath",[39m
+[31m+   "capCoachPersonPath",[39m
+[31m+ ][39m
+
+ ❯ tests/compat/bridge-131-dist.test.ts:49:54
+     47|       const esm = await import(new URL(target.import, root).href) as R…
+     48|       const cjs = createRequire(import.meta.url)(new URL(target.requir…
+     49|       expect(names.filter((name) => !(name in esm))).toEqual([]);
+       |                                                      ^
+     50|       expect(names.filter((name) => !(name in cjs))).toEqual([]);
+     51|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed (5)
+   Start at  01:20:32
+   Duration  634ms (transform 181ms, setup 5ms, collect 12ms, tests 467ms, environment 0ms, prepare 42ms)
+

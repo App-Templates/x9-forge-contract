@@ -1,0 +1,10 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ✓ tests/capability/voice/agent-voice-settings.test.ts (30 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  30 passed (30)
+   Start at  01:11:08
+   Duration  455ms (transform 131ms, setup 8ms, collect 259ms, tests 8ms, environment 0ms, prepare 57ms)
+

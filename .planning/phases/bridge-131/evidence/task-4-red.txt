@@ -1,0 +1,245 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/capability/voice/agent-voice-settings.test.ts (30 tests | 30 failed) 16ms
+   × R4 per-agent voice settings > is text-only or voice with provider, protocol, transport, voice and model 4ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > stays open to future providers while knowing the current ones 4ms
+     → expected undefined to deeply equal [ 'elevenlabs', 'openai_live' ]
+   × R4 per-agent voice settings > rejects text-only with a voice 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects voice without provider 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects voice without voice id 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects voice without model 1ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects no transport 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects duplicate transport 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects unknown protocol 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects provider id with spaces 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > rejects credential in settings 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 per-agent voice settings > keeps saved and applied settings with their versions 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 provider catalog > parses a producer catalog 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 provider catalog > rejects duplicate provider 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 provider catalog > rejects empty voice menu 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 provider catalog > rejects invalid voice id pattern 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 provider catalog > rejects provider without models 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 provider catalog > accepts only combinations the catalog supports 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 provider catalog > reports unsupported choices 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 provider catalog > reports unsupported choices 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 provider catalog > reports unsupported choices 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 provider catalog > reports unsupported choices 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 provider catalog > reports unsupported choices 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 provider catalog > reports unsupported choices 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 provider catalog > reports a transport the provider does not offer 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 caller identity on the single outbound Telnyx number > derives a coherent identity from voice settings 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R4 caller identity on the single outbound Telnyx number > refuses text-only agents and agents without the phone transport 1ms
+     → (0 , outboundCallerIdentityFor) is not a function
+   × R4 caller identity on the single outbound Telnyx number > rejects non E.164 number 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 caller identity on the single outbound Telnyx number > rejects empty name 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R4 caller identity on the single outbound Telnyx number > rejects missing runtime identity 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 30 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > is text-only or voice with provider, protocol, transport, voice and model
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:39:37
+     37| describe('R4 per-agent voice settings', () => {
+     38|   it('is text-only or voice with provider, protocol, transport, voice …
+     39|     expect(AgentVoiceSettingsSchema.safeParse({ mode: 'text-only' }).s…
+       |                                     ^
+     40|     expect(AgentVoiceSettingsSchema.safeParse(gpt).success).toBe(true);
+     41|     expect(AgentVoiceSettingsSchema.safeParse(eleven).success).toBe(tr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > stays open to future providers while knowing the current ones
+AssertionError: expected undefined to deeply equal [ 'elevenlabs', 'openai_live' ]
+
+[32m- Expected:[39m 
+[
+  "elevenlabs",
+  "openai_live",
+]
+
+[31m+ Received:[39m 
+undefined
+
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:45:41
+     43| 
+     44|   it('stays open to future providers while knowing the current ones', …
+     45|     expect(KNOWN_AGENT_VOICE_PROVIDERS).toEqual(['elevenlabs', 'openai…
+       |                                         ^
+     46|     expect(AgentVoiceSettingsSchema.safeParse({ ...gpt, provider: 'fut…
+     47|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects text-only with a voice
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects voice without provider
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects voice without voice id
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects voice without model
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects no transport
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects duplicate transport
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects unknown protocol
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects provider id with spaces
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects credential in settings
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:60:37
+     58|     ['credential in settings', { ...gpt, apiKey: 'sk' }],
+     59|   ])('rejects %s', (_label, input) => {
+     60|     expect(AgentVoiceSettingsSchema.safeParse(input).success).toBe(fal…
+       |                                     ^
+     61|   });
+     62| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > keeps saved and applied settings with their versions
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:65:35
+     63|   it('keeps saved and applied settings with their versions', () => {
+     64|     const config = { agentId: 'agent-7', versions: { desired: 3, appli…
+     65|     expect(AgentVoiceConfigSchema.safeParse(config).success).toBe(true…
+       |                                   ^
+     66|     expect(AgentVoiceConfigSchema.safeParse({ ...config, versions: { d…
+     67|     expect(AgentVoiceConfigSchema.safeParse({ ...config, applied: null…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > parses a producer catalog
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:74:39
+     72| describe('R4 provider catalog', () => {
+     73|   it('parses a producer catalog', () => {
+     74|     expect(VoiceProviderCatalogSchema.safeParse(catalog).success).toBe…
+       |                                       ^
+     75|   });
+     76| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > rejects duplicate provider
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > rejects empty voice menu
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > rejects invalid voice id pattern
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > rejects provider without models
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:83:39
+     81|     ['provider without models', { ...catalog, providers: [{ ...catalog…
+     82|   ])('rejects %s', (_label, input) => {
+     83|     expect(VoiceProviderCatalogSchema.safeParse(input).success).toBe(f…
+       |                                       ^
+     84|   });
+     85| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > accepts only combinations the catalog supports
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:87:47
+     85| 
+     86|   it('accepts only combinations the catalog supports', () => {
+     87|     const parsed = VoiceProviderCatalogSchema.parse(catalog);
+       |                                               ^
+     88|     expect(validateAgentVoiceSettings(AgentVoiceSettingsSchema.parse(g…
+     89|     expect(validateAgentVoiceSettings(AgentVoiceSettingsSchema.parse(e…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:101:64
+     99|     [{ ...gpt, protocol: 'sip', voiceId: 'nova' }, ['protocol_unsuppor…
+    100|   ])('reports unsupported choices', (settings, issues) => {
+    101|     expect(validateAgentVoiceSettings(AgentVoiceSettingsSchema.parse(s…
+       |                                                                ^
+    102|   });
+    103| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports a transport the provider does not offer
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:106:64
+    104|   it('reports a transport the provider does not offer', () => {
+    105|     const narrow = { ...catalog, providers: [{ ...catalog.providers[0]…
+    106|     expect(validateAgentVoiceSettings(AgentVoiceSettingsSchema.parse(g…
+       |                                                                ^
+    107|   });
+    108| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 caller identity on the single outbound Telnyx number > derives a coherent identity from voice settings
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:120:93
+    118| 
+    119|   it('derives a coherent identity from voice settings', () => {
+    120|     const result = outboundCallerIdentityFor({ ...input, settings: Age…
+       |                                                                                             ^
+    121|     expect(result).toEqual({ ok: true, identity: { ...input, voice: { …
+    122|     if (result.ok) expect(OutboundCallerIdentitySchema.safeParse(resul…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 caller identity on the single outbound Telnyx number > refuses text-only agents and agents without the phone transport
+TypeError: (0 , outboundCallerIdentityFor) is not a function
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:126:12
+    124| 
+    125|   it('refuses text-only agents and agents without the phone transport'…
+    126|     expect(outboundCallerIdentityFor({ ...input, settings: { mode: 'te…
+       |            ^
+    127|     expect(outboundCallerIdentityFor({ ...input, settings: AgentVoiceS…
+    128|     expect(AgentVoiceErrorCodeSchema.options).toEqual(expect.arrayCont…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/30]⎯
+
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 caller identity on the single outbound Telnyx number > rejects non E.164 number
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 caller identity on the single outbound Telnyx number > rejects empty name
+ FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 caller identity on the single outbound Telnyx number > rejects missing runtime identity
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/voice/agent-voice-settings.test.ts:137:41
+    135|   ])('rejects %s', (_label, patch) => {
+    136|     const identity = { ...input, voice: { provider: 'openai_live', voi…
+    137|     expect(OutboundCallerIdentitySchema.safeParse(identity).success).t…
+       |                                         ^
+    138|   });
+    139| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/30]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  30 failed (30)
+   Start at  01:10:36
+   Duration  541ms (transform 152ms, setup 16ms, collect 260ms, tests 16ms, environment 0ms, prepare 65ms)
+

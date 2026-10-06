@@ -1,0 +1,8 @@
+mutation r1b-request-id: src/agent/agent-management.ts
+- z.string().min(8).max(128).regex(/^[A-Za-z0-9][A-Za-z0-9._:-]*$/)
++ z.string()
+result: KILLED
+× R1b actions and request identity > rejects short request key 6ms
+× R1b actions and request identity > rejects request key with spaces 1ms
+Tests  2 failed | 44 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

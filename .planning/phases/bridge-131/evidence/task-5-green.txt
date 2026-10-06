@@ -1,0 +1,10 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ✓ tests/agent/agent-scope-policy.test.ts (40 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  40 passed (40)
+   Start at  01:13:34
+   Duration  344ms (transform 96ms, setup 8ms, collect 178ms, tests 8ms, environment 0ms, prepare 44ms)
+

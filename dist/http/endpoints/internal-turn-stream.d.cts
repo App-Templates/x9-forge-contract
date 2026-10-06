@@ -34,10 +34,10 @@ export declare const internalTurnStreamContract: {
         message: z.ZodString;
         history: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodEnum<{
-                tool: "tool";
                 system: "system";
                 user: "user";
                 assistant: "assistant";
+                tool: "tool";
             }>;
             content: z.ZodString;
             toolCallId: z.ZodOptional<z.ZodString>;

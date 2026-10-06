@@ -23,4 +23,7 @@ export { HealthStatusSchema, type HealthStatus, } from "./health-status.js";
 export * from "./capability-turn-lead.js";
 export * from "./parameters.js";
 export * from "./presentation.js";
+export * from "./capability-call-context.js";
+export * from "./agent-elevenlabs/index.js";
+export * from "./coach/index.js";
 //# sourceMappingURL=index.d.ts.map

@@ -1,0 +1,8 @@
+mutation r1b-version-applied-ahead: src/agent/agent-management.ts
+- if (versions.applied !== null && versions.applied > versions.desired) {
++ if (false) {
+result: KILLED
+× R1b versions > rejects applied ahead of desired 6ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b versions > rejects applied ahead of desired

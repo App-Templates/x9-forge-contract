@@ -1,0 +1,8 @@
+mutation r6c-slug: src/capability/coach/index.ts
+- const SlugSchema = z.string().regex(/^[a-z0-9][a-z0-9_-]{0,63}$/);
++ const SlugSchema = z.string().min(1);
+result: KILLED
+× R6 cap-coach programs (project content, per agent) > rejects invalid program id 4ms
+× R6 cap-coach routes > builds validated and encoded paths 2ms
+Tests  2 failed | 39 passed (41)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

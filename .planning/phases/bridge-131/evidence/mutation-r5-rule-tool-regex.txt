@@ -1,0 +1,8 @@
+mutation r5-rule-tool-regex: src/agent/agent-scope-policy.ts
+-   tool: ToolNameSchema.optional(),
++   tool: z.string().optional(),
+result: KILLED
+× R5 scope policy > rejects invalid tool name 4ms
+Tests  1 failed | 39 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects invalid tool name

@@ -1,0 +1,8 @@
+mutation r6e-scope-no-person: src/capability/agent-elevenlabs/index.ts
+- export const ElevenLabsAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }).strict();
++ export const ElevenLabsAgentScopeSchema = CapabilityCallIdentitySchema;
+result: KILLED
+× R6 cap-agent-elevenlabs provisioning on Apply > rejects person in agent scope 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects person in agent scope

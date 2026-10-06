@@ -1,0 +1,8 @@
+mutation r1b-cmd-strict: src/agent/agent-management.ts
+- }).strict().superRefine((command, ctx) => {
++ }).superRefine((command, ctx) => {
+result: KILLED
+× R1b actions and request identity > rejects lifecycle with version 6ms
+× R1b actions and request identity > rejects extra field 1ms
+Tests  2 failed | 44 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

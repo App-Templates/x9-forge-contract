@@ -1,0 +1,10 @@
+mutation r5-log-strict: src/agent/agent-scope-policy.ts
+-   approvalId: AgentManagementRequestIdSchema.optional(),
+}).strict().superRefine((event
++   approvalId: AgentManagementRequestIdSchema.optional(),
+}).superRefine((event
+result: KILLED
+× R5 action log event > rejects payload in the log 5ms
+× R5 action log event > rejects secret in the log 0ms
+Tests  2 failed | 38 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

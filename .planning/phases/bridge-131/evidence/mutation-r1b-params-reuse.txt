@@ -1,0 +1,8 @@
+mutation r1b-params-reuse: src/http/endpoints/internal-agents-management.ts
+- export const AgentManagementParamsSchema = ReloadAgentParamsSchema;
++ export const AgentManagementParamsSchema = z.object({ agentId: z.string() });
+result: KILLED
+× R1b management endpoints > declares secret-auth command and state routes next to reload/stop 13ms
+× R1b management endpoints > builds validated paths 2ms
+Tests  2 failed | 44 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

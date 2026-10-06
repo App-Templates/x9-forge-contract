@@ -1,0 +1,9 @@
+mutation fix-r1b-identity-result: src/agent/agent-management.ts
+- 
+  addIdentityIssues(result.agentId, result.identity, ctx);
++ 
+result: KILLED
+× R1b per-target results and derived outcome > binds the addressed agent to its declared identity 4ms
+Tests  1 failed | 43 passed (44)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > binds the addressed agent to its declared identity

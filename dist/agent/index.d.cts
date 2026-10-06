@@ -17,4 +17,6 @@ export { parseAgentContext } from "./parse-agent-context.cjs";
 export * from "./agent-runtime-identity.cjs";
 export * from "./agent-runtime-state.cjs";
 export * from "./agent-runtime-source.cjs";
+export * from "./agent-management.cjs";
+export * from "./agent-scope-policy.cjs";
 //# sourceMappingURL=index.d.ts.map

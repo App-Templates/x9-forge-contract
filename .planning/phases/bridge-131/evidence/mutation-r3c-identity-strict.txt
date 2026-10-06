@@ -1,0 +1,10 @@
+mutation r3c-identity-strict: src/capability/capability-call-context.ts
+-   userId: true,
+}).strict();
++   userId: true,
+});
+result: KILLED
+× R3 capability call identity > rejects extra identity claims 4ms
+Tests  1 failed | 20 passed (21)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > rejects extra identity claims

@@ -1,0 +1,8 @@
+mutation r6s-same-scope-person: src/capability/capability-call-context.ts
+- a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.agentId === b.agentId && a.userId === b.userId;
++ a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.agentId === b.agentId;
+result: KILLED
+× R3 capability call identity > derives agent and person scopes without redefining identity 4ms
+Tests  1 failed | 49 passed (50)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > derives agent and person scopes without redefining identity

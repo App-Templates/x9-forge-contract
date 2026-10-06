@@ -1,0 +1,8 @@
+mutation r4-validate-menu: src/capability/voice/agent-voice-settings.ts
+-     ? entry.voices.options.some((option) => option.id === settings.voiceId)
++     ? true
+result: KILLED
+× R4 provider catalog > reports unsupported choices 6ms
+× R4 provider catalog > reports unsupported choices 1ms
+Tests  2 failed | 28 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

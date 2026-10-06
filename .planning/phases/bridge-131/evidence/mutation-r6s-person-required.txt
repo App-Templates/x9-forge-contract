@@ -1,0 +1,8 @@
+mutation r6s-person-required: src/capability/capability-call-context.ts
+- export const CapabilityPersonScopeSchema = CapabilityCallIdentitySchema.required({ userId: true }).strict();
++ export const CapabilityPersonScopeSchema = CapabilityCallIdentitySchema.strict();
+result: KILLED
+× R3 capability call identity > derives agent and person scopes without redefining identity 4ms
+Tests  1 failed | 49 passed (50)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/capability-call-context.test.ts > R3 capability call identity > derives agent and person scopes without redefining identity

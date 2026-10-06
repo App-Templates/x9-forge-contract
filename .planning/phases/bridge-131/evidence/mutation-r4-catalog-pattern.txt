@@ -1,0 +1,8 @@
+mutation r4-catalog-pattern: src/capability/voice/agent-voice-settings.ts
+-   try { new RegExp(pattern); return true; } catch { return false; }
++   return pattern.length > 0;
+result: KILLED
+× R4 provider catalog > rejects invalid voice id pattern 5ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > rejects invalid voice id pattern

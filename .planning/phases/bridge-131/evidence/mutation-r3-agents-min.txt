@@ -1,0 +1,8 @@
+mutation r3-agents-min: src/vault/credential-link.ts
+-   agents: z.array(CredentialAgentResultSchema).min(1),
++   agents: z.array(CredentialAgentResultSchema),
+result: KILLED
+× R3 per-agent outcome of a credential action > rejects no agent 5ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects no agent

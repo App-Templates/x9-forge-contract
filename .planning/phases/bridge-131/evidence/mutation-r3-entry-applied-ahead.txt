@@ -1,0 +1,8 @@
+mutation r3-entry-applied-ahead: src/vault/credential-link.ts
+-   if (entry.appliedVersion !== null && (entry.version === null || entry.appliedVersion > entry.version)) {
++   if (false) {
+result: KILLED
+× R3 per-agent key entries > rejects applied ahead of saved 5ms
+× R3 per-agent key entries > rejects absent with applied version 1ms
+Tests  2 failed | 33 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

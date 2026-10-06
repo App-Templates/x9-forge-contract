@@ -1,0 +1,10 @@
+mutation r6s-identity-strict-inherited: src/capability/capability-call-context.ts
+-   userId: true,
+}).strict();
++   userId: true,
+});
+result: KILLED
+× R3 capability call identity > derives agent and person scopes without redefining identity 3ms
+× R3 capability call identity > rejects extra identity claims 0ms
+Tests  2 failed | 21 passed (23)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

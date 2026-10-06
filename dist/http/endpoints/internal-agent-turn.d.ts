@@ -36,10 +36,10 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
     message: z.ZodString;
     history: z.ZodOptional<z.ZodArray<z.ZodObject<{
         role: z.ZodEnum<{
-            tool: "tool";
             system: "system";
             user: "user";
             assistant: "assistant";
+            tool: "tool";
         }>;
         content: z.ZodString;
         toolCallId: z.ZodOptional<z.ZodString>;
@@ -98,10 +98,10 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
     reply: z.ZodString;
     updatedHistory: z.ZodArray<z.ZodObject<{
         role: z.ZodEnum<{
-            tool: "tool";
             system: "system";
             user: "user";
             assistant: "assistant";
+            tool: "tool";
         }>;
         content: z.ZodString;
         toolCallId: z.ZodOptional<z.ZodString>;
@@ -141,10 +141,10 @@ export declare const internalAgentTurnContract: {
         message: z.ZodString;
         history: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodEnum<{
-                tool: "tool";
                 system: "system";
                 user: "user";
                 assistant: "assistant";
+                tool: "tool";
             }>;
             content: z.ZodString;
             toolCallId: z.ZodOptional<z.ZodString>;
@@ -201,10 +201,10 @@ export declare const internalAgentTurnContract: {
         reply: z.ZodString;
         updatedHistory: z.ZodArray<z.ZodObject<{
             role: z.ZodEnum<{
-                tool: "tool";
                 system: "system";
                 user: "user";
                 assistant: "assistant";
+                tool: "tool";
             }>;
             content: z.ZodString;
             toolCallId: z.ZodOptional<z.ZodString>;

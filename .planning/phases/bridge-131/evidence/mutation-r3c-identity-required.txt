@@ -1,0 +1,8 @@
+mutation r3c-identity-required: src/capability/capability-call-context.ts
+- export const CapabilityCallIdentitySchema = InternalMemoryExtractRequestSchema.pick({
++ export const CapabilityCallIdentitySchema = InternalMemoryExtractRequestSchema.partial().pick({
+result: KILLED
+× R3 capability call identity > rejects a missing tenantId (no default tenant) 4ms
+× R3 capability call identity > rejects a missing ownerId (no default tenant) 0ms
+× R3 capability call identity > rejects a missing agentId (no default tenant) 0ms
+Tests  3 failed | 18 passed (21)

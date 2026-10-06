@@ -1,0 +1,8 @@
+mutation r1b-path-validated: src/http/endpoints/internal-agents-management.ts
+-   return agentCommandContract.path.replace(':agentId', AgentManagementParamsSchema.parse({ agentId }).agentId);
++   return agentCommandContract.path.replace(':agentId', agentId);
+result: KILLED
+× R1b management endpoints > builds validated paths 4ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/http/endpoints/internal-agents-management.test.ts > R1b management endpoints > builds validated paths

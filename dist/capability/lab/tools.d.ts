@@ -20,9 +20,9 @@ export type LabToolName = (typeof LAB_TOOLS)[keyof typeof LAB_TOOLS];
 /** Why a lab tool call failed, as the bridge tool-call error text. */
 export declare const LabToolErrorSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
+    not_found: "not_found";
     not_configured: "not_configured";
     not_ready: "not_ready";
-    not_found: "not_found";
 }>;
 export type LabToolError = z.infer<typeof LabToolErrorSchema>;
 export declare const LabIngestIdSchema: z.ZodUUID;
@@ -32,10 +32,10 @@ export declare const LabIngestInputSchema: z.ZodObject<{
         researchId: z.ZodString;
         agentId: z.ZodString;
         state: z.ZodEnum<{
+            failed: "failed";
             queued: "queued";
             running: "running";
             completed: "completed";
-            failed: "failed";
             budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
@@ -70,10 +70,10 @@ export declare const LabIngestStatusInputSchema: z.ZodObject<{
 export declare const LabIngestStatusOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodEnum<{
+        failed: "failed";
         queued: "queued";
         running: "running";
         completed: "completed";
-        failed: "failed";
         budget_exhausted: "budget_exhausted";
     }>;
     sourcesStored: z.ZodOptional<z.ZodNumber>;

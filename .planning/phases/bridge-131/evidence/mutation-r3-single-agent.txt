@@ -1,0 +1,8 @@
+mutation r3-single-agent: src/vault/credential-link.ts
+-   if (result.action !== 'rotate' && result.agents.length !== 1) {
++   if (false) {
+result: KILLED
+× R3 per-agent outcome of a credential action > limits relink/unlink/own rotation to the one agent 6ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > limits relink/unlink/own rotation to the one agent

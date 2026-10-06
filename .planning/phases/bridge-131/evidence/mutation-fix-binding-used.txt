@@ -1,0 +1,8 @@
+mutation fix-binding-used: src/capability/agent-elevenlabs/index.ts
+-   if (result.status.mapping === null || !sameElevenLabsMapping(result.status.mapping, result.mapping)) {
++   if (result.status.mapping === null || result.status.mapping.providerAgentId !== result.mapping.providerAgentId) {
+result: KILLED
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another tenantId even for the same provider id 3ms
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another ownerId even for the same provider id 0ms
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another agentId even for the same provider id 0ms
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects two applied versions for the same binding 0ms

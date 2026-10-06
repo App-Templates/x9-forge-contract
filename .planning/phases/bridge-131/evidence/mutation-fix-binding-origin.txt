@@ -1,0 +1,9 @@
+mutation fix-binding-origin: src/capability/agent-elevenlabs/index.ts
+-     && a.origin === b.origin
+
++ 
+result: KILLED
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects two origins for the same binding 3ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result describes exactly one binding (review C, P1) > rejects two origins for the same binding

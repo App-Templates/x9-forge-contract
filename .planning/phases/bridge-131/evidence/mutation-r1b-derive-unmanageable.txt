@@ -1,0 +1,9 @@
+mutation r1b-derive-unmanageable: src/agent/agent-management.ts
+-   if (results.length > 0 && results.every((result) => result.outcome === 'unmanageable')) return 'unmanageable';
+
++ 
+result: KILLED
+× R1b per-target results and derived outcome > derives the overall outcome 9ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > derives the overall outcome

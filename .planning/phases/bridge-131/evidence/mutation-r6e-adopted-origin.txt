@@ -1,0 +1,8 @@
+mutation r6e-adopted-origin: src/capability/agent-elevenlabs/index.ts
+-   if (result.outcome === 'adopted' && result.mapping.origin !== 'adopted') {
++   if (false) {
+result: KILLED
+× R6 provisioning result and errors > rejects adopted over a provisioned resource 4ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > rejects adopted over a provisioned resource

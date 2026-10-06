@@ -1,0 +1,221 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/capability/agent-elevenlabs.test.ts (27 tests | 27 failed) 7ms
+   × R6 cap-agent-elevenlabs provisioning on Apply > accepts an idempotent apply with versioned config 2ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects missing request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects missing config version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects scope without tenant 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects person in agent scope 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects api key in request 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects malformed provider id 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects unknown desired state 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects config with duplicate tool 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects config with unknown tool kind 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects config with tool name outside the /call rule 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects config with empty display name 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs provisioning on Apply > rejects config with missing prompt version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 mapping and external channel state > reports the provider resource and a channel X9 state can count 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R6 mapping and external channel state > accepts a not-yet-provisioned agent and a paused channel 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 mapping and external channel state > rejects active channel without provider resource 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 mapping and external channel state > rejects unobserved channel claiming a state 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 mapping and external channel state > rejects telegram as provider channel 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 mapping and external channel state > rejects mapping for another agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 mapping and external channel state > accepts an unobserved channel as unknown 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 provisioning result and errors > creates once and reports a replay without a second resource 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 provisioning result and errors > rejects created over an adopted resource 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 provisioning result and errors > rejects adopted over a provisioned resource 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 provisioning result and errors > rejects status pointing at another resource 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 provisioning result and errors > rejects status without the mapping 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 provisioning result and errors > marks which failures may be retried 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-agent-elevenlabs routes > lives with the other per-agent capability routes 2ms
+     → expected undefined to match object { method: 'PUT', …(2) }
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 27 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > accepts an idempotent apply with versioned config
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:33:45
+     31| describe('R6 cap-agent-elevenlabs provisioning on Apply', () => {
+     32|   it('accepts an idempotent apply with versioned config', () => {
+     33|     expect(ElevenLabsProvisionRequestSchema.safeParse(request).success…
+       |                                             ^
+     34|     expect(ElevenLabsProvisionRequestSchema.safeParse({ ...request, ad…
+     35|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects missing request key
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects missing config version
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects scope without tenant
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects person in agent scope
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects api key in request
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects malformed provider id
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects unknown desired state
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:46:45
+     44|     ['unknown desired state', { desiredState: 'deleted' }],
+     45|   ])('rejects %s', (_label, patch) => {
+     46|     expect(ElevenLabsProvisionRequestSchema.safeParse({ ...request, ..…
+       |                                             ^
+     47|   });
+     48| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with duplicate tool
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with unknown tool kind
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with tool name outside the /call rule
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with empty display name
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with missing prompt version
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:56:40
+     54|     ['missing prompt version', { promptVersion: undefined }],
+     55|   ])('rejects config with %s', (_label, patch) => {
+     56|     expect(ElevenLabsAgentConfigSchema.safeParse({ ...config, ...patch…
+       |                                        ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > reports the provider resource and a channel X9 state can count
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:62:50
+     60| describe('R6 mapping and external channel state', () => {
+     61|   it('reports the provider resource and a channel X9 state can count',…
+     62|     const parsed = ElevenLabsChannelStatusSchema.parse(status);
+       |                                                  ^
+     63|     expect(deriveAgentRuntimeState({ loadState: 'stopped', channelsCom…
+     64|     expect(deriveAgentRuntimeState({ loadState: 'unknown', channelsCom…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > accepts a not-yet-provisioned agent and a paused channel
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:68:42
+     66| 
+     67|   it('accepts a not-yet-provisioned agent and a paused channel', () =>…
+     68|     expect(ElevenLabsChannelStatusSchema.safeParse({ ...status, mappin…
+       |                                          ^
+     69|     expect(ElevenLabsChannelStatusSchema.safeParse({ ...status, desire…
+     70|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects active channel without provider resource
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects unobserved channel claiming a state
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects telegram as provider channel
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects mapping for another agent
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:78:42
+     76|     ['mapping for another agent', { mapping: { ...mapping, scope: { ..…
+     77|   ])('rejects %s', (_label, patch) => {
+     78|     expect(ElevenLabsChannelStatusSchema.safeParse({ ...status, ...pat…
+       |                                          ^
+     79|   });
+     80| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > accepts an unobserved channel as unknown
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:82:42
+     80| 
+     81|   it('accepts an unobserved channel as unknown', () => {
+     82|     expect(ElevenLabsChannelStatusSchema.safeParse({ ...status, observ…
+       |                                          ^
+     83|   });
+     84| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > creates once and reports a replay without a second resource
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:90:44
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > rejects created over an adopted resource
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > rejects adopted over a provisioned resource
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > rejects status pointing at another resource
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > rejects status without the mapping
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:101:44
+     99|     ['status without the mapping', { status: { ...status, mapping: nul…
+    100|   ])('rejects %s', (_label, patch) => {
+    101|     expect(ElevenLabsProvisionResultSchema.safeParse({ ...result, ...p…
+       |                                            ^
+    102|   });
+    103| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > marks which failures may be retried
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/agent-elevenlabs.test.ts:105:51
+    103| 
+    104|   it('marks which failures may be retried', () => {
+    105|     expect(ElevenLabsProvisionErrorResponseSchema.safeParse({ ok: fals…
+       |                                                   ^
+    106|     expect(ElevenLabsProvisionErrorResponseSchema.safeParse({ ok: fals…
+    107|     expect(ElevenLabsProvisionErrorResponseSchema.safeParse({ ok: fals…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/27]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs routes > lives with the other per-agent capability routes
+AssertionError: expected undefined to match object { method: 'PUT', …(2) }
+
+[32m- Expected:[39m 
+{
+  "authType": "secret",
+  "method": "PUT",
+  "path": "/internal/capability/agents/:agentId/elevenlabs",
+}
+
+[31m+ Received:[39m 
+undefined
+
+ ❯ tests/capability/agent-elevenlabs.test.ts:116:41
+    114| describe('R6 cap-agent-elevenlabs routes', () => {
+    115|   it('lives with the other per-agent capability routes', () => {
+    116|     expect(elevenLabsProvisionContract).toMatchObject({ method: 'PUT',…
+       |                                         ^
+    117|     expect(elevenLabsStatusContract).toMatchObject({ method: 'GET', pa…
+    118|     expect(elevenLabsProvisionContract.paramsSchema).toBe(ricercaAgent…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/27]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  27 failed (27)
+   Start at  01:15:07
+   Duration  386ms (transform 137ms, setup 5ms, collect 244ms, tests 7ms, environment 0ms, prepare 36ms)
+

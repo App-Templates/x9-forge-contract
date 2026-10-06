@@ -1,0 +1,8 @@
+mutation r3c-key-alignment: src/capability/capability-call-context.ts
+-   addKeyAlignmentIssues(context.credentials, context.credentialVersions, ctx);
++ 
+result: KILLED
+× R3 capability call context > rejects credential without version 5ms
+× R3 capability call context > rejects version without credential 0ms
+Tests  2 failed | 19 passed (21)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

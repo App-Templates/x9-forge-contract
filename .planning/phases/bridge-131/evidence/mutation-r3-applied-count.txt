@@ -1,0 +1,8 @@
+mutation r3-applied-count: src/vault/credential-link.ts
+-   if (result.applied !== result.agents.filter((row) => row.outcome === 'ok').length) {
++   if (false) {
+result: KILLED
+× R3 per-agent outcome of a credential action > rejects wrong applied count 5ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects wrong applied count

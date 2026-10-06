@@ -1,0 +1,8 @@
+mutation r4-voice-id-min: src/capability/voice/agent-voice-settings.ts
+- export const AgentVoiceIdSchema = z.string().min(1).max(128);
++ export const AgentVoiceIdSchema = z.string().max(128);
+result: KILLED
+× R4 per-agent voice settings > rejects voice without voice id 5ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects voice without voice id

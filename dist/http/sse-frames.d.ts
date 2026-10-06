@@ -38,10 +38,10 @@ export declare const SseDoneFrameSchema: z.ZodObject<{
     reply: z.ZodString;
     updatedHistory: z.ZodArray<z.ZodObject<{
         role: z.ZodEnum<{
-            tool: "tool";
             system: "system";
             user: "user";
             assistant: "assistant";
+            tool: "tool";
         }>;
         content: z.ZodString;
         toolCallId: z.ZodOptional<z.ZodString>;
@@ -85,10 +85,10 @@ export declare const SseFrameSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     reply: z.ZodString;
     updatedHistory: z.ZodArray<z.ZodObject<{
         role: z.ZodEnum<{
-            tool: "tool";
             system: "system";
             user: "user";
             assistant: "assistant";
+            tool: "tool";
         }>;
         content: z.ZodString;
         toolCallId: z.ZodOptional<z.ZodString>;
