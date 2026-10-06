@@ -1,0 +1,73 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/agent/agent-runtime-state.test.ts (32 tests | 5 failed | 27 skipped) 6ms
+   ↓ channel loading, pause and readiness > accepts the shared or additive telegram channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive email channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive voice channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive whatsapp channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive web channel kind
+   ↓ channel loading, pause and readiness > keeps readiness distinct when a loaded channel is not ready
+   ↓ channel loading, pause and readiness > accepts an intentionally paused channel without calling it an error
+   ↓ channel loading, pause and readiness > does not turn readiness into proof of channel loading
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":false} 5ms
+     → expected true to be false // Object.is equality
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":null} 0ms
+     → expected true to be false // Object.is equality
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"paused","loaded":true} 0ms
+     → expected true to be false // Object.is equality
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"stopped","loaded":true} 0ms
+     → expected true to be false // Object.is equality
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"unknown","loaded":false} 0ms
+     → expected true to be false // Object.is equality
+   ↓ channel loading, pause and readiness > rejects missing loading evidence instead of defaulting to false
+   ↓ channel loading, pause and readiness > rejects an unknown readiness value
+   ↓ canonical agent state from X9 runtime evidence > marks an externally loaded web channel active even outside the agent loader
+   ↓ canonical agent state from X9 runtime evidence > accepts positive loading evidence from a partial channel inventory
+   ↓ canonical agent state from X9 runtime evidence > does not claim no-channel from an incomplete empty inventory
+   ↓ canonical agent state from X9 runtime evidence > does not claim no-channel from unknown agent loading
+   ↓ canonical agent state from X9 runtime evidence > marks complete empty channels on a loaded agent no-channel
+   ↓ canonical agent state from X9 runtime evidence > keeps explicit stopped evidence distinct from an absent agent
+   ↓ canonical agent state from X9 runtime evidence > preserves an explicit agent loading error
+   ↓ canonical agent state from X9 runtime evidence > preserves a channel error when no loaded channel is demonstrated
+   ↓ canonical agent state from X9 runtime evidence > retains channel errors without hiding another positively loaded channel
+   ↓ canonical agent state from X9 runtime evidence > does not confuse an error on a loaded channel with channel unloading
+   ↓ canonical agent state from X9 runtime evidence > rejects a stopped agent with a positively loaded channel
+   ↓ canonical agent state from X9 runtime evidence > rejects duplicate channel identifiers while permitting distinct protocols
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed active state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed stopped state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed no-channel state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed error state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects an understated unknown state when a loaded channel is proven
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":false}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":null}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"paused","loaded":true}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"stopped","loaded":true}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"unknown","loaded":false}
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/agent/agent-runtime-state.test.ts:47:85
+     45|     { state: 'unknown', loaded: false },
+     46|   ])('rejects contradictory channel observations %j', (observation) =>…
+     47|     expect(agent.AgentRuntimeChannelSchema.safeParse(channel(observati…
+       |                                                                                     ^
+     48|   });
+     49| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 27 skipped (32)
+   Start at  23:45:59
+   Duration  261ms (transform 58ms, setup 7ms, collect 96ms, tests 6ms, environment 0ms, prepare 44ms)
+

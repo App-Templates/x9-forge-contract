@@ -1,0 +1,126 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-41-3
+
+ ❯ tests/agent/agent-runtime-identity.test.ts (12 tests | 12 failed) 4ms
+   × canonical management/runtime identity > accepts an explicitly declared x9-staging to x9 mapping 2ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical management/runtime identity > accepts the same identifier in both namespaces for one agent 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical management/runtime identity > rejects a numeric database ID rather than coercing it to a slug 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > requires a non-empty managementAgentId 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > requires a non-empty runtimeAgentId 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > does not infer a missing runtime identifier from management 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical management/runtime identity > accepts distinct explicit identities without fuzzy name matching 0ms
+     → Cannot read properties of undefined (reading 'parse')
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > accepts an explicitly declared x9-staging to x9 mapping
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-runtime-identity.test.ts:10:45
+      8| describe('canonical management/runtime identity', () => {
+      9|   it('accepts an explicitly declared x9-staging to x9 mapping', () => {
+     10|     expect(agent.AgentRuntimeIdentitySchema.parse(pair('x9-staging', '…
+       |                                             ^
+     11|       .toEqual(pair('x9-staging', 'x9'));
+     12|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > accepts the same identifier in both namespaces for one agent
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-runtime-identity.test.ts:15:47
+     13| 
+     14|   it('accepts the same identifier in both namespaces for one agent', (…
+     15|     expect(agent.AgentRuntimeIdentitiesSchema.parse([pair('ea-58', 'ea…
+       |                                               ^
+     16|       .toEqual([pair('ea-58', 'ea-58')]);
+     17|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > rejects a numeric database ID rather than coercing it to a slug
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-identity.test.ts:20:45
+     18| 
+     19|   it('rejects a numeric database ID rather than coercing it to a slug'…
+     20|     expect(agent.AgentRuntimeIdentitySchema.safeParse(pair('x9-staging…
+       |                                             ^
+     21|       .toBe(false);
+     22|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > requires a non-empty managementAgentId
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > requires a non-empty runtimeAgentId
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-identity.test.ts:26:47
+     24|   it.each(['managementAgentId', 'runtimeAgentId'] as const)(
+     25|     'requires a non-empty %s', (key) => {
+     26|       expect(agent.AgentRuntimeIdentitySchema.safeParse({ ...pair('x9-…
+       |                                               ^
+     27|         .toBe(false);
+     28|     },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > does not infer a missing runtime identifier from management
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-identity.test.ts:32:45
+     30| 
+     31|   it('does not infer a missing runtime identifier from management', ()…
+     32|     expect(agent.AgentRuntimeIdentitySchema.safeParse({ managementAgen…
+       |                                             ^
+     33|       .toBe(false);
+     34|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-identity.test.ts:43:47
+     41|     [pair('x9-staging', 'x9'), pair('x9-staging', 'x9')],
+     42|   ])('rejects duplicate or ambiguous cross-namespace identities: %j', …
+     43|     expect(agent.AgentRuntimeIdentitiesSchema.safeParse(identities).su…
+       |                                               ^
+     44|   });
+     45| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > accepts distinct explicit identities without fuzzy name matching
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-runtime-identity.test.ts:48:47
+     46|   it('accepts distinct explicit identities without fuzzy name matching…
+     47|     const identities = [pair('x9-staging', 'x9'), pair('x9-staging-ext…
+     48|     expect(agent.AgentRuntimeIdentitiesSchema.parse(identities)).toEqu…
+       |                                               ^
+     49|   });
+     50| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  12 failed (12)
+   Start at  23:42:53
+   Duration  199ms (transform 34ms, setup 4ms, collect 63ms, tests 4ms, environment 0ms, prepare 37ms)
+

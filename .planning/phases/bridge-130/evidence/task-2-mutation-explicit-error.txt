@@ -1,0 +1,75 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/agent/agent-runtime-state.test.ts (32 tests | 1 failed | 31 skipped) 4ms
+   ↓ channel loading, pause and readiness > accepts the shared or additive telegram channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive email channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive voice channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive whatsapp channel kind
+   ↓ channel loading, pause and readiness > accepts the shared or additive web channel kind
+   ↓ channel loading, pause and readiness > keeps readiness distinct when a loaded channel is not ready
+   ↓ channel loading, pause and readiness > accepts an intentionally paused channel without calling it an error
+   ↓ channel loading, pause and readiness > does not turn readiness into proof of channel loading
+   ↓ channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":false}
+   ↓ channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":null}
+   ↓ channel loading, pause and readiness > rejects contradictory channel observations {"state":"paused","loaded":true}
+   ↓ channel loading, pause and readiness > rejects contradictory channel observations {"state":"stopped","loaded":true}
+   ↓ channel loading, pause and readiness > rejects contradictory channel observations {"state":"unknown","loaded":false}
+   ↓ channel loading, pause and readiness > rejects missing loading evidence instead of defaulting to false
+   ↓ channel loading, pause and readiness > rejects an unknown readiness value
+   ↓ canonical agent state from X9 runtime evidence > marks an externally loaded web channel active even outside the agent loader
+   ↓ canonical agent state from X9 runtime evidence > accepts positive loading evidence from a partial channel inventory
+   ↓ canonical agent state from X9 runtime evidence > does not claim no-channel from an incomplete empty inventory
+   ↓ canonical agent state from X9 runtime evidence > does not claim no-channel from unknown agent loading
+   ↓ canonical agent state from X9 runtime evidence > marks complete empty channels on a loaded agent no-channel
+   ↓ canonical agent state from X9 runtime evidence > keeps explicit stopped evidence distinct from an absent agent
+   × canonical agent state from X9 runtime evidence > preserves an explicit agent loading error 3ms
+     → [
+  {
+    "code": "custom",
+    "path": [
+      "state"
+    ],
+    "message": "Agent state is not supported by runtime evidence"
+  }
+]
+   ↓ canonical agent state from X9 runtime evidence > preserves a channel error when no loaded channel is demonstrated
+   ↓ canonical agent state from X9 runtime evidence > retains channel errors without hiding another positively loaded channel
+   ↓ canonical agent state from X9 runtime evidence > does not confuse an error on a loaded channel with channel unloading
+   ↓ canonical agent state from X9 runtime evidence > rejects a stopped agent with a positively loaded channel
+   ↓ canonical agent state from X9 runtime evidence > rejects duplicate channel identifiers while permitting distinct protocols
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed active state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed stopped state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed no-channel state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects a false claimed error state without supporting evidence
+   ↓ canonical agent state from X9 runtime evidence > rejects an understated unknown state when a loaded channel is proven
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > preserves an explicit agent loading error
+ZodError: [
+  {
+    "code": "custom",
+    "path": [
+      "state"
+    ],
+    "message": "Agent state is not supported by runtime evidence"
+  }
+]
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:86:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 31 skipped (32)
+   Start at  23:46:05
+   Duration  216ms (transform 43ms, setup 4ms, collect 73ms, tests 4ms, environment 0ms, prepare 35ms)
+

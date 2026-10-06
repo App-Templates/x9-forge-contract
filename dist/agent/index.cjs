@@ -5,6 +5,20 @@
  * @module @x9-forge/contracts/agent
  * @see .planning/phases/02-agentcontext-split-block-b/02-RESEARCH.md
  */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseAgentContext = exports.agentContextJsonPath = exports.agentRegistryPath = exports.agentWorkspacePath = exports.parseAgentContextFileForWrite = exports.parseAgentContextFile = exports.hasTelegramBot = exports.AgentContextFileWriteSchema = exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = exports.AgentContextCoreSchema = exports.LlmConfigSchema = exports.AUTH_GATE_FIELDS = exports.AgentCredentialsSchema = exports.KNOWN_CREDENTIAL_KEYS = exports.AgentIdentitySchema = exports.OwnerIdSchema = exports.AgentIdSchema = void 0;
 // Identity (branded types)
@@ -37,4 +51,10 @@ Object.defineProperty(exports, "agentContextJsonPath", { enumerable: true, get: 
 // Parser helper
 var parse_agent_context_js_1 = require("./parse-agent-context.cjs");
 Object.defineProperty(exports, "parseAgentContext", { enumerable: true, get: function () { return parse_agent_context_js_1.parseAgentContext; } });
+// Explicit management/runtime identities
+__exportStar(require("./agent-runtime-identity.cjs"), exports);
+// Canonical runtime evidence, per-channel state and readiness
+__exportStar(require("./agent-runtime-state.cjs"), exports);
+// Runtime list source availability and completeness
+__exportStar(require("./agent-runtime-source.cjs"), exports);
 //# sourceMappingURL=index.js.map

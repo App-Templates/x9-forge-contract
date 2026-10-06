@@ -113,8 +113,8 @@ export type RagToolError = z.infer<typeof RagToolErrorSchema>;
 export declare const RagDegradedMarkersSchema: z.ZodObject<{
     _degraded: z.ZodOptional<z.ZodBoolean>;
     _memory_v2: z.ZodOptional<z.ZodEnum<{
-        unavailable: "unavailable";
         available: "available";
+        unavailable: "unavailable";
     }>>;
     _mode: z.ZodOptional<z.ZodEnum<{
         evidence_only: "evidence_only";

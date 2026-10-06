@@ -41,3 +41,12 @@ export {
 
 // Parser helper
 export { parseAgentContext } from './parse-agent-context.js';
+
+// Explicit management/runtime identities
+export * from './agent-runtime-identity.js';
+
+// Canonical runtime evidence, per-channel state and readiness
+export * from './agent-runtime-state.js';
+
+// Runtime list source availability and completeness
+export * from './agent-runtime-source.js';

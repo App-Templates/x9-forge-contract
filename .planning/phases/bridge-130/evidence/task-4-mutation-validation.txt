@@ -1,0 +1,81 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts (28 tests | 2 failed | 26 skipped) 5ms
+   ↓ canonical list state lookup > targets the same explicitly identified agent using x9-staging
+   ↓ canonical list state lookup > targets the same explicitly identified agent using x9
+   ↓ canonical list state lookup > never uses fuzzy names, case folding or database ID inference for x9-stag
+   ↓ canonical list state lookup > never uses fuzzy names, case folding or database ID inference for x9-staging-extra
+   ↓ canonical list state lookup > never uses fuzzy names, case folding or database ID inference for X9
+   ↓ canonical list state lookup > never uses fuzzy names, case folding or database ID inference for 1
+   ↓ canonical list state lookup > keeps legacy running unknown even when the source is available
+   ↓ canonical list state lookup > keeps legacy degraded unknown even when the source is available
+   ↓ canonical list state lookup > keeps legacy starting unknown even when the source is available
+   ↓ canonical list state lookup > keeps legacy stopped unknown even when the source is available
+   ↓ canonical list state lookup > keeps legacy bot-less unknown even when the source is available
+   ↓ canonical list state lookup > keeps a bare 1.29 list unknown
+   ↓ canonical list state lookup > keeps new runtime observations unknown when source metadata is missing
+   ↓ canonical list state lookup > does not trust cached active observations from an unavailable source
+   ↓ canonical list state lookup > does not trust cached active observations from an unknown source
+   ↓ canonical list state lookup > trusts positive loaded-channel evidence from an available partial list
+   ↓ canonical list state lookup > never turns an absent row in a complete inventory into stopped
+   ↓ canonical list state lookup > never turns an absent row in a partial inventory into stopped
+   ↓ canonical list state lookup > never turns an absent row in a unknown inventory into stopped
+   ↓ canonical list state lookup > does not invent a management alias for a row missing identity metadata
+   ↓ canonical list state lookup > preserves supported canonical state 'no-channel'
+   ↓ canonical list state lookup > preserves supported canonical state 'stopped'
+   ↓ canonical list state lookup > preserves supported canonical state 'error'
+   ↓ canonical list state lookup > preserves supported canonical state 'unknown'
+   × canonical list state lookup > rejects ambiguous identity before selecting an agent 4ms
+     → expected [Function] to throw an error
+   × canonical list state lookup > rejects forged active state before using an available source 0ms
+     → expected [Function] to throw an error
+   ↓ canonical list state lookup > does not regress the legacy HTTP path or authentication
+   ↓ canonical list state lookup > exports canonical schemas and derivation from the public agent subpath
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > rejects ambiguous identity before selecting an agent
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:76:142
+     74|   it('rejects ambiguous identity before selecting an agent', () => {
+     75|     const payload = runtimeList();
+     76|     expect(() => http.getListAgentsRuntimeState({ ...payload, agents: …
+       |                                                                                                                                              ^
+     77|   });
+     78| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > rejects forged active state before using an available source
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:82:137
+     80|     const payload = runtimeList();
+     81|     const row = runtimeRow();
+     82|     expect(() => http.getListAgentsRuntimeState({ ...payload, agents: …
+       |                                                                                                                                         ^
+     83|   });
+     84| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 26 skipped (28)
+   Start at  23:51:40
+   Duration  365ms (transform 123ms, setup 4ms, collect 229ms, tests 5ms, environment 0ms, prepare 31ms)
+

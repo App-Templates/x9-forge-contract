@@ -1,0 +1,56 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/http/endpoints/internal-agents-runtime-list.test.ts (21 tests | 2 failed | 19 skipped) 7ms
+   ↓ additive canonical runtime list > round trips the old payload without inventing identity, source or runtime
+   ↓ additive canonical runtime list > preserves legacy running fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy degraded fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy starting fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy stopped fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy bot-less fields without synthesizing canonical state
+   ↓ additive canonical runtime list > round trips new identity, runtime and source metadata through the HTTP subpath
+   ↓ additive canonical runtime list > accepts an available partial list with positive runtime observations
+   ↓ additive canonical runtime list > accepts unavailable source metadata explicitly distinct from an empty complete list
+   × additive canonical runtime list > rejects a complete inventory from an unavailable source 6ms
+     → expected true to be false // Object.is equality
+   × additive canonical runtime list > rejects a complete inventory from an unknown source 1ms
+     → expected true to be false // Object.is equality
+   ↓ additive canonical runtime list > rejects an available source without an observation time
+   ↓ additive canonical runtime list > rejects malformed observation timestamps
+   ↓ additive canonical runtime list > rejects source metadata attributed to stored Forge database status
+   ↓ additive canonical runtime list > requires availability and completeness when source metadata is supplied
+   ↓ additive canonical runtime list > rejects runtime identity that targets a different agent than the list row
+   ↓ additive canonical runtime list > rejects unsupported claimed agent state inside list rows
+   ↓ additive canonical runtime list > rejects duplicate legacy rows as ambiguous targets
+   ↓ additive canonical runtime list > rejects an explicit management identity colliding with a legacy runtime row
+   ↓ additive canonical runtime list > rejects duplicate explicit management identities
+   ↓ additive canonical runtime list > does not reject distinct rows just because their display names are identical
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-list.test.ts > additive canonical runtime list > rejects a complete inventory from an unavailable source
+ FAIL  tests/http/endpoints/internal-agents-runtime-list.test.ts > additive canonical runtime list > rejects a complete inventory from an unknown source
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/http/endpoints/internal-agents-runtime-list.test.ts:40:124
+     38|     'rejects a complete inventory from an %s source', (availability) =…
+     39|       const payload = runtimeList();
+     40|       expect(http.ListAgentsResponseSchema.safeParse({ ...payload, sou…
+       |                                                                                                                            ^
+     41|     },
+     42|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 19 skipped (21)
+   Start at  23:47:57
+   Duration  425ms (transform 138ms, setup 6ms, collect 258ms, tests 7ms, environment 0ms, prepare 41ms)
+

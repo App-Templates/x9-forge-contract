@@ -1,0 +1,239 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-41-3
+
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts (28 tests | 26 failed) 9ms
+   × canonical list state lookup > targets the same explicitly identified agent using x9-staging 2ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > targets the same explicitly identified agent using x9 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > never uses fuzzy names, case folding or database ID inference for x9-stag 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > never uses fuzzy names, case folding or database ID inference for x9-staging-extra 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > never uses fuzzy names, case folding or database ID inference for X9 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > never uses fuzzy names, case folding or database ID inference for 1 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > keeps legacy running unknown even when the source is available 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > keeps legacy degraded unknown even when the source is available 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > keeps legacy starting unknown even when the source is available 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > keeps legacy stopped unknown even when the source is available 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > keeps legacy bot-less unknown even when the source is available 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > keeps a bare 1.29 list unknown 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > keeps new runtime observations unknown when source metadata is missing 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > does not trust cached active observations from an unavailable source 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > does not trust cached active observations from an unknown source 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > trusts positive loaded-channel evidence from an available partial list 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > never turns an absent row in a complete inventory into stopped 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > never turns an absent row in a partial inventory into stopped 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > never turns an absent row in a unknown inventory into stopped 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > does not invent a management alias for a row missing identity metadata 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > preserves supported canonical state 'no-channel' 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > preserves supported canonical state 'stopped' 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > preserves supported canonical state 'error' 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > preserves supported canonical state 'unknown' 0ms
+     → getListAgentsRuntimeState is not a function
+   × canonical list state lookup > rejects ambiguous identity before selecting an agent 2ms
+     → expected [Function] to throw error matching /Duplicate or ambiguous agent identifi…/ but got 'getListAgentsRu…'
+   × canonical list state lookup > rejects forged active state before using an available source 0ms
+     → expected [Function] to throw error matching /Agent state is not supported by runti…/ but got 'getListAgentsRu…'
+   ✓ canonical list state lookup > does not regress the legacy HTTP path or authentication 0ms
+   ✓ canonical list state lookup > exports canonical schemas and derivation from the public agent subpath 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 26 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > targets the same explicitly identified agent using x9-staging
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > targets the same explicitly identified agent using x9
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:11:19
+      9|   it.each(['x9-staging', 'x9'])(
+     10|     'targets the same explicitly identified agent using %s', (id) => {
+     11|       expect(http.getListAgentsRuntimeState(runtimeList(), id)).toBe('…
+       |                   ^
+     12|     },
+     13|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > never uses fuzzy names, case folding or database ID inference for x9-stag
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > never uses fuzzy names, case folding or database ID inference for x9-staging-extra
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > never uses fuzzy names, case folding or database ID inference for X9
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > never uses fuzzy names, case folding or database ID inference for 1
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:17:19
+     15|   it.each(['x9-stag', 'x9-staging-extra', 'X9', '1'])(
+     16|     'never uses fuzzy names, case folding or database ID inference for…
+     17|       expect(http.getListAgentsRuntimeState(runtimeList(), id)).toBe('…
+       |                   ^
+     18|     },
+     19|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > keeps legacy running unknown even when the source is available
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > keeps legacy degraded unknown even when the source is available
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > keeps legacy starting unknown even when the source is available
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > keeps legacy stopped unknown even when the source is available
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > keeps legacy bot-less unknown even when the source is available
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:24:19
+     22|     'keeps legacy %s unknown even when the source is available', (runt…
+     23|       const payload = { agents: [{ ...legacy, runtimeStatus, loaded: t…
+     24|       expect(http.getListAgentsRuntimeState(payload, 'x9')).toBe('unkn…
+       |                   ^
+     25|     },
+     26|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > keeps a bare 1.29 list unknown
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:29:17
+     27| 
+     28|   it('keeps a bare 1.29 list unknown', () => {
+     29|     expect(http.getListAgentsRuntimeState({ agents: [legacy] }, 'x9'))…
+       |                 ^
+     30|   });
+     31| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > keeps new runtime observations unknown when source metadata is missing
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:33:17
+     31| 
+     32|   it('keeps new runtime observations unknown when source metadata is m…
+     33|     expect(http.getListAgentsRuntimeState({ agents: [runtimeRow()] }, …
+       |                 ^
+     34|   });
+     35| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > does not trust cached active observations from an unavailable source
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > does not trust cached active observations from an unknown source
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:40:19
+     38|       const payload = runtimeList();
+     39|       const unavailable = { ...payload, source: { ...payload.source, a…
+     40|       expect(http.getListAgentsRuntimeState(unavailable, 'x9-staging')…
+       |                   ^
+     41|     },
+     42|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > trusts positive loaded-channel evidence from an available partial list
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:46:17
+     44|   it('trusts positive loaded-channel evidence from an available partia…
+     45|     const payload = runtimeList();
+     46|     expect(http.getListAgentsRuntimeState({ ...payload, source: { ...p…
+       |                 ^
+     47|   });
+     48| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > never turns an absent row in a complete inventory into stopped
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > never turns an absent row in a partial inventory into stopped
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > never turns an absent row in a unknown inventory into stopped
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:52:19
+     50|     'never turns an absent row in a %s inventory into stopped', (compl…
+     51|       const payload = runtimeList();
+     52|       expect(http.getListAgentsRuntimeState({ ...payload, agents: [], …
+       |                   ^
+     53|     },
+     54|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > does not invent a management alias for a row missing identity metadata
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:59:17
+     57|     const { identity: _identity, ...row } = runtimeRow();
+     58|     const payload = { agents: [row], source: runtimeList().source };
+     59|     expect(http.getListAgentsRuntimeState(payload, 'x9-staging')).toBe…
+       |                 ^
+     60|     expect(http.getListAgentsRuntimeState(payload, 'x9')).toBe('active…
+     61|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > preserves supported canonical state 'no-channel'
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > preserves supported canonical state 'stopped'
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > preserves supported canonical state 'error'
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > preserves supported canonical state 'unknown'
+TypeError: getListAgentsRuntimeState is not a function
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:71:17
+     69|     const payload = runtimeList();
+     70|     const row = { ...runtimeRow(), runtime: { ...runtime, channels: []…
+     71|     expect(http.getListAgentsRuntimeState({ ...payload, agents: [row] …
+       |                 ^
+     72|   });
+     73| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > rejects ambiguous identity before selecting an agent
+AssertionError: expected [Function] to throw error matching /Duplicate or ambiguous agent identifi…/ but got 'getListAgentsRu…'
+
+- Expected: 
+/Duplicate or ambiguous agent identifier/
+
++ Received: 
+"__vite_ssr_import_1__.getListAgentsRuntimeState is not a function"
+
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:76:142
+     74|   it('rejects ambiguous identity before selecting an agent', () => {
+     75|     const payload = runtimeList();
+     76|     expect(() => http.getListAgentsRuntimeState({ ...payload, agents: …
+       |                                                                                                                                              ^
+     77|   });
+     78| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/26]⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-lookup.test.ts > canonical list state lookup > rejects forged active state before using an available source
+AssertionError: expected [Function] to throw error matching /Agent state is not supported by runti…/ but got 'getListAgentsRu…'
+
+- Expected: 
+/Agent state is not supported by runtime evidence/
+
++ Received: 
+"__vite_ssr_import_1__.getListAgentsRuntimeState is not a function"
+
+ ❯ tests/http/endpoints/internal-agents-runtime-lookup.test.ts:82:137
+     80|     const payload = runtimeList();
+     81|     const row = runtimeRow();
+     82|     expect(() => http.getListAgentsRuntimeState({ ...payload, agents: …
+       |                                                                                                                                         ^
+     83|   });
+     84| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/26]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  26 failed | 2 passed (28)
+   Start at  23:50:45
+   Duration  351ms (transform 115ms, setup 4ms, collect 209ms, tests 9ms, environment 0ms, prepare 36ms)
+

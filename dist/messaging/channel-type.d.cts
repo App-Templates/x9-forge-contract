@@ -23,8 +23,8 @@ import { z } from 'zod';
  */
 export declare const ChannelTypeSchema: z.ZodEnum<{
     email: "email";
-    voice: "voice";
     telegram: "telegram";
+    voice: "voice";
     whatsapp: "whatsapp";
 }>;
 export type ChannelType = z.infer<typeof ChannelTypeSchema>;

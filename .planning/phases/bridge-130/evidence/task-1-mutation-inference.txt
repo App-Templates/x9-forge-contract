@@ -1,0 +1,45 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/agent/agent-runtime-identity.test.ts (12 tests | 1 failed | 11 skipped) 5ms
+   ↓ canonical management/runtime identity > accepts an explicitly declared x9-staging to x9 mapping
+   ↓ canonical management/runtime identity > accepts the same identifier in both namespaces for one agent
+   ↓ canonical management/runtime identity > rejects a numeric database ID rather than coercing it to a slug
+   ↓ canonical management/runtime identity > requires a non-empty managementAgentId
+   ↓ canonical management/runtime identity > requires a non-empty runtimeAgentId
+   × canonical management/runtime identity > does not infer a missing runtime identifier from management 4ms
+     → expected true to be false // Object.is equality
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > accepts distinct explicit identities without fuzzy name matching
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > does not infer a missing runtime identifier from management
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/agent/agent-runtime-identity.test.ts:33:8
+     31|   it('does not infer a missing runtime identifier from management', ()…
+     32|     expect(agent.AgentRuntimeIdentitySchema.safeParse({ managementAgen…
+     33|       .toBe(false);
+       |        ^
+     34|   });
+     35| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 11 skipped (12)
+   Start at  23:43:47
+   Duration  182ms (transform 33ms, setup 4ms, collect 55ms, tests 5ms, environment 0ms, prepare 30ms)
+

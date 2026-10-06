@@ -1,0 +1,50 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/agent/agent-runtime-boundaries.test.ts (17 tests | 1 failed | 16 skipped) 5ms
+   ↓ canonical runtime input boundaries > requires channel channelId without a default
+   ↓ canonical runtime input boundaries > requires channel kind without a default
+   ↓ canonical runtime input boundaries > requires channel state without a default
+   ↓ canonical runtime input boundaries > requires channel loaded without a default
+   ↓ canonical runtime input boundaries > requires channel readiness without a default
+   ↓ canonical runtime input boundaries > rejects invalid channel channelId
+   ↓ canonical runtime input boundaries > rejects invalid channel kind
+   × canonical runtime input boundaries > rejects invalid channel state 5ms
+     → expected true to be false // Object.is equality
+   ↓ canonical runtime input boundaries > rejects invalid channel loaded
+   ↓ canonical runtime input boundaries > rejects invalid channel readiness
+   ↓ canonical runtime input boundaries > requires agent evidence loadState without inferring absence
+   ↓ canonical runtime input boundaries > requires agent evidence channelsComplete without inferring absence
+   ↓ canonical runtime input boundaries > requires agent evidence channels without inferring absence
+   ↓ canonical runtime input boundaries > rejects invalid agent evidence loadState
+   ↓ canonical runtime input boundaries > rejects invalid agent evidence channelsComplete
+   ↓ canonical runtime input boundaries > rejects invalid agent evidence channels
+   ↓ canonical runtime input boundaries > keeps paused a channel state rather than a sixth agent state
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-boundaries.test.ts > canonical runtime input boundaries > rejects invalid channel state
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/agent/agent-runtime-boundaries.test.ts:20:97
+     18|     ['loaded', 'false'], ['readiness', 'healthy'],
+     19|   ])('rejects invalid channel %s', (key, value) => {
+     20|     expect(AgentRuntimeChannelSchema.safeParse({ ...channel, [key as s…
+       |                                                                                                 ^
+     21|   });
+     22| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  23:56:30
+   Duration  230ms (transform 48ms, setup 5ms, collect 84ms, tests 5ms, environment 0ms, prepare 35ms)
+

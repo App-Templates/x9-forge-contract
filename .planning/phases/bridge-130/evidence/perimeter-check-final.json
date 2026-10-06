@@ -1,0 +1,19 @@
+{
+  "base": "d574f68",
+  "changedFilesBeforeFinalDocumentation": 106,
+  "perimeterViolations": [],
+  "versionChangelogDistChanged": [],
+  "diffChecks": {
+    "productDiff": {
+      "exitCode": 0,
+      "lines": 0
+    },
+    "wholeDiff": {
+      "exitCode": 2,
+      "lines": 480
+    }
+  },
+  "privateSourceRestored": 131,
+  "mutationsKilled": 53,
+  "mutationsTotal": 53
+}

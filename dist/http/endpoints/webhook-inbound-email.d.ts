@@ -44,13 +44,13 @@ export declare const WebhookInboundEmailNormalizedSchema: z.ZodObject<{
     message_id: z.ZodString;
     channel: z.ZodEnum<{
         email: "email";
-        voice: "voice";
         telegram: "telegram";
+        voice: "voice";
         whatsapp: "whatsapp";
     }>;
     provider: z.ZodEnum<{
-        elevenlabs: "elevenlabs";
         telegram: "telegram";
+        elevenlabs: "elevenlabs";
         agentmail: "agentmail";
         whatsapp_cloud: "whatsapp_cloud";
     }>;

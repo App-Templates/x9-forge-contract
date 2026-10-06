@@ -1,0 +1,45 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/agent/agent-runtime-identity.test.ts (12 tests | 1 failed | 11 skipped) 4ms
+   ↓ canonical management/runtime identity > accepts an explicitly declared x9-staging to x9 mapping
+   ↓ canonical management/runtime identity > accepts the same identifier in both namespaces for one agent
+   ↓ canonical management/runtime identity > rejects a numeric database ID rather than coercing it to a slug
+   × canonical management/runtime identity > requires a non-empty managementAgentId 4ms
+     → expected true to be false // Object.is equality
+   ↓ canonical management/runtime identity > requires a non-empty runtimeAgentId
+   ↓ canonical management/runtime identity > does not infer a missing runtime identifier from management
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > rejects duplicate or ambiguous cross-namespace identities: {"managementAgentId":"x9-staging","runtimeAgentId":"x9"}
+   ↓ canonical management/runtime identity > accepts distinct explicit identities without fuzzy name matching
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-identity.test.ts > canonical management/runtime identity > requires a non-empty managementAgentId
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/agent/agent-runtime-identity.test.ts:27:10
+     25|     'requires a non-empty %s', (key) => {
+     26|       expect(agent.AgentRuntimeIdentitySchema.safeParse({ ...pair('x9-…
+     27|         .toBe(false);
+       |          ^
+     28|     },
+     29|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 11 skipped (12)
+   Start at  23:43:45
+   Duration  176ms (transform 31ms, setup 4ms, collect 52ms, tests 4ms, environment 0ms, prepare 29ms)
+

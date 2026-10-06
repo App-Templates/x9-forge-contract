@@ -1,0 +1,1 @@
+BRIDGE-130 ESM public subpaths: 6/6 assertions passed

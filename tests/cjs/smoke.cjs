@@ -133,4 +133,6 @@ if (failed > 0) {
   console.error('[cjs-smoke] EXIT 1 - dual ESM+CJS build is broken. Do NOT release.');
   process.exit(1);
 }
+// Canonical agent runtime behavior must work through real package subpaths.
+require('./bridge-130-smoke.cjs');
 process.exit(0);

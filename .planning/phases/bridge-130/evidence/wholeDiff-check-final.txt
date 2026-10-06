@@ -1,0 +1,480 @@
+.planning/phases/bridge-130/evidence/boundary-green.txt:10: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-agent-vocabulary.txt:36: trailing whitespace.
++     36| 
+.planning/phases/bridge-130/evidence/boundary-mutation-agent-vocabulary.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-agent-channels.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-agent-channelsComplete.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-agent-loadState.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-channel-channelId.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-channel-kind.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-channel-loaded.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-channel-readiness.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-required-channel-state.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-agent-channels.txt:41: trailing whitespace.
++     36| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-agent-channels.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-agent-channelsComplete.txt:41: trailing whitespace.
++     36| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-agent-channelsComplete.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-agent-loadState.txt:41: trailing whitespace.
++     36| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-agent-loadState.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-channelId.txt:41: trailing whitespace.
++     22| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-channelId.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-kind.txt:41: trailing whitespace.
++     22| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-kind.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-loaded.txt:41: trailing whitespace.
++     22| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-loaded.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-readiness.txt:41: trailing whitespace.
++     22| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-readiness.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-state.txt:41: trailing whitespace.
++     22| 
+.planning/phases/bridge-130/evidence/boundary-mutation-type-channel-state.txt:50: new blank line at EOF.
+.planning/phases/bridge-130/evidence/full-source-suite.txt:106: new blank line at EOF.
+.planning/phases/bridge-130/evidence/private-package-check.txt:28: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:29: trailing whitespace.
++node10: (ignored) 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:37: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:46: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:55: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:64: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:73: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:82: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:91: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:100: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:109: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:118: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:127: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:136: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:145: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:154: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:163: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:172: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/private-package-check.txt:181: trailing whitespace.
++bundler: 🟢 
+.planning/phases/bridge-130/evidence/task-1-green.txt:10: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-1-mutation-ambiguity.txt:44: trailing whitespace.
++     45| 
+.planning/phases/bridge-130/evidence/task-1-mutation-ambiguity.txt:53: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-1-mutation-coercion.txt:36: trailing whitespace.
++     23| 
+.planning/phases/bridge-130/evidence/task-1-mutation-coercion.txt:45: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-1-mutation-empty.txt:45: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-1-mutation-inference.txt:36: trailing whitespace.
++     35| 
+.planning/phases/bridge-130/evidence/task-1-mutation-inference.txt:45: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-1-red.txt:47: trailing whitespace.
++     13| 
+.planning/phases/bridge-130/evidence/task-1-red.txt:59: trailing whitespace.
++     18| 
+.planning/phases/bridge-130/evidence/task-1-red.txt:84: trailing whitespace.
++     30| 
+.planning/phases/bridge-130/evidence/task-1-red.txt:105: trailing whitespace.
++     45| 
+.planning/phases/bridge-130/evidence/task-1-red.txt:126: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-green.txt:11: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-active-evidence.txt:60: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-mutation-active-evidence.txt:75: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-channel-consistency.txt:64: trailing whitespace.
++     49| 
+.planning/phases/bridge-130/evidence/task-2-mutation-channel-consistency.txt:73: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-channel-duplicates.txt:51: trailing whitespace.
++    104| 
+.planning/phases/bridge-130/evidence/task-2-mutation-channel-duplicates.txt:65: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-claimed-state.txt:77: trailing whitespace.
++    115| 
+.planning/phases/bridge-130/evidence/task-2-mutation-claimed-state.txt:91: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-complete-inventory.txt:60: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-mutation-complete-inventory.txt:75: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-explicit-error.txt:60: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-mutation-explicit-error.txt:75: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-explicit-stopped.txt:60: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-mutation-explicit-stopped.txt:75: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-known-unloaded.txt:60: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-mutation-known-unloaded.txt:75: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-pause.txt:60: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-mutation-pause.txt:75: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-mutation-stopped-contradiction.txt:51: trailing whitespace.
++    100| 
+.planning/phases/bridge-130/evidence/task-2-mutation-stopped-contradiction.txt:56: trailing whitespace.
++    104| 
+.planning/phases/bridge-130/evidence/task-2-mutation-stopped-contradiction.txt:65: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-2-red.txt:91: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:116: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:138: trailing whitespace.
++     49| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:150: trailing whitespace.
++     54| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:157: trailing whitespace.
++     54| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:169: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:182: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:195: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:208: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:221: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:234: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:247: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:260: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:273: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:286: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:299: trailing whitespace.
++    100| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:304: trailing whitespace.
++    104| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:311: trailing whitespace.
++    104| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:338: trailing whitespace.
++    115| 
+.planning/phases/bridge-130/evidence/task-2-red.txt:352: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-green-final.txt:13: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-green.txt:13: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-identity-match.txt:40: trailing whitespace.
++     62| 
+.planning/phases/bridge-130/evidence/task-3-mutation-identity-match.txt:45: trailing whitespace.
++     66| 
+.planning/phases/bridge-130/evidence/task-3-mutation-identity-match.txt:54: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-list-collisions.txt:42: trailing whitespace.
++     71| 
+.planning/phases/bridge-130/evidence/task-3-mutation-list-collisions.txt:47: trailing whitespace.
++     75| 
+.planning/phases/bridge-130/evidence/task-3-mutation-list-collisions.txt:61: trailing whitespace.
++     75| 
+.planning/phases/bridge-130/evidence/task-3-mutation-list-collisions.txt:66: trailing whitespace.
++     79| 
+.planning/phases/bridge-130/evidence/task-3-mutation-list-collisions.txt:85: trailing whitespace.
++     84| 
+.planning/phases/bridge-130/evidence/task-3-mutation-list-collisions.txt:94: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-metadata-additive.txt:106: trailing whitespace.
++     12| 
+.planning/phases/bridge-130/evidence/task-3-mutation-metadata-additive.txt:140: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-authority.txt:45: trailing whitespace.
++     58| 
+.planning/phases/bridge-130/evidence/task-3-mutation-source-authority.txt:54: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-availability.txt:57: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-complete.txt:56: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-coverage-survived.txt:10: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-coverage.txt:57: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-observed.txt:45: trailing whitespace.
++     48| 
+.planning/phases/bridge-130/evidence/task-3-mutation-source-observed.txt:54: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-required-authority.txt:57: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-required-time.txt:57: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-mutation-source-time.txt:45: trailing whitespace.
++     53| 
+.planning/phases/bridge-130/evidence/task-3-mutation-source-time.txt:54: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-3-red.txt:140: trailing whitespace.
++     31| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:166: trailing whitespace.
++     36| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:205: trailing whitespace.
++     48| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:224: trailing whitespace.
++     53| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:243: trailing whitespace.
++     58| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:257: trailing whitespace.
++     58| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:262: trailing whitespace.
++     62| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:276: trailing whitespace.
++     62| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:281: trailing whitespace.
++     66| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:300: trailing whitespace.
++     71| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:314: trailing whitespace.
++     71| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:319: trailing whitespace.
++     75| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:333: trailing whitespace.
++     75| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:338: trailing whitespace.
++     79| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:357: trailing whitespace.
++     84| 
+.planning/phases/bridge-130/evidence/task-3-red.txt:413: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-green.txt:14: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-absent-stopped.txt:62: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-case-folding.txt:58: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-fuzzy-target.txt:58: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-legacy-fallback.txt:81: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-management-target.txt:58: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-partial-source.txt:49: trailing whitespace.
++     48| 
+.planning/phases/bridge-130/evidence/task-4-mutation-partial-source.txt:58: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-source-availability.txt:60: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-source-missing.txt:44: trailing whitespace.
++     31| 
+.planning/phases/bridge-130/evidence/task-4-mutation-source-missing.txt:49: trailing whitespace.
++     35| 
+.planning/phases/bridge-130/evidence/task-4-mutation-source-missing.txt:58: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-mutation-validation.txt:41: trailing whitespace.
++- Expected: 
+.planning/phases/bridge-130/evidence/task-4-mutation-validation.txt:44: trailing whitespace.
+++ Received: 
+.planning/phases/bridge-130/evidence/task-4-mutation-validation.txt:53: trailing whitespace.
++     78| 
+.planning/phases/bridge-130/evidence/task-4-mutation-validation.txt:60: trailing whitespace.
++- Expected: 
+.planning/phases/bridge-130/evidence/task-4-mutation-validation.txt:63: trailing whitespace.
+++ Received: 
+.planning/phases/bridge-130/evidence/task-4-mutation-validation.txt:72: trailing whitespace.
++     84| 
+.planning/phases/bridge-130/evidence/task-4-mutation-validation.txt:81: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:109: trailing whitespace.
++     27| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:114: trailing whitespace.
++     31| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:121: trailing whitespace.
++     31| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:126: trailing whitespace.
++     35| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:151: trailing whitespace.
++     48| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:192: trailing whitespace.
++     73| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:199: trailing whitespace.
++- Expected: 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:202: trailing whitespace.
+++ Received: 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:211: trailing whitespace.
++     78| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:218: trailing whitespace.
++- Expected: 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:221: trailing whitespace.
+++ Received: 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:230: trailing whitespace.
++     84| 
+.planning/phases/bridge-130/evidence/task-4-red-final.txt:239: new blank line at EOF.
+.planning/phases/bridge-130/evidence/task-4-red.txt:107: trailing whitespace.
++     27| 
+.planning/phases/bridge-130/evidence/task-4-red.txt:112: trailing whitespace.
++     31| 
+.planning/phases/bridge-130/evidence/task-4-red.txt:119: trailing whitespace.
++     31| 
+.planning/phases/bridge-130/evidence/task-4-red.txt:124: trailing whitespace.
++     35| 
+.planning/phases/bridge-130/evidence/task-4-red.txt:149: trailing whitespace.
++     48| 
+.planning/phases/bridge-130/evidence/task-4-red.txt:190: trailing whitespace.
++     73| 
+.planning/phases/bridge-130/evidence/task-4-red.txt:199: new blank line at EOF.
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:3: trailing whitespace.
+++     45| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:6: trailing whitespace.
+++     23| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:10: trailing whitespace.
+++     35| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:13: trailing whitespace.
+++     13| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:15: trailing whitespace.
+++     18| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:17: trailing whitespace.
+++     30| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:19: trailing whitespace.
+++     45| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:23: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:26: trailing whitespace.
+++     49| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:29: trailing whitespace.
+++    104| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:32: trailing whitespace.
+++    115| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:35: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:38: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:41: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:44: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:47: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:50: trailing whitespace.
+++    100| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:52: trailing whitespace.
+++    104| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:55: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:57: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:59: trailing whitespace.
+++     49| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:61: trailing whitespace.
+++     54| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:63: trailing whitespace.
+++     54| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:65: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:67: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:69: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:71: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:73: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:75: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:77: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:79: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:81: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:83: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:85: trailing whitespace.
+++    100| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:87: trailing whitespace.
+++    104| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:89: trailing whitespace.
+++    104| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:91: trailing whitespace.
+++    115| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:96: trailing whitespace.
+++     62| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:98: trailing whitespace.
+++     66| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:101: trailing whitespace.
+++     71| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:103: trailing whitespace.
+++     75| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:105: trailing whitespace.
+++     75| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:107: trailing whitespace.
+++     79| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:109: trailing whitespace.
+++     84| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:112: trailing whitespace.
+++     12| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:115: trailing whitespace.
+++     58| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:122: trailing whitespace.
+++     48| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:127: trailing whitespace.
+++     53| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:130: trailing whitespace.
+++     31| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:132: trailing whitespace.
+++     36| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:134: trailing whitespace.
+++     48| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:136: trailing whitespace.
+++     53| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:138: trailing whitespace.
+++     58| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:140: trailing whitespace.
+++     58| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:142: trailing whitespace.
+++     62| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:144: trailing whitespace.
+++     62| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:146: trailing whitespace.
+++     66| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:148: trailing whitespace.
+++     71| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:150: trailing whitespace.
+++     71| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:152: trailing whitespace.
+++     75| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:154: trailing whitespace.
+++     75| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:156: trailing whitespace.
+++     79| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:158: trailing whitespace.
+++     84| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:167: trailing whitespace.
+++     48| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:171: trailing whitespace.
+++     31| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:173: trailing whitespace.
+++     35| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:176: trailing whitespace.
+++- Expected: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:178: trailing whitespace.
++++ Received: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:180: trailing whitespace.
+++     78| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:182: trailing whitespace.
+++- Expected: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:184: trailing whitespace.
++++ Received: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:186: trailing whitespace.
+++     84| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:189: trailing whitespace.
+++     27| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:191: trailing whitespace.
+++     31| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:193: trailing whitespace.
+++     31| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:195: trailing whitespace.
+++     35| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:197: trailing whitespace.
+++     48| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:199: trailing whitespace.
+++     73| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:201: trailing whitespace.
+++- Expected: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:203: trailing whitespace.
++++ Received: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:205: trailing whitespace.
+++     78| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:207: trailing whitespace.
+++- Expected: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:209: trailing whitespace.
++++ Received: 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:211: trailing whitespace.
+++     84| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:214: trailing whitespace.
+++     27| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:216: trailing whitespace.
+++     31| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:218: trailing whitespace.
+++     31| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:220: trailing whitespace.
+++     35| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:222: trailing whitespace.
+++     48| 
+.planning/phases/bridge-130/evidence/wholeDiff-check.txt:224: trailing whitespace.
+++     73| 

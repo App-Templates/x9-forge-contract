@@ -1,0 +1,17 @@
+{
+  "base": "d574f68",
+  "changedFiles": 72,
+  "perimeterViolations": [],
+  "versionChangelogDistChanged": [],
+  "diffChecks": {
+    "productDiff": {
+      "exitCode": 0,
+      "lines": 0
+    },
+    "wholeDiff": {
+      "exitCode": 2,
+      "lines": 225
+    }
+  },
+  "evidenceFiles": 63
+}
