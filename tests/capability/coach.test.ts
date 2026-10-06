@@ -140,6 +140,9 @@ describe('R6 cap-coach snapshot, results and errors', () => {
     expect(CoachSessionRecordResultSchema.safeParse({ ...result, replayed: true }).success).toBe(true);
     expect(CoachSessionRecordResultSchema.safeParse({ ...result, progress: { ...progress, scope: { ...person, userId: 'x' } } }).success).toBe(false);
     expect(CoachSessionRecordResultSchema.safeParse({ ...result, budget: { ...budget, scope: { ...person, userId: 'x' } } }).success).toBe(false);
+    expect(CoachSessionRecordResultSchema.safeParse({ ...result, progress: { ...progress, programId: 'altro-programma' } }).success).toBe(false);
+    expect(CoachSessionRecordResultSchema.safeParse({ ...result, session: { ...completed, programId: undefined, stepId: undefined } }).success).toBe(false);
+    expect(CoachSessionRecordResultSchema.safeParse({ ...result, session: { ...completed, programId: undefined, stepId: undefined }, progress: undefined }).success).toBe(true);
   });
 
   it('distinguishes budget exhaustion, idempotency conflict and stale programs', () => {

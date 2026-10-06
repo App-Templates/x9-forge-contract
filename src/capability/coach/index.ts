@@ -195,6 +195,9 @@ export const CoachSessionRecordResultSchema = z.object({
   if (result.progress && !sameCapabilityScope(result.progress.scope, result.session.scope)) {
     ctx.addIssue({ code: 'custom', path: ['progress', 'scope'], message: 'Data of another scope' });
   }
+  if (result.progress && result.progress.programId !== result.session.programId) {
+    ctx.addIssue({ code: 'custom', path: ['progress', 'programId'], message: 'Progress belongs to the recorded session\'s program' });
+  }
   if (result.budget && !sameCapabilityScope(result.budget.scope, result.session.scope)) {
     ctx.addIssue({ code: 'custom', path: ['budget', 'scope'], message: 'Data of another scope' });
   }

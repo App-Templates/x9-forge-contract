@@ -1,0 +1,10 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ✓ tests/capability/coach.test.ts (41 tests) 21ms
+
+ Test Files  1 passed (1)
+      Tests  41 passed (41)
+   Start at  01:32:37
+   Duration  407ms (transform 138ms, setup 5ms, collect 257ms, tests 21ms, environment 0ms, prepare 30ms)
+
