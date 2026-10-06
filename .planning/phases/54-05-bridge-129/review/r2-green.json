@@ -1,0 +1,528 @@
+{
+  "label": "r2-green",
+  "exitCode": 0,
+  "total": 129,
+  "passed": 129,
+  "failed": 0,
+  "runtimeErrors": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-7hfnzk4i",
+  "tests": [
+    {
+      "name": "additive B1/B7 declarations manifest retains an old payload exactly",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations manifest retains B1 parameters",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations manifest retains B7 presentation",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations manifest validates B1 rather than silently stripping it",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations manifest validates B7 rather than silently stripping it",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations registry retains an old payload exactly",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations registry retains B1 parameters",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations registry retains B7 presentation",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations registry validates B1 rather than silently stripping it",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations registry validates B7 rather than silently stripping it",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations the existing manifest endpoint carries the optional declarations",
+      "status": "passed"
+    },
+    {
+      "name": "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths",
+      "status": "passed"
+    },
+    {
+      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM",
+      "status": "passed"
+    },
+    {
+      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS",
+      "status": "passed"
+    },
+    {
+      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM",
+      "status": "passed"
+    },
+    {
+      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends retains domain content as data, including nested JSON",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty id",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects invalid agent id",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects missing capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty kind",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty title",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects missing summary",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects invalid timestamp",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects impossible timestamp",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra output field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects non JSON content",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects nonfinite content",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends accepts rating boundary 1 and project provenance",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends accepts rating boundary 10 and project provenance",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends retains domain-app provenance separately from the reviewer",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects rating below one",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects rating above ten",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects fractional rating",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects missing source",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects unknown source",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty source id",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra source field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects missing reviewer",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty feedback id",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects missing output id",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects bad feedback agent",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty feedback capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects bad feedback timestamp",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra feedback field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends accepts a generic daily series, including legitimate decreases",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects bad series agent",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty series capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty metric key",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty metric label",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty metric unit",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra metric field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects impossible trend date",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects nonfinite trend value",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra point field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects repeated trend day",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects unsorted trend days",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra series field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends declares the sections dynamically, without a food-specific field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty output label",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty output kinds",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects repeated output kind",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty kind label",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty kind description",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra kind field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects unknown field type",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty field label",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects repeated output field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra output field declaration",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra output declaration field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty feedback label",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects unknown feedback kind",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects empty feedback sources",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects repeated feedback sources",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects unknown feedback source declaration",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra feedback declaration field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects repeated trend metric",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends rejects extra presentation field",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema scopes a collection to one agent and capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign agent",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects duplicate ids or metric keys",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects unknown envelope fields",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema scopes a collection to one agent and capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign agent",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects duplicate ids or metric keys",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects unknown envelope fields",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema scopes a collection to one agent and capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign agent",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign capability",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects duplicate ids or metric keys",
+      "status": "passed"
+    },
+    {
+      "name": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects unknown envelope fields",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds exports kind rating",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds exports kind approval",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds retains rating boundary 1",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds retains rating boundary 10",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds retains approval approved",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds retains approval changes_requested",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 0",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 1",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 2",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 3",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 4",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 5",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 6",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 7",
+      "status": "passed"
+    },
+    {
+      "name": "review R1 feedback kinds rejects wrong feedback branch 8",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos accepts bounded optional attachments 0",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos accepts bounded optional attachments 1",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos accepts bounded optional attachments 2",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos shares name and attachments with approval feedback",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos accepts the reviewer name at its limit",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 0",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 1",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 2",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 3",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 4",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 5",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 6",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 7",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 8",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 9",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 10",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 11",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos declares whether photos are supported false",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos declares whether photos are supported true",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos requires an explicit boolean attachments declaration 0",
+      "status": "passed"
+    },
+    {
+      "name": "review R2 reviewer name and photos requires an explicit boolean attachments declaration 1",
+      "status": "passed"
+    }
+  ],
+  "failedTests": []
+}

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { WebUrlSchema } from './ricerca/research.js';
 import { CapabilityAgentIdSchema } from './ricerca/agent-config.js';
 import { AgentDaySchema } from './ricerca/spend.js';
 import { CapabilityParameterKeySchema } from './parameters.js';
@@ -35,9 +36,12 @@ export const CapabilityOutputsDeclarationSchema = z.object({
     { message: 'output kinds must be unique', path: ['kinds'] })
   .refine(outputs => new Set(outputs.fields.map(field => field.key)).size === outputs.fields.length,
     { message: 'output fields must be unique', path: ['fields'] });
+export const CAPABILITY_FEEDBACK_MAX_ATTACHMENTS = 10;
 export const CapabilityFeedbackDeclarationSchema = z.object({
   label: TextSchema,
   kind: CapabilityFeedbackKindSchema,
+  /** Whether this feedback kind accepts photos, supplied as bounded http(s) URLs. */
+  attachments: z.boolean(),
   sources: z.array(CapabilityFeedbackSourceKindSchema).min(1),
 }).strict().refine(feedback => new Set(feedback.sources).size === feedback.sources.length,
   { message: 'feedback sources must be unique', path: ['sources'] });
@@ -69,6 +73,8 @@ const feedbackMetadata = {
   source: CapabilityFeedbackSourceSchema,
   /** Trusted authenticated identity supplied by the view/app, not chosen by a model. */
   reviewerId: TextSchema,
+  reviewerName: z.string().trim().min(1).max(200),
+  attachments: z.array(WebUrlSchema).max(CAPABILITY_FEEDBACK_MAX_ATTACHMENTS).optional(),
   comment: z.string().optional(),
   createdAt: z.iso.datetime(),
 };

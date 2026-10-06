@@ -12,7 +12,7 @@ describe('review R1 feedback kinds', () => {
     const value = { ...feedback, kind: 'approval', decision };
     expect(schema('CapabilityFeedbackSchema').safeParse(value)).toMatchObject({ success: true, data: value });
     expect(schema('CapabilityFeedbackDecisionSchema').parse(decision)).toBe(decision);
-    const declaration = { label: 'Revisioni', kind: 'approval', sources: ['project_view'] };
+    const declaration = { label: 'Revisioni', kind: 'approval', attachments: false, sources: ['project_view'] };
     expect(schema('CapabilityFeedbackDeclarationSchema').safeParse(declaration)).toMatchObject({ success: true, data: declaration });
   });
   it.each([

@@ -9,7 +9,7 @@ export function schema(name: string): z.ZodType {
 export const parameter = { key: 'budget.dailyUsd', label: 'Budget', description: 'Massimo al giorno',
   type: 'number', status: 'decided', reference: 'D54-11', appliesWhen: 'immediate', consumes: true };
 export const feedback = { id: 'feedback-1', agentId: 'samira', capability: 'food', outputId: 'recipe-1',
-  source: { kind: 'project_view', id: 'food-view' }, reviewerId: 'reviewer-1',
+  source: { kind: 'project_view', id: 'food-view' }, reviewerId: 'reviewer-1', reviewerName: 'Stefano',
   createdAt: '2026-10-06T09:00:00Z' };
 export const output = { id: 'recipe-1', agentId: 'samira', capability: 'food', kind: 'recipe',
   title: 'Ricetta', summary: 'Una ricetta', createdAt: '2026-10-06T08:00:00Z', content: {} };

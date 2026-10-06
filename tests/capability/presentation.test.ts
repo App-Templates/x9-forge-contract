@@ -13,7 +13,7 @@ export const output = {
 };
 export const feedback = {
   id: 'feedback-1', agentId: 'samira', capability: 'food', outputId: 'recipe-1',
-  source: { kind: 'project_view', id: 'food-view' }, reviewerId: 'synthetic-reviewer',
+  source: { kind: 'project_view', id: 'food-view' }, reviewerId: 'synthetic-reviewer', reviewerName: 'Stefano',
   kind: 'rating', rating: 8, comment: 'Equilibrata', createdAt: '2026-10-06T09:00:00Z',
 };
 export const metric = { key: 'sessions', label: 'Sedute al giorno', unit: 'sedute' };
@@ -22,7 +22,7 @@ export const series = { agentId: 'samira', capability: 'meditation', metric,
 export const presentation = {
   outputs: { label: 'Ricette', kinds: [{ key: 'recipe', label: 'Ricetta', description: 'Il risultato del giorno' }],
     fields: [{ key: 'portions', label: 'Porzioni', type: 'number' }] },
-  feedback: { label: 'Assaggi', kind: 'rating', sources: ['project_view', 'domain_app'] },
+  feedback: { label: 'Assaggi', kind: 'rating', attachments: false, sources: ['project_view', 'domain_app'] },
   trends: [metric],
 };
 describe('B7 generic per-agent outputs, feedback and trends', () => {
