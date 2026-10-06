@@ -1,5 +1,5 @@
 # 56-01 · contratto delle conferme per X9 Live web
-Ultimo aggiornamento: 18:07 (06/10/2026)
+Ultimo aggiornamento: 18:13 (06/10/2026)
 
 Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-56-1
 Branch: codex/56-01-bridge-conferme. Base d8ef67f (1.28); nessun riallineamento necessario per questo contratto aggiuntivo.
@@ -8,7 +8,7 @@ La coordinatrice ha comunicato il rilascio canonico 1.29 alle 15:24; non ho camb
 
 ## Stato
 
-CORREZIONI IN CORSO: audit R-14 della consegna 892d179 da correggere, richiesta letta intera. I numeri originali sotto sono storici, non il risultato del nuovo HEAD.
+PRONTO PER REVISIONE DELLE CORREZIONI: tutti e tre i punti della richiesta R-14 completati. I numeri della consegna originale sotto restano storici; risultati nuovi nella sezione correzioni.
 Contratto implementato: POST interno con autenticazione a segreto, richiesta sessionId non vuoto,
 conferme con numero intero positivo, titolo stringa, APPROVATO / SCARTATO / RIPRENDI e link HTTPS.
 Non è ancora un pulsante visibile nella pagina: cap-dev e la pagina web sono i successivi piani 56-02/56-03.
@@ -88,9 +88,34 @@ Nessuna verifica dal vivo dei servizi o della pagina web: fuori dal piano del co
 | Punto | Stato / commit | Prove |
 | --- | --- | --- |
 | 1 Schema/tipo pubblici e riuso diretto | completo, e42ce72 | 2/102 rossi → 102/102 verdi; CF-35 pronta |
-| 2 Opzioni esatte dell’enum | completo, questo commit | ANNULLA → 1/103 AssertionError; baseline/ripristino 103/103 |
-| 3 HTTPS malformati | da fare | https:// e https://a b contro startsWith |
+| 2 Opzioni esatte dell’enum | completo, 640851c | ANNULLA → 1/103 AssertionError; baseline/ripristino 103/103 |
+| 3 HTTPS malformati | completo, questo commit | prefisso debole → 2/105 AssertionError; ripristino 105/105, finale 1072/1072 |
 
 Punto 1: DevSignedCommandSchema e DevSignedCommand esportati; risposta riusa lo schema. Ancore delle 34 mutazioni precedenti adattate alla costante, guardia specifica CF-35 sul legame. Nessun package/CHANGELOG/dist o consumer cambiato. Evidenza correction1-export.md.
 
 Punto 2: test delle opzioni esatte, nessun cambio al prodotto. CF-36 aggiunge ANNULLA in copia: 1/103 rosso reale e ripristino 103/103; originali protetti da hash. Prova correction2-mutation.md. Resta punto 3 e giro finale.
+
+Punto 3: https:// e https://a b già respinti dal prodotto; mancavano le prove. Scritti i test prima,
+validazione startsWith introdotta soltanto nella copia privata: 2/105 AssertionError, ripristino 105/105.
+Nessun ulteriore cambio del codice prodotto. Evidenza correction3-mutation.md.
+
+Chiusura entro 15 minuti: suite completa FINALE 1072/1072 in 79/79 file, tsc e lint exit 0.
+Build in copia, 254/254 dichiarazioni portabili; schema pubblico verificato in ESM/CJS 2/2 formati,
+tipo DevSignedCommand consumato da .mts/.cts; CJS storico nella nuova build 31/31.
+Package/CHANGELOG/lock/dist originali 1011/1011 hash invariati, niente rilascio/versionamento o consumer cambiato.
+Il codice prodotto della build è identico al finale; dopo il miglioramento diagnostico del solo test,
+rifatte suite completa, tipi e lint, senza dichiarare il primo giro come unico finale.
+Prove corrections-final-quality.md e corrections-final-suite.md.
+
+Mutazioni FINALI: UN giro completo 37/37, baseline/ripristino 105/105, originali invariati;
+tutti i rossi AssertionError, zero file error/timeout. CF-35 rompe il legame allo schema pubblico,
+CF-36 aggiunge ANNULLA, CF-37 cambia URL in startsWith: tutti i cinque nuovi casi diventano rossi.
+Il giro preparatorio precedente aveva quattro TypeError del nuovo test di identità su oggetti mutati:
+non accreditato come finale. Accessi resi osservabili con optional chaining e reporter rafforzato
+a richiedere solo AssertionError; quindi ripetuto l’intero giro, non sommate coorti.
+FINAL-MUTATIONS.md e runner aggiornati al nuovo HEAD; archivio finale bridge56-mutation-raw-3_n5vvbh.
+
+Tutti e tre i punti hanno un commit con i propri test e SUMMARY; nessun punto saltato.
+Perimetro verificato in corrections-final-perimeter.md, hook originali rispettati.
+Verifica R-14 indipendente e integrazione/rilascio restano alla sessione X9 e a un Codex diverso.
+Il contratto non implementa ancora il pulsante nella pagina: consumer 56-02/56-03 già tracciati.

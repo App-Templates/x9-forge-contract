@@ -59,7 +59,7 @@ describe('internal dev pending confirmations contract', () => {
 
 it('uses the public signed-command schema directly in each confirmation', () => {
   const response = schema('InternalDevConfermeResponseSchema') as z.ZodObject<{ conferme: z.ZodArray<z.ZodObject<{ comando: z.ZodType }>> }>;
-  expect(response.shape.conferme.element.shape.comando).toBe(schema('DevSignedCommandSchema'));
+  expect(response.shape?.conferme?.element?.shape?.comando).toBe(schema('DevSignedCommandSchema'));
 });
 
 it('fixes the exact public signed-command options', () => {
@@ -156,6 +156,9 @@ describe('pending confirmation response', () => {
       expect(parseResponse(responseWith('link', value)).success).toBe(false);
     },
   );
+  it.each(cases(['https://', 'https://a b']))('rejects an invalid HTTPS URL %s', link => {
+    expect(parseResponse(responseWith('link', link)).success).toBe(false);
+  });
   it('rejects unknown confirmation fields', () => {
     expect(parseResponse({ conferme: [{ ...confirmation, extra: true }] }).success).toBe(false);
   });

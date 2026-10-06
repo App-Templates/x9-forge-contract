@@ -66,6 +66,8 @@ add('CF-35-public-command-linkage','comando: DevSignedCommandSchema,',"comando: 
 
 add('CF-36-command-options',"z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI'])","z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI', 'ANNULLA'])")
 
+add('CF-37-https-url-validity','z.url({ protocol: /^https$/ })',"z.string().startsWith('https://')")
+
 def hashes():
     paths=[ROOT/SOURCE,ROOT/BARREL,ROOT/TEST,ROOT/'package.json',ROOT/'CHANGELOG.md',ROOT/'pnpm-lock.yaml',
            *ROOT.joinpath('dist').rglob('*')]
@@ -85,7 +87,7 @@ def run(shadow,raw,label):
     failed=[a for file in data['testResults'] for a in file['assertionResults'] if a['status']=='failed']
     assertions=[a['fullName'] for a in failed if any('AssertionError' in message for message in a['failureMessages'])]
     return dict(exitCode=code,passed=data['numPassedTests'],total=data['numTotalTests'],failed=data['numFailedTests'],
-                runtimeErrors=sum(bool(file.get('message')) for file in data['testResults']) + data.get('numRuntimeErrorTestSuites',0),assertionFailures=assertions)
+                assertionOnly=len(assertions)==len(failed),runtimeErrors=sum(bool(file.get('message')) for file in data['testResults']) + data.get('numRuntimeErrorTestSuites',0),assertionFailures=assertions)
 
 def render(proof):
     rows=['# FINAL-MUTATIONS · 56-01','',
@@ -125,7 +127,7 @@ def main():
         try:
             file.write_text(original.replace(row['before'],row['after']))
             result=run(shadow,raw,row['id'])
-            killed=result['exitCode']!=0 and result['assertionFailures'] and result['runtimeErrors']==0 and result['total']==baseline['total']
+            killed=result['exitCode']!=0 and result['assertionFailures'] and result['assertionOnly'] and result['runtimeErrors']==0 and result['total']==baseline['total']
             proof['mutations'].append(dict(**row,result=result,killed=bool(killed)))
             proof['executed']+=1;proof['killed']+=int(bool(killed))
             proof['originalsUnchanged']=hashes()==before
