@@ -4,7 +4,8 @@
 
 B1 per agente implementato: cinque tipi, vincoli dichiarati, origine esplicita, deciso/proposto e immediate/next_apply.
 63/63 test nuovi, tutti visti rossi prima; tipi e lint OK. B7 implementato: 77/77 nuovi rossi, 140/140 B1+B7 verdi; output JSON di dominio, fonte e voto 1–10, serie giornaliere.
-Dichiarazioni nel manifest e distribuzione ancora da fare; nessun consumer aggiornato.
+Manifest/registry additivi e sottopercorsi parameters/presentation costruiti; 209/209 regressioni mirate, CJS 36/36.
+Versione, suite completa e mutazioni ancora da fare; nessun consumer aggiornato.
 SUMMARY: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md. Nessun rilascio.
 
 ## 05/10/2026 — v1.28.0, contratti di cap-ricerca e cap-lab per agente (Claude, `feat/54-ricerca-lab-contracts`)

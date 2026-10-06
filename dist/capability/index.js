@@ -21,4 +21,6 @@ export { AgentRegistryFileSchema, } from "./agent-registry-file.js";
 export { EnvSchemaFieldSchema, EnvSchemaDocSchema, } from "./env-schema.js";
 export { HealthStatusSchema, } from "./health-status.js";
 export * from "./capability-turn-lead.js";
+export * from "./parameters.js";
+export * from "./presentation.js";
 //# sourceMappingURL=index.js.map

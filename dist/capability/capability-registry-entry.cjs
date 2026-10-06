@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityRegistryEntrySchema = void 0;
 exports.toEndpoint = toEndpoint;
 exports.fromEndpoint = fromEndpoint;
+const parameters_js_1 = require("./parameters.cjs");
+const presentation_js_1 = require("./presentation.cjs");
 const zod_1 = require("zod");
 const capability_turn_lead_js_1 = require("./capability-turn-lead.cjs");
 const capability_tool_js_1 = require("./capability-tool.cjs");
@@ -73,6 +75,10 @@ exports.CapabilityRegistryEntrySchema = zod_1.z.object({
     context: capability_context_js_1.CapabilityContextDeclarationSchema.optional(),
     /** Opt-in turn leading for this agent; absent leaves the normal conversation unchanged. @since v1.25.0 */
     turnLead: capability_turn_lead_js_1.CapabilityTurnLeadDeclarationSchema.optional(),
+    /** Ordinary parameter metadata (B1); absent preserves every pre-v1.29 payload. */
+    parameters: parameters_js_1.CapabilityParametersDeclarationSchema.optional(),
+    /** Optional output/feedback/trend sections (B7), never configuration of an external project. */
+    presentation: presentation_js_1.CapabilityPresentationDeclarationSchema.optional(),
 });
 // -- Helpers ------------------------------------------------------------------
 /**

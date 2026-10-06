@@ -114,3 +114,10 @@ export const CapabilityAgentParametersSchema = z.object({
 }).strict().refine(agent => new Set(agent.parameters.map(resolved => resolved.parameter.key)).size === agent.parameters.length,
   { message: 'resolved parameter keys must be unique', path: ['parameters'] });
 export type CapabilityAgentParameters = z.infer<typeof CapabilityAgentParametersSchema>;
+
+export type CapabilityParameterKey = z.infer<typeof CapabilityParameterKeySchema>;
+export type CapabilityParameterValue = z.infer<typeof CapabilityParameterValueSchema>;
+export type CapabilityParameterOrigin = z.infer<typeof CapabilityParameterOriginSchema>;
+export type CapabilityParameterStatus = z.infer<typeof CapabilityParameterStatusSchema>;
+export type CapabilityParameterApplication = z.infer<typeof CapabilityParameterApplicationSchema>;
+export type CapabilityParameterOption = z.infer<typeof CapabilityParameterOptionSchema>;

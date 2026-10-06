@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 11:20 (06/10/2026)
+Ultimo aggiornamento: 11:22 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: PRESO, fonti lette. Nessun consumer o rilascio in questo incarico.
@@ -8,8 +8,8 @@ Stato: PRESO, fonti lette. Nessun consumer o rilascio in questo incarico.
 | Task | Stato | Commit | Prova |
 | --- | --- | --- | --- |
 | 1 B1 parametri | implementato e testato | 6730dfb | 0/63 → 63/63, tipi/lint OK |
-| 2 B7 uscite, feedback, andamento | implementato e testato | questo commit | 0/77 → 140/140 B1+B7, tipi/lint OK |
-| 3 dichiarazioni, export, smoke | da fare | — | — |
+| 2 B7 uscite, feedback, andamento | implementato e testato | 10e5e53 | 0/77 → 140/140 B1+B7, tipi/lint OK |
+| 3 dichiarazioni, export, smoke | implementato e testato | questo commit | 3/16 → 16/16; regressioni 209/209; CJS 31/36 → 36/36 |
 | 4 versione e qualità | da fare | — | — |
 | 5 mutazioni | da fare | — | — |
 
@@ -27,5 +27,7 @@ Task 1: tutti i 63 test nuovi hanno fallito per export assente (asserzione, ness
 
 Task 2: 77/77 test nuovi visti rossi per export assente; 140/140 B1+B7 verdi. Collezioni rifiutano agenti/capability estranei e duplicati; date ordinate e reali, rating intero 1–10.
 
+Task 3: 13/13 controlli nuovi rossi prima; i 3 casi preesistenti (legacy e autenticazione v1.28) erano già verdi. Poi 209/209 B1/B7/dichiarazioni/regressioni/smoke ESM; 36/36 CJS, build/dts, tipi e lint OK. Export parameters/presentation aggiunti nelle due mappe; manifest/registry dichiarano parameters e presentation facoltativi. Nessuna rotta nuova prevista dalle fonti: sola registrazione tramite il contratto manifest esistente.
+
 ## Resta
- dichiarazioni facoltative, smoke, versione, qualità, mutazioni e consegna.
+Versione, suite completa, build riproducibile, mutazioni e consegna.

@@ -26,7 +26,9 @@
       "./messaging": "./src/messaging/index.ts",
       "./model-router": "./src/model-router/index.ts",
       "./rag": "./src/rag/index.ts",
-      "./vault": "./src/vault/index.ts"
+      "./vault": "./src/vault/index.ts",
+      "./capability/parameters": "./src/capability/parameters.ts",
+      "./capability/presentation": "./src/capability/presentation.ts"
     }
   },
   "exports": {
@@ -109,6 +111,16 @@
       "types": "./dist/vault/index.d.cts",
       "import": "./dist/vault/index.js",
       "require": "./dist/vault/index.cjs"
+    },
+    "./capability/parameters": {
+      "types": "./dist/capability/parameters.d.cts",
+      "import": "./dist/capability/parameters.js",
+      "require": "./dist/capability/parameters.cjs"
+    },
+    "./capability/presentation": {
+      "types": "./dist/capability/presentation.d.cts",
+      "import": "./dist/capability/presentation.js",
+      "require": "./dist/capability/presentation.cjs"
     }
   },
   "files": [

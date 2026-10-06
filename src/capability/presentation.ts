@@ -119,3 +119,5 @@ export type CapabilityTrendMetric = z.infer<typeof CapabilityTrendMetricSchema>;
 export type CapabilityOutputsDeclaration = z.infer<typeof CapabilityOutputsDeclarationSchema>;
 export type CapabilityFeedbackDeclaration = z.infer<typeof CapabilityFeedbackDeclarationSchema>;
 export type CapabilityTrendPoint = z.infer<typeof CapabilityTrendPointSchema>;
+
+export type CapabilityFeedbackSourceKind = z.infer<typeof CapabilityFeedbackSourceKindSchema>;
