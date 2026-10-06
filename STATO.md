@@ -1,13 +1,16 @@
 # STATO
 
-## 06/10/2026 — bridge 1.29 in costruzione (Codex B, BRIDGE-129)
+## 06/10/2026 — bridge 1.29 proposta in review (Codex B, BRIDGE-129)
 
-B1 per agente implementato: cinque tipi, vincoli dichiarati, origine esplicita, deciso/proposto e immediate/next_apply.
-63/63 test nuovi, tutti visti rossi prima; tipi e lint OK. B7 implementato: 77/77 nuovi rossi, 140/140 B1+B7 verdi; output JSON di dominio, fonte e voto 1–10, serie giornaliere.
-Manifest/registry additivi e sottopercorsi parameters/presentation costruiti; 209/209 regressioni mirate, CJS 36/36.
-Versione 1.29.0 proposta, suite 1140/1140 + CJS 36/36 e qualità completa OK; dist 1024/1024 identica alla build pulita.
-Mutazioni e consegna ancora da fare; nessun consumer aggiornato.
-SUMMARY: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md. Nessun rilascio.
+B1 e B7 generici per agente implementati: parametri e vincoli con origine esplicita, uscite JSON,
+feedback con fonte e voto 1–10, serie giornaliere. Manifest/registry additivi e due nuovi sottopercorsi.
+194/194 test nuovi visti rossi; suite finale 1161/1161 (82/82 file) e CJS 36/36. Tipi, lint, build/dts
+e check:pack OK; dist 1024/1024 identica alla build pulita. Nessun export precedente rimosso o rinominato.
+133/133 mutazioni con asserzioni reali in due lotti; riesecuzione unica finale SALTATA dopo 3 tentativi
+per timeout di avvio (nessun timeout contato come rosso). Dettagli e prove nominative nel SUMMARY.
+Le fonti non fissano nuove rotte: soli schemi e dichiarazioni, endpoint v1.28 invariati. Rotte, consumer
+e rilascio attendono Samira/coordinatrice. Nessun push, tag, merge, deploy o consumer aggiornato.
+SUMMARY: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md. PRONTO PER REVISIONE.
 
 ## 05/10/2026 — v1.28.0, contratti di cap-ricerca e cap-lab per agente (Claude, `feat/54-ricerca-lab-contracts`)
 

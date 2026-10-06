@@ -26,3 +26,9 @@ describe('v1.29 additive distribution', () => {
     });
   }
 });
+
+it.each(['parameters', 'presentation'])('registers new %s build/export targets together', name => {
+  const key = './capability/' + name;
+  expect(pkg.zshy.exports[key]).toBe('./src/capability/' + name + '.ts');
+  expect(pkg.exports[key]).toEqual({ types: './dist/capability/' + name + '.d.cts', import: './dist/capability/' + name + '.js', require: './dist/capability/' + name + '.cjs' });
+});

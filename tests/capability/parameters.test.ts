@@ -32,11 +32,12 @@ const invalidDefinitions: [string, unknown][] = [
   ['unknown application time', { ...parameter, appliesWhen: 'tomorrow' }],
   ['missing spend flag', { ...parameter, consumes: undefined }],
   ['extra definition field', { ...parameter, projectId: 'food' }],
-  ['minimum above maximum', { ...parameter, min: 101 }],
+  ['minimum above maximum', { ...withoutDefault, min: 101 }],
   ['default below minimum', { ...parameter, platformDefault: -1 }],
   ['default above maximum', { ...parameter, platformDefault: 101 }],
   ['wrong default type', { ...parameter, platformDefault: '15' }],
-  ['nonfinite minimum', { ...parameter, min: Infinity }],
+  ['nonfinite minimum', { ...withoutDefault, min: Infinity, max: undefined }],
+  ['nonfinite maximum', { ...parameter, max: Infinity }],
   ['nonfinite default', { ...parameter, platformDefault: Infinity }],
   ['fractional integer value', { ...parameter, type: 'integer', platformDefault: 1.5 }],
   ['fractional integer bound', { ...parameter, type: 'integer', min: 0.5 }],
@@ -54,6 +55,14 @@ const invalidDefinitions: [string, unknown][] = [
   ['extra enum option field', { ...nonNumeric, type: 'enum', options: [{ value: 'a', label: 'A', extra: true }] }],
 ];
 const invalidResolved: [string, unknown][] = [
+  ['wrong string chosen type', { parameter: { ...nonNumeric, type: 'string' }, origin: 'agent_override', value: 1 }],
+  ['wrong boolean chosen type', { parameter: { ...nonNumeric, type: 'boolean' }, origin: 'agent_override', value: 1 }],
+  ['unknown enum choice', { parameter: { ...nonNumeric, type: 'enum', options: [{ value: 'a', label: 'A' }] }, origin: 'agent_override', value: 'b' }],
+  ['fractional chosen integer', { parameter: { ...withoutDefault, type: 'integer' }, origin: 'agent_override', value: 1.5 }],
+  ['chosen string too short', { parameter: { ...nonNumeric, type: 'string', minLength: 2 }, origin: 'agent_override', value: 'a' }],
+  ['chosen string too long', { parameter: { ...nonNumeric, type: 'string', maxLength: 1 }, origin: 'agent_override', value: 'ab' }],
+  ['choice state zero is still a value', { parameter: withoutDefault, origin: 'needs_choice', value: 0 }],
+  ['choice state false default exists', { parameter: { ...nonNumeric, type: 'boolean', platformDefault: false }, origin: 'needs_choice' }],
   ['unknown origin', { ...resolved, origin: 'owner' }],
   ['missing chosen value', { ...resolved, origin: 'agent_override', value: undefined }],
   ['chosen value outside constraints', { ...resolved, origin: 'agent_override', value: 101 }],
@@ -113,4 +122,27 @@ describe('B1 declared capability parameters', () => {
   ])('rejects %s', (_name, value) => {
     expect(schema('CapabilityAgentParametersSchema').safeParse(value).success).toBe(false);
   });
+});
+
+it.each([NaN, Infinity, [], {}, null].map(value => [value]))('public parameter value rejects nonprimitive/nonfinite input %#', value => {
+  expect(schema('CapabilityParameterValueSchema').safeParse(value).success).toBe(false);
+});
+it('zero and false platform defaults remain resolved, never missing', () => {
+  for (const parameter of [
+    { ...nonNumeric, type: 'boolean', platformDefault: false },
+    { ...withoutDefault, platformDefault: 0 },
+  ]) {
+    const value = { parameter, origin: 'platform_default', value: parameter.platformDefault };
+    expect(schema('CapabilityAgentParameterSchema').safeParse(value).success).toBe(true);
+    expect(schema('CapabilityAgentParameterSchema').parse(value)).toHaveProperty('value', parameter.platformDefault);
+  }
+});
+
+it.each([
+  { ...parameter, type: 'integer' },
+  { ...nonNumeric, type: 'string' },
+  { ...nonNumeric, type: 'boolean' },
+  { ...nonNumeric, type: 'enum', options: [{ value: 'a', label: 'A' }] },
+])('each parameter variant rejects extra fields %#', parameter => {
+  expect(schema('CapabilityParameterSchema').safeParse({ ...parameter, extra: true }).success).toBe(false);
 });

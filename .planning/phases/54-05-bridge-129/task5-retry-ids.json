@@ -1,0 +1,20 @@
+[
+  "new-build-presentation",
+  "old-symbol-.",
+  "old-symbol-._auth",
+  "old-symbol-._agent",
+  "old-symbol-._capability",
+  "old-symbol-._voice",
+  "old-symbol-._capability_stt",
+  "old-symbol-._capability_tts",
+  "old-symbol-._capability_voice-live",
+  "old-symbol-._capability_ricerca",
+  "old-symbol-._capability_lab",
+  "old-symbol-._http",
+  "old-symbol-._memory",
+  "old-symbol-._messaging",
+  "old-symbol-._model-router",
+  "old-symbol-._rag",
+  "old-symbol-._vault",
+  "version"
+]

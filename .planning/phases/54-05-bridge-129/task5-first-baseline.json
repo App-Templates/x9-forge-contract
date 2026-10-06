@@ -1,0 +1,2119 @@
+{
+  "numTotalTestSuites": 9,
+  "numPassedTestSuites": 9,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 188,
+  "numPassedTests": 188,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1791279085836,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution uses the coordinated 1.29.0 proposal version",
+          "status": "passed",
+          "title": "uses the coordinated 1.29.0 proposal version",
+          "duration": 0.7744579999999814,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at .",
+          "status": "passed",
+          "title": "preserves old targets and symbols at .",
+          "duration": 126.79987499999999,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./auth",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./auth",
+          "duration": 9.315667000000019,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./agent",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./agent",
+          "duration": 30.112000000000023,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability",
+          "duration": 76.89350000000002,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./voice",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./voice",
+          "duration": 58.17500000000001,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/stt",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/stt",
+          "duration": 3.517667000000017,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/tts",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/tts",
+          "duration": 1.812958999999978,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/voice-live",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/voice-live",
+          "duration": 4.671124999999961,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/ricerca",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/ricerca",
+          "duration": 14.47037499999999,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/lab",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/lab",
+          "duration": 15.844499999999982,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./http",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./http",
+          "duration": 119.02104200000008,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./memory",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./memory",
+          "duration": 27.054167000000007,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./messaging",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./messaging",
+          "duration": 8.899291000000062,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./model-router",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./model-router",
+          "duration": 0.32558400000004895,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./rag",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./rag",
+          "duration": 44.13091700000007,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./vault",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./vault",
+          "duration": 30.348666999999978,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "registers new parameters build/export targets together",
+          "status": "passed",
+          "title": "registers new parameters build/export targets together",
+          "duration": 0.0873749999999518,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "registers new presentation build/export targets together",
+          "status": "passed",
+          "title": "registers new presentation build/export targets together",
+          "duration": 0.03487500000005639,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1791279086026,
+      "endTime": 1791279086602.3486,
+      "status": "passed",
+      "message": "",
+      "name": "/private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-fe1vbmi6/tests/capability/bridge-129-package.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest retains an old payload exactly",
+          "status": "passed",
+          "title": "manifest retains an old payload exactly",
+          "duration": 1.8931249999999977,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest retains B1 parameters",
+          "status": "passed",
+          "title": "manifest retains B1 parameters",
+          "duration": 1.3865829999999733,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest retains B7 presentation",
+          "status": "passed",
+          "title": "manifest retains B7 presentation",
+          "duration": 0.40954099999999016,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest validates B1 rather than silently stripping it",
+          "status": "passed",
+          "title": "manifest validates B1 rather than silently stripping it",
+          "duration": 0.435416000000032,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest validates B7 rather than silently stripping it",
+          "status": "passed",
+          "title": "manifest validates B7 rather than silently stripping it",
+          "duration": 0.12862499999999955,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry retains an old payload exactly",
+          "status": "passed",
+          "title": "registry retains an old payload exactly",
+          "duration": 0.42779100000001336,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry retains B1 parameters",
+          "status": "passed",
+          "title": "registry retains B1 parameters",
+          "duration": 0.110416999999984,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry retains B7 presentation",
+          "status": "passed",
+          "title": "registry retains B7 presentation",
+          "duration": 0.07575000000002774,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry validates B1 rather than silently stripping it",
+          "status": "passed",
+          "title": "registry validates B1 rather than silently stripping it",
+          "duration": 0.11362500000001319,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry validates B7 rather than silently stripping it",
+          "status": "passed",
+          "title": "registry validates B7 rather than silently stripping it",
+          "duration": 0.2957499999999982,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations the existing manifest endpoint carries the optional declarations",
+          "status": "passed",
+          "title": "the existing manifest endpoint carries the optional declarations",
+          "duration": 0.20825000000002092,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths",
+          "status": "passed",
+          "title": "existing per-agent config routes retain secret auth and their paths",
+          "duration": 0.20066700000000992,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM",
+          "status": "passed",
+          "title": "@x9-forge/contracts/capability/parameters resolves with ESM",
+          "duration": 14.46875,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS",
+          "status": "passed",
+          "title": "@x9-forge/contracts/capability/parameters resolves with CJS",
+          "duration": 50.1225,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM",
+          "status": "passed",
+          "title": "@x9-forge/contracts/capability/presentation resolves with ESM",
+          "duration": 22.376291000000037,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS",
+          "status": "passed",
+          "title": "@x9-forge/contracts/capability/presentation resolves with CJS",
+          "duration": 3.3242500000000064,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1791279087048,
+      "endTime": 1791279087144.3242,
+      "status": "passed",
+      "message": "",
+      "name": "/private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-fe1vbmi6/tests/capability/declarations.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters accepts number without choosing a product default",
+          "status": "passed",
+          "title": "accepts number without choosing a product default",
+          "duration": 1.977249999999998,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters accepts integer without choosing a product default",
+          "status": "passed",
+          "title": "accepts integer without choosing a product default",
+          "duration": 0.5441250000000082,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters accepts boolean false without choosing a product default",
+          "status": "passed",
+          "title": "accepts boolean false without choosing a product default",
+          "duration": 0.33033399999999347,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters accepts string without choosing a product default",
+          "status": "passed",
+          "title": "accepts string without choosing a product default",
+          "duration": 0.42849999999998545,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters accepts enum without choosing a product default",
+          "status": "passed",
+          "title": "accepts enum without choosing a product default",
+          "duration": 0.6330409999999915,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters accepts required choice without choosing a product default",
+          "status": "passed",
+          "title": "accepts required choice without choosing a product default",
+          "duration": 0.10729200000000105,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters accepts proposed next apply without choosing a product default",
+          "status": "passed",
+          "title": "accepts proposed next apply without choosing a product default",
+          "duration": 0.1478749999999991,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects invalid key",
+          "status": "passed",
+          "title": "rejects invalid key",
+          "duration": 0.39091700000000174,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty label",
+          "status": "passed",
+          "title": "rejects empty label",
+          "duration": 0.13991599999999949,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty description",
+          "status": "passed",
+          "title": "rejects empty description",
+          "duration": 0.12166700000000219,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty explanation",
+          "status": "passed",
+          "title": "rejects empty explanation",
+          "duration": 0.10041599999999562,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty group",
+          "status": "passed",
+          "title": "rejects empty group",
+          "duration": 0.09033400000001279,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty unit",
+          "status": "passed",
+          "title": "rejects empty unit",
+          "duration": 0.08004199999999173,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects unknown type",
+          "status": "passed",
+          "title": "rejects unknown type",
+          "duration": 0.06537500000001728,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects unknown status",
+          "status": "passed",
+          "title": "rejects unknown status",
+          "duration": 0.12587500000000773,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects missing reference",
+          "status": "passed",
+          "title": "rejects missing reference",
+          "duration": 0.09583299999999895,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects unknown application time",
+          "status": "passed",
+          "title": "rejects unknown application time",
+          "duration": 0.12379100000001131,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects missing spend flag",
+          "status": "passed",
+          "title": "rejects missing spend flag",
+          "duration": 0.07024999999998727,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects extra definition field",
+          "status": "passed",
+          "title": "rejects extra definition field",
+          "duration": 0.06783300000000736,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects minimum above maximum",
+          "status": "passed",
+          "title": "rejects minimum above maximum",
+          "duration": 0.0958750000000066,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects default below minimum",
+          "status": "passed",
+          "title": "rejects default below minimum",
+          "duration": 0.05112500000001319,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects default above maximum",
+          "status": "passed",
+          "title": "rejects default above maximum",
+          "duration": 0.05083300000001145,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects wrong default type",
+          "status": "passed",
+          "title": "rejects wrong default type",
+          "duration": 0.06991700000000378,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects nonfinite minimum",
+          "status": "passed",
+          "title": "rejects nonfinite minimum",
+          "duration": 0.07499999999998863,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects nonfinite maximum",
+          "status": "passed",
+          "title": "rejects nonfinite maximum",
+          "duration": 0.059459000000003925,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects nonfinite default",
+          "status": "passed",
+          "title": "rejects nonfinite default",
+          "duration": 0.0488330000000019,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects fractional integer value",
+          "status": "passed",
+          "title": "rejects fractional integer value",
+          "duration": 0.07958399999998278,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects fractional integer bound",
+          "status": "passed",
+          "title": "rejects fractional integer bound",
+          "duration": 0.06516600000000494,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects string length below minimum",
+          "status": "passed",
+          "title": "rejects string length below minimum",
+          "duration": 0.06450000000000955,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects string length above maximum",
+          "status": "passed",
+          "title": "rejects string length above maximum",
+          "duration": 0.05570800000000986,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects string bounds reversed",
+          "status": "passed",
+          "title": "rejects string bounds reversed",
+          "duration": 0.05995799999999463,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects fractional string bound",
+          "status": "passed",
+          "title": "rejects fractional string bound",
+          "duration": 0.063083000000006,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects negative string bound",
+          "status": "passed",
+          "title": "rejects negative string bound",
+          "duration": 0.0689999999999884,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects wrong boolean default",
+          "status": "passed",
+          "title": "rejects wrong boolean default",
+          "duration": 0.06129100000001131,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty enum",
+          "status": "passed",
+          "title": "rejects empty enum",
+          "duration": 0.06841699999998241,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects duplicate enum options",
+          "status": "passed",
+          "title": "rejects duplicate enum options",
+          "duration": 0.0660829999999919,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects unknown enum default",
+          "status": "passed",
+          "title": "rejects unknown enum default",
+          "duration": 0.060000000000002274,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty enum value",
+          "status": "passed",
+          "title": "rejects empty enum value",
+          "duration": 0.08612500000000978,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty enum label",
+          "status": "passed",
+          "title": "rejects empty enum label",
+          "duration": 0.06874999999999432,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects extra enum option field",
+          "status": "passed",
+          "title": "rejects extra enum option field",
+          "duration": 0.06416699999999764,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters retains platform default provenance",
+          "status": "passed",
+          "title": "retains platform default provenance",
+          "duration": 0.26599999999999113,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters retains agent override provenance",
+          "status": "passed",
+          "title": "retains agent override provenance",
+          "duration": 0.06537499999998886,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters retains required choice provenance",
+          "status": "passed",
+          "title": "retains required choice provenance",
+          "duration": 0.06466700000001424,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects wrong string chosen type",
+          "status": "passed",
+          "title": "rejects wrong string chosen type",
+          "duration": 0.07187500000000568,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects wrong boolean chosen type",
+          "status": "passed",
+          "title": "rejects wrong boolean chosen type",
+          "duration": 0.06337500000000773,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects unknown enum choice",
+          "status": "passed",
+          "title": "rejects unknown enum choice",
+          "duration": 0.05729100000002063,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects fractional chosen integer",
+          "status": "passed",
+          "title": "rejects fractional chosen integer",
+          "duration": 0.05520899999999074,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects chosen string too short",
+          "status": "passed",
+          "title": "rejects chosen string too short",
+          "duration": 0.053875000000005,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects chosen string too long",
+          "status": "passed",
+          "title": "rejects chosen string too long",
+          "duration": 0.05912499999999454,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects unknown origin",
+          "status": "passed",
+          "title": "rejects unknown origin",
+          "duration": 0.06799999999998363,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects missing chosen value",
+          "status": "passed",
+          "title": "rejects missing chosen value",
+          "duration": 0.04579100000000835,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects chosen value outside constraints",
+          "status": "passed",
+          "title": "rejects chosen value outside constraints",
+          "duration": 0.04912500000000364,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects default source without declared default",
+          "status": "passed",
+          "title": "rejects default source without declared default",
+          "duration": 0.047875000000004775,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects default source disagrees with default",
+          "status": "passed",
+          "title": "rejects default source disagrees with default",
+          "duration": 0.0469579999999894,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects choice state with value",
+          "status": "passed",
+          "title": "rejects choice state with value",
+          "duration": 0.049374999999997726,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects choice state hides default",
+          "status": "passed",
+          "title": "rejects choice state hides default",
+          "duration": 0.049915999999996075,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects extra resolved field",
+          "status": "passed",
+          "title": "rejects extra resolved field",
+          "duration": 0.048499999999989996,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters declares spend availability and parameter metadata without agent configuration",
+          "status": "passed",
+          "title": "declares spend availability and parameter metadata without agent configuration",
+          "duration": 0.21758299999999053,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects repeated parameter key",
+          "status": "passed",
+          "title": "rejects repeated parameter key",
+          "duration": 0.09191699999999514,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects extra declaration field",
+          "status": "passed",
+          "title": "rejects extra declaration field",
+          "duration": 0.053625000000010914,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects missing capability spend flag",
+          "status": "passed",
+          "title": "rejects missing capability spend flag",
+          "duration": 0.050499999999999545,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects missing ledger flag",
+          "status": "passed",
+          "title": "rejects missing ledger flag",
+          "duration": 0.051208000000002585,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters scopes values to one agent and one capability with an explicit version",
+          "status": "passed",
+          "title": "scopes values to one agent and one capability with an explicit version",
+          "duration": 0.21016600000001517,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects bad agent id",
+          "status": "passed",
+          "title": "rejects bad agent id",
+          "duration": 0.125583000000006,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects missing agent id",
+          "status": "passed",
+          "title": "rejects missing agent id",
+          "duration": 0.06587499999997704,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects empty capability",
+          "status": "passed",
+          "title": "rejects empty capability",
+          "duration": 0.0735830000000135,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects zero version",
+          "status": "passed",
+          "title": "rejects zero version",
+          "duration": 0.07470900000001279,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects fractional version",
+          "status": "passed",
+          "title": "rejects fractional version",
+          "duration": 3.2848339999999894,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects repeated agent parameter key",
+          "status": "passed",
+          "title": "rejects repeated agent parameter key",
+          "duration": 0.16670899999999733,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B1 declared capability parameters"
+          ],
+          "fullName": "B1 declared capability parameters rejects extra agent field",
+          "status": "passed",
+          "title": "rejects extra agent field",
+          "duration": 0.07079099999998562,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "public parameter value rejects nonprimitive/nonfinite input 0",
+          "status": "passed",
+          "title": "public parameter value rejects nonprimitive/nonfinite input 0",
+          "duration": 0.1978330000000028,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "public parameter value rejects nonprimitive/nonfinite input 1",
+          "status": "passed",
+          "title": "public parameter value rejects nonprimitive/nonfinite input 1",
+          "duration": 0.059459000000003925,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "public parameter value rejects nonprimitive/nonfinite input 2",
+          "status": "passed",
+          "title": "public parameter value rejects nonprimitive/nonfinite input 2",
+          "duration": 0.0514169999999865,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "public parameter value rejects nonprimitive/nonfinite input 3",
+          "status": "passed",
+          "title": "public parameter value rejects nonprimitive/nonfinite input 3",
+          "duration": 0.17166700000001356,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "public parameter value rejects nonprimitive/nonfinite input 4",
+          "status": "passed",
+          "title": "public parameter value rejects nonprimitive/nonfinite input 4",
+          "duration": 0.20316700000000765,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "zero and false platform defaults remain resolved, never missing",
+          "status": "passed",
+          "title": "zero and false platform defaults remain resolved, never missing",
+          "duration": 0.707917000000009,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1791279087605,
+      "endTime": 1791279087618.708,
+      "status": "passed",
+      "message": "",
+      "name": "/private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-fe1vbmi6/tests/capability/parameters.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends retains domain content as data, including nested JSON",
+          "status": "passed",
+          "title": "retains domain content as data, including nested JSON",
+          "duration": 2.341750000000019,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty id",
+          "status": "passed",
+          "title": "rejects empty id",
+          "duration": 0.6344580000000235,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects invalid agent id",
+          "status": "passed",
+          "title": "rejects invalid agent id",
+          "duration": 0.1700840000000028,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects missing capability",
+          "status": "passed",
+          "title": "rejects missing capability",
+          "duration": 0.1427500000000066,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty kind",
+          "status": "passed",
+          "title": "rejects empty kind",
+          "duration": 0.1194579999999803,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty title",
+          "status": "passed",
+          "title": "rejects empty title",
+          "duration": 0.10670799999999758,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects missing summary",
+          "status": "passed",
+          "title": "rejects missing summary",
+          "duration": 0.09162500000002183,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects invalid timestamp",
+          "status": "passed",
+          "title": "rejects invalid timestamp",
+          "duration": 0.09570899999999938,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects impossible timestamp",
+          "status": "passed",
+          "title": "rejects impossible timestamp",
+          "duration": 0.09370799999999235,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra output field",
+          "status": "passed",
+          "title": "rejects extra output field",
+          "duration": 0.1428330000000244,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects non JSON content",
+          "status": "passed",
+          "title": "rejects non JSON content",
+          "duration": 0.18925000000001546,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects nonfinite content",
+          "status": "passed",
+          "title": "rejects nonfinite content",
+          "duration": 0.10845800000001304,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends accepts rating boundary 1 and project provenance",
+          "status": "passed",
+          "title": "accepts rating boundary 1 and project provenance",
+          "duration": 0.4747500000000002,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends accepts rating boundary 10 and project provenance",
+          "status": "passed",
+          "title": "accepts rating boundary 10 and project provenance",
+          "duration": 0.07912500000000477,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends retains domain-app provenance separately from the reviewer",
+          "status": "passed",
+          "title": "retains domain-app provenance separately from the reviewer",
+          "duration": 0.07887500000001069,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects rating below one",
+          "status": "passed",
+          "title": "rejects rating below one",
+          "duration": 0.10395900000000324,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects rating above ten",
+          "status": "passed",
+          "title": "rejects rating above ten",
+          "duration": 0.06904199999999605,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects fractional rating",
+          "status": "passed",
+          "title": "rejects fractional rating",
+          "duration": 0.06141700000000583,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects missing source",
+          "status": "passed",
+          "title": "rejects missing source",
+          "duration": 0.06125000000000114,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects unknown source",
+          "status": "passed",
+          "title": "rejects unknown source",
+          "duration": 0.06583399999999529,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty source id",
+          "status": "passed",
+          "title": "rejects empty source id",
+          "duration": 0.070541999999989,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra source field",
+          "status": "passed",
+          "title": "rejects extra source field",
+          "duration": 0.071708000000001,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects missing reviewer",
+          "status": "passed",
+          "title": "rejects missing reviewer",
+          "duration": 0.06041700000000105,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty feedback id",
+          "status": "passed",
+          "title": "rejects empty feedback id",
+          "duration": 0.0574579999999969,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects missing output id",
+          "status": "passed",
+          "title": "rejects missing output id",
+          "duration": 0.05608399999999847,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects bad feedback agent",
+          "status": "passed",
+          "title": "rejects bad feedback agent",
+          "duration": 0.06254200000000765,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty feedback capability",
+          "status": "passed",
+          "title": "rejects empty feedback capability",
+          "duration": 0.05437499999999318,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects bad feedback timestamp",
+          "status": "passed",
+          "title": "rejects bad feedback timestamp",
+          "duration": 0.05850000000000932,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra feedback field",
+          "status": "passed",
+          "title": "rejects extra feedback field",
+          "duration": 0.051084000000003016,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends accepts a generic daily series, including legitimate decreases",
+          "status": "passed",
+          "title": "accepts a generic daily series, including legitimate decreases",
+          "duration": 0.8787499999999966,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects bad series agent",
+          "status": "passed",
+          "title": "rejects bad series agent",
+          "duration": 0.1972080000000176,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty series capability",
+          "status": "passed",
+          "title": "rejects empty series capability",
+          "duration": 0.08416700000000787,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty metric key",
+          "status": "passed",
+          "title": "rejects empty metric key",
+          "duration": 0.07983299999997939,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty metric label",
+          "status": "passed",
+          "title": "rejects empty metric label",
+          "duration": 0.07233300000001464,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty metric unit",
+          "status": "passed",
+          "title": "rejects empty metric unit",
+          "duration": 0.07179099999999039,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra metric field",
+          "status": "passed",
+          "title": "rejects extra metric field",
+          "duration": 0.056457999999992126,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects impossible trend date",
+          "status": "passed",
+          "title": "rejects impossible trend date",
+          "duration": 0.10904199999998809,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects nonfinite trend value",
+          "status": "passed",
+          "title": "rejects nonfinite trend value",
+          "duration": 0.07099999999999795,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra point field",
+          "status": "passed",
+          "title": "rejects extra point field",
+          "duration": 0.06604200000001015,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects repeated trend day",
+          "status": "passed",
+          "title": "rejects repeated trend day",
+          "duration": 0.05916700000000219,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects unsorted trend days",
+          "status": "passed",
+          "title": "rejects unsorted trend days",
+          "duration": 0.049374999999997726,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra series field",
+          "status": "passed",
+          "title": "rejects extra series field",
+          "duration": 0.05391599999998675,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends declares the sections dynamically, without a food-specific field",
+          "status": "passed",
+          "title": "declares the sections dynamically, without a food-specific field",
+          "duration": 0.6499170000000163,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty output label",
+          "status": "passed",
+          "title": "rejects empty output label",
+          "duration": 0.1088749999999834,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty output kinds",
+          "status": "passed",
+          "title": "rejects empty output kinds",
+          "duration": 0.07212499999999977,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects repeated output kind",
+          "status": "passed",
+          "title": "rejects repeated output kind",
+          "duration": 0.07083299999999326,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty kind label",
+          "status": "passed",
+          "title": "rejects empty kind label",
+          "duration": 0.069500000000005,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty kind description",
+          "status": "passed",
+          "title": "rejects empty kind description",
+          "duration": 0.06787499999998658,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra kind field",
+          "status": "passed",
+          "title": "rejects extra kind field",
+          "duration": 0.06691599999999198,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects unknown field type",
+          "status": "passed",
+          "title": "rejects unknown field type",
+          "duration": 0.08787499999999682,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty field label",
+          "status": "passed",
+          "title": "rejects empty field label",
+          "duration": 0.0790839999999946,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects repeated output field",
+          "status": "passed",
+          "title": "rejects repeated output field",
+          "duration": 0.08283400000001961,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra output field declaration",
+          "status": "passed",
+          "title": "rejects extra output field declaration",
+          "duration": 0.3800420000000031,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra output declaration field",
+          "status": "passed",
+          "title": "rejects extra output declaration field",
+          "duration": 1.7821250000000077,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty feedback label",
+          "status": "passed",
+          "title": "rejects empty feedback label",
+          "duration": 0.09541699999999764,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects unknown feedback kind",
+          "status": "passed",
+          "title": "rejects unknown feedback kind",
+          "duration": 0.06620899999998642,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects empty feedback sources",
+          "status": "passed",
+          "title": "rejects empty feedback sources",
+          "duration": 0.061458000000016,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects repeated feedback sources",
+          "status": "passed",
+          "title": "rejects repeated feedback sources",
+          "duration": 0.05704099999999812,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects unknown feedback source declaration",
+          "status": "passed",
+          "title": "rejects unknown feedback source declaration",
+          "duration": 0.060875000000010004,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra feedback declaration field",
+          "status": "passed",
+          "title": "rejects extra feedback declaration field",
+          "duration": 0.05062499999999659,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects repeated trend metric",
+          "status": "passed",
+          "title": "rejects repeated trend metric",
+          "duration": 0.05316600000000449,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends rejects extra presentation field",
+          "status": "passed",
+          "title": "rejects extra presentation field",
+          "duration": 0.0503750000000025,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema scopes a collection to one agent and capability",
+          "status": "passed",
+          "title": "CapabilityOutputsSchema scopes a collection to one agent and capability",
+          "duration": 0.22649999999998727,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign agent",
+          "status": "passed",
+          "title": "CapabilityOutputsSchema rejects foreign agent",
+          "duration": 0.08299999999999841,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign capability",
+          "status": "passed",
+          "title": "CapabilityOutputsSchema rejects foreign capability",
+          "duration": 0.059458999999975504,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects duplicate ids or metric keys",
+          "status": "passed",
+          "title": "CapabilityOutputsSchema rejects duplicate ids or metric keys",
+          "duration": 3.6392079999999964,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects unknown envelope fields",
+          "status": "passed",
+          "title": "CapabilityOutputsSchema rejects unknown envelope fields",
+          "duration": 0.19724999999999682,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema scopes a collection to one agent and capability",
+          "status": "passed",
+          "title": "CapabilityFeedbackListSchema scopes a collection to one agent and capability",
+          "duration": 0.4978330000000142,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign agent",
+          "status": "passed",
+          "title": "CapabilityFeedbackListSchema rejects foreign agent",
+          "duration": 0.19337500000000318,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign capability",
+          "status": "passed",
+          "title": "CapabilityFeedbackListSchema rejects foreign capability",
+          "duration": 0.15558300000000713,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects duplicate ids or metric keys",
+          "status": "passed",
+          "title": "CapabilityFeedbackListSchema rejects duplicate ids or metric keys",
+          "duration": 0.08329200000000014,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects unknown envelope fields",
+          "status": "passed",
+          "title": "CapabilityFeedbackListSchema rejects unknown envelope fields",
+          "duration": 0.056667000000004464,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema scopes a collection to one agent and capability",
+          "status": "passed",
+          "title": "CapabilityTrendsSchema scopes a collection to one agent and capability",
+          "duration": 0.246167000000014,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign agent",
+          "status": "passed",
+          "title": "CapabilityTrendsSchema rejects foreign agent",
+          "duration": 0.060000000000002274,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign capability",
+          "status": "passed",
+          "title": "CapabilityTrendsSchema rejects foreign capability",
+          "duration": 0.047584000000000515,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects duplicate ids or metric keys",
+          "status": "passed",
+          "title": "CapabilityTrendsSchema rejects duplicate ids or metric keys",
+          "duration": 0.05358300000000327,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "B7 generic per-agent outputs, feedback and trends"
+          ],
+          "fullName": "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects unknown envelope fields",
+          "status": "passed",
+          "title": "CapabilityTrendsSchema rejects unknown envelope fields",
+          "duration": 0.04050000000000864,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1791279087352,
+      "endTime": 1791279087369.246,
+      "status": "passed",
+      "message": "",
+      "name": "/private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-fe1vbmi6/tests/capability/presentation.test.ts"
+    }
+  ]
+}

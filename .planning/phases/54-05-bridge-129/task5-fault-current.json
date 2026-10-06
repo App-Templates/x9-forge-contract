@@ -1,0 +1,434 @@
+{
+  "numTotalTestSuites": 5,
+  "numPassedTestSuites": 2,
+  "numFailedTestSuites": 3,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 35,
+  "numPassedTests": 33,
+  "numFailedTests": 2,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1791279866676,
+  "success": false,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution uses the coordinated 1.29.0 proposal version",
+          "status": "passed",
+          "title": "uses the coordinated 1.29.0 proposal version",
+          "duration": 1.1783329999999523,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at .",
+          "status": "passed",
+          "title": "preserves old targets and symbols at .",
+          "duration": 401.34391700000003,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./auth",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./auth",
+          "duration": 427.72349999999994,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./agent",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./agent",
+          "duration": 448.225917,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability",
+          "duration": 864.8227910000003,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./voice",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./voice",
+          "duration": 1093.790708,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/stt",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/stt",
+          "duration": 63.25620799999979,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/tts",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/tts",
+          "duration": 20.743625000000065,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/voice-live",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/voice-live",
+          "duration": 59.30150000000003,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/ricerca",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/ricerca",
+          "duration": 225.43258400000013,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./capability/lab",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./capability/lab",
+          "duration": 285.6199999999999,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./http",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./http",
+          "duration": 1983.6594170000008,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./memory",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./memory",
+          "duration": 466.31895799999984,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./messaging",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./messaging",
+          "duration": 134.71979199999987,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./model-router",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./model-router",
+          "duration": 4.4942089999995005,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./rag",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./rag",
+          "duration": 318.27016599999934,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "v1.29 additive distribution"
+          ],
+          "fullName": "v1.29 additive distribution preserves old targets and symbols at ./vault",
+          "status": "passed",
+          "title": "preserves old targets and symbols at ./vault",
+          "duration": 256.61604199999965,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "registers new parameters build/export targets together",
+          "status": "passed",
+          "title": "registers new parameters build/export targets together",
+          "duration": 0.18499999999949068,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [],
+          "fullName": "registers new presentation build/export targets together",
+          "status": "failed",
+          "title": "registers new presentation build/export targets together",
+          "duration": 26.462249999999585,
+          "failureMessages": [
+            "AssertionError: expected { \u2026(3) } to deeply equal { \u2026(3) }\n    at /private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-kqnwylkk/tests/capability/bridge-129-package.test.ts:33:28\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+          ],
+          "meta": {}
+        }
+      ],
+      "startTime": 1791279867060,
+      "endTime": 1791279874252.4622,
+      "status": "failed",
+      "message": "",
+      "name": "/private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-kqnwylkk/tests/capability/bridge-129-package.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest retains an old payload exactly",
+          "status": "passed",
+          "title": "manifest retains an old payload exactly",
+          "duration": 56.75629100000151,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest retains B1 parameters",
+          "status": "passed",
+          "title": "manifest retains B1 parameters",
+          "duration": 30.998708999999508,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest retains B7 presentation",
+          "status": "passed",
+          "title": "manifest retains B7 presentation",
+          "duration": 3.504000000000815,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest validates B1 rather than silently stripping it",
+          "status": "passed",
+          "title": "manifest validates B1 rather than silently stripping it",
+          "duration": 3.863499999999476,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations manifest validates B7 rather than silently stripping it",
+          "status": "passed",
+          "title": "manifest validates B7 rather than silently stripping it",
+          "duration": 0.4532920000001468,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry retains an old payload exactly",
+          "status": "passed",
+          "title": "registry retains an old payload exactly",
+          "duration": 1.6873749999995198,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry retains B1 parameters",
+          "status": "passed",
+          "title": "registry retains B1 parameters",
+          "duration": 0.5209169999998267,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry retains B7 presentation",
+          "status": "passed",
+          "title": "registry retains B7 presentation",
+          "duration": 0.3335000000006403,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry validates B1 rather than silently stripping it",
+          "status": "passed",
+          "title": "registry validates B1 rather than silently stripping it",
+          "duration": 0.35558400000081747,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations registry validates B7 rather than silently stripping it",
+          "status": "passed",
+          "title": "registry validates B7 rather than silently stripping it",
+          "duration": 19.420874999999796,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations the existing manifest endpoint carries the optional declarations",
+          "status": "passed",
+          "title": "the existing manifest endpoint carries the optional declarations",
+          "duration": 1.0089160000006814,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "additive B1/B7 declarations"
+          ],
+          "fullName": "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths",
+          "status": "passed",
+          "title": "existing per-agent config routes retain secret auth and their paths",
+          "duration": 1.7252499999995052,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM",
+          "status": "passed",
+          "title": "@x9-forge/contracts/capability/parameters resolves with ESM",
+          "duration": 189.93679200000042,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS",
+          "status": "passed",
+          "title": "@x9-forge/contracts/capability/parameters resolves with CJS",
+          "duration": 4608.692583,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM",
+          "status": "passed",
+          "title": "@x9-forge/contracts/capability/presentation resolves with ESM",
+          "duration": 413.6346249999988,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "built B1/B7 exports for real consumers"
+          ],
+          "fullName": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS",
+          "status": "failed",
+          "title": "@x9-forge/contracts/capability/presentation resolves with CJS",
+          "duration": 24.21125000000029,
+          "failureMessages": [
+            "AssertionError: expected [Function] to not throw an error but 'Error: Cannot find module \\'/private/\u2026' was thrown\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1420:16)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/chai@5.3.3/node_modules/chai/index.js:1686:25)\n    at /private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-kqnwylkk/tests/capability/declarations.test.ts:60:44\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)"
+          ],
+          "meta": {}
+        }
+      ],
+      "startTime": 1791279886285,
+      "endTime": 1791279891647.2112,
+      "status": "failed",
+      "message": "",
+      "name": "/private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge-129-mutations-kqnwylkk/tests/capability/declarations.test.ts"
+    }
+  ]
+}

@@ -37,6 +37,10 @@ aspettano la revisione della sessione Samira e la coordinatrice.
 - Prove: tests/capability/parameters.test.ts, presentation.test.ts, declarations.test.ts, bridge-129-package.test.ts,
   smoke ESM/CJS, mutazioni su copie temporanee in scripts/mutate-54-05.py.
   SUMMARY e numeri finali: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
+- Verificato localmente: 194/194 test nuovi visti rossi; suite finale 1161/1161 (82/82 file), CJS 36/36;
+  build/dts, typecheck, lint e check:pack riusciti, dist 1024/1024 identica alla build pulita.
+  133/133 mutazioni rilevate da asserzioni in due lotti. Giro unico finale SALTATO dopo 3 tentativi:
+  timeout di avvio, mai conteggiati come rosso; dettagli e report nel SUMMARY.
 - Test runner con massimo due worker e timeout 60 s, per il carico condiviso del Mac.
 
 ## v1.28.0 — proposta in review — Fase 54: cap-ricerca e cap-lab, per agente
