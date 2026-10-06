@@ -21,10 +21,13 @@ producer/consumer migration limits will be recorded after task completion.
 The pair preserves management x9-staging and runtime x9 without hard-coded
 aliases; one identifier cannot name multiple agents across either namespace.
 No numeric coercion or missing-ID inference. Public agent subpath exports added.
-Red: evidence/task-1-red.log (12 failures, exports absent).
-Green: evidence/task-1-green.log (12/12 tests).
+Red: evidence/task-1-red.txt (12 failures, exports absent).
+Green: evidence/task-1-green.txt (12/12 tests).
 Mutations: ambiguity guard, empty management ID, numeric coercion and inferred
 runtime ID, all 4/4 rejected by assertion failures in the private copy; their
-outputs are evidence/task-1-mutation-*.log. Private copy restored after each.
+outputs are evidence/task-1-mutation-*.txt. Private copy restored after each.
 
+Ultimo aggiornamento: 23:44
+
+Evidence uses .txt so the original captured output is tracked despite the repository log ignore rule.
 Ultimo aggiornamento: 23:44
