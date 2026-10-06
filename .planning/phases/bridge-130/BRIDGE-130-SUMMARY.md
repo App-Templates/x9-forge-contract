@@ -1,6 +1,6 @@
 # BRIDGE-130 — execution record
 
-Status: tasks 1–4 implemented and tested; full verification pending. Base d574f68 (1.29.0), branch
+Status: COMPLETE — implemented and tested; ready for independent review. Base d574f68 (1.29.0), branch
 codex/bridge-130. Scope and decisions: BRIDGE-130-PLAN.md. Product decisions
 D-A0..D-A8 confirmed at 01:35/01:40; no expansion into product work; meditation remains stopped.
 
@@ -84,8 +84,8 @@ Red: evidence/task-4-red-final.txt (26/28 failed, after making rejection checks
 assert the expected schema message instead of accepting an unrelated exception).
 Initial output is also preserved. Green: evidence/task-4-green.txt (110/110,
 including 28 new lookup tests). Both real Node CJS and ESM probes first failed for
-the absent helper after a private build, then passed 6/6 behavioral assertions
-each. The new CJS probe is invoked by the existing standard smoke test.
+the absent helper after a private build, then the ESM probe passed 6/6; the corrected CJS proof is
+recorded in the follow-up below. The new CJS probe is invoked by the existing standard smoke test.
 Mutations: availability, missing source, management target, fuzzy match, case
 folding, legacy fallback, absent-to-stopped, payload validation and partial-list
 acceptance; 9/9 killed by specific regression assertions. All captured outputs
@@ -124,3 +124,49 @@ The earlier full suite passed 1532/1532 in 97/97 files; the suite is repeated
 once because these 17 meaningful boundary tests were added afterward.
 
 Ultimo aggiornamento: 23:57
+
+## Final verification and limits
+
+| Check | Result | Captured output |
+| --- | --- | --- |
+| Complete source suite, one worker | 1549/1549 tests, 98/98 files | evidence/full-source-suite-final.txt |
+| New source tests | 113/113 within the full suite | 12 identity + 32 runtime + 24 list + 28 lookup + 17 boundaries |
+| Mutation protection | 53/53 killed; one initial survivor corrected | evidence/mutation-results.json and individual red outputs |
+| tsc --noEmit | exit 0; no source changes afterward | evidence/typecheck.txt, verification-results.json |
+| Lint changed TypeScript | exit 0 on 11/11 files | evidence/changed-source-lint-final.txt |
+| Private dual build | exit 0; 262/262 declarations portable | evidence/task-4-private-build-green.txt |
+| Real CJS public consumption | 36/36 old probes + 6/6 new assertions | evidence/task-4-cjs-green-final.txt |
+| CJS integration wiring | 2/2 assertions | evidence/task-4-cjs-wiring-green.txt |
+| Real ESM public consumption | 6/6 assertions | evidence/task-4-mjs-green.txt |
+| Configured package checks | publint + attw exit 0 | evidence/private-package-check.txt |
+| Private source restored | 131/131 files identical to assigned worktree | evidence/private-source-restored.json |
+| Product diff whitespace | exit 0 | evidence/productDiff-check-final.txt |
+| Whole diff whitespace | exit 2 from retained raw output whitespace | evidence/wholeDiff-check-final.txt |
+
+The package check reports a root types interop warning. Its configured Node16
+profile excludes node10 resolution and false-cjs, exactly as the existing script;
+this is not an assertion that all possible package profiles are warning-free.
+No version/CHANGELOG/dist differences and no perimeter violations. Evidence
+outputs are kept verbatim, including whitespace. Their hashes are recorded in
+evidence/evidence-manifest.json. No check is reported as live verification.
+
+## Before → after and proof
+
+| Requirement | Before → after | Verified by |
+| --- | --- | --- |
+| Identity | Runtime ID guessed from management slug → explicit unique pair, collision rejection | agent-runtime-identity.test.ts; internal-agents-runtime-list.test.ts |
+| Agent state | Legacy bot-less/running can be mistaken for active → only observed loaded channels prove active; missing information stays unknown | agent-runtime-state.test.ts; internal-agents-runtime-lookup.test.ts |
+| Channels | No per-agent wire inventory → individual loaded/paused/stopped/error/unknown plus separate readiness | agent-runtime-state.test.ts; agent-runtime-boundaries.test.ts |
+| Source | Empty or unavailable list indistinguishable → explicit availability, completeness and observation time | internal-agents-runtime-list.test.ts; internal-agents-runtime-lookup.test.ts |
+| Compatibility | Existing 1.29 payload → identical parsed fields and conservative canonical unknown | internal-agents-runtime-list.test.ts; real CJS/ESM smoke |
+
+No task skipped and no required file outside the perimeter. Four product commits:
+a88374c identity, 53d5a04 runtime/channels, 429b7ac list metadata, 9a5c602 lookup.
+Two separate test-strengthening commits: c3509bc CJS execution, 5902885 boundaries.
+The migration guide is BRIDGE-130-MIGRATION.md. This contract does not collect
+live channels in X9 or update Forge consumers: those tasks depend on the
+coordinator's release and subsequent integration. No release, push, merge, deploy,
+server access, browser action, secret read or other worktree edit was performed.
+Meditation remained stopped. The assigned worktree is frozen after delivery.
+
+Ultimo aggiornamento: 23:59
