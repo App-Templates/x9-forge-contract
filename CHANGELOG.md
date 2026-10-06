@@ -12,46 +12,54 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ## v1.29.0 — proposta in review — B1 parametri e B7 uscite/feedback/andamento
 
-Aggiunte per agente e capability (D54-11, piano X9 54-05), con la sola eccezione lab sotto. Il rilascio e gli aggiornamenti dei consumer
-aspettano la revisione della sessione Samira e la coordinatrice.
+Aggiunte per agente e capability (D54-11, piano X9 54-05), corrette dopo la revisione di Samira.
+Il rilascio e gli aggiornamenti dei consumer aspettano la nuova revisione e la coordinatrice.
 
 ### Changed — sole exception: unconsumed lab contracts
+
 - Samira authorized the only non-additive change from 1.28: cap-lab was released this morning and has no consumers.
   LabAgentConfigSchema now requires models (digest, optional read) and budget (dailyUsd, perIngestMaxUsd, timezone).
   No model or budget default is selected; the per-ingest ceiling cannot exceed the daily budget.
 - The same unconsumed lab exception corrects synchronous ingest: lab_ingest returns only
-  {ingestId: UUID, state: 'queued'}. New lab_ingest_status reuses research states and returns all three final
+  {ingestId: UUID, state: 'queued'}. New lab_ingest_status reuses research states and requires all three final
   counters when completed; other states carry no completion counters. LabToolErrorSchema includes
   invalid_request / not_configured / not_found / not_ready. No consumer is updated by this branch.
-- CapabilityUsdSchema and CapabilityModelIdSchema export the existing ricerca validators unchanged for shared reuse.
 
 ### Added (additive, backward-compatible)
-- `@x9-forge/contracts/capability/parameters`: dichiarazione generica di parametri number/integer/string/boolean/enum,
-  etichetta, descrizione/spiegazione, gruppo, unità, vincoli e default facoltativo della piattaforma.
-  Regole decided/proposed con reference, modifica immediate/next_apply e consumo esplicito. Valori per agente
-  con origine platform_default/agent_override/needs_choice, versione positiva e validazione contro i vincoli dichiarati.
-  Nessun default di prodotto introdotto; mai credenziali (restano in env-schema/vault).
-- `@x9-forge/contracts/capability/presentation`: uscite generiche con contenuto JSON di dominio; feedback
-  con outputId, identità autenticata del revisore, fonte project_view/domain_app e voto intero 1–10;
-  andamento giornaliero con metriche/unità dichiarate, date reali crescenti e valori finiti.
-  Collezioni strict, con un solo agente/capability e identificativi unici.
-- Campi **facoltativi** `parameters` e `presentation` in CapabilityManifestSchema e CapabilityRegistryEntrySchema.
-  I payload precedenti restano identici. Entrambe le nuove famiglie anche nel sottopercorso capability esistente;
-  nessun export rimosso o rinominato. Nuovi tipi TypeScript e doppia distribuzione ESM/CJS.
-- Le fonti non stabiliscono nuove rotte B1/B7: aggiunti schemi e dichiarazioni, **nessun endpoint nuovo inventato**.
-  GET /manifest e i percorsi per agente v1.28 con secret auth restano invariati. Da concordare con Samira
-  la lettura/scrittura dei payload prima dei consumer.
-- Consumer tracciati: forge-v2 fase 33 (parametri); agent-x9 capability (manifest/registry, prima cap-food);
-  vista di progetto esterna/app di dominio (uscite, feedback e andamento).
-  Contratti di approvazione/chiedi modifiche e validazione del contenuto specifico restano ai futuri consumer/piani.
-- Prove: tests/capability/parameters.test.ts, presentation.test.ts, declarations.test.ts, bridge-129-package.test.ts,
-  smoke ESM/CJS, mutazioni su copie temporanee in scripts/mutate-54-05.py.
-  SUMMARY e numeri finali: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
-- Verificato localmente: 194/194 test nuovi visti rossi; suite finale 1161/1161 (82/82 file), CJS 36/36;
-  build/dts, typecheck, lint e check:pack riusciti, dist 1024/1024 identica alla build pulita.
-  133/133 mutazioni rilevate da asserzioni in due lotti. Giro unico finale SALTATO dopo 3 tentativi:
-  timeout di avvio, mai conteggiati come rosso; dettagli e report nel SUMMARY.
-- Test runner con massimo due worker e timeout 60 s, per il carico condiviso del Mac.
+
+- @x9-forge/contracts/capability/parameters: parametri number/integer/string/boolean/enum/string_list,
+  etichetta, spiegazione, gruppo, unità, vincoli e default facoltativo della piattaforma.
+  String e liste supportano pattern; liste anche opzioni e minItems/maxItems. optional ed editableBy
+  obbligatori dichiarano assenza del valore e ruoli superadmin/owner. Regole decided/proposed con riferimento,
+  modifica immediate/next_apply e consumo esplicito; valori platform_default/agent_override/needs_choice.
+  key è il percorso puntato nella config per agente, version è la sua versione positiva.
+  Nessun default di prodotto o credenziale introdotto; le chiavi restano in env-schema/vault.
+- @x9-forge/contracts/capability/presentation: uscite con JSON di dominio fino a 64 KiB UTF-8;
+  CapabilityOutputFieldTypeSchema esportato, min/max finiti facoltativi soltanto per number.
+  Feedback discriminato rating (intero 1–10) / approval (approved/changes_requested), fonte
+  project_view/domain_app, reviewerId e reviewerName; allegati HTTP(S) facoltativi fino a 10,
+  dichiarazione attachments obbligatoria. Andamento giornaliero con metriche/unità, date reali crescenti
+  e valori finiti; collezioni strict per un solo agente/capability, identificativi unici e limiti pubblici.
+- Campi facoltativi parameters e presentation in manifest/registry: i payload precedenti restano identici.
+  Entrambe le nuove famiglie nel sottopercorso capability esistente e nei due nuovi sottopercorsi ESM/CJS.
+  Nessun export precedente rimosso o rinominato.
+- CapabilityUsdSchema e CapabilityModelIdSchema esportano i validatori esistenti di ricerca invariati.
+  SpendingCapabilitySchema accetta ricerca e lab; labAgentSpendContract riusa path, GET, schemi e secret auth
+  della spesa di ricerca. AGENT_SPEND_MAX_DAYS resta lo stesso export pubblico e vale 400.
+- Nessuna nuova rotta B1/B7 stabilita dalle fonti: schemi e dichiarazioni come accettato da Samira.
+  Il salvataggio della config passa dal PUT capAgentConfigPath già esistente; i consumer realizzano letture
+  e aggiornamenti. Validazione del contenuto specifico e montaggio nelle app restano ai consumer.
+- Consumer previsti: Forge fase 33; capability di agent-x9; vista di progetto esterna/app di dominio.
+  Nessun consumer modificato e nessuna verifica dal vivo in questo ramo.
+- Test di revisione: 275 nuovi, oltre ai 194 della prima consegna; 469/469 casi distinti visti rossi.
+  Suite finale 1436/1436 (93/93 file), CJS 36/36; tipi, lint, build/dts e check:pack con codice 0.
+  Dist 1024/1024 identica byte per byte alla build pulita; 256/256 dichiarazioni .d.ts portabili.
+  check:pack mantiene il warning preesistente sulle types CJS del root e le esclusioni del suo profilo.
+- Giro finale unico: 299/299 mutazioni rilevate con asserzioni, baseline/ripristino 469/469,
+  sorgenti/dist originali invariati. scripts/mutate-54-05-review.py e riepilogo FINAL-MUTATIONS.md;
+  le 133 mutazioni in due lotti della prima consegna sono soltanto storico.
+- Script test limitato a due worker e timeout 60 s in commit dedicato; report compatti con nomi,
+  hash e riferimenti alle prove. Dettagli: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
 
 ## v1.28.0 — proposta in review — Fase 54: cap-ricerca e cap-lab, per agente
 

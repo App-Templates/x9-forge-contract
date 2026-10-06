@@ -63,3 +63,6 @@ ricostruibili dal runner sui sorgenti committati. Le prove complete hanno percor
 | --- | --- | --- | --- |
 | review/final-mutations-first.json | 643489 | 131535 | 4765e9f107e77474981207833b083650236ec491073e8732fe424194192d6128 |
 | review/final-mutations.json | 653743 | 137464 | 0b534277d882b119fd2468512fc7ec4ed9ceda0c15453f028854447c65826403 |
+
+Quattro log della prima consegna avevano spazi finali o righe vuote a EOF: sola normalizzazione degli spazi,
+contenuto invariato. Hash/copia esatta in review/quality-evidence-format.json; originali anche in 846311c.

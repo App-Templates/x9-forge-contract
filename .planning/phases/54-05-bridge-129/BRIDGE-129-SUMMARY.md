@@ -1,9 +1,9 @@
 # BRIDGE-129 · proposta 1.29.0 corretta
-Ultimo aggiornamento: 14:49 (06/10/2026)
+Ultimo aggiornamento: 14:52 (06/10/2026)
 
 Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9
 Branch: codex/bridge-129-params-outputs. Base: d8ef67f (1.28.0).
-Stato: R1–R7 e lab implementati e testati; giro unico, qualità e dist verificati. Restano perimetro e consegna.
+Stato: PRONTO PER REVISIONE. R1–R7, lab e tre punti non bloccanti conclusi; verifiche locali complete.
 Nessun push, merge, tag, deploy, consumer aggiornato o verifica dal vivo.
 
 ## Fonti e autorizzazioni
@@ -41,7 +41,8 @@ I posti li prende/rilascia la coordinatrice; non modifico ~/.claude. Un solo com
 | Limiti script test, separati | 4b47560 | solo due worker/60 s; suite finale usa lo script |
 | Dist ESM/CJS aggiornata | 2f66b8b | 0/10 → 44/44; build/dts e tipi |
 | Report compatti | 6d32581 | 45/45 file convertiti; originali e hash conservati |
-| Controlli isolati e giro finale | questo commit (checkpoint) | 469/469 casi visti rossi → 469/469; 299/299 in un giro completo |
+| Controlli isolati e giro finale | 1bdf022 | 469/469 casi visti rossi → 469/469; 299/299 in un giro completo |
+| Consegna/qualità/perimetro finali | questo commit di chiusura | test/tipi/lint/pack/build verdi; perimetro verificato |
 
 I numeri prima del simbolo → sono test passati, con il denominatore dell'intero lotto. Le prove rosse registrano
 anche il numero dei falliti e il loro nome. I verdi di regressione comprendono test di compiti precedenti:
@@ -73,7 +74,7 @@ Import e script test non introducono guardie runtime; nessun test che rispecchi 
 scripts/mutate-54-05-review.py conserva i 133 ID del runner iniziale e aggiunge le guardie della revisione/lab.
 Solo copie temporanee di sorgenti, dist e package; un worker/60 s, timeout di avvio mai contato come rosso.
 Le guardie duplicate sono disattivate insieme soltanto quando proteggono lo stesso caso (wire/semantica,
-conteggio/unicità). Gli edit precisi sono nel report.
+conteggio/unicità). Gli edit corti sono nel report; quelli lunghi sono riproducibili dal runner e dalla versione committata dei sorgenti.
 
 Primo giro completo della revisione: 286/286 rilevate; baseline e ripristino 469/469; hash sorgenti/dist invariati.
 Un controllo nominativo ha trovato 14 fixture ancora protette da altri livelli e due asserzioni asincrone
@@ -94,7 +95,9 @@ Quel dato resta storico, con report originali nella storia Git; non descrive la 
 - check:pack: codice 0. Warning già presente sulle types CJS del root; profilo node16,
   false-cjs escluso dallo script esistente e risoluzione node10 esclusa dal profilo. Nessuna opzione nuova.
 - Build da copia senza dist: riuscita, 256/256 .d.ts portabili e 1024/1024 file dist identici byte per byte;
-  sorgenti, package e dist originali invariati. Perimetro finale ancora da registrare.
+  sorgenti, package e dist originali invariati.
+- Perimetro finale: tutti i file nel perimetro autorizzato; zero byte di diff sui percorsi protetti
+  contro d8ef67f, root index/lockfile/contratti core invariati. review/quality-perimeter.json.
 - 275 test di revisione aggiunti ai 1161 della prima consegna. Le prove B1/B7/compatibilità
   della prima consegna più quelle di revisione contengono 469 casi distinti; tutti 469/469 visti rossi e verdi nel ripristino finale.
 
@@ -121,4 +124,8 @@ Baseline, mutazioni, ripristino e copertura nominativa in review/.
 - Pattern limitati a 200, foto a 10 e pagina a 100: limiti espliciti fissati prima del rilascio per evitare futuri restringimenti.
 - Content resta JSON di dominio: i consumer validano i propri campi prima di renderli.
 - Parametri ordinari, mai credenziali; env-schema/vault restano il percorso delle chiavi.
-- Rilascio della 1.29, aggiornamenti atomici dei consumer e BRIDGE-130 spettano alla coordinatrice dopo revisione.
+- Rilascio della 1.29 e aggiornamenti atomici dei consumer spettano alla coordinatrice dopo revisione.
+  33-01 aspetta tag 1.29 e base/worktree assegnati; poi BRIDGE-130 e X9 56-01. Nessun seguito avviato qui.
+
+Check finale degli spazi: quattro log storici normalizzati, nessun contenuto cambiato; prove originali
+conservate e impronte in review/quality-evidence-format.json. git diff --check d8ef67f verde.

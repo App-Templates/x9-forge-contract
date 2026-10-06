@@ -16,7 +16,7 @@ Non bloccanti, ma da sistemare: la modifica allo script test di package.json (--
 
 ## Estensione autorizzata dalla bacheca
 
-Lab: models.digest e budget dailyUsd/perIngestMaxUsd/timezone; spesa lab e labAgentSpendContract; LabToolErrorSchema. Solo aggiunte verso 1.28, niente consumer o rilascio.
+Lab: models.digest e budget dailyUsd/perIngestMaxUsd/timezone obbligatori; spesa lab e labAgentSpendContract; LabToolErrorSchema; ingest queued/status. La risposta completa bridge-129-lab-campi-20261006 autorizza la sola eccezione non additiva per lab non ancora consumato. Nessun consumer o rilascio in questo ramo.
 
 ## Passi
 
@@ -25,3 +25,9 @@ R1 tipi di feedback; R2 nome e allegati; R3 limiti; R4 liste/pattern/optional; R
 ## Checkpoint di pausa
 
 PAUSA SUBITO 13:45: R1–R4 concluse in acdae4e, nessun test in corso, attendere «ripartite». Estensione lab aggiornata dalle decisioni 13:35/13:40: seguire la risposta bridge-129-lab-campi-20261006, models/budget obbligatori e ingest asincrono con nuovo status tool. La non additività di lab è autorizzata esplicitamente e deve comparire nel CHANGELOG.
+
+## Esito del giro corretto
+
+R1–R7, estensione lab e tre punti non bloccanti implementati in commit separati indicati nel SUMMARY.
+1436/1436 + CJS 36/36, 469/469 casi nuovi visti rossi, giro unico finale 299/299; qualità e dist pulita verificate.
+PRONTO PER REVISIONE. La coordinatrice inoltra il nuovo commit alla sessione Samira prima del rilascio.

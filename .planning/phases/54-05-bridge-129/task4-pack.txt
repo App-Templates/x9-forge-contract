@@ -25,8 +25,8 @@ Build tools:
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
-node10: (ignored) 🟢 
+bundler: 🟢
+node10: (ignored) 🟢
 
 ***********************************
 
@@ -34,7 +34,7 @@ node10: (ignored) 🟢
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -43,7 +43,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -52,7 +52,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -61,7 +61,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -70,7 +70,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -79,7 +79,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -88,7 +88,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -97,7 +97,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -106,7 +106,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -115,7 +115,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -124,7 +124,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -133,7 +133,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -142,7 +142,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -151,7 +151,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -160,7 +160,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -169,7 +169,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
@@ -178,7 +178,7 @@ node10: (ignored) 💀 Resolution failed
 
 node16 (from CJS): 🟢 (CJS)
 node16 (from ESM): 🟢 (CJS)
-bundler: 🟢 
+bundler: 🟢
 node10: (ignored) 💀 Resolution failed
 
 ***********************************
