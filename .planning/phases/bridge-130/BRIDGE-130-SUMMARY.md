@@ -1,6 +1,6 @@
 # BRIDGE-130 — execution record
 
-Status: tasks 1–2 implemented and tested; tasks 3–4 pending. Base d574f68 (1.29.0), branch
+Status: tasks 1–3 implemented and tested; task 4 pending. Base d574f68 (1.29.0), branch
 codex/bridge-130. Scope and decisions: BRIDGE-130-PLAN.md. Product decisions
 D-A0..D-A8 confirmed at 01:35/01:40; no expansion into product work; meditation remains stopped.
 
@@ -10,7 +10,7 @@ D-A0..D-A8 confirmed at 01:35/01:40; no expansion into product work; meditation 
 | --- | --- | --- | --- | --- |
 | 1 — explicit identity | done | 12/12 failed | 12/12 passed | 4/4 killed |
 | 2 — runtime and channels | done | 32/32 failed | 44/44 passed (32 new) | 10/10 killed |
-| 3 — additive list metadata | pending | pending | pending | pending |
+| 3 — additive list metadata | done | 15 failed / 21 (6 compatibility passed) | 82/82 passed (24 task tests) | 11/11 killed |
 | 4 — conservative lookup | pending | pending | pending | pending |
 
 Outputs will be saved under evidence/ in this directory. Full verification and
@@ -52,3 +52,23 @@ classification was corrected against the same captured outputs: no test rerun or
 product change was needed.
 
 Ultimo aggiornamento: 23:46
+
+## Task 3 — additive list metadata
+
+Optional identity/runtime/source fields preserve valid 1.29 payloads and all five
+legacy statuses unchanged. The list rejects duplicate names, aliases shared with
+legacy rows, row/runtime-ID mismatches and unsupported state evidence. A complete
+source must be available; an available source has an ISO observation time and X9
+authority. Missing fields are never defaulted into a false complete/available list.
+Red: evidence/task-3-red.txt (15 failed, 6 compatibility tests passed, 21 total).
+First green: evidence/task-3-green.txt (79/79).
+Final green: evidence/task-3-green-final.txt (82/82, 24 task tests plus 58 regressions).
+Mutations: complete-source consistency, observation, ISO timestamp, X9 authority,
+required completeness/availability/authority/time, identity match, cross-row
+collision validation and optional metadata compatibility; final 11/11 killed.
+The initial completeness mutation survived because the test omitted two fields
+together; evidence/task-3-mutation-source-coverage-survived.txt preserves that
+result. Tests now omit all four fields separately. That same mutant then fails
+its assertion; the corrected green and all final red outputs are saved.
+
+Ultimo aggiornamento: 23:49

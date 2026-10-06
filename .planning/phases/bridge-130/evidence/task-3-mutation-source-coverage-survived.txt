@@ -1,0 +1,10 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ✓ tests/http/endpoints/internal-agents-runtime-list.test.ts (21 tests | 20 skipped) 2ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 20 skipped (21)
+   Start at  23:48:01
+   Duration  395ms (transform 136ms, setup 7ms, collect 251ms, tests 2ms, environment 0ms, prepare 37ms)
+

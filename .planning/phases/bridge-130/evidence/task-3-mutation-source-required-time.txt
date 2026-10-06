@@ -1,0 +1,57 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/http/endpoints/internal-agents-runtime-list.test.ts (24 tests | 1 failed | 23 skipped) 5ms
+   ↓ additive canonical runtime list > round trips the old payload without inventing identity, source or runtime
+   ↓ additive canonical runtime list > preserves legacy running fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy degraded fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy starting fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy stopped fields without synthesizing canonical state
+   ↓ additive canonical runtime list > preserves legacy bot-less fields without synthesizing canonical state
+   ↓ additive canonical runtime list > round trips new identity, runtime and source metadata through the HTTP subpath
+   ↓ additive canonical runtime list > accepts an available partial list with positive runtime observations
+   ↓ additive canonical runtime list > accepts unavailable source metadata explicitly distinct from an empty complete list
+   ↓ additive canonical runtime list > rejects a complete inventory from an unavailable source
+   ↓ additive canonical runtime list > rejects a complete inventory from an unknown source
+   ↓ additive canonical runtime list > rejects an available source without an observation time
+   ↓ additive canonical runtime list > rejects malformed observation timestamps
+   ↓ additive canonical runtime list > rejects source metadata attributed to stored Forge database status
+   ↓ additive canonical runtime list > requires authority when source metadata is supplied
+   ↓ additive canonical runtime list > requires availability when source metadata is supplied
+   ↓ additive canonical runtime list > requires completeness when source metadata is supplied
+   × additive canonical runtime list > requires observedAt when source metadata is supplied 5ms
+     → expected true to be false // Object.is equality
+   ↓ additive canonical runtime list > rejects runtime identity that targets a different agent than the list row
+   ↓ additive canonical runtime list > rejects unsupported claimed agent state inside list rows
+   ↓ additive canonical runtime list > rejects duplicate legacy rows as ambiguous targets
+   ↓ additive canonical runtime list > rejects an explicit management identity colliding with a legacy runtime row
+   ↓ additive canonical runtime list > rejects duplicate explicit management identities
+   ↓ additive canonical runtime list > does not reject distinct rows just because their display names are identical
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/http/endpoints/internal-agents-runtime-list.test.ts > additive canonical runtime list > requires observedAt when source metadata is supplied
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/http/endpoints/internal-agents-runtime-list.test.ts:63:87
+     61|       const source: Record<string, unknown> = { ...runtimeList().sourc…
+     62|       delete source[key];
+     63|       expect(http.ListAgentsResponseSchema.safeParse({ agents: [], sou…
+       |                                                                                       ^
+     64|     },
+     65|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 skipped (24)
+   Start at  23:48:40
+   Duration  354ms (transform 119ms, setup 4ms, collect 219ms, tests 5ms, environment 0ms, prepare 31ms)
+
