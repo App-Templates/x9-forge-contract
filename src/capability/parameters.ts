@@ -7,6 +7,7 @@ const ListValueSchema = z.array(z.string().max(2000)).max(100);
 export const CapabilityParameterValueSchema = z.union([z.number().finite(), z.string().max(8000), z.boolean(), ListValueSchema]);
 export const CapabilityParameterOriginSchema = z.enum(['platform_default', 'agent_override', 'needs_choice']);
 export const CapabilityParameterStatusSchema = z.enum(['decided', 'proposed']);
+export const CapabilityParameterEditorRoleSchema = z.enum(['superadmin', 'owner']);
 export const CapabilityParameterApplicationSchema = z.enum(['immediate', 'next_apply']);
 
 const TextSchema = z.string().trim().min(1).max(200);
@@ -28,6 +29,8 @@ const metadata = {
   consumes: z.boolean(),
   /** Whether this configuration field may be absent, e.g. an optional digest/read model. */
   optional: z.boolean(),
+  editableBy: z.array(CapabilityParameterEditorRoleSchema).min(1).max(2)
+    .refine(roles => new Set(roles).size === roles.length, 'editor roles must be unique'),
 };
 export const CapabilityParameterOptionSchema = z.object({ value: DescriptionSchema, label: TextSchema }).strict();
 const OptionsSchema = z.array(CapabilityParameterOptionSchema).min(1).max(50);
@@ -153,3 +156,5 @@ export type CapabilityParameterOrigin = z.infer<typeof CapabilityParameterOrigin
 export type CapabilityParameterStatus = z.infer<typeof CapabilityParameterStatusSchema>;
 export type CapabilityParameterApplication = z.infer<typeof CapabilityParameterApplicationSchema>;
 export type CapabilityParameterOption = z.infer<typeof CapabilityParameterOptionSchema>;
+
+export type CapabilityParameterEditorRole = z.infer<typeof CapabilityParameterEditorRoleSchema>;

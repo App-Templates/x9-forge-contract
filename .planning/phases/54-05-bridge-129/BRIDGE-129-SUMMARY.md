@@ -1,8 +1,8 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 12:53 (06/10/2026)
+Ultimo aggiornamento: 14:04 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
-Stato: CORREZIONI PRESO dopo revisione Samira, ripresa da 846311c. Proposta 1.29.0 implementata e testata localmente.
+Stato: CORREZIONI RIPRESE per RIPARTITE 13:58 della coordinatrice. Proposta 1.29.0 implementata e testata localmente.
 Nessun consumer aggiornato, tag, push, merge o rilascio. Nessuna verifica dal vivo.
 
 ## Compiti e commit
@@ -53,9 +53,9 @@ Prova finale task5-final-mutations.json: 133/133 ID distinti hanno asserzioni fa
 
 194/194 test nuovi finali hanno una prova rossa nominativa, raccolta dai report dei Task 1–4 e dalle mutazioni. Suite finale sul worktree originale: pnpm test 1161/1161 e CJS 36/36; lint completo riuscito. Nessun rilancio pesante dopo il terzo tentativo.
 
-## Qualità, distribuzione e perimetro
+## Qualità, distribuzione e perimetro della prima consegna 846311c
 
-Build/dts, typecheck, lint e check:pack riusciti nel Task 4. check:pack termina con codice 0, con un warning publint sul campo types del root export (interpretato CJS anche in import ESM); il target precedente è preservato. Il profilo già usato dal repo ignora false-cjs e node10, mentre node16 e bundler passano per 18/18 entrate. Dopo il rafforzamento dei test, pnpm test e lint completi riusciti ancora. Da 3ecdee0 non cambia nessun file di src/, dist/ o package.json: le prove di tipi/build/pacchetto restano valide.
+Build/dts, typecheck, lint e check:pack riusciti nel Task 4. check:pack termina con codice 0, con un warning publint sul campo types del root export (interpretato CJS anche in import ESM); il target precedente è preservato. Il profilo già usato dal repo ignora false-cjs e node10, mentre node16 e bundler passano per 18/18 entrate. Dopo il rafforzamento dei test, pnpm test e lint completi riusciti ancora. Nella prima consegna 846311c, da 3ecdee0 non cambiava nessun file di src/, dist/ o package.json. Dopo le correzioni queste verifiche devono essere ripetute; dist non è ancora riallineata.
 
 Dist: 1024/1024 file identici byte per byte a build pulita in directory temporanea, SHA256 riconfermati dopo le mutazioni. Nessun file vecchio rimosso. Alcune dichiarazioni enum rigenerate hanno soltanto ordine diverso delle proprietà, senza cambiare valori o tipi. Runner di suite limitato a due worker/60 s; runner di mutazioni a un worker/60 s.
 
@@ -78,4 +78,16 @@ R1–R7, estensioni lab e verifiche finali in corso; i numeri precedenti si rife
 
 - 12:47 · r3: fix(capability): bound parameter and presentation payloads. Prima 0/35 (falliti 35/35), dopo 252/252. Commit: 0925e50.
 
-- 12:53 · r4: fix(capability): describe lists patterns and optional configuration. Prima 29/37 (falliti 8/37), dopo 283/283. Commit: questo commit (checkpoint).
+- 12:53 · r4: fix(capability): describe lists patterns and optional configuration. Prima 29/37 (falliti 8/37), dopo 283/283. Commit: acdae4e.
+
+### PAUSA SUBITO ricevuta
+
+12:54 · R1–R4 committate e verdi, ultimo commit acdae4e (mirati finali 283/283). Nessun mio comando di test o mutazione ancora in corso: tutti i runner avviati sono terminati. STOP fino a «ripartite», nessun comando pesante o nuovo hook. Questo checkpoint resta sul disco senza nuovo commit.
+
+Restano R5 editabilità, R6 JSDoc, R7 scale; estensioni lab; import z, script test separato, riepiloghi al posto dei JSON grezzi; tipi/lint/build/pack e giro finale unico di mutazioni. Nuova decisione 13:40: models e budget lab OBBLIGATORI, unica eccezione non additiva autorizzata verso 1.28 senza consumer. La precedente ipotesi facoltativa è superata. Prima di implementare lab leggere intera risposta bridge-129-lab-campi-20261006: anche ingest asincrono e lab_ingest_status, dettaglio Samira. Nessuna modifica a ~/.claude o ai consumer.
+
+### Ripresa autorizzata
+
+2026-10-06 14:03 · RIPARTITE letto. Posto già PRESO secondo bacheca; un comando pesante alla volta. R5–R7, lab obbligatorio/asincrono e verifiche finali riprendono; nessun consumer o rilascio. Risposta completa Samira lab letta.
+
+- 14:04 · r5: fix(capability): declare parameter editors. Prima 7/23 (falliti 16/23), dopo 306/306. Commit: questo commit (checkpoint).

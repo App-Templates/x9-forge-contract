@@ -21,3 +21,7 @@ Lab: models.digest e budget dailyUsd/perIngestMaxUsd/timezone; spesa lab e labAg
 ## Passi
 
 R1 tipi di feedback; R2 nome e allegati; R3 limiti; R4 liste/pattern/optional; R5 editabilità; R6 JSDoc config/versione; R7 scale. Un commit per correzione, prove rosse prima e verdi dopo. Poi tre estensioni lab, import z per primo, isolamento script test in commit separati, riepiloghi delle prove, qualità e giro finale unico di mutazioni. Massimo 45 minuti o 3 tentativi per passo; nessun push/merge/tag/deploy.
+
+## Checkpoint di pausa
+
+PAUSA SUBITO 13:45: R1–R4 concluse in acdae4e, nessun test in corso, attendere «ripartite». Estensione lab aggiornata dalle decisioni 13:35/13:40: seguire la risposta bridge-129-lab-campi-20261006, models/budget obbligatori e ingest asincrono con nuovo status tool. La non additività di lab è autorizzata esplicitamente e deve comparire nel CHANGELOG.
