@@ -14,7 +14,7 @@ export const output = {
 export const feedback = {
   id: 'feedback-1', agentId: 'samira', capability: 'food', outputId: 'recipe-1',
   source: { kind: 'project_view', id: 'food-view' }, reviewerId: 'synthetic-reviewer',
-  rating: 8, comment: 'Equilibrata', createdAt: '2026-10-06T09:00:00Z',
+  kind: 'rating', rating: 8, comment: 'Equilibrata', createdAt: '2026-10-06T09:00:00Z',
 };
 export const metric = { key: 'sessions', label: 'Sedute al giorno', unit: 'sedute' };
 export const series = { agentId: 'samira', capability: 'meditation', metric,
@@ -106,7 +106,7 @@ describe('B7 generic per-agent outputs, feedback and trends', () => {
     ['extra output field declaration', { ...presentation, outputs: { ...presentation.outputs, fields: [{ ...presentation.outputs.fields[0], extra: true }] } }],
     ['extra output declaration field', { ...presentation, outputs: { ...presentation.outputs, extra: true } }],
     ['empty feedback label', { ...presentation, feedback: { ...presentation.feedback, label: '' } }],
-    ['unknown feedback kind', { ...presentation, feedback: { ...presentation.feedback, kind: 'approval' } }],
+    ['unknown feedback kind', { ...presentation, feedback: { ...presentation.feedback, kind: 'other' } }],
     ['empty feedback sources', { ...presentation, feedback: { ...presentation.feedback, sources: [] } }],
     ['repeated feedback sources', { ...presentation, feedback: { ...presentation.feedback, sources: ['domain_app', 'domain_app'] } }],
     ['unknown feedback source declaration', { ...presentation, feedback: { ...presentation.feedback, sources: ['other'] } }],

@@ -6,6 +6,8 @@ import { CapabilityParameterKeySchema } from './parameters.js';
 /** B7: capability-defined sections, domain data and feedback. No project configuration lives here. */
 const TextSchema = z.string().trim().min(1);
 const scope = { agentId: CapabilityAgentIdSchema, capability: TextSchema };
+export const CapabilityFeedbackKindSchema = z.enum(['rating', 'approval']);
+export const CapabilityFeedbackDecisionSchema = z.enum(['approved', 'changes_requested']);
 export const CapabilityFeedbackSourceKindSchema = z.enum(['project_view', 'domain_app']);
 export const CapabilityFeedbackSourceSchema = z.object({
   kind: CapabilityFeedbackSourceKindSchema,
@@ -35,8 +37,7 @@ export const CapabilityOutputsDeclarationSchema = z.object({
     { message: 'output fields must be unique', path: ['fields'] });
 export const CapabilityFeedbackDeclarationSchema = z.object({
   label: TextSchema,
-  /** Rating is an integer from 1 to 10; approval workflows need a separately reviewed contract. */
-  kind: z.literal('rating'),
+  kind: CapabilityFeedbackKindSchema,
   sources: z.array(CapabilityFeedbackSourceKindSchema).min(1),
 }).strict().refine(feedback => new Set(feedback.sources).size === feedback.sources.length,
   { message: 'feedback sources must be unique', path: ['sources'] });
@@ -61,17 +62,20 @@ export const CapabilityOutputSchema = z.object({
 }).strict();
 export type CapabilityOutput = z.infer<typeof CapabilityOutputSchema>;
 
-export const CapabilityFeedbackSchema = z.object({
+const feedbackMetadata = {
   ...scope,
   id: TextSchema,
   outputId: TextSchema,
   source: CapabilityFeedbackSourceSchema,
   /** Trusted authenticated identity supplied by the view/app, not chosen by a model. */
   reviewerId: TextSchema,
-  rating: z.number().int().min(1).max(10),
   comment: z.string().optional(),
   createdAt: z.iso.datetime(),
-}).strict();
+};
+export const CapabilityFeedbackSchema = z.discriminatedUnion('kind', [
+  z.object({ ...feedbackMetadata, kind: z.literal('rating'), rating: z.number().int().min(1).max(10) }).strict(),
+  z.object({ ...feedbackMetadata, kind: z.literal('approval'), decision: CapabilityFeedbackDecisionSchema }).strict(),
+]);
 export type CapabilityFeedback = z.infer<typeof CapabilityFeedbackSchema>;
 
 export const CapabilityTrendPointSchema = z.object({
@@ -121,3 +125,6 @@ export type CapabilityFeedbackDeclaration = z.infer<typeof CapabilityFeedbackDec
 export type CapabilityTrendPoint = z.infer<typeof CapabilityTrendPointSchema>;
 
 export type CapabilityFeedbackSourceKind = z.infer<typeof CapabilityFeedbackSourceKindSchema>;
+
+export type CapabilityFeedbackKind = z.infer<typeof CapabilityFeedbackKindSchema>;
+export type CapabilityFeedbackDecision = z.infer<typeof CapabilityFeedbackDecisionSchema>;

@@ -1,8 +1,8 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 12:09 (06/10/2026)
+Ultimo aggiornamento: 12:41 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
-Stato: PRONTO PER REVISIONE della sessione Samira. Proposta 1.29.0 implementata e testata localmente.
+Stato: CORREZIONI PRESO dopo revisione Samira, ripresa da 846311c. Proposta 1.29.0 implementata e testata localmente.
 Nessun consumer aggiornato, tag, push, merge o rilascio. Nessuna verifica dal vivo.
 
 ## Compiti e commit
@@ -14,7 +14,7 @@ Nessun consumer aggiornato, tag, push, merge o rilascio. Nessuna verifica dal vi
 | 2 B7 uscite, feedback, andamento | implementato e testato | 10e5e53 | 0/77 → 140/140 B1+B7, tipi/lint OK |
 | 3 dichiarazioni, export, smoke | implementato e testato | 377d97b | 3/16 → 16/16; regressioni 209/209; CJS 31/36 → 36/36 |
 | 4 versione e qualità | verificato | 3ecdee0 | 16/17 → 17/17; suite 1140/1140 + CJS 36/36; build pulita identica |
-| 5 mutazioni e prove finali | 133/133 verificate in lotti; riesecuzione unica SALTATA | questo commit | 194/194 nuovi test visti rossi; suite finale 1161/1161 + CJS 36/36 |
+| 5 mutazioni e prove finali | 133/133 verificate in lotti; riesecuzione unica SALTATA | 846311c | 194/194 nuovi test visti rossi; suite finale 1161/1161 + CJS 36/36 |
 
 ## Contratti e copertura
 
@@ -65,3 +65,11 @@ final-perimeter.json registra branch corretto, zero file fuori perimetro e zero 
 
 PRONTO PER REVISIONE: schemi, dichiarazioni, distribuzione e prove disponibili nel worktree assegnato.
 Restano revisione Samira, decisione sulle rotte/consumer e rilascio della coordinatrice. La sola verifica locale saltata è il giro unico finale delle mutazioni, per limite di tre tentativi e timeout di avvio.
+
+## Ripresa dopo revisione Samira
+
+Ultimo aggiornamento correzioni: 12:38 (06/10/2026). Piano: BRIDGE-129-REVIEW.md.
+
+R1–R7, estensioni lab e verifiche finali in corso; i numeri precedenti si riferiscono alla consegna 846311c. Il ramo non è ancora pronto per la nuova revisione.
+
+- 12:41 · r1: fix(capability): declare rating and approval feedback. Prima 8/15 (falliti 7/15), dopo 108/108. Commit: questo commit (checkpoint).
