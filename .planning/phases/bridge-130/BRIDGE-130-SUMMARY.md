@@ -108,3 +108,19 @@ Removing the require and forcing a nonzero exit both kill the integration probe,
 changed in this follow-up commit. ESM remains independently verified 6/6.
 
 Ultimo aggiornamento: 23:53
+
+## Final guard coverage — input boundaries
+
+Added 17 boundary tests for required fields, scalar types and vocabularies.
+Each was run first with its targeted schema protection disabled in the private
+copy: 17/17 actual regression failures saved as evidence/boundary-mutation-*.txt.
+The restored contract passes 17/17 (evidence/boundary-green.txt). Product source
+was unchanged; the error channel fixture prevents a consistency check from
+masking a missing-field bug. Missing channel inventories must not default to [].
+Mutation coverage totals 53/53 killed: 4 identity, 10 runtime, 11 list, 11 lookup/
+CJS wiring and 17 boundaries. The one initially surviving list mutation remains
+recorded separately and was killed after strengthening the test.
+The earlier full suite passed 1532/1532 in 97/97 files; the suite is repeated
+once because these 17 meaningful boundary tests were added afterward.
+
+Ultimo aggiornamento: 23:57

@@ -1,0 +1,50 @@
+
+ RUN  v3.2.4 /private/tmp/codex-a-bridge130-private
+
+ ❯ tests/agent/agent-runtime-boundaries.test.ts (17 tests | 1 failed | 16 skipped) 4ms
+   ↓ canonical runtime input boundaries > requires channel channelId without a default
+   ↓ canonical runtime input boundaries > requires channel kind without a default
+   ↓ canonical runtime input boundaries > requires channel state without a default
+   ↓ canonical runtime input boundaries > requires channel loaded without a default
+   ↓ canonical runtime input boundaries > requires channel readiness without a default
+   ↓ canonical runtime input boundaries > rejects invalid channel channelId
+   ↓ canonical runtime input boundaries > rejects invalid channel kind
+   ↓ canonical runtime input boundaries > rejects invalid channel state
+   ↓ canonical runtime input boundaries > rejects invalid channel loaded
+   ↓ canonical runtime input boundaries > rejects invalid channel readiness
+   ↓ canonical runtime input boundaries > requires agent evidence loadState without inferring absence
+   ↓ canonical runtime input boundaries > requires agent evidence channelsComplete without inferring absence
+   ↓ canonical runtime input boundaries > requires agent evidence channels without inferring absence
+   ↓ canonical runtime input boundaries > rejects invalid agent evidence loadState
+   ↓ canonical runtime input boundaries > rejects invalid agent evidence channelsComplete
+   ↓ canonical runtime input boundaries > rejects invalid agent evidence channels
+   × canonical runtime input boundaries > keeps paused a channel state rather than a sixth agent state 4ms
+     → expected true to be false // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-boundaries.test.ts > canonical runtime input boundaries > keeps paused a channel state rather than a sixth agent state
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/agent/agent-runtime-boundaries.test.ts:38:65
+     36| 
+     37|   it('keeps paused a channel state rather than a sixth agent state', (…
+     38|     expect(AgentRuntimeStateSchema.safeParse('paused').success).toBe(f…
+       |                                                                 ^
+     39|   });
+     40| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  23:56:37
+   Duration  233ms (transform 43ms, setup 5ms, collect 80ms, tests 4ms, environment 0ms, prepare 35ms)
+

@@ -1,0 +1,51 @@
+[
+  {
+    "check": "full-source-suite",
+    "exitCode": 0,
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-41-3",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=1",
+      "--testTimeout=60000"
+    ]
+  },
+  {
+    "check": "typecheck",
+    "exitCode": 0,
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-41-3",
+      "exec",
+      "tsc",
+      "--noEmit",
+      "--tsBuildInfoFile",
+      "/private/tmp/codex-a-bridge130-typecheck.tsbuildinfo"
+    ]
+  },
+  {
+    "check": "changed-source-lint",
+    "exitCode": 0,
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-41-3",
+      "exec",
+      "eslint",
+      "src/agent/agent-runtime-identity.ts",
+      "src/agent/agent-runtime-source.ts",
+      "src/agent/agent-runtime-state.ts",
+      "src/agent/index.ts",
+      "src/http/endpoints/internal-agents-list.ts",
+      "tests/agent/agent-runtime-identity.test.ts",
+      "tests/agent/agent-runtime-state.test.ts",
+      "tests/http/endpoints/agent-runtime-fixtures.ts",
+      "tests/http/endpoints/internal-agents-runtime-list.test.ts",
+      "tests/http/endpoints/internal-agents-runtime-lookup.test.ts"
+    ]
+  }
+]
