@@ -1,0 +1,11 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-41-3
+
+ ✓ tests/agent/agent-runtime-state.test.ts (32 tests) 4ms
+ ✓ tests/agent/agent-runtime-identity.test.ts (12 tests) 3ms
+
+ Test Files  2 passed (2)
+      Tests  44 passed (44)
+   Start at  23:45:46
+   Duration  421ms (transform 50ms, setup 6ms, collect 114ms, tests 7ms, environment 0ms, prepare 78ms)
+

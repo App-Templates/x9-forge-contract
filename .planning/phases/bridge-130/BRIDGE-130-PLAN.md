@@ -2,8 +2,8 @@
 
 Assignment: board message 2026-10-07 01:15. Base d574f68, package 1.29.0,
 branch codex/bridge-130. Read BASE-DOCUMENTALE, MODELLO-AGENTE and the original
-sources before MEDITATION-01 / AGENTI-01; their pending product decisions are
-outside this assignment. Meditation remains stopped. The existing HTTP path,
+sources before MEDITATION-01 / AGENTI-01; confirmed D-A0..D-A8 (01:35/01:40) remain outside this assignment.
+The contract is generic and reusable; paused channels are not failures. Meditation remains stopped. The existing HTTP path,
 authentication and legacy status enums are retained.
 
 ## Scope

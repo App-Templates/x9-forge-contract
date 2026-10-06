@@ -1,0 +1,352 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-41-3
+
+ ❯ tests/agent/agent-runtime-state.test.ts (32 tests | 32 failed) 6ms
+   × channel loading, pause and readiness > accepts the shared or additive telegram channel kind 3ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > accepts the shared or additive email channel kind 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > accepts the shared or additive voice channel kind 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > accepts the shared or additive whatsapp channel kind 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > accepts the shared or additive web channel kind 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > keeps readiness distinct when a loaded channel is not ready 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > accepts an intentionally paused channel without calling it an error 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > does not turn readiness into proof of channel loading 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":false} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":null} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"paused","loaded":true} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"stopped","loaded":true} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × channel loading, pause and readiness > rejects contradictory channel observations {"state":"unknown","loaded":false} 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × channel loading, pause and readiness > rejects missing loading evidence instead of defaulting to false 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × channel loading, pause and readiness > rejects an unknown readiness value 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical agent state from X9 runtime evidence > marks an externally loaded web channel active even outside the agent loader 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > accepts positive loading evidence from a partial channel inventory 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > does not claim no-channel from an incomplete empty inventory 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > does not claim no-channel from unknown agent loading 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > marks complete empty channels on a loaded agent no-channel 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > keeps explicit stopped evidence distinct from an absent agent 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > preserves an explicit agent loading error 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > preserves a channel error when no loaded channel is demonstrated 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > retains channel errors without hiding another positively loaded channel 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > does not confuse an error on a loaded channel with channel unloading 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × canonical agent state from X9 runtime evidence > rejects a stopped agent with a positively loaded channel 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical agent state from X9 runtime evidence > rejects duplicate channel identifiers while permitting distinct protocols 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical agent state from X9 runtime evidence > rejects a false claimed active state without supporting evidence 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical agent state from X9 runtime evidence > rejects a false claimed stopped state without supporting evidence 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical agent state from X9 runtime evidence > rejects a false claimed no-channel state without supporting evidence 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical agent state from X9 runtime evidence > rejects a false claimed error state without supporting evidence 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × canonical agent state from X9 runtime evidence > rejects an understated unknown state when a loaded channel is proven 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 32 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > accepts the shared or additive telegram channel kind
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > accepts the shared or additive email channel kind
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > accepts the shared or additive voice channel kind
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > accepts the shared or additive whatsapp channel kind
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > accepts the shared or additive web channel kind
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-runtime-state.test.ts:22:46
+     20|   it.each(['telegram', 'email', 'voice', 'whatsapp', 'web'])(
+     21|     'accepts the shared or additive %s channel kind', (kind) => {
+     22|       expect(agent.AgentRuntimeChannelSchema.parse(channel({ kind })).…
+       |                                              ^
+     23|     },
+     24|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > keeps readiness distinct when a loaded channel is not ready
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:27:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > accepts an intentionally paused channel without calling it an error
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-runtime-state.test.ts:32:44
+     30|   it('accepts an intentionally paused channel without calling it an er…
+     31|     const paused = channel({ state: 'paused', loaded: false, readiness…
+     32|     expect(agent.AgentRuntimeChannelSchema.parse(paused)).toEqual(paus…
+       |                                            ^
+     33|     expectState(snapshot({ channels: [paused] }), 'no-channel');
+     34|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > does not turn readiness into proof of channel loading
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:37:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":false}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"loaded","loaded":null}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"paused","loaded":true}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"stopped","loaded":true}
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects contradictory channel observations {"state":"unknown","loaded":false}
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-state.test.ts:47:44
+     45|     { state: 'unknown', loaded: false },
+     46|   ])('rejects contradictory channel observations %j', (observation) =>…
+     47|     expect(agent.AgentRuntimeChannelSchema.safeParse(channel(observati…
+       |                                            ^
+     48|   });
+     49| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects missing loading evidence instead of defaulting to false
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-state.test.ts:52:44
+     50|   it('rejects missing loading evidence instead of defaulting to false'…
+     51|     const { loaded: _loaded, ...withoutLoaded } = channel();
+     52|     expect(agent.AgentRuntimeChannelSchema.safeParse(withoutLoaded).su…
+       |                                            ^
+     53|   });
+     54| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > channel loading, pause and readiness > rejects an unknown readiness value
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-state.test.ts:56:44
+     54| 
+     55|   it('rejects an unknown readiness value', () => {
+     56|     expect(agent.AgentRuntimeChannelSchema.safeParse(channel({ readine…
+       |                                            ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > marks an externally loaded web channel active even outside the agent loader
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:62:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > accepts positive loading evidence from a partial channel inventory
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:66:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > does not claim no-channel from an incomplete empty inventory
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:70:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > does not claim no-channel from unknown agent loading
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:74:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > marks complete empty channels on a loaded agent no-channel
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:78:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > keeps explicit stopped evidence distinct from an absent agent
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:82:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > preserves an explicit agent loading error
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:86:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > preserves a channel error when no loaded channel is demonstrated
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:90:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > retains channel errors without hiding another positively loaded channel
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:94:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > does not confuse an error on a loaded channel with channel unloading
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ expectState tests/agent/agent-runtime-state.test.ts:14:51
+     12| 
+     13| function expectState(input: Record<string, unknown>, state: string) {
+     14|   const parsed = agent.AgentRuntimeSnapshotSchema.parse({ ...input, st…
+       |                                                   ^
+     15|   expect(parsed.state).toBe(state);
+     16|   expect(agent.deriveAgentRuntimeState(parsed)).toBe(state);
+ ❯ tests/agent/agent-runtime-state.test.ts:98:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > rejects a stopped agent with a positively loaded channel
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-state.test.ts:102:45
+    100| 
+    101|   it('rejects a stopped agent with a positively loaded channel', () =>…
+    102|     expect(agent.AgentRuntimeSnapshotSchema.safeParse(snapshot({ loadS…
+       |                                             ^
+    103|   });
+    104| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > rejects duplicate channel identifiers while permitting distinct protocols
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-state.test.ts:106:45
+    104| 
+    105|   it('rejects duplicate channel identifiers while permitting distinct …
+    106|     expect(agent.AgentRuntimeSnapshotSchema.safeParse(snapshot({ chann…
+       |                                             ^
+    107|     expectState(snapshot({ channels: [channel(), channel({ channelId: …
+    108|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > rejects a false claimed active state without supporting evidence
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > rejects a false claimed stopped state without supporting evidence
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > rejects a false claimed no-channel state without supporting evidence
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > rejects a false claimed error state without supporting evidence
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-state.test.ts:112:47
+    110|   it.each(['active', 'stopped', 'no-channel', 'error'])(
+    111|     'rejects a false claimed %s state without supporting evidence', (s…
+    112|       expect(agent.AgentRuntimeSnapshotSchema.safeParse(snapshot({ sta…
+       |                                               ^
+    113|     },
+    114|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/32]⎯
+
+ FAIL  tests/agent/agent-runtime-state.test.ts > canonical agent state from X9 runtime evidence > rejects an understated unknown state when a loaded channel is proven
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-runtime-state.test.ts:117:45
+    115| 
+    116|   it('rejects an understated unknown state when a loaded channel is pr…
+    117|     expect(agent.AgentRuntimeSnapshotSchema.safeParse(snapshot({ state…
+       |                                             ^
+    118|   });
+    119| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/32]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  32 failed (32)
+   Start at  23:45:17
+   Duration  241ms (transform 41ms, setup 4ms, collect 72ms, tests 6ms, environment 0ms, prepare 40ms)
+
