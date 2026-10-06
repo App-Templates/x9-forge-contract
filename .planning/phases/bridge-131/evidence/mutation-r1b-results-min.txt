@@ -1,5 +1,8 @@
 mutation r1b-results-min: src/agent/agent-management.ts
 -   results: z.array(AgentManagementTargetResultSchema).min(1),
 +   results: z.array(AgentManagementTargetResultSchema),
-result: SURVIVED
-Tests  46 passed (46)
+result: KILLED
+× R1b per-target results and derived outcome > rejects duplicate target results and an empty result list 8ms
+Tests  1 failed | 42 passed (43)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > rejects duplicate target results and an empty result list
