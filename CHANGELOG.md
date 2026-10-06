@@ -10,6 +10,21 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.30.0 — stato canonico degli agenti (BRIDGE-130)
+
+Contratto unico con cui X9 dichiara e Forge legge identità, stato e canali di ogni agente (AGENTI-01).
+
+### Added (additive, backward-compatible)
+
+- `@x9-forge/contracts/agent`: identità esplicita gestione↔runtime (es. Forge `x9-staging` ↔ X9 `x9`), senza alias impliciti; un identificativo non può nominare due agenti.
+- Stato canonico dell'agente: attivo / senza canale / spento / errore / sconosciuto, derivato dai canali osservati da X9. Attivo richiede almeno un canale caricato dimostrato; senza prova lo stato è sconosciuto, mai inventato.
+- Canali per agente con stato proprio, compreso «in pausa» (dichiarato, non errore) e readiness distinta dal caricamento.
+- Lista `/internal/agents`: metadati additivi di disponibilità e completezza della fonte. I vecchi payload restano validi e producono stato sconosciuto, mai un falso spento o attivo.
+
+Verificato da un revisore indipendente (Codex D): 1549/1549 test, campioni di mutazione rossi, CJS/ESM e dts portabili.
+
+---
+
 ## v1.29.0 — proposta in review — B1 parametri e B7 uscite/feedback/andamento
 
 Aggiunte per agente e capability (D54-11, piano X9 54-05), corrette dopo la revisione del contratto.

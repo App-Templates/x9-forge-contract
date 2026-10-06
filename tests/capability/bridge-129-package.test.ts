@@ -10,8 +10,10 @@ const pkg = JSON.parse(readFileSync(new URL('package.json', root), 'utf8')) as {
   zshy: { exports: Record<string, string> };
 };
 describe('v1.29 additive distribution', () => {
-  it('uses the coordinated 1.29.0 proposal version', () => {
-    expect(pkg.version).toBe('1.29.0');
+  it('ships at or after the 1.29.0 additive version', () => {
+    const [major, minor] = pkg.version.split('.').map(Number);
+    expect(major).toBe(1);
+    expect(minor).toBeGreaterThanOrEqual(29);
   });
   for (const [key, previous] of Object.entries(baseline)) {
     it('preserves old targets and symbols at ' + key, async () => {

@@ -1,7 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.listAgentsContract = exports.ListAgentsResponseSchema = exports.ListAgentsAgentSchema = exports.RuntimeErrorKindSchema = exports.ForgeRuntimeStatusSchema = exports.RuntimeAgentStatusSchema = void 0;
+exports.getListAgentsRuntimeState = getListAgentsRuntimeState;
 const zod_1 = require("zod");
+const agent_runtime_identity_js_1 = require("../../agent/agent-runtime-identity.cjs");
+const agent_runtime_state_js_1 = require("../../agent/agent-runtime-state.cjs");
+const agent_runtime_source_js_1 = require("../../agent/agent-runtime-source.cjs");
 /**
  * GET /internal/agents — list all loaded agents.
  * Direction: Forge factory-svc -> X9 agent-core
@@ -73,10 +77,43 @@ exports.ListAgentsAgentSchema = zod_1.z.object({
     loaded: zod_1.z.boolean().optional(),
     errorKind: exports.RuntimeErrorKindSchema.optional(),
     lastError: zod_1.z.string().nullable().optional(),
+    // Canonical metadata is additive; legacy bot status is never channel evidence.
+    identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.optional(),
+    runtime: agent_runtime_state_js_1.AgentRuntimeSnapshotSchema.optional(),
+}).superRefine((agent, ctx) => {
+    if (agent.identity && agent.agentId !== agent.identity.runtimeAgentId) {
+        ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Runtime identity must match the list row agentId' });
+    }
 });
 exports.ListAgentsResponseSchema = zod_1.z.object({
     agents: zod_1.z.array(exports.ListAgentsAgentSchema),
+    source: agent_runtime_source_js_1.AgentRuntimeSourceSchema.optional(),
+}).superRefine((response, ctx) => {
+    // A legacy runtime ID occupies one name for collision detection only.
+    // This does not supply a missing management identity to consumers.
+    const identities = response.agents.map((agent) => agent.identity ?? {
+        managementAgentId: agent.agentId, runtimeAgentId: agent.agentId,
+    });
+    const result = agent_runtime_identity_js_1.AgentRuntimeIdentitiesSchema.safeParse(identities);
+    if (!result.success) {
+        for (const issue of result.error.issues) {
+            ctx.addIssue({ ...issue, path: ['agents', ...issue.path] });
+        }
+    }
 });
+/**
+ * Resolve an exact declared management/runtime ID using current X9 evidence.
+ * Missing rows, legacy bot status and unavailable sources remain unknown.
+ * Invalid or ambiguous payloads throw rather than select an arbitrary agent.
+ */
+function getListAgentsRuntimeState(input, agentId) {
+    const response = exports.ListAgentsResponseSchema.parse(input);
+    if (response.source?.availability !== 'available')
+        return 'unknown';
+    const agent = response.agents.find((candidate) => candidate.agentId === agentId
+        || candidate.identity?.managementAgentId === agentId);
+    return agent?.runtime?.state ?? 'unknown';
+}
 exports.listAgentsContract = {
     method: 'GET',
     path: '/internal/agents',

@@ -14,4 +14,7 @@ export { AgentContextRuntimeFieldsSchema, AgentContextFileSchema, AgentContextFi
 export type { AgentContextRuntimeFields, AgentContextFile } from "./agent-context-file.js";
 export { agentWorkspacePath, agentRegistryPath, agentContextJsonPath, } from "./agent-paths.js";
 export { parseAgentContext } from "./parse-agent-context.js";
+export * from "./agent-runtime-identity.js";
+export * from "./agent-runtime-state.js";
+export * from "./agent-runtime-source.js";
 //# sourceMappingURL=index.d.ts.map

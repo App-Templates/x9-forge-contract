@@ -36,10 +36,10 @@ export declare const RagSourceConnectionSchema: z.ZodObject<{
 }, z.core.$strip>;
 export type RagSourceConnection = z.infer<typeof RagSourceConnectionSchema>;
 export declare const RagJobTypeSchema: z.ZodEnum<{
+    index: "index";
     full_sync: "full_sync";
     incremental_sync: "incremental_sync";
     parse: "parse";
-    index: "index";
     extraction: "extraction";
     entity_resolution: "entity_resolution";
     claim_validation: "claim_validation";
@@ -64,10 +64,10 @@ export type RagJobStatus = z.infer<typeof RagJobStatusSchema>;
 export declare const RagSyncJobSummarySchema: z.ZodObject<{
     id: z.ZodString;
     job_type: z.ZodEnum<{
+        index: "index";
         full_sync: "full_sync";
         incremental_sync: "incremental_sync";
         parse: "parse";
-        index: "index";
         extraction: "extraction";
         entity_resolution: "entity_resolution";
         claim_validation: "claim_validation";
@@ -123,10 +123,10 @@ export declare const RagSourceStatusSchema: z.ZodObject<{
     last_job: z.ZodOptional<z.ZodNullable<z.ZodObject<{
         id: z.ZodString;
         job_type: z.ZodEnum<{
+            index: "index";
             full_sync: "full_sync";
             incremental_sync: "incremental_sync";
             parse: "parse";
-            index: "index";
             extraction: "extraction";
             entity_resolution: "entity_resolution";
             claim_validation: "claim_validation";
@@ -216,10 +216,10 @@ export declare const RagSourceStatusResponseSchema: z.ZodObject<{
         last_job: z.ZodOptional<z.ZodNullable<z.ZodObject<{
             id: z.ZodString;
             job_type: z.ZodEnum<{
+                index: "index";
                 full_sync: "full_sync";
                 incremental_sync: "incremental_sync";
                 parse: "parse";
-                index: "index";
                 extraction: "extraction";
                 entity_resolution: "entity_resolution";
                 claim_validation: "claim_validation";

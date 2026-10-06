@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { AgentRuntimeState } from "../../agent/agent-runtime-state.js";
 /**
  * GET /internal/agents — list all loaded agents.
  * Direction: Forge factory-svc -> X9 agent-core
@@ -35,10 +36,10 @@ import { z } from 'zod';
  * (empty token). Mirrors agent-core BotState + the bot-less discriminator.
  */
 export declare const RuntimeAgentStatusSchema: z.ZodEnum<{
+    stopped: "stopped";
     running: "running";
     degraded: "degraded";
     starting: "starting";
-    stopped: "stopped";
     "bot-less": "bot-less";
 }>;
 export type RuntimeAgentStatus = z.infer<typeof RuntimeAgentStatusSchema>;
@@ -49,10 +50,10 @@ export type RuntimeAgentStatus = z.infer<typeof RuntimeAgentStatusSchema>;
  */
 export declare const ForgeRuntimeStatusSchema: z.ZodEnum<{
     unknown: "unknown";
+    stopped: "stopped";
     running: "running";
     degraded: "degraded";
     starting: "starting";
-    stopped: "stopped";
     "bot-less": "bot-less";
 }>;
 export type ForgeRuntimeStatus = z.infer<typeof ForgeRuntimeStatusSchema>;
@@ -71,10 +72,10 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
     displayName: z.ZodString;
     ownerId: z.ZodString;
     runtimeStatus: z.ZodOptional<z.ZodEnum<{
+        stopped: "stopped";
         running: "running";
         degraded: "degraded";
         starting: "starting";
-        stopped: "stopped";
         "bot-less": "bot-less";
     }>>;
     loaded: z.ZodOptional<z.ZodBoolean>;
@@ -84,6 +85,48 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
         transient: "transient";
     }>>>;
     lastError: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    identity: z.ZodOptional<z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strip>>;
+    runtime: z.ZodOptional<z.ZodObject<{
+        loadState: z.ZodEnum<{
+            error: "error";
+            unknown: "unknown";
+            stopped: "stopped";
+            loaded: "loaded";
+        }>;
+        channelsComplete: z.ZodBoolean;
+        channels: z.ZodArray<z.ZodObject<{
+            channelId: z.ZodString;
+            kind: z.ZodUnion<[z.ZodEnum<{
+                email: "email";
+                telegram: "telegram";
+                voice: "voice";
+                whatsapp: "whatsapp";
+            }>, z.ZodLiteral<"web">]>;
+            state: z.ZodEnum<{
+                error: "error";
+                unknown: "unknown";
+                stopped: "stopped";
+                loaded: "loaded";
+                paused: "paused";
+            }>;
+            loaded: z.ZodNullable<z.ZodBoolean>;
+            readiness: z.ZodEnum<{
+                unknown: "unknown";
+                ready: "ready";
+                "not-ready": "not-ready";
+            }>;
+        }, z.core.$strip>>;
+        state: z.ZodEnum<{
+            error: "error";
+            unknown: "unknown";
+            active: "active";
+            "no-channel": "no-channel";
+            stopped: "stopped";
+        }>;
+    }, z.core.$strip>>;
 }, z.core.$strip>;
 export type ListAgentsAgent = z.infer<typeof ListAgentsAgentSchema>;
 export declare const ListAgentsResponseSchema: z.ZodObject<{
@@ -92,10 +135,10 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
         displayName: z.ZodString;
         ownerId: z.ZodString;
         runtimeStatus: z.ZodOptional<z.ZodEnum<{
+            stopped: "stopped";
             running: "running";
             degraded: "degraded";
             starting: "starting";
-            stopped: "stopped";
             "bot-less": "bot-less";
         }>>;
         loaded: z.ZodOptional<z.ZodBoolean>;
@@ -105,9 +148,71 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
             transient: "transient";
         }>>>;
         lastError: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        identity: z.ZodOptional<z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        }, z.core.$strip>>;
+        runtime: z.ZodOptional<z.ZodObject<{
+            loadState: z.ZodEnum<{
+                error: "error";
+                unknown: "unknown";
+                stopped: "stopped";
+                loaded: "loaded";
+            }>;
+            channelsComplete: z.ZodBoolean;
+            channels: z.ZodArray<z.ZodObject<{
+                channelId: z.ZodString;
+                kind: z.ZodUnion<[z.ZodEnum<{
+                    email: "email";
+                    telegram: "telegram";
+                    voice: "voice";
+                    whatsapp: "whatsapp";
+                }>, z.ZodLiteral<"web">]>;
+                state: z.ZodEnum<{
+                    error: "error";
+                    unknown: "unknown";
+                    stopped: "stopped";
+                    loaded: "loaded";
+                    paused: "paused";
+                }>;
+                loaded: z.ZodNullable<z.ZodBoolean>;
+                readiness: z.ZodEnum<{
+                    unknown: "unknown";
+                    ready: "ready";
+                    "not-ready": "not-ready";
+                }>;
+            }, z.core.$strip>>;
+            state: z.ZodEnum<{
+                error: "error";
+                unknown: "unknown";
+                active: "active";
+                "no-channel": "no-channel";
+                stopped: "stopped";
+            }>;
+        }, z.core.$strip>>;
+    }, z.core.$strip>>;
+    source: z.ZodOptional<z.ZodObject<{
+        authority: z.ZodLiteral<"x9">;
+        availability: z.ZodEnum<{
+            unknown: "unknown";
+            available: "available";
+            unavailable: "unavailable";
+        }>;
+        completeness: z.ZodEnum<{
+            unknown: "unknown";
+            complete: "complete";
+            partial: "partial";
+        }>;
+        observedAt: z.ZodNullable<z.ZodISODateTime>;
     }, z.core.$strip>>;
 }, z.core.$strip>;
 export type ListAgentsResponse = z.infer<typeof ListAgentsResponseSchema>;
+/**
+ * Resolve an exact declared management/runtime ID using current X9 evidence.
+ * Missing rows, legacy bot status and unavailable sources remain unknown.
+ * Invalid or ambiguous payloads throw rather than select an arbitrary agent.
+ */
+export declare function getListAgentsRuntimeState(input: unknown, agentId: string): AgentRuntimeState;
 export declare const listAgentsContract: {
     readonly method: "GET";
     readonly path: "/internal/agents";
@@ -118,10 +223,10 @@ export declare const listAgentsContract: {
             displayName: z.ZodString;
             ownerId: z.ZodString;
             runtimeStatus: z.ZodOptional<z.ZodEnum<{
+                stopped: "stopped";
                 running: "running";
                 degraded: "degraded";
                 starting: "starting";
-                stopped: "stopped";
                 "bot-less": "bot-less";
             }>>;
             loaded: z.ZodOptional<z.ZodBoolean>;
@@ -131,6 +236,62 @@ export declare const listAgentsContract: {
                 transient: "transient";
             }>>>;
             lastError: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            identity: z.ZodOptional<z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            }, z.core.$strip>>;
+            runtime: z.ZodOptional<z.ZodObject<{
+                loadState: z.ZodEnum<{
+                    error: "error";
+                    unknown: "unknown";
+                    stopped: "stopped";
+                    loaded: "loaded";
+                }>;
+                channelsComplete: z.ZodBoolean;
+                channels: z.ZodArray<z.ZodObject<{
+                    channelId: z.ZodString;
+                    kind: z.ZodUnion<[z.ZodEnum<{
+                        email: "email";
+                        telegram: "telegram";
+                        voice: "voice";
+                        whatsapp: "whatsapp";
+                    }>, z.ZodLiteral<"web">]>;
+                    state: z.ZodEnum<{
+                        error: "error";
+                        unknown: "unknown";
+                        stopped: "stopped";
+                        loaded: "loaded";
+                        paused: "paused";
+                    }>;
+                    loaded: z.ZodNullable<z.ZodBoolean>;
+                    readiness: z.ZodEnum<{
+                        unknown: "unknown";
+                        ready: "ready";
+                        "not-ready": "not-ready";
+                    }>;
+                }, z.core.$strip>>;
+                state: z.ZodEnum<{
+                    error: "error";
+                    unknown: "unknown";
+                    active: "active";
+                    "no-channel": "no-channel";
+                    stopped: "stopped";
+                }>;
+            }, z.core.$strip>>;
+        }, z.core.$strip>>;
+        source: z.ZodOptional<z.ZodObject<{
+            authority: z.ZodLiteral<"x9">;
+            availability: z.ZodEnum<{
+                unknown: "unknown";
+                available: "available";
+                unavailable: "unavailable";
+            }>;
+            completeness: z.ZodEnum<{
+                unknown: "unknown";
+                complete: "complete";
+                partial: "partial";
+            }>;
+            observedAt: z.ZodNullable<z.ZodISODateTime>;
         }, z.core.$strip>>;
     }, z.core.$strip>;
 };
