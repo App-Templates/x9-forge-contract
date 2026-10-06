@@ -4,7 +4,10 @@ import {
   CapabilityCallContextRequestSchema,
   CapabilityCallContextResponseSchema,
   CapabilityCallContextSchema,
+  CapabilityAgentScopeSchema,
   CapabilityCallIdentitySchema,
+  CapabilityPersonScopeSchema,
+  sameCapabilityScope,
   ToolCallRequestSchema,
   pickCapabilityCredentials,
   toToolCallScope,
@@ -32,6 +35,18 @@ describe('R3 capability call identity', () => {
     const input: Record<string, unknown> = { ...identity };
     delete input[key];
     expect(CapabilityCallIdentitySchema.safeParse(input).success).toBe(false);
+  });
+
+  it('derives agent and person scopes without redefining identity', () => {
+    const { userId: _drop, ...agentScope } = identity;
+    expect(CapabilityAgentScopeSchema.safeParse(agentScope).success).toBe(true);
+    expect(CapabilityAgentScopeSchema.safeParse(identity).success).toBe(false);
+    expect(CapabilityPersonScopeSchema.safeParse(identity).success).toBe(true);
+    expect(CapabilityPersonScopeSchema.safeParse(agentScope).success).toBe(false);
+    expect(sameCapabilityScope(identity, { ...identity })).toBe(true);
+    expect(sameCapabilityScope(identity, { ...identity, agentId: 'other' })).toBe(false);
+    expect(sameCapabilityScope(identity, { ...identity, userId: 'other' })).toBe(false);
+    expect(sameCapabilityScope(identity, agentScope)).toBe(false);
   });
 
   it('rejects extra identity claims', () => {

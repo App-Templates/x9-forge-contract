@@ -25,6 +25,19 @@ export const CapabilityCallIdentitySchema = InternalMemoryExtractRequestSchema.p
 }).strict();
 export type CapabilityCallIdentity = z.infer<typeof CapabilityCallIdentitySchema>;
 
+/** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
+export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }).strict();
+export type CapabilityAgentScope = z.infer<typeof CapabilityAgentScopeSchema>;
+
+/** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
+export const CapabilityPersonScopeSchema = CapabilityCallIdentitySchema.required({ userId: true }).strict();
+export type CapabilityPersonScope = z.infer<typeof CapabilityPersonScopeSchema>;
+
+/** Same tenant, owner and agent (and person when both carry one). */
+export function sameCapabilityScope(a: CapabilityCallIdentity, b: CapabilityCallIdentity): boolean {
+  return a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.agentId === b.agentId && a.userId === b.userId;
+}
+
 const CapabilityNameSchema = CapabilityAgentParametersSchema.shape.capability;
 
 function addKeyAlignmentIssues(left: Record<string, unknown>, right: Record<string, unknown>, ctx: z.RefinementCtx): void {

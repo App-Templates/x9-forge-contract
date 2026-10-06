@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CapabilityCallIdentitySchema } from '../capability-call-context.js';
+import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../capability-call-context.js';
 import { AgentConfigVersionSchema } from '../ricerca/agent-config.js';
 import { AgentVoiceIdSchema, AgentVoiceLocaleSchema, AgentVoiceModelSchema } from '../voice/agent-voice-settings.js';
 import { CapToolCallParamsSchema } from '../../http/endpoints/cap-tool-call.js';
@@ -18,7 +18,7 @@ import { AgentRuntimeChannelSchema } from '../../agent/agent-runtime-state.js';
  */
 
 /** One provider resource serves one agent: no person in this scope. */
-export const ElevenLabsAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }).strict();
+export const ElevenLabsAgentScopeSchema = CapabilityAgentScopeSchema;
 export type ElevenLabsAgentScope = z.infer<typeof ElevenLabsAgentScopeSchema>;
 
 export const ElevenLabsProviderAgentIdSchema = z.string().regex(/^[A-Za-z0-9_-]{1,128}$/);
@@ -77,9 +77,6 @@ export const ElevenLabsAgentMappingSchema = z.object({
 });
 export type ElevenLabsAgentMapping = z.infer<typeof ElevenLabsAgentMappingSchema>;
 
-const sameScope = (a: ElevenLabsAgentScope, b: ElevenLabsAgentScope): boolean =>
-  a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.agentId === b.agentId;
-
 export const ElevenLabsChannelStatusSchema = z.object({
   scope: ElevenLabsAgentScopeSchema,
   /** null: no provider resource yet (not provisioned). */
@@ -96,7 +93,7 @@ export const ElevenLabsChannelStatusSchema = z.object({
   if (status.mapping === null && status.channel.loaded === true) {
     ctx.addIssue({ code: 'custom', path: ['mapping'], message: 'A loaded channel needs a provider resource' });
   }
-  if (status.mapping !== null && !sameScope(status.mapping.scope, status.scope)) {
+  if (status.mapping !== null && !sameCapabilityScope(status.mapping.scope, status.scope)) {
     ctx.addIssue({ code: 'custom', path: ['mapping', 'scope'], message: 'Mapping belongs to another agent' });
   }
   if (status.observedAt === null && status.channel.state !== 'unknown') {
