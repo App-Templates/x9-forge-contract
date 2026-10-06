@@ -24,10 +24,21 @@ export const CapabilityFeedbackSourceSchema = z.object({
 export const CapabilityOutputKindSchema = z.object({
   key: CapabilityParameterKeySchema, label: TextSchema, description: DescriptionSchema,
 }).strict();
+export const CapabilityOutputFieldTypeSchema = z.enum(['text', 'number', 'boolean', 'json']);
 export const CapabilityOutputFieldSchema = z.object({
   key: CapabilityParameterKeySchema, label: TextSchema,
-  type: z.enum(['text', 'number', 'boolean', 'json']),
-}).strict();
+  type: CapabilityOutputFieldTypeSchema,
+  /** Optional scale for numeric output, e.g. a critic's rating from 1 to 10. */
+  min: z.number().finite().optional(),
+  max: z.number().finite().optional(),
+}).strict().superRefine((field, ctx) => {
+  if (field.type !== 'number' && (field.min !== undefined || field.max !== undefined)) {
+    ctx.addIssue({ code: 'custom', message: 'only numeric fields declare a scale' });
+  }
+  if (field.min !== undefined && field.max !== undefined && field.min > field.max) {
+    ctx.addIssue({ code: 'custom', message: 'minimum exceeds maximum', path: ['min'] });
+  }
+});
 export const CapabilityTrendMetricSchema = z.object({
   key: CapabilityParameterKeySchema, label: TextSchema, unit: TextSchema,
 }).strict();
@@ -141,3 +152,5 @@ export type CapabilityFeedbackSourceKind = z.infer<typeof CapabilityFeedbackSour
 
 export type CapabilityFeedbackKind = z.infer<typeof CapabilityFeedbackKindSchema>;
 export type CapabilityFeedbackDecision = z.infer<typeof CapabilityFeedbackDecisionSchema>;
+
+export type CapabilityOutputFieldType = z.infer<typeof CapabilityOutputFieldTypeSchema>;
