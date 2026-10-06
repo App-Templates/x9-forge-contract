@@ -134,3 +134,6 @@ if (failed > 0) {
   process.exit(1);
 }
 process.exit(0);
+
+// Canonical agent runtime behavior must work through real package subpaths.
+require('./bridge-130-smoke.cjs');

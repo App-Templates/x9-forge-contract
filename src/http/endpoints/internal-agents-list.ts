@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { AgentRuntimeIdentitySchema, AgentRuntimeIdentitiesSchema } from '../../agent/agent-runtime-identity.js';
 import { AgentRuntimeSnapshotSchema } from '../../agent/agent-runtime-state.js';
+import type { AgentRuntimeState } from '../../agent/agent-runtime-state.js';
 import { AgentRuntimeSourceSchema } from '../../agent/agent-runtime-source.js';
 
 /**
@@ -108,6 +109,19 @@ export const ListAgentsResponseSchema = z.object({
   }
 });
 export type ListAgentsResponse = z.infer<typeof ListAgentsResponseSchema>;
+
+/**
+ * Resolve an exact declared management/runtime ID using current X9 evidence.
+ * Missing rows, legacy bot status and unavailable sources remain unknown.
+ * Invalid or ambiguous payloads throw rather than select an arbitrary agent.
+ */
+export function getListAgentsRuntimeState(input: unknown, agentId: string): AgentRuntimeState {
+  const response = ListAgentsResponseSchema.parse(input);
+  if (response.source?.availability !== 'available') return 'unknown';
+  const agent = response.agents.find((candidate) => candidate.agentId === agentId
+    || candidate.identity?.managementAgentId === agentId);
+  return agent?.runtime?.state ?? 'unknown';
+}
 
 export const listAgentsContract = {
   method: 'GET' as const,
