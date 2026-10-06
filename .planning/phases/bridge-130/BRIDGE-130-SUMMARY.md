@@ -11,7 +11,7 @@ D-A0..D-A8 confirmed at 01:35/01:40; no expansion into product work; meditation 
 | 1 — explicit identity | done | 12/12 failed | 12/12 passed | 4/4 killed |
 | 2 — runtime and channels | done | 32/32 failed | 44/44 passed (32 new) | 10/10 killed |
 | 3 — additive list metadata | done | 15 failed / 21 (6 compatibility passed) | 82/82 passed (24 task tests) | 11/11 killed |
-| 4 — conservative lookup | done | 26 failed / 28 (2 export/path checks passed) | 110/110 passed (28 task tests); CJS 6/6, ESM 6/6 | 9/9 killed |
+| 4 — conservative lookup | done | 26 failed / 28 (2 export/path checks passed) | 110/110 passed (28 task tests); CJS 6/6, ESM 6/6 | 11/11 killed (9 lookup + 2 CJS wiring) |
 
 Outputs will be saved under evidence/ in this directory. Full verification and
 producer/consumer migration limits will be recorded after task completion.
@@ -93,3 +93,18 @@ are under evidence/task-4-*.txt. No dist or package metadata was generated in
 the assigned worktree; only the isolated private copy was built.
 
 Ultimo aggiornamento: 23:52
+
+### Task 4 follow-up — meaningful CJS wiring
+
+Inspection found the first standard smoke output only ran its old 36 probes:
+the appended require was after process.exit(0). The initial task-4-cjs-green.txt
+therefore does NOT prove the new six CJS assertions. A new integration probe
+asserts both successful exit and the six-assertion marker in the child output.
+It failed first (task-4-cjs-wiring-red.txt); moving the require before exit made
+it pass 2/2 (task-4-cjs-wiring-green.txt). Corrected standard smoke now proves
+36/36 old probes plus 6/6 new assertions (task-4-cjs-green-final.txt).
+Removing the require and forcing a nonzero exit both kill the integration probe,
+2/2 additional mutations. The private source is restored. No product source
+changed in this follow-up commit. ESM remains independently verified 6/6.
+
+Ultimo aggiornamento: 23:53

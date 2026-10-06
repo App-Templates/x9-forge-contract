@@ -1,0 +1,1 @@
+BRIDGE-130 standard CJS wiring: 2/2 assertions passed
