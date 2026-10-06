@@ -10,6 +10,23 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.31.0 — gestione, chiavi, voce, ambito e capability di Meditation (BRIDGE-131)
+
+Contratti per il piano FABBRICA (R1b, R3, R4, R5, R6). Tutto additivo: export e payload della 1.30 invariati.
+
+### Added (additive, backward-compatible)
+
+- `./agent`, `./http` (R1b): comandi logici start/stop/restart/reload/apply-config con chiave di richiesta (stessa chiave e comando = replay, comando diverso = conflitto), versioni salvata/applicata/fallita, esito per bersaglio ok/errore/non gestibile con motivo; `POST /internal/agents/:agentId/commands`, `GET /internal/agents/:agentId/management`. L'agentId dei risultati deve coincidere con l'identità dichiarata.
+- `./vault` (R3): chiave collegata al Master Chief oppure scollegata con valore proprio owner/agente, versione salvata/applicata; ruota/ricollega/scollega con esito per agente. Mai valori in transito; chiavi interne di piattaforma rifiutate.
+- `./capability`, `./http` (R3): contesto di chiamata con tenant/owner/agente obbligatori, solo le credenziali richieste dalla capability, errori distinti; `POST /resolve/capability-context`.
+- `./voice` (R4): solo testo oppure voce (provider, protocollo, trasporto, id voce, modello) con versione; identità del chiamante sul numero Telnyx condiviso; agente solo testo non chiama.
+- `./agent` (R5): consentito/chiedi/vietato per capability e strumento, ricerca web predefinita, «limitato allo scopo», approvazioni umane con scadenza, registro azioni senza payload né segreti.
+- `./capability` (R6): cap-agent-elevenlabs (creazione unica all'Applica, adozione solo con mapping esplicito, binding confrontato su scope completo tenant/owner/agente) e cap-coach (programmi per agente; profilo, sessioni, progressi e budget per persona, isolati per tenant/owner/agente/persona, scrittura idempotente).
+
+Verificato da revisore indipendente (Codex C): REVISE sul binding ElevenLabs, corretto, poi APPROVE. 1830/1830 test, 148+10 mutazioni uccise, CJS/ESM e dts portabili.
+
+---
+
 ## v1.30.0 — stato canonico degli agenti (BRIDGE-130)
 
 Contratto unico con cui X9 dichiara e Forge legge identità, stato e canali di ogni agente (AGENTI-01).

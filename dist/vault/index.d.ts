@@ -21,4 +21,5 @@ export { PLATFORM_INTERNAL_CREDENTIAL_KEYS, isPlatformInternalCredentialKey, str
 export type { PlatformInternalCredentialKey } from "./platform-internal-credentials.js";
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.js";
 export type { AgentVaultedCredentials } from "./agent-vaulted-credentials.js";
+export * from "./credential-link.js";
 //# sourceMappingURL=index.d.ts.map

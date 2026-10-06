@@ -45,4 +45,6 @@ export { CapVoicePostCallIngestRequestSchema, CapVoicePostCallIngestResponseSche
 export { VoiceCallMemoryIngestPayloadSchema, } from "./memory-payload.js";
 // -- Tool log (1 schema + supporting enum) ---------------------------------
 export { VoiceCallToolLogSchema, VoiceToolCallSourceSchema, } from "./tool-log.js";
+// -- Per-agent voice settings, provider catalog, outbound caller identity (R4, v1.31.0) --
+export * from "./agent-voice-settings.js";
 //# sourceMappingURL=index.js.map

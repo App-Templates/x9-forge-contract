@@ -18,10 +18,10 @@
  */
 import { z } from 'zod';
 export declare const MemoryConsoleKindSchema: z.ZodEnum<{
+    rules: "rules";
     feedback: "feedback";
     episodes: "episodes";
     facts: "facts";
-    rules: "rules";
     aliases: "aliases";
 }>;
 export type MemoryConsoleKind = z.infer<typeof MemoryConsoleKindSchema>;
@@ -43,10 +43,10 @@ export declare const memoryConsoleListContract: {
         limit: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly kindSchema: z.ZodEnum<{
+        rules: "rules";
         feedback: "feedback";
         episodes: "episodes";
         facts: "facts";
-        rules: "rules";
         aliases: "aliases";
     }>;
 };

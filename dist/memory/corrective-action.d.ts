@@ -24,9 +24,9 @@ export type MemoryActorType = z.infer<typeof MemoryActorTypeSchema>;
  * - `alias`: entity alias entry.
  */
 export declare const MemoryTargetTypeSchema: z.ZodEnum<{
+    rule: "rule";
     episode: "episode";
     fact: "fact";
-    rule: "rule";
     entity: "entity";
     alias: "alias";
 }>;
@@ -74,9 +74,9 @@ export declare const MemoryCorrectiveActionRequestSchema: z.ZodObject<{
         change_retention: "change_retention";
     }>;
     target_type: z.ZodEnum<{
+        rule: "rule";
         episode: "episode";
         fact: "fact";
-        rule: "rule";
         entity: "entity";
         alias: "alias";
     }>;

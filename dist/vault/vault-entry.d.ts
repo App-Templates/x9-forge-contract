@@ -32,8 +32,8 @@ export declare const VaultEntryPlainSchema: z.ZodObject<{
     isCustomized: z.ZodBoolean;
     tier: z.ZodEnum<{
         owner: "owner";
-        agent: "agent";
         platform: "platform";
+        agent: "agent";
     }>;
     agentId: z.ZodNullable<z.ZodNumber>;
     ownerId: z.ZodNullable<z.ZodNumber>;
@@ -60,8 +60,8 @@ export declare const VaultEntryEncryptedSchema: z.ZodObject<{
     isCustomized: z.ZodBoolean;
     tier: z.ZodEnum<{
         owner: "owner";
-        agent: "agent";
         platform: "platform";
+        agent: "agent";
     }>;
     agentId: z.ZodNullable<z.ZodNumber>;
     ownerId: z.ZodNullable<z.ZodNumber>;

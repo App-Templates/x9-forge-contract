@@ -112,11 +112,11 @@ export declare const VoiceLiveWebSessionResponseSchema: z.ZodObject<{
 export type VoiceLiveWebSessionResponse = z.infer<typeof VoiceLiveWebSessionResponseSchema>;
 /** Terminal states of a live call as observed by cap-voice-live. */
 export declare const VoiceLiveCallEndReasonSchema: z.ZodEnum<{
-    completed: "completed";
     failed: "failed";
+    completed: "completed";
     no_answer: "no_answer";
-    call_initiation_failure: "call_initiation_failure";
     busy: "busy";
+    call_initiation_failure: "call_initiation_failure";
     session_expired: "session_expired";
     session_error: "session_error";
 }>;

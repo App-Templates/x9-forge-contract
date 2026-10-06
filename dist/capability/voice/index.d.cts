@@ -29,4 +29,5 @@ export { ForgeVoiceWebhookNormalizedEventSchema, type ForgeVoiceWebhookNormalize
 export { CapVoicePostCallIngestRequestSchema, CapVoicePostCallIngestResponseSchema, CapVoiceIngestStatusSchema, type CapVoicePostCallIngestRequest, type CapVoicePostCallIngestResponse, type CapVoiceIngestStatus, } from "./ingest.cjs";
 export { VoiceCallMemoryIngestPayloadSchema, type VoiceCallMemoryIngestPayload, } from "./memory-payload.cjs";
 export { VoiceCallToolLogSchema, VoiceToolCallSourceSchema, type VoiceCallToolLog, type VoiceToolCallSource, } from "./tool-log.cjs";
+export * from "./agent-voice-settings.cjs";
 //# sourceMappingURL=index.d.ts.map

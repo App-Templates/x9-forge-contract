@@ -19,9 +19,9 @@ import { z } from 'zod';
  * reference `ElevenLabsWebhookEventTypeSchema` — R-14 compliance.
  */
 export declare const ElevenLabsWebhookEventTypeSchema: z.ZodEnum<{
+    call_initiation_failure: "call_initiation_failure";
     post_call_transcription: "post_call_transcription";
     post_call_audio: "post_call_audio";
-    call_initiation_failure: "call_initiation_failure";
 }>;
 export type ElevenLabsWebhookEventType = z.infer<typeof ElevenLabsWebhookEventTypeSchema>;
 /**

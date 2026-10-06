@@ -33,8 +33,8 @@ export declare const CapabilityAgentRouteErrorSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
         invalid_request: "invalid_request";
-        not_configured: "not_configured";
         agent_mismatch: "agent_mismatch";
+        not_configured: "not_configured";
         invalid_config: "invalid_config";
         unknown_model_rate: "unknown_model_rate";
         budget_below_minimum: "budget_below_minimum";

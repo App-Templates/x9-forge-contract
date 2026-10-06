@@ -39,9 +39,9 @@ export declare const memoryCorrectContract: {
             change_retention: "change_retention";
         }>;
         target_type: z.ZodEnum<{
+            rule: "rule";
             episode: "episode";
             fact: "fact";
-            rule: "rule";
             entity: "entity";
             alias: "alias";
         }>;

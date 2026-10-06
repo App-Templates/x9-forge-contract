@@ -19,9 +19,9 @@ export declare const CapVoicePostCallIngestRequestSchema: z.ZodObject<{
         tenant_id: z.ZodString;
         conversation_id: z.ZodString;
         event_type: z.ZodEnum<{
+            call_initiation_failure: "call_initiation_failure";
             post_call_transcription: "post_call_transcription";
             post_call_audio: "post_call_audio";
-            call_initiation_failure: "call_initiation_failure";
         }>;
         received_at: z.ZodString;
         forwarded_at: z.ZodOptional<z.ZodString>;

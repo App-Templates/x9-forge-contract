@@ -39,11 +39,11 @@ export declare const VoiceCallMemoryIngestPayloadSchema: z.ZodObject<{
         call_id: z.ZodString;
         outcome: z.ZodEnum<{
             unknown: "unknown";
+            rejected: "rejected";
+            no_answer: "no_answer";
             completed_task_done: "completed_task_done";
             completed_partial: "completed_partial";
-            no_answer: "no_answer";
             voicemail_left: "voicemail_left";
-            rejected: "rejected";
             wrong_number: "wrong_number";
             call_initiation_failed: "call_initiation_failed";
             escalated: "escalated";

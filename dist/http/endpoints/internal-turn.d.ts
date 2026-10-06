@@ -22,10 +22,10 @@ import { z } from 'zod';
 /** LLM message shape as exchanged in turn history. */
 export declare const LLMMessageSchema: z.ZodObject<{
     role: z.ZodEnum<{
-        tool: "tool";
         system: "system";
         user: "user";
         assistant: "assistant";
+        tool: "tool";
     }>;
     content: z.ZodString;
     toolCallId: z.ZodOptional<z.ZodString>;
@@ -62,10 +62,10 @@ export declare const InternalTurnRequestSchema: z.ZodObject<{
     message: z.ZodString;
     history: z.ZodOptional<z.ZodArray<z.ZodObject<{
         role: z.ZodEnum<{
-            tool: "tool";
             system: "system";
             user: "user";
             assistant: "assistant";
+            tool: "tool";
         }>;
         content: z.ZodString;
         toolCallId: z.ZodOptional<z.ZodString>;
@@ -93,10 +93,10 @@ export declare const InternalTurnResponseSchema: z.ZodObject<{
     reply: z.ZodString;
     updatedHistory: z.ZodArray<z.ZodObject<{
         role: z.ZodEnum<{
-            tool: "tool";
             system: "system";
             user: "user";
             assistant: "assistant";
+            tool: "tool";
         }>;
         content: z.ZodString;
         toolCallId: z.ZodOptional<z.ZodString>;
@@ -124,10 +124,10 @@ export declare const internalTurnContract: {
         message: z.ZodString;
         history: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodEnum<{
-                tool: "tool";
                 system: "system";
                 user: "user";
                 assistant: "assistant";
+                tool: "tool";
             }>;
             content: z.ZodString;
             toolCallId: z.ZodOptional<z.ZodString>;
@@ -154,10 +154,10 @@ export declare const internalTurnContract: {
         reply: z.ZodString;
         updatedHistory: z.ZodArray<z.ZodObject<{
             role: z.ZodEnum<{
-                tool: "tool";
                 system: "system";
                 user: "user";
                 assistant: "assistant";
+                tool: "tool";
             }>;
             content: z.ZodString;
             toolCallId: z.ZodOptional<z.ZodString>;

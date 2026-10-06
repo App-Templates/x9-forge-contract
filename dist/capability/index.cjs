@@ -58,4 +58,10 @@ Object.defineProperty(exports, "HealthStatusSchema", { enumerable: true, get: fu
 __exportStar(require("./capability-turn-lead.cjs"), exports);
 __exportStar(require("./parameters.cjs"), exports);
 __exportStar(require("./presentation.cjs"), exports);
+// Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
+__exportStar(require("./capability-call-context.cjs"), exports);
+// cap-agent-elevenlabs: idempotent provisioning, provider mapping, external channel state (R6, v1.31.0)
+__exportStar(require("./agent-elevenlabs/index.cjs"), exports);
+// cap-coach: programs, sessions, progress, minute budget per tenant/owner/agent/person (R6, v1.31.0)
+__exportStar(require("./coach/index.cjs"), exports);
 //# sourceMappingURL=index.js.map
