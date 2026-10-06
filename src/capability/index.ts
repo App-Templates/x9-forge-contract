@@ -75,3 +75,6 @@ export * from './presentation.js';
 
 // Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
 export * from './capability-call-context.js';
+
+// cap-agent-elevenlabs: idempotent provisioning, provider mapping, external channel state (R6, v1.31.0)
+export * from './agent-elevenlabs/index.js';
