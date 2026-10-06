@@ -1,5 +1,5 @@
 # BRIDGE-129 · proposta 1.29.0 corretta
-Ultimo aggiornamento: 14:52 (06/10/2026)
+Ultimo aggiornamento: 15:06 (06/10/2026)
 
 Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9
 Branch: codex/bridge-129-params-outputs. Base: d8ef67f (1.28.0).
@@ -129,3 +129,9 @@ Baseline, mutazioni, ripristino e copertura nominativa in review/.
 
 Check finale degli spazi: quattro log storici normalizzati, nessun contenuto cambiato; prove originali
 conservate e impronte in review/quality-evidence-format.json. git diff --check d8ef67f verde.
+
+## Ritocchi non bloccanti dopo APPROVE (06/10, massimo 20 minuti)
+
+- Primo ritocco, questo commit: CHANGELOG neutro e motivazione della sola eccezione lab priva di consumer.
+  Sola documentazione: sorgenti/test/dist invariati, nessun nuovo controllo; prove 233ca43 ancora applicabili.
+- Restano JSDoc pattern e riepilogo unico MD delle mutazioni; 56-01 sospeso soltanto per questi ritocchi.

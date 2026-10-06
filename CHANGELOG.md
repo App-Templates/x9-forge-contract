@@ -12,12 +12,12 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ## v1.29.0 — proposta in review — B1 parametri e B7 uscite/feedback/andamento
 
-Aggiunte per agente e capability (D54-11, piano X9 54-05), corrette dopo la revisione di Samira.
-Il rilascio e gli aggiornamenti dei consumer aspettano la nuova revisione e la coordinatrice.
+Aggiunte per agente e capability (D54-11, piano X9 54-05), corrette dopo la revisione del contratto.
+Il rilascio e gli aggiornamenti dei consumer sono gestiti dalla coordinatrice dopo la verifica del contratto.
 
 ### Changed — sole exception: unconsumed lab contracts
 
-- Samira authorized the only non-additive change from 1.28: cap-lab was released this morning and has no consumers.
+- The lab portion of 1.28 has no consumers. Its configuration and ingest payload changes are intentionally non-additive.
   LabAgentConfigSchema now requires models (digest, optional read) and budget (dailyUsd, perIngestMaxUsd, timezone).
   No model or budget default is selected; the per-ingest ceiling cannot exceed the daily budget.
 - The same unconsumed lab exception corrects synchronous ingest: lab_ingest returns only
@@ -46,7 +46,7 @@ Il rilascio e gli aggiornamenti dei consumer aspettano la nuova revisione e la c
 - CapabilityUsdSchema e CapabilityModelIdSchema esportano i validatori esistenti di ricerca invariati.
   SpendingCapabilitySchema accetta ricerca e lab; labAgentSpendContract riusa path, GET, schemi e secret auth
   della spesa di ricerca. AGENT_SPEND_MAX_DAYS resta lo stesso export pubblico e vale 400.
-- Nessuna nuova rotta B1/B7 stabilita dalle fonti: schemi e dichiarazioni come accettato da Samira.
+- Nessuna nuova rotta B1/B7 stabilita dalle fonti: schemi e dichiarazioni come previsto dalle fonti.
   Il salvataggio della config passa dal PUT capAgentConfigPath già esistente; i consumer realizzano letture
   e aggiornamenti. Validazione del contenuto specifico e montaggio nelle app restano ai consumer.
 - Consumer previsti: Forge fase 33; capability di agent-x9; vista di progetto esterna/app di dominio.
