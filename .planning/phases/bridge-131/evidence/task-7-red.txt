@@ -1,0 +1,301 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/capability/coach.test.ts (41 tests | 41 failed) 10ms
+   × R6 cap-coach programs (project content, per agent) > accepts a generic program with ordered steps 3ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach programs (project content, per agent) > rejects person-scoped program 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach programs (project content, per agent) > rejects no steps 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach programs (project content, per agent) > rejects duplicate step id 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach programs (project content, per agent) > rejects duplicate step order 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach programs (project content, per agent) > rejects invalid program id 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach programs (project content, per agent) > rejects zero version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach programs (project content, per agent) > rejects step without minutes > 0 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a profile with preferences and time zone 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 0 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 1 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 2 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 3 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 4 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 5 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects completed without end 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects completed without minutes 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects in progress with end 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects scheduled already started 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects end before start 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects step without program 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects session without person 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects missing idempotency key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects abandoned without end 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > tracks progress with short and long term usage scores 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with sessions without last session 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with last session without sessions 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with minutes without sessions 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with duplicate completed step 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with score above 100 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach person data isolated by tenant/owner/agent/person > counts the minute budget per period and never goes negative 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > returns one person's data only 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > rejects another person's session 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > rejects another agent's progress 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > rejects another tenant's budget 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > rejects another person's profile 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > rejects duplicate program progress 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > records a session once and reports replays 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach snapshot, results and errors > distinguishes budget exhaustion, idempotency conflict and stale programs 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R6 cap-coach routes > declares secret-auth per-agent routes and reuses the saved-version answer 3ms
+     → expected undefined to match object { method: 'PUT', …(2) }
+   × R6 cap-coach routes > builds validated and encoded paths 0ms
+     → (0 , capCoachProgramPath) is not a function
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 41 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > accepts a generic program with ordered steps
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:45:31
+     43| describe('R6 cap-coach programs (project content, per agent)', () => {
+     44|   it('accepts a generic program with ordered steps', () => {
+     45|     expect(CoachProgramSchema.safeParse(program).success).toBe(true);
+       |                               ^
+     46|     expect(CoachProgramSchema.safeParse({ ...program, kind: 'training'…
+     47|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > rejects person-scoped program
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > rejects no steps
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > rejects duplicate step id
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > rejects duplicate step order
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > rejects invalid program id
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > rejects zero version
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach programs (project content, per agent) > rejects step without minutes > 0
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:58:31
+     56|     ['step without minutes > 0', { steps: [{ ...program.steps[0], dura…
+     57|   ])('rejects %s', (_label, patch) => {
+     58|     expect(CoachProgramSchema.safeParse({ ...program, ...patch }).succ…
+       |                               ^
+     59|   });
+     60| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a profile with preferences and time zone
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:64:37
+     62| describe('R6 cap-coach person data isolated by tenant/owner/agent/pers…
+     63|   it('accepts a profile with preferences and time zone', () => {
+     64|     expect(CoachPersonProfileSchema.safeParse(profile).success).toBe(t…
+       |                                     ^
+     65|     expect(CoachPersonProfileSchema.safeParse({ ...profile, scope: age…
+     66|     expect(CoachPersonProfileSchema.safeParse({ ...profile, timezone: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 0
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 1
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 2
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 3
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 4
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 5
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:77:31
+     75|     [{ programId: undefined, stepId: undefined }],
+     76|   ])('accepts a coherent session %#', (patch) => {
+     77|     expect(CoachSessionSchema.safeParse({ ...completed, ...patch }).su…
+       |                               ^
+     78|   });
+     79| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects completed without end
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects completed without minutes
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects in progress with end
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects scheduled already started
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects end before start
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects step without program
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects session without person
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects missing idempotency key
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects abandoned without end
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:91:31
+     89|     ['abandoned without end', { status: 'abandoned', endedAt: null, ac…
+     90|   ])('rejects %s', (_label, patch) => {
+     91|     expect(CoachSessionSchema.safeParse({ ...completed, ...patch }).su…
+       |                               ^
+     92|   });
+     93| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > tracks progress with short and long term usage scores
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:95:32
+     93| 
+     94|   it('tracks progress with short and long term usage scores', () => {
+     95|     expect(CoachProgressSchema.safeParse(progress).success).toBe(true);
+       |                                ^
+     96|     expect(CoachProgressSchema.safeParse({ ...progress, completedStepI…
+     97|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with sessions without last session
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with last session without sessions
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with minutes without sessions
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with duplicate completed step
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with score above 100
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:106:32
+    104|     ['score above 100', { usageScores: { shortTerm: 140, longTerm: 10 …
+    105|   ])('rejects progress with %s', (_label, patch) => {
+    106|     expect(CoachProgressSchema.safeParse({ ...progress, ...patch }).su…
+       |                                ^
+    107|   });
+    108| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > counts the minute budget per period and never goes negative
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:110:36
+    108| 
+    109|   it('counts the minute budget per period and never goes negative', ()…
+    110|     expect(CoachMinuteBudgetSchema.safeParse(budget).success).toBe(tru…
+       |                                    ^
+    111|     expect(coachRemainingMinutes(CoachMinuteBudgetSchema.parse(budget)…
+    112|     expect(coachRemainingMinutes(CoachMinuteBudgetSchema.parse({ ...bu…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > returns one person's data only
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:123:38
+    121| 
+    122|   it('returns one person\'s data only', () => {
+    123|     expect(CoachPersonSnapshotSchema.safeParse(snapshot).success).toBe…
+       |                                      ^
+    124|     expect(CoachPersonSnapshotSchema.safeParse({ ...snapshot, profile:…
+    125|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > rejects another person's session
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > rejects another agent's progress
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > rejects another tenant's budget
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > rejects another person's profile
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > rejects duplicate program progress
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:134:38
+    132|     ['duplicate program progress', { progress: [progress, progress] }],
+    133|   ])('rejects %s', (_label, patch) => {
+    134|     expect(CoachPersonSnapshotSchema.safeParse({ ...snapshot, ...patch…
+       |                                      ^
+    135|   });
+    136| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > records a session once and reports replays
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:139:43
+    137|   it('records a session once and reports replays', () => {
+    138|     const result = { ok: true, replayed: false, session: completed, pr…
+    139|     expect(CoachSessionRecordResultSchema.safeParse(result).success).t…
+       |                                           ^
+    140|     expect(CoachSessionRecordResultSchema.safeParse({ ...result, repla…
+    141|     expect(CoachSessionRecordResultSchema.safeParse({ ...result, progr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > distinguishes budget exhaustion, idempotency conflict and stale programs
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/capability/coach.test.ts:146:34
+    144| 
+    145|   it('distinguishes budget exhaustion, idempotency conflict and stale …
+    146|     expect(CoachRouteErrorSchema.safeParse({ ok: false, error: 'budget…
+       |                                  ^
+    147|     expect(CoachRouteErrorSchema.safeParse({ ok: false, error: 'idempo…
+    148|     expect(CoachRouteErrorSchema.safeParse({ ok: false, error: 'stale_…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach routes > declares secret-auth per-agent routes and reuses the saved-version answer
+AssertionError: expected undefined to match object { method: 'PUT', …(2) }
+
+[32m- Expected:[39m 
+{
+  "authType": "secret",
+  "method": "PUT",
+  "path": "/internal/capability/agents/:agentId/coach/programs/:programId",
+}
+
+[31m+ Received:[39m 
+undefined
+
+ ❯ tests/capability/coach.test.ts:156:37
+    154| describe('R6 cap-coach routes', () => {
+    155|   it('declares secret-auth per-agent routes and reuses the saved-versi…
+    156|     expect(coachProgramPutContract).toMatchObject({ method: 'PUT', pat…
+       |                                     ^
+    157|     expect(coachProgramPutContract.responseSchema).toBe(AgentConfigSav…
+    158|     expect(coachSessionRecordContract).toMatchObject({ method: 'POST',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/41]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach routes > builds validated and encoded paths
+TypeError: (0 , capCoachProgramPath) is not a function
+ ❯ tests/capability/coach.test.ts:163:12
+    161| 
+    162|   it('builds validated and encoded paths', () => {
+    163|     expect(capCoachProgramPath('x9-meditazione', 'respiro-7')).toBe('/…
+       |            ^
+    164|     expect(capCoachSessionsPath('x9-meditazione')).toBe('/internal/cap…
+    165|     expect(capCoachPersonPath('x9-meditazione', 'user/1 a')).toBe('/in…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/41]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  41 failed (41)
+   Start at  01:18:20
+   Duration  507ms (transform 182ms, setup 5ms, collect 331ms, tests 10ms, environment 0ms, prepare 45ms)
+

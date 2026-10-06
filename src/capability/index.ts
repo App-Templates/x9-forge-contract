@@ -78,3 +78,6 @@ export * from './capability-call-context.js';
 
 // cap-agent-elevenlabs: idempotent provisioning, provider mapping, external channel state (R6, v1.31.0)
 export * from './agent-elevenlabs/index.js';
+
+// cap-coach: programs, sessions, progress, minute budget per tenant/owner/agent/person (R6, v1.31.0)
+export * from './coach/index.js';
