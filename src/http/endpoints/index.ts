@@ -9,6 +9,7 @@
 export * from './internal-agents-list.js';
 export * from './internal-agents-reload.js';
 export * from './internal-agents-stop.js';
+export * from './internal-agents-management.js'; // v1.31.0 — R1b commands + management state
 export * from './internal-turn.js';
 export * from './internal-turn-stream.js';
 export * from './internal-agent-turn.js'; // v1.22.0 — EA M0 per-agent turn

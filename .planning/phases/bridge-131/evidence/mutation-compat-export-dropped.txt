@@ -1,0 +1,7 @@
+mutation compat-export-dropped: src/agent/index.ts
+- export * from './agent-runtime-source.js';
++ 
+result: KILLED
+      Tests  1 failed | 22 passed (23)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/compat/bridge-130-compat.test.ts > 1.30 public exports are preserved > keeps all 32 symbols of ./agent
