@@ -1,0 +1,8 @@
+mutation r6c-budget-limit: src/capability/coach/index.ts
+-   limitMinutes: z.number().int().positive().max(100_000),
++   limitMinutes: z.number().int().nonnegative().max(100_000),
+result: KILLED
+× R6 cap-coach person data isolated by tenant/owner/agent/person > counts the minute budget per period and never goes negative 4ms
+Tests  1 failed | 40 passed (41)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > counts the minute budget per period and never goes negative

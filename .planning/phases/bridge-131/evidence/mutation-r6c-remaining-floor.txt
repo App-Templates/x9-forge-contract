@@ -1,0 +1,8 @@
+mutation r6c-remaining-floor: src/capability/coach/index.ts
+-   return Math.max(0, budget.limitMinutes - budget.usedMinutes);
++   return budget.limitMinutes - budget.usedMinutes;
+result: KILLED
+× R6 cap-coach person data isolated by tenant/owner/agent/person > counts the minute budget per period and never goes negative 4ms
+Tests  1 failed | 40 passed (41)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/coach.test.ts > R6 cap-coach person data isolated by tenant/owner/agent/person > counts the minute budget per period and never goes negative

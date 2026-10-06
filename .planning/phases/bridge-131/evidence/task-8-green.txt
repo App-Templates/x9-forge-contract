@@ -1,0 +1,11 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ✓ tests/compat/bridge-131-dist.test.ts (5 tests) 378ms
+ ✓ tests/compat/bridge-130-compat.test.ts (23 tests) 98ms
+
+ Test Files  2 passed (2)
+      Tests  28 passed (28)
+   Start at  01:21:01
+   Duration  1.07s (transform 352ms, setup 5ms, collect 318ms, tests 476ms, environment 0ms, prepare 75ms)
+

@@ -1,0 +1,8 @@
+mutation r6c-last-session-iff: src/capability/coach/index.ts
+-   if ((progress.sessionsCompleted > 0) !== (progress.lastSessionAt !== null)) {
++   if (false) {
+result: KILLED
+× R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with sessions without last session 4ms
+× R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with last session without sessions 0ms
+Tests  2 failed | 39 passed (41)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
