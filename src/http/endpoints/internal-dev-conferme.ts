@@ -15,11 +15,14 @@ export const InternalDevConfermeRequestSchema = z.object({
 }).strict();
 export type InternalDevConfermeRequest = z.infer<typeof InternalDevConfermeRequestSchema>;
 
+export const DevSignedCommandSchema = z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI']);
+export type DevSignedCommand = z.infer<typeof DevSignedCommandSchema>;
+
 export const InternalDevConfermeResponseSchema = z.object({
   conferme: z.array(z.object({
     richiesta: z.number().int().positive(),
     titolo: z.string(),
-    comando: z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI']),
+    comando: DevSignedCommandSchema,
     link: z.url({ protocol: /^https$/ }),
   }).strict()),
 }).strict();

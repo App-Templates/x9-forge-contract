@@ -49,12 +49,17 @@ describe('internal dev pending confirmations contract', () => {
     expect(contract().responseSchema).toBe(schema('InternalDevConfermeResponseSchema'));
     expect(contract().responseSchema.parse({ conferme: [confirmation] })).toEqual({ conferme: [confirmation] });
   });
-  it.each(cases(['InternalDevConfermeRequestSchema', 'InternalDevConfermeResponseSchema', 'internalDevConfermeContract']))(
+  it.each(cases(['InternalDevConfermeRequestSchema', 'InternalDevConfermeResponseSchema', 'internalDevConfermeContract', 'DevSignedCommandSchema']))(
     'exports the same %s through HTTP and its endpoints barrel', name => {
       expect(exports[name]).toBeDefined();
       expect((endpoints as unknown as Record<string, unknown>)[name]).toBe(exports[name]);
     },
   );
+});
+
+it('uses the public signed-command schema directly in each confirmation', () => {
+  const response = schema('InternalDevConfermeResponseSchema') as z.ZodObject<{ conferme: z.ZodArray<z.ZodObject<{ comando: z.ZodType }>> }>;
+  expect(response.shape.conferme.element.shape.comando).toBe(schema('DevSignedCommandSchema'));
 });
 
 describe('pending confirmation request', () => {

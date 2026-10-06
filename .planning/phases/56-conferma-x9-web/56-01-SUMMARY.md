@@ -1,5 +1,5 @@
 # 56-01 · contratto delle conferme per X9 Live web
-Ultimo aggiornamento: 15:34 (06/10/2026)
+Ultimo aggiornamento: 18:05 (06/10/2026)
 
 Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-56-1
 Branch: codex/56-01-bridge-conferme. Base d8ef67f (1.28); nessun riallineamento necessario per questo contratto aggiuntivo.
@@ -8,7 +8,7 @@ La coordinatrice ha comunicato il rilascio canonico 1.29 alle 15:24; non ho camb
 
 ## Stato
 
-PRONTO PER REVISIONE. Tutti i passi del 56-01 completati, nessun passo saltato.
+CORREZIONI IN CORSO: audit R-14 della consegna 892d179 da correggere, richiesta letta intera. I numeri originali sotto sono storici, non il risultato del nuovo HEAD.
 Contratto implementato: POST interno con autenticazione a segreto, richiesta sessionId non vuoto,
 conferme con numero intero positivo, titolo stringa, APPROVATO / SCARTATO / RIPRENDI e link HTTPS.
 Non è ancora un pulsante visibile nella pagina: cap-dev e la pagina web sono i successivi piani 56-02/56-03.
@@ -20,7 +20,7 @@ Rilascio 1.33.0 e integrazione a cura della coordinatrice; nessun mio push/tag/v
 | --- | --- | --- |
 | Piano, contesto e stato iniziale | 943aaac | fonti/perimetro/base verificati; copia identica dei piani |
 | Contratto + export + test | 1b356b9 | 0/100 → 131/131 con i due contratti di riferimento; tipi e lint mirato verdi |
-| Mutazioni e qualità finale | commit di verifica, HEAD di questa consegna | 34/34 nello stesso giro; 1067/1067, CJS 31/31, build in copia, lint e perimetro verdi |
+| Mutazioni e qualità finale | 892d179 (consegna originale) | 34/34 nello stesso giro; 1067/1067, CJS 31/31, build in copia, lint e perimetro verdi |
 
 SUMMARY aggiornato e PLAN/SUMMARY riletti dopo ogni commit. Un comando alla volta, un worker.
 Installazione frozen/offline senza lifecycle: 235/235 pacchetti riusati, zero scaricati, lock invariato.
@@ -82,3 +82,13 @@ nessuna modifica al compilatore, ai test/contratto o ai file protetti e nessun r
 
 I JSON e log completi rimangono negli archivi temporanei indicati dai report; nel Git soltanto riepiloghi Markdown.
 Nessuna verifica dal vivo dei servizi o della pagina web: fuori dal piano del contratto.
+
+## Correzioni assegnate 06/10, massimo 15 minuti
+
+| Punto | Stato / commit | Prove |
+| --- | --- | --- |
+| 1 Schema/tipo pubblici e riuso diretto | completo, questo commit | 2/102 rossi → 102/102 verdi; CF-35 pronta |
+| 2 Opzioni esatte dell’enum | da fare | aggiunta ANNULLA deve diventare rossa |
+| 3 HTTPS malformati | da fare | https:// e https://a b contro startsWith |
+
+Punto 1: DevSignedCommandSchema e DevSignedCommand esportati; risposta riusa lo schema. Ancore delle 34 mutazioni precedenti adattate alla costante, guardia specifica CF-35 sul legame. Nessun package/CHANGELOG/dist o consumer cambiato. Evidenza correction1-export.md.

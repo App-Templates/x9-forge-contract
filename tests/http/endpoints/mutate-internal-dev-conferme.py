@@ -14,7 +14,7 @@ REQUEST="""z.object({
 ITEM="""z.object({
     richiesta: z.number().int().positive(),
     titolo: z.string(),
-    comando: z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI']),
+    comando: DevSignedCommandSchema,
     link: z.url({ protocol: /^https$/ }),
   }).strict()"""
 RESPONSE="""z.object({
@@ -41,7 +41,7 @@ add('CF-15-item-object',ITEM,'z.any()')
 fields={
     'richiesta':'z.number().int().positive()',
     'titolo':'z.string()',
-    'comando':"z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI'])",
+    'comando':'DevSignedCommandSchema',
     'link':'z.url({ protocol: /^https$/ })',
 }
 for index,(name,schema) in enumerate(fields.items(),16):
@@ -50,17 +50,19 @@ add('CF-20-request-number-type','richiesta: z.number().int().positive(),','richi
 add('CF-21-request-number-integer','richiesta: z.number().int().positive(),','richiesta: z.number().positive(),')
 add('CF-22-request-number-positive','richiesta: z.number().int().positive(),','richiesta: z.number().int(),')
 add('CF-23-title-type','titolo: z.string(),','titolo: z.any(),')
-add('CF-24-command-values',fields['comando'],'z.string()')
-add('CF-25-command-type',fields['comando'],'z.any()')
+add('CF-24-command-values',"z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI'])",'z.string()')
+add('CF-25-command-type',"z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI'])",'z.any()')
 add('CF-26-url-type',fields['link'],'z.any()')
 add('CF-27-url-validity',fields['link'],'z.string()')
 add('CF-28-https-only',fields['link'],'z.url()')
 add('CF-29-item-strict',ITEM,ITEM.replace('.strict()',''))
 add('CF-30-response-strict',RESPONSE,RESPONSE[:-len('.strict()')])
-add('CF-31-retry-command-preserved',fields['comando'],"z.enum(['APPROVATO', 'SCARTATO'])")
+add('CF-31-retry-command-preserved',"z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI'])","z.enum(['APPROVATO', 'SCARTATO'])")
 add('CF-32-empty-title-preserved','titolo: z.string(),','titolo: z.string().min(1),')
 add('CF-33-empty-queue-preserved','conferme: z.array('+ITEM+'),','conferme: z.array('+ITEM+').min(1),')
 add('CF-34-session-boundary-preserved','sessionId: z.string().min(1),','sessionId: z.string().min(2),')
+
+add('CF-35-public-command-linkage','comando: DevSignedCommandSchema,',"comando: z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI']),")
 
 def hashes():
     paths=[ROOT/SOURCE,ROOT/BARREL,ROOT/TEST,ROOT/'package.json',ROOT/'CHANGELOG.md',ROOT/'pnpm-lock.yaml',
