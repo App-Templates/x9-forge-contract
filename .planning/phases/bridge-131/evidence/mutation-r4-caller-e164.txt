@@ -1,0 +1,8 @@
+mutation r4-caller-e164: src/capability/voice/agent-voice-settings.ts
+-   fromNumber: VoiceLiveCallStartRequestSchema.shape.to_number,
++   fromNumber: z.string().min(1),
+result: KILLED
+× R4 caller identity on the single outbound Telnyx number > rejects non E.164 number 6ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 caller identity on the single outbound Telnyx number > rejects non E.164 number

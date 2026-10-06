@@ -1,0 +1,8 @@
+mutation r4-caller-phone: src/capability/voice/agent-voice-settings.ts
+-   if (!settings.transports.includes('phone')) return { ok: false, error: 'phone_not_enabled' };
++ 
+result: KILLED
+× R4 caller identity on the single outbound Telnyx number > refuses text-only agents and agents without the phone transport 6ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 caller identity on the single outbound Telnyx number > refuses text-only agents and agents without the phone transport

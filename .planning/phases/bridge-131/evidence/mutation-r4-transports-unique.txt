@@ -1,0 +1,8 @@
+mutation r4-transports-unique: src/capability/voice/agent-voice-settings.ts
+-   .refine((transports) => new Set(transports).size === transports.length, { message: 'Duplicate transport' });
++ ;
+result: KILLED
+× R4 per-agent voice settings > rejects duplicate transport 5ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 per-agent voice settings > rejects duplicate transport

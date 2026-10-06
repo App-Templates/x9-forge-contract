@@ -1,0 +1,8 @@
+mutation r4-validate-provider: src/capability/voice/agent-voice-settings.ts
+-   if (!entry) return ['provider_unsupported'];
++   if (!entry) return [];
+result: KILLED
+× R4 provider catalog > reports unsupported choices 5ms
+Tests  1 failed | 29 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/voice/agent-voice-settings.test.ts > R4 provider catalog > reports unsupported choices

@@ -1,0 +1,221 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/agent/agent-scope-policy.test.ts (40 tests | 40 failed) 10ms
+   × R5 scope policy > accepts a normal agent with native web search and a purpose-limited agent 4ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects limited agent with permissive read default 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects limited agent with ask write default 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects limited agent without purpose 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects duplicate capability rule 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects duplicate tool rule 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects unknown decision 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects rule without write decision 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects invalid tool name 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > rejects missing web search flag 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 scope policy > resolves tool rule > capability rule > default 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R5 scope policy > resolves tool rule > capability rule > default 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R5 scope policy > resolves tool rule > capability rule > default 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R5 scope policy > resolves tool rule > capability rule > default 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R5 scope policy > resolves tool rule > capability rule > default 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R5 scope policy > resolves tool rule > capability rule > default 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R5 scope policy > denies everything outside the purpose of a limited agent 0ms
+     → Cannot read properties of undefined (reading 'parse')
+   × R5 approval of an ask decision > tracks a pending request and an authenticated human decision 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 approval of an ask decision > rejects approval without decider 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 approval of an ask decision > rejects rejection without time 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 approval of an ask decision > rejects pending with a decider 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 approval of an ask decision > rejects approval after expiry 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 approval of an ask decision > rejects decision before request 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 approval of an ask decision > rejects expiry before request 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 approval of an ask decision > rejects approval by the model 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > accepts a coherent event 0 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > accepts a coherent event 1 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > accepts a coherent event 2 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > accepts a coherent event 3 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > accepts a coherent event 4 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > accepts a coherent event 5 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > accepts a coherent event 6 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects executed after deny 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects executed ask without approval 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects pending without ask 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects denied ask without approval 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects allowed but denied 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects payload in the log 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects secret in the log 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R5 action log event > rejects unknown provenance 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 40 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > accepts a normal agent with native web search and a purpose-limited agent
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-scope-policy.test.ts:31:35
+     29| describe('R5 scope policy', () => {
+     30|   it('accepts a normal agent with native web search and a purpose-limi…
+     31|     expect(AgentScopePolicySchema.safeParse(normal).success).toBe(true…
+       |                                   ^
+     32|     expect(AgentScopePolicySchema.safeParse(limited).success).toBe(tru…
+     33|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/40]⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects limited agent with permissive read default
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects limited agent with ask write default
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects limited agent without purpose
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects duplicate capability rule
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects duplicate tool rule
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects unknown decision
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects rule without write decision
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects invalid tool name
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects missing web search flag
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-scope-policy.test.ts:46:35
+     44|     ['missing web search flag', { ...normal, defaultWebSearch: undefin…
+     45|   ])('rejects %s', (_label, input) => {
+     46|     expect(AgentScopePolicySchema.safeParse(input).success).toBe(false…
+       |                                   ^
+     47|   });
+     48| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/40]⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > resolves tool rule > capability rule > default
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > resolves tool rule > capability rule > default
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > resolves tool rule > capability rule > default
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > resolves tool rule > capability rule > default
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > resolves tool rule > capability rule > default
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > resolves tool rule > capability rule > default
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-scope-policy.test.ts:57:57
+     55|     [{ capability: 'news', access: 'write' }, 'ask'],
+     56|   ] as const)('resolves tool rule > capability rule > default', (reque…
+     57|     expect(resolvePolicyDecision(AgentScopePolicySchema.parse(normal),…
+       |                                                         ^
+     58|   });
+     59| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/40]⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > denies everything outside the purpose of a limited agent
+TypeError: Cannot read properties of undefined (reading 'parse')
+ ❯ tests/agent/agent-scope-policy.test.ts:61:43
+     59| 
+     60|   it('denies everything outside the purpose of a limited agent', () =>…
+     61|     const policy = AgentScopePolicySchema.parse(limited);
+       |                                           ^
+     62|     expect(resolvePolicyDecision(policy, { capability: 'coach', tool: …
+     63|     expect(resolvePolicyDecision(policy, { capability: 'email', tool: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/40]⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > tracks a pending request and an authenticated human decision
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-scope-policy.test.ts:76:33
+     74| describe('R5 approval of an ask decision', () => {
+     75|   it('tracks a pending request and an authenticated human decision', (…
+     76|     expect(PolicyApprovalSchema.safeParse(approval).success).toBe(true…
+       |                                 ^
+     77|     expect(PolicyApprovalSchema.safeParse({ ...approval, status: 'appr…
+     78|     expect(PolicyApprovalSchema.safeParse({ ...approval, status: 'expi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/40]⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects approval without decider
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects rejection without time
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects pending with a decider
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects approval after expiry
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects decision before request
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects expiry before request
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects approval by the model
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-scope-policy.test.ts:90:33
+     88|     ['approval by the model', { status: 'approved', decidedBy: 'clerk:…
+     89|   ])('rejects %s', (_label, patch) => {
+     90|     expect(PolicyApprovalSchema.safeParse({ ...approval, ...patch }).s…
+       |                                 ^
+     91|   });
+     92| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/40]⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > accepts a coherent event 0
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > accepts a coherent event 1
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > accepts a coherent event 2
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > accepts a coherent event 3
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > accepts a coherent event 4
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > accepts a coherent event 5
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > accepts a coherent event 6
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-scope-policy.test.ts:109:38
+    107|     [{ outcome: 'failed', provenance: 'external-content' }],
+    108|   ])('accepts a coherent event %#', (patch) => {
+    109|     expect(AgentActionLogEventSchema.safeParse({ ...event, ...patch })…
+       |                                      ^
+    110|   });
+    111| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/40]⎯
+
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects executed after deny
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects executed ask without approval
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects pending without ask
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects denied ask without approval
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects allowed but denied
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects payload in the log
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects secret in the log
+ FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects unknown provenance
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/agent/agent-scope-policy.test.ts:122:38
+    120|     ['unknown provenance', { provenance: 'tool-output-says-so' }],
+    121|   ])('rejects %s', (_label, patch) => {
+    122|     expect(AgentActionLogEventSchema.safeParse({ ...event, ...patch })…
+       |                                      ^
+    123|   });
+    124| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/40]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  40 failed (40)
+   Start at  01:12:43
+   Duration  469ms (transform 109ms, setup 9ms, collect 201ms, tests 10ms, environment 0ms, prepare 64ms)
+

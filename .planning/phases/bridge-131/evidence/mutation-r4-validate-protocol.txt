@@ -1,0 +1,8 @@
+mutation r4-validate-protocol: src/capability/voice/agent-voice-settings.ts
+-   if (!entry.protocols.includes(settings.protocol)) issues.push('protocol_unsupported');
++ 
+result: KILLED
+× R4 provider catalog > reports unsupported choices 7ms
+× R4 provider catalog > reports unsupported choices 1ms
+Tests  2 failed | 28 passed (30)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
