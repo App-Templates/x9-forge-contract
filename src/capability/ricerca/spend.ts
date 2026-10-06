@@ -12,8 +12,11 @@ export const AgentDaySchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d =
   return !Number.isNaN(t.getTime()) && t.toISOString().slice(0, 10) === d;
 }, 'not a calendar date');
 
+/** Longest window of one agent spend request, days (inclusive). */
+export const AGENT_SPEND_MAX_DAYS = 400;
+
 /** The capabilities that report spend this way. */
-export const SpendingCapabilitySchema = z.enum(['ricerca']);
+export const SpendingCapabilitySchema = z.enum(['ricerca', 'lab']);
 export type SpendingCapability = z.infer<typeof SpendingCapabilitySchema>;
 
 export const AgentSpendDaySchema = z.object({
@@ -25,9 +28,9 @@ export const AgentSpendDaySchema = z.object({
   capUsd: z.number().positive().finite(),
   calls: z.number().int().nonnegative(),
   webCalls: z.number().int().nonnegative(),
-  /** Researches that day stopped because the DAY's budget was spent (a research's own ceiling is not counted here). */
+  /** Jobs (researches or ingests) stopped by the DAY's budget; a job's own ceiling is not counted here. */
   budgetStops: z.number().int().nonnegative(),
-  /** When the first research of that day was stopped by the day's budget («finito alle 15:52»); null if it never was. */
+  /** When the first job of that day was stopped by the day's budget («finito alle 15:52»); null if it never was. */
   budgetReachedAt: z.iso.datetime().nullable(),
   /**
    * When the agent's day was closed because a call may have cost more than its worst-case reservation: it did (overrun),

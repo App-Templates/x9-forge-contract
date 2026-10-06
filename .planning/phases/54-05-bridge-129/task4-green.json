@@ -1,0 +1,32 @@
+{
+  "numTotalTestSuites": 2,
+  "numPassedTestSuites": 2,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 17,
+  "numPassedTests": 17,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "tests": [
+    ["v1.29 additive distribution uses the coordinated 1.29.0 proposal version", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at .", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./auth", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./agent", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./voice", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/stt", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/tts", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/voice-live", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/ricerca", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/lab", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./http", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./memory", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./messaging", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./model-router", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./rag", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./vault", "passed"]
+  ],
+  "failures": [],
+  "originalEvidence": {"sha256": "99c11598cd07c6f28da81f472dab39d5db6c7f204b8ae27d3ac32f8100dc4ed2", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/task4-green.json", "gitHistory": "846311c and individual review commits"}
+}

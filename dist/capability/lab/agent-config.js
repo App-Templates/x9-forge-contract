@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { AgentConfigVersionSchema, CapabilityAgentIdSchema } from "../ricerca/agent-config.js";
+import { AgentConfigVersionSchema, AgentTimeZoneSchema, CapabilityAgentIdSchema, CapabilityModelIdSchema, CapabilityUsdSchema } from "../ricerca/agent-config.js";
 /**
  * cap-lab's configuration for ONE agent (v1.28.0, Phase 54): the conventions of that agent's wiki. cap-lab can be
  * attached to every agent, each filled with its own data. The kinds of pages and of links are chosen per agent
@@ -7,9 +7,23 @@ import { AgentConfigVersionSchema, CapabilityAgentIdSchema } from "../ricerca/ag
  * Written by Forge with `PUT /internal/capability/agents/:agentId/config`.
  */
 export const KindSlugSchema = z.string().regex(/^[a-z][a-z0-9_]{0,39}$/);
+export const LabBudgetSchema = z.object({
+    dailyUsd: CapabilityUsdSchema,
+    perIngestMaxUsd: CapabilityUsdSchema,
+    timezone: AgentTimeZoneSchema,
+}).strict().refine(b => b.perIngestMaxUsd <= b.dailyUsd, { message: 'perIngestMaxUsd above dailyUsd', path: ['perIngestMaxUsd'] });
+export const LabModelsSchema = z.object({
+    /** The model that writes the wiki pages. */
+    digest: CapabilityModelIdSchema,
+    /** Optional model for mechanical reading tasks, only when quality is preserved. */
+    read: CapabilityModelIdSchema.optional(),
+}).strict();
 export const LabAgentConfigSchema = z.object({
     agentId: CapabilityAgentIdSchema,
     version: AgentConfigVersionSchema,
+    /** Required before any paid ingest; no product defaults. */
+    models: LabModelsSchema,
+    budget: LabBudgetSchema,
     /** The knowledge domain (slug), e.g. `cucina`. */
     domain: z.string().regex(/^[a-z][a-z0-9-]{1,39}$/),
     /** What a good page is in this domain: the wiki's own conventions file, read by the model that writes it. */

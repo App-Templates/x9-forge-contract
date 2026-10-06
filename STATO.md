@@ -1,5 +1,27 @@
 # STATO
 
+## 06/10/2026 — bridge 1.29 corretta, PRONTO PER REVISIONE (Codex B, BRIDGE-129)
+
+R1–R7 chiuse: parametri generici con liste/pattern/optional/editableBy e limiti pubblici; feedback
+rating/approval con nome e foto, scale numeriche dichiarate. Manifest/registry additivi, ESM/CJS aggiornati.
+Lab allineato alla decisione Samira: models/budget obbligatori, spesa per agente, errori e ingest queued/status.
+Questa è la sola eccezione non additiva verso 1.28, autorizzata perché lab non ha consumer e documentata nel CHANGELOG.
+
+194 casi della prima consegna + 275 di revisione = 469/469 distinti, tutti visti rossi con asserzioni.
+Suite finale 1436/1436 (93/93 file), CJS 36/36; tipi, lint, build/dts e check:pack con codice 0.
+256/256 .d.ts portabili, 1024/1024 file dist identici alla build pulita.
+Warning preesistente check:pack sulle types CJS del root; profilo/esclusioni invariati.
+299/299 mutazioni in UN giro completo, baseline/ripristino 469/469 e hash sorgenti/dist intatti;
+nessuna somma di lotti o timeout conteggiato. Riepiloghi compatti e copertura nominativa committati.
+
+Nessuna nuova rotta B1/B7 prevista: salvataggio della config dal PUT per agente già esistente, come accetta Samira.
+Nessun export precedente rimosso o rinominato, nessun consumer aggiornato, push, tag, merge o deploy.
+Implementato e testato localmente; montaggio nei consumer e verifica dal vivo attendono revisione/rilascio.
+APPROVE ricevuto; ritocchi neutri di CHANGELOG/JSDoc e report MD unico completati.
+Dopo il JSDoc, mirati 119/119 e build 256/256 .d.ts; qualità completa sopra riferita a 233ca43.
+SUMMARY: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
+Coda B: 33-01 solo dopo il tag 1.29 e base/worktree preparati dalla coordinatrice; poi BRIDGE-130 e X9 56-01.
+
 ## 05/10/2026 — v1.28.0, contratti di cap-ricerca e cap-lab per agente (Claude, `feat/54-ricerca-lab-contracts`)
 
 Fase 54 di agent-x9, piano 54-01, riallineato la sera stessa alla decisione di Stefano «tutto per agente».

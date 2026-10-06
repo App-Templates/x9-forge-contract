@@ -9,9 +9,9 @@ import { z } from 'zod';
  */
 export declare const MemoryScopeSchema: z.ZodEnum<{
     user: "user";
+    owner: "owner";
     agent: "agent";
     platform: "platform";
-    owner: "owner";
 }>;
 export type MemoryScope = z.infer<typeof MemoryScopeSchema>;
 /**

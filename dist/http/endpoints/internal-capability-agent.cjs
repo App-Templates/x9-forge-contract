@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
+exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
 const zod_1 = require("zod");
 const agent_config_js_1 = require("../../capability/ricerca/agent-config.cjs");
 const spend_js_1 = require("../../capability/ricerca/spend.cjs");
@@ -73,15 +73,15 @@ exports.labAgentConfigGetContract = {
     paramsSchema: exports.CapabilityAgentParamsSchema,
     responseSchema: agent_config_js_2.LabAgentConfigSchema,
 };
-/** Longest window of one spend request, days (inclusive). */
-exports.AGENT_SPEND_MAX_DAYS = 400;
+var spend_js_2 = require("../../capability/ricerca/spend.cjs");
+Object.defineProperty(exports, "AGENT_SPEND_MAX_DAYS", { enumerable: true, get: function () { return spend_js_2.AGENT_SPEND_MAX_DAYS; } });
 /** GET /internal/capability/agents/:agentId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — days in the agent's time zone. */
 exports.AgentSpendQuerySchema = zod_1.z.object({ from: spend_js_1.AgentDaySchema, to: spend_js_1.AgentDaySchema }).strict()
     .refine(q => q.from <= q.to, { message: 'from after to' })
-    .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < exports.AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
+    .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < spend_js_1.AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
 exports.AgentSpendResponseSchema = zod_1.z.object({
-    days: zod_1.z.array(spend_js_1.AgentSpendDaySchema).max(exports.AGENT_SPEND_MAX_DAYS),
-    /** Researches of the agent waiting in the queue right now. */
+    days: zod_1.z.array(spend_js_1.AgentSpendDaySchema).max(spend_js_1.AGENT_SPEND_MAX_DAYS),
+    /** Jobs of the agent waiting in the queue right now. */
     queuedNow: zod_1.z.number().int().nonnegative(),
 }).strict();
 exports.ricercaAgentSpendContract = {
@@ -92,6 +92,8 @@ exports.ricercaAgentSpendContract = {
     querySchema: exports.AgentSpendQuerySchema,
     responseSchema: exports.AgentSpendResponseSchema,
 };
+/** cap-lab reports the same per-agent spend shape and path as cap-ricerca. */
+exports.labAgentSpendContract = { ...exports.ricercaAgentSpendContract };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 exports.AgentGrowthResponseSchema = zod_1.z.object({
     agentId: agent_config_js_1.CapabilityAgentIdSchema,

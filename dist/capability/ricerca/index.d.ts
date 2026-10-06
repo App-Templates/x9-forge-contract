@@ -9,7 +9,7 @@
  *
  * STRICT (internal boundary, R-14): no `.passthrough()`.
  */
-export { CapabilityAgentIdSchema, AgentConfigVersionSchema, AgentTimeZoneSchema, ResearchBudgetSchema, ResearchModelsSchema, ResearchEffortSchema, ResearchParamsSchema, SourceRuleSchema, ResearchAgentConfigSchema, type ResearchBudget, type ResearchModels, type ResearchParams, type SourceRule, type ResearchAgentConfig, } from "./agent-config.js";
+export { CapabilityAgentIdSchema, AgentConfigVersionSchema, AgentTimeZoneSchema, CapabilityUsdSchema, CapabilityModelIdSchema, ResearchBudgetSchema, ResearchModelsSchema, ResearchEffortSchema, ResearchParamsSchema, SourceRuleSchema, ResearchAgentConfigSchema, type ResearchBudget, type ResearchModels, type ResearchParams, type SourceRule, type ResearchAgentConfig, } from "./agent-config.js";
 export { ResearchIdSchema, WebUrlSchema, ResearchRequestSchema, ResearchStateSchema, ResearchSourceSchema, ResearchFindingSchema, ResearchCostSchema, ResearchResultSchema, type ResearchRequest, type ResearchState, type ResearchSource, type ResearchFinding, type ResearchCost, type ResearchResult, } from "./research.js";
 export { AgentDaySchema, SpendingCapabilitySchema, AgentSpendDaySchema, type SpendingCapability, type AgentSpendDay } from "./spend.js";
 export { RICERCA_TOOLS, RicercaToolErrorSchema, ResearchStartInputSchema, ResearchStartOutputSchema, ResearchStatusInputSchema, ResearchStatusOutputSchema, ResearchResultInputSchema, ResearchResultOutputSchema, type RicercaToolName, type RicercaToolError, type ResearchStartInput, type ResearchStartOutput, type ResearchStatusInput, type ResearchStatusOutput, type ResearchResultInput, type ResearchResultOutput, } from "./tools.js";

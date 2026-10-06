@@ -21,4 +21,6 @@ export { AgentRegistryFileSchema, type AgentRegistryFile, } from "./agent-regist
 export { EnvSchemaFieldSchema, EnvSchemaDocSchema, type EnvSchemaField, type EnvSchemaDoc, } from "./env-schema.cjs";
 export { HealthStatusSchema, type HealthStatus, } from "./health-status.cjs";
 export * from "./capability-turn-lead.cjs";
+export * from "./parameters.cjs";
+export * from "./presentation.cjs";
 //# sourceMappingURL=index.d.ts.map

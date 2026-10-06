@@ -1,0 +1,11 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9",
+    "typecheck"
+  ],
+  "exitCode": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-quality-wyg0y6hx/typecheck.log",
+  "finished": "2026-10-06T14:33:13.104012+02:00"
+}

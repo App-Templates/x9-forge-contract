@@ -6,9 +6,29 @@ import { z } from 'zod';
  * Written by Forge with `PUT /internal/capability/agents/:agentId/config`.
  */
 export declare const KindSlugSchema: z.ZodString;
+export declare const LabBudgetSchema: z.ZodObject<{
+    dailyUsd: z.ZodNumber;
+    perIngestMaxUsd: z.ZodNumber;
+    timezone: z.ZodString;
+}, z.core.$strict>;
+export type LabBudget = z.infer<typeof LabBudgetSchema>;
+export declare const LabModelsSchema: z.ZodObject<{
+    digest: z.ZodString;
+    read: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type LabModels = z.infer<typeof LabModelsSchema>;
 export declare const LabAgentConfigSchema: z.ZodObject<{
     agentId: z.ZodString;
     version: z.ZodNumber;
+    models: z.ZodObject<{
+        digest: z.ZodString;
+        read: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    budget: z.ZodObject<{
+        dailyUsd: z.ZodNumber;
+        perIngestMaxUsd: z.ZodNumber;
+        timezone: z.ZodString;
+    }, z.core.$strict>;
     domain: z.ZodString;
     conventions: z.ZodString;
     pageKinds: z.ZodArray<z.ZodString>;

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9",
+    "test"
+  ],
+  "exitCode": 0,
+  "passed": 1436,
+  "total": 1436,
+  "passedFiles": 93,
+  "totalFiles": 93,
+  "cjsPass": 36,
+  "cjsTests": 36,
+  "cjsFail": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-quality-pzagl_rv/full-suite.log",
+  "note": "Test exit was 0. Only the evidence helper assumed TAP rather than the repo CJS summary; no test rerun."
+}

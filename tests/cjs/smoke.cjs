@@ -34,6 +34,12 @@ const assert = require('node:assert/strict');
 
 /** @type {Array<{ specifier: string, knownSymbol: string, expectedType?: string, expectedValue?: unknown }>} */
 const PROBES = [
+  // B1/B7 (v1.29.0): real CommonJS consumers must resolve both new subpaths.
+  { specifier: '@x9-forge/contracts/capability/parameters', knownSymbol: 'CapabilityParameterSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/capability/parameters', knownSymbol: 'CapabilityAgentParametersSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/capability/presentation', knownSymbol: 'CapabilityOutputSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/capability/presentation', knownSymbol: 'CapabilityFeedbackSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/capability/presentation', knownSymbol: 'CapabilityTrendsSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/capability', knownSymbol: 'AgentTurnSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/capability', knownSymbol: 'CapabilityTurnLeadResponseSchema', expectedType: 'object' },
   { specifier: '@x9-forge/contracts/http', knownSymbol: 'capTurnLeadContract', expectedType: 'object' },

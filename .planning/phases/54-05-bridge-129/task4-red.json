@@ -1,0 +1,32 @@
+{
+  "numTotalTestSuites": 2,
+  "numPassedTestSuites": 0,
+  "numFailedTestSuites": 2,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 17,
+  "numPassedTests": 16,
+  "numFailedTests": 1,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "tests": [
+    ["v1.29 additive distribution uses the coordinated 1.29.0 proposal version", "failed"],
+    ["v1.29 additive distribution preserves old targets and symbols at .", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./auth", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./agent", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./voice", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/stt", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/tts", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/voice-live", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/ricerca", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/lab", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./http", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./memory", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./messaging", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./model-router", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./rag", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./vault", "passed"]
+  ],
+  "failures": [{"name": "v1.29 additive distribution uses the coordinated 1.29.0 proposal version", "assertion": true, "message": "AssertionError: expected '1.28.0' to be '1.29.0' // Object.is equality"}],
+  "originalEvidence": {"sha256": "d25743ba6e3a20d21a888f9b186bdcab6823c92f1ab43a1f7046517b4cc6eaee", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/task4-red.json", "gitHistory": "846311c and individual review commits"}
+}

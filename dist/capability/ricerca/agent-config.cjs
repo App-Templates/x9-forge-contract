@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResearchAgentConfigSchema = exports.SourceRuleSchema = exports.ResearchParamsSchema = exports.ResearchEffortSchema = exports.ResearchModelsSchema = exports.ResearchBudgetSchema = exports.AgentTimeZoneSchema = exports.AgentConfigVersionSchema = exports.CapabilityAgentIdSchema = void 0;
+exports.ResearchAgentConfigSchema = exports.SourceRuleSchema = exports.ResearchParamsSchema = exports.ResearchEffortSchema = exports.ResearchModelsSchema = exports.CapabilityModelIdSchema = exports.ResearchBudgetSchema = exports.CapabilityUsdSchema = exports.AgentTimeZoneSchema = exports.AgentConfigVersionSchema = exports.CapabilityAgentIdSchema = void 0;
 const zod_1 = require("zod");
 const internal_agent_turn_js_1 = require("../../http/endpoints/internal-agent-turn.cjs");
 /**
@@ -28,22 +28,22 @@ exports.AgentTimeZoneSchema = zod_1.z.string().min(1).max(64).refine(tz => {
         return false;
     }
 }, 'unknown IANA time zone');
-const UsdSchema = zod_1.z.number().positive().finite();
+exports.CapabilityUsdSchema = zod_1.z.number().positive().finite();
 exports.ResearchBudgetSchema = zod_1.z.object({
     /** Spend allowed in one day of the agent, USD, never exceeded. */
-    dailyUsd: UsdSchema,
+    dailyUsd: exports.CapabilityUsdSchema,
     /** Spend allowed for one research, USD (never more than the daily budget). */
-    perResearchMaxUsd: UsdSchema,
+    perResearchMaxUsd: exports.CapabilityUsdSchema,
     timezone: exports.AgentTimeZoneSchema,
 }).refine(b => b.perResearchMaxUsd <= b.dailyUsd, { message: 'perResearchMaxUsd above dailyUsd', path: ['perResearchMaxUsd'] });
-const ModelIdSchema = zod_1.z.string().min(1).max(100);
+exports.CapabilityModelIdSchema = zod_1.z.string().min(1).max(100);
 exports.ResearchModelsSchema = zod_1.z.object({
     /** The model that researches (search, read, reason) and transcribes the findings. */
-    research: ModelIdSchema,
+    research: exports.CapabilityModelIdSchema,
     /** The model that digests findings, when different from `research`. */
-    digest: ModelIdSchema.optional(),
+    digest: exports.CapabilityModelIdSchema.optional(),
     /** The model for mechanical reading tasks, when different; used only where it does not lose quality. */
-    read: ModelIdSchema.optional(),
+    read: exports.CapabilityModelIdSchema.optional(),
 });
 exports.ResearchEffortSchema = zod_1.z.enum(['low', 'medium', 'high']);
 exports.ResearchParamsSchema = zod_1.z.object({

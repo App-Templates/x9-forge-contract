@@ -1,12 +1,14 @@
 import { z } from 'zod';
 /**
- * The tools of cap-lab (v1.28.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
+ * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
  * `lab_ingest` takes a cap-ricerca result as cap-ricerca defines it (imported, never copied).
  */
 export declare const LAB_TOOLS: {
-    /** Store a research result: raw sources, then pages and claims updated. */
+    /** Queue a research result for digestion into raw sources, pages and claims. */
     readonly ingest: "lab_ingest";
+    /** State of a queued ingest, with final counts when completed. */
+    readonly ingestStatus: "lab_ingest_status";
     /** Ask the wiki: the pages and claims that answer. */
     readonly query: "lab_query";
     /** The open gaps: the next questions for research. */
@@ -15,15 +17,25 @@ export declare const LAB_TOOLS: {
     readonly competence: "lab_competence";
 };
 export type LabToolName = (typeof LAB_TOOLS)[keyof typeof LAB_TOOLS];
+/** Why a lab tool call failed, as the bridge tool-call error text. */
+export declare const LabToolErrorSchema: z.ZodEnum<{
+    invalid_request: "invalid_request";
+    not_configured: "not_configured";
+    not_ready: "not_ready";
+    not_found: "not_found";
+}>;
+export type LabToolError = z.infer<typeof LabToolErrorSchema>;
+export declare const LabIngestIdSchema: z.ZodUUID;
+export type LabIngestId = z.infer<typeof LabIngestIdSchema>;
 export declare const LabIngestInputSchema: z.ZodObject<{
     result: z.ZodObject<{
         researchId: z.ZodString;
         agentId: z.ZodString;
         state: z.ZodEnum<{
-            completed: "completed";
-            failed: "failed";
             queued: "queued";
             running: "running";
+            completed: "completed";
+            failed: "failed";
             budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
@@ -49,9 +61,24 @@ export declare const LabIngestInputSchema: z.ZodObject<{
     }, z.core.$strict>;
 }, z.core.$strict>;
 export declare const LabIngestOutputSchema: z.ZodObject<{
-    sourcesStored: z.ZodNumber;
-    pagesTouched: z.ZodNumber;
-    claimsAdded: z.ZodNumber;
+    ingestId: z.ZodUUID;
+    state: z.ZodLiteral<"queued">;
+}, z.core.$strict>;
+export declare const LabIngestStatusInputSchema: z.ZodObject<{
+    ingestId: z.ZodUUID;
+}, z.core.$strict>;
+export declare const LabIngestStatusOutputSchema: z.ZodObject<{
+    ingestId: z.ZodUUID;
+    state: z.ZodEnum<{
+        queued: "queued";
+        running: "running";
+        completed: "completed";
+        failed: "failed";
+        budget_exhausted: "budget_exhausted";
+    }>;
+    sourcesStored: z.ZodOptional<z.ZodNumber>;
+    pagesTouched: z.ZodOptional<z.ZodNumber>;
+    claimsAdded: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export declare const LabQueryInputSchema: z.ZodObject<{
     question: z.ZodString;
@@ -120,4 +147,6 @@ export type LabGapsInput = z.infer<typeof LabGapsInputSchema>;
 export type LabGapsOutput = z.infer<typeof LabGapsOutputSchema>;
 export type LabCompetenceInput = z.infer<typeof LabCompetenceInputSchema>;
 export type LabCompetenceOutput = z.infer<typeof LabCompetenceOutputSchema>;
+export type LabIngestStatusInput = z.infer<typeof LabIngestStatusInputSchema>;
+export type LabIngestStatusOutput = z.infer<typeof LabIngestStatusOutputSchema>;
 //# sourceMappingURL=tools.d.ts.map

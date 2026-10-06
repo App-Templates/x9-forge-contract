@@ -6,15 +6,19 @@ import { z } from 'zod';
  * `capUsd` is the daily budget in force that day (the highest, if it changed during the day).
  */
 export declare const AgentDaySchema: z.ZodString;
+/** Longest window of one agent spend request, days (inclusive). */
+export declare const AGENT_SPEND_MAX_DAYS = 400;
 /** The capabilities that report spend this way. */
 export declare const SpendingCapabilitySchema: z.ZodEnum<{
     ricerca: "ricerca";
+    lab: "lab";
 }>;
 export type SpendingCapability = z.infer<typeof SpendingCapabilitySchema>;
 export declare const AgentSpendDaySchema: z.ZodObject<{
     agentId: z.ZodString;
     capability: z.ZodEnum<{
         ricerca: "ricerca";
+        lab: "lab";
     }>;
     day: z.ZodString;
     spentUsd: z.ZodNumber;

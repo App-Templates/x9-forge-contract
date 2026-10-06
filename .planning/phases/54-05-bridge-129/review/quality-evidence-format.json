@@ -1,0 +1,30 @@
+{
+  "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-whitespace-rqfi1lbs",
+  "files": [
+    {
+      "file": "final-lint.txt",
+      "originalSha256": "5d5fbba47b7df8c05c786dbbd753194b9a772c27da82d3061864398cf498eef5",
+      "formattedSha256": "c32d9240fa0c07d28a7514d0c581d967f9242f439dacff6e9df2f77c49ac55f6",
+      "nonWhitespaceTextUnchanged": true
+    },
+    {
+      "file": "task4-lint.txt",
+      "originalSha256": "5d5fbba47b7df8c05c786dbbd753194b9a772c27da82d3061864398cf498eef5",
+      "formattedSha256": "c32d9240fa0c07d28a7514d0c581d967f9242f439dacff6e9df2f77c49ac55f6",
+      "nonWhitespaceTextUnchanged": true
+    },
+    {
+      "file": "task4-pack.txt",
+      "originalSha256": "710fa36ce360edd73009f56e9c29100c6b2494e2d26fc204dd28625b16b1732a",
+      "formattedSha256": "98bf32e94664d72cfd55a92ae8cc9bdf4fadc2e5652a7fb9ae5e43ced78340d6",
+      "nonWhitespaceTextUnchanged": true
+    },
+    {
+      "file": "task4-types.txt",
+      "originalSha256": "722746f815a8c433ab00c05bc03c1d371aeda9adb77146cb48a650304c2ee958",
+      "formattedSha256": "452eeb487d18ec174891edabaccd3dcce742d5c92c8764cdafb021bf3d3c10ca",
+      "nonWhitespaceTextUnchanged": true
+    }
+  ],
+  "reason": "Historical first-delivery logs contained trailing spaces / extra EOF blank lines. Only whitespace normalized; exact originals remain in Git 846311c and this archive."
+}

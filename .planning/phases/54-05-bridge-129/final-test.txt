@@ -1,0 +1,135 @@
+
+> @x9-forge/contracts@1.29.0 test /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9
+> vitest run --maxWorkers=2 --testTimeout=60000 && node tests/cjs/smoke.cjs
+
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9
+
+ ✓ tests/capability/declarations.test.ts (16 tests) 209ms
+ ✓ tests/capability/bridge-129-package.test.ts (19 tests) 1742ms
+   ✓ v1.29 additive distribution > preserves old targets and symbols at ./capability  337ms
+   ✓ v1.29 additive distribution > preserves old targets and symbols at ./http  409ms
+ ✓ tests/capability/voice-led-onboarding.test.ts (5 tests) 47ms
+ ✓ tests/capability/parameters.test.ts (82 tests) 19ms
+ ✓ tests/capability/capability-turn-lead.test.ts (9 tests) 45ms
+ ✓ tests/http/endpoints/internal-query.test.ts (7 tests) 5ms
+ ✓ tests/capability/presentation.test.ts (77 tests) 21ms
+ ✓ tests/messaging/attachment.test.ts (6 tests) 3ms
+ ✓ tests/capability/ricerca/ricerca.test.ts (15 tests) 31ms
+ ✓ tests/capability/voice/schemas.test.ts (67 tests) 26ms
+ ✓ tests/capability/voice/origination.test.ts (37 tests) 11ms
+ ✓ tests/capability/voice-live.test.ts (11 tests) 11ms
+ ✓ tests/rag.test.ts (37 tests) 21ms
+ ✓ tests/esm/smoke.test.ts (15 tests) 17ms
+ ✓ tests/console.test.ts (20 tests) 13ms
+ ✓ tests/http/sse-frames.test.ts (16 tests) 6ms
+ ✓ tests/agent/agent-context-core.test.ts (18 tests) 10ms
+ ✓ tests/http/sse-parser.test.ts (17 tests) 15ms
+ ✓ tests/http/bridge-client.test.ts (23 tests) 11ms
+ ✓ tests/http/no-auth-client.test.ts (10 tests) 14ms
+ ✓ tests/http/endpoints/internal-agent-turn.test.ts (14 tests) 11ms
+ ✓ tests/http/endpoints/internal-factory-deploy.test.ts (23 tests) 14ms
+ ✓ tests/memory/delete.test.ts (12 tests) 8ms
+ ✓ tests/capability/capability-registry-entry.test.ts (27 tests) 12ms
+ ✓ tests/agent/agent-context-file.test.ts (17 tests) 12ms
+ ✓ tests/capability/lab/lab.test.ts (12 tests) 12ms
+ ✓ tests/vault/vault-entry.test.ts (13 tests) 7ms
+ ✓ tests/capability/meditation-user-id.test.ts (10 tests) 9ms
+ ✓ tests/corrective-action.test.ts (36 tests) 8ms
+ ✓ tests/model-router/model-tier-mapping.test.ts (5 tests) 3ms
+ ✓ tests/agent/parse-agent-context.test.ts (6 tests) 7ms
+ ✓ tests/messaging/incoming-message-envelope.test.ts (18 tests) 10ms
+ ✓ tests/capability/agent-registry-file.test.ts (4 tests) 4ms
+ ✓ tests/capability/capability-context.test.ts (5 tests) 9ms
+ ✓ tests/memory/temporal.test.ts (31 tests) 8ms
+ ✓ tests/http/endpoints/internal-turn.test.ts (19 tests) 11ms
+ ✓ tests/http/endpoints/internal-turn-stream.test.ts (4 tests) 4ms
+ ✓ tests/agent/agent-identity.test.ts (8 tests) 5ms
+ ✓ tests/http/endpoints/internal-agents-reload.test.ts (13 tests) 10ms
+ ✓ tests/http/internal-capability-agent.test.ts (6 tests) 9ms
+ ✓ tests/http/endpoints/internal-memory-recall-bundle.test.ts (8 tests) 8ms
+ ✓ tests/messaging/agent-email-inbox.test.ts (5 tests) 4ms
+ ✓ tests/capability/capability-manifest.test.ts (11 tests) 7ms
+ ✓ tests/http/endpoints/webhook-post-call.test.ts (20 tests) 7ms
+ ✓ tests/model-router/model-push.test.ts (18 tests) 9ms
+ ✓ tests/http/endpoints/internal-agents-list.test.ts (14 tests) 7ms
+ ✓ tests/memory/invalidation-reason.test.ts (14 tests) 4ms
+ ✓ tests/memory.smoke.test.ts (14 tests) 8ms
+ ✓ tests/model-router/fixtures.test.ts (8 tests) 6ms
+ ✓ tests/auth/auth-headers.test.ts (11 tests) 11ms
+ ✓ tests/http/endpoints/internal-factory-telegram-token.test.ts (13 tests) 6ms
+ ✓ tests/http/endpoints/memory-correct.test.ts (9 tests) 5ms
+ ✓ tests/agent/agent-credentials.test.ts (8 tests) 10ms
+ ✓ tests/http/endpoints/vault-resolve.test.ts (16 tests) 7ms
+ ✓ tests/http/endpoints/memory-console.test.ts (14 tests) 6ms
+ ✓ tests/messaging/webhook-inbound-endpoints.test.ts (6 tests) 4ms
+ ✓ tests/model-router/per-agent-model-override.test.ts (8 tests) 6ms
+ ✓ tests/model-router/model-policy.test.ts (10 tests) 5ms
+ ✓ tests/http/endpoints/cap-env-schema.test.ts (4 tests) 5ms
+ ✓ tests/http/endpoints/cap-manifest.test.ts (4 tests) 5ms
+ ✓ tests/capability/tool-call.test.ts (11 tests) 6ms
+ ✓ tests/http/endpoints/voice-register.test.ts (9 tests) 7ms
+ ✓ tests/vault/vault-sync-event.test.ts (9 tests) 6ms
+ ✓ tests/http/cap-tool-call.test.ts (8 tests) 5ms
+ ✓ tests/agent/agent-paths.test.ts (6 tests) 4ms
+ ✓ tests/model-router/model-tier.test.ts (14 tests) 12ms
+ ✓ tests/capability/env-schema.test.ts (6 tests) 6ms
+ ✓ tests/model-router/model-hot-reload.test.ts (5 tests) 6ms
+ ✓ tests/vault/workspace-file.test.ts (4 tests) 5ms
+ ✓ tests/messaging/agent-telegram-bot.test.ts (7 tests) 4ms
+ ✓ tests/http/endpoints/cap-health.test.ts (5 tests) 5ms
+ ✓ tests/capability/health-status.test.ts (6 tests) 6ms
+ ✓ tests/smoke.test.ts (2 tests) 4ms
+ ✓ tests/vault/vault-tier.test.ts (10 tests) 3ms
+ ✓ tests/vault/agent-vaulted-credentials.test.ts (3 tests) 7ms
+ ✓ tests/http/endpoints/internal-agents-stop.test.ts (6 tests) 5ms
+ ✓ tests/capability/tts.test.ts (5 tests) 3ms
+ ✓ tests/vault/platform-internal-credentials.test.ts (3 tests) 5ms
+ ✓ tests/vault/vault-sync-state.test.ts (8 tests) 3ms
+ ✓ tests/messaging/channel-type.test.ts (11 tests) 3ms
+ ✓ tests/model-router/model-provider.test.ts (3 tests) 12ms
+ ✓ tests/model-router/barrel.test.ts (15 tests) 4ms
+
+ Test Files  82 passed (82)
+      Tests  1161 passed (1161)
+   Start at  11:41:06
+   Duration  15.47s (transform 1.95s, setup 126ms, collect 8.53s, tests 2.70s, environment 13ms, prepare 4.73s)
+
+[cjs-smoke] OK   @x9-forge/contracts/capability/parameters  ->  CapabilityParameterSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/parameters  ->  CapabilityAgentParametersSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityOutputSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityFeedbackSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityTrendsSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability  ->  AgentTurnSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability  ->  CapabilityTurnLeadResponseSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  capTurnLeadContract (object)
+[cjs-smoke] OK   @x9-forge/contracts  ->  ModelTierSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/auth  ->  INTERNAL_TOKEN_HEADER (string = "X-Internal-Token")
+[cjs-smoke] OK   @x9-forge/contracts/auth  ->  INTERNAL_SECRET_HEADER (string = "X-Internal-Secret")
+[cjs-smoke] OK   @x9-forge/contracts/agent  ->  AgentIdSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability  ->  CapabilityManifestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/voice  ->  VoiceCallIntentSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/stt  ->  CAP_STT_DEFAULT_PORT (number = 4011)
+[cjs-smoke] OK   @x9-forge/contracts/capability/stt  ->  TranscribeRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/tts  ->  TtsProviderSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/tts  ->  DEFAULT_TTS_PROVIDER (string = "elevenlabs")
+[cjs-smoke] OK   @x9-forge/contracts/capability/voice-live  ->  CAP_VOICE_LIVE_DEFAULT_PORT (number = 3217)
+[cjs-smoke] OK   @x9-forge/contracts/capability/voice-live  ->  VoiceLiveCallStartRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/ricerca  ->  ResearchAgentConfigSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/lab  ->  LabAgentConfigSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  capAgentConfigPath (function)
+[cjs-smoke] OK   @x9-forge/contracts/voice  ->  VoiceProviderSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  CAP_VOICE_LIVE_CALL_START_PATH (string = "/internal/live/call-start")
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  vaultResolveContract (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  internalFactoryTelegramTokenContract (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  InternalFactoryTelegramTokenRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/memory  ->  MEMORY_CORRECT_PATH (string = "/internal/memory/correct")
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  ChannelTypeSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  IncomingMessageEnvelopeSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  AgentEmailInboxSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  AgentTelegramBotSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/model-router  ->  ModelTierSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/rag  ->  RagQueryRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/vault  ->  VaultTierSchema (object)
+
+[cjs-smoke] summary: 36 passed, 0 failed (of 36 probes)

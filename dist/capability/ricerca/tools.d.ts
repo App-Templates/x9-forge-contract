@@ -33,10 +33,10 @@ export declare const ResearchStartInputSchema: z.ZodObject<{
 export declare const ResearchStartOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
     state: z.ZodEnum<{
-        completed: "completed";
-        failed: "failed";
         queued: "queued";
         running: "running";
+        completed: "completed";
+        failed: "failed";
         budget_exhausted: "budget_exhausted";
     }>;
 }, z.core.$strict>;
@@ -46,10 +46,10 @@ export declare const ResearchStatusInputSchema: z.ZodObject<{
 export declare const ResearchStatusOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
     state: z.ZodEnum<{
-        completed: "completed";
-        failed: "failed";
         queued: "queued";
         running: "running";
+        completed: "completed";
+        failed: "failed";
         budget_exhausted: "budget_exhausted";
     }>;
 }, z.core.$strict>;
@@ -60,10 +60,10 @@ export declare const ResearchResultOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
     agentId: z.ZodString;
     state: z.ZodEnum<{
-        completed: "completed";
-        failed: "failed";
         queued: "queued";
         running: "running";
+        completed: "completed";
+        failed: "failed";
         budget_exhausted: "budget_exhausted";
     }>;
     question: z.ZodString;

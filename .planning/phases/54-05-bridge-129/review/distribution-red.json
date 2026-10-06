@@ -1,0 +1,34 @@
+{
+  "label": "distribution-red",
+  "exitCode": 1,
+  "total": 10,
+  "passed": 0,
+  "failed": 10,
+  "runtimeErrors": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-guizuqy7",
+  "tests": [
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed parameters payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed presentation payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed lab payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed ricerca payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM exports the lab spend route and queued tool names", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed parameters payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed presentation payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed lab payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed ricerca payloads", "failed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS exports the lab spend route and queued tool names", "failed"]
+  ],
+  "failures": [
+    {"name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed parameters payloads", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed presentation payloads", "assertion": true, "message": "AssertionError: CapabilityOutputFieldTypeSchema: expected undefined to be defined"},
+    {"name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed lab payloads", "assertion": true, "message": "AssertionError: LabAgentConfigSchema: expected { success: false, …(1) } to match object { success: true, data: { …(8) } }"},
+    {"name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed ricerca payloads", "assertion": true, "message": "AssertionError: CapabilityUsdSchema: expected undefined to be defined"},
+    {"name": "reviewed 1.29 distribution consumed through public exports ESM exports the lab spend route and queued tool names", "assertion": true, "message": "AssertionError: expected undefined to match object { method: 'GET', …(2) }"},
+    {"name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed parameters payloads", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed presentation payloads", "assertion": true, "message": "AssertionError: CapabilityOutputFieldTypeSchema: expected undefined to be defined"},
+    {"name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed lab payloads", "assertion": true, "message": "AssertionError: LabAgentConfigSchema: expected { success: false, …(1) } to match object { success: true, data: { …(8) } }"},
+    {"name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed ricerca payloads", "assertion": true, "message": "AssertionError: CapabilityUsdSchema: expected undefined to be defined"},
+    {"name": "reviewed 1.29 distribution consumed through public exports CJS exports the lab spend route and queued tool names", "assertion": true, "message": "AssertionError: expected undefined to match object { method: 'GET', …(2) }"}
+  ],
+  "originalEvidence": {"sha256": "ee85080f8a9d501a29eb9314c298e4db980fe6f71a1465047b60b41a4cd533fe", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/distribution-red.json", "gitHistory": "846311c and individual review commits"}
+}

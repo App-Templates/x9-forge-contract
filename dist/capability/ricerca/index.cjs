@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResearchResultOutputSchema = exports.ResearchResultInputSchema = exports.ResearchStatusOutputSchema = exports.ResearchStatusInputSchema = exports.ResearchStartOutputSchema = exports.ResearchStartInputSchema = exports.RicercaToolErrorSchema = exports.RICERCA_TOOLS = exports.AgentSpendDaySchema = exports.SpendingCapabilitySchema = exports.AgentDaySchema = exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.ResearchIdSchema = exports.ResearchAgentConfigSchema = exports.SourceRuleSchema = exports.ResearchParamsSchema = exports.ResearchEffortSchema = exports.ResearchModelsSchema = exports.ResearchBudgetSchema = exports.AgentTimeZoneSchema = exports.AgentConfigVersionSchema = exports.CapabilityAgentIdSchema = void 0;
+exports.ResearchResultOutputSchema = exports.ResearchResultInputSchema = exports.ResearchStatusOutputSchema = exports.ResearchStatusInputSchema = exports.ResearchStartOutputSchema = exports.ResearchStartInputSchema = exports.RicercaToolErrorSchema = exports.RICERCA_TOOLS = exports.AgentSpendDaySchema = exports.SpendingCapabilitySchema = exports.AgentDaySchema = exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.ResearchIdSchema = exports.ResearchAgentConfigSchema = exports.SourceRuleSchema = exports.ResearchParamsSchema = exports.ResearchEffortSchema = exports.ResearchModelsSchema = exports.ResearchBudgetSchema = exports.CapabilityModelIdSchema = exports.CapabilityUsdSchema = exports.AgentTimeZoneSchema = exports.AgentConfigVersionSchema = exports.CapabilityAgentIdSchema = void 0;
 /**
  * cap-ricerca contracts — sub-path `@x9-forge/contracts/capability/ricerca` (v1.28.0, Phase 54).
  *
@@ -16,6 +16,8 @@ var agent_config_js_1 = require("./agent-config.cjs");
 Object.defineProperty(exports, "CapabilityAgentIdSchema", { enumerable: true, get: function () { return agent_config_js_1.CapabilityAgentIdSchema; } });
 Object.defineProperty(exports, "AgentConfigVersionSchema", { enumerable: true, get: function () { return agent_config_js_1.AgentConfigVersionSchema; } });
 Object.defineProperty(exports, "AgentTimeZoneSchema", { enumerable: true, get: function () { return agent_config_js_1.AgentTimeZoneSchema; } });
+Object.defineProperty(exports, "CapabilityUsdSchema", { enumerable: true, get: function () { return agent_config_js_1.CapabilityUsdSchema; } });
+Object.defineProperty(exports, "CapabilityModelIdSchema", { enumerable: true, get: function () { return agent_config_js_1.CapabilityModelIdSchema; } });
 Object.defineProperty(exports, "ResearchBudgetSchema", { enumerable: true, get: function () { return agent_config_js_1.ResearchBudgetSchema; } });
 Object.defineProperty(exports, "ResearchModelsSchema", { enumerable: true, get: function () { return agent_config_js_1.ResearchModelsSchema; } });
 Object.defineProperty(exports, "ResearchEffortSchema", { enumerable: true, get: function () { return agent_config_js_1.ResearchEffortSchema; } });

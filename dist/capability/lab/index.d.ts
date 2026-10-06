@@ -9,8 +9,8 @@
  *
  * STRICT (internal boundary, R-14): no `.passthrough()`.
  */
-export { KindSlugSchema, LabAgentConfigSchema, type LabAgentConfig } from "./agent-config.js";
+export { KindSlugSchema, LabAgentConfigSchema, LabBudgetSchema, LabModelsSchema, type LabAgentConfig, type LabBudget, type LabModels } from "./agent-config.js";
 export { WikiOriginSchema, WikiSourceIdSchema, WikiPageSlugSchema, WikiSourceSchema, WikiPageSchema, WikiClaimStatusSchema, WikiClaimSchema, WikiLinkSchema, type WikiOrigin, type WikiSource, type WikiPage, type WikiClaimStatus, type WikiClaim, type WikiLink, } from "./wiki.js";
 export { COMPETENCE_MAX_LEVEL, CompetenceNodeIdSchema, CompetenceNodeViewSchema, CompetenceGapReasonSchema, CompetenceGapSchema, type CompetenceNodeView, type CompetenceGapReason, type CompetenceGap, } from "./competence.js";
-export { LAB_TOOLS, LabIngestInputSchema, LabIngestOutputSchema, LabQueryInputSchema, LabQueryOutputSchema, LabGapsInputSchema, LabGapsOutputSchema, LabCompetenceInputSchema, LabCompetenceOutputSchema, type LabToolName, type LabIngestInput, type LabIngestOutput, type LabQueryInput, type LabQueryOutput, type LabGapsInput, type LabGapsOutput, type LabCompetenceInput, type LabCompetenceOutput, } from "./tools.js";
+export { LAB_TOOLS, LabIngestInputSchema, LabIngestOutputSchema, LabToolErrorSchema, LabIngestIdSchema, LabIngestStatusInputSchema, LabIngestStatusOutputSchema, LabQueryInputSchema, LabQueryOutputSchema, LabGapsInputSchema, LabGapsOutputSchema, LabCompetenceInputSchema, LabCompetenceOutputSchema, type LabToolName, type LabIngestInput, type LabIngestOutput, type LabToolError, type LabIngestId, type LabIngestStatusInput, type LabIngestStatusOutput, type LabQueryInput, type LabQueryOutput, type LabGapsInput, type LabGapsOutput, type LabCompetenceInput, type LabCompetenceOutput, } from "./tools.js";
 //# sourceMappingURL=index.d.ts.map

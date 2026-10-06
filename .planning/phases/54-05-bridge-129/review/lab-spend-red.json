@@ -1,0 +1,34 @@
+{
+  "label": "lab-spend-red",
+  "exitCode": 1,
+  "total": 11,
+  "passed": 2,
+  "failed": 9,
+  "runtimeErrors": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-qa91ht0b",
+  "tests": [
+    ["lab per-agent spend contract declares spending capability lab", "failed"],
+    ["lab per-agent spend contract declares spending capability ricerca", "passed"],
+    ["lab per-agent spend contract rejects undeclared spending capability", "passed"],
+    ["lab per-agent spend contract retains settled, reserved and budget stop values for lab", "failed"],
+    ["lab per-agent spend contract uses the shared path", "failed"],
+    ["lab per-agent spend contract uses the shared method", "failed"],
+    ["lab per-agent spend contract uses the shared authType", "failed"],
+    ["lab per-agent spend contract reuses exactly the validated params, query and response schemas", "failed"],
+    ["lab per-agent spend contract responds with lab days and the current queue length", "failed"],
+    ["lab per-agent spend contract rejects an undeclared capability in the lab response", "failed"],
+    ["lab per-agent spend contract keeps the same bounded date window for lab", "failed"]
+  ],
+  "failures": [
+    {"name": "lab per-agent spend contract declares spending capability lab", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: 'lab' }"},
+    {"name": "lab per-agent spend contract retains settled, reserved and budget stop values for lab", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(11) } }"},
+    {"name": "lab per-agent spend contract uses the shared path", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract uses the shared method", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract uses the shared authType", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract reuses exactly the validated params, query and response schemas", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract responds with lab days and the current queue length", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract rejects an undeclared capability in the lab response", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract keeps the same bounded date window for lab", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"}
+  ],
+  "originalEvidence": {"sha256": "3f8f5865a0e659a63894d4848b1a4450e19671a991ce3cecfe5c70b4c811a947", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/lab-spend-red.json", "gitHistory": "846311c and individual review commits"}
+}

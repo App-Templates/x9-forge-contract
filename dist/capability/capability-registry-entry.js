@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { CapabilityParametersDeclarationSchema } from "./parameters.js";
+import { CapabilityPresentationDeclarationSchema } from "./presentation.js";
 import { CapabilityTurnLeadDeclarationSchema } from "./capability-turn-lead.js";
 import { CapabilityToolSchema } from "./capability-tool.js";
 import { CapabilityContextDeclarationSchema } from "./capability-context.js";
@@ -68,6 +70,10 @@ export const CapabilityRegistryEntrySchema = z.object({
     context: CapabilityContextDeclarationSchema.optional(),
     /** Opt-in turn leading for this agent; absent leaves the normal conversation unchanged. @since v1.25.0 */
     turnLead: CapabilityTurnLeadDeclarationSchema.optional(),
+    /** Ordinary parameter metadata (B1); absent preserves every pre-v1.29 payload. */
+    parameters: CapabilityParametersDeclarationSchema.optional(),
+    /** Optional output/feedback/trend sections (B7), never configuration of an external project. */
+    presentation: CapabilityPresentationDeclarationSchema.optional(),
 });
 // -- Helpers ------------------------------------------------------------------
 /**
