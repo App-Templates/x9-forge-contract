@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 11:22 (06/10/2026)
+Ultimo aggiornamento: 11:25 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: PRESO, fonti lette. Nessun consumer o rilascio in questo incarico.
@@ -9,8 +9,8 @@ Stato: PRESO, fonti lette. Nessun consumer o rilascio in questo incarico.
 | --- | --- | --- | --- |
 | 1 B1 parametri | implementato e testato | 6730dfb | 0/63 → 63/63, tipi/lint OK |
 | 2 B7 uscite, feedback, andamento | implementato e testato | 10e5e53 | 0/77 → 140/140 B1+B7, tipi/lint OK |
-| 3 dichiarazioni, export, smoke | implementato e testato | questo commit | 3/16 → 16/16; regressioni 209/209; CJS 31/36 → 36/36 |
-| 4 versione e qualità | da fare | — | — |
+| 3 dichiarazioni, export, smoke | implementato e testato | 377d97b | 3/16 → 16/16; regressioni 209/209; CJS 31/36 → 36/36 |
+| 4 versione e qualità | verificato | questo commit | 16/17 → 17/17; pnpm test 1140/1140 + CJS 36/36; qualità OK |
 | 5 mutazioni | da fare | — | — |
 
 ## Fonti e scelte da confermare
@@ -29,5 +29,7 @@ Task 2: 77/77 test nuovi visti rossi per export assente; 140/140 B1+B7 verdi. Co
 
 Task 3: 13/13 controlli nuovi rossi prima; i 3 casi preesistenti (legacy e autenticazione v1.28) erano già verdi. Poi 209/209 B1/B7/dichiarazioni/regressioni/smoke ESM; 36/36 CJS, build/dts, tipi e lint OK. Export parameters/presentation aggiunti nelle due mappe; manifest/registry dichiarano parameters e presentation facoltativi. Nessuna rotta nuova prevista dalle fonti: sola registrazione tramite il contratto manifest esistente.
 
+Task 4: versione 1.29.0 e CHANGELOG proposta in review. Test versione visto rosso, 17/17 distribuzione verdi (16/16 sottopercorsi precedenti preservati). pnpm test 1140/1140 (82/82 file) + 36/36 CJS; tipi, lint, build/dts e check:pack riusciti senza warning. Dist 1024/1024 file identici byte per byte a build pulita in directory temporanea; nessun file vecchio rimosso. Alcune dichiarazioni enum rigenerate hanno solo ordine diverso delle proprietà, senza cambiare valori o tipi. Runner limitato a due worker/60 s.
+
 ## Resta
-Versione, suite completa, build riproducibile, mutazioni e consegna.
+Mutazioni su copie per tutti i controlli nuovi, verifica finale del perimetro e consegna.

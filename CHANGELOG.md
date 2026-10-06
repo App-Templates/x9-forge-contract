@@ -10,6 +10,35 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.29.0 — proposta in review — B1 parametri e B7 uscite/feedback/andamento
+
+Solo aggiunte, per agente e capability (D54-11, piano X9 54-05). Il rilascio e gli aggiornamenti dei consumer
+aspettano la revisione della sessione Samira e la coordinatrice.
+
+### Added (additive, backward-compatible)
+- `@x9-forge/contracts/capability/parameters`: dichiarazione generica di parametri number/integer/string/boolean/enum,
+  etichetta, descrizione/spiegazione, gruppo, unità, vincoli e default facoltativo della piattaforma.
+  Regole decided/proposed con reference, modifica immediate/next_apply e consumo esplicito. Valori per agente
+  con origine platform_default/agent_override/needs_choice, versione positiva e validazione contro i vincoli dichiarati.
+  Nessun default di prodotto introdotto; mai credenziali (restano in env-schema/vault).
+- `@x9-forge/contracts/capability/presentation`: uscite generiche con contenuto JSON di dominio; feedback
+  con outputId, identità autenticata del revisore, fonte project_view/domain_app e voto intero 1–10;
+  andamento giornaliero con metriche/unità dichiarate, date reali crescenti e valori finiti.
+  Collezioni strict, con un solo agente/capability e identificativi unici.
+- Campi **facoltativi** `parameters` e `presentation` in CapabilityManifestSchema e CapabilityRegistryEntrySchema.
+  I payload precedenti restano identici. Entrambe le nuove famiglie anche nel sottopercorso capability esistente;
+  nessun export rimosso o rinominato. Nuovi tipi TypeScript e doppia distribuzione ESM/CJS.
+- Le fonti non stabiliscono nuove rotte B1/B7: aggiunti schemi e dichiarazioni, **nessun endpoint nuovo inventato**.
+  GET /manifest e i percorsi per agente v1.28 con secret auth restano invariati. Da concordare con Samira
+  la lettura/scrittura dei payload prima dei consumer.
+- Consumer tracciati: forge-v2 fase 33 (parametri); agent-x9 capability (manifest/registry, prima cap-food);
+  vista di progetto esterna/app di dominio (uscite, feedback e andamento).
+  Contratti di approvazione/chiedi modifiche e validazione del contenuto specifico restano ai futuri consumer/piani.
+- Prove: tests/capability/parameters.test.ts, presentation.test.ts, declarations.test.ts, bridge-129-package.test.ts,
+  smoke ESM/CJS, mutazioni su copie temporanee in scripts/mutate-54-05.py.
+  SUMMARY e numeri finali: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
+- Test runner con massimo due worker e timeout 60 s, per il carico condiviso del Mac.
+
 ## v1.28.0 — proposta in review — Fase 54: cap-ricerca e cap-lab, per agente
 
 Decisione di Stefano (05/10): Forge gestisce gli agenti; configurazione e spesa delle capability sono **per agente e
