@@ -19,6 +19,10 @@ aspettano la revisione della sessione Samira e la coordinatrice.
 - Samira authorized the only non-additive change from 1.28: cap-lab was released this morning and has no consumers.
   LabAgentConfigSchema now requires models (digest, optional read) and budget (dailyUsd, perIngestMaxUsd, timezone).
   No model or budget default is selected; the per-ingest ceiling cannot exceed the daily budget.
+- The same unconsumed lab exception corrects synchronous ingest: lab_ingest returns only
+  {ingestId: UUID, state: 'queued'}. New lab_ingest_status reuses research states and returns all three final
+  counters when completed; other states carry no completion counters. LabToolErrorSchema includes
+  invalid_request / not_configured / not_found / not_ready. No consumer is updated by this branch.
 - CapabilityUsdSchema and CapabilityModelIdSchema export the existing ricerca validators unchanged for shared reuse.
 
 ### Added (additive, backward-compatible)

@@ -110,6 +110,6 @@ describe('cap-lab competence and tools (v1.28.0)', () => {
 
   it('tool names come from the contract', () => {
     expect(capToolCallPath(LAB_TOOLS.ingest)).toBe('/call/lab_ingest');
-    expect(Object.values(LAB_TOOLS)).toEqual(['lab_ingest', 'lab_query', 'lab_gaps', 'lab_competence']);
+    expect(Object.values(LAB_TOOLS)).toEqual(['lab_ingest', 'lab_ingest_status', 'lab_query', 'lab_gaps', 'lab_competence']);
   });
 });

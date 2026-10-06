@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 14:10 (06/10/2026)
+Ultimo aggiornamento: 14:11 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: CORREZIONI RIPRESE per RIPARTITE 13:58 della coordinatrice. Proposta 1.29.0 implementata e testata localmente.
@@ -98,4 +98,8 @@ Restano R5 editabilità, R6 JSDoc, R7 scale; estensioni lab; import z, script te
 
 - 14:08 · lab-config: fix(lab): require explicit models and ingest budgets. Prima 3/40 (falliti 37/40), dopo 73/73. Commit: 94b2e36.
 
-- 14:10 · lab-spend: feat(lab): report per-agent spend with shared contracts. Prima 2/11 (falliti 9/11), dopo 84/84. Commit: questo commit (checkpoint).
+- 14:10 · lab-spend: feat(lab): report per-agent spend with shared contracts. Prima 2/11 (falliti 9/11), dopo 84/84. Commit: f63e842.
+
+Lab status: «conteggi presenti quando completed» applicato come tre conteggi richiesti a completed e assenti negli altri stati. È la forma operativa della decisione Samira, da ricontrollare in revisione; nessun worker/consumer implementato nel bridge.
+
+- 14:11 · lab-tools: fix(lab): queue ingest and expose status and tool errors. Prima 6/35 (falliti 29/35), dopo 119/119. Commit: questo commit (checkpoint).
