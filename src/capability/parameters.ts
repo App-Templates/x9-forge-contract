@@ -1,7 +1,12 @@
 import { z } from 'zod';
 import { AgentConfigVersionSchema, CapabilityAgentIdSchema } from './ricerca/agent-config.js';
 
-/** B1: ordinary configuration, never credentials. No product default is selected by the bridge. */
+/**
+ * B1: ordinary configuration, never credentials. No product default is selected by the bridge.
+ * A key is the dotted path in the per-agent configuration body of this capability.
+ * Changes are saved with the existing PUT at capAgentConfigPath(agentId)
+ * (/internal/capability/agents/:agentId/config); B1 adds no route.
+ */
 export const CapabilityParameterKeySchema = z.string().max(100).regex(/^[a-z][a-zA-Z0-9_.-]*$/);
 const ListValueSchema = z.array(z.string().max(2000)).max(100);
 export const CapabilityParameterValueSchema = z.union([z.number().finite(), z.string().max(8000), z.boolean(), ListValueSchema]);
@@ -145,6 +150,7 @@ export type CapabilityParametersDeclaration = z.infer<typeof CapabilityParameter
 export const CapabilityAgentParametersSchema = z.object({
   agentId: CapabilityAgentIdSchema,
   capability: z.string().trim().min(1).max(100),
+  /** The version of this capability's per-agent configuration, used by its existing config PUT. */
   version: AgentConfigVersionSchema,
   parameters: z.array(CapabilityAgentParameterSchema).max(100),
 }).strict().refine(agent => new Set(agent.parameters.map(resolved => resolved.parameter.key)).size === agent.parameters.length,

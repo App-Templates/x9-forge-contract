@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 14:04 (06/10/2026)
+Ultimo aggiornamento: 14:05 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: CORREZIONI RIPRESE per RIPARTITE 13:58 della coordinatrice. Proposta 1.29.0 implementata e testata localmente.
@@ -90,4 +90,6 @@ Restano R5 editabilità, R6 JSDoc, R7 scale; estensioni lab; import z, script te
 
 2026-10-06 14:03 · RIPARTITE letto. Posto già PRESO secondo bacheca; un comando pesante alla volta. R5–R7, lab obbligatorio/asincrono e verifiche finali riprendono; nessun consumer o rilascio. Risposta completa Samira lab letta.
 
-- 14:04 · r5: fix(capability): declare parameter editors. Prima 7/23 (falliti 16/23), dopo 306/306. Commit: questo commit (checkpoint).
+- 14:04 · r5: fix(capability): declare parameter editors. Prima 7/23 (falliti 16/23), dopo 306/306. Commit: 80c478c.
+
+- 14:05 · r6: docs(capability): clarify configuration keys and versions. Prima 95/98 (falliti 3/98), dopo 98/98. Commit: questo commit (checkpoint).
