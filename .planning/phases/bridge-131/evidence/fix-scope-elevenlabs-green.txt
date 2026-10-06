@@ -1,0 +1,10 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ✓ tests/capability/agent-elevenlabs.test.ts (35 tests) 9ms
+
+ Test Files  1 passed (1)
+      Tests  35 passed (35)
+   Start at  01:32:28
+   Duration  535ms (transform 200ms, setup 5ms, collect 361ms, tests 9ms, environment 0ms, prepare 36ms)
+

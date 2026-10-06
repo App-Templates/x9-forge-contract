@@ -77,6 +77,18 @@ export const ElevenLabsAgentMappingSchema = z.object({
 });
 export type ElevenLabsAgentMapping = z.infer<typeof ElevenLabsAgentMappingSchema>;
 
+/**
+ * Same binding snapshot: full scope (tenant, owner, agent), provider resource, origin, applied version and creation
+ * time. A provider id alone never identifies a binding across tenants/owners/agents.
+ */
+export function sameElevenLabsMapping(a: ElevenLabsAgentMapping, b: ElevenLabsAgentMapping): boolean {
+  return sameCapabilityScope(a.scope, b.scope)
+    && a.providerAgentId === b.providerAgentId
+    && a.origin === b.origin
+    && a.appliedConfigVersion === b.appliedConfigVersion
+    && Date.parse(a.createdAt) === Date.parse(b.createdAt);
+}
+
 export const ElevenLabsChannelStatusSchema = z.object({
   scope: ElevenLabsAgentScopeSchema,
   /** null: no provider resource yet (not provisioned). */
@@ -120,8 +132,8 @@ export const ElevenLabsProvisionResultSchema = z.object({
   if (result.outcome === 'adopted' && result.mapping.origin !== 'adopted') {
     ctx.addIssue({ code: 'custom', path: ['outcome'], message: 'adopted means an adopted resource' });
   }
-  if (result.status.mapping === null || result.status.mapping.providerAgentId !== result.mapping.providerAgentId) {
-    ctx.addIssue({ code: 'custom', path: ['status', 'mapping'], message: 'Status must describe the provisioned resource' });
+  if (result.status.mapping === null || !sameElevenLabsMapping(result.status.mapping, result.mapping)) {
+    ctx.addIssue({ code: 'custom', path: ['status', 'mapping'], message: 'Status must describe exactly the provisioned binding' });
   }
 });
 export type ElevenLabsProvisionResult = z.infer<typeof ElevenLabsProvisionResultSchema>;

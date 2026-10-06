@@ -120,3 +120,32 @@ describe('R6 cap-agent-elevenlabs routes', () => {
     expect(() => capElevenLabsAgentPath('../x')).toThrow();
   });
 });
+
+describe('R6 provisioning result describes exactly one binding (review C, P1)', () => {
+  const bScope = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'agent-a' };
+  const bMapping = { scope: bScope, providerAgentId: 'resource_shared', origin: 'provisioned', createdAt: '2026-10-07T00:00:00Z', appliedConfigVersion: 3 };
+  const bStatus = { scope: bScope, mapping: bMapping, desiredState: 'active', channel: { channelId: 'provider', kind: 'voice', state: 'loaded', loaded: true, readiness: 'ready' }, observedAt: '2026-10-07T00:01:00Z' };
+  const bResult = { ok: true, requestId: 'review-00001', replayed: false, outcome: 'created', mapping: bMapping, status: bStatus };
+
+  it('accepts coherent scope and versions', () => {
+    expect(ElevenLabsProvisionResultSchema.safeParse(bResult).success).toBe(true);
+  });
+
+  it('accepts a coherent replay', () => {
+    expect(ElevenLabsProvisionResultSchema.safeParse({ ...bResult, replayed: true }).success).toBe(true);
+  });
+
+  it.each(['tenantId', 'ownerId', 'agentId'] as const)('rejects status of another %s even for the same provider id', (field) => {
+    const foreign = { ...bScope, [field]: `${field}-foreign` };
+    const body = { ...bResult, status: { ...bStatus, scope: foreign, mapping: { ...bMapping, scope: foreign } } };
+    expect(ElevenLabsProvisionResultSchema.safeParse(body).success).toBe(false);
+  });
+
+  it.each([
+    ['two applied versions', { appliedConfigVersion: 2 }],
+    ['two origins', { origin: 'adopted' }],
+    ['two creation times', { createdAt: '2026-10-07T00:00:30Z' }],
+  ])('rejects %s for the same binding', (_label, patch) => {
+    expect(ElevenLabsProvisionResultSchema.safeParse({ ...bResult, status: { ...bStatus, mapping: { ...bMapping, ...patch } } }).success).toBe(false);
+  });
+});

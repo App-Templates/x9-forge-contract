@@ -1,0 +1,158 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/capability/coach.test.ts (41 tests | 1 failed) 30ms
+   ✓ R6 cap-coach programs (project content, per agent) > accepts a generic program with ordered steps 2ms
+   ✓ R6 cap-coach programs (project content, per agent) > rejects person-scoped program 0ms
+   ✓ R6 cap-coach programs (project content, per agent) > rejects no steps 0ms
+   ✓ R6 cap-coach programs (project content, per agent) > rejects duplicate step id 0ms
+   ✓ R6 cap-coach programs (project content, per agent) > rejects duplicate step order 0ms
+   ✓ R6 cap-coach programs (project content, per agent) > rejects invalid program id 0ms
+   ✓ R6 cap-coach programs (project content, per agent) > rejects zero version 0ms
+   ✓ R6 cap-coach programs (project content, per agent) > rejects step without minutes > 0 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a profile with preferences and time zone 15ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 0 1ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 1 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 2 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 3 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 4 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > accepts a coherent session 5 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects completed without end 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects completed without minutes 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects in progress with end 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects scheduled already started 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects end before start 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects step without program 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects session without person 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects missing idempotency key 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects abandoned without end 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > tracks progress with short and long term usage scores 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with sessions without last session 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with last session without sessions 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with minutes without sessions 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with duplicate completed step 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > rejects progress with score above 100 0ms
+   ✓ R6 cap-coach person data isolated by tenant/owner/agent/person > counts the minute budget per period and never goes negative 1ms
+   ✓ R6 cap-coach snapshot, results and errors > returns one person's data only 0ms
+   ✓ R6 cap-coach snapshot, results and errors > rejects another person's session 0ms
+   ✓ R6 cap-coach snapshot, results and errors > rejects another agent's progress 0ms
+   ✓ R6 cap-coach snapshot, results and errors > rejects another tenant's budget 0ms
+   ✓ R6 cap-coach snapshot, results and errors > rejects another person's profile 0ms
+   ✓ R6 cap-coach snapshot, results and errors > rejects duplicate program progress 0ms
+   × R6 cap-coach snapshot, results and errors > records a session once and reports replays 5ms
+     → expected true to be false // Object.is equality
+   ✓ R6 cap-coach snapshot, results and errors > distinguishes budget exhaustion, idempotency conflict and stale programs 0ms
+   ✓ R6 cap-coach routes > declares secret-auth per-agent routes and reuses the saved-version answer 0ms
+   ✓ R6 cap-coach routes > builds validated and encoded paths 1ms
+ ❯ tests/capability/agent-elevenlabs.test.ts (35 tests | 6 failed) 15ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > accepts an idempotent apply with versioned config 2ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects missing request key 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects missing config version 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects scope without tenant 1ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects person in agent scope 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects api key in request 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects malformed provider id 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects unknown desired state 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects config with duplicate tool 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects config with unknown tool kind 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects config with tool name outside the /call rule 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects config with empty display name 0ms
+   ✓ R6 cap-agent-elevenlabs provisioning on Apply > rejects config with missing prompt version 0ms
+   ✓ R6 mapping and external channel state > reports the provider resource and a channel X9 state can count 1ms
+   ✓ R6 mapping and external channel state > accepts a not-yet-provisioned agent and a paused channel 0ms
+   ✓ R6 mapping and external channel state > rejects active channel without provider resource 0ms
+   ✓ R6 mapping and external channel state > rejects unobserved channel claiming a state 0ms
+   ✓ R6 mapping and external channel state > rejects telegram as provider channel 0ms
+   ✓ R6 mapping and external channel state > rejects mapping for another agent 0ms
+   ✓ R6 mapping and external channel state > accepts an unobserved channel as unknown 0ms
+   ✓ R6 provisioning result and errors > creates once and reports a replay without a second resource 0ms
+   ✓ R6 provisioning result and errors > rejects created over an adopted resource 0ms
+   ✓ R6 provisioning result and errors > rejects adopted over a provisioned resource 0ms
+   ✓ R6 provisioning result and errors > rejects status pointing at another resource 0ms
+   ✓ R6 provisioning result and errors > rejects status without the mapping 0ms
+   ✓ R6 provisioning result and errors > marks which failures may be retried 0ms
+   ✓ R6 cap-agent-elevenlabs routes > lives with the other per-agent capability routes 1ms
+   ✓ R6 provisioning result describes exactly one binding (review C, P1) > accepts coherent scope and versions 0ms
+   ✓ R6 provisioning result describes exactly one binding (review C, P1) > accepts a coherent replay 0ms
+   × R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another tenantId even for the same provider id 5ms
+     → expected true to be false // Object.is equality
+   × R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another ownerId even for the same provider id 0ms
+     → expected true to be false // Object.is equality
+   × R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another agentId even for the same provider id 0ms
+     → expected true to be false // Object.is equality
+   × R6 provisioning result describes exactly one binding (review C, P1) > rejects two applied versions for the same binding 0ms
+     → expected true to be false // Object.is equality
+   × R6 provisioning result describes exactly one binding (review C, P1) > rejects two origins for the same binding 0ms
+     → expected true to be false // Object.is equality
+   × R6 provisioning result describes exactly one binding (review C, P1) > rejects two creation times for the same binding 0ms
+     → expected true to be false // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another tenantId even for the same provider id
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another ownerId even for the same provider id
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another agentId even for the same provider id
+AssertionError: expected true to be false // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- false[39m
+[31m+ true[39m
+
+ ❯ tests/capability/agent-elevenlabs.test.ts:141:69
+    139|     const foreign = { ...bScope, [field]: `${field}-foreign` };
+    140|     const body = { ...bResult, status: { ...bStatus, scope: foreign, m…
+    141|     expect(ElevenLabsProvisionResultSchema.safeParse(body).success).to…
+       |                                                                     ^
+    142|   });
+    143| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result describes exactly one binding (review C, P1) > rejects two applied versions for the same binding
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result describes exactly one binding (review C, P1) > rejects two origins for the same binding
+ FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result describes exactly one binding (review C, P1) > rejects two creation times for the same binding
+AssertionError: expected true to be false // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- false[39m
+[31m+ true[39m
+
+ ❯ tests/capability/agent-elevenlabs.test.ts:149:139
+    147|     ['two creation times', { createdAt: '2026-10-07T00:00:30Z' }],
+    148|   ])('rejects %s for the same binding', (_label, patch) => {
+    149|     expect(ElevenLabsProvisionResultSchema.safeParse({ ...bResult, sta…
+       |                                                                                                                                           ^
+    150|   });
+    151| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/capability/coach.test.ts > R6 cap-coach snapshot, results and errors > records a session once and reports replays
+AssertionError: expected true to be false // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- false[39m
+[31m+ true[39m
+
+ ❯ tests/capability/coach.test.ts:143:134
+    141|     expect(CoachSessionRecordResultSchema.safeParse({ ...result, progr…
+    142|     expect(CoachSessionRecordResultSchema.safeParse({ ...result, budge…
+    143|     expect(CoachSessionRecordResultSchema.safeParse({ ...result, progr…
+       |                                                                                                                                      ^
+    144|     expect(CoachSessionRecordResultSchema.safeParse({ ...result, sessi…
+    145|     expect(CoachSessionRecordResultSchema.safeParse({ ...result, sessi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  7 failed | 69 passed (76)
+   Start at  01:32:14
+   Duration  883ms (transform 233ms, setup 7ms, collect 528ms, tests 45ms, environment 0ms, prepare 74ms)
+
