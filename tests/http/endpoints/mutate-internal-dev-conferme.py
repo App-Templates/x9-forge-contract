@@ -64,6 +64,8 @@ add('CF-34-session-boundary-preserved','sessionId: z.string().min(1),','sessionI
 
 add('CF-35-public-command-linkage','comando: DevSignedCommandSchema,',"comando: z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI']),")
 
+add('CF-36-command-options',"z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI'])","z.enum(['APPROVATO', 'SCARTATO', 'RIPRENDI', 'ANNULLA'])")
+
 def hashes():
     paths=[ROOT/SOURCE,ROOT/BARREL,ROOT/TEST,ROOT/'package.json',ROOT/'CHANGELOG.md',ROOT/'pnpm-lock.yaml',
            *ROOT.joinpath('dist').rglob('*')]

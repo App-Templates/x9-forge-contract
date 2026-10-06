@@ -1,5 +1,5 @@
 # 56-01 · contratto delle conferme per X9 Live web
-Ultimo aggiornamento: 18:05 (06/10/2026)
+Ultimo aggiornamento: 18:07 (06/10/2026)
 
 Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-56-1
 Branch: codex/56-01-bridge-conferme. Base d8ef67f (1.28); nessun riallineamento necessario per questo contratto aggiuntivo.
@@ -87,8 +87,10 @@ Nessuna verifica dal vivo dei servizi o della pagina web: fuori dal piano del co
 
 | Punto | Stato / commit | Prove |
 | --- | --- | --- |
-| 1 Schema/tipo pubblici e riuso diretto | completo, questo commit | 2/102 rossi → 102/102 verdi; CF-35 pronta |
-| 2 Opzioni esatte dell’enum | da fare | aggiunta ANNULLA deve diventare rossa |
+| 1 Schema/tipo pubblici e riuso diretto | completo, e42ce72 | 2/102 rossi → 102/102 verdi; CF-35 pronta |
+| 2 Opzioni esatte dell’enum | completo, questo commit | ANNULLA → 1/103 AssertionError; baseline/ripristino 103/103 |
 | 3 HTTPS malformati | da fare | https:// e https://a b contro startsWith |
 
 Punto 1: DevSignedCommandSchema e DevSignedCommand esportati; risposta riusa lo schema. Ancore delle 34 mutazioni precedenti adattate alla costante, guardia specifica CF-35 sul legame. Nessun package/CHANGELOG/dist o consumer cambiato. Evidenza correction1-export.md.
+
+Punto 2: test delle opzioni esatte, nessun cambio al prodotto. CF-36 aggiunge ANNULLA in copia: 1/103 rosso reale e ripristino 103/103; originali protetti da hash. Prova correction2-mutation.md. Resta punto 3 e giro finale.

@@ -62,6 +62,11 @@ it('uses the public signed-command schema directly in each confirmation', () => 
   expect(response.shape.conferme.element.shape.comando).toBe(schema('DevSignedCommandSchema'));
 });
 
+it('fixes the exact public signed-command options', () => {
+  const DevSignedCommandSchema = schema('DevSignedCommandSchema') as typeof http.DevSignedCommandSchema;
+  expect(DevSignedCommandSchema.options).toEqual(['APPROVATO', 'SCARTATO', 'RIPRENDI']);
+});
+
 describe('pending confirmation request', () => {
   it('preserves a web session identifier', () => {
     expect(parseRequest(request).success).toBe(true);
