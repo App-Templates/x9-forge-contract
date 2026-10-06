@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { AgentRuntimeIdentitySchema, AgentRuntimeIdentitiesSchema } from '../../agent/agent-runtime-identity.js';
+import { AgentRuntimeSnapshotSchema } from '../../agent/agent-runtime-state.js';
+import { AgentRuntimeSourceSchema } from '../../agent/agent-runtime-source.js';
 
 /**
  * GET /internal/agents — list all loaded agents.
@@ -78,11 +81,31 @@ export const ListAgentsAgentSchema = z.object({
   loaded: z.boolean().optional(),
   errorKind: RuntimeErrorKindSchema.optional(),
   lastError: z.string().nullable().optional(),
+  // Canonical metadata is additive; legacy bot status is never channel evidence.
+  identity: AgentRuntimeIdentitySchema.optional(),
+  runtime: AgentRuntimeSnapshotSchema.optional(),
+}).superRefine((agent, ctx) => {
+  if (agent.identity && agent.agentId !== agent.identity.runtimeAgentId) {
+    ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Runtime identity must match the list row agentId' });
+  }
 });
 export type ListAgentsAgent = z.infer<typeof ListAgentsAgentSchema>;
 
 export const ListAgentsResponseSchema = z.object({
   agents: z.array(ListAgentsAgentSchema),
+  source: AgentRuntimeSourceSchema.optional(),
+}).superRefine((response, ctx) => {
+  // A legacy runtime ID occupies one name for collision detection only.
+  // This does not supply a missing management identity to consumers.
+  const identities = response.agents.map((agent) => agent.identity ?? {
+    managementAgentId: agent.agentId, runtimeAgentId: agent.agentId,
+  });
+  const result = AgentRuntimeIdentitiesSchema.safeParse(identities);
+  if (!result.success) {
+    for (const issue of result.error.issues) {
+      ctx.addIssue({ ...issue, path: ['agents', ...issue.path] });
+    }
+  }
 });
 export type ListAgentsResponse = z.infer<typeof ListAgentsResponseSchema>;
 
