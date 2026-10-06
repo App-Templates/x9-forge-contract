@@ -132,7 +132,7 @@
     "check:dts": "node scripts/check-portable-dts.mjs",
     "check:pack": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
     "validate": "pnpm build && pnpm check:pack && pnpm test",
-    "test": "vitest run --maxWorkers=2 --testTimeout=60000 && node tests/cjs/smoke.cjs",
+    "test": "vitest run && node tests/cjs/smoke.cjs",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests",

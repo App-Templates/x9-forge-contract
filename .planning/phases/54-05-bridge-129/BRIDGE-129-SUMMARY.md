@@ -104,4 +104,6 @@ Lab status: «conteggi presenti quando completed» applicato come tre conteggi r
 
 - 14:11 · lab-tools: fix(lab): queue ingest and expose status and tool errors. Prima 6/35 (falliti 29/35), dopo 119/119. Commit: 754fa52.
 
-- 14:12 · imports: style(capability): import zod before declaration schemas. Documentazione/stile; nessuna nuova guardia runtime. Commit: questo commit (checkpoint).
+- 14:12 · imports: style(capability): import zod before declaration schemas. Documentazione/stile; nessuna nuova guardia runtime. Commit: 4c7ab3d.
+
+- 14:12 · test-script-restore: chore(test): restore the original test script for isolation. Documentazione/stile; nessuna nuova guardia runtime. Commit: questo commit (checkpoint).
