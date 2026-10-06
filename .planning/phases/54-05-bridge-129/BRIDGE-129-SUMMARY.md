@@ -106,4 +106,8 @@ Lab status: «conteggi presenti quando completed» applicato come tre conteggi r
 
 - 14:12 · imports: style(capability): import zod before declaration schemas. Documentazione/stile; nessuna nuova guardia runtime. Commit: 4c7ab3d.
 
-- 14:12 · test-script-restore: chore(test): restore the original test script for isolation. Documentazione/stile; nessuna nuova guardia runtime. Commit: questo commit (checkpoint).
+- 14:12 · test-script-restore: chore(test): restore the original test script for isolation. Documentazione/stile; nessuna nuova guardia runtime. Commit: 4a9b402.
+
+R03: lo script test è ripristinato in 4a9b402 e i soli limiti Mac sono riapplicati nel commit successivo. Nessun test inutile che rispecchi il testo dello script; la suite completa finale userà questo comando.
+
+- 14:12 · test-script-limits: chore(test): limit shared Mac runners to two workers. Documentazione/stile; nessuna nuova guardia runtime. Commit: questo commit (checkpoint).
