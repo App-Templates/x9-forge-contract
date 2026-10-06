@@ -1,0 +1,8 @@
+mutation r3-key-internal: src/vault/credential-link.ts
+-   .refine((key) => !isPlatformInternalCredentialKey(key), { message: 'Platform-internal credential keys are never exposed per agent' });
++ ;
+result: KILLED
+× R3 credential provenance > accepts capability keys and refuses platform-internal ones 5ms
+× R3 rotate / relink / unlink > rejects platform-internal key 0ms
+Tests  2 failed | 33 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

@@ -1,0 +1,8 @@
+mutation r3-row-dup: src/vault/credential-link.ts
+-     if (seen.has(row.agentId)) ctx.addIssue({ code: 'custom', path: ['agents', index, 'agentId'], message: 'Duplicate agent' });
++ 
+result: KILLED
+× R3 per-agent outcome of a credential action > rejects duplicate agent 5ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects duplicate agent

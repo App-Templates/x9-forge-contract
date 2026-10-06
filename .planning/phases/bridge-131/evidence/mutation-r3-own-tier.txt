@@ -1,0 +1,8 @@
+mutation r3-own-tier: src/vault/credential-link.ts
+- export const CredentialOwnTierSchema = VaultTierSchema.exclude(['platform']);
++ export const CredentialOwnTierSchema = VaultTierSchema;
+result: KILLED
+× R3 credential provenance > rejects platform tier as an own value 6ms
+× R3 rotate / relink / unlink > rejects unlink to platform 0ms
+Tests  2 failed | 33 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

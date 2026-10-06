@@ -1,0 +1,8 @@
+mutation r3-row-reason: src/vault/credential-link.ts
+-   if ((row.outcome === 'ok') === (row.reason !== undefined)) {
++   if (false) {
+result: KILLED
+× R3 per-agent outcome of a credential action > rejects failed agent without reason 4ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects failed agent without reason

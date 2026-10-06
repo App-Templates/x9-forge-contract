@@ -1,0 +1,8 @@
+mutation r3-entry-present-version: src/vault/credential-link.ts
+-   if (entry.present !== (entry.version !== null)) {
++   if (false) {
+result: KILLED
+× R3 per-agent key entries > rejects present without version 4ms
+× R3 per-agent key entries > rejects absent with a version 0ms
+Tests  2 failed | 33 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

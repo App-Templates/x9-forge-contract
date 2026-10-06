@@ -1,0 +1,10 @@
+mutation r3-rotate-strict: src/vault/credential-link.ts
+-   version: CredentialVersionSchema,
+}).strict().superRefine((request, ctx) => {
++   version: CredentialVersionSchema,
+}).superRefine((request, ctx) => {
+result: KILLED
+× R3 rotate / relink / unlink > rejects rotation carrying a secret 4ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects rotation carrying a secret

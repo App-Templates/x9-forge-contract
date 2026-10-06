@@ -1,0 +1,8 @@
+mutation r3-total-count: src/vault/credential-link.ts
+-   if (result.total !== result.agents.length) {
++   if (false) {
+result: KILLED
+× R3 per-agent outcome of a credential action > rejects wrong total 5ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects wrong total

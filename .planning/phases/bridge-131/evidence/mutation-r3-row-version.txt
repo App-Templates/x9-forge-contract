@@ -1,0 +1,8 @@
+mutation r3-row-version: src/vault/credential-link.ts
+-     if (row.outcome === 'ok' && row.appliedVersion !== result.version) {
++     if (false) {
+result: KILLED
+× R3 per-agent outcome of a credential action > rejects ok agent on another version 4ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects ok agent on another version

@@ -1,0 +1,8 @@
+mutation r3-rotate-scope-agent: src/vault/credential-link.ts
+-   if ((request.scope === 'own') !== (request.agentId !== undefined)) {
++   if (false) {
+result: KILLED
+× R3 rotate / relink / unlink > rejects master rotation naming one agent 5ms
+× R3 rotate / relink / unlink > rejects own rotation without agent 1ms
+Tests  2 failed | 33 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
