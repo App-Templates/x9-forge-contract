@@ -10,6 +10,35 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.28.0 — proposta in review — Fase 54: cap-ricerca e cap-lab, per agente
+
+Decisione di Stefano (05/10): Forge gestisce gli agenti; configurazione e spesa delle capability sono **per agente e
+per capability**; la LLM Wiki (cap-lab) si collega a ogni agente, ognuno coi suoi dati; il budget non si supera mai.
+Nessun «progetto» dentro le capability.
+
+### Added (additive, backward-compatible)
+- Sottopercorso `@x9-forge/contracts/capability/ricerca`: `ResearchAgentConfigSchema` (configurazione di un agente:
+  obiettivo, budget giornaliero e per ricerca col fuso orario, modelli, parametri di ricerca, regola delle fonti),
+  `ResearchRequestSchema` / `ResearchResultSchema` (ricerca a cascata con `parentResearchId`, scoperte con origine
+  `web` e almeno una fonte, nuove domande, costo vero), `AgentSpendDaySchema` (per agente, capability e giorno, con
+  gli stop per il budget del giorno, `budgetReachedAt` e `overrunAt`), `RICERCA_TOOLS`, `RicercaToolErrorSchema` (motivo nel testo di un errore `TOOL_EXEC_FAILED`
+  o `TOOL_CALL_INVALID` del bridge). Nessun default per budget, modelli e regola delle fonti.
+- Sottopercorso `@x9-forge/contracts/capability/lab`: `LabAgentConfigSchema` (dominio, convenzioni, tipi di pagina e
+  di collegamento scelti per agente), la LLM Wiki (`WikiSourceSchema` con impronta del testo, `WikiPageSchema`
+  versionata, `WikiClaimSchema` con almeno una fonte, `WikiLinkSchema`), `CompetenceNodeViewSchema` (scala 0..4 del
+  motore del contest), `CompetenceGapSchema`, `LAB_TOOLS`. Il testo della wiki è dato, mai istruzione.
+- `@x9-forge/contracts/http`: rotte per agente di ogni capability `PUT/GET /internal/capability/agents/:agentId/config`
+  (versione che solo cresce: 409 `stale_version`; rifiuti dichiarati in `CapabilityAgentRouteErrorSchema`, compreso
+  `budget_below_minimum`),
+  `GET …/spend?from&to` (cap-ricerca, finestra ≤ 400 giorni, date reali, `queuedNow`), `GET …/growth` (cap-lab);
+  `capAgentConfigPath`, `capAgentSpendPath`, `capAgentGrowthPath` validano l'id.
+- Consumer previsti: agent-x9 `services/cap-ricerca`, `services/cap-lab`, `services/cap-food`; forge-v2 gestione degli
+  agenti (PIANO-SVILUPPI §B2/B3); enterprise-adoption ea-core dopo la migrazione.
+- Verifiche: `tests/capability/ricerca/`, `tests/capability/lab/`, `tests/http/internal-capability-agent.test.ts`,
+  smoke ESM e CJS; mutazioni `scripts/mutate-54-ricerca-lab.py` (20/20 rosse).
+- Contiene la v1.27.1 (chiavi interne di piattaforma fuori dai contesti degli agenti, fix SEC del 01/10), unita da
+  `origin/main` prima del rilascio.
+
 ## v1.27.1 — 2026-10-05 — Chiavi interne di piattaforma fuori dai contesti degli agenti (sicurezza)
 
 ### Added (additive, backward-compatible)

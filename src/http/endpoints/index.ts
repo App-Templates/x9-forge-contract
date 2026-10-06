@@ -16,6 +16,7 @@ export * from './internal-query.js';
 export * from './internal-model-config.js'; // Phase 6 — MDRT-05 / D-15
 export * from './internal-model-config-version.js'; // Phase 6 — MDRT-07 polling (06-01 decision)
 export * from './internal-memory-extract.js'; // Phase 36.9 — async extraction pipeline
+export * from './internal-capability-agent.js'; // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
 
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from './webhook-post-call.js';

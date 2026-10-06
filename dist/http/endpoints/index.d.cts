@@ -14,6 +14,7 @@ export * from "./internal-query.cjs";
 export * from "./internal-model-config.cjs";
 export * from "./internal-model-config-version.cjs";
 export * from "./internal-memory-extract.cjs";
+export * from "./internal-capability-agent.cjs";
 export * from "./webhook-post-call.cjs";
 export * from "./voice-register.cjs";
 export * from "./vault-resolve.cjs";

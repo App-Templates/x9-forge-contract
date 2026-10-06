@@ -22,6 +22,9 @@ import { VoiceCallIntentSchema } from '@x9-forge/contracts/voice';
 import { CAP_STT_DEFAULT_PORT, TranscribeRequestSchema, DEFAULT_STT_PRIMARY_PROVIDER } from '@x9-forge/contracts/capability/stt';
 import { TtsProviderSchema, DEFAULT_TTS_PROVIDER } from '@x9-forge/contracts/capability/tts';
 import { CAP_VOICE_LIVE_DEFAULT_PORT, VoiceLiveCallStartRequestSchema } from '@x9-forge/contracts/capability/voice-live';
+import { RICERCA_TOOLS, ResearchAgentConfigSchema } from '@x9-forge/contracts/capability/ricerca';
+import { LAB_TOOLS, LabAgentConfigSchema } from '@x9-forge/contracts/capability/lab';
+import { capAgentConfigPath } from '@x9-forge/contracts/http';
 import { VoiceProviderSchema } from '@x9-forge/contracts/voice';
 import { CAP_VOICE_LIVE_CALL_START_PATH } from '@x9-forge/contracts/http';
 import { vaultResolveContract } from '@x9-forge/contracts/http';
@@ -68,6 +71,14 @@ describe('ESM smoke — every public bridge subpath resolves via import', () => 
     expect(typeof VoiceLiveCallStartRequestSchema.parse).toBe('function');
     expect(VoiceProviderSchema.parse('openai_live')).toBe('openai_live');
     expect(CAP_VOICE_LIVE_CALL_START_PATH).toBe('/internal/live/call-start');
+  });
+
+  it('capability/ricerca and capability/lab subpaths (Phase 54): schemas, tool names, per-agent path', () => {
+    expect(typeof ResearchAgentConfigSchema.parse).toBe('function');
+    expect(typeof LabAgentConfigSchema.parse).toBe('function');
+    expect(RICERCA_TOOLS.start).toBe('research_start');
+    expect(LAB_TOOLS.ingest).toBe('lab_ingest');
+    expect(capAgentConfigPath('samira')).toBe('/internal/capability/agents/samira/config');
   });
 
   it('http subpath: vaultResolveContract is a contract object', () => {

@@ -53,6 +53,10 @@ const PROBES = [
   // Phase 50 (v1.20.0) — cap-voice-live contracts + provider lane (CJS resolution).
   { specifier: '@x9-forge/contracts/capability/voice-live', knownSymbol: 'CAP_VOICE_LIVE_DEFAULT_PORT', expectedType: 'number', expectedValue: 3217 },
   { specifier: '@x9-forge/contracts/capability/voice-live', knownSymbol: 'VoiceLiveCallStartRequestSchema', expectedType: 'object' },
+  // Phase 54 (v1.28.0) — cap-ricerca / cap-lab contracts (CJS resolution).
+  { specifier: '@x9-forge/contracts/capability/ricerca', knownSymbol: 'ResearchAgentConfigSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/capability/lab', knownSymbol: 'LabAgentConfigSchema', expectedType: 'object' },
+  { specifier: '@x9-forge/contracts/http', knownSymbol: 'capAgentConfigPath', expectedType: 'function' },
   { specifier: '@x9-forge/contracts/voice',            knownSymbol: 'VoiceProviderSchema',   expectedType: 'object' },
   { specifier: '@x9-forge/contracts/http',             knownSymbol: 'CAP_VOICE_LIVE_CALL_START_PATH', expectedType: 'string', expectedValue: '/internal/live/call-start' },
   { specifier: '@x9-forge/contracts/http',             knownSymbol: 'vaultResolveContract',  expectedType: 'object' },
