@@ -16,6 +16,7 @@ jobs:
   test:
     name: Test (Node 22)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -44,6 +45,7 @@ jobs:
   consumer-cjs-node20:
     name: Consumer CJS Type-Check (Node 20)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
