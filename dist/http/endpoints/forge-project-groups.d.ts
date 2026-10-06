@@ -61,6 +61,11 @@ export declare const ProjectGroupDetailResponseSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ProjectGroupDetailResponse = z.infer<typeof ProjectGroupDetailResponseSchema>;
+/**
+ * Env name of the dedicated read-only secret (R-17: declared here first). The caller sends it in
+ * INTERNAL_TOKEN_HEADER; Forge factory-svc compares it with its own copy. Never INTERNAL_SERVICE_TOKEN.
+ */
+export declare const PROJECT_GROUPS_READ_TOKEN_ENV: "FORGE_PROJECT_GROUPS_READ_TOKEN";
 export declare const PROJECT_GROUPS_PATH: "/api/internal/project-groups";
 export declare const PROJECT_GROUP_PATH_TEMPLATE: "/api/internal/project-groups/:groupId";
 export declare const projectGroupPath: (groupId: number) => string;
@@ -68,6 +73,8 @@ export declare const listProjectGroupsContract: {
     readonly method: "GET";
     readonly path: "/api/internal/project-groups";
     readonly authType: "token";
+    readonly authHeader: "X-Internal-Token";
+    readonly tokenEnv: "FORGE_PROJECT_GROUPS_READ_TOKEN";
     readonly responseSchema: z.ZodObject<{
         groups: z.ZodArray<z.ZodObject<{
             id: z.ZodNumber;
@@ -81,6 +88,8 @@ export declare const getProjectGroupContract: {
     readonly method: "GET";
     readonly path: "/api/internal/project-groups/:groupId";
     readonly authType: "token";
+    readonly authHeader: "X-Internal-Token";
+    readonly tokenEnv: "FORGE_PROJECT_GROUPS_READ_TOKEN";
     readonly paramsSchema: z.ZodObject<{
         groupId: z.ZodCoercedNumber<unknown>;
     }, z.core.$strict>;

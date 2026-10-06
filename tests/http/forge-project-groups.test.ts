@@ -3,7 +3,9 @@ import {
   GROUP_TYPES, GroupTypeSchema, PROJECT_GROUP_TYPE,
   ListProjectGroupsResponseSchema, ProjectGroupDetailResponseSchema, ProjectGroupParamsSchema,
   projectGroupPath, listProjectGroupsContract, getProjectGroupContract,
+  PROJECT_GROUPS_READ_TOKEN_ENV,
 } from '../../src/http/endpoints/forge-project-groups.js';
+import { INTERNAL_TOKEN_HEADER } from '../../src/auth/index.js';
 
 describe('B8 — Forge «Progetto» groups, read-only', () => {
   it('group types match Forge (one level, five types) and Progetto is one of them', () => {
@@ -39,6 +41,15 @@ describe('B8 — Forge «Progetto» groups, read-only', () => {
       expect(c.method).toBe('GET');
       expect(c.authType).toBe('token');
       expect(c.path.startsWith('/api/internal/project-groups')).toBe(true);
+    }
+  });
+
+  it('the read-only secret has its own env name (R-17), never a Forge service-wide token', () => {
+    expect(PROJECT_GROUPS_READ_TOKEN_ENV).toBe('FORGE_PROJECT_GROUPS_READ_TOKEN');
+    expect(['INTERNAL_SERVICE_TOKEN', 'INTERNAL_SECRET', 'X9_INTERNAL_SECRET']).not.toContain(PROJECT_GROUPS_READ_TOKEN_ENV);
+    for (const c of [listProjectGroupsContract, getProjectGroupContract]) {
+      expect(c.authHeader).toBe(INTERNAL_TOKEN_HEADER);
+      expect(c.tokenEnv).toBe(PROJECT_GROUPS_READ_TOKEN_ENV);
     }
   });
 });

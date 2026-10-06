@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { INTERNAL_TOKEN_HEADER } from '../../auth/auth-headers.js';
 
 /**
  * B8 — read-only access to Forge «Progetto» groups for the external project view.
@@ -54,6 +55,12 @@ export const ProjectGroupDetailResponseSchema = z.object({
 }).strict();
 export type ProjectGroupDetailResponse = z.infer<typeof ProjectGroupDetailResponseSchema>;
 
+/**
+ * Env name of the dedicated read-only secret (R-17: declared here first). The caller sends it in
+ * INTERNAL_TOKEN_HEADER; Forge factory-svc compares it with its own copy. Never INTERNAL_SERVICE_TOKEN.
+ */
+export const PROJECT_GROUPS_READ_TOKEN_ENV = 'FORGE_PROJECT_GROUPS_READ_TOKEN' as const;
+
 export const PROJECT_GROUPS_PATH = '/api/internal/project-groups' as const;
 export const PROJECT_GROUP_PATH_TEMPLATE = '/api/internal/project-groups/:groupId' as const;
 export const projectGroupPath = (groupId: number): string =>
@@ -63,6 +70,8 @@ export const listProjectGroupsContract = {
   method: 'GET' as const,
   path: PROJECT_GROUPS_PATH,
   authType: 'token' as const,
+  authHeader: INTERNAL_TOKEN_HEADER,
+  tokenEnv: PROJECT_GROUPS_READ_TOKEN_ENV,
   responseSchema: ListProjectGroupsResponseSchema,
 } as const;
 
@@ -70,6 +79,8 @@ export const getProjectGroupContract = {
   method: 'GET' as const,
   path: PROJECT_GROUP_PATH_TEMPLATE,
   authType: 'token' as const,
+  authHeader: INTERNAL_TOKEN_HEADER,
+  tokenEnv: PROJECT_GROUPS_READ_TOKEN_ENV,
   paramsSchema: ProjectGroupParamsSchema,
   responseSchema: ProjectGroupDetailResponseSchema,
 } as const;

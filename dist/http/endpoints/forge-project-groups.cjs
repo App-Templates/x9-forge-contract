@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProjectGroupContract = exports.listProjectGroupsContract = exports.projectGroupPath = exports.PROJECT_GROUP_PATH_TEMPLATE = exports.PROJECT_GROUPS_PATH = exports.ProjectGroupDetailResponseSchema = exports.ProjectGroupAgentSchema = exports.ProjectGroupParamsSchema = exports.ListProjectGroupsResponseSchema = exports.ProjectGroupSummarySchema = exports.PROJECT_GROUP_TYPE = exports.GroupTypeSchema = exports.GROUP_TYPES = void 0;
+exports.getProjectGroupContract = exports.listProjectGroupsContract = exports.projectGroupPath = exports.PROJECT_GROUP_PATH_TEMPLATE = exports.PROJECT_GROUPS_PATH = exports.PROJECT_GROUPS_READ_TOKEN_ENV = exports.ProjectGroupDetailResponseSchema = exports.ProjectGroupAgentSchema = exports.ProjectGroupParamsSchema = exports.ListProjectGroupsResponseSchema = exports.ProjectGroupSummarySchema = exports.PROJECT_GROUP_TYPE = exports.GroupTypeSchema = exports.GROUP_TYPES = void 0;
 const zod_1 = require("zod");
+const auth_headers_js_1 = require("../../auth/auth-headers.cjs");
 /**
  * B8 — read-only access to Forge «Progetto» groups for the external project view.
  * Direction: project view app -> Forge factory-svc
@@ -42,6 +43,11 @@ exports.ProjectGroupDetailResponseSchema = zod_1.z.object({
     group: exports.ProjectGroupSummarySchema.omit({ agentCount: true }),
     agents: zod_1.z.array(exports.ProjectGroupAgentSchema),
 }).strict();
+/**
+ * Env name of the dedicated read-only secret (R-17: declared here first). The caller sends it in
+ * INTERNAL_TOKEN_HEADER; Forge factory-svc compares it with its own copy. Never INTERNAL_SERVICE_TOKEN.
+ */
+exports.PROJECT_GROUPS_READ_TOKEN_ENV = 'FORGE_PROJECT_GROUPS_READ_TOKEN';
 exports.PROJECT_GROUPS_PATH = '/api/internal/project-groups';
 exports.PROJECT_GROUP_PATH_TEMPLATE = '/api/internal/project-groups/:groupId';
 const projectGroupPath = (groupId) => exports.PROJECT_GROUP_PATH_TEMPLATE.replace(':groupId', String(exports.ProjectGroupParamsSchema.parse({ groupId }).groupId));
@@ -50,12 +56,16 @@ exports.listProjectGroupsContract = {
     method: 'GET',
     path: exports.PROJECT_GROUPS_PATH,
     authType: 'token',
+    authHeader: auth_headers_js_1.INTERNAL_TOKEN_HEADER,
+    tokenEnv: exports.PROJECT_GROUPS_READ_TOKEN_ENV,
     responseSchema: exports.ListProjectGroupsResponseSchema,
 };
 exports.getProjectGroupContract = {
     method: 'GET',
     path: exports.PROJECT_GROUP_PATH_TEMPLATE,
     authType: 'token',
+    authHeader: auth_headers_js_1.INTERNAL_TOKEN_HEADER,
+    tokenEnv: exports.PROJECT_GROUPS_READ_TOKEN_ENV,
     paramsSchema: exports.ProjectGroupParamsSchema,
     responseSchema: exports.ProjectGroupDetailResponseSchema,
 };
