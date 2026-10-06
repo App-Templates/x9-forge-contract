@@ -35,6 +35,8 @@ export type AgentVoiceTransport = z.infer<typeof AgentVoiceTransportSchema>;
 /** Provider voice id: a menu value for GPT voices, the voice id for ElevenLabs. */
 export const AgentVoiceIdSchema = z.string().min(1).max(128);
 export const AgentVoiceModelSchema = z.string().min(1).max(128);
+/** BCP-47 language tag, e.g. it or it-IT. */
+export const AgentVoiceLocaleSchema = z.string().regex(/^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$/);
 
 const TransportsSchema = z.array(AgentVoiceTransportSchema).min(1).max(2)
   .refine((transports) => new Set(transports).size === transports.length, { message: 'Duplicate transport' });
@@ -49,7 +51,7 @@ export const AgentVoiceSettingsSchema = z.discriminatedUnion('mode', [
     voiceId: AgentVoiceIdSchema,
     model: AgentVoiceModelSchema,
     /** BCP-47 language of the voice, e.g. it-IT. */
-    locale: z.string().regex(/^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$/).optional(),
+    locale: AgentVoiceLocaleSchema.optional(),
     /** Provider parameters (e.g. stability, speed); never credentials. */
     params: z.record(CapabilityParameterKeySchema, CapabilityParameterValueSchema).optional(),
   }).strict(),
