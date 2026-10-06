@@ -9,7 +9,9 @@ Test sempre con `--maxWorkers=1 --testTimeout=60000`. Mutazioni su file committa
 | 0 — guardia 1.30 | fatto | bbf64bb | n/a (guardia su codice esistente) | 23/23 | 1/1 uccisa (export tolto) |
 | 1 — R1b gestione logica | fatto | 155cdbd, ac09bb8, 73e0e68 | 46/46 falliti (export assenti) | 48/48 | 23/23 uccise (2 sopravvissute al primo giro → test aggiunti) |
 | 2 — R3 chiavi collegate | fatto | f70d4a3 | 35/35 falliti | 35/35 | 18/18 uccise |
-| 3 — R3 contesto chiamata | fatto | abde48b, test successivo | 21/21 falliti | 22/22 | 11/11 uccise (1 sopravvissuta → test aggiunto) |
+| 3 — R3 contesto chiamata | fatto | abde48b, 10f614c | 21/21 falliti | 22/22 | 11/11 uccise (1 sopravvissuta → test aggiunto) |
+| 4 — R4 voce per agente | fatto | 97e3cc1 | 30/30 falliti | 30/30 | 22/22 uccise |
+| 5 — R5 ambito | fatto | 529799e + correzione | 40/40 falliti | 41/41 | 16/16 uccise (1 sopravvissuta → test aggiunto; 1 controllo ridondante rimosso, mutante equivalente) |
 
 ## Task 0
 Snapshot export 1.30 per sottopercorso generato dal dist 1.30 (`tests/compat/bridge-130-exports.json`), test che
@@ -36,4 +38,20 @@ esito per agente con applicati/totale coerenti ed esito complessivo derivato con
 `InternalMemoryExtractRequestSchema`), persona facoltativa; credenziali minime con versione; errori distinti;
 `pickCapabilityCredentials`, `toToolCallScope` (riempie i campi già esistenti di `ToolCallRequest` 1.30).
 
-Ultimo aggiornamento: 07/10 01:25
+## Task 4 — R4 voce per agente
+`src/capability/voice/agent-voice-settings.ts` (export `./voice`). `text-only` oppure `voice` (provider aperto con
+formato id, noti `KNOWN_AGENT_VOICE_PROVIDERS` = `VoiceProviderSchema.options`; protocollo websocket/webrtc/sip;
+trasporti phone/web; id voce provider; modello; locale; parametri dal vocabolario B1). Desired/applied con
+`AgentConfigVersionStateSchema`. Catalogo del producer (voci a menu o id libero con pattern valido) e
+`validateAgentVoiceSettings` con codici distinti. Identità del chiamante per il numero Telnyx unico in uscita
+(`AgentRuntimeIdentitySchema`, nome, persona, voce, numero E.164 dalla regola cap-voice-live, versione); helper
+`outboundCallerIdentityFor` rifiuta text-only (`voice_disabled`) e agenti senza telefono (`phone_not_enabled`).
+
+## Task 5 — R5 ambito
+`src/agent/agent-scope-policy.ts` (export `./agent`). allow/ask/deny per lettura e scrittura, regola strumento >
+capability > predefiniti (`resolvePolicyDecision`), `defaultWebSearch`, `scopeLimited` con predefiniti deny e scopo
+dichiarato; approvazioni umane con scadenza, versione politica e finestra di decisione; evento di registro senza
+payload né segreti, coerenza decisione/esito, provenienza con `external-content` per i dati non fidati. Identità da
+`CapabilityCallIdentitySchema`, nomi strumento dalla regola di `/call/:tool`.
+
+Ultimo aggiornamento: 07/10 01:14

@@ -1,5 +1,8 @@
 mutation r5-resolve-cap-rule-scope: src/agent/agent-scope-policy.ts
 -   const capabilityRule = policy.rules.find((rule) => rule.capability === request.capability && rule.tool === undefined);
 +   const capabilityRule = policy.rules.find((rule) => rule.capability === request.capability);
-result: SURVIVED
-Tests  40 passed (40)
+result: KILLED
+× R5 scope policy > does not confuse another tool rule with the capability rule, whatever the order 4ms
+Tests  1 failed | 40 passed (41)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > does not confuse another tool rule with the capability rule, whatever the order
