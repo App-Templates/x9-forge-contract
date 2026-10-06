@@ -46,6 +46,11 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
                 next_apply: "next_apply";
             }>;
             consumes: z.ZodBoolean;
+            optional: z.ZodBoolean;
+            editableBy: z.ZodArray<z.ZodEnum<{
+                superadmin: "superadmin";
+                owner: "owner";
+            }>>;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"integer">;
             min: z.ZodOptional<z.ZodNumber>;
@@ -67,10 +72,16 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
                 next_apply: "next_apply";
             }>;
             consumes: z.ZodBoolean;
+            optional: z.ZodBoolean;
+            editableBy: z.ZodArray<z.ZodEnum<{
+                superadmin: "superadmin";
+                owner: "owner";
+            }>>;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"string">;
             minLength: z.ZodOptional<z.ZodNumber>;
             maxLength: z.ZodOptional<z.ZodNumber>;
+            pattern: z.ZodOptional<z.ZodString>;
             platformDefault: z.ZodOptional<z.ZodString>;
             key: z.ZodString;
             label: z.ZodString;
@@ -88,6 +99,11 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
                 next_apply: "next_apply";
             }>;
             consumes: z.ZodBoolean;
+            optional: z.ZodBoolean;
+            editableBy: z.ZodArray<z.ZodEnum<{
+                superadmin: "superadmin";
+                owner: "owner";
+            }>>;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"boolean">;
             platformDefault: z.ZodOptional<z.ZodBoolean>;
@@ -107,6 +123,11 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
                 next_apply: "next_apply";
             }>;
             consumes: z.ZodBoolean;
+            optional: z.ZodBoolean;
+            editableBy: z.ZodArray<z.ZodEnum<{
+                superadmin: "superadmin";
+                owner: "owner";
+            }>>;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"enum">;
             options: z.ZodArray<z.ZodObject<{
@@ -130,6 +151,42 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
                 next_apply: "next_apply";
             }>;
             consumes: z.ZodBoolean;
+            optional: z.ZodBoolean;
+            editableBy: z.ZodArray<z.ZodEnum<{
+                superadmin: "superadmin";
+                owner: "owner";
+            }>>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"string_list">;
+            minItems: z.ZodOptional<z.ZodNumber>;
+            maxItems: z.ZodOptional<z.ZodNumber>;
+            options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                value: z.ZodString;
+                label: z.ZodString;
+            }, z.core.$strict>>>;
+            pattern: z.ZodOptional<z.ZodString>;
+            platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            key: z.ZodString;
+            label: z.ZodString;
+            description: z.ZodString;
+            explanation: z.ZodOptional<z.ZodString>;
+            group: z.ZodOptional<z.ZodString>;
+            unit: z.ZodOptional<z.ZodString>;
+            status: z.ZodEnum<{
+                decided: "decided";
+                proposed: "proposed";
+            }>;
+            reference: z.ZodString;
+            appliesWhen: z.ZodEnum<{
+                immediate: "immediate";
+                next_apply: "next_apply";
+            }>;
+            consumes: z.ZodBoolean;
+            optional: z.ZodBoolean;
+            editableBy: z.ZodArray<z.ZodEnum<{
+                superadmin: "superadmin";
+                owner: "owner";
+            }>>;
         }, z.core.$strict>], "type">>;
         consumes: z.ZodBoolean;
         spendLedger: z.ZodBoolean;
@@ -151,11 +208,17 @@ export declare const CapabilityManifestSchema: z.ZodObject<{
                     text: "text";
                     json: "json";
                 }>;
+                min: z.ZodOptional<z.ZodNumber>;
+                max: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
         feedback: z.ZodOptional<z.ZodObject<{
             label: z.ZodString;
-            kind: z.ZodLiteral<"rating">;
+            kind: z.ZodEnum<{
+                rating: "rating";
+                approval: "approval";
+            }>;
+            attachments: z.ZodBoolean;
             sources: z.ZodArray<z.ZodEnum<{
                 project_view: "project_view";
                 domain_app: "domain_app";

@@ -35,8 +35,8 @@ import { z } from 'zod';
  * (empty token). Mirrors agent-core BotState + the bot-less discriminator.
  */
 export declare const RuntimeAgentStatusSchema: z.ZodEnum<{
-    degraded: "degraded";
     running: "running";
+    degraded: "degraded";
     starting: "starting";
     stopped: "stopped";
     "bot-less": "bot-less";
@@ -49,8 +49,8 @@ export type RuntimeAgentStatus = z.infer<typeof RuntimeAgentStatusSchema>;
  */
 export declare const ForgeRuntimeStatusSchema: z.ZodEnum<{
     unknown: "unknown";
-    degraded: "degraded";
     running: "running";
+    degraded: "degraded";
     starting: "starting";
     stopped: "stopped";
     "bot-less": "bot-less";
@@ -71,8 +71,8 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
     displayName: z.ZodString;
     ownerId: z.ZodString;
     runtimeStatus: z.ZodOptional<z.ZodEnum<{
-        degraded: "degraded";
         running: "running";
+        degraded: "degraded";
         starting: "starting";
         stopped: "stopped";
         "bot-less": "bot-less";
@@ -92,8 +92,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
         displayName: z.ZodString;
         ownerId: z.ZodString;
         runtimeStatus: z.ZodOptional<z.ZodEnum<{
-            degraded: "degraded";
             running: "running";
+            degraded: "degraded";
             starting: "starting";
             stopped: "stopped";
             "bot-less": "bot-less";
@@ -118,8 +118,8 @@ export declare const listAgentsContract: {
             displayName: z.ZodString;
             ownerId: z.ZodString;
             runtimeStatus: z.ZodOptional<z.ZodEnum<{
-                degraded: "degraded";
                 running: "running";
+                degraded: "degraded";
                 starting: "starting";
                 stopped: "stopped";
                 "bot-less": "bot-less";

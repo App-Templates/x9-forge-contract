@@ -137,6 +137,15 @@ export declare const labAgentConfigPutContract: {
     readonly bodySchema: z.ZodObject<{
         agentId: z.ZodString;
         version: z.ZodNumber;
+        models: z.ZodObject<{
+            digest: z.ZodString;
+            read: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>;
+        budget: z.ZodObject<{
+            dailyUsd: z.ZodNumber;
+            perIngestMaxUsd: z.ZodNumber;
+            timezone: z.ZodString;
+        }, z.core.$strict>;
         domain: z.ZodString;
         conventions: z.ZodString;
         pageKinds: z.ZodArray<z.ZodString>;
@@ -157,14 +166,22 @@ export declare const labAgentConfigGetContract: {
     readonly responseSchema: z.ZodObject<{
         agentId: z.ZodString;
         version: z.ZodNumber;
+        models: z.ZodObject<{
+            digest: z.ZodString;
+            read: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>;
+        budget: z.ZodObject<{
+            dailyUsd: z.ZodNumber;
+            perIngestMaxUsd: z.ZodNumber;
+            timezone: z.ZodString;
+        }, z.core.$strict>;
         domain: z.ZodString;
         conventions: z.ZodString;
         pageKinds: z.ZodArray<z.ZodString>;
         linkKinds: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
 };
-/** Longest window of one spend request, days (inclusive). */
-export declare const AGENT_SPEND_MAX_DAYS = 400;
+export { AGENT_SPEND_MAX_DAYS } from "../../capability/ricerca/spend.cjs";
 /** GET /internal/capability/agents/:agentId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — days in the agent's time zone. */
 export declare const AgentSpendQuerySchema: z.ZodObject<{
     from: z.ZodString;
@@ -175,6 +192,7 @@ export declare const AgentSpendResponseSchema: z.ZodObject<{
         agentId: z.ZodString;
         capability: z.ZodEnum<{
             ricerca: "ricerca";
+            lab: "lab";
         }>;
         day: z.ZodString;
         spentUsd: z.ZodNumber;
@@ -204,6 +222,39 @@ export declare const ricercaAgentSpendContract: {
             agentId: z.ZodString;
             capability: z.ZodEnum<{
                 ricerca: "ricerca";
+                lab: "lab";
+            }>;
+            day: z.ZodString;
+            spentUsd: z.ZodNumber;
+            reservedUsd: z.ZodNumber;
+            capUsd: z.ZodNumber;
+            calls: z.ZodNumber;
+            webCalls: z.ZodNumber;
+            budgetStops: z.ZodNumber;
+            budgetReachedAt: z.ZodNullable<z.ZodISODateTime>;
+            overrunAt: z.ZodNullable<z.ZodISODateTime>;
+        }, z.core.$strict>>;
+        queuedNow: z.ZodNumber;
+    }, z.core.$strict>;
+};
+/** cap-lab reports the same per-agent spend shape and path as cap-ricerca. */
+export declare const labAgentSpendContract: {
+    readonly method: "GET";
+    readonly path: "/internal/capability/agents/:agentId/spend";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly querySchema: z.ZodObject<{
+        from: z.ZodString;
+        to: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        days: z.ZodArray<z.ZodObject<{
+            agentId: z.ZodString;
+            capability: z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
             }>;
             day: z.ZodString;
             spentUsd: z.ZodNumber;

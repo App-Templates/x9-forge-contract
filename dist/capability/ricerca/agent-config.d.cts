@@ -16,12 +16,14 @@ export declare const CapabilityAgentIdSchema: z.ZodString;
 export declare const AgentConfigVersionSchema: z.ZodNumber;
 /** IANA time zone of the agent's day (the daily budget restarts at its midnight). */
 export declare const AgentTimeZoneSchema: z.ZodString;
+export declare const CapabilityUsdSchema: z.ZodNumber;
 export declare const ResearchBudgetSchema: z.ZodObject<{
     dailyUsd: z.ZodNumber;
     perResearchMaxUsd: z.ZodNumber;
     timezone: z.ZodString;
 }, z.core.$strip>;
 export type ResearchBudget = z.infer<typeof ResearchBudgetSchema>;
+export declare const CapabilityModelIdSchema: z.ZodString;
 export declare const ResearchModelsSchema: z.ZodObject<{
     research: z.ZodString;
     digest: z.ZodOptional<z.ZodString>;

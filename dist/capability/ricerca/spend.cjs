@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentSpendDaySchema = exports.SpendingCapabilitySchema = exports.AgentDaySchema = void 0;
+exports.AgentSpendDaySchema = exports.SpendingCapabilitySchema = exports.AGENT_SPEND_MAX_DAYS = exports.AgentDaySchema = void 0;
 const zod_1 = require("zod");
 const agent_config_js_1 = require("./agent-config.cjs");
 /**
@@ -13,8 +13,10 @@ exports.AgentDaySchema = zod_1.z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d 
     const t = new Date(d + 'T00:00:00Z');
     return !Number.isNaN(t.getTime()) && t.toISOString().slice(0, 10) === d;
 }, 'not a calendar date');
+/** Longest window of one agent spend request, days (inclusive). */
+exports.AGENT_SPEND_MAX_DAYS = 400;
 /** The capabilities that report spend this way. */
-exports.SpendingCapabilitySchema = zod_1.z.enum(['ricerca']);
+exports.SpendingCapabilitySchema = zod_1.z.enum(['ricerca', 'lab']);
 exports.AgentSpendDaySchema = zod_1.z.object({
     agentId: agent_config_js_1.CapabilityAgentIdSchema,
     capability: exports.SpendingCapabilitySchema,
@@ -24,9 +26,9 @@ exports.AgentSpendDaySchema = zod_1.z.object({
     capUsd: zod_1.z.number().positive().finite(),
     calls: zod_1.z.number().int().nonnegative(),
     webCalls: zod_1.z.number().int().nonnegative(),
-    /** Researches that day stopped because the DAY's budget was spent (a research's own ceiling is not counted here). */
+    /** Jobs (researches or ingests) stopped by the DAY's budget; a job's own ceiling is not counted here. */
     budgetStops: zod_1.z.number().int().nonnegative(),
-    /** When the first research of that day was stopped by the day's budget («finito alle 15:52»); null if it never was. */
+    /** When the first job of that day was stopped by the day's budget («finito alle 15:52»); null if it never was. */
     budgetReachedAt: zod_1.z.iso.datetime().nullable(),
     /**
      * When the agent's day was closed because a call may have cost more than its worst-case reservation: it did (overrun),

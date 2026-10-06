@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityManifestSchema = void 0;
+const zod_1 = require("zod");
 const parameters_js_1 = require("./parameters.cjs");
 const presentation_js_1 = require("./presentation.cjs");
-const zod_1 = require("zod");
 const capability_turn_lead_js_1 = require("./capability-turn-lead.cjs");
 const capability_tool_js_1 = require("./capability-tool.cjs");
 const capability_context_js_1 = require("./capability-context.cjs");

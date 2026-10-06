@@ -1,4 +1,15 @@
 import { z } from 'zod';
+/** Maximum records in one capability presentation page. */
+export declare const CAPABILITY_PRESENTATION_PAGE_SIZE = 100;
+export declare const CAPABILITY_OUTPUT_CONTENT_MAX_BYTES: number;
+export declare const CapabilityFeedbackKindSchema: z.ZodEnum<{
+    rating: "rating";
+    approval: "approval";
+}>;
+export declare const CapabilityFeedbackDecisionSchema: z.ZodEnum<{
+    approved: "approved";
+    changes_requested: "changes_requested";
+}>;
 export declare const CapabilityFeedbackSourceKindSchema: z.ZodEnum<{
     project_view: "project_view";
     domain_app: "domain_app";
@@ -15,6 +26,12 @@ export declare const CapabilityOutputKindSchema: z.ZodObject<{
     label: z.ZodString;
     description: z.ZodString;
 }, z.core.$strict>;
+export declare const CapabilityOutputFieldTypeSchema: z.ZodEnum<{
+    number: "number";
+    boolean: "boolean";
+    text: "text";
+    json: "json";
+}>;
 export declare const CapabilityOutputFieldSchema: z.ZodObject<{
     key: z.ZodString;
     label: z.ZodString;
@@ -24,6 +41,8 @@ export declare const CapabilityOutputFieldSchema: z.ZodObject<{
         text: "text";
         json: "json";
     }>;
+    min: z.ZodOptional<z.ZodNumber>;
+    max: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export declare const CapabilityTrendMetricSchema: z.ZodObject<{
     key: z.ZodString;
@@ -46,11 +65,18 @@ export declare const CapabilityOutputsDeclarationSchema: z.ZodObject<{
             text: "text";
             json: "json";
         }>;
+        min: z.ZodOptional<z.ZodNumber>;
+        max: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
+export declare const CAPABILITY_FEEDBACK_MAX_ATTACHMENTS = 10;
 export declare const CapabilityFeedbackDeclarationSchema: z.ZodObject<{
     label: z.ZodString;
-    kind: z.ZodLiteral<"rating">;
+    kind: z.ZodEnum<{
+        rating: "rating";
+        approval: "approval";
+    }>;
+    attachments: z.ZodBoolean;
     sources: z.ZodArray<z.ZodEnum<{
         project_view: "project_view";
         domain_app: "domain_app";
@@ -73,11 +99,17 @@ export declare const CapabilityPresentationDeclarationSchema: z.ZodObject<{
                 text: "text";
                 json: "json";
             }>;
+            min: z.ZodOptional<z.ZodNumber>;
+            max: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strict>>;
     }, z.core.$strict>>;
     feedback: z.ZodOptional<z.ZodObject<{
         label: z.ZodString;
-        kind: z.ZodLiteral<"rating">;
+        kind: z.ZodEnum<{
+            rating: "rating";
+            approval: "approval";
+        }>;
+        attachments: z.ZodBoolean;
         sources: z.ZodArray<z.ZodEnum<{
             project_view: "project_view";
             domain_app: "domain_app";
@@ -101,7 +133,9 @@ export declare const CapabilityOutputSchema: z.ZodObject<{
     capability: z.ZodString;
 }, z.core.$strict>;
 export type CapabilityOutput = z.infer<typeof CapabilityOutputSchema>;
-export declare const CapabilityFeedbackSchema: z.ZodObject<{
+export declare const CapabilityFeedbackSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"rating">;
+    rating: z.ZodNumber;
     id: z.ZodString;
     outputId: z.ZodString;
     source: z.ZodObject<{
@@ -112,12 +146,35 @@ export declare const CapabilityFeedbackSchema: z.ZodObject<{
         id: z.ZodString;
     }, z.core.$strict>;
     reviewerId: z.ZodString;
-    rating: z.ZodNumber;
+    reviewerName: z.ZodString;
+    attachments: z.ZodOptional<z.ZodArray<z.ZodString>>;
     comment: z.ZodOptional<z.ZodString>;
     createdAt: z.ZodISODateTime;
     agentId: z.ZodString;
     capability: z.ZodString;
-}, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"approval">;
+    decision: z.ZodEnum<{
+        approved: "approved";
+        changes_requested: "changes_requested";
+    }>;
+    id: z.ZodString;
+    outputId: z.ZodString;
+    source: z.ZodObject<{
+        kind: z.ZodEnum<{
+            project_view: "project_view";
+            domain_app: "domain_app";
+        }>;
+        id: z.ZodString;
+    }, z.core.$strict>;
+    reviewerId: z.ZodString;
+    reviewerName: z.ZodString;
+    attachments: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    comment: z.ZodOptional<z.ZodString>;
+    createdAt: z.ZodISODateTime;
+    agentId: z.ZodString;
+    capability: z.ZodString;
+}, z.core.$strict>], "kind">;
 export type CapabilityFeedback = z.infer<typeof CapabilityFeedbackSchema>;
 export declare const CapabilityTrendPointSchema: z.ZodObject<{
     day: z.ZodString;
@@ -153,7 +210,9 @@ export declare const CapabilityOutputsSchema: z.ZodObject<{
     capability: z.ZodString;
 }, z.core.$strict>;
 export declare const CapabilityFeedbackListSchema: z.ZodObject<{
-    feedback: z.ZodArray<z.ZodObject<{
+    feedback: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"rating">;
+        rating: z.ZodNumber;
         id: z.ZodString;
         outputId: z.ZodString;
         source: z.ZodObject<{
@@ -164,12 +223,35 @@ export declare const CapabilityFeedbackListSchema: z.ZodObject<{
             id: z.ZodString;
         }, z.core.$strict>;
         reviewerId: z.ZodString;
-        rating: z.ZodNumber;
+        reviewerName: z.ZodString;
+        attachments: z.ZodOptional<z.ZodArray<z.ZodString>>;
         comment: z.ZodOptional<z.ZodString>;
         createdAt: z.ZodISODateTime;
         agentId: z.ZodString;
         capability: z.ZodString;
-    }, z.core.$strict>>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"approval">;
+        decision: z.ZodEnum<{
+            approved: "approved";
+            changes_requested: "changes_requested";
+        }>;
+        id: z.ZodString;
+        outputId: z.ZodString;
+        source: z.ZodObject<{
+            kind: z.ZodEnum<{
+                project_view: "project_view";
+                domain_app: "domain_app";
+            }>;
+            id: z.ZodString;
+        }, z.core.$strict>;
+        reviewerId: z.ZodString;
+        reviewerName: z.ZodString;
+        attachments: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        comment: z.ZodOptional<z.ZodString>;
+        createdAt: z.ZodISODateTime;
+        agentId: z.ZodString;
+        capability: z.ZodString;
+    }, z.core.$strict>], "kind">>;
     agentId: z.ZodString;
     capability: z.ZodString;
 }, z.core.$strict>;
@@ -201,4 +283,7 @@ export type CapabilityOutputsDeclaration = z.infer<typeof CapabilityOutputsDecla
 export type CapabilityFeedbackDeclaration = z.infer<typeof CapabilityFeedbackDeclarationSchema>;
 export type CapabilityTrendPoint = z.infer<typeof CapabilityTrendPointSchema>;
 export type CapabilityFeedbackSourceKind = z.infer<typeof CapabilityFeedbackSourceKindSchema>;
+export type CapabilityFeedbackKind = z.infer<typeof CapabilityFeedbackKindSchema>;
+export type CapabilityFeedbackDecision = z.infer<typeof CapabilityFeedbackDecisionSchema>;
+export type CapabilityOutputFieldType = z.infer<typeof CapabilityOutputFieldTypeSchema>;
 //# sourceMappingURL=presentation.d.ts.map

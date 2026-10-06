@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { AgentConfigVersionSchema, CapabilityAgentIdSchema, ResearchAgentConfigSchema } from "../../capability/ricerca/agent-config.js";
-import { AgentDaySchema, AgentSpendDaySchema } from "../../capability/ricerca/spend.js";
+import { AGENT_SPEND_MAX_DAYS, AgentDaySchema, AgentSpendDaySchema } from "../../capability/ricerca/spend.js";
 import { LabAgentConfigSchema } from "../../capability/lab/agent-config.js";
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from "../../capability/lab/competence.js";
 /**
@@ -67,15 +67,14 @@ export const labAgentConfigGetContract = {
     paramsSchema: CapabilityAgentParamsSchema,
     responseSchema: LabAgentConfigSchema,
 };
-/** Longest window of one spend request, days (inclusive). */
-export const AGENT_SPEND_MAX_DAYS = 400;
+export { AGENT_SPEND_MAX_DAYS } from "../../capability/ricerca/spend.js";
 /** GET /internal/capability/agents/:agentId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — days in the agent's time zone. */
 export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentDaySchema }).strict()
     .refine(q => q.from <= q.to, { message: 'from after to' })
     .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
 export const AgentSpendResponseSchema = z.object({
     days: z.array(AgentSpendDaySchema).max(AGENT_SPEND_MAX_DAYS),
-    /** Researches of the agent waiting in the queue right now. */
+    /** Jobs of the agent waiting in the queue right now. */
     queuedNow: z.number().int().nonnegative(),
 }).strict();
 export const ricercaAgentSpendContract = {
@@ -86,6 +85,8 @@ export const ricercaAgentSpendContract = {
     querySchema: AgentSpendQuerySchema,
     responseSchema: AgentSpendResponseSchema,
 };
+/** cap-lab reports the same per-agent spend shape and path as cap-ricerca. */
+export const labAgentSpendContract = { ...ricercaAgentSpendContract };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 export const AgentGrowthResponseSchema = z.object({
     agentId: CapabilityAgentIdSchema,

@@ -1,6 +1,6 @@
+import { z } from 'zod';
 import { CapabilityParametersDeclarationSchema } from "./parameters.js";
 import { CapabilityPresentationDeclarationSchema } from "./presentation.js";
-import { z } from 'zod';
 import { CapabilityTurnLeadDeclarationSchema } from "./capability-turn-lead.js";
 import { CapabilityToolSchema } from "./capability-tool.js";
 import { CapabilityContextDeclarationSchema } from "./capability-context.js";

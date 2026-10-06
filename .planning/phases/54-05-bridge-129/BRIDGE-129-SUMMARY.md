@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 14:12 (06/10/2026)
+Ultimo aggiornamento: 14:15 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: CORREZIONI RIPRESE per RIPARTITE 13:58 della coordinatrice. Proposta 1.29.0 implementata e testata localmente.
@@ -110,4 +110,6 @@ Lab status: «conteggi presenti quando completed» applicato come tre conteggi r
 
 R03: lo script test è ripristinato in 4a9b402 e i soli limiti Mac sono riapplicati nel commit successivo. Nessun test inutile che rispecchi il testo dello script; la suite completa finale userà questo comando.
 
-- 14:12 · test-script-limits: chore(test): limit shared Mac runners to two workers. Documentazione/stile; nessuna nuova guardia runtime. Commit: questo commit (checkpoint).
+- 14:12 · test-script-limits: chore(test): limit shared Mac runners to two workers. Documentazione/stile; nessuna nuova guardia runtime. Commit: 4b47560.
+
+- 14:15 · distribution: build(contracts): ship reviewed schemas in ESM and CJS. Prima 0/10 (falliti 10/10), dopo 44/44. Commit: questo commit (checkpoint).
