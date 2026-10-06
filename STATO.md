@@ -1,5 +1,11 @@
 # STATO
 
+## 06/10/2026 — bridge 1.29 in costruzione (Codex B, BRIDGE-129)
+
+B1 per agente implementato: cinque tipi, vincoli dichiarati, origine esplicita, deciso/proposto e immediate/next_apply.
+63/63 test nuovi, tutti visti rossi prima; tipi e lint OK. B7 e distribuzione ancora da fare, nessun consumer aggiornato.
+SUMMARY: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md. Nessun rilascio.
+
 ## 05/10/2026 — v1.28.0, contratti di cap-ricerca e cap-lab per agente (Claude, `feat/54-ricerca-lab-contracts`)
 
 Fase 54 di agent-x9, piano 54-01, riallineato la sera stessa alla decisione di Stefano «tutto per agente».

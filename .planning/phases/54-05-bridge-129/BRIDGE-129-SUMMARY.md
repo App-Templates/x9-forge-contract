@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 11:14 (06/10/2026)
+Ultimo aggiornamento: 11:17 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: PRESO, fonti lette. Nessun consumer o rilascio in questo incarico.
@@ -7,7 +7,7 @@ Stato: PRESO, fonti lette. Nessun consumer o rilascio in questo incarico.
 ## Compiti e commit
 | Task | Stato | Commit | Prova |
 | --- | --- | --- | --- |
-| 1 B1 parametri | da fare | — | — |
+| 1 B1 parametri | implementato e testato | questo commit | 0/63 → 63/63, tipi/lint OK |
 | 2 B7 uscite, feedback, andamento | da fare | — | — |
 | 3 dichiarazioni, export, smoke | da fare | — | — |
 | 4 versione e qualità | da fare | — | — |
@@ -22,7 +22,7 @@ Stato: PRESO, fonti lette. Nessun consumer o rilascio in questo incarico.
 - Consumer previsti: Forge fase 33 (parametri); agent-x9 capability (dichiarazioni, prima cap-food); vista di progetto esterna/app di dominio (B7). Aggiornamenti fuori repo affidati alla coordinatrice/Samira.
 
 ## Prove
-Non ancora eseguite. Prove locali sintetiche, nessun servizio reale.
+Task 1: tutti i 63 test nuovi hanno fallito per export assente (asserzione, nessun errore di raccolta); poi 63/63 verdi. Tipi e lint dei file nuovi riusciti. Mutazioni nel Task 5. Prove locali sintetiche, nessun servizio reale.
 
 ## Resta
-Test prima, schemi, integrazione additiva, mutazioni su copie, qualità e consegna.
+B7, dichiarazioni facoltative, smoke, versione, qualità, mutazioni e consegna.
