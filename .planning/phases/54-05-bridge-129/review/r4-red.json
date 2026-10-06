@@ -1,0 +1,193 @@
+{
+  "label": "r4-red",
+  "exitCode": 1,
+  "total": 37,
+  "passed": 29,
+  "failed": 8,
+  "runtimeErrors": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-_mckxlb1",
+  "tests": [
+    {
+      "name": "review R4 generic existing agent configuration declares lists, slug patterns and optional fields 0",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration declares lists, slug patterns and optional fields 1",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration declares lists, slug patterns and optional fields 2",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration retains a list platform default by value, even after cloning",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration accepts an empty declared default when minItems is zero",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration accepts a constrained list override",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration permits an absent optional override without inventing a default",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration accepts enumerated list choices",
+      "status": "failed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 0",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 1",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 2",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 3",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 4",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 5",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 6",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 7",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 8",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 9",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 10",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 11",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 12",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 13",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 14",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 15",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects impossible list/string declarations 16",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 0",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 1",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 2",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 3",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 4",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 5",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 6",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 7",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 8",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 9",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 10",
+      "status": "passed"
+    },
+    {
+      "name": "review R4 generic existing agent configuration rejects wrong resolved types, patterns, counts and origins 11",
+      "status": "passed"
+    }
+  ],
+  "failedTests": [
+    {
+      "name": "review R4 generic existing agent configuration declares lists, slug patterns and optional fields 0",
+      "assertion": true
+    },
+    {
+      "name": "review R4 generic existing agent configuration declares lists, slug patterns and optional fields 1",
+      "assertion": true
+    },
+    {
+      "name": "review R4 generic existing agent configuration declares lists, slug patterns and optional fields 2",
+      "assertion": true
+    },
+    {
+      "name": "review R4 generic existing agent configuration retains a list platform default by value, even after cloning",
+      "assertion": true
+    },
+    {
+      "name": "review R4 generic existing agent configuration accepts an empty declared default when minItems is zero",
+      "assertion": true
+    },
+    {
+      "name": "review R4 generic existing agent configuration accepts a constrained list override",
+      "assertion": true
+    },
+    {
+      "name": "review R4 generic existing agent configuration permits an absent optional override without inventing a default",
+      "assertion": true
+    },
+    {
+      "name": "review R4 generic existing agent configuration accepts enumerated list choices",
+      "assertion": true
+    }
+  ]
+}

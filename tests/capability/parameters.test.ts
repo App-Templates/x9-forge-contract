@@ -12,7 +12,7 @@ export const parameter = {
   key: 'budget.dailyUsd', label: 'Budget al giorno', description: 'Massimo consentito',
   explanation: 'Il budget non si supera mai.', group: 'Spesa', unit: 'USD',
   type: 'number', min: 0, max: 100, platformDefault: 15,
-  status: 'decided', reference: 'D54-12', appliesWhen: 'immediate', consumes: true,
+  status: 'decided', optional: false, reference: 'D54-12', appliesWhen: 'immediate', consumes: true,
 };
 const declaration = { parameters: [parameter], consumes: true, spendLedger: true };
 const resolved = { parameter, origin: 'platform_default', value: 15 };
@@ -124,7 +124,7 @@ describe('B1 declared capability parameters', () => {
   });
 });
 
-it.each([NaN, Infinity, [], {}, null].map(value => [value]))('public parameter value rejects nonprimitive/nonfinite input %#', value => {
+it.each([NaN, Infinity, [1], {}, null].map(value => [value]))('public parameter value rejects nonprimitive/nonfinite input %#', value => {
   expect(schema('CapabilityParameterValueSchema').safeParse(value).success).toBe(false);
 });
 it('zero and false platform defaults remain resolved, never missing', () => {

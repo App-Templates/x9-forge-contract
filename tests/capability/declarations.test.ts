@@ -7,7 +7,7 @@ const manifest = { name: 'synthetic', version: '1.0', endpoint: 'http://syntheti
 const registry = { name: 'synthetic', enabled: true, host: 'synthetic', port: 3000, version: '1.0' };
 const parameters = { consumes: false, spendLedger: false, parameters: [{
   key: 'enabled', label: 'Attivo', description: 'Attiva il lavoro', type: 'boolean',
-  status: 'decided', reference: 'D1', appliesWhen: 'next_apply', consumes: false,
+  status: 'decided', optional: false, reference: 'D1', appliesWhen: 'next_apply', consumes: false,
 }] };
 const presentation = { trends: [{ key: 'uses', label: 'Usi al giorno', unit: 'usi' }] };
 
