@@ -66,6 +66,13 @@ export type AgentManagementReason = z.infer<typeof AgentManagementReasonSchema>;
 
 const targetKey = (target: AgentManagementTarget): string => `${target.kind}:${target.targetId}`;
 
+/** The addressed id must be one of the two declared identities (never an unrelated agent). */
+function addIdentityIssues(agentId: string, identity: { managementAgentId: string; runtimeAgentId: string } | undefined, ctx: z.RefinementCtx): void {
+  if (identity && agentId !== identity.managementAgentId && agentId !== identity.runtimeAgentId) {
+    ctx.addIssue({ code: 'custom', path: ['identity'], message: 'agentId must be the management or runtime id of identity' });
+  }
+}
+
 function addDuplicateTargetIssues(targets: readonly AgentManagementTarget[], ctx: z.RefinementCtx, path: string): void {
   const seen = new Set<string>();
   for (const [index, target] of targets.entries()) {
@@ -168,6 +175,7 @@ export const AgentManagementCommandResultSchema = z.object({
   completedAt: z.iso.datetime({ offset: true }),
 }).superRefine((result, ctx) => {
   addDuplicateTargetIssues(result.results.map((entry) => entry.target), ctx, 'results');
+  addIdentityIssues(result.agentId, result.identity, ctx);
   if (result.outcome !== deriveAgentManagementOutcome(result.results)) {
     ctx.addIssue({ code: 'custom', path: ['outcome'], message: 'Overall outcome is not supported by the per-target results' });
   }
@@ -208,5 +216,6 @@ export const AgentManagementStateSchema = z.object({
   targets: z.array(AgentManagementTargetCapabilitySchema),
 }).superRefine((state, ctx) => {
   addDuplicateTargetIssues(state.targets.map((entry) => entry.target), ctx, 'targets');
+  addIdentityIssues(state.agentId, state.identity, ctx);
 });
 export type AgentManagementState = z.infer<typeof AgentManagementStateSchema>;

@@ -122,6 +122,14 @@ describe('R1b per-target results and derived outcome', () => {
     expect(AgentManagementCommandResultSchema.safeParse(input).success).toBe(false);
   });
 
+  it('binds the addressed agent to its declared identity', () => {
+    const identity = { managementAgentId: 'x9-staging', runtimeAgentId: 'x9' };
+    const lifecycle = { ...base, action: 'stop', outcome: 'ok', results: [ok(runtime)], identity };
+    expect(AgentManagementCommandResultSchema.safeParse(lifecycle).success).toBe(true);
+    expect(AgentManagementCommandResultSchema.safeParse({ ...lifecycle, agentId: 'x9' }).success).toBe(true);
+    expect(AgentManagementCommandResultSchema.safeParse({ ...lifecycle, agentId: 'x9-meditazione' }).success).toBe(false);
+  });
+
   it('keeps versions out of lifecycle results', () => {
     const input = { ...base, action: 'restart', outcome: 'ok', results: [ok(runtime)], requestedVersion: 2, versions: { desired: 2, applied: 2, failed: null } };
     expect(AgentManagementCommandResultSchema.safeParse(input).success).toBe(false);
@@ -142,6 +150,8 @@ describe('R1b management state per target', () => {
   it('describes what each target supports and why the others are not manageable', () => {
     expect(AgentManagementStateSchema.safeParse(state).success).toBe(true);
     expect(AgentManagementStateSchema.safeParse({ ...state, versions: null }).success).toBe(true);
+    expect(AgentManagementStateSchema.safeParse({ ...state, agentId: 'x9' }).success).toBe(true);
+    expect(AgentManagementStateSchema.safeParse({ ...state, agentId: 'agent-7' }).success).toBe(false);
   });
 
   it.each([
