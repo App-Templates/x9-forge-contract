@@ -6,6 +6,7 @@ describe('R2 replayable creation request', () => {
   it.each([
     ['missing key', { intent: { ...request.intent, idempotencyKey: undefined } }],
     ['short key', { intent: { ...request.intent, idempotencyKey: 'tiny' } }],
+    ['missing telegram intention', { intent: { ...request.intent, channels: { email: 'paused' } } }],
     ['missing channel intention', { intent: { ...request.intent, channels: { telegram: 'paused' } } }],
     ['runtime mismatch', { intent: { ...request.intent, identity: { ...identity, runtimeAgentId: 'other' } } }],
     ['slug mismatch', { slug: 'other' }],
@@ -18,11 +19,13 @@ describe('R2 replayable creation request', () => {
 describe('R2 checkpoint keeps one agent and its resources', () => {
   it('accepts completed checkpoint with first real check and both pauses applied', () => expect(AgentCreationCheckpointSchema.safeParse(checkpoint()).success).toBe(true));
   it.each([
+    ['unknown phase', { phase: 'unexpected' }],
+    ['undated first check', { firstCheck: { ...checkpoint().firstCheck, checkedAt: undefined } }],
     ['unknown checkpoint field', { privateDetail: 'synthetic' }],
     ['no database record', { agentRecordId: null }],
     ['no first check', { firstCheck: null }],
     ['check failure', { firstCheck: { ...checkpoint().firstCheck, error: { code: 'first_check_failed', retryable: false } } }],
-    ['unloaded check channel', { firstCheck: { ...checkpoint().firstCheck, channel: { ...checkpoint().firstCheck.channel, state: 'unknown', loaded: null, readiness: 'unknown' } } }],
+    ['unloaded check channel', { firstCheck: { ...checkpoint().firstCheck, channel: { ...checkpoint().firstCheck.channel, state: 'paused', loaded: false, readiness: 'ready' } } }],
     ['not-ready check', { firstCheck: { ...checkpoint().firstCheck, channel: { ...checkpoint().firstCheck.channel, readiness: 'not-ready' } } }],
     ['check on a paused birth channel', { firstCheck: { ...checkpoint().firstCheck, channel: { ...checkpoint().firstCheck.channel, kind: 'telegram', channelId: 'telegram' } } }],
     ['missing channel snapshot', { channels: [channel()] }],
@@ -47,6 +50,16 @@ describe('R2 checkpoint keeps one agent and its resources', () => {
     const incomplete = { ...checkpoint(), phase: 'incomplete', firstCheck: null, failure: { step: 'runtime', error: { code: 'load_failed', retryable: false } } };
     expect(AgentCreationCheckpointSchema.safeParse(incomplete).success).toBe(true);
     expect(AgentCreationCheckpointSchema.safeParse({ ...incomplete, failure: null }).success).toBe(false);
+  });
+  it.each([
+    ['version', { ...channel(), desired: { version: 3, state: 'paused' } }],
+    ['state', { ...channel(), desired: { version: 2, state: 'active' }, applied: { version: 1, state: 'paused' } }],
+  ])('checks stored %s intention even before completion', (_label, config) => {
+    expect(AgentCreationCheckpointSchema.safeParse({ ...checkpoint(), phase: 'pending', firstCheck: null, channels: [config, channel('email')] }).success).toBe(false);
+  });
+  it('rejects arbitrary step and failure text', () => {
+    const failed = { ...checkpoint(), phase: 'incomplete', firstCheck: null, failure: { step: 'external private error', error: { code: 'load_failed', retryable: false } } };
+    expect(AgentCreationCheckpointSchema.safeParse(failed).success).toBe(false);
   });
   it('allows a pending job before resources and agent exist', () => expect(AgentCreationCheckpointSchema.safeParse({ ...checkpoint(), phase: 'pending', agentRecordId: null, channels: [], firstCheck: null }).success).toBe(true));
 });

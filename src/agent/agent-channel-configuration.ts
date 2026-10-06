@@ -60,8 +60,7 @@ export const AgentChannelConfigurationSchema = z.object({
   const issue = (path: string, message: string) => ctx.addIssue({ code: 'custom', path: [path], message });
   if (config.identity.runtimeAgentId !== config.scope.agentId) issue('identity', 'Runtime identity must match configuration scope');
   if (config.resource && (!sameCapabilityScope(config.resource.scope, config.scope)
-      || config.resource.identity.managementAgentId !== config.identity.managementAgentId
-      || config.resource.identity.runtimeAgentId !== config.identity.runtimeAgentId)) issue('resource', 'Resource belongs to another scope or identity');
+      || config.resource.identity.managementAgentId !== config.identity.managementAgentId)) issue('resource', 'Resource belongs to another scope or identity');
   if (config.resource && config.resource.kind !== config.kind) issue('resource', 'Resource belongs to another channel kind');
   if (config.applied && config.applied.version > config.desired.version) issue('applied', 'Applied version cannot be ahead of desired');
   if (config.applied && config.applied.version === config.desired.version && config.applied.state !== config.desired.state) issue('applied', 'One version cannot describe two states');
@@ -80,7 +79,6 @@ export function isChannelConfigurationApplied(raw: unknown): boolean {
   if (!parsed.success) return false;
   const config = parsed.data;
   return config.error === null && config.applied?.version === config.desired.version
-    && config.applied.state === config.desired.state
     && config.observation?.state === (config.desired.state === 'active' ? 'loaded' : 'paused');
 }
 

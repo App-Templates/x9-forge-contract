@@ -51,8 +51,7 @@ export const AgentCreationCheckpointSchema = z.object({
     if (kinds.has(config.kind)) issue(['channels', index], 'Duplicate birth channel');
     kinds.add(config.kind);
     if (!sameCapabilityScope(config.scope, intent.scope)
-        || config.identity.managementAgentId !== intent.identity.managementAgentId
-        || config.identity.runtimeAgentId !== intent.identity.runtimeAgentId) issue(['channels', index, 'scope'], 'Channel belongs to another creation');
+        || config.identity.managementAgentId !== intent.identity.managementAgentId) issue(['channels', index, 'scope'], 'Channel belongs to another creation');
     if (config.desired.version !== intent.configVersion || config.desired.state !== intent.channels[config.kind]) issue(['channels', index, 'desired'], 'Channel intention differs from the stored request');
   }
   if ((job.phase === 'incomplete') !== (job.failure !== null)) issue(['failure'], 'An incomplete job states its failed step');

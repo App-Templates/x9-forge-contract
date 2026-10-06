@@ -17,6 +17,11 @@ describe('R2 own resources', () => {
   it('rejects resource management identity mismatch', () => expect(AgentChannelConfigurationSchema.safeParse({ ...c, resource: { ...c.resource, identity: { ...identity, managementAgentId: 'other' } } }).success).toBe(false));
   it('rejects resource kind mismatch', () => expect(AgentChannelConfigurationSchema.safeParse({ ...c, resource: channel('email').resource }).success).toBe(false));
   it.each([{ token: 'synthetic' }, { bot_token_ref: 'synthetic' }, { credentials: {} }])('rejects non-public resource fields %#', (extra) => expect(AgentOwnedChannelResourceSchema.safeParse({ ...c.resource, resource: { ...c.resource.resource, ...extra } }).success).toBe(false));
+  it.each(['telegram', 'email'] as const)('rejects private metadata and container fields for %s', (kind) => {
+    const own = channel(kind).resource;
+    expect(AgentOwnedChannelResourceSchema.safeParse({ ...own, resource: { ...own.resource, credentials: {} } }).success).toBe(false);
+    expect(AgentOwnedChannelResourceSchema.safeParse({ ...own, credentials: {} }).success).toBe(false);
+  });
   it('rejects unsupported channel', () => expect(AgentChannelConfigurationSchema.safeParse({ ...c, kind: 'voice', applied: null, resource: null, observation: null, observedAt: null }).success).toBe(false));
 });
 describe('R2 desired and applied channel state', () => {
