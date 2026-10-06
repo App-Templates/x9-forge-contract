@@ -14,7 +14,7 @@ import tempfile
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE = ROOT / '.planning/phases/54-05-bridge-129/review'
+EVIDENCE = ROOT / '.planning/phases/54-05-bridge-129'
 legacy = runpy.run_path(str(ROOT / 'scripts/mutate-54-05.py'), run_name='review_definitions')
 M = legacy['M']
 P, B, H = legacy['P'], legacy['B'], legacy['H']
@@ -275,31 +275,43 @@ def run(shadow, raw, name, tests):
     return compact(json.loads(report.read_text()),code)
 
 
+
 def write_mutation_proof(path, proof):
-    """Keep exact raw edits outside Git and an indexed review summary in Git."""
-    raw_path = Path(proof['rawEvidence']) / ('complete-proof-' + path.stem + '.json')
+    """Write one Markdown review report; all exact JSON stays in the temporary archive."""
+    raw_path = Path(proof['rawEvidence']) / 'complete-proof.json'
     raw_text = json.dumps(proof, ensure_ascii=False, separators=(',', ':')) + '\n'
     raw_path.write_text(raw_text)
-    names = list(dict.fromkeys(name for row in proof['mutations'] for name in row['assertionFailures']))
-    indexes = {name: index for index, name in enumerate(names)}
-    summary = {key: value for key, value in proof.items() if key != 'mutations'}
-    summary.update(format='indexed-assertions-v1', assertionTestNames=names,
-                   rawProof=dict(path=str(raw_path), sha256=hashlib.sha256(raw_text.encode()).hexdigest()))
-    rows = []
+    rows = [
+        '# FINAL-MUTATIONS · BRIDGE-129',
+        '',
+        'Giro unico: ' + str(proof['executed']) + '/' + str(proof['total']) + ' eseguite; '
+        + str(proof['killed']) + '/' + str(proof['total']) + ' rilevate da asserzioni.',
+        'Baseline: ' + str(proof.get('baselinePassed', '?')) + '/' + str(proof.get('baselineTotal', '?'))
+        + '; ripristino: ' + str(proof.get('greenPassed', 'in corso')) + '/' + str(proof.get('greenTotal', '?')) + '.',
+        'Sorgenti/dist originali invariati: ' + str(proof['sourceAndDistUnchanged'])
+        + '; giro completo unico: ' + str(proof['singleCompleteRun'])
+        + '; ripristino verde: ' + str(proof.get('greenAfter', False)) + '.',
+        'Le 133/133 aggregate della prima consegna e il primo giro completo 286/286 sono soltanto storico.',
+        '',
+        'Runner riproducibile: scripts/mutate-54-05-review.py; nessun lotto selezionabile.',
+        'Prova completa (edit, nomi e risultati): ' + str(raw_path),
+        'SHA256 prova completa: ' + hashlib.sha256(raw_text.encode()).hexdigest(),
+        'Report Vitest grezzi: ' + proof['rawEvidence'] + ' (archivio locale temporaneo, nessuno stack in Git).',
+        'Prove durabili precedenti: git show 233ca43:.planning/phases/54-05-bridge-129/review/final-mutations.json',
+        '',
+        'Ogni riga riporta un assert fallito rappresentativo e il numero degli assert falliti in quel processo.',
+        '',
+        '| Mutazione | File | Assert falliti | Test rappresentativo |',
+        '| --- | --- | --- | --- |',
+    ]
+    def cell(value):
+        return value.replace('|', r'\|').replace('\n', ' ')
     for row in proof['mutations']:
-        edits = []
-        for change in row['edits']:
-            compact_edit = dict(file=change['file'])
-            for key in ['before', 'after']:
-                value = change[key]
-                compact_edit[key] = value if len(value) <= 320 else dict(
-                    chars=len(value), sha256=hashlib.sha256(value.encode()).hexdigest(),
-                    preview=value[:160], exactEdit='rawProof; reproducible by this runner from committed source')
-            edits.append(compact_edit)
-        rows.append(dict(id=row['id'], killed=row['killed'], runtimeErrors=row['runtimeErrors'],
-                         assertionFailures=[indexes[name] for name in row['assertionFailures']], edits=edits))
-    summary['mutations'] = rows
-    path.write_text(json.dumps(summary, ensure_ascii=False, separators=(',', ':')) + '\n')
+        files = ', '.join(dict.fromkeys(change['file'] for change in row['edits']))
+        sample = row['assertionFailures'][0] if row['assertionFailures'] else 'NESSUNA ASSERZIONE'
+        rows.append('| ' + cell(row['id']) + ' | ' + cell(files) + ' | '
+                    + str(len(row['assertionFailures'])) + ' | ' + cell(sample) + ' |')
+    path.write_text('\n'.join(rows) + '\n')
 
 def main():
     ids=[m['id'] for m in M]
@@ -324,7 +336,7 @@ def main():
     started=datetime.datetime.now(ZoneInfo('Europe/Rome')).isoformat()
     baseline=run(shadow,raw,'baseline',ALL)
     assert baseline['exitCode']==0 and baseline['failed']==0 and baseline['runtimeErrors']==0
-    (EVIDENCE/'final-mutation-baseline.json').write_text(json.dumps(baseline,ensure_ascii=False,indent=2)+'\n')
+    (raw/'baseline-compact.json').write_text(json.dumps(baseline,ensure_ascii=False,indent=2)+'\n')
     records=[]
     for index, m in enumerate(M):
         originals={}
@@ -341,14 +353,14 @@ def main():
             print(f"{index+1}/{len(M)} {m['id']} "+('RED assertion' if killed else 'SURVIVED/ERROR'),flush=True)
         finally:
             for path, source in originals.items(): path.write_text(source)
-        proof=dict(started=started,rawEvidence=str(raw),shadow=str(shadow),mutations=records,killed=sum(r['killed'] for r in records),
+        proof=dict(started=started,rawEvidence=str(raw),shadow=str(shadow),baselinePassed=baseline['passed'],baselineTotal=baseline['total'],mutations=records,killed=sum(r['killed'] for r in records),
             total=len(M),executed=len(records),sourceAndDistUnchanged=hashes()==before,singleCompleteRun=False)
-        write_mutation_proof(EVIDENCE/'final-mutations.json', proof)
+        write_mutation_proof(EVIDENCE/'FINAL-MUTATIONS.md', proof)
     green=run(shadow,raw,'green-after',ALL)
     proof.update(greenAfter=green['exitCode']==0 and green['failed']==0 and green['runtimeErrors']==0,
         greenPassed=green['passed'],greenTotal=green['total'],singleCompleteRun=len(records)==len(M),sourceAndDistUnchanged=hashes()==before)
-    (EVIDENCE/'final-mutation-green.json').write_text(json.dumps(green,ensure_ascii=False,indent=2)+'\n')
-    write_mutation_proof(EVIDENCE/'final-mutations.json', proof)
+    (raw/'green-compact.json').write_text(json.dumps(green,ensure_ascii=False,indent=2)+'\n')
+    write_mutation_proof(EVIDENCE/'FINAL-MUTATIONS.md', proof)
     print(json.dumps({k:v for k,v in proof.items() if k!='mutations'}),flush=True)
     return 0 if proof['killed']==proof['total'] and proof['greenAfter'] and proof['sourceAndDistUnchanged'] else 1
 

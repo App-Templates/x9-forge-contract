@@ -59,7 +59,7 @@ Il rilascio e gli aggiornamenti dei consumer sono gestiti dalla coordinatrice do
   sorgenti/dist originali invariati. scripts/mutate-54-05-review.py e riepilogo FINAL-MUTATIONS.md;
   le 133 mutazioni in due lotti della prima consegna sono soltanto storico.
 - Script test limitato a due worker e timeout 60 s in commit dedicato; report compatti con nomi,
-  hash e riferimenti alle prove. Dettagli: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
+  hash e riferimenti alle prove; riepilogo mutazioni unico in FINAL-MUTATIONS.md. Dettagli: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
 
 ## v1.28.0 — proposta in review — Fase 54: cap-ricerca e cap-lab, per agente
 

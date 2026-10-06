@@ -17,6 +17,8 @@ nessuna somma di lotti o timeout conteggiato. Riepiloghi compatti e copertura no
 Nessuna nuova rotta B1/B7 prevista: salvataggio della config dal PUT per agente già esistente, come accetta Samira.
 Nessun export precedente rimosso o rinominato, nessun consumer aggiornato, push, tag, merge o deploy.
 Implementato e testato localmente; montaggio nei consumer e verifica dal vivo attendono revisione/rilascio.
+APPROVE ricevuto; ritocchi neutri di CHANGELOG/JSDoc e report MD unico completati.
+Dopo il JSDoc, mirati 119/119 e build 256/256 .d.ts; qualità completa sopra riferita a 233ca43.
 SUMMARY: .planning/phases/54-05-bridge-129/BRIDGE-129-SUMMARY.md.
 Coda B: 33-01 solo dopo il tag 1.29 e base/worktree preparati dalla coordinatrice; poi BRIDGE-130 e X9 56-01.
 

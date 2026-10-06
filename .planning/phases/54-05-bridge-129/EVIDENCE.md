@@ -66,3 +66,8 @@ ricostruibili dal runner sui sorgenti committati. Le prove complete hanno percor
 
 Quattro log della prima consegna avevano spazi finali o righe vuote a EOF: sola normalizzazione degli spazi,
 contenuto invariato. Hash/copia esatta in review/quality-evidence-format.json; originali anche in 846311c.
+
+## Dopo APPROVE (15:02)
+
+I JSON/log delle mutazioni della tabella storica sono stati sostituiti, come richiesto, da un solo
+FINAL-MUTATIONS.md: gli hash originali e l\'archivio esatto sono lì; tutte le prove restano nella storia Git 233ca43.

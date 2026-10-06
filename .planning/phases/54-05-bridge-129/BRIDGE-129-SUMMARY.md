@@ -1,9 +1,9 @@
 # BRIDGE-129 · proposta 1.29.0 corretta
-Ultimo aggiornamento: 15:08 (06/10/2026)
+Ultimo aggiornamento: 15:10 (06/10/2026)
 
 Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9
 Branch: codex/bridge-129-params-outputs. Base: d8ef67f (1.28.0).
-Stato: PRONTO PER REVISIONE. R1–R7, lab e tre punti non bloccanti conclusi; verifiche locali complete.
+Stato: APPROVE ricevuto sul contratto; tre ritocchi non bloccanti conclusi. PRONTO PER CONSEGNA.
 Nessun push, merge, tag, deploy, consumer aggiornato o verifica dal vivo.
 
 ## Fonti e autorizzazioni
@@ -81,13 +81,13 @@ Un controllo nominativo ha trovato 14 fixture ancora protette da altri livelli e
 che Vitest registra come Error da __VITEST_RESOLVES__. Queste sono asserzioni esplicite «instead of resolving»,
 non errori di raccolta: il classificatore le distingue. Runner ampliato e secondo giro COMPLETO: 299/299 rilevate, zero errori di raccolta;
 baseline e ripristino 469/469, hash sorgenti/dist invariati. Nessuna somma di lotti per l'esito finale.
-Copertura nominativa: 469/469 casi distinti visti fallire con asserzioni; review/red-coverage.json.
+Copertura nominativa: 469/469 casi distinti visti fallire con asserzioni; FINAL-MUTATIONS.md; dettaglio nominativo conservato in Git 233ca43.
 17 casi isolati, 5 casi status aggiuntivi e gli export ESM/CJS rafforzati rimuovono le mascherature delle fixture.
 
 La prima consegna 846311c riportava 133/133 come unione di due giri e il giro unico saltato dopo tre tentativi.
 Quel dato resta storico, con report originali nella storia Git; non descrive la verifica finale corretta.
 
-## Qualità sul worktree originale
+## Qualità completa del commit 233ca43
 
 - pnpm test: 1436/1436, 93/93 file; smoke CJS 36/36.
 - typecheck e lint: codice 0.
@@ -109,11 +109,10 @@ Corretto soltanto il lettore dal log della stessa esecuzione terminata con codic
 EVIDENCE.md elenca 45/45 report convertiti, SHA256 originali e copia locale temporanea.
 Conteggi, nomi, stati e asserzioni conservati; niente stack o JSON Vitest grezzo. Il numero di byte è passato
 da 1.579.715 a 756.331. La storia Git dei singoli commit conserva gli originali durabili.
-I report finali usano un indice unico dei nomi di test; 299 righe riassunte anche in review/FINAL-MUTATIONS.md.
-I due report passano da 643.489/653.743 a 131.535/137.464 byte. Assert, ID ed edit corti sono conservati;
-gli edit lunghi hanno impronta/anteprima e si ricostruiscono dal runner sui sorgenti committati.
-Le prove complete nuove sono nell'archivio locale indicato da rawProof, con SHA256; niente stack grezzi in Git.
-Baseline, mutazioni, ripristino e copertura nominativa in review/.
+Dopo APPROVE i JSON/log delle mutazioni sono sostituiti da un solo FINAL-MUTATIONS.md nella radice della fase:
+299/299 ID, assert rappresentativi, baseline/ripristino e copertura 469/469; hash/archivio dei report sostituiti.
+Il runner ora scrive solo questo Markdown nel repo; JSON e log grezzi restano nella copia temporanea.
+Originali durabili in 233ca43/1bdf022/846311c: nessuna prova persa, nessuna suite di massa ripetuta.
 
 ## Scelte da confermare
 
@@ -134,7 +133,9 @@ conservate e impronte in review/quality-evidence-format.json. git diff --check d
 
 - Primo ritocco, dad752f: CHANGELOG neutro e motivazione della sola eccezione lab priva di consumer.
   Sola documentazione: sorgenti/test/dist invariati, nessun nuovo controllo; prove 233ca43 ancora applicabili.
-- Secondo ritocco, questo commit: pattern NON ancorato implicitamente, si applica la RegExp dichiarata.
+- Secondo ritocco, 0782e1c: pattern NON ancorato implicitamente, si applica la RegExp dichiarata.
   Una riga JSDoc: ^ e $ servono per il match completo; nessuna guardia o test cambia.
   Mirati parametri/pattern 119/119; build riuscita, 256/256 .d.ts portabili, dist aggiornata al commento.
-- Resta il riepilogo unico MD delle mutazioni; 56-01 sospeso soltanto per questi ritocchi.
+- Terzo ritocco, questo commit: un solo FINAL-MUTATIONS.md, JSON/log sostituiti come autorizzato.
+  Renderer verificato sul giro reale: 299/299 ID conservati; 469/469 casi nominativi conservati nella storia.
+  Nessun controllo runtime cambia, nessuna mutazione di massa rilanciata. 56-01 può riprendere dopo consegna.

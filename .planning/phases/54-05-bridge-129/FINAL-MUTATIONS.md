@@ -1,10 +1,17 @@
-# Giro finale unico · BRIDGE-129
+# FINAL-MUTATIONS · BRIDGE-129
 
-299/299 mutazioni rilevate da asserzioni, zero errori di raccolta. Baseline e ripristino 469/469.
-Sorgenti/dist originali invariati. Nessuna somma di lotti. La prima esecuzione completa da 286 è storica.
-Ogni riga riporta un test fallito rappresentativo e il numero delle asserzioni fallite in quel processo.
-Tutti i nomi sono in final-mutations.json (assertionTestNames + indici); tutti i 469 casi rossi in red-coverage.json.
-Gli edit precisi si ricostruiscono con scripts/mutate-54-05-review.py dal commit dei sorgenti; rawProof conserva SHA256 e archivio.
+Giro unico: 299/299 eseguite; 299/299 rilevate da asserzioni.
+Baseline: 469/469; ripristino: 469/469.
+Sorgenti/dist originali invariati: True; giro completo unico: True; ripristino verde: True.
+Le 133/133 aggregate della prima consegna e il primo giro completo 286/286 sono soltanto storico.
+
+Runner riproducibile: scripts/mutate-54-05-review.py; nessun lotto selezionabile.
+Prova completa (edit, nomi e risultati): /var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-final-mut-evidence-5ds6iaeh/complete-proof.json
+SHA256 prova completa: 45b9af0b403acd721716496f9d3d455c287f3371bf0a055843cc805bbb5b98a3
+Report Vitest grezzi: /var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-final-mut-evidence-5ds6iaeh (archivio locale temporaneo, nessuno stack in Git).
+Prove durabili precedenti: git show 233ca43:.planning/phases/54-05-bridge-129/review/final-mutations.json
+
+Ogni riga riporta un assert fallito rappresentativo e il numero degli assert falliti in quel processo.
 
 | Mutazione | File | Assert falliti | Test rappresentativo |
 | --- | --- | --- | --- |
@@ -307,3 +314,40 @@ Gli edit precisi si ricostruiscono con scripts/mutate-54-05-review.py dal commit
 | LAB-ricerca-spend-preserved | src/capability/ricerca/spend.ts | 1 | lab per-agent spend contract declares spending capability ricerca |
 | LAB-ingest-id-required | src/capability/lab/tools.ts | 1 | lab asynchronous ingest and tool errors rejects missing id ingest acknowledgment |
 | LAB-ingest-state-required | src/capability/lab/tools.ts | 1 | lab asynchronous ingest and tool errors rejects missing state ingest acknowledgment |
+
+## Copertura rossa e conservazione delle prove
+
+469/469 casi distinti visti rossi con asserzioni, poi 469/469 verdi. Nessun timeout contato.
+La copertura nominativa completa resta in Git: git show 233ca43:.planning/phases/54-05-bridge-129/review/red-coverage.json
+I JSON/log di mutazione sono sostituiti da questo SOLO report Markdown come richiesto dalla coordinatrice (15:02).
+Archivio esatto locale: /var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-mutations-archive-cumho2sx
+Originali durabili: storia Git 233ca43 / 1bdf022 / 846311c; la copia locale non è l'unica prova.
+
+| Prova sostituita | SHA256 archivio esatto |
+| --- | --- |
+| review/FINAL-MUTATIONS.md | 26efb5eb83ad50c1d86aa533d2d4c28399daa956afbc60bdb28b95f12f5e00a6 |
+| review/final-mutation-baseline-first.json | 3486a8ffe56c10ca95d0aaab3c714951887e451dfba76ed9b78bd7fb88207645 |
+| review/final-mutation-baseline.json | 3486a8ffe56c10ca95d0aaab3c714951887e451dfba76ed9b78bd7fb88207645 |
+| review/final-mutation-green-first.json | 3486a8ffe56c10ca95d0aaab3c714951887e451dfba76ed9b78bd7fb88207645 |
+| review/final-mutation-green.json | 3486a8ffe56c10ca95d0aaab3c714951887e451dfba76ed9b78bd7fb88207645 |
+| review/final-mutations-first.json | be5594c734855b8e89e31b01ec51d8eced56360b6a233c181762b328c4ced1a1 |
+| review/final-mutations.json | 8ebfb01f0844a6124e2d559515e31b73886c41721dc80fdc01fcbba11699eae9 |
+| review/red-coverage.json | 628ce5c0fa5fac95b5312b7bcea4a0a8024b80d876ecd634833147c8f2da9434 |
+| task5-baseline.json | a2c8bfa813976de5b50bee0be31b39e8d33b050ae87f29f8795aee43d4bb6f61 |
+| task5-fault-current.json | 20ee658eb695cf405789af106e4e8b8c616fa57c4bbedd9778006566eab73407 |
+| task5-final-mutations.json | 2ef85ab1f479e17ff0f2fb1b2ef1d7debcf451c8a84eef33b68da730f10f41bc |
+| task5-first-baseline.json | 701b52992f38d3b19a6a12e76b4978adba651e4438bff641842e6aab4278156b |
+| task5-first-green.json | a45d7a14a01e773f471ddd2a2ff84d80cad4c8b393da8f58255c1347c1aee1f3 |
+| task5-first-mutations.json | 11a16d1d59eba546475d15b9d6dddf48e91dbf3c9259db7c16625be2892f3a5d |
+| task5-first-mutations.txt | e2a232862d13c41f998d51f7f7bc183e155e5cc0441fe0432d10f3076f3fcc20 |
+| task5-green.json | 8f475a78a10bda848de51ef3abaea2b64af22e9b6b4639abed1f5a25f7f22ea3 |
+| task5-mutations.json | d6b0732c33a585cfd2d6c348dfa4c75ac4ab2949d11b93517cce2e01b947fff1 |
+| task5-mutations.txt | dde0a991bb96a5008aa5e428b403cf49c97fb35e23cbdff0111d4631484ffc43 |
+| task5-retry-ids.json | 069ea62b4449cefe3b65773889c48a9033a3ab3699a8c664f7ff906de8520958 |
+| task5-second-baseline.json | 35bc20a197f8d694e5877a35d077fb3662bdb80e51ffadf20ab47a1bb2b19434 |
+| task5-second-mutations.json | 06d942d1659ec363daa5047c3b74f886961bb5383a18a3c6d9ce8141c0d5ef4b |
+| task5-second-mutations.txt | 583b5bf51ea21dfc4313ad031d43a969681567378abe983cd00d70bb255164c2 |
+| task5-third-mutations.txt | dde0a991bb96a5008aa5e428b403cf49c97fb35e23cbdff0111d4631484ffc43 |
+
+Il giro 299/299 è stato eseguito sul runtime di 233ca43. I ritocchi successivi cambiano solo documentazione
+e forma delle prove: runtime TS/ESM/CJS confrontato identico rimuovendo la sola riga JSDoc.
