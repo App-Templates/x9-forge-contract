@@ -46,12 +46,12 @@ export const AgentOwnedChannelResourceSchema = z.discriminatedUnion('kind', [
 });
 export type AgentOwnedChannelResource = z.infer<typeof AgentOwnedChannelResourceSchema>;
 
-const VersionedStateSchema = z.object({ version: AgentConfigVersionSchema, state: AgentChannelDesiredStateSchema }).strict();
+export const AgentChannelVersionedStateSchema = z.object({ version: AgentConfigVersionSchema, state: AgentChannelDesiredStateSchema }).strict();
 export const AgentChannelConfigurationSchema = z.object({
   ...ownership, kind: AgentBirthChannelKindSchema,
-  desired: VersionedStateSchema,
+  desired: AgentChannelVersionedStateSchema,
   /** null means never applied, not an inferred pause. An older active version may still be running. */
-  applied: VersionedStateSchema.nullable(),
+  applied: AgentChannelVersionedStateSchema.nullable(),
   resource: AgentOwnedChannelResourceSchema.nullable(),
   observation: AgentRuntimeChannelSchema.nullable(),
   observedAt: z.iso.datetime({ offset: true }).nullable(),

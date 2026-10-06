@@ -60,3 +60,5 @@ export * from './agent-scope-policy.js';
 // R2: scoped birth channels, optional context extension and replayable creation.
 export * from './agent-channel-configuration.js';
 export * from './agent-creation-replay.js';
+
+export * from './agent-channel-attestation.js';

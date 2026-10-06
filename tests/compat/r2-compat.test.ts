@@ -17,8 +17,8 @@ describe('R2 preserves 1.30 contracts and publishes opt-in contracts', () => {
   const root = new URL('../../', import.meta.url);
   const pkg = JSON.parse(readFileSync(new URL('package.json', root), 'utf8')) as { exports: Record<string, { import: string; require: string }> };
   for (const [path, symbols] of Object.entries({
-    './agent': ['AgentChannelConfigurationSchema', 'AgentOwnedChannelResourceSchema', 'AgentContextWithChannelsSchema', 'AgentContextWithChannelsWriteSchema', 'AgentCreationRequestSchema', 'AgentCreationCheckpointSchema', 'creationReplay', 'shouldLoadAgentChannel', 'channelFailure'],
-    './http': ['internalFactoryReplayableDeployContract'],
+    './agent': ['AgentChannelConfigurationSchema', 'AgentOwnedChannelResourceSchema', 'AgentContextWithChannelsSchema', 'AgentContextWithChannelsWriteSchema', 'AgentCreationRequestSchema', 'AgentCreationCheckpointSchema', 'creationReplay', 'shouldLoadAgentChannel', 'channelFailure', 'AgentChannelAttestationRequestSchema', 'AgentChannelAttestationSchema', 'isChannelAttestationCurrent'],
+    './http': ['internalFactoryReplayableDeployContract', 'internalChannelAttestationContract'],
   })) {
     it(`publishes ${symbols.length} new symbols from ${path} in ESM and CJS`, async () => {
       const target = pkg.exports[path]!;
