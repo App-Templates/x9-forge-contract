@@ -1,16 +1,22 @@
 name: CI
 on:
   push:
-    branches:
-      - main
-      - 'phase/**'
+    branches: [main]
+    paths-ignore: [".planning/**", "docs/**", "**/*.md"]
   pull_request:
     branches: [main]
+    paths-ignore: [".planning/**", "docs/**", "**/*.md"]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   test:
     name: Test (Node 22)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -39,6 +45,7 @@ jobs:
   consumer-cjs-node20:
     name: Consumer CJS Type-Check (Node 20)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
