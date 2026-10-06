@@ -8,6 +8,8 @@ Test sempre con `--maxWorkers=1 --testTimeout=60000`. Mutazioni su file committa
 |---|---|---|---|---|---|
 | 0 — guardia 1.30 | fatto | bbf64bb | n/a (guardia su codice esistente) | 23/23 | 1/1 uccisa (export tolto) |
 | 1 — R1b gestione logica | fatto | 155cdbd, ac09bb8, 73e0e68 | 46/46 falliti (export assenti) | 48/48 | 23/23 uccise (2 sopravvissute al primo giro → test aggiunti) |
+| 2 — R3 chiavi collegate | fatto | f70d4a3 | 35/35 falliti | 35/35 | 18/18 uccise |
+| 3 — R3 contesto chiamata | fatto | abde48b, test successivo | 21/21 falliti | 22/22 | 11/11 uccise (1 sopravvissuta → test aggiunto) |
 
 ## Task 0
 Snapshot export 1.30 per sottopercorso generato dal dist 1.30 (`tests/compat/bridge-130-exports.json`), test che
@@ -22,4 +24,16 @@ Riusati `AgentConfigVersionSchema`, `AgentRuntimeIdentitySchema`, `ReloadAgentPa
 reload/stop). Incidente di processo: il primo giro di mutazioni è partito su file non ancora committati (commit fallito
 per un glob zsh); i file sono stati riscritti identici, il runner ora rifiuta file non tracciati o sporchi.
 
-Ultimo aggiornamento: 07/10 01:10
+## Task 2 — R3 chiavi collegate
+`src/vault/credential-link.ts` (export `./vault`). Provenienza `linked`→Master / `unlinked`→owner|agent (tier da
+`VaultTierSchema` senza platform), versione salvata e applicata, voce senza valore (schema stretto), chiavi interne
+rifiutate (`isPlatformInternalCredentialKey`). Azioni rotate (master/own, solo versione già salvata), relink, unlink;
+esito per agente con applicati/totale coerenti ed esito complessivo derivato con la stessa funzione di R1b.
+
+## Task 3 — R3 contesto di chiamata capability
+`src/capability/capability-call-context.ts` (export `./capability`), `src/http/endpoints/capability-call-context.ts`
+(export `./http`, `POST /resolve/capability-context`, auth token). Identità tenant/owner/agent obbligatori (pick da
+`InternalMemoryExtractRequestSchema`), persona facoltativa; credenziali minime con versione; errori distinti;
+`pickCapabilityCredentials`, `toToolCallScope` (riempie i campi già esistenti di `ToolCallRequest` 1.30).
+
+Ultimo aggiornamento: 07/10 01:25
