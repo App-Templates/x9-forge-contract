@@ -41,3 +41,6 @@ export {
 
 // Parser helper
 export { parseAgentContext } from './parse-agent-context.js';
+
+// Explicit management/runtime identities
+export * from './agent-runtime-identity.js';
