@@ -1,0 +1,8 @@
+mutation r5-approval-decider: src/agent/agent-scope-policy.ts
+-   if (decided ? !complete : partial) {
++   if (false) {
+result: KILLED
+× R5 approval of an ask decision > rejects approval without decider 4ms
+× R5 approval of an ask decision > rejects rejection without time 0ms
+× R5 approval of an ask decision > rejects pending with a decider 1ms
+Tests  3 failed | 37 passed (40)

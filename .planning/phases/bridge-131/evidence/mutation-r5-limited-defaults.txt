@@ -1,0 +1,8 @@
+mutation r5-limited-defaults: src/agent/agent-scope-policy.ts
+-     if (policy.defaults.read !== 'deny' || policy.defaults.write !== 'deny') {
++     if (policy.defaults.read !== 'deny') {
+result: KILLED
+× R5 scope policy > rejects limited agent with ask write default 4ms
+Tests  1 failed | 39 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > rejects limited agent with ask write default

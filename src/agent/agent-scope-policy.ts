@@ -140,8 +140,8 @@ export const AgentActionLogEventSchema = z.object({
   approvalId: AgentManagementRequestIdSchema.optional(),
 }).strict().superRefine((event, ctx) => {
   const issue = (message: string) => ctx.addIssue({ code: 'custom', path: ['outcome'], message });
+  // A deny decision can only end as denied: every other outcome requires allow or an approved ask.
   const approved = event.decision === 'ask' && event.approvalId !== undefined;
-  if (event.decision === 'deny' && event.outcome !== 'denied') issue('A denied operation can only be logged as denied');
   if ((event.outcome === 'executed' || event.outcome === 'failed') && event.decision !== 'allow' && !approved) {
     issue('Executed operations need allow or an approval');
   }

@@ -1,0 +1,5 @@
+mutation r5-resolve-cap-rule-scope: src/agent/agent-scope-policy.ts
+-   const capabilityRule = policy.rules.find((rule) => rule.capability === request.capability && rule.tool === undefined);
++   const capabilityRule = policy.rules.find((rule) => rule.capability === request.capability);
+result: SURVIVED
+Tests  40 passed (40)

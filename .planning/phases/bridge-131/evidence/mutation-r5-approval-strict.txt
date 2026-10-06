@@ -1,0 +1,10 @@
+mutation r5-approval-strict: src/agent/agent-scope-policy.ts
+-   decidedAt: InstantSchema.optional(),
+}).strict().superRefine((approval
++   decidedAt: InstantSchema.optional(),
+}).superRefine((approval
+result: KILLED
+× R5 approval of an ask decision > rejects approval by the model 4ms
+Tests  1 failed | 39 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects approval by the model

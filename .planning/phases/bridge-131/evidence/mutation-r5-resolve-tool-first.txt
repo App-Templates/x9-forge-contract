@@ -1,0 +1,8 @@
+mutation r5-resolve-tool-first: src/agent/agent-scope-policy.ts
+-   return (toolRule ?? capabilityRule ?? policy.defaults)[request.access];
++   return (capabilityRule ?? toolRule ?? policy.defaults)[request.access];
+result: KILLED
+× R5 scope policy > resolves tool rule > capability rule > default 4ms
+Tests  1 failed | 39 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 scope policy > resolves tool rule > capability rule > default

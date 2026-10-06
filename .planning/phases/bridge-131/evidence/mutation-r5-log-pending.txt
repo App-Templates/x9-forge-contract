@@ -1,0 +1,8 @@
+mutation r5-log-pending: src/agent/agent-scope-policy.ts
+-   if ((event.outcome === 'pending-approval' || event.outcome === 'expired') && !approved) {
++   if (false) {
+result: KILLED
+× R5 action log event > rejects pending without ask 4ms
+Tests  1 failed | 39 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 action log event > rejects pending without ask

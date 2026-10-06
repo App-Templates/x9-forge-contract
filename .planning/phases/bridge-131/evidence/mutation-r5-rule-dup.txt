@@ -1,0 +1,8 @@
+mutation r5-rule-dup: src/agent/agent-scope-policy.ts
+-     if (seen.has(key)) ctx.addIssue({ code: 'custom', path: ['rules', index], message: `Duplicate rule ${key}` });
++ 
+result: KILLED
+× R5 scope policy > rejects duplicate capability rule 4ms
+× R5 scope policy > rejects duplicate tool rule 0ms
+Tests  2 failed | 38 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

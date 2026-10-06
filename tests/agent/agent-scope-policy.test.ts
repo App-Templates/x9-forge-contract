@@ -57,6 +57,11 @@ describe('R5 scope policy', () => {
     expect(resolvePolicyDecision(AgentScopePolicySchema.parse(normal), request)).toBe(expected);
   });
 
+  it('does not confuse another tool rule with the capability rule, whatever the order', () => {
+    const reordered = AgentScopePolicySchema.parse({ ...normal, rules: [normal.rules[1], normal.rules[0]] });
+    expect(resolvePolicyDecision(reordered, { capability: 'calendar', tool: 'calendar_list', access: 'read' })).toBe('allow');
+  });
+
   it('denies everything outside the purpose of a limited agent', () => {
     const policy = AgentScopePolicySchema.parse(limited);
     expect(resolvePolicyDecision(policy, { capability: 'coach', tool: 'coach_session_start', access: 'write' })).toBe('allow');

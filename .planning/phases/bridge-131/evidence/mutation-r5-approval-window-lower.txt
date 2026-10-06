@@ -1,0 +1,8 @@
+mutation r5-approval-window-lower: src/agent/agent-scope-policy.ts
+-     if (at < requested || at > expires) {
++     if (at > expires) {
+result: KILLED
+× R5 approval of an ask decision > rejects decision before request 4ms
+Tests  1 failed | 39 passed (40)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-scope-policy.test.ts > R5 approval of an ask decision > rejects decision before request
