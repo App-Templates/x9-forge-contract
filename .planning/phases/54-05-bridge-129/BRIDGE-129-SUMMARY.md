@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 12:43 (06/10/2026)
+Ultimo aggiornamento: 12:47 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: CORREZIONI PRESO dopo revisione Samira, ripresa da 846311c. Proposta 1.29.0 implementata e testata localmente.
@@ -74,4 +74,6 @@ R1–R7, estensioni lab e verifiche finali in corso; i numeri precedenti si rife
 
 - 12:41 · r1: fix(capability): declare rating and approval feedback. Prima 8/15 (falliti 7/15), dopo 108/108. Commit: dfd322a.
 
-- 12:43 · r2: fix(capability): declare reviewer names and bounded photos. Prima 14/21 (falliti 7/21), dopo 129/129. Commit: questo commit (checkpoint).
+- 12:43 · r2: fix(capability): declare reviewer names and bounded photos. Prima 14/21 (falliti 7/21), dopo 129/129. Commit: 461ab85.
+
+- 12:47 · r3: fix(capability): bound parameter and presentation payloads. Prima 0/35 (falliti 35/35), dopo 252/252. Commit: questo commit (checkpoint).

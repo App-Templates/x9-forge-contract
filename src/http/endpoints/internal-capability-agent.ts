@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { AgentConfigVersionSchema, CapabilityAgentIdSchema, ResearchAgentConfigSchema } from '../../capability/ricerca/agent-config.js';
-import { AgentDaySchema, AgentSpendDaySchema } from '../../capability/ricerca/spend.js';
+import { AGENT_SPEND_MAX_DAYS, AgentDaySchema, AgentSpendDaySchema } from '../../capability/ricerca/spend.js';
 import { LabAgentConfigSchema } from '../../capability/lab/agent-config.js';
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from '../../capability/lab/competence.js';
 
@@ -75,8 +75,7 @@ export const labAgentConfigGetContract = {
   responseSchema: LabAgentConfigSchema,
 } as const;
 
-/** Longest window of one spend request, days (inclusive). */
-export const AGENT_SPEND_MAX_DAYS = 400;
+export { AGENT_SPEND_MAX_DAYS } from '../../capability/ricerca/spend.js';
 
 /** GET /internal/capability/agents/:agentId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — days in the agent's time zone. */
 export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentDaySchema }).strict()

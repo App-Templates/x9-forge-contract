@@ -12,6 +12,9 @@ export const AgentDaySchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d =
   return !Number.isNaN(t.getTime()) && t.toISOString().slice(0, 10) === d;
 }, 'not a calendar date');
 
+/** Longest window of one agent spend request, days (inclusive). */
+export const AGENT_SPEND_MAX_DAYS = 400;
+
 /** The capabilities that report spend this way. */
 export const SpendingCapabilitySchema = z.enum(['ricerca']);
 export type SpendingCapability = z.infer<typeof SpendingCapabilitySchema>;

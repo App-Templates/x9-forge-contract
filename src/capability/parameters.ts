@@ -2,38 +2,39 @@ import { z } from 'zod';
 import { AgentConfigVersionSchema, CapabilityAgentIdSchema } from './ricerca/agent-config.js';
 
 /** B1: ordinary configuration, never credentials. No product default is selected by the bridge. */
-export const CapabilityParameterKeySchema = z.string().regex(/^[a-z][a-zA-Z0-9_.-]*$/);
-export const CapabilityParameterValueSchema = z.union([z.number().finite(), z.string(), z.boolean()]);
+export const CapabilityParameterKeySchema = z.string().max(100).regex(/^[a-z][a-zA-Z0-9_.-]*$/);
+export const CapabilityParameterValueSchema = z.union([z.number().finite(), z.string().max(8000), z.boolean()]);
 export const CapabilityParameterOriginSchema = z.enum(['platform_default', 'agent_override', 'needs_choice']);
 export const CapabilityParameterStatusSchema = z.enum(['decided', 'proposed']);
 export const CapabilityParameterApplicationSchema = z.enum(['immediate', 'next_apply']);
 
-const TextSchema = z.string().trim().min(1);
+const TextSchema = z.string().trim().min(1).max(200);
+const DescriptionSchema = z.string().trim().min(1).max(2000);
 const metadata = {
   key: CapabilityParameterKeySchema,
   label: TextSchema,
-  description: TextSchema,
-  explanation: TextSchema.optional(),
+  description: DescriptionSchema,
+  explanation: DescriptionSchema.optional(),
   group: TextSchema.optional(),
   unit: TextSchema.optional(),
   status: CapabilityParameterStatusSchema,
-  reference: TextSchema,
+  reference: DescriptionSchema,
   /** D1: parameters read directly by a capability apply immediately; others wait for manual Apply. */
   appliesWhen: CapabilityParameterApplicationSchema,
   consumes: z.boolean(),
 };
-export const CapabilityParameterOptionSchema = z.object({ value: TextSchema, label: TextSchema }).strict();
+export const CapabilityParameterOptionSchema = z.object({ value: DescriptionSchema, label: TextSchema }).strict();
 
 const definition = z.discriminatedUnion('type', [
   z.object({ ...metadata, type: z.literal('number'), min: z.number().finite().optional(),
     max: z.number().finite().optional(), platformDefault: z.number().finite().optional() }).strict(),
   z.object({ ...metadata, type: z.literal('integer'), min: z.number().int().optional(),
     max: z.number().int().optional(), platformDefault: z.number().int().optional() }).strict(),
-  z.object({ ...metadata, type: z.literal('string'), minLength: z.number().int().nonnegative().optional(),
-    maxLength: z.number().int().nonnegative().optional(), platformDefault: z.string().optional() }).strict(),
+  z.object({ ...metadata, type: z.literal('string'), minLength: z.number().int().nonnegative().max(8000).optional(),
+    maxLength: z.number().int().nonnegative().max(8000).optional(), platformDefault: z.string().max(8000).optional() }).strict(),
   z.object({ ...metadata, type: z.literal('boolean'), platformDefault: z.boolean().optional() }).strict(),
-  z.object({ ...metadata, type: z.literal('enum'), options: z.array(CapabilityParameterOptionSchema).min(1),
-    platformDefault: z.string().optional() }).strict(),
+  z.object({ ...metadata, type: z.literal('enum'), options: z.array(CapabilityParameterOptionSchema).min(1).max(50),
+    platformDefault: z.string().max(2000).optional() }).strict(),
 ]);
 type ParameterDefinition = z.infer<typeof definition>;
 
@@ -99,7 +100,7 @@ export const CapabilityAgentParameterSchema = z.object({
 export type CapabilityAgentParameter = z.infer<typeof CapabilityAgentParameterSchema>;
 
 export const CapabilityParametersDeclarationSchema = z.object({
-  parameters: z.array(CapabilityParameterSchema),
+  parameters: z.array(CapabilityParameterSchema).max(100),
   consumes: z.boolean(),
   spendLedger: z.boolean(),
 }).strict().refine(declaration => new Set(declaration.parameters.map(parameter => parameter.key)).size === declaration.parameters.length,
@@ -108,9 +109,9 @@ export type CapabilityParametersDeclaration = z.infer<typeof CapabilityParameter
 
 export const CapabilityAgentParametersSchema = z.object({
   agentId: CapabilityAgentIdSchema,
-  capability: TextSchema,
+  capability: z.string().trim().min(1).max(100),
   version: AgentConfigVersionSchema,
-  parameters: z.array(CapabilityAgentParameterSchema),
+  parameters: z.array(CapabilityAgentParameterSchema).max(100),
 }).strict().refine(agent => new Set(agent.parameters.map(resolved => resolved.parameter.key)).size === agent.parameters.length,
   { message: 'resolved parameter keys must be unique', path: ['parameters'] });
 export type CapabilityAgentParameters = z.infer<typeof CapabilityAgentParametersSchema>;
