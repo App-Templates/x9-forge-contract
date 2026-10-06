@@ -38,6 +38,7 @@ Nessun «progetto» dentro le capability.
   smoke ESM e CJS; mutazioni `scripts/mutate-54-ricerca-lab.py` (20/20 rosse).
 - Contiene la v1.27.1 (chiavi interne di piattaforma fuori dai contesti degli agenti, fix SEC del 01/10), unita da
   `origin/main` prima del rilascio.
+
 ## v1.27.1 — 2026-10-05 — Chiavi interne di piattaforma fuori dai contesti degli agenti (sicurezza)
 
 ### Added (additive, backward-compatible)
