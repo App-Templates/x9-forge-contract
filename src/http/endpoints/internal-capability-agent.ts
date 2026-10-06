@@ -83,7 +83,7 @@ export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentD
   .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
 export const AgentSpendResponseSchema = z.object({
   days: z.array(AgentSpendDaySchema).max(AGENT_SPEND_MAX_DAYS),
-  /** Researches of the agent waiting in the queue right now. */
+  /** Jobs of the agent waiting in the queue right now. */
   queuedNow: z.number().int().nonnegative(),
 }).strict();
 export const ricercaAgentSpendContract = {
@@ -94,6 +94,9 @@ export const ricercaAgentSpendContract = {
   querySchema: AgentSpendQuerySchema,
   responseSchema: AgentSpendResponseSchema,
 } as const;
+
+/** cap-lab reports the same per-agent spend shape and path as cap-ricerca. */
+export const labAgentSpendContract = { ...ricercaAgentSpendContract } as const;
 
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 export const AgentGrowthResponseSchema = z.object({
