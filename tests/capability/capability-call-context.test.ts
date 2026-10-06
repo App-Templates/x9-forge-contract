@@ -56,6 +56,11 @@ describe('R3 capability call context', () => {
     expect(CapabilityCallContextSchema.safeParse({ ...context, ...patch }).success).toBe(false);
   });
 
+  it('refuses platform-internal keys in the credential map itself', () => {
+    expect(CapabilityCallContextSchema.shape.credentials.safeParse({ TELEGRAM_SESSION_STRING: 's' }).success).toBe(false);
+    expect(CapabilityCallContextSchema.shape.credentialVersions.safeParse({ TELEGRAM_SESSION_STRING: 1 }).success).toBe(false);
+  });
+
   it('picks the minimum and lists what is missing', () => {
     const available = {
       OPENAI_API_KEY: { value: 'sk', version: 4 },

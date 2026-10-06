@@ -1,0 +1,8 @@
+mutation r3c-scope-user-absent: src/capability/capability-call-context.ts
+-   return { agentId, ...(userId !== undefined ? { userId } : {}), tenantId, ownerId, credentials: { ...context.credentials } };
++   return { agentId, userId, tenantId, ownerId, credentials: { ...context.credentials } };
+result: KILLED
+× R3 capability call context > feeds the 1.30 tool call without changing its shape 12ms
+Tests  1 failed | 20 passed (21)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > feeds the 1.30 tool call without changing its shape

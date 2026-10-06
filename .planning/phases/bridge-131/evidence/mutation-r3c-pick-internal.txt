@@ -1,0 +1,8 @@
+mutation r3c-pick-internal: src/capability/capability-call-context.ts
+-     if (!entry || entry.value === '' || isPlatformInternalCredentialKey(key)) {
++     if (!entry || entry.value === '') {
+result: KILLED
+× R3 capability call context > picks the minimum and lists what is missing 5ms
+Tests  1 failed | 20 passed (21)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > picks the minimum and lists what is missing

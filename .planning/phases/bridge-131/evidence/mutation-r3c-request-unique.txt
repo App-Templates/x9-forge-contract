@@ -1,0 +1,8 @@
+mutation r3c-request-unique: src/capability/capability-call-context.ts
+-     .refine((keys) => new Set(keys).size === keys.length, { message: 'keys must be unique' }),
++ ,
+result: KILLED
+× R3 resolve endpoint > asks for declared keys of one capability 4ms
+Tests  1 failed | 20 passed (21)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/capability-call-context.test.ts > R3 resolve endpoint > asks for declared keys of one capability

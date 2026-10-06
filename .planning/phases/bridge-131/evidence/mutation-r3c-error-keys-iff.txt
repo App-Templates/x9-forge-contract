@@ -1,0 +1,8 @@
+mutation r3c-error-keys-iff: src/capability/capability-call-context.ts
+-   if ((response.error === 'credential_missing') !== (response.keys !== undefined)) {
++   if (false) {
+result: KILLED
+× R3 resolve endpoint > rejects missing key without the key list 4ms
+× R3 resolve endpoint > rejects key list on another error 0ms
+Tests  2 failed | 19 passed (21)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

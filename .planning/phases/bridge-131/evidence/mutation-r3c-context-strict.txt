@@ -1,0 +1,10 @@
+mutation r3c-context-strict: src/capability/capability-call-context.ts
+-   credentialVersions: z.record(CredentialKeySchema, CredentialVersionSchema),
+}).strict().superRefine
++   credentialVersions: z.record(CredentialKeySchema, CredentialVersionSchema),
+}).superRefine
+result: KILLED
+× R3 capability call context > rejects the whole credential bag 4ms
+Tests  1 failed | 20 passed (21)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/capability-call-context.test.ts > R3 capability call context > rejects the whole credential bag
