@@ -18,6 +18,7 @@ exports.CapabilityParameterEditorRoleSchema = zod_1.z.enum(['superadmin', 'owner
 exports.CapabilityParameterApplicationSchema = zod_1.z.enum(['immediate', 'next_apply']);
 const TextSchema = zod_1.z.string().trim().min(1).max(200);
 const DescriptionSchema = zod_1.z.string().trim().min(1).max(2000);
+/** Patterns are not implicitly anchored; use ^ and $ for a full-string match. */
 const PatternSchema = zod_1.z.string().min(1).max(200).refine(pattern => {
     try {
         new RegExp(pattern);

@@ -1,5 +1,5 @@
 # BRIDGE-129 · proposta 1.29.0 corretta
-Ultimo aggiornamento: 15:06 (06/10/2026)
+Ultimo aggiornamento: 15:08 (06/10/2026)
 
 Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9
 Branch: codex/bridge-129-params-outputs. Base: d8ef67f (1.28.0).
@@ -42,7 +42,7 @@ I posti li prende/rilascia la coordinatrice; non modifico ~/.claude. Un solo com
 | Dist ESM/CJS aggiornata | 2f66b8b | 0/10 → 44/44; build/dts e tipi |
 | Report compatti | 6d32581 | 45/45 file convertiti; originali e hash conservati |
 | Controlli isolati e giro finale | 1bdf022 | 469/469 casi visti rossi → 469/469; 299/299 in un giro completo |
-| Consegna/qualità/perimetro finali | questo commit di chiusura | test/tipi/lint/pack/build verdi; perimetro verificato |
+| Consegna/qualità/perimetro finali | 233ca43 | test/tipi/lint/pack/build verdi; perimetro verificato |
 
 I numeri prima del simbolo → sono test passati, con il denominatore dell'intero lotto. Le prove rosse registrano
 anche il numero dei falliti e il loro nome. I verdi di regressione comprendono test di compiti precedenti:
@@ -132,6 +132,9 @@ conservate e impronte in review/quality-evidence-format.json. git diff --check d
 
 ## Ritocchi non bloccanti dopo APPROVE (06/10, massimo 20 minuti)
 
-- Primo ritocco, questo commit: CHANGELOG neutro e motivazione della sola eccezione lab priva di consumer.
+- Primo ritocco, dad752f: CHANGELOG neutro e motivazione della sola eccezione lab priva di consumer.
   Sola documentazione: sorgenti/test/dist invariati, nessun nuovo controllo; prove 233ca43 ancora applicabili.
-- Restano JSDoc pattern e riepilogo unico MD delle mutazioni; 56-01 sospeso soltanto per questi ritocchi.
+- Secondo ritocco, questo commit: pattern NON ancorato implicitamente, si applica la RegExp dichiarata.
+  Una riga JSDoc: ^ e $ servono per il match completo; nessuna guardia o test cambia.
+  Mirati parametri/pattern 119/119; build riuscita, 256/256 .d.ts portabili, dist aggiornata al commento.
+- Resta il riepilogo unico MD delle mutazioni; 56-01 sospeso soltanto per questi ritocchi.
