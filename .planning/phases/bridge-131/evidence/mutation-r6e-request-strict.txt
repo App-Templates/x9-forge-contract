@@ -1,0 +1,10 @@
+mutation r6e-request-strict: src/capability/agent-elevenlabs/index.ts
+-   adoptProviderAgentId: ElevenLabsProviderAgentIdSchema.optional(),
+}).strict();
++   adoptProviderAgentId: ElevenLabsProviderAgentIdSchema.optional(),
+});
+result: KILLED
+× R6 cap-agent-elevenlabs provisioning on Apply > rejects api key in request 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects api key in request

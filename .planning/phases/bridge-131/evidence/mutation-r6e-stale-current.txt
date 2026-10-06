@@ -1,0 +1,8 @@
+mutation r6e-stale-current: src/capability/agent-elevenlabs/index.ts
+-   if ((response.error === 'stale_version') !== (response.currentVersion !== undefined)) {
++   if (false) {
+result: KILLED
+× R6 provisioning result and errors > marks which failures may be retried 4ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > marks which failures may be retried

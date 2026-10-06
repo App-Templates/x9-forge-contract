@@ -1,0 +1,8 @@
+mutation r6e-provider-id: src/capability/agent-elevenlabs/index.ts
+- export const ElevenLabsProviderAgentIdSchema = z.string().regex(/^[A-Za-z0-9_-]{1,128}$/);
++ export const ElevenLabsProviderAgentIdSchema = z.string().min(1);
+result: KILLED
+× R6 cap-agent-elevenlabs provisioning on Apply > rejects malformed provider id 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects malformed provider id

@@ -1,0 +1,8 @@
+mutation r6e-path-validated: src/http/endpoints/internal-capability-elevenlabs.ts
+-   return elevenLabsProvisionContract.path.replace(':agentId', CapabilityAgentParamsSchema.parse({ agentId }).agentId);
++   return elevenLabsProvisionContract.path.replace(':agentId', agentId);
+result: KILLED
+× R6 cap-agent-elevenlabs routes > lives with the other per-agent capability routes 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs routes > lives with the other per-agent capability routes

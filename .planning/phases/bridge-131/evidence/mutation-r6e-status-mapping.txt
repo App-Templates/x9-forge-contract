@@ -1,0 +1,8 @@
+mutation r6e-status-mapping: src/capability/agent-elevenlabs/index.ts
+-   if (result.status.mapping === null || result.status.mapping.providerAgentId !== result.mapping.providerAgentId) {
++   if (result.status.mapping !== null && result.status.mapping.providerAgentId !== result.mapping.providerAgentId) {
+result: KILLED
+× R6 provisioning result and errors > rejects status without the mapping 4ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > rejects status without the mapping

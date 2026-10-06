@@ -26,11 +26,11 @@ export const CapabilityCallIdentitySchema = InternalMemoryExtractRequestSchema.p
 export type CapabilityCallIdentity = z.infer<typeof CapabilityCallIdentitySchema>;
 
 /** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
-export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }).strict();
+export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
 export type CapabilityAgentScope = z.infer<typeof CapabilityAgentScopeSchema>;
 
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
-export const CapabilityPersonScopeSchema = CapabilityCallIdentitySchema.required({ userId: true }).strict();
+export const CapabilityPersonScopeSchema = CapabilityCallIdentitySchema.required({ userId: true }); // strict, inherited
 export type CapabilityPersonScope = z.infer<typeof CapabilityPersonScopeSchema>;
 
 /** Same tenant, owner and agent (and person when both carry one). */

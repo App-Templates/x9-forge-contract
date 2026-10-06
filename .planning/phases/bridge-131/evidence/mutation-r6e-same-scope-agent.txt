@@ -1,0 +1,8 @@
+mutation r6e-same-scope-agent: src/capability/agent-elevenlabs/index.ts
+- a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.agentId === b.agentId;
++ a.tenantId === b.tenantId && a.ownerId === b.ownerId;
+result: KILLED
+× R6 mapping and external channel state > rejects mapping for another agent 3ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 mapping and external channel state > rejects mapping for another agent

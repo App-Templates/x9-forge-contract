@@ -1,0 +1,8 @@
+mutation r6e-tools-unique: src/capability/agent-elevenlabs/index.ts
+-     .refine((tools) => new Set(tools.map((tool) => tool.name)).size === tools.length, { message: 'Duplicate tool' }),
++ ,
+result: KILLED
+× R6 cap-agent-elevenlabs provisioning on Apply > rejects config with duplicate tool 4ms
+Tests  1 failed | 26 passed (27)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 cap-agent-elevenlabs provisioning on Apply > rejects config with duplicate tool
