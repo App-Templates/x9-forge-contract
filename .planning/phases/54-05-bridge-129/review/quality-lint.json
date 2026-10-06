@@ -1,0 +1,11 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9",
+    "lint"
+  ],
+  "exitCode": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-quality-1mah3j05/lint.log",
+  "finished": "2026-10-06T14:35:42.899916+02:00"
+}

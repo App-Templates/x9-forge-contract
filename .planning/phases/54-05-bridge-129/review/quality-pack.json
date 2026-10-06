@@ -1,0 +1,13 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9",
+    "check:pack"
+  ],
+  "exitCode": 0,
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-quality-b7pa2aiw/pack.log",
+  "finished": "2026-10-06T14:46:30.641122+02:00",
+  "warning": "Existing root types condition is interpreted as CJS for import; package checker exits 0.",
+  "profile": "node16; existing false-cjs ignore; node10 resolution excluded by profile"
+}

@@ -7,11 +7,11 @@ const cases = [
   ['presentation', {
     CapabilityOutputFieldTypeSchema: 'number',
     CapabilityOutputFieldSchema: { key: 'score', label: 'Voto', type: 'number', min: 1, max: 10 },
-    CapabilityFeedbackKindSchema: 'approval',
+    CapabilityFeedbackKindSchema: 'approval', CapabilityFeedbackDecisionSchema: 'approved',
   }],
   ['lab', {
     LabAgentConfigSchema: labAgent,
-    LabBudgetSchema: labAgent.budget, LabModelsSchema: labAgent.models, LabToolErrorSchema: 'not_ready',
+    LabBudgetSchema: labAgent.budget, LabModelsSchema: labAgent.models, LabToolErrorSchema: 'not_ready', LabIngestIdSchema: ingestId,
     LabIngestOutputSchema: { ingestId, state: 'queued' },
     LabIngestStatusInputSchema: { ingestId },
     LabIngestStatusOutputSchema: { ingestId, state: 'completed', sourcesStored: 0, pagesTouched: 0, claimsAdded: 0 },

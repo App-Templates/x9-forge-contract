@@ -1,0 +1,18 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-clean-build-t4ayb743",
+    "build"
+  ],
+  "exitCode": 0,
+  "cleanBuild": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-clean-build-t4ayb743",
+  "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-clean-build-proof-i9z5adfc/build.log",
+  "originalFiles": 1024,
+  "cleanFiles": 1024,
+  "matchedFiles": 1024,
+  "differences": [],
+  "sourcePackageAndDistUnchanged": true,
+  "distHashTableSha256": "68b3183b1c66e2905b41db495d77472c4eb5731dd3118f8f8afb0626f142db68",
+  "finished": "2026-10-06T14:47:49.764527+02:00"
+}

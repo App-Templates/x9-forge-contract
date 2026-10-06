@@ -46,7 +46,11 @@ describe('lab asynchronous ingest and tool errors', () => {
       expect(schema('LabIngestStatusOutputSchema').safeParse({ ingestId, state: 'completed', ...counts, [key]: invalid }).success).toBe(false);
     }
   });
+  it.each(['sourcesStored', 'pagesTouched', 'claimsAdded'])('rejects premature %s', key => {
+    expect(schema('LabIngestStatusOutputSchema').safeParse({ ingestId, state: 'running', [key]: 1 }).success).toBe(false);
+  });
   it.each([
+    { ingestId }, { state: 'queued' },
     { ingestId, state: 'unknown' }, { ingestId: 'bad', state: 'queued' },
     { ingestId, state: 'completed', ...counts, extra: true },
     { ingestId, state: 'running', sourcesStored: 1 },

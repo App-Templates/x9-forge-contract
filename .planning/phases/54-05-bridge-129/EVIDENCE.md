@@ -51,3 +51,15 @@ Copia locale completa di questa conversione: /var/folders/m3/mywf84wd2k50664nh_f
 | task5-retry-ids.json | 491 | 821 | faba2262fa09eb73899725fb4cdac29c4ac57fec751ef247047a0de433985b9b |
 | task5-second-baseline.json | 79879 | 19005 | 0f43a10ce613e198692eed44b5dc09970bd7df7ac920a84b6f561e68c3f4bbab |
 | task5-second-mutations.json | 32717 | 26527 | e3e9ddcd3e51587fe9eeaa5e87b93440021d8ebdc70f5dcf579f1cd5b0571ba4 |
+
+## Verifica finale corretta
+
+Il riepilogo leggibile è review/FINAL-MUTATIONS.md: 299/299 in UN giro, baseline/ripristino 469/469 e hash intatti.
+review/red-coverage.json conserva 469/469 nomi unici, riferimento all'assert rosso e stato verde finale.
+I report finali indicizzano i nomi una sola volta e mantengono gli edit brevi; edit lunghi con SHA256/anteprima,
+ricostruibili dal runner sui sorgenti committati. Le prove complete hanno percorso/hash in rawProof.
+
+| Report | Byte prima | Byte compatti | SHA256 prova completa locale |
+| --- | --- | --- | --- |
+| review/final-mutations-first.json | 643489 | 131535 | 4765e9f107e77474981207833b083650236ec491073e8732fe424194192d6128 |
+| review/final-mutations.json | 653743 | 137464 | 0b534277d882b119fd2468512fc7ec4ed9ceda0c15453f028854447c65826403 |
