@@ -1,6 +1,6 @@
 # BRIDGE-131 — execution record
 
-Status: IN CORSO. Base 515f84b (1.30.0), branch claude/bridge-131. Piano: PLAN.md. Autore: Claude S0.
+Status: COMPLETO — pronto per revisione indipendente. Base 515f84b (1.30.0), branch claude/bridge-131. Piano: PLAN.md. Autore: Claude S0.
 Test sempre con `--maxWorkers=1 --testTimeout=60000`. Mutazioni su file committati, ripristino con
 `git checkout HEAD -- <file>` dopo ogni prova, esito in `evidence/mutation-<id>.txt`.
 
@@ -11,7 +11,10 @@ Test sempre con `--maxWorkers=1 --testTimeout=60000`. Mutazioni su file committa
 | 2 — R3 chiavi collegate | fatto | f70d4a3 | 35/35 falliti | 35/35 | 18/18 uccise |
 | 3 — R3 contesto chiamata | fatto | abde48b, 10f614c | 21/21 falliti | 22/22 | 11/11 uccise (1 sopravvissuta → test aggiunto) |
 | 4 — R4 voce per agente | fatto | 97e3cc1 | 30/30 falliti | 30/30 | 22/22 uccise |
-| 5 — R5 ambito | fatto | 529799e + correzione | 40/40 falliti | 41/41 | 16/16 uccise (1 sopravvissuta → test aggiunto; 1 controllo ridondante rimosso, mutante equivalente) |
+| 5 — R5 ambito | fatto | 529799e, b6034a1 | 40/40 falliti | 41/41 | 16/16 uccise (1 sopravvissuta → test aggiunto; 1 controllo ridondante rimosso, mutante equivalente) |
+| 6 — R6 cap-agent-elevenlabs | fatto | 937e8b9, 48fbe05, 4e0334b, 8c56125 | 27/27 falliti | 27/27 | 19/19 uccise + 5/5 sugli ambiti condivisi (1 equivalente rimosso) |
+| 7 — R6 cap-coach | fatto | 5d53240 | 41/41 falliti | 41/41 | 34/34 uccise |
+| 8 — pubblicazione + verifica finale | fatto | d27e1a0, ffca8cd | 5/5 falliti (dist senza i nuovi simboli) | 5/5 | — |
 
 ## Task 0
 Snapshot export 1.30 per sottopercorso generato dal dist 1.30 (`tests/compat/bridge-130-exports.json`), test che
@@ -54,4 +57,40 @@ dichiarato; approvazioni umane con scadenza, versione politica e finestra di dec
 payload né segreti, coerenza decisione/esito, provenienza con `external-content` per i dati non fidati. Identità da
 `CapabilityCallIdentitySchema`, nomi strumento dalla regola di `/call/:tool`.
 
-Ultimo aggiornamento: 07/10 01:14
+## Task 6 — R6 cap-agent-elevenlabs
+`src/capability/agent-elevenlabs/index.ts` (export `./capability`), `src/http/endpoints/internal-capability-elevenlabs.ts`
+(export `./http`, PUT/GET `/internal/capability/agents/:agentId/elevenlabs`, auth secret, parametri riusati da
+`CapabilityAgentParamsSchema`). Provisioning idempotente (`requestId`, `configVersion`; esiti created/updated/
+unchanged/adopted), adozione esplicita di una risorsa esistente, mapping tenant/owner/agente, canale esterno come
+`AgentRuntimeChannel` (lo stato canonico lo conta: agent-core fermo non fa sembrare spento un canale provider vivo),
+`retryable` fissato dal codice d'errore (`reconcile_pending` dopo timeout). Ambiti condivisi estratti in
+`CapabilityAgentScopeSchema` / `CapabilityPersonScopeSchema` / `sameCapabilityScope` (riusati da coach).
+
+## Task 7 — R6 cap-coach
+`src/capability/coach/index.ts` (export `./capability`), `src/http/endpoints/internal-capability-coach.ts` (export
+`./http`: PUT/GET programma, POST sessione, GET istantanea persona; PUT risponde `AgentConfigSavedSchema` esistente).
+Programmi generici per agente (contenuto del progetto), profilo/sessioni/progressi/budget per persona con isolamento
+verificato negli aggregati, ciclo di vita della sessione coerente, scrittura idempotente, punteggi breve/lungo periodo,
+`coachRemainingMinutes`. Fuso orario da `AgentTimeZoneSchema`, lingua da `AgentVoiceLocaleSchema`.
+
+## Task 8 — pubblicazione e verifica finale
+- Nessun nuovo sottopercorso: tutto da `./agent`, `./vault`, `./capability`, `./voice`, `./http` (ESM e CJS, test
+  `tests/compat/bridge-131-dist.test.ts`). Proposta facoltativa per il rilascio: alias `./capability/agent-elevenlabs`
+  e `./capability/coach`.
+- `pnpm build` verde (check-portable-dts: 284 file portabili; il primo build aveva segnalato 3 contratti senza `z`
+  in scope, corretti in d27e1a0). dist ricostruito solo localmente e riportato allo stato committato (non committato).
+- Suite completa `vitest --maxWorkers=1`: **108 file, 1821/1821** (1549 della base + 272 nuovi), CJS smoke 36/36 +
+  BRIDGE-130 6/6; `typecheck` e `lint` (src + tests) puliti; `check:pack` (publint + attw) verde come in 1.30.
+- Mutazioni: 148 registrate in `evidence/`, tutte uccise; 2 mutanti equivalenti documentati e il codice ridondante rimosso.
+- Compatibilità 1.30: snapshot di tutti gli export (18 sottopercorsi) invariato; payload 1.30 validi invariati.
+
+## Limiti
+- Solo contratti: producer/consumer (X9, Forge) e pin/lock da fare dopo il rilascio della coordinatrice (package.json,
+  CHANGELOG e dist restano a lei; versione suggerita 1.31.0, minor additiva).
+- Il catalogo voci e le combinazioni realmente supportate sono dati del producer (R4-2), qui solo la forma.
+- Le rotte credential-link (rotate/relink/unlink) sono schemi senza percorso HTTP: chiamante e servizio sono entrambi
+  Forge; il percorso si fissa nel lotto R3-2 se serve a X9.
+- Il protocollo di riconciliazione ElevenLabs dopo timeout è espresso dall'errore `reconcile_pending`; la logica è del
+  producer R6-2.
+
+Ultimo aggiornamento: 07/10 01:22
