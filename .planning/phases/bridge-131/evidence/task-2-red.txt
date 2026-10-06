@@ -1,0 +1,272 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-42-1
+
+ ❯ tests/vault/credential-link.test.ts (35 tests | 35 failed) 7ms
+   × R3 credential provenance > is linked to the X9 Master Chief or unlinked with an owner/agent value 3ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 credential provenance > rejects platform tier as an own value 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 credential provenance > rejects linked to a tier 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 credential provenance > rejects unknown link 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 credential provenance > rejects unlinked without tier 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 credential provenance > accepts capability keys and refuses platform-internal ones 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > describes a key without ever carrying its value 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > shows a saved rotation not yet applied 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > accepts an absent key with no version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > rejects present without version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > rejects absent with a version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > rejects applied ahead of saved 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > rejects absent with applied version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent key entries > lists each key once per agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > accepts 'rotate' 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > accepts 'rotate' 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > accepts 'relink' 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > accepts 'unlink' 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > rejects master rotation naming one agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > rejects own rotation without agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > rejects rotation carrying a secret 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > rejects relink without agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > rejects unlink to platform 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > rejects missing request key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 rotate / relink / unlink > rejects platform-internal key 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > reports applied/total over the linked agents 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > rejects global success over a failed agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > rejects wrong applied count 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > rejects wrong total 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > rejects ok agent on another version 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > rejects failed agent without reason 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > rejects duplicate agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > rejects no agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > limits relink/unlink/own rotation to the one agent 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+   × R3 per-agent outcome of a credential action > distinguishes action errors 0ms
+     → Cannot read properties of undefined (reading 'safeParse')
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 35 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > is linked to the X9 Master Chief or unlinked with an owner/agent value
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:18:33
+     16| describe('R3 credential provenance', () => {
+     17|   it('is linked to the X9 Master Chief or unlinked with an owner/agent…
+     18|     expect(CredentialLinkSchema.safeParse(linked).success).toBe(true);
+       |                                 ^
+     19|     expect(CredentialLinkSchema.safeParse(ownerOwn).success).toBe(true…
+     20|     expect(CredentialLinkSchema.safeParse({ link: 'unlinked', tier: 'a…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > rejects platform tier as an own value
+ FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > rejects linked to a tier
+ FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > rejects unknown link
+ FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > rejects unlinked without tier
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:29:33
+     27|     ['unlinked without tier', { link: 'unlinked' }],
+     28|   ])('rejects %s', (_label, input) => {
+     29|     expect(CredentialLinkSchema.safeParse(input).success).toBe(false);
+       |                                 ^
+     30|   });
+     31| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 credential provenance > accepts capability keys and refuses platform-internal ones
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:33:32
+     31| 
+     32|   it('accepts capability keys and refuses platform-internal ones', () …
+     33|     expect(CredentialKeySchema.safeParse('OPENAI_API_KEY').success).to…
+       |                                ^
+     34|     expect(CredentialKeySchema.safeParse('cap.research_key').success).…
+     35|     expect(CredentialKeySchema.safeParse('TELEGRAM_SESSION_STRING').su…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > describes a key without ever carrying its value
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:43:43
+     41| describe('R3 per-agent key entries', () => {
+     42|   it('describes a key without ever carrying its value', () => {
+     43|     expect(AgentCredentialLinkEntrySchema.safeParse(entry).success).to…
+       |                                           ^
+     44|     expect(AgentCredentialLinkEntrySchema.safeParse({ ...entry, value:…
+     45|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > shows a saved rotation not yet applied
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:48:43
+     46| 
+     47|   it('shows a saved rotation not yet applied', () => {
+     48|     expect(AgentCredentialLinkEntrySchema.safeParse({ ...entry, versio…
+       |                                           ^
+     49|     expect(AgentCredentialLinkEntrySchema.safeParse({ ...entry, versio…
+     50|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > accepts an absent key with no version
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:53:43
+     51| 
+     52|   it('accepts an absent key with no version', () => {
+     53|     expect(AgentCredentialLinkEntrySchema.safeParse({ ...entry, presen…
+       |                                           ^
+     54|   });
+     55| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > rejects present without version
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > rejects absent with a version
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > rejects applied ahead of saved
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > rejects absent with applied version
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:62:43
+     60|     ['absent with applied version', { present: false, version: null, a…
+     61|   ])('rejects %s', (_label, patch) => {
+     62|     expect(AgentCredentialLinkEntrySchema.safeParse({ ...entry, ...pat…
+       |                                           ^
+     63|   });
+     64| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent key entries > lists each key once per agent
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:67:39
+     65|   it('lists each key once per agent', () => {
+     66|     const links = { agentId: 'agent-7', masterAgentId: 'x9-staging', e…
+     67|     expect(AgentCredentialLinksSchema.safeParse(links).success).toBe(t…
+       |                                       ^
+     68|     expect(AgentCredentialLinksSchema.safeParse({ ...links, entries: […
+     69|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > accepts 'rotate'
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > accepts 'rotate'
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > accepts 'relink'
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > accepts 'unlink'
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:79:42
+     77|     { action: 'unlink', requestId: 'unl-00000001', key: 'OPENAI_API_KE…
+     78|   ])('accepts $action', (input) => {
+     79|     expect(CredentialActionRequestSchema.safeParse(input).success).toB…
+       |                                          ^
+     80|   });
+     81| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects master rotation naming one agent
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects own rotation without agent
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects rotation carrying a secret
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects relink without agent
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects unlink to platform
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects missing request key
+ FAIL  tests/vault/credential-link.test.ts > R3 rotate / relink / unlink > rejects platform-internal key
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:91:42
+     89|     ['platform-internal key', { action: 'rotate', requestId: 'rot-0000…
+     90|   ])('rejects %s', (_label, input) => {
+     91|     expect(CredentialActionRequestSchema.safeParse(input).success).toB…
+       |                                          ^
+     92|   });
+     93| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > reports applied/total over the linked agents
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:101:41
+     99| 
+    100|   it('reports applied/total over the linked agents', () => {
+    101|     expect(CredentialActionResultSchema.safeParse({ ...result, outcome…
+       |                                         ^
+    102|     expect(CredentialActionResultSchema.safeParse({ ...result, outcome…
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects global success over a failed agent
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects wrong applied count
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects wrong total
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects ok agent on another version
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects failed agent without reason
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects duplicate agent
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > rejects no agent
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:114:41
+    112|     ['no agent', { outcome: 'error', agents: [], applied: 0, total: 0 …
+    113|   ])('rejects %s', (_label, patch) => {
+    114|     expect(CredentialActionResultSchema.safeParse({ ...result, ...patc…
+       |                                         ^
+    115|   });
+    116| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > limits relink/unlink/own rotation to the one agent
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:119:41
+    117|   it('limits relink/unlink/own rotation to the one agent', () => {
+    118|     const one = { ...result, action: 'relink', outcome: 'ok', agents: …
+    119|     expect(CredentialActionResultSchema.safeParse(one).success).toBe(t…
+       |                                         ^
+    120|     expect(CredentialActionResultSchema.safeParse({ ...one, agents: [o…
+    121|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/35]⎯
+
+ FAIL  tests/vault/credential-link.test.ts > R3 per-agent outcome of a credential action > distinguishes action errors
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ tests/vault/credential-link.test.ts:124:48
+    122| 
+    123|   it('distinguishes action errors', () => {
+    124|     expect(CredentialActionErrorResponseSchema.safeParse({ ok: false, …
+       |                                                ^
+    125|     expect(CredentialActionErrorResponseSchema.safeParse({ ok: false, …
+    126|     expect(CredentialActionErrorResponseSchema.safeParse({ ok: false, …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/35]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  35 failed (35)
+   Start at  01:06:31
+   Duration  265ms (transform 47ms, setup 5ms, collect 87ms, tests 7ms, environment 0ms, prepare 47ms)
+

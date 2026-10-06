@@ -141,7 +141,7 @@ export const AgentManagementTargetResultSchema = z.object({
 export type AgentManagementTargetResult = z.infer<typeof AgentManagementTargetResultSchema>;
 
 /** ok: all ok · unmanageable: none manageable · error: none ok · partial: some ok, some not. */
-export function deriveAgentManagementOutcome(results: readonly AgentManagementTargetResult[]): AgentManagementOverallOutcome {
+export function deriveAgentManagementOutcome(results: ReadonlyArray<{ readonly outcome: AgentManagementOutcome }>): AgentManagementOverallOutcome {
   const okCount = results.filter((result) => result.outcome === 'ok').length;
   if (results.length > 0 && okCount === results.length) return 'ok';
   if (results.length > 0 && results.every((result) => result.outcome === 'unmanageable')) return 'unmanageable';
