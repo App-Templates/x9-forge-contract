@@ -1,0 +1,8 @@
+mutation r1b-outcome-derived: src/agent/agent-management.ts
+-   if (result.outcome !== deriveAgentManagementOutcome(result.results)) {
++   if (false) {
+result: KILLED
+× R1b per-target results and derived outcome > never reports a global success over a failed target 8ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > never reports a global success over a failed target

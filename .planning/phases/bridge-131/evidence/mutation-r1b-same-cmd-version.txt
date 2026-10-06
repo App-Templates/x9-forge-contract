@@ -1,0 +1,8 @@
+mutation r1b-same-cmd-version: src/agent/agent-management.ts
+- a.desiredVersion === b.desiredVersion
++ true
+result: KILLED
+× R1b actions and request identity > flags a different command under the same key 9ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > flags a different command under the same key

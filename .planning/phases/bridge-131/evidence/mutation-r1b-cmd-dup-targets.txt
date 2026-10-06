@@ -1,0 +1,8 @@
+mutation r1b-cmd-dup-targets: src/agent/agent-management.ts
+-   if (command.targets) addDuplicateTargetIssues(command.targets, ctx, 'targets');
++ 
+result: KILLED
+× R1b actions and request identity > rejects duplicate targets 6ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b actions and request identity > rejects duplicate targets

@@ -1,0 +1,8 @@
+mutation r1b-reason-iff: src/agent/agent-management.ts
+- if ((result.outcome === 'ok') === (result.reason !== undefined)) {
++ if (result.outcome !== 'ok' && result.reason === undefined) {
+result: KILLED
+× R1b per-target results and derived outcome > requires a reason exactly when a target is not ok 11ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > requires a reason exactly when a target is not ok

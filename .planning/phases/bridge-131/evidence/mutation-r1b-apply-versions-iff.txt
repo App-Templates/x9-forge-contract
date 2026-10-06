@@ -1,0 +1,8 @@
+mutation r1b-apply-versions-iff: src/agent/agent-management.ts
+-   if (isApply !== (result.requestedVersion !== undefined) || isApply !== (result.versions !== undefined)) {
++   if (false) {
+result: KILLED
+× R1b per-target results and derived outcome > rejects apply-config missing versions 6ms
+× R1b per-target results and derived outcome > keeps versions out of lifecycle results 1ms
+Tests  2 failed | 44 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

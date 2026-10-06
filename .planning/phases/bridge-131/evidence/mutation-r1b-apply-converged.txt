@@ -1,0 +1,8 @@
+mutation r1b-apply-converged: src/agent/agent-management.ts
+-     if (converged !== (result.outcome === 'ok')) {
++     if (false) {
+result: KILLED
+× R1b per-target results and derived outcome > rejects apply-config success without applied version 5ms
+× R1b per-target results and derived outcome > rejects apply-config failure claiming the requested version 0ms
+Tests  2 failed | 44 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

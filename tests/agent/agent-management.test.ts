@@ -52,6 +52,7 @@ describe('R1b actions and request identity', () => {
   it.each([
     [{ action: 'restart', requestId: 'req-00000001' }, { action: 'stop', requestId: 'req-00000001' }],
     [{ action: 'stop', requestId: 'req-00000001' }, { action: 'stop', requestId: 'req-00000001', targets: [telegram] }],
+    [{ action: 'stop', requestId: 'req-00000001', targets: [runtime] }, { action: 'stop', requestId: 'req-00000001', targets: [telegram] }],
     [{ action: 'apply-config', requestId: 'req-00000001', desiredVersion: 3 }, { action: 'apply-config', requestId: 'req-00000001', desiredVersion: 4 }],
   ])('flags a different command under the same key', (left, right) => {
     expect(sameAgentCommand(AgentManagementCommandSchema.parse(left), AgentManagementCommandSchema.parse(right))).toBe(false);
@@ -102,6 +103,7 @@ describe('R1b per-target results and derived outcome', () => {
   it('rejects duplicate target results and an empty result list', () => {
     expect(AgentManagementCommandResultSchema.safeParse({ ...base, action: 'stop', outcome: 'ok', results: [ok(runtime), ok(runtime)] }).success).toBe(false);
     expect(AgentManagementCommandResultSchema.safeParse({ ...base, action: 'stop', outcome: 'ok', results: [] }).success).toBe(false);
+    expect(AgentManagementCommandResultSchema.safeParse({ ...base, action: 'stop', outcome: 'error', results: [] }).success).toBe(false);
   });
 
   it('applies config only when every target converged', () => {

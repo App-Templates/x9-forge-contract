@@ -1,0 +1,9 @@
+mutation r1b-derive-partial: src/agent/agent-management.ts
+-   if (okCount === 0) return 'error';
+  return 'partial';
++   return okCount === 0 ? 'error' : 'ok';
+result: KILLED
+× R1b per-target results and derived outcome > derives the overall outcome 6ms
+× R1b per-target results and derived outcome > derives the overall outcome 1ms
+× R1b per-target results and derived outcome > accepts a lifecycle result whose outcome matches its targets 2ms
+× R1b per-target results and derived outcome > never reports a global success over a failed target 1ms

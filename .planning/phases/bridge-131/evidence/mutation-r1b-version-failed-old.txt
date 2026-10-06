@@ -1,0 +1,8 @@
+mutation r1b-version-failed-old: src/agent/agent-management.ts
+- if (versions.failed.version <= (versions.applied ?? 0)) {
++ if (false) {
+result: KILLED
+× R1b versions > rejects failure not newer than applied 5ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b versions > rejects failure not newer than applied

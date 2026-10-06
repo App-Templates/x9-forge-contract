@@ -1,0 +1,5 @@
+mutation r1b-same-cmd-targets: src/agent/agent-management.ts
+- return left.length === right.length && left.every((key, index) => key === right[index]);
++ return left.length === right.length;
+result: SURVIVED
+Tests  46 passed (46)

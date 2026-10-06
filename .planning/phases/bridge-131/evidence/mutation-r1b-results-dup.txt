@@ -1,0 +1,8 @@
+mutation r1b-results-dup: src/agent/agent-management.ts
+-   addDuplicateTargetIssues(result.results.map((entry) => entry.target), ctx, 'results');
++ 
+result: KILLED
+× R1b per-target results and derived outcome > rejects duplicate target results and an empty result list 5ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b per-target results and derived outcome > rejects duplicate target results and an empty result list

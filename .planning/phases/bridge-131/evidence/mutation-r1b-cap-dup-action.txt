@@ -1,0 +1,8 @@
+mutation r1b-cap-dup-action: src/agent/agent-management.ts
+-   if (new Set(entry.actions).size !== entry.actions.length) {
++   if (false) {
+result: KILLED
+× R1b management state per target > rejects duplicate actions 4ms
+Tests  1 failed | 45 passed (46)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b management state per target > rejects duplicate actions
