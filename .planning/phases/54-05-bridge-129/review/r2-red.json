@@ -7,119 +7,36 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-qor1nv9o",
   "tests": [
-    {
-      "name": "review R2 reviewer name and photos accepts bounded optional attachments 0",
-      "status": "failed"
-    },
-    {
-      "name": "review R2 reviewer name and photos accepts bounded optional attachments 1",
-      "status": "failed"
-    },
-    {
-      "name": "review R2 reviewer name and photos accepts bounded optional attachments 2",
-      "status": "failed"
-    },
-    {
-      "name": "review R2 reviewer name and photos shares name and attachments with approval feedback",
-      "status": "failed"
-    },
-    {
-      "name": "review R2 reviewer name and photos accepts the reviewer name at its limit",
-      "status": "failed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 0",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 1",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 2",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 3",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 4",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 5",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 6",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 7",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 8",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 9",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 10",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos rejects invalid reviewer or attachments 11",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos declares whether photos are supported false",
-      "status": "failed"
-    },
-    {
-      "name": "review R2 reviewer name and photos declares whether photos are supported true",
-      "status": "failed"
-    },
-    {
-      "name": "review R2 reviewer name and photos requires an explicit boolean attachments declaration 0",
-      "status": "passed"
-    },
-    {
-      "name": "review R2 reviewer name and photos requires an explicit boolean attachments declaration 1",
-      "status": "passed"
-    }
+    ["review R2 reviewer name and photos accepts bounded optional attachments 0", "failed"],
+    ["review R2 reviewer name and photos accepts bounded optional attachments 1", "failed"],
+    ["review R2 reviewer name and photos accepts bounded optional attachments 2", "failed"],
+    ["review R2 reviewer name and photos shares name and attachments with approval feedback", "failed"],
+    ["review R2 reviewer name and photos accepts the reviewer name at its limit", "failed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 0", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 1", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 2", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 3", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 4", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 5", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 6", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 7", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 8", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 9", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 10", "passed"],
+    ["review R2 reviewer name and photos rejects invalid reviewer or attachments 11", "passed"],
+    ["review R2 reviewer name and photos declares whether photos are supported false", "failed"],
+    ["review R2 reviewer name and photos declares whether photos are supported true", "failed"],
+    ["review R2 reviewer name and photos requires an explicit boolean attachments declaration 0", "passed"],
+    ["review R2 reviewer name and photos requires an explicit boolean attachments declaration 1", "passed"]
   ],
   "failedTests": [
-    {
-      "name": "review R2 reviewer name and photos accepts bounded optional attachments 0",
-      "assertion": true
-    },
-    {
-      "name": "review R2 reviewer name and photos accepts bounded optional attachments 1",
-      "assertion": true
-    },
-    {
-      "name": "review R2 reviewer name and photos accepts bounded optional attachments 2",
-      "assertion": true
-    },
-    {
-      "name": "review R2 reviewer name and photos shares name and attachments with approval feedback",
-      "assertion": true
-    },
-    {
-      "name": "review R2 reviewer name and photos accepts the reviewer name at its limit",
-      "assertion": true
-    },
-    {
-      "name": "review R2 reviewer name and photos declares whether photos are supported false",
-      "assertion": true
-    },
-    {
-      "name": "review R2 reviewer name and photos declares whether photos are supported true",
-      "assertion": true
-    }
-  ]
+    {"name": "review R2 reviewer name and photos accepts bounded optional attachments 0", "assertion": true},
+    {"name": "review R2 reviewer name and photos accepts bounded optional attachments 1", "assertion": true},
+    {"name": "review R2 reviewer name and photos accepts bounded optional attachments 2", "assertion": true},
+    {"name": "review R2 reviewer name and photos shares name and attachments with approval feedback", "assertion": true},
+    {"name": "review R2 reviewer name and photos accepts the reviewer name at its limit", "assertion": true},
+    {"name": "review R2 reviewer name and photos declares whether photos are supported false", "assertion": true},
+    {"name": "review R2 reviewer name and photos declares whether photos are supported true", "assertion": true}
+  ],
+  "originalEvidence": {"sha256": "d73244e42fe4adeef80405efd88432afe2c80b0eb7d46895b52eefd9a208b77c", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/r2-red.json", "gitHistory": "846311c and individual review commits"}
 }

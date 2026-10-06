@@ -7,287 +7,78 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-mdqn4wf0",
   "tests": [
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: label",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: group",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: unit",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: description",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: explanation",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: reference",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: parameter key",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: string default",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: option value",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: option label",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: number of options",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: declared parameters",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: resolved parameters",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output id",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output kind",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: capability id",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output title",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output summary",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: reviewer id",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback id",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback output id",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: source id",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: comment",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output description",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: field label",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: metric unit",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output kinds",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output fields",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: declared metrics",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: points",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output page",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback page",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: trend page",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (a)",
-      "status": "failed"
-    },
-    {
-      "name": "review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (\u00e9)",
-      "status": "failed"
-    }
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: label", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: group", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: unit", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: description", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: explanation", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: reference", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: parameter key", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: string default", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: option value", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: option label", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: number of options", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: declared parameters", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: resolved parameters", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output id", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output kind", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: capability id", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output title", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output summary", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: reviewer id", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: feedback id", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: feedback output id", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: source id", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: comment", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output description", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: field label", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: metric unit", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output kinds", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output fields", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: declared metrics", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: points", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: output page", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: feedback page", "failed"],
+    ["review R3 bounded declarations and pages accepts the limit and rejects one above: trend page", "failed"],
+    ["review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (a)", "failed"],
+    ["review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (é)", "failed"]
   ],
   "failedTests": [
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: label",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: group",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: unit",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: description",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: explanation",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: reference",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: parameter key",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: string default",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: option value",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: option label",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: number of options",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: declared parameters",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: resolved parameters",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output id",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output kind",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: capability id",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output title",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output summary",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: reviewer id",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback id",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback output id",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: source id",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: comment",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output description",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: field label",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: metric unit",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output kinds",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output fields",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: declared metrics",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: points",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output page",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback page",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages accepts the limit and rejects one above: trend page",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (a)",
-      "assertion": true
-    },
-    {
-      "name": "review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (\u00e9)",
-      "assertion": true
-    }
-  ]
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: label", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: group", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: unit", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: description", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: explanation", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: reference", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: parameter key", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: string default", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: option value", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: option label", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: number of options", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: declared parameters", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: resolved parameters", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output id", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output kind", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: capability id", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output title", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output summary", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: reviewer id", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback id", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback output id", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: source id", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: comment", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output description", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: field label", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: metric unit", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output kinds", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output fields", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: declared metrics", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: points", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: output page", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: feedback page", "assertion": true},
+    {"name": "review R3 bounded declarations and pages accepts the limit and rejects one above: trend page", "assertion": true},
+    {"name": "review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (a)", "assertion": true},
+    {"name": "review R3 bounded declarations and pages bounds content to 64 KiB of serialized UTF-8 JSON (é)", "assertion": true}
+  ],
+  "originalEvidence": {"sha256": "278ccc8d118c418ae7101160b5896b19db22da9e82bddd3f05b9f6db8a5c669b", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/r3-red.json", "gitHistory": "846311c and individual review commits"}
 }

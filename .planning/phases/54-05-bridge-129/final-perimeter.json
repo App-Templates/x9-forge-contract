@@ -131,5 +131,6 @@
   ],
   "productionDiffSinceTask4Bytes": 0,
   "cleanDistFiles": 1024,
-  "cleanDistStillIdentical": true
+  "cleanDistStillIdentical": true,
+  "originalEvidence": {"sha256": "e88738838932c3b231f2491e77099c06cd712e5e987686aa50fd5b8ad72756fb", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/final-perimeter.json", "gitHistory": "846311c and individual review commits"}
 }

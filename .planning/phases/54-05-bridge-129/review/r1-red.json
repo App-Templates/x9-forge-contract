@@ -7,95 +7,30 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-ke73wy5a",
   "tests": [
-    {
-      "name": "review R1 feedback kinds exports kind rating",
-      "status": "failed"
-    },
-    {
-      "name": "review R1 feedback kinds exports kind approval",
-      "status": "failed"
-    },
-    {
-      "name": "review R1 feedback kinds retains rating boundary 1",
-      "status": "failed"
-    },
-    {
-      "name": "review R1 feedback kinds retains rating boundary 10",
-      "status": "failed"
-    },
-    {
-      "name": "review R1 feedback kinds retains approval approved",
-      "status": "failed"
-    },
-    {
-      "name": "review R1 feedback kinds retains approval changes_requested",
-      "status": "failed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 0",
-      "status": "failed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 1",
-      "status": "passed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 2",
-      "status": "passed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 3",
-      "status": "passed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 4",
-      "status": "passed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 5",
-      "status": "passed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 6",
-      "status": "passed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 7",
-      "status": "passed"
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 8",
-      "status": "passed"
-    }
+    ["review R1 feedback kinds exports kind rating", "failed"],
+    ["review R1 feedback kinds exports kind approval", "failed"],
+    ["review R1 feedback kinds retains rating boundary 1", "failed"],
+    ["review R1 feedback kinds retains rating boundary 10", "failed"],
+    ["review R1 feedback kinds retains approval approved", "failed"],
+    ["review R1 feedback kinds retains approval changes_requested", "failed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 0", "failed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 1", "passed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 2", "passed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 3", "passed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 4", "passed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 5", "passed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 6", "passed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 7", "passed"],
+    ["review R1 feedback kinds rejects wrong feedback branch 8", "passed"]
   ],
   "failedTests": [
-    {
-      "name": "review R1 feedback kinds exports kind rating",
-      "assertion": true
-    },
-    {
-      "name": "review R1 feedback kinds exports kind approval",
-      "assertion": true
-    },
-    {
-      "name": "review R1 feedback kinds retains rating boundary 1",
-      "assertion": true
-    },
-    {
-      "name": "review R1 feedback kinds retains rating boundary 10",
-      "assertion": true
-    },
-    {
-      "name": "review R1 feedback kinds retains approval approved",
-      "assertion": true
-    },
-    {
-      "name": "review R1 feedback kinds retains approval changes_requested",
-      "assertion": true
-    },
-    {
-      "name": "review R1 feedback kinds rejects wrong feedback branch 0",
-      "assertion": true
-    }
-  ]
+    {"name": "review R1 feedback kinds exports kind rating", "assertion": true},
+    {"name": "review R1 feedback kinds exports kind approval", "assertion": true},
+    {"name": "review R1 feedback kinds retains rating boundary 1", "assertion": true},
+    {"name": "review R1 feedback kinds retains rating boundary 10", "assertion": true},
+    {"name": "review R1 feedback kinds retains approval approved", "assertion": true},
+    {"name": "review R1 feedback kinds retains approval changes_requested", "assertion": true},
+    {"name": "review R1 feedback kinds rejects wrong feedback branch 0", "assertion": true}
+  ],
+  "originalEvidence": {"sha256": "532f00e8216197c2d4b3938564b5c5a12cae1daaede10a34ffda72cb33d9e668", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/r1-red.json", "gitHistory": "846311c and individual review commits"}
 }

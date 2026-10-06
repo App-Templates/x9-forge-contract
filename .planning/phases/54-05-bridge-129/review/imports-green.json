@@ -7,70 +7,23 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-ceo_7b9t",
   "tests": [
-    {
-      "name": "additive B1/B7 declarations manifest retains an old payload exactly",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest retains B1 parameters",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest retains B7 presentation",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest validates B1 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest validates B7 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry retains an old payload exactly",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry retains B1 parameters",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry retains B7 presentation",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry validates B1 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry validates B7 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations the existing manifest endpoint carries the optional declarations",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths",
-      "status": "passed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM",
-      "status": "passed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS",
-      "status": "passed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM",
-      "status": "passed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS",
-      "status": "passed"
-    }
+    ["additive B1/B7 declarations manifest retains an old payload exactly", "passed"],
+    ["additive B1/B7 declarations manifest retains B1 parameters", "passed"],
+    ["additive B1/B7 declarations manifest retains B7 presentation", "passed"],
+    ["additive B1/B7 declarations manifest validates B1 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations manifest validates B7 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations registry retains an old payload exactly", "passed"],
+    ["additive B1/B7 declarations registry retains B1 parameters", "passed"],
+    ["additive B1/B7 declarations registry retains B7 presentation", "passed"],
+    ["additive B1/B7 declarations registry validates B1 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations registry validates B7 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations the existing manifest endpoint carries the optional declarations", "passed"],
+    ["additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths", "passed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM", "passed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS", "passed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM", "passed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS", "passed"]
   ],
-  "failures": []
+  "failures": [],
+  "originalEvidence": {"sha256": "67dbf0d0b88639b8b8c3b0bd708393084345e368852e449925b3032845f18717", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/imports-green.json", "gitHistory": "846311c and individual review commits"}
 }

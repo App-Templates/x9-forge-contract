@@ -7,182 +7,51 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-47ydxkln",
   "tests": [
-    {
-      "name": "v1.29 additive distribution uses the coordinated 1.29.0 proposal version",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at .",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./auth",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./agent",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./capability",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./voice",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./capability/stt",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./capability/tts",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./capability/voice-live",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./capability/ricerca",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./capability/lab",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./http",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./memory",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./messaging",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./model-router",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./rag",
-      "status": "passed"
-    },
-    {
-      "name": "v1.29 additive distribution preserves old targets and symbols at ./vault",
-      "status": "passed"
-    },
-    {
-      "name": "registers new parameters build/export targets together",
-      "status": "passed"
-    },
-    {
-      "name": "registers new presentation build/export targets together",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed parameters payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed presentation payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed lab payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports ESM preserves reviewed ricerca payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports ESM exports the lab spend route and queued tool names",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed parameters payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed presentation payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed lab payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports CJS preserves reviewed ricerca payloads",
-      "status": "passed"
-    },
-    {
-      "name": "reviewed 1.29 distribution consumed through public exports CJS exports the lab spend route and queued tool names",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import root subpath: re-exports model-router (ModelTierSchema)",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import auth subpath: header constants are well-known string literals",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import agent subpath: AgentIdSchema is a Zod schema with .parse",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import capability subpath: CapabilityManifestSchema is a Zod schema",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import voice subpath: VoiceCallIntentSchema is a Zod schema",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import capability/stt subpath (Phase 18.1 back-filled): port + request schema",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import capability/tts subpath (Phase 50): provider enum + elevenlabs default",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import capability/voice-live subpath (Phase 50): port + request schema + provider enum + endpoint",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import capability/ricerca and capability/lab subpaths (Phase 54): schemas, tool names, per-agent path",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import http subpath: vaultResolveContract is a contract object",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import memory subpath: MEMORY_CORRECT_PATH literal preserved",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import model-router subpath: ModelTierSchema is a Zod schema",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import rag subpath: RagQueryRequestSchema is a Zod schema",
-      "status": "passed"
-    },
-    {
-      "name": "ESM smoke — every public bridge subpath resolves via import vault subpath: VaultTierSchema is a Zod schema (value-level export)",
-      "status": "passed"
-    },
-    {
-      "name": "MVP turn-leading exports retain their payloads in the built ESM package",
-      "status": "passed"
-    }
+    ["v1.29 additive distribution uses the coordinated 1.29.0 proposal version", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at .", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./auth", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./agent", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./voice", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/stt", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/tts", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/voice-live", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/ricerca", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./capability/lab", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./http", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./memory", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./messaging", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./model-router", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./rag", "passed"],
+    ["v1.29 additive distribution preserves old targets and symbols at ./vault", "passed"],
+    ["registers new parameters build/export targets together", "passed"],
+    ["registers new presentation build/export targets together", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed parameters payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed presentation payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed lab payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM preserves reviewed ricerca payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports ESM exports the lab spend route and queued tool names", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed parameters payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed presentation payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed lab payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS preserves reviewed ricerca payloads", "passed"],
+    ["reviewed 1.29 distribution consumed through public exports CJS exports the lab spend route and queued tool names", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import root subpath: re-exports model-router (ModelTierSchema)", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import auth subpath: header constants are well-known string literals", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import agent subpath: AgentIdSchema is a Zod schema with .parse", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import capability subpath: CapabilityManifestSchema is a Zod schema", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import voice subpath: VoiceCallIntentSchema is a Zod schema", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import capability/stt subpath (Phase 18.1 back-filled): port + request schema", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import capability/tts subpath (Phase 50): provider enum + elevenlabs default", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import capability/voice-live subpath (Phase 50): port + request schema + provider enum + endpoint", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import capability/ricerca and capability/lab subpaths (Phase 54): schemas, tool names, per-agent path", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import http subpath: vaultResolveContract is a contract object", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import memory subpath: MEMORY_CORRECT_PATH literal preserved", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import model-router subpath: ModelTierSchema is a Zod schema", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import rag subpath: RagQueryRequestSchema is a Zod schema", "passed"],
+    ["ESM smoke — every public bridge subpath resolves via import vault subpath: VaultTierSchema is a Zod schema (value-level export)", "passed"],
+    ["MVP turn-leading exports retain their payloads in the built ESM package", "passed"]
   ],
-  "failures": []
+  "failures": [],
+  "originalEvidence": {"sha256": "dcf1980c0353b541d36aad9b8719516148d3a87efccc8b741d836b2f82fcc500", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/distribution-green.json", "gitHistory": "846311c and individual review commits"}
 }

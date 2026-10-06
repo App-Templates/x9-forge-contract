@@ -7,414 +7,105 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-p99h87ol",
   "tests": [
-    {
-      "name": "additive B1/B7 declarations manifest retains an old payload exactly",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest retains B1 parameters",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest retains B7 presentation",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest validates B1 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations manifest validates B7 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry retains an old payload exactly",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry retains B1 parameters",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry retains B7 presentation",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry validates B1 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations registry validates B7 rather than silently stripping it",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations the existing manifest endpoint carries the optional declarations",
-      "status": "passed"
-    },
-    {
-      "name": "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths",
-      "status": "failed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM",
-      "status": "passed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS",
-      "status": "passed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM",
-      "status": "passed"
-    },
-    {
-      "name": "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters accepts number without choosing a product default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters accepts integer without choosing a product default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters accepts boolean false without choosing a product default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters accepts string without choosing a product default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters accepts enum without choosing a product default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters accepts required choice without choosing a product default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters accepts proposed next apply without choosing a product default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects invalid key",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty label",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty description",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty explanation",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty group",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty unit",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects unknown type",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects unknown status",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects missing reference",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects unknown application time",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects missing spend flag",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects extra definition field",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects minimum above maximum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects default below minimum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects default above maximum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects wrong default type",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects nonfinite minimum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects nonfinite maximum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects nonfinite default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects fractional integer value",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects fractional integer bound",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects string length below minimum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects string length above maximum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects string bounds reversed",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects fractional string bound",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects negative string bound",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects wrong boolean default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty enum",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects duplicate enum options",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects unknown enum default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty enum value",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty enum label",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects extra enum option field",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters retains platform default provenance",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters retains agent override provenance",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters retains required choice provenance",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects wrong string chosen type",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects wrong boolean chosen type",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects unknown enum choice",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects fractional chosen integer",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects chosen string too short",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects chosen string too long",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects choice state zero is still a value",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects choice state false default exists",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects unknown origin",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects missing chosen value",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects chosen value outside constraints",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects default source without declared default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects default source disagrees with default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects choice state with value",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects choice state hides default",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects extra resolved field",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters declares spend availability and parameter metadata without agent configuration",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects repeated parameter key",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects extra declaration field",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects missing capability spend flag",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects missing ledger flag",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters scopes values to one agent and one capability with an explicit version",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects bad agent id",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects missing agent id",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects empty capability",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects zero version",
-      "status": "failed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects fractional version",
-      "status": "failed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects repeated agent parameter key",
-      "status": "passed"
-    },
-    {
-      "name": "B1 declared capability parameters rejects extra agent field",
-      "status": "passed"
-    },
-    {
-      "name": "public parameter value rejects nonprimitive/nonfinite input 0",
-      "status": "passed"
-    },
-    {
-      "name": "public parameter value rejects nonprimitive/nonfinite input 1",
-      "status": "passed"
-    },
-    {
-      "name": "public parameter value rejects nonprimitive/nonfinite input 2",
-      "status": "passed"
-    },
-    {
-      "name": "public parameter value rejects nonprimitive/nonfinite input 3",
-      "status": "passed"
-    },
-    {
-      "name": "public parameter value rejects nonprimitive/nonfinite input 4",
-      "status": "passed"
-    },
-    {
-      "name": "zero and false platform defaults remain resolved, never missing",
-      "status": "passed"
-    },
-    {
-      "name": "each parameter variant rejects extra fields 0",
-      "status": "passed"
-    },
-    {
-      "name": "each parameter variant rejects extra fields 1",
-      "status": "passed"
-    },
-    {
-      "name": "each parameter variant rejects extra fields 2",
-      "status": "passed"
-    },
-    {
-      "name": "each parameter variant rejects extra fields 3",
-      "status": "passed"
-    }
+    ["additive B1/B7 declarations manifest retains an old payload exactly", "passed"],
+    ["additive B1/B7 declarations manifest retains B1 parameters", "passed"],
+    ["additive B1/B7 declarations manifest retains B7 presentation", "passed"],
+    ["additive B1/B7 declarations manifest validates B1 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations manifest validates B7 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations registry retains an old payload exactly", "passed"],
+    ["additive B1/B7 declarations registry retains B1 parameters", "passed"],
+    ["additive B1/B7 declarations registry retains B7 presentation", "passed"],
+    ["additive B1/B7 declarations registry validates B1 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations registry validates B7 rather than silently stripping it", "passed"],
+    ["additive B1/B7 declarations the existing manifest endpoint carries the optional declarations", "passed"],
+    ["additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths", "failed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM", "passed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS", "passed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM", "passed"],
+    ["built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS", "passed"],
+    ["B1 declared capability parameters accepts number without choosing a product default", "passed"],
+    ["B1 declared capability parameters accepts integer without choosing a product default", "passed"],
+    ["B1 declared capability parameters accepts boolean false without choosing a product default", "passed"],
+    ["B1 declared capability parameters accepts string without choosing a product default", "passed"],
+    ["B1 declared capability parameters accepts enum without choosing a product default", "passed"],
+    ["B1 declared capability parameters accepts required choice without choosing a product default", "passed"],
+    ["B1 declared capability parameters accepts proposed next apply without choosing a product default", "passed"],
+    ["B1 declared capability parameters rejects invalid key", "passed"],
+    ["B1 declared capability parameters rejects empty label", "passed"],
+    ["B1 declared capability parameters rejects empty description", "passed"],
+    ["B1 declared capability parameters rejects empty explanation", "passed"],
+    ["B1 declared capability parameters rejects empty group", "passed"],
+    ["B1 declared capability parameters rejects empty unit", "passed"],
+    ["B1 declared capability parameters rejects unknown type", "passed"],
+    ["B1 declared capability parameters rejects unknown status", "passed"],
+    ["B1 declared capability parameters rejects missing reference", "passed"],
+    ["B1 declared capability parameters rejects unknown application time", "passed"],
+    ["B1 declared capability parameters rejects missing spend flag", "passed"],
+    ["B1 declared capability parameters rejects extra definition field", "passed"],
+    ["B1 declared capability parameters rejects minimum above maximum", "passed"],
+    ["B1 declared capability parameters rejects default below minimum", "passed"],
+    ["B1 declared capability parameters rejects default above maximum", "passed"],
+    ["B1 declared capability parameters rejects wrong default type", "passed"],
+    ["B1 declared capability parameters rejects nonfinite minimum", "passed"],
+    ["B1 declared capability parameters rejects nonfinite maximum", "passed"],
+    ["B1 declared capability parameters rejects nonfinite default", "passed"],
+    ["B1 declared capability parameters rejects fractional integer value", "passed"],
+    ["B1 declared capability parameters rejects fractional integer bound", "passed"],
+    ["B1 declared capability parameters rejects string length below minimum", "passed"],
+    ["B1 declared capability parameters rejects string length above maximum", "passed"],
+    ["B1 declared capability parameters rejects string bounds reversed", "passed"],
+    ["B1 declared capability parameters rejects fractional string bound", "passed"],
+    ["B1 declared capability parameters rejects negative string bound", "passed"],
+    ["B1 declared capability parameters rejects wrong boolean default", "passed"],
+    ["B1 declared capability parameters rejects empty enum", "passed"],
+    ["B1 declared capability parameters rejects duplicate enum options", "passed"],
+    ["B1 declared capability parameters rejects unknown enum default", "passed"],
+    ["B1 declared capability parameters rejects empty enum value", "passed"],
+    ["B1 declared capability parameters rejects empty enum label", "passed"],
+    ["B1 declared capability parameters rejects extra enum option field", "passed"],
+    ["B1 declared capability parameters retains platform default provenance", "passed"],
+    ["B1 declared capability parameters retains agent override provenance", "passed"],
+    ["B1 declared capability parameters retains required choice provenance", "passed"],
+    ["B1 declared capability parameters rejects wrong string chosen type", "passed"],
+    ["B1 declared capability parameters rejects wrong boolean chosen type", "passed"],
+    ["B1 declared capability parameters rejects unknown enum choice", "passed"],
+    ["B1 declared capability parameters rejects fractional chosen integer", "passed"],
+    ["B1 declared capability parameters rejects chosen string too short", "passed"],
+    ["B1 declared capability parameters rejects chosen string too long", "passed"],
+    ["B1 declared capability parameters rejects choice state zero is still a value", "passed"],
+    ["B1 declared capability parameters rejects choice state false default exists", "passed"],
+    ["B1 declared capability parameters rejects unknown origin", "passed"],
+    ["B1 declared capability parameters rejects missing chosen value", "passed"],
+    ["B1 declared capability parameters rejects chosen value outside constraints", "passed"],
+    ["B1 declared capability parameters rejects default source without declared default", "passed"],
+    ["B1 declared capability parameters rejects default source disagrees with default", "passed"],
+    ["B1 declared capability parameters rejects choice state with value", "passed"],
+    ["B1 declared capability parameters rejects choice state hides default", "passed"],
+    ["B1 declared capability parameters rejects extra resolved field", "passed"],
+    ["B1 declared capability parameters declares spend availability and parameter metadata without agent configuration", "passed"],
+    ["B1 declared capability parameters rejects repeated parameter key", "passed"],
+    ["B1 declared capability parameters rejects extra declaration field", "passed"],
+    ["B1 declared capability parameters rejects missing capability spend flag", "passed"],
+    ["B1 declared capability parameters rejects missing ledger flag", "passed"],
+    ["B1 declared capability parameters scopes values to one agent and one capability with an explicit version", "passed"],
+    ["B1 declared capability parameters rejects bad agent id", "passed"],
+    ["B1 declared capability parameters rejects missing agent id", "passed"],
+    ["B1 declared capability parameters rejects empty capability", "passed"],
+    ["B1 declared capability parameters rejects zero version", "failed"],
+    ["B1 declared capability parameters rejects fractional version", "failed"],
+    ["B1 declared capability parameters rejects repeated agent parameter key", "passed"],
+    ["B1 declared capability parameters rejects extra agent field", "passed"],
+    ["public parameter value rejects nonprimitive/nonfinite input 0", "passed"],
+    ["public parameter value rejects nonprimitive/nonfinite input 1", "passed"],
+    ["public parameter value rejects nonprimitive/nonfinite input 2", "passed"],
+    ["public parameter value rejects nonprimitive/nonfinite input 3", "passed"],
+    ["public parameter value rejects nonprimitive/nonfinite input 4", "passed"],
+    ["zero and false platform defaults remain resolved, never missing", "passed"],
+    ["each parameter variant rejects extra fields 0", "passed"],
+    ["each parameter variant rejects extra fields 1", "passed"],
+    ["each parameter variant rejects extra fields 2", "passed"],
+    ["each parameter variant rejects extra fields 3", "passed"]
   ],
-  "failures": [
-    {
-      "name": "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths",
-      "assertion": true,
-      "message": "AssertionError: expected '/internal/capability/agents/samira/sp…' to be '/internal/capability/agents/samira/co…' // Object.is equality\n    at /private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-r6-path-version-hyhtgcjk/tests/capability/declarations.test.ts:43:42\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vites"
-    },
-    {
-      "name": "B1 declared capability parameters rejects zero version",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-r6-path-version-hyhtgcjk/tests/capability/parameters.test.ts:123:80\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downl"
-    },
-    {
-      "name": "B1 declared capability parameters rejects fractional version",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /private/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-r6-path-version-hyhtgcjk/tests/capability/parameters.test.ts:123:80\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downl"
-    }
-  ]
+  "failures": [{"name": "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths", "assertion": true, "message": "AssertionError: expected '/internal/capability/agents/samira/sp…' to be '/internal/capability/agents/samira/co…' // Object.is equality"}, {"name": "B1 declared capability parameters rejects zero version", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"}, {"name": "B1 declared capability parameters rejects fractional version", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"}],
+  "originalEvidence": {"sha256": "73789b2c6b14667705df4e8185c2acbd64be8073670280975df1cb4546120c64", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/r6-red.json", "gitHistory": "846311c and individual review commits"}
 }

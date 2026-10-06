@@ -1,115 +1,115 @@
-# BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 14:15 (06/10/2026)
+# BRIDGE-129 · proposta 1.29.0 corretta
+Ultimo aggiornamento: 14:37 (06/10/2026)
 
-Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
-Stato: CORREZIONI RIPRESE per RIPARTITE 13:58 della coordinatrice. Proposta 1.29.0 implementata e testata localmente.
-Nessun consumer aggiornato, tag, push, merge o rilascio. Nessuna verifica dal vivo.
+Worktree: /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9
+Branch: codex/bridge-129-params-outputs. Base: d8ef67f (1.28.0).
+Stato: R1–R7 e lab implementati e testati; verifiche finali in corso. Non ancora CONSEGNATO.
+Nessun push, merge, tag, deploy, consumer aggiornato o verifica dal vivo.
 
-## Compiti e commit
+## Fonti e autorizzazioni
 
-| Task | Stato | Commit | Prova |
-| --- | --- | --- | --- |
-| Preparazione | piano e SUMMARY iniziale | e3d7a2a | fonti e perimetro letti |
-| 1 B1 parametri | implementato e testato | 6730dfb | 0/63 → 63/63, tipi/lint OK |
-| 2 B7 uscite, feedback, andamento | implementato e testato | 10e5e53 | 0/77 → 140/140 B1+B7, tipi/lint OK |
-| 3 dichiarazioni, export, smoke | implementato e testato | 377d97b | 3/16 → 16/16; regressioni 209/209; CJS 31/36 → 36/36 |
-| 4 versione e qualità | verificato | 3ecdee0 | 16/17 → 17/17; suite 1140/1140 + CJS 36/36; build pulita identica |
-| 5 mutazioni e prove finali | 133/133 verificate in lotti; riesecuzione unica SALTATA | 846311c | 194/194 nuovi test visti rossi; suite finale 1161/1161 + CJS 36/36 |
+Piano BRIDGE-129-PLAN.md e risposta completa Samira di revisione-bridge-129-20261006, trascritta in BRIDGE-129-REVIEW.md.
+Per lab: risposta completa bridge-129-lab-campi-20261006, decisioni della coordinatrice 13:35/13:40.
+La sola eccezione non additiva riguarda lab non ancora consumato: models/budget obbligatori e ingest asincrono.
+Documentata nel CHANGELOG. Nessun campo/export precedente di altri contratti rimosso o rinominato.
 
-## Contratti e copertura
+PAUSA SUBITO rispettata: R1–R4 già verdi e committate, nessun runner rimasto attivo. Ripresa soltanto dopo RIPARTITE.
+I posti li prende/rilascia la coordinatrice; non modifico ~/.claude. Un solo comando pesante alla volta.
 
-| Famiglia | Fonti e comportamento | Test nuovi finali |
+## Commit per compito
+
+| Compito | Commit | Prova prima → dopo |
 | --- | --- | --- |
-| B1 parameters | PIANO-SVILUPPI B1, HANDOFF D1: etichette e descrizioni, cinque tipi e vincoli, provenienza, scelta esplicita, deciso/proposto, riferimento, applicazione, consumo e ledger | 82/82 |
-| B7 presentation | PIANO-SVILUPPI B7, FORGE-REDESIGN §7.3, VISTA-PROGETTO §0/2: uscite per agente, JSON di dominio, fonte distinta dal revisore, voto intero 1–10, metriche/unità e serie giornaliere | 77/77 |
-| Manifest/registry e smoke | Dichiarazioni facoltative, payload precedenti identici, autenticazione v1.28 invariata, consumo reale delle nuove entrate ESM/CJS | 16/16 |
-| Distribuzione | Versione proposta 1.29.0, due nuove mappe di export/build, 16/16 sottopercorsi precedenti e tutti i loro simboli pubblici reali conservati in ESM/CJS | 19/19 |
+| Piano iniziale | e3d7a2a | fonti/perimetro |
+| B1 iniziale | 6730dfb | 0/63 → 63/63 |
+| B7 iniziale | 10e5e53 | 0/77 → 140/140 |
+| Dichiarazioni/export iniziali | 377d97b | 3/16 → 16/16; CJS 31/36 → 36/36 |
+| Versione/qualità iniziali | 3ecdee0 | 16/17 → 17/17; 1140/1140 |
+| Prima consegna | 846311c | 1161/1161 + CJS 36/36; 133/133 mutazioni aggregate in due giri |
+| R1 rating/approval | dfd322a | 8/15 → 108/108 |
+| R2 nome/foto | 461ab85 | 14/21 → 129/129 |
+| R3 limiti | 0925e50 | 0/35 → 252/252 |
+| R4 liste/pattern/optional | acdae4e | 29/37 → 283/283 |
+| R5 editableBy | 80c478c | 7/23 → 306/306 |
+| R6 JSDoc key/version/PUT | 176a4b7 | 95/98 nelle copie → 98/98 sugli originali |
+| R7 tipi e scale | 2eee203 | 11/26 → 332/332 |
+| Lab models/budget | 94b2e36 | 3/40 → 73/73 |
+| Lab spesa | f63e842 | 2/11 → 84/84 |
+| Lab ingest/status/errori | 754fa52 | 6/35 → 119/119 |
+| Import z per primo | 4c7ab3d | regressioni 16/16; solo stile |
+| Ripristino script test | 4a9b402 | isola la modifica precedente |
+| Limiti script test, separati | 4b47560 | solo due worker/60 s; suite finale usa lo script |
+| Dist ESM/CJS aggiornata | 2f66b8b | 0/10 → 44/44; build/dts e tipi |
+| Report compatti | questo commit (checkpoint) | 45/45 file convertiti; originali e hash conservati |
+| Controlli isolati e giro finale | in corso | primo completo 286/286; secondo completo 299 avviato |
 
-Totale nuovi: 194/194 verdi, tutti visti rossi. Base precedente: 967/967; finale: 1161/1161 in 82/82 file.
-Smoke CJS separato: 36/36. I test sono sintetici locali; non attestano l'uso dei contratti da parte dei servizi.
+I numeri prima del simbolo → sono test passati, con il denominatore dell'intero lotto. Le prove rosse registrano
+anche il numero dei falliti e il loro nome. I verdi di regressione comprendono test di compiti precedenti:
+non si sommano per contare test nuovi.
+
+## Contratti → decisione → stati
+
+| Famiglia | Decisione/fonti | Comportamento verificato |
+| --- | --- | --- |
+| B1 metadata | B1, HANDOFF D1/D8/D10, R5/R6 | chiave nel corpo config per agente; versione della stessa config; optional ed editableBy obbligatori; superadmin/owner |
+| B1 valori | R3/R4 | number/integer/string/boolean/enum/string_list; limiti, pattern, opzioni; default dichiarato, override o needs_choice; array confrontati per contenuto |
+| B7 feedback | VISTA §2/3/6/7, R1/R2 | rating 1–10 oppure approval approved/changes_requested; fonte project_view/domain_app, reviewerId e reviewerName; foto opzionali HTTP(S) |
+| B7 uscite/andamento | B7, VISTA §7, R3/R7 | JSON di dominio limitato; tipo campo esportato; min/max facoltativi solo number; scala finita e ordinata; serie giornaliere per agente |
+| Lab config | decisione Samira | digest obbligatorio, read facoltativo; budget e timezone obbligatori; ingest ceiling ≤ dailyUsd; nessun default |
+| Lab spesa | contratto ricerca riusato | stessa rotta per agente, GET e secret auth, stessi schemi query/response; capability ricerca e lab |
+| Lab tool | decisione Samira | lab_ingest restituisce UUID + queued; lab_ingest_status riusa queued/running/completed/failed/budget_exhausted; conteggi finali; quattro errori dichiarati |
+| Distribuzione | R14 e compatibilità | ESM/CJS consumati dai test; 16/16 sottopercorsi precedenti e relativi simboli conservati |
+
+Limiti pubblici: etichette/nome/pattern 200; descrizioni/commenti/elementi lista 2000; ID/chiavi 100;
+stringhe 8000 (conventions lab); opzioni/kinds 50; parametri/liste/campi/metriche/pagine 100;
+andamento ≤ AGENT_SPEND_MAX_DAYS (400); contenuto ≤ 64 KiB di JSON UTF-8; foto ≤ 10.
+
+## Prove rosso → verde e mutazioni
+
+Ogni correzione runtime ha test prima del codice, fallimenti di asserzione reali e regressione verde nello stesso commit.
+R6 è solo documentazione: le prove rompono percorso e versione esistenti nella copia, poi 98/98 sugli originali.
+Import e script test non introducono guardie runtime; nessun test che rispecchi solo il testo di un comando.
+
+scripts/mutate-54-05-review.py conserva i 133 ID del runner iniziale e aggiunge le guardie della revisione/lab.
+Solo copie temporanee di sorgenti, dist e package; un worker/60 s, timeout di avvio mai contato come rosso.
+Le guardie duplicate sono disattivate insieme soltanto quando proteggono lo stesso caso (wire/semantica,
+conteggio/unicità). Gli edit precisi sono nel report.
+
+Primo giro completo della revisione: 286/286 rilevate; baseline e ripristino 469/469; hash sorgenti/dist invariati.
+Un controllo nominativo ha trovato 14 fixture ancora protette da altri livelli e due asserzioni asincrone
+che Vitest registra come Error da __VITEST_RESOLVES__. Queste sono asserzioni esplicite «instead of resolving»,
+non errori di raccolta: il classificatore le distingue. Runner ampliato e secondo giro COMPLETO da 299 avviato;
+nessuna somma di lotti per l'esito finale.
+
+La prima consegna 846311c riportava 133/133 come unione di due giri e il giro unico saltato dopo tre tentativi.
+Quel dato resta storico, con report originali nella storia Git; non descrive la verifica finale corretta.
+
+## Qualità sul worktree originale
+
+- pnpm test: 1436/1436, 93/93 file; smoke CJS 36/36.
+- typecheck e lint: codice 0.
+- build: riuscita; 256/256 dichiarazioni .d.ts portabili.
+- check:pack, confronto dist pulita e perimetro finali: ancora da chiudere.
+- 275 test di revisione aggiunti ai 1161 della prima consegna. Le prove B1/B7/compatibilità
+  della prima consegna più quelle di revisione contengono 469 casi distinti; copertura rossa nominativa finale in corso.
+
+Il lettore delle prove della suite presumeva TAP per CJS, ma il repo usa il proprio riepilogo.
+Corretto soltanto il lettore dal log della stessa esecuzione terminata con codice 0; nessun rilancio dei test.
+
+## Evidenze
+
+EVIDENCE.md elenca 45/45 report convertiti, SHA256 originali e copia locale temporanea.
+Conteggi, nomi, stati e asserzioni conservati; niente stack o JSON Vitest grezzo. Il numero di byte è passato
+da 1.579.715 a 756.331. La storia Git dei singoli commit conserva gli originali durabili.
+I report nuovi del runner finale sono compatti; baseline, mutazioni, ripristino e copertura nominativa in review/.
 
 ## Scelte da confermare
 
-- D54-11: tutto per agente e capability, nessun projectId nella configurazione.
-- PIANO-SVILUPPI §B, HANDOFF D1/D13, FORGE-REDESIGN §7.3 e VISTA-PROGETTO §0/2: dichiarazioni facoltative nel manifest; vecchi manifest invariati.
-- Le fonti richiedono letture/scritture ma non stabiliscono nuove rotte B1/B7. Il ramo del Task 3 relativo a nuovi endpoint è SALTATO come consente il piano: questa proposta aggiunge schemi e dichiarazioni. Le rotte per agente di v1.28 e la loro autenticazione restano intatte. Rotte e controllo di versione da concordare con Samira prima dei consumer.
-- Parametri ordinari, mai credenziali: env-schema/vault restano il percorso delle chiavi. Nessun default di prodotto scelto dal bridge.
-- Da quando vale: immediate oppure next_apply, coerente con D1. I valori dichiarano platform_default, agent_override o needs_choice; zero e false sono valori reali, non assenze.
-- B7: la fonte identifica la vista/app, distinta dal reviewerId autenticato. Content è JSON di dominio; i consumer ne verificano i campi dichiarati prima di renderlo. Solo rating 1–10 in questa proposta; approva/chiedi modifiche richiede un futuro contratto. Andamento giornaliero con unità dichiarata e valori finiti, anche negativi.
-- Consumer previsti: Forge fase 33 (parametri); agent-x9 capability (dichiarazioni, prima cap-food); vista di progetto esterna/app di dominio (B7). Aggiornamenti fuori repo affidati alla coordinatrice/Samira.
-- Riesecuzione di tutte le mutazioni in un solo giro finale SALTATA dopo il terzo tentativo, secondo il limite del piano. La copertura documentata è l'unione di due lotti con asserzioni reali; Samira può ripetere il runner completo quando il Mac è libero.
-
-## Prove rosso → verde
-
-Task 1: tutti i 63 test iniziali hanno fallito per export assente (asserzioni, nessun errore di raccolta), poi 63/63 verdi. Task 2: 77/77 rossi per export assente, poi 140/140 B1+B7 verdi. Task 3: 13/13 controlli nuovi rossi prima; i 3 controlli legacy/autenticazione già verdi sono stati successivamente rotti nelle copie. 209/209 regressioni mirate verdi e CJS 31/36 → 36/36. Task 4: versione vista rossa, distribuzione 16/17 → 17/17; i controlli preesistenti sono stati rotti nel Task 5.
-
-Task 5, script scripts/mutate-54-05.py: solo copie temporanee di sorgenti, dist e package. Un errore di raccolta o un timeout non conta come mutazione rilevata.
-
-1. Primo tentativo: baseline e verde successivo 188/188; 122/129 mutazioni rilevate, 7 sopravvissute. Quattro varianti strict mancavano di casi dedicati; fixture min/max e guardie duplicate sul default richiedevano isolamento. Test rafforzati e guardie duplicate disattivate insieme nella copia, senza cambiare gli schemi originali.
-2. Secondo tentativo: baseline 194/194; 115/115 mutazioni eseguite rilevate da asserzioni, inclusi i 7 casi corretti e 4 nuovi controlli su default/tipi/zero/false. Il successivo avvio su new-build-presentation ha superato 120 s: non conteggiato come rosso.
-3. Terzo e ultimo tentativo: recupero dei soli 18 controlli rimanenti. L'avvio della baseline ha superato 300 s, con timeout dei singoli test sempre 60 s. Nessuna asserzione prodotta; non conteggiato. Arrestato soltanto il gruppo di processi della copia.
-
-Prova finale task5-final-mutations.json: 133/133 ID distinti hanno asserzioni fallite senza errori di esecuzione (115 dal secondo lotto, 18 dal primo). Gli ultimi 18 riguardano export/build e simboli già verificati nel primo giro; package, dist e quei test sono invariati fra i giri. Il numero 133/133 è aggregato, non l'esito di una riesecuzione unica. I file generici task5-baseline/task5-mutations sono gli ultimi report validi del secondo tentativo; task5-green è il verde da 188 test del primo, non una nuova prova finale. I report originali di tutti i tentativi restano accanto al SUMMARY.
-
-194/194 test nuovi finali hanno una prova rossa nominativa, raccolta dai report dei Task 1–4 e dalle mutazioni. Suite finale sul worktree originale: pnpm test 1161/1161 e CJS 36/36; lint completo riuscito. Nessun rilancio pesante dopo il terzo tentativo.
-
-## Qualità, distribuzione e perimetro della prima consegna 846311c
-
-Build/dts, typecheck, lint e check:pack riusciti nel Task 4. check:pack termina con codice 0, con un warning publint sul campo types del root export (interpretato CJS anche in import ESM); il target precedente è preservato. Il profilo già usato dal repo ignora false-cjs e node10, mentre node16 e bundler passano per 18/18 entrate. Dopo il rafforzamento dei test, pnpm test e lint completi riusciti ancora. Nella prima consegna 846311c, da 3ecdee0 non cambiava nessun file di src/, dist/ o package.json. Dopo le correzioni queste verifiche devono essere ripetute; dist non è ancora riallineata.
-
-Dist: 1024/1024 file identici byte per byte a build pulita in directory temporanea, SHA256 riconfermati dopo le mutazioni. Nessun file vecchio rimosso. Alcune dichiarazioni enum rigenerate hanno soltanto ordine diverso delle proprietà, senza cambiare valori o tipi. Runner di suite limitato a due worker/60 s; runner di mutazioni a un worker/60 s.
-
-final-perimeter.json registra branch corretto, zero file fuori perimetro e zero byte di diff sui contratti protetti. HTTP, autenticazione, ricerca/lab v1.28, root index, dipendenze, lockfile e hook sono invariati. Le sole estensioni di sorgenti precedenti sono capability index, manifest e registry. Nessuna modifica al bridge principale linkato dai consumer.
-
-## Consegna
-
-PRONTO PER REVISIONE: schemi, dichiarazioni, distribuzione e prove disponibili nel worktree assegnato.
-Restano revisione Samira, decisione sulle rotte/consumer e rilascio della coordinatrice. La sola verifica locale saltata è il giro unico finale delle mutazioni, per limite di tre tentativi e timeout di avvio.
-
-## Ripresa dopo revisione Samira
-
-Ultimo aggiornamento correzioni: 12:38 (06/10/2026). Piano: BRIDGE-129-REVIEW.md.
-
-R1–R7, estensioni lab e verifiche finali in corso; i numeri precedenti si riferiscono alla consegna 846311c. Il ramo non è ancora pronto per la nuova revisione.
-
-- 12:41 · r1: fix(capability): declare rating and approval feedback. Prima 8/15 (falliti 7/15), dopo 108/108. Commit: dfd322a.
-
-- 12:43 · r2: fix(capability): declare reviewer names and bounded photos. Prima 14/21 (falliti 7/21), dopo 129/129. Commit: 461ab85.
-
-- 12:47 · r3: fix(capability): bound parameter and presentation payloads. Prima 0/35 (falliti 35/35), dopo 252/252. Commit: 0925e50.
-
-- 12:53 · r4: fix(capability): describe lists patterns and optional configuration. Prima 29/37 (falliti 8/37), dopo 283/283. Commit: acdae4e.
-
-### PAUSA SUBITO ricevuta
-
-12:54 · R1–R4 committate e verdi, ultimo commit acdae4e (mirati finali 283/283). Nessun mio comando di test o mutazione ancora in corso: tutti i runner avviati sono terminati. STOP fino a «ripartite», nessun comando pesante o nuovo hook. Questo checkpoint resta sul disco senza nuovo commit.
-
-Restano R5 editabilità, R6 JSDoc, R7 scale; estensioni lab; import z, script test separato, riepiloghi al posto dei JSON grezzi; tipi/lint/build/pack e giro finale unico di mutazioni. Nuova decisione 13:40: models e budget lab OBBLIGATORI, unica eccezione non additiva autorizzata verso 1.28 senza consumer. La precedente ipotesi facoltativa è superata. Prima di implementare lab leggere intera risposta bridge-129-lab-campi-20261006: anche ingest asincrono e lab_ingest_status, dettaglio Samira. Nessuna modifica a ~/.claude o ai consumer.
-
-### Ripresa autorizzata
-
-2026-10-06 14:03 · RIPARTITE letto. Posto già PRESO secondo bacheca; un comando pesante alla volta. R5–R7, lab obbligatorio/asincrono e verifiche finali riprendono; nessun consumer o rilascio. Risposta completa Samira lab letta.
-
-- 14:04 · r5: fix(capability): declare parameter editors. Prima 7/23 (falliti 16/23), dopo 306/306. Commit: 80c478c.
-
-- 14:05 · r6: docs(capability): clarify configuration keys and versions. Prima 95/98 (falliti 3/98), dopo 98/98. Commit: 176a4b7.
-
-- 14:06 · r7: fix(capability): declare numeric output scales. Prima 11/26 (falliti 15/26), dopo 332/332. Commit: 2eee203.
-
-- 14:08 · lab-config: fix(lab): require explicit models and ingest budgets. Prima 3/40 (falliti 37/40), dopo 73/73. Commit: 94b2e36.
-
-- 14:10 · lab-spend: feat(lab): report per-agent spend with shared contracts. Prima 2/11 (falliti 9/11), dopo 84/84. Commit: f63e842.
-
-Lab status: «conteggi presenti quando completed» applicato come tre conteggi richiesti a completed e assenti negli altri stati. È la forma operativa della decisione Samira, da ricontrollare in revisione; nessun worker/consumer implementato nel bridge.
-
-- 14:11 · lab-tools: fix(lab): queue ingest and expose status and tool errors. Prima 6/35 (falliti 29/35), dopo 119/119. Commit: 754fa52.
-
-- 14:12 · imports: style(capability): import zod before declaration schemas. Documentazione/stile; nessuna nuova guardia runtime. Commit: 4c7ab3d.
-
-- 14:12 · test-script-restore: chore(test): restore the original test script for isolation. Documentazione/stile; nessuna nuova guardia runtime. Commit: 4a9b402.
-
-R03: lo script test è ripristinato in 4a9b402 e i soli limiti Mac sono riapplicati nel commit successivo. Nessun test inutile che rispecchi il testo dello script; la suite completa finale userà questo comando.
-
-- 14:12 · test-script-limits: chore(test): limit shared Mac runners to two workers. Documentazione/stile; nessuna nuova guardia runtime. Commit: 4b47560.
-
-- 14:15 · distribution: build(contracts): ship reviewed schemas in ESM and CJS. Prima 0/10 (falliti 10/10), dopo 44/44. Commit: questo commit (checkpoint).
+- Non sono previste nuove rotte B1/B7 dalle fonti: ramo endpoint nuovo SALTATO come autorizza il piano e accetta Samira.
+  Le modifiche config passano dal PUT capAgentConfigPath esistente; i consumer implementano letture e salvataggio.
+- «Conteggi presenti quando completed» significa tre conteggi richiesti a completed e assenti negli altri stati.
+  La revisione Samira ricontrolla questa interpretazione; non è stato implementato alcun worker nel bridge.
+- Pattern limitati a 200, foto a 10 e pagina a 100: limiti espliciti fissati prima del rilascio per evitare futuri restringimenti.
+- Content resta JSON di dominio: i consumer validano i propri campi prima di renderli.
+- Parametri ordinari, mai credenziali; env-schema/vault restano il percorso delle chiavi.
+- Rilascio della 1.29, aggiornamenti atomici dei consumer e BRIDGE-130 spettano alla coordinatrice dopo revisione.

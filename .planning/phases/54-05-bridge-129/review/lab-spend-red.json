@@ -7,96 +7,28 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-qa91ht0b",
   "tests": [
-    {
-      "name": "lab per-agent spend contract declares spending capability lab",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract declares spending capability ricerca",
-      "status": "passed"
-    },
-    {
-      "name": "lab per-agent spend contract rejects undeclared spending capability",
-      "status": "passed"
-    },
-    {
-      "name": "lab per-agent spend contract retains settled, reserved and budget stop values for lab",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract uses the shared path",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract uses the shared method",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract uses the shared authType",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract reuses exactly the validated params, query and response schemas",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract responds with lab days and the current queue length",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract rejects an undeclared capability in the lab response",
-      "status": "failed"
-    },
-    {
-      "name": "lab per-agent spend contract keeps the same bounded date window for lab",
-      "status": "failed"
-    }
+    ["lab per-agent spend contract declares spending capability lab", "failed"],
+    ["lab per-agent spend contract declares spending capability ricerca", "passed"],
+    ["lab per-agent spend contract rejects undeclared spending capability", "passed"],
+    ["lab per-agent spend contract retains settled, reserved and budget stop values for lab", "failed"],
+    ["lab per-agent spend contract uses the shared path", "failed"],
+    ["lab per-agent spend contract uses the shared method", "failed"],
+    ["lab per-agent spend contract uses the shared authType", "failed"],
+    ["lab per-agent spend contract reuses exactly the validated params, query and response schemas", "failed"],
+    ["lab per-agent spend contract responds with lab days and the current queue length", "failed"],
+    ["lab per-agent spend contract rejects an undeclared capability in the lab response", "failed"],
+    ["lab per-agent spend contract keeps the same bounded date window for lab", "failed"]
   ],
   "failures": [
-    {
-      "name": "lab per-agent spend contract declares spending capability lab",
-      "assertion": true,
-      "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: 'lab' }\n(3 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claude/x9"
-    },
-    {
-      "name": "lab per-agent spend contract retains settled, reserved and budget stop values for lab",
-      "assertion": true,
-      "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(11) } }\n(3 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claud"
-    },
-    {
-      "name": "lab per-agent spend contract uses the shared path",
-      "assertion": true,
-      "message": "AssertionError: labAgentSpendContract: expected undefined to be defined\n    at contract (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:8:42)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:25:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9"
-    },
-    {
-      "name": "lab per-agent spend contract uses the shared method",
-      "assertion": true,
-      "message": "AssertionError: labAgentSpendContract: expected undefined to be defined\n    at contract (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:8:42)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:25:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9"
-    },
-    {
-      "name": "lab per-agent spend contract uses the shared authType",
-      "assertion": true,
-      "message": "AssertionError: labAgentSpendContract: expected undefined to be defined\n    at contract (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:8:42)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:25:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9"
-    },
-    {
-      "name": "lab per-agent spend contract reuses exactly the validated params, query and response schemas",
-      "assertion": true,
-      "message": "AssertionError: labAgentSpendContract: expected undefined to be defined\n    at contract (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:8:42)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:29:14\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9"
-    },
-    {
-      "name": "lab per-agent spend contract responds with lab days and the current queue length",
-      "assertion": true,
-      "message": "AssertionError: labAgentSpendContract: expected undefined to be defined\n    at contract (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:8:42)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:35:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9"
-    },
-    {
-      "name": "lab per-agent spend contract rejects an undeclared capability in the lab response",
-      "assertion": true,
-      "message": "AssertionError: labAgentSpendContract: expected undefined to be defined\n    at contract (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:8:42)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:38:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9"
-    },
-    {
-      "name": "lab per-agent spend contract keeps the same bounded date window for lab",
-      "assertion": true,
-      "message": "AssertionError: labAgentSpendContract: expected undefined to be defined\n    at contract (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:8:42)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-09-spend.test.ts:41:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9"
-    }
-  ]
+    {"name": "lab per-agent spend contract declares spending capability lab", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: 'lab' }"},
+    {"name": "lab per-agent spend contract retains settled, reserved and budget stop values for lab", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(11) } }"},
+    {"name": "lab per-agent spend contract uses the shared path", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract uses the shared method", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract uses the shared authType", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract reuses exactly the validated params, query and response schemas", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract responds with lab days and the current queue length", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract rejects an undeclared capability in the lab response", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"},
+    {"name": "lab per-agent spend contract keeps the same bounded date window for lab", "assertion": true, "message": "AssertionError: labAgentSpendContract: expected undefined to be defined"}
+  ],
+  "originalEvidence": {"sha256": "3f8f5865a0e659a63894d4848b1a4450e19671a991ce3cecfe5c70b4c811a947", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/lab-spend-red.json", "gitHistory": "846311c and individual review commits"}
 }

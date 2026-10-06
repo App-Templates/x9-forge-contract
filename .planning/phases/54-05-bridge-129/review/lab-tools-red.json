@@ -7,292 +7,72 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-l0ro7wpf",
   "tests": [
-    {
-      "name": "lab asynchronous ingest and tool errors exports error invalid_request",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports error not_configured",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports error not_found",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports error not_ready",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects undeclared error 0",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects undeclared error 1",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects undeclared error 2",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors queues ingest with a UUID and no completed counts",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects former synchronous output ingest acknowledgment",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects missing id ingest acknowledgment",
-      "status": "passed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid uuid ingest acknowledgment",
-      "status": "passed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects missing state ingest acknowledgment",
-      "status": "passed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects running acknowledgment ingest acknowledgment",
-      "status": "passed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects premature counts ingest acknowledgment",
-      "status": "passed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects extra field ingest acknowledgment",
-      "status": "passed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports and routes the new status tool",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors reads status for exactly one ingest UUID",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status input 0",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status input 1",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status input 2",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state queued for ingest",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state running for ingest",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state failed for ingest",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state budget_exhausted for ingest",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state completed for ingest",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires completed sourcesStored",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires completed pagesTouched",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires completed claimsAdded",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires nonnegative integer sourcesStored",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires nonnegative integer pagesTouched",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires nonnegative integer claimsAdded",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 0",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 1",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 2",
-      "status": "failed"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 3",
-      "status": "failed"
-    }
+    ["lab asynchronous ingest and tool errors exports error invalid_request", "failed"],
+    ["lab asynchronous ingest and tool errors exports error not_configured", "failed"],
+    ["lab asynchronous ingest and tool errors exports error not_found", "failed"],
+    ["lab asynchronous ingest and tool errors exports error not_ready", "failed"],
+    ["lab asynchronous ingest and tool errors rejects undeclared error 0", "failed"],
+    ["lab asynchronous ingest and tool errors rejects undeclared error 1", "failed"],
+    ["lab asynchronous ingest and tool errors rejects undeclared error 2", "failed"],
+    ["lab asynchronous ingest and tool errors queues ingest with a UUID and no completed counts", "failed"],
+    ["lab asynchronous ingest and tool errors rejects former synchronous output ingest acknowledgment", "failed"],
+    ["lab asynchronous ingest and tool errors rejects missing id ingest acknowledgment", "passed"],
+    ["lab asynchronous ingest and tool errors rejects invalid uuid ingest acknowledgment", "passed"],
+    ["lab asynchronous ingest and tool errors rejects missing state ingest acknowledgment", "passed"],
+    ["lab asynchronous ingest and tool errors rejects running acknowledgment ingest acknowledgment", "passed"],
+    ["lab asynchronous ingest and tool errors rejects premature counts ingest acknowledgment", "passed"],
+    ["lab asynchronous ingest and tool errors rejects extra field ingest acknowledgment", "passed"],
+    ["lab asynchronous ingest and tool errors exports and routes the new status tool", "failed"],
+    ["lab asynchronous ingest and tool errors reads status for exactly one ingest UUID", "failed"],
+    ["lab asynchronous ingest and tool errors rejects invalid status input 0", "failed"],
+    ["lab asynchronous ingest and tool errors rejects invalid status input 1", "failed"],
+    ["lab asynchronous ingest and tool errors rejects invalid status input 2", "failed"],
+    ["lab asynchronous ingest and tool errors retains research state queued for ingest", "failed"],
+    ["lab asynchronous ingest and tool errors retains research state running for ingest", "failed"],
+    ["lab asynchronous ingest and tool errors retains research state failed for ingest", "failed"],
+    ["lab asynchronous ingest and tool errors retains research state budget_exhausted for ingest", "failed"],
+    ["lab asynchronous ingest and tool errors retains research state completed for ingest", "failed"],
+    ["lab asynchronous ingest and tool errors requires completed sourcesStored", "failed"],
+    ["lab asynchronous ingest and tool errors requires completed pagesTouched", "failed"],
+    ["lab asynchronous ingest and tool errors requires completed claimsAdded", "failed"],
+    ["lab asynchronous ingest and tool errors requires nonnegative integer sourcesStored", "failed"],
+    ["lab asynchronous ingest and tool errors requires nonnegative integer pagesTouched", "failed"],
+    ["lab asynchronous ingest and tool errors requires nonnegative integer claimsAdded", "failed"],
+    ["lab asynchronous ingest and tool errors rejects invalid status output 0", "failed"],
+    ["lab asynchronous ingest and tool errors rejects invalid status output 1", "failed"],
+    ["lab asynchronous ingest and tool errors rejects invalid status output 2", "failed"],
+    ["lab asynchronous ingest and tool errors rejects invalid status output 3", "failed"]
   ],
   "failures": [
-    {
-      "name": "lab asynchronous ingest and tool errors exports error invalid_request",
-      "assertion": true,
-      "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:7:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/nod"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports error not_configured",
-      "assertion": true,
-      "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:7:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/nod"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports error not_found",
-      "assertion": true,
-      "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:7:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/nod"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports error not_ready",
-      "assertion": true,
-      "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:7:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/nod"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects undeclared error 0",
-      "assertion": true,
-      "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:10:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/no"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects undeclared error 1",
-      "assertion": true,
-      "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:10:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/no"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects undeclared error 2",
-      "assertion": true,
-      "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:10:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/no"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors queues ingest with a UUID and no completed counts",
-      "assertion": true,
-      "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(2) } }\n(3 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claude"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects former synchronous output ingest acknowledgment",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:23:70\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Cl"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors exports and routes the new status tool",
-      "assertion": true,
-      "message": "AssertionError: expected undefined to be 'lab_ingest_status' // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:27:32\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/adm"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors reads status for exactly one ingest UUID",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:31:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status input 0",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:34:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status input 1",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:34:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status input 2",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:34:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state queued for ingest",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:38:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state running for ingest",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:38:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state failed for ingest",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:38:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state budget_exhausted for ingest",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:38:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors retains research state completed for ingest",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:38:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires completed sourcesStored",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:42:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires completed pagesTouched",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:42:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires completed claimsAdded",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:42:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires nonnegative integer sourcesStored",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:46:14\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires nonnegative integer pagesTouched",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:46:14\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors requires nonnegative integer claimsAdded",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:46:14\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 0",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:54:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 1",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:54:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 2",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:54:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    },
-    {
-      "name": "lab asynchronous ingest and tool errors rejects invalid status output 3",
-      "assertion": true,
-      "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-fixtures.ts:9:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/lab/review-10-async-ingest.test.ts:54:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-code"
-    }
-  ]
+    {"name": "lab asynchronous ingest and tool errors exports error invalid_request", "assertion": true, "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors exports error not_configured", "assertion": true, "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors exports error not_found", "assertion": true, "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors exports error not_ready", "assertion": true, "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects undeclared error 0", "assertion": true, "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects undeclared error 1", "assertion": true, "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects undeclared error 2", "assertion": true, "message": "AssertionError: LabToolErrorSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors queues ingest with a UUID and no completed counts", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(2) } }"},
+    {"name": "lab asynchronous ingest and tool errors rejects former synchronous output ingest acknowledgment", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"},
+    {"name": "lab asynchronous ingest and tool errors exports and routes the new status tool", "assertion": true, "message": "AssertionError: expected undefined to be 'lab_ingest_status' // Object.is equality"},
+    {"name": "lab asynchronous ingest and tool errors reads status for exactly one ingest UUID", "assertion": true, "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects invalid status input 0", "assertion": true, "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects invalid status input 1", "assertion": true, "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects invalid status input 2", "assertion": true, "message": "AssertionError: LabIngestStatusInputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors retains research state queued for ingest", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors retains research state running for ingest", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors retains research state failed for ingest", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors retains research state budget_exhausted for ingest", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors retains research state completed for ingest", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors requires completed sourcesStored", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors requires completed pagesTouched", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors requires completed claimsAdded", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors requires nonnegative integer sourcesStored", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors requires nonnegative integer pagesTouched", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors requires nonnegative integer claimsAdded", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects invalid status output 0", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects invalid status output 1", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects invalid status output 2", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"},
+    {"name": "lab asynchronous ingest and tool errors rejects invalid status output 3", "assertion": true, "message": "AssertionError: LabIngestStatusOutputSchema: expected undefined to be defined"}
+  ],
+  "originalEvidence": {"sha256": "0eed438f31228a23100528cdcd38d2ceb498cbd773cf21733b821d237520e44b", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/lab-tools-red.json", "gitHistory": "846311c and individual review commits"}
 }

@@ -1,1104 +1,123 @@
 {
   "mutations": [
-    {
-      "id": "B1-key",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects invalid key"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-labels",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects empty label",
-        "B1 declared capability parameters rejects empty description",
-        "B1 declared capability parameters rejects empty explanation",
-        "B1 declared capability parameters rejects empty group",
-        "B1 declared capability parameters rejects empty unit",
-        "B1 declared capability parameters rejects empty enum value",
-        "B1 declared capability parameters rejects empty enum label",
-        "B1 declared capability parameters rejects empty capability"
-      ],
-      "assertionFailures": 8,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-value-type",
-      "killed": true,
-      "failedTests": [
-        "public parameter value rejects nonprimitive/nonfinite input 0",
-        "public parameter value rejects nonprimitive/nonfinite input 1",
-        "public parameter value rejects nonprimitive/nonfinite input 2",
-        "public parameter value rejects nonprimitive/nonfinite input 3",
-        "public parameter value rejects nonprimitive/nonfinite input 4"
-      ],
-      "assertionFailures": 5,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-status",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects unknown status"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-application",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects unknown application time"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-reference-required",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects missing reference"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-consumes-required",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects missing spend flag"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-strict-number",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects extra definition field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-strict-integer",
-      "killed": true,
-      "failedTests": [
-        "each parameter variant rejects extra fields 0"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-strict-string",
-      "killed": true,
-      "failedTests": [
-        "each parameter variant rejects extra fields 1"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-strict-boolean",
-      "killed": true,
-      "failedTests": [
-        "each parameter variant rejects extra fields 2"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-strict-enum",
-      "killed": true,
-      "failedTests": [
-        "each parameter variant rejects extra fields 3"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-number-min-finite",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects nonfinite minimum"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-number-max-finite",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects nonfinite maximum"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-integer-default",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects fractional integer value",
-        "B1 declared capability parameters rejects fractional chosen integer"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-integer-bound",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects fractional integer bound"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-string-bound-integer",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects fractional string bound"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-string-bound-positive",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects negative string bound"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-boolean-default",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects wrong boolean default",
-        "B1 declared capability parameters rejects wrong boolean chosen type"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-option-count",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects empty enum"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-option-strict",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects extra enum option field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-minimum",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects default below minimum"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-maximum",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects default above maximum",
-        "B1 declared capability parameters rejects chosen value outside constraints"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-chosen-integer",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects fractional chosen integer"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-string-type",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects wrong string chosen type"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-string-minimum",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects string length below minimum",
-        "B1 declared capability parameters rejects chosen string too short"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-string-maximum",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects string length above maximum",
-        "B1 declared capability parameters rejects chosen string too long"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-boolean-type",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects wrong boolean chosen type"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-enum-membership",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects unknown enum default",
-        "B1 declared capability parameters rejects unknown enum choice"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-ordered-number-bounds",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects minimum above maximum"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-ordered-string-bounds",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects string bounds reversed"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-unique-options",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects duplicate enum options"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-default-validity",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects default below minimum",
-        "B1 declared capability parameters rejects default above maximum",
-        "B1 declared capability parameters rejects string length below minimum",
-        "B1 declared capability parameters rejects string length above maximum",
-        "B1 declared capability parameters rejects unknown enum default"
-      ],
-      "assertionFailures": 5,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-origin",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects unknown origin"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-resolved-strict",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects extra resolved field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-choice-has-value",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects choice state zero is still a value",
-        "B1 declared capability parameters rejects choice state with value"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-choice-has-default",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects choice state false default exists",
-        "B1 declared capability parameters rejects choice state hides default"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-chosen-value-required",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects missing chosen value"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-chosen-value-valid",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects wrong string chosen type",
-        "B1 declared capability parameters rejects wrong boolean chosen type",
-        "B1 declared capability parameters rejects unknown enum choice",
-        "B1 declared capability parameters rejects fractional chosen integer",
-        "B1 declared capability parameters rejects chosen string too short",
-        "B1 declared capability parameters rejects chosen string too long",
-        "B1 declared capability parameters rejects chosen value outside constraints"
-      ],
-      "assertionFailures": 7,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-default-source",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects default source without declared default"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-default-match",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects default source disagrees with default"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-declaration-consumes",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects missing capability spend flag"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-declaration-ledger",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects missing ledger flag"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-declaration-strict",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects extra declaration field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-declaration-unique",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects repeated parameter key"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-agent-id",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects bad agent id",
-        "B1 declared capability parameters rejects missing agent id"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-capability",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects empty capability"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-version",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects zero version",
-        "B1 declared capability parameters rejects fractional version"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-agent-strict",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects extra agent field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-agent-unique",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects repeated agent parameter key"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-labels",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects empty id",
-        "B7 generic per-agent outputs, feedback and trends rejects empty kind",
-        "B7 generic per-agent outputs, feedback and trends rejects empty title",
-        "B7 generic per-agent outputs, feedback and trends rejects empty source id",
-        "B7 generic per-agent outputs, feedback and trends rejects empty feedback id",
-        "B7 generic per-agent outputs, feedback and trends rejects empty feedback capability",
-        "B7 generic per-agent outputs, feedback and trends rejects empty series capability",
-        "B7 generic per-agent outputs, feedback and trends rejects empty metric label",
-        "B7 generic per-agent outputs, feedback and trends rejects empty metric unit",
-        "B7 generic per-agent outputs, feedback and trends rejects empty output label",
-        "B7 generic per-agent outputs, feedback and trends rejects empty kind label",
-        "B7 generic per-agent outputs, feedback and trends rejects empty kind description",
-        "B7 generic per-agent outputs, feedback and trends rejects empty field label",
-        "B7 generic per-agent outputs, feedback and trends rejects empty feedback label"
-      ],
-      "assertionFailures": 14,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-agent-id",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects invalid agent id",
-        "B7 generic per-agent outputs, feedback and trends rejects bad feedback agent",
-        "B7 generic per-agent outputs, feedback and trends rejects bad series agent"
-      ],
-      "assertionFailures": 3,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-capability-required",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects missing capability"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-source-kind",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects unknown source",
-        "B7 generic per-agent outputs, feedback and trends rejects unknown feedback source declaration"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-source-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra source field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-kind-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra kind field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-field-type",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects unknown field type"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-field-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra output field declaration"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-metric-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra metric field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-kinds-required",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects empty output kinds"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-output-declaration-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra output declaration field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-kinds-unique",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects repeated output kind"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-fields-unique",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects repeated output field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-feedback-kind",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects unknown feedback kind"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-sources-required",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects empty feedback sources"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-feedback-declaration-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra feedback declaration field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-sources-unique",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects repeated feedback sources"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-presentation-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra presentation field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-metrics-unique",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects repeated trend metric"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-summary-required",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects missing summary"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-content-json",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects non JSON content",
-        "B7 generic per-agent outputs, feedback and trends rejects nonfinite content"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-output-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra output field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-source-required",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects missing source"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-reviewer-required",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects missing reviewer"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-output-id-required",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects missing output id"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-rating-integer",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects fractional rating"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-rating-min",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects rating below one"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-rating-max",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects rating above ten"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-feedback-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra feedback field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-output-time",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects invalid timestamp",
-        "B7 generic per-agent outputs, feedback and trends rejects impossible timestamp"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-feedback-time",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects bad feedback timestamp"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-point-day",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects impossible trend date"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-point-finite",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects nonfinite trend value"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-point-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra point field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-series-strict",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects extra series field"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-day-order",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends rejects repeated trend day",
-        "B7 generic per-agent outputs, feedback and trends rejects unsorted trend days"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-scope-agent-outputs",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign agent"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-scope-capability-outputs",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign capability"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-unique-outputs",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects duplicate ids or metric keys"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-strict-outputs",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects unknown envelope fields"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-scope-agent-feedback",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign agent"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-scope-capability-feedback",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign capability"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-unique-feedback",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects duplicate ids or metric keys"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-strict-feedback",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects unknown envelope fields"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-scope-agent-series",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign agent"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-scope-capability-series",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign capability"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-unique-series",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects duplicate ids or metric keys"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B7-strict-series",
-      "killed": true,
-      "failedTests": [
-        "B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects unknown envelope fields"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "declaration-manifest-parameters",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations manifest validates B1 rather than silently stripping it"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "declaration-manifest-presentation",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations manifest validates B7 rather than silently stripping it"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "legacy-manifest",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations manifest retains an old payload exactly",
-        "additive B1/B7 declarations manifest retains B7 presentation"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "declaration-registry-parameters",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations registry validates B1 rather than silently stripping it"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "declaration-registry-presentation",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations registry validates B7 rather than silently stripping it"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "legacy-registry",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations registry retains an old payload exactly",
-        "additive B1/B7 declarations registry retains B7 presentation"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "existing-manifest-auth",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations the existing manifest endpoint carries the optional declarations"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "existing-config-auth",
-      "killed": true,
-      "failedTests": [
-        "additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-false-default-source",
-      "killed": true,
-      "failedTests": [
-        "zero and false platform defaults remain resolved, never missing"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-zero-choice-value",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects choice state zero is still a value"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-false-choice-default",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects choice state false default exists"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "B1-number-default-type",
-      "killed": true,
-      "failedTests": [
-        "B1 declared capability parameters rejects default below minimum",
-        "B1 declared capability parameters rejects default above maximum",
-        "B1 declared capability parameters rejects wrong default type",
-        "B1 declared capability parameters rejects nonfinite default",
-        "B1 declared capability parameters rejects string length below minimum",
-        "B1 declared capability parameters rejects string length above maximum",
-        "B1 declared capability parameters rejects unknown enum default"
-      ],
-      "assertionFailures": 7,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "new-export-parameters-import",
-      "killed": true,
-      "failedTests": [
-        "registers new parameters build/export targets together",
-        "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "new-export-parameters-require",
-      "killed": true,
-      "failedTests": [
-        "registers new parameters build/export targets together",
-        "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "new-build-parameters",
-      "killed": true,
-      "failedTests": [
-        "registers new parameters build/export targets together"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "new-export-presentation-import",
-      "killed": true,
-      "failedTests": [
-        "registers new presentation build/export targets together",
-        "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM"
-      ],
-      "assertionFailures": 1,
-      "runtimeErrors": 0
-    },
-    {
-      "id": "new-export-presentation-require",
-      "killed": true,
-      "failedTests": [
-        "registers new presentation build/export targets together",
-        "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS"
-      ],
-      "assertionFailures": 2,
-      "runtimeErrors": 0
-    }
+    {"id": "B1-key", "killed": true, "failedTests": ["B1 declared capability parameters rejects invalid key"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-labels", "killed": true, "failedTests": ["B1 declared capability parameters rejects empty label", "B1 declared capability parameters rejects empty description", "B1 declared capability parameters rejects empty explanation", "B1 declared capability parameters rejects empty group", "B1 declared capability parameters rejects empty unit", "B1 declared capability parameters rejects empty enum value", "B1 declared capability parameters rejects empty enum label", "B1 declared capability parameters rejects empty capability"], "assertionFailures": 8, "runtimeErrors": 0},
+    {"id": "B1-value-type", "killed": true, "failedTests": ["public parameter value rejects nonprimitive/nonfinite input 0", "public parameter value rejects nonprimitive/nonfinite input 1", "public parameter value rejects nonprimitive/nonfinite input 2", "public parameter value rejects nonprimitive/nonfinite input 3", "public parameter value rejects nonprimitive/nonfinite input 4"], "assertionFailures": 5, "runtimeErrors": 0},
+    {"id": "B1-status", "killed": true, "failedTests": ["B1 declared capability parameters rejects unknown status"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-application", "killed": true, "failedTests": ["B1 declared capability parameters rejects unknown application time"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-reference-required", "killed": true, "failedTests": ["B1 declared capability parameters rejects missing reference"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-consumes-required", "killed": true, "failedTests": ["B1 declared capability parameters rejects missing spend flag"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-strict-number", "killed": true, "failedTests": ["B1 declared capability parameters rejects extra definition field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-strict-integer", "killed": true, "failedTests": ["each parameter variant rejects extra fields 0"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-strict-string", "killed": true, "failedTests": ["each parameter variant rejects extra fields 1"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-strict-boolean", "killed": true, "failedTests": ["each parameter variant rejects extra fields 2"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-strict-enum", "killed": true, "failedTests": ["each parameter variant rejects extra fields 3"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-number-min-finite", "killed": true, "failedTests": ["B1 declared capability parameters rejects nonfinite minimum"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-number-max-finite", "killed": true, "failedTests": ["B1 declared capability parameters rejects nonfinite maximum"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-integer-default", "killed": true, "failedTests": ["B1 declared capability parameters rejects fractional integer value", "B1 declared capability parameters rejects fractional chosen integer"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-integer-bound", "killed": true, "failedTests": ["B1 declared capability parameters rejects fractional integer bound"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-string-bound-integer", "killed": true, "failedTests": ["B1 declared capability parameters rejects fractional string bound"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-string-bound-positive", "killed": true, "failedTests": ["B1 declared capability parameters rejects negative string bound"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-boolean-default", "killed": true, "failedTests": ["B1 declared capability parameters rejects wrong boolean default", "B1 declared capability parameters rejects wrong boolean chosen type"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-option-count", "killed": true, "failedTests": ["B1 declared capability parameters rejects empty enum"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-option-strict", "killed": true, "failedTests": ["B1 declared capability parameters rejects extra enum option field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-minimum", "killed": true, "failedTests": ["B1 declared capability parameters rejects default below minimum"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-maximum", "killed": true, "failedTests": ["B1 declared capability parameters rejects default above maximum", "B1 declared capability parameters rejects chosen value outside constraints"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-chosen-integer", "killed": true, "failedTests": ["B1 declared capability parameters rejects fractional chosen integer"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-string-type", "killed": true, "failedTests": ["B1 declared capability parameters rejects wrong string chosen type"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-string-minimum", "killed": true, "failedTests": ["B1 declared capability parameters rejects string length below minimum", "B1 declared capability parameters rejects chosen string too short"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-string-maximum", "killed": true, "failedTests": ["B1 declared capability parameters rejects string length above maximum", "B1 declared capability parameters rejects chosen string too long"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-boolean-type", "killed": true, "failedTests": ["B1 declared capability parameters rejects wrong boolean chosen type"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-enum-membership", "killed": true, "failedTests": ["B1 declared capability parameters rejects unknown enum default", "B1 declared capability parameters rejects unknown enum choice"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-ordered-number-bounds", "killed": true, "failedTests": ["B1 declared capability parameters rejects minimum above maximum"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-ordered-string-bounds", "killed": true, "failedTests": ["B1 declared capability parameters rejects string bounds reversed"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-unique-options", "killed": true, "failedTests": ["B1 declared capability parameters rejects duplicate enum options"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-default-validity", "killed": true, "failedTests": ["B1 declared capability parameters rejects default below minimum", "B1 declared capability parameters rejects default above maximum", "B1 declared capability parameters rejects string length below minimum", "B1 declared capability parameters rejects string length above maximum", "B1 declared capability parameters rejects unknown enum default"], "assertionFailures": 5, "runtimeErrors": 0},
+    {"id": "B1-origin", "killed": true, "failedTests": ["B1 declared capability parameters rejects unknown origin"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-resolved-strict", "killed": true, "failedTests": ["B1 declared capability parameters rejects extra resolved field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-choice-has-value", "killed": true, "failedTests": ["B1 declared capability parameters rejects choice state zero is still a value", "B1 declared capability parameters rejects choice state with value"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-choice-has-default", "killed": true, "failedTests": ["B1 declared capability parameters rejects choice state false default exists", "B1 declared capability parameters rejects choice state hides default"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-chosen-value-required", "killed": true, "failedTests": ["B1 declared capability parameters rejects missing chosen value"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-chosen-value-valid", "killed": true, "failedTests": ["B1 declared capability parameters rejects wrong string chosen type", "B1 declared capability parameters rejects wrong boolean chosen type", "B1 declared capability parameters rejects unknown enum choice", "B1 declared capability parameters rejects fractional chosen integer", "B1 declared capability parameters rejects chosen string too short", "B1 declared capability parameters rejects chosen string too long", "B1 declared capability parameters rejects chosen value outside constraints"], "assertionFailures": 7, "runtimeErrors": 0},
+    {"id": "B1-default-source", "killed": true, "failedTests": ["B1 declared capability parameters rejects default source without declared default"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-default-match", "killed": true, "failedTests": ["B1 declared capability parameters rejects default source disagrees with default"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-declaration-consumes", "killed": true, "failedTests": ["B1 declared capability parameters rejects missing capability spend flag"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-declaration-ledger", "killed": true, "failedTests": ["B1 declared capability parameters rejects missing ledger flag"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-declaration-strict", "killed": true, "failedTests": ["B1 declared capability parameters rejects extra declaration field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-declaration-unique", "killed": true, "failedTests": ["B1 declared capability parameters rejects repeated parameter key"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-agent-id", "killed": true, "failedTests": ["B1 declared capability parameters rejects bad agent id", "B1 declared capability parameters rejects missing agent id"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-capability", "killed": true, "failedTests": ["B1 declared capability parameters rejects empty capability"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-version", "killed": true, "failedTests": ["B1 declared capability parameters rejects zero version", "B1 declared capability parameters rejects fractional version"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B1-agent-strict", "killed": true, "failedTests": ["B1 declared capability parameters rejects extra agent field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-agent-unique", "killed": true, "failedTests": ["B1 declared capability parameters rejects repeated agent parameter key"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-labels", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects empty id", "B7 generic per-agent outputs, feedback and trends rejects empty kind", "B7 generic per-agent outputs, feedback and trends rejects empty title", "B7 generic per-agent outputs, feedback and trends rejects empty source id", "B7 generic per-agent outputs, feedback and trends rejects empty feedback id", "B7 generic per-agent outputs, feedback and trends rejects empty feedback capability", "B7 generic per-agent outputs, feedback and trends rejects empty series capability", "B7 generic per-agent outputs, feedback and trends rejects empty metric label", "B7 generic per-agent outputs, feedback and trends rejects empty metric unit", "B7 generic per-agent outputs, feedback and trends rejects empty output label", "B7 generic per-agent outputs, feedback and trends rejects empty kind label", "B7 generic per-agent outputs, feedback and trends rejects empty kind description", "B7 generic per-agent outputs, feedback and trends rejects empty field label", "B7 generic per-agent outputs, feedback and trends rejects empty feedback label"], "assertionFailures": 14, "runtimeErrors": 0},
+    {"id": "B7-agent-id", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects invalid agent id", "B7 generic per-agent outputs, feedback and trends rejects bad feedback agent", "B7 generic per-agent outputs, feedback and trends rejects bad series agent"], "assertionFailures": 3, "runtimeErrors": 0},
+    {"id": "B7-capability-required", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects missing capability"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-source-kind", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects unknown source", "B7 generic per-agent outputs, feedback and trends rejects unknown feedback source declaration"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B7-source-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra source field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-kind-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra kind field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-field-type", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects unknown field type"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-field-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra output field declaration"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-metric-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra metric field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-kinds-required", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects empty output kinds"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-output-declaration-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra output declaration field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-kinds-unique", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects repeated output kind"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-fields-unique", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects repeated output field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-feedback-kind", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects unknown feedback kind"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-sources-required", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects empty feedback sources"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-feedback-declaration-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra feedback declaration field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-sources-unique", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects repeated feedback sources"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-presentation-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra presentation field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-metrics-unique", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects repeated trend metric"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-summary-required", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects missing summary"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-content-json", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects non JSON content", "B7 generic per-agent outputs, feedback and trends rejects nonfinite content"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B7-output-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra output field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-source-required", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects missing source"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-reviewer-required", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects missing reviewer"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-output-id-required", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects missing output id"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-rating-integer", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects fractional rating"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-rating-min", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects rating below one"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-rating-max", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects rating above ten"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-feedback-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra feedback field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-output-time", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects invalid timestamp", "B7 generic per-agent outputs, feedback and trends rejects impossible timestamp"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B7-feedback-time", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects bad feedback timestamp"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-point-day", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects impossible trend date"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-point-finite", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects nonfinite trend value"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-point-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra point field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-series-strict", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects extra series field"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-day-order", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends rejects repeated trend day", "B7 generic per-agent outputs, feedback and trends rejects unsorted trend days"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "B7-scope-agent-outputs", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign agent"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-scope-capability-outputs", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects foreign capability"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-unique-outputs", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects duplicate ids or metric keys"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-strict-outputs", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityOutputsSchema rejects unknown envelope fields"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-scope-agent-feedback", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign agent"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-scope-capability-feedback", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects foreign capability"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-unique-feedback", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects duplicate ids or metric keys"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-strict-feedback", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityFeedbackListSchema rejects unknown envelope fields"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-scope-agent-series", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign agent"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-scope-capability-series", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects foreign capability"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-unique-series", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects duplicate ids or metric keys"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B7-strict-series", "killed": true, "failedTests": ["B7 generic per-agent outputs, feedback and trends CapabilityTrendsSchema rejects unknown envelope fields"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "declaration-manifest-parameters", "killed": true, "failedTests": ["additive B1/B7 declarations manifest validates B1 rather than silently stripping it"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "declaration-manifest-presentation", "killed": true, "failedTests": ["additive B1/B7 declarations manifest validates B7 rather than silently stripping it"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "legacy-manifest", "killed": true, "failedTests": ["additive B1/B7 declarations manifest retains an old payload exactly", "additive B1/B7 declarations manifest retains B7 presentation"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "declaration-registry-parameters", "killed": true, "failedTests": ["additive B1/B7 declarations registry validates B1 rather than silently stripping it"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "declaration-registry-presentation", "killed": true, "failedTests": ["additive B1/B7 declarations registry validates B7 rather than silently stripping it"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "legacy-registry", "killed": true, "failedTests": ["additive B1/B7 declarations registry retains an old payload exactly", "additive B1/B7 declarations registry retains B7 presentation"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "existing-manifest-auth", "killed": true, "failedTests": ["additive B1/B7 declarations the existing manifest endpoint carries the optional declarations"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "existing-config-auth", "killed": true, "failedTests": ["additive B1/B7 declarations existing per-agent config routes retain secret auth and their paths"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-false-default-source", "killed": true, "failedTests": ["zero and false platform defaults remain resolved, never missing"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-zero-choice-value", "killed": true, "failedTests": ["B1 declared capability parameters rejects choice state zero is still a value"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-false-choice-default", "killed": true, "failedTests": ["B1 declared capability parameters rejects choice state false default exists"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "B1-number-default-type", "killed": true, "failedTests": ["B1 declared capability parameters rejects default below minimum", "B1 declared capability parameters rejects default above maximum", "B1 declared capability parameters rejects wrong default type", "B1 declared capability parameters rejects nonfinite default", "B1 declared capability parameters rejects string length below minimum", "B1 declared capability parameters rejects string length above maximum", "B1 declared capability parameters rejects unknown enum default"], "assertionFailures": 7, "runtimeErrors": 0},
+    {"id": "new-export-parameters-import", "killed": true, "failedTests": ["registers new parameters build/export targets together", "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with ESM"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "new-export-parameters-require", "killed": true, "failedTests": ["registers new parameters build/export targets together", "built B1/B7 exports for real consumers @x9-forge/contracts/capability/parameters resolves with CJS"], "assertionFailures": 2, "runtimeErrors": 0},
+    {"id": "new-build-parameters", "killed": true, "failedTests": ["registers new parameters build/export targets together"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "new-export-presentation-import", "killed": true, "failedTests": ["registers new presentation build/export targets together", "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with ESM"], "assertionFailures": 1, "runtimeErrors": 0},
+    {"id": "new-export-presentation-require", "killed": true, "failedTests": ["registers new presentation build/export targets together", "built B1/B7 exports for real consumers @x9-forge/contracts/capability/presentation resolves with CJS"], "assertionFailures": 2, "runtimeErrors": 0}
   ],
   "killed": 115,
   "total": 115,
-  "sourceAndDistUnchanged": true
+  "sourceAndDistUnchanged": true,
+  "originalEvidence": {"sha256": "e3e9ddcd3e51587fe9eeaa5e87b93440021d8ebdc70f5dcf579f1cd5b0571ba4", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/task5-mutations.json", "gitHistory": "846311c and individual review commits"}
 }

@@ -7,179 +7,47 @@
   "runtimeErrors": 0,
   "rawEvidence": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-review-tests-p4vk3pfr",
   "tests": [
-    {
-      "name": "R5 explicit parameter editors exports the superadmin editor role",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors exports the owner editor role",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 0",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 1",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 2",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 3",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors retains declared editors 0",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors retains declared editors 1",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors retains declared editors 2",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects missing editors",
-      "status": "passed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects empty editors",
-      "status": "passed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editors",
-      "status": "passed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects duplicate editors",
-      "status": "passed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects too many editors",
-      "status": "passed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects scalar editors",
-      "status": "passed"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects null editors",
-      "status": "passed"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for number",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for integer",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for string",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for boolean",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for enum",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for string_list",
-      "status": "failed"
-    },
-    {
-      "name": "R5 explicit parameter editors carries editors in resolved agent configuration",
-      "status": "failed"
-    }
+    ["R5 explicit parameter editors exports the superadmin editor role", "failed"],
+    ["R5 explicit parameter editors exports the owner editor role", "failed"],
+    ["R5 explicit parameter editors rejects unknown editor role 0", "failed"],
+    ["R5 explicit parameter editors rejects unknown editor role 1", "failed"],
+    ["R5 explicit parameter editors rejects unknown editor role 2", "failed"],
+    ["R5 explicit parameter editors rejects unknown editor role 3", "failed"],
+    ["R5 explicit parameter editors retains declared editors 0", "failed"],
+    ["R5 explicit parameter editors retains declared editors 1", "failed"],
+    ["R5 explicit parameter editors retains declared editors 2", "failed"],
+    ["R5 explicit parameter editors rejects missing editors", "passed"],
+    ["R5 explicit parameter editors rejects empty editors", "passed"],
+    ["R5 explicit parameter editors rejects unknown editors", "passed"],
+    ["R5 explicit parameter editors rejects duplicate editors", "passed"],
+    ["R5 explicit parameter editors rejects too many editors", "passed"],
+    ["R5 explicit parameter editors rejects scalar editors", "passed"],
+    ["R5 explicit parameter editors rejects null editors", "passed"],
+    ["R5 explicit parameter editors requires editors for number", "failed"],
+    ["R5 explicit parameter editors requires editors for integer", "failed"],
+    ["R5 explicit parameter editors requires editors for string", "failed"],
+    ["R5 explicit parameter editors requires editors for boolean", "failed"],
+    ["R5 explicit parameter editors requires editors for enum", "failed"],
+    ["R5 explicit parameter editors requires editors for string_list", "failed"],
+    ["R5 explicit parameter editors carries editors in resolved agent configuration", "failed"]
   ],
   "failures": [
-    {
-      "name": "R5 explicit parameter editors exports the superadmin editor role",
-      "assertion": true,
-      "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-fixtures.ts:6:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:7:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-"
-    },
-    {
-      "name": "R5 explicit parameter editors exports the owner editor role",
-      "assertion": true,
-      "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-fixtures.ts:6:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:7:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 0",
-      "assertion": true,
-      "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-fixtures.ts:6:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:10:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 1",
-      "assertion": true,
-      "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-fixtures.ts:6:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:10:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 2",
-      "assertion": true,
-      "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-fixtures.ts:6:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:10:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "R5 explicit parameter editors rejects unknown editor role 3",
-      "assertion": true,
-      "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined\n    at schema (/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-fixtures.ts:6:31)\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:10:12\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex"
-    },
-    {
-      "name": "R5 explicit parameter editors retains declared editors 0",
-      "assertion": true,
-      "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(10) } }\n(3 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claud"
-    },
-    {
-      "name": "R5 explicit parameter editors retains declared editors 1",
-      "assertion": true,
-      "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(10) } }\n(3 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claud"
-    },
-    {
-      "name": "R5 explicit parameter editors retains declared editors 2",
-      "assertion": true,
-      "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(10) } }\n(3 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claud"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for number",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:27:74\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for integer",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:27:74\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for string",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:27:74\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for boolean",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:27:74\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for enum",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:27:74\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/"
-    },
-    {
-      "name": "R5 explicit parameter editors requires editors for string_list",
-      "assertion": true,
-      "message": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/tests/capability/review-05-editability.test.ts:27:74\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/"
-    },
-    {
-      "name": "R5 explicit parameter editors carries editors in resolved agent configuration",
-      "assertion": true,
-      "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(3) } }\n(3 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1155:10)\n    at Proxy.<anonymous> (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-12-9/node_modules/.pnpm/@vitest+expect@3.2.4/node_modules/@vitest/expect/dist/index.js:1029:14)\n    at Proxy.methodWrapper (file:///Users/admintemp/Downloads/Claude"
-    }
-  ]
+    {"name": "R5 explicit parameter editors exports the superadmin editor role", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "R5 explicit parameter editors exports the owner editor role", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "R5 explicit parameter editors rejects unknown editor role 0", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "R5 explicit parameter editors rejects unknown editor role 1", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "R5 explicit parameter editors rejects unknown editor role 2", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "R5 explicit parameter editors rejects unknown editor role 3", "assertion": true, "message": "AssertionError: CapabilityParameterEditorRoleSchema: expected undefined to be defined"},
+    {"name": "R5 explicit parameter editors retains declared editors 0", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(10) } }"},
+    {"name": "R5 explicit parameter editors retains declared editors 1", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(10) } }"},
+    {"name": "R5 explicit parameter editors retains declared editors 2", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(10) } }"},
+    {"name": "R5 explicit parameter editors requires editors for number", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"},
+    {"name": "R5 explicit parameter editors requires editors for integer", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"},
+    {"name": "R5 explicit parameter editors requires editors for string", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"},
+    {"name": "R5 explicit parameter editors requires editors for boolean", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"},
+    {"name": "R5 explicit parameter editors requires editors for enum", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"},
+    {"name": "R5 explicit parameter editors requires editors for string_list", "assertion": true, "message": "AssertionError: expected true to be false // Object.is equality"},
+    {"name": "R5 explicit parameter editors carries editors in resolved agent configuration", "assertion": true, "message": "AssertionError: expected { success: false, …(1) } to match object { success: true, data: { …(3) } }"}
+  ],
+  "originalEvidence": {"sha256": "74dcbbecbc8c28cfcd65e574cf387715a98d7d496e9d2702abb21a6575a5b814", "archive": "/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/bridge129-evidence-originals-b9ya9aoc/review/r5-red.json", "gitHistory": "846311c and individual review commits"}
 }
