@@ -1,0 +1,8 @@
+mutation fix-r1b-identity-check: src/agent/agent-management.ts
+-   if (identity && agentId !== identity.managementAgentId && agentId !== identity.runtimeAgentId) {
++   if (false) {
+result: KILLED
+× R1b per-target results and derived outcome > binds the addressed agent to its declared identity 3ms
+× R1b management state per target > describes what each target supports and why the others are not manageable 1ms
+Tests  2 failed | 42 passed (44)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯

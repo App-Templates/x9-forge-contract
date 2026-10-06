@@ -93,4 +93,17 @@ verificato negli aggregati, ciclo di vita della sessione coerente, scrittura ide
 - Il protocollo di riconciliazione ElevenLabs dopo timeout è espresso dall'errore `reconcile_pending`; la logica è del
   producer R6-2.
 
-Ultimo aggiornamento: 07/10 01:22
+## Correzione scope — revisione C (P1)
+Difetto: `ElevenLabsProvisionResultSchema` confrontava solo `providerAgentId` fra `mapping` e `status.mapping`; uno
+stato di un altro tenant/owner/agente con lo stesso id, o una seconda versione/origine dello stesso legame, passavano.
+- `3bda752` — `sameElevenLabsMapping`: scope completo (`sameCapabilityScope`), risorsa, origine, versione applicata e
+  istante di creazione. Test equivalenti ai 7 casi di C (5 negativi, 2 validi) + istante di creazione.
+- Stessa classe cercata in R6 e R3: `2e0eaea` coach — i progressi nel risultato di una sessione devono essere dello
+  stesso programma della sessione; `4633a17` R1b — `agentId` deve essere l'id di gestione o di runtime di `identity`.
+  R3 (chiavi, contesto di chiamata): nessun confronto fra oggetti per singolo id; snapshot coach e stato ElevenLabs
+  usavano già lo scope completo.
+- Rosso osservato: 7 test (evidence/fix-scope-red.txt). Mutazioni: 10/10 uccise (una per controllo nuovo, `fix-*`).
+- Verifica: suite completa 108 file, **1830/1830**; CJS 36/36 + 6/6; build (284 d.ts portabili), typecheck, lint,
+  check:pack verdi; dist riportato allo stato committato; package.json e CHANGELOG intatti.
+
+Ultimo aggiornamento: 07/10 01:34

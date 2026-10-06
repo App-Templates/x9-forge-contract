@@ -1,0 +1,10 @@
+mutation fix-binding-scope: src/capability/agent-elevenlabs/index.ts
+-   return sameCapabilityScope(a.scope, b.scope)
+    && a.providerAgentId
++   return true
+    && a.providerAgentId
+result: KILLED
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another tenantId even for the same provider id 3ms
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another ownerId even for the same provider id 0ms
+× R6 provisioning result describes exactly one binding (review C, P1) > rejects status of another agentId even for the same provider id 0ms
+Tests  3 failed | 32 passed (35)

@@ -1,0 +1,9 @@
+mutation fix-r1b-identity-state: src/agent/agent-management.ts
+- 
+  addIdentityIssues(state.agentId, state.identity, ctx);
++ 
+result: KILLED
+× R1b management state per target > describes what each target supports and why the others are not manageable 4ms
+Tests  1 failed | 43 passed (44)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-management.test.ts > R1b management state per target > describes what each target supports and why the others are not manageable

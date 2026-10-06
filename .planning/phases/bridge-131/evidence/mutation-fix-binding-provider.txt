@@ -1,0 +1,9 @@
+mutation fix-binding-provider: src/capability/agent-elevenlabs/index.ts
+-     && a.providerAgentId === b.providerAgentId
+
++ 
+result: KILLED
+× R6 provisioning result and errors > rejects status pointing at another resource 3ms
+Tests  1 failed | 34 passed (35)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/capability/agent-elevenlabs.test.ts > R6 provisioning result and errors > rejects status pointing at another resource
