@@ -12,8 +12,14 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ## v1.29.0 — proposta in review — B1 parametri e B7 uscite/feedback/andamento
 
-Solo aggiunte, per agente e capability (D54-11, piano X9 54-05). Il rilascio e gli aggiornamenti dei consumer
+Aggiunte per agente e capability (D54-11, piano X9 54-05), con la sola eccezione lab sotto. Il rilascio e gli aggiornamenti dei consumer
 aspettano la revisione della sessione Samira e la coordinatrice.
+
+### Changed — sole exception: unconsumed lab contracts
+- Samira authorized the only non-additive change from 1.28: cap-lab was released this morning and has no consumers.
+  LabAgentConfigSchema now requires models (digest, optional read) and budget (dailyUsd, perIngestMaxUsd, timezone).
+  No model or budget default is selected; the per-ingest ceiling cannot exceed the daily budget.
+- CapabilityUsdSchema and CapabilityModelIdSchema export the existing ricerca validators unchanged for shared reuse.
 
 ### Added (additive, backward-compatible)
 - `@x9-forge/contracts/capability/parameters`: dichiarazione generica di parametri number/integer/string/boolean/enum,

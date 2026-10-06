@@ -29,26 +29,26 @@ export const AgentTimeZoneSchema = z.string().min(1).max(64).refine(tz => {
   }
 }, 'unknown IANA time zone');
 
-const UsdSchema = z.number().positive().finite();
+export const CapabilityUsdSchema = z.number().positive().finite();
 
 export const ResearchBudgetSchema = z.object({
   /** Spend allowed in one day of the agent, USD, never exceeded. */
-  dailyUsd: UsdSchema,
+  dailyUsd: CapabilityUsdSchema,
   /** Spend allowed for one research, USD (never more than the daily budget). */
-  perResearchMaxUsd: UsdSchema,
+  perResearchMaxUsd: CapabilityUsdSchema,
   timezone: AgentTimeZoneSchema,
 }).refine(b => b.perResearchMaxUsd <= b.dailyUsd, { message: 'perResearchMaxUsd above dailyUsd', path: ['perResearchMaxUsd'] });
 export type ResearchBudget = z.infer<typeof ResearchBudgetSchema>;
 
-const ModelIdSchema = z.string().min(1).max(100);
+export const CapabilityModelIdSchema = z.string().min(1).max(100);
 
 export const ResearchModelsSchema = z.object({
   /** The model that researches (search, read, reason) and transcribes the findings. */
-  research: ModelIdSchema,
+  research: CapabilityModelIdSchema,
   /** The model that digests findings, when different from `research`. */
-  digest: ModelIdSchema.optional(),
+  digest: CapabilityModelIdSchema.optional(),
   /** The model for mechanical reading tasks, when different; used only where it does not lose quality. */
-  read: ModelIdSchema.optional(),
+  read: CapabilityModelIdSchema.optional(),
 });
 export type ResearchModels = z.infer<typeof ResearchModelsSchema>;
 

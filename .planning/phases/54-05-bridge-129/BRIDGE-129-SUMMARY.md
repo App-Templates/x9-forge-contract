@@ -1,5 +1,5 @@
 # BRIDGE-129 · B1 e B7
-Ultimo aggiornamento: 14:06 (06/10/2026)
+Ultimo aggiornamento: 14:08 (06/10/2026)
 
 Base: d8ef67f (v1.28.0). Branch: codex/bridge-129-params-outputs.
 Stato: CORREZIONI RIPRESE per RIPARTITE 13:58 della coordinatrice. Proposta 1.29.0 implementata e testata localmente.
@@ -94,4 +94,6 @@ Restano R5 editabilità, R6 JSDoc, R7 scale; estensioni lab; import z, script te
 
 - 14:05 · r6: docs(capability): clarify configuration keys and versions. Prima 95/98 (falliti 3/98), dopo 98/98. Commit: 176a4b7.
 
-- 14:06 · r7: fix(capability): declare numeric output scales. Prima 11/26 (falliti 15/26), dopo 332/332. Commit: questo commit (checkpoint).
+- 14:06 · r7: fix(capability): declare numeric output scales. Prima 11/26 (falliti 15/26), dopo 332/332. Commit: 2eee203.
+
+- 14:08 · lab-config: fix(lab): require explicit models and ingest budgets. Prima 3/40 (falliti 37/40), dopo 73/73. Commit: questo commit (checkpoint).

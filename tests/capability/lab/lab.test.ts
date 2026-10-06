@@ -20,9 +20,11 @@ const labAgent = {
   conventions: 'Una pagina per tecnica o ingrediente; ogni affermazione con le sue fonti; dosi in grammi.',
   pageKinds: ['tecnica', 'ingrediente', 'abbinamento', 'domanda'],
   linkKinds: ['richiede', 'si_abbina_a', 'contraddice'],
+  models: { digest: 'model-digest' },
+  budget: { dailyUsd: 10, perIngestMaxUsd: 2, timezone: 'Europe/Rome' },
 };
 
-describe('cap-lab agent config (v1.28.0)', () => {
+describe('cap-lab agent config (v1.29.0)', () => {
   it('each agent chooses its own kinds of pages and links', () => {
     expect(LabAgentConfigSchema.safeParse(labAgent).success).toBe(true);
     expect(LabAgentConfigSchema.safeParse({ ...labAgent, domain: 'processi', pageKinds: ['processo'], linkKinds: ['passa_a'] }).success).toBe(true);

@@ -13,6 +13,8 @@ export {
   CapabilityAgentIdSchema,
   AgentConfigVersionSchema,
   AgentTimeZoneSchema,
+  CapabilityUsdSchema,
+  CapabilityModelIdSchema,
   ResearchBudgetSchema,
   ResearchModelsSchema,
   ResearchEffortSchema,

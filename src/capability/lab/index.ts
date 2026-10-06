@@ -9,7 +9,7 @@
  *
  * STRICT (internal boundary, R-14): no `.passthrough()`.
  */
-export { KindSlugSchema, LabAgentConfigSchema, type LabAgentConfig } from './agent-config.js';
+export { KindSlugSchema, LabAgentConfigSchema, LabBudgetSchema, LabModelsSchema, type LabAgentConfig, type LabBudget, type LabModels } from './agent-config.js';
 
 export {
   WikiOriginSchema,
