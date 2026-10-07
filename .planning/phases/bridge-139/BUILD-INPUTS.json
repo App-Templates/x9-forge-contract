@@ -1580,5 +1580,7 @@
       "sha256": "2a330d490131fbdaeb28252ebc9131850e157674954348566130bec39ae0fcd1"
     }
   ],
-  "method": "original native public inputs from exact Git blobs; original manifest and configs; private output only"
+  "method": "original native public inputs from exact Git blobs; original manifest and configs; private output only",
+  "current_head_same_inputs": "d71b76102b53daab9d4d5441668157b281016ca7",
+  "current_exact": 394
 }

@@ -94,5 +94,30 @@
     "cts_mutations": 3,
     "cts_restores_green": 3,
     "excluded": "npm cache EPERM and TS5112 startup never counted; initial compiled campaign state region corrected then final full41 rerun"
+  },
+  "final": {
+    "full": {
+      "passed": 2592,
+      "total": 2592,
+      "failed": 0,
+      "pending": 0,
+      "files": 123
+    },
+    "new_unique_source_tests": 267,
+    "baseline_tests": 2325,
+    "native_typecheck_exit": 0,
+    "native_lint_exit": 0,
+    "normal_cjs_unique_pass": 57,
+    "normal_cjs_unique_total": 57,
+    "source_workspace_mutations_final": 41,
+    "source_metadata_mutations_final": 44,
+    "source_mutations_total": 85,
+    "source_unique_names_hit": 267,
+    "source_sha_union": 7,
+    "compiled_consumer_pass": 85,
+    "compiled_consumer_total": 85,
+    "source_input_still_exact": 394,
+    "perimeter": "pending final tree metadata snapshot",
+    "no_live_proof": true
   }
 }
