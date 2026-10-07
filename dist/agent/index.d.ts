@@ -22,4 +22,5 @@ export * from "./agent-scope-policy.js";
 export * from "./agent-channel-configuration.js";
 export * from "./agent-creation-replay.js";
 export * from "./agent-channel-attestation.js";
+export * from "./agent-workspace.js";
 //# sourceMappingURL=index.d.ts.map

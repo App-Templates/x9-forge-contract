@@ -10,6 +10,23 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.36.0 — descrittore D-A9 del workspace agente (R7-1)
+
+Additivo: un context.json 1.35 senza il campo resta valido.
+
+### Added (additive, backward-compatible)
+
+- `./agent`: `AGENT_WORKSPACE_HUMAN_FILES` (IDENTITY.md, SOUL.md, POLICIES.md, USER.md) e `AGENT_WORKSPACE_TOOLS_FILE` (TOOLS.md, generato e mai modificabile) come costanti canoniche; `AgentWorkspaceDescriptorSchema` con origine per file (Master/modello oppure proprio dell'agente, `kind: 'agent'`), versione salvata/applicata (schemi di versione esistenti), hash, data, cronologia e richiesta di ritorno a una versione precedente con versione attesa; skill progressive (descrizione sempre, procedura su richiesta, solo capability abilitate, limiti di dimensione). Permessi solo da `AgentScopePolicy` (nessun secondo schema).
+- `./agent`: campo opzionale `workspace` nel contesto con canali e helper `appliedWorkspaceVersion(ctx)` → numero oppure `null`.
+
+### Note
+
+- La richiesta di ritorno da sola non verifica la versione di destinazione: la verifica avviene con lo schema di validazione che la accompagna (usare quello).
+
+Verificato da revisore indipendente V13: 2152/2152, 11/11 mutazioni uccise, R-14 PASS.
+
+---
+
 ## v1.35.0 — catalogo voce di cap-voice (BRIDGE-135)
 
 Additivo: export 1.34 invariati.
