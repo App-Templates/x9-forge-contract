@@ -22,6 +22,7 @@ export declare const VoiceRegisterRequestSchema: z.ZodObject<{
         agent: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
         displayName: z.ZodString;
         persona: z.ZodOptional<z.ZodString>;
@@ -55,6 +56,7 @@ export declare const voiceRegisterContract: {
             agent: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
             displayName: z.ZodString;
             persona: z.ZodOptional<z.ZodString>;

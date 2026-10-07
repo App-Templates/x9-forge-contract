@@ -21,6 +21,7 @@ export declare const internalChannelAttestationContract: {
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strict>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -75,6 +76,7 @@ export declare const internalChannelAttestationContract: {
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strict>;
     }, z.core.$strict>;
 };

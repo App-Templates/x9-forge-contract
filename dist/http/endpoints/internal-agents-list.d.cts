@@ -88,6 +88,7 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
     identity: z.ZodOptional<z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     runtime: z.ZodOptional<z.ZodObject<{
         loadState: z.ZodEnum<{
@@ -151,6 +152,7 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
         identity: z.ZodOptional<z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
         runtime: z.ZodOptional<z.ZodObject<{
             loadState: z.ZodEnum<{
@@ -239,6 +241,7 @@ export declare const listAgentsContract: {
             identity: z.ZodOptional<z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>>;
             runtime: z.ZodOptional<z.ZodObject<{
                 loadState: z.ZodEnum<{

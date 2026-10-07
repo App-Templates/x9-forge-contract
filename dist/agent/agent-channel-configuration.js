@@ -121,6 +121,10 @@ export function managementAgentIdOf(context) {
         return null;
     return context.channelConfigurations?.[0]?.identity.managementAgentId ?? null;
 }
+/** Vault key of a validated context. Only Forge's explicit root identity is authoritative; no slug/channel fallback. */
+export function vaultAgentIdOf(context) {
+    return context.identity?.vaultAgentId ?? null;
+}
 /** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
 export function appliedAgentVoiceSettings(ctx) {
     return ctx.voiceConfiguration?.applied ?? null;

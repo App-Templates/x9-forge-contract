@@ -10,10 +10,12 @@ export declare const AgentCreationIntentSchema: z.ZodObject<{
     identity: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
     source: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
     configVersion: z.ZodNumber;
     channels: z.ZodObject<{
@@ -52,10 +54,12 @@ export declare const AgentCreationRequestSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
         source: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
         configVersion: z.ZodNumber;
         channels: z.ZodObject<{
@@ -167,10 +171,12 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
             source: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
             configVersion: z.ZodNumber;
             channels: z.ZodObject<{
@@ -228,6 +234,7 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodEnum<{
@@ -248,6 +255,7 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>], "kind">>;
         observation: z.ZodNullable<z.ZodObject<{
@@ -296,6 +304,7 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
     }, z.core.$strict>>;
     firstCheck: z.ZodNullable<z.ZodObject<{
@@ -393,10 +402,12 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 identity: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
                 source: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
                 configVersion: z.ZodNumber;
                 channels: z.ZodObject<{
@@ -454,6 +465,7 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 identity: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodEnum<{
@@ -474,6 +486,7 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 identity: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
             }, z.core.$strict>], "kind">>;
             observation: z.ZodNullable<z.ZodObject<{
@@ -522,6 +535,7 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>>;
         firstCheck: z.ZodNullable<z.ZodObject<{

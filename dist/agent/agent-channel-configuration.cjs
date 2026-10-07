@@ -4,6 +4,7 @@ exports.AgentContextWithChannelsWriteSchema = exports.AgentContextWithChannelsSc
 exports.channelFailure = channelFailure;
 exports.isChannelConfigurationApplied = isChannelConfigurationApplied;
 exports.managementAgentIdOf = managementAgentIdOf;
+exports.vaultAgentIdOf = vaultAgentIdOf;
 exports.appliedAgentVoiceSettings = appliedAgentVoiceSettings;
 exports.appliedAgentScopePolicy = appliedAgentScopePolicy;
 exports.shouldLoadAgentChannel = shouldLoadAgentChannel;
@@ -129,6 +130,10 @@ function managementAgentIdOf(context) {
     if (ids.size !== 1)
         return null;
     return context.channelConfigurations?.[0]?.identity.managementAgentId ?? null;
+}
+/** Vault key of a validated context. Only Forge's explicit root identity is authoritative; no slug/channel fallback. */
+function vaultAgentIdOf(context) {
+    return context.identity?.vaultAgentId ?? null;
 }
 /** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
 function appliedAgentVoiceSettings(ctx) {

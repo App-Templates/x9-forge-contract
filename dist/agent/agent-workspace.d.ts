@@ -866,6 +866,7 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
     identity: z.ZodOptional<z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
@@ -903,6 +904,7 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodEnum<{
@@ -923,6 +925,7 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>], "kind">>;
         observation: z.ZodNullable<z.ZodObject<{
@@ -971,6 +974,7 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
     }, z.core.$strict>>>;
     voiceConfiguration: z.ZodOptional<z.ZodObject<{
@@ -1442,6 +1446,7 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
     identity: z.ZodOptional<z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
@@ -1479,6 +1484,7 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodEnum<{
@@ -1499,6 +1505,7 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>], "kind">>;
         observation: z.ZodNullable<z.ZodObject<{
@@ -1547,6 +1554,7 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
     }, z.core.$strict>>>;
     voiceConfiguration: z.ZodOptional<z.ZodObject<{

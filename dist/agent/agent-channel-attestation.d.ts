@@ -18,6 +18,7 @@ export declare const AgentChannelAttestationRequestSchema: z.ZodObject<{
     identity: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type AgentChannelAttestationRequest = z.infer<typeof AgentChannelAttestationRequestSchema>;
@@ -74,6 +75,7 @@ export declare const AgentChannelAttestationSchema: z.ZodObject<{
     identity: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type AgentChannelAttestation = z.infer<typeof AgentChannelAttestationSchema>;
