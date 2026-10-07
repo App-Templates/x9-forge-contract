@@ -1,0 +1,500 @@
+[
+  {
+    "label": "request-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).strict().refine(request",
+    "new": "}).passthrough().refine(request"
+  },
+  {
+    "label": "request-sign",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "(request.type === 'private') === !request.chatId.startsWith('-')",
+    "new": "true"
+  },
+  {
+    "label": "update-integer",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "z.number().int().nonnegative()",
+    "new": "z.number().nonnegative()"
+  },
+  {
+    "label": "update-nonnegative",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "z.number().int().nonnegative()",
+    "new": "z.number().int()"
+  },
+  {
+    "label": "request-date",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "requestedAt: time",
+    "new": "requestedAt: z.string()"
+  },
+  {
+    "label": "queue-door",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "kind: z.literal('telegram')",
+    "new": "kind: z.enum(['telegram', 'email'])"
+  },
+  {
+    "label": "queue-bound",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "requests: z.array(AgentTelegramAccessRequestSchema).max(512)",
+    "new": "requests: z.array(AgentTelegramAccessRequestSchema).max(513)"
+  },
+  {
+    "label": "queue-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).superRefine((queue, ctx)",
+    "new": "}).passthrough().superRefine((queue, ctx)"
+  },
+  {
+    "label": "queue-unique-requestId",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "['requestId', 'chatId', 'updateId'] as const",
+    "new": "['chatId', 'updateId'] as const"
+  },
+  {
+    "label": "queue-unique-chatId",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "['requestId', 'chatId', 'updateId'] as const",
+    "new": "['requestId', 'updateId'] as const"
+  },
+  {
+    "label": "queue-unique-updateId",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "['requestId', 'chatId', 'updateId'] as const",
+    "new": "['requestId', 'chatId'] as const"
+  },
+  {
+    "label": "queue-future",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "queue.requests.some(request => Date.parse(request.requestedAt) > Date.parse(queue.observedAt))",
+    "new": "false"
+  },
+  {
+    "label": "error-finite",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "'queue_limit', 'not_supported', 'load_failed', 'apply_failed', 'reconcile_pending'",
+    "new": "'queue_limit', 'not_supported', 'load_failed', 'apply_failed', 'reconcile_pending', 'raw-provider-error'"
+  },
+  {
+    "label": "error-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).strict().refine(result",
+    "new": "}).passthrough().refine(result"
+  },
+  {
+    "label": "error-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "(result.error === 'stale_version') === (result.currentVersion !== undefined)",
+    "new": "true"
+  },
+  {
+    "label": "operation-action",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "z.enum(['admit', 'ignore'])",
+    "new": "z.enum(['admit', 'ignore', 'allow-everyone'])"
+  },
+  {
+    "label": "operation-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).strict();\nexport type AgentChannelAccessRequestOperation",
+    "new": "}).passthrough();\nexport type AgentChannelAccessRequestOperation"
+  },
+  {
+    "label": "operations-nonempty",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": ".min(1).max(512)",
+    "new": ".min(0).max(512)"
+  },
+  {
+    "label": "operations-bound",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": ".min(1).max(512)",
+    "new": ".min(1).max(513)"
+  },
+  {
+    "label": "operations-unique",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "new Set(operations.map(operation => operation.requestId)).size === operations.length",
+    "new": "true"
+  },
+  {
+    "label": "changes-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).strict();\nexport type AgentChannelAccessRequestChanges",
+    "new": "}).passthrough();\nexport type AgentChannelAccessRequestChanges"
+  },
+  {
+    "label": "command-action",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "AgentChannelAccessApplyCommandSchema = z.object({\n  action: z.literal('apply-channel')",
+    "new": "AgentChannelAccessApplyCommandSchema = z.object({\n  action: z.enum(['apply-channel', 'restart'])"
+  },
+  {
+    "label": "command-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).strict().refine(command",
+    "new": "}).passthrough().refine(command"
+  },
+  {
+    "label": "command-monotonic",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "command.expectedAppliedVersion === null || command.desiredVersion >= command.expectedAppliedVersion",
+    "new": "true"
+  },
+  {
+    "label": "source-available-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "z.object({ status: z.literal('available'), queue: AgentTelegramAccessRequestQueueSchema }).strict()",
+    "new": "z.object({ status: z.literal('available'), queue: AgentTelegramAccessRequestQueueSchema }).passthrough()"
+  },
+  {
+    "label": "source-unavailable-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "z.object({ status: z.literal('unavailable'), error: AgentChannelAccessErrorCodeSchema }).strict()",
+    "new": "z.object({ status: z.literal('unavailable'), error: AgentChannelAccessErrorCodeSchema }).passthrough()"
+  },
+  {
+    "label": "source-inapplicable-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "z.object({ status: z.literal('not-applicable') }).strict()",
+    "new": "z.object({ status: z.literal('not-applicable') }).passthrough()"
+  },
+  {
+    "label": "snapshot-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).strict().superRefine((snapshot, ctx)",
+    "new": "}).passthrough().superRefine((snapshot, ctx)"
+  },
+  {
+    "label": "snapshot-requests-door",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "(config.kind === 'email') !== (snapshot.requests.status === 'not-applicable')",
+    "new": "false"
+  },
+  {
+    "label": "snapshot-queue-binding",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "!sameAgentChannelAccessBinding(bindingOf(snapshot.requests.queue), bindingOf(config))",
+    "new": "false"
+  },
+  {
+    "label": "snapshot-queue-time",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "Date.parse(snapshot.requests.queue.observedAt) > Date.parse(snapshot.observedAt)",
+    "new": "false"
+  },
+  {
+    "label": "snapshot-config-time",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "config.observedAt !== null && Date.parse(config.observedAt) > Date.parse(snapshot.observedAt)",
+    "new": "false"
+  },
+  {
+    "label": "email-attestation-required",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "config.kind === 'email' && config.observation !== null && actual === null",
+    "new": "false"
+  },
+  {
+    "label": "email-attestation-binding",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "!sameAgentChannelAccessBinding(bindingOf(actual), bindingOf(config)) || actual.channel.kind !== config.kind",
+    "new": "false"
+  },
+  {
+    "label": "email-attestation-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "JSON.stringify(actual.applied) !== JSON.stringify(config.applied)",
+    "new": "false"
+  },
+  {
+    "label": "email-attestation-channel",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "JSON.stringify(actual.channel) !== JSON.stringify(config.observation)",
+    "new": "false"
+  },
+  {
+    "label": "email-attestation-date",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "actual.observedAt !== config.observedAt",
+    "new": "false"
+  },
+  {
+    "label": "email-attestation-error",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "JSON.stringify(actual.error) !== JSON.stringify(config.error)",
+    "new": "false"
+  },
+  {
+    "label": "email-attestation-future",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "Date.parse(actual.observedAt) > Date.parse(snapshot.observedAt)",
+    "new": "false"
+  },
+  {
+    "label": "snapshot-current-input",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (!snapshot.success || !kind.success || !Number.isFinite(maximumAgeMs)) return false;",
+    "new": "if (!snapshot.success || !kind.success || !Number.isFinite(maximumAgeMs)) return true;"
+  },
+  {
+    "label": "snapshot-current-kind",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "config.kind !== kind.data",
+    "new": "false"
+  },
+  {
+    "label": "snapshot-current-binding",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "!sameAgentChannelAccessBinding(bindingOf(config), rawBinding)",
+    "new": "false"
+  },
+  {
+    "label": "snapshot-current-explicit",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "config.access === undefined || !isChannelConfigurationApplied(config)",
+    "new": "false || !isChannelConfigurationApplied(config)"
+  },
+  {
+    "label": "snapshot-current-applied",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "config.access === undefined || !isChannelConfigurationApplied(config)",
+    "new": "config.access === undefined || false"
+  },
+  {
+    "label": "snapshot-current-no-future",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "age >= 0 && age <= maximumAgeMs",
+    "new": "true && age <= maximumAgeMs"
+  },
+  {
+    "label": "snapshot-current-expiry",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "age >= 0 && age <= maximumAgeMs",
+    "new": "age >= 0 && true"
+  },
+  {
+    "label": "apply-valid-input",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (!command.success || !snapshot.success) return false;",
+    "new": "if (!command.success || !snapshot.success) return true;"
+  },
+  {
+    "label": "apply-saved-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "intent.desiredVersion !== config.desired.version",
+    "new": "false"
+  },
+  {
+    "label": "apply-previous-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "intent.expectedAppliedVersion !== (config.applied?.version ?? null)",
+    "new": "false"
+  },
+  {
+    "label": "apply-no-request-change",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (changes === null) return true;",
+    "new": "if (changes === null) return false;"
+  },
+  {
+    "label": "apply-available-queue",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (current.requests.status !== 'available' || current.requests.queue.version !== changes.expectedQueueVersion) return false;",
+    "new": "if (current.requests.status !== 'available' || current.requests.queue.version !== changes.expectedQueueVersion) return true;"
+  },
+  {
+    "label": "apply-queue-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "current.requests.queue.version !== changes.expectedQueueVersion",
+    "new": "false"
+  },
+  {
+    "label": "apply-request-exists",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (!request) return false;",
+    "new": "if (!request) return true;"
+  },
+  {
+    "label": "apply-ignore",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (operation.action === 'ignore') return true;",
+    "new": "if (operation.action === 'ignore') return false;"
+  },
+  {
+    "label": "apply-chat-id",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "chat.chatId === request.chatId && chat.type === request.type",
+    "new": "true && chat.type === request.type"
+  },
+  {
+    "label": "apply-chat-type",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "chat.chatId === request.chatId && chat.type === request.type",
+    "new": "chat.chatId === request.chatId && true"
+  },
+  {
+    "label": "result-finite-outcome",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "z.enum(['applied', 'pending', 'failed'])",
+    "new": "z.enum(['applied', 'pending', 'failed', 'unknown'])"
+  },
+  {
+    "label": "result-strict",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "}).superRefine((result, ctx)",
+    "new": "}).passthrough().superRefine((result, ctx)"
+  },
+  {
+    "label": "result-agent-door",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "!sameAgentChannelAccessBinding(bindingOf(result), bindingOf(config)) || result.kind !== config.kind",
+    "new": "false"
+  },
+  {
+    "label": "result-desired-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.desiredVersion !== config.desired.version",
+    "new": "false"
+  },
+  {
+    "label": "result-previous-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.expectedAppliedVersion !== null && result.expectedAppliedVersion > result.desiredVersion",
+    "new": "false"
+  },
+  {
+    "label": "result-completion-time",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "Date.parse(result.completedAt) < Date.parse(result.snapshot.observedAt)",
+    "new": "false"
+  },
+  {
+    "label": "result-applied-evidence",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.outcome === 'applied' && (!isChannelConfigurationApplied(config) || config.access === undefined || result.error !== null)",
+    "new": "false"
+  },
+  {
+    "label": "result-failure-code",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.outcome === 'failed' && result.error === null",
+    "new": "false"
+  },
+  {
+    "label": "result-telegram-operations",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "changes !== null && result.kind !== 'telegram'",
+    "new": "false"
+  },
+  {
+    "label": "result-unique-operation",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "new Set(result.requestResults.map(item => item.requestId)).size !== result.requestResults.length",
+    "new": "false"
+  },
+  {
+    "label": "result-operation-count",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.requestResults.length !== operations.length",
+    "new": "false"
+  },
+  {
+    "label": "result-operation-identity",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.requestResults.some(item => !operations.some(operation => operation.requestId === item.requestId && operation.action === item.action))",
+    "new": "false"
+  },
+  {
+    "label": "result-all-applied",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.outcome === 'applied' && result.requestResults.some(item => item.state !== 'applied')",
+    "new": "false"
+  },
+  {
+    "label": "result-failed-not-hidden",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "result.requestResults.some(item => item.state === 'failed') && result.outcome !== 'failed'",
+    "new": "false"
+  },
+  {
+    "label": "result-request-evidence",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (source.status !== 'available' || source.queue.version <= changes.expectedQueueVersion\n      || source.queue.requests.some(request => operations.some(operation => operation.requestId === request.requestId)))",
+    "new": "if (false)"
+  },
+  {
+    "label": "result-queue-advanced",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "source.queue.version <= changes.expectedQueueVersion",
+    "new": "false"
+  },
+  {
+    "label": "result-request-removed",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "source.queue.requests.some(request => operations.some(operation => operation.requestId === request.requestId))",
+    "new": "false"
+  },
+  {
+    "label": "correlation-valid-input",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "if (!command.success || !result.success || !kind.success) return false;",
+    "new": "if (!command.success || !result.success || !kind.success) return true;"
+  },
+  {
+    "label": "correlation-binding",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "!sameAgentChannelAccessBinding(bindingOf(actual), rawBinding)",
+    "new": "false"
+  },
+  {
+    "label": "correlation-door",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "actual.kind !== kind.data",
+    "new": "false"
+  },
+  {
+    "label": "correlation-request",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "actual.requestId !== intent.requestId",
+    "new": "false"
+  },
+  {
+    "label": "correlation-desired",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "actual.desiredVersion !== intent.desiredVersion",
+    "new": "false"
+  },
+  {
+    "label": "correlation-previous",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "actual.expectedAppliedVersion !== intent.expectedAppliedVersion",
+    "new": "false"
+  },
+  {
+    "label": "correlation-null-changes",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "return wantedChanges === actualChanges;",
+    "new": "return true;"
+  },
+  {
+    "label": "correlation-queue-version",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "wantedChanges.expectedQueueVersion === actualChanges.expectedQueueVersion",
+    "new": "true"
+  },
+  {
+    "label": "correlation-count",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "wantedChanges.operations.length === actualChanges.operations.length",
+    "new": "true"
+  },
+  {
+    "label": "correlation-operations",
+    "file": "src/agent/agent-channel-access-requests.ts",
+    "old": "wantedChanges.operations.every(operation => actualChanges.operations.some(item => item.requestId === operation.requestId && item.action === operation.action))",
+    "new": "true"
+  }
+]

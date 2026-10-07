@@ -1,0 +1,326 @@
+[
+  {
+    "label": "trusted-sa-strict",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "z.object({ role: z.literal('sa') }).strict()",
+    "new": "z.object({ role: z.literal('sa') }).passthrough()"
+  },
+  {
+    "label": "trusted-owner-strict",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "tenantId: CapabilityAgentScopeSchema.shape.tenantId }).strict()",
+    "new": "tenantId: CapabilityAgentScopeSchema.shape.tenantId }).passthrough()"
+  },
+  {
+    "label": "auth-owner",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "scope.ownerId === access.data.ownerId &&",
+    "new": "true &&"
+  },
+  {
+    "label": "auth-tenant",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "scope.tenantId === access.data.tenantId",
+    "new": "true"
+  },
+  {
+    "label": "auth-source-parse",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "if (!snapshot.success || !access.success) return false;",
+    "new": "if (!snapshot.success || !access.success) return true;"
+  },
+  {
+    "label": "auth-or",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "access.data.role === 'sa' ||",
+    "new": "access.data.role === 'sa' &&"
+  },
+  {
+    "label": "draft-strict",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "}).strict().refine(draft =>",
+    "new": "}).passthrough().refine(draft =>"
+  },
+  {
+    "label": "draft-monotonic",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "draft.expectedAppliedVersion <= draft.expectedDesiredVersion",
+    "new": "true"
+  },
+  {
+    "label": "draft-required-version",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "expectedDesiredVersion: AgentConfigVersionSchema,",
+    "new": "expectedDesiredVersion: z.number(),"
+  },
+  {
+    "label": "draft-request-id",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "requestId: AgentManagementRequestIdSchema, expectedDesiredVersion:",
+    "new": "requestId: z.string(), expectedDesiredVersion:"
+  },
+  {
+    "label": "draft-valid-input",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "if (!draft.success || !snapshot.success) return false;",
+    "new": "if (!draft.success || !snapshot.success) return true;"
+  },
+  {
+    "label": "draft-kind",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "intent.policy.kind !== config.kind ||",
+    "new": "false ||"
+  },
+  {
+    "label": "draft-desired-version",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "intent.expectedDesiredVersion !== config.desired.version",
+    "new": "false"
+  },
+  {
+    "label": "draft-applied-version",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "intent.expectedAppliedVersion !== (config.applied?.version ?? null)",
+    "new": "false"
+  },
+  {
+    "label": "draft-applied-null",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "(config.applied?.version ?? null)",
+    "new": "(config.applied?.version ?? 1)"
+  },
+  {
+    "label": "draft-no-operations",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "if (changes === null) return true;",
+    "new": "if (changes === null) return false;"
+  },
+  {
+    "label": "draft-queue-source",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "if (current.requests.status !== 'available' || current.requests.queue.version !== changes.expectedQueueVersion) return false;",
+    "new": "if (current.requests.status !== 'available') return true; if (current.requests.queue.version !== changes.expectedQueueVersion) return false;"
+  },
+  {
+    "label": "draft-queue-version",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "current.requests.queue.version !== changes.expectedQueueVersion",
+    "new": "false"
+  },
+  {
+    "label": "draft-operations-every",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "changes.operations.every(operation =>",
+    "new": "changes.operations.some(operation =>"
+  },
+  {
+    "label": "draft-request-id-match",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "entry.requestId === operation.requestId",
+    "new": "true"
+  },
+  {
+    "label": "draft-request-exists",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "if (!request) return false;",
+    "new": "if (!request) return true;"
+  },
+  {
+    "label": "draft-ignore",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "if (operation.action === 'ignore') return true;",
+    "new": "if (operation.action === 'ignore') return false;"
+  },
+  {
+    "label": "draft-chat-id",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "chat.chatId === request.chatId &&",
+    "new": "true &&"
+  },
+  {
+    "label": "draft-chat-type",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "chat.type === request.type",
+    "new": "true"
+  },
+  {
+    "label": "preview-strict",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "}).strict().refine(preview =>",
+    "new": "}).passthrough().refine(preview =>"
+  },
+  {
+    "label": "preview-id",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "preview.requestId === preview.draft.requestId &&",
+    "new": "true &&"
+  },
+  {
+    "label": "preview-current",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "isForgeAgentChannelAccessDraftForSnapshot(preview.draft, preview.snapshot)",
+    "new": "true"
+  },
+  {
+    "label": "preview-correlation",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "JSON.stringify(draft.data) === JSON.stringify(preview.data.draft)",
+    "new": "true"
+  },
+  {
+    "label": "preview-valid-draft",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "return draft.success && preview.success &&",
+    "new": "return !draft.success || draft.success && preview.success &&"
+  },
+  {
+    "label": "preview-valid-response",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "return draft.success && preview.success &&",
+    "new": "return !preview.success || draft.success && preview.success &&"
+  },
+  {
+    "label": "session-auth",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "authentication: 'forge-session'",
+    "new": "authentication: 'none'"
+  },
+  {
+    "label": "ownership-auth",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "authorization: 'sa-or-agent-owner'",
+    "new": "authorization: 'any-session'"
+  },
+  {
+    "label": "path-validation",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "const params = AgentChannelAccessParamsSchema.parse({ agentId, kind });",
+    "new": "const params = { agentId, kind };"
+  },
+  {
+    "label": "read-path",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "path: '/api/agents/:agentId/channels/:kind/access'",
+    "new": "path: '/api/agents/:agentId/channels/:kind/access/wrong'"
+  },
+  {
+    "label": "read-method",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "...browserAuthentication, method: 'GET' as const, path: '/api/agents/:agentId/channels/:kind/access'",
+    "new": "...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access'"
+  },
+  {
+    "label": "read-extra-s2s",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "...browserAuthentication, method: 'GET' as const, path: '/api/agents/:agentId/channels/:kind/access'",
+    "new": "...browserAuthentication, authType: 'secret' as const, method: 'GET' as const, path: '/api/agents/:agentId/channels/:kind/access'"
+  },
+  {
+    "label": "read-response",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessSnapshotSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: AgentChannelAccessErrorResponseSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema"
+  },
+  {
+    "label": "read-error",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessSnapshotSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: AgentChannelAccessSnapshotSchema, errorResponseSchema: AgentChannelAccessSnapshotSchema"
+  },
+  {
+    "label": "read-params",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "export const forgeAgentChannelAccessSnapshotContract = {\n  ...browserAuthentication, method: 'GET' as const, path: '/api/agents/:agentId/channels/:kind/access' as const,\n  paramsSchema: AgentChannelAccessParamsSchema, responseSchema: AgentChannelAccessSnapshotSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;",
+    "new": "export const forgeAgentChannelAccessSnapshotContract = {\n  ...browserAuthentication, method: 'GET' as const, path: '/api/agents/:agentId/channels/:kind/access' as const,\n  paramsSchema: AgentManagementRequestIdSchema, responseSchema: AgentChannelAccessSnapshotSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;"
+  },
+  {
+    "label": "preview-path",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "path: '/api/agents/:agentId/channels/:kind/access/preview'",
+    "new": "path: '/api/agents/:agentId/channels/:kind/access/preview/wrong'"
+  },
+  {
+    "label": "preview-method",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/preview'",
+    "new": "...browserAuthentication, method: 'GET' as const, path: '/api/agents/:agentId/channels/:kind/access/preview'"
+  },
+  {
+    "label": "preview-extra-s2s",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/preview'",
+    "new": "...browserAuthentication, authType: 'secret' as const, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/preview'"
+  },
+  {
+    "label": "preview-response",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "responseSchema: ForgeAgentChannelAccessPreviewSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: AgentChannelAccessErrorResponseSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema"
+  },
+  {
+    "label": "preview-error",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "responseSchema: ForgeAgentChannelAccessPreviewSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: ForgeAgentChannelAccessPreviewSchema, errorResponseSchema: AgentChannelAccessSnapshotSchema"
+  },
+  {
+    "label": "preview-params",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "export const forgeAgentChannelAccessPreviewContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/preview' as const,\n  paramsSchema: AgentChannelAccessParamsSchema, bodySchema: ForgeAgentChannelAccessDraftSchema,\n  responseSchema: ForgeAgentChannelAccessPreviewSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;",
+    "new": "export const forgeAgentChannelAccessPreviewContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/preview' as const,\n  paramsSchema: AgentManagementRequestIdSchema, bodySchema: ForgeAgentChannelAccessDraftSchema,\n  responseSchema: ForgeAgentChannelAccessPreviewSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;"
+  },
+  {
+    "label": "preview-body",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "export const forgeAgentChannelAccessPreviewContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/preview' as const,\n  paramsSchema: AgentChannelAccessParamsSchema, bodySchema: ForgeAgentChannelAccessDraftSchema,\n  responseSchema: ForgeAgentChannelAccessPreviewSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;",
+    "new": "export const forgeAgentChannelAccessPreviewContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/preview' as const,\n  paramsSchema: AgentChannelAccessParamsSchema, bodySchema: AgentChannelAccessSnapshotSchema,\n  responseSchema: ForgeAgentChannelAccessPreviewSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;"
+  },
+  {
+    "label": "apply-path",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "path: '/api/agents/:agentId/channels/:kind/access/apply'",
+    "new": "path: '/api/agents/:agentId/channels/:kind/access/apply/wrong'"
+  },
+  {
+    "label": "apply-method",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/apply'",
+    "new": "...browserAuthentication, method: 'GET' as const, path: '/api/agents/:agentId/channels/:kind/access/apply'"
+  },
+  {
+    "label": "apply-extra-s2s",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/apply'",
+    "new": "...browserAuthentication, authType: 'secret' as const, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/apply'"
+  },
+  {
+    "label": "apply-response",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: AgentChannelAccessErrorResponseSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema"
+  },
+  {
+    "label": "apply-error",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessSnapshotSchema"
+  },
+  {
+    "label": "apply-params",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "export const forgeAgentChannelAccessApplyContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/apply' as const,\n  paramsSchema: AgentChannelAccessParamsSchema, bodySchema: ForgeAgentChannelAccessDraftSchema,\n  responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;",
+    "new": "export const forgeAgentChannelAccessApplyContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/apply' as const,\n  paramsSchema: AgentManagementRequestIdSchema, bodySchema: ForgeAgentChannelAccessDraftSchema,\n  responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;"
+  },
+  {
+    "label": "apply-body",
+    "file": "src/http/endpoints/forge-agent-channel-access.ts",
+    "old": "export const forgeAgentChannelAccessApplyContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/apply' as const,\n  paramsSchema: AgentChannelAccessParamsSchema, bodySchema: ForgeAgentChannelAccessDraftSchema,\n  responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;",
+    "new": "export const forgeAgentChannelAccessApplyContract = {\n  ...browserAuthentication, method: 'POST' as const, path: '/api/agents/:agentId/channels/:kind/access/apply' as const,\n  paramsSchema: AgentChannelAccessParamsSchema, bodySchema: AgentChannelAccessSnapshotSchema,\n  responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema,\n} as const;"
+  },
+  {
+    "label": "http-export",
+    "file": "src/http/endpoints/index.ts",
+    "old": "export * from './forge-agent-channel-access.js';",
+    "new": ""
+  }
+]

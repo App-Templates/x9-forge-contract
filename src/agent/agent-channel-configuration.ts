@@ -10,6 +10,7 @@ import { AgentRuntimeChannelSchema } from './agent-runtime-state.js';
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from './agent-context-file.js';
 import { AgentVoiceConfigSchema } from '../capability/voice/agent-voice-settings.js';
 import type { AgentVoiceConfig, AgentVoiceSettings } from '../capability/voice/agent-voice-settings.js';
+import { AgentChannelAccessConfigurationSchema } from './agent-channel-access.js';
 import { AgentScopePolicySchema } from './agent-scope-policy.js';
 import type { AgentScopePolicy } from './agent-scope-policy.js';
 
@@ -55,6 +56,8 @@ export const AgentChannelVersionedStateSchema = z.object({ version: AgentConfigV
 export const AgentChannelConfigurationSchema = z.object({
   ...ownership, kind: AgentBirthChannelKindSchema,
   desired: AgentChannelVersionedStateSchema,
+  /** Optional explicit door policy; absent preserves 1.41 contexts without inventing a default. */
+  access: AgentChannelAccessConfigurationSchema.optional(),
   /** null means never applied, not an inferred pause. An older active version may still be running. */
   applied: AgentChannelVersionedStateSchema.nullable(),
   resource: AgentOwnedChannelResourceSchema.nullable(),
@@ -64,6 +67,14 @@ export const AgentChannelConfigurationSchema = z.object({
 }).strict().superRefine((config, ctx) => {
   const issue = (path: string, message: string) => ctx.addIssue({ code: 'custom', path: [path], message });
   if (config.identity.runtimeAgentId !== config.scope.agentId) issue('identity', 'Runtime identity must match configuration scope');
+  if (config.access) {
+    if (config.resource && config.resource.identity.vaultAgentId !== config.identity.vaultAgentId) issue('resource', 'Explicit access resource belongs to another vault identity');
+    if (config.access.desiredPolicy.kind !== config.kind) issue('access', 'Desired access policy belongs to another door');
+    if (config.access.appliedPolicy && config.access.appliedPolicy.kind !== config.kind) issue('access', 'Applied access policy belongs to another door');
+    if (config.applied === null && config.access.appliedPolicy !== null) issue('access', 'An applied policy requires an applied channel version');
+    if (config.applied?.version === config.desired.version && config.access.appliedPolicy !== null
+        && JSON.stringify(config.access.desiredPolicy) !== JSON.stringify(config.access.appliedPolicy)) issue('access', 'One channel version cannot describe two access policies');
+  }
   if (config.resource && (!sameCapabilityScope(config.resource.scope, config.scope)
       || config.resource.identity.managementAgentId !== config.identity.managementAgentId)) issue('resource', 'Resource belongs to another scope or identity');
   if (config.resource && config.resource.kind !== config.kind) issue('resource', 'Resource belongs to another channel kind');
@@ -83,7 +94,8 @@ export function isChannelConfigurationApplied(raw: unknown): boolean {
   const parsed = AgentChannelConfigurationSchema.safeParse(raw);
   if (!parsed.success) return false;
   const config = parsed.data;
-  return config.error === null && config.applied?.version === config.desired.version
+  return config.error === null && (config.access === undefined || config.access.appliedPolicy !== null)
+    && config.applied?.version === config.desired.version
     && config.observation?.state === (config.desired.state === 'active' ? 'loaded' : 'paused');
 }
 

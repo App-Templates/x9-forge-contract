@@ -1,0 +1,8 @@
+[
+  {
+    "label": "explicit-resource-vault",
+    "file": "src/agent/agent-channel-configuration.ts",
+    "old": "config.resource.identity.vaultAgentId !== config.identity.vaultAgentId",
+    "new": "false"
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "qualified": 49,
+  "total": 50,
+  "baseline": {
+    "exit": 0,
+    "passed": 62,
+    "total": 62,
+    "failed": 0,
+    "skipped": 0,
+    "semantic": false,
+    "witnesses": []
+  },
+  "survived": [
+    {
+      "label": "chat-type",
+      "file": "src/agent/agent-channel-access.ts",
+      "qualified": false,
+      "red": {
+        "exit": 0,
+        "passed": 62,
+        "total": 62,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 62,
+        "total": 62,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    }
+  ]
+}
