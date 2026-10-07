@@ -26,6 +26,7 @@ export declare const AgentContextRuntimeFieldsSchema: z.ZodObject<{
     registryPath: z.ZodString;
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
+    configVersion: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strip>;
 export type AgentContextRuntimeFields = z.infer<typeof AgentContextRuntimeFieldsSchema>;
 /**
@@ -81,6 +82,7 @@ export declare const AgentContextFileSchema: z.ZodObject<{
     registryPath: z.ZodString;
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
+    configVersion: z.ZodOptional<z.ZodNumber>;
 }, z.core.$loose>;
 export type AgentContextFile = z.infer<typeof AgentContextFileSchema>;
 /**
@@ -88,6 +90,11 @@ export type AgentContextFile = z.infer<typeof AgentContextFileSchema>;
  * "no bot" because Forge's writer emits `params.telegram_bot_token?.trim() ?? ''`.
  */
 export declare function hasTelegramBot(ctx: Pick<AgentContextFile, 'telegramBotToken'>): boolean;
+/**
+ * Applied configuration version of a VALIDATED context: its `configVersion`, or `null` (never applied) when absent.
+ * Never infers a version from other fields.
+ */
+export declare function appliedAgentConfigVersion(ctx: Pick<AgentContextFile, 'configVersion'>): number | null;
 /**
  * Parse and validate raw JSON into the full AgentContextFile shape.
  * Fail-loud: throws ZodError on invalid input. Boundary helper for both
@@ -151,6 +158,7 @@ export declare const AgentContextFileWriteSchema: z.ZodObject<{
     registryPath: z.ZodString;
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
+    configVersion: z.ZodOptional<z.ZodNumber>;
 }, z.core.$loose>;
 /**
  * Validate a context.json about to be WRITTEN. Fail-loud like

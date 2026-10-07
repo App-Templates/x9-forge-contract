@@ -11,7 +11,7 @@ export { KNOWN_CREDENTIAL_KEYS, AgentCredentialsSchema, AUTH_GATE_FIELDS, } from
 // Context Core (cross-repo contract)
 export { LlmConfigSchema, AgentContextCoreSchema } from "./agent-context-core.js";
 // Context File (FULL context.json contract: Core + Runtime fields — F-1)
-export { AgentContextRuntimeFieldsSchema, AgentContextFileSchema, AgentContextFileWriteSchema, hasTelegramBot, parseAgentContextFile, parseAgentContextFileForWrite, } from "./agent-context-file.js";
+export { AgentContextRuntimeFieldsSchema, AgentContextFileSchema, AgentContextFileWriteSchema, hasTelegramBot, appliedAgentConfigVersion, parseAgentContextFile, parseAgentContextFileForWrite, } from "./agent-context-file.js";
 // Canonical on-disk path derivation (Bug #15 path-drift fix — F-path)
 export { agentWorkspacePath, agentRegistryPath, agentContextJsonPath, } from "./agent-paths.js";
 // Parser helper

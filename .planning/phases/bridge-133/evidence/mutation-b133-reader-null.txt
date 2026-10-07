@@ -1,0 +1,7 @@
+mutation b133-reader-null: src/agent/agent-context-file.ts
+-   return ctx.configVersion ?? null;
++   return ctx.configVersion ?? 0;
+result: KILLED
+Tests  1 failed | 33 passed (34)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-context-config-version.test.ts > appliedAgentConfigVersion > reports never applied (null) when absent, never a guessed value

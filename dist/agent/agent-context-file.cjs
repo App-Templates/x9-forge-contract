@@ -2,11 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentContextFileWriteSchema = exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = void 0;
 exports.hasTelegramBot = hasTelegramBot;
+exports.appliedAgentConfigVersion = appliedAgentConfigVersion;
 exports.parseAgentContextFile = parseAgentContextFile;
 exports.parseAgentContextFileForWrite = parseAgentContextFileForWrite;
 const zod_1 = require("zod");
 const agent_context_core_js_1 = require("./agent-context-core.cjs");
 const platform_internal_credentials_js_1 = require("../vault/platform-internal-credentials.cjs");
+const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 /**
  * AgentContextFile — the FULL canonical contract for `context.json` on disk.
  *
@@ -42,6 +44,15 @@ exports.AgentContextRuntimeFieldsSchema = zod_1.z.object({
     telegramBotToken: zod_1.z.string().optional(),
     /** Human-readable agent name (logs, UI). */
     displayName: zod_1.z.string().min(1),
+    /**
+     * BRIDGE-133 (v1.33.0) — version of the WHOLE saved agent configuration this context materializes.
+     *
+     * Forge writes it on Apply (same numeric version as `AgentConfigVersionStateSchema.desired/applied`).
+     * X9 reads it only after validating the context; once the context is loaded, this value IS the applied version
+     * (`AgentConfigVersionStateSchema.applied`). Absent ⇒ never applied: report `null` via
+     * {@link appliedAgentConfigVersion}, never a guessed value. Additive: 1.32 contexts without it stay valid.
+     */
+    configVersion: agent_config_js_1.AgentConfigVersionSchema.optional(),
 });
 /**
  * Full context.json schema: Core (cross-repo identity/credentials/llm) +
@@ -55,6 +66,13 @@ exports.AgentContextFileSchema = agent_context_core_js_1.AgentContextCoreSchema.
  */
 function hasTelegramBot(ctx) {
     return typeof ctx.telegramBotToken === 'string' && ctx.telegramBotToken.trim().length > 0;
+}
+/**
+ * Applied configuration version of a VALIDATED context: its `configVersion`, or `null` (never applied) when absent.
+ * Never infers a version from other fields.
+ */
+function appliedAgentConfigVersion(ctx) {
+    return ctx.configVersion ?? null;
 }
 /**
  * Parse and validate raw JSON into the full AgentContextFile shape.

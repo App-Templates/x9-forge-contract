@@ -1,0 +1,8 @@
+mutation b133-field-type: src/agent/agent-context-file.ts
+-   configVersion: AgentConfigVersionSchema.optional(),
++   configVersion: z.number().optional(),
+result: KILLED
+Tests  12 failed | 22 passed (34)
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion 0
+FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion -1

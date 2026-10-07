@@ -27,6 +27,7 @@ export {
   AgentContextFileSchema,
   AgentContextFileWriteSchema,
   hasTelegramBot,
+  appliedAgentConfigVersion,
   parseAgentContextFile,
   parseAgentContextFileForWrite,
 } from './agent-context-file.js';

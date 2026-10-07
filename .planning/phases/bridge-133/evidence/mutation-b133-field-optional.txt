@@ -1,0 +1,8 @@
+mutation b133-field-optional: src/agent/agent-context-file.ts
+-   configVersion: AgentConfigVersionSchema.optional(),
++   configVersion: AgentConfigVersionSchema,
+result: KILLED
+Tests  5 failed | 29 passed (34)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema keeps a 1.32 context valid and unchanged
+FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileWriteSchema keeps a 1.32 context valid and unchanged
