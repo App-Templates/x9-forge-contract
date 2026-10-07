@@ -61,9 +61,11 @@ export const AgentCreationCheckpointSchema = z.object({
     if (job.firstCheck === null || job.firstCheck.error !== null || job.firstCheck.channel.loaded !== true
         || job.firstCheck.channel.readiness !== 'ready') issue(['firstCheck'], 'Completed creation needs a successful check on a loaded channel');
     const checkedBirthChannel = job.channels.find((entry) => entry.kind === job.firstCheck?.channel.kind);
-    if (checkedBirthChannel && (checkedBirthChannel.desired.state !== 'active'
-        || checkedBirthChannel.observation?.channelId !== job.firstCheck?.channel.channelId)) {
-      issue(['firstCheck'], 'A birth-channel check must match the active applied channel');
+    if (job.firstCheck?.channel.kind !== 'web' && (!checkedBirthChannel || checkedBirthChannel.desired.state !== 'active'
+        || checkedBirthChannel.observation?.loaded !== true
+        || checkedBirthChannel.observation.readiness !== 'ready'
+        || checkedBirthChannel.observation.channelId !== job.firstCheck?.channel.channelId)) {
+      issue(['firstCheck'], 'A textual check must be ready web or match an active applied ready birth channel');
     }
   }
 });

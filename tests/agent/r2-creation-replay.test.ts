@@ -104,3 +104,39 @@ describe('R2 replay disposition', () => {
     expect(creationReplay(checkpoint(), { intent: request.intent, telegram_allow_from: [], selectedCapabilities: request.selectedCapabilities, name: request.name }).action).toBe('completed');
   });
 });
+
+// Regression from the independent R27 review of e318fe9; web is textual per the coordinator's clarification.
+describe('R2 completed creation requires an applied ready textual channel', () => {
+  const activeEmail = () => {
+    const email = { ...channel('email'), desired: { version: 2, state: 'active' }, applied: { version: 2, state: 'active' },
+      observation: { channelId: 'synthetic-email', kind: 'email', state: 'loaded', loaded: true, readiness: 'ready' } };
+    return { ...checkpoint(), request: { ...request, intent: { ...request.intent, channels: { telegram: 'paused', email: 'active' } } },
+      channels: [channel(), email], firstCheck: { ...checkpoint().firstCheck, channel: email.observation } };
+  };
+  const readyVoice = { channelId: 'synthetic-voice', kind: 'voice', state: 'loaded', loaded: true, readiness: 'ready' };
+  it('rejects voice-only completion when both textual birth channels are paused (R27)', () => {
+    const job = checkpoint();
+    expect(AgentCreationCheckpointSchema.safeParse({ ...job, firstCheck: { ...job.firstCheck, channel: readyVoice } }).success).toBe(false);
+  });
+  it('rejects ready voice when the only active textual handler is not ready (R27)', () => {
+    const job = activeEmail();
+    const email = { ...job.channels[1], observation: { ...job.channels[1].observation, readiness: 'not-ready' } };
+    expect(AgentCreationCheckpointSchema.safeParse({ ...job, channels: [channel(), email],
+      firstCheck: { ...job.firstCheck, channel: readyVoice } }).success).toBe(false);
+  });
+  it('accepts an attested ready web check when both birth channels are paused', () => {
+    expect(AgentCreationCheckpointSchema.safeParse(checkpoint()).success).toBe(true);
+  });
+  it('rejects a ready first check that hides a degraded applied textual observation', () => {
+    const job = activeEmail();
+    expect(AgentCreationCheckpointSchema.safeParse({ ...job, channels: [channel(),
+      { ...job.channels[1], observation: { ...job.channels[1].observation, readiness: 'not-ready' } }] }).success).toBe(false);
+  });
+  it('accepts ready email while Telegram is paused and preserves replay identity', () => {
+    const job = activeEmail();
+    expect(creationReplay(job, job.request)).toEqual({ action: 'completed', replayed: true, checkpoint: job });
+  });
+  it('accepts paused creation intent before completion without inventing readiness', () => {
+    expect(AgentCreationCheckpointSchema.safeParse({ ...checkpoint(), phase: 'pending', firstCheck: null }).success).toBe(true);
+  });
+});
