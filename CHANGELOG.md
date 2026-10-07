@@ -10,6 +10,19 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.33.0 — versione applicata della configurazione nel contesto agente (BRIDGE-133)
+
+Additivo: export e payload 1.32 invariati; un context.json 1.32 senza il campo resta valido.
+
+### Added (additive, backward-compatible)
+
+- `./agent`: campo opzionale `configVersion` (`AgentConfigVersionSchema`, intero positivo) in `AgentContextFile`, `AgentContextWithChannels` e nelle varianti Write: la versione dell'intera configurazione salvata che il runtime ha davvero applicato.
+- `./agent`: `appliedAgentConfigVersion(ctx)` restituisce quella versione oppure `null` se il contesto non la porta (mai un valore inventato).
+
+Verificato da revisori indipendenti: Codex A (2008/2008, build/CJS/qualità) + verificatore V3 (4/4 mutazioni uccise, R-14 PASS).
+
+---
+
 ## v1.32.0 — canali per agente: pausa, stato applicato e attestazione (R2-2)
 
 Contratti per la creazione di un agente con canali propri (FABBRICA R2). Additivo: export e payload 1.31 invariati.

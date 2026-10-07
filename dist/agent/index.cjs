@@ -20,7 +20,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseAgentContext = exports.agentContextJsonPath = exports.agentRegistryPath = exports.agentWorkspacePath = exports.parseAgentContextFileForWrite = exports.parseAgentContextFile = exports.hasTelegramBot = exports.AgentContextFileWriteSchema = exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = exports.AgentContextCoreSchema = exports.LlmConfigSchema = exports.AUTH_GATE_FIELDS = exports.AgentCredentialsSchema = exports.KNOWN_CREDENTIAL_KEYS = exports.AgentIdentitySchema = exports.OwnerIdSchema = exports.AgentIdSchema = void 0;
+exports.parseAgentContext = exports.agentContextJsonPath = exports.agentRegistryPath = exports.agentWorkspacePath = exports.parseAgentContextFileForWrite = exports.parseAgentContextFile = exports.appliedAgentConfigVersion = exports.hasTelegramBot = exports.AgentContextFileWriteSchema = exports.AgentContextFileSchema = exports.AgentContextRuntimeFieldsSchema = exports.AgentContextCoreSchema = exports.LlmConfigSchema = exports.AUTH_GATE_FIELDS = exports.AgentCredentialsSchema = exports.KNOWN_CREDENTIAL_KEYS = exports.AgentIdentitySchema = exports.OwnerIdSchema = exports.AgentIdSchema = void 0;
 // Identity (branded types)
 var agent_identity_js_1 = require("./agent-identity.cjs");
 Object.defineProperty(exports, "AgentIdSchema", { enumerable: true, get: function () { return agent_identity_js_1.AgentIdSchema; } });
@@ -41,6 +41,7 @@ Object.defineProperty(exports, "AgentContextRuntimeFieldsSchema", { enumerable: 
 Object.defineProperty(exports, "AgentContextFileSchema", { enumerable: true, get: function () { return agent_context_file_js_1.AgentContextFileSchema; } });
 Object.defineProperty(exports, "AgentContextFileWriteSchema", { enumerable: true, get: function () { return agent_context_file_js_1.AgentContextFileWriteSchema; } });
 Object.defineProperty(exports, "hasTelegramBot", { enumerable: true, get: function () { return agent_context_file_js_1.hasTelegramBot; } });
+Object.defineProperty(exports, "appliedAgentConfigVersion", { enumerable: true, get: function () { return agent_context_file_js_1.appliedAgentConfigVersion; } });
 Object.defineProperty(exports, "parseAgentContextFile", { enumerable: true, get: function () { return agent_context_file_js_1.parseAgentContextFile; } });
 Object.defineProperty(exports, "parseAgentContextFileForWrite", { enumerable: true, get: function () { return agent_context_file_js_1.parseAgentContextFileForWrite; } });
 // Canonical on-disk path derivation (Bug #15 path-drift fix — F-path)

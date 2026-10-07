@@ -247,6 +247,7 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
     registryPath: z.ZodString;
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
+    configVersion: z.ZodOptional<z.ZodNumber>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
             email: "email";
@@ -402,6 +403,7 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
     registryPath: z.ZodString;
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
+    configVersion: z.ZodOptional<z.ZodNumber>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
             email: "email";

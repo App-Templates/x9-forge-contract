@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { AgentContextCoreSchema } from "./agent-context-core.js";
 import { isPlatformInternalCredentialKey } from "../vault/platform-internal-credentials.js";
+import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js";
 /**
  * AgentContextFile — the FULL canonical contract for `context.json` on disk.
  *
@@ -36,6 +37,15 @@ export const AgentContextRuntimeFieldsSchema = z.object({
     telegramBotToken: z.string().optional(),
     /** Human-readable agent name (logs, UI). */
     displayName: z.string().min(1),
+    /**
+     * BRIDGE-133 (v1.33.0) — version of the WHOLE saved agent configuration this context materializes.
+     *
+     * Forge writes it on Apply (same numeric version as `AgentConfigVersionStateSchema.desired/applied`).
+     * X9 reads it only after validating the context; once the context is loaded, this value IS the applied version
+     * (`AgentConfigVersionStateSchema.applied`). Absent ⇒ never applied: report `null` via
+     * {@link appliedAgentConfigVersion}, never a guessed value. Additive: 1.32 contexts without it stay valid.
+     */
+    configVersion: AgentConfigVersionSchema.optional(),
 });
 /**
  * Full context.json schema: Core (cross-repo identity/credentials/llm) +
@@ -49,6 +59,13 @@ export const AgentContextFileSchema = AgentContextCoreSchema.extend(AgentContext
  */
 export function hasTelegramBot(ctx) {
     return typeof ctx.telegramBotToken === 'string' && ctx.telegramBotToken.trim().length > 0;
+}
+/**
+ * Applied configuration version of a VALIDATED context: its `configVersion`, or `null` (never applied) when absent.
+ * Never infers a version from other fields.
+ */
+export function appliedAgentConfigVersion(ctx) {
+    return ctx.configVersion ?? null;
 }
 /**
  * Parse and validate raw JSON into the full AgentContextFile shape.
