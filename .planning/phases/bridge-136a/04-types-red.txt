@@ -1,0 +1,3 @@
+../codex-a-bridge137-consumer-2wc5i_rd/consumer.cts(5,7): error TS2322: Type '(string & $brand<"AgentId">) | null' is not assignable to type 'string & $brand<"AgentId">'.
+  Type 'null' is not assignable to type 'string & $brand<"AgentId">'.
+    Type 'null' is not assignable to type 'string'.

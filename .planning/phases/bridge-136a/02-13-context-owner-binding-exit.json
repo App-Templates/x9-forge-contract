@@ -1,0 +1,24 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-70-1",
+    "exec",
+    "vitest",
+    "run",
+    "tests/agent/bridge137-voice-identity.test.ts",
+    "--maxWorkers=1",
+    "--reporter=json",
+    "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-70-1/.planning/phases/bridge-136a/02-13-context-owner-binding.json"
+  ],
+  "exit": 1,
+  "total": 92,
+  "passed": 88,
+  "failed": 4,
+  "assertionNames": [
+    "canonical voice identity read never relaxes channel ownership for a valid management identity",
+    "canonical voice identity write never relaxes channel ownership for a valid management identity",
+    "canonical voice identity workspace read never relaxes channel ownership for a valid management identity",
+    "canonical voice identity workspace write never relaxes channel ownership for a valid management identity"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-70-1",
+    "exec",
+    "vitest",
+    "run",
+    "tests/agent/bridge137-voice-identity.test.ts",
+    "--maxWorkers=1",
+    "--reporter=json",
+    "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-70-1/.planning/phases/bridge-136a/02-04-runtime-binding-restore-green.json"
+  ],
+  "exit": 0,
+  "total": 92,
+  "passed": 92,
+  "failed": 0,
+  "assertionNames": []
+}

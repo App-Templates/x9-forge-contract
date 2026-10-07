@@ -4,7 +4,8 @@ import { AgentTelegramBotSchema } from '../messaging/agent-telegram-bot.js';
 import { AgentEmailInboxSchema } from '../messaging/agent-email-inbox.js';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../capability/capability-call-context.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
-import { AgentRuntimeIdentitySchema } from './agent-runtime-identity.js';
+import { AgentRuntimeIdentitySchema, type AgentRuntimeIdentity } from './agent-runtime-identity.js';
+import type { AgentId } from './agent-identity.js';
 import { AgentRuntimeChannelSchema } from './agent-runtime-state.js';
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from './agent-context-file.js';
 import { AgentVoiceConfigSchema } from '../capability/voice/agent-voice-settings.js';
@@ -91,20 +92,44 @@ const ConfigurationsSchema = z.array(AgentChannelConfigurationSchema).length(2).
   { message: 'One configuration for each birth channel' },
 );
 function checkContextScope(context: { agentId: string; ownerId: string; tenantId?: string | undefined;
-  channelConfigurations?: AgentChannelConfiguration[] | undefined; voiceConfiguration?: AgentVoiceConfig | undefined }, ctx: z.RefinementCtx): void {
+  channelConfigurations?: AgentChannelConfiguration[] | undefined; voiceConfiguration?: AgentVoiceConfig | undefined;
+  identity?: AgentRuntimeIdentity | undefined }, ctx: z.RefinementCtx): void {
   for (const [index, config] of (context.channelConfigurations ?? []).entries()) {
     if (config.scope.agentId !== context.agentId || config.scope.ownerId !== context.ownerId || config.scope.tenantId !== context.tenantId) {
       ctx.addIssue({ code: 'custom', path: ['channelConfigurations', index, 'scope'], message: 'Channel configuration belongs to another context scope' });
     }
   }
-  if (context.voiceConfiguration && context.voiceConfiguration.agentId !== context.agentId) {
-    ctx.addIssue({ code: 'custom', path: ['voiceConfiguration', 'agentId'], message: 'Voice configuration belongs to another context scope' });
+  if (context.identity && context.identity.runtimeAgentId !== context.agentId) {
+    ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Identity belongs to another runtime' });
+  }
+  const channelIds = new Set((context.channelConfigurations ?? []).map(config => config.identity.managementAgentId));
+  if (channelIds.size > 1) {
+    ctx.addIssue({ code: 'custom', path: ['channelConfigurations'], message: 'Channel management identities disagree' });
+  }
+  for (const [index, config] of (context.channelConfigurations ?? []).entries()) {
+    if (context.identity && config.identity.managementAgentId !== context.identity.managementAgentId) {
+      ctx.addIssue({ code: 'custom', path: ['channelConfigurations', index, 'identity'], message: 'Channel identity belongs to another management agent' });
+    }
+  }
+  const managementAgentId = managementAgentIdOf(context);
+  // Legacy 1.34 contexts remain readable; the helper never invents an identity for them.
+  if (context.voiceConfiguration && context.voiceConfiguration.agentId !== (managementAgentId ?? context.agentId)) {
+    ctx.addIssue({ code: 'custom', path: ['voiceConfiguration', 'agentId'], message: 'Voice configuration belongs to another management identity' });
   }
 }
 /** Additive context field. Absent is legacy; present is complete, validated and scoped with no tenant default. */
-export const AgentContextWithChannelsSchema = AgentContextFileSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: AgentVoiceConfigSchema.optional(), scopePolicy: AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
-export const AgentContextWithChannelsWriteSchema = AgentContextFileWriteSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: AgentVoiceConfigSchema.optional(), scopePolicy: AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+export const AgentContextWithChannelsSchema = AgentContextFileSchema.safeExtend({ identity: AgentRuntimeIdentitySchema.optional(), channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: AgentVoiceConfigSchema.optional(), scopePolicy: AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+export const AgentContextWithChannelsWriteSchema = AgentContextFileWriteSchema.safeExtend({ identity: AgentRuntimeIdentitySchema.optional(), channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: AgentVoiceConfigSchema.optional(), scopePolicy: AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
 export type AgentContextWithChannels = z.infer<typeof AgentContextWithChannelsSchema>;
+
+/** Management ID of a validated context, from its explicit pair or concordant channels. Never guesses from runtime/voice. */
+export function managementAgentIdOf(context: Pick<AgentContextWithChannels, 'identity' | 'channelConfigurations'>): AgentId | null {
+  if (context.identity) return context.identity.managementAgentId;
+  const ids = new Set((context.channelConfigurations ?? []).map(config => config.identity.managementAgentId));
+  if (ids.size !== 1) return null;
+  return context.channelConfigurations?.[0]?.identity.managementAgentId ?? null;
+}
+
 
 /** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
 export function appliedAgentVoiceSettings(ctx: Pick<AgentContextWithChannels, 'voiceConfiguration'>): AgentVoiceSettings | null {

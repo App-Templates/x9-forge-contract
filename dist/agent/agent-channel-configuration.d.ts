@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { AgentId } from "./agent-identity.js";
 import type { AgentVoiceSettings } from "../capability/voice/agent-voice-settings.js";
 import type { AgentScopePolicy } from "./agent-scope-policy.js";
 /** R2: pausing admission preserves the agent's resource and credentials in their existing stores. */
@@ -250,6 +251,10 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
     configVersion: z.ZodOptional<z.ZodNumber>;
+    identity: z.ZodOptional<z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
             email: "email";
@@ -501,6 +506,10 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
     configVersion: z.ZodOptional<z.ZodNumber>;
+    identity: z.ZodOptional<z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
             email: "email";
@@ -704,6 +713,8 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$loose>;
 export type AgentContextWithChannels = z.infer<typeof AgentContextWithChannelsSchema>;
+/** Management ID of a validated context, from its explicit pair or concordant channels. Never guesses from runtime/voice. */
+export declare function managementAgentIdOf(context: Pick<AgentContextWithChannels, 'identity' | 'channelConfigurations'>): AgentId | null;
 /** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
 export declare function appliedAgentVoiceSettings(ctx: Pick<AgentContextWithChannels, 'voiceConfiguration'>): AgentVoiceSettings | null;
 /** Applied policy of a validated context; absence is unconfigured, never an invented default. */

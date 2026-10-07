@@ -1,0 +1,184 @@
+{
+  "consumer": "/private/tmp/codex-a-bridge137-consumer-2wc5i_rd",
+  "compiledPackage": "/private/tmp/codex-a-bridge137-build-6cqo_udu",
+  "pathAssertBeforeQualification": true,
+  "qualified": 13,
+  "total": 13,
+  "probes": 14,
+  "names": [
+    "canonical-identity",
+    "channel-concordance",
+    "channel-derived-management",
+    "distinct-management-runtime",
+    "explicit-channel-binding",
+    "helper-canonical-sources",
+    "helper-no-guessed-source",
+    "legacy-context",
+    "legacy-voice",
+    "public-helper",
+    "read-canonical-field-validation",
+    "runtime-binding",
+    "voice-management-binding",
+    "write-canonical-field-validation"
+  ],
+  "coveredNames": 14,
+  "sourceSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9",
+  "restored": true,
+  "results": [
+    {
+      "name": "read-validation",
+      "assertions": [
+        "read-canonical-field-validation"
+      ],
+      "redPassed": 13,
+      "total": 14,
+      "mutantSha256": "35486bfb95d285435c3977a044d2d85e29faaa2e32642c55ead9847d735a3b37",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "write-validation",
+      "assertions": [
+        "write-canonical-field-validation"
+      ],
+      "redPassed": 13,
+      "total": 14,
+      "mutantSha256": "ed70ce088c53163ba8671ad48fbda72585b54e80d38226166e59c6ddcdb24f84",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "legacy-optional",
+      "assertions": [
+        "legacy-context",
+        "legacy-voice",
+        "channel-derived-management",
+        "helper-canonical-sources",
+        "helper-no-guessed-source"
+      ],
+      "redPassed": 9,
+      "total": 14,
+      "mutantSha256": "4eef76cac3597947d98647c8d275524b47ad9bbd904682ddbefd8121f848623b",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "runtime",
+      "assertions": [
+        "runtime-binding"
+      ],
+      "redPassed": 13,
+      "total": 14,
+      "mutantSha256": "5f390702984613c34f423bddc48291cba67ac425e3c04f5854e35e1f173262bc",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "channels",
+      "assertions": [
+        "channel-concordance"
+      ],
+      "redPassed": 13,
+      "total": 14,
+      "mutantSha256": "dd8a2c50cbffe22c5fceeccf7edeaaf79aa537336f03547f7409ae33c56579dc",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "identity-channels",
+      "assertions": [
+        "explicit-channel-binding"
+      ],
+      "redPassed": 13,
+      "total": 14,
+      "mutantSha256": "2e313cc10b89d776e2f908444b164d2a0de6c00ac45c28bedf0a1ab939a0741f",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "voice",
+      "assertions": [
+        "voice-management-binding"
+      ],
+      "redPassed": 13,
+      "total": 14,
+      "mutantSha256": "0dc57d981efd9e021ba57e592b8a49a5bb14dda65b8a0b1927207ce2e7a333f2",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "legacy-voice",
+      "assertions": [
+        "legacy-voice",
+        "helper-no-guessed-source"
+      ],
+      "redPassed": 12,
+      "total": 14,
+      "mutantSha256": "a09ce5f1c070167b85e35cfffff33355789222274ed21906a740eed37581f00b",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "helper-explicit",
+      "assertions": [
+        "distinct-management-runtime",
+        "voice-management-binding",
+        "helper-canonical-sources"
+      ],
+      "redPassed": 11,
+      "total": 14,
+      "mutantSha256": "643c9c1055f91ccd672dde0c18b64d79c35a8e0f591507fdb4ee90842569b9ed",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "helper-channel",
+      "assertions": [
+        "channel-derived-management",
+        "helper-canonical-sources"
+      ],
+      "redPassed": 12,
+      "total": 14,
+      "mutantSha256": "a6d3fdb4e2ac6729c1dc92a0eac233841a6e798b616709aa95cadfc274759ee7",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "helper-null",
+      "assertions": [
+        "helper-no-guessed-source"
+      ],
+      "redPassed": 13,
+      "total": 14,
+      "mutantSha256": "fdab993115a18b7c651cf1ed57513621b0c31e7e5fb8dc0324c6fcb1a1d1f66c",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "export",
+      "assertions": [
+        "public-helper",
+        "helper-canonical-sources",
+        "helper-no-guessed-source"
+      ],
+      "redPassed": 11,
+      "total": 14,
+      "mutantSha256": "ac8fa96cab6fc8fdb663566d7b4ebf8f52f1a274ce3d72c14b67d4b3cd1db0d3",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    },
+    {
+      "name": "valid-identity",
+      "assertions": [
+        "canonical-identity",
+        "distinct-management-runtime",
+        "helper-canonical-sources"
+      ],
+      "redPassed": 11,
+      "total": 14,
+      "mutantSha256": "ae0c129d2d72aab3431a49c84a4df849b8bd1a557b3df1431b677b8e1151fefd",
+      "restored": 14,
+      "restoredSha256": "8a8f9dfc551eb8ff5b4d40ec71576c618e5861fe8e1d79eaf2a01a03384cd7c9"
+    }
+  ]
+}

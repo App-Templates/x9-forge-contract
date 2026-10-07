@@ -1,0 +1,13 @@
+{
+  "name": "03-private-pack",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge137-build-6cqo_udu",
+    "run",
+    "check:pack"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 3.7038300037384033
+}

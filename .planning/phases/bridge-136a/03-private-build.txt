@@ -1,0 +1,49 @@
+
+> @x9-forge/contracts@1.36.0 build /private/tmp/codex-a-bridge137-build-6cqo_udu
+> zshy && node scripts/check-portable-dts.mjs
+
+   ╔═══════════════════════════════════════════════╗
+   ║ zshy » the bundler-free TypeScript build tool ║
+   ╚═══════════════════════════════════════════════╝
+»  Starting build...
+»  Detected project root: /private/tmp/codex-a-bridge137-build-6cqo_udu
+»  Reading package.json from ./package.json
+»  Reading tsconfig from ./tsconfig.json
+»  Determining entrypoints...
+   ╔═══════════════════════════════════════════════╤══════════════════════════════════════╗
+   ║ Subpath                                       │ Entrypoint                           ║
+   ╟───────────────────────────────────────────────┼──────────────────────────────────────╢
+   ║ "@x9-forge/contracts"                         │ ./src/index.ts                       ║
+   ║ "@x9-forge/contracts/auth"                    │ ./src/auth/index.ts                  ║
+   ║ "@x9-forge/contracts/agent"                   │ ./src/agent/index.ts                 ║
+   ║ "@x9-forge/contracts/capability"              │ ./src/capability/index.ts            ║
+   ║ "@x9-forge/contracts/voice"                   │ ./src/capability/voice/index.ts      ║
+   ║ "@x9-forge/contracts/capability/stt"          │ ./src/capability/stt/index.ts        ║
+   ║ "@x9-forge/contracts/capability/tts"          │ ./src/capability/tts/index.ts        ║
+   ║ "@x9-forge/contracts/capability/voice-live"   │ ./src/capability/voice-live/index.ts ║
+   ║ "@x9-forge/contracts/capability/ricerca"      │ ./src/capability/ricerca/index.ts    ║
+   ║ "@x9-forge/contracts/capability/lab"          │ ./src/capability/lab/index.ts        ║
+   ║ "@x9-forge/contracts/http"                    │ ./src/http/index.ts                  ║
+   ║ "@x9-forge/contracts/memory"                  │ ./src/memory/index.ts                ║
+   ║ "@x9-forge/contracts/messaging"               │ ./src/messaging/index.ts             ║
+   ║ "@x9-forge/contracts/model-router"            │ ./src/model-router/index.ts          ║
+   ║ "@x9-forge/contracts/rag"                     │ ./src/rag/index.ts                   ║
+   ║ "@x9-forge/contracts/vault"                   │ ./src/vault/index.ts                 ║
+   ║ "@x9-forge/contracts/capability/parameters"   │ ./src/capability/parameters.ts       ║
+   ║ "@x9-forge/contracts/capability/presentation" │ ./src/capability/presentation.ts     ║
+   ╚═══════════════════════════════════════════════╧══════════════════════════════════════╝
+»  Resolved build paths:
+   ╔══════════╤═══════════════╗
+   ║ Location │ Resolved path ║
+   ╟──────────┼───────────────╢
+   ║ rootDir  │ ./src         ║
+   ║ outDir   │ ./dist        ║
+   ╚══════════╧═══════════════╝
+»  Package is an ES module (package.json#/type is "module")
+»  Cleaning up outDir...
+»  Cleaning up declarationDir...
+»  Building CJS... (rewriting .ts -> .cjs/.d.cts)
+»  Building ESM...
+»  Updating package.json...
+»  Build complete! ✅
+[check-portable-dts] OK — 298 .d.ts files scanned, all portable.
