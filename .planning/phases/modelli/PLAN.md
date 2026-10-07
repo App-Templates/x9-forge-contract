@@ -12,3 +12,5 @@ Decisioni: context esplicito/versionato autorevole; legacy solo se assente, ness
 Versione, CHANGELOG, rootmanifest e dist del worktree non si cambiano; build/pack privati con configurazioni originali. Nessun push, deploy, provider reale o modifica di altri worktree. Dopo ogni commit leggere PLAN+SUMMARY e aggiornare battito. Revisore indipendente prima del rilascio della coordinatrice.
 
 Ripresa E 18:00: M1a residuo 43 minuti dopo pausa D. Catalogo e selezione verificati entro il limite; M1b inizia dopo il commit M1a, massimo 45 minuti/3 tentativi. Versione/CHANGELOG/dist rimangono alla coordinatrice e a un rilascio revisionato.
+
+M1b ripreso E 18:40 con34 minuti residui; chiusura19:12 entro deadline19:14. Preview/batch e facciata pubblica concordati con D; producer/handler restano M2/M5. Prossima priorità assegnata 18:59: VERIFICA-INTEGRA-USER-FIELDS nel90-1 in sola lettura.
