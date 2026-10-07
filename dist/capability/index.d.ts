@@ -26,4 +26,6 @@ export * from "./presentation.js";
 export * from "./capability-call-context.js";
 export * from "./agent-elevenlabs/index.js";
 export * from "./coach/index.js";
+export * from "./approvals/index.js";
+export * from "./backup/index.js";
 //# sourceMappingURL=index.d.ts.map
