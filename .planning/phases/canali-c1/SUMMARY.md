@@ -11,3 +11,13 @@ Rosso iniziale:52/56casi falliti con AssertionError per schema/helper mancanti o
 Regressione contratti agente **1093/1093**casi, nessun fallimento/skip; typecheck e lint mirato exit0. Non sommare la regressione alle63nuove prove giàincluse. Build completo e suite totale solo alla chiusuraB3. Tutti i conteggi da JSON runner; nessun provider/live eseguito.
 
 Scelte da confermare: Rubrica completa oggi è un contratto per il producer futuro, non sorgente implementata. Membership esatta/normalizzata, partial/unavailable non autorizzano nessuno. Lo snapshot riuserà attestation/config via composizione nel nuovo requests.ts (nessun edit fuori perimetro). Build nativa in copia privata approvata posta005304; dist/versione/package restano alla coordinatrice.
+
+CommitB1 575303e6a799482ff902e17ce6c1061940adbf9a, albero pulito dopo commit. PLAN/SUMMARY riletti. B2preso00:57, scadenza01:42:requests/snapshot/apply receipts prima i test, policyB1noncambia.
+
+## B2 — richieste, snapshot e ricevute
+
+Rosso57/57 conAssertionError per schemi/helper mancanti; poi73/73,0skip. Coda metadata-only con id/update/chat unici, versione e date coerenti; operazioni Ammetti/Ignora staged e CAS; snapshot compositivo con attestation email reale obbligatoria per osservazione; applied/pending/failed distinti, ricevuta completa correlata a scope/porta/versioni/requestId/operazioni. Ruoli/auth lato produttore, non dichiarati nel body.
+
+Primo giro83/84:il maxsafe suupdateId sopravviveva perché Zod4.int giàimpone limite safe. Vincolo duplicato rimosso, prove negativo/frazionario/unsafe int conservate. Secondo giro completo **83/83** con ripristino73/73 e hash, non somma con il primo; requests-first-campaign.json preserva il vincolo sopravvissuto. Prove requests-mutation-proof.json e requests-mutations.json. Uno dei mutanti del secondo giro rendeva il gate sign sempre falso: osservato via AssertionError nei consumer (e ZodError sul parse positivo, non accreditato come witness). Nel giro finale Q il mutante sarà sempre true, per un witness negativo diretto sul gruppo. Tipi e lint mirato exit0. Test full e build nativa previsti dopo i moduli HTTP, nessun provider/live.
+
+Ora registrato correttamente: B2 è iniziato col rosso00:55, prima della nota che diceva00:57; durata effettiva inferiore a45min, deadline01:40. I tempi di prossimi checkpoint verranno letti dall'orologio, non anticipati.

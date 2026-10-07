@@ -1,0 +1,2410 @@
+{
+  "campaign": "requests",
+  "sourceHashes": {
+    "src/agent/agent-channel-access-requests.ts": "f9b040e88ebc5c24ce002f64917464653a426e434e4b1a44d68f7a515aa7f550"
+  },
+  "tests": [
+    "tests/agent/agent-channel-access-requests.test.ts"
+  ],
+  "baseline": {
+    "exit": 0,
+    "passed": 73,
+    "total": 73,
+    "failed": 0,
+    "skipped": 0,
+    "semantic": false,
+    "witnesses": []
+  },
+  "mutations": [
+    {
+      "label": "request-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 71,
+        "total": 73,
+        "failed": 2,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue refuses invalid or over-collected request {\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic person\",\"requestedAt\":\"2026-10-08T00:00:00.000Z\",\"updateId\":12,\"body\":\"/start payload\"}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:35:140\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          },
+          {
+            "test": "C1 access requests and queue refuses invalid or over-collected request {\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic person\",\"requestedAt\":\"2026-10-08T00:00:00.000Z\",\"updateId\":12,\"automaticAdmission\":true}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:35:140\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "request-sign",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 68,
+        "total": 73,
+        "failed": 5,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue publishes only bounded presentation metadata and exact chat identity",
+            "error": "ZodError: [\n  {\n    \"code\": \"custom\",\n    \"path\": [],\n    \"message\": \"Request chat identity must retain its private/group sign\"\n  }\n]\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:27:53\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge"
+          },
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected false to be true // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:73:71\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vit"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected false to be true // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:90:84\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vit"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "update-integer",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 71,
+        "total": 73,
+        "failed": 2,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue refuses invalid or over-collected request {\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic person\",\"requestedAt\":\"2026-10-08T00:00:00.000Z\",\"updateId\":1.5}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:35:140\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          },
+          {
+            "test": "C1 access requests and queue refuses invalid or over-collected request {\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic person\",\"requestedAt\":\"2026-10-08T00:00:00.000Z\",\"updateId\":9007199254740992}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:35:140\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "update-nonnegative",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue refuses invalid or over-collected request {\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic person\",\"requestedAt\":\"2026-10-08T00:00:00.000Z\",\"updateId\":-1}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:35:140\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "request-date",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue refuses invalid or over-collected request {\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic person\",\"requestedAt\":\"yesterday\",\"updateId\":12}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:35:140\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "queue-door",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue rejects conflicting, future or cross-door queue {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"email\",\"version\":3,\"observedAt\":\"2026-10-08T00:00:00.000Z\",\"requests\":[{\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic pe",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:44:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "queue-bound",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue rejects conflicting, future or cross-door queue {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"version\":3,\"observedAt\":\"2026-10-08T00:00:00.000Z\",\"requests\":[{\"requestId\":\"access-10000\",\"chatId\":\"10000\",\"type\":\"private\",\"name\":\"Synthet",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:44:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "queue-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue rejects conflicting, future or cross-door queue {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"version\":3,\"observedAt\":\"2026-10-08T00:00:00.000Z\",\"requests\":[{\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:44:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "queue-unique-requestId",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue rejects conflicting, future or cross-door queue {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"version\":3,\"observedAt\":\"2026-10-08T00:00:00.000Z\",\"requests\":[{\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:44:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "queue-unique-chatId",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue rejects conflicting, future or cross-door queue {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"version\":3,\"observedAt\":\"2026-10-08T00:00:00.000Z\",\"requests\":[{\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:44:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "queue-unique-updateId",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue rejects conflicting, future or cross-door queue {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"version\":3,\"observedAt\":\"2026-10-08T00:00:00.000Z\",\"requests\":[{\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:44:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "queue-future",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue rejects conflicting, future or cross-door queue {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"version\":3,\"observedAt\":\"2026-10-08T00:00:00.000Z\",\"requests\":[{\"requestId\":\"access-00001\",\"chatId\":\"123\",\"type\":\"private\",\"name\":\"Synthetic",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:44:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "error-finite",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts returns only finite error codes and a current version exactly for stale-version responses",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:177:85\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "error-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts returns only finite error codes and a current version exactly for stale-version responses",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:177:85\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "error-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts returns only finite error codes and a current version exactly for stale-version responses",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:177:85\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "operation-action",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"allow-everyone\"}]}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "operation-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\",\"chatId\":\"456\"}]}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "operations-nonempty",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[]}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "operations-bound",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-10000\",\"action\":\"ignore\"},{\"requestId\":\"access-10001\",\"action\":\"ignore\"},{\"requestId\":\"access-10002\",\"action\":\"igno",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "operations-unique",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\"},{\"requestId\":\"access-00001\",\"action\":\"ignore\"}]}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "changes-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\"}],\"chatId\":\"456\"}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "command-action",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"restart\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\"}]}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "command-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 70,
+        "total": 73,
+        "failed": 3,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\"}]},\"policy\":{\"kind\":\"telegram\",\"mode\":\"approved-chats\",\"chats\":[{\"chatId\":\"123\",\"type\":\"pri",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          },
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\"}]},\"credentials\":{}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          },
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\"}]},\"role\":\"sa\"}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "command-monotonic",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations refuses unsaved, privileged or inconsistent intent {\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":3,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQueueVersion\":3,\"operations\":[{\"requestId\":\"access-00001\",\"action\":\"admit\"}]}}",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:67:153\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "source-available-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations keeps each source variant strict",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:69:121\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "source-unavailable-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 access requests and queue distinguishes a read empty queue from an unavailable producer",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:48:140\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "source-inapplicable-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations keeps each source variant strict",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:70:114\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects wrong source, future observation and raw details {\"configuration\":{\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"desired\":{\"version\":5,\"state\":\"active\"},\"applied\":{\"version\":4,\"state\":\"active\"},\"resource\":{\"sc",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:110:155\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-requests-door",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 71,
+        "total": 73,
+        "failed": 2,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects wrong source, future observation and raw details {\"configuration\":{\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"desired\":{\"version\":5,\"state\":\"active\"},\"applied\":{\"version\":4,\"state\":\"active\"},\"resource\":{\"sc",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:110:155\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:120:129\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-queue-binding",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects wrong source, future observation and raw details {\"configuration\":{\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"desired\":{\"version\":5,\"state\":\"active\"},\"applied\":{\"version\":4,\"state\":\"active\"},\"resource\":{\"sc",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:110:155\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-queue-time",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects wrong source, future observation and raw details {\"configuration\":{\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"desired\":{\"version\":5,\"state\":\"active\"},\"applied\":{\"version\":4,\"state\":\"active\"},\"resource\":{\"sc",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:110:155\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-config-time",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects wrong source, future observation and raw details {\"configuration\":{\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"desired\":{\"version\":5,\"state\":\"active\"},\"applied\":{\"version\":4,\"state\":\"active\"},\"resource\":{\"sc",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:110:155\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "email-attestation-required",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:118:111\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "email-attestation-binding",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 71,
+        "total": 73,
+        "failed": 2,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects wrong source, future observation and raw details {\"configuration\":{\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"desired\":{\"version\":5,\"state\":\"active\"},\"applied\":{\"version\":4,\"state\":\"active\"},\"resource\":{\"sc",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:110:155\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:118:111\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "email-attestation-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:118:111\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "email-attestation-channel",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:118:111\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "email-attestation-date",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:118:111\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "email-attestation-error",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:118:111\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "email-attestation-future",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires real email attestation rather than borrowing Telegram evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:121:223\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-current-input",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:95:85\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vit"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-current-kind",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:96:94\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vit"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-current-binding",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:97:143\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-current-explicit",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:93:127\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-current-applied",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:91:93\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vit"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-current-no-future",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:99:101\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "snapshot-current-expiry",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts preserves older effective access as pending and dates actual runtime evidence",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:98:106\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-valid-input",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:74:66\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vit"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-saved-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:77:97\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vit"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-previous-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:78:105\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-no-request-change",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected false to be true // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:83:173\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-available-queue",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:79:135\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-queue-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:79:135\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-request-exists",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:80:173\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-ignore",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected false to be true // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:84:172\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-chat-id",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:75:234\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "apply-chat-type",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 compare-and-swap apply and staged request operations validates saved version, applied version, request queue and admission before effects",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:76:370\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-finite-outcome",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-strict",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-agent-door",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 71,
+        "total": 73,
+        "failed": 2,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"other\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expectedQu",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts requires a unique, complete operation set and an explicit applied policy",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:163:150\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-desired-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":6,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-previous-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":6,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-completion-time",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-applied-evidence",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 70,
+        "total": 73,
+        "failed": 3,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts requires a unique, complete operation set and an explicit applied policy",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:162:149\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-failure-code",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-telegram-operations",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts refuses start operations on an otherwise valid pending email receipt",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:151:84\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-unique-operation",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires a unique, complete operation set and an explicit applied policy",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:157:81\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-operation-count",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-operation-identity",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-all-applied",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-failed-not-hidden",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-request-evidence",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 69,
+        "total": 73,
+        "failed": 4,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          },
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-queue-advanced",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "result-request-removed",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts rejects false success or uncorrelated result {\"scope\":{\"agentId\":\"runtime-a\",\"ownerId\":\"owner-a\",\"tenantId\":\"tenant-a\"},\"identity\":{\"managementAgentId\":\"agent-a\",\"runtimeAgentId\":\"runtime-a\",\"vaultAgentId\":7},\"kind\":\"telegram\",\"action\":\"apply-channel\",\"requestId\":\"command-00001\",\"desiredVersion\":5,\"expectedAppliedVersion\":4,\"requestChanges\":{\"expected",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:145:146\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-valid-input",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:171:90\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-binding",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:169:148\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@v"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-door",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:170:94\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-request",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:167:99\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-desired",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:167:99\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-previous",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:167:99\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-null-changes",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:167:99\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-queue-version",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:167:99\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-count",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts requires a unique, complete operation set and an explicit applied policy",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:160:97\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    },
+    {
+      "label": "correlation-operations",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 72,
+        "total": 73,
+        "failed": 1,
+        "skipped": 0,
+        "semantic": true,
+        "witnesses": [
+          {
+            "test": "C1 effective snapshots and correlated receipts matches complete operation identity as well as route agent and desired version",
+            "error": "AssertionError: expected true to be false // Object.is equality\n    at /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/tests/agent/agent-channel-access-requests.test.ts:167:99\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-109-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vi"
+          }
+        ]
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    }
+  ],
+  "final": {
+    "exit": 0,
+    "passed": 73,
+    "total": 73,
+    "failed": 0,
+    "skipped": 0,
+    "semantic": false,
+    "witnesses": []
+  },
+  "qualified": 83,
+  "total": 83,
+  "restoredHashes": {
+    "src/agent/agent-channel-access-requests.ts": "f9b040e88ebc5c24ce002f64917464653a426e434e4b1a44d68f7a515aa7f550"
+  }
+}
