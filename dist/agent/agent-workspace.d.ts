@@ -882,6 +882,54 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                 paused: "paused";
             }>;
         }, z.core.$strict>;
+        access: z.ZodOptional<z.ZodObject<{
+            desiredPolicy: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"telegram">;
+                mode: z.ZodEnum<{
+                    "approved-chats": "approved-chats";
+                    anyone: "anyone";
+                }>;
+                chats: z.ZodArray<z.ZodObject<{
+                    chatId: z.ZodString;
+                    type: z.ZodEnum<{
+                        group: "group";
+                        private: "private";
+                        supergroup: "supergroup";
+                    }>;
+                    name: z.ZodString;
+                    admittedAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                mode: z.ZodEnum<{
+                    anyone: "anyone";
+                    "address-book": "address-book";
+                }>;
+            }, z.core.$strict>], "kind">;
+            appliedPolicy: z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"telegram">;
+                mode: z.ZodEnum<{
+                    "approved-chats": "approved-chats";
+                    anyone: "anyone";
+                }>;
+                chats: z.ZodArray<z.ZodObject<{
+                    chatId: z.ZodString;
+                    type: z.ZodEnum<{
+                        group: "group";
+                        private: "private";
+                        supergroup: "supergroup";
+                    }>;
+                    name: z.ZodString;
+                    admittedAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                mode: z.ZodEnum<{
+                    anyone: "anyone";
+                    "address-book": "address-book";
+                }>;
+            }, z.core.$strict>], "kind">>;
+        }, z.core.$strict>>;
         applied: z.ZodNullable<z.ZodObject<{
             version: z.ZodNumber;
             state: z.ZodEnum<{
@@ -1464,6 +1512,54 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                 paused: "paused";
             }>;
         }, z.core.$strict>;
+        access: z.ZodOptional<z.ZodObject<{
+            desiredPolicy: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"telegram">;
+                mode: z.ZodEnum<{
+                    "approved-chats": "approved-chats";
+                    anyone: "anyone";
+                }>;
+                chats: z.ZodArray<z.ZodObject<{
+                    chatId: z.ZodString;
+                    type: z.ZodEnum<{
+                        group: "group";
+                        private: "private";
+                        supergroup: "supergroup";
+                    }>;
+                    name: z.ZodString;
+                    admittedAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                mode: z.ZodEnum<{
+                    anyone: "anyone";
+                    "address-book": "address-book";
+                }>;
+            }, z.core.$strict>], "kind">;
+            appliedPolicy: z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"telegram">;
+                mode: z.ZodEnum<{
+                    "approved-chats": "approved-chats";
+                    anyone: "anyone";
+                }>;
+                chats: z.ZodArray<z.ZodObject<{
+                    chatId: z.ZodString;
+                    type: z.ZodEnum<{
+                        group: "group";
+                        private: "private";
+                        supergroup: "supergroup";
+                    }>;
+                    name: z.ZodString;
+                    admittedAt: z.ZodISODateTime;
+                }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                mode: z.ZodEnum<{
+                    anyone: "anyone";
+                    "address-book": "address-book";
+                }>;
+            }, z.core.$strict>], "kind">>;
+        }, z.core.$strict>>;
         applied: z.ZodNullable<z.ZodObject<{
             version: z.ZodNumber;
             state: z.ZodEnum<{

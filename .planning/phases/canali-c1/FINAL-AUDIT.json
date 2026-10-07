@@ -1,0 +1,63 @@
+{
+  "base": "5034eef5e54698b16e97466b0f2ac416cf861e66",
+  "productHead": "b59081a31dc15ed41c4a6e062a59388c0e8e61ac",
+  "changed": [
+    ".planning/phases/canali-c1/CHECKPOINTS.json",
+    ".planning/phases/canali-c1/FINAL-MUTATIONS.json",
+    ".planning/phases/canali-c1/PACKAGE-MUTATIONS.json",
+    ".planning/phases/canali-c1/PLAN.md",
+    ".planning/phases/canali-c1/QUALITY-PROOF.json",
+    ".planning/phases/canali-c1/SUMMARY.md",
+    ".planning/phases/canali-c1/http-forge-first-campaign.json",
+    ".planning/phases/canali-c1/http-forge-mutation-proof.json",
+    ".planning/phases/canali-c1/http-forge-mutations.json",
+    ".planning/phases/canali-c1/http-internal-mutation-proof.json",
+    ".planning/phases/canali-c1/http-internal-mutations.json",
+    ".planning/phases/canali-c1/mutate.py",
+    ".planning/phases/canali-c1/policy-first-campaign.json",
+    ".planning/phases/canali-c1/policy-mutation-proof.json",
+    ".planning/phases/canali-c1/policy-mutations.json",
+    ".planning/phases/canali-c1/requests-first-campaign.json",
+    ".planning/phases/canali-c1/requests-mutation-proof.json",
+    ".planning/phases/canali-c1/requests-mutations.json",
+    ".planning/phases/canali-c1/resource-mutation-proof.json",
+    ".planning/phases/canali-c1/resource-mutations.json",
+    "src/agent/agent-channel-access-requests.ts",
+    "src/agent/agent-channel-access.ts",
+    "src/agent/agent-channel-configuration.ts",
+    "src/agent/index.ts",
+    "src/http/endpoints/forge-agent-channel-access.ts",
+    "src/http/endpoints/index.ts",
+    "src/http/endpoints/internal-agent-channel-access.ts",
+    "tests/agent/agent-channel-access-policy.test.ts",
+    "tests/agent/agent-channel-access-requests.test.ts",
+    "tests/cjs/agent-channel-access-smoke.mjs",
+    "tests/http/endpoints/agent-channel-access-http-forge.test.ts",
+    "tests/http/endpoints/agent-channel-access-http-internal.test.ts"
+  ],
+  "outside": [],
+  "publicProtected": {
+    "identical": 3011,
+    "total": 3011
+  },
+  "originalTests": {
+    "identical": 246,
+    "total": 246
+  },
+  "productSourceHashes": {
+    "src/agent/index.ts": "2d7b53933f55b3cf6ac6af463fad593b0c514f6e924bd1016892d1ee1be6e0b0",
+    "src/agent/agent-channel-access-requests.ts": "f9b040e88ebc5c24ce002f64917464653a426e434e4b1a44d68f7a515aa7f550",
+    "src/http/endpoints/internal-agent-channel-access.ts": "4e43f7c8448884db84526e585c69a02207d569ce0957c6257d1cb8a1c96f66ba",
+    "src/agent/agent-channel-configuration.ts": "7a55a1f82f77b4effdbe30907a204881fda1faeb4de74b42f6eeb683c82e2779",
+    "src/http/endpoints/index.ts": "ebfe36202bd8061e43ff6ac6015bd0cc6d851f0bd22caa80a4ccb1c178ecefab",
+    "src/http/endpoints/forge-agent-channel-access.ts": "1d4e581e26410bb8b586f7beb997ea6807ab7ccd559ac1fdab43687a43be59f5",
+    "src/agent/agent-channel-access.ts": "babd4136086cbdbc869b2ba0414cb583ac73bfb162a9ad7cdb4080c37e8ee345"
+  },
+  "newTestHashes": {
+    "tests/agent/agent-channel-access-policy.test.ts": "763693f276f4e25782c55f8861606458dd413c6ce2b320d7404067c8e3f356c3",
+    "tests/cjs/agent-channel-access-smoke.mjs": "c28399fcc1d5c3dad70703dceca27502d4779cb69d9b8bbbae07ebf3b0e2c6df",
+    "tests/http/endpoints/agent-channel-access-http-forge.test.ts": "d145caf6050ff38d8801739c15c9b34a63b563f68c0a05be93d0f0ff7577db3b",
+    "tests/http/endpoints/agent-channel-access-http-internal.test.ts": "e8be9d4a0bf14e3f2d4fa476007f478ca624ec358f831b7899efae295f3a411c",
+    "tests/agent/agent-channel-access-requests.test.ts": "d3c7b64b37eaad4bf84d9751f1249075b3d03a59e2c25ff9b92097a5edbd1c8e"
+  }
+}

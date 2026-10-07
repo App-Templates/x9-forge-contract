@@ -1,0 +1,100 @@
+{
+  "productHead": "adb430ddc00fde76ebfcd82afe32f2139fb05b91",
+  "campaigns": [
+    {
+      "name": "policy",
+      "qualified": 50,
+      "total": 50,
+      "final": {
+        "exit": 0,
+        "passed": 64,
+        "total": 64,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      },
+      "sourceHashes": {
+        "src/agent/agent-channel-access.ts": "babd4136086cbdbc869b2ba0414cb583ac73bfb162a9ad7cdb4080c37e8ee345",
+        "src/agent/agent-channel-configuration.ts": "7a55a1f82f77b4effdbe30907a204881fda1faeb4de74b42f6eeb683c82e2779"
+      },
+      "proofSha256": "cdbcb57e15818bf88d0ec0add6583c2146db13bb1c9295fd70e6d494bf359ebd"
+    },
+    {
+      "name": "requests",
+      "qualified": 83,
+      "total": 83,
+      "final": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      },
+      "sourceHashes": {
+        "src/agent/agent-channel-access-requests.ts": "f9b040e88ebc5c24ce002f64917464653a426e434e4b1a44d68f7a515aa7f550"
+      },
+      "proofSha256": "1972ccc5203b39fa34cd8ae4a2f4666187b11f264ac44f953aa6bba4b7aa08da"
+    },
+    {
+      "name": "http-internal",
+      "qualified": 18,
+      "total": 18,
+      "final": {
+        "exit": 0,
+        "passed": 10,
+        "total": 10,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      },
+      "sourceHashes": {
+        "src/http/endpoints/internal-agent-channel-access.ts": "4e43f7c8448884db84526e585c69a02207d569ce0957c6257d1cb8a1c96f66ba",
+        "src/http/endpoints/index.ts": "ebfe36202bd8061e43ff6ac6015bd0cc6d851f0bd22caa80a4ccb1c178ecefab"
+      },
+      "proofSha256": "39eacea95558831aef2577428b93fd9fe14fd34117328c11c2a8ff09b2f28fe2"
+    },
+    {
+      "name": "http-forge",
+      "qualified": 54,
+      "total": 54,
+      "final": {
+        "exit": 0,
+        "passed": 29,
+        "total": 29,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      },
+      "sourceHashes": {
+        "src/http/endpoints/forge-agent-channel-access.ts": "1d4e581e26410bb8b586f7beb997ea6807ab7ccd559ac1fdab43687a43be59f5",
+        "src/http/endpoints/index.ts": "ebfe36202bd8061e43ff6ac6015bd0cc6d851f0bd22caa80a4ccb1c178ecefab"
+      },
+      "proofSha256": "a2402d90dabb9cc18692fd5e9c3d21d76261924e5a9bc945cf33beacf1628dd7"
+    },
+    {
+      "name": "resource",
+      "qualified": 1,
+      "total": 1,
+      "final": {
+        "exit": 0,
+        "passed": 64,
+        "total": 64,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      },
+      "sourceHashes": {
+        "src/agent/agent-channel-configuration.ts": "7a55a1f82f77b4effdbe30907a204881fda1faeb4de74b42f6eeb683c82e2779"
+      },
+      "proofSha256": "4773ca984c636d9678e7ab1665248e0c97cf66edfa5f75af953ce074a147ee28"
+    }
+  ],
+  "qualified": 206,
+  "total": 206
+}

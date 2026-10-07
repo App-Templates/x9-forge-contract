@@ -1,0 +1,38 @@
+{
+  "qualified": 83,
+  "total": 84,
+  "baseline": {
+    "exit": 0,
+    "passed": 73,
+    "total": 73,
+    "failed": 0,
+    "skipped": 0,
+    "semantic": false,
+    "witnesses": []
+  },
+  "unqualified": [
+    {
+      "label": "update-safe",
+      "file": "src/agent/agent-channel-access-requests.ts",
+      "qualified": false,
+      "red": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      },
+      "restored": {
+        "exit": 0,
+        "passed": 73,
+        "total": 73,
+        "failed": 0,
+        "skipped": 0,
+        "semantic": false,
+        "witnesses": []
+      }
+    }
+  ]
+}
