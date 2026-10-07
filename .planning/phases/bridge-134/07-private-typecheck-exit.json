@@ -1,0 +1,13 @@
+{
+  "name": "07-private-typecheck",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+    "run",
+    "typecheck"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 1.366671085357666
+}

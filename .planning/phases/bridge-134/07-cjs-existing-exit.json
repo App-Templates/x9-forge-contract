@@ -1,0 +1,10 @@
+{
+  "name": "07-cjs-existing",
+  "command": [
+    "node",
+    "/private/tmp/codex-a-bridge134-build-9whmcyjr/tests/cjs/smoke.cjs"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 0.14469695091247559
+}

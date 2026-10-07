@@ -1,0 +1,107 @@
+{
+  "full": {
+    "numTotalTests": 2028,
+    "numPassedTests": 2028,
+    "numFailedTests": 0,
+    "numPendingTests": 0
+  },
+  "fullFiles": 117,
+  "newTests": 35,
+  "sourceMutations": {
+    "qualified": 16,
+    "total": 16,
+    "newNamesHit": 35,
+    "newNames": 35,
+    "restoredSha": 3
+  },
+  "compiledCjsMutations": {
+    "qualified": 4,
+    "total": 4,
+    "namesHit": 5,
+    "newNames": 5,
+    "restoredSha": 3
+  },
+  "cjsExisting": {
+    "probes": 36,
+    "total": 36,
+    "additionalAssertions": 6,
+    "additionalTotal": 6
+  },
+  "cjsNew": {
+    "probes": 5,
+    "total": 5,
+    "declarationExit": 0
+  },
+  "quality": [
+    {
+      "name": "07-private-typecheck",
+      "command": [
+        "pnpm",
+        "-C",
+        "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 1.366671085357666
+    },
+    {
+      "name": "07-private-build",
+      "command": [
+        "pnpm",
+        "-C",
+        "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+        "run",
+        "build"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 3.227299690246582
+    },
+    {
+      "name": "07-private-pack",
+      "command": [
+        "pnpm",
+        "-C",
+        "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+        "run",
+        "check:pack"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 3.1928417682647705
+    },
+    {
+      "name": "07-cjs-existing",
+      "command": [
+        "node",
+        "/private/tmp/codex-a-bridge134-build-9whmcyjr/tests/cjs/smoke.cjs"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 0.14469695091247559
+    },
+    {
+      "name": "07-full",
+      "command": [
+        "pnpm",
+        "-C",
+        "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+        "exec",
+        "vitest",
+        "run",
+        "--maxWorkers=1",
+        "--testTimeout=60000",
+        "--reporter=json",
+        "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1/.planning/phases/bridge-134/07-full.json"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 20.442188024520874
+    }
+  ],
+  "privateInputs": 386,
+  "live": 0,
+  "release": false
+}

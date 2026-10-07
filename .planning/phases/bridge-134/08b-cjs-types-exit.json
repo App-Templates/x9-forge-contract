@@ -1,0 +1,19 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+    "exec",
+    "tsc",
+    "--noEmit",
+    "--strict",
+    "--module",
+    "NodeNext",
+    "--moduleResolution",
+    "NodeNext",
+    "--target",
+    "ES2023",
+    "/private/tmp/codex-a-bridge134-build-9whmcyjr/bridge134-types.cts"
+  ],
+  "exit": 1
+}

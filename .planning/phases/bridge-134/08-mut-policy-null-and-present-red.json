@@ -1,0 +1,31 @@
+{
+  "exit": 1,
+  "total": 5,
+  "passed": 3,
+  "results": [
+    {
+      "name": "legacy-null",
+      "passed": false,
+      "errorName": "AssertionError",
+      "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- null\n"
+    },
+    {
+      "name": "applied-voice",
+      "passed": true
+    },
+    {
+      "name": "applied-policy",
+      "passed": false,
+      "errorName": "AssertionError",
+      "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ undefined\n- {\n-   defaultWebSearch: false,\n-   defaults: {\n-     read: 'deny',\n-     write: 'deny'\n-   },\n-   purpose: 'Synthetic purpose',\n-   rules: [\n-     {\n-       capability: 'email',\n-       read: 'allow',\n-       write: 'ask'\n-     }\n-   ],\n-   scopeLimited: true,\n-   version: 7\n- }\n"
+    },
+    {
+      "name": "authoritative-caller",
+      "passed": true
+    },
+    {
+      "name": "unapplied-admission",
+      "passed": true
+    }
+  ]
+}
