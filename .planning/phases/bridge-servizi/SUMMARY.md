@@ -1,8 +1,8 @@
 # BRIDGE-SERVIZI — Codex E
 
-Ultimo aggiornamento:20:07. PRONTO PER REVISIONE; started19:55/deadline20:40, first implementation attempt.
+Ultimo aggiornamento:20:08. PRONTO PER REVISIONE; started19:55/deadline20:40, first implementation attempt.
 
-Assigned94-1 codex/bridge-servizi base93e8c4d38aba92ba51ed44b7ce31bd799df32cbe. Build/test/mutations take place only in /private/tmp/codex-e-bridge-servizi-20261007/checkout. Original worktree checked clean before allowed synchronization. No publication/push/merge/live service calls.
+Assigned94-1 codex/bridge-servizi base93e8c4d38aba92ba51ed44b7ce31bd799df32cbe. Build/test/mutations take place only in /private/tmp/codex-e-bridge-servizi-20261007/checkout. Original worktree checked clean before allowed synchronization and again after source commit. No publication/push/merge/live service calls.
 
 Implemented immutable canonical agent credential service metadata and strict Zod validators, public agent export and independent tests. Coverage33/33 from original schema.shape/KNOWN/AUTH_GATE union:16credential+10setting+7identifier. INTERNAL_TOKEN additional auth gate is included. TELNYX_PUBLIC_KEY is a public credential, not secret. Known catchall credentials/defaults remain unchanged.
 
@@ -10,4 +10,6 @@ Coordinator decision19:56: commercial service only when univocal; four selectors
 
 Validation so far: qualified public export initial AssertionError1/1; independent native targeted62/62; tsc exit0. Qualified deliberate mutations177/177: each33keys removed, service changed to another real service, kind changed, secret flipped, label emptied=165;12schema/lookup/immutability guards. Every mutation restored source byte for byte. Restored targeted62/62. Full native2681/2681 across125files,0failed/0skipped, serial1worker/testTimeout60000. All9/9 native verification steps pass (restored/full plus typecheck/lint/build/portable/publint/attw/CJS). Portable304/304 declarations; native CJS57/57 probes. Fresh installed archive ESM108/108,CJS108/108,CTS/MTS2/2; local package1.39 unchanged, no publication.
 
-Next: atomic real-hook source commit, record exact source SHA in SUMMARY and commit/reread PLAN+SUMMARY. Eight allowed files only: two agent source files, one test, five phase docs; no credential source change or generated output copied. FINAL-PROOF.json and PROOF.md contain evidence/recipes; private parent contains full reports/logs. The previous progress entry said20:06 but the tool timestamp20:04 is correct. Deliver frozen exact SHA to coordinator and Codex A for Keys K2. Release/pinning belongs to coordinator alongside Models M1. No live provider or UI attestation.
+Source committed with mandatory scope hooks: 8818ffc65d34989441f5c9f060b9489c6564e265. PLAN/SUMMARY reread after source commit. Final docs-only commit records this SHA and scope evidence; branch is frozen for independent review. Eight allowed files only: two agent source files, one test, five phase docs; no credential source change or generated output copied. FINAL-PROOF.json and PROOF.md contain evidence/recipes; private parent contains full reports/logs. The previous progress entry said20:06 but the tool timestamp20:04 is correct. Deliver frozen exact SHA to coordinator and Codex A for Keys K2. Release/pinning belongs to coordinator alongside Models M1. No live provider or UI attestation.
+
+Scope attestation:8/8 changed files allowed, 2858/2858 protected base blobs unchanged; 2887/2887 base blobs unchanged except the additive agent/index export. Original source and private tested source hashes3/3 match. No generated files or manifest changes.

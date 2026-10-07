@@ -135,5 +135,24 @@
     "src/agent/index.ts": "89823205e9c81dc0a472af4c390bc4c948a53d2c0eb640d73a493dec39258a15",
     "tests/agent/agent-credential-services.test.ts": "20ee32ac31989f29bda5156b090b6aa63d412ae094b9c8504acc0774e72c97cc"
   },
-  "limitations": "metadata contracts and synthetic checks only; no UI/runtime provider attestation, package publication, version change, consumer pin, push/merge/deploy"
+  "limitations": "metadata contracts and synthetic checks only; no UI/runtime provider attestation, package publication, version change, consumer pin, push/merge/deploy",
+  "sourceCommit": "8818ffc65d34989441f5c9f060b9489c6564e265",
+  "scope": {
+    "changedAllowedFiles": 8,
+    "changedFiles": [
+      ".planning/phases/bridge-servizi/FINAL-PROOF.json",
+      ".planning/phases/bridge-servizi/MUTATIONS.json",
+      ".planning/phases/bridge-servizi/PLAN.md",
+      ".planning/phases/bridge-servizi/PROOF.md",
+      ".planning/phases/bridge-servizi/SUMMARY.md",
+      "src/agent/agent-credential-services.ts",
+      "src/agent/index.ts",
+      "tests/agent/agent-credential-services.test.ts"
+    ],
+    "protectedBaselineUnchanged": 2858,
+    "protectedBaselineTotal": 2858,
+    "baselineUnchangedExceptAdditiveAgentExport": 2887,
+    "baselineTotal": 2888,
+    "workingTreeCleanAfterSourceCommit": true
+  }
 }
