@@ -21,7 +21,14 @@ export const AgentRuntimeChannelSchema = z.object({
   // null means unobserved, never an inferred false.
   loaded: z.boolean().nullable(),
   readiness: AgentRuntimeReadinessSchema,
+  /** Observed Telegram metadata only; absence does not imply an empty authorization list. */
+  botUsername: z.string().optional(),
+  allowFromCount: z.number().int().nonnegative().optional(),
 }).superRefine((channel, ctx) => {
+  if (channel.kind !== 'telegram' && (channel.botUsername !== undefined || channel.allowFromCount !== undefined)) {
+    ctx.addIssue({ code: 'custom', message: 'Telegram metadata requires a Telegram channel' });
+  }
+
   const expected = channel.state === 'loaded' ? true
     : channel.state === 'paused' || channel.state === 'stopped' ? false
       : channel.state === 'unknown' ? null : undefined;
@@ -30,6 +37,21 @@ export const AgentRuntimeChannelSchema = z.object({
   }
 });
 export type AgentRuntimeChannel = z.infer<typeof AgentRuntimeChannelSchema>;
+
+export type AgentTelegramChannelMetadata = Pick<AgentRuntimeChannel, 'botUsername' | 'allowFromCount'>;
+
+/** Read validated Telegram observations without exposing authorization IDs or inferring readiness. */
+export function telegramChannelMetadataOf(channel: unknown): AgentTelegramChannelMetadata | null {
+  const selected = AgentRuntimeChannelSchema.safeParse(channel);
+  if (!selected.success) return null;
+  const { botUsername, allowFromCount } = selected.data;
+  if (botUsername === undefined && allowFromCount === undefined) return null;
+  return {
+    ...(botUsername === undefined ? {} : { botUsername }),
+    ...(allowFromCount === undefined ? {} : { allowFromCount }),
+  };
+}
+
 
 export const AgentRuntimeLoadStateSchema = z.enum(['loaded', 'stopped', 'error', 'unknown']);
 export type AgentRuntimeLoadState = z.infer<typeof AgentRuntimeLoadStateSchema>;

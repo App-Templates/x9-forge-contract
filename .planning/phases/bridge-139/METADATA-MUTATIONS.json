@@ -1,0 +1,1331 @@
+{
+  "baseline": {
+    "exit": 0,
+    "passed": 126,
+    "total": 126,
+    "semantic": [],
+    "report": "/private/tmp/b139-meta-baseline.json"
+  },
+  "records": [
+    {
+      "name": "cap-name-type",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 118,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata rejects malformed capability metadata missing name",
+          "inventory capability metadata rejects malformed capability metadata empty name",
+          "inventory capability metadata rejects malformed capability metadata number name",
+          "inventory capability metadata rejects malformed capability metadata null name",
+          "inventory capability metadata selector returns unknown for invalid missing name",
+          "inventory capability metadata selector returns unknown for invalid empty name",
+          "inventory capability metadata selector returns unknown for invalid number name",
+          "inventory capability metadata selector returns unknown for invalid null name"
+        ],
+        "report": "/private/tmp/b139-meta-cap-name-type.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-name-type-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-name-required",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata rejects malformed capability metadata missing name",
+          "inventory capability metadata selector returns unknown for invalid missing name"
+        ],
+        "report": "/private/tmp/b139-meta-cap-name-required.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-name-required-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-name-nonempty",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata rejects malformed capability metadata empty name",
+          "inventory capability metadata selector returns unknown for invalid empty name"
+        ],
+        "report": "/private/tmp/b139-meta-cap-name-nonempty.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-name-nonempty-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-enabled-type",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 116,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata rejects malformed capability metadata missing enabled",
+          "inventory capability metadata rejects malformed capability metadata string enabled",
+          "inventory capability metadata rejects malformed capability metadata number enabled",
+          "inventory capability metadata rejects malformed capability metadata null enabled",
+          "inventory capability metadata rejects malformed capability metadata mixed validity",
+          "inventory capability metadata selector returns unknown for invalid missing enabled",
+          "inventory capability metadata selector returns unknown for invalid string enabled",
+          "inventory capability metadata selector returns unknown for invalid number enabled",
+          "inventory capability metadata selector returns unknown for invalid null enabled",
+          "inventory capability metadata selector returns unknown for invalid mixed validity"
+        ],
+        "report": "/private/tmp/b139-meta-cap-enabled-type.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-enabled-type-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-enabled-required",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata rejects malformed capability metadata missing enabled",
+          "inventory capability metadata selector returns unknown for invalid missing enabled"
+        ],
+        "report": "/private/tmp/b139-meta-cap-enabled-required.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-enabled-required-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-metadata-only",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 119,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata rejects malformed capability metadata URL",
+          "inventory capability metadata rejects malformed capability metadata host",
+          "inventory capability metadata rejects malformed capability metadata token",
+          "inventory capability metadata selector returns unknown for invalid URL",
+          "inventory capability metadata selector returns unknown for invalid host",
+          "inventory capability metadata selector returns unknown for invalid token",
+          "source-aware inventory capability selection returns unknown for invalid envelope 4"
+        ],
+        "report": "/private/tmp/b139-meta-cap-metadata-only.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-metadata-only-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-array",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 82,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata rejects malformed capability metadata string",
+          "inventory capability metadata rejects malformed capability metadata object",
+          "inventory capability metadata rejects malformed capability metadata number",
+          "inventory capability metadata rejects malformed capability metadata bool",
+          "inventory capability metadata rejects malformed capability metadata null entry",
+          "inventory capability metadata rejects malformed capability metadata array entry",
+          "inventory capability metadata rejects malformed capability metadata missing name",
+          "inventory capability metadata rejects malformed capability metadata missing enabled",
+          "inventory capability metadata rejects malformed capability metadata empty name",
+          "inventory capability metadata rejects malformed capability metadata number name",
+          "inventory capability metadata rejects malformed capability metadata null name",
+          "inventory capability metadata rejects malformed capability metadata string enabled",
+          "inventory capability metadata rejects malformed capability metadata number enabled",
+          "inventory capability metadata rejects malformed capability metadata null enabled",
+          "inventory capability metadata rejects malformed capability metadata URL",
+          "inventory capability metadata rejects malformed capability metadata host",
+          "inventory capability metadata rejects malformed capability metadata token",
+          "inventory capability metadata rejects malformed capability metadata mixed validity",
+          "inventory capability metadata selector returns unknown for invalid string",
+          "inventory capability metadata selector returns unknown for invalid object",
+          "inventory capability metadata selector returns unknown for invalid number",
+          "inventory capability metadata selector returns unknown for invalid bool",
+          "inventory capability metadata selector returns unknown for invalid null entry",
+          "inventory capability metadata selector returns unknown for invalid array entry",
+          "inventory capability metadata selector returns unknown for invalid missing name",
+          "inventory capability metadata selector returns unknown for invalid missing enabled",
+          "inventory capability metadata selector returns unknown for invalid empty name",
+          "inventory capability metadata selector returns unknown for invalid number name",
+          "inventory capability metadata selector returns unknown for invalid null name",
+          "inventory capability metadata selector returns unknown for invalid string enabled",
+          "inventory capability metadata selector returns unknown for invalid number enabled",
+          "inventory capability metadata selector returns unknown for invalid null enabled",
+          "inventory capability metadata selector returns unknown for invalid URL",
+          "inventory capability metadata selector returns unknown for invalid host",
+          "inventory capability metadata selector returns unknown for invalid token",
+          "inventory capability metadata selector returns unknown for invalid mixed validity",
+          "inventory capability metadata has no fallback 5",
+          "inventory capability metadata has no fallback 6",
+          "inventory capability metadata has no fallback 8",
+          "inventory capability metadata has no fallback 9",
+          "inventory capability metadata has no fallback 10",
+          "inventory capability metadata distinguishes known empty from missing and explicit unknown",
+          "source-aware inventory capability selection returns unknown for invalid envelope 4",
+          "source-aware inventory capability selection does not fill missing metadata 0"
+        ],
+        "report": "/private/tmp/b139-meta-cap-array.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-array-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-row-object",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 116,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata distinguishes known empty from missing and explicit unknown",
+          "inventory capability metadata reads exact current values without hardcoding or inferring enabled",
+          "source-aware inventory capability selection reads exact runtime ID from an available source",
+          "source-aware inventory capability selection reads explicit management identity",
+          "source-aware inventory capability selection distinguishes an observed empty registry",
+          "source-aware inventory capability selection keeps available partial inventory evidence local to the exact row"
+        ],
+        "report": "/private/tmp/b139-meta-cap-row-object.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-row-object-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-selector-validation",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 101,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata selector returns unknown for invalid string",
+          "inventory capability metadata selector returns unknown for invalid object",
+          "inventory capability metadata selector returns unknown for invalid number",
+          "inventory capability metadata selector returns unknown for invalid bool",
+          "inventory capability metadata selector returns unknown for invalid null entry",
+          "inventory capability metadata selector returns unknown for invalid array entry",
+          "inventory capability metadata selector returns unknown for invalid missing name",
+          "inventory capability metadata selector returns unknown for invalid missing enabled",
+          "inventory capability metadata selector returns unknown for invalid empty name",
+          "inventory capability metadata selector returns unknown for invalid number name",
+          "inventory capability metadata selector returns unknown for invalid null name",
+          "inventory capability metadata selector returns unknown for invalid string enabled",
+          "inventory capability metadata selector returns unknown for invalid number enabled",
+          "inventory capability metadata selector returns unknown for invalid null enabled",
+          "inventory capability metadata selector returns unknown for invalid URL",
+          "inventory capability metadata selector returns unknown for invalid host",
+          "inventory capability metadata selector returns unknown for invalid token",
+          "inventory capability metadata selector returns unknown for invalid mixed validity",
+          "inventory capability metadata has no fallback 5",
+          "inventory capability metadata has no fallback 6",
+          "inventory capability metadata has no fallback 8",
+          "inventory capability metadata has no fallback 9",
+          "inventory capability metadata has no fallback 10",
+          "inventory capability metadata distinguishes known empty from missing and explicit unknown",
+          "source-aware inventory capability selection does not fill missing metadata 0"
+        ],
+        "report": "/private/tmp/b139-meta-cap-selector-validation.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-selector-validation-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-unknown-no-empty",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 98,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata selector returns unknown for invalid string",
+          "inventory capability metadata selector returns unknown for invalid object",
+          "inventory capability metadata selector returns unknown for invalid number",
+          "inventory capability metadata selector returns unknown for invalid bool",
+          "inventory capability metadata selector returns unknown for invalid null entry",
+          "inventory capability metadata selector returns unknown for invalid array entry",
+          "inventory capability metadata selector returns unknown for invalid missing name",
+          "inventory capability metadata selector returns unknown for invalid missing enabled",
+          "inventory capability metadata selector returns unknown for invalid empty name",
+          "inventory capability metadata selector returns unknown for invalid number name",
+          "inventory capability metadata selector returns unknown for invalid null name",
+          "inventory capability metadata selector returns unknown for invalid string enabled",
+          "inventory capability metadata selector returns unknown for invalid number enabled",
+          "inventory capability metadata selector returns unknown for invalid null enabled",
+          "inventory capability metadata selector returns unknown for invalid URL",
+          "inventory capability metadata selector returns unknown for invalid host",
+          "inventory capability metadata selector returns unknown for invalid token",
+          "inventory capability metadata selector returns unknown for invalid mixed validity",
+          "inventory capability metadata has no fallback 5",
+          "inventory capability metadata has no fallback 6",
+          "inventory capability metadata has no fallback 7",
+          "inventory capability metadata has no fallback 8",
+          "inventory capability metadata has no fallback 9",
+          "inventory capability metadata has no fallback 10",
+          "inventory capability metadata distinguishes known empty from missing and explicit unknown",
+          "source-aware inventory capability selection does not fill missing metadata 0",
+          "source-aware inventory capability selection does not fill missing metadata 1",
+          "source-aware inventory capability selection does not use capabilities of a different agent"
+        ],
+        "report": "/private/tmp/b139-meta-cap-unknown-no-empty.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-unknown-no-empty-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-fresh-selection",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 122,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata reads exact current values without hardcoding or inferring enabled",
+          "source-aware inventory capability selection reads exact runtime ID from an available source",
+          "source-aware inventory capability selection reads explicit management identity",
+          "source-aware inventory capability selection keeps available partial inventory evidence local to the exact row"
+        ],
+        "report": "/private/tmp/b139-meta-cap-fresh-selection.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-fresh-selection-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-schema-export",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata exports a strict canonical capability schema using registry fields"
+        ],
+        "report": "/private/tmp/b139-meta-cap-schema-export.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-schema-export-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-helper-export",
+      "file": "src/agent/agent-inventory-metadata.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 86,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata selector returns unknown for invalid string",
+          "inventory capability metadata selector returns unknown for invalid object",
+          "inventory capability metadata selector returns unknown for invalid number",
+          "inventory capability metadata selector returns unknown for invalid bool",
+          "inventory capability metadata selector returns unknown for invalid null entry",
+          "inventory capability metadata selector returns unknown for invalid array entry",
+          "inventory capability metadata selector returns unknown for invalid missing name",
+          "inventory capability metadata selector returns unknown for invalid missing enabled",
+          "inventory capability metadata selector returns unknown for invalid empty name",
+          "inventory capability metadata selector returns unknown for invalid number name",
+          "inventory capability metadata selector returns unknown for invalid null name",
+          "inventory capability metadata selector returns unknown for invalid string enabled",
+          "inventory capability metadata selector returns unknown for invalid number enabled",
+          "inventory capability metadata selector returns unknown for invalid null enabled",
+          "inventory capability metadata selector returns unknown for invalid URL",
+          "inventory capability metadata selector returns unknown for invalid host",
+          "inventory capability metadata selector returns unknown for invalid token",
+          "inventory capability metadata selector returns unknown for invalid mixed validity",
+          "inventory capability metadata has no fallback 0",
+          "inventory capability metadata has no fallback 1",
+          "inventory capability metadata has no fallback 2",
+          "inventory capability metadata has no fallback 3",
+          "inventory capability metadata has no fallback 4",
+          "inventory capability metadata has no fallback 5",
+          "inventory capability metadata has no fallback 6",
+          "inventory capability metadata has no fallback 7",
+          "inventory capability metadata has no fallback 8",
+          "inventory capability metadata has no fallback 9",
+          "inventory capability metadata has no fallback 10",
+          "inventory capability metadata distinguishes known empty from missing and explicit unknown",
+          "inventory capability metadata reads exact current values without hardcoding or inferring enabled"
+        ],
+        "report": "/private/tmp/b139-meta-cap-helper-export.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-helper-export-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-agent-export",
+      "file": "src/agent/index.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 94,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata exports a strict canonical capability schema using registry fields",
+          "inventory capability metadata selector returns unknown for invalid string",
+          "inventory capability metadata selector returns unknown for invalid object",
+          "inventory capability metadata selector returns unknown for invalid number",
+          "inventory capability metadata selector returns unknown for invalid bool",
+          "inventory capability metadata selector returns unknown for invalid null entry",
+          "inventory capability metadata selector returns unknown for invalid array entry",
+          "inventory capability metadata selector returns unknown for invalid missing name",
+          "inventory capability metadata selector returns unknown for invalid missing enabled",
+          "inventory capability metadata selector returns unknown for invalid empty name",
+          "inventory capability metadata selector returns unknown for invalid number name",
+          "inventory capability metadata selector returns unknown for invalid null name",
+          "inventory capability metadata selector returns unknown for invalid string enabled",
+          "inventory capability metadata selector returns unknown for invalid number enabled",
+          "inventory capability metadata selector returns unknown for invalid null enabled",
+          "inventory capability metadata selector returns unknown for invalid URL",
+          "inventory capability metadata selector returns unknown for invalid host",
+          "inventory capability metadata selector returns unknown for invalid token",
+          "inventory capability metadata selector returns unknown for invalid mixed validity",
+          "inventory capability metadata has no fallback 0",
+          "inventory capability metadata has no fallback 1",
+          "inventory capability metadata has no fallback 2",
+          "inventory capability metadata has no fallback 3",
+          "inventory capability metadata has no fallback 4",
+          "inventory capability metadata has no fallback 5",
+          "inventory capability metadata has no fallback 6",
+          "inventory capability metadata has no fallback 7",
+          "inventory capability metadata has no fallback 8",
+          "inventory capability metadata has no fallback 9",
+          "inventory capability metadata has no fallback 10",
+          "inventory capability metadata distinguishes known empty from missing and explicit unknown",
+          "inventory capability metadata reads exact current values without hardcoding or inferring enabled"
+        ],
+        "report": "/private/tmp/b139-meta-cap-agent-export.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-cap-agent-export-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "row-cap-optional",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata preserves legacy row without metadata",
+          "Telegram observed metadata on canonical channels retains metadata in the actual inventory runtime snapshot"
+        ],
+        "report": "/private/tmp/b139-meta-row-cap-optional.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-row-cap-optional-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "row-cap-nullable",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata preserves explicit observation 2"
+        ],
+        "report": "/private/tmp/b139-meta-row-cap-nullable.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-row-cap-nullable-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "row-cap-retained",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 101,
+        "total": 126,
+        "semantic": [
+          "inventory capability metadata preserves explicit observation 0",
+          "inventory capability metadata preserves explicit observation 1",
+          "inventory capability metadata preserves explicit observation 2",
+          "inventory capability metadata rejects malformed capability metadata string",
+          "inventory capability metadata rejects malformed capability metadata object",
+          "inventory capability metadata rejects malformed capability metadata number",
+          "inventory capability metadata rejects malformed capability metadata bool",
+          "inventory capability metadata rejects malformed capability metadata null entry",
+          "inventory capability metadata rejects malformed capability metadata array entry",
+          "inventory capability metadata rejects malformed capability metadata missing name",
+          "inventory capability metadata rejects malformed capability metadata missing enabled",
+          "inventory capability metadata rejects malformed capability metadata empty name",
+          "inventory capability metadata rejects malformed capability metadata number name",
+          "inventory capability metadata rejects malformed capability metadata null name",
+          "inventory capability metadata rejects malformed capability metadata string enabled",
+          "inventory capability metadata rejects malformed capability metadata number enabled",
+          "inventory capability metadata rejects malformed capability metadata null enabled",
+          "inventory capability metadata rejects malformed capability metadata URL",
+          "inventory capability metadata rejects malformed capability metadata host",
+          "inventory capability metadata rejects malformed capability metadata token",
+          "inventory capability metadata rejects malformed capability metadata mixed validity",
+          "source-aware inventory capability selection reads exact runtime ID from an available source",
+          "source-aware inventory capability selection reads explicit management identity",
+          "source-aware inventory capability selection distinguishes an observed empty registry",
+          "source-aware inventory capability selection keeps available partial inventory evidence local to the exact row"
+        ],
+        "report": "/private/tmp/b139-meta-row-cap-retained.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-row-cap-retained-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-username-type",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 116,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects invalid username number",
+          "Telegram observed metadata on canonical channels rejects invalid username null",
+          "Telegram observed metadata on canonical channels rejects invalid username boolean",
+          "Telegram observed metadata on canonical channels rejects invalid username object",
+          "Telegram observed metadata on canonical channels rejects invalid username array",
+          "Telegram observed metadata on canonical channels selector rejects username number",
+          "Telegram observed metadata on canonical channels selector rejects username null",
+          "Telegram observed metadata on canonical channels selector rejects username boolean",
+          "Telegram observed metadata on canonical channels selector rejects username object",
+          "Telegram observed metadata on canonical channels selector rejects username array"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-username-type.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-username-type-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-username-optional",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 120,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels retains legacy channels",
+          "Telegram observed metadata on canonical channels retains optional metadata 1",
+          "Telegram observed metadata on canonical channels retains other legacy email channel",
+          "Telegram observed metadata on canonical channels retains other legacy voice channel",
+          "Telegram observed metadata on canonical channels retains other legacy web channel",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 1"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-username-optional.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-username-optional-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-username-retained",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 111,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels retains optional metadata 0",
+          "Telegram observed metadata on canonical channels retains optional metadata 2",
+          "Telegram observed metadata on canonical channels retains optional metadata 3",
+          "Telegram observed metadata on canonical channels does not equate metadata presence to readiness",
+          "Telegram observed metadata on canonical channels rejects invalid username number",
+          "Telegram observed metadata on canonical channels rejects invalid username null",
+          "Telegram observed metadata on canonical channels rejects invalid username boolean",
+          "Telegram observed metadata on canonical channels rejects invalid username object",
+          "Telegram observed metadata on canonical channels rejects invalid username array",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on email",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on voice",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on web",
+          "Telegram observed metadata on canonical channels projects only username/count, never channel state or authorization IDs",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 0",
+          "Telegram observed metadata on canonical channels retains metadata in the actual inventory runtime snapshot"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-username-retained.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-username-retained-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-numeric",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 110,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects invalid authorization count negative",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count fraction",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count unsafe",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count string",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count null",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count NaN",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count Infinity",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count object",
+          "Telegram observed metadata on canonical channels selector rejects count negative",
+          "Telegram observed metadata on canonical channels selector rejects count fraction",
+          "Telegram observed metadata on canonical channels selector rejects count unsafe",
+          "Telegram observed metadata on canonical channels selector rejects count string",
+          "Telegram observed metadata on canonical channels selector rejects count null",
+          "Telegram observed metadata on canonical channels selector rejects count NaN",
+          "Telegram observed metadata on canonical channels selector rejects count Infinity",
+          "Telegram observed metadata on canonical channels selector rejects count object"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-numeric.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-numeric-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-integer",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 122,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects invalid authorization count fraction",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count unsafe",
+          "Telegram observed metadata on canonical channels selector rejects count fraction",
+          "Telegram observed metadata on canonical channels selector rejects count unsafe"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-integer.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-integer-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-safe",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects invalid authorization count unsafe",
+          "Telegram observed metadata on canonical channels selector rejects count unsafe"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-safe.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-safe-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-nonnegative",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects invalid authorization count negative",
+          "Telegram observed metadata on canonical channels selector rejects count negative"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-nonnegative.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-nonnegative-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-optional",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 120,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels retains legacy channels",
+          "Telegram observed metadata on canonical channels retains optional metadata 0",
+          "Telegram observed metadata on canonical channels retains other legacy email channel",
+          "Telegram observed metadata on canonical channels retains other legacy voice channel",
+          "Telegram observed metadata on canonical channels retains other legacy web channel",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 0"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-optional.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-optional-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-retained",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 108,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels retains optional metadata 1",
+          "Telegram observed metadata on canonical channels retains optional metadata 2",
+          "Telegram observed metadata on canonical channels retains optional metadata 3",
+          "Telegram observed metadata on canonical channels does not equate metadata presence to readiness",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count negative",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count fraction",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count unsafe",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count string",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count null",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count NaN",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count Infinity",
+          "Telegram observed metadata on canonical channels rejects invalid authorization count object",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on email",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on voice",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on web",
+          "Telegram observed metadata on canonical channels projects only username/count, never channel state or authorization IDs",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 1",
+          "Telegram observed metadata on canonical channels retains metadata in the actual inventory runtime snapshot"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-retained.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-retained-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-kind-only",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 123,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects Telegram fields on email",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on voice",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on web"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-kind-only.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-kind-only-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-name-kind",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 123,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects Telegram fields on email",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on voice",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on web"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-name-kind.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-name-kind-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-kind",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 123,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels rejects Telegram fields on email",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on voice",
+          "Telegram observed metadata on canonical channels rejects Telegram fields on web"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-kind.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-kind-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-selector-validation",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 102,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels projects only username/count, never channel state or authorization IDs",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 0",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 1"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-selector-validation.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-selector-validation-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-unknown-no-empty",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 6",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 8"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-unknown-no-empty.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-unknown-no-empty-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-name-only",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels keeps missing fields absent 0"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-name-only.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-name-only-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-only",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels keeps missing fields absent 1"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-count-only.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-count-only-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-no-ids",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 123,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels projects only username/count, never channel state or authorization IDs",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 0",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 1"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-no-ids.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-no-ids-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-no-name-default",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels keeps missing fields absent 1"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-no-name-default.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-no-name-default-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-no-count-default",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels keeps missing fields absent 0"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-no-count-default.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-no-count-default-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-helper-export",
+      "file": "src/agent/agent-runtime-state.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 100,
+        "total": 126,
+        "semantic": [
+          "Telegram observed metadata on canonical channels projects only username/count, never channel state or authorization IDs",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 0",
+          "Telegram observed metadata on canonical channels keeps missing fields absent 1",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 0",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 1",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 2",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 3",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 4",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 5",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 6",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 7",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 8",
+          "Telegram observed metadata on canonical channels does not invent Telegram evidence 9",
+          "Telegram observed metadata on canonical channels selector rejects count negative",
+          "Telegram observed metadata on canonical channels selector rejects count fraction",
+          "Telegram observed metadata on canonical channels selector rejects count unsafe",
+          "Telegram observed metadata on canonical channels selector rejects count string",
+          "Telegram observed metadata on canonical channels selector rejects count null",
+          "Telegram observed metadata on canonical channels selector rejects count NaN",
+          "Telegram observed metadata on canonical channels selector rejects count Infinity",
+          "Telegram observed metadata on canonical channels selector rejects count object",
+          "Telegram observed metadata on canonical channels selector rejects username number",
+          "Telegram observed metadata on canonical channels selector rejects username null",
+          "Telegram observed metadata on canonical channels selector rejects username boolean",
+          "Telegram observed metadata on canonical channels selector rejects username object",
+          "Telegram observed metadata on canonical channels selector rejects username array"
+        ],
+        "report": "/private/tmp/b139-meta-telegram-helper-export.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-telegram-helper-export-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-validation",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 114,
+        "total": 126,
+        "semantic": [
+          "source-aware inventory capability selection reads exact runtime ID from an available source",
+          "source-aware inventory capability selection reads explicit management identity",
+          "source-aware inventory capability selection distinguishes an observed empty registry",
+          "source-aware inventory capability selection keeps available partial inventory evidence local to the exact row"
+        ],
+        "report": "/private/tmp/b139-meta-source-validation.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-source-validation-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-available",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 123,
+        "total": 126,
+        "semantic": [
+          "source-aware inventory capability selection refuses non-current source unknown",
+          "source-aware inventory capability selection refuses non-current source unavailable",
+          "source-aware inventory capability selection refuses missing/invalid source 0"
+        ],
+        "report": "/private/tmp/b139-meta-source-available.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-source-available-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-runtime-identity",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 123,
+        "total": 126,
+        "semantic": [
+          "source-aware inventory capability selection reads exact runtime ID from an available source",
+          "source-aware inventory capability selection distinguishes an observed empty registry",
+          "source-aware inventory capability selection keeps available partial inventory evidence local to the exact row"
+        ],
+        "report": "/private/tmp/b139-meta-source-runtime-identity.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-source-runtime-identity-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-management-identity",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "source-aware inventory capability selection reads explicit management identity"
+        ],
+        "report": "/private/tmp/b139-meta-source-management-identity.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-source-management-identity-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-no-other-agent",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 124,
+        "total": 126,
+        "semantic": [
+          "source-aware inventory capability selection returns unknown for missing exact agent",
+          "source-aware inventory capability selection never resolves a displayName or ownerId as identity"
+        ],
+        "report": "/private/tmp/b139-meta-source-no-other-agent.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-source-no-other-agent-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-no-display-identity",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 125,
+        "total": 126,
+        "semantic": [
+          "source-aware inventory capability selection never resolves a displayName or ownerId as identity"
+        ],
+        "report": "/private/tmp/b139-meta-source-no-display-identity.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-source-no-display-identity-restore.json"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-helper-export",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "passed": 106,
+        "total": 126,
+        "semantic": [
+          "source-aware inventory capability selection reads exact runtime ID from an available source",
+          "source-aware inventory capability selection reads explicit management identity",
+          "source-aware inventory capability selection distinguishes an observed empty registry",
+          "source-aware inventory capability selection refuses non-current source unknown",
+          "source-aware inventory capability selection refuses non-current source unavailable",
+          "source-aware inventory capability selection refuses missing/invalid source 0",
+          "source-aware inventory capability selection refuses missing/invalid source 1",
+          "source-aware inventory capability selection refuses missing/invalid source 2",
+          "source-aware inventory capability selection refuses missing/invalid source 3",
+          "source-aware inventory capability selection returns unknown for missing exact agent",
+          "source-aware inventory capability selection never resolves a displayName or ownerId as identity",
+          "source-aware inventory capability selection returns unknown for invalid envelope 0",
+          "source-aware inventory capability selection returns unknown for invalid envelope 1",
+          "source-aware inventory capability selection returns unknown for invalid envelope 2",
+          "source-aware inventory capability selection returns unknown for invalid envelope 3",
+          "source-aware inventory capability selection returns unknown for invalid envelope 4",
+          "source-aware inventory capability selection does not fill missing metadata 0",
+          "source-aware inventory capability selection does not fill missing metadata 1",
+          "source-aware inventory capability selection does not use capabilities of a different agent",
+          "source-aware inventory capability selection keeps available partial inventory evidence local to the exact row"
+        ],
+        "report": "/private/tmp/b139-meta-source-helper-export.json"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 126,
+        "total": 126,
+        "semantic": [],
+        "report": "/private/tmp/b139-meta-source-helper-export-restore.json"
+      },
+      "sha_restored": true
+    }
+  ],
+  "sha256": {
+    "src/agent/agent-inventory-metadata.ts": "a87452c5a1f0aaa5e1e8adc4a1ac5298c69e96a0f1d2049b3b7d42c4cf0314af",
+    "src/agent/agent-runtime-state.ts": "4dafeb40590e5194e2db798b0926e2275ecc7aef3489977443cd93721f4e0e47",
+    "src/http/endpoints/internal-agents-list.ts": "4b219b4bc7a2a3dc483d178a4d9953e0468cfec1a9c04d82555cdb285102e03e",
+    "src/agent/index.ts": "7e2e9f9887c42f0b581b029d013ee183615c29fff0cbb9d9eb8f39007ba93c27"
+  }
+}
