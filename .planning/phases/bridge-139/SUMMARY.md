@@ -15,3 +15,5 @@ Ultimo aggiornamento:13:54. Task3source completato41/41mutazioniAssertionError,4
 Ultimo aggiornamento:13:55. CheckpointsourceTask3 cb97692,41/41qualificate+restauri e141/141nomi colpiti. Solo139source/141test/metadata; prossima azioneverificaHOTFIXprioritaria, dopoTOSL23; consumer139 resta dafare, nonconsegnato.
 
 Ultimo aggiornamento:14:37. Ripreso14:31 dopoHOTFIXAPPROVE13050/TOSREVISEfbb. Task3 SALTATO residuo consumer/CTS/mutazioni compilato al limite45min14:36 (preemptiondocumentata13:54): source41/41qualificate conservate; nativebuildprivata392/392HEADinput,300/300DTSportabili,packnativo riuscito concachetemporanea dopoEPERMglobale. Nessuna prova consumer accreditata (due avvii precedenti senza archivio esclusi). Chiesto lottoTask3b<=20min, attendo decisione e passoTask5aggiunta14:30, deadline15:22. Versione/CHANGELOG/dist/rootmanifest intatti.
+
+Ultimo aggiornamento:14:38. Checkpointbuild/Task3SALTATO ePLANTask5 committati; inizio test metadati sullo schema nativo, nessun wire inventato dai consumer.
