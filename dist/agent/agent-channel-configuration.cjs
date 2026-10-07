@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentContextWithChannelsWriteSchema = exports.AgentContextWithChannelsSchema = exports.AgentChannelConfigurationSchema = exports.AgentChannelVersionedStateSchema = exports.AgentOwnedChannelResourceSchema = exports.AgentChannelFailureSchema = exports.AgentChannelFailureCodeSchema = exports.AgentChannelDesiredStateSchema = exports.AgentBirthChannelKindSchema = void 0;
 exports.channelFailure = channelFailure;
 exports.isChannelConfigurationApplied = isChannelConfigurationApplied;
+exports.managementAgentIdOf = managementAgentIdOf;
 exports.appliedAgentVoiceSettings = appliedAgentVoiceSettings;
 exports.appliedAgentScopePolicy = appliedAgentScopePolicy;
 exports.shouldLoadAgentChannel = shouldLoadAgentChannel;
@@ -99,13 +100,36 @@ function checkContextScope(context, ctx) {
             ctx.addIssue({ code: 'custom', path: ['channelConfigurations', index, 'scope'], message: 'Channel configuration belongs to another context scope' });
         }
     }
-    if (context.voiceConfiguration && context.voiceConfiguration.agentId !== context.agentId) {
-        ctx.addIssue({ code: 'custom', path: ['voiceConfiguration', 'agentId'], message: 'Voice configuration belongs to another context scope' });
+    if (context.identity && context.identity.runtimeAgentId !== context.agentId) {
+        ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Identity belongs to another runtime' });
+    }
+    const channelIds = new Set((context.channelConfigurations ?? []).map(config => config.identity.managementAgentId));
+    if (channelIds.size > 1) {
+        ctx.addIssue({ code: 'custom', path: ['channelConfigurations'], message: 'Channel management identities disagree' });
+    }
+    for (const [index, config] of (context.channelConfigurations ?? []).entries()) {
+        if (context.identity && config.identity.managementAgentId !== context.identity.managementAgentId) {
+            ctx.addIssue({ code: 'custom', path: ['channelConfigurations', index, 'identity'], message: 'Channel identity belongs to another management agent' });
+        }
+    }
+    const managementAgentId = managementAgentIdOf(context);
+    // Legacy 1.34 contexts remain readable; the helper never invents an identity for them.
+    if (context.voiceConfiguration && context.voiceConfiguration.agentId !== (managementAgentId ?? context.agentId)) {
+        ctx.addIssue({ code: 'custom', path: ['voiceConfiguration', 'agentId'], message: 'Voice configuration belongs to another management identity' });
     }
 }
 /** Additive context field. Absent is legacy; present is complete, validated and scoped with no tenant default. */
-exports.AgentContextWithChannelsSchema = agent_context_file_js_1.AgentContextFileSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: agent_voice_settings_js_1.AgentVoiceConfigSchema.optional(), scopePolicy: agent_scope_policy_js_1.AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
-exports.AgentContextWithChannelsWriteSchema = agent_context_file_js_1.AgentContextFileWriteSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: agent_voice_settings_js_1.AgentVoiceConfigSchema.optional(), scopePolicy: agent_scope_policy_js_1.AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+exports.AgentContextWithChannelsSchema = agent_context_file_js_1.AgentContextFileSchema.safeExtend({ identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.optional(), channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: agent_voice_settings_js_1.AgentVoiceConfigSchema.optional(), scopePolicy: agent_scope_policy_js_1.AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+exports.AgentContextWithChannelsWriteSchema = agent_context_file_js_1.AgentContextFileWriteSchema.safeExtend({ identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.optional(), channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: agent_voice_settings_js_1.AgentVoiceConfigSchema.optional(), scopePolicy: agent_scope_policy_js_1.AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+/** Management ID of a validated context, from its explicit pair or concordant channels. Never guesses from runtime/voice. */
+function managementAgentIdOf(context) {
+    if (context.identity)
+        return context.identity.managementAgentId;
+    const ids = new Set((context.channelConfigurations ?? []).map(config => config.identity.managementAgentId));
+    if (ids.size !== 1)
+        return null;
+    return context.channelConfigurations?.[0]?.identity.managementAgentId ?? null;
+}
 /** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
 function appliedAgentVoiceSettings(ctx) {
     return ctx.voiceConfiguration?.applied ?? null;

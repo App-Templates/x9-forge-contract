@@ -10,6 +10,23 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.37.0 — identità canonica nel contesto e voce legata all'id di gestione (BRIDGE-136a)
+
+Correzione di 1.34: `voiceConfiguration.agentId` è l'id di GESTIONE (Forge), non quello runtime.
+
+### Added (additive)
+
+- `./agent`: campo opzionale `identity` (`AgentRuntimeIdentitySchema`, coppia gestione/runtime) nel contesto con canali e nella variante Write; helper `managementAgentIdOf(ctx)` → id di gestione oppure `null`.
+
+### Changed
+
+- Validazione dello scope del contesto: con `identity`, `identity.runtimeAgentId` deve coincidere con l'agente del contesto; l'id di gestione viene da `identity` oppure dai canali (tutti concordi); `voiceConfiguration.agentId` deve coincidere con l'id di gestione. Senza alcuna fonte di gestione resta valido il caso 1.34 (voce = agente del contesto).
+- Ora rifiutati: canali con id di gestione discordanti; `identity` discordante dai canali; voce con id di gestione senza `identity` né canali. **Forge deve scrivere `identity` insieme alla voce.**
+
+Verificato da revisore indipendente V15: 2244/2244, 8/8 mutazioni uccise, R-14 PASS.
+
+---
+
 ## v1.36.0 — descrittore D-A9 del workspace agente (R7-1)
 
 Additivo: un context.json 1.35 senza il campo resta valido.

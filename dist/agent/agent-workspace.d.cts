@@ -863,6 +863,10 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
     configVersion: z.ZodOptional<z.ZodNumber>;
+    identity: z.ZodOptional<z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
             email: "email";
@@ -1435,6 +1439,10 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
     telegramBotToken: z.ZodOptional<z.ZodString>;
     displayName: z.ZodString;
     configVersion: z.ZodOptional<z.ZodNumber>;
+    identity: z.ZodOptional<z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
             email: "email";
