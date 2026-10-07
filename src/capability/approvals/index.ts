@@ -195,7 +195,8 @@ export const CreateApprovalRequestBodySchema = z
     scope: CapabilityAgentScopeSchema,
     client: ApprovalClientSchema,
     type: ApprovalActionTypeSchema,
-    text: z.string().trim().min(1).max(APPROVAL_TEXT_MAX),
+    /** Exactly what the owner reads and what `textSha256` hashes: never altered, so no leading/trailing whitespace. */
+    text: z.string().min(1).max(APPROVAL_TEXT_MAX).refine((t) => t.trim() === t && t.length > 0, { message: 'no leading or trailing whitespace' }),
     bindings: ApprovalBindingsSchema,
     ttlSec: z.number().int().min(APPROVAL_MIN_TTL_SEC).max(APPROVAL_MAX_TTL_SEC),
     severity: ApprovalSeveritySchema,

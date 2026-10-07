@@ -174,6 +174,10 @@ describe('endpoint contracts', () => {
     expect(CreateApprovalRequestBodySchema.safeParse({ ...request, ttlSec: APPROVAL_MAX_TTL_SEC + 1 }).success).toBe(false);
     expect(CreateApprovalRequestBodySchema.safeParse({ ...request, ttlSec: 59 }).success).toBe(false);
     expect(CreateApprovalRequestBodySchema.safeParse({ ...request, text: '   ' }).success).toBe(false);
+    // the text is hashed as sent: it is refused, never silently trimmed (client and signer must hash the same bytes)
+    expect(CreateApprovalRequestBodySchema.safeParse({ ...request, text: ' ' + request.text }).success).toBe(false);
+    expect(CreateApprovalRequestBodySchema.safeParse({ ...request, text: request.text + '\n' }).success).toBe(false);
+    expect((CreateApprovalRequestBodySchema.parse(request) as { text: string }).text).toBe(request.text);
     expect(CreateApprovalRequestBodySchema.safeParse({ ...request, severity: 'critical' }).success).toBe(false);
     expect(CreateApprovalRequestBodySchema.safeParse({ ...request, scope: { ...request.scope, userId: 'u' } }).success).toBe(false);
   });
