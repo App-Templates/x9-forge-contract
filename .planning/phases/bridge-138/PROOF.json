@@ -4705,11 +4705,19 @@
         "allowed": true
       },
       {
+        "file": ".planning/phases/bridge-138/05-integrity.json",
+        "allowed": true
+      },
+      {
         "file": ".planning/phases/bridge-138/05-integrity.py",
         "allowed": true
       },
       {
         "file": ".planning/phases/bridge-138/PLAN.md",
+        "allowed": true
+      },
+      {
+        "file": ".planning/phases/bridge-138/PROOF.json",
         "allowed": true
       },
       {
