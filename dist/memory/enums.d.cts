@@ -10,8 +10,8 @@ import { z } from 'zod';
 export declare const MemoryScopeSchema: z.ZodEnum<{
     user: "user";
     owner: "owner";
-    platform: "platform";
     agent: "agent";
+    platform: "platform";
 }>;
 export type MemoryScope = z.infer<typeof MemoryScopeSchema>;
 /**
@@ -73,10 +73,10 @@ export type MemoryStatus = z.infer<typeof MemoryStatusSchema>;
  * - `change_retention`: modifica `retention_class` / `ttl_days` su una memory entry specifica.
  */
 export declare const MemoryCorrectiveActionSchema: z.ZodEnum<{
+    pin: "pin";
     invalidate: "invalidate";
     forget: "forget";
     redact: "redact";
-    pin: "pin";
     promote: "promote";
     demote: "demote";
     merge_entity: "merge_entity";

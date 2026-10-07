@@ -24,4 +24,9 @@ export { PerAgentModelOverrideSchema } from "./per-agent-model-override.js";
 export { ModelPushRequestSchema, ModelPushSuccessSchema, ModelPushErrorSchema, ModelPushResponseSchema, pushModelConfigContract, } from "./model-push.js";
 // Hot reload
 export { ModelHotReloadNotificationSchema } from "./model-hot-reload.js";
+// Attested catalogs and capability-owned settings (M1a); no model ids or credentials embedded here.
+export * from "./model-catalog.js";
+export * from "./capability-model-settings.js";
+export * from "./agent-model-configuration.js";
+export * from "./models-batch.js";
 //# sourceMappingURL=index.js.map

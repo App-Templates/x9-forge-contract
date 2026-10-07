@@ -1,0 +1,368 @@
+import { z } from 'zod';
+import { KNOWN_CREDENTIAL_KEYS, AUTH_GATE_FIELDS, type KnownCredentialKey, type AuthGateField } from './agent-credentials.js';
+import { MODEL_PROVIDERS } from '../model-router/model-provider.js';
+
+/** Metadata only: this module never accepts credential values or resolves the active provider. */
+export const AGENT_CREDENTIAL_SERVICE_KEYS = [...new Set([...KNOWN_CREDENTIAL_KEYS, ...AUTH_GATE_FIELDS])] as const;
+export type AgentCredentialServiceKey = KnownCredentialKey | AuthGateField;
+export const AgentCredentialServiceKeySchema = z.enum(AGENT_CREDENTIAL_SERVICE_KEYS);
+export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail'] as const;
+export const AgentCredentialCommercialServiceSchema = z.enum(AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS);
+export const AgentCredentialInternalServiceSchema = z.enum(['x9', 'forge']);
+export const AgentCredentialKindSchema = z.enum(['credential', 'setting', 'identifier']);
+export const AgentCredentialServiceSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('commercial'), id: AgentCredentialCommercialServiceSchema }).strict(),
+  z.object({ type: z.literal('internal'), id: AgentCredentialInternalServiceSchema }).strict(),
+  z.object({ type: z.literal('multi-provider'), candidates: z.array(AgentCredentialCommercialServiceSchema).min(2)
+    .refine(values => new Set(values).size === values.length, 'Candidate services must be unique') }).strict(),
+]);
+export type AgentCredentialService = z.infer<typeof AgentCredentialServiceSchema>;
+export type AgentCredentialKind = z.infer<typeof AgentCredentialKindSchema>;
+type Definition = { label: string; kind: AgentCredentialKind; secret: boolean; service:
+  | { type: 'commercial'; id: z.infer<typeof AgentCredentialCommercialServiceSchema> }
+  | { type: 'internal'; id: z.infer<typeof AgentCredentialInternalServiceSchema> }
+  | { type: 'multi-provider'; candidates: readonly z.infer<typeof AgentCredentialCommercialServiceSchema>[] } };
+
+const definitions = {
+  "OPENAI_API_KEY": {
+    "label": "Chiave API OpenAI",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "openai"
+    },
+    "secret": true
+  },
+  "ANTHROPIC_API_KEY": {
+    "label": "Chiave API Anthropic",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "anthropic"
+    },
+    "secret": true
+  },
+  "GOOGLE_API_KEY": {
+    "label": "Chiave API Google",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "google"
+    },
+    "secret": true
+  },
+  "TELEGRAM_BOT_TOKEN": {
+    "label": "Token del bot Telegram",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "telegram"
+    },
+    "secret": true
+  },
+  "ELEVENLABS_API_KEY": {
+    "label": "Chiave API ElevenLabs",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "elevenlabs"
+    },
+    "secret": true
+  },
+  "TELNYX_API_KEY": {
+    "label": "Chiave API Telnyx",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "telnyx"
+    },
+    "secret": true
+  },
+  "QDRANT_API_KEY": {
+    "label": "Chiave API Qdrant",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "qdrant"
+    },
+    "secret": true
+  },
+  "AGENTMAIL_API_KEY": {
+    "label": "Chiave API AgentMail",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "agentmail"
+    },
+    "secret": true
+  },
+  "GOOGLE_CALENDAR_CLIENT_SECRET": {
+    "label": "Segreto del client Google Calendar",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "google"
+    },
+    "secret": true
+  },
+  "GOOGLE_CALENDAR_REFRESH_TOKEN": {
+    "label": "Token di rinnovo Google Calendar",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "google"
+    },
+    "secret": true
+  },
+  "TELNYX_PUBLIC_KEY": {
+    "label": "Chiave pubblica di verifica Telnyx",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "telnyx"
+    },
+    "secret": false
+  },
+  "INTERNAL_SECRET": {
+    "label": "Segreto dei servizi interni X9",
+    "kind": "credential",
+    "service": {
+      "type": "internal",
+      "id": "x9"
+    },
+    "secret": true
+  },
+  "INTERNAL_TOKEN": {
+    "label": "Token dei servizi interni X9",
+    "kind": "credential",
+    "service": {
+      "type": "internal",
+      "id": "x9"
+    },
+    "secret": true
+  },
+  "X9_INTERNAL_SECRET": {
+    "label": "Segreto del collegamento con X9",
+    "kind": "credential",
+    "service": {
+      "type": "internal",
+      "id": "x9"
+    },
+    "secret": true
+  },
+  "LIVE_WEB_AUTH_TOKEN": {
+    "label": "Token della voce web X9",
+    "kind": "credential",
+    "service": {
+      "type": "internal",
+      "id": "x9"
+    },
+    "secret": true
+  },
+  "FORGE_VOICE_REGISTER_TOKEN": {
+    "label": "Token di registrazione voce in Forge",
+    "kind": "credential",
+    "service": {
+      "type": "internal",
+      "id": "forge"
+    },
+    "secret": true
+  },
+  "AGENT_CHAT_MODEL": {
+    "label": "Modello di conversazione e ragionamento",
+    "kind": "setting",
+    "service": {
+      "type": "multi-provider",
+      "candidates": [
+        "openai",
+        "anthropic",
+        "google"
+      ]
+    },
+    "secret": false
+  },
+  "TTS_PROVIDER": {
+    "label": "Fornitore della sintesi vocale",
+    "kind": "setting",
+    "service": {
+      "type": "multi-provider",
+      "candidates": [
+        "elevenlabs",
+        "openai"
+      ]
+    },
+    "secret": false
+  },
+  "STT_PRIMARY_PROVIDER": {
+    "label": "Fornitore primario della trascrizione",
+    "kind": "setting",
+    "service": {
+      "type": "multi-provider",
+      "candidates": [
+        "elevenlabs",
+        "openai"
+      ]
+    },
+    "secret": false
+  },
+  "VOICE_CALL_PROVIDER": {
+    "label": "Fornitore della voce in chiamata",
+    "kind": "setting",
+    "service": {
+      "type": "multi-provider",
+      "candidates": [
+        "elevenlabs",
+        "openai"
+      ]
+    },
+    "secret": false
+  },
+  "ELEVENLABS_MODEL_ID": {
+    "label": "Modello vocale ElevenLabs",
+    "kind": "setting",
+    "service": {
+      "type": "commercial",
+      "id": "elevenlabs"
+    },
+    "secret": false
+  },
+  "OPENAI_TTS_MODEL": {
+    "label": "Modello di sintesi vocale OpenAI",
+    "kind": "setting",
+    "service": {
+      "type": "commercial",
+      "id": "openai"
+    },
+    "secret": false
+  },
+  "OPENAI_TTS_VOICE": {
+    "label": "Voce di sintesi OpenAI",
+    "kind": "setting",
+    "service": {
+      "type": "commercial",
+      "id": "openai"
+    },
+    "secret": false
+  },
+  "OPENAI_STT_MODEL": {
+    "label": "Modello di trascrizione OpenAI",
+    "kind": "setting",
+    "service": {
+      "type": "commercial",
+      "id": "openai"
+    },
+    "secret": false
+  },
+  "OPENAI_LIVE_VOICE": {
+    "label": "Voce in tempo reale OpenAI",
+    "kind": "setting",
+    "service": {
+      "type": "commercial",
+      "id": "openai"
+    },
+    "secret": false
+  },
+  "OPENAI_LIVE_BACKEND_MODEL": {
+    "label": "Modello di supporto della voce OpenAI",
+    "kind": "setting",
+    "service": {
+      "type": "commercial",
+      "id": "openai"
+    },
+    "secret": false
+  },
+  "ELEVENLABS_VOICE_ID": {
+    "label": "Identificativo della voce ElevenLabs",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "elevenlabs"
+    },
+    "secret": false
+  },
+  "ELEVENLABS_MINDFULNESS_AGENT_ID": {
+    "label": "Identificativo dell’agente ElevenLabs",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "elevenlabs"
+    },
+    "secret": false
+  },
+  "TELNYX_CONNECTION_ID": {
+    "label": "Identificativo della connessione Telnyx",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "telnyx"
+    },
+    "secret": false
+  },
+  "TELNYX_FROM_NUMBER": {
+    "label": "Numero chiamante Telnyx",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "telnyx"
+    },
+    "secret": false
+  },
+  "AGENTMAIL_INBOX_ID": {
+    "label": "Identificativo della casella AgentMail",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "agentmail"
+    },
+    "secret": false
+  },
+  "AGENT_EMAIL": {
+    "label": "Indirizzo email AgentMail",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "agentmail"
+    },
+    "secret": false
+  },
+  "GOOGLE_CALENDAR_CLIENT_ID": {
+    "label": "Identificativo del client Google Calendar",
+    "kind": "identifier",
+    "service": {
+      "type": "commercial",
+      "id": "google"
+    },
+    "secret": false
+  }
+} as const satisfies Record<AgentCredentialServiceKey, Definition>;
+
+/** Immutable, exhaustive declared-key registry. A dynamic catchall key is not an attested commercial service. */
+export const AGENT_CREDENTIAL_SERVICE_METADATA = Object.freeze(Object.fromEntries(
+  Object.entries(definitions).map(([key, definition]) => {
+    const service = definition.service.type === 'multi-provider'
+      ? Object.freeze({ ...definition.service, candidates: Object.freeze([...definition.service.candidates]) })
+      : Object.freeze({ ...definition.service });
+    return [key, Object.freeze({ key: key as AgentCredentialServiceKey, ...definition, service })];
+  }),
+)) as Readonly<Record<AgentCredentialServiceKey, Readonly<Definition & { key: AgentCredentialServiceKey }>>>;
+
+export const AgentCredentialServiceMetadataSchema = z.object({
+  key: AgentCredentialServiceKeySchema,
+  label: z.string().trim().min(1).max(120),
+  kind: AgentCredentialKindSchema,
+  secret: z.boolean(),
+  service: AgentCredentialServiceSchema,
+}).strict().superRefine((entry, context) => {
+  const expected = AGENT_CREDENTIAL_SERVICE_METADATA[entry.key];
+  if (entry.kind !== expected.kind || entry.secret !== expected.secret || entry.label !== expected.label
+    || JSON.stringify(entry.service) !== JSON.stringify(expected.service)) {
+    context.addIssue({ code: 'custom', message: 'Metadata must match the canonical declared credential service' });
+  }
+});
+export type AgentCredentialServiceMetadata = z.infer<typeof AgentCredentialServiceMetadataSchema>;
+
+/** Unknown capability-specific keys remain unknown; never guess a brand from their spelling. */
+export function getAgentCredentialServiceMetadata(key: string): (typeof AGENT_CREDENTIAL_SERVICE_METADATA)[AgentCredentialServiceKey] | null {
+  return Object.prototype.hasOwnProperty.call(AGENT_CREDENTIAL_SERVICE_METADATA, key)
+    ? AGENT_CREDENTIAL_SERVICE_METADATA[key as AgentCredentialServiceKey] : null;
+}

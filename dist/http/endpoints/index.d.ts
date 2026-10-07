@@ -39,4 +39,7 @@ export * from "./cap-turn-lead.js";
 export * from "./internal-factory-creation.js";
 export * from "./internal-channel-attestation.js";
 export * from "./voice-catalog.js";
+export * from "./internal-agent-model-catalog.js";
+export * from "./internal-models-batch.js";
+export * from "./forge-models.js";
 //# sourceMappingURL=index.d.ts.map

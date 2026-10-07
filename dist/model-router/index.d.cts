@@ -24,4 +24,8 @@ export { ModelPushRequestSchema, ModelPushSuccessSchema, ModelPushErrorSchema, M
 export type { ModelPushRequest, ModelPushResponse } from "./model-push.cjs";
 export { ModelHotReloadNotificationSchema } from "./model-hot-reload.cjs";
 export type { ModelHotReloadNotification } from "./model-hot-reload.cjs";
+export * from "./model-catalog.cjs";
+export * from "./capability-model-settings.cjs";
+export * from "./agent-model-configuration.cjs";
+export * from "./models-batch.cjs";
 //# sourceMappingURL=index.d.ts.map

@@ -44,3 +44,9 @@ export type { ModelPushRequest, ModelPushResponse } from './model-push.js';
 // Hot reload
 export { ModelHotReloadNotificationSchema } from './model-hot-reload.js';
 export type { ModelHotReloadNotification } from './model-hot-reload.js';
+
+// Attested catalogs and capability-owned settings (M1a); no model ids or credentials embedded here.
+export * from './model-catalog.js';
+export * from './capability-model-settings.js';
+export * from './agent-model-configuration.js';
+export * from './models-batch.js';

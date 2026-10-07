@@ -7,8 +7,8 @@ export declare const AgentRuntimeAvailabilitySchema: z.ZodEnum<{
 export type AgentRuntimeAvailability = z.infer<typeof AgentRuntimeAvailabilitySchema>;
 export declare const AgentRuntimeCompletenessSchema: z.ZodEnum<{
     unknown: "unknown";
-    complete: "complete";
     partial: "partial";
+    complete: "complete";
 }>;
 export type AgentRuntimeCompleteness = z.infer<typeof AgentRuntimeCompletenessSchema>;
 /** Source observations describe inventory coverage, not an agent's readiness. */
@@ -21,8 +21,8 @@ export declare const AgentRuntimeSourceSchema: z.ZodObject<{
     }>;
     completeness: z.ZodEnum<{
         unknown: "unknown";
-        complete: "complete";
         partial: "partial";
+        complete: "complete";
     }>;
     observedAt: z.ZodNullable<z.ZodISODateTime>;
 }, z.core.$strip>;

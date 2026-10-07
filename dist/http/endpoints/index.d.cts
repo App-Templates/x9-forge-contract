@@ -39,4 +39,7 @@ export * from "./cap-turn-lead.cjs";
 export * from "./internal-factory-creation.cjs";
 export * from "./internal-channel-attestation.cjs";
 export * from "./voice-catalog.cjs";
+export * from "./internal-agent-model-catalog.cjs";
+export * from "./internal-models-batch.cjs";
+export * from "./forge-models.cjs";
 //# sourceMappingURL=index.d.ts.map

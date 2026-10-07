@@ -10,6 +10,17 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.40.0 — modelli governati per funzione e servizio di ogni credenziale (MODELLI M1 + BRIDGE-SERVIZI)
+
+### Added (additive)
+
+- `./model-router`: catalogo dei modelli per funzione attestato (`model-catalog`), configurazione dei modelli per agente con pin completo e fonte (segue il Master / personalizzato) (`agent-model-configuration`), impostazioni modello delle capacità (`capability-model-settings`), anteprima e applicazione in blocco con versione e prova di applicazione (`models-batch`). Base contrattuale della pagina «Modelli» di Forge (unico posto di modifica dei modelli).
+- `./http/endpoints`: contratti `forge-models`, `internal-agent-model-catalog`, `internal-models-batch`.
+- `./agent`: `agent-credential-services` — per ogni credenziale dichiarata il tipo (credenziale, impostazione, identificatore), il servizio commerciale per le chiavi univoche, i fornitori candidati per i selettori multi-fornitore, i token interni X9/Forge marcati come interni, etichetta italiana. Nessun valore.
+- Nessun simbolo esistente cambiato; consumer 1.39 restano validi.
+
+---
+
 ## v1.39.0 — attestazione del workspace applicato e metadati dell'inventario (BRIDGE-139)
 
 ### Added (additive)

@@ -70,4 +70,6 @@ __exportStar(require("./agent-channel-attestation.cjs"), exports);
 __exportStar(require("./agent-workspace.cjs"), exports);
 // Public, metadata-only observations from the per-agent registry.
 __exportStar(require("./agent-inventory-metadata.cjs"), exports);
+// Canonical credential service metadata, never credential values.
+__exportStar(require("./agent-credential-services.cjs"), exports);
 //# sourceMappingURL=index.js.map

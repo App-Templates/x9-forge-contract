@@ -27,10 +27,10 @@ export declare const memoryCorrectContract: {
         }>;
         actor_id: z.ZodString;
         action: z.ZodEnum<{
+            pin: "pin";
             invalidate: "invalidate";
             forget: "forget";
             redact: "redact";
-            pin: "pin";
             promote: "promote";
             demote: "demote";
             merge_entity: "merge_entity";

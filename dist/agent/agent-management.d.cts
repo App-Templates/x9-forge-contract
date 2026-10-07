@@ -30,17 +30,17 @@ export type AgentManagementAction = z.infer<typeof AgentManagementActionSchema>;
 export declare const AgentManagementRequestIdSchema: z.ZodString;
 export type AgentManagementRequestId = z.infer<typeof AgentManagementRequestIdSchema>;
 export declare const AgentManagementTargetKindSchema: z.ZodEnum<{
-    channel: "channel";
-    runtime: "runtime";
     capability: "capability";
+    runtime: "runtime";
+    channel: "channel";
 }>;
 export type AgentManagementTargetKind = z.infer<typeof AgentManagementTargetKindSchema>;
 /** `targetId`: runtime agent id, channel id (as in `AgentRuntimeChannel.channelId`) or capability name. */
 export declare const AgentManagementTargetSchema: z.ZodObject<{
     kind: z.ZodEnum<{
-        channel: "channel";
-        runtime: "runtime";
         capability: "capability";
+        runtime: "runtime";
+        channel: "channel";
     }>;
     targetId: z.ZodString;
 }, z.core.$strict>;
@@ -122,9 +122,9 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
     requestId: z.ZodString;
     targets: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
-            channel: "channel";
-            runtime: "runtime";
             capability: "capability";
+            runtime: "runtime";
+            channel: "channel";
         }>;
         targetId: z.ZodString;
     }, z.core.$strict>>>;
@@ -139,9 +139,9 @@ export declare function sameAgentCommand(a: AgentManagementCommand, b: AgentMana
 export declare const AgentManagementTargetResultSchema: z.ZodObject<{
     target: z.ZodObject<{
         kind: z.ZodEnum<{
-            channel: "channel";
-            runtime: "runtime";
             capability: "capability";
+            runtime: "runtime";
+            channel: "channel";
         }>;
         targetId: z.ZodString;
     }, z.core.$strict>;
@@ -198,9 +198,9 @@ export declare const AgentManagementCommandResultSchema: z.ZodObject<{
     results: z.ZodArray<z.ZodObject<{
         target: z.ZodObject<{
             kind: z.ZodEnum<{
-                channel: "channel";
-                runtime: "runtime";
                 capability: "capability";
+                runtime: "runtime";
+                channel: "channel";
             }>;
             targetId: z.ZodString;
         }, z.core.$strict>;
@@ -260,9 +260,9 @@ export type AgentManagementCommandResult = z.infer<typeof AgentManagementCommand
 export declare const AgentManagementTargetCapabilitySchema: z.ZodObject<{
     target: z.ZodObject<{
         kind: z.ZodEnum<{
-            channel: "channel";
-            runtime: "runtime";
             capability: "capability";
+            runtime: "runtime";
+            channel: "channel";
         }>;
         targetId: z.ZodString;
     }, z.core.$strict>;
@@ -327,9 +327,9 @@ export declare const AgentManagementStateSchema: z.ZodObject<{
     targets: z.ZodArray<z.ZodObject<{
         target: z.ZodObject<{
             kind: z.ZodEnum<{
-                channel: "channel";
-                runtime: "runtime";
                 capability: "capability";
+                runtime: "runtime";
+                channel: "channel";
             }>;
             targetId: z.ZodString;
         }, z.core.$strict>;

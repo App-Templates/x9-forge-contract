@@ -36,8 +36,8 @@ export declare const WebhookInboundTelegramNormalizedSchema: z.ZodObject<{
     message_id: z.ZodString;
     channel: z.ZodEnum<{
         email: "email";
-        telegram: "telegram";
         voice: "voice";
+        telegram: "telegram";
         whatsapp: "whatsapp";
     }>;
     provider: z.ZodEnum<{

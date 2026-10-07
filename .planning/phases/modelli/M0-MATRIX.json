@@ -1,0 +1,473 @@
+{
+  "sources": [
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "packages/types/src/redesign/models.ts",
+      "sha256": "a40357540b2ec70fa200a6849c7149a8a39b692cbb0faaf1dd19ce42f8ce4083",
+      "bytes": 10082,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "a40357540b2ec70fa200a6849c7149a8a39b692cbb0faaf1dd19ce42f8ce4083",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "services/factory/src/services/agent-context.writer.ts",
+      "sha256": "b8ac1a04395120208b3ace674b5379c5362983d6191745e6a66a6df9a06fce10",
+      "bytes": 23597,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "b8ac1a04395120208b3ace674b5379c5362983d6191745e6a66a6df9a06fce10",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "services/factory/src/services/apply.service.ts",
+      "sha256": "131d7c62424ce273f7b3221e42c1ae33036d34ed4090c2022b57873fd6546cc6",
+      "bytes": 35139,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "131d7c62424ce273f7b3221e42c1ae33036d34ed4090c2022b57873fd6546cc6",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "services/factory/src/services/x9-management.client.ts",
+      "sha256": "4545a8f33375a23f8fc248934f78a3811a9fe0bb1ff7365f46bf544c81e9177f",
+      "bytes": 6041,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "4545a8f33375a23f8fc248934f78a3811a9fe0bb1ff7365f46bf544c81e9177f",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "services/vault/src/routes/models.routes.ts",
+      "sha256": "af7d96fb038bfb385e240302dd12d279f98674faad5acd5503b43347687ed2ff",
+      "bytes": 10752,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "af7d96fb038bfb385e240302dd12d279f98674faad5acd5503b43347687ed2ff",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "services/vault/src/services/models.service.ts",
+      "sha256": "a2f49a4a545f075ef9b704c2fd8364d6798de16b1b872d467ab15e71b730f204",
+      "bytes": 10683,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "a2f49a4a545f075ef9b704c2fd8364d6798de16b1b872d467ab15e71b730f204",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "web/src/pages/GlobalModels.tsx",
+      "sha256": "9030be9686f5f426ab351696c4f4c24118e153702fb06fe0b64bc1fcd29c3147",
+      "bytes": 5823,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "9030be9686f5f426ab351696c4f4c24118e153702fb06fe0b64bc1fcd29c3147",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "web/src/pages/agent-core/DefaultModelsPage.tsx",
+      "sha256": "f7c95f4902786ff787783137b8bef4f03bf13e4e5dd9f9e15cf5d906ba0d4acc",
+      "bytes": 5973,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "f7c95f4902786ff787783137b8bef4f03bf13e4e5dd9f9e15cf5d906ba0d4acc",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "web/src/pages/agent-core/agent-core-model.ts",
+      "sha256": "daede52df55a0909dfef692bfa71a982bc928f41e037bf4bca8d72a0a71b2343",
+      "bytes": 4785,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "daede52df55a0909dfef692bfa71a982bc928f41e037bf4bca8d72a0a71b2343",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "web/src/pages/agent/Models.tsx",
+      "sha256": "1f3063d7d93f716264e01a84650d11dba4c2beb8ed6a1b3086c8e9abf1d90ff4",
+      "bytes": 7709,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "1f3063d7d93f716264e01a84650d11dba4c2beb8ed6a1b3086c8e9abf1d90ff4",
+      "unchanged": true
+    },
+    {
+      "repo": "Forge",
+      "gitRef": "f23c6706d0f12e80a13b5ff40476be31de331e8c",
+      "relativePath": "web/src/sezioni/panoramica/AgentConfiguration.tsx",
+      "sha256": "86527a09d78728790a191b0abda13178e80478404b40b3c7e5111b0e197055d1",
+      "bytes": 7619,
+      "baseline": "8a7b5c63890792014c4a11653f51d0abfe87fee1",
+      "baselineSha256": "86527a09d78728790a191b0abda13178e80478404b40b3c7e5111b0e197055d1",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "docs/meditazione/COSTI.md",
+      "sha256": "04a03d5497d66b7b58405e241bd50fb38f81ac3a5554a3cb4fc11f2abf3e8bef",
+      "bytes": 11616,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "04a03d5497d66b7b58405e241bd50fb38f81ac3a5554a3cb4fc11f2abf3e8bef",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/adapters/openai-factory.ts",
+      "sha256": "3981bc83279de14099f94fefbeb8b6e5af42b7df495be9cf64c09fe8468e3378",
+      "bytes": 1135,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "3981bc83279de14099f94fefbeb8b6e5af42b7df495be9cf64c09fe8468e3378",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/adapters/openai-responses.ts",
+      "sha256": "9f64a53901a49fc9b45559fce06b22bb1abd8c968f09be7ffba8e0484ef21a96",
+      "bytes": 9225,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "9f64a53901a49fc9b45559fce06b22bb1abd8c968f09be7ffba8e0484ef21a96",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/core/context-model-cache.ts",
+      "sha256": "6130693758d2f8710895efa9d94ba67c3c01db821fbbde6767cbc2d49115870e",
+      "bytes": 1466,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "6130693758d2f8710895efa9d94ba67c3c01db821fbbde6767cbc2d49115870e",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/core/model-router.ts",
+      "sha256": "e1c58d9122bf6171923d7dbb8abfbd09a26e79521173f38d47a403fe89ef8abb",
+      "bytes": 9723,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "e1c58d9122bf6171923d7dbb8abfbd09a26e79521173f38d47a403fe89ef8abb",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/index.ts",
+      "sha256": "5f53b3843a74beb32b741c19cd4180b41cc8bca8c98d41705c528d09c30488e5",
+      "bytes": 56451,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "1b8fe5243a264c0eca0305ca5beca0a84bc0ddbf1948b21ed1b0013f07a0da1d",
+      "unchanged": false
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/routes/internal-model-config.ts",
+      "sha256": "f7d33f82548a145f2d0a5e6e3352bf7f15ed45750e99bf54f498827d857f2774",
+      "bytes": 7288,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "f7d33f82548a145f2d0a5e6e3352bf7f15ed45750e99bf54f498827d857f2774",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/cap-news/src/tools/news-digest.ts",
+      "sha256": "75bb8c2353dd03b1d9994d26489ad2bd1df2fa5a7ab0625b585079da74d115eb",
+      "bytes": 7532,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "75bb8c2353dd03b1d9994d26489ad2bd1df2fa5a7ab0625b585079da74d115eb",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/cap-voice-live/src/live/post-call.ts",
+      "sha256": "300efd0f6992cc610087431b1a73385d7fcf8836c9972417bcc7e5dd37868e73",
+      "bytes": 3247,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "300efd0f6992cc610087431b1a73385d7fcf8836c9972417bcc7e5dd37868e73",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/cap-voice/src/index.ts",
+      "sha256": "d2b3ced210a0d13a3cd8fac07aa2fe965af73b39064d86f47fde08719ea840c5",
+      "bytes": 637,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "d2b3ced210a0d13a3cd8fac07aa2fe965af73b39064d86f47fde08719ea840c5",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/cap-voice/src/webhooks/post-call.ts",
+      "sha256": "7946fadc0d5a2aa9e3cea61a6a038234a8e9984eeb2c1fbb7f891cd460205b78",
+      "bytes": 29282,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "6c76e1fd372b5ac54277aa3a4f988eca13d1fcb86dbb9476e5ae274fe8d65b07",
+      "unchanged": false
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/memory/src/extraction/extractor.ts",
+      "sha256": "bf40212ce9c16c9c84ef290b10fcf320dd88c9d78654203ccf0624a5d1599d60",
+      "bytes": 4283,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "bf40212ce9c16c9c84ef290b10fcf320dd88c9d78654203ccf0624a5d1599d60",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/memory/src/index.ts",
+      "sha256": "9f76e70b6305c8d1320b4705f63ea72441d677e978c9ad1443fb9334ed77cdbf",
+      "bytes": 9708,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "9f76e70b6305c8d1320b4705f63ea72441d677e978c9ad1443fb9334ed77cdbf",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/memory/src/projection/embedder.ts",
+      "sha256": "cbfe7cdd59971eb2de72f115c1fdad7bf3473e731151548cf41f8d78e1e827c9",
+      "bytes": 3109,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "cbfe7cdd59971eb2de72f115c1fdad7bf3473e731151548cf41f8d78e1e827c9",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/memory/src/routes/internal-extract.ts",
+      "sha256": "19049e3daa85fb1e193134559957bfd91fea89548217b9b243f1f0b32741c1f1",
+      "bytes": 3580,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "19049e3daa85fb1e193134559957bfd91fea89548217b9b243f1f0b32741c1f1",
+      "unchanged": true
+    },
+    {
+      "repo": "bridge",
+      "gitRef": "c8eed47a0d3beab544795f62f4733b022eafab1c",
+      "relativePath": "src/capability/voice/agent-voice-settings.ts",
+      "sha256": "1b215b039af952ef51294aa4da30426611afdb195a97e17eb4d4a3e1371f159b",
+      "bytes": 8814,
+      "baseline": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+      "baselineSha256": "1b215b039af952ef51294aa4da30426611afdb195a97e17eb4d4a3e1371f159b",
+      "unchanged": true
+    },
+    {
+      "repo": "bridge",
+      "gitRef": "c8eed47a0d3beab544795f62f4733b022eafab1c",
+      "relativePath": "src/http/endpoints/voice-catalog.ts",
+      "sha256": "edf3c9130a727bc26c0a272ae15fc3769242740917008f833108057962a40f2a",
+      "bytes": 746,
+      "baseline": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+      "baselineSha256": "edf3c9130a727bc26c0a272ae15fc3769242740917008f833108057962a40f2a",
+      "unchanged": true
+    },
+    {
+      "repo": "bridge",
+      "gitRef": "c8eed47a0d3beab544795f62f4733b022eafab1c",
+      "relativePath": "src/model-router/model-hot-reload.ts",
+      "sha256": "be8ea597ea2660a4797ee4cff648e9a99a50fec8544ed3a5d7941995bcc2367e",
+      "bytes": 1071,
+      "baseline": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+      "baselineSha256": "be8ea597ea2660a4797ee4cff648e9a99a50fec8544ed3a5d7941995bcc2367e",
+      "unchanged": true
+    },
+    {
+      "repo": "bridge",
+      "gitRef": "c8eed47a0d3beab544795f62f4733b022eafab1c",
+      "relativePath": "src/model-router/model-provider.ts",
+      "sha256": "95ec7900f8377c21c551a25de143c0c5922980be34b9540d915014adfd515a6f",
+      "bytes": 727,
+      "baseline": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+      "baselineSha256": "95ec7900f8377c21c551a25de143c0c5922980be34b9540d915014adfd515a6f",
+      "unchanged": true
+    },
+    {
+      "repo": "bridge",
+      "gitRef": "c8eed47a0d3beab544795f62f4733b022eafab1c",
+      "relativePath": "src/model-router/model-push.ts",
+      "sha256": "05a5ab77981717458b67a27d3d44846792b966b3d6443127fa582e5f2c905a82",
+      "bytes": 3137,
+      "baseline": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+      "baselineSha256": "05a5ab77981717458b67a27d3d44846792b966b3d6443127fa582e5f2c905a82",
+      "unchanged": true
+    },
+    {
+      "repo": "bridge",
+      "gitRef": "c8eed47a0d3beab544795f62f4733b022eafab1c",
+      "relativePath": "src/model-router/per-agent-model-override.ts",
+      "sha256": "aab8e41c21058a12fcb3546760f12eaab97a0193dd910a70495ba484bd968f06",
+      "bytes": 1975,
+      "baseline": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+      "baselineSha256": "aab8e41c21058a12fcb3546760f12eaab97a0193dd910a70495ba484bd968f06",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/cap-voice/src/tools/voice-fallback.ts",
+      "sha256": "b48dc65b7268f94d96fb97d6269864d626d39d92be8a9ac941acb7768c64efe1",
+      "bytes": 5192,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "b48dc65b7268f94d96fb97d6269864d626d39d92be8a9ac941acb7768c64efe1",
+      "baselineStatus": "present",
+      "unchanged": true
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/cap-voice/src/voice/provider-catalog.ts",
+      "sha256": "7fe4ed7f242b63a7608f068e39411555ebc07864d2634243e267a5b960d1f0a7",
+      "bytes": 1699,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": null,
+      "baselineStatus": "absent",
+      "unchanged": false
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/routes/internal-agent-turn.ts",
+      "sha256": "f779ada8cea047fcc5e751d6320e820f2b2b906b915b71836025d63e87b7bef0",
+      "bytes": 13047,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "57d48cfb3d2b95c3fba956ec3e4d2477e9c7261a471982e5546e5d367ef526bf",
+      "baselineStatus": "present",
+      "unchanged": false
+    },
+    {
+      "repo": "X9",
+      "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+      "relativePath": "services/agent-core/src/adapters/index.ts",
+      "sha256": "dcc0d14de43712f21f963097a10c942fa6382ba94a25216777a061e6036ebe90",
+      "bytes": 1176,
+      "baseline": "aa70a645c698f8bd82775886a5021e6f51233e57",
+      "baselineSha256": "dcc0d14de43712f21f963097a10c942fa6382ba94a25216777a061e6036ebe90",
+      "baselineStatus": "present",
+      "unchanged": true
+    }
+  ],
+  "slots": [
+    {
+      "slot": "agent_chat",
+      "key": "AGENT_CHAT_MODEL"
+    },
+    {
+      "slot": "mem0_llm",
+      "key": "MEM0_LLM_MODEL"
+    },
+    {
+      "slot": "mem0_embedder",
+      "key": "MEM0_EMBEDDER_MODEL"
+    },
+    {
+      "slot": "voice_tts",
+      "key": "VOICE_TTS_MODEL"
+    },
+    {
+      "slot": "voice_fallback",
+      "key": "VOICE_FALLBACK_MODEL"
+    },
+    {
+      "slot": "recap",
+      "key": "RECAP_MODEL"
+    },
+    {
+      "slot": "news_digest",
+      "key": "NEWS_DIGEST_MODEL"
+    }
+  ],
+  "consumers": [
+    {
+      "slot": "agent_chat",
+      "function": "llm",
+      "source": "services/agent-core/src/core/context-model-cache.ts:17",
+      "behavior": "ctx.llmConfig standard eredi; tier avanzati OpenAI; primario percorso diverso; Forge writer:132 legacy precede current",
+      "legacyKeyConsumedByX9": false
+    },
+    {
+      "slot": "mem0_llm",
+      "function": "extraction",
+      "source": "services/memory/src/index.ts:129",
+      "behavior": "MEMORY_EXTRACT_MODEL del processo, non slot per agente; extractor.ts:61 usa opts.model",
+      "legacyKeyConsumedByX9": false
+    },
+    {
+      "slot": "mem0_embedder",
+      "function": "embedding",
+      "source": "services/memory/src/index.ts:147",
+      "behavior": "MEMORY_V2_EMBEDDING_MODEL shared; embedder pubblico mantiene spazio/dimensione, nessuna conversione",
+      "legacyKeyConsumedByX9": false
+    },
+    {
+      "slot": "voice_tts",
+      "function": "tts/voice",
+      "source": "services/cap-voice/src/voice/provider-catalog.ts:25",
+      "behavior": "catalogo R4 openai_live; legacyVOICE_TTS_MODEL non letto; nessuna compatibilità TTS automatica",
+      "legacyKeyConsumedByX9": false
+    },
+    {
+      "slot": "voice_fallback",
+      "function": "llm",
+      "source": "services/cap-voice/src/tools/voice-fallback.ts:39",
+      "behavior": "/internal/query, non modelloVOICE_FALLBACK_MODEL; ingresso diverso dal descrittore voce esterno",
+      "legacyKeyConsumedByX9": false
+    },
+    {
+      "slot": "recap",
+      "function": "extraction",
+      "source": "services/cap-voice/src/webhooks/post-call.ts:542",
+      "behavior": "modello fisso gpt-4.1-nano con chiave per chiamata; RECAP_MODEL non consumato",
+      "legacyKeyConsumedByX9": false
+    },
+    {
+      "slot": "news_digest",
+      "function": "llm",
+      "source": "services/cap-news/src/tools/news-digest.ts:155",
+      "behavior": "modello fisso gpt-4.1-nano; NEWS_DIGEST_MODEL non consumato",
+      "legacyKeyConsumedByX9": false
+    }
+  ],
+  "ingresses": [
+    {
+      "id": "telegram",
+      "source": "services/agent-core/src/index.ts:165,176,1007,1016",
+      "behavior": "primario cacheOpenAI; erede standardcontext e advancedOpenAI; fallbackcontext"
+    },
+    {
+      "id": "internal-turn",
+      "source": "services/agent-core/src/index.ts:631,645",
+      "behavior": "selectPrimaryAdapter: nonOpenAIcontext; OpenAIrouter con cachefile"
+    },
+    {
+      "id": "stream",
+      "source": "services/agent-core/src/index.ts:663,737",
+      "behavior": "stessa selectPrimaryAdapter, hosted-options/scope invariati"
+    },
+    {
+      "id": "per-agent-web-voice",
+      "source": "services/agent-core/src/index.ts:831,837",
+      "behavior": "registerInternalAgentTurnRoute usa selectPrimaryAdapter dello stessoctx; primario403"
+    }
+  ],
+  "authority": "explicit/versioned context; legacy only when absent; no automatic migration",
+  "reference": "REF-X9-MODEL-INDEPENDENCE 2026-09-29 historical, not current runtime proof"
+}

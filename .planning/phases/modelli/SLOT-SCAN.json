@@ -1,0 +1,19 @@
+{
+  "gitRef": "015016d6fa54105fcc5da7e6a8eaa40dac449260",
+  "keys": [
+    "AGENT_CHAT_MODEL",
+    "MEM0_LLM_MODEL",
+    "MEM0_EMBEDDER_MODEL",
+    "VOICE_TTS_MODEL",
+    "VOICE_FALLBACK_MODEL",
+    "RECAP_MODEL",
+    "NEWS_DIGEST_MODEL"
+  ],
+  "matches": 0,
+  "files": 895,
+  "gitGrepExit": 1,
+  "scope": [
+    "services/**/*.ts",
+    "packages/**/*.ts"
+  ]
+}
