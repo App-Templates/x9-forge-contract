@@ -67,5 +67,9 @@ export type AuthHeaders = AuthInternalSecret | AuthInternalToken | AuthNone;
  *                             `http/endpoints/webhook-post-call.ts:6`).
  *                             Added in Phase 11.A (v1.8.0) for inbound
  *                             webhooks from AgentMail + Telegram.
+ *   - `'device_signature'`  — Ed25519 signature of a registered computer
+ *                             (`./device-signature.ts`); public device APIs
+ *                             of capabilities, never an effect without a
+ *                             signed approval. Added in phase 59.
  */
-export type EndpointAuthType = 'secret' | 'token' | 'none' | 'external_provider';
+export type EndpointAuthType = 'secret' | 'token' | 'none' | 'external_provider' | 'device_signature';

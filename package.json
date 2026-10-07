@@ -29,7 +29,8 @@
       "./vault": "./src/vault/index.ts",
       "./capability/parameters": "./src/capability/parameters.ts",
       "./capability/presentation": "./src/capability/presentation.ts",
-      "./capability/approvals": "./src/capability/approvals/index.ts"
+      "./capability/approvals": "./src/capability/approvals/index.ts",
+      "./capability/backup": "./src/capability/backup/index.ts"
     }
   },
   "exports": {
@@ -127,6 +128,11 @@
       "types": "./dist/capability/approvals/index.d.cts",
       "import": "./dist/capability/approvals/index.js",
       "require": "./dist/capability/approvals/index.cjs"
+    },
+    "./capability/backup": {
+      "types": "./dist/capability/backup/index.d.cts",
+      "import": "./dist/capability/backup/index.js",
+      "require": "./dist/capability/backup/index.cjs"
     }
   },
   "files": [
