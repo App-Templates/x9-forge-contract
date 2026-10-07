@@ -81,3 +81,9 @@ export * from './agent-elevenlabs/index.js';
 
 // cap-coach: programs, sessions, progress, minute budget per tenant/owner/agent/person (R6, v1.31.0)
 export * from './coach/index.js';
+
+// Signed approvals: one shared passkey approval for every sensitive action of every agent (phase 59)
+export * from './approvals/index.js';
+
+// cap-backup: restore points of the owner's servers, first client of the signed approvals (phase 59)
+export * from './backup/index.js';

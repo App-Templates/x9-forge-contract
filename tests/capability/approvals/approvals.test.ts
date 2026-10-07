@@ -16,7 +16,7 @@ import {
   pendingApprovalsContract,
   type ApprovalPermit,
   type ApprovalPermitExpectation,
-} from '../../../src/capability/approvals/index.js';
+} from '../../../src/capability/index.js';
 
 // TEST-ONLY Ed25519 key of the shared signature vector. Never used outside tests.
 const TEST_JWK = { crv: 'Ed25519', d: 'urZKVkT9kXXyBra55KvFVDwVtSC1CfGiNHjBKsxrAVU', x: 'SNndtwKQD4C3D5ZHPYvX8mQ6VNH4QT8GOIbVvpUExPU', kty: 'OKP' } as const;

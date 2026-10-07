@@ -20,8 +20,8 @@ import {
   backupDeviceRequestContract,
   backupDeviceStatusContract,
   backupDeviceVerifiedContract,
-} from '../../../src/capability/backup/index.js';
-import { ApprovalActionTypeSchema } from '../../../src/capability/approvals/index.js';
+} from '../../../src/capability/index.js';
+import { ApprovalActionTypeSchema } from '../../../src/capability/index.js';
 
 describe('resources', () => {
   it('accepts known providers only', () => {
