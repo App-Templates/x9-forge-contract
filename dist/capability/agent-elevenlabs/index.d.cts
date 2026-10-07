@@ -158,6 +158,8 @@ export declare const ElevenLabsChannelStatusSchema: z.ZodObject<{
             ready: "ready";
             "not-ready": "not-ready";
         }>;
+        botUsername: z.ZodOptional<z.ZodString>;
+        allowFromCount: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
     observedAt: z.ZodNullable<z.ZodISODateTime>;
 }, z.core.$strip>;
@@ -238,6 +240,8 @@ export declare const ElevenLabsProvisionResultSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
     }, z.core.$strip>;

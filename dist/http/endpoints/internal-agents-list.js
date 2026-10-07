@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { AgentInventoryCapabilitiesSchema, agentCapabilitiesOf } from "../../agent/agent-inventory-metadata.js";
+import { AgentWorkspaceAttestationSchema } from "../../agent/agent-workspace-attestation.js";
 import { AgentRuntimeIdentitySchema, AgentRuntimeIdentitiesSchema } from "../../agent/agent-runtime-identity.js";
 import { AgentRuntimeSnapshotSchema } from "../../agent/agent-runtime-state.js";
 import { AgentRuntimeSourceSchema } from "../../agent/agent-runtime-source.js";
@@ -76,6 +78,10 @@ export const ListAgentsAgentSchema = z.object({
     // Canonical metadata is additive; legacy bot status is never channel evidence.
     identity: AgentRuntimeIdentitySchema.optional(),
     runtime: AgentRuntimeSnapshotSchema.optional(),
+    /** Effective snapshot only; absent is legacy, null is not attested, never desired-file fallback. */
+    workspace: AgentWorkspaceAttestationSchema.nullable().optional(),
+    /** Registry metadata actually observed by X9 for this agent; null is unknown, [] is known empty. */
+    capabilities: AgentInventoryCapabilitiesSchema.nullable().optional(),
 }).superRefine((agent, ctx) => {
     if (agent.identity && agent.agentId !== agent.identity.runtimeAgentId) {
         ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Runtime identity must match the list row agentId' });
@@ -109,6 +115,19 @@ export function getListAgentsRuntimeState(input, agentId) {
     const agent = response.agents.find((candidate) => candidate.agentId === agentId
         || candidate.identity?.managementAgentId === agentId);
     return agent?.runtime?.state ?? 'unknown';
+}
+/**
+ * Select an exact agent's registry observation from a validated available X9 source.
+ * Missing, invalid or unavailable observations remain unknown. Freshness is a consumer
+ * policy using source.observedAt; this helper does not invent a maximum age or readiness.
+ */
+export function getListAgentsCapabilities(input, agentId) {
+    const response = ListAgentsResponseSchema.safeParse(input);
+    if (!response.success || response.data.source?.availability !== 'available')
+        return null;
+    const agent = response.data.agents.find((candidate) => candidate.agentId === agentId
+        || candidate.identity?.managementAgentId === agentId);
+    return agentCapabilitiesOf(agent);
 }
 export const listAgentsContract = {
     method: 'GET',

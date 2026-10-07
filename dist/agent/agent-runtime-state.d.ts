@@ -51,8 +51,13 @@ export declare const AgentRuntimeChannelSchema: z.ZodObject<{
         ready: "ready";
         "not-ready": "not-ready";
     }>;
+    botUsername: z.ZodOptional<z.ZodString>;
+    allowFromCount: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strip>;
 export type AgentRuntimeChannel = z.infer<typeof AgentRuntimeChannelSchema>;
+export type AgentTelegramChannelMetadata = Pick<AgentRuntimeChannel, 'botUsername' | 'allowFromCount'>;
+/** Read validated Telegram observations without exposing authorization IDs or inferring readiness. */
+export declare function telegramChannelMetadataOf(channel: unknown): AgentTelegramChannelMetadata | null;
 export declare const AgentRuntimeLoadStateSchema: z.ZodEnum<{
     error: "error";
     unknown: "unknown";
@@ -89,6 +94,8 @@ export declare const AgentRuntimeEvidenceSchema: z.ZodObject<{
             ready: "ready";
             "not-ready": "not-ready";
         }>;
+        botUsername: z.ZodOptional<z.ZodString>;
+        allowFromCount: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
 }, z.core.$strip>;
 export type AgentRuntimeEvidence = z.infer<typeof AgentRuntimeEvidenceSchema>;
@@ -123,6 +130,8 @@ export declare const AgentRuntimeSnapshotSchema: z.ZodObject<{
             ready: "ready";
             "not-ready": "not-ready";
         }>;
+        botUsername: z.ZodOptional<z.ZodString>;
+        allowFromCount: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     state: z.ZodEnum<{
         error: "error";

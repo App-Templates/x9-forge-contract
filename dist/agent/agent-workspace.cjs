@@ -1,10 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentContextWithWorkspaceWriteSchema = exports.AgentContextWithWorkspaceSchema = exports.AgentWorkspaceRollbackValidationSchema = exports.AgentWorkspaceRollbackRequestSchema = exports.AgentWorkspaceDescriptorSchema = exports.AgentWorkspaceSkillSchema = exports.AgentWorkspaceToolsSchema = exports.AgentWorkspaceHumanFileSchema = exports.AgentWorkspaceFileRevisionSchema = exports.AgentWorkspaceOriginSchema = exports.AgentWorkspaceHumanFileNameSchema = exports.AGENT_WORKSPACE_LIMITS = exports.AGENT_WORKSPACE_TOOLS_FILE = exports.AGENT_WORKSPACE_HUMAN_FILES = void 0;
+exports.AgentContextWithWorkspaceWriteSchema = exports.AgentContextWithWorkspaceSchema = exports.AgentWorkspaceRollbackValidationSchema = exports.AgentWorkspaceRollbackRequestSchema = exports.AgentWorkspaceDescriptorSchema = exports.AgentWorkspaceSkillSchema = exports.AgentWorkspaceToolsSchema = exports.AgentWorkspaceHumanFileSchema = exports.AgentWorkspaceFileRevisionSchema = exports.AgentWorkspaceOriginSchema = exports.AgentWorkspaceHumanFileNameSchema = exports.AGENT_WORKSPACE_LIMITS = exports.AGENT_WORKSPACE_TOOLS_FILE = exports.AGENT_WORKSPACE_HUMAN_FILES = exports.AgentWorkspaceAttestationSchema = void 0;
 exports.agentWorkspaceSkillPath = agentWorkspaceSkillPath;
 exports.parseAgentWorkspaceRollbackRequest = parseAgentWorkspaceRollbackRequest;
 exports.appliedWorkspaceVersion = appliedWorkspaceVersion;
+exports.attestedWorkspaceVersionOf = attestedWorkspaceVersionOf;
 const zod_1 = require("zod");
+const agent_workspace_attestation_js_1 = require("./agent-workspace-attestation.cjs");
+var agent_workspace_attestation_js_2 = require("./agent-workspace-attestation.cjs");
+Object.defineProperty(exports, "AgentWorkspaceAttestationSchema", { enumerable: true, get: function () { return agent_workspace_attestation_js_2.AgentWorkspaceAttestationSchema; } });
 const agent_identity_js_1 = require("./agent-identity.cjs");
 const agent_channel_configuration_js_1 = require("./agent-channel-configuration.cjs");
 const agent_management_js_1 = require("./agent-management.cjs");
@@ -170,5 +174,16 @@ exports.AgentContextWithWorkspaceWriteSchema = agent_channel_configuration_js_1.
 /** Version comes only from a validated applied bundle; never guess from file histories or configVersion. */
 function appliedWorkspaceVersion(ctx) {
     return ctx.workspace?.version ?? null;
+}
+/**
+ * Read only a validated wire attestation. Never derive readiness/version from configVersion, desired files,
+ * file histories, registry metadata or another row. Forge compares this bundle with the archived descriptor
+ * for its configuration snapshot; X9 supplies it only after loading the effective verified snapshot.
+ */
+function attestedWorkspaceVersionOf(row) {
+    if (row === null || typeof row !== 'object')
+        return null;
+    const selected = agent_workspace_attestation_js_1.AgentWorkspaceAttestationSchema.safeParse(row.workspace);
+    return selected.success ? selected.data.appliedVersion : null;
 }
 //# sourceMappingURL=agent-workspace.js.map

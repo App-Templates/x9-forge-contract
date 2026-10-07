@@ -117,6 +117,8 @@ export declare const elevenLabsProvisionContract: {
                     ready: "ready";
                     "not-ready": "not-ready";
                 }>;
+                botUsername: z.ZodOptional<z.ZodString>;
+                allowFromCount: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
             observedAt: z.ZodNullable<z.ZodISODateTime>;
         }, z.core.$strip>;
@@ -174,6 +176,8 @@ export declare const elevenLabsStatusContract: {
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
     }, z.core.$strip>;

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js";
+import { AgentWorkspaceAttestationSchema } from "./agent-workspace-attestation.js";
 import { AgentRuntimeIdentitySchema } from "./agent-runtime-identity.js";
 /**
  * Logical agent management (R1b, v1.31.0) — Forge asks X9 to act on ONE agent, never on the shared process.
@@ -80,6 +81,12 @@ export const AgentConfigVersionStateSchema = z.object({
         }
     }
 });
+/** A loaded D-A9 bundle is the applied configuration snapshot, never the desired version. */
+function addWorkspaceVersionIssues(workspace, versions, ctx) {
+    if (workspace != null && versions?.applied != null && workspace?.appliedVersion !== versions?.applied) {
+        ctx.addIssue({ code: 'custom', path: ['workspace', 'appliedVersion'], message: 'Workspace attestation must match the applied configuration snapshot' });
+    }
+}
 const LifecycleCommandSchema = z.object({
     action: AgentLifecycleActionSchema,
     requestId: AgentManagementRequestIdSchema,
@@ -146,12 +153,19 @@ export const AgentManagementCommandResultSchema = z.object({
     requestedVersion: AgentConfigVersionSchema.optional(),
     /** apply-config only: versions after the attempt. */
     versions: AgentConfigVersionStateSchema.optional(),
+    /** Verified effective bundle; null requires an explicit unsuccessful runtime result. */
+    workspace: AgentWorkspaceAttestationSchema.nullable().optional(),
     completedAt: z.iso.datetime({ offset: true }),
 }).superRefine((result, ctx) => {
     addDuplicateTargetIssues(result.results.map((entry) => entry.target), ctx, 'results');
     addIdentityIssues(result.agentId, result.identity, ctx);
     if (result.outcome !== deriveAgentManagementOutcome(result.results)) {
         ctx.addIssue({ code: 'custom', path: ['outcome'], message: 'Overall outcome is not supported by the per-target results' });
+    }
+    addWorkspaceVersionIssues(result.workspace, result.versions, ctx);
+    // The existing target schema requires a reason for every non-ok runtime result.
+    if (result.workspace === null && !result.results.some(entry => entry.target.kind === 'runtime' && entry.outcome !== 'ok')) {
+        ctx.addIssue({ code: 'custom', path: ['workspace'], message: 'An unattested workspace requires an explicit non-ok runtime outcome' });
     }
     const isApply = result.action === 'apply-config';
     if (isApply !== (result.requestedVersion !== undefined) || isApply !== (result.versions !== undefined)) {
@@ -183,9 +197,12 @@ export const AgentManagementStateSchema = z.object({
     identity: AgentRuntimeIdentitySchema.optional(),
     /** null: the runtime does not (yet) track configuration versions for this agent. */
     versions: AgentConfigVersionStateSchema.nullable(),
+    /** null: no effective workspace is attested; consumers must not infer a version. */
+    workspace: AgentWorkspaceAttestationSchema.nullable().optional(),
     targets: z.array(AgentManagementTargetCapabilitySchema),
 }).superRefine((state, ctx) => {
     addDuplicateTargetIssues(state.targets.map((entry) => entry.target), ctx, 'targets');
     addIdentityIssues(state.agentId, state.identity, ctx);
+    addWorkspaceVersionIssues(state.workspace, state.versions, ctx);
 });
 //# sourceMappingURL=agent-management.js.map

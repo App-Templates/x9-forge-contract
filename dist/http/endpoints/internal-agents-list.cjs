@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.listAgentsContract = exports.ListAgentsResponseSchema = exports.ListAgentsAgentSchema = exports.RuntimeErrorKindSchema = exports.ForgeRuntimeStatusSchema = exports.RuntimeAgentStatusSchema = void 0;
 exports.getListAgentsRuntimeState = getListAgentsRuntimeState;
+exports.getListAgentsCapabilities = getListAgentsCapabilities;
 const zod_1 = require("zod");
+const agent_inventory_metadata_js_1 = require("../../agent/agent-inventory-metadata.cjs");
+const agent_workspace_attestation_js_1 = require("../../agent/agent-workspace-attestation.cjs");
 const agent_runtime_identity_js_1 = require("../../agent/agent-runtime-identity.cjs");
 const agent_runtime_state_js_1 = require("../../agent/agent-runtime-state.cjs");
 const agent_runtime_source_js_1 = require("../../agent/agent-runtime-source.cjs");
@@ -80,6 +83,10 @@ exports.ListAgentsAgentSchema = zod_1.z.object({
     // Canonical metadata is additive; legacy bot status is never channel evidence.
     identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.optional(),
     runtime: agent_runtime_state_js_1.AgentRuntimeSnapshotSchema.optional(),
+    /** Effective snapshot only; absent is legacy, null is not attested, never desired-file fallback. */
+    workspace: agent_workspace_attestation_js_1.AgentWorkspaceAttestationSchema.nullable().optional(),
+    /** Registry metadata actually observed by X9 for this agent; null is unknown, [] is known empty. */
+    capabilities: agent_inventory_metadata_js_1.AgentInventoryCapabilitiesSchema.nullable().optional(),
 }).superRefine((agent, ctx) => {
     if (agent.identity && agent.agentId !== agent.identity.runtimeAgentId) {
         ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Runtime identity must match the list row agentId' });
@@ -113,6 +120,19 @@ function getListAgentsRuntimeState(input, agentId) {
     const agent = response.agents.find((candidate) => candidate.agentId === agentId
         || candidate.identity?.managementAgentId === agentId);
     return agent?.runtime?.state ?? 'unknown';
+}
+/**
+ * Select an exact agent's registry observation from a validated available X9 source.
+ * Missing, invalid or unavailable observations remain unknown. Freshness is a consumer
+ * policy using source.observedAt; this helper does not invent a maximum age or readiness.
+ */
+function getListAgentsCapabilities(input, agentId) {
+    const response = exports.ListAgentsResponseSchema.safeParse(input);
+    if (!response.success || response.data.source?.availability !== 'available')
+        return null;
+    const agent = response.data.agents.find((candidate) => candidate.agentId === agentId
+        || candidate.identity?.managementAgentId === agentId);
+    return (0, agent_inventory_metadata_js_1.agentCapabilitiesOf)(agent);
 }
 exports.listAgentsContract = {
     method: 'GET',

@@ -84,9 +84,9 @@ export declare const AgentCreationPhaseSchema: z.ZodEnum<{
 export declare const AgentCreationFailureSchema: z.ZodObject<{
     step: z.ZodEnum<{
         runtime: "runtime";
+        workspace: "workspace";
         context: "context";
         resources: "resources";
-        workspace: "workspace";
         "first-check": "first-check";
         save: "save";
     }>;
@@ -129,6 +129,8 @@ export declare const AgentCreationFirstCheckSchema: z.ZodObject<{
             ready: "ready";
             "not-ready": "not-ready";
         }>;
+        botUsername: z.ZodOptional<z.ZodString>;
+        allowFromCount: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
     error: z.ZodNullable<z.ZodObject<{
         code: z.ZodEnum<{
@@ -279,6 +281,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
         error: z.ZodNullable<z.ZodObject<{
@@ -330,6 +334,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
         error: z.ZodNullable<z.ZodObject<{
             code: z.ZodEnum<{
@@ -350,9 +356,9 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
     failure: z.ZodNullable<z.ZodObject<{
         step: z.ZodEnum<{
             runtime: "runtime";
+            workspace: "workspace";
             context: "context";
             resources: "resources";
-            workspace: "workspace";
             "first-check": "first-check";
             save: "save";
         }>;
@@ -510,6 +516,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                     ready: "ready";
                     "not-ready": "not-ready";
                 }>;
+                botUsername: z.ZodOptional<z.ZodString>;
+                allowFromCount: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>>;
             observedAt: z.ZodNullable<z.ZodISODateTime>;
             error: z.ZodNullable<z.ZodObject<{
@@ -561,6 +569,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                     ready: "ready";
                     "not-ready": "not-ready";
                 }>;
+                botUsername: z.ZodOptional<z.ZodString>;
+                allowFromCount: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
             error: z.ZodNullable<z.ZodObject<{
                 code: z.ZodEnum<{
@@ -581,9 +591,9 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
         failure: z.ZodNullable<z.ZodObject<{
             step: z.ZodEnum<{
                 runtime: "runtime";
+                workspace: "workspace";
                 context: "context";
                 resources: "resources";
-                workspace: "workspace";
                 "first-check": "first-check";
                 save: "save";
             }>;

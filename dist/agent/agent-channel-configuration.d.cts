@@ -175,6 +175,8 @@ export declare const AgentChannelConfigurationSchema: z.ZodObject<{
             ready: "ready";
             "not-ready": "not-ready";
         }>;
+        botUsername: z.ZodOptional<z.ZodString>;
+        allowFromCount: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     observedAt: z.ZodNullable<z.ZodISODateTime>;
     error: z.ZodNullable<z.ZodObject<{
@@ -342,6 +344,8 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
         error: z.ZodNullable<z.ZodObject<{
@@ -601,6 +605,8 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
         error: z.ZodNullable<z.ZodObject<{

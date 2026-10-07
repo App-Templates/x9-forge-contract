@@ -248,6 +248,11 @@ export declare const AgentManagementCommandResultSchema: z.ZodObject<{
             }, z.core.$strict>;
         }, z.core.$strict>>;
     }, z.core.$strip>>;
+    workspace: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        appliedVersion: z.ZodNumber;
+        sha256: z.ZodString;
+        loadedAt: z.ZodISODateTime;
+    }, z.core.$strict>>>;
     completedAt: z.ZodISODateTime;
 }, z.core.$strip>;
 export type AgentManagementCommandResult = z.infer<typeof AgentManagementCommandResultSchema>;
@@ -314,6 +319,11 @@ export declare const AgentManagementStateSchema: z.ZodObject<{
             }, z.core.$strict>;
         }, z.core.$strict>>;
     }, z.core.$strip>>;
+    workspace: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        appliedVersion: z.ZodNumber;
+        sha256: z.ZodString;
+        loadedAt: z.ZodISODateTime;
+    }, z.core.$strict>>>;
     targets: z.ZodArray<z.ZodObject<{
         target: z.ZodObject<{
             kind: z.ZodEnum<{

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { AgentInventoryCapability } from "../../agent/agent-inventory-metadata.cjs";
 import type { AgentRuntimeState } from "../../agent/agent-runtime-state.cjs";
 /**
  * GET /internal/agents — list all loaded agents.
@@ -119,6 +120,8 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
         state: z.ZodEnum<{
             error: "error";
@@ -128,6 +131,15 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
             stopped: "stopped";
         }>;
     }, z.core.$strip>>;
+    workspace: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        appliedVersion: z.ZodNumber;
+        sha256: z.ZodString;
+        loadedAt: z.ZodISODateTime;
+    }, z.core.$strict>>>;
+    capabilities: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodObject<{
+        name: z.ZodString;
+        enabled: z.ZodBoolean;
+    }, z.core.$strict>>>>;
 }, z.core.$strip>;
 export type ListAgentsAgent = z.infer<typeof ListAgentsAgentSchema>;
 export declare const ListAgentsResponseSchema: z.ZodObject<{
@@ -183,6 +195,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
                     ready: "ready";
                     "not-ready": "not-ready";
                 }>;
+                botUsername: z.ZodOptional<z.ZodString>;
+                allowFromCount: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>>;
             state: z.ZodEnum<{
                 error: "error";
@@ -192,6 +206,15 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
                 stopped: "stopped";
             }>;
         }, z.core.$strip>>;
+        workspace: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            appliedVersion: z.ZodNumber;
+            sha256: z.ZodString;
+            loadedAt: z.ZodISODateTime;
+        }, z.core.$strict>>>;
+        capabilities: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodObject<{
+            name: z.ZodString;
+            enabled: z.ZodBoolean;
+        }, z.core.$strict>>>>;
     }, z.core.$strip>>;
     source: z.ZodOptional<z.ZodObject<{
         authority: z.ZodLiteral<"x9">;
@@ -215,6 +238,12 @@ export type ListAgentsResponse = z.infer<typeof ListAgentsResponseSchema>;
  * Invalid or ambiguous payloads throw rather than select an arbitrary agent.
  */
 export declare function getListAgentsRuntimeState(input: unknown, agentId: string): AgentRuntimeState;
+/**
+ * Select an exact agent's registry observation from a validated available X9 source.
+ * Missing, invalid or unavailable observations remain unknown. Freshness is a consumer
+ * policy using source.observedAt; this helper does not invent a maximum age or readiness.
+ */
+export declare function getListAgentsCapabilities(input: unknown, agentId: string): AgentInventoryCapability[] | null;
 export declare const listAgentsContract: {
     readonly method: "GET";
     readonly path: "/internal/agents";
@@ -272,6 +301,8 @@ export declare const listAgentsContract: {
                         ready: "ready";
                         "not-ready": "not-ready";
                     }>;
+                    botUsername: z.ZodOptional<z.ZodString>;
+                    allowFromCount: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>>;
                 state: z.ZodEnum<{
                     error: "error";
@@ -281,6 +312,15 @@ export declare const listAgentsContract: {
                     stopped: "stopped";
                 }>;
             }, z.core.$strip>>;
+            workspace: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                appliedVersion: z.ZodNumber;
+                sha256: z.ZodString;
+                loadedAt: z.ZodISODateTime;
+            }, z.core.$strict>>>;
+            capabilities: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodObject<{
+                name: z.ZodString;
+                enabled: z.ZodBoolean;
+            }, z.core.$strict>>>>;
         }, z.core.$strip>>;
         source: z.ZodOptional<z.ZodObject<{
             authority: z.ZodLiteral<"x9">;
