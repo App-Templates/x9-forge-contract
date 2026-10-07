@@ -1,0 +1,27 @@
+{
+  "candidate": "505ab2f68d9803b807011f9d6042637f51a26a85",
+  "base": "897258d",
+  "changedInPerimeter": 14,
+  "changed": [
+    ".planning/phases/r2-2/PLAN.md",
+    ".planning/phases/r2-2/SUMMARY.md",
+    "src/agent/agent-channel-attestation.ts",
+    "src/agent/agent-channel-configuration.ts",
+    "src/agent/agent-creation-replay.ts",
+    "src/agent/index.ts",
+    "src/http/endpoints/index.ts",
+    "src/http/endpoints/internal-channel-attestation.ts",
+    "src/http/endpoints/internal-factory-creation.ts",
+    "tests/agent/r2-attestation.test.ts",
+    "tests/agent/r2-channel-configuration.test.ts",
+    "tests/agent/r2-creation-replay.test.ts",
+    "tests/agent/r2-fixtures.ts",
+    "tests/compat/r2-compat.test.ts"
+  ],
+  "protectedBaseBlobs": 1856,
+  "unchangedProtected": 1856,
+  "appendOnlyIndexes": 2,
+  "privateInputsRestored": 378,
+  "privateInputsTotal": 378,
+  "productDiffCheck": 0
+}

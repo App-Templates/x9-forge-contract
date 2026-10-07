@@ -1,0 +1,30 @@
+[
+  {
+    "name": "restore",
+    "exit": 0
+  },
+  {
+    "name": "build",
+    "exit": 0
+  },
+  {
+    "name": "typecheck",
+    "exit": 0
+  },
+  {
+    "name": "lint",
+    "exit": 0
+  },
+  {
+    "name": "pack",
+    "exit": 0
+  },
+  {
+    "name": "full",
+    "exit": 0
+  },
+  {
+    "name": "cjs",
+    "exit": 0
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "frozenBase": "e318fe9ca4b2970665ade2db4cf4de317e1e128d",
+  "changed": [
+    ".planning/phases/r2-2/PLAN.md",
+    "src/agent/agent-creation-replay.ts",
+    "tests/agent/r2-creation-replay.test.ts"
+  ],
+  "deltaProductPerimeter": {
+    "passed": 2,
+    "total": 2
+  },
+  "protected": {
+    "passed": 1888,
+    "total": 1888
+  },
+  "privateEqualsAuthor": {
+    "passed": 2,
+    "total": 2
+  },
+  "productDiffCheckExit": 0,
+  "sourceSha256": "3e7e6f008d1ffb91df6c04843238d5883903707811697c9f2ef83f659d0111d6"
+}

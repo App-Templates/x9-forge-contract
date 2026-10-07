@@ -1,0 +1,14 @@
+[
+  {
+    "name": "previous-guard",
+    "assertionFailures": 3,
+    "tests": 60,
+    "shaRestored": true
+  },
+  {
+    "name": "ignore-textual-readiness",
+    "assertionFailures": 1,
+    "tests": 60,
+    "shaRestored": true
+  }
+]

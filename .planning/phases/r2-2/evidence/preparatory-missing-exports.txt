@@ -1,0 +1,39 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/r2-channel-configuration.test.ts [ tests/agent/r2-channel-configuration.test.ts ]
+Error: Cannot find module '../../src/agent/agent-channel-configuration.js' imported from '/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/tests/agent/r2-channel-configuration.test.ts'
+ ❯ tests/agent/r2-channel-configuration.test.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import { AgentOwnedChannelResourceSchema, AgentChannelConfigurationSch…
+       | ^
+      3|   channelFailure, isChannelConfigurationApplied, AgentContextWithChann…
+      4|   shouldLoadAgentChannel } from '../../src/agent/agent-channel-configu…
+
+Caused by: Error: Failed to load url ../../src/agent/agent-channel-configuration.js (resolved id: ../../src/agent/agent-channel-configuration.js) in /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/tests/agent/r2-channel-configuration.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/.pnpm/vite@7.3.2_@types+node@22.19.17/node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/agent/r2-creation-replay.test.ts [ tests/agent/r2-creation-replay.test.ts ]
+Error: Cannot find module '../../src/agent/agent-creation-replay.js' imported from '/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/tests/agent/r2-creation-replay.test.ts'
+ ❯ tests/agent/r2-creation-replay.test.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import { AgentCreationRequestSchema, AgentCreationCheckpointSchema, cr…
+       | ^
+      3| import { request, checkpoint, channel, scope, identity } from './r2-fi…
+      4| describe('R2 replayable creation request', () => {
+
+Caused by: Error: Failed to load url ../../src/agent/agent-creation-replay.js (resolved id: ../../src/agent/agent-creation-replay.js) in /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/tests/agent/r2-creation-replay.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/.pnpm/vite@7.3.2_@types+node@22.19.17/node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  01:42:25
+   Duration  378ms (transform 39ms, setup 9ms, collect 0ms, tests 0ms, environment 0ms, prepare 94ms)

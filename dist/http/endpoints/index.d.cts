@@ -36,4 +36,6 @@ export * from "./internal-memory-recall-bundle.cjs";
 export * from "./webhook-inbound-telegram.cjs";
 export * from "./webhook-inbound-email.cjs";
 export * from "./cap-turn-lead.cjs";
+export * from "./internal-factory-creation.cjs";
+export * from "./internal-channel-attestation.cjs";
 //# sourceMappingURL=index.d.ts.map

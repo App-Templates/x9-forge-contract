@@ -34,9 +34,9 @@ export declare const ResearchStartOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
-        queued: "queued";
         running: "running";
         completed: "completed";
+        queued: "queued";
         budget_exhausted: "budget_exhausted";
     }>;
 }, z.core.$strict>;
@@ -47,9 +47,9 @@ export declare const ResearchStatusOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
-        queued: "queued";
         running: "running";
         completed: "completed";
+        queued: "queued";
         budget_exhausted: "budget_exhausted";
     }>;
 }, z.core.$strict>;
@@ -61,9 +61,9 @@ export declare const ResearchResultOutputSchema: z.ZodObject<{
     agentId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
-        queued: "queued";
         running: "running";
         completed: "completed";
+        queued: "queued";
         budget_exhausted: "budget_exhausted";
     }>;
     question: z.ZodString;

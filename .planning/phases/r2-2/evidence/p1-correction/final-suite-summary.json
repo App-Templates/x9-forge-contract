@@ -1,0 +1,29 @@
+{
+  "total": 1957,
+  "passed": 1957,
+  "failed": 0,
+  "pending": 0,
+  "files": 112,
+  "r2": [
+    {
+      "file": "r2-attestation.test.ts",
+      "total": 22,
+      "passed": 22
+    },
+    {
+      "file": "r2-channel-configuration.test.ts",
+      "total": 42,
+      "passed": 42
+    },
+    {
+      "file": "r2-creation-replay.test.ts",
+      "total": 60,
+      "passed": 60
+    },
+    {
+      "file": "r2-compat.test.ts",
+      "total": 3,
+      "passed": 3
+    }
+  ]
+}

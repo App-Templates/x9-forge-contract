@@ -33,9 +33,9 @@ export declare const LabIngestInputSchema: z.ZodObject<{
         agentId: z.ZodString;
         state: z.ZodEnum<{
             failed: "failed";
-            queued: "queued";
             running: "running";
             completed: "completed";
+            queued: "queued";
             budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
@@ -71,9 +71,9 @@ export declare const LabIngestStatusOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodEnum<{
         failed: "failed";
-        queued: "queued";
         running: "running";
         completed: "completed";
+        queued: "queued";
         budget_exhausted: "budget_exhausted";
     }>;
     sourcesStored: z.ZodOptional<z.ZodNumber>;

@@ -26,4 +26,8 @@ export * from "./agent-runtime-source.js";
 export * from "./agent-management.js";
 // Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
 export * from "./agent-scope-policy.js";
+// R2: scoped birth channels, optional context extension and replayable creation.
+export * from "./agent-channel-configuration.js";
+export * from "./agent-creation-replay.js";
+export * from "./agent-channel-attestation.js";
 //# sourceMappingURL=index.js.map

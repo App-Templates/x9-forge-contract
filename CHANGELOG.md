@@ -10,6 +10,20 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.32.0 — canali per agente: pausa, stato applicato e attestazione (R2-2)
+
+Contratti per la creazione di un agente con canali propri (FABBRICA R2). Additivo: export e payload 1.31 invariati.
+
+### Added (additive, backward-compatible)
+
+- `./agent`: configurazione canali Telegram/email per agente con stato desiderato (attivo/in pausa) e applicato, versione, risorsa propria (mai copia del Master), errori sanitizzati; contesto con channelConfigurations opzionale.
+- Checkpoint di creazione e replay del job con chiave di idempotenza: stessa chiave = stesso agente/job/risorse; «completato» solo con almeno un canale testuale caricato e pronto (Telegram, email non in pausa, oppure web attestato); la voce da sola non basta.
+- `./http`: `POST /internal/channels/attest` (header interno del bridge) con cui i servizi canale attestano per agente, con scope completo e osservazione fresca, lo stato caricato/in pausa/errore letto dalla configurazione applicata.
+
+Verificato da revisore indipendente (Codex B): REVISE (completato con sola voce) → corretto → APPROVE. 1957/1957 test.
+
+---
+
 ## v1.31.0 — gestione, chiavi, voce, ambito e capability di Meditation (BRIDGE-131)
 
 Contratti per il piano FABBRICA (R1b, R3, R4, R5, R6). Tutto additivo: export e payload della 1.30 invariati.
