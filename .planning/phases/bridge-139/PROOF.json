@@ -117,7 +117,15 @@
     "compiled_consumer_pass": 85,
     "compiled_consumer_total": 85,
     "source_input_still_exact": 394,
-    "perimeter": "pending final tree metadata snapshot",
+    "perimeter": {
+      "allowed": 29,
+      "total": 29,
+      "protected_equal": 2588,
+      "protected_total": 2588,
+      "negative_probes": 4,
+      "negative_total": 4,
+      "measured_head": "55fc4ead1064038f2202db1fcd53565ce9e51c1c"
+    },
     "no_live_proof": true
   }
 }

@@ -1,12 +1,13 @@
 {
   "base": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
-  "head": "57bb3db0739f354f49930f95a392ef00983bb381",
+  "head": "55fc4ead1064038f2202db1fcd53565ce9e51c1c",
   "changed": [
     ".planning/phases/bridge-139/ARCHIVE-PROOF.json",
     ".planning/phases/bridge-139/BUILD-INPUTS.json",
     ".planning/phases/bridge-139/COMPILED-MUTATIONS.json",
     ".planning/phases/bridge-139/CTS-PROOF.json",
     ".planning/phases/bridge-139/METADATA-MUTATIONS.json",
+    ".planning/phases/bridge-139/PERIMETER.json",
     ".planning/phases/bridge-139/PLAN.md",
     ".planning/phases/bridge-139/PROOF.json",
     ".planning/phases/bridge-139/QUALITY.json",
@@ -31,8 +32,8 @@
     "tests/cjs/bridge139-workspace.cjs",
     "tests/cjs/bridge139-workspace.cts"
   ],
-  "changed_allowed": 28,
-  "changed_total": 28,
+  "changed_allowed": 29,
+  "changed_total": 29,
   "protected_equal": 2588,
   "protected_total": 2588,
   "negative_probes": [
