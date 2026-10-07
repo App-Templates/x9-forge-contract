@@ -69,3 +69,6 @@ export * from './agent-workspace.js';
 
 // Public, metadata-only observations from the per-agent registry.
 export * from './agent-inventory-metadata.js';
+
+// Canonical credential service metadata, never credential values.
+export * from './agent-credential-services.js';

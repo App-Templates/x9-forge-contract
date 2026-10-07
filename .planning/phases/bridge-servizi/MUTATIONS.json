@@ -1,0 +1,892 @@
+{
+  "qualified": 177,
+  "total": 177,
+  "restored": true,
+  "rows": [
+    {
+      "mutation": "OPENAI_API_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_API_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_API_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_API_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_API_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ANTHROPIC_API_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ANTHROPIC_API_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ANTHROPIC_API_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ANTHROPIC_API_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ANTHROPIC_API_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_API_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_API_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_API_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_API_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_API_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELEGRAM_BOT_TOKEN:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELEGRAM_BOT_TOKEN:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELEGRAM_BOT_TOKEN:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELEGRAM_BOT_TOKEN:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELEGRAM_BOT_TOKEN:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_API_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_API_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_API_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_API_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_API_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_API_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_API_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_API_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_API_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_API_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "QDRANT_API_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "QDRANT_API_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "QDRANT_API_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "QDRANT_API_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "QDRANT_API_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_API_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_API_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_API_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_API_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_API_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_SECRET:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_SECRET:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_SECRET:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_SECRET:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_SECRET:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_REFRESH_TOKEN:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_REFRESH_TOKEN:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_REFRESH_TOKEN:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_REFRESH_TOKEN:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_REFRESH_TOKEN:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_PUBLIC_KEY:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_PUBLIC_KEY:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_PUBLIC_KEY:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_PUBLIC_KEY:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_PUBLIC_KEY:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_SECRET:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_SECRET:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_SECRET:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_SECRET:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_SECRET:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_TOKEN:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_TOKEN:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_TOKEN:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_TOKEN:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "INTERNAL_TOKEN:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "X9_INTERNAL_SECRET:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "X9_INTERNAL_SECRET:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "X9_INTERNAL_SECRET:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "X9_INTERNAL_SECRET:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "X9_INTERNAL_SECRET:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "LIVE_WEB_AUTH_TOKEN:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "LIVE_WEB_AUTH_TOKEN:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "LIVE_WEB_AUTH_TOKEN:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "LIVE_WEB_AUTH_TOKEN:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "LIVE_WEB_AUTH_TOKEN:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "FORGE_VOICE_REGISTER_TOKEN:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "FORGE_VOICE_REGISTER_TOKEN:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "FORGE_VOICE_REGISTER_TOKEN:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "FORGE_VOICE_REGISTER_TOKEN:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "FORGE_VOICE_REGISTER_TOKEN:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_CHAT_MODEL:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_CHAT_MODEL:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_CHAT_MODEL:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_CHAT_MODEL:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_CHAT_MODEL:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TTS_PROVIDER:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TTS_PROVIDER:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TTS_PROVIDER:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TTS_PROVIDER:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TTS_PROVIDER:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "STT_PRIMARY_PROVIDER:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "STT_PRIMARY_PROVIDER:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "STT_PRIMARY_PROVIDER:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "STT_PRIMARY_PROVIDER:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "STT_PRIMARY_PROVIDER:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "VOICE_CALL_PROVIDER:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "VOICE_CALL_PROVIDER:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "VOICE_CALL_PROVIDER:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "VOICE_CALL_PROVIDER:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "VOICE_CALL_PROVIDER:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MODEL_ID:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MODEL_ID:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MODEL_ID:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MODEL_ID:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MODEL_ID:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_MODEL:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_MODEL:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_MODEL:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_MODEL:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_MODEL:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_VOICE:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_VOICE:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_VOICE:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_VOICE:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_TTS_VOICE:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_STT_MODEL:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_STT_MODEL:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_STT_MODEL:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_STT_MODEL:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_STT_MODEL:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_VOICE:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_VOICE:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_VOICE:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_VOICE:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_VOICE:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_BACKEND_MODEL:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_BACKEND_MODEL:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_BACKEND_MODEL:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_BACKEND_MODEL:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "OPENAI_LIVE_BACKEND_MODEL:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_VOICE_ID:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_VOICE_ID:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_VOICE_ID:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_VOICE_ID:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_VOICE_ID:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MINDFULNESS_AGENT_ID:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MINDFULNESS_AGENT_ID:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MINDFULNESS_AGENT_ID:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MINDFULNESS_AGENT_ID:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "ELEVENLABS_MINDFULNESS_AGENT_ID:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_CONNECTION_ID:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_CONNECTION_ID:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_CONNECTION_ID:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_CONNECTION_ID:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_CONNECTION_ID:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_FROM_NUMBER:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_FROM_NUMBER:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_FROM_NUMBER:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_FROM_NUMBER:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "TELNYX_FROM_NUMBER:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_INBOX_ID:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_INBOX_ID:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_INBOX_ID:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_INBOX_ID:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENTMAIL_INBOX_ID:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_EMAIL:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_EMAIL:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_EMAIL:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_EMAIL:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "AGENT_EMAIL:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_ID:missing",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_ID:service",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_ID:kind",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_ID:secret",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "GOOGLE_CALENDAR_CLIENT_ID:label",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "candidate-minimum",
+      "qualified": true,
+      "failedAssertions": 2
+    },
+    {
+      "mutation": "candidate-unique",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "commercial-strict",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "internal-enum",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "commercial-enum",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "metadata-strict",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "canonical-binding",
+      "qualified": true,
+      "failedAssertions": 6
+    },
+    {
+      "mutation": "own-property",
+      "qualified": true,
+      "failedAssertions": 3
+    },
+    {
+      "mutation": "registry-freeze",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "entry-freeze",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "service-freeze",
+      "qualified": true,
+      "failedAssertions": 1
+    },
+    {
+      "mutation": "candidates-freeze",
+      "qualified": true,
+      "failedAssertions": 1
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "base": "93e8c4d38aba92ba51ed44b7ce31bd799df32cbe",
+  "branch": "codex/bridge-servizi",
+  "assignedWorktree": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-94-1",
+  "privateCheckout": "/private/tmp/codex-e-bridge-servizi-20261007/checkout",
+  "initialRed": {
+    "qualifiedAssertionFailures": 1,
+    "totalAssertions": 1
+  },
+  "targeted": {
+    "passed": 62,
+    "total": 62
+  },
+  "full": {
+    "passed": 2681,
+    "total": 2681,
+    "skipped": 0,
+    "files": 125
+  },
+  "mutations": {
+    "qualified": 177,
+    "total": 177,
+    "restored": true,
+    "ledgerSha256": "4154dbd3a0ce1f5724acd500d92ac1e71aeebb7b85ec6aca192b7c33a4ca56dc"
+  },
+  "metadata": {
+    "declaredKeys": 33,
+    "mappedKeys": 33,
+    "credential": 16,
+    "setting": 10,
+    "identifier": 7,
+    "commercialBrands": 8,
+    "providerSelectors": 4
+  },
+  "quality": [
+    {
+      "name": "restored",
+      "exit": 0
+    },
+    {
+      "name": "full",
+      "exit": 0
+    },
+    {
+      "name": "typecheck",
+      "exit": 0
+    },
+    {
+      "name": "lint",
+      "exit": 0
+    },
+    {
+      "name": "build",
+      "exit": 0
+    },
+    {
+      "name": "portable",
+      "exit": 0
+    },
+    {
+      "name": "publint",
+      "exit": 0
+    },
+    {
+      "name": "attw",
+      "exit": 0
+    },
+    {
+      "name": "cjs",
+      "exit": 0
+    }
+  ],
+  "portableDeclarations": 304,
+  "nativeCjs": {
+    "passed": 57,
+    "total": 57
+  },
+  "installed": {
+    "archive": "/private/tmp/codex-e-bridge-servizi-20261007/x9-forge-contracts-1.39.0.tgz",
+    "integrity": "sha512-8nE2mCcIBSAgYjf1MrLd00RxV0aEEjsJOvBeqc6zv2Mv2aACla9ltFQzNxU3OC2VaDpkY0cz9PyhDTaK3aHRaA==",
+    "runtime": {
+      "cjs": {
+        "passed": 108,
+        "total": 108
+      },
+      "mjs": {
+        "passed": 108,
+        "total": 108
+      }
+    },
+    "declarationConsumers": [
+      "cts",
+      "mts"
+    ],
+    "steps": [
+      {
+        "name": "pack",
+        "exit": 0
+      },
+      {
+        "name": "install",
+        "exit": 0
+      },
+      {
+        "name": "cjs",
+        "exit": 0
+      },
+      {
+        "name": "mjs",
+        "exit": 0
+      },
+      {
+        "name": "cts",
+        "exit": 0
+      },
+      {
+        "name": "mts",
+        "exit": 0
+      }
+    ],
+    "installedPackage": "/private/tmp/codex-e-bridge-servizi-20261007/installed-consumer/node_modules/@x9-forge/contracts"
+  },
+  "allowedFiles": [
+    "src/agent/agent-credential-services.ts",
+    "src/agent/index.ts",
+    "tests/agent/agent-credential-services.test.ts",
+    ".planning/phases/bridge-servizi/PLAN.md",
+    ".planning/phases/bridge-servizi/SUMMARY.md",
+    ".planning/phases/bridge-servizi/PROOF.md",
+    ".planning/phases/bridge-servizi/MUTATIONS.json",
+    ".planning/phases/bridge-servizi/FINAL-PROOF.json"
+  ],
+  "sourceSha256": {
+    "src/agent/agent-credential-services.ts": "661f079accfeed96fb8b957b1707cd0912b4da5ccb6c44132337dacc672aa94b",
+    "src/agent/index.ts": "89823205e9c81dc0a472af4c390bc4c948a53d2c0eb640d73a493dec39258a15",
+    "tests/agent/agent-credential-services.test.ts": "20ee32ac31989f29bda5156b090b6aa63d412ae094b9c8504acc0774e72c97cc"
+  },
+  "limitations": "metadata contracts and synthetic checks only; no UI/runtime provider attestation, package publication, version change, consumer pin, push/merge/deploy",
+  "sourceCommit": "8818ffc65d34989441f5c9f060b9489c6564e265",
+  "scope": {
+    "changedAllowedFiles": 8,
+    "changedFiles": [
+      ".planning/phases/bridge-servizi/FINAL-PROOF.json",
+      ".planning/phases/bridge-servizi/MUTATIONS.json",
+      ".planning/phases/bridge-servizi/PLAN.md",
+      ".planning/phases/bridge-servizi/PROOF.md",
+      ".planning/phases/bridge-servizi/SUMMARY.md",
+      "src/agent/agent-credential-services.ts",
+      "src/agent/index.ts",
+      "tests/agent/agent-credential-services.test.ts"
+    ],
+    "protectedBaselineUnchanged": 2858,
+    "protectedBaselineTotal": 2858,
+    "baselineUnchangedExceptAdditiveAgentExport": 2887,
+    "baselineTotal": 2888,
+    "workingTreeCleanAfterSourceCommit": true
+  }
+}
