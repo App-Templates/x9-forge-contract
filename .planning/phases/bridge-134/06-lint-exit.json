@@ -1,0 +1,12 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1",
+    "run",
+    "lint"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 2.4850497245788574
+}

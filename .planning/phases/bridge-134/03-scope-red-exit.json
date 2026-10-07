@@ -1,0 +1,18 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1",
+    "exec",
+    "vitest",
+    "run",
+    "tests/agent/bridge134-scope-context.test.ts",
+    "--maxWorkers=1",
+    "--testTimeout=60000",
+    "--reporter=json",
+    "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1/.planning/phases/bridge-134/03-scope-red.json"
+  ],
+  "exit": 1,
+  "timeout": false,
+  "elapsedSeconds": 0.7553279399871826
+}

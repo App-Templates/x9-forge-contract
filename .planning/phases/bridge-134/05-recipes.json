@@ -1,0 +1,114 @@
+[
+  [
+    "voice-optional",
+    "src/agent/agent-channel-configuration.ts",
+    "voiceConfiguration: AgentVoiceConfigSchema.optional()",
+    "voiceConfiguration: AgentVoiceConfigSchema",
+    2
+  ],
+  [
+    "voice-context-scope",
+    "src/agent/agent-channel-configuration.ts",
+    "if (context.voiceConfiguration && context.voiceConfiguration.agentId !== context.agentId)",
+    "if (false)",
+    1
+  ],
+  [
+    "voice-canonical-schema",
+    "src/agent/agent-channel-configuration.ts",
+    "voiceConfiguration: AgentVoiceConfigSchema.optional()",
+    "voiceConfiguration: z.unknown().optional()",
+    2
+  ],
+  [
+    "voice-helper-export",
+    "src/agent/agent-channel-configuration.ts",
+    "export function appliedAgentVoiceSettings",
+    "function appliedAgentVoiceSettings",
+    1
+  ],
+  [
+    "voice-helper-applied",
+    "src/agent/agent-channel-configuration.ts",
+    "return ctx.voiceConfiguration?.applied ?? null;",
+    "return ctx.voiceConfiguration?.desired ?? null;",
+    1
+  ],
+  [
+    "voice-helper-null",
+    "src/agent/agent-channel-configuration.ts",
+    "return ctx.voiceConfiguration?.applied ?? null;",
+    "return ctx.voiceConfiguration?.applied;",
+    1
+  ],
+  [
+    "caller-optional",
+    "src/http/endpoints/voice-register.ts",
+    "caller: OutboundCallerIdentitySchema.optional(),",
+    "caller: OutboundCallerIdentitySchema,",
+    1
+  ],
+  [
+    "caller-canonical-field",
+    "src/http/endpoints/voice-register.ts",
+    "caller: OutboundCallerIdentitySchema.optional(),",
+    "",
+    1
+  ],
+  [
+    "caller-management-binding",
+    "src/http/endpoints/voice-register.ts",
+    "if (request.caller && request.agentId !== request.caller.agent.managementAgentId)",
+    "if (false)",
+    1
+  ],
+  [
+    "voice-not-applied-admission",
+    "src/capability/voice/agent-voice-settings.ts",
+    "  if (settings === null) return { ok: false, error: 'voice_not_applied' };",
+    "",
+    1
+  ],
+  [
+    "voice-not-applied-error",
+    "src/capability/voice/agent-voice-settings.ts",
+    "  'voice_not_applied',",
+    "",
+    1
+  ],
+  [
+    "policy-optional",
+    "src/agent/agent-channel-configuration.ts",
+    "scopePolicy: AgentScopePolicySchema.optional()",
+    "scopePolicy: AgentScopePolicySchema",
+    2
+  ],
+  [
+    "policy-canonical-schema",
+    "src/agent/agent-channel-configuration.ts",
+    "scopePolicy: AgentScopePolicySchema.optional()",
+    "scopePolicy: z.unknown().optional()",
+    2
+  ],
+  [
+    "policy-helper-export",
+    "src/agent/agent-channel-configuration.ts",
+    "export function appliedAgentScopePolicy",
+    "function appliedAgentScopePolicy",
+    1
+  ],
+  [
+    "policy-helper-null",
+    "src/agent/agent-channel-configuration.ts",
+    "return ctx.scopePolicy ?? null;",
+    "return ctx.scopePolicy;",
+    1
+  ],
+  [
+    "policy-helper-present",
+    "src/agent/agent-channel-configuration.ts",
+    "return ctx.scopePolicy ?? null;",
+    "return null;",
+    1
+  ]
+]
