@@ -1,0 +1,66 @@
+[
+  {
+    "label": "build",
+    "command": [
+      "pnpm",
+      "build"
+    ],
+    "exit": 0,
+    "seconds": 3.35
+  },
+  {
+    "label": "check:pack",
+    "command": [
+      "pnpm",
+      "check:pack"
+    ],
+    "exit": 0,
+    "seconds": 2.68
+  },
+  {
+    "label": "typecheck",
+    "command": [
+      "pnpm",
+      "typecheck"
+    ],
+    "exit": 0,
+    "seconds": 0.7
+  },
+  {
+    "label": "lint",
+    "command": [
+      "pnpm",
+      "lint"
+    ],
+    "exit": 0,
+    "seconds": 2.23
+  },
+  {
+    "label": "full-source",
+    "command": [
+      "pnpm",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=1",
+      "--testTimeout=60000",
+      "--reporter=json",
+      "--outputFile=/private/tmp/b139-p2-build/full-source.json"
+    ],
+    "exit": 0,
+    "seconds": 25.03,
+    "numTotalTests": 2619,
+    "numPassedTests": 2619,
+    "numFailedTests": 0,
+    "pending": 0
+  },
+  {
+    "label": "native-cjs",
+    "command": [
+      "node",
+      "tests/cjs/smoke.cjs"
+    ],
+    "exit": 0,
+    "seconds": 0.2
+  }
+]

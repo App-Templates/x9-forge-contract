@@ -22,12 +22,15 @@ describe('BRIDGE139 P2 observed Telegram username boundary', () => {
   });
   it.each(valid)('preserves exact valid username %s across all surfaces', botUsername => {
     const value = { ...channel, botUsername, allowFromCount: 0 };
-    expect(AgentRuntimeChannelSchema.parse(value)).toEqual(value);
+    const parsed = AgentRuntimeChannelSchema.safeParse(value);
+    expect(parsed.success).toBe(true); if (parsed.success) expect(parsed.data).toEqual(value);
     expect(telegramChannelMetadataOf(value)).toEqual({ botUsername, allowFromCount: 0 });
-    expect(ListAgentsAgentSchema.parse(inventory(botUsername))).toEqual(inventory(botUsername));
+    const parsedRow = ListAgentsAgentSchema.safeParse(inventory(botUsername));
+    expect(parsedRow.success).toBe(true); if (parsedRow.success) expect(parsedRow.data).toEqual(inventory(botUsername));
   });
   it('keeps the legacy field absent and the observed count zero', () => {
-    expect(AgentRuntimeChannelSchema.parse(channel)).toEqual(channel);
+    const legacy = AgentRuntimeChannelSchema.safeParse(channel);
+    expect(legacy.success).toBe(true); if (legacy.success) expect(legacy.data).toEqual(channel);
     expect(telegramChannelMetadataOf(channel)).toBeNull();
     expect(telegramChannelMetadataOf({ ...channel, allowFromCount: 0 })).toEqual({ allowFromCount: 0 });
   });

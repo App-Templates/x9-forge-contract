@@ -26,12 +26,15 @@ const valid = ['abBot', 'synthetic_bot', 'SyntheticBot', 'SyntheticBOT', 'a'.rep
     });
     for (const botUsername of valid) test(mode + ' preserves valid username ' + botUsername, () => {
       const value = { ...channel, botUsername, allowFromCount: 0 };
-      assert.deepEqual(agent.AgentRuntimeChannelSchema.parse(value), value);
+      const parsed = agent.AgentRuntimeChannelSchema.safeParse(value);
+      assert.equal(parsed.success, true); assert.deepEqual(parsed.data, value);
       assert.deepEqual(agent.telegramChannelMetadataOf(value), { botUsername, allowFromCount: 0 });
-      assert.deepEqual(http.ListAgentsAgentSchema.parse(inventory(botUsername)), inventory(botUsername));
+      const parsedRow = http.ListAgentsAgentSchema.safeParse(inventory(botUsername));
+      assert.equal(parsedRow.success, true); assert.deepEqual(parsedRow.data, inventory(botUsername));
     });
     test(mode + ' preserves missing legacy metadata and observed zero', () => {
-      assert.deepEqual(agent.AgentRuntimeChannelSchema.parse(channel), channel);
+      const legacy = agent.AgentRuntimeChannelSchema.safeParse(channel);
+      assert.equal(legacy.success, true); assert.deepEqual(legacy.data, channel);
       assert.equal(agent.telegramChannelMetadataOf(channel), null);
       assert.deepEqual(agent.telegramChannelMetadataOf({ ...channel, allowFromCount: 0 }), { allowFromCount: 0 });
     });
