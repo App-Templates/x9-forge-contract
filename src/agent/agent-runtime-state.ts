@@ -22,7 +22,7 @@ export const AgentRuntimeChannelSchema = z.object({
   loaded: z.boolean().nullable(),
   readiness: AgentRuntimeReadinessSchema,
   /** Observed Telegram metadata only; absence does not imply an empty authorization list. */
-  botUsername: z.string().optional(),
+  botUsername: z.string().min(5).max(32).regex(/^[A-Za-z0-9_]+bot$/i).optional(),
   allowFromCount: z.number().int().nonnegative().optional(),
 }).superRefine((channel, ctx) => {
   if (channel.kind !== 'telegram' && (channel.botUsername !== undefined || channel.allowFromCount !== undefined)) {
