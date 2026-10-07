@@ -1,0 +1,97 @@
+[
+  {
+    "name": "03-native-types",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-73-1",
+      "run",
+      "typecheck",
+      "--tsBuildInfoFile",
+      "/private/tmp/codex-a-bridge138-native.tsbuildinfo"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 2.425445079803467
+  },
+  {
+    "name": "03-native-lint",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-73-1",
+      "run",
+      "lint"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 2.9366438388824463
+  },
+  {
+    "name": "03-private-typecheck",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge138-build-8it2ks0b",
+      "run",
+      "typecheck"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 1.5481626987457275
+  },
+  {
+    "name": "03-private-build",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge138-build-8it2ks0b",
+      "run",
+      "build"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 3.703892230987549
+  },
+  {
+    "name": "03-private-pack",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge138-build-8it2ks0b",
+      "run",
+      "check:pack"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 4.1497931480407715
+  },
+  {
+    "name": "03-cjs-existing",
+    "command": [
+      "node",
+      "/private/tmp/codex-a-bridge138-build-8it2ks0b/tests/cjs/smoke.cjs"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 0.1841738224029541
+  },
+  {
+    "name": "03-full",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge138-build-8it2ks0b",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=1",
+      "--testTimeout=60000",
+      "--reporter=json",
+      "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-73-1/.planning/phases/bridge-138/03-full.json"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 23.30700969696045
+  }
+]

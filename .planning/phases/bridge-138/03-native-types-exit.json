@@ -1,0 +1,15 @@
+{
+  "name": "03-native-types",
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-73-1",
+    "run",
+    "typecheck",
+    "--tsBuildInfoFile",
+    "/private/tmp/codex-a-bridge138-native.tsbuildinfo"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 2.425445079803467
+}
