@@ -8,6 +8,7 @@ import {
 describe('platform-internal credentials', () => {
   it('lists the Telegram user session (BotFather userbot)', () => {
     expect(PLATFORM_INTERNAL_CREDENTIAL_KEYS).toContain('TELEGRAM_SESSION_STRING');
+    expect(PLATFORM_INTERNAL_CREDENTIAL_KEYS).toContain('APPROVALS_SIGNING_KEY');
   });
 
   it('does not classify inheritable agent credentials as internal', () => {

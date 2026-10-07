@@ -38,6 +38,7 @@ export const KNOWN_CREDENTIAL_KEYS = [
   'GOOGLE_CALENDAR_REFRESH_TOKEN',
   'INTERNAL_SECRET',
   'X9_INTERNAL_SECRET',
+  'HOSTINGER_API_TOKEN',                      // Phase 59 — cap-backup only; full-account token (no scopes): vault, never projected to prompts or devices
 ] as const;
 
 export type KnownCredentialKey = (typeof KNOWN_CREDENTIAL_KEYS)[number];
