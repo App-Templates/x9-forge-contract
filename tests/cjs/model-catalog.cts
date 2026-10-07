@@ -1,0 +1,11 @@
+import type { ModelCatalog, CapabilityModelSettings, ModelDescriptor, CapabilityModelValidationIssue } from '@x9-forge/contracts/model-router';
+import { ModelCatalogSchema, validateCapabilityModels } from '@x9-forge/contracts';
+import { internalAgentModelCatalogContract, agentModelCatalogPath } from '@x9-forge/contracts/http';
+declare const catalog: ModelCatalog;
+declare const settings: CapabilityModelSettings;
+declare const descriptor: ModelDescriptor;
+const parsed: ModelCatalog = ModelCatalogSchema.parse(catalog);
+const issues: CapabilityModelValidationIssue[] = validateCapabilityModels(settings, parsed, 'agent-42');
+const path: string = agentModelCatalogPath('agent-42');
+const method: 'GET' = internalAgentModelCatalogContract.method;
+void [issues, descriptor, path, method];

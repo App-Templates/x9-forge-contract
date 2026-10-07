@@ -137,4 +137,5 @@ if (failed > 0) {
 require('./bridge-130-smoke.cjs');
 // R7-1: validate the public compiled workspace contract in the normal test script.
 require('./r7-workspace-smoke.cjs');
+require('./model-catalog-smoke.cjs');
 process.exit(0);

@@ -53,3 +53,4 @@ export * from './internal-factory-creation.js'; // R2 opt-in replayable deploy, 
 export * from './internal-channel-attestation.js';
 
 export * from './voice-catalog.js';
+export * from './internal-agent-model-catalog.js';
