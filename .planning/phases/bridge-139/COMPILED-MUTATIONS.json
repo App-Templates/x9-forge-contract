@@ -1,0 +1,839 @@
+{
+  "baseline": {
+    "exit": 0,
+    "assertion_errors": 0,
+    "pass": 85,
+    "tests": 85,
+    "log": "/private/tmp/b139-compiled-baseline.tap"
+  },
+  "records": [
+    {
+      "name": "workspace-positive-version",
+      "file": "agent/agent-workspace-attestation.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-positive-version.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-positive-version-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-safe-version",
+      "file": "agent/agent-workspace-attestation.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-safe-version.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-safe-version-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-integer-version",
+      "file": "agent/agent-workspace-attestation.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 2,
+        "pass": 83,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-integer-version.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-integer-version-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-hash",
+      "file": "agent/agent-workspace-attestation.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 3,
+        "pass": 82,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-hash.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-hash-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-date",
+      "file": "agent/agent-workspace-attestation.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 3,
+        "pass": 82,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-date.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-date-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-strict",
+      "file": "agent/agent-workspace-attestation.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 3,
+        "pass": 82,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-strict.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-strict-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-selector-validation",
+      "file": "agent/agent-workspace.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-selector-validation.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-selector-validation-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-selector-no-fallback",
+      "file": "agent/agent-workspace.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-selector-no-fallback.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-selector-no-fallback-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-selector-null",
+      "file": "agent/agent-workspace.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 6,
+        "pass": 79,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-selector-null.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-selector-null-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-command-binding",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 2,
+        "pass": 83,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-command-binding.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-command-binding-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-state-binding",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 2,
+        "pass": 83,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-state-binding.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-state-binding-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-command-null-outcome",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-command-null-outcome.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-workspace-command-null-outcome-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-optional",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-command-optional.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-command-optional-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-nullable",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-command-nullable.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-command-nullable-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-retained",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 14,
+        "pass": 71,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-command-retained.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-command-retained-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "state-optional",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-state-optional.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-state-optional-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "state-nullable",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-state-nullable.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-state-nullable-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "state-retained",
+      "file": "agent/agent-management.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 13,
+        "pass": 72,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-state-retained.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-state-retained-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "list-optional",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 7,
+        "pass": 78,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-list-optional.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-list-optional-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "list-nullable",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-list-nullable.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-list-nullable-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "list-retained",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 11,
+        "pass": 74,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-list-retained.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-list-retained-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-name",
+      "file": "agent/agent-inventory-metadata.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 3,
+        "pass": 82,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-name.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-name-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-enabled",
+      "file": "agent/agent-inventory-metadata.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 2,
+        "pass": 83,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-enabled.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-enabled-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-strict",
+      "file": "agent/agent-inventory-metadata.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 2,
+        "pass": 83,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-strict.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-strict-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-array",
+      "file": "agent/agent-inventory-metadata.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 12,
+        "pass": 73,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-array.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-array-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-selector-null",
+      "file": "agent/agent-inventory-metadata.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 13,
+        "pass": 72,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-selector-null.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-selector-null-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-selector-current",
+      "file": "agent/agent-inventory-metadata.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 2,
+        "pass": 83,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-selector-current.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-selector-current-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-row-optional",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 5,
+        "pass": 80,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-row-optional.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-row-optional-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-row-nullable",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-row-nullable.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-row-nullable-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "cap-row-retained",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 15,
+        "pass": 70,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-row-retained.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-cap-row-retained-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-name-type",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-name-type.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-name-type-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-safe",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-safe.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-safe-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-integer",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 2,
+        "pass": 83,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-integer.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-integer-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-positive",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-positive.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-positive-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-retained",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 10,
+        "pass": 75,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-retained.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-retained-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-kind",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-kind.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-kind-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-no-ids",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 3,
+        "pass": 82,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-no-ids.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-no-ids-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-name-no-default",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-name-no-default.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-name-no-default-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-count-no-default",
+      "file": "agent/agent-runtime-state.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-no-default.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-telegram-count-no-default-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-available",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 3,
+        "pass": 82,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-source-available.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-source-available-restore.tap"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "source-exact-agent",
+      "file": "http/endpoints/internal-agents-list.cjs",
+      "qualified": true,
+      "red": {
+        "exit": 1,
+        "assertion_errors": 1,
+        "pass": 84,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-source-exact-agent.tap"
+      },
+      "restore": {
+        "exit": 0,
+        "assertion_errors": 0,
+        "pass": 85,
+        "tests": 85,
+        "log": "/private/tmp/b139-compiled-source-exact-agent-restore.tap"
+      },
+      "sha_restored": true
+    }
+  ],
+  "sha256": {
+    "agent/agent-workspace-attestation.cjs": "84c421653c5e8e719bca1b71feb4b27a15c2f9074d2a1c6897622e46f7be526a",
+    "agent/agent-management.cjs": "fa59e28043f395f834cd15ea7de84121657a33833e8135d3e24d693e53284aae",
+    "agent/agent-workspace.cjs": "ea415b45acfef65ac24a1b6ab3a06dbffe2654c8e5f82c577790bb5cd09eb746",
+    "http/endpoints/internal-agents-list.cjs": "eb9e8b427d2caa1279683d6fdece15320a4694aa2ab55dc8011f57473f205f4d",
+    "agent/agent-inventory-metadata.cjs": "22b0f04d127b666e0b31c6e63587fd5e001dd636fe313b5ae18bfed5b507a9d1",
+    "agent/agent-runtime-state.cjs": "bbd0bf49d607b0efc4a91a23e644865ba4f14e51e501a3c01140cb7b2ea1cf8d"
+  }
+}

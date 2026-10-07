@@ -1,0 +1,131 @@
+{
+  "workspace": {
+    "before": {
+      "passed": 3,
+      "total": 141,
+      "qualified_assertion_red": 138,
+      "report": "/private/tmp/b139-red-final-141.json"
+    },
+    "after": {
+      "passed": 141,
+      "total": 141,
+      "failed": 0,
+      "report": "/private/tmp/b139-green.json"
+    },
+    "baseline": {
+      "passed": 2325,
+      "total": 2325,
+      "report": "/private/tmp/b139-baseline.json"
+    },
+    "native_typecheck": {
+      "exit": 0,
+      "log": "/private/tmp/b139-native-types.log"
+    },
+    "native_lint": {
+      "exit": 0,
+      "log": "/private/tmp/b139-native-lint.log"
+    },
+    "source_sha256": {
+      "src/agent/agent-workspace-attestation.ts": "adb28ff42b09dedf42661bd8c434de403e6ca10ee0e405cbac8674ef9cdcea63",
+      "src/agent/agent-management.ts": "b8d283dd6c3146bb1a5166702eb4a42a1516d2bb83b772aa7256a072953fbe7c",
+      "src/agent/agent-workspace.ts": "336fad4ea6b19e471b9c42ecea567c313806cebd0dcada037d023f673aa1f915",
+      "src/http/endpoints/internal-agents-list.ts": "7d6dd471a8edef948de8e82bd4f76ee1bebf2a68154c2cad98b97b81fbfa0c62"
+    },
+    "coordinator_decisions": [
+      "132902: null nonattestata state/list; command runtime nonok reason",
+      "132902: HTTP list perimeter allowed",
+      "133305: bundle/config identity proof path:line; same appliedVersion binding"
+    ],
+    "live_verified": false,
+    "remaining": "source mutations, compiled consumer/CTS, private build/pack/full/perimeter",
+    "source_mutations": {
+      "qualified": 41,
+      "total": 41,
+      "restored": 41,
+      "source_sha_matched": 4,
+      "source_sha_total": 4,
+      "semantic_names": 141,
+      "test_names_total": 141,
+      "report": "SOURCE-MUTATIONS.json"
+    },
+    "private_build_inputs": {
+      "matched": 392,
+      "total": 392,
+      "report": "/private/tmp/b139-private-inputs.json",
+      "build_executed": false
+    }
+  },
+  "metadata": {
+    "before": {
+      "total": 126,
+      "passed": 5,
+      "failed": 121,
+      "assertion_errors": 121
+    },
+    "green": 126,
+    "mutations_qualified": 44,
+    "mutations_total": 44,
+    "restores": 44,
+    "source_sha_count": 4,
+    "unique_test_names_hit": 126,
+    "typecheck_exit": 0,
+    "lint_exit": 0,
+    "compiled_consumer": "37/37"
+  },
+  "compiled": {
+    "native_input_head": "c1ab994dc3709895d1abfddbac5852153f35eb15",
+    "native_inputs": 394,
+    "dts_portable": 302,
+    "build_exit": 0,
+    "native_pack_exit": 0,
+    "native_checkpack_exit": 0,
+    "archive_files_exact": 1210,
+    "archive_files_total": 1210,
+    "consumer_workspace": 48,
+    "consumer_metadata": 37,
+    "consumer_total": 85,
+    "consumer_pass": 85,
+    "consumer_skip": 0,
+    "mutation_qualified": 41,
+    "mutation_total": 41,
+    "restores": 41,
+    "mutated_artifact_sha_count": 6,
+    "cts_TS2322": 3,
+    "cts_mutations": 3,
+    "cts_restores_green": 3,
+    "excluded": "npm cache EPERM and TS5112 startup never counted; initial compiled campaign state region corrected then final full41 rerun"
+  },
+  "final": {
+    "full": {
+      "passed": 2592,
+      "total": 2592,
+      "failed": 0,
+      "pending": 0,
+      "files": 123
+    },
+    "new_unique_source_tests": 267,
+    "baseline_tests": 2325,
+    "native_typecheck_exit": 0,
+    "native_lint_exit": 0,
+    "normal_cjs_unique_pass": 57,
+    "normal_cjs_unique_total": 57,
+    "source_workspace_mutations_final": 41,
+    "source_metadata_mutations_final": 44,
+    "source_mutations_total": 85,
+    "source_unique_names_hit": 267,
+    "source_sha_union": 7,
+    "compiled_consumer_pass": 85,
+    "compiled_consumer_total": 85,
+    "source_input_still_exact": 394,
+    "perimeter": {
+      "allowed": 29,
+      "total": 29,
+      "protected_equal": 2588,
+      "protected_total": 2588,
+      "negative_probes": 4,
+      "negative_total": 4,
+      "measured_head": "55fc4ead1064038f2202db1fcd53565ce9e51c1c"
+    },
+    "no_live_proof": true
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "name": "typecheck",
+      "exit": 0,
+      "log": "/private/tmp/b139-final-typecheck.log"
+    },
+    {
+      "name": "lint",
+      "exit": 0,
+      "log": "/private/tmp/b139-final-lint.log"
+    },
+    {
+      "name": "cjs-smoke",
+      "exit": 0,
+      "log": "/private/tmp/b139-final-cjs-smoke.log"
+    },
+    {
+      "name": "cjs-r7",
+      "exit": 0,
+      "log": "/private/tmp/b139-final-cjs-r7.log"
+    },
+    {
+      "name": "cjs-identity-corrected",
+      "exit": 0,
+      "log": "/private/tmp/b139-final-cjs-identity-corrected.log"
+    }
+  ],
+  "excluded": [
+    {
+      "name": "cjs-identity",
+      "exit": 1,
+      "log": "/private/tmp/b139-final-cjs-identity.log"
+    }
+  ],
+  "native_default_cjs_unique": {
+    "smoke": 36,
+    "bridge130": 6,
+    "r7": 15,
+    "total": 57,
+    "passed": 57
+  },
+  "note": "Incorrect standalone identity filename startup excluded; correct file passes6/6 and is already required by smoke.cjs; repeated runs are not extra unique tests"
+}

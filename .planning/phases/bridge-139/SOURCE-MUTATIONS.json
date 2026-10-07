@@ -1,0 +1,1430 @@
+{
+  "baseline": {
+    "exit": 0,
+    "passed": 141,
+    "total": 141,
+    "semantic": [],
+    "report": "/private/tmp/b139-source-baseline.json",
+    "log": "/private/tmp/b139-source-baseline.log"
+  },
+  "records": [
+    {
+      "name": "positive-version",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "workspace attestation list rejects zero instead of silently stripping workspace",
+          "workspace attestation list rejects negative instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata zero",
+          "public attested workspace selector never selects invalid metadata negative"
+        ],
+        "report": "/private/tmp/b139-source-positive-version.json",
+        "log": "/private/tmp/b139-source-positive-version.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-positive-version-restore.json",
+        "log": "/private/tmp/b139-source-positive-version-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "integer-version",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "workspace attestation list rejects fraction instead of silently stripping workspace",
+          "workspace attestation list rejects unsafe integer instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata fraction",
+          "public attested workspace selector never selects invalid metadata unsafe integer"
+        ],
+        "report": "/private/tmp/b139-source-integer-version.json",
+        "log": "/private/tmp/b139-source-integer-version.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-integer-version-restore.json",
+        "log": "/private/tmp/b139-source-integer-version-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "safe-version",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "workspace attestation list rejects unsafe integer instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata unsafe integer"
+        ],
+        "report": "/private/tmp/b139-source-safe-version.json",
+        "log": "/private/tmp/b139-source-safe-version.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-safe-version-restore.json",
+        "log": "/private/tmp/b139-source-safe-version-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "numeric-version",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 123,
+        "total": 141,
+        "semantic": [
+          "workspace attestation list rejects zero instead of silently stripping workspace",
+          "workspace attestation list rejects negative instead of silently stripping workspace",
+          "workspace attestation list rejects fraction instead of silently stripping workspace",
+          "workspace attestation list rejects numeric string instead of silently stripping workspace",
+          "workspace attestation list rejects unsafe integer instead of silently stripping workspace",
+          "workspace attestation list rejects infinite instead of silently stripping workspace",
+          "workspace attestation list rejects NaN instead of silently stripping workspace",
+          "workspace attestation list rejects boolean version instead of silently stripping workspace",
+          "workspace attestation list rejects missing version instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata zero",
+          "public attested workspace selector never selects invalid metadata negative",
+          "public attested workspace selector never selects invalid metadata fraction",
+          "public attested workspace selector never selects invalid metadata numeric string",
+          "public attested workspace selector never selects invalid metadata unsafe integer",
+          "public attested workspace selector never selects invalid metadata infinite",
+          "public attested workspace selector never selects invalid metadata NaN",
+          "public attested workspace selector never selects invalid metadata boolean version",
+          "public attested workspace selector never selects invalid metadata missing version"
+        ],
+        "report": "/private/tmp/b139-source-numeric-version.json",
+        "log": "/private/tmp/b139-source-numeric-version.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-numeric-version-restore.json",
+        "log": "/private/tmp/b139-source-numeric-version-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "no-coercion",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 135,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects numeric string instead of silently stripping workspace",
+          "workspace attestation state rejects numeric string instead of silently stripping workspace",
+          "workspace attestation list rejects numeric string instead of silently stripping workspace",
+          "workspace attestation list rejects boolean version instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata numeric string",
+          "public attested workspace selector never selects invalid metadata boolean version"
+        ],
+        "report": "/private/tmp/b139-source-no-coercion.json",
+        "log": "/private/tmp/b139-source-no-coercion.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-no-coercion-restore.json",
+        "log": "/private/tmp/b139-source-no-coercion-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "required-version",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "workspace attestation list rejects missing version instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata missing version"
+        ],
+        "report": "/private/tmp/b139-source-required-version.json",
+        "log": "/private/tmp/b139-source-required-version.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-required-version-restore.json",
+        "log": "/private/tmp/b139-source-required-version-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "hash-length",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 133,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects short hash instead of silently stripping workspace",
+          "workspace attestation command rejects long hash instead of silently stripping workspace",
+          "workspace attestation state rejects short hash instead of silently stripping workspace",
+          "workspace attestation state rejects long hash instead of silently stripping workspace",
+          "workspace attestation list rejects short hash instead of silently stripping workspace",
+          "workspace attestation list rejects long hash instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata short hash",
+          "public attested workspace selector never selects invalid metadata long hash"
+        ],
+        "report": "/private/tmp/b139-source-hash-length.json",
+        "log": "/private/tmp/b139-source-hash-length.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-hash-length-restore.json",
+        "log": "/private/tmp/b139-source-hash-length-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "hash-hex",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 133,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation command rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation state rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation state rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation list rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation list rejects uppercase hash instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata nonhex hash",
+          "public attested workspace selector never selects invalid metadata uppercase hash"
+        ],
+        "report": "/private/tmp/b139-source-hash-hex.json",
+        "log": "/private/tmp/b139-source-hash-hex.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-hash-hex-restore.json",
+        "log": "/private/tmp/b139-source-hash-hex-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "hash-lowercase",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation state rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation list rejects uppercase hash instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata uppercase hash"
+        ],
+        "report": "/private/tmp/b139-source-hash-lowercase.json",
+        "log": "/private/tmp/b139-source-hash-lowercase.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-hash-lowercase-restore.json",
+        "log": "/private/tmp/b139-source-hash-lowercase-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "hash-type",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 117,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects short hash instead of silently stripping workspace",
+          "workspace attestation command rejects long hash instead of silently stripping workspace",
+          "workspace attestation command rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation command rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation command rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation command rejects missing hash instead of silently stripping workspace",
+          "workspace attestation state rejects short hash instead of silently stripping workspace",
+          "workspace attestation state rejects long hash instead of silently stripping workspace",
+          "workspace attestation state rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation state rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation state rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation state rejects missing hash instead of silently stripping workspace",
+          "workspace attestation list rejects short hash instead of silently stripping workspace",
+          "workspace attestation list rejects long hash instead of silently stripping workspace",
+          "workspace attestation list rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation list rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation list rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation list rejects missing hash instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata short hash",
+          "public attested workspace selector never selects invalid metadata long hash",
+          "public attested workspace selector never selects invalid metadata nonhex hash",
+          "public attested workspace selector never selects invalid metadata uppercase hash",
+          "public attested workspace selector never selects invalid metadata numeric hash",
+          "public attested workspace selector never selects invalid metadata missing hash"
+        ],
+        "report": "/private/tmp/b139-source-hash-type.json",
+        "log": "/private/tmp/b139-source-hash-type.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-hash-type-restore.json",
+        "log": "/private/tmp/b139-source-hash-type-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "hash-required",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects missing hash instead of silently stripping workspace",
+          "workspace attestation state rejects missing hash instead of silently stripping workspace",
+          "workspace attestation list rejects missing hash instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata missing hash"
+        ],
+        "report": "/private/tmp/b139-source-hash-required.json",
+        "log": "/private/tmp/b139-source-hash-required.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-hash-required-restore.json",
+        "log": "/private/tmp/b139-source-hash-required-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "date-iso",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 121,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects date only instead of silently stripping workspace",
+          "workspace attestation command rejects no timezone instead of silently stripping workspace",
+          "workspace attestation command rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation command rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation command rejects empty date instead of silently stripping workspace",
+          "workspace attestation state rejects date only instead of silently stripping workspace",
+          "workspace attestation state rejects no timezone instead of silently stripping workspace",
+          "workspace attestation state rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation state rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation state rejects empty date instead of silently stripping workspace",
+          "workspace attestation list rejects date only instead of silently stripping workspace",
+          "workspace attestation list rejects no timezone instead of silently stripping workspace",
+          "workspace attestation list rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation list rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation list rejects empty date instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata date only",
+          "public attested workspace selector never selects invalid metadata no timezone",
+          "public attested workspace selector never selects invalid metadata invalid calendar",
+          "public attested workspace selector never selects invalid metadata invalid hour",
+          "public attested workspace selector never selects invalid metadata empty date"
+        ],
+        "report": "/private/tmp/b139-source-date-iso.json",
+        "log": "/private/tmp/b139-source-date-iso.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-date-iso-restore.json",
+        "log": "/private/tmp/b139-source-date-iso-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "date-type",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 113,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects date only instead of silently stripping workspace",
+          "workspace attestation command rejects no timezone instead of silently stripping workspace",
+          "workspace attestation command rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation command rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation command rejects empty date instead of silently stripping workspace",
+          "workspace attestation command rejects numeric date instead of silently stripping workspace",
+          "workspace attestation command rejects missing date instead of silently stripping workspace",
+          "workspace attestation state rejects date only instead of silently stripping workspace",
+          "workspace attestation state rejects no timezone instead of silently stripping workspace",
+          "workspace attestation state rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation state rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation state rejects empty date instead of silently stripping workspace",
+          "workspace attestation state rejects numeric date instead of silently stripping workspace",
+          "workspace attestation state rejects missing date instead of silently stripping workspace",
+          "workspace attestation list rejects date only instead of silently stripping workspace",
+          "workspace attestation list rejects no timezone instead of silently stripping workspace",
+          "workspace attestation list rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation list rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation list rejects empty date instead of silently stripping workspace",
+          "workspace attestation list rejects numeric date instead of silently stripping workspace",
+          "workspace attestation list rejects missing date instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata date only",
+          "public attested workspace selector never selects invalid metadata no timezone",
+          "public attested workspace selector never selects invalid metadata invalid calendar",
+          "public attested workspace selector never selects invalid metadata invalid hour",
+          "public attested workspace selector never selects invalid metadata empty date",
+          "public attested workspace selector never selects invalid metadata numeric date",
+          "public attested workspace selector never selects invalid metadata missing date"
+        ],
+        "report": "/private/tmp/b139-source-date-type.json",
+        "log": "/private/tmp/b139-source-date-type.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-date-type-restore.json",
+        "log": "/private/tmp/b139-source-date-type-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "date-offset",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 131,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command retains the complete attestation rather than stripping it",
+          "workspace attestation state retains the complete attestation rather than stripping it",
+          "workspace attestation list retains the complete attestation rather than stripping it",
+          "public attested workspace selector selects the validated wire attestation",
+          "public attested workspace selector reads each row freshly and ignores desired or config fallback values",
+          "public attested workspace selector exports the shared schema from the public agent subpath",
+          "explicit absence and management evidence accepts a failed apply retaining the previous attested bundle rather than desired",
+          "explicit absence and management evidence does not infer a comparison when state version tracking is unavailable",
+          "explicit absence and management evidence does not infer a comparison when the applied configuration is explicitly unknown",
+          "explicit absence and management evidence preserves attestation independently for each inventory row"
+        ],
+        "report": "/private/tmp/b139-source-date-offset.json",
+        "log": "/private/tmp/b139-source-date-offset.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-date-offset-restore.json",
+        "log": "/private/tmp/b139-source-date-offset-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "date-required",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects missing date instead of silently stripping workspace",
+          "workspace attestation state rejects missing date instead of silently stripping workspace",
+          "workspace attestation list rejects missing date instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata missing date"
+        ],
+        "report": "/private/tmp/b139-source-date-required.json",
+        "log": "/private/tmp/b139-source-date-required.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-date-required-restore.json",
+        "log": "/private/tmp/b139-source-date-required-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "strict-attestation",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects unknown field instead of silently stripping workspace",
+          "workspace attestation state rejects unknown field instead of silently stripping workspace",
+          "workspace attestation list rejects unknown field instead of silently stripping workspace",
+          "public attested workspace selector never selects invalid metadata unknown field"
+        ],
+        "report": "/private/tmp/b139-source-strict-attestation.json",
+        "log": "/private/tmp/b139-source-strict-attestation.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-strict-attestation-restore.json",
+        "log": "/private/tmp/b139-source-strict-attestation-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "object-attestation",
+      "file": "src/agent/agent-workspace-attestation.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 51,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command rejects short hash instead of silently stripping workspace",
+          "workspace attestation command rejects long hash instead of silently stripping workspace",
+          "workspace attestation command rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation command rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation command rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation command rejects date only instead of silently stripping workspace",
+          "workspace attestation command rejects no timezone instead of silently stripping workspace",
+          "workspace attestation command rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation command rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation command rejects empty date instead of silently stripping workspace",
+          "workspace attestation command rejects numeric date instead of silently stripping workspace",
+          "workspace attestation command rejects missing hash instead of silently stripping workspace",
+          "workspace attestation command rejects missing date instead of silently stripping workspace",
+          "workspace attestation command rejects unknown field instead of silently stripping workspace",
+          "workspace attestation state rejects short hash instead of silently stripping workspace",
+          "workspace attestation state rejects long hash instead of silently stripping workspace",
+          "workspace attestation state rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation state rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation state rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation state rejects date only instead of silently stripping workspace",
+          "workspace attestation state rejects no timezone instead of silently stripping workspace",
+          "workspace attestation state rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation state rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation state rejects empty date instead of silently stripping workspace",
+          "workspace attestation state rejects numeric date instead of silently stripping workspace",
+          "workspace attestation state rejects missing hash instead of silently stripping workspace",
+          "workspace attestation state rejects missing date instead of silently stripping workspace",
+          "workspace attestation state rejects unknown field instead of silently stripping workspace",
+          "workspace attestation list rejects zero instead of silently stripping workspace",
+          "workspace attestation list rejects negative instead of silently stripping workspace",
+          "workspace attestation list rejects fraction instead of silently stripping workspace",
+          "workspace attestation list rejects numeric string instead of silently stripping workspace",
+          "workspace attestation list rejects unsafe integer instead of silently stripping workspace",
+          "workspace attestation list rejects infinite instead of silently stripping workspace",
+          "workspace attestation list rejects NaN instead of silently stripping workspace",
+          "workspace attestation list rejects boolean version instead of silently stripping workspace",
+          "workspace attestation list rejects short hash instead of silently stripping workspace",
+          "workspace attestation list rejects long hash instead of silently stripping workspace",
+          "workspace attestation list rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation list rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation list rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation list rejects date only instead of silently stripping workspace",
+          "workspace attestation list rejects no timezone instead of silently stripping workspace",
+          "workspace attestation list rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation list rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation list rejects empty date instead of silently stripping workspace",
+          "workspace attestation list rejects numeric date instead of silently stripping workspace",
+          "workspace attestation list rejects missing version instead of silently stripping workspace",
+          "workspace attestation list rejects missing hash instead of silently stripping workspace",
+          "workspace attestation list rejects missing date instead of silently stripping workspace",
+          "workspace attestation list rejects unknown field instead of silently stripping workspace",
+          "workspace attestation list rejects array instead of silently stripping workspace",
+          "workspace attestation list rejects string instead of silently stripping workspace",
+          "workspace attestation list rejects boolean instead of silently stripping workspace",
+          "public attested workspace selector returns null without a canonical root attestation at case 2",
+          "public attested workspace selector returns null without a canonical root attestation at case 3",
+          "public attested workspace selector returns null without a canonical root attestation at case 4",
+          "public attested workspace selector returns null without a canonical root attestation at case 5",
+          "public attested workspace selector returns null without a canonical root attestation at case 6",
+          "public attested workspace selector returns null without a canonical root attestation at case 7",
+          "public attested workspace selector returns null without a canonical root attestation at case 8",
+          "public attested workspace selector returns null without a canonical root attestation at case 9",
+          "public attested workspace selector returns null without a canonical root attestation at case 10",
+          "public attested workspace selector never selects invalid metadata zero",
+          "public attested workspace selector never selects invalid metadata negative",
+          "public attested workspace selector never selects invalid metadata fraction",
+          "public attested workspace selector never selects invalid metadata numeric string",
+          "public attested workspace selector never selects invalid metadata unsafe integer",
+          "public attested workspace selector never selects invalid metadata infinite",
+          "public attested workspace selector never selects invalid metadata NaN",
+          "public attested workspace selector never selects invalid metadata boolean version",
+          "public attested workspace selector never selects invalid metadata short hash",
+          "public attested workspace selector never selects invalid metadata long hash",
+          "public attested workspace selector never selects invalid metadata nonhex hash",
+          "public attested workspace selector never selects invalid metadata uppercase hash",
+          "public attested workspace selector never selects invalid metadata numeric hash",
+          "public attested workspace selector never selects invalid metadata date only",
+          "public attested workspace selector never selects invalid metadata no timezone",
+          "public attested workspace selector never selects invalid metadata invalid calendar",
+          "public attested workspace selector never selects invalid metadata invalid hour",
+          "public attested workspace selector never selects invalid metadata empty date",
+          "public attested workspace selector never selects invalid metadata numeric date",
+          "public attested workspace selector never selects invalid metadata missing version",
+          "public attested workspace selector never selects invalid metadata missing hash",
+          "public attested workspace selector never selects invalid metadata missing date",
+          "public attested workspace selector never selects invalid metadata unknown field",
+          "public attested workspace selector never selects invalid metadata array",
+          "public attested workspace selector never selects invalid metadata string",
+          "public attested workspace selector never selects invalid metadata boolean",
+          "public attested workspace selector reads each row freshly and ignores desired or config fallback values"
+        ],
+        "report": "/private/tmp/b139-source-object-attestation.json",
+        "log": "/private/tmp/b139-source-object-attestation.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-object-attestation-restore.json",
+        "log": "/private/tmp/b139-source-object-attestation-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "workspace-version-present",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command preserves a legacy payload exactly without inventing an attestation",
+          "workspace attestation state preserves a legacy payload exactly without inventing an attestation",
+          "explicit absence and management evidence preserves state and list null without inventing an outcome",
+          "explicit absence and management evidence accepts an incomplete command with an explicit failed runtime and retains null"
+        ],
+        "report": "/private/tmp/b139-source-workspace-version-present.json",
+        "log": "/private/tmp/b139-source-workspace-version-present.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-workspace-version-present-restore.json",
+        "log": "/private/tmp/b139-source-workspace-version-present-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "applied-config-present",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence does not infer a comparison when state version tracking is unavailable",
+          "explicit absence and management evidence does not infer a comparison when the applied configuration is explicitly unknown"
+        ],
+        "report": "/private/tmp/b139-source-applied-config-present.json",
+        "log": "/private/tmp/b139-source-applied-config-present.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-applied-config-present-restore.json",
+        "log": "/private/tmp/b139-source-applied-config-present-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "bundle-version-equality",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 137,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence rejects command attestation contradicting applied config 7",
+          "explicit absence and management evidence rejects command attestation contradicting applied config 9",
+          "explicit absence and management evidence rejects state attestation contradicting applied config 7",
+          "explicit absence and management evidence rejects state attestation contradicting applied config 9"
+        ],
+        "report": "/private/tmp/b139-source-bundle-version-equality.json",
+        "log": "/private/tmp/b139-source-bundle-version-equality.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-bundle-version-equality-restore.json",
+        "log": "/private/tmp/b139-source-bundle-version-equality-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-version-binding",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence rejects command attestation contradicting applied config 7",
+          "explicit absence and management evidence rejects command attestation contradicting applied config 9"
+        ],
+        "report": "/private/tmp/b139-source-command-version-binding.json",
+        "log": "/private/tmp/b139-source-command-version-binding.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-command-version-binding-restore.json",
+        "log": "/private/tmp/b139-source-command-version-binding-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "state-version-binding",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence rejects state attestation contradicting applied config 7",
+          "explicit absence and management evidence rejects state attestation contradicting applied config 9"
+        ],
+        "report": "/private/tmp/b139-source-state-version-binding.json",
+        "log": "/private/tmp/b139-source-state-version-binding.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-state-version-binding-restore.json",
+        "log": "/private/tmp/b139-source-state-version-binding-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-null-outcome",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 138,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence rejects null hidden behind global success",
+          "explicit absence and management evidence rejects null when only a capability failed and the runtime was successful",
+          "explicit absence and management evidence rejects null without a runtime result even when overall outcome is error"
+        ],
+        "report": "/private/tmp/b139-source-command-null-outcome.json",
+        "log": "/private/tmp/b139-source-command-null-outcome.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-command-null-outcome-restore.json",
+        "log": "/private/tmp/b139-source-command-null-outcome-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-runtime-target",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence rejects null when only a capability failed and the runtime was successful",
+          "explicit absence and management evidence rejects null without a runtime result even when overall outcome is error"
+        ],
+        "report": "/private/tmp/b139-source-command-runtime-target.json",
+        "log": "/private/tmp/b139-source-command-runtime-target.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-command-runtime-target-restore.json",
+        "log": "/private/tmp/b139-source-command-runtime-target-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-runtime-failure",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence rejects null hidden behind global success",
+          "explicit absence and management evidence rejects null when only a capability failed and the runtime was successful"
+        ],
+        "report": "/private/tmp/b139-source-command-runtime-failure.json",
+        "log": "/private/tmp/b139-source-command-runtime-failure.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-command-runtime-failure-restore.json",
+        "log": "/private/tmp/b139-source-command-runtime-failure-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "selector-object",
+      "file": "src/agent/agent-workspace.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "public attested workspace selector returns null without a canonical root attestation at case 0",
+          "public attested workspace selector returns null without a canonical root attestation at case 1"
+        ],
+        "report": "/private/tmp/b139-source-selector-object.json",
+        "log": "/private/tmp/b139-source-selector-object.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-selector-object-restore.json",
+        "log": "/private/tmp/b139-source-selector-object-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "selector-validation",
+      "file": "src/agent/agent-workspace.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 119,
+        "total": 141,
+        "semantic": [
+          "public attested workspace selector never selects invalid metadata zero",
+          "public attested workspace selector never selects invalid metadata negative",
+          "public attested workspace selector never selects invalid metadata fraction",
+          "public attested workspace selector never selects invalid metadata numeric string",
+          "public attested workspace selector never selects invalid metadata unsafe integer",
+          "public attested workspace selector never selects invalid metadata infinite",
+          "public attested workspace selector never selects invalid metadata NaN",
+          "public attested workspace selector never selects invalid metadata boolean version",
+          "public attested workspace selector never selects invalid metadata short hash",
+          "public attested workspace selector never selects invalid metadata long hash",
+          "public attested workspace selector never selects invalid metadata nonhex hash",
+          "public attested workspace selector never selects invalid metadata uppercase hash",
+          "public attested workspace selector never selects invalid metadata numeric hash",
+          "public attested workspace selector never selects invalid metadata date only",
+          "public attested workspace selector never selects invalid metadata no timezone",
+          "public attested workspace selector never selects invalid metadata invalid calendar",
+          "public attested workspace selector never selects invalid metadata invalid hour",
+          "public attested workspace selector never selects invalid metadata empty date",
+          "public attested workspace selector never selects invalid metadata numeric date",
+          "public attested workspace selector never selects invalid metadata missing hash",
+          "public attested workspace selector never selects invalid metadata missing date",
+          "public attested workspace selector never selects invalid metadata unknown field"
+        ],
+        "report": "/private/tmp/b139-source-selector-validation.json",
+        "log": "/private/tmp/b139-source-selector-validation.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-selector-validation-restore.json",
+        "log": "/private/tmp/b139-source-selector-validation-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "selector-null",
+      "file": "src/agent/agent-workspace.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 105,
+        "total": 141,
+        "semantic": [
+          "public attested workspace selector returns null without a canonical root attestation at case 2",
+          "public attested workspace selector returns null without a canonical root attestation at case 3",
+          "public attested workspace selector returns null without a canonical root attestation at case 4",
+          "public attested workspace selector returns null without a canonical root attestation at case 5",
+          "public attested workspace selector returns null without a canonical root attestation at case 6",
+          "public attested workspace selector returns null without a canonical root attestation at case 7",
+          "public attested workspace selector returns null without a canonical root attestation at case 8",
+          "public attested workspace selector returns null without a canonical root attestation at case 9",
+          "public attested workspace selector returns null without a canonical root attestation at case 10",
+          "public attested workspace selector never selects invalid metadata zero",
+          "public attested workspace selector never selects invalid metadata negative",
+          "public attested workspace selector never selects invalid metadata fraction",
+          "public attested workspace selector never selects invalid metadata numeric string",
+          "public attested workspace selector never selects invalid metadata unsafe integer",
+          "public attested workspace selector never selects invalid metadata infinite",
+          "public attested workspace selector never selects invalid metadata NaN",
+          "public attested workspace selector never selects invalid metadata boolean version",
+          "public attested workspace selector never selects invalid metadata short hash",
+          "public attested workspace selector never selects invalid metadata long hash",
+          "public attested workspace selector never selects invalid metadata nonhex hash",
+          "public attested workspace selector never selects invalid metadata uppercase hash",
+          "public attested workspace selector never selects invalid metadata numeric hash",
+          "public attested workspace selector never selects invalid metadata date only",
+          "public attested workspace selector never selects invalid metadata no timezone",
+          "public attested workspace selector never selects invalid metadata invalid calendar",
+          "public attested workspace selector never selects invalid metadata invalid hour",
+          "public attested workspace selector never selects invalid metadata empty date",
+          "public attested workspace selector never selects invalid metadata numeric date",
+          "public attested workspace selector never selects invalid metadata missing version",
+          "public attested workspace selector never selects invalid metadata missing hash",
+          "public attested workspace selector never selects invalid metadata missing date",
+          "public attested workspace selector never selects invalid metadata unknown field",
+          "public attested workspace selector never selects invalid metadata array",
+          "public attested workspace selector never selects invalid metadata string",
+          "public attested workspace selector never selects invalid metadata boolean",
+          "public attested workspace selector reads each row freshly and ignores desired or config fallback values"
+        ],
+        "report": "/private/tmp/b139-source-selector-null.json",
+        "log": "/private/tmp/b139-source-selector-null.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-selector-null-restore.json",
+        "log": "/private/tmp/b139-source-selector-null-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "selector-fallback",
+      "file": "src/agent/agent-workspace.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "public attested workspace selector returns null without a canonical root attestation at case 5"
+        ],
+        "report": "/private/tmp/b139-source-selector-fallback.json",
+        "log": "/private/tmp/b139-source-selector-fallback.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-selector-fallback-restore.json",
+        "log": "/private/tmp/b139-source-selector-fallback-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "selector-fresh",
+      "file": "src/agent/agent-workspace.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "public attested workspace selector reads each row freshly and ignores desired or config fallback values"
+        ],
+        "report": "/private/tmp/b139-source-selector-fresh.json",
+        "log": "/private/tmp/b139-source-selector-fresh.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-selector-fresh-restore.json",
+        "log": "/private/tmp/b139-source-selector-fresh-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "public-schema",
+      "file": "src/agent/agent-workspace.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "public attested workspace selector exports the shared schema from the public agent subpath"
+        ],
+        "report": "/private/tmp/b139-source-public-schema.json",
+        "log": "/private/tmp/b139-source-public-schema.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-public-schema-restore.json",
+        "log": "/private/tmp/b139-source-public-schema-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "public-helper",
+      "file": "src/agent/agent-workspace.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 102,
+        "total": 141,
+        "semantic": [
+          "public attested workspace selector selects the validated wire attestation",
+          "public attested workspace selector returns null without a canonical root attestation at case 0",
+          "public attested workspace selector returns null without a canonical root attestation at case 1",
+          "public attested workspace selector returns null without a canonical root attestation at case 2",
+          "public attested workspace selector returns null without a canonical root attestation at case 3",
+          "public attested workspace selector returns null without a canonical root attestation at case 4",
+          "public attested workspace selector returns null without a canonical root attestation at case 5",
+          "public attested workspace selector returns null without a canonical root attestation at case 6",
+          "public attested workspace selector returns null without a canonical root attestation at case 7",
+          "public attested workspace selector returns null without a canonical root attestation at case 8",
+          "public attested workspace selector returns null without a canonical root attestation at case 9",
+          "public attested workspace selector returns null without a canonical root attestation at case 10",
+          "public attested workspace selector never selects invalid metadata zero",
+          "public attested workspace selector never selects invalid metadata negative",
+          "public attested workspace selector never selects invalid metadata fraction",
+          "public attested workspace selector never selects invalid metadata numeric string",
+          "public attested workspace selector never selects invalid metadata unsafe integer",
+          "public attested workspace selector never selects invalid metadata infinite",
+          "public attested workspace selector never selects invalid metadata NaN",
+          "public attested workspace selector never selects invalid metadata boolean version",
+          "public attested workspace selector never selects invalid metadata short hash",
+          "public attested workspace selector never selects invalid metadata long hash",
+          "public attested workspace selector never selects invalid metadata nonhex hash",
+          "public attested workspace selector never selects invalid metadata uppercase hash",
+          "public attested workspace selector never selects invalid metadata numeric hash",
+          "public attested workspace selector never selects invalid metadata date only",
+          "public attested workspace selector never selects invalid metadata no timezone",
+          "public attested workspace selector never selects invalid metadata invalid calendar",
+          "public attested workspace selector never selects invalid metadata invalid hour",
+          "public attested workspace selector never selects invalid metadata empty date",
+          "public attested workspace selector never selects invalid metadata numeric date",
+          "public attested workspace selector never selects invalid metadata missing version",
+          "public attested workspace selector never selects invalid metadata missing hash",
+          "public attested workspace selector never selects invalid metadata missing date",
+          "public attested workspace selector never selects invalid metadata unknown field",
+          "public attested workspace selector never selects invalid metadata array",
+          "public attested workspace selector never selects invalid metadata string",
+          "public attested workspace selector never selects invalid metadata boolean",
+          "public attested workspace selector reads each row freshly and ignores desired or config fallback values"
+        ],
+        "report": "/private/tmp/b139-source-public-helper.json",
+        "log": "/private/tmp/b139-source-public-helper.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-public-helper-restore.json",
+        "log": "/private/tmp/b139-source-public-helper-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-optional",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command preserves a legacy payload exactly without inventing an attestation"
+        ],
+        "report": "/private/tmp/b139-source-command-optional.json",
+        "log": "/private/tmp/b139-source-command-optional.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-command-optional-restore.json",
+        "log": "/private/tmp/b139-source-command-optional-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-nullable",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 139,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence accepts an incomplete command with an explicit failed runtime and retains null",
+          "explicit absence and management evidence accepts null with partial outcome when the runtime actually failed"
+        ],
+        "report": "/private/tmp/b139-source-command-nullable.json",
+        "log": "/private/tmp/b139-source-command-nullable.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-command-nullable-restore.json",
+        "log": "/private/tmp/b139-source-command-nullable-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "command-retained",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 105,
+        "total": 141,
+        "semantic": [
+          "workspace attestation command retains the complete attestation rather than stripping it",
+          "workspace attestation command accepts UTC as well as explicit timezone offsets",
+          "workspace attestation command rejects zero instead of silently stripping workspace",
+          "workspace attestation command rejects negative instead of silently stripping workspace",
+          "workspace attestation command rejects fraction instead of silently stripping workspace",
+          "workspace attestation command rejects numeric string instead of silently stripping workspace",
+          "workspace attestation command rejects unsafe integer instead of silently stripping workspace",
+          "workspace attestation command rejects infinite instead of silently stripping workspace",
+          "workspace attestation command rejects NaN instead of silently stripping workspace",
+          "workspace attestation command rejects boolean version instead of silently stripping workspace",
+          "workspace attestation command rejects short hash instead of silently stripping workspace",
+          "workspace attestation command rejects long hash instead of silently stripping workspace",
+          "workspace attestation command rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation command rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation command rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation command rejects date only instead of silently stripping workspace",
+          "workspace attestation command rejects no timezone instead of silently stripping workspace",
+          "workspace attestation command rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation command rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation command rejects empty date instead of silently stripping workspace",
+          "workspace attestation command rejects numeric date instead of silently stripping workspace",
+          "workspace attestation command rejects missing version instead of silently stripping workspace",
+          "workspace attestation command rejects missing hash instead of silently stripping workspace",
+          "workspace attestation command rejects missing date instead of silently stripping workspace",
+          "workspace attestation command rejects unknown field instead of silently stripping workspace",
+          "workspace attestation command rejects array instead of silently stripping workspace",
+          "workspace attestation command rejects string instead of silently stripping workspace",
+          "workspace attestation command rejects boolean instead of silently stripping workspace",
+          "explicit absence and management evidence accepts an incomplete command with an explicit failed runtime and retains null",
+          "explicit absence and management evidence rejects null hidden behind global success",
+          "explicit absence and management evidence rejects null when only a capability failed and the runtime was successful",
+          "explicit absence and management evidence accepts null with partial outcome when the runtime actually failed",
+          "explicit absence and management evidence rejects null without a runtime result even when overall outcome is error",
+          "explicit absence and management evidence rejects command attestation contradicting applied config 7",
+          "explicit absence and management evidence rejects command attestation contradicting applied config 9",
+          "explicit absence and management evidence accepts a failed apply retaining the previous attested bundle rather than desired"
+        ],
+        "report": "/private/tmp/b139-source-command-retained.json",
+        "log": "/private/tmp/b139-source-command-retained.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-command-retained-restore.json",
+        "log": "/private/tmp/b139-source-command-retained-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "state-optional",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "workspace attestation state preserves a legacy payload exactly without inventing an attestation"
+        ],
+        "report": "/private/tmp/b139-source-state-optional.json",
+        "log": "/private/tmp/b139-source-state-optional.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-state-optional-restore.json",
+        "log": "/private/tmp/b139-source-state-optional-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "state-nullable",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence preserves state and list null without inventing an outcome"
+        ],
+        "report": "/private/tmp/b139-source-state-nullable.json",
+        "log": "/private/tmp/b139-source-state-nullable.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-state-nullable-restore.json",
+        "log": "/private/tmp/b139-source-state-nullable-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "state-retained",
+      "file": "src/agent/agent-management.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 108,
+        "total": 141,
+        "semantic": [
+          "workspace attestation state retains the complete attestation rather than stripping it",
+          "workspace attestation state accepts UTC as well as explicit timezone offsets",
+          "workspace attestation state rejects zero instead of silently stripping workspace",
+          "workspace attestation state rejects negative instead of silently stripping workspace",
+          "workspace attestation state rejects fraction instead of silently stripping workspace",
+          "workspace attestation state rejects numeric string instead of silently stripping workspace",
+          "workspace attestation state rejects unsafe integer instead of silently stripping workspace",
+          "workspace attestation state rejects infinite instead of silently stripping workspace",
+          "workspace attestation state rejects NaN instead of silently stripping workspace",
+          "workspace attestation state rejects boolean version instead of silently stripping workspace",
+          "workspace attestation state rejects short hash instead of silently stripping workspace",
+          "workspace attestation state rejects long hash instead of silently stripping workspace",
+          "workspace attestation state rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation state rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation state rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation state rejects date only instead of silently stripping workspace",
+          "workspace attestation state rejects no timezone instead of silently stripping workspace",
+          "workspace attestation state rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation state rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation state rejects empty date instead of silently stripping workspace",
+          "workspace attestation state rejects numeric date instead of silently stripping workspace",
+          "workspace attestation state rejects missing version instead of silently stripping workspace",
+          "workspace attestation state rejects missing hash instead of silently stripping workspace",
+          "workspace attestation state rejects missing date instead of silently stripping workspace",
+          "workspace attestation state rejects unknown field instead of silently stripping workspace",
+          "workspace attestation state rejects array instead of silently stripping workspace",
+          "workspace attestation state rejects string instead of silently stripping workspace",
+          "workspace attestation state rejects boolean instead of silently stripping workspace",
+          "explicit absence and management evidence preserves state and list null without inventing an outcome",
+          "explicit absence and management evidence rejects state attestation contradicting applied config 7",
+          "explicit absence and management evidence rejects state attestation contradicting applied config 9",
+          "explicit absence and management evidence does not infer a comparison when state version tracking is unavailable",
+          "explicit absence and management evidence does not infer a comparison when the applied configuration is explicitly unknown"
+        ],
+        "report": "/private/tmp/b139-source-state-retained.json",
+        "log": "/private/tmp/b139-source-state-retained.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-state-retained-restore.json",
+        "log": "/private/tmp/b139-source-state-retained-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "list-optional",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "workspace attestation list preserves a legacy payload exactly without inventing an attestation"
+        ],
+        "report": "/private/tmp/b139-source-list-optional.json",
+        "log": "/private/tmp/b139-source-list-optional.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-list-optional-restore.json",
+        "log": "/private/tmp/b139-source-list-optional-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "list-nullable",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 140,
+        "total": 141,
+        "semantic": [
+          "explicit absence and management evidence preserves state and list null without inventing an outcome"
+        ],
+        "report": "/private/tmp/b139-source-list-nullable.json",
+        "log": "/private/tmp/b139-source-list-nullable.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-list-nullable-restore.json",
+        "log": "/private/tmp/b139-source-list-nullable-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "list-retained",
+      "file": "src/http/endpoints/internal-agents-list.ts",
+      "qualified": true,
+      "mutation": {
+        "exit": 1,
+        "passed": 111,
+        "total": 141,
+        "semantic": [
+          "workspace attestation list retains the complete attestation rather than stripping it",
+          "workspace attestation list accepts UTC as well as explicit timezone offsets",
+          "workspace attestation list rejects zero instead of silently stripping workspace",
+          "workspace attestation list rejects negative instead of silently stripping workspace",
+          "workspace attestation list rejects fraction instead of silently stripping workspace",
+          "workspace attestation list rejects numeric string instead of silently stripping workspace",
+          "workspace attestation list rejects unsafe integer instead of silently stripping workspace",
+          "workspace attestation list rejects infinite instead of silently stripping workspace",
+          "workspace attestation list rejects NaN instead of silently stripping workspace",
+          "workspace attestation list rejects boolean version instead of silently stripping workspace",
+          "workspace attestation list rejects short hash instead of silently stripping workspace",
+          "workspace attestation list rejects long hash instead of silently stripping workspace",
+          "workspace attestation list rejects nonhex hash instead of silently stripping workspace",
+          "workspace attestation list rejects uppercase hash instead of silently stripping workspace",
+          "workspace attestation list rejects numeric hash instead of silently stripping workspace",
+          "workspace attestation list rejects date only instead of silently stripping workspace",
+          "workspace attestation list rejects no timezone instead of silently stripping workspace",
+          "workspace attestation list rejects invalid calendar instead of silently stripping workspace",
+          "workspace attestation list rejects invalid hour instead of silently stripping workspace",
+          "workspace attestation list rejects empty date instead of silently stripping workspace",
+          "workspace attestation list rejects numeric date instead of silently stripping workspace",
+          "workspace attestation list rejects missing version instead of silently stripping workspace",
+          "workspace attestation list rejects missing hash instead of silently stripping workspace",
+          "workspace attestation list rejects missing date instead of silently stripping workspace",
+          "workspace attestation list rejects unknown field instead of silently stripping workspace",
+          "workspace attestation list rejects array instead of silently stripping workspace",
+          "workspace attestation list rejects string instead of silently stripping workspace",
+          "workspace attestation list rejects boolean instead of silently stripping workspace",
+          "explicit absence and management evidence preserves state and list null without inventing an outcome",
+          "explicit absence and management evidence preserves attestation independently for each inventory row"
+        ],
+        "report": "/private/tmp/b139-source-list-retained.json",
+        "log": "/private/tmp/b139-source-list-retained.log"
+      },
+      "restore": {
+        "exit": 0,
+        "passed": 141,
+        "total": 141,
+        "semantic": [],
+        "report": "/private/tmp/b139-source-list-retained-restore.json",
+        "log": "/private/tmp/b139-source-list-retained-restore.log"
+      },
+      "sha_restored": true
+    }
+  ],
+  "source_sha256": {
+    "src/agent/agent-workspace-attestation.ts": "adb28ff42b09dedf42661bd8c434de403e6ca10ee0e405cbac8674ef9cdcea63",
+    "src/agent/agent-management.ts": "b8d283dd6c3146bb1a5166702eb4a42a1516d2bb83b772aa7256a072953fbe7c",
+    "src/agent/agent-workspace.ts": "336fad4ea6b19e471b9c42ecea567c313806cebd0dcada037d023f673aa1f915",
+    "src/http/endpoints/internal-agents-list.ts": "4b219b4bc7a2a3dc483d178a4d9953e0468cfec1a9c04d82555cdb285102e03e"
+  }
+}

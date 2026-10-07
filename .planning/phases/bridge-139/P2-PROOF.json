@@ -1,0 +1,151 @@
+{
+  "product_sha": "9c97b18c45558d2887d4ad1eff3e4046f2be6e56",
+  "test_proof_sha": "e99248c",
+  "verdict": "READY_FOR_INDEPENDENT_DELTA_REVIEW",
+  "not_a_release": true,
+  "source_first_red": [
+    20,
+    27
+  ],
+  "source_green": [
+    153,
+    153
+  ],
+  "source_mutations": [
+    8,
+    8
+  ],
+  "compiled_mutations": [
+    16,
+    16
+  ],
+  "compiled_tests": [
+    141,
+    141
+  ],
+  "compiled_dist_restored": {
+    "restored": [
+      1210,
+      1210
+    ],
+    "mutations": [
+      16,
+      16
+    ]
+  },
+  "native_full": [
+    2619,
+    2619
+  ],
+  "native_pending": 0,
+  "native_cjs_unique": [
+    57,
+    57
+  ],
+  "native_quality": [
+    4,
+    4
+  ],
+  "portable_dts": [
+    302,
+    302
+  ],
+  "type_declarations_unchanged": [
+    302,
+    302
+  ],
+  "input_build_final": [
+    406,
+    406
+  ],
+  "perimeter_before_final_metadata_commit": {
+    "base": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+    "head": "e99248ce75e54a60f7db281d721465bfb2a47516",
+    "changed": [
+      ".planning/phases/bridge-139/ARCHIVE-PROOF.json",
+      ".planning/phases/bridge-139/BUILD-INPUTS.json",
+      ".planning/phases/bridge-139/COMPILED-MUTATIONS.json",
+      ".planning/phases/bridge-139/CTS-PROOF.json",
+      ".planning/phases/bridge-139/METADATA-MUTATIONS.json",
+      ".planning/phases/bridge-139/P2-ARCHIVE-FINAL.json",
+      ".planning/phases/bridge-139/P2-ARCHIVE-PROOF.json",
+      ".planning/phases/bridge-139/P2-COMPILED-DIAGNOSTIC.json",
+      ".planning/phases/bridge-139/P2-COMPILED-MUTATIONS.json",
+      ".planning/phases/bridge-139/P2-FIRST-GREEN.json",
+      ".planning/phases/bridge-139/P2-FIRST-RED.json",
+      ".planning/phases/bridge-139/P2-FULL-SOURCE.json",
+      ".planning/phases/bridge-139/P2-QUALITY.json",
+      ".planning/phases/bridge-139/P2-SOURCE-DIAGNOSTIC.json",
+      ".planning/phases/bridge-139/P2-SOURCE-MUTATIONS.json",
+      ".planning/phases/bridge-139/P2-TYPE-COMPATIBILITY.json",
+      ".planning/phases/bridge-139/PERIMETER.json",
+      ".planning/phases/bridge-139/PLAN.md",
+      ".planning/phases/bridge-139/PROOF.json",
+      ".planning/phases/bridge-139/QUALITY.json",
+      ".planning/phases/bridge-139/SOURCE-MUTATIONS.json",
+      ".planning/phases/bridge-139/SUMMARY.md",
+      ".planning/phases/bridge-139/compiled-mutations.py",
+      ".planning/phases/bridge-139/cts-proof.py",
+      ".planning/phases/bridge-139/metadata-mutations.py",
+      ".planning/phases/bridge-139/p2-compiled-mutations.py",
+      ".planning/phases/bridge-139/p2-source-mutations.py",
+      ".planning/phases/bridge-139/perimeter.py",
+      ".planning/phases/bridge-139/source-mutations.py",
+      "src/agent/agent-inventory-metadata.ts",
+      "src/agent/agent-management.ts",
+      "src/agent/agent-runtime-state.ts",
+      "src/agent/agent-workspace-attestation.ts",
+      "src/agent/agent-workspace.ts",
+      "src/agent/index.ts",
+      "src/http/endpoints/internal-agents-list.ts",
+      "tests/agent/bridge139-inventory-metadata.test.ts",
+      "tests/agent/bridge139-telegram-username.test.ts",
+      "tests/agent/bridge139-workspace-attestation.test.ts",
+      "tests/cjs/bridge139-metadata.cjs",
+      "tests/cjs/bridge139-metadata.cts",
+      "tests/cjs/bridge139-telegram-username.cjs",
+      "tests/cjs/bridge139-workspace.cjs",
+      "tests/cjs/bridge139-workspace.cts"
+    ],
+    "changed_allowed": 44,
+    "changed_total": 44,
+    "protected_equal": 2588,
+    "protected_total": 2588,
+    "negative_probes": [
+      {
+        "path": "package.json",
+        "scope_rejected": true,
+        "changed_blob_detected": true
+      },
+      {
+        "path": "CHANGELOG.md",
+        "scope_rejected": true,
+        "changed_blob_detected": true
+      },
+      {
+        "path": "dist/index.cjs",
+        "scope_rejected": true,
+        "changed_blob_detected": true
+      },
+      {
+        "path": "src/vault/workspace-file.ts",
+        "scope_rejected": true,
+        "changed_blob_detected": true
+      }
+    ],
+    "method": "Git tree object IDs and modes only, no reading protected file content; four in-memory changed object probes, no file edits"
+  },
+  "archive_sha256": "4d6039e813ad8b265e91898f0472531da62bd5745707c1139cc5df5218073812",
+  "source_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3",
+  "private_folder": "/private/tmp/b139-p2-build",
+  "official_rule_sources": [
+    "https://core.telegram.org/bots/features#creating-a-new-bot",
+    "https://core.telegram.org/method/bots.checkUsername"
+  ],
+  "excluded_diagnostics": [
+    "absolute-end equivalent mutant survived in provisional source campaign; final regex campaign repeated",
+    "ESM-case raw ZodError excluded; positive/legacy fixture assertions strengthened and full16compiled repeated",
+    "604declaration count was a typo; corrected to measured302before final handoff"
+  ],
+  "scope": "only observed botUsername guard and tests; AgentTelegramBot legacy shape, version, root package, CHANGELOG and rootdist untouched"
+}

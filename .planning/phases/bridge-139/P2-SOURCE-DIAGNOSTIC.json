@@ -1,0 +1,107 @@
+[
+  {
+    "name": "min",
+    "old": ".min(5)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "passed": 152,
+      "total": 153,
+      "failed": 1,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "a69e8888b404b61ad63388a34528f42d64ed8ab259731116918ca6be18ce04ba",
+    "restored_sha256": "520463ef07967bb0c21dc7adab30f55007dadb0dfd86dc077846b8efcb29569f"
+  },
+  {
+    "name": "max",
+    "old": ".max(32)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "passed": 152,
+      "total": 153,
+      "failed": 1,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "7373d735cf589da5b6bb1e72507776bb9dbe38a3c209a2072cb5f3d5e1181443",
+    "restored_sha256": "520463ef07967bb0c21dc7adab30f55007dadb0dfd86dc077846b8efcb29569f"
+  },
+  {
+    "name": "alphabet",
+    "old": "/^[A-Za-z0-9_]+bot(?![\\s\\S])/i",
+    "new": "/^.+bot(?![\\s\\S])/i",
+    "red": {
+      "exit": 1,
+      "passed": 145,
+      "total": 153,
+      "failed": 8,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "fb81be2a852ed4a79e6a3febcee72fa8fa3073ae50dc7cfe18301730e427a98d",
+    "restored_sha256": "520463ef07967bb0c21dc7adab30f55007dadb0dfd86dc077846b8efcb29569f"
+  },
+  {
+    "name": "suffix",
+    "old": "/^[A-Za-z0-9_]+bot(?![\\s\\S])/i",
+    "new": "/^[A-Za-z0-9_]+(?![\\s\\S])/i",
+    "red": {
+      "exit": 1,
+      "passed": 152,
+      "total": 153,
+      "failed": 1,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "8520e2713bbf48c15b8eb3dc1d75d70a6097cdcb3da6d1d3e4f6475f7fa0bc23",
+    "restored_sha256": "520463ef07967bb0c21dc7adab30f55007dadb0dfd86dc077846b8efcb29569f"
+  },
+  {
+    "name": "case",
+    "old": "/^[A-Za-z0-9_]+bot(?![\\s\\S])/i",
+    "new": "/^[A-Za-z0-9_]+bot(?![\\s\\S])/",
+    "red": {
+      "exit": 1,
+      "passed": 149,
+      "total": 153,
+      "failed": 4,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "71c52078c938c660f3fac28b3b950bf5b2e0b2705a8bcd738c24807c5e1944b8",
+    "restored_sha256": "520463ef07967bb0c21dc7adab30f55007dadb0dfd86dc077846b8efcb29569f"
+  }
+]

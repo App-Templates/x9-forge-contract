@@ -1,4 +1,6 @@
 import { z } from 'zod';
+export { AgentWorkspaceAttestationSchema } from "./agent-workspace-attestation.cjs";
+export type { AgentWorkspaceAttestation } from "./agent-workspace-attestation.cjs";
 /** D-A9: these exact root-relative names replace Forge's temporary CORE_MODEL_FILES list. */
 export declare const AGENT_WORKSPACE_HUMAN_FILES: readonly ["IDENTITY.md", "SOUL.md", "POLICIES.md", "USER.md"];
 export declare const AGENT_WORKSPACE_TOOLS_FILE: "TOOLS.md";
@@ -949,6 +951,8 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
         error: z.ZodNullable<z.ZodObject<{
@@ -1529,6 +1533,8 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
         error: z.ZodNullable<z.ZodObject<{
@@ -1977,4 +1983,10 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
 export type AgentContextWithWorkspace = z.infer<typeof AgentContextWithWorkspaceSchema>;
 /** Version comes only from a validated applied bundle; never guess from file histories or configVersion. */
 export declare function appliedWorkspaceVersion(ctx: Pick<AgentContextWithWorkspace, 'workspace'>): number | null;
+/**
+ * Read only a validated wire attestation. Never derive readiness/version from configVersion, desired files,
+ * file histories, registry metadata or another row. Forge compares this bundle with the archived descriptor
+ * for its configuration snapshot; X9 supplies it only after loading the effective verified snapshot.
+ */
+export declare function attestedWorkspaceVersionOf(row: unknown): number | null;
 //# sourceMappingURL=agent-workspace.d.ts.map

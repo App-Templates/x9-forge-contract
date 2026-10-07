@@ -47,6 +47,8 @@ export declare const internalChannelAttestationContract: {
                 ready: "ready";
                 "not-ready": "not-ready";
             }>;
+            botUsername: z.ZodOptional<z.ZodString>;
+            allowFromCount: z.ZodOptional<z.ZodNumber>;
             kind: z.ZodEnum<{
                 email: "email";
                 voice: "voice";

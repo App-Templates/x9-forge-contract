@@ -1,0 +1,386 @@
+[
+  {
+    "name": "CJS-min",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": ".min(5)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 140,
+      "fail": 1,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "eef6f116b3855d028193c91fa58605174926f2998e782deb9f742db59fcd4c5e",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "CJS-max",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": ".max(32)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 140,
+      "fail": 1,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "630b8de077d91e4bbcde9715d74c16866ca9b92d5b2c7b73fb0381ee68d6429c",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "CJS-alphabet",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^.+bot$/i",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 133,
+      "fail": 8,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "a4d9a54967487379616e0ca3f90f24ce777a17352fe2a484a8df87a9bcc0a44d",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "CJS-suffix",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+$/i",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 140,
+      "fail": 1,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "c35427b5fc072d11697acba23b93c0b0407896bc3d0e373483ad52e9c8869256",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "CJS-case",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+bot$/",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 137,
+      "fail": 4,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "1b50cccd3d35f128399d58de6ecba405357e133481cbd149309458542f60b0ee",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "CJS-line-boundary",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+bot$/im",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 137,
+      "fail": 4,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "03de2acbe23216be1d47b322f1eba49da83968b12eda5627b7af07a8428f82fc",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "CJS-field-guard",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": "zod_1.z.string().min(5).max(32).regex(/^[A-Za-z0-9_]+bot$/i).optional()",
+    "new": "zod_1.z.string().optional()",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 121,
+      "fail": 20,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "bbd0bf49d607b0efc4a91a23e644865ba4f14e51e501a3c01140cb7b2ea1cf8d",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "CJS-legacy-absent",
+    "path": "agent/agent-runtime-state.cjs",
+    "old": "regex(/^[A-Za-z0-9_]+bot$/i).optional()",
+    "new": "regex(/^[A-Za-z0-9_]+bot$/i)",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 138,
+      "fail": 3,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "53e7c4811f6a6d4fd94718f10eee216b2e9af1e43ace3538b8cc69c97e6f2f2c",
+    "restored_sha256": "cfa0a6adbfbd8a77c0c213479314130e48edb8bf27f47332788da3133ee75962"
+  },
+  {
+    "name": "ESM-min",
+    "path": "agent/agent-runtime-state.js",
+    "old": ".min(5)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 140,
+      "fail": 1,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "2f03d94135b9533e75f882c9bd116471a7ca3f1874bd6bd67711863ebe0b3a3f",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  },
+  {
+    "name": "ESM-max",
+    "path": "agent/agent-runtime-state.js",
+    "old": ".max(32)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 140,
+      "fail": 1,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "9a50547d5fd4b75103a14529513bb1c3a6339abf88388e7b587d702dc4728261",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  },
+  {
+    "name": "ESM-alphabet",
+    "path": "agent/agent-runtime-state.js",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^.+bot$/i",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 133,
+      "fail": 8,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "29bc6f67aae81dfa5b8c0dc828224c5a1c3f81adc92c309f09095361e96f136f",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  },
+  {
+    "name": "ESM-suffix",
+    "path": "agent/agent-runtime-state.js",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+$/i",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 140,
+      "fail": 1,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "b577d0c29ddaa19b3b8909e1015faff084ff102f940786d6f77319ee3870dcd0",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  },
+  {
+    "name": "ESM-case",
+    "path": "agent/agent-runtime-state.js",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+bot$/",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 138,
+      "fail": 3,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "cae5e71726d770c82f363993f5bb85d37445c378e216cd4774425afe66dab36f",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  },
+  {
+    "name": "ESM-line-boundary",
+    "path": "agent/agent-runtime-state.js",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+bot$/im",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 137,
+      "fail": 4,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "20001751fa086ba0d244179e968e2cd616b24e9bbf0455f36b17ef19918b3b10",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  },
+  {
+    "name": "ESM-field-guard",
+    "path": "agent/agent-runtime-state.js",
+    "old": "z.string().min(5).max(32).regex(/^[A-Za-z0-9_]+bot$/i).optional()",
+    "new": "z.string().optional()",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 121,
+      "fail": 20,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "0b0bd0e25ba501d5193012569a5d190abac817282283a18e4123414c14b76749",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  },
+  {
+    "name": "ESM-legacy-absent",
+    "path": "agent/agent-runtime-state.js",
+    "old": "regex(/^[A-Za-z0-9_]+bot$/i).optional()",
+    "new": "regex(/^[A-Za-z0-9_]+bot$/i)",
+    "red": {
+      "exit": 1,
+      "tests": 141,
+      "pass": 140,
+      "fail": 1,
+      "skipped": 0,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "tests": 141,
+      "pass": 141,
+      "fail": 0,
+      "skipped": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "c0632d0422ce79627a3fc707f6dbf4996371b7c32379d282f7f5c2a18917ee3c",
+    "restored_sha256": "93c5e7953985cdd872524372bed9493413c4f96a025fd346b2e886073729f1a3"
+  }
+]

@@ -183,6 +183,8 @@ export declare const internalFactoryReplayableDeployContract: {
                         ready: "ready";
                         "not-ready": "not-ready";
                     }>;
+                    botUsername: z.ZodOptional<z.ZodString>;
+                    allowFromCount: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>>;
                 observedAt: z.ZodNullable<z.ZodISODateTime>;
                 error: z.ZodNullable<z.ZodObject<{
@@ -234,6 +236,8 @@ export declare const internalFactoryReplayableDeployContract: {
                         ready: "ready";
                         "not-ready": "not-ready";
                     }>;
+                    botUsername: z.ZodOptional<z.ZodString>;
+                    allowFromCount: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
                 error: z.ZodNullable<z.ZodObject<{
                     code: z.ZodEnum<{
@@ -254,9 +258,9 @@ export declare const internalFactoryReplayableDeployContract: {
             failure: z.ZodNullable<z.ZodObject<{
                 step: z.ZodEnum<{
                     runtime: "runtime";
+                    workspace: "workspace";
                     context: "context";
                     resources: "resources";
-                    workspace: "workspace";
                     "first-check": "first-check";
                     save: "save";
                 }>;

@@ -1,0 +1,170 @@
+[
+  {
+    "name": "min",
+    "old": ".min(5)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "passed": 152,
+      "total": 153,
+      "failed": 1,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "fb5078091f0e84303b11a45acac304c3db4d3d90b12916b9eabe48d2c6c6ac31",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  },
+  {
+    "name": "max",
+    "old": ".max(32)",
+    "new": "",
+    "red": {
+      "exit": 1,
+      "passed": 152,
+      "total": 153,
+      "failed": 1,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "b74cfa31756840bbb1721784c7f8c3d2d43cfa79d4232f5ab0cba932bb3ae00a",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  },
+  {
+    "name": "alphabet",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^.+bot$/i",
+    "red": {
+      "exit": 1,
+      "passed": 145,
+      "total": 153,
+      "failed": 8,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "d32cce977b5f87ca3587bad382fb6e9cebdcde5f4e107f9975051fc12ad57301",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  },
+  {
+    "name": "suffix",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+$/i",
+    "red": {
+      "exit": 1,
+      "passed": 152,
+      "total": 153,
+      "failed": 1,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "3f12b7ffe93341f1afa52c075fd451159238b60d50200d28c79051653305ef2b",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  },
+  {
+    "name": "case",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+bot$/",
+    "red": {
+      "exit": 1,
+      "passed": 149,
+      "total": 153,
+      "failed": 4,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "2107364fa7bd44cfe054f7c5ab0c42df4dc3531674dc68377d3cc7a8a3000936",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  },
+  {
+    "name": "line-boundary",
+    "old": "/^[A-Za-z0-9_]+bot$/i",
+    "new": "/^[A-Za-z0-9_]+bot$/im",
+    "red": {
+      "exit": 1,
+      "passed": 149,
+      "total": 153,
+      "failed": 4,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "9ad0f3fee277cfb87344c06a028f9caca65df60f2e661ab4bff28a08fcf74228",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  },
+  {
+    "name": "field-guard",
+    "old": "z.string().min(5).max(32).regex(/^[A-Za-z0-9_]+bot$/i).optional()",
+    "new": "z.string().optional()",
+    "red": {
+      "exit": 1,
+      "passed": 133,
+      "total": 153,
+      "failed": 20,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "4dafeb40590e5194e2db798b0926e2275ecc7aef3489977443cd93721f4e0e47",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  },
+  {
+    "name": "legacy-absent",
+    "old": "regex(/^[A-Za-z0-9_]+bot$/i).optional()",
+    "new": "regex(/^[A-Za-z0-9_]+bot$/i)",
+    "red": {
+      "exit": 1,
+      "passed": 146,
+      "total": 153,
+      "failed": 7,
+      "assertion": true
+    },
+    "green": {
+      "exit": 0,
+      "passed": 153,
+      "total": 153,
+      "failed": 0,
+      "assertion": false
+    },
+    "mutant_sha256": "3375895de8b041445b9cb72c7dd17ad7346ce091eab79df6b286a063ec3195e1",
+    "restored_sha256": "f0c91e7d54142e0e01b132ffbb81cbed9b98f2b80ae0700bf7e178124c5459f3"
+  }
+]

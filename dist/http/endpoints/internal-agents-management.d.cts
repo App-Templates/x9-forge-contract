@@ -144,6 +144,11 @@ export declare const agentCommandContract: {
                 }, z.core.$strict>;
             }, z.core.$strict>>;
         }, z.core.$strip>>;
+        workspace: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            appliedVersion: z.ZodNumber;
+            sha256: z.ZodString;
+            loadedAt: z.ZodISODateTime;
+        }, z.core.$strict>>>;
         completedAt: z.ZodISODateTime;
     }, z.core.$strip>;
 };
@@ -183,6 +188,11 @@ export declare const agentManagementStateContract: {
                 }, z.core.$strict>;
             }, z.core.$strict>>;
         }, z.core.$strip>>;
+        workspace: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            appliedVersion: z.ZodNumber;
+            sha256: z.ZodString;
+            loadedAt: z.ZodISODateTime;
+        }, z.core.$strict>>>;
         targets: z.ZodArray<z.ZodObject<{
             target: z.ZodObject<{
                 kind: z.ZodEnum<{

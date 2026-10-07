@@ -10,6 +10,16 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.39.0 — attestazione del workspace applicato e metadati dell'inventario (BRIDGE-139)
+
+### Added (additive)
+
+- `./agent`: attestazione opzionale `workspace` (versione applicata, sha256, ora di caricamento, configVersion) nel risultato di gestione, nello stato di gestione e nella riga di inventario agenti; `workspace: null` = attestazione assente, mai ricostruita. Un comando con `workspace: null` non può dichiarare outcome `ok`; `configVersion` deve coincidere con `versions.applied` quando entrambi presenti. Helper `attestedWorkspaceVersionOf(row)`.
+- Inventario agenti (`internal-agents-list`): metadati osservati opzionali `capabilities: [{ name, enabled }] | null` e, nello stato Telegram, `botUsername` (solo username Telegram valido, 5–32 caratteri, termina in `bot`, niente URL/token) e `allowFromCount` (intero ≥ 0, mai gli id).
+- Righe e risultati 1.38 senza i nuovi campi restano validi.
+
+---
+
 ## v1.38.0 — id vault dell'agente nell'identità runtime (BRIDGE-138)
 
 ### Added (additive)

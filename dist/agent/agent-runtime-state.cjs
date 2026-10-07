@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentRuntimeSnapshotSchema = exports.AgentRuntimeEvidenceSchema = exports.AgentRuntimeLoadStateSchema = exports.AgentRuntimeChannelSchema = exports.AgentRuntimeReadinessSchema = exports.AgentRuntimeChannelStateSchema = exports.AgentRuntimeChannelKindSchema = exports.AgentRuntimeStateSchema = void 0;
+exports.telegramChannelMetadataOf = telegramChannelMetadataOf;
 exports.deriveAgentRuntimeState = deriveAgentRuntimeState;
 const zod_1 = require("zod");
 const channel_type_js_1 = require("../messaging/channel-type.cjs");
@@ -17,7 +18,13 @@ exports.AgentRuntimeChannelSchema = zod_1.z.object({
     // null means unobserved, never an inferred false.
     loaded: zod_1.z.boolean().nullable(),
     readiness: exports.AgentRuntimeReadinessSchema,
+    /** Observed Telegram metadata only; absence does not imply an empty authorization list. */
+    botUsername: zod_1.z.string().min(5).max(32).regex(/^[A-Za-z0-9_]+bot$/i).optional(),
+    allowFromCount: zod_1.z.number().int().nonnegative().optional(),
 }).superRefine((channel, ctx) => {
+    if (channel.kind !== 'telegram' && (channel.botUsername !== undefined || channel.allowFromCount !== undefined)) {
+        ctx.addIssue({ code: 'custom', message: 'Telegram metadata requires a Telegram channel' });
+    }
     const expected = channel.state === 'loaded' ? true
         : channel.state === 'paused' || channel.state === 'stopped' ? false
             : channel.state === 'unknown' ? null : undefined;
@@ -25,6 +32,19 @@ exports.AgentRuntimeChannelSchema = zod_1.z.object({
         ctx.addIssue({ code: 'custom', path: ['loaded'], message: 'Channel state contradicts its loading evidence' });
     }
 });
+/** Read validated Telegram observations without exposing authorization IDs or inferring readiness. */
+function telegramChannelMetadataOf(channel) {
+    const selected = exports.AgentRuntimeChannelSchema.safeParse(channel);
+    if (!selected.success)
+        return null;
+    const { botUsername, allowFromCount } = selected.data;
+    if (botUsername === undefined && allowFromCount === undefined)
+        return null;
+    return {
+        ...(botUsername === undefined ? {} : { botUsername }),
+        ...(allowFromCount === undefined ? {} : { allowFromCount }),
+    };
+}
 exports.AgentRuntimeLoadStateSchema = zod_1.z.enum(['loaded', 'stopped', 'error', 'unknown']);
 exports.AgentRuntimeEvidenceSchema = zod_1.z.object({
     loadState: exports.AgentRuntimeLoadStateSchema,
