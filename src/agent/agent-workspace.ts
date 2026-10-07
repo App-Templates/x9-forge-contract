@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { AgentWorkspaceAttestationSchema } from './agent-workspace-attestation.js';
+export { AgentWorkspaceAttestationSchema } from './agent-workspace-attestation.js';
+export type { AgentWorkspaceAttestation } from './agent-workspace-attestation.js';
 import { AgentIdSchema, AgentIdentitySchema, OwnerIdSchema } from './agent-identity.js';
 import { AgentContextWithChannelsSchema, AgentContextWithChannelsWriteSchema } from './agent-channel-configuration.js';
 import { AgentConfigVersionStateSchema } from './agent-management.js';
@@ -171,4 +174,16 @@ export type AgentContextWithWorkspace = z.infer<typeof AgentContextWithWorkspace
 /** Version comes only from a validated applied bundle; never guess from file histories or configVersion. */
 export function appliedWorkspaceVersion(ctx: Pick<AgentContextWithWorkspace, 'workspace'>): number | null {
   return ctx.workspace?.version ?? null;
+}
+
+
+/**
+ * Read only a validated wire attestation. Never derive readiness/version from configVersion, desired files,
+ * file histories, registry metadata or another row. Forge compares this bundle with the archived descriptor
+ * for its configuration snapshot; X9 supplies it only after loading the effective verified snapshot.
+ */
+export function attestedWorkspaceVersionOf(row: unknown): number | null {
+  if (row === null || typeof row !== 'object') return null;
+  const selected = AgentWorkspaceAttestationSchema.safeParse((row as { workspace?: unknown }).workspace);
+  return selected.success ? selected.data.appliedVersion : null;
 }

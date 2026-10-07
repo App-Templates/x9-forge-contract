@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AgentWorkspaceAttestationSchema } from '../../agent/agent-workspace-attestation.js';
 import { AgentRuntimeIdentitySchema, AgentRuntimeIdentitiesSchema } from '../../agent/agent-runtime-identity.js';
 import { AgentRuntimeSnapshotSchema } from '../../agent/agent-runtime-state.js';
 import type { AgentRuntimeState } from '../../agent/agent-runtime-state.js';
@@ -85,6 +86,8 @@ export const ListAgentsAgentSchema = z.object({
   // Canonical metadata is additive; legacy bot status is never channel evidence.
   identity: AgentRuntimeIdentitySchema.optional(),
   runtime: AgentRuntimeSnapshotSchema.optional(),
+  /** Effective snapshot only; absent is legacy, null is not attested, never desired-file fallback. */
+  workspace: AgentWorkspaceAttestationSchema.nullable().optional(),
 }).superRefine((agent, ctx) => {
   if (agent.identity && agent.agentId !== agent.identity.runtimeAgentId) {
     ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Runtime identity must match the list row agentId' });

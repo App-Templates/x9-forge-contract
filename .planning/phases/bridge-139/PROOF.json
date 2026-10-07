@@ -1,0 +1,40 @@
+{
+  "before": {
+    "passed": 3,
+    "total": 141,
+    "qualified_assertion_red": 138,
+    "report": "/private/tmp/b139-red-final-141.json"
+  },
+  "after": {
+    "passed": 141,
+    "total": 141,
+    "failed": 0,
+    "report": "/private/tmp/b139-green.json"
+  },
+  "baseline": {
+    "passed": 2325,
+    "total": 2325,
+    "report": "/private/tmp/b139-baseline.json"
+  },
+  "native_typecheck": {
+    "exit": 0,
+    "log": "/private/tmp/b139-native-types.log"
+  },
+  "native_lint": {
+    "exit": 0,
+    "log": "/private/tmp/b139-native-lint.log"
+  },
+  "source_sha256": {
+    "src/agent/agent-workspace-attestation.ts": "adb28ff42b09dedf42661bd8c434de403e6ca10ee0e405cbac8674ef9cdcea63",
+    "src/agent/agent-management.ts": "b8d283dd6c3146bb1a5166702eb4a42a1516d2bb83b772aa7256a072953fbe7c",
+    "src/agent/agent-workspace.ts": "336fad4ea6b19e471b9c42ecea567c313806cebd0dcada037d023f673aa1f915",
+    "src/http/endpoints/internal-agents-list.ts": "7d6dd471a8edef948de8e82bd4f76ee1bebf2a68154c2cad98b97b81fbfa0c62"
+  },
+  "coordinator_decisions": [
+    "132902: null nonattestata state/list; command runtime nonok reason",
+    "132902: HTTP list perimeter allowed",
+    "133305: bundle/config identity proof path:line; same appliedVersion binding"
+  ],
+  "live_verified": false,
+  "remaining": "source mutations, compiled consumer/CTS, private build/pack/full/perimeter"
+}
