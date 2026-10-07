@@ -10,6 +10,15 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.38.0 — id vault dell'agente nell'identità runtime (BRIDGE-138)
+
+### Added (additive)
+
+- `./agent`: campo opzionale `identity.vaultAgentId` (intero positivo, id della riga agente in Forge) in `AgentRuntimeIdentitySchema`; helper `vaultAgentIdOf(ctx)` → id oppure `null`, letto solo da `identity` (mai derivato da slug, id runtime o `agentId`).
+- Forge lo scrive insieme a `identity` nello stesso salvataggio della voce; X9 lo usa solo per `VaultClient.resolve`, senza ripieghi su altri agenti. Contesti 1.37 senza il campo restano validi.
+
+---
+
 ## v1.37.0 — identità canonica nel contesto e voce legata all'id di gestione (BRIDGE-136a)
 
 Correzione di 1.34: `voiceConfiguration.agentId` è l'id di GESTIONE (Forge), non quello runtime.

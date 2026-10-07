@@ -1,0 +1,13 @@
+{
+  "name": "03-private-pack",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge138-build-8it2ks0b",
+    "run",
+    "check:pack"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 4.1497931480407715
+}

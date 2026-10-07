@@ -1,0 +1,10 @@
+{
+  "consumer": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy",
+  "archive": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/archive/x9-forge-contracts-1.37.0.tgz",
+  "archiveSha256": "68572cf759c3fe024aa9d8733d556667a2cb8904ed36f5862e6390fddac680d8",
+  "installed": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts",
+  "compiledFiles": 1192,
+  "identicalCompiledFiles": 1192,
+  "installedFromArchive": true,
+  "sourceAliases": false
+}

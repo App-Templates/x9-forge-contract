@@ -1,0 +1,30 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-73-1",
+    "exec",
+    "vitest",
+    "run",
+    "tests/agent/bridge138-vault-identity.test.ts",
+    "--maxWorkers=1",
+    "--reporter=json",
+    "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-73-1/.planning/phases/bridge-138/02-integer-red.json"
+  ],
+  "exit": 1,
+  "total": 81,
+  "passed": 71,
+  "failed": 10,
+  "assertionNames": [
+    "canonical vault identity identity rejects an invalid vault ID at case 2",
+    "canonical vault identity identity rejects an invalid vault ID at case 9",
+    "canonical vault identity context read rejects an invalid vault ID at case 2",
+    "canonical vault identity context read rejects an invalid vault ID at case 9",
+    "canonical vault identity context write rejects an invalid vault ID at case 2",
+    "canonical vault identity context write rejects an invalid vault ID at case 9",
+    "canonical vault identity workspace read rejects an invalid vault ID at case 2",
+    "canonical vault identity workspace read rejects an invalid vault ID at case 9",
+    "canonical vault identity workspace write rejects an invalid vault ID at case 2",
+    "canonical vault identity workspace write rejects an invalid vault ID at case 9"
+  ]
+}

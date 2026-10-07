@@ -62,6 +62,7 @@ export declare const AgentOwnedChannelResourceSchema: z.ZodDiscriminatedUnion<[z
     identity: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodEnum<{
@@ -82,6 +83,7 @@ export declare const AgentOwnedChannelResourceSchema: z.ZodDiscriminatedUnion<[z
     identity: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
 }, z.core.$strict>], "kind">;
 export type AgentOwnedChannelResource = z.infer<typeof AgentOwnedChannelResourceSchema>;
@@ -128,6 +130,7 @@ export declare const AgentChannelConfigurationSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodEnum<{
@@ -148,6 +151,7 @@ export declare const AgentChannelConfigurationSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
     }, z.core.$strict>], "kind">>;
     observation: z.ZodNullable<z.ZodObject<{
@@ -196,6 +200,7 @@ export declare const AgentChannelConfigurationSchema: z.ZodObject<{
     identity: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
 }, z.core.$strict>;
 export type AgentChannelConfiguration = z.infer<typeof AgentChannelConfigurationSchema>;
@@ -254,6 +259,7 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
     identity: z.ZodOptional<z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
@@ -291,6 +297,7 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodEnum<{
@@ -311,6 +318,7 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>], "kind">>;
         observation: z.ZodNullable<z.ZodObject<{
@@ -359,6 +367,7 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
     }, z.core.$strict>>>;
     voiceConfiguration: z.ZodOptional<z.ZodObject<{
@@ -509,6 +518,7 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
     identity: z.ZodOptional<z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     channelConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
@@ -546,6 +556,7 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodEnum<{
@@ -566,6 +577,7 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
         }, z.core.$strict>], "kind">>;
         observation: z.ZodNullable<z.ZodObject<{
@@ -614,6 +626,7 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
     }, z.core.$strict>>>;
     voiceConfiguration: z.ZodOptional<z.ZodObject<{
@@ -715,6 +728,8 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
 export type AgentContextWithChannels = z.infer<typeof AgentContextWithChannelsSchema>;
 /** Management ID of a validated context, from its explicit pair or concordant channels. Never guesses from runtime/voice. */
 export declare function managementAgentIdOf(context: Pick<AgentContextWithChannels, 'identity' | 'channelConfigurations'>): AgentId | null;
+/** Vault key of a validated context. Only Forge's explicit root identity is authoritative; no slug/channel fallback. */
+export declare function vaultAgentIdOf(context: Pick<AgentContextWithChannels, 'identity'>): number | null;
 /** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
 export declare function appliedAgentVoiceSettings(ctx: Pick<AgentContextWithChannels, 'voiceConfiguration'>): AgentVoiceSettings | null;
 /** Applied policy of a validated context; absence is unconfigured, never an invented default. */

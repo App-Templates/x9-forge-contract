@@ -197,6 +197,7 @@ export declare const OutboundCallerIdentitySchema: z.ZodObject<{
     agent: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
     displayName: z.ZodString;
     persona: z.ZodOptional<z.ZodString>;

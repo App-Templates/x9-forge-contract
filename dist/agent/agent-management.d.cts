@@ -178,6 +178,7 @@ export declare const AgentManagementCommandResultSchema: z.ZodObject<{
     identity: z.ZodOptional<z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     requestId: z.ZodString;
     action: z.ZodEnum<{
@@ -289,6 +290,7 @@ export declare const AgentManagementStateSchema: z.ZodObject<{
     identity: z.ZodOptional<z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
     versions: z.ZodNullable<z.ZodObject<{
         desired: z.ZodNumber;

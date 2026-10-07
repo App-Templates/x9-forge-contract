@@ -1,10 +1,16 @@
 import { z } from 'zod';
 import { AgentIdSchema } from './agent-identity.js';
 
-/** Explicit control-plane/runtime mapping; neither ID is a numeric database key. */
+/** Explicit control-plane/runtime mapping; management and runtime IDs are not numeric database keys. */
 export const AgentRuntimeIdentitySchema = z.object({
   managementAgentId: AgentIdSchema,
   runtimeAgentId: AgentIdSchema,
+  /**
+   * Forge writes its agents.id alongside this identity in the same saved voice configuration.
+   * X9 uses this integer only for VaultClient.resolve, never as a runtime/management identifier.
+   * Legacy absence is valid; consumers must report missing context without falling back to another agent.
+   */
+  vaultAgentId: z.number().int().positive().optional(),
 });
 export type AgentRuntimeIdentity = z.infer<typeof AgentRuntimeIdentitySchema>;
 

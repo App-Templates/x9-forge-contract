@@ -1,0 +1,13 @@
+{
+  "name": "03-private-build",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge138-build-8it2ks0b",
+    "run",
+    "build"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 3.703892230987549
+}

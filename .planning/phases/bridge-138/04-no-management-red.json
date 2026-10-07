@@ -1,0 +1,61 @@
+{
+  "command": [
+    "node",
+    "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/probe.cjs",
+    "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts"
+  ],
+  "exit": 1,
+  "passed": 11,
+  "total": 12,
+  "results": [
+    {
+      "name": "explicit field retained",
+      "passed": true
+    },
+    {
+      "name": "zero rejected",
+      "passed": true
+    },
+    {
+      "name": "negative rejected",
+      "passed": true
+    },
+    {
+      "name": "fraction rejected",
+      "passed": true
+    },
+    {
+      "name": "numeric string rejected",
+      "passed": true
+    },
+    {
+      "name": "legacy pair preserved",
+      "passed": true
+    },
+    {
+      "name": "explicit vault selector",
+      "passed": true
+    },
+    {
+      "name": "missing identity is null",
+      "passed": true
+    },
+    {
+      "name": "numeric management is not a vault ID",
+      "passed": false,
+      "errorName": "AssertionError"
+    },
+    {
+      "name": "numeric runtime is not a vault ID",
+      "passed": true
+    },
+    {
+      "name": "noncanonical sources ignored",
+      "passed": true
+    },
+    {
+      "name": "next context is fresh",
+      "passed": true
+    }
+  ]
+}
