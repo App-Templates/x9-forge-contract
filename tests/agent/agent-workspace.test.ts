@@ -1,10 +1,12 @@
+import { ZodError } from 'zod';
+import { AgentVoiceConfigSchema } from '../../src/capability/voice/index.js';
 import { PLATFORM_INTERNAL_CREDENTIAL_KEYS } from '../../src/vault/platform-internal-credentials.js';
 import { describe, expect, it } from 'vitest';
 import {
   AGENT_WORKSPACE_HUMAN_FILES, AGENT_WORKSPACE_TOOLS_FILE, AGENT_WORKSPACE_LIMITS,
   AgentWorkspaceDescriptorSchema, AgentWorkspaceHumanFileSchema, AgentWorkspaceToolsSchema,
-  AgentWorkspaceSkillSchema, AgentContextWithWorkspaceSchema, AgentContextWithWorkspaceWriteSchema,
-  parseAgentWorkspaceRollbackRequest, appliedWorkspaceVersion, agentWorkspaceSkillPath,
+  AgentScopePolicySchema, AgentWorkspaceSkillSchema, AgentContextWithWorkspaceSchema, AgentContextWithWorkspaceWriteSchema,
+  AgentWorkspaceRollbackValidationSchema, parseAgentWorkspaceRollbackRequest, appliedWorkspaceVersion, agentWorkspaceSkillPath,
 } from '../../src/agent/index.js';
 
 const hash = 'a'.repeat(64), date = '2026-10-07T00:00:00Z';
@@ -99,6 +101,18 @@ describe('D-A9 shared workspace descriptor', () => {
     ['TOOLS override', ['tools', 'origin'], 'override'],
     ['TOOLS editable', ['tools', 'editable'], true],
     ['TOOLS name drift', ['tools', 'name'], 'OTHER.md'],
+    ['TOOLS loaded on demand', ['tools', 'load'], 'on-demand'],
+    ['origin arbitrary content', ['files', 0, 'history', 0, 'origin', 'content'], 'not metadata'],
+    ['revision arbitrary content', ['files', 0, 'history', 0, 'content'], 'not metadata'],
+    ['human arbitrary content', ['files', 0, 'content'], 'not metadata'],
+    ['TOOLS arbitrary content', ['tools', 'content'], 'not metadata'],
+    ['skill arbitrary content', ['skills', 0, 'content'], 'not metadata'],
+    ['master origin arbitrary content', ['files', 1, 'history', 0, 'origin'], {kind:'master',source:{agentId:'master',ownerId:'owner-1'},version:1,content:'not metadata'}],
+    ['template origin arbitrary content', ['files', 1, 'history', 0, 'origin'], {kind:'template',templateId:'standard',ownerId:null,version:1,content:'not metadata'}],
+    ['TOOLS fractional bytes', ['tools','bytes'], 2.5],
+    ['TOOLS negative bytes', ['tools','bytes'], -1],
+    ['procedure fractional bytes', ['skills',0,'procedure','bytes'], 2.5],
+    ['procedure negative bytes', ['skills',0,'procedure','bytes'], -1],
     ['TOOLS bytes exceeded', ['tools', 'bytes'], 65537],
     ['TOOLS version mismatch', ['tools', 'version'], 8],
     ['duplicate registry name', ['registry', 'capabilities'], [workspace().registry.capabilities[0], workspace().registry.capabilities[0]]],
@@ -121,6 +135,11 @@ describe('D-A9 shared workspace descriptor', () => {
     const w = workspace(); change(w, path, value);
     expect(AgentWorkspaceDescriptorSchema.safeParse(w).success).toBe(false);
   });
+  it('rejects duplicate history before the latest without another version violation',()=>{const f=file();f.history.splice(1,0,{...f.history[0]!});expect(AgentWorkspaceHumanFileSchema.safeParse(f).success).toBe(false);});
+  it('rejects backwards history while saved and applied references both exist',()=>{const f=file();f.history=[{...f.history[0]!,version:2},{...f.history[0]!,version:1},{...f.history[1]!,version:3}];f.versions.desired=3;expect(AgentWorkspaceHumanFileSchema.safeParse(f).success).toBe(false);});
+  it('rejects a fifth human file even if all four canonical names are present',()=>{const w=workspace();w.files.push(file());expect(AgentWorkspaceDescriptorSchema.safeParse(w).success).toBe(false);});
+  it('locates an empty history at the history field',()=>{const f=file();f.history=[];const result=AgentWorkspaceHumanFileSchema.safeParse(f);expect(result.success).toBe(false);if(!result.success)expect(result.error.issues.some(issue=>issue.path.join('.')==='history')).toBe(true);});
+  it('locates a disabled skill at its capability rather than only the set',()=>{const w=workspace();w.registry.capabilities[0]!.enabled=false;const result=AgentWorkspaceDescriptorSchema.safeParse(w);expect(result.success).toBe(false);if(!result.success)expect(result.error.issues.some(issue=>issue.path.join('.')==='skills.0.capability')).toBe(true);});
   it('rejects an applied revision absent from otherwise ordered history', () => {
     const f = file(); f.history[0]!.version = 2; f.history[1]!.version = 4; f.versions = { desired: 4, applied: 3, failed: null };
     expect(AgentWorkspaceHumanFileSchema.safeParse(f).success).toBe(false);
@@ -145,19 +164,21 @@ describe('workspace rollback is explicit and bound to authoritative history', ()
     const w = workspace(), before = structuredClone(w), request = { file: 'SOUL.md', expectedVersion: 2, targetVersion: 1 };
     expect(parseAgentWorkspaceRollbackRequest(request, w)).toEqual(request); expect(w).toEqual(before);
   });
-  it('rejects CAS mismatch', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 3, targetVersion: 1 }, workspace())).toThrow());
-  it('rejects the current revision as a rollback target', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 2, targetVersion: 2 }, workspace())).toThrow());
+  it('rejects CAS mismatch', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 3, targetVersion: 1 }, workspace())).toThrow(ZodError));
+  it('rejects the current revision as a rollback target', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 2, targetVersion: 2 }, workspace())).toThrow(ZodError));
   it('rejects a nonexistent earlier revision', () => {
     const w = workspace(); w.files[1]!.history = w.files[1]!.history.slice(1); change(w, ['files', 1, 'versions', 'applied'], null);
-    expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 2, targetVersion: 1 }, w)).toThrow();
+    expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 2, targetVersion: 1 }, w)).toThrow(ZodError);
   });
-  it('rejects rollback of generated TOOLS', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'TOOLS.md', expectedVersion: 2, targetVersion: 1 }, workspace())).toThrow());
-  it('rejects extra force fields', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 2, targetVersion: 1, force: true }, workspace())).toThrow());
+  it('rejects rollback of generated TOOLS', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'TOOLS.md', expectedVersion: 2, targetVersion: 1 }, workspace())).toThrow(ZodError));
+  it('rejects extra fields on the authoritative validation wrapper',()=>expect(AgentWorkspaceRollbackValidationSchema.safeParse({workspace:workspace(),request:{file:'SOUL.md',expectedVersion:2,targetVersion:1},force:true}).success).toBe(false));
+  it('rejects extra force fields', () => expect(() => parseAgentWorkspaceRollbackRequest({ file: 'SOUL.md', expectedVersion: 2, targetVersion: 1, force: true }, workspace())).toThrow(ZodError));
 });
 
 describe('additive applied workspace context', () => {
   for (const [name, schema] of [['reader', AgentContextWithWorkspaceSchema], ['writer', AgentContextWithWorkspaceWriteSchema]] as const) {
-    it(`${name} preserves legacy 1.33 absence unchanged`, () => expect(schema.parse(context())).toEqual(context()));
+    for(const hasWorkspace of [false,true]){it(`${name} preserves 1.34 voice and policy with workspace ${hasWorkspace}`,()=>{const scopePolicy=AgentScopePolicySchema.parse({version:11,defaultWebSearch:true,scopeLimited:false,defaults:{read:'allow',write:'ask'},rules:[]});const voiceConfiguration=AgentVoiceConfigSchema.parse({agentId:'agent-1',versions:{desired:4,applied:4,failed:null},desired:{mode:'text-only'},applied:{mode:'text-only'}});const raw={...context(),scopePolicy,voiceConfiguration,...(hasWorkspace?{workspace:workspace()}: {})};expect(schema.safeParse(raw).success).toBe(true);const parsed=schema.parse(raw);expect(parsed).toEqual(raw);expect(appliedWorkspaceVersion(parsed)).toBe(hasWorkspace?7:null);});}
+    it(`${name} preserves legacy 1.33 absence unchanged`, () => {expect(schema.safeParse(context()).success).toBe(true);expect(schema.parse(context())).toEqual(context());});
     it(`${name} keeps a valid workspace`, () => expect(schema.parse({ ...context(), workspace: workspace() }).workspace).toEqual(workspace()));
     for (const field of ['agentId', 'ownerId', 'tenantId'] as const) {
       it(`${name} rejects different workspace ${field}`, () => {
@@ -173,6 +194,6 @@ describe('additive applied workspace context', () => {
   it('reports null when workspace was never applied, independent of configVersion', () => expect(appliedWorkspaceVersion(AgentContextWithWorkspaceSchema.parse({ ...context(), configVersion: 99 }))).toBeNull());
   it('reports the applied bundle version rather than a file saved version', () => expect(appliedWorkspaceVersion(AgentContextWithWorkspaceSchema.parse({ ...context(), workspace: workspace() }))).toBe(7));
   it('derives the canonical procedure path', () => expect(agentWorkspaceSkillPath('cap-calendar')).toBe('skills/cap-calendar/SKILL.md'));
-  it.each(['../USER.md', '..', '.', 'cap/other', 'cap\\other', '%2e%2e', 'cap:name'])('rejects unsafe capability path segment %s', value => expect(() => agentWorkspaceSkillPath(value)).toThrow());
-  it('rejects capability traversal before deriving a procedure path', () => expect(() => agentWorkspaceSkillPath('../USER.md')).toThrow());
+  it.each(['../USER.md', '..', '.', 'cap/other', 'cap\\other', '%2e%2e', 'cap:name'])('rejects unsafe capability path segment %s', value => expect(() => agentWorkspaceSkillPath(value)).toThrow(ZodError));
+  it('rejects capability traversal before deriving a procedure path', () => expect(() => agentWorkspaceSkillPath('../USER.md')).toThrow(ZodError));
 });
