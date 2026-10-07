@@ -1,0 +1,70 @@
+{
+  "command": [
+    "node",
+    "/private/tmp/codex-a-bridge137-consumer-2wc5i_rd/probe.cjs",
+    "/private/tmp/codex-a-bridge137-build-6cqo_udu"
+  ],
+  "exit": 1,
+  "total": 14,
+  "passed": 13,
+  "results": [
+    {
+      "name": "public-helper",
+      "passed": true
+    },
+    {
+      "name": "legacy-context",
+      "passed": true
+    },
+    {
+      "name": "legacy-voice",
+      "passed": true
+    },
+    {
+      "name": "canonical-identity",
+      "passed": true
+    },
+    {
+      "name": "distinct-management-runtime",
+      "passed": true
+    },
+    {
+      "name": "channel-derived-management",
+      "passed": true
+    },
+    {
+      "name": "runtime-binding",
+      "passed": true
+    },
+    {
+      "name": "channel-concordance",
+      "passed": true
+    },
+    {
+      "name": "explicit-channel-binding",
+      "passed": true
+    },
+    {
+      "name": "voice-management-binding",
+      "passed": false,
+      "errorName": "AssertionError",
+      "message": "Expected values to be strictly equal:\n\ntrue !== false\n"
+    },
+    {
+      "name": "helper-canonical-sources",
+      "passed": true
+    },
+    {
+      "name": "helper-no-guessed-source",
+      "passed": true
+    },
+    {
+      "name": "read-canonical-field-validation",
+      "passed": true
+    },
+    {
+      "name": "write-canonical-field-validation",
+      "passed": true
+    }
+  ]
+}

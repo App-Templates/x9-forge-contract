@@ -1,0 +1,8 @@
+{
+  "baselineExit": 0,
+  "redExit": 2,
+  "redDiagnostic": "TS2322",
+  "greenExit": 0,
+  "restored": true,
+  "sha256": "b2fc016dee7891465d391295fab1b668b94da7e03b3157bfe7977adafd07120f"
+}

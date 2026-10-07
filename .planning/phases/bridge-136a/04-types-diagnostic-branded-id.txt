@@ -1,0 +1,4 @@
+../codex-a-bridge137-consumer-z45f5ia6/consumer.cts(3,42): error TS2322: Type 'string' is not assignable to type 'string & $brand<"AgentId">'.
+  Type 'string' is not assignable to type '$brand<"AgentId">'.
+../codex-a-bridge137-consumer-z45f5ia6/consumer.cts(3,68): error TS2322: Type 'string' is not assignable to type 'string & $brand<"AgentId">'.
+  Type 'string' is not assignable to type '$brand<"AgentId">'.

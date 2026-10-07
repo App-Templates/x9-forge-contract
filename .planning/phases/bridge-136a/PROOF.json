@@ -1,0 +1,69 @@
+{
+  "task": "BRIDGE-136a",
+  "status": "implemented-tested-ready-for-independent-review",
+  "product": "ab1c5a8",
+  "base": "5ddc97b",
+  "targetRelease": "1.37.0",
+  "initialRed": {
+    "passed": 24,
+    "failedWithAssertionError": 68,
+    "total": 92
+  },
+  "finalTarget": {
+    "passed": 92,
+    "total": 92
+  },
+  "sourceMutation": {
+    "qualified": 14,
+    "total": 14,
+    "testNames": 92,
+    "testTotal": 92
+  },
+  "full": {
+    "passed": 2244,
+    "total": 2244,
+    "pending": 0
+  },
+  "originalQualityChecks": {
+    "passed": 5,
+    "total": 5
+  },
+  "privateInputs": {
+    "identical": 393,
+    "total": 393
+  },
+  "cjsExisting": [
+    {
+      "passed": 36,
+      "total": 36
+    },
+    {
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "passed": 15,
+      "total": 15
+    }
+  ],
+  "realInstalledCjs": {
+    "passed": 14,
+    "total": 14,
+    "compiledMutations": 13,
+    "mutationTotal": 13,
+    "coveredNames": 14
+  },
+  "cts": {
+    "baseline": 0,
+    "negative": "TS2322",
+    "restored": 0
+  },
+  "protected": {
+    "identical": 2415,
+    "total": 2415
+  },
+  "agentIndexAndDWorkspaceUnchanged": true,
+  "live": false,
+  "publishOrPush": false,
+  "remainingReleaseByCoordinator": true
+}

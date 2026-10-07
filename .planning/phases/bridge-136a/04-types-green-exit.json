@@ -1,0 +1,20 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge137-build-6cqo_udu",
+    "exec",
+    "tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--strict",
+    "--module",
+    "NodeNext",
+    "--moduleResolution",
+    "NodeNext",
+    "--target",
+    "ES2023",
+    "/private/tmp/codex-a-bridge137-consumer-2wc5i_rd/consumer.cts"
+  ],
+  "exit": 0
+}
