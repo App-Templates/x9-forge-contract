@@ -63,3 +63,6 @@ export * from './agent-channel-configuration.js';
 export * from './agent-creation-replay.js';
 
 export * from './agent-channel-attestation.js';
+
+// R7 / D-A9: versioned human core and generated progressive skills.
+export * from './agent-workspace.js';
