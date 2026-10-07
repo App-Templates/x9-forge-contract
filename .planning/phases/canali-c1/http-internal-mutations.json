@@ -1,0 +1,110 @@
+[
+  {
+    "label": "params-strict",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "kind: AgentBirthChannelKindSchema }).strict()",
+    "new": "kind: AgentBirthChannelKindSchema }).passthrough()"
+  },
+  {
+    "label": "params-kind",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "kind: AgentBirthChannelKindSchema",
+    "new": "kind: AgentManagementParamsSchema.shape.agentId"
+  },
+  {
+    "label": "read-method",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "method: 'GET' as const",
+    "new": "method: 'POST' as const"
+  },
+  {
+    "label": "read-path",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "path: '/internal/agents/:agentId/channels/:kind/access'",
+    "new": "path: '/internal/agents/:agentId/channels/:kind/access2'"
+  },
+  {
+    "label": "apply-path",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "path: '/internal/agents/:agentId/channels/:kind/access/apply'",
+    "new": "path: '/internal/agents/:agentId/channels/:kind/access'"
+  },
+  {
+    "label": "apply-method",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "method: 'POST' as const",
+    "new": "method: 'GET' as const"
+  },
+  {
+    "label": "read-response",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessSnapshotSchema",
+    "new": "responseSchema: AgentChannelAccessApplyResultSchema"
+  },
+  {
+    "label": "apply-body",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "bodySchema: AgentChannelAccessApplyCommandSchema",
+    "new": "bodySchema: AgentChannelAccessSnapshotSchema"
+  },
+  {
+    "label": "apply-response",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessApplyResultSchema",
+    "new": "responseSchema: AgentChannelAccessSnapshotSchema"
+  },
+  {
+    "label": "read-auth",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "path: '/internal/agents/:agentId/channels/:kind/access' as const, authType: 'secret'",
+    "new": "path: '/internal/agents/:agentId/channels/:kind/access' as const, authType: 'none'"
+  },
+  {
+    "label": "apply-auth",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "path: '/internal/agents/:agentId/channels/:kind/access/apply' as const, authType: 'secret'",
+    "new": "path: '/internal/agents/:agentId/channels/:kind/access/apply' as const, authType: 'none'"
+  },
+  {
+    "label": "read-error",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessSnapshotSchema,\n  errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: AgentChannelAccessSnapshotSchema,\n  errorResponseSchema: AgentChannelAccessSnapshotSchema"
+  },
+  {
+    "label": "apply-error",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "new": "responseSchema: AgentChannelAccessApplyResultSchema, errorResponseSchema: AgentChannelAccessSnapshotSchema"
+  },
+  {
+    "label": "read-params",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "paramsSchema: AgentChannelAccessParamsSchema, responseSchema:",
+    "new": "paramsSchema: AgentManagementParamsSchema, responseSchema:"
+  },
+  {
+    "label": "apply-params",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "paramsSchema: AgentChannelAccessParamsSchema, bodySchema:",
+    "new": "paramsSchema: AgentManagementParamsSchema, bodySchema:"
+  },
+  {
+    "label": "read-path-validation",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "export function internalAgentChannelAccessPath(agentId: string, kind: string): string {\n  const params = AgentChannelAccessParamsSchema.parse({ agentId, kind });",
+    "new": "export function internalAgentChannelAccessPath(agentId: string, kind: string): string {\n  const params = { agentId, kind };"
+  },
+  {
+    "label": "apply-path-validation",
+    "file": "src/http/endpoints/internal-agent-channel-access.ts",
+    "old": "export function internalAgentChannelAccessApplyPath(agentId: string, kind: string): string {\n  const params = AgentChannelAccessParamsSchema.parse({ agentId, kind });",
+    "new": "export function internalAgentChannelAccessApplyPath(agentId: string, kind: string): string {\n  const params = { agentId, kind };"
+  },
+  {
+    "label": "http-export",
+    "file": "src/http/endpoints/index.ts",
+    "old": "export * from './internal-agent-channel-access.js';",
+    "new": ""
+  }
+]
