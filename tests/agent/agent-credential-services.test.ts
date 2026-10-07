@@ -9,7 +9,7 @@ const brands:Record<string,string[]>={
  openai:['OPENAI_API_KEY','OPENAI_TTS_MODEL','OPENAI_TTS_VOICE','OPENAI_STT_MODEL','OPENAI_LIVE_VOICE','OPENAI_LIVE_BACKEND_MODEL'],
  anthropic:['ANTHROPIC_API_KEY'],google:['GOOGLE_API_KEY','GOOGLE_CALENDAR_CLIENT_ID','GOOGLE_CALENDAR_CLIENT_SECRET','GOOGLE_CALENDAR_REFRESH_TOKEN'],
  telegram:['TELEGRAM_BOT_TOKEN'],elevenlabs:['ELEVENLABS_API_KEY','ELEVENLABS_VOICE_ID','ELEVENLABS_MODEL_ID','ELEVENLABS_MINDFULNESS_AGENT_ID'],
- telnyx:['TELNYX_API_KEY','TELNYX_CONNECTION_ID','TELNYX_FROM_NUMBER','TELNYX_PUBLIC_KEY'],qdrant:['QDRANT_API_KEY'],agentmail:['AGENTMAIL_API_KEY','AGENTMAIL_INBOX_ID','AGENT_EMAIL']};
+ telnyx:['TELNYX_API_KEY','TELNYX_CONNECTION_ID','TELNYX_FROM_NUMBER','TELNYX_PUBLIC_KEY'],qdrant:['QDRANT_API_KEY'],agentmail:['AGENTMAIL_API_KEY','AGENTMAIL_INBOX_ID','AGENT_EMAIL'],hostinger:['HOSTINGER_API_TOKEN']};
 const internal={x9:['INTERNAL_SECRET','INTERNAL_TOKEN','X9_INTERNAL_SECRET','LIVE_WEB_AUTH_TOKEN'],forge:['FORGE_VOICE_REGISTER_TOKEN']};
 const settings=['AGENT_CHAT_MODEL','TTS_PROVIDER','STT_PRIMARY_PROVIDER','VOICE_CALL_PROVIDER','ELEVENLABS_MODEL_ID','OPENAI_TTS_MODEL','OPENAI_TTS_VOICE','OPENAI_STT_MODEL','OPENAI_LIVE_VOICE','OPENAI_LIVE_BACKEND_MODEL'];
 const identifiers=['ELEVENLABS_VOICE_ID','ELEVENLABS_MINDFULNESS_AGENT_ID','TELNYX_CONNECTION_ID','TELNYX_FROM_NUMBER','AGENTMAIL_INBOX_ID','AGENT_EMAIL','GOOGLE_CALENDAR_CLIENT_ID'];
@@ -17,7 +17,7 @@ const candidates:Record<string,readonly string[]>={AGENT_CHAT_MODEL:MODEL_PROVID
 const declared=[...new Set([...Object.keys(agent.AgentCredentialsSchema.shape),...agent.KNOWN_CREDENTIAL_KEYS,...agent.AUTH_GATE_FIELDS])];
 describe('Canonical credential services',()=>{
  it('exports the metadata through the public agent entry',()=>{expect(agent).toHaveProperty('AGENT_CREDENTIAL_SERVICE_METADATA');expect(agent).toHaveProperty('AgentCredentialServiceMetadataSchema');expect(agent).toHaveProperty('getAgentCredentialServiceMetadata');});
- it('covers exactly every declared key, including the additional auth gate',()=>{expect(Object.keys(map).sort()).toEqual([...declared].sort());expect(agent.AGENT_CREDENTIAL_SERVICE_KEYS.toSorted()).toEqual([...declared].sort());expect(declared).toHaveLength(33);expect(get('INTERNAL_TOKEN')).not.toBeNull();});
+ it('covers exactly every declared key, including the additional auth gate',()=>{expect(Object.keys(map).sort()).toEqual([...declared].sort());expect(agent.AGENT_CREDENTIAL_SERVICE_KEYS.toSorted()).toEqual([...declared].sort());expect(declared).toHaveLength(34);expect(get('INTERNAL_TOKEN')).not.toBeNull();});
  it.each(declared)('attests service/kind/label and no values for %s',key=>{
   const entry=get(key)!;expect(entry).not.toBeNull();expect(entry.key).toBe(key);expect(metadata.safeParse(entry).success).toBe(true);expect(entry.label.trim()).not.toBe('');expect(entry.label).toMatch(/Chiave|Token|Segreto|Modello|Voce|Fornitore|Identificativo|Numero|Indirizzo/);
   expect(entry.kind).toBe(settings.includes(key)?'setting':identifiers.includes(key)?'identifier':'credential');expect(entry.secret).toBe(entry.kind==='credential'&&key!=='TELNYX_PUBLIC_KEY');

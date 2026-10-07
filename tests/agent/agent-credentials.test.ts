@@ -17,6 +17,7 @@ describe('KNOWN_CREDENTIAL_KEYS', () => {
     expect(keys).toContain('AGENTMAIL_API_KEY');
     expect(keys).toContain('GOOGLE_CALENDAR_CLIENT_ID');
     expect(keys).toContain('ELEVENLABS_API_KEY');
+    expect(keys).toContain('HOSTINGER_API_TOKEN');
   });
 
   it('Phase 50: includes voice-note provider-lane keys', () => {

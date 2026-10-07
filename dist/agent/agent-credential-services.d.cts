@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { type KnownCredentialKey, type AuthGateField } from "./agent-credentials.cjs";
 /** Metadata only: this module never accepts credential values or resolves the active provider. */
-export declare const AGENT_CREDENTIAL_SERVICE_KEYS: readonly ("OPENAI_API_KEY" | "ANTHROPIC_API_KEY" | "GOOGLE_API_KEY" | "AGENT_CHAT_MODEL" | "TELEGRAM_BOT_TOKEN" | "ELEVENLABS_API_KEY" | "ELEVENLABS_VOICE_ID" | "ELEVENLABS_MODEL_ID" | "TTS_PROVIDER" | "OPENAI_TTS_MODEL" | "OPENAI_TTS_VOICE" | "STT_PRIMARY_PROVIDER" | "OPENAI_STT_MODEL" | "VOICE_CALL_PROVIDER" | "OPENAI_LIVE_VOICE" | "OPENAI_LIVE_BACKEND_MODEL" | "TELNYX_API_KEY" | "TELNYX_CONNECTION_ID" | "TELNYX_FROM_NUMBER" | "TELNYX_PUBLIC_KEY" | "LIVE_WEB_AUTH_TOKEN" | "QDRANT_API_KEY" | "ELEVENLABS_MINDFULNESS_AGENT_ID" | "FORGE_VOICE_REGISTER_TOKEN" | "AGENTMAIL_API_KEY" | "AGENTMAIL_INBOX_ID" | "AGENT_EMAIL" | "GOOGLE_CALENDAR_CLIENT_ID" | "GOOGLE_CALENDAR_CLIENT_SECRET" | "GOOGLE_CALENDAR_REFRESH_TOKEN" | "INTERNAL_SECRET" | "X9_INTERNAL_SECRET" | "INTERNAL_TOKEN")[];
+export declare const AGENT_CREDENTIAL_SERVICE_KEYS: readonly ("OPENAI_API_KEY" | "ANTHROPIC_API_KEY" | "GOOGLE_API_KEY" | "AGENT_CHAT_MODEL" | "TELEGRAM_BOT_TOKEN" | "ELEVENLABS_API_KEY" | "ELEVENLABS_VOICE_ID" | "ELEVENLABS_MODEL_ID" | "TTS_PROVIDER" | "OPENAI_TTS_MODEL" | "OPENAI_TTS_VOICE" | "STT_PRIMARY_PROVIDER" | "OPENAI_STT_MODEL" | "VOICE_CALL_PROVIDER" | "OPENAI_LIVE_VOICE" | "OPENAI_LIVE_BACKEND_MODEL" | "TELNYX_API_KEY" | "TELNYX_CONNECTION_ID" | "TELNYX_FROM_NUMBER" | "TELNYX_PUBLIC_KEY" | "LIVE_WEB_AUTH_TOKEN" | "QDRANT_API_KEY" | "ELEVENLABS_MINDFULNESS_AGENT_ID" | "FORGE_VOICE_REGISTER_TOKEN" | "AGENTMAIL_API_KEY" | "AGENTMAIL_INBOX_ID" | "AGENT_EMAIL" | "GOOGLE_CALENDAR_CLIENT_ID" | "GOOGLE_CALENDAR_CLIENT_SECRET" | "GOOGLE_CALENDAR_REFRESH_TOKEN" | "INTERNAL_SECRET" | "X9_INTERNAL_SECRET" | "HOSTINGER_API_TOKEN" | "INTERNAL_TOKEN")[];
 export type AgentCredentialServiceKey = KnownCredentialKey | AuthGateField;
 export declare const AgentCredentialServiceKeySchema: z.ZodEnum<{
     OPENAI_API_KEY: "OPENAI_API_KEY";
@@ -36,9 +36,10 @@ export declare const AgentCredentialServiceKeySchema: z.ZodEnum<{
     GOOGLE_CALENDAR_REFRESH_TOKEN: "GOOGLE_CALENDAR_REFRESH_TOKEN";
     INTERNAL_SECRET: "INTERNAL_SECRET";
     X9_INTERNAL_SECRET: "X9_INTERNAL_SECRET";
+    HOSTINGER_API_TOKEN: "HOSTINGER_API_TOKEN";
     INTERNAL_TOKEN: "INTERNAL_TOKEN";
 }>;
-export declare const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS: readonly ["openai", "anthropic", "google", "telegram", "elevenlabs", "telnyx", "qdrant", "agentmail"];
+export declare const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS: readonly ["openai", "anthropic", "google", "telegram", "elevenlabs", "telnyx", "qdrant", "agentmail", "hostinger"];
 export declare const AgentCredentialCommercialServiceSchema: z.ZodEnum<{
     openai: "openai";
     anthropic: "anthropic";
@@ -48,6 +49,7 @@ export declare const AgentCredentialCommercialServiceSchema: z.ZodEnum<{
     telnyx: "telnyx";
     qdrant: "qdrant";
     agentmail: "agentmail";
+    hostinger: "hostinger";
 }>;
 export declare const AgentCredentialInternalServiceSchema: z.ZodEnum<{
     x9: "x9";
@@ -69,6 +71,7 @@ export declare const AgentCredentialServiceSchema: z.ZodDiscriminatedUnion<[z.Zo
         telnyx: "telnyx";
         qdrant: "qdrant";
         agentmail: "agentmail";
+        hostinger: "hostinger";
     }>;
 }, z.core.$strict>, z.ZodObject<{
     type: z.ZodLiteral<"internal">;
@@ -87,6 +90,7 @@ export declare const AgentCredentialServiceSchema: z.ZodDiscriminatedUnion<[z.Zo
         telnyx: "telnyx";
         qdrant: "qdrant";
         agentmail: "agentmail";
+        hostinger: "hostinger";
     }>>;
 }, z.core.$strict>], "type">;
 export type AgentCredentialService = z.infer<typeof AgentCredentialServiceSchema>;
@@ -144,6 +148,7 @@ export declare const AgentCredentialServiceMetadataSchema: z.ZodObject<{
         GOOGLE_CALENDAR_REFRESH_TOKEN: "GOOGLE_CALENDAR_REFRESH_TOKEN";
         INTERNAL_SECRET: "INTERNAL_SECRET";
         X9_INTERNAL_SECRET: "X9_INTERNAL_SECRET";
+        HOSTINGER_API_TOKEN: "HOSTINGER_API_TOKEN";
         INTERNAL_TOKEN: "INTERNAL_TOKEN";
     }>;
     label: z.ZodString;
@@ -164,6 +169,7 @@ export declare const AgentCredentialServiceMetadataSchema: z.ZodObject<{
             telnyx: "telnyx";
             qdrant: "qdrant";
             agentmail: "agentmail";
+            hostinger: "hostinger";
         }>;
     }, z.core.$strict>, z.ZodObject<{
         type: z.ZodLiteral<"internal">;
@@ -182,6 +188,7 @@ export declare const AgentCredentialServiceMetadataSchema: z.ZodObject<{
             telnyx: "telnyx";
             qdrant: "qdrant";
             agentmail: "agentmail";
+            hostinger: "hostinger";
         }>>;
     }, z.core.$strict>], "type">;
 }, z.core.$strict>;

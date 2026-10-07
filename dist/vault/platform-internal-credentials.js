@@ -17,7 +17,12 @@
  *
  * Leaf module (no imports) so `src/agent` can depend on it without a cycle.
  */
-export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING'];
+/**
+ * - `TELEGRAM_SESSION_STRING` — Forge factory-svc @BotFather userbot session.
+ * - `APPROVALS_SIGNING_KEY` — Ed25519 private key cap-approvals signs permits with (phase 59); clients only ever see
+ *   the public key (`approvalKeysContract`), so the key must never be projected into any agent.
+ */
+export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING', 'APPROVALS_SIGNING_KEY'];
 export function isPlatformInternalCredentialKey(key) {
     return PLATFORM_INTERNAL_CREDENTIAL_KEYS.includes(key);
 }
