@@ -19,8 +19,8 @@ export declare const ResearchRequestSchema: z.ZodObject<{
 export type ResearchRequest = z.infer<typeof ResearchRequestSchema>;
 export declare const ResearchStateSchema: z.ZodEnum<{
     failed: "failed";
-    running: "running";
     completed: "completed";
+    running: "running";
     queued: "queued";
     budget_exhausted: "budget_exhausted";
 }>;
@@ -50,8 +50,8 @@ export declare const ResearchResultSchema: z.ZodObject<{
     agentId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         completed: "completed";
+        running: "running";
         queued: "queued";
         budget_exhausted: "budget_exhausted";
     }>;

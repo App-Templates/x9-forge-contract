@@ -18,6 +18,21 @@ import { z } from 'zod';
 export declare const VoiceRegisterRequestSchema: z.ZodObject<{
     agentId: z.ZodString;
     conversationId: z.ZodString;
+    caller: z.ZodOptional<z.ZodObject<{
+        agent: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        }, z.core.$strip>;
+        displayName: z.ZodString;
+        persona: z.ZodOptional<z.ZodString>;
+        voice: z.ZodObject<{
+            provider: z.ZodString;
+            voiceId: z.ZodString;
+            model: z.ZodString;
+        }, z.core.$strict>;
+        fromNumber: z.ZodString;
+        settingsVersion: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strip>;
 export type VoiceRegisterRequest = z.infer<typeof VoiceRegisterRequestSchema>;
 export declare const VoiceRegisterResponseSchema: z.ZodObject<{
@@ -36,6 +51,21 @@ export declare const voiceRegisterContract: {
     readonly bodySchema: z.ZodObject<{
         agentId: z.ZodString;
         conversationId: z.ZodString;
+        caller: z.ZodOptional<z.ZodObject<{
+            agent: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            }, z.core.$strip>;
+            displayName: z.ZodString;
+            persona: z.ZodOptional<z.ZodString>;
+            voice: z.ZodObject<{
+                provider: z.ZodString;
+                voiceId: z.ZodString;
+                model: z.ZodString;
+            }, z.core.$strict>;
+            fromNumber: z.ZodString;
+            settingsVersion: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

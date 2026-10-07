@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import type { AgentVoiceSettings } from "../capability/voice/agent-voice-settings.cjs";
+import type { AgentScopePolicy } from "./agent-scope-policy.cjs";
 /** R2: pausing admission preserves the agent's resource and credentials in their existing stores. */
 export declare const AgentBirthChannelKindSchema: z.ZodEnum<{
     email: "email";
@@ -354,6 +356,101 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         }, z.core.$strip>;
     }, z.core.$strict>>>;
+    voiceConfiguration: z.ZodOptional<z.ZodObject<{
+        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        versions: z.ZodObject<{
+            desired: z.ZodNumber;
+            applied: z.ZodNullable<z.ZodNumber>;
+            failed: z.ZodNullable<z.ZodObject<{
+                version: z.ZodNumber;
+                reason: z.ZodObject<{
+                    code: z.ZodEnum<{
+                        unknown: "unknown";
+                        "not-loaded": "not-loaded";
+                        "load-failed": "load-failed";
+                        "validation-failed": "validation-failed";
+                        timeout: "timeout";
+                        "source-unavailable": "source-unavailable";
+                        "shared-runtime": "shared-runtime";
+                        "externally-owned": "externally-owned";
+                        "not-supported": "not-supported";
+                        "in-progress": "in-progress";
+                    }>;
+                    detail: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
+        }, z.core.$strip>;
+        desired: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            mode: z.ZodLiteral<"text-only">;
+        }, z.core.$strict>, z.ZodObject<{
+            mode: z.ZodLiteral<"voice">;
+            provider: z.ZodString;
+            protocol: z.ZodEnum<{
+                websocket: "websocket";
+                webrtc: "webrtc";
+                sip: "sip";
+            }>;
+            transports: z.ZodArray<z.ZodEnum<{
+                web: "web";
+                phone: "phone";
+            }>>;
+            voiceId: z.ZodString;
+            model: z.ZodString;
+            locale: z.ZodOptional<z.ZodString>;
+            params: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
+        }, z.core.$strict>], "mode">;
+        applied: z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            mode: z.ZodLiteral<"text-only">;
+        }, z.core.$strict>, z.ZodObject<{
+            mode: z.ZodLiteral<"voice">;
+            provider: z.ZodString;
+            protocol: z.ZodEnum<{
+                websocket: "websocket";
+                webrtc: "webrtc";
+                sip: "sip";
+            }>;
+            transports: z.ZodArray<z.ZodEnum<{
+                web: "web";
+                phone: "phone";
+            }>>;
+            voiceId: z.ZodString;
+            model: z.ZodString;
+            locale: z.ZodOptional<z.ZodString>;
+            params: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
+        }, z.core.$strict>], "mode">>;
+    }, z.core.$strip>>;
+    scopePolicy: z.ZodOptional<z.ZodObject<{
+        version: z.ZodNumber;
+        defaultWebSearch: z.ZodBoolean;
+        scopeLimited: z.ZodBoolean;
+        purpose: z.ZodOptional<z.ZodString>;
+        defaults: z.ZodObject<{
+            read: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+            write: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+        }, z.core.$strict>;
+        rules: z.ZodArray<z.ZodObject<{
+            capability: z.ZodString;
+            tool: z.ZodOptional<z.ZodString>;
+            read: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+            write: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
 }, z.core.$loose>;
 export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
     agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -510,8 +607,107 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         }, z.core.$strip>;
     }, z.core.$strict>>>;
+    voiceConfiguration: z.ZodOptional<z.ZodObject<{
+        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        versions: z.ZodObject<{
+            desired: z.ZodNumber;
+            applied: z.ZodNullable<z.ZodNumber>;
+            failed: z.ZodNullable<z.ZodObject<{
+                version: z.ZodNumber;
+                reason: z.ZodObject<{
+                    code: z.ZodEnum<{
+                        unknown: "unknown";
+                        "not-loaded": "not-loaded";
+                        "load-failed": "load-failed";
+                        "validation-failed": "validation-failed";
+                        timeout: "timeout";
+                        "source-unavailable": "source-unavailable";
+                        "shared-runtime": "shared-runtime";
+                        "externally-owned": "externally-owned";
+                        "not-supported": "not-supported";
+                        "in-progress": "in-progress";
+                    }>;
+                    detail: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
+        }, z.core.$strip>;
+        desired: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            mode: z.ZodLiteral<"text-only">;
+        }, z.core.$strict>, z.ZodObject<{
+            mode: z.ZodLiteral<"voice">;
+            provider: z.ZodString;
+            protocol: z.ZodEnum<{
+                websocket: "websocket";
+                webrtc: "webrtc";
+                sip: "sip";
+            }>;
+            transports: z.ZodArray<z.ZodEnum<{
+                web: "web";
+                phone: "phone";
+            }>>;
+            voiceId: z.ZodString;
+            model: z.ZodString;
+            locale: z.ZodOptional<z.ZodString>;
+            params: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
+        }, z.core.$strict>], "mode">;
+        applied: z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            mode: z.ZodLiteral<"text-only">;
+        }, z.core.$strict>, z.ZodObject<{
+            mode: z.ZodLiteral<"voice">;
+            provider: z.ZodString;
+            protocol: z.ZodEnum<{
+                websocket: "websocket";
+                webrtc: "webrtc";
+                sip: "sip";
+            }>;
+            transports: z.ZodArray<z.ZodEnum<{
+                web: "web";
+                phone: "phone";
+            }>>;
+            voiceId: z.ZodString;
+            model: z.ZodString;
+            locale: z.ZodOptional<z.ZodString>;
+            params: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
+        }, z.core.$strict>], "mode">>;
+    }, z.core.$strip>>;
+    scopePolicy: z.ZodOptional<z.ZodObject<{
+        version: z.ZodNumber;
+        defaultWebSearch: z.ZodBoolean;
+        scopeLimited: z.ZodBoolean;
+        purpose: z.ZodOptional<z.ZodString>;
+        defaults: z.ZodObject<{
+            read: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+            write: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+        }, z.core.$strict>;
+        rules: z.ZodArray<z.ZodObject<{
+            capability: z.ZodString;
+            tool: z.ZodOptional<z.ZodString>;
+            read: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+            write: z.ZodEnum<{
+                allow: "allow";
+                ask: "ask";
+                deny: "deny";
+            }>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
 }, z.core.$loose>;
 export type AgentContextWithChannels = z.infer<typeof AgentContextWithChannelsSchema>;
+/** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
+export declare function appliedAgentVoiceSettings(ctx: Pick<AgentContextWithChannels, 'voiceConfiguration'>): AgentVoiceSettings | null;
+/** Applied policy of a validated context; absence is unconfigured, never an invented default. */
+export declare function appliedAgentScopePolicy(ctx: Pick<AgentContextWithChannels, 'scopePolicy'>): AgentScopePolicy | null;
 /** Admission only, not readiness: the producer still resolves this agent's credentials and attests the load. */
 export declare function shouldLoadAgentChannel(rawContext: unknown, kind: AgentBirthChannelKind): boolean;
 //# sourceMappingURL=agent-channel-configuration.d.ts.map

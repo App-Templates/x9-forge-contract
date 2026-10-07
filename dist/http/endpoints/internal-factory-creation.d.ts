@@ -95,8 +95,8 @@ export declare const internalFactoryReplayableDeployContract: {
             phase: z.ZodEnum<{
                 incomplete: "incomplete";
                 pending: "pending";
-                running: "running";
                 completed: "completed";
+                running: "running";
             }>;
             channels: z.ZodArray<z.ZodObject<{
                 kind: z.ZodEnum<{

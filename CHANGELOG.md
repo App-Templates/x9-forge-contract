@@ -10,6 +10,24 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.34.0 — voce e scopo applicati nel contesto agente, identità del chiamante (BRIDGE-134)
+
+Additivo: un context.json 1.33 senza i campi nuovi resta valido.
+
+### Added (additive, backward-compatible)
+
+- `./agent`: campo opzionale `voiceConfiguration` (`AgentVoiceConfigSchema`, salvata + applicata + versioni) nel contesto con canali e nella variante Write; `agentId` deve coincidere con lo scope del contesto. Helper `appliedAgentVoiceSettings(ctx)`: impostazioni applicate oppure `null` (motivo distinguibile `voice_not_applied`), mai un default inventato.
+- `./agent`: campo opzionale `scopePolicy` (`AgentScopePolicySchema`, policy applicata con la sua versione) e helper `appliedAgentScopePolicy(ctx)` → policy oppure `null`.
+- `./http` voice-register: campo opzionale `caller` (`OutboundCallerIdentitySchema`), identità autorevole del chiamante sul numero condiviso; i campi legacy restano validi, una discordanza è rifiutata.
+
+### Note
+
+- `VoiceRegisterRequestSchema` ora ha una refinement: in Zod 4 `.pick()/.omit()/.partial()` su questo schema lanciano a runtime. Nessun consumer attuale lo fa; per derivare forme usare lo schema base.
+
+Verificato da revisore indipendente V8: 2028/2028, 9/9 mutazioni uccise, R-14 PASS.
+
+---
+
 ## v1.33.0 — versione applicata della configurazione nel contesto agente (BRIDGE-133)
 
 Additivo: export e payload 1.32 invariati; un context.json 1.32 senza il campo resta valido.

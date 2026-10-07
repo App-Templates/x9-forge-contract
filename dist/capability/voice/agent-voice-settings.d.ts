@@ -180,6 +180,7 @@ export declare const VoiceProviderCatalogSchema: z.ZodObject<{
 }, z.core.$strip>;
 export type VoiceProviderCatalog = z.infer<typeof VoiceProviderCatalogSchema>;
 export declare const AgentVoiceErrorCodeSchema: z.ZodEnum<{
+    voice_not_applied: "voice_not_applied";
     voice_disabled: "voice_disabled";
     phone_not_enabled: "phone_not_enabled";
     provider_unsupported: "provider_unsupported";
@@ -213,10 +214,10 @@ export type OutboundCallerIdentityResult = {
     identity: OutboundCallerIdentity;
 } | {
     ok: false;
-    error: 'voice_disabled' | 'phone_not_enabled';
+    error: 'voice_not_applied' | 'voice_disabled' | 'phone_not_enabled';
 };
 /** Build the caller identity from APPLIED settings; text-only agents and agents without phone never dial. */
 export declare function outboundCallerIdentityFor(input: Omit<OutboundCallerIdentity, 'voice'> & {
-    settings: AgentVoiceSettings;
+    settings: AgentVoiceSettings | null;
 }): OutboundCallerIdentityResult;
 //# sourceMappingURL=agent-voice-settings.d.ts.map
