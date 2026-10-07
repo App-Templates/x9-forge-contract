@@ -1,0 +1,227 @@
+{
+  "expected": 8,
+  "tests": 18,
+  "records": [
+    {
+      "name": "export",
+      "file": "src/http/endpoints/index.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 0,
+        "failed": 18,
+        "assertions": [
+          "internal voice producer catalog contract exports the same endpoint through the HTTP and endpoint entry points",
+          "internal voice producer catalog contract uses a read-only GET",
+          "internal voice producer catalog contract owns the canonical internal catalog path",
+          "internal voice producer catalog contract requires the existing platform secret authentication kind",
+          "internal voice producer catalog contract imports the existing internal secret header",
+          "internal voice producer catalog contract has no model-chosen request body or agent override",
+          "internal voice producer catalog contract reuses the canonical versioned provider catalog schema",
+          "internal voice producer catalog contract returns version and the producer menu without changing supported choices",
+          "internal voice producer catalog contract returns opaque provider voice IDs and the producer pattern",
+          "internal voice producer catalog contract allows an explicitly empty producer catalog without inventing a provider",
+          "internal voice producer catalog contract rejects a catalog with no version",
+          "internal voice producer catalog contract rejects an empty version",
+          "internal voice producer catalog contract rejects missing providers",
+          "internal voice producer catalog contract rejects duplicate provider identities",
+          "internal voice producer catalog contract rejects a provider with no supported models",
+          "internal voice producer catalog contract rejects an empty closed voice menu",
+          "internal voice producer catalog contract rejects an invalid provider ID pattern",
+          "internal voice producer catalog contract strips noncatalog source metadata from the wire response"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    },
+    {
+      "name": "method",
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 17,
+        "failed": 1,
+        "assertions": [
+          "internal voice producer catalog contract uses a read-only GET"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    },
+    {
+      "name": "path",
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 17,
+        "failed": 1,
+        "assertions": [
+          "internal voice producer catalog contract owns the canonical internal catalog path"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    },
+    {
+      "name": "auth",
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 17,
+        "failed": 1,
+        "assertions": [
+          "internal voice producer catalog contract requires the existing platform secret authentication kind"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    },
+    {
+      "name": "header",
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 17,
+        "failed": 1,
+        "assertions": [
+          "internal voice producer catalog contract imports the existing internal secret header"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    },
+    {
+      "name": "body",
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 17,
+        "failed": 1,
+        "assertions": [
+          "internal voice producer catalog contract has no model-chosen request body or agent override"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    },
+    {
+      "name": "permissive",
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 9,
+        "failed": 9,
+        "assertions": [
+          "internal voice producer catalog contract reuses the canonical versioned provider catalog schema",
+          "internal voice producer catalog contract rejects a catalog with no version",
+          "internal voice producer catalog contract rejects an empty version",
+          "internal voice producer catalog contract rejects missing providers",
+          "internal voice producer catalog contract rejects duplicate provider identities",
+          "internal voice producer catalog contract rejects a provider with no supported models",
+          "internal voice producer catalog contract rejects an empty closed voice menu",
+          "internal voice producer catalog contract rejects an invalid provider ID pattern",
+          "internal voice producer catalog contract strips noncatalog source metadata from the wire response"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    },
+    {
+      "name": "reject-valid",
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "red": {
+        "exit": 1,
+        "total": 18,
+        "passed": 13,
+        "failed": 5,
+        "assertions": [
+          "internal voice producer catalog contract reuses the canonical versioned provider catalog schema",
+          "internal voice producer catalog contract returns version and the producer menu without changing supported choices",
+          "internal voice producer catalog contract returns opaque provider voice IDs and the producer pattern",
+          "internal voice producer catalog contract allows an explicitly empty producer catalog without inventing a provider",
+          "internal voice producer catalog contract strips noncatalog source metadata from the wire response"
+        ]
+      },
+      "restore": {
+        "exit": 0,
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "assertions": []
+      }
+    }
+  ],
+  "namesHit": [
+    "internal voice producer catalog contract allows an explicitly empty producer catalog without inventing a provider",
+    "internal voice producer catalog contract exports the same endpoint through the HTTP and endpoint entry points",
+    "internal voice producer catalog contract has no model-chosen request body or agent override",
+    "internal voice producer catalog contract imports the existing internal secret header",
+    "internal voice producer catalog contract owns the canonical internal catalog path",
+    "internal voice producer catalog contract rejects a catalog with no version",
+    "internal voice producer catalog contract rejects a provider with no supported models",
+    "internal voice producer catalog contract rejects an empty closed voice menu",
+    "internal voice producer catalog contract rejects an empty version",
+    "internal voice producer catalog contract rejects an invalid provider ID pattern",
+    "internal voice producer catalog contract rejects duplicate provider identities",
+    "internal voice producer catalog contract rejects missing providers",
+    "internal voice producer catalog contract requires the existing platform secret authentication kind",
+    "internal voice producer catalog contract returns opaque provider voice IDs and the producer pattern",
+    "internal voice producer catalog contract returns version and the producer menu without changing supported choices",
+    "internal voice producer catalog contract reuses the canonical versioned provider catalog schema",
+    "internal voice producer catalog contract strips noncatalog source metadata from the wire response",
+    "internal voice producer catalog contract uses a read-only GET"
+  ],
+  "restored": [
+    {
+      "file": "src/http/endpoints/voice-catalog.ts",
+      "exact": true,
+      "sha256": "edf3c9130a727bc26c0a272ae15fc3769242740917008f833108057962a40f2a"
+    },
+    {
+      "file": "src/http/endpoints/index.ts",
+      "exact": true,
+      "sha256": "fe32ef5935419257b69bf7be835147255bdbcfa376645777cd223bc731447afc"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"command": ["pnpm", "-C", "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-68-1", "exec", "vitest", "run", "tests/http/voice-catalog.test.ts", "--maxWorkers=1", "--reporter=json", "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-68-1/.planning/phases/bridge-135-voice-catalog/02-body-red.json"], "exit": 1}
