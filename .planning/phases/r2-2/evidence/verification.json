@@ -1,0 +1,102 @@
+{
+  "candidate": "505ab2f68d9803b807011f9d6042637f51a26a85",
+  "base": "897258d",
+  "checks": [
+    {
+      "check": "build",
+      "cmd": [
+        "pnpm",
+        "build"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "typecheck",
+      "cmd": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "lint",
+      "cmd": [
+        "pnpm",
+        "lint"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "pack",
+      "cmd": [
+        "pnpm",
+        "check:pack"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "full",
+      "cmd": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "--maxWorkers=1",
+        "--testTimeout=60000",
+        "--reporter=json",
+        "--outputFile=/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/full.json"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "cjs",
+      "cmd": [
+        "node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "exit": 0
+    }
+  ],
+  "suite": {
+    "passed": 1951,
+    "total": 1951,
+    "files": 112
+  },
+  "newTests": {
+    "passed": 121,
+    "total": 121,
+    "files": 4,
+    "details": [
+      {
+        "name": "r2-attestation.test.ts",
+        "passed": 22
+      },
+      {
+        "name": "r2-channel-configuration.test.ts",
+        "passed": 42
+      },
+      {
+        "name": "r2-creation-replay.test.ts",
+        "passed": 54
+      },
+      {
+        "name": "r2-compat.test.ts",
+        "passed": 3
+      }
+    ]
+  },
+  "legacyExports": {
+    "symbols": 556,
+    "subpaths": 18,
+    "coverage": "source snapshot guards in full suite; compiled CJS smoke and all new public exports in ESM/CJS"
+  },
+  "newPublicSymbols": {
+    "agent": 24,
+    "http": 2,
+    "esm": 26,
+    "cjs": 26
+  },
+  "cjsLog": "[cjs-smoke] OK   @x9-forge/contracts/capability/parameters  ->  CapabilityParameterSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/parameters  ->  CapabilityAgentParametersSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityOutputSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityFeedbackSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityTrendsSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability  ->  AgentTurnSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability  ->  CapabilityTurnLeadResponseSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/http  ->  capTurnLeadContract (object)\n[cjs-smoke] OK   @x9-forge/contracts  ->  ModelTierSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/auth  ->  INTERNAL_TOKEN_HEADER (string = \"X-Internal-Token\")\n[cjs-smoke] OK   @x9-forge/contracts/auth  ->  INTERNAL_SECRET_HEADER (string = \"X-Internal-Secret\")\n[cjs-smoke] OK   @x9-forge/contracts/agent  ->  AgentIdSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability  ->  CapabilityManifestSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/voice  ->  VoiceCallIntentSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/stt  ->  CAP_STT_DEFAULT_PORT (number = 4011)\n[cjs-smoke] OK   @x9-forge/contracts/capability/stt  ->  TranscribeRequestSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/tts  ->  TtsProviderSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/tts  ->  DEFAULT_TTS_PROVIDER (string = \"elevenlabs\")\n[cjs-smoke] OK   @x9-forge/contracts/capability/voice-live  ->  CAP_VOICE_LIVE_DEFAULT_PORT (number = 3217)\n[cjs-smoke] OK   @x9-forge/contracts/capability/voice-live  ->  VoiceLiveCallStartRequestSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/ricerca  ->  ResearchAgentConfigSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/capability/lab  ->  LabAgentConfigSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/http  ->  capAgentConfigPath (function)\n[cjs-smoke] OK   @x9-forge/contracts/voice  ->  VoiceProviderSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/http  ->  CAP_VOICE_LIVE_CALL_START_PATH (string = \"/internal/live/call-start\")\n[cjs-smoke] OK   @x9-forge/contracts/http  ->  vaultResolveContract (object)\n[cjs-smoke] OK   @x9-forge/contracts/http  ->  internalFactoryTelegramTokenContract (object)\n[cjs-smoke] OK   @x9-forge/contracts/http  ->  InternalFactoryTelegramTokenRequestSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/memory  ->  MEMORY_CORRECT_PATH (string = \"/internal/memory/correct\")\n[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  ChannelTypeSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  IncomingMessageEnvelopeSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  AgentEmailInboxSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  AgentTelegramBotSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/model-router  ->  ModelTierSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/rag  ->  RagQueryRequestSchema (object)\n[cjs-smoke] OK   @x9-forge/contracts/vault  ->  VaultTierSchema (object)\n\n[cjs-smoke] summary: 36 passed, 0 failed (of 36 probes)\nBRIDGE-130 CJS public subpaths: 6/6 assertions passed\n",
+  "mutationStatus": "partial accepted by coordinator 2026-10-07 02:36; no complete campaign score",
+  "rawEvidence": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence"
+}

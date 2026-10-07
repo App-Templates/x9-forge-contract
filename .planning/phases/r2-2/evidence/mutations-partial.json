@@ -1,0 +1,1611 @@
+{
+  "productCandidate": "505ab2f68d9803b807011f9d6042637f51a26a85",
+  "completeCampaign": false,
+  "acceptedPartialAt": "2026-10-07 02:36",
+  "rule": "BACHECA.md:66 three attempts; no further mutation attempt",
+  "campaigns": [
+    {
+      "name": "exploratory",
+      "candidate": "ac63c47182b436f0bf3f8d7dc7eb888b725af104",
+      "planned": 102,
+      "executed": 31,
+      "assertionOnlyKilled": 30,
+      "survivors": [
+        "both context birth channels"
+      ],
+      "fix": "one-channel assertion and telegram external-kind counterexample added in 505ab2f",
+      "details": [
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "birth channel subset",
+          "old": "ChannelTypeSchema.extract(['telegram', 'email'])",
+          "new": "ChannelTypeSchema",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects unsupported channel",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:25:194\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/001-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/001-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "desired state vocabulary",
+          "old": "z.enum(['active', 'paused'])",
+          "new": "z.string()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects unknown desired state",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/002-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/002-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "failure code vocabulary",
+          "old": "code: AgentChannelFailureCodeSchema",
+          "new": "code: z.string()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission enforces fixed retryability and strict error shape",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:69:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/003-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/003-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "failure detail excluded",
+          "old": "retryable: z.boolean() }).strict()",
+          "new": "retryable: z.boolean() }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission enforces fixed retryability and strict error shape",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:70:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/004-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/004-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "fixed retryability",
+          "old": "failure.retryable === RETRYABLE.has(failure.code)",
+          "new": "true",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission enforces fixed retryability and strict error shape",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:67:109\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/005-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/005-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "unknown failure sanitization",
+          "old": "parsed.success ? parsed.data : 'apply_failed'",
+          "new": "code as AgentChannelFailureCode",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission returns fixed failures without external strings",
+                "messages": [
+                  "AssertionError: expected { \u2026(2) } to deeply equal { code: 'apply_failed', \u2026(1) }\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:63:72\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/006-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/006-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "telegram public metadata",
+          "old": ".pick({ agent_id: true, bot_username: true, created_at: true }).strict()",
+          "new": ".pick({ agent_id: true, bot_username: true, created_at: true }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 38,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects non-public resource fields 0",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:19:267\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects non-public resource fields 1",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:19:267\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects non-public resource fields 2",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:19:267\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects private metadata and container fields for telegram",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:22:123\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/007-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/007-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "email public metadata",
+          "old": "resource: AgentEmailInboxSchema.strict()",
+          "new": "resource: AgentEmailInboxSchema.passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects private metadata and container fields for email",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:22:123\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/008-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/008-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "telegram resource container",
+          "old": "created_at: true }).strict() }).strict()",
+          "new": "created_at: true }).strict() }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects private metadata and container fields for telegram",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:23:92\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/009-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/009-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "email resource container",
+          "old": "AgentEmailInboxSchema.strict() }).strict()",
+          "new": "AgentEmailInboxSchema.strict() }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects private metadata and container fields for email",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:23:92\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/010-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/010-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource agent ownership",
+          "old": "owned.resource.agent_id !== owned.scope.agentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource agent id mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:15:184\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/011-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/011-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource runtime scope",
+          "old": "owned.identity.runtimeAgentId !== owned.scope.agentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource runtime identity mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:16:187\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/012-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/012-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "version state public shape",
+          "old": "state: AgentChannelDesiredStateSchema }).strict()",
+          "new": "state: AgentChannelDesiredStateSchema }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 40,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects private desired state field",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 desired and applied channel state rejects private applied state field",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/013-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/013-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "configuration public shape",
+          "old": "}).strict().superRefine((config, ctx)",
+          "new": "}).passthrough().superRefine((config, ctx)",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects unknown root field",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/014-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/014-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "configuration runtime scope",
+          "old": "config.identity.runtimeAgentId !== config.scope.agentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects configuration runtime identity",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/015-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/015-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "full resource scope",
+          "old": "!sameCapabilityScope(config.resource.scope, config.scope)",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 39,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects foreign resource tenantId",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:13:333\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects foreign resource ownerId",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:13:333\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects foreign resource agentId",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:13:333\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/016-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/016-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource management identity",
+          "old": "config.resource.identity.managementAgentId !== config.identity.managementAgentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource management identity mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:17:213\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/017-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/017-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource channel kind",
+          "old": "config.resource.kind !== config.kind",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource kind mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:18:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/018-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/018-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "applied version bounded",
+          "old": "config.applied.version > config.desired.version",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects applied ahead",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/019-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/019-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "one version one state",
+          "old": "config.applied.state !== config.desired.state",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects same version different state",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/020-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/020-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "active application resource",
+          "old": "config.applied?.state === 'active' && config.resource === null",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects active without resource",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/021-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/021-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "observation dating",
+          "old": "(config.observation === null) !== (config.observedAt === null)",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 40,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects undated observation",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 desired and applied channel state rejects date without observation",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/022-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/022-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "observation channel kind",
+          "old": "config.observation.kind !== config.kind",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects observation kind",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/023-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/023-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "observation application version",
+          "old": "config.observation && config.applied === null",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects observation without applied state",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/024-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/024-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "loaded application active",
+          "old": "config.observation?.state === 'loaded' && config.applied?.state !== 'active'",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects paused but loaded",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/025-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/025-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "paused application paused",
+          "old": "config.observation?.state === 'paused' && config.applied?.state !== 'paused'",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects active but observed paused",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/026-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/026-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "application fail closed",
+          "old": "AgentChannelConfigurationSchema.safeParse(raw);\n  if (!parsed.success) return false;",
+          "new": "AgentChannelConfigurationSchema.safeParse(raw);\n  if (!parsed.success) return true;",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state requires authoritative observation for convergence",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:56:58\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/027-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/027-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "application no error",
+          "old": "config.error === null",
+          "new": "true",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state requires authoritative observation for convergence",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:53:98\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/028-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/028-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "application same version",
+          "old": "config.applied?.version === config.desired.version",
+          "new": "true",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state requires authoritative observation for convergence",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:55:95\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/029-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/029-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "application runtime observation",
+          "old": "config.observation?.state === (config.desired.state === 'active' ? 'loaded' : 'paused')",
+          "new": "true",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state requires authoritative observation for convergence",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:52:90\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/030-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/030-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "both context birth channels",
+          "old": ".length(2).refine(",
+          "new": ".min(1).max(2).refine(",
+          "red": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "failures": [],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/031-red.json"
+          },
+          "restored": {
+            "exit": 0,
+            "passed": 42,
+            "total": 42,
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-final/031-restored.json"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": false,
+          "killed": false
+        }
+      ]
+    },
+    {
+      "name": "partial final candidate",
+      "candidate": "505ab2f68d9803b807011f9d6042637f51a26a85",
+      "planned": 102,
+      "executed": 21,
+      "assertionFailuresObserved": 21,
+      "baseline": {
+        "exit": 0,
+        "passed": 118,
+        "total": 118,
+        "failures": [],
+        "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/baseline.json"
+      },
+      "finalGreen": false,
+      "interrupted": "subprocess.TimeoutExpired 180s at sample22; not credited",
+      "details": [
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "birth channel subset",
+          "old": "ChannelTypeSchema.extract(['telegram', 'email'])",
+          "new": "ChannelTypeSchema",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects unsupported channel",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:25:194\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/001-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "desired state vocabulary",
+          "old": "z.enum(['active', 'paused'])",
+          "new": "z.string()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects unknown desired state",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/002-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "failure code vocabulary",
+          "old": "code: AgentChannelFailureCodeSchema",
+          "new": "code: z.string()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission enforces fixed retryability and strict error shape",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:69:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/003-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "failure detail excluded",
+          "old": "retryable: z.boolean() }).strict()",
+          "new": "retryable: z.boolean() }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission enforces fixed retryability and strict error shape",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:70:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/004-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "fixed retryability",
+          "old": "failure.retryable === RETRYABLE.has(failure.code)",
+          "new": "true",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission enforces fixed retryability and strict error shape",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:67:109\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/005-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "unknown failure sanitization",
+          "old": "parsed.success ? parsed.data : 'apply_failed'",
+          "new": "code as AgentChannelFailureCode",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 sanitized errors and channel admission returns fixed failures without external strings",
+                "messages": [
+                  "AssertionError: expected { \u2026(2) } to deeply equal { code: 'apply_failed', \u2026(1) }\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:63:72\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/006-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "telegram public metadata",
+          "old": ".pick({ agent_id: true, bot_username: true, created_at: true }).strict()",
+          "new": ".pick({ agent_id: true, bot_username: true, created_at: true }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 38,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects non-public resource fields 0",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:19:267\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects non-public resource fields 1",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:19:267\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects non-public resource fields 2",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:19:267\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects private metadata and container fields for telegram",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:22:123\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/007-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "email public metadata",
+          "old": "resource: AgentEmailInboxSchema.strict()",
+          "new": "resource: AgentEmailInboxSchema.passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects private metadata and container fields for email",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:22:123\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/008-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "telegram resource container",
+          "old": "created_at: true }).strict() }).strict()",
+          "new": "created_at: true }).strict() }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects private metadata and container fields for telegram",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:23:92\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/009-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "email resource container",
+          "old": "AgentEmailInboxSchema.strict() }).strict()",
+          "new": "AgentEmailInboxSchema.strict() }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects private metadata and container fields for email",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:23:92\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/010-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource agent ownership",
+          "old": "owned.resource.agent_id !== owned.scope.agentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource agent id mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:15:184\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/011-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource runtime scope",
+          "old": "owned.identity.runtimeAgentId !== owned.scope.agentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource runtime identity mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:16:187\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/012-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "version state public shape",
+          "old": "state: AgentChannelDesiredStateSchema }).strict()",
+          "new": "state: AgentChannelDesiredStateSchema }).passthrough()",
+          "red": {
+            "exit": 1,
+            "passed": 40,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects private desired state field",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 desired and applied channel state rejects private applied state field",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/013-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "configuration public shape",
+          "old": "}).strict().superRefine((config, ctx)",
+          "new": "}).passthrough().superRefine((config, ctx)",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects unknown root field",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/014-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "configuration runtime scope",
+          "old": "config.identity.runtimeAgentId !== config.scope.agentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects configuration runtime identity",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/015-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "full resource scope",
+          "old": "!sameCapabilityScope(config.resource.scope, config.scope)",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 39,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects foreign resource tenantId",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:13:333\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects foreign resource ownerId",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:13:333\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              },
+              {
+                "test": "R2 own resources rejects foreign resource agentId",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:13:333\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/016-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource management identity",
+          "old": "config.resource.identity.managementAgentId !== config.identity.managementAgentId",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource management identity mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:17:213\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/017-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "resource channel kind",
+          "old": "config.resource.kind !== config.kind",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 own resources rejects resource kind mismatch",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:18:151\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/018-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "applied version bounded",
+          "old": "config.applied.version > config.desired.version",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects applied ahead",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/019-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "one version one state",
+          "old": "config.applied.state !== config.desired.state",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects same version different state",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/020-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        },
+        {
+          "file": "src/agent/agent-channel-configuration.ts",
+          "control": "active application resource",
+          "old": "config.applied?.state === 'active' && config.resource === null",
+          "new": "false",
+          "red": {
+            "exit": 1,
+            "passed": 41,
+            "total": 42,
+            "failures": [
+              {
+                "test": "R2 desired and applied channel state rejects active without resource",
+                "messages": [
+                  "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/codex-c-r2-2-check-dey_2m95/tests/agent/r2-channel-configuration.test.ts:49:117\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)\n    at runTest (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at runSuite (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-43-1/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)"
+                ]
+              }
+            ],
+            "report": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/mutation-complete/021-red.json"
+          },
+          "restored": {
+            "method": "byte-identical restore to passing baseline",
+            "sha256": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+            "finalGreenVerification": "pending"
+          },
+          "shaRestored": "55aef5a252bc43d9658f1f608a8bac6fa14f147a53abeb069bf815691949b3d3",
+          "assertionOnly": true,
+          "killed": true
+        }
+      ]
+    },
+    {
+      "name": "single watch session",
+      "candidate": "505ab2f68d9803b807011f9d6042637f51a26a85",
+      "planned": 107,
+      "executed": 0,
+      "interrupted": {
+        "type": "TimeoutError",
+        "message": "No fresh watch report for baseline; not credited",
+        "finished": "2026-10-07T00:34:13Z"
+      }
+    }
+  ],
+  "scoresNotSummed": true,
+  "allPrivateInputsRestored": 378,
+  "remainingGate": "independent reviewer samples scoped binding, pause admission, completed first-check, full intention comparison and HTTP authentication/schema binding"
+}

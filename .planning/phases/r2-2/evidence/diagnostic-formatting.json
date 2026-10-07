@@ -1,0 +1,14 @@
+[
+  {
+    "file": "pre-commit-lint.txt",
+    "originalSHA256": "fdae2564872faba0fad37f722695d3f10f3c3375f5c8c2cbe9097e9ecc6ea3d4",
+    "raw": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/author-raw-diagnostics/pre-commit-lint.txt",
+    "edit": "remove final empty lines only; diagnostic not mutation credit"
+  },
+  {
+    "file": "preparatory-missing-exports.txt",
+    "originalSHA256": "61ece4ff19b06ae2d46b111fc60ce66c9e9e5ae34a37c0028764bf5cf71cbc4e",
+    "raw": "/private/tmp/codex-c-r2-2-check-dey_2m95/evidence/author-raw-diagnostics/preparatory-missing-exports.txt",
+    "edit": "remove final empty lines only; diagnostic not mutation credit"
+  }
+]

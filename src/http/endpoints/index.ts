@@ -47,3 +47,7 @@ export * from './webhook-inbound-telegram.js'; // POST /webhook/inbound/telegram
 export * from './webhook-inbound-email.js'; // POST /webhook/agentmail/inbound, X9 cap-email
 
 export * from './cap-turn-lead.js';
+
+export * from './internal-factory-creation.js'; // R2 opt-in replayable deploy, legacy contract unchanged.
+
+export * from './internal-channel-attestation.js';
