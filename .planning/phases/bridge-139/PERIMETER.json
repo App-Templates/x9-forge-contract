@@ -1,0 +1,61 @@
+{
+  "base": "67708ce1efa7dd2f7f03ff49d8607449a69a3d6c",
+  "head": "57bb3db0739f354f49930f95a392ef00983bb381",
+  "changed": [
+    ".planning/phases/bridge-139/ARCHIVE-PROOF.json",
+    ".planning/phases/bridge-139/BUILD-INPUTS.json",
+    ".planning/phases/bridge-139/COMPILED-MUTATIONS.json",
+    ".planning/phases/bridge-139/CTS-PROOF.json",
+    ".planning/phases/bridge-139/METADATA-MUTATIONS.json",
+    ".planning/phases/bridge-139/PLAN.md",
+    ".planning/phases/bridge-139/PROOF.json",
+    ".planning/phases/bridge-139/QUALITY.json",
+    ".planning/phases/bridge-139/SOURCE-MUTATIONS.json",
+    ".planning/phases/bridge-139/SUMMARY.md",
+    ".planning/phases/bridge-139/compiled-mutations.py",
+    ".planning/phases/bridge-139/cts-proof.py",
+    ".planning/phases/bridge-139/metadata-mutations.py",
+    ".planning/phases/bridge-139/perimeter.py",
+    ".planning/phases/bridge-139/source-mutations.py",
+    "src/agent/agent-inventory-metadata.ts",
+    "src/agent/agent-management.ts",
+    "src/agent/agent-runtime-state.ts",
+    "src/agent/agent-workspace-attestation.ts",
+    "src/agent/agent-workspace.ts",
+    "src/agent/index.ts",
+    "src/http/endpoints/internal-agents-list.ts",
+    "tests/agent/bridge139-inventory-metadata.test.ts",
+    "tests/agent/bridge139-workspace-attestation.test.ts",
+    "tests/cjs/bridge139-metadata.cjs",
+    "tests/cjs/bridge139-metadata.cts",
+    "tests/cjs/bridge139-workspace.cjs",
+    "tests/cjs/bridge139-workspace.cts"
+  ],
+  "changed_allowed": 28,
+  "changed_total": 28,
+  "protected_equal": 2588,
+  "protected_total": 2588,
+  "negative_probes": [
+    {
+      "path": "package.json",
+      "scope_rejected": true,
+      "changed_blob_detected": true
+    },
+    {
+      "path": "CHANGELOG.md",
+      "scope_rejected": true,
+      "changed_blob_detected": true
+    },
+    {
+      "path": "dist/index.cjs",
+      "scope_rejected": true,
+      "changed_blob_detected": true
+    },
+    {
+      "path": "src/vault/workspace-file.ts",
+      "scope_rejected": true,
+      "changed_blob_detected": true
+    }
+  ],
+  "method": "Git tree object IDs and modes only, no reading protected file content; four in-memory changed object probes, no file edits"
+}
