@@ -1,0 +1,139 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-48-1
+
+ ❯ tests/agent/agent-context-config-version.test.ts (34 tests | 26 failed) 17ms
+   ✓ configVersion in context.json > AgentContextFileSchema keeps a 1.32 context valid and unchanged 3ms
+   ✓ configVersion in context.json > AgentContextFileWriteSchema keeps a 1.32 context valid and unchanged 0ms
+   ✓ configVersion in context.json > AgentContextWithChannelsSchema keeps a 1.32 context valid and unchanged 0ms
+   ✓ configVersion in context.json > AgentContextWithChannelsWriteSchema keeps a 1.32 context valid and unchanged 0ms
+   ✓ configVersion in context.json > AgentContextFileSchema accepts the applied version 0ms
+   ✓ configVersion in context.json > AgentContextFileWriteSchema accepts the applied version 0ms
+   ✓ configVersion in context.json > AgentContextWithChannelsSchema accepts the applied version 0ms
+   ✓ configVersion in context.json > AgentContextWithChannelsWriteSchema accepts the applied version 0ms
+   × configVersion in context.json > AgentContextFileSchema rejects configVersion 0 4ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileSchema rejects configVersion -1 1ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileSchema rejects configVersion 2.5 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileSchema rejects configVersion 7 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileSchema rejects configVersion null 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileSchema rejects configVersion Infinity 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileWriteSchema rejects configVersion 0 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileWriteSchema rejects configVersion -1 1ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileWriteSchema rejects configVersion 2.5 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileWriteSchema rejects configVersion 7 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileWriteSchema rejects configVersion null 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextFileWriteSchema rejects configVersion Infinity 1ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion 0 1ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion -1 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion 2.5 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion 7 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion null 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion Infinity 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion 0 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion -1 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion 2.5 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion 7 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion null 0ms
+     → expected true to be false // Object.is equality
+   × configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion Infinity 0ms
+     → expected true to be false // Object.is equality
+   × appliedAgentConfigVersion > reads the validated version 0ms
+     → (0 , appliedAgentConfigVersion) is not a function
+   × appliedAgentConfigVersion > reports never applied (null) when absent, never a guessed value 0ms
+     → (0 , appliedAgentConfigVersion) is not a function
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 26 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion 0
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion -1
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion 2.5
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion 7
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion null
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileSchema rejects configVersion Infinity
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileWriteSchema rejects configVersion 0
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileWriteSchema rejects configVersion -1
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileWriteSchema rejects configVersion 2.5
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileWriteSchema rejects configVersion 7
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileWriteSchema rejects configVersion null
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextFileWriteSchema rejects configVersion Infinity
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion 0
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion -1
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion 2.5
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion 7
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion null
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsSchema rejects configVersion Infinity
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion 0
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion -1
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion 2.5
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion 7
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion null
+ FAIL  tests/agent/agent-context-config-version.test.ts > configVersion in context.json > AgentContextWithChannelsWriteSchema rejects configVersion Infinity
+AssertionError: expected true to be false // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- false[39m
+[31m+ true[39m
+
+ ❯ tests/agent/agent-context-config-version.test.ts:43:81
+     41|   it.each(variants.flatMap(([name, schema]) => [0, -1, 2.5, '7', null,…
+     42|     '%s rejects configVersion %s', (_name, _label, value, schema) => {
+     43|       expect(schema.safeParse({ ...context132, configVersion: value })…
+       |                                                                                 ^
+     44|     },
+     45|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/26]⎯
+
+ FAIL  tests/agent/agent-context-config-version.test.ts > appliedAgentConfigVersion > reads the validated version
+TypeError: (0 , appliedAgentConfigVersion) is not a function
+ ❯ tests/agent/agent-context-config-version.test.ts:50:12
+     48| describe('appliedAgentConfigVersion', () => {
+     49|   it('reads the validated version', () => {
+     50|     expect(appliedAgentConfigVersion(parseAgentContextFile({ ...contex…
+       |            ^
+     51|   });
+     52| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/26]⎯
+
+ FAIL  tests/agent/agent-context-config-version.test.ts > appliedAgentConfigVersion > reports never applied (null) when absent, never a guessed value
+TypeError: (0 , appliedAgentConfigVersion) is not a function
+ ❯ tests/agent/agent-context-config-version.test.ts:54:12
+     52| 
+     53|   it('reports never applied (null) when absent, never a guessed value'…
+     54|     expect(appliedAgentConfigVersion(parseAgentContextFile(context132)…
+       |            ^
+     55|   });
+     56| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/26]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  26 failed | 8 passed (34)
+   Start at  05:56:00
+   Duration  461ms (transform 138ms, setup 6ms, collect 263ms, tests 17ms, environment 0ms, prepare 45ms)
+

@@ -1,0 +1,24 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-48-1
+
+ ✓ tests/agent/r2-creation-replay.test.ts (60 tests) 35ms
+ ✓ tests/agent/agent-management.test.ts (44 tests) 12ms
+ ✓ tests/agent/r2-channel-configuration.test.ts (42 tests) 13ms
+ ✓ tests/agent/agent-scope-policy.test.ts (41 tests) 10ms
+ ✓ tests/agent/r2-attestation.test.ts (22 tests) 7ms
+ ✓ tests/agent/agent-runtime-state.test.ts (32 tests) 4ms
+ ✓ tests/agent/agent-context-core.test.ts (18 tests) 5ms
+ ✓ tests/agent/agent-context-file.test.ts (17 tests) 6ms
+ ✓ tests/agent/agent-credentials.test.ts (8 tests) 5ms
+ ✓ tests/agent/parse-agent-context.test.ts (6 tests) 7ms
+ ✓ tests/agent/agent-context-config-version.test.ts (34 tests) 6ms
+ ✓ tests/agent/agent-runtime-identity.test.ts (12 tests) 3ms
+ ✓ tests/agent/agent-runtime-boundaries.test.ts (17 tests) 3ms
+ ✓ tests/agent/agent-paths.test.ts (6 tests) 1ms
+ ✓ tests/agent/agent-identity.test.ts (8 tests) 3ms
+
+ Test Files  15 passed (15)
+      Tests  367 passed (367)
+   Start at  05:56:13
+   Duration  3.16s (transform 211ms, setup 15ms, collect 951ms, tests 120ms, environment 1ms, prepare 487ms)
+

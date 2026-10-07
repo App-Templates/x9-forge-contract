@@ -1,0 +1,41 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-48-1
+
+ ❯ tests/compat/bridge-133-dist.test.ts (2 tests | 2 failed) 228ms
+   × 1.33 configVersion published from ./agent > import build reads the applied version and rejects invalid ones 170ms
+     → mod.appliedAgentConfigVersion is not a function
+   × 1.33 configVersion published from ./agent > require build reads the applied version and rejects invalid ones 58ms
+     → mod.appliedAgentConfigVersion is not a function
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/compat/bridge-133-dist.test.ts > 1.33 configVersion published from ./agent > import build reads the applied version and rejects invalid ones
+TypeError: mod.appliedAgentConfigVersion is not a function
+ ❯ tests/compat/bridge-133-dist.test.ts:23:16
+     21|       ? await import(new URL(target, root).href)
+     22|       : createRequire(import.meta.url)(new URL(target, root).pathname)…
+     23|     expect(mod.appliedAgentConfigVersion({ configVersion: 4 })).toBe(4…
+       |                ^
+     24|     expect(mod.appliedAgentConfigVersion({})).toBeNull();
+     25|     expect(mod.AgentContextFileSchema.safeParse({ ...context, configVe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/compat/bridge-133-dist.test.ts > 1.33 configVersion published from ./agent > require build reads the applied version and rejects invalid ones
+TypeError: mod.appliedAgentConfigVersion is not a function
+ ❯ tests/compat/bridge-133-dist.test.ts:23:16
+     21|       ? await import(new URL(target, root).href)
+     22|       : createRequire(import.meta.url)(new URL(target, root).pathname)…
+     23|     expect(mod.appliedAgentConfigVersion({ configVersion: 4 })).toBe(4…
+       |                ^
+     24|     expect(mod.appliedAgentConfigVersion({})).toBeNull();
+     25|     expect(mod.AgentContextFileSchema.safeParse({ ...context, configVe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  05:56:33
+   Duration  396ms (transform 97ms, setup 5ms, collect 11ms, tests 228ms, environment 0ms, prepare 36ms)
+
