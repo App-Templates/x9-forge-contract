@@ -29,3 +29,7 @@ Rosso10/10conAssertionError, verde10/10. Contratti GETsnapshot e POSTapply sotto
 ## B3b — facciata Forge, 01:22
 
 Rosso19/19conAssertionError, primo verde19/19, finale29/29senza skip. Sessione Forge SA/owner+tenant soltanto da fonte fidata, distinto dall'auth interna; draft strict conCAS desired/applied eoperazioni della coda; preview con evidenza reale, nessun falso applied. Parser/path/schema riusati, nessunwriter/handler/URLprovider nuovo. Primo giro **51/54**:desired-version schema/CAS epreview-current mascherati dalla monotonicità del draft4vsapplied5. Aggiunti witness con appliednull e versione negativa/frazionaria, e desiredfuture6compatibile col vincolo monotono. Secondo giro unico **54/54**semantico, ripristini29/29eSHAidentici, http-forge-first-campaign.json preserva i sopravvissuti; http-forge-mutation-proof.json riporta il giro completo. Tipi/lintmirato exit0. Test di consumo ESM/CJS scritto e visto rosso AssertionError sulla dist1.41; verrà verificato/committato nel lottoQ dopo build privata. Nessuna prova browser/provider/live.
+
+## Q1 — coerenza della risorsa con policy esplicita
+
+Controprova prima del codice:1/64rosso per risorsa con vaultAgentId diverso dalla configurazione;63/64verdi già. Aggiunto vincolo soltanto dentro access esplicito, preservando il contratto legacy senza questo campo. Verde64/64 e **1/1**mutazione semantica del nuovo gate, ripristino64/64eSHAidentico (resource-mutation-proof.json). Tipi/lint exit0.

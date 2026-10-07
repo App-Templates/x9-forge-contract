@@ -68,6 +68,7 @@ export const AgentChannelConfigurationSchema = z.object({
   const issue = (path: string, message: string) => ctx.addIssue({ code: 'custom', path: [path], message });
   if (config.identity.runtimeAgentId !== config.scope.agentId) issue('identity', 'Runtime identity must match configuration scope');
   if (config.access) {
+    if (config.resource && config.resource.identity.vaultAgentId !== config.identity.vaultAgentId) issue('resource', 'Explicit access resource belongs to another vault identity');
     if (config.access.desiredPolicy.kind !== config.kind) issue('access', 'Desired access policy belongs to another door');
     if (config.access.appliedPolicy && config.access.appliedPolicy.kind !== config.kind) issue('access', 'Applied access policy belongs to another door');
     if (config.applied === null && config.access.appliedPolicy !== null) issue('access', 'An applied policy requires an applied channel version');

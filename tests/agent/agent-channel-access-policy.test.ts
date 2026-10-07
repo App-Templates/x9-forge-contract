@@ -146,3 +146,13 @@ describe('C1 additive channel configuration', () => {
     }
   });
 });
+
+describe('C1 resource binding with explicit access', () => {
+ it('rejects another vault identity while preserving the legacy shape', () => {
+  const current = configuration();
+  const mismatched = { ...current, resource: { ...current.resource, identity: { ...identity, vaultAgentId: 8 } } };
+  expect(Agent.AgentChannelConfigurationSchema.safeParse(mismatched).success).toBe(false);
+  const { access: _access, ...legacy } = mismatched;
+  expect(Agent.AgentChannelConfigurationSchema.safeParse(legacy).success).toBe(true);
+ });
+});
