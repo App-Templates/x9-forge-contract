@@ -1,0 +1,302 @@
+[
+  {
+    "label": "binding-runtime",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "binding.identity.runtimeAgentId === binding.scope.agentId",
+    "new": "true"
+  },
+  {
+    "label": "binding-extra",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "}).strict().refine(binding",
+    "new": "}).passthrough().refine(binding"
+  },
+  {
+    "label": "binding-scope-strict",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "scope: CapabilityAgentScopeSchema.strict()",
+    "new": "scope: CapabilityAgentScopeSchema.passthrough()"
+  },
+  {
+    "label": "binding-identity-strict",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "identity: AgentRuntimeIdentitySchema.strict()",
+    "new": "identity: AgentRuntimeIdentitySchema.passthrough()"
+  },
+  {
+    "label": "binding-scope-match",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "sameCapabilityScope(a.data.scope, b.data.scope)",
+    "new": "true"
+  },
+  {
+    "label": "binding-management-match",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "a.data.identity.managementAgentId === b.data.identity.managementAgentId",
+    "new": "true"
+  },
+  {
+    "label": "binding-vault-match",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "a.data.identity.vaultAgentId === b.data.identity.vaultAgentId",
+    "new": "true"
+  },
+  {
+    "label": "chat-canonical",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.string().regex(/^-?[1-9]\\d{0,15}$/)",
+    "new": "z.string()"
+  },
+  {
+    "label": "chat-safe-integer",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "Number.isSafeInteger(Number(value))",
+    "new": "true"
+  },
+  {
+    "label": "chat-type",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.enum(['private', 'group', 'supergroup'])",
+    "new": "z.enum(['private', 'group', 'supergroup', 'channel'])"
+  },
+  {
+    "label": "chat-name-min",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.string().min(1).max(160)",
+    "new": "z.string().min(0).max(160)"
+  },
+  {
+    "label": "chat-name-max",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.string().min(1).max(160)",
+    "new": "z.string().min(1).max(161)"
+  },
+  {
+    "label": "chat-name-control",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": ".regex(/^[^\\u0000-\\u001f\\u007f]*$/)",
+    "new": ""
+  },
+  {
+    "label": "chat-date",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "admittedAt: z.iso.datetime({ offset: true })",
+    "new": "admittedAt: z.string()"
+  },
+  {
+    "label": "chat-metadata-only",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "}).strict().refine(chat",
+    "new": "}).passthrough().refine(chat"
+  },
+  {
+    "label": "chat-sign",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "(chat.type === 'private') === !chat.chatId.startsWith('-')",
+    "new": "true"
+  },
+  {
+    "label": "telegram-list-bound",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": ".max(512)",
+    "new": ".max(513)"
+  },
+  {
+    "label": "telegram-unique",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "new Set(chats.map(chat => chat.chatId)).size === chats.length",
+    "new": "true"
+  },
+  {
+    "label": "telegram-mode",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.enum(['approved-chats', 'anyone'])",
+    "new": "z.enum(['approved-chats', 'anyone', 'open'])"
+  },
+  {
+    "label": "telegram-kind",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "kind: z.literal('telegram')",
+    "new": "kind: z.enum(['telegram', 'voice'])"
+  },
+  {
+    "label": "email-mode",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.enum(['address-book', 'anyone'])",
+    "new": "z.enum(['address-book', 'anyone', 'open'])"
+  },
+  {
+    "label": "email-policy-strict",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "}).strict();\nexport type AgentEmailAccessPolicy",
+    "new": "}).passthrough();\nexport type AgentEmailAccessPolicy"
+  },
+  {
+    "label": "configuration-access-strict",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "}).strict();\nexport type AgentChannelAccessConfiguration",
+    "new": "}).passthrough();\nexport type AgentChannelAccessConfiguration"
+  },
+  {
+    "label": "telegram-invalid-denied",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "if (!policy.success || policy.data.kind !== 'telegram' || !chatId.success) return false;",
+    "new": "if (!policy.success || policy.data.kind !== 'telegram' || !chatId.success) return true;"
+  },
+  {
+    "label": "telegram-public-explicit",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "policy.data.mode === 'anyone' || policy.data.chats.some",
+    "new": "false || policy.data.chats.some"
+  },
+  {
+    "label": "telegram-chat-match",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "chat => chat.chatId === chatId.data",
+    "new": "chat => Boolean(chat)"
+  },
+  {
+    "label": "email-exact-address",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.email().toLowerCase()",
+    "new": "z.string().toLowerCase()"
+  },
+  {
+    "label": "email-normalization",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.email().toLowerCase()",
+    "new": "z.email()"
+  },
+  {
+    "label": "book-size",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": ".max(2048)",
+    "new": ".max(2049)"
+  },
+  {
+    "label": "book-unique",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "new Set(emails).size === emails.length",
+    "new": "true"
+  },
+  {
+    "label": "book-metadata-only",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "}).superRefine((book, ctx)",
+    "new": "}).passthrough().superRefine((book, ctx)"
+  },
+  {
+    "label": "book-version",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "book.version === null",
+    "new": "false"
+  },
+  {
+    "label": "book-date",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "book.observedAt === null",
+    "new": "false"
+  },
+  {
+    "label": "book-entries",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "book.emails === null",
+    "new": "false"
+  },
+  {
+    "label": "book-incomplete",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "book.status !== 'complete' && book.emails !== null",
+    "new": "false"
+  },
+  {
+    "label": "email-invalid-denied",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "if (!policy.success || policy.data.kind !== 'email' || !sender.success || !binding.success) return false;",
+    "new": "if (!policy.success || policy.data.kind !== 'email' || !sender.success || !binding.success) return true;"
+  },
+  {
+    "label": "email-public-explicit",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "if (policy.data.mode === 'anyone') return true;",
+    "new": "if (policy.data.mode === 'anyone') return false;"
+  },
+  {
+    "label": "book-binding-current",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "!sameAgentChannelAccessBinding({ scope: book.data.scope, identity: book.data.identity }, binding.data)",
+    "new": "false"
+  },
+  {
+    "label": "book-age-finite",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "if (!Number.isFinite(maximumAgeMs)) return false;",
+    "new": "if (false) return false;"
+  },
+  {
+    "label": "book-no-future",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "age >= 0 && age <= maximumAgeMs",
+    "new": "true && age <= maximumAgeMs"
+  },
+  {
+    "label": "book-not-expired",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "age >= 0 && age <= maximumAgeMs",
+    "new": "age >= 0 && true"
+  },
+  {
+    "label": "book-email-match",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "book.data.emails.includes(sender.data)",
+    "new": "true"
+  },
+  {
+    "label": "config-desired-door",
+    "file": "src/agent/agent-channel-configuration.ts",
+    "old": "config.access.desiredPolicy.kind !== config.kind",
+    "new": "false"
+  },
+  {
+    "label": "config-applied-door",
+    "file": "src/agent/agent-channel-configuration.ts",
+    "old": "config.access.appliedPolicy && config.access.appliedPolicy.kind !== config.kind",
+    "new": "false"
+  },
+  {
+    "label": "config-orphan-policy",
+    "file": "src/agent/agent-channel-configuration.ts",
+    "old": "config.applied === null && config.access.appliedPolicy !== null",
+    "new": "false"
+  },
+  {
+    "label": "config-one-policy-per-version",
+    "file": "src/agent/agent-channel-configuration.ts",
+    "old": "JSON.stringify(config.access.desiredPolicy) !== JSON.stringify(config.access.appliedPolicy)",
+    "new": "false"
+  },
+  {
+    "label": "config-policy-actually-applied",
+    "file": "src/agent/agent-channel-configuration.ts",
+    "old": "config.access === undefined || config.access.appliedPolicy !== null",
+    "new": "true"
+  },
+  {
+    "label": "telegram-policy-strict",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "}).strict();\nexport type AgentTelegramAccessPolicy",
+    "new": "}).passthrough();\nexport type AgentTelegramAccessPolicy"
+  },
+  {
+    "label": "book-status",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "z.enum(['complete', 'partial', 'unavailable'])",
+    "new": "z.enum(['complete', 'partial', 'unavailable', 'unknown'])"
+  },
+  {
+    "label": "book-observation-date",
+    "file": "src/agent/agent-channel-access.ts",
+    "old": "observedAt: z.iso.datetime({ offset: true }).nullable()",
+    "new": "observedAt: z.string().nullable()"
+  }
+]
