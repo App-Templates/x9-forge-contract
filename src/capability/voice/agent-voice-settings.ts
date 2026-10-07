@@ -107,6 +107,7 @@ export const VoiceProviderCatalogSchema = z.object({
 export type VoiceProviderCatalog = z.infer<typeof VoiceProviderCatalogSchema>;
 
 export const AgentVoiceErrorCodeSchema = z.enum([
+  'voice_not_applied',
   'voice_disabled',
   'phone_not_enabled',
   'provider_unsupported',
@@ -149,11 +150,12 @@ export type OutboundCallerIdentity = z.infer<typeof OutboundCallerIdentitySchema
 
 export type OutboundCallerIdentityResult =
   | { ok: true; identity: OutboundCallerIdentity }
-  | { ok: false; error: 'voice_disabled' | 'phone_not_enabled' };
+  | { ok: false; error: 'voice_not_applied' | 'voice_disabled' | 'phone_not_enabled' };
 
 /** Build the caller identity from APPLIED settings; text-only agents and agents without phone never dial. */
-export function outboundCallerIdentityFor(input: Omit<OutboundCallerIdentity, 'voice'> & { settings: AgentVoiceSettings }): OutboundCallerIdentityResult {
+export function outboundCallerIdentityFor(input: Omit<OutboundCallerIdentity, 'voice'> & { settings: AgentVoiceSettings | null }): OutboundCallerIdentityResult {
   const { settings, ...rest } = input;
+  if (settings === null) return { ok: false, error: 'voice_not_applied' };
   if (settings.mode === 'text-only') return { ok: false, error: 'voice_disabled' };
   if (!settings.transports.includes('phone')) return { ok: false, error: 'phone_not_enabled' };
   return { ok: true, identity: { ...rest, voice: { provider: settings.provider, voiceId: settings.voiceId, model: settings.model } } };
