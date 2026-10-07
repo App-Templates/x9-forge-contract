@@ -1,0 +1,38 @@
+{
+  "qualified": 2,
+  "total": 2,
+  "mutations": [
+    {
+      "loader": "cjs",
+      "file": "/private/tmp/codex-b-canali-c1-b-build-20261008/candidate/dist/agent/agent-channel-access.cjs",
+      "sha256": "bc92dfd62da2a514077cd217d57cae5c419a9277dd884017850c8cad453cba85",
+      "restoredSha256": "bc92dfd62da2a514077cd217d57cae5c419a9277dd884017850c8cad453cba85",
+      "qualified": true,
+      "redLog": "/private/tmp/codex-b-canali-c1-b-build-20261008/cjs-artifact-red.txt",
+      "restored": {
+        "passed": 102,
+        "total": 102,
+        "loaders": [
+          "cjs",
+          "esm"
+        ]
+      }
+    },
+    {
+      "loader": "esm",
+      "file": "/private/tmp/codex-b-canali-c1-b-build-20261008/candidate/dist/agent/agent-channel-access.js",
+      "sha256": "9b4e88102a3d5320705f56666bcd78225353e2f73b4ef0f6b51a25081344eed3",
+      "restoredSha256": "9b4e88102a3d5320705f56666bcd78225353e2f73b4ef0f6b51a25081344eed3",
+      "qualified": true,
+      "redLog": "/private/tmp/codex-b-canali-c1-b-build-20261008/esm-artifact-red.txt",
+      "restored": {
+        "passed": 102,
+        "total": 102,
+        "loaders": [
+          "cjs",
+          "esm"
+        ]
+      }
+    }
+  ]
+}

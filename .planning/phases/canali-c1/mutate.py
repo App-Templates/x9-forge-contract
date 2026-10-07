@@ -13,7 +13,7 @@ def run(label):
  payload=json.loads(result.read_text()) if result.exists() else {}
  assertions=[a for suite in payload.get('testResults',[]) for a in suite.get('assertionResults',[])]
  failures=[a for a in assertions if a['status']=='failed']
- return {'exit':status,'passed':payload.get('numPassedTests',0),'total':payload.get('numTotalTests',0),'failed':payload.get('numFailedTests',0),'skipped':payload.get('numPendingTests',0),'semantic':any(any('AssertionError:' in m for m in a['failureMessages']) for a in failures),'witnesses':[{'test':a['fullName'][:400],'error':a['failureMessages'][0][:700]} for a in failures[:3]]}
+ return {'exit':status,'passed':payload.get('numPassedTests',0),'total':payload.get('numTotalTests',0),'failed':payload.get('numFailedTests',0),'skipped':payload.get('numPendingTests',0),'semantic':any(any('AssertionError:' in m for m in a['failureMessages']) for a in failures),'witnesses':[{'test':a['fullName'][:400],'error':a['failureMessages'][0][:700]} for a in [item for item in failures if any('AssertionError:' in message for message in item['failureMessages'])][:3]]}
 report={'campaign':CAMPAIGN,'sourceHashes':{p:hashlib.sha256(raw).hexdigest() for p,raw in sources.items()},'tests':sys.argv[2:],'baseline':run('baseline'),'mutations':[]}
 assert report['baseline']['exit']==0,report['baseline']
 try:

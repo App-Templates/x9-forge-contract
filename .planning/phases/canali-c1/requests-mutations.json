@@ -9,7 +9,7 @@
     "label": "request-sign",
     "file": "src/agent/agent-channel-access-requests.ts",
     "old": "(request.type === 'private') === !request.chatId.startsWith('-')",
-    "new": "false"
+    "new": "true"
   },
   {
     "label": "update-integer",

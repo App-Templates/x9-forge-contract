@@ -33,3 +33,9 @@ Rosso19/19conAssertionError, primo verde19/19, finale29/29senza skip. Sessione F
 ## Q1 — coerenza della risorsa con policy esplicita
 
 Controprova prima del codice:1/64rosso per risorsa con vaultAgentId diverso dalla configurazione;63/64verdi già. Aggiunto vincolo soltanto dentro access esplicito, preservando il contratto legacy senza questo campo. Verde64/64 e **1/1**mutazione semantica del nuovo gate, ripristino64/64eSHAidentico (resource-mutation-proof.json). Tipi/lint exit0.
+
+## Q2 — giro finale e pacchetto, 01:33
+
+Prodotto adb430ddc00fde76ebfcd82afe32f2139fb05b91: **206/206**mutazioni semantiche inun giro finale sequenziale completo (policy50,requests83,HTTPinterno18,Forge54,resource1). Ogni ripristino verde, hashidentici; FINAL-MUTATIONS.json e singoli proof. Request-sign ora apre il gate, rilevato dal witness negativo diretto. Witness riportati soloAssertionError, rawlog integrali conservati.
+
+Suite nativa completa **3185/3185**test in137file,0skip; include176nuovi in4file, non sommare. Typecheck/lintglobali exit0 senza warning. Build nativa soltanto nella copia privata approvata dalla coordinatrice: ESM+CJS, portable DTS332/332file, publint+attwprofilonode16exit0 (node10fuori profilo), nessuna pubblicazione. SmokeCJSoriginali36/36,6/6,15/15,16/16,39/39. Nuovo consumer pubblico dei45exportruntime: **102/102**assert ESM/CJS; rossoAssertionError sulla dist1.41 prebuild→verde dopo build. Inoltre **2/2**guasti semantici sugli artefatti privati CJS/ESM (lista vuota aperta) rilevati, hash byte ripristinati e102/102verdi per loader. PACKAGE-MUTATIONS.json; questi2non si sommano ai206source. QUALITY-PROOF.json contiene comandi, esiti, SHA diinput/artefatti/log.
