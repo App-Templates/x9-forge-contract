@@ -1,0 +1,13 @@
+{
+  "name": "03-private-build",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge137-build-6cqo_udu",
+    "run",
+    "build"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 3.617384910583496
+}

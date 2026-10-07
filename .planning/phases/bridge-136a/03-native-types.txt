@@ -1,0 +1,4 @@
+
+> @x9-forge/contracts@1.36.0 typecheck /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-70-1
+> tsc --noEmit --tsBuildInfoFile /private/tmp/codex-a-bridge137-native.tsbuildinfo
+

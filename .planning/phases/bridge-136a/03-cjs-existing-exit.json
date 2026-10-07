@@ -1,0 +1,10 @@
+{
+  "name": "03-cjs-existing",
+  "command": [
+    "node",
+    "/private/tmp/codex-a-bridge137-build-6cqo_udu/tests/cjs/smoke.cjs"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 0.20169520378112793
+}

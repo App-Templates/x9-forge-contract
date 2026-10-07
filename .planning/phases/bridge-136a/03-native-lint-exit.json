@@ -1,0 +1,13 @@
+{
+  "name": "03-native-lint",
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-70-1",
+    "run",
+    "lint"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 2.7916321754455566
+}
