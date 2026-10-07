@@ -38,3 +38,7 @@ Tempo task45min: checkpoint01:34, pausa per verifica897 fino01:39; codice ora, u
 ## Estensione assegnata 07/10 01:55 — trasporto attestazioni
 
 Nuovo contratto HTTP POST /internal/channels/attest sul servizio cap-email/cap-voice, header X-Internal-Secret come capToolCallContract. Body scope completo + identità + kind email/voice + configVersion attesa; producer autorizza il chiamante prima di osservare. Risposta osservata e datata con scope/identità, versione/stato applicati nullable e AgentRuntimeChannel canonico, errore fisso. Nessuna credenziale o free-form. Il servizio attesta gli handler, non copia il desired dal context. Helper puro verifica binding, versione applicata e freschezza (clock iniettato); non dichiara pronto e non implementa auth/provisioning. Stato error/unknown resta esplicito. Test prima, controlli rotti per asserzione, esportazione additiva ./http e ./agent; pin/release/consumer alla coordinatrice.
+
+## Correzione R27 assegnata 07/10 03:26
+
+Priorità prima di R1-sezioni: completed richiede un check testuale: Telegram/email configurato, attivo, applicato e osservato caricato/pronto, oppure web attestato caricato/pronto (precisazione03:30). La sola voce non basta. Riprodurre i due casi B, correggere una guardia, rompere il controllo nuovo, regressioni/qualità in copia privata e consegna delta; niente nuova campagna delle107 precedenti.

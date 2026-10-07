@@ -1,5 +1,17 @@
 # R2-2 — SUMMARY
 
+Ultimo aggiornamento: 07/10 03:34. DELTA R27 implementato e testato, PRONTO PER RI-VERIFICA indipendente di B. Prodotto/test 208f0a848162fd6b576b7b285dd76ffc62641ddd; precedente e318fe9 REVISE per il primo check voice-only. Nessun consumer, rilascio o verifica dal vivo.
+
+## Correzione P1 assegnata03:26, chiarita03:30
+
+- `completed` richiede un controllo testuale riuscito: web attestato loaded/ready resta ammesso anche con Telegram/email in pausa; un check Telegram/email deve invece appartenere alla configurazione attiva e applicata, alla stessa channelId, con osservazione loaded/ready. Voce sola non basta. Configurazione degraded non viene nascosta da un firstCheck dichiarato ready. Le intenzioni entrambe paused restano valide per un job pending.
+- Due controesempi B riprodotti più quello sull'osservazione email degradata: codice e318 con test finali57/60,3/3asserzioni rosse,0pending; dopo guardia60/60. Sei nuove prove, positivi web/email/pending conservati; Telegram attivo già verificato dalla suite precedente. Nessun cambiamento a fixture/export/schema runtime canonico.
+- Due mutazioni finali2/2 con asserzioni (guardiavecchia:3, readinessapplicataignorata:1),2/2SHA ripristinati e60/60restore. Questo è il delta, non una nuova campagna dei107 precedenti e non viene sommato ad essa.
+- Finale1957/1957in112file;127/127nuoviR2in4file. Build/typecheck/lint/pack4/4 e CJS36/36+6/6. Perimetro prodotto2/2;1888/1888file del frozen e318 intatti prima dei documenti di consegna;2/2prodotto privato identico autore e diffprodotto0.
+- Prove in `evidence/p1-correction/`; raw privati in `/var/folders/m3/mywf84wd2k50664nh_ffnc3m0000gq/T/codex-c-r2-p1-_z2vcmyi`. Prima preparazione: pacchetto non ancora compilato causava2exportCJS mancanti; npm-cache esterna causava packexit3, corretto solo cache privata. Full sandbox1955/1957 con2listenEPERM su server sintetici locali, rerun autorizzato. Iterazione TG/email-only è superata dalla precisazione03:30 e non committata: relativo full interrottoexit130, nessun risultato accreditato. Finale qui è il solo criterio chiarito.
+
+## Consegna precedente — storia e limiti conservati
+
 Ultimo aggiornamento: 07/10 02:48. Implementato e testato, PRONTO PER REVISIONE; consegna con campagna mutazioni parziale accettata dalla coordinatrice alle02:36. Prodotto/test congelati 505ab2f68d9803b807011f9d6042637f51a26a85, base 897258d, branch codex/r2-2/worktree43-1. Nessun rilascio o prova dal vivo.
 
 ## Risultato
