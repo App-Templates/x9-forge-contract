@@ -91,6 +91,7 @@ describe('R2 optional context extension', () => {
   });
   it('requires both channels once opted in', () => {
     expect(AgentContextWithChannelsSchema.safeParse({ ...context, channelConfigurations: [] }).success).toBe(false);
+    expect(AgentContextWithChannelsSchema.safeParse({ ...context, channelConfigurations: [c] }).success).toBe(false);
     expect(AgentContextWithChannelsSchema.safeParse({ ...context, channelConfigurations: [c, c] }).success).toBe(false);
     expect(AgentContextWithChannelsSchema.safeParse({ ...context, tenantId: undefined, channelConfigurations: [c, channel('email')] }).success).toBe(false);
   });

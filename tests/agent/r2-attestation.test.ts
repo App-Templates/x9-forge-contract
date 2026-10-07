@@ -20,14 +20,14 @@ describe('R2 external handler attestation transport', () => {
   });
   it.each([
     ['scope runtime', { identity: { ...identity, runtimeAgentId: 'other' } }],
-    ['unsupported kind', { kind: 'web' }],
+    ['unsupported kind', { kind: 'telegram' }],
     ['no version', { configVersion: undefined }],
     ['private request field', { token: 'synthetic' }],
   ])('rejects request %s', (_label, patch) => expect(AgentChannelAttestationRequestSchema.safeParse({ ...request, ...patch }).success).toBe(false));
   it.each([
     ['scope runtime', { identity: { ...identity, runtimeAgentId: 'other' } }],
     ['undated', { observedAt: undefined }],
-    ['unsupported kind', { channel: { ...observation.channel, kind: 'web' } }],
+    ['unsupported kind', { channel: { ...observation.channel, kind: 'telegram' } }],
     ['loaded without applied', { applied: null, channel: { ...observation.channel, state: 'loaded', loaded: true } }],
     ['loaded while paused', { channel: { ...observation.channel, state: 'loaded', loaded: true } }],
     ['paused while active', { applied: { version: 2, state: 'active' } }],
