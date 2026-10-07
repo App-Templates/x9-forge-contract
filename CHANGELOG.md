@@ -10,6 +10,18 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.41.0 — approvazioni firmate con passkey e punti di ripristino dei server (fase 59)
+
+### Added (additive)
+
+- `./capability`: **approvazioni firmate** (`approvals`) — permesso canonico v1 firmato Ed25519 con prefisso di dominio (`canonicalApprovalPermit`), tipo legato al cliente, scope tenant/owner/agente, hash del testo, vincoli piatti 1..16, finestra 60..900 s, nonce 128 bit; controllo puro lato cliente `checkApprovalPermit`; contratti `createApprovalRequestContract`, `deliverApprovalPermitContract`, `pendingApprovalsContract`, `approvalKeysContract`. Una capacità condivisa per ogni azione delicata (snapshot, cap-dev, rilasci, merge, pagamenti); vettore di firma fisso nei test.
+- `./capability`: **cap-backup** (`backup`) — risorse per provider (hostinger), stato (snapshot unico con origine, azione, backup automatici, ultimo rilascio verificato, salute), tipi `backup.*` e vincoli, strumenti `backup_status/create/restore`, API dei dispositivi (`backupDeviceStatusContract`, `backupDeviceRequestContract`, `backupDeviceVerifiedContract`).
+- `./auth`: **firma dei dispositivi** (`device-signature`) — messaggio canonico, quattro intestazioni `X-X9-Device-*`, finestra ±60 s; `EndpointAuthType` aggiunge `device_signature`.
+- `./agent`: `HOSTINGER_API_TOKEN` tra le credenziali note (servizio commerciale `hostinger`); `./vault`: `APPROVALS_SIGNING_KEY` tra le chiavi platform-internal (mai proiettata negli agenti).
+- Nessun sottopercorso nuovo, nessun simbolo esistente cambiato; consumer 1.40 restano validi.
+
+---
+
 ## v1.40.0 — modelli governati per funzione e servizio di ogni credenziale (MODELLI M1 + BRIDGE-SERVIZI)
 
 ### Added (additive)
