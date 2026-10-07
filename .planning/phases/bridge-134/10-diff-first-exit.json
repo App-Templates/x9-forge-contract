@@ -1,0 +1,4 @@
+{
+  "exit": 2,
+  "reason": "attw output trailing spaces in new log; no source whitespace"
+}
