@@ -4,6 +4,9 @@ import { request, checkpoint, channel, scope, identity } from './r2-fixtures.js'
 describe('R2 replayable creation request', () => {
   it('reuses deploy fields and explicit paused intentions', () => expect(AgentCreationRequestSchema.parse(request)).toEqual(request));
   it.each([
+    ['unknown request field', { rawError: 'synthetic' }],
+    ['unknown intent field', { intent: { ...request.intent, rawError: 'synthetic' } }],
+    ['unknown intention field', { intent: { ...request.intent, channels: { ...request.intent.channels, token: 'synthetic' } } }],
     ['missing key', { intent: { ...request.intent, idempotencyKey: undefined } }],
     ['short key', { intent: { ...request.intent, idempotencyKey: 'tiny' } }],
     ['missing telegram intention', { intent: { ...request.intent, channels: { email: 'paused' } } }],
@@ -21,6 +24,7 @@ describe('R2 checkpoint keeps one agent and its resources', () => {
   it.each([
     ['unknown phase', { phase: 'unexpected' }],
     ['undated first check', { firstCheck: { ...checkpoint().firstCheck, checkedAt: undefined } }],
+    ['unknown first check field', { firstCheck: { ...checkpoint().firstCheck, token: 'synthetic' } }],
     ['unknown checkpoint field', { privateDetail: 'synthetic' }],
     ['no database record', { agentRecordId: null }],
     ['no first check', { firstCheck: null }],
@@ -45,11 +49,14 @@ describe('R2 checkpoint keeps one agent and its resources', () => {
     expect(AgentCreationCheckpointSchema.safeParse({ ...job, firstCheck: { ...job.firstCheck, channel: { ...active.observation, channelId: 'other' } } }).success).toBe(false);
     expect(AgentCreationResultSchema.safeParse({ ok: true, replayed: true, checkpoint: job }).success).toBe(true);
     expect(AgentCreationResultSchema.safeParse({ ok: true, checkpoint: job }).success).toBe(false);
+    expect(AgentCreationResultSchema.safeParse({ ok: false, replayed: true, checkpoint: job }).success).toBe(false);
+    expect(AgentCreationResultSchema.safeParse({ ok: true, replayed: true, checkpoint: job, token: 'synthetic' }).success).toBe(false);
   });
   it('records an incomplete step without inventing readiness', () => {
     const incomplete = { ...checkpoint(), phase: 'incomplete', firstCheck: null, failure: { step: 'runtime', error: { code: 'load_failed', retryable: false } } };
     expect(AgentCreationCheckpointSchema.safeParse(incomplete).success).toBe(true);
     expect(AgentCreationCheckpointSchema.safeParse({ ...incomplete, failure: null }).success).toBe(false);
+    expect(AgentCreationCheckpointSchema.safeParse({ ...incomplete, failure: { ...incomplete.failure, detail: 'synthetic' } }).success).toBe(false);
   });
   it.each([
     ['version', { ...channel(), desired: { version: 3, state: 'paused' } }],

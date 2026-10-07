@@ -6,3 +6,5 @@ Base897258d,0mergeC;perimetro/vecchi contratti invariati,nessunlive/consumer/pro
 Prossimi:campagna mutation su ogni controllo,restauro,nuova qualità/suite,proof/SUMMARYcommittati eR27altroCodex.
 
 Estensione01:55 implementata: AgentChannelAttestationRequest/Schema e isChannelAttestationCurrent, POST /internal/channels/attest auth secret come capToolCallContract. Schema distingue errore/unknown da caricamento/pausa applicati; helper verifica scope/identity/kind/versione/freschezza, non prontezza. 112/112 mirati verdi, rosso preparatorio solo import mancanti non accreditato. Nuovi export compat; suite/mutazioni finali restano.
+
+02:05 preparazione campagna: prove addizionali delle frontiere strettamente pubbliche (intent,check,failure,risultato) e osservazione unknown senza applied. Eliminati due controlli equivalenti del clock (NaN/Infinity now e limite negativo già non possono soddisfare age>=0 && age<=limite finito); restano parse fail-closed e maximumAgeMs finito. Nessuna mutazione equivalente conteggiata.

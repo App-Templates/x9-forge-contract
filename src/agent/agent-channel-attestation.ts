@@ -34,7 +34,7 @@ export type AgentChannelAttestation = z.infer<typeof AgentChannelAttestationSche
 export function isChannelAttestationCurrent(rawRequest: unknown, rawObservation: unknown, now: number, maximumAgeMs = 60_000): boolean {
   const request = AgentChannelAttestationRequestSchema.safeParse(rawRequest);
   const observation = AgentChannelAttestationSchema.safeParse(rawObservation);
-  if (!request.success || !observation.success || !Number.isFinite(now) || !Number.isFinite(maximumAgeMs) || maximumAgeMs < 0) return false;
+  if (!request.success || !observation.success || !Number.isFinite(maximumAgeMs)) return false;
   const wanted = request.data; const actual = observation.data;
   if (!sameCapabilityScope(wanted.scope, actual.scope) || wanted.identity.managementAgentId !== actual.identity.managementAgentId
       || wanted.kind !== actual.channel.kind || wanted.configVersion !== actual.applied?.version) return false;

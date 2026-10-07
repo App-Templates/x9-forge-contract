@@ -41,7 +41,9 @@ describe('R2 desired and applied channel state', () => {
     ['date without observation', { observation: null }],
     ['active but observed paused', { desired: { version: 3, state: 'active' }, applied: { version: 2, state: 'active' } }],
     ['paused but loaded', { observation: { ...c.observation, state: 'loaded', loaded: true, readiness: 'ready' } }],
-    ['observation without applied state', { applied: null }],
+    ['observation without applied state', { applied: null, observation: { ...c.observation, state: 'unknown', loaded: null, readiness: 'unknown' } }],
+    ['private desired state field', { desired: { ...c.desired, token: 'synthetic' } }],
+    ['private applied state field', { applied: { ...c.applied, token: 'synthetic' } }],
     ['configuration runtime identity', { identity: { ...identity, runtimeAgentId: 'other' }, resource: null }],
     ['unknown root field', { rawError: 'synthetic' }],
   ])('rejects %s', (_label, patch) => expect(AgentChannelConfigurationSchema.safeParse({ ...c, ...patch }).success).toBe(false));
@@ -64,6 +66,7 @@ describe('R2 sanitized errors and channel admission', () => {
   it('enforces fixed retryability and strict error shape', () => {
     expect(AgentChannelFailureSchema.safeParse({ code: 'provider_unavailable', retryable: false }).success).toBe(false);
     expect(AgentChannelFailureSchema.safeParse({ code: 'account_blocked', retryable: true }).success).toBe(false);
+    expect(AgentChannelFailureSchema.safeParse({ code: 'raw synthetic external error', retryable: false }).success).toBe(false);
     expect(AgentChannelFailureSchema.safeParse({ ...channelFailure('apply_failed'), detail: 'synthetic' }).success).toBe(false);
   });
   it('preserves legacy admission only when new configuration is absent', () => {
