@@ -1,0 +1,1 @@
+{"command": ["pnpm", "-C", "/private/tmp/codex-a-bridge138-build-8it2ks0b", "exec", "tsc", "--ignoreConfig", "--noEmit", "--strict", "--module", "NodeNext", "--moduleResolution", "NodeNext", "--target", "ES2023", "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/consumer.cts"], "exit": 2}

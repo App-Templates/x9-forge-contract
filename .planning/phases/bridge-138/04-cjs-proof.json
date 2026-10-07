@@ -1,0 +1,249 @@
+{
+  "consumer": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy",
+  "installedPackage": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts",
+  "compiledPackage": "/private/tmp/codex-a-bridge138-build-8it2ks0b",
+  "installedFromArchive": true,
+  "pathAssertBeforeQualification": true,
+  "qualified": 15,
+  "total": 15,
+  "probes": 12,
+  "names": [
+    "explicit field retained",
+    "explicit vault selector",
+    "fraction rejected",
+    "legacy pair preserved",
+    "missing identity is null",
+    "negative rejected",
+    "next context is fresh",
+    "noncanonical sources ignored",
+    "numeric management is not a vault ID",
+    "numeric runtime is not a vault ID",
+    "numeric string rejected",
+    "zero rejected"
+  ],
+  "coveredNames": 12,
+  "sourceSha256": {
+    "identity": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129",
+    "helper": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+  },
+  "restored": true,
+  "results": [
+    {
+      "name": "field-retention",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-runtime-identity.cjs",
+      "assertions": [
+        "explicit field retained",
+        "zero rejected",
+        "negative rejected",
+        "fraction rejected",
+        "numeric string rejected"
+      ],
+      "redPassed": 7,
+      "total": 12,
+      "sourceSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129",
+      "mutantSha256": "bac4af5048b6378e1237e54273f87b8a41e5255779700d8f416c6b7a96b76085",
+      "restored": 12,
+      "restoredSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129"
+    },
+    {
+      "name": "integer",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-runtime-identity.cjs",
+      "assertions": [
+        "fraction rejected"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129",
+      "mutantSha256": "8b3eda1b428d47997280a5017d297f9c159be0158bbb1843448e3c0fdc63405e",
+      "restored": 12,
+      "restoredSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129"
+    },
+    {
+      "name": "positive",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-runtime-identity.cjs",
+      "assertions": [
+        "zero rejected",
+        "negative rejected"
+      ],
+      "redPassed": 10,
+      "total": 12,
+      "sourceSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129",
+      "mutantSha256": "bbbde321494bf7fbe789ad8b720b9114e814c0376fc763f525b3866c5cc830da",
+      "restored": 12,
+      "restoredSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129"
+    },
+    {
+      "name": "noncoercing",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-runtime-identity.cjs",
+      "assertions": [
+        "numeric string rejected"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129",
+      "mutantSha256": "66e41e7c8c52ed57e4af8593db00e99b141bb234cff7adaf07e5d007684a1e87",
+      "restored": 12,
+      "restoredSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129"
+    },
+    {
+      "name": "numeric-domain",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-runtime-identity.cjs",
+      "assertions": [
+        "zero rejected",
+        "negative rejected",
+        "fraction rejected",
+        "numeric string rejected"
+      ],
+      "redPassed": 8,
+      "total": 12,
+      "sourceSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129",
+      "mutantSha256": "01f9b140a36b19f4e35319642011ecf890b7286972df60364a141fcc4eb28ca5",
+      "restored": 12,
+      "restoredSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129"
+    },
+    {
+      "name": "optional-legacy",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-runtime-identity.cjs",
+      "assertions": [
+        "legacy pair preserved"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129",
+      "mutantSha256": "4075acdca23acacc890e12c60f038936e0df65abce19a7668eb60db1e23d7778",
+      "restored": 12,
+      "restoredSha256": "a0ecf172b1ecc608c87c2e70dba1e84192cf891586736d4c9365cc05d10da129"
+    },
+    {
+      "name": "explicit-root",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "explicit vault selector",
+        "next context is fresh"
+      ],
+      "redPassed": 10,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "a3d99591e32e3d3a1eee17b0334d806dc860cebfec978bc51d4df8feecbc7189",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "no-management",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "numeric management is not a vault ID"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "7180d30a4dc2802fbf26f711e856e188c4da0c02999541d536ad0c437d866537",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "no-runtime",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "numeric runtime is not a vault ID"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "f9c6d5c750d50c6192b06279e5cbb390ec7cd80f6477805930c302f5e8d7f077",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "no-context-id",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "numeric runtime is not a vault ID"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "55354fc1f61ddad610160b99897ed12a6bf4b7ca572f1ddae9f7998c3eed0f98",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "no-top-level",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "noncanonical sources ignored"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "6dfdb193fd2454b2565bc3184d6f7d2451aa1673cddbb5d1c00008836873ece9",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "no-channels",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "noncanonical sources ignored"
+      ],
+      "redPassed": 11,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "fcd6ef1e22f0ccdaf6599ec12818131377724c02c004ea0299c991d10e361294",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "missing-null",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "missing identity is null",
+        "numeric management is not a vault ID",
+        "numeric runtime is not a vault ID",
+        "noncanonical sources ignored",
+        "next context is fresh"
+      ],
+      "redPassed": 7,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "0fb77a2eac57b4f30c80f4db8f1112ff434cef85c503a6f70304e34e8451cde7",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "public-export",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "explicit vault selector",
+        "missing identity is null",
+        "numeric management is not a vault ID",
+        "numeric runtime is not a vault ID",
+        "noncanonical sources ignored",
+        "next context is fresh"
+      ],
+      "redPassed": 6,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "3a10f9a7831db5702658a89918a9d2af43e2956ce091ebca9032ced672a49b1f",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    },
+    {
+      "name": "fresh-context",
+      "file": "/private/tmp/codex-a-bridge138-consumer-7jiz5jhy/node_modules/.pnpm/@x9-forge+contracts@file+archive+x9-forge-contracts-1.37.0.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/agent/agent-channel-configuration.cjs",
+      "assertions": [
+        "missing identity is null",
+        "numeric management is not a vault ID",
+        "numeric runtime is not a vault ID",
+        "noncanonical sources ignored",
+        "next context is fresh"
+      ],
+      "redPassed": 7,
+      "total": 12,
+      "sourceSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5",
+      "mutantSha256": "82072ac93879ae2cc8f3522d374199afc15fe80376724ac521927f953767e6d3",
+      "restored": 12,
+      "restoredSha256": "511c25cf48999f59b1e892ab1d2e3308b16240fc4b329a89edec38221d8a69e5"
+    }
+  ]
+}

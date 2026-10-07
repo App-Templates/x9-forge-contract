@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,subprocess,hashlib,fnmatch,os
+r=Path('/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-73-1');p=r/'.planning/phases/bridge-138';baseline=json.loads((p/'00-protected.json').read_text());base=baseline['base'];patterns=Path('/Users/admintemp/Downloads/Claude/forge-v2-bacheca/perimetri/codex_bridge-138.txt').read_text().splitlines()
+def allowed(name):return any(fnmatch.fnmatchcase(name,v.strip())for v in patterns if v.strip()and not v.startswith('#'))
+files=sorted(set(subprocess.check_output(['git','-C',str(r),'diff','--name-only',base],text=True).splitlines()+subprocess.check_output(['git','-C',str(r),'ls-files','--others','--exclude-standard'],text=True).splitlines()));bad=[name for name in files if not allowed(name)];negative=['package.json','dist/forbidden.cjs','src/http/not-our-task.ts','../another-worktree/probe.ts'];assert all(not allowed(name)for name in negative)
+protected=[]
+for name,sha in baseline['files'].items():
+ f=r/name;actual=hashlib.sha256((os.readlink(f).encode()if f.is_symlink()else f.read_bytes())).hexdigest()if f.exists()else None;protected.append({'file':name,'same':actual==sha,'expectedSha256':sha,'actualSha256':actual})
+index='src/agent/index.ts';indexBefore=subprocess.check_output(['git','-C',str(r),'show',base+':'+index]);indexSame=(r/index).read_bytes()==indexBefore;assert indexSame
+result={'base':base,'candidate':subprocess.check_output(['git','-C',str(r),'rev-parse','HEAD'],text=True).strip(),'perimeter':[{'file':name,'allowed':allowed(name)}for name in files],'outOfPerimeter':bad,'negativeProbes':negative,'protected':protected,'protectedTotal':len(protected),'protectedPassed':sum(x['same']for x in protected),'agentIndexUnchanged':indexSame,'dWorkspaceUnchanged':all(x['same']for x in protected if x['file']=='src/agent/agent-workspace.ts'or 'r7-workspace'in x['file'])};(p/'05-integrity.json').write_text(json.dumps(result,indent=2)+'\n');assert not bad and all(x['same']for x in protected);print('perimeter',len(files),'/',len(files),'protected',len(protected),'/',len(protected),'negative4/4,indexDunchanged',flush=True)

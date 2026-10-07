@@ -1,0 +1,2 @@
+../codex-a-bridge138-consumer-7jiz5jhy/consumer.cts(3,7): error TS2322: Type 'number | null' is not assignable to type 'number'.
+  Type 'null' is not assignable to type 'number'.
