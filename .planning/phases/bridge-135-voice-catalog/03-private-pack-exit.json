@@ -1,0 +1,13 @@
+{
+  "name": "03-private-pack",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge135-build-zs21w433",
+    "run",
+    "check:pack"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 3.340496301651001
+}

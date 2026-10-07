@@ -1,0 +1,20 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge135-build-zs21w433",
+    "exec",
+    "tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--strict",
+    "--module",
+    "NodeNext",
+    "--moduleResolution",
+    "NodeNext",
+    "--target",
+    "ES2023",
+    "/private/tmp/codex-a-bridge135-build-zs21w433/bridge135-consumer.cts"
+  ],
+  "exit": 2
+}

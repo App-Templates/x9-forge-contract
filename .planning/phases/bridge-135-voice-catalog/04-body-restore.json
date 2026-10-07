@@ -1,0 +1,39 @@
+{
+  "exit": 0,
+  "total": 8,
+  "passed": 8,
+  "results": [
+    {
+      "name": "exported-canonical-schema",
+      "passed": true
+    },
+    {
+      "name": "read-only-method",
+      "passed": true
+    },
+    {
+      "name": "canonical-path",
+      "passed": true
+    },
+    {
+      "name": "secret-authentication",
+      "passed": true
+    },
+    {
+      "name": "canonical-header",
+      "passed": true
+    },
+    {
+      "name": "no-request-body",
+      "passed": true
+    },
+    {
+      "name": "valid-versioned-response",
+      "passed": true
+    },
+    {
+      "name": "invalid-and-private-response",
+      "passed": true
+    }
+  ]
+}

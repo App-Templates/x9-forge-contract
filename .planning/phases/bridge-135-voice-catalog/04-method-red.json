@@ -1,0 +1,41 @@
+{
+  "exit": 1,
+  "total": 8,
+  "passed": 7,
+  "results": [
+    {
+      "name": "exported-canonical-schema",
+      "passed": true
+    },
+    {
+      "name": "read-only-method",
+      "passed": false,
+      "errorName": "AssertionError",
+      "message": "Expected values to be strictly equal:\n\n'POST' !== 'GET'\n"
+    },
+    {
+      "name": "canonical-path",
+      "passed": true
+    },
+    {
+      "name": "secret-authentication",
+      "passed": true
+    },
+    {
+      "name": "canonical-header",
+      "passed": true
+    },
+    {
+      "name": "no-request-body",
+      "passed": true
+    },
+    {
+      "name": "valid-versioned-response",
+      "passed": true
+    },
+    {
+      "name": "invalid-and-private-response",
+      "passed": true
+    }
+  ]
+}

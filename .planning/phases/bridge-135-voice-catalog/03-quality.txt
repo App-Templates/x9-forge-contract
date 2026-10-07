@@ -1,0 +1,9 @@
+03-native-types 0 timeout False
+03-native-lint 0 timeout False
+03-private-typecheck 0 timeout False
+03-private-build 0 timeout False
+03-private-pack 0 timeout False
+03-cjs-existing 0 timeout False
+03-full 0 timeout False
+{'numTotalTests': 2046, 'numPassedTests': 2046, 'numFailedTests': 0, 'numPendingTests': 0}
+private source inputs 388 / 388 identical

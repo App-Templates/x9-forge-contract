@@ -1,0 +1,54 @@
+{
+  "candidateBeforeFinalDocs": "aa8be3b8419539f8b5c0d43c77840b267e32dc30",
+  "fullTests": 2046,
+  "fullPassed": 2046,
+  "fullFiles": 118,
+  "pending": 0,
+  "sourceMutations": {
+    "qualified": 8,
+    "total": 8,
+    "namesHit": 18,
+    "namesTotal": 18,
+    "shaRestored": 2,
+    "shaTotal": 2
+  },
+  "compiledMutations": {
+    "qualified": 8,
+    "total": 8,
+    "namesHit": 8,
+    "namesTotal": 8,
+    "shaRestored": 1,
+    "shaTotal": 1
+  },
+  "existingCjs": {
+    "passed": 36,
+    "total": 36,
+    "additionalPassed": 6,
+    "additionalTotal": 6
+  },
+  "newCjs": {
+    "passed": 8,
+    "total": 8
+  },
+  "declarationProbe": {
+    "baselineExit": 0,
+    "redExit": 2,
+    "redDiagnostic": "TS2322",
+    "greenExit": 0,
+    "restored": true,
+    "sha256": "932cdfafaaaf194d64860b58a80820887c33a97124a06457c603f912eeea5f93"
+  },
+  "nativeTypesExit": 0,
+  "nativeLintExit": 0,
+  "privateBuildExit": 0,
+  "privatePackExit": 0,
+  "portableDeclarations": 296,
+  "publicInputsPassed": 388,
+  "publicInputsTotal": 388,
+  "protectedPassed": 2241,
+  "protectedTotal": 2241,
+  "perimeterAtCheckpoint": 134,
+  "liveChecks": 0,
+  "remoteCIRuns": 0,
+  "published": false
+}
