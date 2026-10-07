@@ -1,0 +1,1 @@
+bridge135-consumer.cts(5,7): error TS2322: Type '"GET"' is not assignable to type '"POST"'.

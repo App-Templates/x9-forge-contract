@@ -1,0 +1,101 @@
+{
+  "qualified": 8,
+  "total": 8,
+  "probes": 8,
+  "completed": [
+    {
+      "name": "export",
+      "redPassed": 0,
+      "total": 8,
+      "assertions": [
+        "exported-canonical-schema",
+        "read-only-method",
+        "canonical-path",
+        "secret-authentication",
+        "canonical-header",
+        "no-request-body",
+        "valid-versioned-response",
+        "invalid-and-private-response"
+      ],
+      "restorePassed": 8
+    },
+    {
+      "name": "method",
+      "redPassed": 7,
+      "total": 8,
+      "assertions": [
+        "read-only-method"
+      ],
+      "restorePassed": 8
+    },
+    {
+      "name": "path",
+      "redPassed": 7,
+      "total": 8,
+      "assertions": [
+        "canonical-path"
+      ],
+      "restorePassed": 8
+    },
+    {
+      "name": "auth",
+      "redPassed": 7,
+      "total": 8,
+      "assertions": [
+        "secret-authentication"
+      ],
+      "restorePassed": 8
+    },
+    {
+      "name": "header",
+      "redPassed": 7,
+      "total": 8,
+      "assertions": [
+        "canonical-header"
+      ],
+      "restorePassed": 8
+    },
+    {
+      "name": "body",
+      "redPassed": 7,
+      "total": 8,
+      "assertions": [
+        "no-request-body"
+      ],
+      "restorePassed": 8
+    },
+    {
+      "name": "permissive",
+      "redPassed": 6,
+      "total": 8,
+      "assertions": [
+        "exported-canonical-schema",
+        "invalid-and-private-response"
+      ],
+      "restorePassed": 8
+    },
+    {
+      "name": "reject-valid",
+      "redPassed": 5,
+      "total": 8,
+      "assertions": [
+        "exported-canonical-schema",
+        "valid-versioned-response",
+        "invalid-and-private-response"
+      ],
+      "restorePassed": 8
+    }
+  ],
+  "namesHit": [
+    "canonical-header",
+    "canonical-path",
+    "exported-canonical-schema",
+    "invalid-and-private-response",
+    "no-request-body",
+    "read-only-method",
+    "secret-authentication",
+    "valid-versioned-response"
+  ],
+  "sourceRestored": true,
+  "sourceSha256": "aeef414df7c26a260ac27c63a10f071205193e06dd07ee43009304c6923f5fc2"
+}

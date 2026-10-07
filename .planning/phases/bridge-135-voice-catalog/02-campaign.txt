@@ -1,0 +1,9 @@
+export qualified 18 restore18/18
+method qualified 1 restore18/18
+path qualified 1 restore18/18
+auth qualified 1 restore18/18
+header qualified 1 restore18/18
+body qualified 1 restore18/18
+permissive qualified 9 restore18/18
+reject-valid qualified 5 restore18/18
+8/8 qualified,18/18 names,2/2SHA

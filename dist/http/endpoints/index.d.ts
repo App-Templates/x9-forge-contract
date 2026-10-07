@@ -38,4 +38,5 @@ export * from "./webhook-inbound-email.js";
 export * from "./cap-turn-lead.js";
 export * from "./internal-factory-creation.js";
 export * from "./internal-channel-attestation.js";
+export * from "./voice-catalog.js";
 //# sourceMappingURL=index.d.ts.map

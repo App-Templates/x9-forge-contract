@@ -1,0 +1,97 @@
+[
+  {
+    "name": "03-native-types",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-68-1",
+      "run",
+      "typecheck",
+      "--tsBuildInfoFile",
+      "/private/tmp/codex-a-bridge135-native.tsbuildinfo"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 1.8800971508026123
+  },
+  {
+    "name": "03-native-lint",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-68-1",
+      "run",
+      "lint"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 2.704080104827881
+  },
+  {
+    "name": "03-private-typecheck",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge135-build-zs21w433",
+      "run",
+      "typecheck"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 1.3974511623382568
+  },
+  {
+    "name": "03-private-build",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge135-build-zs21w433",
+      "run",
+      "build"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 3.3386428356170654
+  },
+  {
+    "name": "03-private-pack",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge135-build-zs21w433",
+      "run",
+      "check:pack"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 3.340496301651001
+  },
+  {
+    "name": "03-cjs-existing",
+    "command": [
+      "node",
+      "/private/tmp/codex-a-bridge135-build-zs21w433/tests/cjs/smoke.cjs"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 0.2588961124420166
+  },
+  {
+    "name": "03-full",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge135-build-zs21w433",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=1",
+      "--testTimeout=60000",
+      "--reporter=json",
+      "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-68-1/.planning/phases/bridge-135-voice-catalog/03-full.json"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 20.783155918121338
+  }
+]

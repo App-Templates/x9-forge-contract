@@ -10,6 +10,18 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.35.0 — catalogo voce di cap-voice (BRIDGE-135)
+
+Additivo: export 1.34 invariati.
+
+### Added (additive, backward-compatible)
+
+- `./http`: `internalVoiceCatalogContract` — `GET /internal/voice/catalog` (header interno del bridge, nessun corpo), risposta `VoiceProviderCatalogSchema` con versione del catalogo. cap-voice dichiara i provider, protocolli, trasporti, modelli e voci realmente supportati; Forge li legge per i menu, mai un catalogo inventato.
+
+Verificato da revisore indipendente V11: 2046/2046, 4/4 mutazioni uccise, R-14 PASS.
+
+---
+
 ## v1.34.0 — voce e scopo applicati nel contesto agente, identità del chiamante (BRIDGE-134)
 
 Additivo: un context.json 1.33 senza i campi nuovi resta valido.

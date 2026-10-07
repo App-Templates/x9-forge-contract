@@ -1,0 +1,13 @@
+{
+  "name": "03-private-typecheck",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge135-build-zs21w433",
+    "run",
+    "typecheck"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 1.3974511623382568
+}

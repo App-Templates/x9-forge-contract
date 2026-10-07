@@ -1,0 +1,1 @@
+{"version":3,"file":"voice-catalog.js","sourceRoot":"","sources":["../../../src/http/endpoints/voice-catalog.ts"],"names":[],"mappings":";;;AAEA,mDAA6D;AAC7D,6FAA4F;AAE5F;;GAEG;AACU,QAAA,4BAA4B,GAAG;IAC1C,MAAM,EAAE,KAAc;IACtB,IAAI,EAAE,yBAAkC;IACxC,QAAQ,EAAE,QAAiB;IAC3B,UAAU,EAAE,iCAAsB;IAClC,cAAc,EAAE,oDAA0B;CAClC,CAAC"}
