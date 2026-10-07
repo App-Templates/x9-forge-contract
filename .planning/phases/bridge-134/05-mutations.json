@@ -1,0 +1,430 @@
+{
+  "expected": 16,
+  "expectedTests": 35,
+  "completed": [
+    {
+      "name": "voice-optional",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 23,
+        "numFailedTests": 12,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 applied scope policy context preserves legacy read context without inventing a policy",
+        "BRIDGE-134 applied scope policy context preserves legacy write context without inventing a policy",
+        "BRIDGE-134 applied scope policy context rejects read limited policy without its canonical purpose",
+        "BRIDGE-134 applied scope policy context rejects write limited policy without its canonical purpose",
+        "BRIDGE-134 scoped applied voice context preserves legacy read context without inventing voice",
+        "BRIDGE-134 scoped applied voice context preserves legacy write context without inventing voice"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "voice-context-scope",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 33,
+        "numFailedTests": 2,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 scoped applied voice context preserves own applied voice and rejects foreign read scope",
+        "BRIDGE-134 scoped applied voice context preserves own applied voice and rejects foreign write scope"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "voice-canonical-schema",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 25,
+        "numFailedTests": 10,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 scoped applied voice context rejects read settings without version through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read version without settings through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read applied ahead of desired through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read invalid applied voice through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read malformed configuration through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write settings without version through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write version without settings through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write applied ahead of desired through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write invalid applied voice through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write malformed configuration through the existing canonical voice schema"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "voice-helper-export",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 31,
+        "numFailedTests": 4,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 scoped applied voice context exports a helper returning null for a legacy context",
+        "BRIDGE-134 scoped applied voice context returns null when desired voice has never been applied",
+        "BRIDGE-134 scoped applied voice context preserves applied text-only while desired voice is pending",
+        "BRIDGE-134 scoped applied voice context returns applied own voice rather than pending text-only desire"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "voice-helper-applied",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 32,
+        "numFailedTests": 3,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 scoped applied voice context returns null when desired voice has never been applied",
+        "BRIDGE-134 scoped applied voice context preserves applied text-only while desired voice is pending",
+        "BRIDGE-134 scoped applied voice context returns applied own voice rather than pending text-only desire"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "voice-helper-null",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 34,
+        "numFailedTests": 1,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 scoped applied voice context exports a helper returning null for a legacy context"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "caller-optional",
+      "source": "src/http/endpoints/voice-register.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 34,
+        "numFailedTests": 1,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 authoritative voice caller preserves legacy registration without a caller"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "647b1827dd0c71cf5ececedda84d1fdb8f45661d1cafa88a3e96bf5deb89169f"
+    },
+    {
+      "name": "caller-canonical-field",
+      "source": "src/http/endpoints/voice-register.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 30,
+        "numFailedTests": 5,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 authoritative voice caller keeps canonical caller with a different runtime id and matching management id",
+        "BRIDGE-134 authoritative voice caller rejects legacy id another-management-agent that differs from caller management identity",
+        "BRIDGE-134 authoritative voice caller rejects legacy id runtime-synthetic that differs from caller management identity",
+        "BRIDGE-134 authoritative voice caller rejects invalid outbound number with canonical caller validation",
+        "BRIDGE-134 authoritative voice caller rejects missing caller name with canonical caller validation"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "647b1827dd0c71cf5ececedda84d1fdb8f45661d1cafa88a3e96bf5deb89169f"
+    },
+    {
+      "name": "caller-management-binding",
+      "source": "src/http/endpoints/voice-register.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 33,
+        "numFailedTests": 2,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 authoritative voice caller rejects legacy id another-management-agent that differs from caller management identity",
+        "BRIDGE-134 authoritative voice caller rejects legacy id runtime-synthetic that differs from caller management identity"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "647b1827dd0c71cf5ececedda84d1fdb8f45661d1cafa88a3e96bf5deb89169f"
+    },
+    {
+      "name": "voice-not-applied-admission",
+      "source": "src/capability/voice/agent-voice-settings.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 34,
+        "numFailedTests": 1,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 authoritative voice caller distinguishes unapplied voice before text-only and phone admission"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "1b215b039af952ef51294aa4da30426611afdb195a97e17eb4d4a3e1371f159b"
+    },
+    {
+      "name": "voice-not-applied-error",
+      "source": "src/capability/voice/agent-voice-settings.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 34,
+        "numFailedTests": 1,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 authoritative voice caller publishes the fixed voice_not_applied error code"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "1b215b039af952ef51294aa4da30426611afdb195a97e17eb4d4a3e1371f159b"
+    },
+    {
+      "name": "policy-optional",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 14,
+        "numFailedTests": 21,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 applied scope policy context preserves legacy read context without inventing a policy",
+        "BRIDGE-134 applied scope policy context preserves legacy write context without inventing a policy",
+        "BRIDGE-134 scoped applied voice context preserves legacy read context without inventing voice",
+        "BRIDGE-134 scoped applied voice context preserves legacy write context without inventing voice",
+        "BRIDGE-134 scoped applied voice context rejects read settings without version through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read version without settings through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read applied ahead of desired through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read invalid applied voice through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects read malformed configuration through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write settings without version through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write version without settings through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write applied ahead of desired through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write invalid applied voice through the existing canonical voice schema",
+        "BRIDGE-134 scoped applied voice context rejects write malformed configuration through the existing canonical voice schema"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "policy-canonical-schema",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 31,
+        "numFailedTests": 4,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 applied scope policy context keeps canonical read policy and rejects duplicate rules in context",
+        "BRIDGE-134 applied scope policy context keeps canonical write policy and rejects duplicate rules in context",
+        "BRIDGE-134 applied scope policy context rejects read limited policy without its canonical purpose",
+        "BRIDGE-134 applied scope policy context rejects write limited policy without its canonical purpose"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "policy-helper-export",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 32,
+        "numFailedTests": 3,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 applied scope policy context exports a helper returning null for an unconfigured policy",
+        "BRIDGE-134 applied scope policy context returns the whole applied policy with its own version and rules",
+        "BRIDGE-134 applied scope policy context does not infer a policy version or mode from whole-context configuration"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "policy-helper-null",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 34,
+        "numFailedTests": 1,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 applied scope policy context exports a helper returning null for an unconfigured policy"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "name": "policy-helper-present",
+      "source": "src/agent/agent-channel-configuration.ts",
+      "red": {
+        "numTotalTests": 35,
+        "numPassedTests": 33,
+        "numFailedTests": 2,
+        "numPendingTests": 0
+      },
+      "assertions": [
+        "BRIDGE-134 applied scope policy context returns the whole applied policy with its own version and rules",
+        "BRIDGE-134 applied scope policy context does not infer a policy version or mode from whole-context configuration"
+      ],
+      "restore": {
+        "numTotalTests": 35,
+        "numPassedTests": 35,
+        "numFailedTests": 0,
+        "numPendingTests": 0
+      },
+      "restoredSha": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    }
+  ],
+  "coveredTests": [
+    "BRIDGE-134 applied scope policy context does not infer a policy version or mode from whole-context configuration",
+    "BRIDGE-134 applied scope policy context exports a helper returning null for an unconfigured policy",
+    "BRIDGE-134 applied scope policy context keeps canonical read policy and rejects duplicate rules in context",
+    "BRIDGE-134 applied scope policy context keeps canonical write policy and rejects duplicate rules in context",
+    "BRIDGE-134 applied scope policy context preserves legacy read context without inventing a policy",
+    "BRIDGE-134 applied scope policy context preserves legacy write context without inventing a policy",
+    "BRIDGE-134 applied scope policy context rejects read limited policy without its canonical purpose",
+    "BRIDGE-134 applied scope policy context rejects write limited policy without its canonical purpose",
+    "BRIDGE-134 applied scope policy context returns the whole applied policy with its own version and rules",
+    "BRIDGE-134 authoritative voice caller distinguishes unapplied voice before text-only and phone admission",
+    "BRIDGE-134 authoritative voice caller keeps canonical caller with a different runtime id and matching management id",
+    "BRIDGE-134 authoritative voice caller preserves legacy registration without a caller",
+    "BRIDGE-134 authoritative voice caller publishes the fixed voice_not_applied error code",
+    "BRIDGE-134 authoritative voice caller rejects invalid outbound number with canonical caller validation",
+    "BRIDGE-134 authoritative voice caller rejects legacy id another-management-agent that differs from caller management identity",
+    "BRIDGE-134 authoritative voice caller rejects legacy id runtime-synthetic that differs from caller management identity",
+    "BRIDGE-134 authoritative voice caller rejects missing caller name with canonical caller validation",
+    "BRIDGE-134 scoped applied voice context exports a helper returning null for a legacy context",
+    "BRIDGE-134 scoped applied voice context preserves applied text-only while desired voice is pending",
+    "BRIDGE-134 scoped applied voice context preserves legacy read context without inventing voice",
+    "BRIDGE-134 scoped applied voice context preserves legacy write context without inventing voice",
+    "BRIDGE-134 scoped applied voice context preserves own applied voice and rejects foreign read scope",
+    "BRIDGE-134 scoped applied voice context preserves own applied voice and rejects foreign write scope",
+    "BRIDGE-134 scoped applied voice context rejects read applied ahead of desired through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects read invalid applied voice through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects read malformed configuration through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects read settings without version through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects read version without settings through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects write applied ahead of desired through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects write invalid applied voice through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects write malformed configuration through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects write settings without version through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context rejects write version without settings through the existing canonical voice schema",
+    "BRIDGE-134 scoped applied voice context returns applied own voice rather than pending text-only desire",
+    "BRIDGE-134 scoped applied voice context returns null when desired voice has never been applied"
+  ],
+  "restored": [
+    {
+      "file": "src/agent/agent-channel-configuration.ts",
+      "exact": true,
+      "sha256": "bd07ae0c09b28e56829e24c6da85c45d55522daf0e86ed8b5fb6e4624eb9bfa8"
+    },
+    {
+      "file": "src/http/endpoints/voice-register.ts",
+      "exact": true,
+      "sha256": "647b1827dd0c71cf5ececedda84d1fdb8f45661d1cafa88a3e96bf5deb89169f"
+    },
+    {
+      "file": "src/capability/voice/agent-voice-settings.ts",
+      "exact": true,
+      "sha256": "1b215b039af952ef51294aa4da30426611afdb195a97e17eb4d4a3e1371f159b"
+    }
+  ],
+  "final": {
+    "numTotalTests": 35,
+    "numPassedTests": 35,
+    "numFailedTests": 0,
+    "numPendingTests": 0
+  }
+}

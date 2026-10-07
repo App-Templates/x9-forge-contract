@@ -1,0 +1,30 @@
+# BRIDGE-134 — SUMMARY
+
+2026-10-07 07:39: CONSEGNATO candidato65b8da5 + documenti finali. Full2028/2028 in117file (1993ereditati+35nuovi),0falliti/pendenti;35/35nuovi qualificati16/16mutazioni e35/35nomi,3/3SHA. Nativetypecheckautore0,lintcompleto0; copia privata esatta386/386 con typecheck/build/checkpack0 e294/294dichiarazioniportabili. CJS36/36+6/6ereditati,sondenuove5/5 e4/4mutazionicompilate/3SHA;consumertype CJS0. Perimetro196/196,protetti2039/2039,negativi4/4,0live/release. Ultimocommit soloSUMMARY/prove;63-1pulito/congelato dopo consegna.
+
+Contratto additivo su1.33: voiceConfiguration?:AgentVoiceConfig e scopePolicy?:AgentScopePolicy sui due contextWithChannels read/write. SchemiESISTENTIriusati; voice.agentId legatoalcontextagentId come decisioneesplicita. Voicehelper restituisce SOLOapplied|null, preserves text-only; policyhelper restituisce policycompleta/conversionsua|null,nondefault. Barrelagent giàexportstar,nessunexportmanuale/duplicazione. Calleropzionale nelregister,canonicalOutboundCallerIdentityvalidato,presenteautorevole; agentIdlegacyForge devecoincidere con managementAgentId,mai aliasruntime (testid42vsruntime-synthetic). Estensioneerrorevoice_not_applied e nullableadmission prima ditext-only/phone,nessuna chiamata reale.
+
+Testprima:26voce/registrazione suprodottooriginale→3/26verdi e23/26AssertionError (`01-red-ready`); scopeaggiunto dalla coordinatrice07:26→2/9verdi,7/9AssertionError (`03-scope-red`) PRIMA di campo/helperpolicy. Dopo26/26 (`02-green`) e35/35 (`04-all-green`,poi baseline/final05 sullaformafinale). Malformedvoicefixture rafforzata aoggettoproprioincompleto,così la guardiaidentitànonmaschera ilcontrollostrutturale; positivilegacy consafeParseAssertionErrorprima delparse,rifiutiZodErrornoncontati comecredito. `01-red`inizialeexit254/vitestnoninstallato,0test,escluso;installfrozen/prefer-offline235/235riusati,prepareHusky0. `06-native-types`TS5023 perflagcon=,escluso;flagscorrettoseparati→`06-native-types-ready`exit0,tsbuildinfoPRIVATEeoriginaletsconfigpreservata.
+
+Campagna05 unica:16/16qualificati conAssertionError,ogni restore35/35,3/3sorgenti byteesatti,ultimo35/35; `05-mutations.json`,rawrosso/restoreperognicampione,ricette+replaycommittati. Controlli:opzionalitàvoce/read-write,schemacanonico,scope,exporthelper,appliedvsdesired,null;opzionalitàcaller,retention/schema,bindingmanagement;admissionnull e fixederror;opzionalitàpolicy,schemaduplicati/purpose,exporthelper/null/presente. Tutti35/35nuovinomi rottiapposta; nessunverde0test/timeout, nessuna mutazionelasciata.
+
+| Parte | oggi → dopo | prova |
+|---|---|---|
+| Vocecontext | campo non governato → optionalcanonico scoped/versionato | voice-context18 +muts05 |
+| Voceapplied | helperassente → applied|null senza desired | voice-context4helper +muts05 |
+| Registrazione | caller scartato → identitàpropriaconlegacycoerente | voice-register8 +muts05 |
+| Policycontext | campo non governato → schemacanonicoapplicato/helpernull | scope-context9 +muts05 |
+
+Non certificaHTTP400dalconsumer: schema rifiuta mismatch, consumerForge daaggiornare da assegnatario. Noncambia scopeLimited@bridge-pending runtimeR5-2. Nessun writerR4/R5,SDKconsumer/vendor/pin/package/dist/CHANGELOG toccato. Builddistribuzione soloPRIVATE,coordinatricerilascia1.34 dopoR27. Full eCJSfinali daeseguire,0live/provider/browser/server/push/merge/deploy.
+
+## Finali — 2026-10-07 07:39
+
+`07-full.json`:2028/2028 in117file,0failed/pending,1worker,180stimeout nonraggiunto; nuova esecuzione completa su copia privata nativa,senza alias/configfixture. Buildoriginalezshy+dts0,294/294dichiarazioniportabili; checkpackoriginalepublint+attw profilonode16/ignorefalse-cjsinvariato0,cache/npmrcPRIVATEofflinededicati. Warning roottypescjs giàesistente conservato,nessun'esclusione nuova. Copia386/386input pubblici byteesatti (`07-private-input/final`),tsconfig/package/scriptsoriginali,autore/sourceancoraintatto dopobuild. Dist/packageversion1.33CHANGESMAIautore;1.34publish/merge/rilascio coordinatrice dopo verifica.
+
+CJS originali36/36risoluzionipubbliche+6/6assertBRIDGE130,non sommate alVitest. Nuove5/5sonde reali require(@x9-forge/contracts/agent,voice,http):legacy/helpernull,voceapplied,policyapplied,callerautorevole,nulladmission. CampionecompilatoPRIVATE4/4qualificatoAssertionError,5/5nomicolpiti,3/3SHArestore eogni ritorno5/5 (`08b-cjs-mutations.json`); distinto dalle16/16mutsource. ConsumerCJSnuovesole.d.ctscompilato0 (`08c-cjs-types`). PrimoCJS3/4interrotto performatomultilineadelbersagliocompilato,conservato08 eNONverdefinale; secondogiro4/4chiuso,poi consumerTS5112 perfiles+tsconfigpresente,nonbugcontratto eNONcredito. FlagTS6ignoreConfig perfixturestandalone→consumer0,senzanewcampagna. Nessuna dichiarazione cambiataamanoper ottenereverde.
+
+Perimetro196/196 eprotetti2039/2039 alcheckpointprima degli ultimi soli docs,4/4negativirespinti,authorbase1646b79,diffcheckbase→candidato0 dopo trimsolerighevuoteEOFdei log (righe/test/outputsemantici intatti). Package/dist/CHANGELOG/barreloriginali/precedentitestpubblici tutti byteesatti; manifesto `09-integrity.json`, `09-FINAL-PROOF.json`. HookHusky normale attivo,gatewebhookesegue solo seipropri file sonostaged: quiinvariati/nonattivato,nessunno-verify.
+
+Limiti espliciti: non è HTTP400dalForgeconsumer né integrazionewriterR4/R5 o runtimeR5-2; schema rifiutaidentitàincoerente,consumerassegnati devonoimportarlo. Nonimponeun nuovo defaultsafetyperlegacy: helpernull lasciailcomportamentononconfigurato alruntime secondo piano. Nienteprovider/reali/credenziali/browser/server/deploy/push/merge. Concluso entro45min. Nuovaprioritàcoordinatrice07:27: dopoBRIDGE134 tornare43-3 per rendere integrazione47eseguita dallaCI(services/agent-core/tests/configrelative), poiR4-2.
+
+Log hygiene finale: staged diffcheck prima dell’ultimocommit evidenziava19spazi finali nell’outputattw,non source. Commitdocs0f975b3 nonbloccato daquelcomando; ora normalizzatesolo whitespacefinediriga/EOFdei.txt,JSONAssertionError/exit/countimmutati. Nessuntest ripetuto perché source/hash/test immutati. Confrontobase finale0 e ulteriore commit soloSUMMARY/loghygiene.

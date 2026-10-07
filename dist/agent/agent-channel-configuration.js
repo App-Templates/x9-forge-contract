@@ -7,6 +7,8 @@ import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js"
 import { AgentRuntimeIdentitySchema } from "./agent-runtime-identity.js";
 import { AgentRuntimeChannelSchema } from "./agent-runtime-state.js";
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from "./agent-context-file.js";
+import { AgentVoiceConfigSchema } from "../capability/voice/agent-voice-settings.js";
+import { AgentScopePolicySchema } from "./agent-scope-policy.js";
 /** R2: pausing admission preserves the agent's resource and credentials in their existing stores. */
 export const AgentBirthChannelKindSchema = ChannelTypeSchema.extract(['telegram', 'email']);
 export const AgentChannelDesiredStateSchema = z.enum(['active', 'paused']);
@@ -89,10 +91,21 @@ function checkContextScope(context, ctx) {
             ctx.addIssue({ code: 'custom', path: ['channelConfigurations', index, 'scope'], message: 'Channel configuration belongs to another context scope' });
         }
     }
+    if (context.voiceConfiguration && context.voiceConfiguration.agentId !== context.agentId) {
+        ctx.addIssue({ code: 'custom', path: ['voiceConfiguration', 'agentId'], message: 'Voice configuration belongs to another context scope' });
+    }
 }
 /** Additive context field. Absent is legacy; present is complete, validated and scoped with no tenant default. */
-export const AgentContextWithChannelsSchema = AgentContextFileSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional() }).superRefine(checkContextScope);
-export const AgentContextWithChannelsWriteSchema = AgentContextFileWriteSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional() }).superRefine(checkContextScope);
+export const AgentContextWithChannelsSchema = AgentContextFileSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: AgentVoiceConfigSchema.optional(), scopePolicy: AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+export const AgentContextWithChannelsWriteSchema = AgentContextFileWriteSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: AgentVoiceConfigSchema.optional(), scopePolicy: AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+/** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
+export function appliedAgentVoiceSettings(ctx) {
+    return ctx.voiceConfiguration?.applied ?? null;
+}
+/** Applied policy of a validated context; absence is unconfigured, never an invented default. */
+export function appliedAgentScopePolicy(ctx) {
+    return ctx.scopePolicy ?? null;
+}
 /** Admission only, not readiness: the producer still resolves this agent's credentials and attests the load. */
 export function shouldLoadAgentChannel(rawContext, kind) {
     const parsed = AgentContextWithChannelsSchema.safeParse(rawContext);

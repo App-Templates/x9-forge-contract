@@ -1,0 +1,17 @@
+voice-optional 6 assertions; restore35/35
+voice-context-scope 2 assertions; restore35/35
+voice-canonical-schema 10 assertions; restore35/35
+voice-helper-export 4 assertions; restore35/35
+voice-helper-applied 3 assertions; restore35/35
+voice-helper-null 1 assertions; restore35/35
+caller-optional 1 assertions; restore35/35
+caller-canonical-field 5 assertions; restore35/35
+caller-management-binding 2 assertions; restore35/35
+voice-not-applied-admission 1 assertions; restore35/35
+voice-not-applied-error 1 assertions; restore35/35
+policy-optional 14 assertions; restore35/35
+policy-canonical-schema 4 assertions; restore35/35
+policy-helper-export 3 assertions; restore35/35
+policy-helper-null 1 assertions; restore35/35
+policy-helper-present 2 assertions; restore35/35
+qualified 16 / 16 names 35 /35

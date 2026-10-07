@@ -98,6 +98,7 @@ exports.VoiceProviderCatalogSchema = zod_1.z.object({
     }
 });
 exports.AgentVoiceErrorCodeSchema = zod_1.z.enum([
+    'voice_not_applied',
     'voice_disabled',
     'phone_not_enabled',
     'provider_unsupported',
@@ -142,6 +143,8 @@ exports.OutboundCallerIdentitySchema = zod_1.z.object({
 /** Build the caller identity from APPLIED settings; text-only agents and agents without phone never dial. */
 function outboundCallerIdentityFor(input) {
     const { settings, ...rest } = input;
+    if (settings === null)
+        return { ok: false, error: 'voice_not_applied' };
     if (settings.mode === 'text-only')
         return { ok: false, error: 'voice_disabled' };
     if (!settings.transports.includes('phone'))

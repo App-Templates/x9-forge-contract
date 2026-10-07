@@ -1,0 +1,8 @@
+{
+  "scriptExit": 1,
+  "mutationQualified": 4,
+  "mutationExpected": 4,
+  "mutationsComplete": true,
+  "subsequentDeclarationExit": 1,
+  "reason": "TS5112 standalone command lacks ignoreConfig; corrected declaration-only command08c exit0"
+}

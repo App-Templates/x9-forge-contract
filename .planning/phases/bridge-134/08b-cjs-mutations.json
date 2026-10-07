@@ -1,0 +1,77 @@
+{
+  "qualified": 4,
+  "expected": 4,
+  "completed": [
+    {
+      "name": "voice-null-and-applied",
+      "assertions": [
+        "legacy-null",
+        "applied-voice"
+      ],
+      "red": 3,
+      "redTotal": 5,
+      "restorePassed": 5,
+      "restoreTotal": 5,
+      "sha": "e95069dbdb39b48250173134d776e9e94980fdcc4bf4611acb914c10a4a7d536"
+    },
+    {
+      "name": "policy-null-and-present",
+      "assertions": [
+        "legacy-null",
+        "applied-policy"
+      ],
+      "red": 3,
+      "redTotal": 5,
+      "restorePassed": 5,
+      "restoreTotal": 5,
+      "sha": "e95069dbdb39b48250173134d776e9e94980fdcc4bf4611acb914c10a4a7d536"
+    },
+    {
+      "name": "caller-binding",
+      "assertions": [
+        "authoritative-caller"
+      ],
+      "red": 4,
+      "redTotal": 5,
+      "restorePassed": 5,
+      "restoreTotal": 5,
+      "sha": "8031bb920f226f74ffbff351069678b6999cee61e708e148315e15a77a3afe95"
+    },
+    {
+      "name": "unapplied-admission",
+      "assertions": [
+        "unapplied-admission"
+      ],
+      "red": 4,
+      "redTotal": 5,
+      "restorePassed": 5,
+      "restoreTotal": 5,
+      "sha": "64b451684fe15bdbb30a863afe882b2dace8e00d197ae93cee8a5dfbf8fc62e1"
+    }
+  ],
+  "namesHit": [
+    "applied-policy",
+    "applied-voice",
+    "authoritative-caller",
+    "legacy-null",
+    "unapplied-admission"
+  ],
+  "newNames": 5,
+  "restored": [
+    {
+      "file": "dist/agent/agent-channel-configuration.cjs",
+      "exact": true,
+      "sha": "e95069dbdb39b48250173134d776e9e94980fdcc4bf4611acb914c10a4a7d536"
+    },
+    {
+      "file": "dist/http/endpoints/voice-register.cjs",
+      "exact": true,
+      "sha": "8031bb920f226f74ffbff351069678b6999cee61e708e148315e15a77a3afe95"
+    },
+    {
+      "file": "dist/capability/voice/agent-voice-settings.cjs",
+      "exact": true,
+      "sha": "64b451684fe15bdbb30a863afe882b2dace8e00d197ae93cee8a5dfbf8fc62e1"
+    }
+  ]
+}

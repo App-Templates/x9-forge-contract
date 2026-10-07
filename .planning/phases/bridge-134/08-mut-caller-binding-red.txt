@@ -1,0 +1,1 @@
+{"total":5,"passed":4,"results":[{"name":"legacy-null","passed":true},{"name":"applied-voice","passed":true},{"name":"applied-policy","passed":true},{"name":"authoritative-caller","passed":false,"errorName":"AssertionError","message":"Expected values to be strictly equal:\n\ntrue !== false\n"},{"name":"unapplied-admission","passed":true}]}

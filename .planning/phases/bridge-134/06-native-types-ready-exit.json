@@ -1,0 +1,15 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1",
+    "exec",
+    "tsc",
+    "--noEmit",
+    "--tsBuildInfoFile",
+    "/private/tmp/codex-a-bridge134-native.tsbuildinfo"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 1.3425860404968262
+}

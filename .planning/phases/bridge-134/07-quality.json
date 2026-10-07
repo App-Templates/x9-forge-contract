@@ -1,0 +1,69 @@
+[
+  {
+    "name": "07-private-typecheck",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+      "run",
+      "typecheck"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 1.366671085357666
+  },
+  {
+    "name": "07-private-build",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+      "run",
+      "build"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 3.227299690246582
+  },
+  {
+    "name": "07-private-pack",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+      "run",
+      "check:pack"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 3.1928417682647705
+  },
+  {
+    "name": "07-cjs-existing",
+    "command": [
+      "node",
+      "/private/tmp/codex-a-bridge134-build-9whmcyjr/tests/cjs/smoke.cjs"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 0.14469695091247559
+  },
+  {
+    "name": "07-full",
+    "command": [
+      "pnpm",
+      "-C",
+      "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=1",
+      "--testTimeout=60000",
+      "--reporter=json",
+      "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1/.planning/phases/bridge-134/07-full.json"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "elapsedSeconds": 20.442188024520874
+  }
+]

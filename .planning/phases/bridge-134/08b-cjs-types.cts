@@ -1,0 +1,10 @@
+import { AgentContextWithChannelsSchema, appliedAgentVoiceSettings, appliedAgentScopePolicy } from '@x9-forge/contracts/agent';
+import type { AgentVoiceSettings } from '@x9-forge/contracts/voice';
+import type { AgentScopePolicy } from '@x9-forge/contracts/agent';
+import { VoiceRegisterRequestSchema } from '@x9-forge/contracts/http';
+import type { VoiceRegisterRequest } from '@x9-forge/contracts/http';
+const context = AgentContextWithChannelsSchema.parse({});
+const appliedVoice: AgentVoiceSettings | null = appliedAgentVoiceSettings(context);
+const appliedPolicy: AgentScopePolicy | null = appliedAgentScopePolicy(context);
+const registration: VoiceRegisterRequest = VoiceRegisterRequestSchema.parse({});
+void appliedVoice; void appliedPolicy; void registration.caller?.agent.managementAgentId;

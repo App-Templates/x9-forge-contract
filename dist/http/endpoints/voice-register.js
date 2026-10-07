@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { OutboundCallerIdentitySchema } from "../../capability/voice/agent-voice-settings.js";
 /**
  * POST /api/voice/register — register a voice session before a call completes.
  * Direction: X9 cap-voice -> Forge voice-svc
@@ -18,6 +19,12 @@ import { z } from 'zod';
 export const VoiceRegisterRequestSchema = z.object({
     agentId: z.string().min(1),
     conversationId: z.string().min(1),
+    /** Authoritative caller identity when present; agentId remains the legacy Forge management id. */
+    caller: OutboundCallerIdentitySchema.optional(),
+}).superRefine((request, ctx) => {
+    if (request.caller && request.agentId !== request.caller.agent.managementAgentId) {
+        ctx.addIssue({ code: 'custom', path: ['agentId'], message: 'Legacy agent id differs from caller management identity' });
+    }
 });
 export const VoiceRegisterResponseSchema = z.object({
     ok: z.literal(true),

@@ -1,0 +1,3 @@
+
+> @x9-forge/contracts@1.33.0 typecheck /private/tmp/codex-a-bridge134-build-9whmcyjr
+> tsc --noEmit

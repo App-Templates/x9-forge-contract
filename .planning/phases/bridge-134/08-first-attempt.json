@@ -1,0 +1,6 @@
+{
+  "scriptExit": 1,
+  "mutationQualified": 3,
+  "mutationExpected": 4,
+  "reason": "compiled target multiline mismatch, no fourth mutation ran; exact finally restoration"
+}

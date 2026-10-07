@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentContextWithChannelsWriteSchema = exports.AgentContextWithChannelsSchema = exports.AgentChannelConfigurationSchema = exports.AgentChannelVersionedStateSchema = exports.AgentOwnedChannelResourceSchema = exports.AgentChannelFailureSchema = exports.AgentChannelFailureCodeSchema = exports.AgentChannelDesiredStateSchema = exports.AgentBirthChannelKindSchema = void 0;
 exports.channelFailure = channelFailure;
 exports.isChannelConfigurationApplied = isChannelConfigurationApplied;
+exports.appliedAgentVoiceSettings = appliedAgentVoiceSettings;
+exports.appliedAgentScopePolicy = appliedAgentScopePolicy;
 exports.shouldLoadAgentChannel = shouldLoadAgentChannel;
 const zod_1 = require("zod");
 const channel_type_js_1 = require("../messaging/channel-type.cjs");
@@ -13,6 +15,8 @@ const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const agent_runtime_identity_js_1 = require("./agent-runtime-identity.cjs");
 const agent_runtime_state_js_1 = require("./agent-runtime-state.cjs");
 const agent_context_file_js_1 = require("./agent-context-file.cjs");
+const agent_voice_settings_js_1 = require("../capability/voice/agent-voice-settings.cjs");
+const agent_scope_policy_js_1 = require("./agent-scope-policy.cjs");
 /** R2: pausing admission preserves the agent's resource and credentials in their existing stores. */
 exports.AgentBirthChannelKindSchema = channel_type_js_1.ChannelTypeSchema.extract(['telegram', 'email']);
 exports.AgentChannelDesiredStateSchema = zod_1.z.enum(['active', 'paused']);
@@ -95,10 +99,21 @@ function checkContextScope(context, ctx) {
             ctx.addIssue({ code: 'custom', path: ['channelConfigurations', index, 'scope'], message: 'Channel configuration belongs to another context scope' });
         }
     }
+    if (context.voiceConfiguration && context.voiceConfiguration.agentId !== context.agentId) {
+        ctx.addIssue({ code: 'custom', path: ['voiceConfiguration', 'agentId'], message: 'Voice configuration belongs to another context scope' });
+    }
 }
 /** Additive context field. Absent is legacy; present is complete, validated and scoped with no tenant default. */
-exports.AgentContextWithChannelsSchema = agent_context_file_js_1.AgentContextFileSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional() }).superRefine(checkContextScope);
-exports.AgentContextWithChannelsWriteSchema = agent_context_file_js_1.AgentContextFileWriteSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional() }).superRefine(checkContextScope);
+exports.AgentContextWithChannelsSchema = agent_context_file_js_1.AgentContextFileSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: agent_voice_settings_js_1.AgentVoiceConfigSchema.optional(), scopePolicy: agent_scope_policy_js_1.AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+exports.AgentContextWithChannelsWriteSchema = agent_context_file_js_1.AgentContextFileWriteSchema.safeExtend({ channelConfigurations: ConfigurationsSchema.optional(), voiceConfiguration: agent_voice_settings_js_1.AgentVoiceConfigSchema.optional(), scopePolicy: agent_scope_policy_js_1.AgentScopePolicySchema.optional() }).superRefine(checkContextScope);
+/** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
+function appliedAgentVoiceSettings(ctx) {
+    return ctx.voiceConfiguration?.applied ?? null;
+}
+/** Applied policy of a validated context; absence is unconfigured, never an invented default. */
+function appliedAgentScopePolicy(ctx) {
+    return ctx.scopePolicy ?? null;
+}
 /** Admission only, not readiness: the producer still resolves this agent's credentials and attests the load. */
 function shouldLoadAgentChannel(rawContext, kind) {
     const parsed = exports.AgentContextWithChannelsSchema.safeParse(rawContext);

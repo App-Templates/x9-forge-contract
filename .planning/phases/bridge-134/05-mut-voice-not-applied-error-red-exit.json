@@ -1,0 +1,19 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1",
+    "exec",
+    "vitest",
+    "run",
+    "tests/agent/bridge134-voice-context.test.ts",
+    "tests/agent/bridge134-scope-context.test.ts",
+    "tests/http/endpoints/bridge134-voice-register.test.ts",
+    "--maxWorkers=1",
+    "--testTimeout=60000",
+    "--reporter=json",
+    "--outputFile=/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-63-1/.planning/phases/bridge-134/05-mut-voice-not-applied-error-red.json"
+  ],
+  "exit": 1,
+  "timeout": false
+}

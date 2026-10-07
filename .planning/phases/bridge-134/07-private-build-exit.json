@@ -1,0 +1,13 @@
+{
+  "name": "07-private-build",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+    "run",
+    "build"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 3.227299690246582
+}

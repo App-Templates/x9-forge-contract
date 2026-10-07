@@ -1,0 +1,38 @@
+.planning/phases/bridge-134/07-private-pack.txt:28: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:29: trailing whitespace.
++node10: (ignored) 🟢
+.planning/phases/bridge-134/07-private-pack.txt:37: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:46: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:55: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:64: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:73: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:82: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:91: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:100: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:109: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:118: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:127: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:136: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:145: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:154: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:163: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:172: trailing whitespace.
++bundler: 🟢
+.planning/phases/bridge-134/07-private-pack.txt:181: trailing whitespace.
++bundler: 🟢

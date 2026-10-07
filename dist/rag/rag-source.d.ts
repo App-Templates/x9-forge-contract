@@ -56,8 +56,8 @@ export type RagJobType = z.infer<typeof RagJobTypeSchema>;
 export declare const RagJobStatusSchema: z.ZodEnum<{
     failed: "failed";
     pending: "pending";
-    running: "running";
     completed: "completed";
+    running: "running";
     cancelled: "cancelled";
 }>;
 export type RagJobStatus = z.infer<typeof RagJobStatusSchema>;
@@ -83,8 +83,8 @@ export declare const RagSyncJobSummarySchema: z.ZodObject<{
     status: z.ZodEnum<{
         failed: "failed";
         pending: "pending";
-        running: "running";
         completed: "completed";
+        running: "running";
         cancelled: "cancelled";
     }>;
     source_connection_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;
@@ -142,8 +142,8 @@ export declare const RagSourceStatusSchema: z.ZodObject<{
         status: z.ZodEnum<{
             failed: "failed";
             pending: "pending";
-            running: "running";
             completed: "completed";
+            running: "running";
             cancelled: "cancelled";
         }>;
         source_connection_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;
@@ -235,8 +235,8 @@ export declare const RagSourceStatusResponseSchema: z.ZodObject<{
             status: z.ZodEnum<{
                 failed: "failed";
                 pending: "pending";
-                running: "running";
                 completed: "completed";
+                running: "running";
                 cancelled: "cancelled";
             }>;
             source_connection_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;

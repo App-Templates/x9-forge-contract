@@ -1,0 +1,13 @@
+{
+  "name": "07-private-pack",
+  "command": [
+    "pnpm",
+    "-C",
+    "/private/tmp/codex-a-bridge134-build-9whmcyjr",
+    "run",
+    "check:pack"
+  ],
+  "exit": 0,
+  "timeout": false,
+  "elapsedSeconds": 3.1928417682647705
+}

@@ -1,0 +1,184 @@
+
+> @x9-forge/contracts@1.33.0 check:pack /private/tmp/codex-a-bridge134-build-9whmcyjr
+> publint && attw --pack . --profile node16 --ignore-rules false-cjs
+
+Running publint v0.3.18 for @x9-forge/contracts...
+Packing files with `pnpm pack`...
+Linting...
+Warnings:
+1. pkg.exports["."].types types is interpreted as CJS when resolving with the "import" condition. This causes the types to be ambiguous when default importing the package due to its implied interop. Consider splitting out two "types" conditions for "import" and "require", and use the .mts extension, e.g. pkg.exports["."].import.types: "./dist/index.d.mts"
+
+@x9-forge/contracts v1.33.0
+
+Build tools:
+- @arethetypeswrong/cli@^0.18.2
+- typescript@^6.0.2
+
+ (ignoring rules: 'false-cjs')
+
+ (ignoring resolutions: 'node10')
+
+(ignored per resolution) 💀 Import failed to resolve to type declarations or JavaScript files. https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/docs/problems/NoResolution.md
+
+
+"@x9-forge/contracts"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 🟢
+
+***********************************
+
+"@x9-forge/contracts/auth"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/agent"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/voice"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability/stt"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability/tts"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability/voice-live"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability/ricerca"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability/lab"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/http"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/memory"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/messaging"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/model-router"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/rag"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/vault"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability/parameters"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
+
+"@x9-forge/contracts/capability/presentation"
+
+node16 (from CJS): 🟢 (CJS)
+node16 (from ESM): 🟢 (CJS)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+
+***********************************
