@@ -99,8 +99,8 @@ export declare const CoachSessionSchema: z.ZodObject<{
     actualMinutes: z.ZodNullable<z.ZodNumber>;
     channel: z.ZodOptional<z.ZodUnion<[z.ZodEnum<{
         email: "email";
-        telegram: "telegram";
         voice: "voice";
+        telegram: "telegram";
         whatsapp: "whatsapp";
     }>, z.ZodLiteral<"web">]>>;
 }, z.core.$strict>;
@@ -237,8 +237,8 @@ export declare const CoachPersonSnapshotSchema: z.ZodObject<{
         actualMinutes: z.ZodNullable<z.ZodNumber>;
         channel: z.ZodOptional<z.ZodUnion<[z.ZodEnum<{
             email: "email";
-            telegram: "telegram";
             voice: "voice";
+            telegram: "telegram";
             whatsapp: "whatsapp";
         }>, z.ZodLiteral<"web">]>>;
     }, z.core.$strict>>;
@@ -270,8 +270,8 @@ export declare const CoachSessionRecordResultSchema: z.ZodObject<{
         actualMinutes: z.ZodNullable<z.ZodNumber>;
         channel: z.ZodOptional<z.ZodUnion<[z.ZodEnum<{
             email: "email";
-            telegram: "telegram";
             voice: "voice";
+            telegram: "telegram";
             whatsapp: "whatsapp";
         }>, z.ZodLiteral<"web">]>>;
     }, z.core.$strict>;

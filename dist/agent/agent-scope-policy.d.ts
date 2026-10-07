@@ -136,9 +136,9 @@ export declare const AgentActionOutcomeSchema: z.ZodEnum<{
 export type AgentActionOutcome = z.infer<typeof AgentActionOutcomeSchema>;
 /** Who originated the action; `external-content` marks untrusted data (web, documents, provider output). */
 export declare const AgentActionProvenanceSchema: z.ZodEnum<{
-    model: "model";
     system: "system";
     user: "user";
+    model: "model";
     callback: "callback";
     "external-content": "external-content";
 }>;
@@ -173,16 +173,16 @@ export declare const AgentActionLogEventSchema: z.ZodObject<{
     }>;
     policyVersion: z.ZodNumber;
     provenance: z.ZodEnum<{
-        model: "model";
         system: "system";
         user: "user";
+        model: "model";
         callback: "callback";
         "external-content": "external-content";
     }>;
     channel: z.ZodOptional<z.ZodUnion<[z.ZodEnum<{
         email: "email";
-        telegram: "telegram";
         voice: "voice";
+        telegram: "telegram";
         whatsapp: "whatsapp";
     }>, z.ZodLiteral<"web">]>>;
     approvalId: z.ZodOptional<z.ZodString>;

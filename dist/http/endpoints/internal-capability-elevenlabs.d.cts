@@ -100,8 +100,8 @@ export declare const elevenLabsProvisionContract: {
                 channelId: z.ZodString;
                 kind: z.ZodUnion<[z.ZodEnum<{
                     email: "email";
-                    telegram: "telegram";
                     voice: "voice";
+                    telegram: "telegram";
                     whatsapp: "whatsapp";
                 }>, z.ZodLiteral<"web">]>;
                 state: z.ZodEnum<{
@@ -159,8 +159,8 @@ export declare const elevenLabsStatusContract: {
             channelId: z.ZodString;
             kind: z.ZodUnion<[z.ZodEnum<{
                 email: "email";
-                telegram: "telegram";
                 voice: "voice";
+                telegram: "telegram";
                 whatsapp: "whatsapp";
             }>, z.ZodLiteral<"web">]>;
             state: z.ZodEnum<{

@@ -24,4 +24,5 @@ export * from "./agent-creation-replay.js";
 export * from "./agent-channel-attestation.js";
 export * from "./agent-workspace.js";
 export * from "./agent-inventory-metadata.js";
+export * from "./agent-credential-services.js";
 //# sourceMappingURL=index.d.ts.map

@@ -10,8 +10,8 @@ export declare const AgentRuntimeStateSchema: z.ZodEnum<{
 export type AgentRuntimeState = z.infer<typeof AgentRuntimeStateSchema>;
 export declare const AgentRuntimeChannelKindSchema: z.ZodUnion<[z.ZodEnum<{
     email: "email";
-    telegram: "telegram";
     voice: "voice";
+    telegram: "telegram";
     whatsapp: "whatsapp";
 }>, z.ZodLiteral<"web">]>;
 export type AgentRuntimeChannelKind = z.infer<typeof AgentRuntimeChannelKindSchema>;
@@ -34,8 +34,8 @@ export declare const AgentRuntimeChannelSchema: z.ZodObject<{
     channelId: z.ZodString;
     kind: z.ZodUnion<[z.ZodEnum<{
         email: "email";
-        telegram: "telegram";
         voice: "voice";
+        telegram: "telegram";
         whatsapp: "whatsapp";
     }>, z.ZodLiteral<"web">]>;
     state: z.ZodEnum<{
@@ -77,8 +77,8 @@ export declare const AgentRuntimeEvidenceSchema: z.ZodObject<{
         channelId: z.ZodString;
         kind: z.ZodUnion<[z.ZodEnum<{
             email: "email";
-            telegram: "telegram";
             voice: "voice";
+            telegram: "telegram";
             whatsapp: "whatsapp";
         }>, z.ZodLiteral<"web">]>;
         state: z.ZodEnum<{
@@ -113,8 +113,8 @@ export declare const AgentRuntimeSnapshotSchema: z.ZodObject<{
         channelId: z.ZodString;
         kind: z.ZodUnion<[z.ZodEnum<{
             email: "email";
-            telegram: "telegram";
             voice: "voice";
+            telegram: "telegram";
             whatsapp: "whatsapp";
         }>, z.ZodLiteral<"web">]>;
         state: z.ZodEnum<{

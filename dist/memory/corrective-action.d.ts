@@ -62,10 +62,10 @@ export declare const MemoryCorrectiveActionRequestSchema: z.ZodObject<{
     }>;
     actor_id: z.ZodString;
     action: z.ZodEnum<{
+        pin: "pin";
         invalidate: "invalidate";
         forget: "forget";
         redact: "redact";
-        pin: "pin";
         promote: "promote";
         demote: "demote";
         merge_entity: "merge_entity";

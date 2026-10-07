@@ -33,9 +33,9 @@ export type AgentCreationIntent = z.infer<typeof AgentCreationIntentSchema>;
 /** Existing non-secret deploy fields; legacy schemas are unchanged. No raw channel credential is persisted in a job. */
 export declare const AgentCreationRequestSchema: z.ZodObject<{
     emoji: z.ZodOptional<z.ZodString>;
-    inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     name: z.ZodString;
     objective: z.ZodOptional<z.ZodString>;
+    inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     slug: z.ZodOptional<z.ZodString>;
     creature: z.ZodOptional<z.ZodString>;
     vibe: z.ZodOptional<z.ZodString>;
@@ -78,8 +78,8 @@ export type AgentCreationRequest = z.infer<typeof AgentCreationRequestSchema>;
 export declare const AgentCreationPhaseSchema: z.ZodEnum<{
     incomplete: "incomplete";
     pending: "pending";
-    completed: "completed";
     running: "running";
+    completed: "completed";
 }>;
 export declare const AgentCreationFailureSchema: z.ZodObject<{
     step: z.ZodEnum<{
@@ -112,8 +112,8 @@ export declare const AgentCreationFirstCheckSchema: z.ZodObject<{
         channelId: z.ZodString;
         kind: z.ZodUnion<[z.ZodEnum<{
             email: "email";
-            telegram: "telegram";
             voice: "voice";
+            telegram: "telegram";
             whatsapp: "whatsapp";
         }>, z.ZodLiteral<"web">]>;
         state: z.ZodEnum<{
@@ -152,9 +152,9 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
     jobId: z.ZodString;
     request: z.ZodObject<{
         emoji: z.ZodOptional<z.ZodString>;
-        inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         name: z.ZodString;
         objective: z.ZodOptional<z.ZodString>;
+        inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         slug: z.ZodOptional<z.ZodString>;
         creature: z.ZodOptional<z.ZodString>;
         vibe: z.ZodOptional<z.ZodString>;
@@ -197,8 +197,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
     phase: z.ZodEnum<{
         incomplete: "incomplete";
         pending: "pending";
-        completed: "completed";
         running: "running";
+        completed: "completed";
     }>;
     channels: z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
@@ -264,8 +264,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             channelId: z.ZodString;
             kind: z.ZodUnion<[z.ZodEnum<{
                 email: "email";
-                telegram: "telegram";
                 voice: "voice";
+                telegram: "telegram";
                 whatsapp: "whatsapp";
             }>, z.ZodLiteral<"web">]>;
             state: z.ZodEnum<{
@@ -317,8 +317,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             channelId: z.ZodString;
             kind: z.ZodUnion<[z.ZodEnum<{
                 email: "email";
-                telegram: "telegram";
                 voice: "voice";
+                telegram: "telegram";
                 whatsapp: "whatsapp";
             }>, z.ZodLiteral<"web">]>;
             state: z.ZodEnum<{
@@ -387,9 +387,9 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
         jobId: z.ZodString;
         request: z.ZodObject<{
             emoji: z.ZodOptional<z.ZodString>;
-            inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             name: z.ZodString;
             objective: z.ZodOptional<z.ZodString>;
+            inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             slug: z.ZodOptional<z.ZodString>;
             creature: z.ZodOptional<z.ZodString>;
             vibe: z.ZodOptional<z.ZodString>;
@@ -432,8 +432,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
         phase: z.ZodEnum<{
             incomplete: "incomplete";
             pending: "pending";
-            completed: "completed";
             running: "running";
+            completed: "completed";
         }>;
         channels: z.ZodArray<z.ZodObject<{
             kind: z.ZodEnum<{
@@ -499,8 +499,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 channelId: z.ZodString;
                 kind: z.ZodUnion<[z.ZodEnum<{
                     email: "email";
-                    telegram: "telegram";
                     voice: "voice";
+                    telegram: "telegram";
                     whatsapp: "whatsapp";
                 }>, z.ZodLiteral<"web">]>;
                 state: z.ZodEnum<{
@@ -552,8 +552,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 channelId: z.ZodString;
                 kind: z.ZodUnion<[z.ZodEnum<{
                     email: "email";
-                    telegram: "telegram";
                     voice: "voice";
+                    telegram: "telegram";
                     whatsapp: "whatsapp";
                 }>, z.ZodLiteral<"web">]>;
                 state: z.ZodEnum<{

@@ -11,6 +11,20 @@
  * @see .planning/phases/06-model-router-contracts-block-f/06-CONTEXT.md
  * @see .planning/phases/06-model-router-contracts-block-f/06-RESEARCH-X9-ALIGNMENT.md
  */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModelHotReloadNotificationSchema = exports.pushModelConfigContract = exports.ModelPushResponseSchema = exports.ModelPushErrorSchema = exports.ModelPushSuccessSchema = exports.ModelPushRequestSchema = exports.PerAgentModelOverrideSchema = exports.ModelPolicySchema = exports.ModelTierMappingSchema = exports.MODEL_PROVIDERS = exports.ModelProviderSchema = exports.compareTiers = exports.TIER_ORDER = exports.MODEL_TIERS = exports.ModelTierSchema = void 0;
 // Tier
@@ -42,4 +56,9 @@ Object.defineProperty(exports, "pushModelConfigContract", { enumerable: true, ge
 // Hot reload
 var model_hot_reload_js_1 = require("./model-hot-reload.cjs");
 Object.defineProperty(exports, "ModelHotReloadNotificationSchema", { enumerable: true, get: function () { return model_hot_reload_js_1.ModelHotReloadNotificationSchema; } });
+// Attested catalogs and capability-owned settings (M1a); no model ids or credentials embedded here.
+__exportStar(require("./model-catalog.cjs"), exports);
+__exportStar(require("./capability-model-settings.cjs"), exports);
+__exportStar(require("./agent-model-configuration.cjs"), exports);
+__exportStar(require("./models-batch.cjs"), exports);
 //# sourceMappingURL=index.js.map

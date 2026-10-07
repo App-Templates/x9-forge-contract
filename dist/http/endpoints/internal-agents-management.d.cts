@@ -57,9 +57,9 @@ export declare const agentCommandContract: {
         requestId: z.ZodString;
         targets: z.ZodOptional<z.ZodArray<z.ZodObject<{
             kind: z.ZodEnum<{
-                channel: "channel";
-                runtime: "runtime";
                 capability: "capability";
+                runtime: "runtime";
+                channel: "channel";
             }>;
             targetId: z.ZodString;
         }, z.core.$strict>>>;
@@ -94,9 +94,9 @@ export declare const agentCommandContract: {
         results: z.ZodArray<z.ZodObject<{
             target: z.ZodObject<{
                 kind: z.ZodEnum<{
-                    channel: "channel";
-                    runtime: "runtime";
                     capability: "capability";
+                    runtime: "runtime";
+                    channel: "channel";
                 }>;
                 targetId: z.ZodString;
             }, z.core.$strict>;
@@ -196,9 +196,9 @@ export declare const agentManagementStateContract: {
         targets: z.ZodArray<z.ZodObject<{
             target: z.ZodObject<{
                 kind: z.ZodEnum<{
-                    channel: "channel";
-                    runtime: "runtime";
                     capability: "capability";
+                    runtime: "runtime";
+                    channel: "channel";
                 }>;
                 targetId: z.ZodString;
             }, z.core.$strict>;

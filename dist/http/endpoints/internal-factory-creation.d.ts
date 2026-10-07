@@ -6,9 +6,9 @@ import { z } from 'zod';
 export declare const internalFactoryReplayableDeployContract: {
     readonly bodySchema: z.ZodObject<{
         emoji: z.ZodOptional<z.ZodString>;
-        inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         name: z.ZodString;
         objective: z.ZodOptional<z.ZodString>;
+        inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         slug: z.ZodOptional<z.ZodString>;
         creature: z.ZodOptional<z.ZodString>;
         vibe: z.ZodOptional<z.ZodString>;
@@ -54,9 +54,9 @@ export declare const internalFactoryReplayableDeployContract: {
             jobId: z.ZodString;
             request: z.ZodObject<{
                 emoji: z.ZodOptional<z.ZodString>;
-                inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
                 name: z.ZodString;
                 objective: z.ZodOptional<z.ZodString>;
+                inboundForwardUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
                 slug: z.ZodOptional<z.ZodString>;
                 creature: z.ZodOptional<z.ZodString>;
                 vibe: z.ZodOptional<z.ZodString>;
@@ -99,8 +99,8 @@ export declare const internalFactoryReplayableDeployContract: {
             phase: z.ZodEnum<{
                 incomplete: "incomplete";
                 pending: "pending";
-                completed: "completed";
                 running: "running";
+                completed: "completed";
             }>;
             channels: z.ZodArray<z.ZodObject<{
                 kind: z.ZodEnum<{
@@ -166,8 +166,8 @@ export declare const internalFactoryReplayableDeployContract: {
                     channelId: z.ZodString;
                     kind: z.ZodUnion<[z.ZodEnum<{
                         email: "email";
-                        telegram: "telegram";
                         voice: "voice";
+                        telegram: "telegram";
                         whatsapp: "whatsapp";
                     }>, z.ZodLiteral<"web">]>;
                     state: z.ZodEnum<{
@@ -219,8 +219,8 @@ export declare const internalFactoryReplayableDeployContract: {
                     channelId: z.ZodString;
                     kind: z.ZodUnion<[z.ZodEnum<{
                         email: "email";
-                        telegram: "telegram";
                         voice: "voice";
+                        telegram: "telegram";
                         whatsapp: "whatsapp";
                     }>, z.ZodLiteral<"web">]>;
                     state: z.ZodEnum<{

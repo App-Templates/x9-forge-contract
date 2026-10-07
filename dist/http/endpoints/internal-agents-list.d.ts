@@ -37,8 +37,8 @@ import type { AgentRuntimeState } from "../../agent/agent-runtime-state.js";
  * (empty token). Mirrors agent-core BotState + the bot-less discriminator.
  */
 export declare const RuntimeAgentStatusSchema: z.ZodEnum<{
-    stopped: "stopped";
     running: "running";
+    stopped: "stopped";
     degraded: "degraded";
     starting: "starting";
     "bot-less": "bot-less";
@@ -51,8 +51,8 @@ export type RuntimeAgentStatus = z.infer<typeof RuntimeAgentStatusSchema>;
  */
 export declare const ForgeRuntimeStatusSchema: z.ZodEnum<{
     unknown: "unknown";
-    stopped: "stopped";
     running: "running";
+    stopped: "stopped";
     degraded: "degraded";
     starting: "starting";
     "bot-less": "bot-less";
@@ -73,8 +73,8 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
     displayName: z.ZodString;
     ownerId: z.ZodString;
     runtimeStatus: z.ZodOptional<z.ZodEnum<{
-        stopped: "stopped";
         running: "running";
+        stopped: "stopped";
         degraded: "degraded";
         starting: "starting";
         "bot-less": "bot-less";
@@ -103,8 +103,8 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
             channelId: z.ZodString;
             kind: z.ZodUnion<[z.ZodEnum<{
                 email: "email";
-                telegram: "telegram";
                 voice: "voice";
+                telegram: "telegram";
                 whatsapp: "whatsapp";
             }>, z.ZodLiteral<"web">]>;
             state: z.ZodEnum<{
@@ -148,8 +148,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
         displayName: z.ZodString;
         ownerId: z.ZodString;
         runtimeStatus: z.ZodOptional<z.ZodEnum<{
-            stopped: "stopped";
             running: "running";
+            stopped: "stopped";
             degraded: "degraded";
             starting: "starting";
             "bot-less": "bot-less";
@@ -178,8 +178,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
                 channelId: z.ZodString;
                 kind: z.ZodUnion<[z.ZodEnum<{
                     email: "email";
-                    telegram: "telegram";
                     voice: "voice";
+                    telegram: "telegram";
                     whatsapp: "whatsapp";
                 }>, z.ZodLiteral<"web">]>;
                 state: z.ZodEnum<{
@@ -225,8 +225,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
         }>;
         completeness: z.ZodEnum<{
             unknown: "unknown";
-            complete: "complete";
             partial: "partial";
+            complete: "complete";
         }>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
     }, z.core.$strip>>;
@@ -254,8 +254,8 @@ export declare const listAgentsContract: {
             displayName: z.ZodString;
             ownerId: z.ZodString;
             runtimeStatus: z.ZodOptional<z.ZodEnum<{
-                stopped: "stopped";
                 running: "running";
+                stopped: "stopped";
                 degraded: "degraded";
                 starting: "starting";
                 "bot-less": "bot-less";
@@ -284,8 +284,8 @@ export declare const listAgentsContract: {
                     channelId: z.ZodString;
                     kind: z.ZodUnion<[z.ZodEnum<{
                         email: "email";
-                        telegram: "telegram";
                         voice: "voice";
+                        telegram: "telegram";
                         whatsapp: "whatsapp";
                     }>, z.ZodLiteral<"web">]>;
                     state: z.ZodEnum<{
@@ -331,8 +331,8 @@ export declare const listAgentsContract: {
             }>;
             completeness: z.ZodEnum<{
                 unknown: "unknown";
-                complete: "complete";
                 partial: "partial";
+                complete: "complete";
             }>;
             observedAt: z.ZodNullable<z.ZodISODateTime>;
         }, z.core.$strip>>;

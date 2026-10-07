@@ -158,8 +158,8 @@ export declare const AgentChannelConfigurationSchema: z.ZodObject<{
         channelId: z.ZodString;
         kind: z.ZodUnion<[z.ZodEnum<{
             email: "email";
-            telegram: "telegram";
             voice: "voice";
+            telegram: "telegram";
             whatsapp: "whatsapp";
         }>, z.ZodLiteral<"web">]>;
         state: z.ZodEnum<{
@@ -327,8 +327,8 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
             channelId: z.ZodString;
             kind: z.ZodUnion<[z.ZodEnum<{
                 email: "email";
-                telegram: "telegram";
                 voice: "voice";
+                telegram: "telegram";
                 whatsapp: "whatsapp";
             }>, z.ZodLiteral<"web">]>;
             state: z.ZodEnum<{
@@ -588,8 +588,8 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
             channelId: z.ZodString;
             kind: z.ZodUnion<[z.ZodEnum<{
                 email: "email";
-                telegram: "telegram";
                 voice: "voice";
+                telegram: "telegram";
                 whatsapp: "whatsapp";
             }>, z.ZodLiteral<"web">]>;
             state: z.ZodEnum<{
