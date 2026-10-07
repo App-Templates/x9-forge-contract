@@ -10,6 +10,18 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.42.0 — accessi e richieste delle porte Telegram/email (Canali C1)
+
+### Added (additive)
+
+- `./agent`: **policy di accesso delle porte** (`agent-channel-access`) — Telegram `approved-chats`/`anyone` con chat ammesse esplicite (lista vuota = chiusa), email `address-book`/`anyone` con fonte Rubrica (complete/partial/unavailable, scope, versione, data; fonte assente o scaduta non ammette). Campo additivo `configuration.access` in `agent-channel-configuration`: i context esistenti senza `access` restano validi.
+- `./agent`: **richieste e ricevute** (`agent-channel-access-requests`) — snapshot delle richieste `/start` (solo metadati, id/chat/update unici, CAS della coda), comando «Salva e applica» per porta con ricevuta applied/pending/failed, replay esplicito e correlazione completa; nessun messaggio ordinario né credenziale nei DTO.
+- `./http`: endpoint interni X9 `internal-agent-channel-access` (GET snapshot, POST apply, autenticazione di servizio esistente) e facciata Forge `forge-agent-channel-access` (anteprima distinta dall'applicazione, «Lascia com'era» senza comandi).
+
+Solo contratti: nessun handler, consumer invariati finché non adottano il nuovo SHA. Autore Codex B, verifica indipendente Codex D (APPROVE).
+
+---
+
 ## v1.41.0 — approvazioni firmate con passkey e punti di ripristino dei server (fase 59)
 
 ### Added (additive)

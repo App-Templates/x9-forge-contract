@@ -72,4 +72,7 @@ __exportStar(require("./agent-workspace.cjs"), exports);
 __exportStar(require("./agent-inventory-metadata.cjs"), exports);
 // Canonical credential service metadata, never credential values.
 __exportStar(require("./agent-credential-services.cjs"), exports);
+// C1 explicit door access; policy absence retains legacy behavior.
+__exportStar(require("./agent-channel-access.cjs"), exports);
+__exportStar(require("./agent-channel-access-requests.cjs"), exports);
 //# sourceMappingURL=index.js.map

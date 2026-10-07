@@ -18,6 +18,7 @@ const agent_runtime_identity_js_1 = require("./agent-runtime-identity.cjs");
 const agent_runtime_state_js_1 = require("./agent-runtime-state.cjs");
 const agent_context_file_js_1 = require("./agent-context-file.cjs");
 const agent_voice_settings_js_1 = require("../capability/voice/agent-voice-settings.cjs");
+const agent_channel_access_js_1 = require("./agent-channel-access.cjs");
 const agent_scope_policy_js_1 = require("./agent-scope-policy.cjs");
 /** R2: pausing admission preserves the agent's resource and credentials in their existing stores. */
 exports.AgentBirthChannelKindSchema = channel_type_js_1.ChannelTypeSchema.extract(['telegram', 'email']);
@@ -53,6 +54,8 @@ exports.AgentChannelVersionedStateSchema = zod_1.z.object({ version: agent_confi
 exports.AgentChannelConfigurationSchema = zod_1.z.object({
     ...ownership, kind: exports.AgentBirthChannelKindSchema,
     desired: exports.AgentChannelVersionedStateSchema,
+    /** Optional explicit door policy; absent preserves 1.41 contexts without inventing a default. */
+    access: agent_channel_access_js_1.AgentChannelAccessConfigurationSchema.optional(),
     /** null means never applied, not an inferred pause. An older active version may still be running. */
     applied: exports.AgentChannelVersionedStateSchema.nullable(),
     resource: exports.AgentOwnedChannelResourceSchema.nullable(),
@@ -63,6 +66,19 @@ exports.AgentChannelConfigurationSchema = zod_1.z.object({
     const issue = (path, message) => ctx.addIssue({ code: 'custom', path: [path], message });
     if (config.identity.runtimeAgentId !== config.scope.agentId)
         issue('identity', 'Runtime identity must match configuration scope');
+    if (config.access) {
+        if (config.resource && config.resource.identity.vaultAgentId !== config.identity.vaultAgentId)
+            issue('resource', 'Explicit access resource belongs to another vault identity');
+        if (config.access.desiredPolicy.kind !== config.kind)
+            issue('access', 'Desired access policy belongs to another door');
+        if (config.access.appliedPolicy && config.access.appliedPolicy.kind !== config.kind)
+            issue('access', 'Applied access policy belongs to another door');
+        if (config.applied === null && config.access.appliedPolicy !== null)
+            issue('access', 'An applied policy requires an applied channel version');
+        if (config.applied?.version === config.desired.version && config.access.appliedPolicy !== null
+            && JSON.stringify(config.access.desiredPolicy) !== JSON.stringify(config.access.appliedPolicy))
+            issue('access', 'One channel version cannot describe two access policies');
+    }
     if (config.resource && (!(0, capability_call_context_js_1.sameCapabilityScope)(config.resource.scope, config.scope)
         || config.resource.identity.managementAgentId !== config.identity.managementAgentId))
         issue('resource', 'Resource belongs to another scope or identity');
@@ -91,7 +107,8 @@ function isChannelConfigurationApplied(raw) {
     if (!parsed.success)
         return false;
     const config = parsed.data;
-    return config.error === null && config.applied?.version === config.desired.version
+    return config.error === null && (config.access === undefined || config.access.appliedPolicy !== null)
+        && config.applied?.version === config.desired.version
         && config.observation?.state === (config.desired.state === 'active' ? 'loaded' : 'paused');
 }
 const ConfigurationsSchema = zod_1.z.array(exports.AgentChannelConfigurationSchema).length(2).refine((configs) => new Set(configs.map((config) => config.kind)).size === configs.length, { message: 'One configuration for each birth channel' });

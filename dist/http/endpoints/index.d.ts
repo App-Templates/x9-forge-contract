@@ -42,4 +42,6 @@ export * from "./voice-catalog.js";
 export * from "./internal-agent-model-catalog.js";
 export * from "./internal-models-batch.js";
 export * from "./forge-models.js";
+export * from "./internal-agent-channel-access.js";
+export * from "./forge-agent-channel-access.js";
 //# sourceMappingURL=index.d.ts.map

@@ -36,4 +36,7 @@ export * from "./agent-workspace.js";
 export * from "./agent-inventory-metadata.js";
 // Canonical credential service metadata, never credential values.
 export * from "./agent-credential-services.js";
+// C1 explicit door access; policy absence retains legacy behavior.
+export * from "./agent-channel-access.js";
+export * from "./agent-channel-access-requests.js";
 //# sourceMappingURL=index.js.map
