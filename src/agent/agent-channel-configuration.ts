@@ -131,6 +131,11 @@ export function managementAgentIdOf(context: Pick<AgentContextWithChannels, 'ide
 }
 
 
+/** Vault key of a validated context. Only Forge's explicit root identity is authoritative; no slug/channel fallback. */
+export function vaultAgentIdOf(context: Pick<AgentContextWithChannels, 'identity'>): number | null {
+  return context.identity?.vaultAgentId ?? null;
+}
+
 /** Applied voice of a validated context; absent or never applied is null, never the desired settings. */
 export function appliedAgentVoiceSettings(ctx: Pick<AgentContextWithChannels, 'voiceConfiguration'>): AgentVoiceSettings | null {
   return ctx.voiceConfiguration?.applied ?? null;
