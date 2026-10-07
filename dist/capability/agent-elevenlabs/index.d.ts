@@ -247,12 +247,12 @@ export declare const ElevenLabsProvisionErrorCodeSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
     idempotency_conflict: "idempotency_conflict";
     credential_missing: "credential_missing";
-    agent_mismatch: "agent_mismatch";
     provider_unavailable: "provider_unavailable";
     provider_rejected: "provider_rejected";
+    reconcile_pending: "reconcile_pending";
+    agent_mismatch: "agent_mismatch";
     stale_version: "stale_version";
     adoption_conflict: "adoption_conflict";
-    reconcile_pending: "reconcile_pending";
 }>;
 export type ElevenLabsProvisionErrorCode = z.infer<typeof ElevenLabsProvisionErrorCodeSchema>;
 export declare const ElevenLabsProvisionErrorResponseSchema: z.ZodObject<{
@@ -261,12 +261,12 @@ export declare const ElevenLabsProvisionErrorResponseSchema: z.ZodObject<{
         invalid_request: "invalid_request";
         idempotency_conflict: "idempotency_conflict";
         credential_missing: "credential_missing";
-        agent_mismatch: "agent_mismatch";
         provider_unavailable: "provider_unavailable";
         provider_rejected: "provider_rejected";
+        reconcile_pending: "reconcile_pending";
+        agent_mismatch: "agent_mismatch";
         stale_version: "stale_version";
         adoption_conflict: "adoption_conflict";
-        reconcile_pending: "reconcile_pending";
     }>;
     retryable: z.ZodBoolean;
     currentVersion: z.ZodOptional<z.ZodNumber>;

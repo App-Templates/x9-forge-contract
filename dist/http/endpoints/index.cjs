@@ -57,4 +57,6 @@ __exportStar(require("./internal-memory-recall-bundle.cjs"), exports); // POST /
 __exportStar(require("./webhook-inbound-telegram.cjs"), exports); // POST /webhook/inbound/telegram, telegram-router-svc
 __exportStar(require("./webhook-inbound-email.cjs"), exports); // POST /webhook/agentmail/inbound, X9 cap-email
 __exportStar(require("./cap-turn-lead.cjs"), exports);
+__exportStar(require("./internal-factory-creation.cjs"), exports); // R2 opt-in replayable deploy, legacy contract unchanged.
+__exportStar(require("./internal-channel-attestation.cjs"), exports);
 //# sourceMappingURL=index.js.map

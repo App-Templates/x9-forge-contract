@@ -41,4 +41,6 @@ export * from "./internal-memory-recall-bundle.js"; // POST /internal/memory/rec
 export * from "./webhook-inbound-telegram.js"; // POST /webhook/inbound/telegram, telegram-router-svc
 export * from "./webhook-inbound-email.js"; // POST /webhook/agentmail/inbound, X9 cap-email
 export * from "./cap-turn-lead.js";
+export * from "./internal-factory-creation.js"; // R2 opt-in replayable deploy, legacy contract unchanged.
+export * from "./internal-channel-attestation.js";
 //# sourceMappingURL=index.js.map

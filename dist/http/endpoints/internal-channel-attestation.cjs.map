@@ -1,0 +1,1 @@
+{"version":3,"file":"internal-channel-attestation.js","sourceRoot":"","sources":["../../../src/http/endpoints/internal-channel-attestation.ts"],"names":[],"mappings":";;;AAEA,4FAA+H;AAE/H;;;GAGG;AACU,QAAA,kCAAkC,GAAG;IAChD,MAAM,EAAE,MAAe;IACvB,IAAI,EAAE,2BAAoC;IAC1C,QAAQ,EAAE,QAAiB;IAC3B,UAAU,EAAE,mEAAoC;IAChD,cAAc,EAAE,4DAA6B;CACrC,CAAC"}
