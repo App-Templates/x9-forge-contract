@@ -36,5 +36,21 @@
     "133305: bundle/config identity proof path:line; same appliedVersion binding"
   ],
   "live_verified": false,
-  "remaining": "source mutations, compiled consumer/CTS, private build/pack/full/perimeter"
+  "remaining": "source mutations, compiled consumer/CTS, private build/pack/full/perimeter",
+  "source_mutations": {
+    "qualified": 41,
+    "total": 41,
+    "restored": 41,
+    "source_sha_matched": 4,
+    "source_sha_total": 4,
+    "semantic_names": 141,
+    "test_names_total": 141,
+    "report": "SOURCE-MUTATIONS.json"
+  },
+  "private_build_inputs": {
+    "matched": 392,
+    "total": 392,
+    "report": "/private/tmp/b139-private-inputs.json",
+    "build_executed": false
+  }
 }
