@@ -1,0 +1,410 @@
+{
+  "base": "cc51d9f86a45f4f9b675a509c042abdd275c2697",
+  "privateEvidence": "/private/tmp/codex-e-models-m1-139-20261007",
+  "apiRedSelectedTests": 1,
+  "httpRedSelectedTests": 1,
+  "featureTestsPassed": 102,
+  "featureTestsTotal": 102,
+  "allVitestTestsVerified": 2721,
+  "allVitestTestsTotal": 2721,
+  "fullSuiteFiles": 126,
+  "loopbackRerunTestsPassed": 14,
+  "loopbackRerunTestsTotal": 14,
+  "loopbackExplanation": "Initial sandbox blocked two loopback tests; both files rerun under approved local-server permission. Combined exact test identities cover 2721/2721.",
+  "guards": [
+    {
+      "guard": "registered-id",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "canonical-alias",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "version-min",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "version-max",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "protocol-enum",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "function-enum",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "access-enum",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "support-enum",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "source-enum",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "state-enum",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "descriptor-strict",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "entry-strict",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "catalog-strict",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "features-strict",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "tools-boolean",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "stream-boolean",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "structuredOutput-boolean",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "label-min",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "label-max",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "reason-min",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "reason-max",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "dimension-integer",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "dimension-positive",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "reason-access",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "reason-runtime",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "embedding-dimensions",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "paired-time",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "available-time",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "ordered-time",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "time-format",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "duplicate-descriptor",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "identity-provider",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "identity-modelId",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "identity-protocol",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "identity-adapterId",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "provider-normalization",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "provider-google-normalization",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "pin-tiers",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "pin-fallback",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "automatic-strict",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "pin-strict",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "agent-evidence",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "catalog-version",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "catalog-available",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "finite-clock",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "future-evidence",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "expired-evidence",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "function-evidence",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "access-evidence",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "runtime-evidence",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "tools-requirement",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "stream-requirement",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "structuredOutput-requirement",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "memory-structured",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "fallback-evidence",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "required-tiers",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "normalizer-unsafe",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "normalizer-invalid",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "maxInputTokens-integer",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "maxInputTokens-positive",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "maxOutputTokens-integer",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "maxOutputTokens-positive",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "maxInputCharacters-integer",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "maxInputCharacters-positive",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "audio-limit-positive",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "limits-strict",
+      "redAssertion": true,
+      "exit": 1
+    },
+    {
+      "guard": "method",
+      "redAssertion": true
+    },
+    {
+      "guard": "path",
+      "redAssertion": true
+    },
+    {
+      "guard": "auth",
+      "redAssertion": true
+    },
+    {
+      "guard": "header",
+      "redAssertion": true
+    },
+    {
+      "guard": "response",
+      "redAssertion": true
+    },
+    {
+      "guard": "path-agent-guard",
+      "redAssertion": true
+    },
+    {
+      "guard": "export",
+      "redAssertion": true
+    }
+  ],
+  "guardsRedAssertions": 73,
+  "guardsTotal": 73,
+  "installedArchive": {
+    "archive": "/private/tmp/codex-e-models-m1-139-20261007/x9-forge-contracts-1.39.0.tgz",
+    "integrity": "sha512-5reAp0Xtji/E0qN0XSaC3haIhR0+SmWN+aJCbr02KYxTuQrahe+d3xs6HKIaLw8J65/niQ4ctpaU5+BkZ/1ISA==",
+    "cjsAssertions": 16,
+    "esmAssertions": 15,
+    "declarationConsumers": [
+      "cts",
+      "mts"
+    ],
+    "installedPackage": "/private/tmp/codex-e-models-m1-139-20261007/installed-consumer/node_modules/@x9-forge/contracts"
+  },
+  "portableDeclarations": 308,
+  "typecheck": true,
+  "lint": true,
+  "build": true,
+  "publint": true,
+  "attw": true,
+  "compiledCjsSmoke": true,
+  "sourceSha256": {
+    "src/model-router/index.ts": "80dc45f010eb12486742cefb5bedebe1ec8676d7c3da3eec635ee94f9fd294ca",
+    "src/model-router/model-catalog.ts": "8a2b8337a64d6b74be73d66957abaa9bf5cc685b801c013feae48c6f0a21b08c",
+    "src/model-router/capability-model-settings.ts": "f42d89281cb495486837dae14c5f50b164b9d0782bc63b3afa8a7f81b3250324",
+    "src/http/endpoints/index.ts": "d69dbe5f6061a4d34007be90a1afbba80429ab2b2b2b1f9a984a74ffa500ce47",
+    "src/http/endpoints/internal-agent-model-catalog.ts": "ab14658d7ac336d38c662048c2a298de835b679a3572c5b1d63d8684a8009db4",
+    "tests/model-router/model-catalog.test.ts": "e305f1e55fe96d1ac8ff31335bd62a50a3601c0bba980bb1f85e128b97faa880",
+    "tests/model-router/model-catalog-http.test.ts": "92790d8ae027ef833318797b9d05e9ccaf0e3988b981646bd3f7606f655b7990",
+    "tests/cjs/smoke.cjs": "3276361d90fa8850631752710cd998e5d09a6d78c2ca1c1206ba830bf95a1026",
+    "tests/cjs/model-catalog-smoke.cjs": "a1b1ce381122bcde13f866a897fa87d01d2c4f381cb3d1b3d0587b34218272c0",
+    "tests/cjs/model-catalog.cts": "c7b21b835f49d2c4fa0cf8de6fb6281fe31d0144e2606f50473caa046abe6d54"
+  },
+  "perimeterFilesCopied": 14,
+  "perimeterFilesAllowed": 14,
+  "protectedTrackedFilesUnchanged": 2889,
+  "protectedTrackedFilesTotal": 2889
+}

@@ -1,0 +1,867 @@
+{
+  "base": "374662c252844621fe3d97197aab74bcf7d61295",
+  "privateEvidence": "/private/tmp/codex-e-models-m1-139-20261007",
+  "newFeatureTests": {
+    "passed": 179,
+    "total": 179
+  },
+  "fullVitest": {
+    "passed": 2900,
+    "total": 2900,
+    "files": 130,
+    "failed": 0,
+    "skipped": 0
+  },
+  "mutations": {
+    "assertionQualified": 150,
+    "total": 150,
+    "rows": [
+      {
+        "guard": "slot-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "schema-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "selection-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "config-min",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "config-max",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "config-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "config-duplicate",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "identity-managementAgentId",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "identity-runtimeAgentId",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "identity-vaultAgentId",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "context-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "context-agent",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-selection-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-tier",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-min",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-max",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-duplicate",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "state-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "saved-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "saved-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "apply-invalid",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "command-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "attested-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-request",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "attested-request",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "addressed-agent",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "response-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "attested-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-target-kind",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "runtime-target-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "clock-finite",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "clock-future",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "clock-stale",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "selection-count",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "selection-slot",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "selection-tier",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "selection-capability",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "selection-function",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "selection-descriptor",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-currency",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-unit",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-amount",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-rates-min",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-source-min",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-time",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "rebuild-state",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "progress-int",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "progress-positive",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "denominator-int",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "denominator-positive",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "progress-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "rebuild-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "progress-denominator",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "rebuild-failure-reason",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "rebuild-complete",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "rebuild-active",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "installation",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "editability",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "origin",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "readonly-reason",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "master-source",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "row-role",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "applied-known",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "embedding-role",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "overview-identity",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "overview-versions",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "overview-duplicate",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "overview-alias",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "change-duplicate",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "batch-identity",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "overview-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "row-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "batch-agent-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "set-change-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "changes-min",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "agents-min",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-agent-count",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-identity",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-expected",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-increment",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-set",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "validate-input",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "validate-source",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "overview-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "batch-row-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cas-conflict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "slot-availability",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "slot-editable",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "reset-master",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "slot-function",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "requirements-tools",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "requirements-stream",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "requirements-structured",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "catalog-reference",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "catalog-duplicates",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "validate-model",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-current-id",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-current-overview",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-clock",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-expired",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-same-request",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-overall",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-agents",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-reason",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-preview",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-request",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-config",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-applied-evidence",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "result-freshness",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "preview-agent-unique",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-unknown-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-known-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "cost-rate-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-owner-read",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-owner-write",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-agent-write",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-read-invalid",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-write-invalid",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-scope-strict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-authentication",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-authorization",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "public-batch-path",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "internal-method",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "internal-auth",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "internal-header",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "internal-preview-body",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "internal-batch-response",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "identity-required",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "slot-required",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "version-known",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "catalog-required",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "overview-max",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "agents-max",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "changes-max",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "replay-invalid",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "replay-preview",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "replay-intent",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "progress-request",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "owner-consistent",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "saved-version",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "saved-conflict",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "saved-applied",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "reset-default-binding",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "config-set-order",
+        "exit": 1,
+        "redAssertion": true
+      },
+      {
+        "guard": "config-proposal-binding",
+        "exit": 1,
+        "redAssertion": true
+      }
+    ]
+  },
+  "quality": [
+    {
+      "name": "restored",
+      "exit": 0
+    },
+    {
+      "name": "typecheck",
+      "exit": 0
+    },
+    {
+      "name": "lint",
+      "exit": 0
+    },
+    {
+      "name": "build",
+      "exit": 0
+    },
+    {
+      "name": "portable",
+      "exit": 0
+    },
+    {
+      "name": "publint",
+      "exit": 0
+    },
+    {
+      "name": "attw",
+      "exit": 0
+    },
+    {
+      "name": "cjs",
+      "exit": 0
+    }
+  ],
+  "portableDeclarations": {
+    "passed": 316,
+    "total": 316
+  },
+  "installedArchive": {
+    "archive": "/private/tmp/codex-e-models-m1-139-20261007/m1b-archive/x9-forge-contracts-1.39.0.tgz",
+    "integrity": "sha512-pP3ZmoyOy5HtRq4fzEZ/vxawE3FlDbILfyQ5MiDTCWjGV8ZjyF+1ufb1ftsowCd4vaGAnW4ufLYW0E5tEqdwog==",
+    "cjsAssertions": 39,
+    "esmAssertions": 39,
+    "declarationConsumers": [
+      "cts",
+      "mts"
+    ],
+    "checks": [
+      {
+        "name": "pack",
+        "exit": 0
+      },
+      {
+        "name": "install",
+        "exit": 0
+      },
+      {
+        "name": "cjs",
+        "exit": 0
+      },
+      {
+        "name": "esm",
+        "exit": 0
+      },
+      {
+        "name": "cts",
+        "exit": 0
+      },
+      {
+        "name": "mts",
+        "exit": 0
+      }
+    ]
+  },
+  "sourceSha256": {
+    "src/model-router/index.ts": "0fbbfdfae61ebed1c21807af42b45d24ded99616acdd491f52d7896a94eadc34",
+    "src/model-router/agent-model-configuration.ts": "a3901a065486112eed146d063e997457d84fd6f64866c4b537b9e4f06cd868a5",
+    "src/model-router/models-batch.ts": "e116f0505771c9bad7daef3c58852a0d11a685a1663eb05ff1b71cc49989da2d",
+    "src/http/endpoints/index.ts": "20055b0a8057dc109de9b02799ddcdcb5ba084bffab090e8c3d722f5ab8c75bc",
+    "src/http/endpoints/internal-models-batch.ts": "e9a77c6803883f0690b1161df1d6495ed3cb8807b8d10f14e4a755145b9f7105",
+    "src/http/endpoints/forge-models.ts": "c49261b4bd84da27cae22562d3de22e7c826f62272aa1e5f87450076dabee434",
+    "tests/model-router/agent-model-configuration.test.ts": "28c01845bfa67b7ecc36c6443e1701e4301008322ccf856fd18330f7bfe3d506",
+    "tests/model-router/models-batch.test.ts": "b16b2f2a9a70f6b0d95e443ab91e491e9cafbc0782d2e2cd85edef216d7020a3",
+    "tests/model-router/models-batch-http.test.ts": "d9bf25d985ff4887e752203a2d738637ebd152224929ddaee33ba7c1b09d6f65",
+    "tests/model-router/forge-models-public.test.ts": "be80609965257ada0782fbb24ea0015d4105e0fac6b38db1c7542e7fc4d095ad",
+    "tests/cjs/smoke.cjs": "ea06ee02d1ecde6007e1f6ee2efc2273c9af40f57c515cb6fbdb115166a9f612",
+    "tests/cjs/models-batch-smoke.cjs": "6e610bef9f533ea20e68d07d7685910ffadcb45a95ba5a0fe39806fb24a85741",
+    "tests/cjs/models-batch.cts": "c352d7d750625963efe940dde4b54b09f78e58a1c323f95969ec6336e0b6382d"
+  },
+  "runtimeOrProviderVerified": false,
+  "perimeter": {
+    "allowed": 17,
+    "total": 17,
+    "protectedUnchanged": 2898,
+    "protectedTotal": 2898
+  }
+}
