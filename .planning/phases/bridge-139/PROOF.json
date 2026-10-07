@@ -70,6 +70,29 @@
     "unique_test_names_hit": 126,
     "typecheck_exit": 0,
     "lint_exit": 0,
-    "compiled_consumer": "pending_task3b"
+    "compiled_consumer": "37/37"
+  },
+  "compiled": {
+    "native_input_head": "c1ab994dc3709895d1abfddbac5852153f35eb15",
+    "native_inputs": 394,
+    "dts_portable": 302,
+    "build_exit": 0,
+    "native_pack_exit": 0,
+    "native_checkpack_exit": 0,
+    "archive_files_exact": 1210,
+    "archive_files_total": 1210,
+    "consumer_workspace": 48,
+    "consumer_metadata": 37,
+    "consumer_total": 85,
+    "consumer_pass": 85,
+    "consumer_skip": 0,
+    "mutation_qualified": 41,
+    "mutation_total": 41,
+    "restores": 41,
+    "mutated_artifact_sha_count": 6,
+    "cts_TS2322": 3,
+    "cts_mutations": 3,
+    "cts_restores_green": 3,
+    "excluded": "npm cache EPERM and TS5112 startup never counted; initial compiled campaign state region corrected then final full41 rerun"
   }
 }

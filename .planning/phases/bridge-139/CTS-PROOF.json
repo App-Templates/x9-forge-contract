@@ -1,0 +1,56 @@
+{
+  "baseline": {
+    "exit": 0,
+    "TS2322": false,
+    "log": "/private/tmp/b139-cts-baseline.log"
+  },
+  "records": [
+    {
+      "name": "workspace-null",
+      "red": {
+        "exit": 2,
+        "TS2322": true,
+        "log": "/private/tmp/b139-cts-workspace-null.log"
+      },
+      "restore": {
+        "exit": 0,
+        "TS2322": false,
+        "log": "/private/tmp/b139-cts-workspace-null-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "capabilities-null",
+      "red": {
+        "exit": 2,
+        "TS2322": true,
+        "log": "/private/tmp/b139-cts-capabilities-null.log"
+      },
+      "restore": {
+        "exit": 0,
+        "TS2322": false,
+        "log": "/private/tmp/b139-cts-capabilities-null-restore.log"
+      },
+      "sha_restored": true
+    },
+    {
+      "name": "telegram-null",
+      "red": {
+        "exit": 2,
+        "TS2322": true,
+        "log": "/private/tmp/b139-cts-telegram-null.log"
+      },
+      "restore": {
+        "exit": 0,
+        "TS2322": false,
+        "log": "/private/tmp/b139-cts-telegram-null-restore.log"
+      },
+      "sha_restored": true
+    }
+  ],
+  "sha256": {
+    "workspace.cts": "45e18a206d84daead618359dd94efed48637cbdce689f30305fc3de081354d09",
+    "metadata.cts": "f38f85fa73586c54e8344ada19c48334d0f11fbce43b7d160c693761de282ea7"
+  },
+  "excluded_startup": "TS5112 at native-build cwd before ignoreConfig; never qualified"
+}

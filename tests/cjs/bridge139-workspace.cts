@@ -1,0 +1,10 @@
+import { AgentWorkspaceAttestationSchema, attestedWorkspaceVersionOf, type AgentWorkspaceAttestation, type AgentManagementState, type AgentManagementCommandResult } from '@x9-forge/contracts/agent';
+import type { ListAgentsAgent } from '@x9-forge/contracts/http';
+const raw: unknown = {};
+const att: AgentWorkspaceAttestation = AgentWorkspaceAttestationSchema.parse(raw);
+const version: number | null = attestedWorkspaceVersionOf(raw);
+const state: AgentManagementState = { agentId: 'synthetic', versions: null, targets: [], workspace: null };
+const row: ListAgentsAgent = { agentId: 'synthetic', ownerId: 'synthetic', displayName: '', workspace: att };
+declare const result: AgentManagementCommandResult;
+const optional: AgentWorkspaceAttestation | null | undefined = result.workspace;
+void [version, state, row, optional];
