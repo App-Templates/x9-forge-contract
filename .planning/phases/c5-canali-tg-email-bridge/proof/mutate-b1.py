@@ -14,7 +14,7 @@ try:
         if source.count(before) != 1:
             raise ValueError(f'Ambiguous mutation {label}: {source.count(before)}')
         SOURCE.write_text(source.replace(before, after))
-        log = PROOF / f'B1-mutant-{number:02}.log'
+        log = PROOF / f'B1-mutant-{number:02}.txt'
         with log.open('w') as output:
             result = subprocess.run(argv, stdout=output, stderr=subprocess.STDOUT, timeout=60)
         text = log.read_text()

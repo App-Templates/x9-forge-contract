@@ -31,7 +31,7 @@ Comando browser senza identità, risorsa, credenziali o URL. Intento server con 
 
 | Lotto | Prodotto + test | Prove |
 |---|---|---|
-| B1 | f5fef32 | B1-PROOF.json, B1-red/green/full/types/lint.log, B1-mutation-results.json e raw log; commit documentale immediatamente successivo |
+| B1 | f5fef32 | B1-PROOF.json, B1-red/green/full/types/lint.txt, B1-mutation-results.json e raw log; commit documentale immediatamente successivo |
 | B2 | da eseguire | facciata Forge e progress |
 | B3 | dipendenza richiesta | HISTORY4 unico di C, poi probe |
 
@@ -41,3 +41,5 @@ Comando browser senza identità, risorsa, credenziali o URL. Intento server con 
 - Null non prova da solo assenza al provider: produttore deve risolvere legacy/unknown e riconciliare prima di creare. Gli helper non sostituiscono autorizzazione, freshness, lock, persistenza o attestation del provider.
 - Manual-token oggi ricarica l'agente intero (Forge00a468 rotate-telegram-token.ts:92). Cambiare questo flusso alla sola porta richiede decisione precisa R-35, già segnalata 203714.
 - Storico C 89cc499 non presente nella base ae7c464; B3 aspetta integrazione autorizzata. Pin/vendor consumer148/149 e dist competono alla coordinatrice/F, non a B.
+
+Raw output conservati come .txt: la regola .gitignore esclude *.log. Le copie mantengono i byte originali senza forzare gitignore.
