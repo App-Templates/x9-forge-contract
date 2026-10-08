@@ -35,4 +35,6 @@ export * from "./approvals/index.js";
 export * from "./backup/index.js";
 // C3-B1: independent Web admission policy and server-owned invitations.
 export * from "./agent-elevenlabs/web-channel.js";
+export * from "./agent-elevenlabs/web-session.js";
+export * from "./agent-elevenlabs/web-catalog.js";
 //# sourceMappingURL=index.js.map

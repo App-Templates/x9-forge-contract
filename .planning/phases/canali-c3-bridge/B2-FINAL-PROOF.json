@@ -1,0 +1,151 @@
+{
+  "base": "088beec",
+  "newNativeTests": 130,
+  "initialSemanticRed": {
+    "first": {
+      "failed": 96,
+      "total": 120
+    },
+    "publicPath": {
+      "failed": 10,
+      "total": 130
+    }
+  },
+  "full": {
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=2",
+      "--no-file-parallelism",
+      "--testTimeout=60000",
+      "--reporter=json",
+      "--outputFile=/private/tmp/codex-a-canali-c3-b2-20261008/full.json"
+    ],
+    "environment": "empty inherited environment, Node24; acquired x9-posti forge-v2-codex-a-c3-b2",
+    "exit": 0,
+    "total": 3416,
+    "passed": 3416,
+    "failed": 0,
+    "pending": 0,
+    "files": 142,
+    "failedFiles": 0
+  },
+  "finalDistinctSourceRecipes": 69,
+  "qualifiedSourceRecipeExecutions": 71,
+  "sourceRequalifiedAfterPublicPathAddition": 2,
+  "sourceAssertionFailuresFinalDistinct": 152,
+  "compiledCJSRecipes": [
+    {
+      "recipe": "admission-export",
+      "redExit": 1,
+      "semanticAssertion": true,
+      "restoredSHA256": "e2492e468c740844617bb7114bae3467478558727999dd0c2d88c062819cde1c",
+      "freshBuildExit": 0,
+      "freshCJSExit": 0
+    },
+    {
+      "recipe": "catalog-export",
+      "redExit": 1,
+      "semanticAssertion": true,
+      "restoredSHA256": "e2492e468c740844617bb7114bae3467478558727999dd0c2d88c062819cde1c",
+      "freshBuildExit": 0,
+      "freshCJSExit": 0
+    },
+    {
+      "recipe": "http-service-auth",
+      "redExit": 1,
+      "semanticAssertion": true,
+      "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+      "freshBuildExit": 0,
+      "freshCJSExit": 0
+    },
+    {
+      "recipe": "public-link-path",
+      "redExit": 1,
+      "semanticAssertion": true,
+      "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+      "freshBuildExit": 0,
+      "freshCJSExit": 0
+    }
+  ],
+  "protectedByteExact": [
+    "package.json",
+    "src/capability/agent-elevenlabs/index.ts",
+    "src/capability/agent-elevenlabs/web-channel.ts",
+    "tests/capability/agent-elevenlabs-web-channel.test.ts",
+    "pnpm-lock.yaml"
+  ],
+  "perimeter": {
+    "allowed": 66,
+    "total": 66
+  },
+  "quality": [
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "exec",
+        "tsc",
+        "--noEmit"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "lint",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "exec",
+        "eslint",
+        "src/capability/agent-elevenlabs/web-session.ts",
+        "src/capability/agent-elevenlabs/web-catalog.ts",
+        "src/capability/index.ts",
+        "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+        "src/http/endpoints/index.ts",
+        "tests/capability/agent-elevenlabs-web-session.test.ts",
+        "tests/capability/agent-elevenlabs-web-catalog.test.ts",
+        "tests/http/elevenlabs-web.test.ts"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "build",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "build"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "pack",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "check:pack"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "cjs",
+      "command": [
+        "node",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1/tests/cjs/smoke.cjs"
+      ],
+      "exit": 0
+    }
+  ],
+  "fullFinishedAt": "2026-10-08T11:23:40.046238+00:00",
+  "rawManifest": "b2/RAW-MANIFEST.json",
+  "actualProvider": "NOT IMPLEMENTED",
+  "next": "C3-X9 assigned125-1; vendor1.43; coordinator owns1.44release/pin"
+}

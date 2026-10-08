@@ -33,6 +33,10 @@
 const assert = require('node:assert/strict');
 // C3-B1: the canonical Web policy/invitation API must exist in the real CJS package.
 const webChannel = require('@x9-forge/contracts/capability');
+assert.equal(typeof webChannel.canAdmitElevenLabsWebViewer, 'function');
+assert.equal(typeof webChannel.isElevenLabsWebCatalogSelectionCurrent, 'function');
+assert.equal(require('@x9-forge/contracts/http').elevenLabsWebSessionContract?.authType, 'secret');
+assert.equal(require('@x9-forge/contracts/http').elevenLabsWebPublicPath?.('synthetic-link'), '/parla/synthetic-link');
 assert.equal(typeof webChannel.isElevenLabsWebPolicyResultCurrent, 'function');
 assert.equal(typeof webChannel.isElevenLabsWebInvitationCurrent, 'function');
 assert.equal(webChannel.ElevenLabsWebPolicySchema.safeParse({scope:{tenantId:'synthetic-tenant',ownerId:'synthetic-owner',agentId:'synthetic-agent'},version:1,access:'owner',paused:false}).success, true);

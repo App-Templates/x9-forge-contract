@@ -59,3 +59,5 @@ export * from './forge-models.js';
 
 export * from './internal-agent-channel-access.js';
 export * from './forge-agent-channel-access.js';
+
+export * from './internal-capability-elevenlabs-web.js';

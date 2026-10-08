@@ -29,4 +29,6 @@ export * from "./coach/index.cjs";
 export * from "./approvals/index.cjs";
 export * from "./backup/index.cjs";
 export * from "./agent-elevenlabs/web-channel.cjs";
+export * from "./agent-elevenlabs/web-session.cjs";
+export * from "./agent-elevenlabs/web-catalog.cjs";
 //# sourceMappingURL=index.d.ts.map

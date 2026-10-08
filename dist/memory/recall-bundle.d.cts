@@ -21,11 +21,11 @@ export declare const MemoryEntrySchema: z.ZodObject<{
     status: z.ZodEnum<{
         active: "active";
         rejected: "rejected";
+        archived: "archived";
         draft: "draft";
         invalidated: "invalidated";
         superseded: "superseded";
         redacted: "redacted";
-        archived: "archived";
         needs_review: "needs_review";
     }>;
     type: z.ZodEnum<{
@@ -84,11 +84,11 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
+            archived: "archived";
             draft: "draft";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";
-            archived: "archived";
             needs_review: "needs_review";
         }>;
         type: z.ZodEnum<{
@@ -112,11 +112,11 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
+            archived: "archived";
             draft: "draft";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";
-            archived: "archived";
             needs_review: "needs_review";
         }>;
         type: z.ZodEnum<{
@@ -140,11 +140,11 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
+            archived: "archived";
             draft: "draft";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";
-            archived: "archived";
             needs_review: "needs_review";
         }>;
         type: z.ZodEnum<{
@@ -168,11 +168,11 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
+            archived: "archived";
             draft: "draft";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";
-            archived: "archived";
             needs_review: "needs_review";
         }>;
         type: z.ZodEnum<{
