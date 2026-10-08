@@ -270,3 +270,9 @@ Ricontrolloowner.repo.ts:40/45 attuale00a468e e old4f3fc42 prima della decisione
 
 ## B0c4b1 HTTP inviti — R35
 Esistente: forge-agent-phone-channel.ts:10 e forge-agent-channel-access.ts:16 guard server session; web-invitations.ts B0c4a e C3 record, owner.repo.ts:40/45 current00a468e/old4f3fc42. Cambia lo stack: no, contratti puri senza handler/store, politica/link/tentativo pre-mint richiedono decisione220538. Inizio effettivo22:06 (22:08 nella presa era refuso), limite22:51/3campagne. GET metadata e POST invite/revoke, request/CAS/readback, nessun accesso implicito o accountlink.
+
+## Decisioni correnti22:07–22:18 — supersedono i suggerimenti precedenti
+
+220707: configurazione/policy/link/invitiWeb nello stesso writer/lockFactory delle porte; tentativo pre-mint pressovoice, nuova tabella/migrazione0015,voiceSessions intatta. Inviti NON nuovo writer nelvoice-svc: precedente suggerimentoR35 era incompleto e sostituito daquesta decisione. ModificheWebcanonical devono includere risorsa/policy/arraycompat, non allargareBirthKindTG/email usato altrove senza nuova review. Perimetro e owner richiesti220903.
+
+221657: prova telefonica a contatto AMMESSO scelto percontactIdRubrica, non ownerphonefield o rawnumeroBrowser. Segnalazione221815: base143 non contieneConoscenza8652688; quelcontratto ha phoneNumbers ma :40proiezioneperde phones, e non contactId. T0Forge b6915 solo documenti; attendere fonte/perimetrocanonici e riusare senza copie/alias. Prossimi contratti/facciate/proof si applicano dopo decisioni fonti e config;0handler/writer/migrazioneautoassegnati. Limiti45min/3repair e0/42live restano.

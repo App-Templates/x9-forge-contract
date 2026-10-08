@@ -1,12 +1,12 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 22:13. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 22:19. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
 B0a, B0b, B0c1 storico, B0c2a enabled e B0c2b SDKbrowser implementati e testati nel solo bridge. B0c3a historyproof TG/email è implementato e testato separatamente. Il task generale resta IN CORSO: facciate/inviti/outbound e letture contenuti B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
 
-Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Suite full finale4420/4420 in157/157file,0skip. Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; compiled ESM+CJS58/58, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
+Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Ultima suite full4524/4524 in160/160file,0skip (B0c4b1). Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; Prove compilate correnti: HTTPinviti32/32, SDKinviti24/24, browser88/88, historyTGemail16/16, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
 
 ## B0a Rubrica e ammissione
 
@@ -107,3 +107,11 @@ GET /api/agents/:agentId/channels/web/invitations e POST allo stesso percorso/re
 13/13 nuovi, baseline3AssertionError/13 e0other. Finale24/24source+2/2compiled funzionali, SHA source3a9ba9ac/barrel46cc94f9 ripristinati identici. Prima23/24: operazione ignota era mascherata da draft invalida, aggiunto solo caso revoke valido/azione ignota, seconda campagna24/24 con0other. Fixture iniziale record derivato con proprietà undefined poi ricostruito esplicito equivalente, nessuna asserzione indebolita. Full4524/4524 in160/160file,0skip; typecheck/lint/build/check:pack0. HTTP ESM+CJS32/32, inviti24/24, browser88/88, historyTGemail16/16, legacy36/36+probe originali. Prove B0c4b1-RESULT/QUALITY/COMPILED e HTTP-INVITATION-MUTATIONS. Dist rigenerato per prove e ripristinato su200112, nuovi generated conservati in/private/tmp (B0c4b1-DIST-RESTORE.json);0dist commit.
 
 R35220538 ha provato gap voiceSessions as-is/pre-mint e configurationTGemail. Decisione220707: stesso writer/lock Factory anche perWeb, tentativo pre-mint in nuova tabella pressovoice/migrazione0015,voiceSessions intatta. Risposta220903 chiede owner/perimetro/compatibilità prima extension: BirthKindTGemail, OwnedResourceTGemail, accesspolicyTGemail e arraylength2 non si allargano implicitamente. Perimetro agent-channel-configuration non ancora assegnatoC. Prossimi facciataWeb/proofPhoneWeb/outbound/content, poi producer/consumer/pin/WT coor. 0/42 live,0/2 percorsi completi, task globaleIN CORSO.
+
+## Raccordo prossimo lotto — dipendenze canoniche22:18
+
+Decisione221657 corregge M07: «Chiamami per una prova» seleziona un CONTATTO AMMESSO della Rubrica dell'agente tramitecontactId; il server risolve numero, mai toNumber dal browser. Se fonte non ha numeri ammessi, pulsante disattivo con «aggiungi il tuo numero fra gli ammessi». Nessun phone sugli owners, nessuna nuova prova di possesso/accountlink. Risposta avviata, Funziona solo avvio→turno→chiusura veri. Risposta221815 chiede fonte/validatorcontactIdcanonico e base/perimetro.
+
+Esistente: git8652688 agent-knowledge-address-book.ts:20 phoneNumbers (modulo assente143), :40 toAgentChannelAddressBook proietta SOLOemails; nuova phones diB0a non proiettata. Non è una fonte telefonica completa consumabile dal gate. Mancano contactIdcanonici anche in quel contratto; T0Forge b6915ea2 è SOLO preparazione documentale, producerRubrica mai implementato. Non copiare lo schema o inventare un tipo locale al posto diR14. InformatoF. Serve decisione/coor/ownerConoscenza per projectionphones/contactId e nuova base143 o altroWT. ConfigurationWeb220903 resta in attesaowner/perimetro/compatKind: nessun edit agent-channel-configuration fuori perimetro.
+
+Tutti i prodottiC fino06abb33 sono pronti per revisione indipendente, non feature operativa. Prossimi lottiPhone/Webproof, facciataWeb, outboundcontact e letturecontenuti devono agganciarsi a questi proprietari/fonti canonici e ai writer esistenti; nessun nuovo writer/storage/flow si sceglie localmente. Non ripetere lotti qualificati. Spesa resta esclusa/congelata. Task globaleIN CORSO,0/42live/0/2completi; nessun intervento diStefano richiesto ora.
