@@ -26,3 +26,7 @@ Il confine attraversa payload validi, errori parziali, pezzi mancanti/duplicati,
 ## Raccordi
 
 CG6a Forge136-1 congelatoHEADb87fc9f4, prodotto0a206b49,12immagini locali; CG8 già2c07e470. X9144-1d65f6c91 solo nuovi file autorizzati, agganci manager/management/turn/index aspettanoD X3. Dopo revisione/release del contratto e base autorizzata, producerX9+consumerForge; migrazione0014 riservataE. Journal e parenting0013/0014 alla coordinatrice. Nessun header/endpoint/schema cross-repo duplicato nei consumer.
+
+## R35 — raccordo architetturale da decidere prima del consolidamento
+
+Grep attuale/vecchio4f3fc42 e Esistente(R35) aggiunti al PLAN. Filecleanup giaFactory (purge1276/1322, vecchiodeleteAgent616/629/637); il precedente piano delegavacontext/workspace aX9, cambio di writer non da decidereE. Richiesta204828 e avvisoF204832: contratto8pezzi0dfbd9d congelato, nessun consumer/prodotto modificato. Coordinatrice deve scegliere6pezzi X9 oppure definirecontext/workspace soltanto come sgancio riferimenti runtime, conservando filesystemFactory. Prove4300/4300 e mutazioni rimangono riferite all'attuale schema8pezzi, non costituiscono approvazione del cambio di flusso.
