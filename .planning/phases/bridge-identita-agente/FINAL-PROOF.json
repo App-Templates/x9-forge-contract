@@ -186,5 +186,13 @@
   "consumersUpdated": 0,
   "providerCalls": 0,
   "pushMergeRelease": false,
-  "rawDirectory": "/private/tmp/d-bridge-identita-agente-20261008"
+  "rawDirectory": "/private/tmp/d-bridge-identita-agente-20261008",
+  "artifactCompatibility": {
+    "basePathsPreserved": 1336,
+    "basePathsTotal": 1336,
+    "byteUnchanged": 1328,
+    "existingBarrelsChanged": 8,
+    "newArtifacts": 8,
+    "finalTotal": 1344
+  }
 }
