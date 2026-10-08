@@ -1,0 +1,56 @@
+[
+  {
+    "name": "typecheck",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+      "exec",
+      "tsc",
+      "--noEmit"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "lint",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+      "exec",
+      "eslint",
+      "src/capability/agent-elevenlabs/web-channel.ts",
+      "src/capability/index.ts",
+      "tests/capability/agent-elevenlabs-web-channel.test.ts"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "build",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+      "build"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "pack",
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+      "check:pack"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "cjs",
+    "command": [
+      "node",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1/tests/cjs/smoke.cjs"
+    ],
+    "exit": 0
+  }
+]

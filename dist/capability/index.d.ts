@@ -28,4 +28,8 @@ export * from "./agent-elevenlabs/index.js";
 export * from "./coach/index.js";
 export * from "./approvals/index.js";
 export * from "./backup/index.js";
+export * from "./agent-elevenlabs/web-channel.js";
+export * from "./agent-elevenlabs/web-session.js";
+export * from "./agent-elevenlabs/web-catalog.js";
+export * from "./agent-elevenlabs/web-context.js";
 //# sourceMappingURL=index.d.ts.map

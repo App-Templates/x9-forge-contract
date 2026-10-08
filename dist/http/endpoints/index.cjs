@@ -68,4 +68,6 @@ __exportStar(require("./forge-agent-channel-access.cjs"), exports);
 // C2 phone door boundaries; provider webhooks and voice writers stay separate.
 __exportStar(require("./internal-agent-phone-channel.cjs"), exports);
 __exportStar(require("./forge-agent-phone-channel.cjs"), exports);
+__exportStar(require("./internal-capability-elevenlabs-web.cjs"), exports);
+__exportStar(require("./capability-elevenlabs-web-context.cjs"), exports);
 //# sourceMappingURL=index.js.map

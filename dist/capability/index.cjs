@@ -68,4 +68,9 @@ __exportStar(require("./coach/index.cjs"), exports);
 __exportStar(require("./approvals/index.cjs"), exports);
 // cap-backup: restore points of the owner's servers, first client of the signed approvals (phase 59)
 __exportStar(require("./backup/index.cjs"), exports);
+// C3-B1: independent Web admission policy and server-owned invitations.
+__exportStar(require("./agent-elevenlabs/web-channel.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-session.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-catalog.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-context.cjs"), exports);
 //# sourceMappingURL=index.js.map

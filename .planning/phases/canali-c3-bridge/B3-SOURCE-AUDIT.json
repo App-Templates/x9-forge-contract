@@ -1,0 +1,20 @@
+{
+  "base": "bac8277d85fde463de0b25b02b77c44b0d761654",
+  "stage": "B3 documentation only; no source execution",
+  "files": {
+    "src/agent/agent-identity.ts": "1089bb663b018689972802161487c0539e229ca73d528d8e86fa73214b9021b8",
+    "src/agent/agent-runtime-identity.ts": "3d98c93131d54fa25597e61c0c59ab3728be6bdae625d5c672479abf6af49e0d",
+    "src/capability/capability-call-context.ts": "dd0e81cae42877c9f5f6f5a194d213d67b2e7cd8e88b36cea265964d618aac12",
+    "src/http/endpoints/capability-call-context.ts": "580a11e9a25d0ee13f8058819b3dfa300318d621e11f9f980d95ec2132971d27",
+    "src/capability/agent-elevenlabs/web-channel.ts": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff",
+    "src/capability/agent-elevenlabs/web-session.ts": "1c2b1d4ca0201abc3e1bcadf66fcce8e615b202dfbd98634cf56c81f1ad60348",
+    "src/capability/agent-elevenlabs/web-catalog.ts": "9c6d8e04daa65ba6c92641d0235b4142a4baa0e7627cf1f38a889432d3b7524b",
+    "src/http/endpoints/internal-capability-elevenlabs-web.ts": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "tests/capability/agent-elevenlabs-web-channel.test.ts": "9285810f46758105682d90d00d4b26b10f612e547fe328bb326e5ba6e4b08978",
+    "tests/capability/agent-elevenlabs-web-session.test.ts": "4e45d4208800d8945e51e5912b9dffa64af46396bcfb8a47b161232f639312b7",
+    "tests/capability/agent-elevenlabs-web-catalog.test.ts": "ebf4e66369ce3f8021cfcc67d00aa945f125b0633bd42846afcf34e061ab6fb5",
+    "tests/http/elevenlabs-web.test.ts": "7b08fe36b161650d2d745d7a52d7378116e7ae647bef92d725fe0ac15e81c1ad",
+    "package.json": "009e8871330aafc29d10863845417800c1626aca06f1c5105077e1d82000e573",
+    "pnpm-lock.yaml": "5ebfaf45adc99d7da7d6511d7c88e2e76f0bf14f3292438cff8054b1843a02b3"
+  }
+}
