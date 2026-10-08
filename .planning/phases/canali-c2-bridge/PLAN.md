@@ -79,3 +79,7 @@ Documenti/prove .planning/phases/canali-c2-bridge/**. `dist/**` esclusivamente o
 ## Decisioni aperte
 
 Approvazione del perimetro sopra, fonte/nomi/schema telefonico Rubrica di D (domanda114211) e ordine d'integrazione, review indipendente e regola semaforo applicabile a suite bridge. Se la composizione phone richiede modifica a un helper C1 anziché un nuovo wrapper, proporre il delta motivato prima, non allargare il perimetro. Il codice B1 può partire indipendentemente dopo approvazione; B3 mai con una fonte sostitutiva.
+
+## Vincolo sprint114734
+
+C2 non entra nel rilascio13: continuare secondo piano, senza suite completa12:00-12:30. Posti riservati alle verifiche di rilascio. Richiesta perimetro114719 ancora pendente alla scrittura; frozen install0 e hookperimetro conservato.
