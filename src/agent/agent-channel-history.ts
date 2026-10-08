@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { AgentChannelAccessBindingSchema, AgentChannelAccessNameSchema, sameAgentChannelAccessBinding, type AgentChannelAccessBinding } from './agent-channel-access.js';
+import { AgentChannelConfigurationSchema } from './agent-channel-configuration.js';
+import { AgentChannelAccessBindingSchema, AgentChannelAccessNameSchema, sameAgentChannelAccessBinding, AgentTelegramChatIdSchema, AgentChannelEmailAddressSchema, type AgentChannelAccessBinding } from './agent-channel-access.js';
 import { AgentManagementRequestIdSchema } from './agent-management.js';
 import { AgentChannelAccessErrorCodeSchema } from './agent-channel-access-requests.js';
 
@@ -76,7 +77,8 @@ export function isAgentChannelHistoryCurrent(rawHistory: unknown, rawBinding: un
     && Date.parse(actual.observedAt) <= now // guard:current-future
     && now - Date.parse(actual.observedAt) < maximumAgeMs; // guard:current-fresh
 }
-/** Only a newly requested, correlated end-to-end operation can be used as a current verification. */
+/** Correlation/freshness only, NOT resource generation or a completed user round trip.
+ * Compose the appropriate end-to-end evidence guard before displaying a healthy door. */
 export function isAgentChannelHistoryVerificationCurrent(rawHistory: unknown, rawBinding: unknown, rawKind: unknown, expectedRequestId: unknown, now: number, maximumAgeMs = 60_000): boolean {
   if (!isAgentChannelHistoryCurrent(rawHistory, rawBinding, rawKind, now, maximumAgeMs)) return false; // guard:verification-current
   const history = AgentChannelHistoryResponseSchema.safeParse(rawHistory);
@@ -87,4 +89,55 @@ export function isAgentChannelHistoryVerificationCurrent(rawHistory: unknown, ra
     && verification.outcome === 'completed' // guard:verification-success
     && verification.requestId === requestId.data // guard:verification-request
     && now - Date.parse(verification.completedAt) < maximumAgeMs; // guard:verification-fresh
+}
+
+
+/** Internal server evidence, NEVER the public history DTO. Existing writers attest actual events;
+ * these schemas do not authenticate accounts, deliver replies or establish a new ledger/store.
+ */
+/** Expected participant comes from the existing owners registry, not from the request body or admitted-chat list. */
+export const AgentChannelHistoryOwnerParticipantSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('telegram'), userId: AgentTelegramChatIdSchema.refine(id => !id.startsWith('-')) }).strict(),
+  z.object({ kind: z.literal('email'), address: AgentChannelEmailAddressSchema }).strict(),
+]);
+export type AgentChannelHistoryOwnerParticipant = z.infer<typeof AgentChannelHistoryOwnerParticipantSchema>;
+export const AgentChannelHistoryRoundTripEvidenceSchema = z.object({
+  requestId: AgentManagementRequestIdSchema, entryId: AgentManagementRequestIdSchema,
+  participant: AgentChannelHistoryOwnerParticipantSchema,
+  configuration: AgentChannelConfigurationSchema,
+  owner: AgentChannelAccessBindingSchema.shape.scope.pick({ tenantId: true, ownerId: true }).strict(),
+  requestedAt: time, receivedAt: time, turnCompletedAt: time, replyDeliveredAt: time,
+}).strict();
+export type AgentChannelHistoryRoundTripEvidence = z.infer<typeof AgentChannelHistoryRoundTripEvidenceSchema>;
+/** TG/email only: phone/web require their canonical C2/C3 conversation-completion evidence separately. */
+export function isAgentChannelHistoryRoundTripVerified(rawHistory: unknown, rawBinding: unknown, rawKind: unknown,
+  expectedRequestId: unknown, rawEvidence: unknown, rawCurrentConfiguration: unknown, rawExpectedOwnerParticipant: unknown, now: number, maximumAgeMs = 60_000): boolean {
+  if (!isAgentChannelHistoryVerificationCurrent(rawHistory, rawBinding, rawKind, expectedRequestId, now, maximumAgeMs)) return false; // guard:trip-history
+  const evidence = AgentChannelHistoryRoundTripEvidenceSchema.safeParse(rawEvidence);
+  const current = AgentChannelConfigurationSchema.safeParse(rawCurrentConfiguration);
+  const history = AgentChannelHistoryResponseSchema.safeParse(rawHistory);
+  if (!evidence.success || !current.success || !history.success || history.data.status !== 'available') return false; // guard:trip-parse
+  const ownerParticipant = AgentChannelHistoryOwnerParticipantSchema.safeParse(rawExpectedOwnerParticipant);
+  if (!ownerParticipant.success || ownerParticipant.data.kind !== rawKind || JSON.stringify(evidence.data.participant) !== JSON.stringify(ownerParticipant.data)) return false; // guard:trip-participant
+  const proof = evidence.data, frozen = proof.configuration, actual = current.data;
+  const binding = bindingOf(history.data);
+  if (frozen.kind !== rawKind || actual.kind !== rawKind) return false; // guard:trip-kind
+  if (!sameAgentChannelAccessBinding(bindingOf(frozen), binding) || !sameAgentChannelAccessBinding(bindingOf(actual), binding)) return false; // guard:trip-binding
+  if (proof.owner.ownerId !== binding.scope.ownerId || proof.owner.tenantId !== binding.scope.tenantId) return false; // guard:trip-owner
+  if (proof.requestId !== expectedRequestId || proof.entryId !== history.data.lastVerification!.entryId) return false; // guard:trip-operation
+  const verificationEntryId = history.data.lastVerification!.entryId;
+  const entry = history.data.entries.find(value => value.entryId === verificationEntryId)!;
+  if (entry.direction !== 'inbound') return false; // guard:trip-inbound
+  const requested = Date.parse(proof.requestedAt), received = Date.parse(proof.receivedAt), turn = Date.parse(proof.turnCompletedAt), delivered = Date.parse(proof.replyDeliveredAt);
+  if (requested > received || received > turn || turn > delivered || proof.receivedAt !== entry.startedAt || proof.replyDeliveredAt !== entry.endedAt) return false; // guard:trip-stages
+  for (const [config, at] of [[frozen, requested], [actual, now]] as const) {
+    if (config.applied?.state !== 'active' || config.desired.state !== 'active' || config.applied.version !== config.desired.version
+      || config.resource === null || config.access?.appliedPolicy == null || config.error !== null) return false; // guard:trip-applied
+    if (config.observation?.state !== 'loaded' || config.observation.loaded !== true || config.observation.readiness !== 'ready' || config.observedAt === null) return false; // guard:trip-loaded
+    const age = at - Date.parse(config.observedAt);
+    if (age < 0 || age >= maximumAgeMs) return false; // guard:trip-fresh
+  }
+  const facts = (config: typeof actual) => ({ scope: config.scope, identity: config.identity, kind: config.kind, applied: config.applied,
+    resource: config.resource, policy: config.access!.appliedPolicy, channelId: config.observation!.channelId });
+  return JSON.stringify(facts(frozen)) === JSON.stringify(facts(actual)); // guard:trip-generation
 }

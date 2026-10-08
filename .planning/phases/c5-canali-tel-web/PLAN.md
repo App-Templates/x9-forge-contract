@@ -257,3 +257,8 @@ Ricontrollato08/10 alle20:35–20:37 su posta203245. Bridge27749e4 più soli lot
 ## Decisioni R35 ricevute21:07–21:12
 
 Coordinatrice210744: B0c2b browserstrict e B0c3 proofserver separata approvati; perimetro src/capability/index.ts autorizzato SOLO exportweb-browser e web-invitations se implementati. Nessun handler/store nel bridge. Storico voice resta voiceSessions/voice-svc, Telegram/email dal turnoX9;0ledgernuovi.211227: inviti della tavola ConfiguraWeb.dc.html:76 richiedono utente autenticato risolto dall'email tramite owners.email/clerkUserId già esistenti, nessun linkanonimo. Emailnonregistrata pending e nessun accesso. Riusare C3recipientUserId; niente nuovo accountlink. Prossimi producer richiedono ancora worktree/perimetro/pin coor, nessuna scrittura in quelli altrui.
+
+
+## Raccordo storico R35/B210343–211342
+
+B0c3a non sostituisce DTOhistory4kind: aggiunge provaSERVER per TG/email sul canonicalAgentChannelConfiguration, expectedOwnerParticipant dal owners.email/telegramUserId (fonte amministrativa approvata coor210744), writer del turnoX9. Ammissione/lifecycle/firma restano alla filiera già esistente e si ricontrollano dopo await. Solo record ingressoowner→turno→reply realmente consegnata, stessi resource/appliedversion/policy; non prova di accesso crittografico nuovo. B0c3b userà canonicalC2phone/C3web e writer voiceSessions/postcall esistente. Nessun ledger o accountlink nuovo, nessun providerraw nel DTO pubblico.

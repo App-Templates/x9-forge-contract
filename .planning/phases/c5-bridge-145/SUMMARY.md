@@ -11,3 +11,5 @@ Contratti soltanto: nessun handler/consumer/provider/percorso utente reale monta
 21:20: Efinal7d4c3f3 pronto e merge senza conflitti. Cfinal211952 c8306c0 pronto SDK88/88 dichiarato, ora da integrare. Ccheckpoint prematuro8b6a469 conservato su branch separato codex/c5-bridge-145-checkpoint-C; delivery ripartita da2bf7187 (nessun reset/cancellazione). Dist diagnostica preservata workspace e riportata esattaHEAD;29/29 Bcompiled diagnostica, non finale. Nessun WIPhistoryC integrato.
 
 21:22: Cfinalc8306c0 unito; soli conflitti agent/httpbarrel risolti con unione export. Nessun sourceDTO cambiato da F. Tre lotti ora disponibili per build/review finale.
+
+21:28: Prima qualifica integrata verde4656/4656/162file0skip;376portable-dts,13/13mutazioni indipendenti (B8compiled/E2source/C3source) AssertionError e0other,sourcebyteesatti dopo restore;quality13/13 (oltrebuild),smoke E27/C88/B29 ciascuno Node20+24. ConsegnaC212519 aggiunge delta pubblicopronto6c4db38 (22test) dopo c8306c0; mergepulito. Qualifica precedente NONassegnataalnuovoSHA: campioni nuovo roundtrip,build e finale da rifare.

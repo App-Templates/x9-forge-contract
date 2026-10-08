@@ -12,7 +12,7 @@ Esiste già: i barrel unici src/agent/index.ts,src/http/endpoints/index.ts,src/c
 
 ## Fonti e dipendenze
 
-Baseae7c464; C: b6984d4/7df1143/8a00ec5/89cc499/bc1f3c8 qualificati source,587db2e checkpointbrowser NON prontoSDK; ref finale pronto c8306c0956fafb6f74ab82f49aef8f1b0417af06 consegnato211952, nessun WIPhistorysuccessivo. E0dfbd9d+docs7d4c3f3 pronto; R35risolta210744. Bf5fef32/99bf8db+docsc8a2683,112nuovi/62source mutations dichiarati, pacchetto compiled ancora da verificare. Nessun WIP degli autori letto o importato. AGENTS globale rispettato; STATO/PLAN/SUMMARY autori letti. Slot forge-v2-F-c5-bridge-145 prenotato21:11 fino21:56.
+Baseae7c464; C: b6984d4/7df1143/8a00ec5/89cc499/bc1f3c8 qualificati source,587db2e checkpointbrowser NON prontoSDK; ref browser pronto c8306c0; delta history roundtrip PRONTO6c4db3880519b039bcad390b409ee8ad3490a86e consegnato212519,22nuovi/17source+2compiled dichiarati. Solo questo deltaqualificato,nessunaltroWIP. E0dfbd9d+docs7d4c3f3 pronto; R35risolta210744. Bf5fef32/99bf8db+docsc8a2683,112nuovi/62source mutations dichiarati, pacchetto compiled ancora da verificare. Nessun WIP degli autori letto o importato. AGENTS globale rispettato; STATO/PLAN/SUMMARY autori letti. Slot forge-v2-F-c5-bridge-145 prenotato21:11 fino21:56.
 
 ## Perimetro e sequenza
 
