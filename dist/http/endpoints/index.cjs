@@ -70,4 +70,10 @@ __exportStar(require("./internal-agent-phone-channel.cjs"), exports);
 __exportStar(require("./forge-agent-phone-channel.cjs"), exports);
 __exportStar(require("./internal-capability-elevenlabs-web.cjs"), exports);
 __exportStar(require("./capability-elevenlabs-web-context.cjs"), exports);
+// C5 existing-agent resource operations, browser session only.
+__exportStar(require("./forge-agent-channel-resource.cjs"), exports);
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+__exportStar(require("./internal-agents-deletion.cjs"), exports);
+__exportStar(require("./internal-agent-channel-history.cjs"), exports);
+__exportStar(require("./forge-agent-channel-history.cjs"), exports);
 //# sourceMappingURL=index.js.map

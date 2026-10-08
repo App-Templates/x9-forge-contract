@@ -1,0 +1,142 @@
+[
+  [
+    "trusted authorization validation",
+    "if (!intent.success || !access.success) return false;",
+    "if (!intent.success || !access.success) return true;"
+  ],
+  [
+    "trusted SA allowed",
+    "access.data.role === 'sa'",
+    "false"
+  ],
+  [
+    "owner isolated",
+    "scope.ownerId === access.data.ownerId",
+    "true"
+  ],
+  [
+    "tenant isolated",
+    "scope.tenantId === access.data.tenantId",
+    "true"
+  ],
+  [
+    "progress params strict",
+    "}).strict();",
+    "}).passthrough();"
+  ],
+  [
+    "route result validation",
+    "if (!result.success || !params.success) return false;",
+    "if (!result.success || !params.success) return true;"
+  ],
+  [
+    "management identity route",
+    "actual.identity.managementAgentId === route.agentId",
+    "true"
+  ],
+  [
+    "door route",
+    "actual.kind === route.kind",
+    "true"
+  ],
+  [
+    "request id route",
+    "actual.command.requestId === route.requestId",
+    "true"
+  ],
+  [
+    "trusted binding route",
+    "sameAgentChannelAccessBinding({ scope: actual.scope, identity: actual.identity }, trustedBinding)",
+    "true"
+  ],
+  [
+    "browser authentication",
+    "authentication: 'forge-session' as const",
+    "authentication: 'untrusted' as const"
+  ],
+  [
+    "browser authorization",
+    "authorization: 'sa-or-agent-owner' as const",
+    "authorization: 'anyone' as const"
+  ],
+  [
+    "creation method",
+    "method: 'POST' as const",
+    "method: 'GET' as const"
+  ],
+  [
+    "creation path",
+    "path: '/api/agents/:agentId/channels/:kind/resource' as const",
+    "path: '/api/agents/:agentId/resource' as const"
+  ],
+  [
+    "creation params alias",
+    "paramsSchema: AgentChannelAccessParamsSchema, bodySchema: AgentChannelResourceCommandSchema",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema, bodySchema: AgentChannelResourceCommandSchema"
+  ],
+  [
+    "creation body alias",
+    "bodySchema: AgentChannelResourceCommandSchema,",
+    "bodySchema: AgentChannelAccessParamsSchema,"
+  ],
+  [
+    "creation response alias",
+    "bodySchema: AgentChannelResourceCommandSchema,\n  responseSchema: AgentChannelResourceResultSchema",
+    "bodySchema: AgentChannelResourceCommandSchema,\n  responseSchema: AgentChannelAccessErrorResponseSchema"
+  ],
+  [
+    "creation error alias",
+    "bodySchema: AgentChannelResourceCommandSchema,\n  responseSchema: AgentChannelResourceResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "bodySchema: AgentChannelResourceCommandSchema,\n  responseSchema: AgentChannelResourceResultSchema, errorResponseSchema: AgentChannelResourceResultSchema"
+  ],
+  [
+    "progress method",
+    "method: 'GET' as const",
+    "method: 'POST' as const"
+  ],
+  [
+    "progress path",
+    "path: '/api/agents/:agentId/channels/:kind/resource/operations/:requestId' as const",
+    "path: '/api/agents/:agentId/channels/:kind/resource/operations' as const"
+  ],
+  [
+    "progress params alias",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema,",
+    "paramsSchema: AgentChannelAccessParamsSchema,"
+  ],
+  [
+    "progress response alias",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema,\n  responseSchema: AgentChannelResourceResultSchema",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema,\n  responseSchema: AgentChannelAccessErrorResponseSchema"
+  ],
+  [
+    "progress error alias",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema,\n  responseSchema: AgentChannelResourceResultSchema, errorResponseSchema: AgentChannelAccessErrorResponseSchema",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema,\n  responseSchema: AgentChannelResourceResultSchema, errorResponseSchema: AgentChannelResourceResultSchema"
+  ],
+  [
+    "resource path validation",
+    "const params = AgentChannelAccessParamsSchema.parse({ agentId, kind });",
+    "const params = { agentId, kind };"
+  ],
+  [
+    "progress path validation",
+    "const params = ForgeAgentChannelResourceProgressParamsSchema.parse({ agentId, kind, requestId });",
+    "const params = { agentId, kind, requestId };"
+  ],
+  [
+    "request URI encoding",
+    "encodeURIComponent(params.requestId)",
+    "params.requestId"
+  ],
+  [
+    "progress is read-only",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema,",
+    "paramsSchema: ForgeAgentChannelResourceProgressParamsSchema, bodySchema: AgentChannelResourceCommandSchema,"
+  ],
+  [
+    "no browser S2S header descriptor",
+    "const browserAuthentication = { authentication: 'forge-session' as const, authorization: 'sa-or-agent-owner' as const };",
+    "const browserAuthentication = { authentication: 'forge-session' as const, authorization: 'sa-or-agent-owner' as const, authType: 'secret' as const };"
+  ]
+]

@@ -48,4 +48,8 @@ export * from "./internal-agent-phone-channel.js";
 export * from "./forge-agent-phone-channel.js";
 export * from "./internal-capability-elevenlabs-web.js";
 export * from "./capability-elevenlabs-web-context.js";
+export * from "./forge-agent-channel-resource.js";
+export * from "./internal-agents-deletion.js";
+export * from "./internal-agent-channel-history.js";
+export * from "./forge-agent-channel-history.js";
 //# sourceMappingURL=index.d.ts.map

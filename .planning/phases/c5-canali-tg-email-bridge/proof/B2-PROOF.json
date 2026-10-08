@@ -1,0 +1,35 @@
+{
+  "productCommit": "99bf8db",
+  "sourceSha256": "98fef67e3b35e8e0eaade974ddea261402aebf4741e634a06ca1b9cf6761ac4e",
+  "initialRed": {
+    "failed": 33,
+    "total": 33,
+    "note": "First run 32 failed / 33: a toThrow passed on missing export. Guard fixed before any product code; all 33 then failed on asserted missing exports."
+  },
+  "firstGreen": {
+    "passed": 33,
+    "total": 33
+  },
+  "fullSource": {
+    "passed": 4327,
+    "total": 4327,
+    "files": 154,
+    "newB1": 79,
+    "newB2": 33,
+    "previous": 4215,
+    "failed": 0,
+    "skipped": 0
+  },
+  "targetedMutations": {
+    "semanticRed": 28,
+    "total": 28,
+    "restoredSha256": "98fef67e3b35e8e0eaade974ddea261402aebf4741e634a06ca1b9cf6761ac4e"
+  },
+  "typecheckExit": 0,
+  "lintExit": 0,
+  "distBuilt": false,
+  "compiledCjsVerified": false,
+  "live": 0,
+  "handlersInstalled": 0,
+  "userFeatureComplete": false
+}

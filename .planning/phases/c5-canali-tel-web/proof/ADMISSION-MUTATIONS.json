@@ -1,0 +1,419 @@
+{
+  "mutations": [
+    {
+      "name": "authority-ttl",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses authority lifetime above sixty seconds",
+        "C5 explicit server-owned outbound request rejects authority TTL 0 at the schema boundary",
+        "C5 explicit server-owned outbound request rejects authority TTL -1 at the schema boundary",
+        "C5 explicit server-owned outbound request rejects authority TTL 60001 at the schema boundary"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "authority-order",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses authority observation before request"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "clock-window",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 exact telephone Rubrica gate enforces inclusive current-source age and rejects invalid clocks/windows"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "clock-future",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 exact telephone Rubrica gate denies telephone observation offset 1",
+        "C5 inbound admission after verified routing refuses future verified event",
+        "C5 explicit server-owned outbound request refuses authority future"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "clock-stale",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 exact telephone Rubrica gate denies telephone observation offset -60001",
+        "C5 exact telephone Rubrica gate enforces inclusive current-source age and rejects invalid clocks/windows",
+        "C5 inbound admission after verified routing refuses old verified event",
+        "C5 inbound admission after verified routing refuses old line",
+        "C5 inbound admission after verified routing refuses old attestation",
+        "C5 explicit server-owned outbound request refuses request old timestamp"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "book-parse",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 exact telephone Rubrica gate rejects noncanonical caller input \"invalid\"",
+        "C5 exact telephone Rubrica gate rejects noncanonical caller input null",
+        "C5 exact telephone Rubrica gate rejects noncanonical caller input undefined",
+        "C5 exact telephone Rubrica gate denies missing version telephone authority",
+        "C5 exact telephone Rubrica gate denies missing observedAt telephone authority",
+        "C5 exact telephone Rubrica gate denies unavailable or empty telephone entries \"allowed@example.test\"",
+        "C5 exact telephone Rubrica gate requires matching agentId"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "book-complete",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 exact telephone Rubrica gate denies missing phones telephone authority",
+        "C5 exact telephone Rubrica gate denies unavailable or empty telephone entries null",
+        "C5 exact telephone Rubrica gate does not use partial source",
+        "C5 exact telephone Rubrica gate does not use unavailable source",
+        "C5 exact telephone Rubrica gate requires explicit Vault identity even for matching legacy bindings"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "book-binding",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 exact telephone Rubrica gate requires matching tenantId",
+        "C5 exact telephone Rubrica gate requires matching ownerId",
+        "C5 exact telephone Rubrica gate requires matching managementAgentId identity",
+        "C5 exact telephone Rubrica gate requires matching vaultAgentId identity"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "book-match",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 exact telephone Rubrica gate admits an exact complete scoped phone entry, preserving email independence",
+        "C5 exact telephone Rubrica gate denies unavailable or empty telephone entries %j",
+        "C5 exact telephone Rubrica gate denies telephone observation offset -60001",
+        "C5 exact telephone Rubrica gate denies telephone observation offset 1",
+        "C5 exact telephone Rubrica gate enforces inclusive current-source age and rejects invalid clocks/windows",
+        "C5 inbound admission after verified routing keeps APPLIED policy effective while a different desired policy is pending",
+        "C5 inbound admission after verified routing never authorizes an unapplied permissive policy",
+        "C5 inbound admission after verified routing refuses caller not listed",
+        "C5 explicit server-owned outbound request never extends anyone inbound permission to outbound destinations"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "active-parse",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses old snapshot",
+        "C5 inbound admission after verified routing refuses future snapshot",
+        "C5 inbound admission after verified routing refuses future line",
+        "C5 inbound admission after verified routing refuses missing voice"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "active-lifecycle",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses archive",
+        "C5 inbound admission after verified routing refuses runtime not loaded"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "active-application",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses applied pause",
+        "C5 inbound admission after verified routing refuses global line unavailable"
+      ],
+      "otherFailureCount": 2,
+      "qualified": true
+    },
+    {
+      "name": "active-error",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses current config error"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "active-handler",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses not ready",
+        "C5 inbound admission after verified routing refuses handler stopped",
+        "C5 inbound admission after verified routing refuses runtime error"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "active-observation",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses old line",
+        "C5 inbound admission after verified routing refuses old attestation"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "active-voice",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses foreign voice",
+        "C5 inbound admission after verified routing refuses voice never applied",
+        "C5 inbound admission after verified routing refuses text only",
+        "C5 inbound admission after verified routing refuses web voice only"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "inbound-parse",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses archive",
+        "C5 inbound admission after verified routing refuses runtime not loaded",
+        "C5 inbound admission after verified routing refuses old snapshot",
+        "C5 inbound admission after verified routing refuses future snapshot",
+        "C5 inbound admission after verified routing refuses old line",
+        "C5 inbound admission after verified routing refuses future line",
+        "C5 inbound admission after verified routing refuses old attestation",
+        "C5 inbound admission after verified routing refuses not ready",
+        "C5 inbound admission after verified routing refuses handler stopped",
+        "C5 inbound admission after verified routing refuses applied pause",
+        "C5 inbound admission after verified routing refuses missing applied policy",
+        "C5 inbound admission after verified routing refuses foreign snapshot owner",
+        "C5 inbound admission after verified routing refuses foreign voice",
+        "C5 inbound admission after verified routing refuses voice never applied",
+        "C5 inbound admission after verified routing refuses text only",
+        "C5 inbound admission after verified routing refuses web voice only",
+        "C5 inbound admission after verified routing refuses missing snapshot",
+        "C5 inbound admission after verified routing refuses missing voice",
+        "C5 inbound admission after verified routing refuses global line unavailable",
+        "C5 inbound admission after verified routing refuses unapplied configuration",
+        "C5 inbound admission after verified routing refuses runtime error",
+        "C5 inbound admission after verified routing refuses current config error",
+        "C5 inbound admission after verified routing refuses invalid admission window NaN",
+        "C5 inbound admission after verified routing refuses invalid admission window Infinity",
+        "C5 inbound admission after verified routing refuses invalid admission window -1"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "inbound-caller",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing allows explicit applied anyone policy without a Rubrica but still needs a canonical caller",
+        "C5 inbound admission after verified routing refuses caller hidden",
+        "C5 inbound admission after verified routing refuses old verified event",
+        "C5 inbound admission after verified routing refuses future verified event"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "inbound-route",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses wrong line",
+        "C5 inbound admission after verified routing refuses wrong selector"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-parse",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing refuses invalid admission window NaN",
+        "C5 inbound admission after verified routing refuses invalid admission window Infinity",
+        "C5 inbound admission after verified routing refuses invalid admission window -1",
+        "C5 explicit server-owned outbound request refuses authority missing",
+        "C5 explicit server-owned outbound request refuses authority expired",
+        "C5 explicit server-owned outbound request refuses authority lifetime above sixty seconds",
+        "C5 explicit server-owned outbound request refuses authority observation before request",
+        "C5 explicit server-owned outbound request refuses authority stale but not expired",
+        "C5 explicit server-owned outbound request refuses request noncanonical destination"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-authority",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses not explicitly requested",
+        "C5 explicit server-owned outbound request refuses authority future"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-correlation",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses authority different recipient",
+        "C5 explicit server-owned outbound request refuses authority different request",
+        "C5 explicit server-owned outbound request refuses authority different call",
+        "C5 explicit server-owned outbound request refuses authority different requested time",
+        "C5 explicit server-owned outbound request refuses authority different owner",
+        "C5 explicit server-owned outbound request refuses authority different expected version",
+        "C5 explicit server-owned outbound request refuses request foreign binding"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-request",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses outbound disabled",
+        "C5 explicit server-owned outbound request refuses request old timestamp"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "inbound-policy",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing keeps APPLIED policy effective while a different desired policy is pending",
+        "C5 inbound admission after verified routing never authorizes an unapplied permissive policy",
+        "C5 inbound admission after verified routing refuses caller not listed"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-book",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request never extends anyone inbound permission to outbound destinations"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-generation-phone",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses request old phone version"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-generation-number",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses request old line version"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "outbound-generation-selector",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request refuses request old selector"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "pending-phone",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing keeps APPLIED policy effective while a different desired policy is pending"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "pending-voice",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 inbound admission after verified routing uses applied voice when a different desired voice is pending",
+        "C5 inbound admission after verified routing refuses voice never applied",
+        "C5 inbound admission after verified routing refuses text only",
+        "C5 inbound admission after verified routing refuses web voice only"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "request-strict",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request rejects browser-provided extras in request and authority"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    },
+    {
+      "name": "authority-strict",
+      "exitCode": 1,
+      "totalTests": 84,
+      "functionalAssertions": [
+        "C5 explicit server-owned outbound request rejects browser-provided extras in request and authority"
+      ],
+      "otherFailureCount": 0,
+      "qualified": true
+    }
+  ],
+  "qualified": 32,
+  "total": 32,
+  "sourceRestored": true,
+  "sha256": "68b9bbcbdffce5f5b424f01b227c0596ead731da29b4c239e81d0c908c908a6e"
+}

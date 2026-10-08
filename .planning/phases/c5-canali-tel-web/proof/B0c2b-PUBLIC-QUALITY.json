@@ -1,0 +1,18 @@
+[
+  {
+    "check": "typecheck",
+    "exitCode": 0
+  },
+  {
+    "check": "lint",
+    "exitCode": 0
+  },
+  {
+    "check": "pack",
+    "exitCode": 0
+  },
+  {
+    "check": "legacy",
+    "exitCode": 0
+  }
+]

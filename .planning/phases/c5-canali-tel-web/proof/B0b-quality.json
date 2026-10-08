@@ -1,0 +1,23 @@
+{
+  "typecheck": 0,
+  "lint": 0,
+  "build": 0,
+  "commands": [
+    {
+      "name": "pack",
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "legacy-cjs",
+      "command": [
+        "node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "exitCode": 0
+    }
+  ]
+}

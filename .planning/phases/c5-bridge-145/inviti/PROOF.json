@@ -1,0 +1,654 @@
+{
+  "scope": "SDK invitations integration and independent review; synthetic fixtures only",
+  "author": "062dab3175665e91d60591530da6c574538ff67e",
+  "base": "92e669a50bfd100e58fdae4e9afdaf1fb4f8a47a",
+  "sourceHead": "35f6e7de5d93125e798bdf474547869fcdf06bc1",
+  "full": {
+    "passed": 4708,
+    "total": 4708,
+    "files": 163,
+    "skipped": 0
+  },
+  "build": {
+    "portableDeclarations": 378,
+    "total": 378,
+    "exit": 0
+  },
+  "nativeFinalQuality": {
+    "passed": 16,
+    "total": 16,
+    "inAdditionToFullAndBuild": true
+  },
+  "independentMutations": {
+    "qualified": 5,
+    "total": 5,
+    "source": 4,
+    "publicExport": 1,
+    "publicExportFormatsQualified": 2,
+    "publicExportFormatsTotal": 2,
+    "restoredExact": true,
+    "details": [
+      {
+        "name": "SOURCE-full-binding-RED",
+        "exit": 1,
+        "elapsedSeconds": 0.59,
+        "command": [
+          "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/capability/c5-web-invitations.test.ts",
+          "--maxWorkers=1",
+          "--testTimeout=60000",
+          "--reporter=json",
+          "--outputFile=/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-full-binding-RED.json"
+        ],
+        "log": "SOURCE-full-binding-RED.txt",
+        "passed": 29,
+        "total": 30,
+        "assertionFailures": [
+          "C5 authenticated invitations use the existing registry and C3 record does not erase an unavailable, stale, future or foreign source as an empty list"
+        ],
+        "otherFailures": 0,
+        "report": "SOURCE-full-binding-RED.json",
+        "qualified": true
+      },
+      {
+        "name": "SOURCE-target-email-RED",
+        "exit": 1,
+        "elapsedSeconds": 0.6,
+        "command": [
+          "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/capability/c5-web-invitations.test.ts",
+          "--maxWorkers=1",
+          "--testTimeout=60000",
+          "--reporter=json",
+          "--outputFile=/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-target-email-RED.json"
+        ],
+        "log": "SOURCE-target-email-RED.txt",
+        "passed": 29,
+        "total": 30,
+        "assertionFailures": [
+          "C5 authenticated invitations use the existing registry and C3 record recognizes only the exact currently registered principal and C3 scope/email at the lookup"
+        ],
+        "otherFailures": 0,
+        "report": "SOURCE-target-email-RED.json",
+        "qualified": true
+      },
+      {
+        "name": "SOURCE-lookup-age-RED",
+        "exit": 1,
+        "elapsedSeconds": 0.58,
+        "command": [
+          "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/capability/c5-web-invitations.test.ts",
+          "--maxWorkers=1",
+          "--testTimeout=60000",
+          "--reporter=json",
+          "--outputFile=/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-lookup-age-RED.json"
+        ],
+        "log": "SOURCE-lookup-age-RED.txt",
+        "passed": 29,
+        "total": 30,
+        "assertionFailures": [
+          "C5 authenticated invitations use the existing registry and C3 record requires fresh registry lookup and the server current invitation revision"
+        ],
+        "otherFailures": 0,
+        "report": "SOURCE-lookup-age-RED.json",
+        "qualified": true
+      },
+      {
+        "name": "SOURCE-public-privacy-RED",
+        "exit": 1,
+        "elapsedSeconds": 0.59,
+        "command": [
+          "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "tests/capability/c5-web-invitations.test.ts",
+          "--maxWorkers=1",
+          "--testTimeout=60000",
+          "--reporter=json",
+          "--outputFile=/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-public-privacy-RED.json"
+        ],
+        "log": "SOURCE-public-privacy-RED.txt",
+        "passed": 29,
+        "total": 30,
+        "assertionFailures": [
+          "C5 authenticated invitations use the existing registry and C3 record returns public metadata for active and pending records without scope or account identity"
+        ],
+        "otherFailures": 0,
+        "report": "SOURCE-public-privacy-RED.json",
+        "qualified": true
+      },
+      {
+        "name": "public-export",
+        "qualified": true,
+        "formats": [
+          {
+            "name": "PUBLIC-EXPORT-esm-RED",
+            "exit": 1,
+            "elapsedSeconds": 0.19,
+            "command": [
+              "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+              ".planning/phases/c5-canali-tel-web/proof/invitation-smoke.mjs",
+              "esm"
+            ],
+            "log": "PUBLIC-EXPORT-esm-RED.txt",
+            "qualified": true
+          },
+          {
+            "name": "PUBLIC-EXPORT-cjs-RED",
+            "exit": 1,
+            "elapsedSeconds": 0.21,
+            "command": [
+              "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+              ".planning/phases/c5-canali-tel-web/proof/invitation-smoke.mjs",
+              "cjs"
+            ],
+            "log": "PUBLIC-EXPORT-cjs-RED.txt",
+            "qualified": true
+          }
+        ]
+      }
+    ]
+  },
+  "authorDeclaredQualification": {
+    "source": 32,
+    "sourceTotal": 32,
+    "compiled": 2,
+    "compiledTotal": 2,
+    "notIndependentlyRepeatedInFull": true
+  },
+  "compatibility": {
+    "Node24": "24.14.1",
+    "Node20": "20.20.2",
+    "emptyEnvironment": true,
+    "workers": 1,
+    "nativeConfiguration": true,
+    "perNode": {
+      "invitations": {
+        "passed": 24,
+        "total": 24
+      },
+      "phoneWeb": {
+        "passed": 88,
+        "total": 88
+      },
+      "historyRoundTrip": {
+        "passed": 16,
+        "total": 16
+      },
+      "resource": {
+        "passed": 29,
+        "total": 29
+      },
+      "deletion": {
+        "passed": 27,
+        "total": 27
+      },
+      "nativeCJS": {
+        "passed": 36,
+        "total": 36
+      }
+    }
+  },
+  "manifest": {
+    "base": "92e669a50bfd100e58fdae4e9afdaf1fb4f8a47a",
+    "author": "062dab3175665e91d60591530da6c574538ff67e",
+    "sourceHead": "35f6e7de5d93125e798bdf474547869fcdf06bc1",
+    "authors": [
+      {
+        "path": "src/capability/agent-elevenlabs/web-invitations.ts",
+        "sha256": "f70a0dafc8061c5bd74566958f027fdebea4a932f5ba133a7cfde9d7d36b44ee",
+        "exactAuthorBytes": true
+      },
+      {
+        "path": "tests/capability/c5-web-invitations.test.ts",
+        "sha256": "a01fe2ca45dc36396f8d19655a4273fcb91006f451a3f0d9384c47f09993c6cb",
+        "exactAuthorBytes": true
+      },
+      {
+        "path": ".planning/phases/c5-canali-tel-web/proof/invitation-smoke.mjs",
+        "sha256": "92f1dafcc6ff035743898454d316ac5ce4c2113d71b3ee69f37889964e3cfdfc",
+        "exactAuthorBytes": true
+      }
+    ],
+    "capabilityBarrelExactUnion": true,
+    "otherSourceAndTestFiles": {
+      "exact": 469,
+      "total": 469
+    },
+    "configurations": [
+      {
+        "path": "package.json",
+        "exactBaseBytes": true,
+        "sha256": "6e7a84c6c55d8d00a636da4c3635e6a14b12402867ed8c83d9110a0f72f0afc5"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "exactBaseBytes": true,
+        "sha256": "5ebfaf45adc99d7da7d6511d7c88e2e76f0bf14f3292438cff8054b1843a02b3"
+      },
+      {
+        "path": "tsconfig.json",
+        "exactBaseBytes": true,
+        "sha256": "2aad89e70c685b691ac707a68e4f8fdd11fe27eed660ed0f3426a6b57aeb70b6"
+      },
+      {
+        "path": "vitest.config.ts",
+        "exactBaseBytes": true,
+        "sha256": "ed05290ab8575f10754a045c97c09cc1f4e60abb47e1165b49377770332d9be4"
+      }
+    ],
+    "perimeterViolations": [],
+    "rawFiles": [
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/B-RESOURCE-NODE20.txt",
+        "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/B-RESOURCE-NODE24.txt",
+        "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/BUILD-BASELINE.txt",
+        "sha256": "810e991d26799db8c2e8e7ca9a21be354b6221042765e0905632c4d596807057"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/BUILD-EXPORT-FAULT.txt",
+        "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/BUILD-FINAL.txt",
+        "sha256": "810e991d26799db8c2e8e7ca9a21be354b6221042765e0905632c4d596807057"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/C-INVITATIONS-NODE20.txt",
+        "sha256": "089e65b086f4e0eec1f055a86834b86d87a6da6db449834cb2b3dac9c502d9dc"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/C-INVITATIONS-NODE24.txt",
+        "sha256": "089e65b086f4e0eec1f055a86834b86d87a6da6db449834cb2b3dac9c502d9dc"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/C-PHONE-WEB-NODE20.txt",
+        "sha256": "2b9b26a6ecefcbbe37983ef4b10400c4eebc2aa06593e7eb5b345912429a40ee"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/C-PHONE-WEB-NODE24.txt",
+        "sha256": "2b9b26a6ecefcbbe37983ef4b10400c4eebc2aa06593e7eb5b345912429a40ee"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/C-ROUNDTRIP-NODE20.txt",
+        "sha256": "4ada6a06771dd3f4b4977ffb5404c0d14bbeddc7be0f3427e4995bff8b1036de"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/C-ROUNDTRIP-NODE24.txt",
+        "sha256": "4ada6a06771dd3f4b4977ffb5404c0d14bbeddc7be0f3427e4995bff8b1036de"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/E-DELETION-NODE20.txt",
+        "sha256": "639e24c5d3f473a58c5ca631c4df9b048e31d23a8cc8f3e99fa249c33c07e1f5"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/E-DELETION-NODE24.txt",
+        "sha256": "639e24c5d3f473a58c5ca631c4df9b048e31d23a8cc8f3e99fa249c33c07e1f5"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/E-PUBLIC-TYPES.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/FULL-FINAL.json",
+        "sha256": "3f3de93eeceb02f04178d6621391e1c9d99d7534a6d426fb509e1f3e45f4fd83"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/FULL-FINAL.txt",
+        "sha256": "b93fc1a9e5c30314d7a7890d8516cad35585a695e58df70b6fc5108aea9024de"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/LINT.txt",
+        "sha256": "51475dabdba8a8024ec3a32e4938337245716395e8816302618124cced738a66"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/NATIVE-CJS-NODE20.txt",
+        "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/NATIVE-CJS-NODE24.txt",
+        "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/PACK.txt",
+        "sha256": "cd906eb0c86ab9390d3f915d35c3f5b47fc9e3699e59bf377d75eb5af8dc281b"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/PUBLIC-BASELINE.txt",
+        "sha256": "089e65b086f4e0eec1f055a86834b86d87a6da6db449834cb2b3dac9c502d9dc"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/PUBLIC-EXPORT-cjs-RED.txt",
+        "sha256": "176dcf2c2bba751e53f9ac2217508a3d975ac7a51a0cc305c45cc2a93e3acda5"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/PUBLIC-EXPORT-esm-RED.txt",
+        "sha256": "7c13f1eaa3696dec4be11982694a7fe98f65e11fb037b97875132041c71048c8"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/QUALIFICATION.json",
+        "sha256": "ac36d3777226af1dcd5ed50211876aecea87e88742a70d9b8be05faa01e6f089"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-BASELINE.json",
+        "sha256": "b45ad488a7012a52e2bc37aa20e88f478a3fbe804dd1333f632e86d12c861eec"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-BASELINE.txt",
+        "sha256": "167d3e00928d749bb8438e6d3ab5ba25636ec05f8bd2ef11f5a864a7cf0214da"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-RESTORED.json",
+        "sha256": "4201e10ca8c551b1c6044224d76f01150aedbe9dec1c16a81c0ad4bcddee05b2"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-RESTORED.txt",
+        "sha256": "40cd9d7aba0685573dd00eadfd9522fcebe078bea26e002dc16c3a6902f27000"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-full-binding-RED.json",
+        "sha256": "48892e720777a9352db5f9203033b3346819e6fd4750a7eb26aff6143d9ace1c"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-full-binding-RED.txt",
+        "sha256": "e2a930e15b4e4d1f3839d6d49f47f8f5cc3186f3f7f83f4837a7778e91670ad9"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-lookup-age-RED.json",
+        "sha256": "f46f488e8992ca98f5810368251576a65534f528982c67668b90412a595e0bfe"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-lookup-age-RED.txt",
+        "sha256": "80749d10f2cdc2a81a8bb38e33c04203e887b0b8ac0efb164185c1ee6fe708e3"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-public-privacy-RED.json",
+        "sha256": "9823406df8fa512eeec2056058164f8db31fb78a1eddac509dd53d98403634f1"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-public-privacy-RED.txt",
+        "sha256": "04d422efd50bde75c7d526bfc6d64fffba7b26346bbd8b18a056ad08c1b72600"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-target-email-RED.json",
+        "sha256": "7e7c54cdc5841d207947a79b519cafe2dc1ad5fb03efdf1c672085aa38a26569"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/SOURCE-target-email-RED.txt",
+        "sha256": "ac2e4efd80cec7822642d7eca580adb8caa08d7807fc0f87232efebc5d549ce6"
+      },
+      {
+        "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/TYPECHECK.txt",
+        "sha256": "a3dc75929e8897f2f821a9fa5311e2b3bf21653eef594231b80b22c58299e10c"
+      }
+    ],
+    "rawCount": 37,
+    "distChanges": [
+      "dist/capability/index.cjs",
+      "dist/capability/index.cjs.map",
+      "dist/capability/index.d.cts",
+      "dist/capability/index.d.cts.map",
+      "dist/capability/index.d.ts",
+      "dist/capability/index.d.ts.map",
+      "dist/capability/index.js",
+      "dist/capability/index.js.map",
+      "dist/capability/agent-elevenlabs/web-invitations.cjs",
+      "dist/capability/agent-elevenlabs/web-invitations.cjs.map",
+      "dist/capability/agent-elevenlabs/web-invitations.d.cts",
+      "dist/capability/agent-elevenlabs/web-invitations.d.cts.map",
+      "dist/capability/agent-elevenlabs/web-invitations.d.ts",
+      "dist/capability/agent-elevenlabs/web-invitations.d.ts.map",
+      "dist/capability/agent-elevenlabs/web-invitations.js",
+      "dist/capability/agent-elevenlabs/web-invitations.js.map"
+    ]
+  },
+  "checks": [
+    {
+      "name": "BUILD-BASELINE",
+      "exit": 0,
+      "elapsedSeconds": 5.09,
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "log": "BUILD-BASELINE.txt"
+    },
+    {
+      "name": "PUBLIC-BASELINE",
+      "exit": 0,
+      "elapsedSeconds": 0.25,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        ".planning/phases/c5-canali-tel-web/proof/invitation-smoke.mjs"
+      ],
+      "log": "PUBLIC-BASELINE.txt"
+    },
+    {
+      "name": "BUILD-EXPORT-FAULT",
+      "exit": 0,
+      "elapsedSeconds": 4.88,
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "log": "BUILD-EXPORT-FAULT.txt"
+    },
+    {
+      "name": "BUILD-FINAL",
+      "exit": 0,
+      "elapsedSeconds": 5.0,
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "log": "BUILD-FINAL.txt"
+    },
+    {
+      "name": "FULL-FINAL",
+      "exit": 0,
+      "elapsedSeconds": 37.18,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--maxWorkers=1",
+        "--testTimeout=60000",
+        "--reporter=json",
+        "--outputFile=/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-inviti/raw/FULL-FINAL.json"
+      ],
+      "log": "FULL-FINAL.txt"
+    },
+    {
+      "name": "TYPECHECK",
+      "exit": 0,
+      "elapsedSeconds": 0.88,
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "log": "TYPECHECK.txt"
+    },
+    {
+      "name": "LINT",
+      "exit": 0,
+      "elapsedSeconds": 2.99,
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "log": "LINT.txt"
+    },
+    {
+      "name": "PACK",
+      "exit": 0,
+      "elapsedSeconds": 4.08,
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "log": "PACK.txt"
+    },
+    {
+      "name": "NATIVE-CJS-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.25,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "log": "NATIVE-CJS-NODE24.txt"
+    },
+    {
+      "name": "E-DELETION-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.2,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/agent-deletion-smoke.cjs"
+      ],
+      "log": "E-DELETION-NODE24.txt"
+    },
+    {
+      "name": "C-PHONE-WEB-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.3,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/c5-phone-web-smoke.mjs"
+      ],
+      "log": "C-PHONE-WEB-NODE24.txt"
+    },
+    {
+      "name": "B-RESOURCE-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.3,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/c5-resource-independent.mjs"
+      ],
+      "log": "B-RESOURCE-NODE24.txt"
+    },
+    {
+      "name": "C-ROUNDTRIP-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.2,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        ".planning/phases/c5-canali-tel-web/proof/round-trip-smoke.mjs"
+      ],
+      "log": "C-ROUNDTRIP-NODE24.txt"
+    },
+    {
+      "name": "C-INVITATIONS-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.21,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        ".planning/phases/c5-canali-tel-web/proof/invitation-smoke.mjs"
+      ],
+      "log": "C-INVITATIONS-NODE24.txt"
+    },
+    {
+      "name": "NATIVE-CJS-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.32,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "log": "NATIVE-CJS-NODE20.txt"
+    },
+    {
+      "name": "E-DELETION-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.15,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/agent-deletion-smoke.cjs"
+      ],
+      "log": "E-DELETION-NODE20.txt"
+    },
+    {
+      "name": "C-PHONE-WEB-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.32,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/c5-phone-web-smoke.mjs"
+      ],
+      "log": "C-PHONE-WEB-NODE20.txt"
+    },
+    {
+      "name": "B-RESOURCE-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.25,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/c5-resource-independent.mjs"
+      ],
+      "log": "B-RESOURCE-NODE20.txt"
+    },
+    {
+      "name": "C-ROUNDTRIP-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.19,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        ".planning/phases/c5-canali-tel-web/proof/round-trip-smoke.mjs"
+      ],
+      "log": "C-ROUNDTRIP-NODE20.txt"
+    },
+    {
+      "name": "C-INVITATIONS-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.2,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        ".planning/phases/c5-canali-tel-web/proof/invitation-smoke.mjs"
+      ],
+      "log": "C-INVITATIONS-NODE20.txt"
+    },
+    {
+      "name": "E-PUBLIC-TYPES",
+      "exit": 0,
+      "elapsedSeconds": 0.37,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "--ignoreConfig",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2023",
+        "--strict",
+        "--skipLibCheck",
+        "--ignoreDeprecations",
+        "6.0",
+        "tests/cjs/agent-deletion-types.cts"
+      ],
+      "log": "E-PUBLIC-TYPES.txt"
+    }
+  ],
+  "live": {
+    "executed": 0,
+    "featureComplete": false
+  },
+  "productRepairs": 0,
+  "releaseAndConsumerPin": "coordinator responsibility; package still 1.44.0"
+}
