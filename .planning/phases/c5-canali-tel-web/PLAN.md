@@ -262,3 +262,8 @@ Coordinatrice210744: B0c2b browserstrict e B0c3 proofserver separata approvati; 
 ## Raccordo storico R35/B210343–211342
 
 B0c3a non sostituisce DTOhistory4kind: aggiunge provaSERVER per TG/email sul canonicalAgentChannelConfiguration, expectedOwnerParticipant dal owners.email/telegramUserId (fonte amministrativa approvata coor210744), writer del turnoX9. Ammissione/lifecycle/firma restano alla filiera già esistente e si ricontrollano dopo await. Solo record ingressoowner→turno→reply realmente consegnata, stessi resource/appliedversion/policy; non prova di accesso crittografico nuovo. B0c3b userà canonicalC2phone/C3web e writer voiceSessions/postcall esistente. Nessun ledger o accountlink nuovo, nessun providerraw nel DTO pubblico.
+
+
+## B0c4 R35 — fonti e limiti
+
+Ricontrolloowner.repo.ts:40/45 attuale00a468e e old4f3fc42 prima della decisione212815. TavolaWeb:76 invitaemail/accessoproprio. Coor211227/212913 conferma owners email/Clerk, eliminaRubrica qualevincoloWeb. C3record/userId/revoca/scadenza riusati; sourcegiù non è notregistered. Draftnostoredauthority. B0c4a solo validatori/proiezioni/lookup-current puri; B0c4b HTTP owner/SA da montare successivamente con guardesistenti e writer inviti pressovoice-svc. Nessun nuovoaccountlink/ledger/server or DB migration scelto localmente. Header/link/cache/route/pin consumer da coor, nessun push/merge/deployC. ProviderC3D afterawait restano obbligatori per mint, l'invitoattivo da solo non emette bearer.
