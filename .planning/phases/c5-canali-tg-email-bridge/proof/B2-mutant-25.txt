@@ -1,0 +1,59 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-147-1[39m
+
+ [31m❯[39m tests/http/endpoints/c5-channel-resource.test.ts [2m([22m[2m33 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 12[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mdeclares the creation/rotation boundary using the existing session and canonical schemas[32m 2[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mdeclares read-only progress scoped to one management agent, door and request id[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mbuilds the resource path for telegram and retains exact request identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mbuilds the resource path for email and retains exact request identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: foreign door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path agent injection[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path request injection[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: short request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: missing request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client endpoint[32m 0[2mms[22m[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mdoes not build paths from malformed parameters[39m[32m 4[2mms[22m[39m
+[31m     → expected [Function] to throw an error[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22maccepts only this server-derived owner/tenant or the trusted SA role[32m 1[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign tenant[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: anonymous[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: role only[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: client SA extra fields[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: unrecognized role[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects malformed resolved intents even for an SA[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22maccepts only the exact request scoped through its management identity[32m 1[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: runtime id used as management[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign management[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: invalid params[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: tenant[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: management identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: runtime identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: vault identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: missing binding[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mdoes not authorize malformed or over-collected public receipts[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mdoes not build paths from malformed parameters
+[31m[1mAssertionError[22m: expected [Function] to throw an error[39m
+[36m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m60:96[22m[39m
+    [90m 58| [39m    expect(value('forgeAgentChannelResourceProgressPath')).toBeTypeOf(…
+    [90m 59| [39m    expect(() => call('forgeAgentChannelResourcePath', '../managed-a',…
+    [90m 60| [39m    expect(() => call('forgeAgentChannelResourceProgressPath', 'manage…
+    [90m   | [39m                                                                                               [31m^[39m
+    [90m 61| [39m    expect(() => call('forgeAgentChannelResourceProgressPath', 'manage…
+    [90m 62| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m32 passed[39m[22m[90m (33)[39m
+[2m   Start at [22m 20:53:40
+[2m   Duration [22m 525ms[2m (transform 219ms, setup 5ms, collect 382ms, tests 12ms, environment 0ms, prepare 31ms)[22m
+

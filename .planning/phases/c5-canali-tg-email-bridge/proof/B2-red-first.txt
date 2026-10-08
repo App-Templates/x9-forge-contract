@@ -1,0 +1,253 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-147-1[39m
+
+ [31m❯[39m tests/http/endpoints/c5-channel-resource.test.ts [2m([22m[2m33 tests[22m[2m | [22m[31m32 failed[39m[2m)[22m[32m 8[2mms[22m[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mdeclares the creation/rotation boundary using the existing session and canonical schemas[39m[32m 3[2mms[22m[39m
+[31m     → forgeAgentChannelResourceContract: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mdeclares read-only progress scoped to one management agent, door and request id[39m[32m 1[2mms[22m[39m
+[31m     → forgeAgentChannelResourceProgressContract: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mbuilds the resource path for telegram and retains exact request identity[39m[32m 0[2mms[22m[39m
+[31m     → forgeAgentChannelResourcePath: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mbuilds the resource path for email and retains exact request identity[39m[32m 0[2mms[22m[39m
+[31m     → forgeAgentChannelResourcePath: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mrejects invalid progress parameters: foreign door[39m[32m 0[2mms[22m[39m
+[31m     → ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path agent injection[39m[32m 0[2mms[22m[39m
+[31m     → ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path request injection[39m[32m 0[2mms[22m[39m
+[31m     → ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mrejects invalid progress parameters: short request[39m[32m 0[2mms[22m[39m
+[31m     → ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mrejects invalid progress parameters: missing request[39m[32m 0[2mms[22m[39m
+[31m     → ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client owner[39m[32m 0[2mms[22m[39m
+[31m     → ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client endpoint[39m[32m 0[2mms[22m[39m
+[31m     → ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mdoes not build paths from malformed parameters[32m 0[2mms[22m[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22maccepts only this server-derived owner/tenant or the trusted SA role[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign owner[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign tenant[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: anonymous[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: role only[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: client SA extra fields[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: unrecognized role[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 trusted Forge authorization[2m > [22mrejects malformed resolved intents even for an SA[39m[32m 0[2mms[22m[39m
+[31m     → isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22maccepts only the exact request scoped through its management identity[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another route: runtime id used as management[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign management[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign door[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign request[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another route: invalid params[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: owner[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: tenant[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: management identity[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: runtime identity[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: vault identity[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: missing binding[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[31m   [31m×[31m C5 progress route correlation[2m > [22mdoes not authorize malformed or over-collected public receipts[39m[32m 0[2mms[22m[39m
+[31m     → isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 32 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mdeclares the creation/rotation boundary using the existing session and canonical schemas
+[31m[1mAssertionError[22m: forgeAgentChannelResourceContract: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m contract tests/http/endpoints/c5-channel-resource.test.ts:[2m9:67[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m22:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mdeclares read-only progress scoped to one management agent, door and request id
+[31m[1mAssertionError[22m: forgeAgentChannelResourceProgressContract: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m contract tests/http/endpoints/c5-channel-resource.test.ts:[2m9:67[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m32:24[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mbuilds the resource path for telegram and retains exact request identity
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mbuilds the resource path for email and retains exact request identity
+[31m[1mAssertionError[22m: forgeAgentChannelResourcePath: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m41:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mrejects invalid progress parameters: foreign door
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mrejects invalid progress parameters: path agent injection
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mrejects invalid progress parameters: path request injection
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mrejects invalid progress parameters: short request
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mrejects invalid progress parameters: missing request
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mrejects invalid progress parameters: client owner
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mrejects invalid progress parameters: client endpoint
+[31m[1mAssertionError[22m: ForgeAgentChannelResourceProgressParamsSchema: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m schema tests/http/endpoints/c5-channel-resource.test.ts:[2m7:51[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m54:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22maccepts only this server-derived owner/tenant or the trusted SA role
+[31m[1mAssertionError[22m: isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m65:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign owner
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign tenant
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: anonymous
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: role only
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: client SA extra fields
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: unrecognized role
+[31m[1mAssertionError[22m: isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m76:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 trusted Forge authorization[2m > [22mrejects malformed resolved intents even for an SA
+[31m[1mAssertionError[22m: isAgentChannelResourceWithinForgeAuthorization: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m79:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22maccepts only the exact request scoped through its management identity
+[31m[1mAssertionError[22m: isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m86:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another route: runtime id used as management
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another route: foreign management
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another route: foreign door
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another route: foreign request
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another route: invalid params
+[31m[1mAssertionError[22m: isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m96:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: owner
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: tenant
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: management identity
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: runtime identity
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: vault identity
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: missing binding
+[31m[1mAssertionError[22m: isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m106:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/32]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 progress route correlation[2m > [22mdoes not authorize malformed or over-collected public receipts
+[31m[1mAssertionError[22m: isForgeAgentChannelResourceResultForRoute: expected undefined to be defined[39m
+[36m [2m❯[22m value tests/http/endpoints/c5-channel-resource.test.ts:[2m6:111[22m[39m
+    [90m  4| [39m[35mimport[39m [33m*[39m [35mas[39m [33mAgent[39m [35mfrom[39m [32m'../../../src/agent/index.js'[39m[33m;[39m
+    [90m  5| [39m
+    [90m  6| [39mfunction value(name: string): unknown { const result: unknown = Reflec…
+    [90m   | [39m                                                                                                              [31m^[39m
+    [90m  7| [39mfunction schema(name: string): z.ZodType { return value(name) as z.Zod…
+    [90m  8| [39mfunction call(name: string, ...args: unknown[]): unknown { const resul…
+[90m [2m❯[22m call tests/http/endpoints/c5-channel-resource.test.ts:[2m8:75[22m[39m
+[90m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m109:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/32]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m32 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (33)[39m
+[2m   Start at [22m 20:50:51
+[2m   Duration [22m 544ms[2m (transform 234ms, setup 5ms, collect 394ms, tests 8ms, environment 0ms, prepare 37ms)[22m
+

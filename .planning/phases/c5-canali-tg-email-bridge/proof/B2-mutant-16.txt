@@ -1,0 +1,659 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-147-1[39m
+
+ [31m❯[39m tests/http/endpoints/c5-channel-resource.test.ts [2m([22m[2m33 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 25[2mms[22m[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mdeclares the creation/rotation boundary using the existing session and canonical schemas[39m[32m 16[2mms[22m[39m
+[31m     → expected ZodObject{ _zod: { …(10) }, …(60) } to be ZodObject{ _zod: { …(11) }, …(60) } // Object.is equality[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mdeclares read-only progress scoped to one management agent, door and request id[32m 1[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mbuilds the resource path for telegram and retains exact request identity[32m 1[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mbuilds the resource path for email and retains exact request identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: foreign door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path agent injection[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path request injection[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: short request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: missing request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client endpoint[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mdoes not build paths from malformed parameters[32m 1[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22maccepts only this server-derived owner/tenant or the trusted SA role[32m 1[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign tenant[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: anonymous[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: role only[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: client SA extra fields[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: unrecognized role[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects malformed resolved intents even for an SA[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22maccepts only the exact request scoped through its management identity[32m 1[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: runtime id used as management[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign management[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: invalid params[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: tenant[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: management identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: runtime identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: vault identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: missing binding[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mdoes not authorize malformed or over-collected public receipts[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mdeclares the creation/rotation boundary using the existing session and canonical schemas
+[31m[1mAssertionError[22m: expected ZodObject{ _zod: { …(10) }, …(60) } to be ZodObject{ _zod: { …(11) }, …(60) } // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -55,36 +55,65 @@[39m
+[2m        "toJSONSchema": [Function anonymous],[22m
+[2m        "transform": [Function anonymous],[22m
+[2m        "type": "never",[22m
+[2m        "with": [Function anonymous],[22m
+[2m      },[22m
+[32m-     "checks": [[39m
+[32m-       ZodCustom {[39m
+[31m+     "shape": {[39m
+[31m+       "agentId": ZodString {[39m
+[2m          "and": [Function anonymous],[22m
+[2m          "apply": [Function anonymous],[22m
+[2m          "array": [Function anonymous],[22m
+[31m+         "base64": [Function anonymous],[39m
+[31m+         "base64url": [Function anonymous],[39m
+[2m          "brand": [Function anonymous],[22m
+[2m          "catch": [Function anonymous],[22m
+[2m          "check": [Function anonymous],[22m
+[31m+         "cidrv4": [Function anonymous],[39m
+[31m+         "cidrv6": [Function anonymous],[39m
+[2m          "clone": [Function anonymous],[22m
+[31m+         "cuid": [Function anonymous],[39m
+[31m+         "cuid2": [Function anonymous],[39m
+[31m+         "date": [Function anonymous],[39m
+[31m+         "datetime": [Function anonymous],[39m
+[2m          "decode": [Function anonymous],[22m
+[2m          "decodeAsync": [Function anonymous],[22m
+[2m          "def": {[22m
+[32m-           "check": "custom",[39m
+[32m-           "error": [Function error],[39m
+[32m-           "fn": [Function anonymous],[39m
+[32m-           "type": "custom",[39m
+[31m+           "checks": [[39m
+[31m+             $ZodCheckRegex {},[39m
+[31m+           ],[39m
+[31m+           "type": "string",[39m
+[2m          },[22m
+[2m          "default": [Function anonymous],[22m
+[2m          "describe": [Function anonymous],[22m
+[31m+         "duration": [Function anonymous],[39m
+[31m+         "e164": [Function anonymous],[39m
+[31m+         "email": [Function anonymous],[39m
+[31m+         "emoji": [Function anonymous],[39m
+[2m          "encode": [Function anonymous],[22m
+[2m          "encodeAsync": [Function anonymous],[22m
+[31m+         "endsWith": [Function anonymous],[39m
+[2m          "exactOptional": [Function anonymous],[22m
+[31m+         "format": "regex",[39m
+[31m+         "guid": [Function anonymous],[39m
+[31m+         "includes": [Function anonymous],[39m
+[31m+         "ipv4": [Function anonymous],[39m
+[31m+         "ipv6": [Function anonymous],[39m
+[2m          "isNullable": [Function anonymous],[22m
+[2m          "isOptional": [Function anonymous],[22m
+[31m+         "jwt": [Function anonymous],[39m
+[31m+         "ksuid": [Function anonymous],[39m
+[31m+         "length": [Function anonymous],[39m
+[31m+         "lowercase": [Function anonymous],[39m
+[31m+         "max": [Function anonymous],[39m
+[31m+         "maxLength": null,[39m
+[2m          "meta": [Function anonymous],[22m
+[31m+         "min": [Function anonymous],[39m
+[31m+         "minLength": null,[39m
+[31m+         "nanoid": [Function anonymous],[39m
+[31m+         "nonempty": [Function anonymous],[39m
+[2m          "nonoptional": [Function anonymous],[22m
+[31m+         "normalize": [Function anonymous],[39m
+[2m          "nullable": [Function anonymous],[22m
+[2m          "nullish": [Function anonymous],[22m
+[2m          "optional": [Function anonymous],[22m
+[2m          "or": [Function anonymous],[22m
+[2m          "overwrite": [Function anonymous],[22m
+[33m@@ -92,50 +121,64 @@[39m
+[2m          "parseAsync": [Function anonymous],[22m
+[2m          "pipe": [Function anonymous],[22m
+[2m          "prefault": [Function anonymous],[22m
+[2m          "readonly": [Function anonymous],[22m
+[2m          "refine": [Function anonymous],[22m
+[31m+         "regex": [Function anonymous],[39m
+[2m          "register": [Function anonymous],[22m
+[2m          "safeDecode": [Function anonymous],[22m
+[2m          "safeDecodeAsync": [Function anonymous],[22m
+[2m          "safeEncode": [Function anonymous],[22m
+[2m          "safeEncodeAsync": [Function anonymous],[22m
+[2m          "safeParse": [Function anonymous],[22m
+[2m          "safeParseAsync": [Function anonymous],[22m
+[31m+         "slugify": [Function anonymous],[39m
+[2m          "spa": [Function anonymous],[22m
+[31m+         "startsWith": [Function anonymous],[39m
+[2m          "superRefine": [Function anonymous],[22m
+[31m+         "time": [Function anonymous],[39m
+[2m          "toJSONSchema": [Function anonymous],[22m
+[31m+         "toLowerCase": [Function anonymous],[39m
+[31m+         "toUpperCase": [Function anonymous],[39m
+[2m          "transform": [Function anonymous],[22m
+[32m-         "type": "custom",[39m
+[31m+         "trim": [Function anonymous],[39m
+[31m+         "type": "string",[39m
+[31m+         "ulid": [Function anonymous],[39m
+[31m+         "uppercase": [Function anonymous],[39m
+[31m+         "url": [Function anonymous],[39m
+[31m+         "uuid": [Function anonymous],[39m
+[31m+         "uuidv4": [Function anonymous],[39m
+[31m+         "uuidv6": [Function anonymous],[39m
+[31m+         "uuidv7": [Function anonymous],[39m
+[2m          "with": [Function anonymous],[22m
+[31m+         "xid": [Function anonymous],[39m
+[2m        },[22m
+[32m-     ],[39m
+[32m-     "shape": {[39m
+[32m-       "action": ZodEnum {[39m
+[31m+       "kind": ZodEnum {[39m
+[2m          "and": [Function anonymous],[22m
+[2m          "apply": [Function anonymous],[22m
+[2m          "array": [Function anonymous],[22m
+[2m          "brand": [Function anonymous],[22m
+[2m          "catch": [Function anonymous],[22m
+[2m          "check": [Function anonymous],[22m
+[2m          "clone": [Function anonymous],[22m
+[2m          "decode": [Function anonymous],[22m
+[2m          "decodeAsync": [Function anonymous],[22m
+[2m          "def": {[22m
+[31m+           "checks": [],[39m
+[2m            "entries": {[22m
+[32m-             "create-resource": "create-resource",[39m
+[32m-             "rotate-token": "rotate-token",[39m
+[31m+             "email": "email",[39m
+[31m+             "telegram": "telegram",[39m
+[2m            },[22m
+[2m            "type": "enum",[22m
+[2m          },[22m
+[2m          "default": [Function anonymous],[22m
+[2m          "describe": [Function anonymous],[22m
+[2m          "encode": [Function anonymous],[22m
+[2m          "encodeAsync": [Function anonymous],[22m
+[2m          "enum": {[22m
+[32m-           "create-resource": "create-resource",[39m
+[32m-           "rotate-token": "rotate-token",[39m
+[31m+           "email": "email",[39m
+[31m+           "telegram": "telegram",[39m
+[2m          },[22m
+[2m          "exactOptional": [Function anonymous],[22m
+[2m          "exclude": [Function anonymous],[22m
+[2m          "extract": [Function anonymous],[22m
+[2m          "isNullable": [Function anonymous],[22m
+[33m@@ -144,12 +187,12 @@[39m
+[2m          "nonoptional": [Function anonymous],[22m
+[2m          "nullable": [Function anonymous],[22m
+[2m          "nullish": [Function anonymous],[22m
+[2m          "optional": [Function anonymous],[22m
+[2m          "options": [[22m
+[32m-           "create-resource",[39m
+[32m-           "rotate-token",[39m
+[31m+           "telegram",[39m
+[31m+           "email",[39m
+[2m          ],[22m
+[2m          "or": [Function anonymous],[22m
+[2m          "overwrite": [Function anonymous],[22m
+[2m          "parse": [Function anonymous],[22m
+[2m          "parseAsync": [Function anonymous],[22m
+[33m@@ -168,434 +211,10 @@[39m
+[2m          "superRefine": [Function anonymous],[22m
+[2m          "toJSONSchema": [Function anonymous],[22m
+[2m          "transform": [Function anonymous],[22m
+[2m          "type": "enum",[22m
+[2m          "with": [Function anonymous],[22m
+[32m-       },[39m
+[32m-       "expectedAppliedVersion": ZodNullable {[39m
+[32m-         "and": [Function anonymous],[39m
+[32m-         "apply": [Function anonymous],[39m
+[32m-         "array": [Function anonymous],[39m
+[32m-         "brand": [Function anonymous],[39m
+[32m-         "catch": [Function anonymous],[39m
+[32m-         "check": [Function anonymous],[39m
+[32m-         "clone": [Function anonymous],[39m
+[32m-         "decode": [Function anonymous],[39m
+[32m-         "decodeAsync": [Function anonymous],[39m
+[32m-         "def": {[39m
+[32m-           "innerType": ZodNumber {[39m
+[32m-             "and": [Function anonymous],[39m
+[32m-             "apply": [Function anonymous],[39m
+[32m-             "array": [Function anonymous],[39m
+[32m-             "brand": [Function anonymous],[39m
+[32m-             "catch": [Function anonymous],[39m
+[32m-             "check": [Function anonymous],[39m
+[32m-             "clone": [Function anonymous],[39m
+[32m-             "decode": [Function anonymous],[39m
+[32m-             "decodeAsync": [Function anonymous],[39m
+[32m-             "def": {[39m
+[32m-               "checks": [[39m
+[32m-                 ZodNumberFormat {[39m
+[32m-                   "and": [Function anonymous],[39m
+[32m-                   "apply": [Function anonymous],[39m
+[32m-                   "array": [Function anonymous],[39m
+[32m-                   "brand": [Function anonymous],[39m
+[32m-                   "catch": [Function anonymous],[39m
+[32m-                   "check": [Function anonymous],[39m
+[32m-                   "clone": [Function anonymous],[39m
+[32m-                   "decode": [Function anonymous],[39m
+[32m-                   "decodeAsync": [Function anonymous],[39m
+[32m-                   "def": {[39m
+[32m-                     "abort": false,[39m
+[32m-                     "check": "number_format",[39m
+[32m-                     "format": "safeint",[39m
+[32m-                     "type": "number",[39m
+[32m-                   },[39m
+[32m-                   "default": [Function anonymous],[39m
+[32m-                   "describe": [Function anonymous],[39m
+[32m-                   "encode": [Function anonymous],[39m
+[32m-                   "encodeAsync": [Function anonymous],[39m
+[32m-                   "exactOptional": [Function anonymous],[39m
+[32m-                   "finite": [Function anonymous],[39m
+[32m-                   "format": "safeint",[39m
+[32m-                   "gt": [Function anonymous],[39m
+[32m-                   "gte": [Function anonymous],[39m
+[32m-                   "int": [Function anonymous],[39m
+[32m-                   "isFinite": true,[39m
+[32m-                   "isInt": true,[39m
+[32m-                   "isNullable": [Function anonymous],[39m
+[32m-                   "isOptional": [Function anonymous],[39m
+[32m-                   "lt": [Function anonymous],[39m
+[32m-                   "lte": [Function anonymous],[39m
+[32m-                   "max": [Function anonymous],[39m
+[32m-                   "maxValue": 9007199254740991,[39m
+[32m-                   "meta": [Function anonymous],[39m
+[32m-                   "min": [Function anonymous],[39m
+[32m-                   "minValue": -9007199254740991,[39m
+[32m-                   "multipleOf": [Function anonymous],[39m
+[32m-                   "negative": [Function anonymous],[39m
+[32m-                   "nonnegative": [Function anonymous],[39m
+[32m-                   "nonoptional": [Function anonymous],[39m
+[32m-                   "nonpositive": [Function anonymous],[39m
+[32m-                   "nullable": [Function anonymous],[39m
+[32m-                   "nullish": [Function anonymous],[39m
+[32m-                   "optional": [Function anonymous],[39m
+[32m-                   "or": [Function anonymous],[39m
+[32m-                   "overwrite": [Function anonymous],[39m
+[32m-                   "parse": [Function anonymous],[39m
+[32m-                   "parseAsync": [Function anonymous],[39m
+[32m-                   "pipe": [Function anonymous],[39m
+[32m-                   "positive": [Function anonymous],[39m
+[32m-                   "prefault": [Function anonymous],[39m
+[32m-                   "readonly": [Function anonymous],[39m
+[32m-                   "refine": [Function anonymous],[39m
+[32m-                   "register": [Function anonymous],[39m
+[32m-                   "safe": [Function anonymous],[39m
+[32m-                   "safeDecode": [Function anonymous],[39m
+[32m-                   "safeDecodeAsync": [Function anonymous],[39m
+[32m-                   "safeEncode": [Function anonymous],[39m
+[32m-                   "safeEncodeAsync": [Function anonymous],[39m
+[32m-                   "safeParse": [Function anonymous],[39m
+[32m-                   "safeParseAsync": [Function anonymous],[39m
+[32m-                   "spa": [Function anonymous],[39m
+[32m-                   "step": [Function anonymous],[39m
+[32m-                   "superRefine": [Function anonymous],[39m
+[32m-                   "toJSONSchema": [Function anonymous],[39m
+[32m-                   "transform": [Function anonymous],[39m
+[32m-                   "type": "number",[39m
+[32m-                   "with": [Function anonymous],[39m
+[32m-                 },[39m
+[32m-                 $ZodCheckGreaterThan {},[39m
+[32m-               ],[39m
+[32m-               "type": "number",[39m
+[32m-             },[39m
+[32m-             "default": [Function anonymous],[39m
+[32m-             "describe": [Function anonymous],[39m
+[32m-             "encode": [Function anonymous],[39m
+[32m-             "encodeAsync": [Function anonymous],[39m
+[32m-             "exactOptional": [Function anonymous],[39m
+[32m-             "finite": [Function anonymous],[39m
+[32m-             "format": "safeint",[39m
+[32m-             "gt": [Function anonymous],[39m
+[32m-             "gte": [Function anonymous],[39m
+[32m-             "int": [Function anonymous],[39m
+[32m-             "isFinite": true,[39m
+[32m-             "isInt": true,[39m
+[32m-             "isNullable": [Function anonymous],[39m
+[32m-             "isOptional": [Function anonymous],[39m
+[32m-             "lt": [Function anonymous],[39m
+[32m-             "lte": [Function anonymous],[39m
+[32m-             "max": [Function anonymous],[39m
+[32m-             "maxValue": 9007199254740991,[39m
+[32m-             "meta": [Function anonymous],[39m
+[32m-             "min": [Function anonymous],[39m
+[32m-             "minValue": 0,[39m
+[32m-             "multipleOf": [Function anonymous],[39m
+[32m-             "negative": [Function anonymous],[39m
+[32m-             "nonnegative": [Function anonymous],[39m
+[32m-             "nonoptional": [Function anonymous],[39m
+[32m-             "nonpositive": [Function anonymous],[39m
+[32m-             "nullable": [Function anonymous],[39m
+[32m-             "nullish": [Function anonymous],[39m
+[32m-             "optional": [Function anonymous],[39m
+[32m-             "or": [Function anonymous],[39m
+[32m-             "overwrite": [Function anonymous],[39m
+[32m-             "parse": [Function anonymous],[39m
+[32m-             "parseAsync": [Function anonymous],[39m
+[32m-             "pipe": [Function anonymous],[39m
+[32m-             "positive": [Function anonymous],[39m
+[32m-             "prefault": [Function anonymous],[39m
+[32m-             "readonly": [Function anonymous],[39m
+[32m-             "refine": [Function anonymous],[39m
+[32m-             "register": [Function anonymous],[39m
+[32m-             "safe": [Function anonymous],[39m
+[32m-             "safeDecode": [Function anonymous],[39m
+[32m-             "safeDecodeAsync": [Function anonymous],[39m
+[32m-             "safeEncode": [Function anonymous],[39m
+[32m-             "safeEncodeAsync": [Function anonymous],[39m
+[32m-             "safeParse": [Function anonymous],[39m
+[32m-             "safeParseAsync": [Function anonymous],[39m
+[32m-             "spa": [Function anonymous],[39m
+[32m-             "step": [Function anonymous],[39m
+[32m-             "superRefine": [Function anonymous],[39m
+[32m-             "toJSONSchema": [Function anonymous],[39m
+[32m-             "transform": [Function anonymous],[39m
+[32m-             "type": "number",[39m
+[32m-             "with": [Function anonymous],[39m
+[32m-           },[39m
+[32m-           "type": "nullable",[39m
+[32m-         },[39m
+[32m-         "default": [Function anonymous],[39m
+[32m-         "describe": [Function anonymous],[39m
+[32m-         "encode": [Function anonymous],[39m
+[32m-         "encodeAsync": [Function anonymous],[39m
+[32m-         "exactOptional": [Function anonymous],[39m
+[32m-         "isNullable": [Function anonymous],[39m
+[32m-         "isOptional": [Function anonymous],[39m
+[32m-         "meta": [Function anonymous],[39m
+[32m-         "nonoptional": [Function anonymous],[39m
+[32m-         "nullable": [Function anonymous],[39m
+[32m-         "nullish": [Function anonymous],[39m
+[32m-         "optional": [Function anonymous],[39m
+[32m-         "or": [Function anonymous],[39m
+[32m-         "overwrite": [Function anonymous],[39m
+[32m-         "parse": [Function anonymous],[39m
+[32m-         "parseAsync": [Function anonymous],[39m
+[32m-         "pipe": [Function anonymous],[39m
+[32m-         "prefault": [Function anonymous],[39m
+[32m-         "readonly": [Function anonymous],[39m
+[32m-         "refine": [Function anonymous],[39m
+[32m-         "register": [Function anonymous],[39m
+[32m-         "safeDecode": [Function anonymous],[39m
+[32m-         "safeDecodeAsync": [Function anonymous],[39m
+[32m-         "safeEncode": [Function anonymous],[39m
+[32m-         "safeEncodeAsync": [Function anonymous],[39m
+[32m-         "safeParse": [Function anonymous],[39m
+[32m-         "safeParseAsync": [Function anonymous],[39m
+[32m-         "spa": [Function anonymous],[39m
+[32m-         "superRefine": [Function anonymous],[39m
+[32m-         "toJSONSchema": [Function anonymous],[39m
+[32m-         "transform": [Function anonymous],[39m
+[32m-         "type": "nullable",[39m
+[32m-         "unwrap": [Function anonymous],[39m
+[32m-         "with": [Function anonymous],[39m
+[32m-       },[39m
+[32m-       "expectedDesiredVersion": ZodNumber {[39m
+[32m-         "and": [Function anonymous],[39m
+[32m-         "apply": [Function anonymous],[39m
+[32m-         "array": [Function anonymous],[39m
+[32m-         "brand": [Function anonymous],[39m
+[32m-         "catch": [Function anonymous],[39m
+[32m-         "check": [Function anonymous],[39m
+[32m-         "clone": [Function anonymous],[39m
+[32m-         "decode": [Function anonymous],[39m
+[32m-         "decodeAsync": [Function anonymous],[39m
+[32m-         "def": {[39m
+[32m-           "checks": [[39m
+[32m-             ZodNumberFormat {[39m
+[32m-               "and": [Function anonymous],[39m
+[32m-               "apply": [Function anonymous],[39m
+[32m-               "array": [Function anonymous],[39m
+[32m-               "brand": [Function anonymous],[39m
+[32m-               "catch": [Function anonymous],[39m
+[32m-               "check": [Function anonymous],[39m
+[32m-               "clone": [Function anonymous],[39m
+[32m-               "decode": [Function anonymous],[39m
+[32m-               "decodeAsync": [Function anonymous],[39m
+[32m-               "def": {[39m
+[32m-                 "abort": false,[39m
+[32m-                 "check": "number_format",[39m
+[32m-                 "format": "safeint",[39m
+[32m-                 "type": "number",[39m
+[32m-               },[39m
+[32m-               "default": [Function anonymous],[39m
+[32m-               "describe": [Function anonymous],[39m
+[32m-               "encode": [Function anonymous],[39m
+[32m-               "encodeAsync": [Function anonymous],[39m
+[32m-               "exactOptional": [Function anonymous],[39m
+[32m-               "finite": [Function anonymous],[39m
+[32m-               "format": "safeint",[39m
+[32m-               "gt": [Function anonymous],[39m
+[32m-               "gte": [Function anonymous],[39m
+[32m-               "int": [Function anonymous],[39m
+[32m-               "isFinite": true,[39m
+[32m-               "isInt": true,[39m
+[32m-               "isNullable": [Function anonymous],[39m
+[32m-               "isOptional": [Function anonymous],[39m
+[32m-               "lt": [Function anonymous],[39m
+[32m-               "lte": [Function anonymous],[39m
+[32m-               "max": [Function anonymous],[39m
+[32m-               "maxValue": 9007199254740991,[39m
+[32m-               "meta": [Function anonymous],[39m
+[32m-               "min": [Function anonymous],[39m
+[32m-               "minValue": -9007199254740991,[39m
+[32m-               "multipleOf": [Function anonymous],[39m
+[32m-               "negative": [Function anonymous],[39m
+[32m-               "nonnegative": [Function anonymous],[39m
+[32m-               "nonoptional": [Function anonymous],[39m
+[32m-               "nonpositive": [Function anonymous],[39m
+[32m-               "nullable": [Function anonymous],[39m
+[32m-               "nullish": [Function anonymous],[39m
+[32m-               "optional": [Function anonymous],[39m
+[32m-               "or": [Function anonymous],[39m
+[32m-               "overwrite": [Function anonymous],[39m
+[32m-               "parse": [Function anonymous],[39m
+[32m-               "parseAsync": [Function anonymous],[39m
+[32m-               "pipe": [Function anonymous],[39m
+[32m-               "positive": [Function anonymous],[39m
+[32m-               "prefault": [Function anonymous],[39m
+[32m-               "readonly": [Function anonymous],[39m
+[32m-               "refine": [Function anonymous],[39m
+[32m-               "register": [Function anonymous],[39m
+[32m-               "safe": [Function anonymous],[39m
+[32m-               "safeDecode": [Function anonymous],[39m
+[32m-               "safeDecodeAsync": [Function anonymous],[39m
+[32m-               "safeEncode": [Function anonymous],[39m
+[32m-               "safeEncodeAsync": [Function anonymous],[39m
+[32m-               "safeParse": [Function anonymous],[39m
+[32m-               "safeParseAsync": [Function anonymous],[39m
+[32m-               "spa": [Function anonymous],[39m
+[32m-               "step": [Function anonymous],[39m
+[32m-               "superRefine": [Function anonymous],[39m
+[32m-               "toJSONSchema": [Function anonymous],[39m
+[32m-               "transform": [Function anonymous],[39m
+[32m-               "type": "number",[39m
+[32m-               "with": [Function anonymous],[39m
+[32m-             },[39m
+[32m-             $ZodCheckGreaterThan {},[39m
+[32m-           ],[39m
+[32m-           "type": "number",[39m
+[32m-         },[39m
+[32m-         "default": [Function anonymous],[39m
+[32m-         "describe": [Function anonymous],[39m
+[32m-         "encode": [Function anonymous],[39m
+[32m-         "encodeAsync": [Function anonymous],[39m
+[32m-         "exactOptional": [Function anonymous],[39m
+[32m-         "finite": [Function anonymous],[39m
+[32m-         "format": "safeint",[39m
+[32m-         "gt": [Function anonymous],[39m
+[32m-         "gte": [Function anonymous],[39m
+[32m-         "int": [Function anonymous],[39m
+[32m-         "isFinite": true,[39m
+[32m-         "isInt": true,[39m
+[32m-         "isNullable": [Function anonymous],[39m
+[32m-         "isOptional": [Function anonymous],[39m
+[32m-         "lt": [Function anonymous],[39m
+[32m-         "lte": [Function anonymous],[39m
+[32m-         "max": [Function anonymous],[39m
+[32m-         "maxValue": 9007199254740991,[39m
+[32m-         "meta": [Function anonymous],[39m
+[32m-         "min": [Function anonymous],[39m
+[32m-         "minValue": 0,[39m
+[32m-         "multipleOf": [Function anonymous],[39m
+[32m-         "negative": [Function anonymous],[39m
+[32m-         "nonnegative": [Function anonymous],[39m
+[32m-         "nonoptional": [Function anonymous],[39m
+[32m-         "nonpositive": [Function anonymous],[39m
+[32m-         "nullable": [Function anonymous],[39m
+[32m-         "nullish": [Function anonymous],[39m
+[32m-         "optional": [Function anonymous],[39m
+[32m-         "or": [Function anonymous],[39m
+[32m-         "overwrite": [Function anonymous],[39m
+[32m-         "parse": [Function anonymous],[39m
+[32m-         "parseAsync": [Function anonymous],[39m
+[32m-         "pipe": [Function anonymous],[39m
+[32m-         "positive": [Function anonymous],[39m
+[32m-         "prefault": [Function anonymous],[39m
+[32m-         "readonly": [Function anonymous],[39m
+[32m-         "refine": [Function anonymous],[39m
+[32m-         "register": [Function anonymous],[39m
+[32m-         "safe": [Function anonymous],[39m
+[32m-         "safeDecode": [Function anonymous],[39m
+[32m-         "safeDecodeAsync": [Function anonymous],[39m
+[32m-         "safeEncode": [Function anonymous],[39m
+[32m-         "safeEncodeAsync": [Function anonymous],[39m
+[32m-         "safeParse": [Function anonymous],[39m
+[32m-         "safeParseAsync": [Function anonymous],[39m
+[32m-         "spa": [Function anonymous],[39m
+[32m-         "step": [Function anonymous],[39m
+[32m-         "superRefine": [Function anonymous],[39m
+[32m-         "toJSONSchema": [Function anonymous],[39m
+[32m-         "transform": [Function anonymous],[39m
+[32m-         "type": "number",[39m
+[32m-         "with": [Function anonymous],[39m
+[32m-       },[39m
+[32m-       "requestId": ZodString {[39m
+[32m-         "and": [Function anonymous],[39m
+[32m-         "apply": [Function anonymous],[39m
+[32m-         "array": [Function anonymous],[39m
+[32m-         "base64": [Function anonymous],[39m
+[32m-         "base64url": [Function anonymous],[39m
+[32m-         "brand": [Function anonymous],[39m
+[32m-         "catch": [Function anonymous],[39m
+[32m-         "check": [Function anonymous],[39m
+[32m-         "cidrv4": [Function anonymous],[39m
+[32m-         "cidrv6": [Function anonymous],[39m
+[32m-         "clone": [Function anonymous],[39m
+[32m-         "cuid": [Function anonymous],[39m
+[32m-         "cuid2": [Function anonymous],[39m
+[32m-         "date": [Function anonymous],[39m
+[32m-         "datetime": [Function anonymous],[39m
+[32m-         "decode": [Function anonymous],[39m
+[32m-         "decodeAsync": [Function anonymous],[39m
+[32m-         "def": {[39m
+[32m-           "checks": [[39m
+[32m-             $ZodCheckMinLength {},[39m
+[32m-             $ZodCheckMaxLength {},[39m
+[32m-             $ZodCheckRegex {},[39m
+[32m-           ],[39m
+[32m-           "type": "string",[39m
+[32m-         },[39m
+[32m-         "default": [Function anonymous],[39m
+[32m-         "describe": [Function anonymous],[39m
+[32m-         "duration": [Function anonymous],[39m
+[32m-         "e164": [Function anonymous],[39m
+[32m-         "email": [Function anonymous],[39m
+[32m-         "emoji": [Function anonymous],[39m
+[32m-         "encode": [Function anonymous],[39m
+[32m-         "encodeAsync": [Function anonymous],[39m
+[32m-         "endsWith": [Function anonymous],[39m
+[32m-         "exactOptional": [Function anonymous],[39m
+[32m-         "format": "regex",[39m
+[32m-         "guid": [Function anonymous],[39m
+[32m-         "includes": [Function anonymous],[39m
+[32m-         "ipv4": [Function anonymous],[39m
+[32m-         "ipv6": [Function anonymous],[39m
+[32m-         "isNullable": [Function anonymous],[39m
+[32m-         "isOptional": [Function anonymous],[39m
+[32m-         "jwt": [Function anonymous],[39m
+[32m-         "ksuid": [Function anonymous],[39m
+[32m-         "length": [Function anonymous],[39m
+[32m-         "lowercase": [Function anonymous],[39m
+[32m-         "max": [Function anonymous],[39m
+[32m-         "maxLength": 128,[39m
+[32m-         "meta": [Function anonymous],[39m
+[32m-         "min": [Function anonymous],[39m
+[32m-         "minLength": 8,[39m
+[32m-         "nanoid": [Function anonymous],[39m
+[32m-         "nonempty": [Function anonymous],[39m
+[32m-         "nonoptional": [Function anonymous],[39m
+[32m-         "normalize": [Function anonymous],[39m
+[32m-         "nullable": [Function anonymous],[39m
+[32m-         "nullish": [Function anonymous],[39m
+[32m-         "optional": [Function anonymous],[39m
+[32m-         "or": [Function anonymous],[39m
+[32m-         "overwrite": [Function anonymous],[39m
+[32m-         "parse": [Function anonymous],[39m
+[32m-         "parseAsync": [Function anonymous],[39m
+[32m-         "pipe": [Function anonymous],[39m
+[32m-         "prefault": [Function anonymous],[39m
+[32m-         "readonly": [Function anonymous],[39m
+[32m-         "refine": [Function anonymous],[39m
+[32m-         "regex": [Function anonymous],[39m
+[32m-         "register": [Function anonymous],[39m
+[32m-         "safeDecode": [Function anonymous],[39m
+[32m-         "safeDecodeAsync": [Function anonymous],[39m
+[32m-         "safeEncode": [Function anonymous],[39m
+[32m-         "safeEncodeAsync": [Function anonymous],[39m
+[32m-         "safeParse": [Function anonymous],[39m
+[32m-         "safeParseAsync": [Function anonymous],[39m
+[32m-         "slugify": [Function anonymous],[39m
+[32m-         "spa": [Function anonymous],[39m
+[32m-         "startsWith": [Function anonymous],[39m
+[32m-         "superRefine": [Function anonymous],[39m
+[32m-         "time": [Function anonymous],[39m
+[32m-         "toJSONSchema": [Function anonymous],[39m
+[32m-         "toLowerCase": [Function anonymous],[39m
+[32m-         "toUpperCase": [Function anonymous],[39m
+[32m-         "transform": [Function anonymous],[39m
+[32m-         "trim": [Function anonymous],[39m
+[32m-         "type": "string",[39m
+[32m-         "ulid": [Function anonymous],[39m
+[32m-         "uppercase": [Function anonymous],[39m
+[32m-         "url": [Function anonymous],[39m
+[32m-         "uuid": [Function anonymous],[39m
+[32m-         "uuidv4": [Function anonymous],[39m
+[32m-         "uuidv6": [Function anonymous],[39m
+[32m-         "uuidv7": [Function anonymous],[39m
+[32m-         "with": [Function anonymous],[39m
+[32m-         "xid": [Function anonymous],[39m
+[2m        },[22m
+[2m      },[22m
+[2m      "type": "object",[22m
+[2m    },[22m
+[2m    "default": [Function anonymous],[22m
+
+[36m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m25:35[22m[39m
+    [90m 23| [39m    [35mconst[39m descriptor [33m=[39m [34mcontract[39m([32m'forgeAgentChannelResourceContract'[39m)[33m;[39m
+    [90m 24| [39m    expect(descriptor.paramsSchema).toBe(Http.AgentChannelAccessParams…
+    [90m 25| [39m    expect(descriptor.bodySchema).toBe(Agent.AgentChannelResourceComma…
+    [90m   | [39m                                  [31m^[39m
+    [90m 26| [39m    expect(descriptor.responseSchema).toBe(Agent.AgentChannelResourceR…
+    [90m 27| [39m    expect(descriptor.errorResponseSchema).toBe(Agent.AgentChannelAcce…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m32 passed[39m[22m[90m (33)[39m
+[2m   Start at [22m 20:53:29
+[2m   Duration [22m 539ms[2m (transform 217ms, setup 4ms, collect 381ms, tests 25ms, environment 0ms, prepare 30ms)[22m
+
