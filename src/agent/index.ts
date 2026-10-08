@@ -95,3 +95,5 @@ export * from './agent-phone-admission.js';
 export * from './agent-channel-history.js';
 
 export * from './agent-channel-history-content.js';
+
+export * from './agent-knowledge-address-book.js';

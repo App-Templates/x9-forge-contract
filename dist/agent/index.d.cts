@@ -35,4 +35,5 @@ export * from "./agent-deletion.cjs";
 export * from "./agent-phone-admission.cjs";
 export * from "./agent-channel-history.cjs";
 export * from "./agent-channel-history-content.cjs";
+export * from "./agent-knowledge-address-book.cjs";
 //# sourceMappingURL=index.d.ts.map

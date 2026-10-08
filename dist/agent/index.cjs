@@ -88,4 +88,5 @@ __exportStar(require("./agent-deletion.cjs"), exports);
 __exportStar(require("./agent-phone-admission.cjs"), exports);
 __exportStar(require("./agent-channel-history.cjs"), exports);
 __exportStar(require("./agent-channel-history-content.cjs"), exports);
+__exportStar(require("./agent-knowledge-address-book.cjs"), exports);
 //# sourceMappingURL=index.js.map
