@@ -91,3 +91,7 @@ RISPOSTA115300 e perimetri/codex_canali-c2-bridge.txt aprono i13file del piano +
 ## B2 checkpoint12:29
 
 Comandi/snapshot/routing/ricevute indipendenti dalla Rubrica implementati e testati;101/101nuovi e390/390matrice,48/48mutazioni. Contratto di risposta routing aggiunto per la correlazione HTTP esatta. Outbound/contact wrapper passa in B3 dopo simboli canonici di D: non definire API/campo ipotetico. ProseguireB4 snapshot/preview/apply/route +CJS entro lotto45min; BQ completo/review dopo B3.
+
+## B4 checkpoint12:44
+
+Parte HTTP snapshot/preview/apply/route+CJS completata localmente,50/50nuovi e32/32mutazioni;full3448/3448 e142/142file con posto rilasciato. Restano B3 Rubrica/ammissioni/outbound econsumer X9/F1. Checkpoint verde richiesto dal broadcast123832;resto dopo rilascio13 efonteD. Non consegnareC2 intero.

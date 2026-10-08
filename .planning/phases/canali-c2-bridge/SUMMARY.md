@@ -1,6 +1,6 @@
 # CANALI-C2-BRIDGE — SUMMARY
 
-Ultimo aggiornamento: 08/10/2026 12:30 CEST
+Ultimo aggiornamento: 08/10/2026 12:44 CEST
 
 Stato attuale: B1 completato localmente nel prodotto8b0495a9eca69a62075b6d67f065bb9bb8cfcc3c,90/90path autorizzati e8/8protetti identici. B2 avviato12:06, scadenza12:45, comandi/snapshot/routing/ricevute; outbound con contatto canonico rinviato a B3 dopo fonteD. B3 dipendenza Rubrica aperta, B4/BQ/review da fare. Nessuna full12:00–12:30;C2 incompleto e fuori release13. I paragrafi iniziali seguenti sono il checkpoint storico del piano11:49.
 
@@ -41,3 +41,13 @@ Mutazioni finali48/48qualificate con103AssertionError/4848assertioni mutate;48/4
 Prossimo:B4 snapshot/preview/apply/route HTTP+CJS, separato dal futuro outbound con contatto canonico. B3 ancora sospeso: D115122 non ha deciso/implementato simboli/path Rubrica. Non inventare contactref/API; completare wrapper outbound soltanto dopo fonteD. BQ full/review indipendente dopo tutti i componenti. C2 incompleto, fuori release13; nessun push/merge/deploy/live.
 
 Checkpoint dopo commit:B2 ecac83b33e8fe2c7e3af6b0d9abbce66495bd64e,122-1pulito,211/211path autorizzati e9/9protetti identici. B4 avviato12:30–13:15: solo snapshot/preview/apply/route HTTP e CJS, outbound rimaneB3 dopoD. PLAN/SUMMARYriletti,un comando mirato alla volta.
+
+## B4 — checkpoint verde indipendente12:44
+
+Snapshot/preview/apply/route HTTP: segmenti statici phone, internal secret contro session+SA/owner, tenant e management agent espliciti. Draft solo porta, nessun writer voce/numero destinatario/contatto inline/authority browser. Anteprima controlla CAS e intento esatto, autorità e clock corrente; non asserisce applicazione. Nuovo consumer CJS+ESM dal package pubblico genera44/44assertioni reali, incluso contesto read/write legacy e phone, apply/routing e authorizer. Source/barrel/dist in questo commit; fonte Rubrica e outbound non inclusi, restanoB3.
+
+Prima guardie21/50rossi AssertionError e29/50verdi; dopo50/50nuovi B4. Mutazioni32/32qualificate,62AssertionError/1600mutate,1600/1600restore32run ehashdei2file identici. Build iniziale1: internal HTTP senza namespaceZod sintetizzava import nonportabili nei d.ts/d.cts. Aggiunto import type eParams type alias, senza modifica al runtime (normalizzazione hash identica al sorgente delle mutazioni in b4-type-anchor.json). Build finale0,342/342declaration portable;tsc/lint/checkpack0. b4-initial-quality/build preservano il rosso, b4-quality logga gli exit finali.
+
+Matrice479/479 (221nuovi e258regressioni),0failed/0pending. FULL NATIVA bridge12:41 con posto2/3 eworker1/testTimeout60000:3448/3448test,142/142file,exit0/success true,0skip. Vecchio smoke CJS36/36+6/6+15/15+16/16+39/39,exit0. Nuovo CJS/ESM44/44,exit0. Posto rilasciato in finally12:42. Nessuna full12:00–12:30;non usati override,esclusioni,NODE_PATH oproviderlive. Audit10/10protetti (8canonici+B1/B2source), tutti i path autorizzati;manifest/lock/versione/C1/Rubrica/voce evecchi test invariati.
+
+C2 incompleto e fuori release13: D ancora non ha fornito simboli/path Rubrica; B3 ammissioni/contact/outbound, X9 eF1 writer non implementati. Questo checkpoint non concede chiamate e non installa handler. Nessun push/merge/deploy/live. Pronto a riprendere B3 dopo proposta canonicaD; nessuna fonte temporanea.

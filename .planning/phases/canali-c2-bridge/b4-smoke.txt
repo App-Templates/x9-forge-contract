@@ -1,0 +1,1 @@
+{"consumers":["CJS","ESM"],"assertionsPassed":44,"assertionsTotal":44}

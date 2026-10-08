@@ -1,0 +1,134 @@
+{
+  "phase": "B1+B2+B4 independent checkpoint; C2 incomplete",
+  "fullVitest": {
+    "passed": 3448,
+    "total": 3448,
+    "failed": 0,
+    "pending": 0,
+    "filesPassed": 142,
+    "filesTotal": 142,
+    "exit": 0,
+    "success": true
+  },
+  "matrix": {
+    "passed": 479,
+    "total": 479
+  },
+  "newTests": {
+    "B1": 70,
+    "B2": 101,
+    "B4": 50,
+    "total": 221
+  },
+  "B4mutations": {
+    "qualified": 32,
+    "total": 32,
+    "semanticFailures": 62,
+    "mutatedAssertions": 1600,
+    "restoredAssertions": 1600,
+    "restoredRuns": 32
+  },
+  "newCjsEsm": {
+    "passed": 44,
+    "total": 44
+  },
+  "nativeCjsProbes": {
+    "base": [
+      36,
+      36
+    ],
+    "publicSubpaths": [
+      6,
+      6
+    ],
+    "R7": [
+      15,
+      15
+    ],
+    "modelsCatalog": [
+      16,
+      16
+    ],
+    "modelsBatch": [
+      39,
+      39
+    ]
+  },
+  "qualityExits": [
+    {
+      "check": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "lint",
+      "command": [
+        "pnpm",
+        "exec",
+        "eslint",
+        "src/http/endpoints/internal-agent-phone-channel.ts",
+        "src/http/endpoints/forge-agent-phone-channel.ts",
+        "src/http/endpoints/index.ts",
+        "tests/http/endpoints/agent-phone-http-internal.test.ts",
+        "tests/http/endpoints/agent-phone-http-forge.test.ts",
+        "tests/cjs/agent-phone-channel-smoke.mjs"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "build",
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "check-pack",
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "smoke",
+      "command": [
+        "node",
+        "tests/cjs/agent-phone-channel-smoke.mjs"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "matrix",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "tests/agent/agent-phone-channel.test.ts",
+        "tests/agent/agent-phone-commands.test.ts",
+        "tests/agent/r2-channel-configuration.test.ts",
+        "tests/agent/r2-attestation.test.ts",
+        "tests/agent/bridge134-voice-context.test.ts",
+        "tests/agent/agent-channel-access-requests.test.ts",
+        "tests/agent/agent-channel-access-policy.test.ts",
+        "tests/http/endpoints/agent-phone-http-internal.test.ts",
+        "tests/http/endpoints/agent-phone-http-forge.test.ts",
+        "tests/http/endpoints/agent-channel-access-http-internal.test.ts",
+        "tests/http/endpoints/agent-channel-access-http-forge.test.ts",
+        "--maxWorkers=1",
+        "--reporter=json",
+        "--outputFile=.planning/phases/canali-c2-bridge/b4-matrix.json"
+      ],
+      "exit": 0
+    }
+  ],
+  "semaphore": "Acquired 2/3 at12:41; released in finally12:42",
+  "B3dependency": "D canonical phone Rubrica symbols/path not yet decided; no hypothetical field/source/API",
+  "release13": false,
+  "liveVerified": false
+}

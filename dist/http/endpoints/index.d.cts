@@ -44,4 +44,6 @@ export * from "./internal-models-batch.cjs";
 export * from "./forge-models.cjs";
 export * from "./internal-agent-channel-access.cjs";
 export * from "./forge-agent-channel-access.cjs";
+export * from "./internal-agent-phone-channel.cjs";
+export * from "./forge-agent-phone-channel.cjs";
 //# sourceMappingURL=index.d.ts.map

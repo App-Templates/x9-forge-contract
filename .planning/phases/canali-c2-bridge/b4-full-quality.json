@@ -1,0 +1,24 @@
+[
+  {
+    "check": "full-vitest",
+    "command": [
+      "pnpm",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=1",
+      "--testTimeout=60000",
+      "--reporter=json",
+      "--outputFile=.planning/phases/canali-c2-bridge/b4-full-vitest.json"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "full-cjs",
+    "command": [
+      "node",
+      "tests/cjs/smoke.cjs"
+    ],
+    "exit": 0
+  }
+]

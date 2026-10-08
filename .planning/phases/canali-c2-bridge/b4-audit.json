@@ -1,0 +1,1370 @@
+{
+  "base": "a251bbc9451381a67afa10f330fa5a3b501e8ba4",
+  "changes": 328,
+  "paths": [
+    {
+      "path": ".planning/phases/canali-c2-bridge/PLAN.md",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/SUMMARY.md",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-audit.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-baseline.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-check-pack.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-green.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-module-proof.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/absence-evidence-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/absence-evidence-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/active-route-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/active-route-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/clock-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/clock-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/config-error-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/config-error-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-birth-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-birth-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-owner-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-owner-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-policy-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-policy-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-version-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-version-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-kind-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-kind-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-owner-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-owner-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-version-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-version-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/initial.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-age-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-age-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-available-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-available-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/mutations.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/number-evidence-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/number-evidence-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-applied-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-applied-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-version-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-version-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-line-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-line-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-owner-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-owner-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-age-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-age-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-error-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-error-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-readiness-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-readiness-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-state-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-state-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-access-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-access-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-config-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-config-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-number-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-number-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-policy-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-policy-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-routing-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-routing-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/vault-identity-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/vault-identity-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-order-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-order-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-state-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-state-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-vault-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-audit.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-baseline.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-build.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-check-pack.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-green.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-lint.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-matrix.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-matrix.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-mutation-history.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-archived-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-archived-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-current-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-current-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-number-time-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-number-time-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-resource-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-resource-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-routing-cas-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-routing-cas-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-runtime-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-runtime-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-versions-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/apply-versions-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/clock-and-age-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/clock-and-age-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/initial.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/inventory-time-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/inventory-time-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/mutations.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/no-request-queue-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/no-request-queue-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/pause-independent-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/pause-independent-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-agent-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-agent-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-applied-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-applied-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-binding-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-binding-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-desired-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-desired-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-failure-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-failure-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-order-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-order-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-routing-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-routing-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-time-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/receipt-time-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-command-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-command-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-current-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-current-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-routing-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-routing-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-time-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/result-time-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-active-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-active-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-agent-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-agent-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-applied-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-applied-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-number-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-number-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-active-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-active-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-agent-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-agent-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-correlation-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-correlation-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-current-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-current-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-event-current-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-event-current-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-event-time-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-event-time-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-selection-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-selection-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-snapshot-time-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-result-snapshot-time-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-selector-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-selector-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-source-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-source-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-times-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-times-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-unique-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/route-unique-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/snapshot-binding-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/snapshot-binding-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/snapshot-time-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/snapshot-time-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-command-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-command-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-event-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-event-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-inventory-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-inventory-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-receipt-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-receipt-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-route-result-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-route-result-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-snapshot-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-snapshot-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-source-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-proof/strict-source-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-quality.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-route-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b2-typecheck.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-FINAL-PROOF.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-audit.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-baseline.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-build.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-check-pack.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-full-cjs.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-full-quality.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-full-vitest.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-full-vitest.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-green.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-initial-build.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-initial-quality.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-lint.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-matrix.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-matrix.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/browser-authorization-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/browser-authorization-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/browser-session-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/browser-session-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-archived-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-archived-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-cas-order-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-cas-order-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-routing-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-routing-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-strict-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-strict-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-versions-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/draft-versions-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-agent-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-agent-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-method-60-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-method-60-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-method-64-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-method-64-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-method-69-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-method-69-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-path-60-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-path-60-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-path-64-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-path-64-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-path-69-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/forge-path-69-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/initial.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-auth-12-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-auth-12-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-auth-18-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-auth-18-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-auth-8-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-auth-8-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-method-12-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-method-12-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-method-18-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-method-18-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-method-8-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-method-8-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-path-12-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-path-12-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-path-18-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-path-18-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-path-8-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/internal-path-8-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/mutations.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/owner-scope-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/owner-scope-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/params-strict-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/params-strict-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-authority-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-authority-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-cas-echo-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-cas-echo-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-current-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-current-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-exact-intent-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-exact-intent-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-strict-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/preview-strict-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/sa-supported-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/sa-supported-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/tenant-scope-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-proof/tenant-scope-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-quality.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-semaphore-release.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-smoke.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-type-anchor.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b4-typecheck.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/mutate-b1.py",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/mutate-b2.py",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/mutate-b4.py",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.js.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-commands.js.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.js.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/forge-agent-phone-channel.js.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/index.js.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-phone-channel.js.map",
+      "allowed": true
+    },
+    {
+      "path": "src/agent/agent-phone-channel.ts",
+      "allowed": true
+    },
+    {
+      "path": "src/agent/agent-phone-commands.ts",
+      "allowed": true
+    },
+    {
+      "path": "src/agent/index.ts",
+      "allowed": true
+    },
+    {
+      "path": "src/http/endpoints/forge-agent-phone-channel.ts",
+      "allowed": true
+    },
+    {
+      "path": "src/http/endpoints/index.ts",
+      "allowed": true
+    },
+    {
+      "path": "src/http/endpoints/internal-agent-phone-channel.ts",
+      "allowed": true
+    },
+    {
+      "path": "tests/agent/agent-phone-channel.test.ts",
+      "allowed": true
+    },
+    {
+      "path": "tests/agent/agent-phone-commands.test.ts",
+      "allowed": true
+    },
+    {
+      "path": "tests/cjs/agent-phone-channel-smoke.mjs",
+      "allowed": true
+    },
+    {
+      "path": "tests/http/endpoints/agent-phone-http-forge.test.ts",
+      "allowed": true
+    },
+    {
+      "path": "tests/http/endpoints/agent-phone-http-internal.test.ts",
+      "allowed": true
+    }
+  ],
+  "protected": [
+    {
+      "path": "src/agent/agent-channel-access.ts",
+      "identical": true,
+      "sha256": "babd4136086cbdbc869b2ba0414cb583ac73bfb162a9ad7cdb4080c37e8ee345"
+    },
+    {
+      "path": "src/agent/agent-channel-configuration.ts",
+      "identical": true,
+      "sha256": "7a55a1f82f77b4effdbe30907a204881fda1faeb4de74b42f6eeb683c82e2779"
+    },
+    {
+      "path": "src/agent/agent-channel-attestation.ts",
+      "identical": true,
+      "sha256": "be874bafbb498d760d7cf282ca55a08cb2034236449219a0bd39628b7df23881"
+    },
+    {
+      "path": "src/agent/agent-context-file.ts",
+      "identical": true,
+      "sha256": "06c287011ee1f145edf483d5d56b0a794b56c2c788cc1484505040cedfc8b12b"
+    },
+    {
+      "path": "src/capability/voice/agent-voice-settings.ts",
+      "identical": true,
+      "sha256": "1b215b039af952ef51294aa4da30426611afdb195a97e17eb4d4a3e1371f159b"
+    },
+    {
+      "path": "package.json",
+      "identical": true,
+      "sha256": "009e8871330aafc29d10863845417800c1626aca06f1c5105077e1d82000e573"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "identical": true,
+      "sha256": "5ebfaf45adc99d7da7d6511d7c88e2e76f0bf14f3292438cff8054b1843a02b3"
+    },
+    {
+      "path": "tests/agent/r2-channel-configuration.test.ts",
+      "identical": true,
+      "sha256": "01129386119c3480d866d3e3f72c4e4fbb354263c75bc96c1d706fcea64e969e"
+    },
+    {
+      "path": "src/agent/agent-phone-channel.ts",
+      "identical": true,
+      "sha256": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "path": "src/agent/agent-phone-commands.ts",
+      "identical": true,
+      "sha256": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    }
+  ]
+}
