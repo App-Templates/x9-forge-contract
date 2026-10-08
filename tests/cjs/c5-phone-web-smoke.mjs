@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const variants = [['esm', await import('../../dist/agent/index.js')], ['cjs', require('../../dist/agent/index.cjs')]];
+const variants = [['esm', await import('../../dist/agent/index.js'), await import('../../dist/capability/index.js')], ['cjs', require('../../dist/agent/index.cjs'), require('../../dist/capability/index.cjs')]];
 const at = '2026-10-08T12:00:00.000Z';
 const now = Date.parse(at);
 const binding = { scope: { tenantId: 'tenant-smoke', ownerId: 'owner-smoke', agentId: 'runtime-smoke' },
@@ -22,7 +22,7 @@ const event = { callId: 'call-smoke', toNumber: number, fromNumber: recipient, r
 const request = { ...binding, requestId: 'request-smoke', callId: 'call-smoke', toNumber: recipient, requestedAt: at, expectedPhoneVersion: 2, expectedNumberVersion: 3, expectedRoutingIdentity: 'selector-smoke' };
 const authority = { ...request, explicitlyRequested: true, observedAt: at, expiresAt: new Date(now + 60_000).toISOString() };
 let checks = 0;
-for (const [format, api] of variants.filter(([format]) => !process.argv[2] || process.argv[2] === format)) {
+for (const [format, api, web] of variants.filter(([format]) => !process.argv[2] || process.argv[2] === format)) {
   for (const name of ['isPhoneNumberInAddressBook', 'isAgentPhoneInboundAdmitted', 'isAgentPhoneOutboundAdmitted']) {
     assert.equal(typeof api[name], 'function', `${format}: public ${name}`); checks++;
   }
@@ -33,5 +33,19 @@ for (const [format, api] of variants.filter(([format]) => !process.argv[2] || pr
   assert.equal(api.isAgentPhoneInboundAdmitted({ ...event, fromNumber: number }, snapshot, book, binding, voice, now), false, `${format}: denied inbound`); checks++;
   assert.equal(api.isAgentPhoneOutboundAdmitted(request, snapshot, book, binding, voice, authority, now), true, `${format}: explicit outbound`); checks++;
   assert.equal(api.isAgentPhoneOutboundAdmitted(request, snapshot, book, binding, voice, { ...authority, explicitlyRequested: false }, now), false, `${format}: no explicit request`); checks++;
+  const identity = { ...binding.scope, role: 'master', identity: binding.identity };
+  const webRequest = { requestId: 'web-smoke-request', scope: binding.scope, linkId: 'web-smoke-link', phase: 'before' };
+  const viewer = { kind: 'authenticated', userId: 'web-smoke-user', owner: { tenantId: binding.scope.tenantId, ownerId: binding.scope.ownerId } };
+  const origin = 'https://forge.example.test';
+  const webSnapshot = { ...webRequest, viewer, lifecycle: 'active', configuredOrigin: origin, authorityVersion: 3, observedAt: at, expiresAt: new Date(now + 60_000).toISOString(), agentIdentity: identity };
+  const webResponse = { ok: true, request: webRequest, snapshot: webSnapshot };
+  assert.equal(typeof web.isElevenLabsWebAuthorityUsable, 'function', `${format}: public web authority`); checks++;
+  assert.equal(typeof web.ElevenLabsWebAuthorityResponseSchema.safeParse, 'function', `${format}: public web response`); checks++;
+  assert.equal(web.ElevenLabsWebAuthorityResponseSchema.safeParse(webResponse).success, true, `${format}: resolved web response`); checks++;
+  assert.equal(web.isElevenLabsWebAuthorityUsable(webRequest, webResponse, viewer, origin, 3, identity, new Date(now)), true, `${format}: usable canonical web identity`); checks++;
+  assert.equal(web.isElevenLabsWebAuthorityUsable(webRequest, webResponse, viewer, origin, 3, identity, new Date(now + 60_000)), false, `${format}: expired web identity`); checks++;
+  assert.equal(web.isElevenLabsWebAuthorityUsable(webRequest, webResponse, viewer, origin, 3, { ...identity, identity: { ...identity.identity, vaultAgentId: 102 } }, new Date(now)), false, `${format}: foreign web identity`); checks++;
+  assert.equal(web.isElevenLabsWebAuthorityUsable(webRequest, { ok: false, request: webRequest, error: 'identity_unavailable', snapshot: { ...webSnapshot, agentIdentity: null } }, viewer, origin, 3, identity, new Date(now)), false, `${format}: legacy diagnostic denied`); checks++;
+
 }
-console.log(JSON.stringify({ checks, total: process.argv[2] ? 10 : 20, variants: process.argv[2] ? 1 : 2, status: 'passed' }));
+console.log(JSON.stringify({ checks, total: process.argv[2] ? 17 : 34, variants: process.argv[2] ? 1 : 2, status: 'passed' }));

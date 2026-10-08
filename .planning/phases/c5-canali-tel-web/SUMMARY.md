@@ -1,41 +1,35 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 19:58. Worktree 143-1, codex/c5-canali-bridge, base 27749e4.
+Ultimo aggiornamento: 08/10/2026 20:13. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
-B0a Rubrica + ammissione bridge implementato e testato localmente; nuovo libro105test e gate puri, non handler X9/Forge. Full native4320/4320 in154/154file,0skip; qualità nativa typecheck/lint/build/pack exit0; compilednuovo20/20 ESM+CJS, legacy CJS36/36 + altri probe del comando originale. Campagna finale unica38/38source+2/2compiled,6/6fileidentici. Nessun live, taskgeneraleIN CORSO. Posto C fino20:12. Segue B0b identità D nella callback web; B0c facciata/inviti/history tutti4canali e producer/consumer non ancora fatti. Install frozen235/235riuso,0download, pin/bump nessuno.
+B0a e B0b implementati e testati nel solo bridge. Il task generale resta IN CORSO: facciate/inviti/storico B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
 
-## Semantica da preservare
+Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Suite full finale4351/4351 in155/155file,0skip. Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; compiled ESM+CJS34/34, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
 
-Libro contatti email-only legacy rimane valido e non acquista telefoni inventati. phones facoltativo: null/assenza = fonte telefonica non attestata; [] = fonte completa senza telefoni. Una fonte partial/unavailable non può pubblicare liste telefoniche. Il gate usa solo numero E.164 esatto e fonte Conoscenza corrente/scoped.
+## B0a Rubrica e ammissione
 
-Il gate ammette la politica APPLICATA anche se una politica diversa è soltanto salvata: isPhoneChannelConfigurationApplied prova convergenza desired/applied, non è il gate delle chiamate. Per ammissione serve active applicato, attestation versione applicata, lifecycle loaded/nonarchived, linea/routing correnti e identità R4 per agente; desired nuovo non autorizza effetti. Fuori scope emettere provider effects dal bridge.
+Prodotti b6984d4 (Rubrica) e7df114386ac8544a68464b1b0684f1dc57c692c0 (gate). Nuovi105/105test (21Rubrica+84ammissione), full precedente4320/4320 in154/154file. Campagna finale unica38/38source (6Rubrica+32gate) e2/2compiled con6/6file source/test identici prima/dopo. Baseline Rubrica4rossi/17giàverdi; baseline gate9assertrossi,0errorisecondari sullo scaffold fail-closed con fixture valida.
+
+phones?:E164[]|null non inventa telefoni per il libro email legacy: null/assenza fonte non attestata,[]fonte completa vuota. E.164 esatta/univoca, limite2048 e completezza/freshness/scope/management/runtime/vault. Gate inbound usa policy e voce APPLICATE, lifecycle loaded/nonarchived e attestazione corrente di linea/selettore. Un edit desired pending/failed non sostituisce l'applicato operativo. Outbound solo Rubrica, richiesta esplicita server-owned correlata e TTL<=60sec, generazioni phone/linea/selettore correnti. Public inbound non concede outbound; caller hidden/null negato conservativamente.
+
+Prima campagna327test:7positive invalide per failed:null mancante nella fixture R4; corretta solo fixture, asserzioni intatte, poi327/327. Mutante active-application:2asserzioni funzionali qualificano;2TypeError collaterali ESCLUSI. Nessun import/transform/timeout conta come mutazione funzionale.
+
+## B0b identità web — lotto20:00→20:45
+
+Riusa AgentContextIdentitySchema verificato di D: tenant/owner/runtime esatti, management/vault e Master dell'erede confrontati con identità corrente ricaricata dal server. Response discriminata ammette successo solo con identità nonnull e lifecycle active, richiesta/scope/link/fase correlati. Failurelegacy e helpercurrent conservati: un diagnostic identitynull può essere corrente come correlazione, ma NON è autorità utilizzabile. Nuovo isElevenLabsWebAuthorityUsable richiede anche viewer/origin/versione/tempo correnti e identità canonica identica. Non autorizza da solo politica, invito o risorsa provider: issuer deve ricaricare tutto prima/dopo ogni await.
+
+31/31nuovi test, baseline21verdi/10assertrossi funzionali; regressione mirata168/168 in3/3file. Full finale4351/4351 in155/155file. 14/14mutazioni source qualificate con0errorisecondari e2/2compiled su ESM/CJS; sourceSHA7b57a2666918a4d7aba7544985c9439967b271da763a342c109dc24b9344ff09 ripristinato. Prima mutazione compiled false&& non compilava per narrowing TypeScript: SCARTATA,0qualifica, report preservato; sostituita da negazione compilabile, rosso AssertionError su entrambe le distribuzioni e34/34 dopo ripristino/build. Test expectedIdentityundefined chiamato direttamente per evitare il default JavaScript della fixture, nessuna asserzione indebolita.
+
+## Artefatti generati e perimetro
+
+Su posta coordinatrice200112, dist viene rigenerato una sola volta da F all'integrazione1.45. Dopo prove B0b,100file dist tracked riportati aHEAD e8nuovi generated preservati in/private/tmp/c5-canali-143-generated-0mvo_kdf; distDiffAfter vuoto,0dist committati. B0a ripristinato prima con stessa autorizzazione. Non usare dist HEAD vecchio come prova del nuovo gate: le prove compilate riguardano le build native registrate, la distribuzione finale compete all'integrazione.
 
 ## Prossimo passo
 
-Preparare test address-book, attendere posto, baseline rossa funzionale, aggiunta phones; qualifica mutazioni e commit atomico. Poi test ammissione con API esplicita, baseline fail-closed e guard applicato/fonte/routing/richiesta. B0b/B0c separati, X9/Forge solo dopo producer e assegnazione/pin da coordinatrice. Non tag, push, merge, deploy o live.
+B0c: contratti canonici facciata browser separata da S2S, anteprima/applica, inviti email risolti dal server, test-call/outbound, history comune di TUTTI4kind telegram/email/phone/web (B consuma lo stesso DTO). Prima test/scaffold chiuso e rosso funzionale; singola correzione, mutazioni e ripristino. Poi nuovi worktree X9/Forge e pin da coordinatrice. LeaseC fino20:44:38,1commandopesante/worker1; rinnovo prima di altra suite oltre scadenza.
 
 ## Fruibilità alla consegna (R-34)
 
-Preparazione bridge B0a pronta per revisione del solo lotto. 105/105nuovi controlli (21Rubrica+84ammissione) e4320/4320fullnativi;38/38mutazioni source+2/2compiled nella campagna finale unica con ripristino6/6file. Baseline valido fail-closed9/9rossifunzionali,17dei21testRubrica erano giàverdi e provati poi conmutazioni. Piano42/42requisiti mappati,0/42live,0/2percorsiTelefonico/Webcompleti dalvivo. Il gate pure non verifica firma provider, non autentica utente, non emette effetti, non gestisce idempotenza: lo fanno i producer da implementare nel perimetro successivo, ricaricando fonte dopoogni await. Nessuncanale100%, deploy/push/merge nessuno.
-
-## Preparazione B0a ammissione (non eseguita)
-
-Test scritti nel perimetro, implementazione ancora assente: numero esatto/Rubrica, inbound policy applicata e voce applicata durante edit pending, request/authority outbound server-owned con scope/versione/linea/selector/richiesta/TTL60sec correlati. Nessun boolean browser concede permesso: autorità sarà ricostruita dal produttore. API nova richiede scaffold fail-closed prima del rosso funzionale, nessun TypeError/import error contato come prova. Decisione192927: storico comune di tutti4kind, Bconsuma; raccordo props slug+revision/onRefresh senza DTO scope browser. Test/mutazioni ancora in coda5/5.
-
-## Checkpoint di preparazione — 2026-10-08T19:33:52.184526+02:00
-
-Semaforo ancora5/5 esauriti alla verifica19:33, nessuna lease C. Non è soglia swap: suite/mutazioni non avviate. Due file test WIP presenti non committati: c5-phone-address-book e c5-phone-admission; quest'ultimo attende nuovo modulo fail-closed, non conta errori import come rosso. Codice prodotto base27749e4 ancora immutato. Committati solo PLAN/SUMMARY/PREPARATION.json, non feature o controllo verde. Prossimo heartbeat riprende la riserva e il baseline address-book, poi singola correzione/qualifica prima del modulo ammissione.
-
-## B0a1 Rubrica — 08/10/2026 19:42
-
-Lease C ottenuta19:40 fino20:12. Baseline nuovo file21test:4rossidominio/17giaVerdi (phones rifiutato e limite completo). Aggiunta singola phones?:E164[]|null con2048/univoci/fontecompleta; emaillegacy identico. Dopo aggiunta e ripristino85/85 in2/2file (21nuovi+64C1),0skip;6/6mutazioni funzionali (formato,limite,univocità,completezza,null,legacy-no-default), SHA ripristinatoc4df9f46924a8744363a1693d566b47869d10d1bbfa85157062738c75dd50e7c. Logs/report/runner inproof/. Full/typecheck/build non ancora eseguiti, nuova APIammissione WIP non montata;0live. Commit prodotto contiene solo contratto libro e test; docproof atomici con la medesima correzione. Prossimo B0a2 gateammissione, scaffoldfailclosed prima baseline funzionale.
-
-## B0a2 finale — 08/10/2026 19:58
-
-9/71rossi iniziali su scaffold fail-closed; primo green320/327 aveva7fixturepositive R4invalide per failed:null mancante: non7difetti del prodotto. Aggiunto campo canonico e runtime stopped valido, nessuna asserzione indebolita; fixturevalidata prima di chiamare gate. 327/327 dopo correzione,84testammissione finali (3inputinvalidi,4fonti mancanti/linea/nonapplied,3authorityinvalidi,3schemaTTL aggiuntivi). Baseline fail-closed su fixturecorretta conferma9assertrossi/0errorisecondari. Campagna finale32/32guardammissione+6/6Rubrica+2/2compiled: active-application ha2asserzionifunzionali e2TypeErrorcollaterali ESCLUSI dallaqualifica (mutante bypassa intenzionalmente controllo null), tutti gli altri senzaerrorecollaterale. Nessunerrore import/transform/timeout qualificato. SHA e reports in B0a-FINAL-MUTATIONS.json;6/6file finali identici prima/dopo. Full4320/4320,154/154file. Source phone-number-helper exact match/owner/tenant/vault/time; policy e voce APPLICATE restano operative durante editpending/failed; outbound richiede richiesta esplicita server-owned correlata con TTL<=60sec e generazioni phone/linea/selector; publicinbound non concedeoutbound. Callerhidden/null resta negato nel contratto conservativo, mai default aperto. C2/R4/identità esistenti importati;0writerconsumer/0live.
-
-## Prossimo passo aggiornato
-
-Rileggere PLAN/SUMMARY dopo commit B0a2; B0b sostituisce il placeholder identitynull con D preservando failurelegacy e helpercurrent solo correlazione, aggiunge risposta di successo scoped e helperusable con identityexpectedserver/lifecycleactive. Nessuna ammissione web dedotta dal solo successoschema: producer recheckspolicy/viewer/inviti/mapping/origin prima e dopo await. B0c/B1X9/F1Forge e history4kind ancora da eseguire.
+Pronti solo B0a/B0b del bridge per revisione. Piano42/42requisiti mappati;0/42verifiche live,0/2percorsi Telefono/Web completi dalvivo. I gate non autenticano utente/firma provider, non emettono effetti/sessioni, non gestiscono idempotenza o storico: producer e montaggio ancora mancanti. Vecchio Forge e provider esistenti da riusare come PLAN; nessuna risorsa a pagamento creata, nessun dato reale inventato. Il task resta IN CORSO, non CONSEGNATO globale.
