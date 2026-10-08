@@ -1,6 +1,6 @@
 # CANALI-C2-BRIDGE — SUMMARY
 
-Ultimo aggiornamento: 08/10/2026 12:44 CEST
+Ultimo aggiornamento: 08/10/2026 12:45 CEST
 
 Stato attuale: B1 completato localmente nel prodotto8b0495a9eca69a62075b6d67f065bb9bb8cfcc3c,90/90path autorizzati e8/8protetti identici. B2 avviato12:06, scadenza12:45, comandi/snapshot/routing/ricevute; outbound con contatto canonico rinviato a B3 dopo fonteD. B3 dipendenza Rubrica aperta, B4/BQ/review da fare. Nessuna full12:00–12:30;C2 incompleto e fuori release13. I paragrafi iniziali seguenti sono il checkpoint storico del piano11:49.
 
@@ -51,3 +51,5 @@ Prima guardie21/50rossi AssertionError e29/50verdi; dopo50/50nuovi B4. Mutazioni
 Matrice479/479 (221nuovi e258regressioni),0failed/0pending. FULL NATIVA bridge12:41 con posto2/3 eworker1/testTimeout60000:3448/3448test,142/142file,exit0/success true,0skip. Vecchio smoke CJS36/36+6/6+15/15+16/16+39/39,exit0. Nuovo CJS/ESM44/44,exit0. Posto rilasciato in finally12:42. Nessuna full12:00–12:30;non usati override,esclusioni,NODE_PATH oproviderlive. Audit10/10protetti (8canonici+B1/B2source), tutti i path autorizzati;manifest/lock/versione/C1/Rubrica/voce evecchi test invariati.
 
 C2 incompleto e fuori release13: D ancora non ha fornito simboli/path Rubrica; B3 ammissioni/contact/outbound, X9 eF1 writer non implementati. Questo checkpoint non concede chiamate e non installa handler. Nessun push/merge/deploy/live. Pronto a riprendere B3 dopo proposta canonicaD; nessuna fonte temporanea.
+
+Checkpoint dopo commit12:45: prodottoB4128fc1e1fd93b8c94dffed92fabe3cc17eb3075a,122-1pulito,328/328path autorizzati e10/10protetti. B1+B2+B4 verificati localmente,110/110mutazioni complessive;nessuna consegnaC2 intera. Come broadcast123832: commit verde e resoconto una riga, resto dopo rilascio13 efonte RubricaD. B3 non avviato, nessun simbolo/path ipotetico.
