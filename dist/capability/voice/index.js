@@ -47,4 +47,6 @@ export { VoiceCallMemoryIngestPayloadSchema, } from "./memory-payload.js";
 export { VoiceCallToolLogSchema, VoiceToolCallSourceSchema, } from "./tool-log.js";
 // -- Per-agent voice settings, provider catalog, outbound caller identity (R4, v1.31.0) --
 export * from "./agent-voice-settings.js";
+// -- Models voice descriptor conversion with explicit producer catalog validation --
+export * from "./model-descriptor-voice.js";
 //# sourceMappingURL=index.js.map
