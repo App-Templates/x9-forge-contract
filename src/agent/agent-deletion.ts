@@ -20,7 +20,11 @@ export const AgentDeletionCommandSchema = z.object({
 }).strict();
 export type AgentDeletionCommand = z.infer<typeof AgentDeletionCommandSchema>;
 
-/** Every report includes exactly these scopes; none denotes a shared process or owner resource. */
+/**
+ * Every report includes exactly these runtime scopes; none denotes a shared process or owner resource.
+ * context/workspace detach in-memory references only. Factory retains all filesystem/data writers.
+ * Channel cleanup closes runtime handlers; Factory owns provider resource deletion.
+ */
 export const AgentDeletionStepSchema = z.enum([
   'tombstone', 'admission', 'channels', 'runtime', 'caches', 'context', 'workspace', 'private-state',
 ]);

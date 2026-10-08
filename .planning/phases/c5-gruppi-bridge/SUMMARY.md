@@ -30,3 +30,7 @@ CG6a Forge136-1 congelatoHEADb87fc9f4, prodotto0a206b49,12immagini locali; CG8 g
 ## R35 — raccordo architetturale da decidere prima del consolidamento
 
 Grep attuale/vecchio4f3fc42 e Esistente(R35) aggiunti al PLAN. Filecleanup giaFactory (purge1276/1322, vecchiodeleteAgent616/629/637); il precedente piano delegavacontext/workspace aX9, cambio di writer non da decidereE. Richiesta204828 e avvisoF204832: contratto8pezzi0dfbd9d congelato, nessun consumer/prodotto modificato. Coordinatrice deve scegliere6pezzi X9 oppure definirecontext/workspace soltanto come sgancio riferimenti runtime, conservando filesystemFactory. Prove4300/4300 e mutazioni rimangono riferite all'attuale schema8pezzi, non costituiscono approvazione del cambio di flusso.
+
+## R35 risolta210744 — otto pezzi senza cambio writer
+
+Factory mantiene filesystem e dati/provider. X9 chiude handler canali e sgancia riferimenti runtime context/workspace, conserva tombstone e dimentica cache/retained; mai filecleanup. Aggiornati commento sorgente/README/PLAN, codice privato di commenti byteidentico a97d5c1b; nessuno schema/guardia/test cambiato. Prove/mutazioni precedenti restano del prodotto0dfbd9d, hash sorgente originale preservato nelPROOF; nuovo hash commentato separato. Targeted85fresh dopo commento, niente ripetizione indiscriminatafull/compiled. F revisione+integrazione1.45 e CJS27assert/dtypeCTS espliciti, poi coordinatrice pacchetto/pinconsumer. Nessuna consumer/cancellazione reale.
