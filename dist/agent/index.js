@@ -41,4 +41,5 @@ export * from "./agent-channel-access.js";
 export * from "./agent-channel-access-requests.js";
 // Forge-declared context authority, including explicit Master/heir provenance.
 export * from "./agent-context-identity.js";
+export * from "./agent-knowledge-address-book.js";
 //# sourceMappingURL=index.js.map

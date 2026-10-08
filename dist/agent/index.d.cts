@@ -28,4 +28,5 @@ export * from "./agent-credential-services.cjs";
 export * from "./agent-channel-access.cjs";
 export * from "./agent-channel-access-requests.cjs";
 export * from "./agent-context-identity.cjs";
+export * from "./agent-knowledge-address-book.cjs";
 //# sourceMappingURL=index.d.ts.map

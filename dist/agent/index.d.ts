@@ -28,4 +28,5 @@ export * from "./agent-credential-services.js";
 export * from "./agent-channel-access.js";
 export * from "./agent-channel-access-requests.js";
 export * from "./agent-context-identity.js";
+export * from "./agent-knowledge-address-book.js";
 //# sourceMappingURL=index.d.ts.map

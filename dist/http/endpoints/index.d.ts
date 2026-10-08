@@ -44,4 +44,5 @@ export * from "./internal-models-batch.js";
 export * from "./forge-models.js";
 export * from "./internal-agent-channel-access.js";
 export * from "./forge-agent-channel-access.js";
+export * from "./internal-agent-address-book.js";
 //# sourceMappingURL=index.d.ts.map
