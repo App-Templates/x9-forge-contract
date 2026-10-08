@@ -1,6 +1,6 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 22:37. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 22:40. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
@@ -123,3 +123,5 @@ Riletti PLAN/SUMMARY e posta222728/222855/223040, task: paroleStefano22:27/22:30
 Audit143pulito90f41e9/prodotto06abb33:0wrapperoutbound,c5-phone-outbound nonimplementato,0handler,0effetti. GateB0a puro≠consensoTelegram: nessunagganciodialda rimuovere nel prodottoC. VerificaX9d65read-only voice-prepare-call:36/57–64 producepreview eusaenvprimaryowner, non è da solo sender/conferma; voice-call:435 èdial (nonedit). Chiestopuntodiaggancio corrente alla coor prima consumerdefaultoff. Rubrica8652688projectionphones ancora da correggere dalowner, contactId NONnecessario perM07.
 
 PLAN contiene ora FILEESATTI per bridge integrativo, ForgeF1aowner/attemptWeb0015,ForgeF1bwriter/client/probe-prep, X9phone/web eForgeF2moduli+ownerSA. Migrazione0015 eDBschema/dist4 append daassegnare; una sola writerFactorypolicy/link/inviti, tentativovoice,voiceSessions intatta. CommonwriterB/index raccordati dalla coor, nonedit nelWTB; voice_prepare_call/voice_call/composeBrief/conferma esclusi. Nessun prodotto/modellotipo copiato, pin/WT/schemafileextra ancora da assegnare. No nuove suite/mut/lease in questo lotdocumentale; ultime4524/4524/160,24/24+2/2HTTPrestano invariate,0/42live/0/2percorsi. Non CONSEGNATOglobale.
+
+Corretto anche elenco iniziale delPLAN: voice-prepare-call/voice-call/call-start e storeWeb/phoneledger proposti in precedenza rimossi dagli edit futuri; descrizioneX2 usaFactory/voice owners correnti. FileF1a aggiunge projectionowner-clerk.service:44–45 e6generated types owner/redesignowners, per nonperderephone nei readback esistenti e per compilazione nativa. Solo perimetro proposto/coor,0write fuori143/0runtimechange.

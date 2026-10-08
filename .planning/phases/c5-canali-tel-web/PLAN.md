@@ -92,7 +92,7 @@ Vecchio X9 Live `/live/web/` + `/live/web/session` è WebRTC OpenAI con bearer g
 
 **Web.** Browser → facade Forge/sessione/login/membership/invito → tentativo server-owned → issuer cap-agent-elevenlabs → callback Forge prima e dopo await → identità D/lifecycle/origin/policy/link/provider mapping freschi → signed URL breve → browser → registrazione/storico finale. In v1.44 `web-context.ts` sostituisce identità con z.null e la response ammette solo ok:false; successo impossibile. Gli endpoint C3 sono S2S e non definiscono facciata browser o HTTP inviti. Il link pubblico è già canonico `/parla/:linkId`. App.tsx ora è interamente dietro Login: B deve montare la pagina pubblica e non applicare lo stesso gate a policy public. Il browser non invia un viewer/owner autoritativo, Forge lo ricarica dal proprio server. Signed URL è un bearer: si trasmette solo nella risposta all'ammesso, non in log, storico, screenshot o URL stabile.
 
-**Identità e parsers.** Importare AgentContextIdentitySchema verificato di D, correlare tenant/owner/runtime/management/vault; usare ruoli Master/erede senza inventare tenant/global env. La composizione VoicePrepareCall legacy usa env.FORGE_AGENT_ID anche per owner: il ramo moderno deve consumare la stessa autorità per-call della pipeline voice_call, mantenendo legacy separato e negando configurazioni moderne incomplete. `packages/types/src/agent-context.schema.ts`, agent-manager e i reader channel-access devono validare/preservare optional phoneConfiguration senza riscrivere schema. I campi extras passthrough non attestano autorità.
+**Identità e parsers.** Importare AgentContextIdentitySchema verificato di D, correlare tenant/owner/runtime/management/vault; usare ruoli Master/erede senza inventare tenant/global env. La composizione VoicePrepareCall letta usa env.FORGE_AGENT_ID anche per owner: non usare questo fallback per altri proprietari. La coordinatrice fornisce il punto di aggancio del protocollo di conferma esistente; voice-prepare-call/voice-call e i prompt restano in sola lettura su222855. `packages/types/src/agent-context.schema.ts`, agent-manager e i reader channel-access devono validare/preservare optional phoneConfiguration senza riscrivere schema. I campi extras passthrough non attestano autorità.
 
 **Storico.** calls/voice-webhook-events e riconciliazione sono writer esistenti; audio_retention_allowed=false non autorizza audio. Snapshot pubblico storico separato, limitato/scoped, no raw analysis/segreti. Direzione/durata/conclusione necessitano eventi reali. Se un provider non offre il contenuto o retention lo elimina, UI esplicita l'assenza senza bottone finto; il percorso Ascolta/Rileggi va verificato quando il contenuto esiste.
 
@@ -104,7 +104,7 @@ Ogni lotto massimo 45 minuti/3 tentativi, un solo repo e worktree assegnato per 
 2. **B0b bridge identità web:** sostituire il placeholder con schema D; response successo/discriminata e helper di correlazione coerente; failure legacy e diagnosi senza falso successo. Test per tutte le identità/tenant/owner/role e cambi dopo await.
 3. **B0c bridge facciate/inviti/storico:** contratti browser separati da S2S, preview/apply scoped, issuer/sessione pubblico con solo link/correlation dal browser, inviti email→record server autenticato, proiezione pubblica senza autorità o bearer superfluo. Contratti storia/test-call; riuso chiamate canoniche. Review indipendente; nessun bump package/tag da C, 1.45 integrata con F dalla coordinatrice.
 4. **X1 telefono:** producer C2 in cap-voice + gates alla pipeline già esistente, cap-voice-live firma/linea/selector/media, sources/receipt come C1; core lifecycle/identità. Snapshot+receipt sono fonte UI, non dichiarazioni optimistic. Test/qualifica prima consumers.
-5. **X2 web:** riuso X1provider verificato, mappingStore persistente per policy/link/inviti/tentativi dove competente, auth client callback Forge per-call, sessione/retention/status/policy/catalogo reali. Recheck dopo ogni await, niente creazione risorsa implicita per un semplice GET.
+5. **X2 web:** riuso X1provider verificato e del suo mappingStore; policy/link/inviti dal writerFactory, tentativo premint dalvoice-svc su220707; auth client callback Forge per-call, sessione/retention/status/policy/catalogo reali. Recheck dopo ogni await, niente creazione risorsa implicita per un semplice GET.
 6. **F1 Forge server:** facciate canoniche ownership/CSRF/rate-limit/sessione, authority callback su server-owned attempt persistente; source Rubrica Conoscenza integrato senza secondo address book; history riusata. Timeouts/abort e ricevute validati prima risposta/UI.
 7. **F2 Forge web:** PhoneChannel/WebChannel isolati, moduli configurazione/sessione/storico e client canonici; mount/header/drawer comuni B. UI corrispondente alle 42 righe, desktop/mobile/keyboard e risposta rete; Browser fixture distinta dal vivo.
 8. **Accettazione integrata:** controllo 2 su nuovi pin/versioni da coordinatrice, review altro Codex, fatti reali e prova live X9+Meditation; poi SUMMARY R-34 con evidenze di ogni riga. Canali non consegnato al 100% prima di questo.
@@ -157,16 +157,12 @@ services/cap-voice/src/index.ts
 services/cap-voice/src/routes/phone-channel.ts
 services/cap-voice/src/channels/phone-channel-source.ts
 services/cap-voice/src/channels/phone-channel-backend.ts
-services/cap-voice/src/channels/phone-receipt-store.ts
 services/cap-voice/src/channels/phone-admission-client.ts
-services/cap-voice/src/routes/voice-prepare-call.ts
-services/cap-voice/src/tools/voice-call.ts
 services/cap-voice/src/routes/channel-history.ts
 services/cap-voice/src/persistence/channel-history.ts
 services/cap-voice/src/__tests__/c5-phone/**
 services/cap-voice-live/src/app.ts
 services/cap-voice-live/src/routes/telnyx-webhook.ts
-services/cap-voice-live/src/routes/call-start.ts
 services/cap-voice-live/src/routes/stream.ts
 services/cap-voice-live/src/phone/inbound-router.ts
 services/cap-voice-live/src/phone/shared-number-source.ts
@@ -180,7 +176,6 @@ services/cap-agent-elevenlabs/src/index.ts
 services/cap-agent-elevenlabs/src/web-provider.ts
 services/cap-agent-elevenlabs/src/web-authority-client.ts
 services/cap-agent-elevenlabs/src/web-channel-service.ts
-services/cap-agent-elevenlabs/src/web-channel-store.ts
 services/cap-agent-elevenlabs/src/web-session-issuer.ts
 services/cap-agent-elevenlabs/src/__tests__/c5-web/**
 .planning/phases/c5-canali-tel-web/PLAN.md
@@ -324,6 +319,13 @@ services/factory/src/repositories/owner.repo.ts
 services/factory/src/routes/owner.routes.ts
 packages/types/src/owner.ts
 packages/types/src/redesign/owners.ts
+packages/types/dist/owner.d.ts
+packages/types/dist/owner.d.ts.map
+packages/types/dist/redesign/owners.js
+packages/types/dist/redesign/owners.js.map
+packages/types/dist/redesign/owners.d.ts
+packages/types/dist/redesign/owners.d.ts.map
+services/factory/src/services/owner-clerk.service.ts
 services/factory/tests/c5-owner-phone.test.ts
 services/factory/tests/filiera-f2-migration-chain.test.ts
 services/voice/src/repositories/web-admission.repo.ts
