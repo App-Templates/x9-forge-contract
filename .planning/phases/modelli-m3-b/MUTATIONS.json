@@ -1,0 +1,146 @@
+[
+  {
+    "label": "chat-slot",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "AGENT_CHAT_MODEL_SLOT_ID = 'agent_chat'",
+    "new": "AGENT_CHAT_MODEL_SLOT_ID = 'agent_other'"
+  },
+  {
+    "label": "capability-id",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "AGENT_CORE_MODEL_CAPABILITY_ID = 'agent-core'",
+    "new": "AGENT_CORE_MODEL_CAPABILITY_ID = 'other-core'"
+  },
+  {
+    "label": "reasoning-function",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "function: 'reasoning'",
+    "new": "function: 'embedding'"
+  },
+  {
+    "label": "native-tools",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "tools: true",
+    "new": "tools: false"
+  },
+  {
+    "label": "native-stream",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "stream: false",
+    "new": "stream: true"
+  },
+  {
+    "label": "native-structured",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "structuredOutput: false",
+    "new": "structuredOutput: true"
+  },
+  {
+    "label": "metadata-strict",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "}).strict();",
+    "new": "}).passthrough();"
+  },
+  {
+    "label": "slot-syntax",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "slotId: ModelSlotIdSchema,",
+    "new": "slotId: z.string(),"
+  },
+  {
+    "label": "capability-syntax",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "capability: CapabilityAgentParametersSchema.shape.capability,",
+    "new": "capability: z.string(),"
+  },
+  {
+    "label": "function-enum",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "function: ModelFunctionSchema,",
+    "new": "function: z.string(),"
+  },
+  {
+    "label": "requirements-shape",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "requirements: ModelFeaturesSchema,",
+    "new": "requirements: z.any(),"
+  },
+  {
+    "label": "required-slot",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "slotId: ModelSlotIdSchema,",
+    "new": "slotId: ModelSlotIdSchema.optional(),"
+  },
+  {
+    "label": "required-capability",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "capability: CapabilityAgentParametersSchema.shape.capability,",
+    "new": "capability: CapabilityAgentParametersSchema.shape.capability.optional(),"
+  },
+  {
+    "label": "required-function",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "function: ModelFunctionSchema,",
+    "new": "function: ModelFunctionSchema.optional(),"
+  },
+  {
+    "label": "required-requirements",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "requirements: ModelFeaturesSchema,",
+    "new": "requirements: ModelFeaturesSchema.optional(),"
+  },
+  {
+    "label": "registry-nonempty",
+    "file": "src/model-router/model-consumers.ts",
+    "old": ".min(1).max(64)",
+    "new": ".min(0).max(64)"
+  },
+  {
+    "label": "registry-bound",
+    "file": "src/model-router/model-consumers.ts",
+    "old": ".min(1).max(64)",
+    "new": ".min(1).max(65)"
+  },
+  {
+    "label": "registry-unique",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "new Set(consumers.map(consumer => consumer.slotId)).size === consumers.length",
+    "new": "true"
+  },
+  {
+    "label": "registry-read-detached",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "return structuredClone(consumers);",
+    "new": "return consumers;"
+  },
+  {
+    "label": "lookup-exact",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "consumer.slotId === slotId",
+    "new": "true"
+  },
+  {
+    "label": "lookup-detached",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "return found === undefined ? undefined : structuredClone(found);",
+    "new": "return found;"
+  },
+  {
+    "label": "native-outer-frozen",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "AGENT_CORE_MODEL_CONSUMER = Object.freeze({",
+    "new": "AGENT_CORE_MODEL_CONSUMER = ((value) => value)({"
+  },
+  {
+    "label": "native-nested-frozen",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "requirements: Object.freeze({ tools: true, stream: false, structuredOutput: false })",
+    "new": "requirements: ({ tools: true, stream: false, structuredOutput: false })"
+  },
+  {
+    "label": "public-exports",
+    "file": "src/model-router/index.ts",
+    "old": "export * from './model-consumers.js';",
+    "new": "// export * from './model-consumers.js';"
+  }
+]
