@@ -65,7 +65,7 @@ export function canAdmitElevenLabsWebViewer(rawSnapshot: unknown, expectedScope:
   if (!snapshot.success || !viewer.success || !Number.isFinite(time)) return false;
   const { policy, link, provider, lifecycle, invitation, invitationRevision } = snapshot.data;
   if (!isElevenLabsWebLinkCurrent(link, expectedScope, configuredOrigin)) return false;
-  if (lifecycle !== 'active' || policy.paused || provider.desiredState !== 'active'
+  if (lifecycle !== 'active' || policy.enabled === false || policy.paused || provider.desiredState !== 'active'
     || provider.mapping === null || provider.channel.state !== 'loaded' || provider.channel.loaded !== true
     || provider.channel.readiness !== 'ready' || provider.observedAt === null
     || Date.parse(provider.observedAt) > time || Date.parse(link.createdAt) > time) return false;

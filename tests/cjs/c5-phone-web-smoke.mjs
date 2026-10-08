@@ -57,7 +57,14 @@ for (const [format, api, web, http] of variants.filter(([format]) => !process.ar
   assert.equal(typeof http.isAgentChannelHistoryWithinForgeAuthorization, 'function', `${format}: public history authorization`); checks++;
   assert.equal(http.isAgentChannelHistoryWithinForgeAuthorization(history, { role: 'owner', tenantId: binding.scope.tenantId, ownerId: binding.scope.ownerId }, binding.identity.managementAgentId), true, `${format}: owner history`); checks++;
   assert.equal(http.isAgentChannelHistoryWithinForgeAuthorization(history, { role: 'sa' }, binding.scope.agentId), false, `${format}: history management URL mismatch`); checks++;
+  const webLink = { scope: binding.scope, linkId: webRequest.linkId, url: origin + '/parla/' + webRequest.linkId, createdAt: at };
+  const webMapping = { scope: binding.scope, providerAgentId: 'synthetic-web-agent', origin: 'adopted', createdAt: at, appliedConfigVersion: 3 };
+  const webAdmission = { policy: { scope: binding.scope, version: 3, access: 'owner', paused: false }, link: webLink, provider: { scope: binding.scope, mapping: webMapping, desiredState: 'active', observedAt: at, channel: { channelId: 'synthetic-web-channel', kind: 'web', state: 'loaded', loaded: true, readiness: 'ready' } }, lifecycle: 'active', invitation: null, invitationRevision: null };
+  assert.equal(web.canAdmitElevenLabsWebViewer(webAdmission, binding.scope, viewer, origin, new Date(now)), true, `${format}: legacy enabled admission`); checks++;
+  assert.equal(web.canAdmitElevenLabsWebViewer({ ...webAdmission, policy: { ...webAdmission.policy, enabled: true } }, binding.scope, viewer, origin, new Date(now)), true, `${format}: explicit enabled admission`); checks++;
+  assert.equal(web.canAdmitElevenLabsWebViewer({ ...webAdmission, policy: { ...webAdmission.policy, enabled: false } }, binding.scope, viewer, origin, new Date(now)), false, `${format}: explicit off denied`); checks++;
+
 
 
 }
-console.log(JSON.stringify({ checks, total: process.argv[2] ? 26 : 52, variants: process.argv[2] ? 1 : 2, status: 'passed' }));
+console.log(JSON.stringify({ checks, total: process.argv[2] ? 29 : 58, variants: process.argv[2] ? 1 : 2, status: 'passed' }));

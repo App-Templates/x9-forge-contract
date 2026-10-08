@@ -1,12 +1,12 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 20:29. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 20:38. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
-B0a, B0b e B0c1 storico implementati e testati nel solo bridge. Il task generale resta IN CORSO: facciate/inviti/outbound e letture contenuti B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
+B0a, B0b, B0c1 storico e B0c2a enabled implementati e testati nel solo bridge. Il task generale resta IN CORSO: facciate/inviti/outbound e letture contenuti B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
 
-Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Suite full finale4408/4408 in157/157file,0skip. Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; compiled ESM+CJS52/52, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
+Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Suite full finale4420/4420 in157/157file,0skip. Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; compiled ESM+CJS58/58, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
 
 ## B0a Rubrica e ammissione
 
@@ -32,7 +32,7 @@ B0c: contratti canonici facciata browser separata da S2S, anteprima/applica, inv
 
 ## Fruibilità alla consegna (R-34)
 
-Pronti solo B0a/B0b/B0c1 del bridge per revisione. Piano42/42requisiti mappati;0/42verifiche live,0/2percorsi Telefono/Web completi dalvivo. I gate non autenticano utente/firma provider, non emettono effetti/sessioni, non gestiscono idempotenza o storico: producer e montaggio ancora mancanti. Vecchio Forge e provider esistenti da riusare come PLAN; nessuna risorsa a pagamento creata, nessun dato reale inventato. Il task resta IN CORSO, non CONSEGNATO globale.
+Pronti solo B0a/B0b/B0c1/B0c2a del bridge per revisione. Piano42/42requisiti mappati;0/42verifiche live,0/2percorsi Telefono/Web completi dalvivo. I gate non autenticano utente/firma provider, non emettono effetti/sessioni, non gestiscono idempotenza o storico: producer e montaggio ancora mancanti. Vecchio Forge e provider esistenti da riusare come PLAN; nessuna risorsa a pagamento creata, nessun dato reale inventato. Il task resta IN CORSO, non CONSEGNATO globale.
 
 ## B0c1 storico comune — chiuso entro21:00
 
@@ -43,3 +43,13 @@ La verifica necessita requestId della NUOVA operazione esplicita, record termina
 57/57 nuovi (42dominio+15HTTP), baseline30test22assertrossi/8verdi eHTTP15test1assertrosso/14verdi. Primo green23/30: confronto helper strict riceveva entry completa invece di sola proiezione binding; corretto il prodotto a bindingOf(scope/identity), asserzioni intatte. Prima campagna40/41: limite non qualificato perché IDs entry-0 troppo corti nella fixture; correggo SOLOID e aggiungo positiva100/negativa101, poi finale unica46/46source+2/2compiled funzionali,0errorisecondari;8/8fileSHAidentici. Primo compiled falliva il controllo nativo portable-dts (mancava importzod endpoint):0qualifica, logpreservati, import aggiunto come richiesto dallo stack; buildnative ripristinata0 e2/2compiled AssertionError exportmancante. Full4408/4408 in157/157file,0skip,tsc/lint/build/pack0,compiled52/52 ESM+CJS,legacy36/36+probeoriginali. Dist rigenerato per prove poi ripristinato solo generated su200112,0distcommit. Nessun handler/prova live o percorsoR34completo.
 
 Autorizzazione201558 aggiunge web-channel.ts/web-session.ts e test per enabled opzionale: assente=active legacy, false esplicito=off, distinto da pausa. Segue B0c2 browser/inviti+off e outbound. LeaseC rinnovata fino21:11:19,1worker/1pesante. Lo storico condiviso è preparazione per B, non sua UI o producer già funzionante.
+
+## B0c2a enabled/off — autorizzato201558
+
+Enabled:boolean facoltativo nella policy e nel change canonici; assente resta identico legacy/attivo, false esplicito chiude nuove sessioni anche quando paused:false. Readback CAS confronta anche enabled con fallbacktrue da entrambi i lati. canAdmit già esistente applica off insieme ai gateC3; sessioncurrent già esistente lo richiama dopo await. Nessun altro writer, nessuna creazione/providerpause, link e mapping persistenti invariati. Non promette revoca retroattiva di bearer già emesso.
+
+12/12nuovi test (7policy+5session), baseline8assertrossi/151test,143giaVerdi. Mirati151/151 in2/2file, full4420/4420 in157/157file,0skip;typecheck/lint/nativebuild/checkpack0. Qualifica8/8source+2/2compiled AssertionError,0errorisecondari;2sourceSHA ripristinati e manifest5filefinali. Smoke compilato58/58 ESM+CJS,legacy36/36+probeoriginali. Dist solo generated ripristinato su200112,0distcommittati. Consumer off/pausa non ancora montato,0live.
+
+## R-35 e prossimo lotto
+
+PLAN ora contiene Esistente R35 con grep path:riga dei flussi attuali e vecchioForge4f3fc42: registrazione/scopedvoiceSessions/HMAC/postcall/brief/provider esistenti da riusare. Nuovo issuer/sessione, collocazione policy/link/inviti/tentativi e storageproposti NON sono scelte diC: domanda203655 alla coordinatrice prima di creare i producerX9/Forge. Prima scritturaPLAN fallita per cwd errato dopo domanda, salvataeffettivamente20:37 nel143-1 e rettifica inavanza,nessunaltrafilemodifica. Continuare solo contratti nelperimetro e dati/flowesistenti finché decisione esplicita; non duplicare writer,spostarevoiceSessions oinventare nuova persistedsource. Prossimo B0c2b browserfacade/inviti con Esistente prima di ogni decisione. LeaseC fino21:11:19. TaskglobaleIN CORSO,0/42live,0/2percorsi completi.
