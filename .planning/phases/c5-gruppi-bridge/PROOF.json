@@ -864,5 +864,22 @@
     "tests/http/endpoints/internal-agents-deletion.test.ts": "a6ec80ee5038410fc0a41bd7d16625a745ba08b4e40522dc5f87d5c47ef48d53",
     "tests/cjs/agent-deletion-smoke.cjs": "6cf33451942a5e6d576dc84e8d98721ac66ef37c69dc667e6e509eb3e20fb1b7",
     "tests/cjs/agent-deletion-types.cts": "9c534dffaeffacbc6714695ddb699c06fed834b21e9d7acb23603dca5ea9e7f1"
+  },
+  "ownershipDecision210744": {
+    "steps": 8,
+    "contextWorkspace": "detach in-memory runtime references only",
+    "filesystemAndExternalDataWriter": "Factory existing pipeline",
+    "stackFlowChanged": false,
+    "onlySourceCommentsChanged": true,
+    "sourceWithoutBlockCommentsIdentical": true,
+    "originalSourceSha256": "6316a559b13713c7960c65bb45bea15b006a68c6845b7880a274e50c816a865b",
+    "commentedSourceSha256": "94ced15d48f946f15b16a41f2ecf7a5d5435939418b5d5ed01074a71c055ef02",
+    "reviewIntegrationOwner": "Codex F; coordinator publishes package and consumer pins",
+    "targetedFresh": {
+      "passed": 85,
+      "total": 85,
+      "report": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-ownership-green.json",
+      "sha256": "e7c04d9b3f299edef4fa18d04984da858107b6142e25ff1530c1b2f076a5b976"
+    }
   }
 }

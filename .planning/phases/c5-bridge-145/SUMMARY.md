@@ -7,3 +7,5 @@ Ultimo aggiornamento21:14. LottoF21:09:02–21:54:02. PRESO210744,letturebase/au
 Contratti soltanto: nessun handler/consumer/provider/percorso utente reale montato da F.0live. Appliedrisorsa non reply; historyattestationB3 ancora distinto. B0b/nascita/Spesa esclusi,Chiavi su stradaesistente210744,F0BsoloModelli dopo pacchettopubblico. Nessunpush/deploy. Decisioni/perimetro/refqualificatiprima consolidamento.
 
 21:16: perimetro211227 autorizzato; B congelato c8a2683 unito109ef88. E211247 conferma decisione8pezzi: context/workspace SOLOsgancio riferimenti runtime, filesystemFactory invariato. E97d5c1b inmerge, conflitti soloagent/httpbarrel risolti conservando entrambi gli export. Nessun modelloB0 modificato. C587db2e checkpointSDK nonpronto, attendoqualificafinale.
+
+21:20: Efinal7d4c3f3 pronto e merge senza conflitti. Cfinal211952 c8306c0 pronto SDK88/88 dichiarato, ora da integrare. Ccheckpoint prematuro8b6a469 conservato su branch separato codex/c5-bridge-145-checkpoint-C; delivery ripartita da2bf7187 (nessun reset/cancellazione). Dist diagnostica preservata workspace e riportata esattaHEAD;29/29 Bcompiled diagnostica, non finale. Nessun WIPhistoryC integrato.

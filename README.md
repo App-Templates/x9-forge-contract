@@ -311,7 +311,10 @@ Forge compares `confirmedName` exactly to its authoritative saved name and enfor
 superadmin authorization. X9 independently protects the primary agent and validates mapping.
 
 All eight pieces must be reported: durable tombstone, admission/drain, own channels, logical
-runtime, caches, context, own workspace and runtime-private state. A shared container, owner
+runtime, caches, context references, workspace references and runtime-private state. The
+`context` and `workspace` pieces detach in-memory references only; they never delete files.
+X9 closes runtime channel handlers. Factory remains the sole filesystem and external-data
+cleanup writer, reusing its existing email/bot/Qdrant/database/file pipeline. A shared container, owner
 credentials or owner memory are never deletion scopes. Producers must persist the tombstone
 before effects, use the same mutex as start/reload/apply, prevent resurrection after restart,
 and keep per-piece progress. Same request ID and exact body resumes only unfinished pieces;
