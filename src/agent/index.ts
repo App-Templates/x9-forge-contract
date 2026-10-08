@@ -86,3 +86,6 @@ export * from './agent-context-identity.js';
 
 // C5 resource operations for existing agents; no credential material.
 export * from './agent-channel-resource-operation.js';
+
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from './agent-deletion.js';

@@ -5,3 +5,5 @@ Ultimo aggiornamento21:14. LottoF21:09:02–21:54:02. PRESO210744,letturebase/au
 ## Fruibilità alla consegna (R-34)
 
 Contratti soltanto: nessun handler/consumer/provider/percorso utente reale montato da F.0live. Appliedrisorsa non reply; historyattestationB3 ancora distinto. B0b/nascita/Spesa esclusi,Chiavi su stradaesistente210744,F0BsoloModelli dopo pacchettopubblico. Nessunpush/deploy. Decisioni/perimetro/refqualificatiprima consolidamento.
+
+21:16: perimetro211227 autorizzato; B congelato c8a2683 unito109ef88. E211247 conferma decisione8pezzi: context/workspace SOLOsgancio riferimenti runtime, filesystemFactory invariato. E97d5c1b inmerge, conflitti soloagent/httpbarrel risolti conservando entrambi gli export. Nessun modelloB0 modificato. C587db2e checkpointSDK nonpronto, attendoqualificafinale.

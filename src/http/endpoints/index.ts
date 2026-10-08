@@ -69,3 +69,6 @@ export * from './capability-elevenlabs-web-context.js';
 
 // C5 existing-agent resource operations, browser session only.
 export * from './forge-agent-channel-resource.js';
+
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from './internal-agents-deletion.js';
