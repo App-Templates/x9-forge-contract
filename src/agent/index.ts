@@ -86,3 +86,5 @@ export * from './agent-context-identity.js';
 
 // C5: exact telephone admission and explicit server-owned outbound correlation.
 export * from './agent-phone-admission.js';
+
+export * from './agent-channel-history.js';

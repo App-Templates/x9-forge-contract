@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const variants = [['esm', await import('../../dist/agent/index.js'), await import('../../dist/capability/index.js')], ['cjs', require('../../dist/agent/index.cjs'), require('../../dist/capability/index.cjs')]];
+const variants = [['esm', await import('../../dist/agent/index.js'), await import('../../dist/capability/index.js'), await import('../../dist/http/index.js')], ['cjs', require('../../dist/agent/index.cjs'), require('../../dist/capability/index.cjs'), require('../../dist/http/index.cjs')]];
 const at = '2026-10-08T12:00:00.000Z';
 const now = Date.parse(at);
 const binding = { scope: { tenantId: 'tenant-smoke', ownerId: 'owner-smoke', agentId: 'runtime-smoke' },
@@ -22,7 +22,7 @@ const event = { callId: 'call-smoke', toNumber: number, fromNumber: recipient, r
 const request = { ...binding, requestId: 'request-smoke', callId: 'call-smoke', toNumber: recipient, requestedAt: at, expectedPhoneVersion: 2, expectedNumberVersion: 3, expectedRoutingIdentity: 'selector-smoke' };
 const authority = { ...request, explicitlyRequested: true, observedAt: at, expiresAt: new Date(now + 60_000).toISOString() };
 let checks = 0;
-for (const [format, api, web] of variants.filter(([format]) => !process.argv[2] || process.argv[2] === format)) {
+for (const [format, api, web, http] of variants.filter(([format]) => !process.argv[2] || process.argv[2] === format)) {
   for (const name of ['isPhoneNumberInAddressBook', 'isAgentPhoneInboundAdmitted', 'isAgentPhoneOutboundAdmitted']) {
     assert.equal(typeof api[name], 'function', `${format}: public ${name}`); checks++;
   }
@@ -46,6 +46,18 @@ for (const [format, api, web] of variants.filter(([format]) => !process.argv[2] 
   assert.equal(web.isElevenLabsWebAuthorityUsable(webRequest, webResponse, viewer, origin, 3, identity, new Date(now + 60_000)), false, `${format}: expired web identity`); checks++;
   assert.equal(web.isElevenLabsWebAuthorityUsable(webRequest, webResponse, viewer, origin, 3, { ...identity, identity: { ...identity.identity, vaultAgentId: 102 } }, new Date(now)), false, `${format}: foreign web identity`); checks++;
   assert.equal(web.isElevenLabsWebAuthorityUsable(webRequest, { ok: false, request: webRequest, error: 'identity_unavailable', snapshot: { ...webSnapshot, agentIdentity: null } }, viewer, origin, 3, identity, new Date(now)), false, `${format}: legacy diagnostic denied`); checks++;
+  const entry = { ...binding, entryId: 'history-smoke-entry', kind: 'phone', conversationId: 'history-smoke-conversation', requestId: 'history-smoke-probe', direction: 'outbound', participantName: null, status: 'completed', startedAt: new Date(now - 60_000).toISOString(), endedAt: at, durationSeconds: 60, content: { audio: 'not-retained', transcript: 'unavailable' } };
+  const history = { ...binding, status: 'available', kind: 'phone', observedAt: at, entries: [entry], total: 1, nextCursor: null, lastVerification: { requestId: entry.requestId, entryId: entry.entryId, completedAt: at, outcome: 'completed' } };
+  assert.equal(typeof api.isAgentChannelHistoryCurrent, 'function', `${format}: public history`); checks++;
+  assert.equal(typeof api.isAgentChannelHistoryVerificationCurrent, 'function', `${format}: public history verification`); checks++;
+  assert.equal(api.AgentChannelHistoryResponseSchema.safeParse(history).success, true, `${format}: canonical history`); checks++;
+  assert.equal(api.isAgentChannelHistoryCurrent(history, binding, 'phone', now), true, `${format}: scoped current history`); checks++;
+  assert.equal(api.isAgentChannelHistoryVerificationCurrent(history, binding, 'phone', entry.requestId, now), true, `${format}: current explicit history verification`); checks++;
+  assert.equal(api.isAgentChannelHistoryCurrent(history, { ...binding, scope: { ...binding.scope, ownerId: 'foreign-smoke' } }, 'phone', now), false, `${format}: foreign history denied`); checks++;
+  assert.equal(typeof http.isAgentChannelHistoryWithinForgeAuthorization, 'function', `${format}: public history authorization`); checks++;
+  assert.equal(http.isAgentChannelHistoryWithinForgeAuthorization(history, { role: 'owner', tenantId: binding.scope.tenantId, ownerId: binding.scope.ownerId }, binding.identity.managementAgentId), true, `${format}: owner history`); checks++;
+  assert.equal(http.isAgentChannelHistoryWithinForgeAuthorization(history, { role: 'sa' }, binding.scope.agentId), false, `${format}: history management URL mismatch`); checks++;
+
 
 }
-console.log(JSON.stringify({ checks, total: process.argv[2] ? 17 : 34, variants: process.argv[2] ? 1 : 2, status: 'passed' }));
+console.log(JSON.stringify({ checks, total: process.argv[2] ? 26 : 52, variants: process.argv[2] ? 1 : 2, status: 'passed' }));

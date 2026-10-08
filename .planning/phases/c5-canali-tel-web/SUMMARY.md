@@ -1,12 +1,12 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 20:13. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 20:29. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
-B0a e B0b implementati e testati nel solo bridge. Il task generale resta IN CORSO: facciate/inviti/storico B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
+B0a, B0b e B0c1 storico implementati e testati nel solo bridge. Il task generale resta IN CORSO: facciate/inviti/outbound e letture contenuti B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
 
-Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Suite full finale4351/4351 in155/155file,0skip. Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; compiled ESM+CJS34/34, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
+Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Suite full finale4408/4408 in157/157file,0skip. Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; compiled ESM+CJS52/52, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
 
 ## B0a Rubrica e ammissione
 
@@ -32,4 +32,14 @@ B0c: contratti canonici facciata browser separata da S2S, anteprima/applica, inv
 
 ## Fruibilità alla consegna (R-34)
 
-Pronti solo B0a/B0b del bridge per revisione. Piano42/42requisiti mappati;0/42verifiche live,0/2percorsi Telefono/Web completi dalvivo. I gate non autenticano utente/firma provider, non emettono effetti/sessioni, non gestiscono idempotenza o storico: producer e montaggio ancora mancanti. Vecchio Forge e provider esistenti da riusare come PLAN; nessuna risorsa a pagamento creata, nessun dato reale inventato. Il task resta IN CORSO, non CONSEGNATO globale.
+Pronti solo B0a/B0b/B0c1 del bridge per revisione. Piano42/42requisiti mappati;0/42verifiche live,0/2percorsi Telefono/Web completi dalvivo. I gate non autenticano utente/firma provider, non emettono effetti/sessioni, non gestiscono idempotenza o storico: producer e montaggio ancora mancanti. Vecchio Forge e provider esistenti da riusare come PLAN; nessuna risorsa a pagamento creata, nessun dato reale inventato. Il task resta IN CORSO, non CONSEGNATO globale.
+
+## B0c1 storico comune — chiuso entro21:00
+
+Contratto UNICO telegram/email/phone/web con binding management/runtime/vault/owner/tenant; pagina massimo100, total:null significa denominatore non attestato, unavailable non viene trasformato in lista vuota. Contenuti solo metadati di disponibilità/retention, nessun bearer/audio/transcript/provider raw nel listato. Le letture autorizzate dei contenuti restano nel prossimo lotto. Identificatori canonici sono riferimenti del record locale, non provider raw message-id. Eventi terminali richiedono data vera; active/unknown non inventano durata o conclusione. Durata attestata non può eccedere l'intervallo start/end; durata null è sconosciuta, non0. Fonte e record completi, recenti, della stessa porta; doppioni/futuro/totali falsi negati.
+
+La verifica necessita requestId della NUOVA operazione esplicita, record terminale correlato/outcome completed e conclusione recente: un vecchio evento storico, una pagina appena aggiornata o un mapping sano non prova il canale. lastVerification descrive un record della pagina; su pagine che non lo contengono rimane null. Producer dovrà attestare il percorso end-to-end, schema/GET non lo esegue. GET canonici /internal/agents/:agentId/channels/:kind/history e /api/agents/:agentId/channels/:kind/history, auth secret/session+SA-or-owner rispettivamente. URL browser usa management id, scope interno runtime, ownership verificata dal server; nessuna autorità browser.
+
+57/57 nuovi (42dominio+15HTTP), baseline30test22assertrossi/8verdi eHTTP15test1assertrosso/14verdi. Primo green23/30: confronto helper strict riceveva entry completa invece di sola proiezione binding; corretto il prodotto a bindingOf(scope/identity), asserzioni intatte. Prima campagna40/41: limite non qualificato perché IDs entry-0 troppo corti nella fixture; correggo SOLOID e aggiungo positiva100/negativa101, poi finale unica46/46source+2/2compiled funzionali,0errorisecondari;8/8fileSHAidentici. Primo compiled falliva il controllo nativo portable-dts (mancava importzod endpoint):0qualifica, logpreservati, import aggiunto come richiesto dallo stack; buildnative ripristinata0 e2/2compiled AssertionError exportmancante. Full4408/4408 in157/157file,0skip,tsc/lint/build/pack0,compiled52/52 ESM+CJS,legacy36/36+probeoriginali. Dist rigenerato per prove poi ripristinato solo generated su200112,0distcommit. Nessun handler/prova live o percorsoR34completo.
+
+Autorizzazione201558 aggiunge web-channel.ts/web-session.ts e test per enabled opzionale: assente=active legacy, false esplicito=off, distinto da pausa. Segue B0c2 browser/inviti+off e outbound. LeaseC rinnovata fino21:11:19,1worker/1pesante. Lo storico condiviso è preparazione per B, non sua UI o producer già funzionante.
