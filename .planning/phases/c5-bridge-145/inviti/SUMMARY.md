@@ -1,6 +1,6 @@
 # Bridge 1.45 inviti — SUMMARY
 
-Ultimo aggiornamento: 22:07 CEST. APPROVE limitato al lotto SDK dell’autore 062dab3175665e91d60591530da6c574538ff67e. Merge locale 35f6e7d sopra 92e669a senza conflitti. Zero riparazioni di prodotto; timer 21:57:19–22:42:19 rispettato. Consegna finale dopo commit di distribuzioni e prove.
+Ultimo aggiornamento: 22:08 CEST. APPROVE limitato al lotto SDK dell’autore 062dab3175665e91d60591530da6c574538ff67e. Merge locale 35f6e7d sopra 92e669a senza conflitti. Zero riparazioni di prodotto; timer 21:57:19–22:42:19 rispettato. Distribuzioni e prove committate in 482b44f045384c26e485c2ae93af94300b1cc861. Worktree pulito verificato dopo il commit; pronto per la consegna alla coordinatrice.
 
 ## Fruibilità alla consegna (R-34)
 
