@@ -1,8 +1,8 @@
 # C5 Canali TG/email — bridge B
 
-Ultimo aggiornamento: 08/10/2026 20:47 CEST.
+Ultimo aggiornamento: 08/10/2026 20:58 CEST.
 
-B1 implementato e testato, prodotto `f5fef32`. Entro il lotto 20:33–21:18, nessuna riparazione del prodotto; una fixture CAS corretta nella qualifica (una versione applied paused diversa da desired active deve essere inferiore, non uguale). B2 segue; B3 dipende dall'integrazione HISTORY4 di C 89cc499, richiesta nella posta 204435. Nessun file di altri Codex modificato.
+B1 implementato e testato, prodotto `f5fef32`. Entro il lotto 20:33–21:18, nessuna riparazione del prodotto; una fixture CAS corretta nella qualifica (una versione applied paused diversa da desired active deve essere inferiore, non uguale). B2 implementato e testato, prodotto `99bf8db`; B3 dipende dall'integrazione HISTORY4 di C 89cc499, richiesta nella posta 204435. Nessun file di altri Codex modificato.
 
 ## Fruibilità alla consegna (R-34)
 
@@ -32,7 +32,7 @@ Comando browser senza identità, risorsa, credenziali o URL. Intento server con 
 | Lotto | Prodotto + test | Prove |
 |---|---|---|
 | B1 | f5fef32 | B1-PROOF.json, B1-red/green/full/types/lint.txt, B1-mutation-results.json e raw log; commit documentale immediatamente successivo |
-| B2 | da eseguire | facciata Forge e progress |
+| B2 | 99bf8db | B2-PROOF.json, B2-red/green/full.txt, B2-native-quality.json, B2-mutation-results.json e 28 raw log |
 | B3 | dipendenza richiesta | HISTORY4 unico di C, poi probe |
 
 ## Scelte da confermare
@@ -43,3 +43,18 @@ Comando browser senza identità, risorsa, credenziali o URL. Intento server con 
 - Storico C 89cc499 non presente nella base ae7c464; B3 aspetta integrazione autorizzata. Pin/vendor consumer148/149 e dist competono alla coordinatrice/F, non a B.
 
 Raw output conservati come .txt: la regola .gitignore esclude *.log. Le copie mantengono i byte originali senza forzare gitignore.
+
+
+## B2 — facciata Forge e avanzamento
+
+POST della risorsa e GET di una ricevuta scoped alla porta e al requestId. Params/errori/auth sessione sono quelli C1, senza DTO duplicati. Helper autorizzazione owner+tenant o SA server, helper route con management identity/porta/requestId e binding completo. I path builder validano i parametri e codificano requestId. Body della creazione usa il comando B1, progress è sola lettura; nessun authType S2S al browser. Il manual-token precedente resta separato. Nessun handler installato e nessun flusso fra servizi cambiato (R-35 nel PLAN).
+
+- **33/33** test nuovi rossi per export prima del codice, poi **33/33** verdi. Primo tentativo 32/33 rosso: un toThrow passava per export mancante; prima di scrivere codice è stata aggiunta la verifica esplicita della disponibilità dei builder. Quel falso verde non è contato come prova.
+- **28/28** mutazioni pertinenti nel primo giro completo, SHA sorgente ripristinata e full successiva verde; la lista comprende i confini auth/route e i collegamenti esatti dei descriptor, non prova che esista un handler operativo.
+- Ultima full nativa **4327/4327**, **154/154** file, zero falliti/saltati: include **112/112 nuovi** (79 B1 + 33 B2) e **4215/4215 precedenti**. Non si sommano i risultati delle full successive.
+- Typecheck e lint completi exit0 verificati dai risultati originali dei tool in B2-native-quality.json. Totale mutazioni source B1+B2 **62/62** (34+28), nessuna mutazione compiled/CJS dichiarata. Dist/build/CJS/pack ancora esclusi per decisione 202442.
+- Audit: diff --check pulito; diff ae7c464 su configuration/access/package/lock/workspace/dist vuoto. Hook di perimetro passato, nessun bypass. Le sole modifiche a file esistenti sono le due aggiunte di export nei barrel, dichiarate 203857 e 205219.
+
+## Residui immediati B3
+
+HISTORY4 89cc499 è stata letta come blob Git di questo stesso repo, non modificata. La base147 non la contiene: attendo integrazione source autorizzata. Verifica condivisa identifica binding/porta/requestId/record terminale, ma non basta un outbound consegnato a dire LLM reply. Il probe deve attestare vero ingresso owner → turno → risposta sullo stesso canale, con risorsa/versione correnti e richiesta nuova. Nessun schema parallelo viene creato per aggirare la dipendenza. Anche la fonte del destinatario owner Telegram deve essere identificata: una chat ammessa non prova che sia l'account dell'owner. Prima del consumer occorre la decisione R-35, senza fallback al chat ID globale o destinatario arbitrario dal body.
