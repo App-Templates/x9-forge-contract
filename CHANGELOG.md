@@ -10,6 +10,19 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.44.0 — voce, telefono, canale web e identità esplicita del contesto agente
+
+### Added (additive)
+
+- `./capability` / `./http/endpoints`: **descrittore della voce** per capacità vocali (BRIDGE-VOICE-DESCRIPTOR). Autore Codex E, verifica Codex F (APPROVE).
+- `./http/endpoints`: **contratto del canale telefono** (CANALI-C2-BRIDGE B1+B2+B4). Autore Codex F, verifica Codex D (APPROVE).
+- `./agent`: **identità esplicita del contesto agente** con ruolo master/erede e provenienza dal Master, funzione unica di riconoscimento (BRIDGE-IDENTITA-AGENTE, R-33). Autore Codex D, verifica Codex A (APPROVE).
+- `./http/endpoints`: **contratti del canale web** — link, sessione, catalogo conversazionale e callback di ammissione Forge fail-closed (CANALI-C3-BRIDGE B1+B2+B3). Autore Codex A, verifica Codex F (APPROVE, suite completa 3562/3562).
+
+Solo aggiunte: nessun simbolo esistente cambia o viene rimosso.
+
+---
+
 ## v1.43.0 — registro canonico dei consumer di modello (Modelli M3)
 
 ### Added (additive)

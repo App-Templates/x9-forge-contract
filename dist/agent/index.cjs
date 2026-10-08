@@ -75,4 +75,9 @@ __exportStar(require("./agent-credential-services.cjs"), exports);
 // C1 explicit door access; policy absence retains legacy behavior.
 __exportStar(require("./agent-channel-access.cjs"), exports);
 __exportStar(require("./agent-channel-access-requests.cjs"), exports);
+// C2 shared phone door, separately scoped from the two birth channels.
+__exportStar(require("./agent-phone-channel.cjs"), exports);
+__exportStar(require("./agent-phone-commands.cjs"), exports);
+// Forge-declared context authority, including explicit Master/heir provenance.
+__exportStar(require("./agent-context-identity.cjs"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,13 @@
+{
+  "negativeCallsRejected": 5,
+  "total": 5,
+  "diagnostics": [
+    ".planning/phases/bridge-identita-agente/consumer-types.ts(9,28): error TS2345: Argument of type '{ agentId: string; ownerId: string; tenantId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; }' is not assignable to parameter of type '{ agentId: string; ownerId: string; tenantId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; role: \"master\"; masterAgentId?: undefined; } | { agentId: string; ... 4 more ...; masterAgentId: string; }'.",
+    ".planning/phases/bridge-identita-agente/consumer-types.ts(11,28): error TS2345: Argument of type '{ role: \"erede\"; agentId: string; ownerId: string; tenantId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; }' is not assignable to parameter of type '{ agentId: string; ownerId: string; tenantId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; role: \"master\"; masterAgentId?: undefined; } | { agentId: string; ... 4 more ...; masterAgentId: string; }'.",
+    ".planning/phases/bridge-identita-agente/consumer-types.ts(13,28): error TS2345: Argument of type '{ role: \"master\"; masterAgentId: string; agentId: string; ownerId: string; tenantId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; }' is not assignable to parameter of type '{ agentId: string; ownerId: string; tenantId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; role: \"master\"; masterAgentId?: undefined; } | { agentId: string; ... 4 more ...; masterAgentId: string; }'.",
+    ".planning/phases/bridge-identita-agente/consumer-types.ts(15,55): error TS2322: Type '{ managementAgentId: string; runtimeAgentId: string; }' is not assignable to type '{ managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; } | { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }'.",
+    ".planning/phases/bridge-identita-agente/consumer-types.ts(17,28): error TS2345: Argument of type '{ agentId: string; ownerId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; role: \"master\"; }' is not assignable to parameter of type '{ agentId: string; ownerId: string; tenantId: string; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; role: \"master\"; masterAgentId?: undefined; } | { agentId: string; ... 4 more ...; masterAgentId: string; }'."
+  ],
+  "restoredExit": 0,
+  "classification": "compiler rejection; not semantic AssertionError"
+}

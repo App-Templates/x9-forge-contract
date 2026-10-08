@@ -1,0 +1,8 @@
+{
+  "exportsMatched": 5,
+  "exportsExpected": 5,
+  "cjs": true,
+  "esm": true,
+  "checksPassed": 13,
+  "checksTotal": 13
+}

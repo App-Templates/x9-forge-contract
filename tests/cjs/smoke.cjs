@@ -31,6 +31,28 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+// C3-B1: the canonical Web policy/invitation API must exist in the real CJS package.
+const webChannel = require('@x9-forge/contracts/capability');
+// C3-B3: validate the real compiled callback and its unresolved-identity denial gate.
+assert.equal(typeof webChannel.isElevenLabsWebAuthorityCurrent, 'function');
+const webAuthority = require('@x9-forge/contracts/http').elevenLabsWebAuthorityContract;
+assert.ok(webAuthority);
+assert.equal(webAuthority.authType, 'token');
+assert.equal(webAuthority.authHeader, require('@x9-forge/contracts/auth').INTERNAL_TOKEN_HEADER);
+const authorityRequest = { requestId: 'attempt-0001', scope: { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'runtime-heir' }, linkId: 'link-0000001', phase: 'before' };
+const authoritySnapshot = { ...authorityRequest, viewer: { kind: 'anonymous' }, lifecycle: 'active', configuredOrigin: 'https://forge.example', authorityVersion: 3, observedAt: '2026-10-08T12:00:00Z', expiresAt: '2026-10-08T12:01:00Z', agentIdentity: null };
+assert.ok(webChannel.ElevenLabsWebAuthorityResponseSchema);
+assert.equal(webChannel.ElevenLabsWebAuthorityResponseSchema.safeParse({ ok: true, request: authorityRequest, error: 'identity_unavailable', snapshot: authoritySnapshot }).success, false);
+assert.ok(webChannel.ElevenLabsWebAuthoritySnapshotSchema);
+assert.equal(webChannel.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...authoritySnapshot, agentIdentity: {} }).success, false);
+assert.equal(typeof webChannel.canAdmitElevenLabsWebViewer, 'function');
+assert.equal(typeof webChannel.isElevenLabsWebCatalogSelectionCurrent, 'function');
+assert.equal(require('@x9-forge/contracts/http').elevenLabsWebSessionContract?.authType, 'secret');
+assert.equal(require('@x9-forge/contracts/http').elevenLabsWebPublicPath?.('synthetic-link'), '/parla/synthetic-link');
+assert.equal(typeof webChannel.isElevenLabsWebPolicyResultCurrent, 'function');
+assert.equal(typeof webChannel.isElevenLabsWebInvitationCurrent, 'function');
+assert.equal(webChannel.ElevenLabsWebPolicySchema.safeParse({scope:{tenantId:'synthetic-tenant',ownerId:'synthetic-owner',agentId:'synthetic-agent'},version:1,access:'owner',paused:false}).success, true);
+
 
 /** @type {Array<{ specifier: string, knownSymbol: string, expectedType?: string, expectedValue?: unknown }>} */
 const PROBES = [

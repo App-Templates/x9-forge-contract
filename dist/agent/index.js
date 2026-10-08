@@ -39,4 +39,9 @@ export * from "./agent-credential-services.js";
 // C1 explicit door access; policy absence retains legacy behavior.
 export * from "./agent-channel-access.js";
 export * from "./agent-channel-access-requests.js";
+// C2 shared phone door, separately scoped from the two birth channels.
+export * from "./agent-phone-channel.js";
+export * from "./agent-phone-commands.js";
+// Forge-declared context authority, including explicit Master/heir provenance.
+export * from "./agent-context-identity.js";
 //# sourceMappingURL=index.js.map

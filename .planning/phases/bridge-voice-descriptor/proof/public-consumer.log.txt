@@ -1,0 +1,2 @@
+ESM: 3/3 public package assertions passed
+CJS: 3/3 public package assertions passed

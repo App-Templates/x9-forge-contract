@@ -1,0 +1,20 @@
+[
+  {
+    "name": "policy-export",
+    "exit": 1,
+    "semanticAssertion": true,
+    "restoredSourceSha256": "e1c2d9eb4682201d0e2652bea1da7148ff7564312481d3bab6ded6daa92223fe"
+  },
+  {
+    "name": "invitation-export",
+    "exit": 1,
+    "semanticAssertion": true,
+    "restoredSourceSha256": "e1c2d9eb4682201d0e2652bea1da7148ff7564312481d3bab6ded6daa92223fe"
+  },
+  {
+    "name": "policy-shape",
+    "exit": 1,
+    "semanticAssertion": true,
+    "restoredSourceSha256": "e1c2d9eb4682201d0e2652bea1da7148ff7564312481d3bab6ded6daa92223fe"
+  }
+]

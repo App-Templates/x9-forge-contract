@@ -1,0 +1,942 @@
+{
+  "initial": {
+    "exit": 0,
+    "total": 50,
+    "passed": 50,
+    "failed": 0,
+    "success": true,
+    "semantic": []
+  },
+  "hashes": {
+    "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+    "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+  },
+  "mutations": [
+    {
+      "name": "internal-path-8",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts uses static phone paths while retaining agent scope for reads and apply"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-method-8",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts uses static phone paths while retaining agent scope for reads and apply"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-auth-8",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts requires the existing internal secret boundary: '/internal/agents/:agentId/channels/ph\u2026'"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-path-12",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts uses static phone paths while retaining agent scope for reads and apply"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-method-12",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts uses static phone paths while retaining agent scope for reads and apply"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-auth-12",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts requires the existing internal secret boundary: '/internal/agents/:agentId/channels/ph\u2026'"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-path-18",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts uses static phone paths while retaining agent scope for reads and apply"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-method-18",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts uses static phone paths while retaining agent scope for reads and apply"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "internal-auth-18",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts requires the existing internal secret boundary: '/internal/channels/phone/route'"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "forge-agent",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation does not confuse runtime and management or accept another agent of the same owner"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "draft-archived",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation does not preview an archived agent"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "draft-versions",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 48,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 0",
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 1"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "draft-routing",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 48,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 2",
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 3"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "preview-authority",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 44,
+        "failed": 6,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation rejects missing, foreign or client-shaped authority 0",
+          "phone Forge HTTP authority and draft correlation rejects missing, foreign or client-shaped authority 1",
+          "phone Forge HTTP authority and draft correlation rejects missing, foreign or client-shaped authority 2",
+          "phone Forge HTTP authority and draft correlation rejects missing, foreign or client-shaped authority 3",
+          "phone Forge HTTP authority and draft correlation rejects missing, foreign or client-shaped authority 4",
+          "phone Forge HTTP authority and draft correlation does not confuse runtime and management or accept another agent of the same owner"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "preview-current",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 46,
+        "failed": 4,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation rejects noncurrent preview at 1791453660001",
+          "phone Forge HTTP authority and draft correlation rejects noncurrent preview at 1791453599999",
+          "phone Forge HTTP authority and draft correlation rejects noncurrent preview at NaN",
+          "phone Forge HTTP authority and draft correlation rejects noncurrent preview at Infinity"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "forge-path-60",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses only the requested agent and static phone segment"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "forge-method-60",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses only the requested agent and static phone segment"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "forge-path-64",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses only the requested agent and static phone segment"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "forge-method-64",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses only the requested agent and static phone segment"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "forge-path-69",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses only the requested agent and static phone segment"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "forge-method-69",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses only the requested agent and static phone segment"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "params-strict",
+      "file": "internal",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone internal HTTP contracts cannot supply door kind or owner in params"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "owner-scope",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation rejects missing, foreign or client-shaped authority 2"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "tenant-scope",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation rejects missing, foreign or client-shaped authority 3"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "sa-supported",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 48,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation accepts server SA or the exact owner and tenant for the management route",
+          "phone Forge HTTP authority and draft correlation parses a phone-only intent and an actual roundtrip preview"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "draft-cas-order",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation requires phone policy and explicit outbound permission"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "preview-cas-echo",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 44,
+        "failed": 6,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 0",
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 1",
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 2",
+          "phone Forge HTTP authority and draft correlation rejects stale CAS 3",
+          "phone Forge HTTP authority and draft correlation does not preview an archived agent",
+          "phone Forge HTTP authority and draft correlation requires request id echo and rejects extra preview metadata"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "preview-exact-intent",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 46,
+        "failed": 4,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation cannot correlate a different unsaved intent 0",
+          "phone Forge HTTP authority and draft correlation cannot correlate a different unsaved intent 1",
+          "phone Forge HTTP authority and draft correlation cannot correlate a different unsaved intent 2",
+          "phone Forge HTTP authority and draft correlation cannot correlate a different unsaved intent 3"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "draft-strict",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 42,
+        "failed": 8,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 0",
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 1",
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 2",
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 3",
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 4",
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 5",
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 6",
+          "phone Forge HTTP authority and draft correlation cannot submit authority, voice, target or a copied contacts list 7"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "preview-strict",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 49,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation requires request id echo and rejects extra preview metadata"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "browser-session",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 47,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses session and owner guards: '/api/agents/:agentId/channels/phone/a\u2026'",
+          "phone Forge HTTP authority and draft correlation uses session and owner guards: '/api/agents/:agentId/channels/phone/a\u2026'",
+          "phone Forge HTTP authority and draft correlation uses session and owner guards: '/api/agents/:agentId/channels/phone/a\u2026'"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    },
+    {
+      "name": "browser-authorization",
+      "file": "forge",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 50,
+        "passed": 47,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone Forge HTTP authority and draft correlation uses session and owner guards: '/api/agents/:agentId/channels/phone/a\u2026'",
+          "phone Forge HTTP authority and draft correlation uses session and owner guards: '/api/agents/:agentId/channels/phone/a\u2026'",
+          "phone Forge HTTP authority and draft correlation uses session and owner guards: '/api/agents/:agentId/channels/phone/a\u2026'"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hashes": {
+        "internal": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+        "forge": "79f5edb2e62188fdb8b2f09da416032b56817c33a926da6625f6e9f438f1cf38"
+      }
+    }
+  ]
+}

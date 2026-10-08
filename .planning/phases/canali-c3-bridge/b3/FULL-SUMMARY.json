@@ -1,0 +1,23 @@
+{
+  "command": [
+    "pnpm",
+    "-C",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+    "exec",
+    "vitest",
+    "run",
+    "--maxWorkers=2",
+    "--no-file-parallelism",
+    "--testTimeout=60000",
+    "--reporter=json",
+    "--outputFile=/private/tmp/codex-a-canali-c3-b3-20261008/full.json"
+  ],
+  "environment": "empty inherited environment, Node24; acquired x9-posti forge-v2-codex-a-c3-b3",
+  "exit": 0,
+  "total": 3553,
+  "passed": 3553,
+  "failed": 0,
+  "pending": 0,
+  "files": 144,
+  "failedFiles": 0
+}

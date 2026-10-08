@@ -87,3 +87,11 @@ export * from './approvals/index.js';
 
 // cap-backup: restore points of the owner's servers, first client of the signed approvals (phase 59)
 export * from './backup/index.js';
+
+// C3-B1: independent Web admission policy and server-owned invitations.
+export * from './agent-elevenlabs/web-channel.js';
+
+export * from './agent-elevenlabs/web-session.js';
+export * from './agent-elevenlabs/web-catalog.js';
+
+export * from './agent-elevenlabs/web-context.js';

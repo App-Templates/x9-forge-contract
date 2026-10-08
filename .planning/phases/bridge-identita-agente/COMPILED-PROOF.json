@@ -1,0 +1,20 @@
+{
+  "qualified": 2,
+  "total": 2,
+  "mutations": [
+    {
+      "format": "esm",
+      "path": "dist/agent/index.js",
+      "sha256": "441e2ad11bd8203d8b996deb79c8e23729a2c80cf8bc54b477d4abbae2701229",
+      "semanticRed": true,
+      "restore": 18
+    },
+    {
+      "format": "cjs",
+      "path": "dist/agent/index.cjs",
+      "sha256": "4ee76596bacf144dc833963e3f482f029a06ab171583e953ced6b7b8fa39329b",
+      "semanticRed": true,
+      "restore": 18
+    }
+  ]
+}

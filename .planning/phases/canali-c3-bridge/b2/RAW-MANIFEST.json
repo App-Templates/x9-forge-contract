@@ -1,0 +1,2662 @@
+[
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/CJS-MUTATIONS.json",
+    "sha256": "3a8042a2f9cab21d0e1732cc39767e320abc1b78dcf546616333f56f63d29ea3",
+    "bytes": 918
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/FULL-SUMMARY.json",
+    "sha256": "cd17f34149106029c7c598330c1ab3acb3d23824dba0a722e1bacf58cf26deb8",
+    "bytes": 546
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/HTTP-MUTATIONS.json",
+    "sha256": "14179eade0c35381db27567ecc28ec3e9c060291138cf624241cd4758c148ddc",
+    "bytes": 6591
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/MUTATIONS.json",
+    "sha256": "afa5e699d02ad3e8c3635515894154ef88fed5d87d642187af51bb7375009909",
+    "bytes": 16978
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/QUALITY.json",
+    "sha256": "34ba40fed1a1206b659f89a04734714bfbcb4aa67ab4e77c100a570637e6a0fb",
+    "bytes": 1403
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/MUTATIONS.json",
+    "sha256": "eda83e9d6f75925eff5e07464e6269541cd07f11afbe5205ee516dc4ce4fe206",
+    "bytes": 16319
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-clock.json",
+    "sha256": "3bc9aae02488b6fdd427582abd093dc272bdc945f5594f4ad2a37c46f623d2ed",
+    "bytes": 28325
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-clock.log",
+    "sha256": "96f7fda83a6e828525f6001543b8accbbcc1d4253185bb48fed513fc5183f06e",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-invite-current.json",
+    "sha256": "a8cb23effa25217e3a48a8e6a9f99d36221e20bbc06df89e09cc006a9bbe468d",
+    "bytes": 29992
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-invite-current.log",
+    "sha256": "792570ce53724f658538620f95b3bc34ff2b39cadd4f5ff6753925559666bed0",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-invite-mode.json",
+    "sha256": "ed323c49a8dca5bcbd7facb4149c9f1bb204529cff86c063cf198ee0cd3401d0",
+    "bytes": 28356
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-invite-mode.log",
+    "sha256": "d840f2ddf3e4f0864edfe3fb93ee7e7dee3269b181af5373592381f3a1df4bf2",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-lifecycle.json",
+    "sha256": "9539dd24b9cce0c5dcb8c2646d86b51ffcb2daf74f3ff6c44aa7ac162169d98b",
+    "bytes": 33223
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-lifecycle.log",
+    "sha256": "c160d89edc3c4a68bfc52fa6c5e59a1aad87b45fad386a567edf6661b7f05066",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-link-context.json",
+    "sha256": "9022492f4ddd9261e364f14ffaf60bbb3156ca0d0262d3514a7bf56a503f5920",
+    "bytes": 31586
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-link-context.log",
+    "sha256": "15ef7347682a349631687cdef6e40fd4cea19bd6aca0e053373bb8cef8f6c47c",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-observation-times.json",
+    "sha256": "21cb01548c4dba0e40d29497f6a2840dca2e374a51d73804b206ec6efa27f6ff",
+    "bytes": 28339
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-observation-times.log",
+    "sha256": "dd2a0062e402c0ef5d8a4b77d6cb64f5d76e6a69a5ee2d7480b8b58050c836c8",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-owner-membership.json",
+    "sha256": "74407ae1b81bc6a2a7522b136b5f0573571d9916898cb7a8b94badc37b8d563e",
+    "bytes": 29942
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-owner-membership.log",
+    "sha256": "676937e1f04b5ab84c33a7ebc5e589372eb8b1d4bc1a640ec9b64f2e4fa4c38f",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-pause.json",
+    "sha256": "c601dba192ba6b7804a3a863923c2177cbd5b431a56c6c55ec5a7822329d613d",
+    "bytes": 29969
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-pause.log",
+    "sha256": "c30bc9f46b040f35b7c5da45738e613f40a97819fd389a58533d94ba2cb3e3cf",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-provider-evidence.json",
+    "sha256": "947d4d7df7d191cc1a760bbe3f8f4733c1678cf6e11eef1c9800dfa4e036d437",
+    "bytes": 38086
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-provider-evidence.log",
+    "sha256": "bf60956b00e8a9a78f6dffe9b2d55a1bd4c7532fcb222fbbd8db6c5fdd35bce2",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-provider-pause.json",
+    "sha256": "9a3a7f86d2e4ce50e39e4d6ca75a0b7c98959f957f4d4291c76b7adb8c30db08",
+    "bytes": 28337
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-provider-pause.log",
+    "sha256": "31dde1ca2b1fc250fa85ef44ce65a91b79df0e8fa95601aa0b574689ecdd8be2",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-public-optin.json",
+    "sha256": "106cb71ffb5f8c5fe4f6e8c803a5cf64d839f42ca78b4185305bf1d25ec4d145",
+    "bytes": 38119
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-admission-public-optin.log",
+    "sha256": "3484f5b30f0404ad18eb179a7e3f2e4053f0bdf989cfac31931c2ddc15085e80",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-capability-catalog-export.json",
+    "sha256": "104381c35f727f00eb4c03bfed1a8f2c509aa1c981da81e8b6b401f660c07cb3",
+    "bytes": 30254
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-capability-catalog-export.log",
+    "sha256": "213b1d618fc83e925935e0a14272696d0133c16e178e39819622f86b0dfee96c",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-capability-session-export.json",
+    "sha256": "96c1661d1d3db19db1e31435f67231359e3e419b0a78ea0134ba8500e3a83067",
+    "bytes": 32026
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-capability-session-export.log",
+    "sha256": "2ebc95b5f8f3ea6446c019069b7ece56896fbd7930735820d85736913fb4eef1",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-available-model.json",
+    "sha256": "7ecc2acbcc775d6b4ca22b7a952b9fc61b2652ec168dfab54a8d67f950155ef4",
+    "bytes": 28356
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-available-model.log",
+    "sha256": "393ecbaac4317df079a00649c182f0b310e794c719ff9bf373bbce43d50c949e",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-available-voice.json",
+    "sha256": "6973905eb0ba8d734b4bb44bb471aef143834fecbc8d73013d63f8b9439485c1",
+    "bytes": 28349
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-available-voice.log",
+    "sha256": "91cf8f907d3be45946bfd48ca43e3e29edfb8d3312065a5d1161ef5e897f4375",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-clock-state-window.json",
+    "sha256": "a51cbe784c50a5870c4cde412317ef3d2befb512d6f863b711bb691df18e744d",
+    "bytes": 33232
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-clock-state-window.log",
+    "sha256": "4028bbaa2c7867b19b3b4f111486110e744eed9e1b20a435a8c8848d2f58ca65",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-full-scope.json",
+    "sha256": "c36e98ebd00fbf5346b1c7ad1f9a3e3c30bfcc2e265fbfbc24a90b3f75f86634",
+    "bytes": 31591
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-full-scope.log",
+    "sha256": "434fd6ef7f596c9152d20f2406a0c10e77b59caaf2ff181a17e81954072b42a9",
+    "bytes": 94
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-management-id.json",
+    "sha256": "9cb97f796f437cfffecf6f8f83a455be65042da2e06eba601319429f0460b7b2",
+    "bytes": 28342
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-management-id.log",
+    "sha256": "ac7d88d1aca10c397aefd8424921540c405096de6a77b7ea3f8444d4bc832d40",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-model-descriptor.json",
+    "sha256": "002bbb792c9d38b08c36fc8c927c3fa6c18b3c476d50c91d926f09541cce9ab5",
+    "bytes": 34865
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-model-descriptor.log",
+    "sha256": "83f57b9281d2286c258d130d989ed0ae72a2d80c0e789181eeef3df3f6a105a7",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-provider-source.json",
+    "sha256": "2af416e952d919d59e083817629d85b5722dd563f911b4f7d0d1013daee454fe",
+    "bytes": 29947
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-provider-source.log",
+    "sha256": "73899d2266364ca40bf7c1b1da733487ea40a08cf5bbf8be0d27ac9afa093b8c",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-selected-model-availability.json",
+    "sha256": "d060ddfb024d832ea4f3789f649d54f47df567d7f11f957e443479bf2cfa8684",
+    "bytes": 34865
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-selected-model-availability.log",
+    "sha256": "dca1dd47c3c266a1b7272deebb97fb74e75c830573c1955c28e1a84db5825294",
+    "bytes": 111
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-selected-voice.json",
+    "sha256": "2a8147b6a264d317ee30039b1c28f45d1b68f281ca92524994152c927f83e87c",
+    "bytes": 28387
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-selected-voice.log",
+    "sha256": "9f1730354731e5f80a93b04b95ce1b895022ef0bb891bb1edd54252a986044c5",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-selection-versions.json",
+    "sha256": "ae975d2f2eeb15733c499f7ffb28625726b2783f241e38bbaa2287963b78d017",
+    "bytes": 28377
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-selection-versions.log",
+    "sha256": "7033365434d757a55d6bf31650e29e1dfa8b7f64ade289c6f220634116a60eb3",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-unavailable-voice-reason.json",
+    "sha256": "32de18085c9bd2442035d57bbfc7f676ee070b64e4f6651b70e352bcbabbeb7e",
+    "bytes": 28352
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-unavailable-voice-reason.log",
+    "sha256": "c9953d6717906a4796128025990af4b65ef7690dbd9944b42ccda42a519db66c",
+    "bytes": 108
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-voice-duplicates.json",
+    "sha256": "3605c264d6fb834feb80c40fa4f5d5c713eba04c0500e87b97e9cb4f8e88b02b",
+    "bytes": 28353
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-voice-duplicates.log",
+    "sha256": "40ba58b92cf74c35d73e512ea9b28d48e632cf4466b5e132f81e3e860f5aaf45",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-voice-window-shape.json",
+    "sha256": "28f79fbdd2e4c2f37f813455869c76d40f649a3a3e36c21ec4013af656052a97",
+    "bytes": 28351
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-catalog-voice-window-shape.log",
+    "sha256": "0c6b4f246dca3f98e3b97414a0e3b405b5270f6da4dddbdd561c85875b1ac9e3",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-configured-origin.json",
+    "sha256": "8e8bc2295ce1d33ac6ebb220636771486a3086c4e92c14391a31c022165944f5",
+    "bytes": 29960
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-configured-origin.log",
+    "sha256": "97a2e410909e6fd9241de12d52069e79ac79372b92efab9b714dc100eea1ac33",
+    "bytes": 93
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-http-public-export.json",
+    "sha256": "d7bcac4197fb56d6da623fc0293756929b00dab45c38ecd74f5a2bbc157198fd",
+    "bytes": 39437
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-http-public-export.log",
+    "sha256": "ff084617c13f3e5cf12844aebc802e8355178e0e5f6c81cf91fc279ca2e12886",
+    "bytes": 94
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-http-service-auth.json",
+    "sha256": "3b37adc3151ccfec7737fd0d046a3b90a97a249eabb6fb05d9b4661c69634b4b",
+    "bytes": 35532
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-http-service-auth.log",
+    "sha256": "c8d7c5beae2fc39da8c8be38e2bb60a877e16ce68ebd02aa2bfb66d4335ada1e",
+    "bytes": 93
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-http-validated-path.json",
+    "sha256": "f3062ec8bac9835e65eff130ab8e1cc5378c58e3015116b6650089972e6e6c60",
+    "bytes": 33538
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-http-validated-path.log",
+    "sha256": "65be04f822548ae5628c50c9cabcb1527792c1609690c17c554e376130e48097",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-full-scope.json",
+    "sha256": "6aa18cab62bdeccb1509f469d06a8a47599644cb5912c16023655c2a458b538f",
+    "bytes": 36428
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-full-scope.log",
+    "sha256": "e16c1eb39b50acd1607e9628d6e6616b77c2243a7fd88e2ebc92e18ca884122f",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-origin.json",
+    "sha256": "fb8a252e8958c0e814b40fa8fb58cea069911633791ca1b8bcc5fc755f7c4212",
+    "bytes": 29989
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-origin.log",
+    "sha256": "659065857a74b74aad26533b9a238e56a678e87c01aab161f176a81739410851",
+    "bytes": 87
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-path.json",
+    "sha256": "77e0d022ef12f1fbbca07c9f0730078cd42f75c0a597d0da2a3125cdd3ae6a00",
+    "bytes": 28324
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-path.log",
+    "sha256": "077e8c73f37bb25bed52c54b3e2c072e7bce272e6c8bda6ac47777bddf165132",
+    "bytes": 85
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-url-components.json",
+    "sha256": "ce0c1c15ee77b5433d5986fb49f49bb5b992b2f9a197895300a3b8bcc4f45252",
+    "bytes": 31577
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-link-url-components.log",
+    "sha256": "0e965486ad5bbfa54ba8a224103229156222c4d973dcce300b7fb090ac33eb5b",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-admission-recheck.json",
+    "sha256": "8088c8373a50b20f06827bcf427c0236b3485a42923e8109ad7774a16aa048b9",
+    "bytes": 28348
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-admission-recheck.log",
+    "sha256": "3b140f9a61987f65e527fa599f2846cc74f249f394902ea0097c69b7452e0e18",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-invitation-correlation.json",
+    "sha256": "b762c2d8ef2af33dbbd6e16892f9c1d3c4ab34aa50ca54e3d242d673f2babe68",
+    "bytes": 28366
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-invitation-correlation.log",
+    "sha256": "f836077b4afa16aac72bfcf266ecaa6b1c05a163df43cf80163c0bb6dc7e7a64",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-invitation-pair.json",
+    "sha256": "cf79a6d00c7df359cab1443781d86fae31beccb0c1d27f12752522ac174256e0",
+    "bytes": 28355
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-invitation-pair.log",
+    "sha256": "c4759357dabb1ec9df9e392898df4a3e0d173eeeeea88017335eab3310d18286",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-link-correlation.json",
+    "sha256": "c1d3a47c01879e34efa499af9e783774ed37738a302be9f4645401e445355266",
+    "bytes": 29974
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-link-correlation.log",
+    "sha256": "da9dfca534467501055d95c0f911f5e513ecf722a7ad8f5524ce962e36d52abf",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-malformed-url-control.json",
+    "sha256": "a906b8c293f3f59c3e23b4414726aad8a429539bcf2ca4c9ef2b7a15d9bd77e8",
+    "bytes": 28483
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-malformed-url-control.log",
+    "sha256": "259df08ea9b655c2acb3980f5d4197f41c5d668ca9ef1250d09dba44f6379425",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-mapping-correlation.json",
+    "sha256": "1447c56c3c32215b57201e6b78a519c5ee4da4935b6e876b15332f26cafaecc3",
+    "bytes": 33212
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-mapping-correlation.log",
+    "sha256": "2c17e9e5f35cde25b4424af31c7119868040dd8b37fc211a3b70c5bab72da69e",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-max-window.json",
+    "sha256": "2414a11f9802138f8f1da4ce4511b50760619d928b61ea58ca93b9e39a932ccd",
+    "bytes": 28329
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-max-window.log",
+    "sha256": "f46209ca00321d46dfd6b1defa7d2aec930faa6d85e3ca82d42c935f718ee4db",
+    "bytes": 94
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-policy-version.json",
+    "sha256": "a108fdd9ccdc3d3b0d635cdf2660b773f69f801efa89f53d8598e0a691041986",
+    "bytes": 28351
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-policy-version.log",
+    "sha256": "7b474893a6b9920708b6b09ccccf68a4bece1ed260cbbb97c0a65c19d2744791",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-provider-url.json",
+    "sha256": "240b6acccc68e3579f1973311e8184822b80ba79c0b9100d2d284263750c51f6",
+    "bytes": 36460
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-provider-url.log",
+    "sha256": "581fa452ecdb922cd4143f88c64aa75e77eea423622c6acabfb4191146baa1cd",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-request-correlation.json",
+    "sha256": "3481ee82295f3df333ec357961fecbdced177d4a28097e9902c50bd8e6d1a53a",
+    "bytes": 28361
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-request-correlation.log",
+    "sha256": "1871d4ca724e0073f44cf0940b78a86d53c55a39964e9bccaf64c5ef7a1aa399",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-scope-schema.json",
+    "sha256": "41dba7696ff45b13c8413106bab6786f1ed6a61970fce3284cfc09c352210b1f",
+    "bytes": 28329
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-scope-schema.log",
+    "sha256": "fcb786a7a074975f7ae512a6b522a7ba06487e3878e1156700461a5f517188e2",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-time-window.json",
+    "sha256": "ccea35a5eb04d770264fc8c2de83a2b9f911f01f898d3253d9e479a583e1df29",
+    "bytes": 28361
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-time-window.log",
+    "sha256": "badeab3d8c0b7c3e15f9335e6bc98b22fcb03a11f68bd9d45320221485575513",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-viewer-correlation.json",
+    "sha256": "c99bb04c87e8786382b67cd6951ddbf441063e180cb1d05e1baea89747f3a373",
+    "bytes": 28347
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-session-viewer-correlation.log",
+    "sha256": "6878a8cb2fb862a4147da1315b567922630febef163b94176eb498fd594939c8",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-snapshot-full-scope.json",
+    "sha256": "cadf068e265a240ef186109e50c17dc512b6ed434f8b8486595385f3b66768c4",
+    "bytes": 29965
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-snapshot-full-scope.log",
+    "sha256": "4e14f20cf50322a447524b2dbcecaaba054622b7570978b940fb051b9128d91f",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-snapshot-invitation-pair.json",
+    "sha256": "6db514d68c2f23e391ad984a3940e7fe1c94c2cf2e83e7b2b5e04425118c2b15",
+    "bytes": 28312
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-snapshot-invitation-pair.log",
+    "sha256": "b8ba49047d4f3502d27d962353056e3cfb37a7012f750303c8fedcdbe31b5202",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-snapshot-web-kind.json",
+    "sha256": "c91db88cbe6239a84b5095cd1e5c56dcd9ae6599546ddf2ad81b64ec656a90dd",
+    "bytes": 28337
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/mut-snapshot-web-kind.log",
+    "sha256": "4fc05148287b3e7f2271ede7fc45d6cbb5bfa2f05206a3ad9e29045838a46b09",
+    "bytes": 93
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-clock.json",
+    "sha256": "473f06fefb141ba10e1070073071d09653ed93716d10d306a1104c417d43b325",
+    "bytes": 26670
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-clock.log",
+    "sha256": "908c1800fffaa9c11957657dcd0f6cd48d6e2115fa01ec135d316e6456bb9c15",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-invite-current.json",
+    "sha256": "dbdb90ffd8e8be6f30bb57d9c768ff03160af1a86d8eb2f488abaaa17d87d630",
+    "bytes": 26720
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-invite-current.log",
+    "sha256": "e7d9dd2041ff17e7292f84102fd218893de4a0cec5980535c57f345d09172508",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-invite-mode.json",
+    "sha256": "ac5d8a223595b0f30663c02f9f13068a90357ca5f516a19be1c061eedca62989",
+    "bytes": 26709
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-invite-mode.log",
+    "sha256": "8de0a4fa8550526adb5b56187de1170799673c16e2ddf3b4025d69dc88bae800",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-lifecycle.json",
+    "sha256": "eb38d158c26fb46e953315c7e3b26572714849b459800bce93a5103250dda85d",
+    "bytes": 26732
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-lifecycle.log",
+    "sha256": "4ac98d178629c894f6684c3cb657d37fef06e36582345b594ceee1c9117e09d5",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-link-context.json",
+    "sha256": "36e9b2dc461b0b1d8f7fffd43d84d0116dceeeff335555065e08529653aa6bb2",
+    "bytes": 26725
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-link-context.log",
+    "sha256": "1c34c3f8f4aa3bfb3a9694cf3612e70db1cc1bbf371c2e06d4d63ff0a8086564",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-observation-times.json",
+    "sha256": "403124c917e9a33b16916f39122f6395593a122aa7a8213d23b26757025ea2f9",
+    "bytes": 26711
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-observation-times.log",
+    "sha256": "2376fb88315d5bf406cff7e23df01a11ec8d164e2e063aff3543444f75204fe2",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-owner-membership.json",
+    "sha256": "9f4fb58c091909830a684a8ca822968633074c50ea8f815d68deb814f7e96dad",
+    "bytes": 26713
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-owner-membership.log",
+    "sha256": "809eb0a8beb4e971eae6eabea00da54662714ea307266f33b49ac610d2d5c404",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-pause.json",
+    "sha256": "dfd99df75de93d4e0a79b99bd0e72f982279768c30d0f0b0012f80d14ed46e13",
+    "bytes": 26713
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-pause.log",
+    "sha256": "e2cf11e3d6fdaa57707c01bfc4e30daad40e8eca6d6547e4ddd9e9172b1822fe",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-provider-evidence.json",
+    "sha256": "e6c219d437d1d4dc2e303137c7c6fac89a2c392635a4ada233bb128db5e11f81",
+    "bytes": 26687
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-provider-evidence.log",
+    "sha256": "e9b46325e4883650bfeccb080734d27df3cb4d58c62ac5cc3788b784fc26ed4e",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-provider-pause.json",
+    "sha256": "06a61b030025f3f2ebf7453647e017689a62a5b32c9505d49ecab13d604c65d7",
+    "bytes": 26700
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-provider-pause.log",
+    "sha256": "39caa7f5f42c305692de7529ea246ac18e70f305d4da1689c3b9d68496683cf8",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-public-optin.json",
+    "sha256": "1e4580562f151a983f61c2f9c520c72616f0cb04ced0f517aad3a2ebd858afc4",
+    "bytes": 26710
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-admission-public-optin.log",
+    "sha256": "7b3258b959fa720074af301cb00190c78bb409e9072faae0a250a959171a254d",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-capability-catalog-export.json",
+    "sha256": "95e4207aee3fb50ab681f26be2991c4c824cb17b3326d498847fb07c66bce017",
+    "bytes": 26726
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-capability-catalog-export.log",
+    "sha256": "45d76d0c9de3524a8547873e1f86053591d84bce82c390c34c504bd776731632",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-capability-session-export.json",
+    "sha256": "955f98417b76c4e7dd03fd8184cc2ca8830878b78937fd990c0573d7af6ddfe9",
+    "bytes": 26737
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-capability-session-export.log",
+    "sha256": "8e9ee1f19cd74fef3ca35b12b04ab99734e01f37df556313363f141227c1a4dc",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-available-model.json",
+    "sha256": "89942b748ad60217cacc555a776e2eba33443f40606903803f18ffd0cef194cf",
+    "bytes": 26741
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-available-model.log",
+    "sha256": "6ae1d7f9b0f6868235fac6ace3a10aa8496754778aa680d03abceea78227b0d6",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-available-voice.json",
+    "sha256": "7269e3fae556a4c3f207f52d577f31938f28d91b1e47a7a1722eebf25d959196",
+    "bytes": 26747
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-available-voice.log",
+    "sha256": "afc5180416f3f1de2f45ba10b20a28ffd122991b4d421971bf35b1f65813c4c2",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-clock-state-window.json",
+    "sha256": "3bfd7af22b53365ab62e24c13f5c2d2e3eb9297324b88a94303df6686260f768",
+    "bytes": 26747
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-clock-state-window.log",
+    "sha256": "b8d484183fcabeb4fa887e36851e64b777ddad9a9913a2b25710c60acddb5d9f",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-full-scope.json",
+    "sha256": "9efc5c7019fe0d9745a62430758ed2ad8b03a07fb3593dc343deec813d4b82c2",
+    "bytes": 26721
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-full-scope.log",
+    "sha256": "082d791e51a59f87398a364230b023a9cdd2c18521228320258eb78156176593",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-management-id.json",
+    "sha256": "60d23701a4ac3071e14c6e5f8663b792cd0509d970f0de07d401a8559fd7cf16",
+    "bytes": 26702
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-management-id.log",
+    "sha256": "0a0cdfa8dd2eff34acae60ac95be682f43e8837245d6e7e86f3edcafcf68444f",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-model-descriptor.json",
+    "sha256": "ba44de6e923b644c5b9d0973cf830a9b99586b95e42bb607adfebfa86741f1e4",
+    "bytes": 26755
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-model-descriptor.log",
+    "sha256": "80afc9388ed85557351f7084883a89b719a87dd045d2d55f14d123545c081466",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-provider-source.json",
+    "sha256": "e576b2b521652885b5e16e2df44718da71b9a4b090ed34212b2c3bae1cd8e5a8",
+    "bytes": 26715
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-provider-source.log",
+    "sha256": "71892b289b682ab66cef8c40ca9006d72c45b8f2147cc092e6e6e1f161755e82",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-selected-model-availability.json",
+    "sha256": "80340dff757f88cca3dee31323cec22be7582977cdd2c3a3335503a239b415d4",
+    "bytes": 26749
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-selected-model-availability.log",
+    "sha256": "02f5ed30a4d47f4e63922faa886532c251805bec957f1a11108661f58da51614",
+    "bytes": 115
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-selected-voice.json",
+    "sha256": "ecae5f5cce57c7999f9eb5b078573df66d5e0ea7b12b3897c34d8265c130f8f1",
+    "bytes": 26744
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-selected-voice.log",
+    "sha256": "996aa9356527417a79444418dba212633353d8b40e3af88ec0edb9ab063daabf",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-selection-versions.json",
+    "sha256": "c9d9a9ecc93dd4acb11ce6d0c7e67b59389a9d90d746f24576ea58e70f777818",
+    "bytes": 26746
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-selection-versions.log",
+    "sha256": "1c6d6106f34a93cd05d01e8402034aa8c50f4f2c1638b470343816f8bf520235",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-unavailable-voice-reason.json",
+    "sha256": "05b267c025ee0e50283802527e44b954b3ab9fa6959333bc522d060d5db80d46",
+    "bytes": 26736
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-unavailable-voice-reason.log",
+    "sha256": "a7130e900963f1bec0aceb18c8cd679500eb702b34f8ea2fbee53506990a7d08",
+    "bytes": 112
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-voice-duplicates.json",
+    "sha256": "2115670da486d8a0a94a3d43fc5c4bd0ab3b90b1179d13f1adcbb338a8df9350",
+    "bytes": 26725
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-voice-duplicates.log",
+    "sha256": "88349607cba4e9822dd9f84f6d6f4a27471ba321473aa4ef6b8e590004010c58",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-voice-window-shape.json",
+    "sha256": "34a48417068d47e7a2e1099eab4799b352ac68ad1dfdbbdfd95a4cf614163887",
+    "bytes": 26730
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-catalog-voice-window-shape.log",
+    "sha256": "d3807af7d73406335bd85d8e102909efa62a07743b66b7e9be5bc588a8c1a8cc",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-configured-origin.json",
+    "sha256": "813578aae64ddb672aecaaed746c5bac9aa12d631c4659f1645adaa3b785eb5a",
+    "bytes": 26729
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-configured-origin.log",
+    "sha256": "878bd35206564db373aed2640e6a0d19126829a624937fc9ee794beb13937f90",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-http-public-export.json",
+    "sha256": "c44b681eb40912cb5d8bdcf33a9dac18271eb7d23f86ac0c071b2322426a4c81",
+    "bytes": 26728
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-http-public-export.log",
+    "sha256": "9f968444598b6b176f43cf951c354a8bf256c3f6b1533c61f7fac8b63de433cd",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-http-service-auth.json",
+    "sha256": "69f710eebeae6c2c9b676bec7ed01d17781ad1d0884b28840302b37d34b181be",
+    "bytes": 26713
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-http-service-auth.log",
+    "sha256": "f479a391ec7dd3a7078a2396d5eb999cd18db210fac4802b346e2472b365ce20",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-http-validated-path.json",
+    "sha256": "5c571952494004eceee897b72eed6f8f7dea33078619c871d7134755b310bc77",
+    "bytes": 26743
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-http-validated-path.log",
+    "sha256": "ac4ef09820e7abe3375e141fa221d16063af6ce9658e87a0d4ce2838bd2456da",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-full-scope.json",
+    "sha256": "dbfd2a3d2b2b8394b7ee643fd8f0a008fdaba2ef6cf9569a2c0511876ded2891",
+    "bytes": 26713
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-full-scope.log",
+    "sha256": "665179230648b55309f7f6d7f583bdf7ecfe0024bdc8f5fc58641def837c3857",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-origin.json",
+    "sha256": "40225503a4b7270b20cceb34b95ae9c6578d5ceb3c7f5794e27153c05bde1cb1",
+    "bytes": 26712
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-origin.log",
+    "sha256": "998f78690d93470baab67e30e224199ca9d3dc67a692bd75341333416d4c5ef0",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-path.json",
+    "sha256": "547a2aaff0180cad6849b2bcf7ae31a07c0e94f978325b73ac9e18e91a562b13",
+    "bytes": 26716
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-path.log",
+    "sha256": "63545a143aefe3bca9657903f6bf334d806902bbf265137650b1a2a2d74d5ed3",
+    "bytes": 89
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-url-components.json",
+    "sha256": "0ff0955a8d6a874475a1912f3eef12d59ff65d6303b68ebcb67381a1b6fa526a",
+    "bytes": 26703
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-link-url-components.log",
+    "sha256": "78591d6fce840b62c5442ace4f7c2fea26c22e0c3ce91b8e79967ddf8be0b24a",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-admission-recheck.json",
+    "sha256": "f085a629fb887c6a851e23168b04c28664fe6f1889f7e0d460dbb98329eca188",
+    "bytes": 26713
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-admission-recheck.log",
+    "sha256": "2fc40e7352792c1da8799596e965b3c6d15f66763e7f9b133b74975b7da5e4f6",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-invitation-correlation.json",
+    "sha256": "4c443969abca88c2e13cfa6f86e2ba77c7e541a2f14a68493c66bb787522d17c",
+    "bytes": 26736
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-invitation-correlation.log",
+    "sha256": "ae311882072065ce363085068bace52ec96a2afc2629b8954129a236c258fa0e",
+    "bytes": 110
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-invitation-pair.json",
+    "sha256": "4b9bd5fe727bfbaf32051fa81d065e880b36007339e28085e1f4a98528c7b47a",
+    "bytes": 26717
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-invitation-pair.log",
+    "sha256": "ae74c570e881bf8d7c9752cef0065f462cf5a1ffaf57e59445db60027de188c7",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-link-correlation.json",
+    "sha256": "8f48d6c73f52646ea40891801f1fb9b2141349e57bea4d2703cad70d4ae98089",
+    "bytes": 26717
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-link-correlation.log",
+    "sha256": "a2ec68924afe5a1d46d292fdfbf5664e111b4eeb97cf85805c0c63e67f6b0601",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-malformed-url-control.json",
+    "sha256": "35568bc648cd4a79a2ae1f169223ae1d5ffe4391ffa15c43558e0c78010225cc",
+    "bytes": 26726
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-malformed-url-control.log",
+    "sha256": "f1f845b38044498c4524a8e9487d34850b8db956d6f59fcd069d1d1d91b05dd4",
+    "bytes": 109
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-mapping-correlation.json",
+    "sha256": "91e64896ac53251baa04c3829daa8d511232e97c398a350001e6b221fea2223f",
+    "bytes": 26710
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-mapping-correlation.log",
+    "sha256": "212ecc3a5217215d80d3285db9efbd5776bccb08b0b3f0e66a8c834b1ff6f1b4",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-max-window.json",
+    "sha256": "7cc5b9e0148ef2f0471c856f86f290e2ab9140b79928d0a4ad6d0ed95cb5c049",
+    "bytes": 26685
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-max-window.log",
+    "sha256": "3c75d6a616336292f9eb923d5d7b8a015c225047f49589e9d5bfa956e0638b16",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-policy-version.json",
+    "sha256": "49fa53be4f688736ebdb4fbee0e6c7a3d87155101446cab1a4445df29e0354d1",
+    "bytes": 26705
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-policy-version.log",
+    "sha256": "d7840df33866f937de0e305dc4f3dc3b75b3a3125a6f8602f6279a439766d1fb",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-provider-url.json",
+    "sha256": "1749120ca076c6a3816a46401ec6a369533654f1b8008b7d2f9aec68d5ce4a46",
+    "bytes": 26697
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-provider-url.log",
+    "sha256": "301b8220381fcf9a6de03e65dcb7db81d9d7c0afb518083fc078eaf1d270e783",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-request-correlation.json",
+    "sha256": "bca0e2ba7dad80c928bf39542e76a79ceb07c0ea8b0a38a8cec85e92c87b3436",
+    "bytes": 26704
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-request-correlation.log",
+    "sha256": "06199904a8de463b13acb3123da4b7c686da0510ce78c7ca76b975f55d3d3242",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-scope-schema.json",
+    "sha256": "6ae94ada3241b262340150ead30427c95c75d2fd2d84baca983ca2dfa51c19cd",
+    "bytes": 26724
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-scope-schema.log",
+    "sha256": "7aa817fe944ecc296fe9641e6c9e2e0d5fd9d4baecf529cccdcb8b4175f0447e",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-time-window.json",
+    "sha256": "0656a7fb1900a2c22e3f566a065156c2117cb2e4dc65682e3b7b33b0b418a637",
+    "bytes": 26742
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-time-window.log",
+    "sha256": "2c5adc3d2f9fecb7c8607c487b5a0f12ecb220810c86a5cc6c073a6f49d1ccd1",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-viewer-correlation.json",
+    "sha256": "da8f007e1e4a06520594340eae5fe2b4c25f2b5db0d971317a6bd0a395cc91fa",
+    "bytes": 26737
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-session-viewer-correlation.log",
+    "sha256": "4461fbc20a1f3e60d6fab46518112b8fab2d9adb89fd6c994453616f1c99c21c",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-snapshot-full-scope.json",
+    "sha256": "c46b05fd80eeaf2764fe0975b9c01e6a061c19e6771f45e1183b352b8c6b1352",
+    "bytes": 26716
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-snapshot-full-scope.log",
+    "sha256": "6eb530d47cff062cfc8d33645edab196721e356177aab42a3dc43988a3476e44",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-snapshot-invitation-pair.json",
+    "sha256": "cf2eb0dffefdaa38a3f6aae2f6e235e3ba50f4487c9ce8f92ead037cb807cd70",
+    "bytes": 26725
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-snapshot-invitation-pair.log",
+    "sha256": "54d9f8c2fddb1e08d36f5a76baf6ebaafceb49f85d46f7a649df679244633507",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-snapshot-web-kind.json",
+    "sha256": "36c623db133912dd4c7402f22296c485bf740ea389d9083f448687a591583754",
+    "bytes": 26703
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/campaign-1/restore-snapshot-web-kind.log",
+    "sha256": "353044e87decb6d81c08a278532c83daa5b2b22a8c22157ef4fbf945ef0257aa",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-initial-red.log",
+    "sha256": "2105f61790b0ee258426513bce45aa05e3750105ba84209b813a4fef0cb6ef62",
+    "bytes": 913
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-admission-export-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-admission-export.log",
+    "sha256": "2105f61790b0ee258426513bce45aa05e3750105ba84209b813a4fef0cb6ef62",
+    "bytes": 913
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-catalog-export-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-catalog-export.log",
+    "sha256": "6e3871af70cadf0bc48841cc34f91c5ccab76158e2edf1e6f68660595105390a",
+    "bytes": 913
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-http-service-auth-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-http-service-auth.log",
+    "sha256": "92c5b68bab4120dcb9003c4aac0fb80054d2d660f9ab318a21b08cdeb0405383",
+    "bytes": 879
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-public-link-path-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-mut-public-link-path.log",
+    "sha256": "0a39533c09cef0804cfd60807328a7e17301569c2e7fef0fe0fe45d54a151af9",
+    "bytes": 963
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-qualify.py",
+    "sha256": "1b2c981fa69ac168df2abc3c714b863a59880c8a720a570da240db8c56e6d057",
+    "bytes": 1916
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-admission-export-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-admission-export.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-catalog-export-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-catalog-export.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-http-service-auth-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-http-service-auth.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-public-link-path-build.log",
+    "sha256": "769f38b2e4e6a10fbd8d32629dc85330379eeeba78ee2b7768646cab0c266973",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs-restore-public-link-path.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/cjs.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/final-green.json",
+    "sha256": "9d2f0d2da29f9e99cb91a4a60c8cf86b75ffde0f6d7229c4de5ac5756b2ace9c",
+    "bytes": 28971
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/final-green.log",
+    "sha256": "4d4b298838189d0c3b0cdc6835e371fd65029ec854fc9585c8f92cc2ab4fcb85",
+    "bytes": 83
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/full.json",
+    "sha256": "601e7acee0ff42e539c7bb784d533319732c7c1435ced8013e3b67b2d25bb6ef",
+    "bytes": 1653896
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/full.log",
+    "sha256": "9e25c180be3722bf68b492cb256799db9b1d2ef9eedf5328150e808c4e3b0042",
+    "bytes": 76
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/full.py",
+    "sha256": "f269c8b6ec863523e3b0c5656025a2886028a9f6254b23c3ab71acde416ed6e1",
+    "bytes": 1141
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/green.json",
+    "sha256": "ff1bb3c165516767045d2cd4702198f536407c51492b641a5702c2c8c6ecb4ed",
+    "bytes": 26750
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/green.log",
+    "sha256": "0ee3d323004c7c3b86ba8636cbbc59758fbfee001a7aeaeefbe5b4ea4c6edbf0",
+    "bytes": 77
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/lint.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-clock.json",
+    "sha256": "430b1572c958916eb1191741804efba8c0f1582ba95a36ddfc66f6a9e2aa06c1",
+    "bytes": 28349
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-clock.log",
+    "sha256": "96f7fda83a6e828525f6001543b8accbbcc1d4253185bb48fed513fc5183f06e",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-invite-current.json",
+    "sha256": "04a87c587cd222b6f16c8d95973fb9a27861f830deb0a7dbeea7818526096ddd",
+    "bytes": 29975
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-invite-current.log",
+    "sha256": "792570ce53724f658538620f95b3bc34ff2b39cadd4f5ff6753925559666bed0",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-invite-mode.json",
+    "sha256": "e6cacbee3c277a6c6e73e93679ed4fd48770452ee5ad0d63c689045b533cde82",
+    "bytes": 28349
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-invite-mode.log",
+    "sha256": "d840f2ddf3e4f0864edfe3fb93ee7e7dee3269b181af5373592381f3a1df4bf2",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-lifecycle.json",
+    "sha256": "02cce32dda0f161e8db00b43b538c22798e02369a27852f7b9813d06b52e73e7",
+    "bytes": 33214
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-lifecycle.log",
+    "sha256": "c160d89edc3c4a68bfc52fa6c5e59a1aad87b45fad386a567edf6661b7f05066",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-link-context.json",
+    "sha256": "514c784112305e0e8742c2d6d52e68c2adc2d7e51cea6d52163bb14ff50a4cc9",
+    "bytes": 31584
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-link-context.log",
+    "sha256": "15ef7347682a349631687cdef6e40fd4cea19bd6aca0e053373bb8cef8f6c47c",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-observation-times.json",
+    "sha256": "54802e1de8043bd5d51734d5366a85aca18cfdf9fa89260d31be07e8a8a2f05f",
+    "bytes": 28345
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-observation-times.log",
+    "sha256": "dd2a0062e402c0ef5d8a4b77d6cb64f5d76e6a69a5ee2d7480b8b58050c836c8",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-owner-membership.json",
+    "sha256": "e2e0db974d6464e999eaf647fd57e650bcdad0e171ce2d44459a30b96cabcfa8",
+    "bytes": 29959
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-owner-membership.log",
+    "sha256": "676937e1f04b5ab84c33a7ebc5e589372eb8b1d4bc1a640ec9b64f2e4fa4c38f",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-pause.json",
+    "sha256": "609bc23d7b0290d274c0f48b7538848eff7027603ed02ac34a22bb46f30c5710",
+    "bytes": 29987
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-pause.log",
+    "sha256": "c30bc9f46b040f35b7c5da45738e613f40a97819fd389a58533d94ba2cb3e3cf",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-provider-evidence.json",
+    "sha256": "1b6407233aa19404c5ae012a70912b68a51a0b334a5d755700a56065b4d99fc8",
+    "bytes": 38090
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-provider-evidence.log",
+    "sha256": "bf60956b00e8a9a78f6dffe9b2d55a1bd4c7532fcb222fbbd8db6c5fdd35bce2",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-provider-pause.json",
+    "sha256": "2e14eebe79a0240bd97dd924c1001134739946bb7449b4db3e002426a155ab6e",
+    "bytes": 28334
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-provider-pause.log",
+    "sha256": "31dde1ca2b1fc250fa85ef44ce65a91b79df0e8fa95601aa0b574689ecdd8be2",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-public-optin.json",
+    "sha256": "75bdf85f4a3fb1ebebd5f266f9d4ccd21d72af62ee2efde46530534f12d6e60f",
+    "bytes": 38121
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-admission-public-optin.log",
+    "sha256": "3484f5b30f0404ad18eb179a7e3f2e4053f0bdf989cfac31931c2ddc15085e80",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-capability-catalog-export.json",
+    "sha256": "1a6c7f7165f135e7f1326d16e62b0961406fde3dbb9ee7a47ca73ed1b246c44a",
+    "bytes": 30227
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-capability-catalog-export.log",
+    "sha256": "213b1d618fc83e925935e0a14272696d0133c16e178e39819622f86b0dfee96c",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-capability-session-export.json",
+    "sha256": "18c03e66dfe2f07efb5d4673c3a917ff72f258d0a8fe01db4323ee42054ae56e",
+    "bytes": 32011
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-capability-session-export.log",
+    "sha256": "2ebc95b5f8f3ea6446c019069b7ece56896fbd7930735820d85736913fb4eef1",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-available-model.json",
+    "sha256": "9678b2129678dd6b02ec3e2254a1c30667ac018492e2d88feccb11aefef6e380",
+    "bytes": 28377
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-available-model.log",
+    "sha256": "393ecbaac4317df079a00649c182f0b310e794c719ff9bf373bbce43d50c949e",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-available-voice.json",
+    "sha256": "0198babf8dbf46e728927c588a4a876ef46dbc3ed50f2895bd9901b40ab62149",
+    "bytes": 28353
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-available-voice.log",
+    "sha256": "91cf8f907d3be45946bfd48ca43e3e29edfb8d3312065a5d1161ef5e897f4375",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-clock-state-window.json",
+    "sha256": "0722437699f2aa15d3b29c726173f84e2af5d959bbcb7a9f12c60190f9b430e2",
+    "bytes": 33252
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-clock-state-window.log",
+    "sha256": "4028bbaa2c7867b19b3b4f111486110e744eed9e1b20a435a8c8848d2f58ca65",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-full-scope.json",
+    "sha256": "3f335ab647f77d4128fd0f799413a64b474c20b14e438866d8d7a821359c10eb",
+    "bytes": 31581
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-full-scope.log",
+    "sha256": "434fd6ef7f596c9152d20f2406a0c10e77b59caaf2ff181a17e81954072b42a9",
+    "bytes": 94
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-management-id.json",
+    "sha256": "1792555eb9918af03fbc90984e936d09fae0d19d2f1513e836991e445d4074a5",
+    "bytes": 28349
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-management-id.log",
+    "sha256": "ac7d88d1aca10c397aefd8424921540c405096de6a77b7ea3f8444d4bc832d40",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-model-descriptor.json",
+    "sha256": "339c5d60b2ef0a71f2f3c6d5cc2c76336f2035a815a91d4f1b4759740dbe701f",
+    "bytes": 34847
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-model-descriptor.log",
+    "sha256": "83f57b9281d2286c258d130d989ed0ae72a2d80c0e789181eeef3df3f6a105a7",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-provider-source.json",
+    "sha256": "d0b0e19c46e3111fe1638555d9825adce5ae2376e5c97c0e0c93760c28316de2",
+    "bytes": 29976
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-provider-source.log",
+    "sha256": "73899d2266364ca40bf7c1b1da733487ea40a08cf5bbf8be0d27ac9afa093b8c",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-selected-model-availability.json",
+    "sha256": "1543aae6014f386babf48084a6a43dd725145e88f93f47054c4f8c89fde1cf47",
+    "bytes": 34854
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-selected-model-availability.log",
+    "sha256": "dca1dd47c3c266a1b7272deebb97fb74e75c830573c1955c28e1a84db5825294",
+    "bytes": 111
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-selected-voice.json",
+    "sha256": "540923f94f2ac8d3c61672b66a4c01e6beb12a568ab72521aecfbcaad5c3182e",
+    "bytes": 28350
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-selected-voice.log",
+    "sha256": "9f1730354731e5f80a93b04b95ce1b895022ef0bb891bb1edd54252a986044c5",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-selection-versions.json",
+    "sha256": "56d88a16de33a5cb75b568001c5f41f5f4cda869dcd6156db898de79ed031056",
+    "bytes": 28374
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-selection-versions.log",
+    "sha256": "7033365434d757a55d6bf31650e29e1dfa8b7f64ade289c6f220634116a60eb3",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-strict-boundaries.json",
+    "sha256": "316adb1c894895836e7c4d354afe186b50f12d7c001b1a5aef4d1fed3dbb6f3f",
+    "bytes": 28381
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-strict-boundaries.log",
+    "sha256": "002fb5ecc16a1277d21ca4fdd4dd376566c9e3a62ad12649c32c3659feb5e983",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-unavailable-voice-reason.json",
+    "sha256": "648e4ba5b78983769ed9456cf76f7e71c7c9a4d9355656c74e533654c9fdd428",
+    "bytes": 28364
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-unavailable-voice-reason.log",
+    "sha256": "c9953d6717906a4796128025990af4b65ef7690dbd9944b42ccda42a519db66c",
+    "bytes": 108
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-voice-duplicates.json",
+    "sha256": "e4662abe3a1b75df9c95c79b3b309ad9ed4dcea8e67dbccc71d31b1c2629e713",
+    "bytes": 28379
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-voice-duplicates.log",
+    "sha256": "40ba58b92cf74c35d73e512ea9b28d48e632cf4466b5e132f81e3e860f5aaf45",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-voice-window-shape.json",
+    "sha256": "61c9850150991ae8ccf32b0b0b38b632f46bdf3e1c891f6196da799a0d710158",
+    "bytes": 28347
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-catalog-voice-window-shape.log",
+    "sha256": "0c6b4f246dca3f98e3b97414a0e3b405b5270f6da4dddbdd561c85875b1ac9e3",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-configured-origin.json",
+    "sha256": "a52a6badc6d469a906e79c705c5872bb3916505b83b32cc1046a6835a328aae6",
+    "bytes": 29992
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-configured-origin.log",
+    "sha256": "97a2e410909e6fd9241de12d52069e79ac79372b92efab9b714dc100eea1ac33",
+    "bytes": 93
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebCatalogContract-method.json",
+    "sha256": "dc69aeada20f5703cfa61b2882cbd9c2b142705588584ae848d233b3e8c819c4",
+    "bytes": 30759
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebCatalogContract-method.log",
+    "sha256": "35c3719fd7ef876290b74fb54f6a4ec018f42297c7dbf334b969447f70c80dab",
+    "bytes": 111
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebCatalogContract-path.json",
+    "sha256": "372b1ea31ea77a55bdf04c28efd963212fe6e2c65aa8fe599153f811b0869860",
+    "bytes": 30752
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebCatalogContract-path.log",
+    "sha256": "b0140dc992ec14a9b63bef516ead727a69ccb4d0bb85265d98714a1cc2a26037",
+    "bytes": 109
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebCatalogContract-response.json",
+    "sha256": "c1b1453f6591da3df4999fa04033deafdc1a7e20011948d5473d941ab89ba953",
+    "bytes": 30772
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebCatalogContract-response.log",
+    "sha256": "c07da39c6da818b88064294c2b0f8742d90e608c78cc0558d87fbac0945df6d8",
+    "bytes": 113
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-body.json",
+    "sha256": "63b147eece24a442ea4320eec15c2423b69df5fa8e8a023dbc28dbf77538deab",
+    "bytes": 30626
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-body.log",
+    "sha256": "0dad1094db12b22130108c6364162e06b9495a4c7aeda1d4e8d470c4d9c520fe",
+    "bytes": 108
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-method.json",
+    "sha256": "1430fb63b7f43a8c543edb585b11a210e06d74f1b9fdfef51a711e0d9962fd0d",
+    "bytes": 30742
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-method.log",
+    "sha256": "b5f53882117aa45d7edd2f0ff6b55eb083f425c3c1e8426978d9521e6a648475",
+    "bytes": 110
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-path.json",
+    "sha256": "414b5b3292bff0d7797554c106b39b8c7702b486e9309d3878fabd4a1c33712a",
+    "bytes": 30747
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-path.log",
+    "sha256": "6fd6aa462b17f6f7ee3735140eb9bfe02f51f7094bfe24a064e2649ce224a373",
+    "bytes": 108
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-response.json",
+    "sha256": "6ba21f9aa1ae8eafdf8219730c36b3f4265b1a04cb97e0c27698a9c8e1038b2a",
+    "bytes": 30773
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebPolicyContract-response.log",
+    "sha256": "b0340f7a0d6d629f419b41b1972ca9e9f285cdc418a0467d44e633ebe17eb594",
+    "bytes": 112
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-body.json",
+    "sha256": "1461d7e345e6217cffccba1e1dc22652216cdca13e1f28eb87de1ef4c5b01235",
+    "bytes": 30649
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-body.log",
+    "sha256": "1d99e342be5c7fdc134080a154837acb03aff1a47b5ca8feba9783010b644535",
+    "bytes": 109
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-method.json",
+    "sha256": "9253327462078b3b50fd0672dc95d3cac3c9ba3ec078de9720f692c85c50dfdc",
+    "bytes": 30737
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-method.log",
+    "sha256": "27a0d96067b6f6edc83ae3c2546555e7cdaeeac686e7020731d9539664275617",
+    "bytes": 111
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-path.json",
+    "sha256": "aa6f2cfbdc94f9dd2403891d342a7c0200ec27b11e53c22fb3dabc2a25191274",
+    "bytes": 30757
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-path.log",
+    "sha256": "250362e6dc5791ebc2f282ecec137f597590775eb334b60e28646c5de6ca53d4",
+    "bytes": 109
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-response.json",
+    "sha256": "2e233be21ee37187e9a663b1a7920497acfd3ba80f44679074ec0ff94da42173",
+    "bytes": 30751
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSessionContract-response.log",
+    "sha256": "8f549076d2225c555f003ed930cba426db09efacc0188a225df84c2e7f0b84f8",
+    "bytes": 113
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSnapshotContract-method.json",
+    "sha256": "f9d68741afac3540a292c6805ae641c617c930dfea4a84f541edc67bd5eea7a4",
+    "bytes": 30763
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSnapshotContract-method.log",
+    "sha256": "aa0d7e9c85123264d3327ec4d824b9c8f80daeaf5348af0722de5593407729c8",
+    "bytes": 112
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSnapshotContract-path.json",
+    "sha256": "27ff225889c07c49aa5bcbb19a2762e28fa39b7dd424e2d342410e5e26c814e9",
+    "bytes": 30756
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSnapshotContract-path.log",
+    "sha256": "c9e9e36700536ea95122e45ad9e3ccc3a90d9778f0a019ff3cf9620e75e9fe93",
+    "bytes": 110
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSnapshotContract-response.json",
+    "sha256": "56c6d23ad79dc5c853df590755ff575f83ed0371cdc5facfb585a0c91fd71b27",
+    "bytes": 30760
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-elevenLabsWebSnapshotContract-response.log",
+    "sha256": "acd36734c61882b4d372b3a07e9e73ff59e78bb137f29c0f5ad8c350782b19fc",
+    "bytes": 114
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-final-service-auth.json",
+    "sha256": "e5b0b889d25d1c2bc0ac5f3f86bcf85f65fe4efe96af6533be478b46a2f14b39",
+    "bytes": 37744
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-final-service-auth.log",
+    "sha256": "146aa4ef6114d47afcaf7bc3449512d9712764b32a311dbb5c0978ffd4efbbf0",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-final-validated-agent-path.json",
+    "sha256": "fa088cdaad588b062518037fe308151ccb70c56726890670249ce56d27b3873b",
+    "bytes": 35725
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-final-validated-agent-path.log",
+    "sha256": "5ab1cafcfc457b8b77657d19bd9fc90857ea8daae69b4d01ca97d939282cda58",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-public-export.json",
+    "sha256": "3df23099c0fccbed39c91941d6ecee40e8eb8faef4d676453a42d9f53809a799",
+    "bytes": 39478
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-public-export.log",
+    "sha256": "ff084617c13f3e5cf12844aebc802e8355178e0e5f6c81cf91fc279ca2e12886",
+    "bytes": 94
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-service-auth.json",
+    "sha256": "33b3cf8d3cd9324b8f0482d68412d60853a8ab64217ec22b881716b743cbe5d5",
+    "bytes": 35504
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-service-auth.log",
+    "sha256": "c8d7c5beae2fc39da8c8be38e2bb60a877e16ce68ebd02aa2bfb66d4335ada1e",
+    "bytes": 93
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-validated-path.json",
+    "sha256": "e3b3c169b77b8e8918b0743174acfa302ce26197b0bddc70f8d545c28ae5153d",
+    "bytes": 33487
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-http-validated-path.log",
+    "sha256": "65be04f822548ae5628c50c9cabcb1527792c1609690c17c554e376130e48097",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-full-scope.json",
+    "sha256": "fa21c6b92ef9cb3d0ef9d02280f6df27570b723725ed083af5c664b92d4287be",
+    "bytes": 36492
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-full-scope.log",
+    "sha256": "e16c1eb39b50acd1607e9628d6e6616b77c2243a7fd88e2ebc92e18ca884122f",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-origin.json",
+    "sha256": "8f62b17fb539d6bc6f14c0a142a95f0a7fe8e3fca4652c1a248aaff96cbea7a1",
+    "bytes": 30000
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-origin.log",
+    "sha256": "659065857a74b74aad26533b9a238e56a678e87c01aab161f176a81739410851",
+    "bytes": 87
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-path.json",
+    "sha256": "0002e5f4d4df30453cf89fb95ce7ba24c500cae2d4280bcc732f41e50eddda8d",
+    "bytes": 28375
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-path.log",
+    "sha256": "077e8c73f37bb25bed52c54b3e2c072e7bce272e6c8bda6ac47777bddf165132",
+    "bytes": 85
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-url-components.json",
+    "sha256": "2b9634d4bb5f7d9366a347ed1623c9c813d6e38ae00a2df07178ce88336310ea",
+    "bytes": 31618
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-link-url-components.log",
+    "sha256": "0e965486ad5bbfa54ba8a224103229156222c4d973dcce300b7fb090ac33eb5b",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-public-link-id-encoding.json",
+    "sha256": "fa1bed1ba856e0bfc039f926e888e04fd5f98c87a8b039eb70bccfd2a6a4dc10",
+    "bytes": 30602
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-public-link-id-encoding.log",
+    "sha256": "2c188271cf6c52daf66958be830d27da1a33f522d75da559079dc64e76df7e43",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-public-link-id-validation.json",
+    "sha256": "597f0d8c47d880d949fddbf15f18cb053a51de2ca04ddb88e4b9961d7dcbd31b",
+    "bytes": 39129
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-public-link-id-validation.log",
+    "sha256": "c755a1fd948bc90c3b68f131acb528b999dc651533fcd1c40707ff2fad93dbea",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-public-page-path.json",
+    "sha256": "f327b70a6dd90b3d22d546e41ca9c7911b131dd2c37af66c105b8ddd67ca4198",
+    "bytes": 35520
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-public-page-path.log",
+    "sha256": "351fa3b88f8155a054b6277179e33f13c0f59ff4c96996c509824c4b2f7cdb50",
+    "bytes": 92
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-admission-recheck.json",
+    "sha256": "a2bede5b1b9ae432942c5c3db49e64256aff1bd518eb88cd094ae0c14620596b",
+    "bytes": 28359
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-admission-recheck.log",
+    "sha256": "3b140f9a61987f65e527fa599f2846cc74f249f394902ea0097c69b7452e0e18",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-invitation-correlation.json",
+    "sha256": "a11b8aedb15e278f68ab08b804bf6456bee13cdbff251f13b8d2eadcff74565b",
+    "bytes": 28349
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-invitation-correlation.log",
+    "sha256": "f836077b4afa16aac72bfcf266ecaa6b1c05a163df43cf80163c0bb6dc7e7a64",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-invitation-pair.json",
+    "sha256": "bb8175fbc3209b3247db73fdd1544167f8c1cfd35cb39af5f029173659640b69",
+    "bytes": 28359
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-invitation-pair.log",
+    "sha256": "c4759357dabb1ec9df9e392898df4a3e0d173eeeeea88017335eab3310d18286",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-link-correlation.json",
+    "sha256": "2c8afb98cd3b8140c78e65363544e9f23f1f658ec3f88f7fde1bfb497a5785be",
+    "bytes": 29973
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-link-correlation.log",
+    "sha256": "da9dfca534467501055d95c0f911f5e513ecf722a7ad8f5524ce962e36d52abf",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-malformed-url-control.json",
+    "sha256": "151b0c4f200073c6f1660c2f69c67c54fb12119aacc3bff099068d64c8ddb8c0",
+    "bytes": 28492
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-malformed-url-control.log",
+    "sha256": "259df08ea9b655c2acb3980f5d4197f41c5d668ca9ef1250d09dba44f6379425",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-mapping-correlation.json",
+    "sha256": "98be05e87aab0c758030986a753beecd69307f013496f18203bd5588a1ea8b28",
+    "bytes": 33215
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-mapping-correlation.log",
+    "sha256": "2c17e9e5f35cde25b4424af31c7119868040dd8b37fc211a3b70c5bab72da69e",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-max-window.json",
+    "sha256": "3c59777b37f94af66863710bce1e428f38bd365539b8cfbbaecbd41e6b0a6cd8",
+    "bytes": 28339
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-max-window.log",
+    "sha256": "f46209ca00321d46dfd6b1defa7d2aec930faa6d85e3ca82d42c935f718ee4db",
+    "bytes": 94
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-policy-version.json",
+    "sha256": "7f5d550904f29fc4d9548bc9a7c9c7633fce98e1928a0f998b19081f4d9e5e3a",
+    "bytes": 28357
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-policy-version.log",
+    "sha256": "7b474893a6b9920708b6b09ccccf68a4bece1ed260cbbb97c0a65c19d2744791",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-provider-url.json",
+    "sha256": "f649c3d9c3504eb858aa66d85dc61a8075b393d9d2601dd19b491be002ab7b98",
+    "bytes": 36458
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-provider-url.log",
+    "sha256": "581fa452ecdb922cd4143f88c64aa75e77eea423622c6acabfb4191146baa1cd",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-request-correlation.json",
+    "sha256": "b509e594972de8d97882502b71aa245ab06fc9dd11f35f8f49df1733e1443b51",
+    "bytes": 28338
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-request-correlation.log",
+    "sha256": "1871d4ca724e0073f44cf0940b78a86d53c55a39964e9bccaf64c5ef7a1aa399",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-scope-schema.json",
+    "sha256": "3280d28faa385506cd3a30b77aa3d1afe083cbf0bbfbeb3e45fb7c4e2c17bf65",
+    "bytes": 28328
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-scope-schema.log",
+    "sha256": "fcb786a7a074975f7ae512a6b522a7ba06487e3878e1156700461a5f517188e2",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-strict-boundaries.json",
+    "sha256": "f5fa94eac3babc6c26bd278bb9ba886fd117cbe8b06bf3020893110b99a79fad",
+    "bytes": 36439
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-strict-boundaries.log",
+    "sha256": "c4c2d7aea497214d76278f487204032fc1c740f02d251f5e3f02d61fca80debb",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-time-window.json",
+    "sha256": "a62ed5dcbc7a08bd62621e1cb7e1e677e0546a67ad47156346783b8ca7913236",
+    "bytes": 28359
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-time-window.log",
+    "sha256": "badeab3d8c0b7c3e15f9335e6bc98b22fcb03a11f68bd9d45320221485575513",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-viewer-correlation.json",
+    "sha256": "cdfba3c4f3ab1969defa8d1f53f08ebae3fefac0fd2ac9b7efd5806849044621",
+    "bytes": 28363
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-session-viewer-correlation.log",
+    "sha256": "6878a8cb2fb862a4147da1315b567922630febef163b94176eb498fd594939c8",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-snapshot-full-scope.json",
+    "sha256": "43df0763479d258224b4ee5e2533adb413de9fb144b04d2ef45290fd4acccf71",
+    "bytes": 30005
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-snapshot-full-scope.log",
+    "sha256": "4e14f20cf50322a447524b2dbcecaaba054622b7570978b940fb051b9128d91f",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-snapshot-invitation-pair.json",
+    "sha256": "6dbff74332a6584c3bf13a7ca01a5d4fa6732214e905b512fd3da710e9ca2ef5",
+    "bytes": 28370
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-snapshot-invitation-pair.log",
+    "sha256": "b8ba49047d4f3502d27d962353056e3cfb37a7012f750303c8fedcdbe31b5202",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-snapshot-web-kind.json",
+    "sha256": "e767e25dbca858cd9bef134caa9dcc1af4abc37fedabfbb8b1855bcc5eacfc51",
+    "bytes": 28367
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mut-snapshot-web-kind.log",
+    "sha256": "4fc05148287b3e7f2271ede7fc45d6cbb5bfa2f05206a3ad9e29045838a46b09",
+    "bytes": 93
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mutate-http.py",
+    "sha256": "4206826a2f81e1a0b4eb7be56ce11066a795c1f8cc1e8e5ee46341e026c9e0ef",
+    "bytes": 1829
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/mutate.py",
+    "sha256": "c659195ce94a99a8b76f7e9e2712b6eb45ebeb095c49ec8d6bb94caf0977a4ae",
+    "bytes": 9350
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/pack.log",
+    "sha256": "2ce3493bda4d4ce5803de89a908561900a59df4518321ac44090f6fd3b9a7bc5",
+    "bytes": 11969
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/public-path-red.json",
+    "sha256": "e6d24370dac0b3f00334f135405214fa2e4fb1912b68f999c5326dc474872711",
+    "bytes": 45721
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/public-path-red.log",
+    "sha256": "fd18e508c98624de72a63ad2dfc78a2f2b255afba86012ebb700a9350b3e9c36",
+    "bytes": 87
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/quality.py",
+    "sha256": "475f0c0c985f64ea94c7b0b1ff6273be65161f92ec34a0fa14b6d1fea112e597",
+    "bytes": 1293
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/red.json",
+    "sha256": "61390092c2d3d994c64976f5eb2971e993b478eaba2ff083354bcd7f51963beb",
+    "bytes": 182901
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/red.log",
+    "sha256": "6c2b1d2e0adb6b69755ebb21f973f5fbb231bfa3a70e879b576419af0749fdea",
+    "bytes": 75
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-clock.json",
+    "sha256": "c85381aed143a5fd5ff3b89c5db0f1cda9dfc2c1b7d7ca085ec568d082472a31",
+    "bytes": 26720
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-clock.log",
+    "sha256": "908c1800fffaa9c11957657dcd0f6cd48d6e2115fa01ec135d316e6456bb9c15",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-invite-current.json",
+    "sha256": "ebc62f20b2d4b56a0a14ebca1568914f755bb0b765e19fe78ac20ccb8bc76315",
+    "bytes": 26712
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-invite-current.log",
+    "sha256": "e7d9dd2041ff17e7292f84102fd218893de4a0cec5980535c57f345d09172508",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-invite-mode.json",
+    "sha256": "837c28c840e7c713413ab473652f773bcc69f7ae1adb70c7a48f6188474a61cd",
+    "bytes": 26721
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-invite-mode.log",
+    "sha256": "8de0a4fa8550526adb5b56187de1170799673c16e2ddf3b4025d69dc88bae800",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-lifecycle.json",
+    "sha256": "02bc4db59db574e4aa8cd8094fa656297ad7ddb01df85cdf2d1b0937163b3b44",
+    "bytes": 26726
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-lifecycle.log",
+    "sha256": "4ac98d178629c894f6684c3cb657d37fef06e36582345b594ceee1c9117e09d5",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-link-context.json",
+    "sha256": "5b26563e56bf23cd57870527c05fbf9699ba0f85885ad8de260f66faa9c29781",
+    "bytes": 26717
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-link-context.log",
+    "sha256": "1c34c3f8f4aa3bfb3a9694cf3612e70db1cc1bbf371c2e06d4d63ff0a8086564",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-observation-times.json",
+    "sha256": "899b8056f1af222844206fbc507f7c681002524cb4f0c72ee11cf5873b87eb88",
+    "bytes": 26719
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-observation-times.log",
+    "sha256": "2376fb88315d5bf406cff7e23df01a11ec8d164e2e063aff3543444f75204fe2",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-owner-membership.json",
+    "sha256": "95cfd8393369793e1a73fd9c069c1582f2a1fceaeaf386d598d83baf557bb3e0",
+    "bytes": 26707
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-owner-membership.log",
+    "sha256": "809eb0a8beb4e971eae6eabea00da54662714ea307266f33b49ac610d2d5c404",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-pause.json",
+    "sha256": "4f7ac8961b1fe326f4db88c3bd388c4225e9d038dfcb369908ba34a3b91bdcfe",
+    "bytes": 26709
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-pause.log",
+    "sha256": "e2cf11e3d6fdaa57707c01bfc4e30daad40e8eca6d6547e4ddd9e9172b1822fe",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-provider-evidence.json",
+    "sha256": "77a4de47817e4c09c3668bfa64d106b5d702e803c6c2a0bab0ff7ab11e8854f0",
+    "bytes": 26721
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-provider-evidence.log",
+    "sha256": "e9b46325e4883650bfeccb080734d27df3cb4d58c62ac5cc3788b784fc26ed4e",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-provider-pause.json",
+    "sha256": "fb6a4240d83e91f843f46807db32c32d22b20b214c36270c63e3f3e8822cddce",
+    "bytes": 26711
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-provider-pause.log",
+    "sha256": "39caa7f5f42c305692de7529ea246ac18e70f305d4da1689c3b9d68496683cf8",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-public-optin.json",
+    "sha256": "b482d89ca100583bf0da1cde8c4e9214808a7f67dc97d8c12fc736a46a380953",
+    "bytes": 26707
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-admission-public-optin.log",
+    "sha256": "7b3258b959fa720074af301cb00190c78bb409e9072faae0a250a959171a254d",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-capability-catalog-export.json",
+    "sha256": "872f6724bd3efa7b839c407df54d0a08c69721d828d3985093fe9e0869b8b5b7",
+    "bytes": 26730
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-capability-catalog-export.log",
+    "sha256": "45d76d0c9de3524a8547873e1f86053591d84bce82c390c34c504bd776731632",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-capability-session-export.json",
+    "sha256": "751afb8d28c0d66b935370f58ae205f5b6910ed591faf10572af249e1e2bc9eb",
+    "bytes": 26730
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-capability-session-export.log",
+    "sha256": "8e9ee1f19cd74fef3ca35b12b04ab99734e01f37df556313363f141227c1a4dc",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-available-model.json",
+    "sha256": "67ecf946343be2de5e1d2112999fcee29259cb1dc68f30e8d0ca5c9e494aed64",
+    "bytes": 26718
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-available-model.log",
+    "sha256": "6ae1d7f9b0f6868235fac6ace3a10aa8496754778aa680d03abceea78227b0d6",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-available-voice.json",
+    "sha256": "f0fbee4c222295da2a12af7cc217d74c357edaec308aa17fe1926d22cb351cea",
+    "bytes": 26742
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-available-voice.log",
+    "sha256": "afc5180416f3f1de2f45ba10b20a28ffd122991b4d421971bf35b1f65813c4c2",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-clock-state-window.json",
+    "sha256": "4b634e9cf654e0423fa1c5ea04f68535d64202719026e36ae6ff8757a4fb04aa",
+    "bytes": 26713
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-clock-state-window.log",
+    "sha256": "b8d484183fcabeb4fa887e36851e64b777ddad9a9913a2b25710c60acddb5d9f",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-full-scope.json",
+    "sha256": "c9ed4132f2f328ac2ac0732e710c24aec7e00c30681ac0bbca5eec7eea51e3b3",
+    "bytes": 26708
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-full-scope.log",
+    "sha256": "082d791e51a59f87398a364230b023a9cdd2c18521228320258eb78156176593",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-management-id.json",
+    "sha256": "8e1808995244e4b99ec1e0bb303a7c6bada912e3b7a5fb05116c7c1694bf8f53",
+    "bytes": 26717
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-management-id.log",
+    "sha256": "0a0cdfa8dd2eff34acae60ac95be682f43e8837245d6e7e86f3edcafcf68444f",
+    "bytes": 101
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-model-descriptor.json",
+    "sha256": "b000f042ad2562f82c8fba90fec84e26c818f102c469610dcf5fb8644925e347",
+    "bytes": 26726
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-model-descriptor.log",
+    "sha256": "80afc9388ed85557351f7084883a89b719a87dd045d2d55f14d123545c081466",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-provider-source.json",
+    "sha256": "fd170990c8cc104273aa0faf07096ef5a519976302fc96a1b40c90e9ebf13978",
+    "bytes": 26729
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-provider-source.log",
+    "sha256": "71892b289b682ab66cef8c40ca9006d72c45b8f2147cc092e6e6e1f161755e82",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-selected-model-availability.json",
+    "sha256": "6fa3cc7a70df71b7ab490cb568545449d7422c5ce3f4c63f0fcaff125d157868",
+    "bytes": 26741
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-selected-model-availability.log",
+    "sha256": "02f5ed30a4d47f4e63922faa886532c251805bec957f1a11108661f58da51614",
+    "bytes": 115
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-selected-voice.json",
+    "sha256": "a45866ee10cc282e8957f50923f52e6ff9f3af185b88a112759646cc3dbccf95",
+    "bytes": 26736
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-selected-voice.log",
+    "sha256": "996aa9356527417a79444418dba212633353d8b40e3af88ec0edb9ab063daabf",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-selection-versions.json",
+    "sha256": "ebc25811d8eca0f16335deefdfa5e2c3843bfe44dae075993e76c5201f8c4efd",
+    "bytes": 26742
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-selection-versions.log",
+    "sha256": "1c6d6106f34a93cd05d01e8402034aa8c50f4f2c1638b470343816f8bf520235",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-strict-boundaries.json",
+    "sha256": "c4df5895d6896cc9f7339be4aa99f40d6e5ff75cfc220d57c15164a2298a8d9f",
+    "bytes": 26726
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-strict-boundaries.log",
+    "sha256": "03c31866073e30e9b14708f9f2527fa48e3b54a1124026612de119c5e79f06db",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-unavailable-voice-reason.json",
+    "sha256": "9192b3eab12502dd7aa21cbb18db58f6487065286925c60e7245540a2f0921eb",
+    "bytes": 26717
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-unavailable-voice-reason.log",
+    "sha256": "a7130e900963f1bec0aceb18c8cd679500eb702b34f8ea2fbee53506990a7d08",
+    "bytes": 112
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-voice-duplicates.json",
+    "sha256": "f3110c892f367f984247472be043da429f65fbec9919dbd287ef0a2eaa112716",
+    "bytes": 26725
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-voice-duplicates.log",
+    "sha256": "88349607cba4e9822dd9f84f6d6f4a27471ba321473aa4ef6b8e590004010c58",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-voice-window-shape.json",
+    "sha256": "67dedc07dd376cabf412584b2d80b132241f7abd6fbaa28dad8e0434c921c0d8",
+    "bytes": 26686
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-catalog-voice-window-shape.log",
+    "sha256": "d3807af7d73406335bd85d8e102909efa62a07743b66b7e9be5bc588a8c1a8cc",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-configured-origin.json",
+    "sha256": "f2e7a501870a9c7723ac97c522f65fa0401a93adf7c4e46cc88ec3156e734efc",
+    "bytes": 26749
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-configured-origin.log",
+    "sha256": "878bd35206564db373aed2640e6a0d19126829a624937fc9ee794beb13937f90",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebCatalogContract-method.json",
+    "sha256": "6a82dd62679ed26815a2e77b6d392d4e902da785e19ce31805af3a1472b75d6c",
+    "bytes": 28969
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebCatalogContract-method.log",
+    "sha256": "dbfdfaccc397e905257b81afe35f986f1d068d6ee724bc6727a01845e7105ac6",
+    "bytes": 115
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebCatalogContract-path.json",
+    "sha256": "fbf4f766d1eedb62549aa3ef1a6a29eb357f1ed3790f52330c9eec536906e529",
+    "bytes": 28980
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebCatalogContract-path.log",
+    "sha256": "1a66dab7f4faad767a9a7e1d3e0eee7636ef4405c986c11858b362d440b5378b",
+    "bytes": 113
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebCatalogContract-response.json",
+    "sha256": "1466a22881ea3ce8bf4c933aa91a1b6b15bb960ce89fbef68251c1480dabc59e",
+    "bytes": 28958
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebCatalogContract-response.log",
+    "sha256": "b9b16496a02e420ad76911d66522a9f88a0b4c417ff811af7ba08554807057c3",
+    "bytes": 117
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-body.json",
+    "sha256": "96978a8a80f1194b61e7c512c6eb1f69e130be771a05880dd70bfadba4187e21",
+    "bytes": 28955
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-body.log",
+    "sha256": "d483c8ed1912edcc226b68fa4e9e63ffbce70802e032057294dfeed7e44cd0f9",
+    "bytes": 112
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-method.json",
+    "sha256": "c09c8a19960dd7374304594d6d28d409961251a8c50511f920158ce815079b04",
+    "bytes": 28959
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-method.log",
+    "sha256": "5213173b2840e0ea32d8a111056520354b9e2c518afdecc5e2f90415b72f1f6e",
+    "bytes": 114
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-path.json",
+    "sha256": "d55de14b9eb82cf2722d56b81c14d3e65cdbe1f400e0b00f15d53f5148d90d09",
+    "bytes": 28955
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-path.log",
+    "sha256": "28c071335c2c4c24a6e47f8c74af6b2b2427317c2348f2f16ed582c3d2d9aba5",
+    "bytes": 112
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-response.json",
+    "sha256": "b268fd91945d0cdb1c27d8aee698019aaac9039021d930b7331e498cada2cbc4",
+    "bytes": 28956
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebPolicyContract-response.log",
+    "sha256": "db6e46d8586f64bc0a75ea51753951d0a4620d797b539f89642d04157af78577",
+    "bytes": 116
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-body.json",
+    "sha256": "a037e0e71f8a8c13b8c5b84372bb52a7e48c09c0a622c1f7db41008b7dce37ad",
+    "bytes": 28947
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-body.log",
+    "sha256": "104b1b3b1375c0746aa9e43f2b2196f6bf04332be7946028aeda1da6aee789aa",
+    "bytes": 113
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-method.json",
+    "sha256": "726254e8a41023a0e19327a52e97edd2f05e02cfae19108b5e1eb5713816f2ff",
+    "bytes": 28929
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-method.log",
+    "sha256": "1ebebc2caab042391cb934b6f582ac98e07c51025115f8635488cf9ac9263b8d",
+    "bytes": 115
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-path.json",
+    "sha256": "c6b6f7c08afa9dfa1443281a196028a2100d66386a50482a76e4baac194e3a85",
+    "bytes": 28946
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-path.log",
+    "sha256": "1d5ff2b67d52ae5b18e80747a0d4bae8bbb4fddcf901a8cc7c32e42b12b046ac",
+    "bytes": 113
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-response.json",
+    "sha256": "7629c9784961f4e61143107543bfb7f4bf6865d047f68774fd1c5a1c4b7a1d5f",
+    "bytes": 28966
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSessionContract-response.log",
+    "sha256": "35cb34ff877da07e846e4b1debdf4978ed0ce6b66d342deb38b582019164aba8",
+    "bytes": 117
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSnapshotContract-method.json",
+    "sha256": "0b84bacf764df36d5168d349cb305a4c365ffa8280a99b7c02ffd9f688c72f22",
+    "bytes": 28976
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSnapshotContract-method.log",
+    "sha256": "736c192f6e7670e6c9c11d265bdc308217f9db93cf45fa143d2f406386c5e668",
+    "bytes": 116
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSnapshotContract-path.json",
+    "sha256": "db33466db3ba00a471ff0ca7dc29d37be44ed3e7abe51d2ff40d8e712b8f4746",
+    "bytes": 28962
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSnapshotContract-path.log",
+    "sha256": "9933ec0747c1253bf90ee422438f0486e5dbcb7098f4ec5e822d45ac45081462",
+    "bytes": 114
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSnapshotContract-response.json",
+    "sha256": "265cc4178b3b617afe1b30b3624980d200c92214500d110d1b37d1f7ce18f82c",
+    "bytes": 28978
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-elevenLabsWebSnapshotContract-response.log",
+    "sha256": "f236c363da144e997ae638bee6eccf59cbd26ec76814cff6f50b21dee118a10b",
+    "bytes": 118
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-final-service-auth.json",
+    "sha256": "a3c223746bef50dd8e7e5549a8c4d85a0e799f1b3cd8c1ffd545a6d12100d333",
+    "bytes": 28962
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-final-service-auth.log",
+    "sha256": "a545d0980a517d69f4e7c8ef1c859ae6b7966e0449a214c5780fab98909476b8",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-final-validated-agent-path.json",
+    "sha256": "a8f5dd4bf473c6fe596a3bf96520d580ef18412be0deeaa860e53f432399a46e",
+    "bytes": 28949
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-final-validated-agent-path.log",
+    "sha256": "931ee2ab2c69fe76d0c32d5b41c9d2c3b9bd692a91b31516e7b100b3086bdb19",
+    "bytes": 111
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-public-export.json",
+    "sha256": "d8e430b04bd7249bfb432196dae23961870ec0d081dab10e94b23171afb43284",
+    "bytes": 26726
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-public-export.log",
+    "sha256": "9f968444598b6b176f43cf951c354a8bf256c3f6b1533c61f7fac8b63de433cd",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-service-auth.json",
+    "sha256": "ea9b08e2dfc5eddaae7ba44eeac52a610cd986f3ebe702375f0bebaa333f110d",
+    "bytes": 26731
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-service-auth.log",
+    "sha256": "f479a391ec7dd3a7078a2396d5eb999cd18db210fac4802b346e2472b365ce20",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-validated-path.json",
+    "sha256": "63e08b2f77bd889f499101e5b6a8faa128e44d56888ada71acc302b264f0c077",
+    "bytes": 26729
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-http-validated-path.log",
+    "sha256": "ac4ef09820e7abe3375e141fa221d16063af6ce9658e87a0d4ce2838bd2456da",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-full-scope.json",
+    "sha256": "fb18e366ec49949d63bc279edb77ee40b783ba3a36c2a4b7cf84aef680b434d4",
+    "bytes": 26724
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-full-scope.log",
+    "sha256": "665179230648b55309f7f6d7f583bdf7ecfe0024bdc8f5fc58641def837c3857",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-origin.json",
+    "sha256": "30b90173af95f1166abc1497e92b0af91264bc98831a921704dbe5866b69ea08",
+    "bytes": 26759
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-origin.log",
+    "sha256": "998f78690d93470baab67e30e224199ca9d3dc67a692bd75341333416d4c5ef0",
+    "bytes": 91
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-path.json",
+    "sha256": "61358709f9fed679cca7a525cdb749435fdaf5942db3a9b28085a6942d5c420d",
+    "bytes": 26751
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-path.log",
+    "sha256": "63545a143aefe3bca9657903f6bf334d806902bbf265137650b1a2a2d74d5ed3",
+    "bytes": 89
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-url-components.json",
+    "sha256": "83bf84ac8bd6ecf46e396d3d5328cc497dccec0c2fcf4c6900cfae4fbe38157b",
+    "bytes": 26753
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-link-url-components.log",
+    "sha256": "78591d6fce840b62c5442ace4f7c2fea26c22e0c3ce91b8e79967ddf8be0b24a",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-public-link-id-encoding.json",
+    "sha256": "881f32d8beb81844dfe02439e456ff4350332282f3a9dcc42d95cb6b5de85c65",
+    "bytes": 28942
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-public-link-id-encoding.log",
+    "sha256": "020475afdd469665132aa189a6e5c0c48700fe75a780e21be13a83cdb360804b",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-public-link-id-validation.json",
+    "sha256": "5c6436cc7629272086ccdcb69efc0db31128d4f8fa619e2af9d53a53960661af",
+    "bytes": 28968
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-public-link-id-validation.log",
+    "sha256": "1f59ada5a08a4c4b6dd932c8d3c61e2b09ab5b8e24acc2a1e9d20c87c18d847d",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-public-page-path.json",
+    "sha256": "95aa28dabbfe630fb178c405f7f74e983790a587a65fcbfd770e5c73ef5df041",
+    "bytes": 28939
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-public-page-path.log",
+    "sha256": "a9aa6bca8a28ebd9633a2712b3e44f4830fb62ee5163246b0101cfa6dbcc50b4",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-admission-recheck.json",
+    "sha256": "3a8a5f256d7d22de9121bafc1996b2afd658b6c1cdf331ccb7c8d6c1491d2483",
+    "bytes": 26718
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-admission-recheck.log",
+    "sha256": "2fc40e7352792c1da8799596e965b3c6d15f66763e7f9b133b74975b7da5e4f6",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-invitation-correlation.json",
+    "sha256": "07bd87c542fde776cda9173eb787e1cd3141efef5bd39104a06e059c4abc2e27",
+    "bytes": 26729
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-invitation-correlation.log",
+    "sha256": "ae311882072065ce363085068bace52ec96a2afc2629b8954129a236c258fa0e",
+    "bytes": 110
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-invitation-pair.json",
+    "sha256": "983d43cc44e4b7ccd36b53879cdeb71c4ba58f22f645744154c9a963c9eb749c",
+    "bytes": 26728
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-invitation-pair.log",
+    "sha256": "ae74c570e881bf8d7c9752cef0065f462cf5a1ffaf57e59445db60027de188c7",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-link-correlation.json",
+    "sha256": "e8c6faee8e0c60d8b2ebe41ed731249bd625a1e5617740ba48042fece3f53db4",
+    "bytes": 26737
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-link-correlation.log",
+    "sha256": "a2ec68924afe5a1d46d292fdfbf5664e111b4eeb97cf85805c0c63e67f6b0601",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-malformed-url-control.json",
+    "sha256": "c38d69dc299cb577f53c2d5e39ae1c1f33875b3c5030464119c3c4cd5f055440",
+    "bytes": 26716
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-malformed-url-control.log",
+    "sha256": "f1f845b38044498c4524a8e9487d34850b8db956d6f59fcd069d1d1d91b05dd4",
+    "bytes": 109
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-mapping-correlation.json",
+    "sha256": "3c473f6bb21d88a4740e0581063a60945bdf60fa8d9dbe47dcc3f93f924350cf",
+    "bytes": 26719
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-mapping-correlation.log",
+    "sha256": "212ecc3a5217215d80d3285db9efbd5776bccb08b0b3f0e66a8c834b1ff6f1b4",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-max-window.json",
+    "sha256": "e6f2d9749aa663ff29d7fb0093f6bc09f1b3cda15d77c0e70bddabc49c212479",
+    "bytes": 26729
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-max-window.log",
+    "sha256": "3c75d6a616336292f9eb923d5d7b8a015c225047f49589e9d5bfa956e0638b16",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-policy-version.json",
+    "sha256": "807658322f45cc86fcf13c0567ae414661e6c5a5515b23a64c6d692b29617596",
+    "bytes": 26719
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-policy-version.log",
+    "sha256": "d7840df33866f937de0e305dc4f3dc3b75b3a3125a6f8602f6279a439766d1fb",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-provider-url.json",
+    "sha256": "4e2cadcedfa4fe6c00651c8330b11cdb184551873af18d5db6e7cf712b864fbc",
+    "bytes": 26724
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-provider-url.log",
+    "sha256": "301b8220381fcf9a6de03e65dcb7db81d9d7c0afb518083fc078eaf1d270e783",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-request-correlation.json",
+    "sha256": "186255251df608636c921c2c9d2ef057f30e85f0d92cc864553220b543adde49",
+    "bytes": 26719
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-request-correlation.log",
+    "sha256": "06199904a8de463b13acb3123da4b7c686da0510ce78c7ca76b975f55d3d3242",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-scope-schema.json",
+    "sha256": "a6443726e8dbcd2576abb7e41bd8c3ebbf112fcf55185ce464867f2563d551ac",
+    "bytes": 26705
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-scope-schema.log",
+    "sha256": "7aa817fe944ecc296fe9641e6c9e2e0d5fd9d4baecf529cccdcb8b4175f0447e",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-strict-boundaries.json",
+    "sha256": "a98a30d47e267f5f817833d0c4b3425abf28e397979745559ba1f28eef912b18",
+    "bytes": 26717
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-strict-boundaries.log",
+    "sha256": "f4442e9a1e6bd0d8952590132083ba9fdb97c5ee1b46782f791833ab91c32e46",
+    "bytes": 105
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-time-window.json",
+    "sha256": "7c29ede70f5a5a24cc928bd45fccaec03e28bcf78ff4ce31c85f2fd5ed282251",
+    "bytes": 26713
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-time-window.log",
+    "sha256": "2c5adc3d2f9fecb7c8607c487b5a0f12ecb220810c86a5cc6c073a6f49d1ccd1",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-viewer-correlation.json",
+    "sha256": "22532dd03cc1ca4ec2eb0a9fcc71364f52460029b94cae78026bc45d51fba674",
+    "bytes": 26724
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-session-viewer-correlation.log",
+    "sha256": "4461fbc20a1f3e60d6fab46518112b8fab2d9adb89fd6c994453616f1c99c21c",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-snapshot-full-scope.json",
+    "sha256": "d3c18ec728ccc4bd2d49332c17723b067184e3dcf9af05150298e9574e31c7db",
+    "bytes": 26746
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-snapshot-full-scope.log",
+    "sha256": "6eb530d47cff062cfc8d33645edab196721e356177aab42a3dc43988a3476e44",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-snapshot-invitation-pair.json",
+    "sha256": "f6904c44025d1b3a293ab650eea4360e96caee50f43b67ddd1d1722d2fd081a6",
+    "bytes": 26746
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-snapshot-invitation-pair.log",
+    "sha256": "54d9f8c2fddb1e08d36f5a76baf6ebaafceb49f85d46f7a649df679244633507",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-snapshot-web-kind.json",
+    "sha256": "829863cd272304ee6d076c3d3cb4de92e3c789087ea1e61ff4e6a4bf9c4bff6a",
+    "bytes": 26732
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/restore-snapshot-web-kind.log",
+    "sha256": "353044e87decb6d81c08a278532c83daa5b2b22a8c22157ef4fbf945ef0257aa",
+    "bytes": 97
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/run.py",
+    "sha256": "0699e3c14d3881baa4220bddfb6ef021c4caebd32ab5176005e20b69c9b08eaf",
+    "bytes": 1344
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/strengthened-green.json",
+    "sha256": "9e60c3c984b1b22e146608d7f7f621f0e8d3a14fcbf058bcfc75d6c908f99331",
+    "bytes": 26748
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/strengthened-green.log",
+    "sha256": "0fa3e9445d3044e9d898164dc10e47cd3afb95687853dc3f640844deb9dd584b",
+    "bytes": 90
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/typecheck.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/write-source.py",
+    "sha256": "5fd4a98d8d4c6cac8372621b963a61a2285f19d55785d586dbb0df5a9fc012ac",
+    "bytes": 18547
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-b2-20261008/write-tests.py",
+    "sha256": "abc36deeea744dec9eda02364948c2041b9d0a8ec88ca40f632916c72240f93a",
+    "bytes": 22144
+  }
+]

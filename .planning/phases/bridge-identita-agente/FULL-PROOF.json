@@ -1,0 +1,13 @@
+{
+  "passed": 3400,
+  "total": 3400,
+  "files": 139,
+  "failed": 0,
+  "pending": 0,
+  "exit": 0,
+  "reportSha256": "1f487adfeb36837951f2848a17a9c4963d0c1d93848fb8ac343b30edd3980cec",
+  "nativeCwd": "/private/tmp/d-bridge-identita-agente-20261008/checkout",
+  "environment": "env -i HOME/PATH Node24",
+  "worker": 1,
+  "singleFull": true
+}

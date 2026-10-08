@@ -1,0 +1,66 @@
+{
+  "stage": "B3 callback/snapshot only; canonical identity unresolved, issuance closed",
+  "sourceProduct": "f0b77c4",
+  "targeted": {
+    "passed": 137,
+    "total": 137
+  },
+  "full": {
+    "command": [
+      "pnpm",
+      "-C",
+      "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=2",
+      "--no-file-parallelism",
+      "--testTimeout=60000",
+      "--reporter=json",
+      "--outputFile=/private/tmp/codex-a-canali-c3-b3-20261008/full.json"
+    ],
+    "environment": "empty inherited environment, Node24; acquired x9-posti forge-v2-codex-a-c3-b3",
+    "exit": 0,
+    "total": 3553,
+    "passed": 3553,
+    "failed": 0,
+    "pending": 0,
+    "files": 144,
+    "failedFiles": 0
+  },
+  "sourceBoundaries": 66,
+  "semanticAssertionFailures": 145,
+  "exactSourceRestores": 66,
+  "restoreSuites": {
+    "136/136": 36,
+    "137/137": 30
+  },
+  "compiledCJS": {
+    "passed": 5,
+    "total": 5
+  },
+  "nativeQuality": {
+    "passed": 5,
+    "total": 5,
+    "portableDeclarations": 346
+  },
+  "protected": {
+    "canonical": 14,
+    "additiveOnly": 3,
+    "passed": 17,
+    "total": 17
+  },
+  "sourceHashes": {
+    "src/capability/agent-elevenlabs/web-context.ts": "ba12824451035ac07e9d89a870de053a3d94170b9ffb6af272108559cde2001a",
+    "src/http/endpoints/capability-elevenlabs-web-context.ts": "efdf144e9f57535b4d019cbfda0b3b1d6850d68eade8f72791016dc60265c5b8",
+    "src/capability/index.ts": "305a348c524f32901f1216684ce25230a982ddb1425c1cee07860e590a5307a3",
+    "src/http/endpoints/index.ts": "ebd639aca605e9512235e794cd912e017411c7f07bcdc573c956bd4af9c6be2b",
+    "tests/capability/agent-elevenlabs-web-context.test.ts": "b8713019cb8202437f440c3a11bb1cb85a08e775c83ac3a3fbef5d70f9743272",
+    "tests/http/elevenlabs-web-context.test.ts": "285499a1da4cbba6f8bc64aa3e35f0ab00c6ffc6cfd9ce51edd0be320407deac",
+    "tests/cjs/smoke.cjs": "dbfe5bcbedfc77b5206fbba3b700617b433cf94f902795d1e410434b5e85cf2b"
+  },
+  "rawDirectory": "/private/tmp/codex-a-canali-c3-b3-20261008",
+  "slotReleased": "15:39; priority Codex C, not reacquired",
+  "limits": "No runtime producer, identity grant, browser/provider/live proof, release/pin/push/merge/deploy",
+  "incident": "One refused-slot baseline accidentally ran130/130, excluded from compliant B3 baseline; coordinator notified145911."
+}

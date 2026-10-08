@@ -116,4 +116,6 @@ Object.defineProperty(exports, "VoiceCallToolLogSchema", { enumerable: true, get
 Object.defineProperty(exports, "VoiceToolCallSourceSchema", { enumerable: true, get: function () { return tool_log_js_1.VoiceToolCallSourceSchema; } });
 // -- Per-agent voice settings, provider catalog, outbound caller identity (R4, v1.31.0) --
 __exportStar(require("./agent-voice-settings.cjs"), exports);
+// -- Models voice descriptor conversion with explicit producer catalog validation --
+__exportStar(require("./model-descriptor-voice.cjs"), exports);
 //# sourceMappingURL=index.js.map

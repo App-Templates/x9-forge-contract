@@ -1,0 +1,1220 @@
+{
+  "initial": {
+    "exit": 0,
+    "total": 101,
+    "passed": 101,
+    "failed": 0,
+    "success": true,
+    "semantic": []
+  },
+  "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0",
+  "mutations": [
+    {
+      "name": "snapshot-time",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands snapshot cannot predate sharedNumber",
+          "phone B2 current snapshots and CAS commands snapshot cannot predate attestation"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "snapshot-binding",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 94,
+        "failed": 7,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands rejects foreign expected binding tenantId",
+          "phone B2 current snapshots and CAS commands rejects foreign expected binding ownerId",
+          "phone B2 current snapshots and CAS commands rejects foreign expected binding agentId",
+          "phone B2 current snapshots and CAS commands rejects foreign expected identity managementAgentId",
+          "phone B2 current snapshots and CAS commands rejects foreign expected identity vaultAgentId",
+          "phone B2 current snapshots and CAS commands rejects invalid structures at every helper boundary",
+          "phone B2 receipts and correlation does not correlate a result belonging to another authorized scope"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "apply-current",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 97,
+        "failed": 4,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands rejects foreign expected binding tenantId",
+          "phone B2 current snapshots and CAS commands rejects foreign expected binding ownerId",
+          "phone B2 current snapshots and CAS commands rejects foreign expected binding agentId",
+          "phone B2 current snapshots and CAS commands never applies a pause using an invalid clock"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "apply-archived",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands does not apply active archived"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "apply-versions",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands rejects CAS mismatch old desired",
+          "phone B2 current snapshots and CAS commands rejects CAS mismatch old application"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "apply-routing-cas",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands rejects CAS mismatch line generation",
+          "phone B2 current snapshots and CAS commands rejects CAS mismatch routing selector"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "pause-independent",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands allows an explicit pause even with stopped runtime and unavailable shared line"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "apply-runtime",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands does not apply active stopped",
+          "phone B2 current snapshots and CAS commands does not apply active unknown runtime"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "apply-resource",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands cannot activate a missing route or unavailable number"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "apply-number-time",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands does not apply active stale line"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-binding",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 97,
+        "failed": 4,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects receipt owner",
+          "phone B2 receipts and correlation rejects receipt tenant",
+          "phone B2 receipts and correlation rejects receipt management",
+          "phone B2 receipts and correlation rejects receipt vault"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-desired",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects receipt desired version"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-order",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects receipt version order"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-time",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation pending receipts also cannot predate their snapshot"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-failure",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects receipt failure without code"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-applied",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 97,
+        "failed": 4,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects receipt applied error",
+          "phone B2 receipts and correlation rejects receipt missing evidence",
+          "phone B2 receipts and correlation rejects receipt stale evidence",
+          "phone B2 receipts and correlation does not mislabel a pending pause as applied"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-agent",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects receipt archived application",
+          "phone B2 receipts and correlation rejects receipt stopped application"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "receipt-routing",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects receipt line CAS",
+          "phone B2 receipts and correlation rejects receipt selector CAS"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "result-current",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation does not correlate a result belonging to another authorized scope",
+          "phone B2 receipts and correlation rejects future completion and old snapshot even for a pending receipt"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "result-time",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects future completion and old snapshot even for a pending receipt"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "result-command",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 98,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation never correlates another command request id",
+          "phone B2 receipts and correlation never correlates another command desired version",
+          "phone B2 receipts and correlation never correlates another command previous applied"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "result-routing",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation never correlates another command number version",
+          "phone B2 receipts and correlation never correlates another command routing identity"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "inventory-time",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission rejects an inventory predating one of its snapshots"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-source",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 98,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission fails closed for source partial",
+          "phone B2 routing before admission fails closed for source unknown",
+          "phone B2 routing before admission fails closed for source unavailable"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-times",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 98,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission fails closed for source future",
+          "phone B2 routing before admission fails closed for event future event",
+          "phone B2 routing before admission fails closed for event old event"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-unique",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission refuses collisions including a route of another owner that is paused"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-agent",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 98,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission fails closed for archived",
+          "phone B2 routing before admission fails closed for stopped",
+          "phone B2 routing before admission fails closed for unknown runtime"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-active",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission never selects an actually applied pause"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-applied",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 98,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission fails closed for pending active policy",
+          "phone B2 routing before admission fails closed for not ready",
+          "phone B2 routing before admission fails closed for snapshot stale"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-event-time",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation an unresolved result still cannot predate its event"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-snapshot-time",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation cannot predate a fresh snapshot even for an earlier event"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-selection",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation rejects response selector",
+          "phone B2 route result correlation rejects response number"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-agent",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation rejects response archived",
+          "phone B2 route result correlation rejects response stopped"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-active",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation rejects response pending",
+          "phone B2 route result correlation cannot claim selection of an applied pause"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-correlation",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 96,
+        "failed": 5,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation requires exact event correlation for call",
+          "phone B2 route result correlation requires exact event correlation for caller",
+          "phone B2 route result correlation requires exact event correlation for recipient",
+          "phone B2 route result correlation requires exact event correlation for selector",
+          "phone B2 route result correlation requires exact event correlation for event date"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-current",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation rejects future, stale or invalid response clocks even for an unresolved route"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-result-event-current",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation cannot refresh an old event by dating only its unresolved result"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "strict-snapshot",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission rejects extra fields in snapshot"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "strict-command",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 98,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands command cannot supply authority 0",
+          "phone B2 current snapshots and CAS commands command cannot supply authority 1",
+          "phone B2 current snapshots and CAS commands command cannot supply authority 2"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "strict-receipt",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 receipts and correlation rejects private provider details and invalid helper inputs"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "strict-route-result",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 route result correlation rejects private metadata and malformed correlations"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "strict-event",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission rejects extra fields in event"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "strict-inventory",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission rejects extra fields in inventory"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "strict-source",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission rejects extra fields in source"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "no-request-queue",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands rejects an impossible command CAS and Telegram request changes"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "clock-and-age",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 88,
+        "failed": 13,
+        "success": false,
+        "semantic": [
+          "phone B2 current snapshots and CAS commands rejects noncurrent snapshot at 2026-10-08T09:58:59.999Z",
+          "phone B2 current snapshots and CAS commands rejects noncurrent snapshot at 2026-10-08T10:00:00.001Z",
+          "phone B2 current snapshots and CAS commands clock and freshness are finite: NaN",
+          "phone B2 current snapshots and CAS commands clock and freshness are finite: Infinity",
+          "phone B2 current snapshots and CAS commands clock and freshness are finite: -Infinity",
+          "phone B2 current snapshots and CAS commands does not apply active stale line",
+          "phone B2 current snapshots and CAS commands never applies a pause using an invalid clock",
+          "phone B2 receipts and correlation rejects future completion and old snapshot even for a pending receipt",
+          "phone B2 routing before admission fails closed for source future",
+          "phone B2 routing before admission fails closed for event future event",
+          "phone B2 routing before admission fails closed for event old event",
+          "phone B2 route result correlation rejects future, stale or invalid response clocks even for an unresolved route",
+          "phone B2 route result correlation cannot refresh an old event by dating only its unresolved result"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-selector",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 99,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission fails closed for event unknown selector",
+          "phone B2 routing before admission keeps two agents on the shared line separate by their selectors"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    },
+    {
+      "name": "route-number",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 101,
+        "passed": 100,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B2 routing before admission fails closed for event other number"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 101,
+        "passed": 101,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "f2b4933ec27a81aeae200cfda91f3c3f1c107759d9af36989d65b96381761cd0"
+    }
+  ]
+}
