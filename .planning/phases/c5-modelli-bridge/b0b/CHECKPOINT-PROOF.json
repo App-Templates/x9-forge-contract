@@ -1,0 +1,71 @@
+{
+  "baseCommit": "27749e4da532d8482c5ca21294957eeda78e60ed",
+  "pausedAt": "2026-10-08 19:14:22 CEST",
+  "reason": "A191034 and B191047 stopped birth consumers; B0b conditional need absent; coordinator confirmation requested191422",
+  "mutationsQualified": 60,
+  "mutationsPlanned": 62,
+  "firstStageTests": 354,
+  "firstStageQualified": 30,
+  "secondStageTests": 357,
+  "secondStageQualified": 30,
+  "interruptedMutation": 61,
+  "remainingUnqualified": [
+    61,
+    62
+  ],
+  "restoredSourceHashes": {
+    "src/vault/credential-birth.ts": "2544ac5ab382da4c1eeaa1570223259e277ff6c908c8d9aa8b4b049e14ac9ddd",
+    "src/http/endpoints/internal-credential-birth.ts": "6c1be445b67e25e65b6b11e6727e84a36cbb524a61e90b410d62080e9404d10a",
+    "src/vault/index.ts": "bad1fd0a441330d6f553239b17a49bee2c0a728839cec41f04b4deb7fa4fff11",
+    "src/http/endpoints/index.ts": "0be39d054231a3d76682232c96cf654e90a680db68e2960d7d8fdf919a988979"
+  },
+  "productRepairs": 1,
+  "baseline": {
+    "tests": 338,
+    "assertionRed": 303,
+    "alreadyGreen": 35
+  },
+  "uuidBaseline": {
+    "tests": 346,
+    "assertionRed": 8,
+    "alreadyGreen": 338
+  },
+  "targeted": {
+    "tests": 562,
+    "passed": 562,
+    "new": 354,
+    "legacy": 208
+  },
+  "typeLintFirstProductExit": 0,
+  "finalFullBuildPackPublicNotRun": true,
+  "live": 0,
+  "files": [
+    {
+      "original": "src/vault/credential-birth.ts",
+      "preserved": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-modelli-bridge/frozen-b0b-1914/src/vault/credential-birth.ts",
+      "sha256": "2544ac5ab382da4c1eeaa1570223259e277ff6c908c8d9aa8b4b049e14ac9ddd"
+    },
+    {
+      "original": "src/http/endpoints/internal-credential-birth.ts",
+      "preserved": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-modelli-bridge/frozen-b0b-1914/src/http/endpoints/internal-credential-birth.ts",
+      "sha256": "6c1be445b67e25e65b6b11e6727e84a36cbb524a61e90b410d62080e9404d10a"
+    },
+    {
+      "original": "tests/vault/c5-credential-birth.test.ts",
+      "preserved": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-modelli-bridge/frozen-b0b-1914/tests/vault/c5-credential-birth.test.ts",
+      "sha256": "c4917d63c41419f3f52639b8556853e06a2b86bfa7b0a10372e3a7edd618ad96"
+    },
+    {
+      "original": "src/vault/index.ts",
+      "preserved": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-modelli-bridge/frozen-b0b-1914/src/vault/index.ts",
+      "sha256": "bad1fd0a441330d6f553239b17a49bee2c0a728839cec41f04b4deb7fa4fff11",
+      "restoredToBase": true
+    },
+    {
+      "original": "src/http/endpoints/index.ts",
+      "preserved": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-modelli-bridge/frozen-b0b-1914/src/http/endpoints/index.ts",
+      "sha256": "0be39d054231a3d76682232c96cf654e90a680db68e2960d7d8fdf919a988979",
+      "restoredToBase": true
+    }
+  ]
+}

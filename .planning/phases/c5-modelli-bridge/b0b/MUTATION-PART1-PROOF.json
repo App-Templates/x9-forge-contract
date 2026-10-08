@@ -1,0 +1,428 @@
+{
+  "sourceBefore": {
+    "src/vault/credential-birth.ts": "2544ac5ab382da4c1eeaa1570223259e277ff6c908c8d9aa8b4b049e14ac9ddd",
+    "src/http/endpoints/internal-credential-birth.ts": "6c1be445b67e25e65b6b11e6727e84a36cbb524a61e90b410d62080e9404d10a",
+    "src/vault/index.ts": "bad1fd0a441330d6f553239b17a49bee2c0a728839cec41f04b4deb7fa4fff11",
+    "src/http/endpoints/index.ts": "0be39d054231a3d76682232c96cf654e90a680db68e2960d7d8fdf919a988979"
+  },
+  "sourceAfter": {
+    "src/vault/credential-birth.ts": "2544ac5ab382da4c1eeaa1570223259e277ff6c908c8d9aa8b4b049e14ac9ddd",
+    "src/http/endpoints/internal-credential-birth.ts": "6c1be445b67e25e65b6b11e6727e84a36cbb524a61e90b410d62080e9404d10a",
+    "src/vault/index.ts": "bad1fd0a441330d6f553239b17a49bee2c0a728839cec41f04b4deb7fa4fff11",
+    "src/http/endpoints/index.ts": "0be39d054231a3d76682232c96cf654e90a680db68e2960d7d8fdf919a988979"
+  },
+  "totalTests": 354,
+  "planned": 62,
+  "qualified": 30,
+  "results": [
+    {
+      "id": 1,
+      "control": "complete-vault-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 3,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB06 CredentialBirthSourceSchema requires complete vaultAgentId",
+        "C5 credential birth metadata boundary CB06 CredentialBirthBindRequestSchema requires complete vaultAgentId",
+        "C5 credential birth metadata boundary CB06 CredentialBirthBindResultSchema requires complete vaultAgentId"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 2,
+      "control": "complete-vault-positive",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 6,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB07 CredentialBirthSourceSchema rejects vaultAgentId=0",
+        "C5 credential birth metadata boundary CB07 CredentialBirthSourceSchema rejects vaultAgentId=-1",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindRequestSchema rejects vaultAgentId=0",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindRequestSchema rejects vaultAgentId=-1",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindResultSchema rejects vaultAgentId=0",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindResultSchema rejects vaultAgentId=-1"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 3,
+      "control": "complete-vault-integer",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 3,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB07 CredentialBirthSourceSchema rejects vaultAgentId=1.5",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindRequestSchema rejects vaultAgentId=1.5",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindResultSchema rejects vaultAgentId=1.5"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 4,
+      "control": "complete-management-nonblank",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 6,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB07 CredentialBirthSourceSchema rejects managementAgentId=",
+        "C5 credential birth metadata boundary CB07 CredentialBirthSourceSchema rejects managementAgentId=  ",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindRequestSchema rejects managementAgentId=",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindRequestSchema rejects managementAgentId=  ",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindResultSchema rejects managementAgentId=",
+        "C5 credential birth metadata boundary CB07 CredentialBirthBindResultSchema rejects managementAgentId=  "
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 5,
+      "control": "complete-runtime-nonblank",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB07 CredentialBirthSourceSchema rejects runtimeAgentId=",
+        "C5 credential birth metadata boundary CB07 CredentialBirthSourceSchema rejects runtimeAgentId=  "
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 6,
+      "control": "source-master-only",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB08 unsupported source group cannot fall back",
+        "C5 credential birth metadata boundary CB08 unsupported source platform cannot fall back",
+        "C5 credential birth metadata boundary CB08 unsupported source own cannot fall back",
+        "C5 credential birth metadata boundary CB08 unsupported source  cannot fall back"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 7,
+      "control": "source-kind-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB04 CredentialBirthSourceSchema requires kind"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 8,
+      "control": "snapshot-format",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 5,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB10 snapshot rejects ",
+        "C5 credential birth metadata boundary CB10 snapshot rejects aaaaaa",
+        "C5 credential birth metadata boundary CB10 snapshot rejects aaaaaa",
+        "C5 credential birth metadata boundary CB10 snapshot rejects gggggg",
+        "C5 credential birth metadata boundary CB10 snapshot rejects AAAAAA"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 9,
+      "control": "scope-nonblank",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindRequestSchema rejects scope ownerId=  ",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindRequestSchema rejects scope tenantId=  ",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindResultSchema rejects scope ownerId=  ",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindResultSchema rejects scope tenantId=  "
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 10,
+      "control": "scope-ownerId-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 6,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB42 CredentialBirthBindRequestSchema requires scope ownerId",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindRequestSchema rejects scope ownerId=",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindRequestSchema rejects scope ownerId=  ",
+        "C5 credential birth metadata boundary CB42 CredentialBirthBindResultSchema requires scope ownerId",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindResultSchema rejects scope ownerId=",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindResultSchema rejects scope ownerId=  "
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 11,
+      "control": "scope-tenantId-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 6,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB42 CredentialBirthBindRequestSchema requires scope tenantId",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindRequestSchema rejects scope tenantId=",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindRequestSchema rejects scope tenantId=  ",
+        "C5 credential birth metadata boundary CB42 CredentialBirthBindResultSchema requires scope tenantId",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindResultSchema rejects scope tenantId=",
+        "C5 credential birth metadata boundary CB12 CredentialBirthBindResultSchema rejects scope tenantId=  "
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 12,
+      "control": "request-id-format",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 6,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB16 CredentialBirthBindRequestSchema rejects requestId=",
+        "C5 credential birth metadata boundary CB16 CredentialBirthBindRequestSchema rejects requestId=short",
+        "C5 credential birth metadata boundary CB16 CredentialBirthBindRequestSchema rejects requestId=spaces are bad",
+        "C5 credential birth metadata boundary CB16 CredentialBirthBindResultSchema rejects requestId=",
+        "C5 credential birth metadata boundary CB16 CredentialBirthBindResultSchema rejects requestId=short",
+        "C5 credential birth metadata boundary CB16 CredentialBirthBindResultSchema rejects requestId=spaces are bad"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 13,
+      "control": "request-id-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 3,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB04 CredentialBirthBindRequestSchema requires requestId",
+        "C5 credential birth metadata boundary CB04 CredentialBirthBindResultSchema requires requestId",
+        "C5 credential birth metadata boundary CB04 CredentialBirthBindResponseSchema requires requestId"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 14,
+      "control": "birth-uuid",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 8,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindRequestSchema birthId must be a reserved UUID birth-000001",
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindRequestSchema birthId must be a reserved UUID request-00001",
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindRequestSchema birthId must be a reserved UUID not-a-uuid",
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindRequestSchema birthId must be a reserved UUID 11111111-1111-1111-1111-111111111111",
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindResultSchema birthId must be a reserved UUID birth-000001",
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindResultSchema birthId must be a reserved UUID request-00001",
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindResultSchema birthId must be a reserved UUID not-a-uuid",
+        "C5 credential birth metadata boundary CB41 CredentialBirthBindResultSchema birthId must be a reserved UUID 11111111-1111-1111-1111-111111111111"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 15,
+      "control": "birth-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 3,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB04 CredentialBirthBindRequestSchema requires birthId",
+        "C5 credential birth metadata boundary CB04 CredentialBirthBindResultSchema requires birthId",
+        "C5 credential birth metadata boundary CB04 CredentialBirthBindResponseSchema requires birthId"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 16,
+      "control": "target-scope-runtime",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB13 CredentialBirthBindRequestSchema rejects foreign runtime scope",
+        "C5 credential birth metadata boundary CB13 CredentialBirthBindResultSchema rejects foreign runtime scope"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 17,
+      "control": "source-not-self",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB14 CredentialBirthBindRequestSchema refuses self source managementAgentId",
+        "C5 credential birth metadata boundary CB14 CredentialBirthBindRequestSchema refuses self source runtimeAgentId",
+        "C5 credential birth metadata boundary CB14 CredentialBirthBindRequestSchema refuses self source vaultAgentId",
+        "C5 credential birth metadata boundary CB15 CredentialBirthBindRequestSchema refuses self source cross alias"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 18,
+      "control": "key-canonical",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 8,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB17 CredentialBirthEntrySchema rejects unavailable key ",
+        "C5 credential birth metadata boundary CB17 CredentialBirthEntrySchema rejects unavailable key invalid key",
+        "C5 credential birth metadata boundary CB17 CredentialBirthEntrySchema rejects unavailable key TELEGRAM_SESSION_STRING",
+        "C5 credential birth metadata boundary CB17 CredentialBirthEntrySchema rejects unavailable key APPROVALS_SIGNING_KEY",
+        "C5 credential birth metadata boundary CB17 CredentialBirthReferenceSchema rejects unavailable key ",
+        "C5 credential birth metadata boundary CB17 CredentialBirthReferenceSchema rejects unavailable key invalid key",
+        "C5 credential birth metadata boundary CB17 CredentialBirthReferenceSchema rejects unavailable key TELEGRAM_SESSION_STRING",
+        "C5 credential birth metadata boundary CB17 CredentialBirthReferenceSchema rejects unavailable key APPROVALS_SIGNING_KEY"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 19,
+      "control": "key-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB04 CredentialBirthEntrySchema requires key",
+        "C5 credential birth metadata boundary CB04 CredentialBirthReferenceSchema requires key"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 20,
+      "control": "version-positive",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB18 CredentialBirthEntrySchema rejects version 0",
+        "C5 credential birth metadata boundary CB18 CredentialBirthEntrySchema rejects version -1",
+        "C5 credential birth metadata boundary CB18 CredentialBirthReferenceSchema rejects version 0",
+        "C5 credential birth metadata boundary CB18 CredentialBirthReferenceSchema rejects version -1"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 21,
+      "control": "version-integer",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB18 CredentialBirthEntrySchema rejects version 1.5",
+        "C5 credential birth metadata boundary CB18 CredentialBirthReferenceSchema rejects version 1.5"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 22,
+      "control": "version-required",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB04 CredentialBirthEntrySchema requires version",
+        "C5 credential birth metadata boundary CB04 CredentialBirthReferenceSchema requires version"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 23,
+      "control": "preview-key-unique",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB21 preview rejects duplicate keys"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 24,
+      "control": "reference-key-unique",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB22 result rejects duplicate references"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 25,
+      "control": "reference-source-correlated",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 3,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB23 result rejects reference source managementAgentId mismatch",
+        "C5 credential birth metadata boundary CB23 result rejects reference source runtimeAgentId mismatch",
+        "C5 credential birth metadata boundary CB23 result rejects reference source vaultAgentId mismatch"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 26,
+      "control": "saved-outcome-only",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 7,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB05 CredentialBirthBindResultSchema rejects null outcome",
+        "C5 credential birth metadata boundary CB05 CredentialBirthBindResponseSchema rejects null outcome",
+        "C5 credential birth metadata boundary CB25 result rejects applied",
+        "C5 credential birth metadata boundary CB25 result rejects ok",
+        "C5 credential birth metadata boundary CB25 result rejects partial",
+        "C5 credential birth metadata boundary CB25 result rejects failed",
+        "C5 credential birth metadata boundary CB25 result rejects null"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 27,
+      "control": "receipt-request-correlated",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB26 receipt rejects result requestId mismatch"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 28,
+      "control": "receipt-birth-correlated",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB26 receipt rejects result birthId mismatch"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 29,
+      "control": "receipt-scope-correlated",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB26 receipt rejects result scope.ownerId mismatch",
+        "C5 credential birth metadata boundary CB26 receipt rejects result scope.tenantId mismatch"
+      ],
+      "technical": [],
+      "restored": 354
+    },
+    {
+      "id": 30,
+      "control": "receipt-identity-correlated",
+      "file": "src/vault/credential-birth.ts",
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 credential birth metadata boundary CB26 receipt rejects result identity.managementAgentId mismatch",
+        "C5 credential birth metadata boundary CB26 receipt rejects result identity.vaultAgentId mismatch"
+      ],
+      "technical": [],
+      "restored": 354
+    }
+  ],
+  "elapsedSeconds": 71.84
+}
