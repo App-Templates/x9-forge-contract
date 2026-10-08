@@ -1,5 +1,5 @@
 {
-  "scope": "B0c2b source checkpoint only, NOT public SDK delivery",
+  "scope": "B0c2b public browser SDK only, no handlers or live channel",
   "newTests": 39,
   "targeted": {
     "passed": 124,
@@ -39,9 +39,12 @@
       "exitCode": 0
     }
   ],
-  "compiledGreen": null,
-  "compiledMutationQualified": 0,
-  "pending": "capability/index.ts barrel extension requested204709; 2/2 functional export baselines red, NOT qualified mutants",
+  "compiledGreen": {
+    "passed": 88,
+    "total": 88
+  },
+  "compiledMutationQualified": 2,
+  "pending": "X9/Forge producer/consumer not assigned; B0c3a history proof is separate uncommitted WIP",
   "live": {
     "passed": 0,
     "total": 42

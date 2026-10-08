@@ -1,10 +1,10 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 21:02. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 21:19. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
-B0a, B0b, B0c1 storico e B0c2a enabled implementati e testati nel solo bridge. Il task generale resta IN CORSO: facciate/inviti/outbound e letture contenuti B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
+B0a, B0b, B0c1 storico, B0c2a enabled e B0c2b SDKbrowser implementati e testati nel solo bridge. B0c3a historyproof è WIP separato. Il task generale resta IN CORSO: facciate/inviti/outbound e letture contenuti B0c, producer X9, consumer Forge, montaggio e accettazione dal vivo ancora da completare. Nessun canale dichiarato al100%. File comuni della scheda Canali riservati a B. Spesa135-1/141-1 congelata, esclusa dal rilascio.
 
 Installazione nativa Node24/pnpm9 frozen:235/235 dipendenze riusate,0download. Suite full finale4420/4420 in157/157file,0skip. Qualità nativa typecheck/lint/build/check:pack exit0, configurazione originale; compiled ESM+CJS58/58, smoke CJS originale36/36 e probe originali. Prove JSON/runner in proof/. Nessun bump/pin/tag/push/merge/deploy.
 
@@ -66,3 +66,14 @@ Export pubblico SDK BLOCCATO sul perimetro: richiesta204709 per sole righeC in s
 R35: riuso src/capability/agent-elevenlabs/web-session.ts:88/116 (lease/sessioncurrent), web-context.ts autoritàD e src/capability/index.ts:92/94/95/97 (pattern exportdiretti). Forge attuale00a468e e vecchio4f3fc42 non contengono paginaParla/inviti; voice-svc registra e chiude sessioni esistenti, da riusare quando producerassegnato.0nuovihandler/storage/flow. Decisioni203655/204317 su proprietà dei dati e risolutore email ancora pendenti, nessuna scelta locale.
 
 SegnalazioneB210025: il helper history89cc499 confronta binding/kind/requestId/tempo, NON resource/version né attestazione ingresso→turno→reply consegnata. NON usarlo da solo per Funziona. B fornirà forma del suo intentledger canonico; successivoB0c3 aggiunge attestazione/guard condivisi nel perimetro, non DTOlocale o writerduplicato. TaskglobaleIN CORSO,0/42live e0/2percorsiutente completi.
+
+
+## B0c2b export pubblico — chiusura autorizzata210744
+
+La coordinatrice210744-risposta4 ha esteso src/capability/index.ts per due sole righeC. Aggiunto solo web-browser, nessun export inviti ancora inesistente. ESM/CJS88/88asserzioni verdi; rimozione intenzionale del SOLO export, nativebuild valida e2/2AssertionError per APIpubblica assente,0errorisecondari, ripristinoSHAbarrel e build poi88/88verdi. Nuovo browser/request strict e proiezione provati tramite namespacepubblico, non import privato diretto.
+
+Prima smoke dopoexport: fixtureinternalResult aveva linkId copiato da internalRequest, estraneo alla response C3 stretta. Corretto SOLOfixture costruendo campi canonici espliciti, stesse asserzioni e nessuna modifica al prodotto; non contare quel rosso come mutante. Qualifica B0c2b finale20/20source+2/2compiled; full4459/4459 in158/158file registrata prima del lotto historysuccessivo. B0c3a prove/source ancora WIP separate: non integrare quel lavoro senza sua consegna. Nessun handler/browsermontato,0/42live,0/2percorsi completi.
+
+R35decisione211227 corregge inviti: tavola ConfiguraWeb.dc.html:76 richiede email e accesso proprio; C3 recipientUserId resta autenticato. Risoluzione da owners.email/clerkUserId esistenti; email sconosciuta resta in attesa di registrazione e non concede ingresso. Non creare accountlink/ledger, non trasformare invited in linkanonimo. Storico Telefono/Web resta voiceSessions nel voice-svc; prova TG/email dal turnoX9 esistente. La decisione consente il successivo lotto inviti canonico, non una migrazione locale non approvata.
+
+Qualità finale SDKbrowser: typecheck/lint/checkpack/legacyCJS exit0; build e2/2compiledqualificati riportati sopra. Prima typecheck rilevava solo narrowing nella closure di B0c3a WIP: corretta variabilelocale tipizzata dal discriminante, nessun controllo browser modificato. Dist pubblico 132tracked ripristinati e40nuovi preservati in/private/tmp/c5-canali-143-browser-public-3cqs0cxn,0distcommit.

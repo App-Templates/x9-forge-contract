@@ -64,7 +64,26 @@ for (const [format, api, web, http] of variants.filter(([format]) => !process.ar
   assert.equal(web.canAdmitElevenLabsWebViewer({ ...webAdmission, policy: { ...webAdmission.policy, enabled: true } }, binding.scope, viewer, origin, new Date(now)), true, `${format}: explicit enabled admission`); checks++;
   assert.equal(web.canAdmitElevenLabsWebViewer({ ...webAdmission, policy: { ...webAdmission.policy, enabled: false } }, binding.scope, viewer, origin, new Date(now)), false, `${format}: explicit off denied`); checks++;
 
-
+  assert.equal(typeof web.projectElevenLabsWebBrowserSession, 'function', `${format}: public browser projection`); checks++;
+  assert.equal(web.ElevenLabsWebBrowserRequestSchema.safeParse({ requestId: webRequest.requestId, linkId: webRequest.linkId, viewer }).success, false, `${format}: browser cannot supply authority`); checks++;
+  const browserRequest = { requestId: webRequest.requestId, linkId: webRequest.linkId };
+  const internalRequest = { ...browserRequest, scope: binding.scope, viewer };
+  const internalResult = { ok: true, requestId: internalRequest.requestId, scope: internalRequest.scope, viewer: internalRequest.viewer, link: webLink, policyVersion: 3, mapping: webMapping, invitation: null, invitationRevision: null, issuedAt: at,
+    expiresAt: new Date(now + 15 * 60_000).toISOString(), signedUrl: 'wss://api.elevenlabs.io/v1/convai/conversation?agent_id=synthetic-web-agent&conversation_signature=synthetic-only' };
+  const afterRequest = { ...webRequest, phase: 'after' };
+  const evidence = { browserRequest, internalRequest, internalResult, snapshot: webAdmission, viewer, configuredOrigin: origin,
+    authorityResponse: { ok: true, request: afterRequest, snapshot: { ...webSnapshot, phase: 'after' } }, authorityVersion: 3, agentIdentity: identity, now: new Date(now) };
+  assert.equal(web.ElevenLabsWebSessionResultSchema.safeParse(internalResult).success, true, `${format}: valid private browser evidence`); checks++;
+  const browserLease = web.projectElevenLabsWebBrowserSession(evidence);
+  const expectedLease = { ok: true, ...browserRequest, issuedAt: at, expiresAt: internalResult.expiresAt, signedUrl: internalResult.signedUrl };
+  assert.deepEqual(browserLease, expectedLease, `${format}: exactly the admitted browser lease`); checks++;
+  assert.equal(web.ElevenLabsWebBrowserSessionSchema.safeParse(browserLease).success, true, `${format}: canonical public browser lease`); checks++;
+  for (const key of ['scope', 'mapping', 'viewer', 'invitation', 'agentIdentity', 'policyVersion', 'credentials']) {
+    assert.equal(Object.hasOwn(browserLease, key), false, `${format}: no private browser ${key}`); checks++;
+  }
+  assert.equal(web.projectElevenLabsWebBrowserSession({ ...evidence, snapshot: { ...webAdmission, policy: { ...webAdmission.policy, paused: true } } }), null, `${format}: paused after mint denied`); checks++;
+  assert.equal(web.projectElevenLabsWebBrowserSession({ ...evidence, agentIdentity: { ...identity, identity: { ...binding.identity, vaultAgentId: 102 } } }), null, `${format}: changed D identity after mint denied`); checks++;
+  assert.equal(web.isElevenLabsWebSignedConnectionUrl(internalResult.signedUrl, 'foreign-smoke-agent'), false, `${format}: connection resource remains correlated`); checks++;
 
 }
-console.log(JSON.stringify({ checks, total: process.argv[2] ? 29 : 58, variants: process.argv[2] ? 1 : 2, status: 'passed' }));
+console.log(JSON.stringify({ checks, total: process.argv[2] ? 44 : 88, variants: process.argv[2] ? 1 : 2, status: 'passed' }));
