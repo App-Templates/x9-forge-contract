@@ -83,3 +83,6 @@ export * from './agent-phone-channel.js';
 export * from './agent-phone-commands.js';
 // Forge-declared context authority, including explicit Master/heir provenance.
 export * from './agent-context-identity.js';
+
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from './agent-deletion.js';

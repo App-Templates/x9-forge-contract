@@ -66,3 +66,6 @@ export * from './forge-agent-phone-channel.js';
 export * from './internal-capability-elevenlabs-web.js';
 
 export * from './capability-elevenlabs-web-context.js';
+
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from './internal-agents-deletion.js';

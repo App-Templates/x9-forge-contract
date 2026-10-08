@@ -299,3 +299,29 @@ Claude rivede, unisce e tagga il bridge dopo approvazione; i consumer importano 
 Nessun tag, pubblicazione, deploy o workflow manuale eseguito. Voce reale e percorso completo non ancora
 collaudati da questo blocco. Negoziazione versioni, budget voce, organizzazione in Forge ed eventi 004
 restano fuori dal taglio MVP.
+
+## C5: permanent single-agent deletion (B0d, additive source contract)
+
+`@x9-forge/contracts/agent` exports `AgentDeletionCommandSchema`, `AgentDeletionResultSchema`,
+`AGENT_DELETION_STEPS` and `isAgentDeletionResultCurrent`. The HTTP subpath exports
+`agentDeletionContract`, `agentDeletionPath` and sanitized not-processed errors. The new
+secret-auth POST `/internal/agents/:agentId/deletion` is separate from lifecycle stop and
+Forge archival. The address is the management ID, bound to the declared runtime identity;
+Forge compares `confirmedName` exactly to its authoritative saved name and enforces owner/
+superadmin authorization. X9 independently protects the primary agent and validates mapping.
+
+All eight pieces must be reported: durable tombstone, admission/drain, own channels, logical
+runtime, caches, context, own workspace and runtime-private state. A shared container, owner
+credentials or owner memory are never deletion scopes. Producers must persist the tombstone
+before effects, use the same mutex as start/reload/apply, prevent resurrection after restart,
+and keep per-piece progress. Same request ID and exact body resumes only unfinished pieces;
+a different intention under that key conflicts. The deletion tombstone/receipt itself survives
+private-state cleanup. `complete` requires every piece finished; failed/blocked pieces imply
+`partial`. Failed isolation blocks downstream cleanup. Responses contain fixed machine codes
+only, with no provider diagnostics or filesystem paths. Consumers must validate and correlate
+the report with `isAgentDeletionResultCurrent` before progressing their job.
+
+This source addition does not implement either consumer, apply a migration or execute deletion.
+Version bump and consolidated `dist/` belong to the integration owner. After the native build,
+run `node tests/cjs/agent-deletion-smoke.cjs` and compile `tests/cjs/agent-deletion-types.cts`
+with NodeNext; the existing package smoke runner is unchanged in this limited perimeter.
