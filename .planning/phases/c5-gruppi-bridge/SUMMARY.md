@@ -1,6 +1,6 @@
 # C5-GRUPPI B0d — SUMMARY
 
-08/10/2026,20:35 Europe/Rome. Worktree145-1,baseae7c464,branchcodex/c5-gruppi-bridge. Pronto per revisione indipendente del SOLO contratto sorgente. Pacchetto1.44.0 e lock invariati; nessun dist nel commit. Consolidamento1.45/dist aF. Nessun push,merge,publish,migrazione o cancellazione reale.
+08/10/2026,20:35 Europe/Rome. Worktree145-1,baseae7c464,branchcodex/c5-gruppi-bridge. Prodotto0dfbd9d. Pronto per revisione indipendente del SOLO contratto sorgente. Pacchetto1.44.0 e lock invariati; nessun dist nel commit. Consolidamento1.45/dist aF. Nessun push,merge,publish,migrazione o cancellazione reale.
 
 ## Implementato
 
