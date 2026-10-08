@@ -1,6 +1,6 @@
 # CANALI-C2-BRIDGE — SUMMARY
 
-Ultimo aggiornamento: 08/10/2026 12:29 CEST
+Ultimo aggiornamento: 08/10/2026 12:30 CEST
 
 Stato attuale: B1 completato localmente nel prodotto8b0495a9eca69a62075b6d67f065bb9bb8cfcc3c,90/90path autorizzati e8/8protetti identici. B2 avviato12:06, scadenza12:45, comandi/snapshot/routing/ricevute; outbound con contatto canonico rinviato a B3 dopo fonteD. B3 dipendenza Rubrica aperta, B4/BQ/review da fare. Nessuna full12:00–12:30;C2 incompleto e fuori release13. I paragrafi iniziali seguenti sono il checkpoint storico del piano11:49.
 
@@ -39,3 +39,5 @@ Test prima:64/80rossi semantici e16/80verdi su interfaccia+primitive senza nuove
 Mutazioni finali48/48qualificate con103AssertionError/4848assertioni mutate;48/48restore/4848/4848assertioni ehashidentici. Prima campagna estesa:1sopravvissuto route-result-event-time,0/100rossi, non contato; test insufficientemente isolato perché snapshot popolato falliva già freshness. Aggiunto unresolved result antedatato: gate indipendente ora1assertione rossa/101, poi101/101restore. b2-mutation-history.json e runner mutate-b2.py documentano la correzione. Typecheck/lint/build/check:pack/matrice0, log+exit in b2-quality.json.9/9protetti identici (8canonici eB1source), tutti i path nel perimetro. Nessuna suite completa12:00–12:30 e nessun posto occupato.
 
 Prossimo:B4 snapshot/preview/apply/route HTTP+CJS, separato dal futuro outbound con contatto canonico. B3 ancora sospeso: D115122 non ha deciso/implementato simboli/path Rubrica. Non inventare contactref/API; completare wrapper outbound soltanto dopo fonteD. BQ full/review indipendente dopo tutti i componenti. C2 incompleto, fuori release13; nessun push/merge/deploy/live.
+
+Checkpoint dopo commit:B2 ecac83b33e8fe2c7e3af6b0d9abbce66495bd64e,122-1pulito,211/211path autorizzati e9/9protetti identici. B4 avviato12:30–13:15: solo snapshot/preview/apply/route HTTP e CJS, outbound rimaneB3 dopoD. PLAN/SUMMARYriletti,un comando mirato alla volta.
