@@ -1,0 +1,21 @@
+{
+  "mutations": [
+    {
+      "variant": "esm",
+      "exitCode": 1,
+      "qualified": true,
+      "functionalFailure": "canonical scoped active identity expected true, got false"
+    },
+    {
+      "variant": "cjs",
+      "exitCode": 1,
+      "qualified": true,
+      "functionalFailure": "canonical scoped active identity expected true, got false"
+    }
+  ],
+  "total": 2,
+  "qualified": 2,
+  "sourceRestored": true,
+  "sha256": "7b57a2666918a4d7aba7544985c9439967b271da763a342c109dc24b9344ff09",
+  "restoredSmokeExitCode": 0
+}

@@ -60,3 +60,22 @@ it.each([['link',ElevenLabsWebLinkSchema,link],['snapshot',ElevenLabsWebAdmissio
 it('rejects mismatched snapshot scopes and non-Web channel',()=>{expect(ElevenLabsWebAdmissionSnapshotSchema.safeParse({...snapshot,link:{...link,scope:{...scope,ownerId:'other'}}}).success).toBe(false);expect(ElevenLabsWebAdmissionSnapshotSchema.safeParse({...snapshot,provider:{...provider,scope:{...scope,ownerId:'other'},mapping:{...mapping,scope:{...scope,ownerId:'other'}}}}).success).toBe(false);expect(ElevenLabsWebAdmissionSnapshotSchema.safeParse({...snapshot,provider:{...provider,channel:{...provider.channel,kind:'voice'}}}).success).toBe(false);});
 it('rejects foreign or unpaired mint evidence',()=>{expect(ElevenLabsWebSessionResultSchema.safeParse({...result,scope:{...scope,ownerId:'other'}}).success).toBe(false);expect(ElevenLabsWebSessionResultSchema.safeParse({...result,invitationRevision:4}).success).toBe(false);});
 it('rejects malformed session correlation inputs',()=>{expect(current({})).toBe(false);expect(current(result,snapshot,owner,{})).toBe(false);});
+
+it.each(['owner','invited','public'])('C5 explicit off denies %s new sessions without changing the stable link/provider',access=>{
+  const state={...invited,policy:{...policy,access,enabled:false}};
+  expect(ElevenLabsWebAdmissionSnapshotSchema.safeParse(state).success).toBe(true);
+  expect(admit(state)).toBe(false); expect(admit(state,recipient)).toBe(false); expect(admit(state,guest)).toBe(false);
+  expect(isElevenLabsWebLinkCurrent(state.link,scope,origin)).toBe(true);
+  expect(state.provider.mapping).toEqual(mapping);
+});
+it('C5 enabled active admits the legacy owner and pause stays separate',()=>{
+  expect(admit({...snapshot,policy:{...policy,enabled:true}})).toBe(true);
+  expect(admit(snapshot)).toBe(true);
+  expect(admit({...snapshot,policy:{...policy,enabled:true,paused:true}})).toBe(false);
+  expect(admit({...snapshot,policy:{...policy,enabled:false,paused:false}})).toBe(false);
+});
+it('C5 disabling during mint prevents delivery of a new session without retroactively revoking an issued bearer',()=>{
+  expect(current(result,{...snapshot,policy:{...policy,enabled:true}})).toBe(true);
+  expect(current(result,{...snapshot,policy:{...policy,enabled:false}})).toBe(false);
+  expect(result.signedUrl).toContain('synthetic-only');
+});

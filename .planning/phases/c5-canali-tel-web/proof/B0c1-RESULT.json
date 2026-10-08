@@ -1,0 +1,31 @@
+{
+  "baselineDomain": {
+    "tests": 30,
+    "functionalFailures": 22,
+    "passed": 8
+  },
+  "baselineHttp": {
+    "tests": 15,
+    "functionalFailures": 1,
+    "passed": 14
+  },
+  "finalNewTests": 57,
+  "full": {
+    "passed": 4408,
+    "total": 4408,
+    "files": 157,
+    "skipped": 0
+  },
+  "mutations": {
+    "source": 46,
+    "sourceTotal": 46,
+    "compiled": 2,
+    "compiledTotal": 2
+  },
+  "restoredFiles": 8,
+  "manifestFiles": 8,
+  "compiledAssertions": 52,
+  "compiledTotal": 52,
+  "live": 0,
+  "producerHandlers": 0
+}

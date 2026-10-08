@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-08T19:33:52.184526+02:00",
+  "head": "27749e4da532d8482c5ca21294957eeda78e60ed",
+  "status": "preparation-only-test-slot-pending",
+  "productChanged": false,
+  "addressBookSourceSha256": "babd4136086cbdbc869b2ba0414cb583ac73bfb162a9ad7cdb4080c37e8ee345",
+  "preparedTests": {
+    "tests/agent/c5-phone-address-book.test.ts": "a020222dff149063721fda43d05ff19d535905e3e2be100e4c05d71165e868d2",
+    "tests/agent/c5-phone-admission.test.ts": "c3892045cd135110ed321465806bbdadce6a4f11d4edc3ceb92838609784149b"
+  },
+  "nativeInstall": {
+    "exitCode": 0,
+    "packagesReused": 235,
+    "packagesTotal": 235,
+    "downloaded": 0
+  },
+  "testsExecuted": 0,
+  "mutationsExecuted": 0,
+  "liveChecksExecuted": 0
+}

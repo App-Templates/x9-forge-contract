@@ -1,0 +1,51 @@
+{
+  "nativeBuildRestored": 0,
+  "commands": [
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "pack",
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "legacy-cjs",
+      "command": [
+        "node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "full",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "--maxWorkers=1",
+        "--testTimeout=60000",
+        "--reporter=json",
+        "--outputFile=.planning/phases/c5-canali-tel-web/proof/B0c2a-full.json"
+      ],
+      "exitCode": 0
+    }
+  ]
+}

@@ -1,0 +1,519 @@
+{
+  "total": 41,
+  "qualified": 40,
+  "mutations": [
+    {
+      "name": "terminal-time",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors keeps active timing unknown and never fabricates success",
+        "C5 shared history for all four doors keeps unknown timing unknown and never fabricates success"
+      ]
+    },
+    {
+      "name": "unknown-duration",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors keeps active timing unknown and never fabricates success",
+        "C5 shared history for all four doors keeps unknown timing unknown and never fabricates success"
+      ]
+    },
+    {
+      "name": "chronology",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects backwards terminal time and duration beyond attested elapsed time"
+      ]
+    },
+    {
+      "name": "elapsed-duration",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects backwards terminal time and duration beyond attested elapsed time"
+      ]
+    },
+    {
+      "name": "entry-binding",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 5,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors refuses a historical row from another tenantId",
+        "C5 shared history for all four doors refuses a historical row from another ownerId",
+        "C5 shared history for all four doors refuses a historical row from another agentId",
+        "C5 shared history for all four doors rejects historical row with another managementAgentId",
+        "C5 shared history for all four doors rejects historical row with another vaultAgentId"
+      ]
+    },
+    {
+      "name": "entry-kind",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects mixed doors, duplicate entries, invented totals and cursor without entries"
+      ]
+    },
+    {
+      "name": "entry-unique",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects mixed doors, duplicate entries, invented totals and cursor without entries"
+      ]
+    },
+    {
+      "name": "total",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects mixed doors, duplicate entries, invented totals and cursor without entries"
+      ]
+    },
+    {
+      "name": "empty-cursor",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects mixed doors, duplicate entries, invented totals and cursor without entries"
+      ]
+    },
+    {
+      "name": "observed-events",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors does not observe future starts or endings"
+      ]
+    },
+    {
+      "name": "probe-entry",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors requires verification matching the terminal stored entryId"
+      ]
+    },
+    {
+      "name": "probe-request",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors requires verification matching the terminal stored requestId"
+      ]
+    },
+    {
+      "name": "probe-end",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors requires verification matching the terminal stored completedAt"
+      ]
+    },
+    {
+      "name": "probe-outcome",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors requires verification matching the terminal stored outcome"
+      ]
+    },
+    {
+      "name": "current-binding",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors checks expected owner, management, vault, kind and finite fresh clock",
+        "C5 shared history for all four doors does not bypass the current full binding or requested door for verification"
+      ]
+    },
+    {
+      "name": "current-kind",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors checks expected owner, management, vault, kind and finite fresh clock",
+        "C5 shared history for all four doors does not bypass the current full binding or requested door for verification"
+      ]
+    },
+    {
+      "name": "current-future",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors checks expected owner, management, vault, kind and finite fresh clock"
+      ]
+    },
+    {
+      "name": "current-fresh",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors checks expected owner, management, vault, kind and finite fresh clock"
+      ]
+    },
+    {
+      "name": "verification-success",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors does not turn a failed or old conversation into a new successful verification"
+      ]
+    },
+    {
+      "name": "verification-request",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors does not turn a failed or old conversation into a new successful verification"
+      ]
+    },
+    {
+      "name": "verification-fresh",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors requires a recent completion independently of a newly refreshed history"
+      ]
+    },
+    {
+      "name": "finite-window",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors checks expected owner, management, vault, kind and finite fresh clock"
+      ]
+    },
+    {
+      "name": "verification-current",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors does not bypass the current full binding or requested door for verification"
+      ]
+    },
+    {
+      "name": "verification-required",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors does not turn a failed or old conversation into a new successful verification"
+      ]
+    },
+    {
+      "name": "page-bound",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 0,
+      "tests": 57,
+      "functionalFailures": 0,
+      "otherFailures": 0,
+      "qualified": false,
+      "failingAssertions": []
+    },
+    {
+      "name": "duration-nonnegative",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects backwards terminal time and duration beyond attested elapsed time"
+      ]
+    },
+    {
+      "name": "total-integer",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors keeps incomplete identifiers, dates, totals and duration closed without hiding a legacy row"
+      ]
+    },
+    {
+      "name": "content-strict",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors bounds content metadata and prohibits invalid direction, kind, names or bearer slots"
+      ]
+    },
+    {
+      "name": "entry-strict",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 5,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects private/embedded signedUrl in history",
+        "C5 shared history for all four doors rejects private/embedded credentials in history",
+        "C5 shared history for all four doors rejects private/embedded rawWebhook in history",
+        "C5 shared history for all four doors rejects private/embedded audioUrl in history",
+        "C5 shared history for all four doors rejects private/embedded transcript in history"
+      ]
+    },
+    {
+      "name": "history-strict",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 6,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors rejects private/embedded signedUrl in history",
+        "C5 shared history for all four doors rejects private/embedded credentials in history",
+        "C5 shared history for all four doors rejects private/embedded rawWebhook in history",
+        "C5 shared history for all four doors rejects private/embedded audioUrl in history",
+        "C5 shared history for all four doors rejects private/embedded transcript in history",
+        "rejects malformed source without confusing it with missing credentials"
+      ]
+    },
+    {
+      "name": "probe-strict",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors keeps incomplete identifiers, dates, totals and duration closed without hiding a legacy row"
+      ]
+    },
+    {
+      "name": "unavailable-not-empty",
+      "file": "src/agent/agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 shared history for all four doors distinguishes attested empty, unknown total and unavailable source"
+      ]
+    },
+    {
+      "name": "url-management",
+      "file": "src/http/endpoints/forge-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects mismatch between URL management id and runtime/source"
+      ]
+    },
+    {
+      "name": "owner-tenant",
+      "file": "src/http/endpoints/forge-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects an owner from another tenantId"
+      ]
+    },
+    {
+      "name": "owner-owner",
+      "file": "src/http/endpoints/forge-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects an owner from another ownerId"
+      ]
+    },
+    {
+      "name": "sa",
+      "file": "src/http/endpoints/forge-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "permits the real owner and SA while keeping unavailable distinct from empty"
+      ]
+    },
+    {
+      "name": "query-min",
+      "file": "src/http/endpoints/internal-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "bounds native pagination and rejects browser scope/authority fields"
+      ]
+    },
+    {
+      "name": "query-max",
+      "file": "src/http/endpoints/internal-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "bounds native pagination and rejects browser scope/authority fields"
+      ]
+    },
+    {
+      "name": "query-integer",
+      "file": "src/http/endpoints/internal-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "bounds native pagination and rejects browser scope/authority fields"
+      ]
+    },
+    {
+      "name": "query-strict",
+      "file": "src/http/endpoints/internal-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "bounds native pagination and rejects browser scope/authority fields"
+      ]
+    },
+    {
+      "name": "params-strict",
+      "file": "src/http/endpoints/internal-agent-channel-history.ts",
+      "exitCode": 1,
+      "tests": 57,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "bounds native pagination and rejects browser scope/authority fields"
+      ]
+    }
+  ],
+  "restored": true,
+  "sha256": {
+    "src/agent/agent-channel-history.ts": "b7ef565712d1f91db677a8775b74184077c2d36ce42bb7d830e7181ebaf4e51c",
+    "src/http/endpoints/forge-agent-channel-history.ts": "08e660287a56cfbea04d266b1d9e167a90f3221819bc3216862b6cc813b13bd6",
+    "src/http/endpoints/internal-agent-channel-history.ts": "49ea17f67bd92aa12bb1e09701cd15b92d0c2ee83aedcbb5b5fbf01f8e2f5396"
+  }
+}

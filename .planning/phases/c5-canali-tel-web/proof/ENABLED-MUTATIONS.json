@@ -1,0 +1,127 @@
+{
+  "total": 8,
+  "qualified": 8,
+  "mutations": [
+    {
+      "name": "policy-type",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 4,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 rejects invalid enabled null",
+        "C5 rejects invalid enabled \"true\"",
+        "C5 rejects invalid enabled 0",
+        "C5 rejects invalid enabled {}"
+      ]
+    },
+    {
+      "name": "policy-legacy",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 13,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "correlates same first apply",
+        "correlates idempotent replay",
+        "C5 correlates enabled with compatible legacy active and never echoes off as on",
+        "admits the server-authenticated owner",
+        "admits anonymous only with explicit public policy",
+        "admits the authenticated current invitation recipient",
+        "keeps owner access under invited and public policy",
+        "supports arbitrary runtime alias primary independently of management names",
+        "supports arbitrary runtime alias arbitrary-heir independently of management names",
+        "supports arbitrary runtime alias sibling-b independently of management names",
+        "accepts a current server-issued session for exactly its request and viewer",
+        "invalidates a minted invite session after revoke, expiry or reissue",
+        "C5 enabled active admits the legacy owner and pause stays separate"
+      ]
+    },
+    {
+      "name": "change-type",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 4,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 rejects invalid enabled null",
+        "C5 rejects invalid enabled \"true\"",
+        "C5 rejects invalid enabled 0",
+        "C5 rejects invalid enabled {}"
+      ]
+    },
+    {
+      "name": "change-legacy",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "correlates same first apply",
+        "correlates idempotent replay",
+        "C5 correlates enabled with compatible legacy active and never echoes off as on"
+      ]
+    },
+    {
+      "name": "enabled-readback",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 correlates enabled with compatible legacy active and never echoes off as on"
+      ]
+    },
+    {
+      "name": "readback-actual-legacy",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "correlates same first apply",
+        "correlates idempotent replay",
+        "C5 correlates enabled with compatible legacy active and never echoes off as on"
+      ]
+    },
+    {
+      "name": "readback-expected-legacy",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "correlates same first apply",
+        "correlates idempotent replay",
+        "C5 correlates enabled with compatible legacy active and never echoes off as on"
+      ]
+    },
+    {
+      "name": "off-admission",
+      "exitCode": 1,
+      "tests": 151,
+      "functionalFailures": 5,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 explicit off denies owner new sessions without changing the stable link/provider",
+        "C5 explicit off denies invited new sessions without changing the stable link/provider",
+        "C5 explicit off denies public new sessions without changing the stable link/provider",
+        "C5 enabled active admits the legacy owner and pause stays separate",
+        "C5 disabling during mint prevents delivery of a new session without retroactively revoking an issued bearer"
+      ]
+    }
+  ],
+  "restored": true,
+  "sha256": {
+    "src/capability/agent-elevenlabs/web-channel.ts": "ab9cb6104b35b2f37c371fc743c30a1c8d80737b61c5d90865b26b68948ba584",
+    "src/capability/agent-elevenlabs/web-session.ts": "6cc93e0690dcc4990886d254a39e7784c0f9916a74d15ee1cd335bed20fda990"
+  }
+}
