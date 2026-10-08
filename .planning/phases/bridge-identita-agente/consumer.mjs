@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-import * as esm from '../../../dist/agent/index.js';
+import * as esm from '@x9-forge/contracts/agent';
 const require = createRequire(import.meta.url);
-const cjs = require('../../../dist/agent/index.cjs');
+const cjs = require('@x9-forge/contracts/agent');
 let passed = 0;
 for (const [format, mod] of [['ESM', esm], ['CJS', cjs]]) {
   const base = { agentId: 'runtime-a', ownerId: 'owner-a', tenantId: 'tenant-a', identity: { managementAgentId: 'forge-a', runtimeAgentId: 'runtime-a', vaultAgentId: 17 }, role: 'erede', masterAgentId: 'runtime-master' };

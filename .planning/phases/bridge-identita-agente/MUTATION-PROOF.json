@@ -1,0 +1,488 @@
+{
+  "qualified": 25,
+  "total": 25,
+  "inputs": {
+    "src/agent/agent-context-identity.ts": "4792c9a9aa22a090eddfd0f67938cb4c16f11d87401329cb2ede2f32ca415b7c",
+    "src/agent/index.ts": "72b047915a5fa50c76fe725c8384d9358c52ca841686ba3f39fdc0a1c004256d",
+    "tests/agent/bridge-identita-agente.test.ts": "6271103582c4232db81d14064e51f8f7b5e2d1a89afb8eefbc86eb6acf9e0589"
+  },
+  "mutations": [
+    {
+      "index": 1,
+      "name": "required-context-agent",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects missing agent",
+        "authoritative context identity public contract BI03 constructor rejects missing agent"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:26:14.728290+02:00"
+    },
+    {
+      "index": 2,
+      "name": "required-owner",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects missing owner",
+        "authoritative context identity public contract BI03 constructor rejects missing owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing owner"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:26:26.205473+02:00"
+    },
+    {
+      "index": 3,
+      "name": "required-tenant",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects missing tenant",
+        "authoritative context identity public contract BI03 constructor rejects missing tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing tenant"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:26:44.155151+02:00"
+    },
+    {
+      "index": 4,
+      "name": "required-root-identity",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects missing identity",
+        "authoritative context identity public contract BI03 constructor rejects missing identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing identity"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:26:56.296083+02:00"
+    },
+    {
+      "index": 5,
+      "name": "required-management",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects missing management",
+        "authoritative context identity public contract BI03 constructor rejects missing management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing management"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:27:07.782296+02:00"
+    },
+    {
+      "index": 6,
+      "name": "required-runtime",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects missing runtime",
+        "authoritative context identity public contract BI03 constructor rejects missing runtime"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:27:19.375316+02:00"
+    },
+    {
+      "index": 7,
+      "name": "required-vault",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects missing vault",
+        "authoritative context identity public contract BI03 constructor rejects missing vault",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing vault",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing vault"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:27:30.027891+02:00"
+    },
+    {
+      "index": 8,
+      "name": "nonblank-agent-identifiers",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects blank management",
+        "authoritative context identity public contract BI03 constructor rejects blank management",
+        "authoritative context identity public contract BI02 authority rejects heir blank parent",
+        "authoritative context identity public contract BI03 constructor rejects heir blank parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir blank parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir blank parent"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:27:46.893532+02:00"
+    },
+    {
+      "index": 9,
+      "name": "nonblank-owner",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects blank owner",
+        "authoritative context identity public contract BI03 constructor rejects blank owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank owner"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:27:57.251876+02:00"
+    },
+    {
+      "index": 10,
+      "name": "nonblank-tenant",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects blank tenant",
+        "authoritative context identity public contract BI03 constructor rejects blank tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank tenant"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:05.594225+02:00"
+    },
+    {
+      "index": 11,
+      "name": "positive-vault",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects invalid vault 0",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 0",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 1",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 1",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 0",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 1",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 0",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 1"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:09.835568+02:00"
+    },
+    {
+      "index": 12,
+      "name": "integer-vault",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects invalid vault 2",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 2",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 7",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 7",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 2",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 7",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 2",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 7"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:14.122614+02:00"
+    },
+    {
+      "index": 13,
+      "name": "strict-runtime-identity",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects unknown nested identity",
+        "authoritative context identity public contract BI03 constructor rejects unknown nested identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects unknown nested identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects unknown nested identity"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:17.972416+02:00"
+    },
+    {
+      "index": 14,
+      "name": "strict-authority-root",
+      "witnesses": [
+        "authoritative context identity public contract BI05 authority rejects unknown root fields rather than trusting a second identity"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:24.627628+02:00"
+    },
+    {
+      "index": 15,
+      "name": "declared-role",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects unknown role",
+        "authoritative context identity public contract BI03 constructor rejects unknown role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects unknown role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects unknown role"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:30.129612+02:00"
+    },
+    {
+      "index": 16,
+      "name": "master-without-parent",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects master with parent",
+        "authoritative context identity public contract BI03 constructor rejects master with parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects master with parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects master with parent"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:36.881906+02:00"
+    },
+    {
+      "index": 17,
+      "name": "heir-explicit-parent",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects heir without parent",
+        "authoritative context identity public contract BI03 constructor rejects heir without parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir without parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir without parent"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:43.622292+02:00"
+    },
+    {
+      "index": 18,
+      "name": "runtime-correlation",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects wrong runtime",
+        "authoritative context identity public contract BI03 constructor rejects wrong runtime",
+        "authoritative context identity public contract BI02 authority rejects management cannot replace runtime",
+        "authoritative context identity public contract BI03 constructor rejects management cannot replace runtime"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:48.981009+02:00"
+    },
+    {
+      "index": 19,
+      "name": "heir-self-runtime",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects heir self runtime",
+        "authoritative context identity public contract BI03 constructor rejects heir self runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir self runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir self runtime"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:28:56.660138+02:00"
+    },
+    {
+      "index": 20,
+      "name": "heir-self-management",
+      "witnesses": [
+        "authoritative context identity public contract BI02 authority rejects heir self management",
+        "authoritative context identity public contract BI03 constructor rejects heir self management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir self management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir self management"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:29:04.583416+02:00"
+    },
+    {
+      "index": 21,
+      "name": "constructor-validation-and-clone",
+      "witnesses": [
+        "authoritative context identity public contract BI03 constructor rejects missing agent",
+        "authoritative context identity public contract BI03 constructor rejects null agent",
+        "authoritative context identity public contract BI03 constructor rejects blank agent",
+        "authoritative context identity public contract BI03 constructor rejects missing owner",
+        "authoritative context identity public contract BI03 constructor rejects null owner",
+        "authoritative context identity public contract BI03 constructor rejects blank owner",
+        "authoritative context identity public contract BI03 constructor rejects missing tenant",
+        "authoritative context identity public contract BI03 constructor rejects null tenant",
+        "authoritative context identity public contract BI03 constructor rejects blank tenant",
+        "authoritative context identity public contract BI03 constructor rejects numeric tenant",
+        "authoritative context identity public contract BI03 constructor rejects missing identity",
+        "authoritative context identity public contract BI03 constructor rejects null identity",
+        "authoritative context identity public contract BI03 constructor rejects missing management",
+        "authoritative context identity public contract BI03 constructor rejects blank management",
+        "authoritative context identity public contract BI03 constructor rejects missing runtime",
+        "authoritative context identity public contract BI03 constructor rejects blank runtime",
+        "authoritative context identity public contract BI03 constructor rejects wrong runtime",
+        "authoritative context identity public contract BI03 constructor rejects management cannot replace runtime",
+        "authoritative context identity public contract BI03 constructor rejects missing vault",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 0",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 1",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 2",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 3",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 4",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 5",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 6",
+        "authoritative context identity public contract BI03 constructor rejects invalid vault 7",
+        "authoritative context identity public contract BI03 constructor rejects unknown nested identity",
+        "authoritative context identity public contract BI03 constructor rejects missing role",
+        "authoritative context identity public contract BI03 constructor rejects unknown role",
+        "authoritative context identity public contract BI03 constructor rejects null role",
+        "authoritative context identity public contract BI03 constructor rejects master with parent",
+        "authoritative context identity public contract BI03 constructor rejects master null parent",
+        "authoritative context identity public contract BI03 constructor rejects heir without parent",
+        "authoritative context identity public contract BI03 constructor rejects heir null parent",
+        "authoritative context identity public contract BI03 constructor rejects heir blank parent",
+        "authoritative context identity public contract BI03 constructor rejects heir self runtime",
+        "authoritative context identity public contract BI03 constructor rejects heir self management",
+        "authoritative context identity public contract BI06 constructor detaches nested identity from its caller",
+        "authoritative context identity public contract BI08 Wanted, channel mapping, numeric slugs and credentials cannot supply missing root authority"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:29:18.370756+02:00"
+    },
+    {
+      "index": 22,
+      "name": "modern-reader-authority",
+      "witnesses": [
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing vault",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects unknown nested identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects unknown role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects null role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects master with parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects master null parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir without parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir null parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir blank parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir self runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir self management",
+        "authoritative context identity public contract BI11 AgentContextWithIdentitySchema rejects missing root authority even with valid Wanted"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:29:42.826508+02:00"
+    },
+    {
+      "index": 23,
+      "name": "modern-writer-platform-guard",
+      "witnesses": [
+        "authoritative context identity public contract BI14 modern reader accepts historical platform credentials, writer rejects them"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:29:54.109383+02:00"
+    },
+    {
+      "index": 24,
+      "name": "modern-inherited-channel-guards",
+      "witnesses": [
+        "authoritative context identity public contract BI13 AgentContextWithIdentitySchema preserves channel scope validation",
+        "authoritative context identity public contract BI13 AgentContextWithIdentityWriteSchema preserves channel scope validation"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:30:01.432224+02:00"
+    },
+    {
+      "index": 25,
+      "name": "public-agent-exports",
+      "witnesses": [
+        "authoritative context identity public contract BI01 public AgentContextIdentitySchema",
+        "authoritative context identity public contract BI01 public createAgentContextIdentity",
+        "authoritative context identity public contract BI01 public AgentContextWithIdentitySchema",
+        "authoritative context identity public contract BI01 public AgentContextWithIdentityWriteSchema",
+        "authoritative context identity public contract BI02 authority rejects missing agent",
+        "authoritative context identity public contract BI02 authority rejects null agent",
+        "authoritative context identity public contract BI02 authority rejects blank agent",
+        "authoritative context identity public contract BI02 authority rejects missing owner",
+        "authoritative context identity public contract BI02 authority rejects null owner",
+        "authoritative context identity public contract BI02 authority rejects blank owner",
+        "authoritative context identity public contract BI02 authority rejects missing tenant",
+        "authoritative context identity public contract BI02 authority rejects null tenant",
+        "authoritative context identity public contract BI02 authority rejects blank tenant",
+        "authoritative context identity public contract BI02 authority rejects numeric tenant",
+        "authoritative context identity public contract BI02 authority rejects missing identity",
+        "authoritative context identity public contract BI02 authority rejects null identity",
+        "authoritative context identity public contract BI02 authority rejects missing management",
+        "authoritative context identity public contract BI02 authority rejects blank management",
+        "authoritative context identity public contract BI02 authority rejects missing runtime",
+        "authoritative context identity public contract BI02 authority rejects blank runtime",
+        "authoritative context identity public contract BI02 authority rejects wrong runtime",
+        "authoritative context identity public contract BI02 authority rejects management cannot replace runtime",
+        "authoritative context identity public contract BI02 authority rejects missing vault",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 0",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 1",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 2",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 3",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 4",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 5",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 6",
+        "authoritative context identity public contract BI02 authority rejects invalid vault 7",
+        "authoritative context identity public contract BI02 authority rejects unknown nested identity",
+        "authoritative context identity public contract BI02 authority rejects missing role",
+        "authoritative context identity public contract BI02 authority rejects unknown role",
+        "authoritative context identity public contract BI02 authority rejects null role",
+        "authoritative context identity public contract BI02 authority rejects master with parent",
+        "authoritative context identity public contract BI02 authority rejects master null parent",
+        "authoritative context identity public contract BI02 authority rejects heir without parent",
+        "authoritative context identity public contract BI02 authority rejects heir null parent",
+        "authoritative context identity public contract BI02 authority rejects heir blank parent",
+        "authoritative context identity public contract BI02 authority rejects heir self runtime",
+        "authoritative context identity public contract BI02 authority rejects heir self management",
+        "authoritative context identity public contract BI04 accepts explicit mapping master runtime-a",
+        "authoritative context identity public contract BI04 accepts explicit mapping erede runtime-a",
+        "authoritative context identity public contract BI04 accepts explicit mapping master 17",
+        "authoritative context identity public contract BI05 authority rejects unknown root fields rather than trusting a second identity",
+        "authoritative context identity public contract BI06 constructor detaches nested identity from its caller",
+        "authoritative context identity public contract BI07 two owners and tenants keep their independent mapping with no cache",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing agent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects null agent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank agent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects null owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects null tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects numeric tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects null identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects blank runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects wrong runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects management cannot replace runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing vault",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 0",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 1",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 2",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 3",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 4",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 5",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 6",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects invalid vault 7",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects unknown nested identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects missing role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects unknown role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects null role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects master with parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects master null parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir without parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir null parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir blank parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir self runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentitySchema rejects heir self management",
+        "authoritative context identity public contract BI11 AgentContextWithIdentitySchema rejects missing root authority even with valid Wanted",
+        "authoritative context identity public contract BI12 AgentContextWithIdentitySchema preserves existing full context requirements",
+        "authoritative context identity public contract BI13 AgentContextWithIdentitySchema preserves channel scope validation",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing agent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects null agent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank agent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects null owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank owner",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects null tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects numeric tenant",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects null identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank management",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects blank runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects wrong runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects management cannot replace runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing vault",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 0",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 1",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 2",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 3",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 4",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 5",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 6",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects invalid vault 7",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects unknown nested identity",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects missing role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects unknown role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects null role",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects master with parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects master null parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir without parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir null parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir blank parent",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir self runtime",
+        "authoritative context identity public contract BI10 AgentContextWithIdentityWriteSchema rejects heir self management",
+        "authoritative context identity public contract BI11 AgentContextWithIdentityWriteSchema rejects missing root authority even with valid Wanted",
+        "authoritative context identity public contract BI12 AgentContextWithIdentityWriteSchema preserves existing full context requirements",
+        "authoritative context identity public contract BI13 AgentContextWithIdentityWriteSchema preserves channel scope validation",
+        "authoritative context identity public contract BI14 modern reader accepts historical platform credentials, writer rejects them"
+      ],
+      "restore": 173,
+      "completedAt": "2026-10-08T15:30:07.073879+02:00"
+    }
+  ]
+}

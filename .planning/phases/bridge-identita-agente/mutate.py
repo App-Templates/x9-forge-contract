@@ -38,7 +38,9 @@ recipe('public-agent-exports',[{'path':str(BAR.relative_to(W)),'before':"export 
 if os.environ.get('RECIPE_ONLY')=='1':print(len(recipes));raise SystemExit(0)
 def run(name):
  report=OUT/(name+'.json');log=OUT/(name+'.log');cmd=['pnpm','exec','vitest','run','tests/agent/bridge-identita-agente.test.ts','--maxWorkers=1','--no-file-parallelism','--reporter=json','--outputFile='+str(report)]
- with log.open('w') as f:p=subprocess.run(cmd,cwd=W,env=ENV,stdout=f,stderr=subprocess.STDOUT)
+ remaining=(datetime.fromisoformat(json.loads((R/'TIMER.json').read_text())['deadline'])-datetime.now().astimezone()).total_seconds()
+ assert remaining>0, 'deadline reached before command'
+ with log.open('w') as f:p=subprocess.run(cmd,cwd=W,env=ENV,stdout=f,stderr=subprocess.STDOUT,timeout=remaining)
  assert report.exists(), 'missing native report '+name
  d=json.loads(report.read_text());return p.returncode,d
 results=[]
@@ -52,7 +54,7 @@ try:
   assert code!=0 and witnesses and len(witnesses)==len(failed) and not d['numPendingTests'], 'nonsemantic mutation '+item['name']
   P.write_text(original);BAR.write_text(bar);assert all(sha(W/path)==value for path,value in inputs.items()), 'input SHA changed'
   restore,green=run(f'{i:02d}-restore');assert restore==0 and green['success'] and green['numPassedTests']==173 and not green['numFailedTests'] and not green['numPendingTests'],'restore failed '+item['name']
-  result={'index':i,'name':item['name'],'witnesses':witnesses,'restore':173};results.append(result)
+  result={'index':i,'name':item['name'],'witnesses':witnesses,'restore':173,'completedAt':datetime.now().astimezone().isoformat()};results.append(result)
   (R/'MUTATION-PROOF.json').write_text(json.dumps({'qualified':len(results),'total':len(recipes),'inputs':inputs,'mutations':results},indent=2)+'\n');print(json.dumps({'qualified':len(results),'total':len(recipes),'name':item['name'],'witnesses':len(witnesses)}),flush=True)
 finally:
  P.write_text(original);BAR.write_text(bar)
