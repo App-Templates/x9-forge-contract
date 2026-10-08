@@ -1,0 +1,254 @@
+[
+  {
+    "label": "modern-ownerId",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "ownerId: authority.ownerId",
+    "new": "ownerId: CapabilityAgentScopeSchema.shape.ownerId"
+  },
+  {
+    "label": "modern-tenantId",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "tenantId: authority.tenantId",
+    "new": "tenantId: CapabilityAgentScopeSchema.shape.tenantId"
+  },
+  {
+    "label": "modern-Vault-and-identity",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "identity: authority.identity",
+    "new": "identity: AgentChannelAccessBindingSchema.shape.identity"
+  },
+  {
+    "label": "scope-strict",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "scope: CapabilityAgentScopeSchema.extend({ agentId: authority.agentId, ownerId: authority.ownerId, tenantId: authority.tenantId })",
+    "new": "scope: CapabilityAgentScopeSchema.extend({ agentId: authority.agentId, ownerId: authority.ownerId, tenantId: authority.tenantId }).loose()"
+  },
+  {
+    "label": "identity-strict",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "identity: authority.identity",
+    "new": "identity: authority.identity.loose()"
+  },
+  {
+    "label": "phone-canonical-alias",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "export const AgentKnowledgePhoneNumberSchema = VoiceLiveCallStartRequestSchema.shape.to_number;",
+    "new": "export const AgentKnowledgePhoneNumberSchema = z.string();"
+  },
+  {
+    "label": "phone-max",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": ".max(2048)",
+    "new": ".max(2049)"
+  },
+  {
+    "label": "phone-unique",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "new Set(numbers).size === numbers.length",
+    "new": "true"
+  },
+  {
+    "label": "phone-required",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "}).nullable(),",
+    "new": "}).nullable().optional(),"
+  },
+  {
+    "label": "phone-root-strict",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "}).superRefine((book, ctx)",
+    "new": "}).loose().superRefine((book, ctx)"
+  },
+  {
+    "label": "phone-complete",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "book.status === 'complete' && book.phoneNumbers === null",
+    "new": "false"
+  },
+  {
+    "label": "phone-incomplete",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "book.status !== 'complete' && book.phoneNumbers !== null",
+    "new": "false"
+  },
+  {
+    "label": "writer-parse",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "return AgentKnowledgeAddressBookSchema.parse(input);",
+    "new": "return input as AgentKnowledgeAddressBook;"
+  },
+  {
+    "label": "projection-parse",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "const book = AgentKnowledgeAddressBookSchema.parse(rawBook);",
+    "new": "const book = rawBook as AgentKnowledgeAddressBook;"
+  },
+  {
+    "label": "projection-scope",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "scope: book.scope",
+    "new": "scope: { ...book.scope, ownerId: 'wrong' }"
+  },
+  {
+    "label": "projection-identity",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "identity: book.identity",
+    "new": "identity: { ...book.identity, vaultAgentId: 88 }"
+  },
+  {
+    "label": "projection-status",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "status: book.status",
+    "new": "status: 'unavailable'"
+  },
+  {
+    "label": "projection-version",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "version: book.version",
+    "new": "version: 8"
+  },
+  {
+    "label": "projection-observedAt",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "observedAt: book.observedAt",
+    "new": "observedAt: '2026-01-02T00:00:00Z'"
+  },
+  {
+    "label": "projection-emails",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "emails: book.emails",
+    "new": "emails: ['wrong@example.test']"
+  },
+  {
+    "label": "current-valid-book",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "if (!book.success || !binding.success) return false;",
+    "new": "if (!book.success || !binding.success) return true;"
+  },
+  {
+    "label": "current-complete",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "book.data.status !== 'complete' || !sameAgentChannelAccessBinding",
+    "new": "!sameAgentChannelAccessBinding"
+  },
+  {
+    "label": "current-binding",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "!sameAgentChannelAccessBinding({ scope: book.data.scope, identity: book.data.identity }, binding.data)",
+    "new": "false"
+  },
+  {
+    "label": "current-finite",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "if (!Number.isFinite(now) || !Number.isFinite(maximumAgeMs) || maximumAgeMs < 0) return false;",
+    "new": "if (!Number.isFinite(now) || !Number.isFinite(maximumAgeMs) || maximumAgeMs < 0) return true;"
+  },
+  {
+    "label": "current-future",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "return age >= 0 && age <= maximumAgeMs;",
+    "new": "return age <= maximumAgeMs;"
+  },
+  {
+    "label": "current-stale",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "return age >= 0 && age <= maximumAgeMs;",
+    "new": "return age >= 0;"
+  },
+  {
+    "label": "current-inclusive",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "return age >= 0 && age <= maximumAgeMs;",
+    "new": "return age > 0 && age < maximumAgeMs;"
+  },
+  {
+    "label": "current-default-TTL",
+    "path": "src/agent/agent-knowledge-address-book.ts",
+    "old": "maximumAgeMs = 60_000",
+    "new": "maximumAgeMs = 120_000"
+  },
+  {
+    "label": "channel-enum",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "z.enum(['email', 'phone'])",
+    "new": "z.enum(['email', 'phone', 'telegram'])"
+  },
+  {
+    "label": "params-strict",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "AgentManagementParamsSchema.extend({ kind: AgentAddressBookChannelSchema }).strict()",
+    "new": "AgentManagementParamsSchema.extend({ kind: AgentAddressBookChannelSchema })"
+  },
+  {
+    "label": "response-strict",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "addressBook: AgentKnowledgeAddressBookSchema }).strict()",
+    "new": "addressBook: AgentKnowledgeAddressBookSchema })"
+  },
+  {
+    "label": "response-nested-validation",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "addressBook: AgentKnowledgeAddressBookSchema",
+    "new": "addressBook: z.unknown()"
+  },
+  {
+    "label": "metadata-method",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "method: 'GET'",
+    "new": "method: 'POST'"
+  },
+  {
+    "label": "metadata-path",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "path: '/internal/agents/:agentId/channels/:kind/address-book'",
+    "new": "path: '/wrong'"
+  },
+  {
+    "label": "metadata-authType",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "authType: 'token'",
+    "new": "authType: 'secret'"
+  },
+  {
+    "label": "metadata-authHeader",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "authHeader: INTERNAL_TOKEN_HEADER",
+    "new": "authHeader: 'X-Wrong'"
+  },
+  {
+    "label": "path-validates",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "const params = AgentAddressBookParamsSchema.parse({ agentId, kind });",
+    "new": "const params = { agentId, kind };"
+  },
+  {
+    "label": "response-validates",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "if (!response.success || !params.success) return false;",
+    "new": "if (!response.success || !params.success) return true;"
+  },
+  {
+    "label": "response-channel",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "response.data.kind !== params.data.kind || response.data.addressBook.identity.managementAgentId !== params.data.agentId",
+    "new": "response.data.addressBook.identity.managementAgentId !== params.data.agentId"
+  },
+  {
+    "label": "response-management",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "response.data.kind !== params.data.kind || response.data.addressBook.identity.managementAgentId !== params.data.agentId",
+    "new": "response.data.kind !== params.data.kind"
+  },
+  {
+    "label": "response-trusted-current",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "return isAgentKnowledgeAddressBookCurrent(response.data.addressBook, rawBinding, now, maximumAgeMs);",
+    "new": "return true;"
+  },
+  {
+    "label": "response-TTL",
+    "path": "src/http/endpoints/internal-agent-address-book.ts",
+    "old": "return isAgentKnowledgeAddressBookCurrent(response.data.addressBook, rawBinding, now, maximumAgeMs);",
+    "new": "return isAgentKnowledgeAddressBookCurrent(response.data.addressBook, rawBinding, now);"
+  }
+]

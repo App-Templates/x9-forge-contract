@@ -1,0 +1,380 @@
+[
+  {
+    "label": "modern-ownerId",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "modern-tenantId",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "modern-Vault-and-identity",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "scope-strict",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "identity-strict",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "phone-canonical-alias",
+    "assertions": 7,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "phone-max",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "phone-unique",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "phone-required",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "phone-root-strict",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "phone-complete",
+    "assertions": 4,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "phone-incomplete",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "writer-parse",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "projection-parse",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "projection-scope",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "projection-identity",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "projection-status",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "projection-version",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "projection-observedAt",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "projection-emails",
+    "assertions": 3,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-valid-book",
+    "assertions": 4,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-complete",
+    "assertions": 3,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-binding",
+    "assertions": 5,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-finite",
+    "assertions": 8,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-future",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-stale",
+    "assertions": 3,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-inclusive",
+    "assertions": 4,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "current-default-TTL",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "channel-enum",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "params-strict",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "response-strict",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "response-nested-validation",
+    "assertions": 2,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "metadata-method",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "metadata-path",
+    "assertions": 3,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "metadata-authType",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "metadata-authHeader",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "path-validates",
+    "assertions": 13,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "response-validates",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "response-channel",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "response-management",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "response-trusted-current",
+    "assertions": 5,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  },
+  {
+    "label": "response-TTL",
+    "assertions": 1,
+    "restoreCases": 116,
+    "restoredSha": {
+      "src/agent/agent-knowledge-address-book.ts": "c48a9e7d526ac67d0f8fd7d0c198ea8026f9a4c6086d3c2c9a02efeea62f61dc",
+      "src/http/endpoints/internal-agent-address-book.ts": "6a42d3adde078cb0e61ed8cc0fb74cf3e74dedf170eee4f390fdc9ab9b51e924"
+    }
+  }
+]

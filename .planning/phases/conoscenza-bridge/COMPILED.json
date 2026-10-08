@@ -1,0 +1,20 @@
+[
+  {
+    "format": "js",
+    "assertion": 1,
+    "restore": {
+      "checks": 28,
+      "formats": 2
+    },
+    "sha": "939c36f5925e975ec817ab0a64e0bb145cc2256b6360f5e10d722730dbd56a99"
+  },
+  {
+    "format": "cjs",
+    "assertion": 1,
+    "restore": {
+      "checks": 28,
+      "formats": 2
+    },
+    "sha": "383f4a0b13f474034bc653aaf199b01f5fe2337f70ecce733b999ae53c53e217"
+  }
+]
