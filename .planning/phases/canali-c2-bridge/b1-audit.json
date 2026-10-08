@@ -53,6 +53,10 @@
       "allowed": true
     },
     {
+      "path": ".planning/phases/canali-c2-bridge/b1-audit.json",
+      "allowed": true
+    },
+    {
       "path": ".planning/phases/canali-c2-bridge/b1-baseline.json",
       "allowed": true
     },
@@ -401,5 +405,6 @@
       "allowed": true
     }
   ],
-  "changes": 89
+  "changes": 90,
+  "product": "8b0495a9eca69a62075b6d67f065bb9bb8cfcc3c"
 }

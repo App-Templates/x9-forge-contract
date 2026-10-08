@@ -1,6 +1,8 @@
 # CANALI-C2-BRIDGE — SUMMARY
 
-Ultimo aggiornamento: 08/10/2026 11:49 CEST
+Ultimo aggiornamento: 08/10/2026 12:09 CEST
+
+Stato attuale: B1 completato localmente nel prodotto8b0495a9eca69a62075b6d67f065bb9bb8cfcc3c,90/90path autorizzati e8/8protetti identici. B2 avviato12:06, scadenza12:45, comandi/snapshot/routing/ricevute; outbound con contatto canonico rinviato a B3 dopo fonteD. B3 dipendenza Rubrica aperta, B4/BQ/review da fare. Nessuna full12:00–12:30;C2 incompleto e fuori release13. I paragrafi iniziali seguenti sono il checkpoint storico del piano11:49.
 
 Solo piano/inventario: worktree122-1 codex/canali-c2-bridge pulito alla presa, basea251bbc9 bridge1.43. PLAN R-31 scritto prima del codice.0nuovi test/prodotto eseguiti. Perimetro13file esatti + dist generata proposto alla coordinatrice.
 
