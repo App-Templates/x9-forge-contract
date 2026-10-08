@@ -45,4 +45,5 @@ export * from "./forge-models.cjs";
 export * from "./internal-agent-channel-access.cjs";
 export * from "./forge-agent-channel-access.cjs";
 export * from "./internal-capability-elevenlabs-web.cjs";
+export * from "./capability-elevenlabs-web-context.cjs";
 //# sourceMappingURL=index.d.ts.map

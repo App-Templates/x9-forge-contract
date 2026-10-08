@@ -66,4 +66,5 @@ __exportStar(require("./forge-models.cjs"), exports);
 __exportStar(require("./internal-agent-channel-access.cjs"), exports);
 __exportStar(require("./forge-agent-channel-access.cjs"), exports);
 __exportStar(require("./internal-capability-elevenlabs-web.cjs"), exports);
+__exportStar(require("./capability-elevenlabs-web-context.cjs"), exports);
 //# sourceMappingURL=index.js.map

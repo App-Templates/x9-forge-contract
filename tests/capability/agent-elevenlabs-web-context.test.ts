@@ -54,3 +54,5 @@ it.each([{ ...response, ok: true }, { ...response, error: 'allow' }, { ...respon
 
 it('malformed configured origin returns a validation failure without throwing', () => { expect(() => W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, configuredOrigin: 'invalid' })).not.toThrow(); });
 it('rejects password-only origin user info', () => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, configuredOrigin: 'https://:synthetic@forge.example' }).success).toBe(false));
+
+it('rejects an unsupported error without diagnostic snapshot', () => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ok: false, request, error: 'allow' }).success).toBe(false));

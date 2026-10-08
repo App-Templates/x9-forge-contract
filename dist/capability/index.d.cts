@@ -31,4 +31,5 @@ export * from "./backup/index.cjs";
 export * from "./agent-elevenlabs/web-channel.cjs";
 export * from "./agent-elevenlabs/web-session.cjs";
 export * from "./agent-elevenlabs/web-catalog.cjs";
+export * from "./agent-elevenlabs/web-context.cjs";
 //# sourceMappingURL=index.d.ts.map
