@@ -80,8 +80,8 @@
     "pnpm-lock.yaml"
   ],
   "perimeter": {
-    "allowed": 66,
-    "total": 66
+    "allowed": 67,
+    "total": 67
   },
   "quality": [
     {
@@ -147,5 +147,6 @@
   "fullFinishedAt": "2026-10-08T11:23:40.046238+00:00",
   "rawManifest": "b2/RAW-MANIFEST.json",
   "actualProvider": "NOT IMPLEMENTED",
-  "next": "C3-X9 assigned125-1; vendor1.43; coordinator owns1.44release/pin"
+  "next": "C3-X9 assigned125-1; vendor1.43; coordinator owns1.44release/pin",
+  "productCommit": "654b2240c894d99301a090038a3ae7ea4310219a"
 }
