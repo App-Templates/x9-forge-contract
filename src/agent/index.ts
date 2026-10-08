@@ -83,3 +83,6 @@ export * from './agent-phone-channel.js';
 export * from './agent-phone-commands.js';
 // Forge-declared context authority, including explicit Master/heir provenance.
 export * from './agent-context-identity.js';
+
+// C5 resource operations for existing agents; no credential material.
+export * from './agent-channel-resource-operation.js';
