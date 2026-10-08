@@ -77,4 +77,5 @@ __exportStar(require("./agent-channel-access.cjs"), exports);
 __exportStar(require("./agent-channel-access-requests.cjs"), exports);
 // C2 shared phone door, separately scoped from the two birth channels.
 __exportStar(require("./agent-phone-channel.cjs"), exports);
+__exportStar(require("./agent-phone-commands.cjs"), exports);
 //# sourceMappingURL=index.js.map

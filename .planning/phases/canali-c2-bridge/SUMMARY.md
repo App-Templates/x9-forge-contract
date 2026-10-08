@@ -1,6 +1,6 @@
 # CANALI-C2-BRIDGE — SUMMARY
 
-Ultimo aggiornamento: 08/10/2026 12:09 CEST
+Ultimo aggiornamento: 08/10/2026 12:29 CEST
 
 Stato attuale: B1 completato localmente nel prodotto8b0495a9eca69a62075b6d67f065bb9bb8cfcc3c,90/90path autorizzati e8/8protetti identici. B2 avviato12:06, scadenza12:45, comandi/snapshot/routing/ricevute; outbound con contatto canonico rinviato a B3 dopo fonteD. B3 dipendenza Rubrica aperta, B4/BQ/review da fare. Nessuna full12:00–12:30;C2 incompleto e fuori release13. I paragrafi iniziali seguenti sono il checkpoint storico del piano11:49.
 
@@ -29,3 +29,13 @@ Test prima: interfaccia e primitive canoniche senza nuove guardie,51/66assertion
 Mutazioni30/30qualificate solo per AssertionError,56fallimenti/2100assertioni mutate;30/30ripristini,2100/2100assertioni restored,hash identico ogni volta. Runner mutate-b1.py e report raw in b1-proof/. Nessun timeout/import error contato. Typecheck0,lint dei3file0,build0/portability336/336d.ts;check:pack0 (warning publint di ambiguità types già legato al manifest invariato, profilo native node16 e ignore-rules false-cjs invariati). Consumer CJS/ESM reali:5/5export e13/13assertioni;conteggio del primo log rettificato nel JSON, non9. Audit8/8protetti identici, tutti i path nel perimetro; nessun package/lock/versione/Rubrica/C1/voce/vecchio test cambiato. Nessuna full nella finestra riservata12–12:30.
 
 Da fare: B2 comandi/snapshot/routing/ricevute, B3 fonte Rubrica concordata con D, B4 HTTP/CJS finale, BQ full nativa con posto dopo la finestra, review indipendente. C2 non completo, nessun push/merge/deploy/live. F0 resta congelato71be142c, fuori release13.
+
+## B2 — comandi/snapshot/routing/ricevute
+
+Ultimo aggiornamento:12:29 (08/10/2026), concluso entro scadenza12:45. Prodotto in questo commit: agent-phone-commands.ts e test, solo export nel barrel agent e dist da build. CAS riprende action/requestId/versioni C1, requestChanges obbligatoriamente null; aggiunge numero/routing generation. Snapshot include archived server-derived e load state canonico, senza trasformarli in input browser. Applica solo stesso scope e CAS corrente; pausa può essere chiesta anche con numero unavailable/runtime stopped, agente archived negato. Receipt applied richiede vera attestation e correlazione completa; pending/failed distinti. Routing prima di ammissione: inventario canonico completo corrente, esattamente1match anche contando altre porte in pausa, agente nonarchived/loaded, porta active/applied. La risposta porta evento esatto e data corrente; selected non significa caller admitted. Firma provider, Rubrica, voce e azione richiesta restano gate futuri producer/B3. Nessuna autorizzazione dal payload verified/client owner.
+
+Test prima:64/80rossi semantici e16/80verdi su interfaccia+primitive senza nuove guardie. Estensione risposta route:15/100rossi e85/100verdi prima delle guardie; nuova prova per un evento vecchio ridatato tramite la risposta. Finale101/101nuovi B2 +70/70B1; matrice completa mirata390/390,219/219regressioni C1/R4,0failed/0pending,exit0/success true.
+
+Mutazioni finali48/48qualificate con103AssertionError/4848assertioni mutate;48/48restore/4848/4848assertioni ehashidentici. Prima campagna estesa:1sopravvissuto route-result-event-time,0/100rossi, non contato; test insufficientemente isolato perché snapshot popolato falliva già freshness. Aggiunto unresolved result antedatato: gate indipendente ora1assertione rossa/101, poi101/101restore. b2-mutation-history.json e runner mutate-b2.py documentano la correzione. Typecheck/lint/build/check:pack/matrice0, log+exit in b2-quality.json.9/9protetti identici (8canonici eB1source), tutti i path nel perimetro. Nessuna suite completa12:00–12:30 e nessun posto occupato.
+
+Prossimo:B4 snapshot/preview/apply/route HTTP+CJS, separato dal futuro outbound con contatto canonico. B3 ancora sospeso: D115122 non ha deciso/implementato simboli/path Rubrica. Non inventare contactref/API; completare wrapper outbound soltanto dopo fonteD. BQ full/review indipendente dopo tutti i componenti. C2 incompleto, fuori release13; nessun push/merge/deploy/live.

@@ -28,4 +28,5 @@ export * from "./agent-credential-services.js";
 export * from "./agent-channel-access.js";
 export * from "./agent-channel-access-requests.js";
 export * from "./agent-phone-channel.js";
+export * from "./agent-phone-commands.js";
 //# sourceMappingURL=index.d.ts.map

@@ -80,3 +80,4 @@ export * from './agent-channel-access-requests.js';
 
 // C2 shared phone door, separately scoped from the two birth channels.
 export * from './agent-phone-channel.js';
+export * from './agent-phone-commands.js';
