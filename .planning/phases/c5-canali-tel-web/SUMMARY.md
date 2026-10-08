@@ -1,6 +1,6 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 20:38. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 21:02. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
@@ -53,3 +53,16 @@ Enabled:boolean facoltativo nella policy e nel change canonici; assente resta id
 ## R-35 e prossimo lotto
 
 PLAN ora contiene Esistente R35 con grep path:riga dei flussi attuali e vecchioForge4f3fc42: registrazione/scopedvoiceSessions/HMAC/postcall/brief/provider esistenti da riusare. Nuovo issuer/sessione, collocazione policy/link/inviti/tentativi e storageproposti NON sono scelte diC: domanda203655 alla coordinatrice prima di creare i producerX9/Forge. Prima scritturaPLAN fallita per cwd errato dopo domanda, salvataeffettivamente20:37 nel143-1 e rettifica inavanza,nessunaltrafilemodifica. Continuare solo contratti nelperimetro e dati/flowesistenti finché decisione esplicita; non duplicare writer,spostarevoiceSessions oinventare nuova persistedsource. Prossimo B0c2b browserfacade/inviti con Esistente prima di ogni decisione. LeaseC fino21:11:19. TaskglobaleIN CORSO,0/42live,0/2percorsi completi.
+
+
+## B0c2b proiezione browser — checkpoint source, SDK ancora incompleto
+
+Request stretta solo requestId/linkId. Proiezione restituisce esattamente6campi del lease, dopo ammissioneC3 con snapshot/viewer/origin corrente e autoritàD della fase after; nessun mapping/scope/viewer/invito/identity nelle proprietà della risposta. signedUrl è l'unico bearer necessario al collegamento ElevenLabs, solo all'ammesso, non log/storico/linkstabile. La validazione URL C3 è estratta e riusata senza aggiungere secondo parser; formatoURL non prova risorsa privata o ammissione. Owner/invitato/pubblico esplicito testati come helper, non autenticazione/HTTP/sessione reale.
+
+39/39nuovi; baseline finale16verdi/23AssertionError,0errorisecondari, sorgente ripristinato SHA7497d5fad97320a043f3ae785e69d687e781e562e840cd3210348f3ee31b5970. Mirati124/124 in2/2file, full4459/4459 in158/158file,0skip. Native typecheck/lint/build/checkpack exit0. Finale20/20source mutant qualificate,2/2source SHA ripristinati. Prima19/20 mancava caso signature presente ma vuota: aggiunta solo fixture e rifatta campagna completa; baseline iniziale aveva7TypeError nel controllo proprietà su null, esclusa da qualifica e rifatta con assert nonnull prima della stessa assert proprietà. Nessuna asserzione indebolita.
+
+Export pubblico SDK BLOCCATO sul perimetro: richiesta204709 per sole righeC in src/capability/index.ts. Non esportare dal agent-elevenlabs/index.ts: introdurrebbe ciclo index→browser→session→index con accesso ai suoi schemi prima dell'inizializzazione. Native build/pack passa, consumer namespace ESM/CJS è correttamente rosso 2/2 per funzione pubblica assente; queste sono BASELINE,0mutazioni compiled qualificate e0green SDK dichiarati. Testsmoke88asserzioni preparato WIP, non committato finché export autorizzato e verde. La distribuzione dist generata è ripristinata soltanto su200112, nuovi generated preservati nel percorso registrato B0c2b-DIST-RESTORE.json;0distcommittati.
+
+R35: riuso src/capability/agent-elevenlabs/web-session.ts:88/116 (lease/sessioncurrent), web-context.ts autoritàD e src/capability/index.ts:92/94/95/97 (pattern exportdiretti). Forge attuale00a468e e vecchio4f3fc42 non contengono paginaParla/inviti; voice-svc registra e chiude sessioni esistenti, da riusare quando producerassegnato.0nuovihandler/storage/flow. Decisioni203655/204317 su proprietà dei dati e risolutore email ancora pendenti, nessuna scelta locale.
+
+SegnalazioneB210025: il helper history89cc499 confronta binding/kind/requestId/tempo, NON resource/version né attestazione ingresso→turno→reply consegnata. NON usarlo da solo per Funziona. B fornirà forma del suo intentledger canonico; successivoB0c3 aggiunge attestazione/guard condivisi nel perimetro, non DTOlocale o writerduplicato. TaskglobaleIN CORSO,0/42live e0/2percorsiutente completi.
