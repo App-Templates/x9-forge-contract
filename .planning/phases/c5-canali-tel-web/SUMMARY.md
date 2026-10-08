@@ -1,6 +1,6 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 19:28. Worktree 143-1, codex/c5-canali-bridge, base 27749e4.
+Ultimo aggiornamento: 08/10/2026 19:42. Worktree 143-1, codex/c5-canali-bridge, base 27749e4.
 
 ## Stato
 
@@ -27,3 +27,7 @@ Test scritti nel perimetro, implementazione ancora assente: numero esatto/Rubric
 ## Checkpoint di preparazione — 2026-10-08T19:33:52.184526+02:00
 
 Semaforo ancora5/5 esauriti alla verifica19:33, nessuna lease C. Non è soglia swap: suite/mutazioni non avviate. Due file test WIP presenti non committati: c5-phone-address-book e c5-phone-admission; quest'ultimo attende nuovo modulo fail-closed, non conta errori import come rosso. Codice prodotto base27749e4 ancora immutato. Committati solo PLAN/SUMMARY/PREPARATION.json, non feature o controllo verde. Prossimo heartbeat riprende la riserva e il baseline address-book, poi singola correzione/qualifica prima del modulo ammissione.
+
+## B0a1 Rubrica — 08/10/2026 19:42
+
+Lease C ottenuta19:40 fino20:12. Baseline nuovo file21test:4rossidominio/17giaVerdi (phones rifiutato e limite completo). Aggiunta singola phones?:E164[]|null con2048/univoci/fontecompleta; emaillegacy identico. Dopo aggiunta e ripristino85/85 in2/2file (21nuovi+64C1),0skip;6/6mutazioni funzionali (formato,limite,univocità,completezza,null,legacy-no-default), SHA ripristinatoc4df9f46924a8744363a1693d566b47869d10d1bbfa85157062738c75dd50e7c. Logs/report/runner inproof/. Full/typecheck/build non ancora eseguiti, nuova APIammissione WIP non montata;0live. Commit prodotto contiene solo contratto libro e test; docproof atomici con la medesima correzione. Prossimo B0a2 gateammissione, scaffoldfailclosed prima baseline funzionale.
