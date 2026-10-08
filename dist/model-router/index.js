@@ -29,4 +29,6 @@ export * from "./model-catalog.js";
 export * from "./capability-model-settings.js";
 export * from "./agent-model-configuration.js";
 export * from "./models-batch.js";
+// Canonical server-owned model consumer bindings; no runtime installation is inferred.
+export * from "./model-consumers.js";
 //# sourceMappingURL=index.js.map

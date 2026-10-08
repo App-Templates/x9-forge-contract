@@ -10,6 +10,17 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.43.0 — registro canonico dei consumer di modello (Modelli M3)
+
+### Added (additive)
+
+- `./model-router`: **registro dei consumer** (`model-consumers`) — tupla canonica slot/capability/function con requirements (`agent_chat` · `agent-core` · `reasoning`: tools=true, stream=false, structuredOutput=false), schema Zod e tipi, lookup esatto. Nessun default, provider, prezzo o attestazione applicata.
+- `./model-router`: costante esportata per lo slot server-owned `agent_chat` in `agent-model-configuration` (prima citato solo in commento). Gli slot di memoria e audio arriveranno con M4.
+
+Autore Codex D, verifica indipendente Codex B (APPROVE).
+
+---
+
 ## v1.42.0 — accessi e richieste delle porte Telegram/email (Canali C1)
 
 ### Added (additive)

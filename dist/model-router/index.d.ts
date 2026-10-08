@@ -28,4 +28,5 @@ export * from "./model-catalog.js";
 export * from "./capability-model-settings.js";
 export * from "./agent-model-configuration.js";
 export * from "./models-batch.js";
+export * from "./model-consumers.js";
 //# sourceMappingURL=index.d.ts.map

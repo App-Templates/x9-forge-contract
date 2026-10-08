@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentModelsStateSchema = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.ModelSlotIdSchema = void 0;
+exports.AgentModelsStateSchema = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.ModelSlotIdSchema = exports.AGENT_CHAT_MODEL_SLOT_ID = void 0;
 exports.sameModelAgentIdentity = sameModelAgentIdentity;
 exports.isAgentModelApplyConfirmed = isAgentModelApplyConfirmed;
 const zod_1 = require("zod");
@@ -12,7 +12,9 @@ const parameters_js_1 = require("../capability/parameters.cjs");
 const capability_model_settings_js_1 = require("./capability-model-settings.cjs");
 const model_tier_js_1 = require("./model-tier.cjs");
 const model_catalog_js_1 = require("./model-catalog.cjs");
-/** Stable server-owned slot identifiers, including existing agent_chat/mem0_* slots. */
+/** Canonical conversation slot; memory/audio slots are added with their qualified consumers. */
+exports.AGENT_CHAT_MODEL_SLOT_ID = 'agent_chat';
+/** Generic syntax stays additive for existing custom and future consumer slots. */
 exports.ModelSlotIdSchema = zod_1.z.string().regex(/^[a-z][a-z0-9._-]{0,63}$/);
 exports.ModelSelectionTierSchema = zod_1.z.enum([...model_tier_js_1.MODEL_TIERS, 'fallback']);
 exports.AgentModelSelectionSchema = zod_1.z.object({ slotId: exports.ModelSlotIdSchema, settings: capability_model_settings_js_1.CapabilityModelSettingsSchema }).strict();

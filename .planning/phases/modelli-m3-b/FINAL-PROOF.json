@@ -1,0 +1,1173 @@
+{
+  "task": "MODELLI-M3-B",
+  "updatedAt": "2026-10-08T02:22:00+02:00",
+  "base": "0eccaaa3f2c70cde293d80c053707bfa421bd874",
+  "productCommit": "d854eadbae2dbb01476b7531ef8cfa37720c9882",
+  "privateEvidenceRoot": "/private/tmp/d-modelli-m3-b-20261008",
+  "firstRed": {
+    "assertionFailures": 41,
+    "total": 42,
+    "legacyPassed": 1
+  },
+  "targeted": {
+    "passed": 102,
+    "total": 102,
+    "new": 42,
+    "legacyConfiguration": 60
+  },
+  "finalMutationCampaign": {
+    "baseline": {
+      "exit": 0,
+      "passed": 42,
+      "total": 42,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 1,
+      "semantic": 0,
+      "unhandled": [],
+      "witnesses": [],
+      "logSha256": "3e23e09a761fc8920b6e0de5dc5578ca9f2829b9ecc9b5ae1a5029ea67265adb"
+    },
+    "mutations": [
+      {
+        "label": "chat-slot",
+        "file": "src/model-router/agent-model-configuration.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 37,
+          "total": 42,
+          "failed": 5,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 4,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B01 publishes the approved stable slot and capability",
+              "error": "AssertionError: expected 'agent_other' to be 'agent_chat' // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:11:111\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B02 publishes requirements without pretending token streaming or structured output",
+              "error": "AssertionError: expected [ { slotId: 'agent_other', \u2026(3) } ] to deeply equal [ { slotId: 'agent_chat', \u2026(3) } ]\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:12:177\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/"
+            }
+          ],
+          "logSha256": "f33acb12b572f26d9d9de97a28cd81772074d37f2411a797d954b6505d2a2212"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "ed6412f4f200f32a21de229fec34a34dc8e05c537917f2f4c3dffc2a61c8e146"
+        }
+      },
+      {
+        "label": "capability-id",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 37,
+          "total": 42,
+          "failed": 5,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 5,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B01 publishes the approved stable slot and capability",
+              "error": "AssertionError: expected 'other-core' to be 'agent-core' // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:11:181\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:2"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B02 publishes requirements without pretending token streaming or structured output",
+              "error": "AssertionError: expected [ { slotId: 'agent_chat', \u2026(3) } ] to deeply equal [ { slotId: 'agent_chat', \u2026(3) } ]\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:12:177\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/r"
+            }
+          ],
+          "logSha256": "31c2fab1cd28dc674a8532493f5d5eaf49e9a6f9369313386a15da5bf85e8087"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "b54c9f4650bc40d0be9b8c4c988d4618987409c45216ab9939620892f563c0f2"
+        }
+      },
+      {
+        "label": "reasoning-function",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 37,
+          "total": 42,
+          "failed": 5,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 5,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B01 publishes the approved stable slot and capability",
+              "error": "AssertionError: expected { slotId: 'agent_chat', \u2026(3) } to deeply equal { slotId: 'agent_chat', \u2026(3) }\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:11:246\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/di"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B02 publishes requirements without pretending token streaming or structured output",
+              "error": "AssertionError: expected [ { slotId: 'agent_chat', \u2026(3) } ] to deeply equal [ { slotId: 'agent_chat', \u2026(3) } ]\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:12:177\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/r"
+            }
+          ],
+          "logSha256": "dbca43b31fbfab8a75448d320aedeae9ea71da92d6762020e41f94f6f46510b2"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "fd87f92811a6b5d1b7d6c2dcebd696208c368745eccef33f14827cd10d5f4b59"
+        }
+      },
+      {
+        "label": "native-tools",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 37,
+          "total": 42,
+          "failed": 5,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 5,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B01 publishes the approved stable slot and capability",
+              "error": "AssertionError: expected { slotId: 'agent_chat', \u2026(3) } to deeply equal { slotId: 'agent_chat', \u2026(3) }\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:11:246\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/di"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B02 publishes requirements without pretending token streaming or structured output",
+              "error": "AssertionError: expected [ { slotId: 'agent_chat', \u2026(3) } ] to deeply equal [ { slotId: 'agent_chat', \u2026(3) } ]\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:12:177\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/r"
+            }
+          ],
+          "logSha256": "09049aad200c31589893e6d2eebca9fae4fbe3f343252855ffc81f8183673863"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "b35089f68a114336aae5d6a23c03f3907b38a2a36cbfb1403251dbd01506f3d3"
+        }
+      },
+      {
+        "label": "native-stream",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 37,
+          "total": 42,
+          "failed": 5,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 5,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B01 publishes the approved stable slot and capability",
+              "error": "AssertionError: expected { slotId: 'agent_chat', \u2026(3) } to deeply equal { slotId: 'agent_chat', \u2026(3) }\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:11:246\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/di"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B02 publishes requirements without pretending token streaming or structured output",
+              "error": "AssertionError: expected [ { slotId: 'agent_chat', \u2026(3) } ] to deeply equal [ { slotId: 'agent_chat', \u2026(3) } ]\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:12:177\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/r"
+            }
+          ],
+          "logSha256": "e7cfaf9099e417abb41b5a69a7042d44873ea0abe76d310c83f3d6e9beadaf72"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "b6f846d7acd70b073a11b95cc6f513ce310eaf918d1c16ad98b21cbb8cc47a8d"
+        }
+      },
+      {
+        "label": "native-structured",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 37,
+          "total": 42,
+          "failed": 5,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 5,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B01 publishes the approved stable slot and capability",
+              "error": "AssertionError: expected { slotId: 'agent_chat', \u2026(3) } to deeply equal { slotId: 'agent_chat', \u2026(3) }\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:11:246\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/di"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B02 publishes requirements without pretending token streaming or structured output",
+              "error": "AssertionError: expected [ { slotId: 'agent_chat', \u2026(3) } ] to deeply equal [ { slotId: 'agent_chat', \u2026(3) } ]\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:12:177\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/r"
+            }
+          ],
+          "logSha256": "ac22d651a5d736c0b28f72ddda960377cf8817d2c59d74c5d2972229a472c109"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "59a89f6345844d1ff1f0bcceb9a8e9a199b1172726080ecb5b200fd88b3e1f44"
+        }
+      },
+      {
+        "label": "metadata-strict",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B04 rejects unknown, malformed or incomplete metadata {\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false},\"extra\":true}",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:14:449\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "9669b8b341d7333803226d757cecf42eebd57779eccd2dc7fac3720c963bf481"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "8e01d3a2c212b072e3ec060ecfab5f3e61297243319e379ffa58da87ca21c69f"
+        }
+      },
+      {
+        "label": "slot-syntax",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 40,
+          "total": 42,
+          "failed": 2,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 2,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B04 rejects unknown, malformed or incomplete metadata {\"slotId\":\"../other\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:14:449\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B04 rejects unknown, malformed or incomplete metadata {\"slotId\":\"UPPER\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:14:449\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "37c3a52a72442373206bf46c0ec1c3ddcf40b9fff6084c6cf0a2db779bcdee71"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "be7bd5f81caae2d342c10ca3d6b8b01525a853e0cf1690eea766ecee2d9cea91"
+        }
+      },
+      {
+        "label": "capability-syntax",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B04 rejects unknown, malformed or incomplete metadata {\"slotId\":\"agent_chat\",\"capability\":\"\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:14:449\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "10c7acf9e9661a5c39536db36c6bbbb9ab4a8173b88bf5a9b5c85427b7a98fc2"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "e68211359c44796d2dc490f3c8fbd977a33fed1e3c2ea92785f48d50efdf3750"
+        }
+      },
+      {
+        "label": "function-enum",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B04 rejects unknown, malformed or incomplete metadata {\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"unknown\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:14:449\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "53301e44f79639b4b7a1bab8c0cf8b0d9f28f97c0cada48427672d667bf67cfa"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "593a06df5e7c47e863ce758e2c0bcab4e9276fed5bd2391486e1aa9c0871b0d2"
+        }
+      },
+      {
+        "label": "requirements-shape",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 37,
+          "total": 42,
+          "failed": 5,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 5,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B04 rejects unknown, malformed or incomplete metadata {\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false,\"extra\":true}}",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:14:449\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B04 rejects unknown, malformed or incomplete metadata {\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":\"true\",\"structuredOutput\":false}}",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:14:449\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "718e5ce74bd0088f3b986387e2fdfdcf8edd44f51052346fe976e52c8ad336ac"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "3f2a3b7ca6e981cc9c668c6745100e092541612aa106854a570accbd059fc044"
+        }
+      },
+      {
+        "label": "required-slot",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B05 requires slotId without inferring it",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:15:207\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "7aa013c22db32d3868ac11a127fc0d58f6b4e991f4216cf80f9cac9c34544a6b"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "ab80ba1fd3608ec95845463c84f5efbd0b5205ddde1f62b5f9d4d50ac5fe64d7"
+        }
+      },
+      {
+        "label": "required-capability",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B05 requires capability without inferring it",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:15:207\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "bde8e056cb19b2e709255547dafaab7cf06552753dde9f011d3e97cffefb72eb"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "895facb13d910bd80cb4e0756bfbbc7ac3f4ed9d3f0e1b4ea2006fec1320b79c"
+        }
+      },
+      {
+        "label": "required-function",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B05 requires function without inferring it",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:15:207\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "647797938fe5198c116e1ce4f3d34d8961c1d0f21731b5a99be2b879914bf255"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "6e7beb3b5e4626b3be58f4ee117f291b9cc2a6f49fc8be10f5d817edfdda75ac"
+        }
+      },
+      {
+        "label": "required-requirements",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B05 requires requirements without inferring it",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:15:207\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "c7b45704d5a9c985e65e53cff0867a9cb97ac670f1ed61505b583d2f3b25be6c"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "8dab340c4c741cee4c80241b3458065005d901a139f5e358bef2aee8e842b9b0"
+        }
+      },
+      {
+        "label": "registry-nonempty",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B07 registry refuses empty, duplicate or excessive rows []",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:17:282\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "30a7413c6d9cc15c77ec308df9aee9aa09aa8d2e2928497cccb8b2b34781b5de"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "92ef0f848c5e7806ddc86770ac5bc3731da1da7f9f9720e823904431313fae9b"
+        }
+      },
+      {
+        "label": "registry-bound",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B07 registry refuses empty, duplicate or excessive rows [{\"slotId\":\"synthetic-0\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-1\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-2\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-3\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-4\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-5\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-6\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-7\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-8\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-9\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-10\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-11\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-12\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-13\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-14\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-15\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-16\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-17\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-18\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-19\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-20\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-21\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-22\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-23\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-24\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-25\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-26\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-27\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-28\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-29\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-30\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-31\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-32\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-33\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-34\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-35\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-36\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-37\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-38\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-39\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-40\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-41\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-42\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-43\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-44\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-45\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-46\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-47\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-48\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-49\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-50\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-51\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-52\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-53\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-54\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-55\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-56\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-57\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-58\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-59\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-60\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-61\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-62\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-63\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"synthetic-64\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}]",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:17:282\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "2bf16611bb7dcae23bbeeb4c2490ca3fb2c50430043db078bd53360e35c03fd7"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "289b93b3a26e4db9feba71bc9033db97a31cd70a297daae27bf9b79d7950cc92"
+        }
+      },
+      {
+        "label": "registry-unique",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 40,
+          "total": 42,
+          "failed": 2,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 2,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B07 registry refuses empty, duplicate or excessive rows [{\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}]",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:17:282\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B07 registry refuses empty, duplicate or excessive rows [{\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}},{\"slotId\":\"agent_chat\",\"capability\":\"agent-core\",\"function\":\"embedding\",\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}]",
+              "error": "AssertionError: expected true to be false // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:17:282\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:861:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file://"
+            }
+          ],
+          "logSha256": "5529190b7dd9a94e6d7fef70a64a63ad149ce16df5e5b1f84ed51824bdb1d076"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "2bd90a961f5f5eb25b9e68be0971630a75846538ac1651fbbfb1fff37bb747ac"
+        }
+      },
+      {
+        "label": "registry-read-detached",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 40,
+          "total": 42,
+          "failed": 2,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 2,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B10 detached registry reads cannot rewrite consumer authority",
+              "error": "AssertionError: expected [ Array(2) ] to deeply equal [ { slotId: 'agent_chat', \u2026(3) } ]\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:20:285\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B11 detached lookup reads cannot rewrite consumer requirements",
+              "error": "AssertionError: expected { slotId: 'agent_chat', \u2026(3) } to deeply equal { slotId: 'agent_chat', \u2026(3) }\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:21:244\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/di"
+            }
+          ],
+          "logSha256": "ce26ef19494b803afff0c6e3fc72c37fca4794eabff2e417c3a3db8ff75232b6"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "7ff3df7eef468ccd9421982f637f51e228c08e31e4940e11fec2a36514c6cc1a"
+        }
+      },
+      {
+        "label": "lookup-exact",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 33,
+          "total": 42,
+          "failed": 9,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 9,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B06 generic metadata preserves valid future consumers without claiming them registered",
+              "error": "AssertionError: expected { slotId: 'agent_chat', \u2026(3) } to be undefined\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:16:359\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    a"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B09 invalid or unknown slot undefined grants no consumer binding",
+              "error": "AssertionError: expected { slotId: 'agent_chat', \u2026(3) } to be undefined\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:19:214\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at"
+            }
+          ],
+          "logSha256": "621a39b2e58503c0d1e89733643bf89f8e2ea7f887a8613a97a036d3a72e7058"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "150751abfedf82c6f9d641e9bca9592e6e57ba6f4d87dfb6122eb7dfef2784d5"
+        }
+      },
+      {
+        "label": "lookup-detached",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B11 detached lookup reads cannot rewrite consumer requirements",
+              "error": "AssertionError: expected undefined to deeply equal { slotId: 'agent_chat', \u2026(3) }\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:21:244\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:189"
+            }
+          ],
+          "logSha256": "993d066a2411c323058117955a53d56d733708d5c803b659db272ca1e88b9317"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "11d9358d926dac974ca110f0f90ee3588c708eadcbc5de1d15da0bf786bc8d42"
+        }
+      },
+      {
+        "label": "native-outer-frozen",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B12 exported native consumer and nested requirements are frozen",
+              "error": "AssertionError: expected false to be true // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:22:177\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Pr"
+            }
+          ],
+          "logSha256": "206eb61a1c03e35e5a39a8985d84a7d00b45e19707445bf2061009b90714338c"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "449d146c175411d0fb51d2404b92428d1a302a537831c240096087b5291da8cd"
+        }
+      },
+      {
+        "label": "native-nested-frozen",
+        "file": "src/model-router/model-consumers.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 41,
+          "total": 42,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 1,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B12 exported native consumer and nested requirements are frozen",
+              "error": "AssertionError: expected false to be true // Object.is equality\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:22:235\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20\n    at new Pr"
+            }
+          ],
+          "logSha256": "9fecbc18849f1cc5f94d08e10c2b94ae48cc6b52b8ecb2529c1fbbfd2202a8f2"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "d4eb1dfe3c5052293adae1cb3bbde905b51415da2c1b4526e92a3755f5dd7a9f"
+        }
+      },
+      {
+        "label": "public-exports",
+        "file": "src/model-router/index.ts",
+        "qualified": true,
+        "red": {
+          "exit": 1,
+          "passed": 2,
+          "total": 42,
+          "failed": 40,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 40,
+          "unhandled": [],
+          "witnesses": [
+            {
+              "name": "M3-B canonical consumer metadata B01 publishes the approved stable slot and capability",
+              "error": "AssertionError: AGENT_CORE_MODEL_CAPABILITY_ID: expected undefined to be defined\n    at exported (/private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:5:109)\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:11:137\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///private/tmp/d-modelli-m3"
+            },
+            {
+              "name": "M3-B canonical consumer metadata B02 publishes requirements without pretending token streaming or structured output",
+              "error": "AssertionError: ModelConsumerSchema: expected undefined to be defined\n    at exported (/private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:5:109)\n    at schema (/private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:6:65)\n    at /private/tmp/d-modelli-m3-b-20261008/candidate/tests/model-router/model-consumers.test.ts:12:102\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@3.2.4/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///private/tmp/d-modelli-m3-b-20261008/candidate/node_modules/.pnpm/@vitest+runner@"
+            }
+          ],
+          "logSha256": "659772b561c1d65f317b2d9074117ac4bb26f2d07a15537f08978be5f3602ad9"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 42,
+          "total": 42,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "files": 1,
+          "semantic": 0,
+          "unhandled": [],
+          "witnesses": [],
+          "logSha256": "986e63ffd31992daf0934b31426191978663e246c597ac59794cb63ab6352aee"
+        }
+      }
+    ],
+    "sourceHashes": {
+      "src/model-router/agent-model-configuration.ts": "220ee1d199a2ca0b8d1135d3f1f1053aac09f4e7d86e394c2c23f38b128fd438",
+      "src/model-router/model-consumers.ts": "b2aae541b44fa3e686e72b8d106e7a368b0c183717795eed0e92ecef327ad61f",
+      "src/model-router/index.ts": "2cae0765ac7321e4aa4a69f877d861e5f2e2cd8c1ea24f6be6283f821f00a946"
+    },
+    "restoredHashes": {
+      "src/model-router/agent-model-configuration.ts": "220ee1d199a2ca0b8d1135d3f1f1053aac09f4e7d86e394c2c23f38b128fd438",
+      "src/model-router/model-consumers.ts": "b2aae541b44fa3e686e72b8d106e7a368b0c183717795eed0e92ecef327ad61f",
+      "src/model-router/index.ts": "2cae0765ac7321e4aa4a69f877d861e5f2e2cd8c1ea24f6be6283f821f00a946"
+    },
+    "qualified": 24,
+    "total": 24
+  },
+  "quality": {
+    "full": {
+      "exit": 0,
+      "passed": 3227,
+      "total": 3227,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 138,
+      "semantic": 0,
+      "unhandled": [],
+      "witnesses": [],
+      "logSha256": "63201943faf2e92f4bc5f3b78eb922d446dc80dc3a85bd66221de3f71a619cd9"
+    },
+    "commands": [
+      {
+        "name": "typecheck",
+        "command": [
+          "pnpm",
+          "typecheck"
+        ],
+        "exit": 0,
+        "seconds": 2.586,
+        "logSha256": "240262e39ae0fc8f6b8f226af76982bd0e54738c7d705a5ca8037955c68cc4f2"
+      },
+      {
+        "name": "lint",
+        "command": [
+          "pnpm",
+          "lint"
+        ],
+        "exit": 0,
+        "seconds": 4.28,
+        "logSha256": "e2bcbe1ef11df1f0d5e801f6c5f4d765b570b178cb3b358eb11413153cf130fa"
+      },
+      {
+        "name": "build",
+        "command": [
+          "pnpm",
+          "build"
+        ],
+        "exit": 0,
+        "seconds": 5.695,
+        "logSha256": "2412d35191c5df501cc88299063f80112ea13cd56631cb816697f52445d4cb07"
+      },
+      {
+        "name": "legacy-cjs",
+        "command": [
+          "node",
+          "tests/cjs/smoke.cjs"
+        ],
+        "exit": 0,
+        "seconds": 0.199,
+        "logSha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79"
+      },
+      {
+        "name": "consumer-smoke",
+        "command": [
+          "node",
+          "tests/cjs/model-consumers-smoke.mjs"
+        ],
+        "exit": 0,
+        "seconds": 0.19,
+        "logSha256": "ca3cdf64ccd5c4bb7fcb96a3c6f2fe7fcb1f53e1a56fd70c65139a7595297189"
+      },
+      {
+        "name": "pack",
+        "command": [
+          "pnpm",
+          "check:pack"
+        ],
+        "exit": 0,
+        "seconds": 3.834,
+        "logSha256": "c4da2c569cca4a7d4b136d9c9ac1cc24b1bfc6035534428493b6c6a49e4cc75a"
+      },
+      {
+        "name": "new-test-types",
+        "exit": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "excludedInvocationErrors": [
+      {
+        "name": "new-test-types",
+        "exit": 2,
+        "logSha256": "22d754e33e5e414d820e237c9e477c81ec8db495c45ab51f7665351a89a3c783"
+      }
+    ]
+  },
+  "compiledExportFaults": {
+    "faults": [
+      {
+        "label": "compiled-cjs-export",
+        "semanticAssertionFailure": true,
+        "redExit": 1,
+        "restored": {
+          "passed": 48,
+          "total": 48,
+          "surfaces": 4
+        }
+      },
+      {
+        "label": "compiled-esm-export",
+        "semanticAssertionFailure": true,
+        "redExit": 1,
+        "restored": {
+          "passed": 48,
+          "total": 48,
+          "surfaces": 4
+        }
+      }
+    ],
+    "qualified": 2,
+    "total": 2,
+    "artifactsRestored": true,
+    "artifactHashes": {
+      "dist/model-router/index.cjs": "199acfb0851491d5d361f6ba5a997d5111bd7398243b5ac22e9bd47277a133ec",
+      "dist/model-router/index.js": "8115c8a1d43a634a39340112a49707a3964a3688eb5a84996fb0427756a235a9"
+    }
+  },
+  "qualifiedInputs": {
+    "base": "0eccaaa3f2c70cde293d80c053707bfa421bd874",
+    "checkpointHead": "8f54f2da63e05c587553c293c132ac5e05de5e18",
+    "sourceInputs": {
+      "src/model-router/agent-model-configuration.ts": "220ee1d199a2ca0b8d1135d3f1f1053aac09f4e7d86e394c2c23f38b128fd438",
+      "src/model-router/model-consumers.ts": "b2aae541b44fa3e686e72b8d106e7a368b0c183717795eed0e92ecef327ad61f",
+      "src/model-router/index.ts": "2cae0765ac7321e4aa4a69f877d861e5f2e2cd8c1ea24f6be6283f821f00a946",
+      "tests/model-router/model-consumers.test.ts": "38f02e234f113e435fac8a574401b5f2622d93a3e32f8483d53e196496617a57",
+      "tests/cjs/model-consumers-smoke.mjs": "e7035a144b582cd6def1c6a1d9127b7e51af7020c28b6e139c35f23dd0a47441"
+    },
+    "privateCandidate": "/private/tmp/d-modelli-m3-b-20261008/candidate",
+    "distInAuthorUnmodified": true
+  },
+  "audit": {
+    "base": "0eccaaa3f2c70cde293d80c053707bfa421bd874",
+    "head": "d854eadbae2dbb01476b7531ef8cfa37720c9882",
+    "changed": 11,
+    "allowedChanged": 11,
+    "changedPaths": [
+      ".planning/phases/modelli-m3-b/FINAL-PROOF.json",
+      ".planning/phases/modelli-m3-b/MUTATIONS.json",
+      ".planning/phases/modelli-m3-b/PLAN.md",
+      ".planning/phases/modelli-m3-b/SUMMARY.md",
+      ".planning/phases/modelli-m3-b/audit.py",
+      ".planning/phases/modelli-m3-b/mutate.py",
+      "src/model-router/agent-model-configuration.ts",
+      "src/model-router/index.ts",
+      "src/model-router/model-consumers.ts",
+      "tests/cjs/model-consumers-smoke.mjs",
+      "tests/model-router/model-consumers.test.ts"
+    ],
+    "applicationFiles": 5,
+    "protectedUnchanged": 3074,
+    "protectedTotal": 3074,
+    "originalTestsUnchanged": 251,
+    "originalTestsTotal": 251,
+    "qualifiedInputs": 5,
+    "expectedInputs": 5,
+    "sourceHashes": {
+      "src/model-router/agent-model-configuration.ts": "220ee1d199a2ca0b8d1135d3f1f1053aac09f4e7d86e394c2c23f38b128fd438",
+      "src/model-router/model-consumers.ts": "b2aae541b44fa3e686e72b8d106e7a368b0c183717795eed0e92ecef327ad61f",
+      "src/model-router/index.ts": "2cae0765ac7321e4aa4a69f877d861e5f2e2cd8c1ea24f6be6283f821f00a946",
+      "tests/model-router/model-consumers.test.ts": "38f02e234f113e435fac8a574401b5f2622d93a3e32f8483d53e196496617a57",
+      "tests/cjs/model-consumers-smoke.mjs": "e7035a144b582cd6def1c6a1d9127b7e51af7020c28b6e139c35f23dd0a47441"
+    },
+    "negativeGuards": {
+      "scope": "AssertionError",
+      "protected": "AssertionError",
+      "tested-input": "AssertionError",
+      "release": "AssertionError"
+    },
+    "manifestUnchanged": true,
+    "deletions": []
+  },
+  "portableDeclarations": {
+    "passed": 334,
+    "total": 334
+  },
+  "consumerSmoke": {
+    "passed": 48,
+    "total": 48,
+    "surfaces": 4
+  },
+  "legacySmoke": [
+    [
+      36,
+      36
+    ],
+    [
+      6,
+      6
+    ],
+    [
+      15,
+      15
+    ],
+    [
+      16,
+      16
+    ],
+    [
+      39,
+      39
+    ]
+  ],
+  "excluded": [
+    "First mutation campaign excluded after registry-nonempty survived due to new B07 it.each fixture spreading row arrays; fixture corrected and all 24 cases rerun.",
+    "Initial private test typecheck invocation failed to resolve node type roots; corrected private configuration passed."
+  ],
+  "limitations": [
+    "No live provider/runtime/browser verification.",
+    "No release/version/package/lock change; independent review and coordinator release required.",
+    "Existing pack root types condition warning retained."
+  ]
+}
