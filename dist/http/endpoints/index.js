@@ -49,4 +49,7 @@ export * from "./internal-models-batch.js";
 export * from "./forge-models.js";
 export * from "./internal-agent-channel-access.js";
 export * from "./forge-agent-channel-access.js";
+// C2 phone door boundaries; provider webhooks and voice writers stay separate.
+export * from "./internal-agent-phone-channel.js";
+export * from "./forge-agent-phone-channel.js";
 //# sourceMappingURL=index.js.map

@@ -27,4 +27,6 @@ export * from "./agent-inventory-metadata.cjs";
 export * from "./agent-credential-services.cjs";
 export * from "./agent-channel-access.cjs";
 export * from "./agent-channel-access-requests.cjs";
+export * from "./agent-phone-channel.cjs";
+export * from "./agent-phone-commands.cjs";
 //# sourceMappingURL=index.d.ts.map

@@ -65,4 +65,7 @@ __exportStar(require("./internal-models-batch.cjs"), exports);
 __exportStar(require("./forge-models.cjs"), exports);
 __exportStar(require("./internal-agent-channel-access.cjs"), exports);
 __exportStar(require("./forge-agent-channel-access.cjs"), exports);
+// C2 phone door boundaries; provider webhooks and voice writers stay separate.
+__exportStar(require("./internal-agent-phone-channel.cjs"), exports);
+__exportStar(require("./forge-agent-phone-channel.cjs"), exports);
 //# sourceMappingURL=index.js.map

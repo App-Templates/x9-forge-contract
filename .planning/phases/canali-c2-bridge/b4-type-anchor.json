@@ -1,0 +1,9 @@
+{
+  "typeOnlyAddition": "Named Zod import and AgentPhoneParams public type alias",
+  "runtimeSourceNormalizedSha256": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+  "mutatedRuntimeSourceSha256": "ae71251e409143a4d554b555affbb06f9929ca207c4bce2b228e474f2bce94ad",
+  "runtimeIdentical": true,
+  "buildPortabilityExit": 0,
+  "declarationsPassed": 342,
+  "declarationsTotal": 342
+}

@@ -1,0 +1,60 @@
+[
+  {
+    "check": "typecheck",
+    "command": [
+      "pnpm",
+      "typecheck"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "lint",
+    "command": [
+      "pnpm",
+      "exec",
+      "eslint",
+      "src/agent/agent-phone-channel.ts",
+      "src/agent/agent-phone-commands.ts",
+      "src/agent/index.ts",
+      "tests/agent/agent-phone-channel.test.ts",
+      "tests/agent/agent-phone-commands.test.ts"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "build",
+    "command": [
+      "pnpm",
+      "build"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "check-pack",
+    "command": [
+      "pnpm",
+      "check:pack"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "matrix",
+    "command": [
+      "pnpm",
+      "exec",
+      "vitest",
+      "run",
+      "tests/agent/agent-phone-channel.test.ts",
+      "tests/agent/agent-phone-commands.test.ts",
+      "tests/agent/r2-channel-configuration.test.ts",
+      "tests/agent/r2-attestation.test.ts",
+      "tests/agent/bridge134-voice-context.test.ts",
+      "tests/agent/agent-channel-access-requests.test.ts",
+      "tests/agent/agent-channel-access-policy.test.ts",
+      "--maxWorkers=1",
+      "--reporter=json",
+      "--outputFile=.planning/phases/canali-c2-bridge/b2-matrix.json"
+    ],
+    "exit": 0
+  }
+]
