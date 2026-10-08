@@ -204,6 +204,7 @@ web/src/features/channels/WebChannel.tsx
 web/src/features/channels/PhoneConfiguration.tsx
 web/src/features/channels/WebVoiceConfiguration.tsx
 web/src/features/channels/phone-channel-presentation.ts
+web/src/features/channels/phone-owner-chat-link.ts
 web/src/features/channels/web-channel-presentation.ts
 web/src/features/channels/ChannelConversationHistory.tsx
 web/src/lib/api/phone-channel.ts
@@ -276,7 +277,7 @@ Esistente: forge-agent-phone-channel.ts:10 e forge-agent-channel-access.ts:16 gu
 
 Lotto documentale iniziato22:31, limite23:16/3tentativi; prodotto06abb33 invariato. Decisioni222728/222855 e paroleStefano nelcompito prevalgono su221657: M07 non seleziona Rubrica/contactId. Numero SOLOowners.phone letto dalserver conagent.ownerId, aggiunta approvata daStefano; responsabile futuro NONimplementato né inferito. Feature di prova SPENTA per default, attivazione soltantoStefano. Nessuna telefonata in test/prove. Pulsante senza ownerphone disabilitato con spiegazione. Rubrica rimane gate ordinario telefono: non fonte del numero della prova.
 
-Forge chiede solo PREPARAZIONE, recap/anteprima e conferma tramite protocolloTelegram esistente; mai dial, chiamata giàavviata, conferma nelbrowser o seconda procedura. «In attesa della conferma suTelegram» è distinto da «avviata» e da «Funziona». Avvio→turno→chiusura/proofvera richiesti perFunziona. Nessun filecap-voice della conferma o prompt si modifica. Audit143: nessun wrapperoutbound/c5-phone-outbound implementato, nessun handler/effectdial; B0a puregate è una PRECONDIZIONE, non consensoTelegram o autorizzazione effetto.
+Decisione223855: Forge NON chiede neanche preparazione o un turno. Mostra solo il numero registrato e il link della chat Telegram delbot dellagente, con il testo da scrivere. Recap e conferma avvengono nel turnoTelegram esistente; mai dial, invio automatico o seconda procedura. Il link non attesta neanche richiesta inviata, conferma pendente o chiamata avviata. Stato «Funziona» richiede solo prova reale successiva; non si produce una ricevuta di preparazione dal semplice click. Avvio→turno→chiusura/proofvera richiesti perFunziona. Nessun filecap-voice della conferma o prompt si modifica. Audit143: nessun wrapperoutbound/c5-phone-outbound implementato, nessun handler/effectdial; B0a puregate è una PRECONDIZIONE, non consensoTelegram o autorizzazione effetto.
 
 R35ricontrollato: Forge00a468e/old4f3fc42 owners/schema:17,owner.routes:15,owner.repo:5/15,telegram-allow:47,voice/schema:263 evoice.repo:21. Bc677 channel-access-intents:16 writer/lock/intent giàesistente, agent-context.writer:215. X9d65 voice-prepare-call:36/57–64 restituisce composeBrief+preview e usaenvFORGE_AGENT_ID ancheowner; non è da solo senderTelegram né conferma. Voice-call:435 effettua dial, file SOLA LETTURA. La coordinatrice deve fornire punto di aggancio effettivo del protocollo sulcheckpoint/baseproducer corrente, senza fallbackprimary/cambioPrompt o invenzioneconferma. Source phoneNumbers→phones8652688:40 ancora gapconsumerphone; contactId perM07 NONpiù richiesto.
 
@@ -302,7 +303,7 @@ src/agent/index.ts
 .planning/phases/c5-canali-tel-web/SUMMARY.md
 .planning/phases/c5-canali-tel-web/proof/**
 ```
-Conoscenza agent-knowledge-address-book.ts:40/proiezionephones e suoi test rimangono alproprietario dellaRubrica o aF per decisionecoordinatrice; non tipo/alias/copia daC. Ownerphone usa E164 esistenteVoiceLiveCallStartRequestSchema.shape.to_number; nessuno schema locale riscritto. Wrapperprova futuro contiene solo requestId/CAS, non numero/contactId/conferma/call-start. Non emette dial né abilita default. Test dimostra ramo pericoloso assente; preparazione/resto dopo aggancio protocollo esistente.
+Conoscenza agent-knowledge-address-book.ts:40/proiezionephones e suoi test rimangono alproprietario dellaRubrica o aF per decisionecoordinatrice; non tipo/alias/copia daC. Ownerphone usa E164 esistenteVoiceLiveCallStartRequestSchema.shape.to_number; nessuno schema locale riscritto. Nessun wrapperprova POST/PREPARE viene implementato: linkUI e metadata letti soltanto, no body numero/contactId/conferma/call-start, nessuna ricevuta avviata. Test verifica assenza HTTPwrites/turn/provider/sender alclick; configurazione defaultfalse soloStefano.
 
 ### Forge F1a — proprietario e tentativo Web, worktree da assegnare
 
@@ -351,7 +352,7 @@ services/factory/src/services/web-channel.service.ts
 services/factory/src/services/web-channel.client.ts
 services/factory/src/routes/phone-channel.routes.ts
 services/factory/src/services/phone-channel.client.ts
-services/factory/src/services/phone-owner-probe.ts
+services/factory/src/services/phone-owner-contact.ts
 services/factory/src/services/phone-owner-probe.config.ts
 services/factory/src/index.ts
 services/factory/tests/c5-phone/**
@@ -363,7 +364,7 @@ services/voice/tests/c5-channel-history.test.ts
 .planning/phases/c5-canali-tel-web/SUMMARY.md
 .planning/phases/c5-canali-tel-web/proof/**
 ```
-agent-context.writer/channel-access-intents sono file comuni delwriterdiB: SOLOraccordoweb approvato/assegnato da coordinatrice in nuovoWT, non worktreeB. No seconda lock/persistenzainviti. phone-owner-probe.config defaultfalse e sola abilitazione operatore; producerdisabled/missingownerphone/Telegramsourceclosed→0prep/0dial. phone-owner-probe SOLO adapter verso protocolloexistingPREPARE; puntoingressoawaitcoordinatrice, nessun /call-start/voice_call dal consumerForge. backendindex monta SOLOmoduliC, registrazionecommonB da coor. History interroga writer veri; audio/transcript solo retenuti eautorizzati, nienteproviderURLbearer browser.
+agent-context.writer/channel-access-intents sono file comuni delwriterdiB: SOLOraccordoweb approvato/assegnato da coordinatrice in nuovoWT, non worktreeB. No seconda lock/persistenzainviti. phone-owner-probe.config defaultfalse e sola abilitazione operatore; disabled/missingownerphone/Telegramsourceclosed→linkdisattivo; sempre0prep/0turn/0dial, anche quandoabilitato. phone-owner-contact legge SOLO ownerphone e linkbot esistente per metadata: nessun adapterPREPARE/turno, nessun /call-start/voice_call dal consumerForge.223855 è il punto di aggancio definitivo, il link della chatTelegram. backendindex monta SOLOmoduliC, registrazionecommonB da coor. History interroga writer veri; audio/transcript solo retenuti eautorizzati, nienteproviderURLbearer browser.
 
 ### X9 — producer C2/C3 dopo pin e riuso X1
 
@@ -398,7 +399,7 @@ services/cap-agent-elevenlabs/src/__tests__/c5-web/**
 .planning/phases/c5-canali-tel-web/SUMMARY.md
 .planning/phases/c5-canali-tel-web/proof/**
 ```
-Esclusi dall'editC voice-prepare-call.ts,voice-call.ts,compose-brief.ts eogni fileconferma/prompt: solo lettura per riuso. StoreWeb diX9 NONowner di policy/link/inviti, caricaattestazioneFactory ecallbackvoice; nessun mirrorwriter. ProviderwebX1checkpointcffa52b6 va integrato dalla coor e riusato, non secondaAPI. app/index SOLOregistrazioneC, eventualiEnv/manifestconfig acoor. NuovoendpointX9perprova non scelto: deveusare puntoexistingconferma fornito/coordinato. Non farpassare helperammissione per consenso.
+Esclusi dall'editC voice-prepare-call.ts,voice-call.ts,compose-brief.ts eogni fileconferma/prompt: solo lettura per riuso. StoreWeb diX9 NONowner di policy/link/inviti, caricaattestazioneFactory ecallbackvoice; nessun mirrorwriter. ProviderwebX1checkpointcffa52b6 va integrato dalla coor e riusato, non secondaAPI. app/index SOLOregistrazioneC, eventualiEnv/manifestconfig acoor. Nessun nuovoendpointX9perprova:223855 impone solo il linkTelegram nelbrowser. Non modificare processoTelegram/confirmation source. Non farpassare helperammissione per consenso.
 
 ### Forge F2 — moduli isolati e proprietari, mountB
 
@@ -408,6 +409,7 @@ web/src/features/channels/WebChannel.tsx
 web/src/features/channels/PhoneConfiguration.tsx
 web/src/features/channels/WebVoiceConfiguration.tsx
 web/src/features/channels/phone-channel-presentation.ts
+web/src/features/channels/phone-owner-chat-link.ts
 web/src/features/channels/web-channel-presentation.ts
 web/src/features/channels/ChannelConversationHistory.tsx
 web/src/lib/api/phone-channel.ts
@@ -424,3 +426,5 @@ web/tests/c5-owner-phone.test.tsx
 .planning/phases/c5-canali-tel-web/proof/**
 ```
 api.ts SOLOOwnerSummary/createOwner/updateOwner/listOwners delle righe750/386/392/398; nessun edit alleAPIcommonCanali/Modelli. OwnersSAregistra telefono comeemail/TelegramID, ownernonSA nonpuòvariarlo. Phone/WebconfigF0 dafonti/checkpointF/A assegnati, nonworktreealtrui. Props concordate conB slug/data/onConfigure/onRetry; history4unicasource. App.tsx,ChannelsView/ChannelsStatus/channel-doors,drawer/header/actions eclientcommonChannels restanoB. /parla mountpubblico/shell aB, page/session aC dopo perimetro/pin.
+
+223855 supersede tutte le proposte PREPARE precedenti (anche SUMMARYhistorico). R35: X9d65 voice-call-procedure.md:17–26 conferma nelturnoTelegram, internal-agent-turn.ts:83 nonTelegram: NONusare per la prova. Solo linkbot esistente+testo visibile/copiabile «chiamami per una prova», niente deep-link /start che crea una procedura o invio automatico. RC e22e7a2 letto dalproprioGit:BirthKind ancoraTGemail, moduliConoscenza8652688 eHTTP06abb33 assenti; non importare simboli mancanti conalias. Rootpackage.json/pnpm-lock.yaml dei futuriForge/X9 per pinRC richiedono perimetro coor.

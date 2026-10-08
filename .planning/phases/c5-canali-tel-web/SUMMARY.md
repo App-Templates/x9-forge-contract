@@ -1,6 +1,6 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 22:40. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 22:45. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
@@ -125,3 +125,7 @@ Audit143pulito90f41e9/prodotto06abb33:0wrapperoutbound,c5-phone-outbound nonimpl
 PLAN contiene ora FILEESATTI per bridge integrativo, ForgeF1aowner/attemptWeb0015,ForgeF1bwriter/client/probe-prep, X9phone/web eForgeF2moduli+ownerSA. Migrazione0015 eDBschema/dist4 append daassegnare; una sola writerFactorypolicy/link/inviti, tentativovoice,voiceSessions intatta. CommonwriterB/index raccordati dalla coor, nonedit nelWTB; voice_prepare_call/voice_call/composeBrief/conferma esclusi. Nessun prodotto/modellotipo copiato, pin/WT/schemafileextra ancora da assegnare. No nuove suite/mut/lease in questo lotdocumentale; ultime4524/4524/160,24/24+2/2HTTPrestano invariate,0/42live/0/2percorsi. Non CONSEGNATOglobale.
 
 Corretto anche elenco iniziale delPLAN: voice-prepare-call/voice-call/call-start e storeWeb/phoneledger proposti in precedenza rimossi dagli edit futuri; descrizioneX2 usaFactory/voice owners correnti. FileF1a aggiunge projectionowner-clerk.service:44–45 e6generated types owner/redesignowners, per nonperderephone nei readback esistenti e per compilazione nativa. Solo perimetro proposto/coor,0write fuori143/0runtimechange.
+
+## Correzione223855 — SOLO link Telegram, nessun adapter
+Coordinatrice conferma fonte reale voice-call-procedure.md:17–26 nella chatTelegram; internal-agent-turn:83 è per altri canali. Forge NON invoca PREPARE né un turno: mostra owners.phone e linkbot+testo da scrivere. Tolto adapterphone-owner-probe dalla proposta, sostituito da lettura metadata phone-owner-contact e phone-owner-chat-linkUI, defaultoff. Nessun clickproduce ricevuta avviata/pendente;0HTTPwrite/turn/sender/provider anche quandooperatoreabilita. Numeroowner server-only/SAregistrazione, noRubrica/contactId/body. ProtTelegram/prompt/worktreeX9immutati.
+RCe22e7a2 letto readonly dal143:BirthKindTGemail eassenzaConoscenza/HTTP06abb33;pin ricevuto ma futuroWT/perimetro package.json+pnpm-lock eWebschema ancora daassegnare. ChiedereFdelta/pinaggiornato prima consumerHTTPinviti; nienteimportfinto. Prodotto06abb33eultimeproveinvariati,nessunlease/suite nuova/live;0/42/0/2.
