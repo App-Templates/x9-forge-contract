@@ -342,7 +342,7 @@ services/voice/tests/c5-web-admission-storage.test.ts
 ```
 Generatedsolo4schema file autorizzati e nuovamigrazione0015; nessun dist degli altri, nessun _journal/metadata0014 edit senza perimetro distinto. owners.phone nullable perlegacy, SAcreate/update; E164 canonicoimportato. Attemptvoice requestId/fullidentity/scope/link/viewer/version/expiry correlati pre-mint; niente signedURL/credenziale memorizzata per provarlo, voiceSessions intatta. Registerpostconnect epostcallwriter esistenti, non nuova sessiontable. Nomi di configurazione URL/origin/featureflag e pin/build acoordinatrice, niente .env. indexvoice SOLO mountmoduloC.
 
-### Forge F1b — configurazione/cliente/facciata/history e prova preparata
+### Forge F1b — configurazione/cliente/facciata/history e link Telegram
 
 ```text
 services/factory/src/services/agent-context.writer.ts
@@ -427,4 +427,4 @@ web/tests/c5-owner-phone.test.tsx
 ```
 api.ts SOLOOwnerSummary/createOwner/updateOwner/listOwners delle righe750/386/392/398; nessun edit alleAPIcommonCanali/Modelli. OwnersSAregistra telefono comeemail/TelegramID, ownernonSA nonpuòvariarlo. Phone/WebconfigF0 dafonti/checkpointF/A assegnati, nonworktreealtrui. Props concordate conB slug/data/onConfigure/onRetry; history4unicasource. App.tsx,ChannelsView/ChannelsStatus/channel-doors,drawer/header/actions eclientcommonChannels restanoB. /parla mountpubblico/shell aB, page/session aC dopo perimetro/pin.
 
-223855 supersede tutte le proposte PREPARE precedenti (anche SUMMARYhistorico). R35: X9d65 voice-call-procedure.md:17–26 conferma nelturnoTelegram, internal-agent-turn.ts:83 nonTelegram: NONusare per la prova. Solo linkbot esistente+testo visibile/copiabile «chiamami per una prova», niente deep-link /start che crea una procedura o invio automatico. RC e22e7a2 letto dalproprioGit:BirthKind ancoraTGemail, moduliConoscenza8652688 eHTTP06abb33 assenti; non importare simboli mancanti conalias. Rootpackage.json/pnpm-lock.yaml dei futuriForge/X9 per pinRC richiedono perimetro coor.
+223855 supersede tutte le proposte PREPARE precedenti (anche SUMMARYhistorico). R35: X9d65 voice-call-procedure.md:17–26 conferma nelturnoTelegram, internal-agent-turn.ts:83 nonTelegram: NONusare per la prova. Solo linkbot esistente+testo visibile/copiabile «chiamami per una prova», niente deep-link /start che crea una procedura o invio automatico. RC e22e7a2 letto dalproprioGit:BirthKind ancoraTGemail, moduliConoscenza8652688 eHTTP06abb33 assenti; non importare simboli mancanti conalias. Il pin dei futuri worktree richiede un perimetro esplicito. In Forge: package.json, pnpm-lock.yaml e pnpm-workspace.yaml; decisione224252 impone anche onlyBuiltDependencies sullo stesso SHA e22e7a2d138be7120cd79800a7ada102183e7e74. In X9 si riusa il pin esistente assegnato dalla coordinatrice. Richiesta224951: worktree/base/perimetro F1a e owner/perimetro del contratto Web; gli elenchi sopra restano proposte, non autorizzazioni.

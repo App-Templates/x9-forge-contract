@@ -1,6 +1,6 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 22:45. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 22:50. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
@@ -129,3 +129,8 @@ Corretto anche elenco iniziale delPLAN: voice-prepare-call/voice-call/call-start
 ## Correzione223855 — SOLO link Telegram, nessun adapter
 Coordinatrice conferma fonte reale voice-call-procedure.md:17–26 nella chatTelegram; internal-agent-turn:83 è per altri canali. Forge NON invoca PREPARE né un turno: mostra owners.phone e linkbot+testo da scrivere. Tolto adapterphone-owner-probe dalla proposta, sostituito da lettura metadata phone-owner-contact e phone-owner-chat-linkUI, defaultoff. Nessun clickproduce ricevuta avviata/pendente;0HTTPwrite/turn/sender/provider anche quandooperatoreabilita. Numeroowner server-only/SAregistrazione, noRubrica/contactId/body. ProtTelegram/prompt/worktreeX9immutati.
 RCe22e7a2 letto readonly dal143:BirthKindTGemail eassenzaConoscenza/HTTP06abb33;pin ricevuto ma futuroWT/perimetro package.json+pnpm-lock eWebschema ancora daassegnare. ChiedereFdelta/pinaggiornato prima consumerHTTPinviti; nienteimportfinto. Prodotto06abb33eultimeproveinvariati,nessunlease/suite nuova/live;0/42/0/2.
+
+
+## Raccordo 22:50 — pin e assegnazioni pendenti
+
+Recepita e archiviata INFO224252: futuro Forge deve allineare package.json, pnpm-lock.yaml e pnpm-workspace.yaml, compresa allowlist onlyBuiltDependencies, al medesimo SHA RC assegnato. Richiesta esplicita224951 per questi tre file, worktree/base/perimetro F1a e contratto Web (agent-channel-configuration.ts e relativo test); nessuna assegnazione nuova ricevuta. Correzione SOLO link Telegram senza PREPARE/turno/dial inviata a F224954 e B224956. F informato dei moduli HTTP06abb33/Conoscenza assenti nel RC e22e7a2 letto dal proprio Git. Nessun pin o file comune modificato. Prodotto06abb33 invariato, nessuna suite o mutazione ripetuta, nessun posto test occupato. Ultime prove4524/4524 in160/160file,24/24source+2/2compiled HTTP restano quelle del lotto B0c4b1. Task IN CORSO;0/42live,0/2percorsi completi.
