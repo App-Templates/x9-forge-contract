@@ -83,3 +83,6 @@ export * from './agent-phone-channel.js';
 export * from './agent-phone-commands.js';
 // Forge-declared context authority, including explicit Master/heir provenance.
 export * from './agent-context-identity.js';
+
+// C5: exact telephone admission and explicit server-owned outbound correlation.
+export * from './agent-phone-admission.js';
