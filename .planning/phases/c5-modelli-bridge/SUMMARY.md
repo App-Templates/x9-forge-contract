@@ -31,3 +31,7 @@ La **suite completa non è stata eseguita in locale**: cinque posti del semaforo
 Due sorgenti model-router e due nuovi file di test; **0** test precedenti modificati e **0** file rimossi. Nessun consumer, endpoint, pin, gruppo o file segreto modificato. Il merge richiesto incorpora solo versione e CHANGELOG pubblicati, senza riscrivere la storia. Nessun push, merge GitHub, rilascio o deploy effettuato da F.
 
 B0b preview/bind Chiavi alla nascita viene dopo B0; B0c Spesa viene dopo B0b. Nessuno dei due è realizzato qui. Eventuale migrazione Forge Modelli riservata **0014** dall'istruzione 185113; journal gestito dalla coordinatrice.
+
+## Derivati e riproducibilità
+
+Su risposta 185400, **72/72** file dist rigenerati sono conservati in una copia privata e ripristinati ai byte del main 1.44. DIST-RESTORE-PROOF riporta gli hash. Il ramo contiene solo source/test/docs; il dist canonico della 1.45 sarà rigenerato una volta dalla coordinatrice con Node 24.21. I controlli pubblici di questa consegna hanno usato il nuovo compilato, prima del ripristino, non il dist 1.44.

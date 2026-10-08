@@ -33,5 +33,11 @@
   "fullSuite": "not run locally; coordinator will push draft PR for CI",
   "live": 0,
   "productRepairs": 0,
-  "rawCount": 199
+  "rawCount": 199,
+  "localRuntime": {
+    "node": "v24.11.1",
+    "pnpm": "9.15.9"
+  },
+  "distRestored": 72,
+  "distAuthority": "20261008-185400-coordinatrice-a-codex-f-risposta"
 }
