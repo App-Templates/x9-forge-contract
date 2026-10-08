@@ -1,3 +1,11 @@
-# MODELLI-M3-B
+# MODELLI-M3-B — consegna per revisione
 
-Ultimo aggiornamento:08/10 02:04. Piano prima del codice,base0eccaaa3/1.42,pulito. Metadata consumer reasoning e costanti additivi; altri mem0_* in attesa dei nomi esatti. Prodotto0,test0 per ora. Termine02:34;release1.43 dalla coordinatrice dopo verifica.
+Aggiornamento: 08/10 02:22 Europe/Rome. Prodotto d854eadbae2dbb01476b7531ef8cfa37720c9882, base 0eccaaa3f2c70cde293d80c053707bfa421bd874 (bridge 1.42.0), branch codex/modelli-m3-b, worktree 113-1.
+
+Consumer canonico unico agent_chat / agent-core / reasoning, tools=true, stream=false, structuredOutput=false, come decisioni coordinatrice 01:54 e 02:06. Costanti, schema/tipi, registro detached e lookup esatto pubblici root/model-router. Campi metadata strict e registro 1..64 univoco; future shape valide non diventano consumer registrati. ModelSlotIdSchema e contratti preesistenti invariati. Non descrive accesso/supporto del modello, né installazione o applied. Nessun ID memoria/audio inventato, nessun default persona/modello.
+
+Implementato e testato: prima del codice 41/41 AssertionError su 42 casi, legacy 1/1 già verde; mirati 102/102. Campagna finale 24/24 mutazioni significative con 42/42 dopo ogni ripristino e SHA sorgenti 3/3. Prima campagna esclusa dopo scoperta fixture B07 it.each errata; corretta, intera campagna ripetuta. Full 3227/3227, 138/138 file, zero falliti/pending/todo/unhandled. Qualità 7/7 con build ESM/CJS, tipi/lint, pack e tipi test; 334/334 dichiarazioni portabili. Smoke consumer 48/48 (root/subpath ESM/CJS), export compilati deliberatamente rimossi: 2/2 AssertionError e 48/48 dopo ciascun ripristino. Smoke legacy 36/36, 6/6, 15/15, 16/16, 39/39. Warning pack root types preesistente; prima invocazione tipi privata con typeRoots errato esclusa e corretta.
+
+Audit: perimetro 11/11, 5 file applicativi, protetti 3074/3074, test originali 251/251, input qualificati 5/5, guardie negative audit 4/4 AssertionError; package/lock invariati, zero cancellazioni. FINAL-PROOF.json contiene risultati, SHA, mutazioni ed esclusioni. Runner ripetibili nella fase; log/checkouts /private/tmp/d-modelli-m3-b-20261008. Nessun dist/package autore cambiato.
+
+Verificato dal vivo: nessuno; non chiamati provider/server/browser e nessuna chiave o dato personale reale letto. Release 1.43 e pin consumer solo coordinatrice dopo revisione indipendente. Worktree pulito e congelato alla consegna. Ripresa M3 X9 dal fix M2 967b6690 e successivo rilascio canonico; parametrizzazione indipendente ammessa nell'attesa.
