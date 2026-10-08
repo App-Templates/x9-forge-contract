@@ -72,3 +72,5 @@ export * from './forge-agent-channel-resource.js';
 
 // C5 permanent single-agent deletion, separate from lifecycle and archival.
 export * from './internal-agents-deletion.js';
+export * from './internal-agent-channel-history.js';
+export * from './forge-agent-channel-history.js';
