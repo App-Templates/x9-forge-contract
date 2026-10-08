@@ -17,3 +17,9 @@ Prodotto8a7aac014732775fcaeddecc110ebfe36f215b8b, commit dei mirati verdi esplic
 Auditcheckpoint3appSHA/1344distSHA,1757protetti fuori dist+253oldtest invariati;nessuna modifica vecchi test o altri moduli. CHECKPOINT-PROOF e ricette25mutazioni durevoli. Full e25campagna sorgente ancora NONeseguiti: checkpoint implementato/testato mirato, qualifica completa incompleta, NON PRONTOREVISIONE completo néconsumer/Forge/X9/live/rilascio.
 
 Posto finalmente preso15:15 comeCodexD-BridgeIdentita(scade15:25:28), dopo decisione151420; prossimi fullnativoenv-i Node24 worker1 poi25mut su3SHAfinali, uncomando pesantealla volta. Deadlineoriginaria15:27:44immutata,nessunaprorogaautonoma. Ultimo aggiornamento:15:15.
+
+## Lotto separato di sola qualifica — 2026-10-08T15:25:25.776416+02:00→2026-10-08T15:45:25.776416+02:00
+
+Coor152337 concede esplicitamente20min dal checkpoint, stessiSHA e0funzioni nuove, mantenere ilposto. Checkpoint full verde completato15:24: suite nativa 3400/3400 in139file,0failed/pending,exit0,env-iHOME/PATH Node24 worker1; unico full, raw reportSHA inFULL-PROOF. Lotto originario14:42:44→15:27:44chiuso qui prima deadline con prodotto/mirati/quality/full qualificati;25source mut nonancora fatti. Questo è nuovo lotto autorizzato,NON proroga autonoma o ripetizione del full.
+
+Solo25mutazioni su3inputSHA finali con173fresh dopoognirestore, completamento smokecompilato sul subpath pubblico (stesse18assertion),audit/readback/docs/consegna. Nessuna nuova API/feature/consumer/pin/versione o test applicativo; source/dist immutati8a7aac0. Auditcheckpoint3app/1344dist/1757protetti/253old/7fault. Original timer durabile separato in/tmpORIGINAL-TIMER; nuovo QUALIFICATION-TIMER. Deadline nuova 15:45:25,3repairmax. Ultimo aggiornamento:15:25.
