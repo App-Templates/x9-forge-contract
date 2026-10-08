@@ -31,3 +31,12 @@ Provider transport facts were verified against official [signed URL API](https:/
 Remaining: real X9 persistent link/policy/invitation storage and management, provider/API catalog adapter, fresh admission/lease handler and credential/context resolution; Forge authenticated management facade, owner/invitation/public entry page, connection lifecycle and UI writes through existing writers. C3 end-to-end has no live/browser/provider proof. Coordinator132017 assigns agent-x9-codex-125-1/codex/canali-c3-x9, initially documents only; vendor1.43 stays unchanged until coordinator reviews/releases1.44 and performs the normal alignment/pin. Next: PLAN and exact X9 files after this clean B2 checkpoint, no unreleased type alias or local DTO copy.
 
 Checkpoint13:27: B2 product654b224 committed; final delta 67/67 paths permitted. Clean source frozen for cross-review; move only to assigned C3-X9 planning after this documentation checkpoint. Overall CANALI-C3 remains IN CORSO because a real Web conversation is not yet installed.
+
+
+## B3 planning checkpoint — last update 08/10/2026 14:39 Europe/Rome
+
+Coordinator142902 assigns B3 in the same123-1 chain above B2 bac8277. B1+B2 evidence and source/test bodies remain frozen. Only documentation changed at this checkpoint; B3 implemented0, new tests executed0, new mutation qualifications0. X1 checkpoint5c622f53 remains frozen and its62 missing recipes are reassigned; no completion claim is added.
+
+PLAN now specifies the exact additive callback/context files, Forge-only authority, server-persisted admission-attempt binding, before/after revalidation and canonical per-call resolver/B2 reuse. BRIDGE-IDENTITA-AGENTE belongs to D and adds tenant/role/parent to the unique identity function: B3 will import it, never duplicate it. Decisions143508/143513 ask D/coordinator for export and integration order. Exact B3 source perimeter is requested separately; source remains untouched until both prerequisites are concrete. Existing generic call-context and B2 modules are excluded from source edits. Native full3416/3416 and130/130 belong to the preceding B2 product, not to unimplemented B3.
+
+B3-SOURCE-AUDIT.json pins the inspected canonical sources and B2 protected source/test bytes. Remaining: coordinator perimeter/identity order, then test-first B3, every new guard deliberately cut/restored with fresh green, native quality/full and an honest committed checkpoint. No provider, browser, release, merge, consumer pin, deploy or live proof.

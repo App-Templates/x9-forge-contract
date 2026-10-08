@@ -35,3 +35,42 @@ Tests first against compiling neutral scaffolds; save semantic AssertionError re
 13:18 B2 exact approved HTTP file also exports the canonical public /parla/:linkId page path and validated opaque-id path builder, so X9 link persistence and Forge route mounting import one shared path. Ten tests first with a compiling neutral path builder; fresh HTTP mutation group requalifies that final HTTP file, while session/catalog source bytes remain exactly the completed52-recipe foundation. No consumer code touched.
 
 B2 checkpoint13:26:130/130native,3416/3416full142files,69/69distinctsource boundaries(71qualification executions,2requalifiedHTTPguards),4/4actualcompiledCJS cuts/restores, native5/5zero/build342portable. Existing B1/provider/package/lock protected5/5byteexact. Full finished13:23:40 before existing slotexpiry13:24:16; released/alreadyfree. B2 remains contracts only; C3-X9125-1 now assigned132017. Native package still1.43 and no consumer alias/pin/release.
+
+
+## B3 — Forge authority callback, planning checkpoint 14:39
+
+Coordinator142902 assigns B3 to this existing123-1 chain above B2 bac8277, not a new worktree. X1 in125-1 is frozen5c622f53; its remaining62/68 mutation recipes are reassigned to another Codex after release. Do not resume X1 qualification. B2 source/test bodies remain unchanged for independent review; additive barrels/CJS/generated artifacts may follow an explicitly approved B3 perimeter.
+
+### R-31: reuse and authoritative dependency
+
+Reuse coordinator134035: Forge owns authenticated viewer/owner membership, lifecycle and management/runtime/vault identity. X9 never guesses these from a resource name, credentials, request Host or a caller-supplied viewer. Existing CapabilityCallContextSchema and POST /resolve/capability-context are the canonical credential/configuration resolver; reuse their schema rather than a second credential wire. Existing B2 admission/session validators, viewer and lifecycle shapes, canonical full scope, request/link IDs and mapping remain the only Web rules. The public HTTPS origin is explicit Forge startup configuration; provider keys never enter the public facade.
+
+BRIDGE-IDENTITA-AGENTE is now assigned to Codex D, including the unique context identity constructor/validator, tenant, master/heir role and parent. B3 imports that canonical export once integrated by the coordinator. Do not duplicate its function, invent an interim identity DTO, edit D's files or merge/pin the dependency ourselves. Board decisions143508/143513 request the public export and integration order. Source execution waits for exact perimeter and the canonical dependency/order decision; elapsed time is not approval.
+
+### Narrow lot and intended wire
+
+New web-context.ts supplies the Web-specific authoritative context/correlation wrapper around the existing per-call context and D's unique agent identity. A new token-authenticated callback contract in capability-elevenlabs-web-context.ts is X9 -> Forge. Proposed stable path: POST /resolve/elevenlabs-web-admission (requires coordinator approval). Caller sends only full scope, server-generated attempt/request ID, bound link ID and before/after phase; no caller-chosen viewer, lifecycle, origin or identity mapping. Forge resolves the pending admission attempt from its server-side authenticated request state, enforces scope/link/request binding and expiry, and returns freshly loaded authority. Missing/expired/revoked attempt or unavailable authority denies issuance. Attempt identity is correlation, never browser authentication.
+
+Forge authority contains authenticated/anonymous viewer, lifecycle, configured public origin, freshness and canonical context identity. It does not fetch or guess X9-owned Web policy/provider mapping, avoiding a recursive X9->Forge->X9 callback. X9 loads its own fresh policy/link/invitation/provider state and composes the existing B2 snapshot. Credentials remain within the canonical server-only call context; requests/responses and logs must not echo them to a browser. Whether the context is nested in the callback or resolved separately is fixed in PLAN after the identity export/order decision, before tests/source.
+
+Before and after every provider mint await, reload Forge authority and X9 state. Bind request, full tenant/owner/runtime scope, management/vault identity, viewer, link, phase and authority/configuration revisions; reuse B2 current-session/admission checks. No cached callback or identity-less result can open admission. Forge also rechecks its authenticated request after the X9 result. A contract helper supplies validation, not deployed route authorization or provider proof. Public-origin and attempt-lifetime bounds are documented in the final source PLAN before implementation, not inferred from current traffic.
+
+### Exact requested B3 file perimeter
+
+- src/capability/agent-elevenlabs/web-context.ts (new wrapper/callback schemas and freshness/correlation helpers, canonical identity dependency only)
+- src/capability/index.ts (one additive export)
+- src/http/endpoints/capability-elevenlabs-web-context.ts (new token callback wire/path)
+- src/http/endpoints/index.ts (one additive export)
+- tests/capability/agent-elevenlabs-web-context.test.ts (new native behavioral and actual barrel tests)
+- tests/http/elevenlabs-web-context.test.ts (new method/path/auth/body/response tests)
+- tests/cjs/smoke.cjs (additive actual compiled-export assertions)
+- dist/** (generated build only)
+- .planning/phases/canali-c3-bridge/** (already authorized)
+
+No edits to existing capability-call-context.ts, identity sources, B1/B2 bodies/tests, package/version/lock or other worktrees. If the canonical identity dependency needs another path, request it rather than work around the perimeter. Invitation management CRUD and public facade remain later lots, not silently included in B3.
+
+### Test-first proof and cutoff
+
+After prerequisites, one B3 source lot <=45 minutes or3 failed attempts, timer recorded before first test. Write tests first against a compiling neutral scaffold and save semantic AssertionError reds. Cover valid canonical context, unknown-field rejection, missing authoritative mapping, runtime/context mismatch, cross tenant/owner/agent/link/request isolation, primary/heir/sibling identities, authenticated recipient/anonymous public viewer, lifecycle unavailable/archive/removal, expired/equal/future/invalid time, stale revision, origin tampering, before/after phase and response correlation, and exact token-auth wire/barrel exports. Reuse the existing B2 policy/provider tests rather than reimplement their rule.
+
+Deliberately cut every new check, save native semantic red, restore exact final source SHA and fresh green; no timeout/import/TypeError/empty-suite is credited. CJS cuts rebuild actual sources and restore/rebuild; never hand-edit dist. Execute native noEmit/scoped lint/build/portable dts/pack/CJS and complete bridge suite only with x9-posti, one heavy command at a time and <=2 workers. Retain raw logs and committed manifests with passed/total denominators. Stop cleanly at a documented partial checkpoint if prerequisites/time/3 attempts prevent completion. PLAN/SUMMARY are reread after each commit.
