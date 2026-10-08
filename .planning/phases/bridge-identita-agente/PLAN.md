@@ -1,0 +1,31 @@
+# BRIDGE-IDENTITA-AGENTE — identità unica del contesto
+
+Codex D, 2026-10-08T14:42:44.052778+02:00→2026-10-08T15:27:44.052778+02:00, massimo45min/3repair. Mandato coor143238 dopo FORGE-IDENTITA-CONTESTI; worktree128-1 codex/bridge-identita-agente, base origin/main1.43 a251bbc9451381a67afa10f330fa5a3b501e8ba4. M3 chiuso a checkpointd1d016d3, nessuna modifica prodottoJC. Letti STATO e piano precedenteM3B, nessunAGENTS locale. Piano prima del codice; perimetro applicativo attende concessione esplicita.
+
+## Risultato e R-31
+
+Una sola autorità Forge per agentId/ownerId/tenantId, identity management/runtime/Vault, role master|erede e masterAgentId per erede. Campo role è radice del contesto; masterAgentId identifica il RUNTIME Master, non il numero Vault o lo slug management. agentId deve uguagliare identity.runtimeAgentId. management/runtime possono differire per il primario. vaultAgentId obbligatorio intero positivo; nessuna derivazione numerica da slug. tenantId obbligatorio nonvuoto, nessun default. Master vieta masterAgentId, erede lo richiede e non può riferirsi ai propri runtime/management ID. Lo schema attesta la dichiarazione fornita da Forge: appartenenza effettiva del Master allo stesso owner/tenant richiede riscontro del contesto Master nel consumer, non può essere dedotta da questo singolo payload.
+
+API proposta nel subpath pubblico @x9-forge/contracts/agent:
+- AgentContextIdentitySchema e AgentContextIdentity: discriminante role con campi sopra, strict per authority payload e identity nested.
+- createAgentContextIdentity(input: AgentContextIdentityInput): costruzione/validazione unica, input tipato richiede tutte le autorità, restituisce copia detached. Schema e funzione riusano gli stessi controlli, nessun DTO locale crossrepo.
+- AgentContextWithIdentitySchema e AgentContextWithIdentityWriteSchema, tipi corrispondenti: contesto completo moderno con identity/tenant/role/master obbligatori secondo ramo. Riusano i guard canonici WithChannels e writer no-platform-credentials, conservando workspace/modelConfiguration e altri campi runtime passthrough.
+
+Schema/lettori storici restano identici, senza nuovi default o migrazione implicita. Il nuovo writer e i consumer moderni adottano il contratto obbligatorio dopo rilascio normale; il solo bridge non rende obbligatori retroattivamente i writer legacy. Forge pagina/nascita interna/Applica e X9/M3 sono lotti consumer successivi assegnati dalla coordinatrice, un repo alla volta. Codex A usa queste esportazioni dopo release/pin della coordinatrice, non copie/merge propri. Nessun token personale nel contratto, niente provider/lifecycle/ready dal solo ruolo.
+
+## File esatti proposti
+
+1. src/agent/agent-context-identity.ts (nuovo): schema/funzione unica e contesti moderni reader/writer.
+2. src/agent/index.ts: sole esportazioni nuove.
+3. tests/agent/bridge-identita-agente.test.ts (nuovo): runtime source, clone, guardie e compat.
+4. .planning/phases/bridge-identita-agente/**: PLAN/SUMMARY/proof/ricette/testconsumer statico.
+
+Nessun src/agent/agent-context-core.ts, schema legacy, runtime-identity legacy, model-router, canali callback diA, vecchi test, dist/package/versione/lock modificato. Build ESM/CJS/dts e consumer nel checkout privato; dist derivato non copiato nel worktree autore come nel lottoM3B. Se servono altri file, richiesta prima modifica.
+
+## Test prima, mutazioni e verifica
+
+Prove su entrypoint pubblico: master/erede e primario con mapping diverso; campi mancanti/null/blank; Vault zero/negativo/frazionario/numericstring; role sconosciuto; Master conparent/erede senza parent/self; correlazione runtime; nessuna inferenza dal Wanted/credenziali/canali; ownerA/B e tenant distinti; clone non altera input; moderne reader/writer conservano tutti campi extra e i guard channel ownership/no-platform-credentials; legacy parse byte-equivalente. Nuovi controlli rotti semanticamente con AssertionError e SHA/green dopo ciascun ripristino; niente import/type/setup/timeout accreditato.
+
+Qualifica completa Vitest nativa env-i HOME/PATH Node24 worker1, tipi/lint/build/dts/pack/CJS storici e probe ESM/CJS nuovi, controllo compile input obbligatorio e discriminator master/erede con negative @ts-expect-error. Fault separato export compilato, poi ripristino fresh. Audit perimetro/protetti/vecchi test/package/versione/lock/zero deletion, SHA input e dist build privati. Posto x9-posti tentato, se3/3esauriti niente full finché disponibile; permesso fallbackswap solo se motivo èswap. Una verifica pesante perCodex. Nessunsegretoreale/harness/runtime/server/push/merge/publish/deploy.
+
+Dopo prodotto commit atomico normale, SUMMARY/PLAN subito aggiornati+commit/rilettura, congelamento e verifica indipendente. Deadline/3repair rispettati; eventuali residui SALTATO separati, non proroga autonoma. Ultimo aggiornamento:14:42.
