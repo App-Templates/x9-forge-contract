@@ -69,3 +69,5 @@ export * from './capability-elevenlabs-web-context.js';
 
 export * from './internal-agent-channel-history.js';
 export * from './forge-agent-channel-history.js';
+
+export * from './forge-elevenlabs-web.js';

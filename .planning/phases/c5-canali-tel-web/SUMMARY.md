@@ -1,6 +1,6 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 21:49. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 22:13. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
@@ -99,3 +99,11 @@ Draftbrowser invite/revoke stretti solo requestId,email/IDrecord e CASexpectedVe
 30/30nuovi; baseline finale19giàverdi/11AssertionError in30test,0secondari. Full4511/4511 in159/159file,0skip. Finale32/32sourcequalificate,0errorisecondari, sourceSHAf70a0dafc8061c5bd74566958f027fdebea4a932f5ba133a7cfde9d7d36b44ee ripristinato; prima29/32 mancavano fixtureisolate per IDdoppio senzaemaildoppia, sourcevecchia ma recordtemporali coerenti, extraListfield. Aggiunte solo fixture/casi, niente asserzioni indebolite né cambio prodotto; seconda campagna unica32/32. Recipientprincipal non riparsato a mano, confrontoaccount già in C3riusato.
 
 Secondo SOLOexport autorizzato210744 in capability/index.ts; agent-elevenlabs/index intatto. Compiledrimozioneexport buildvalida2/2AssertionError ESM/CJS,0secondari; ripristinoSHAb1235e6e855a9f3db321e5c172602292d8c5c23b9a4311fc66acb558074b8373+nativebuild,24/24consumerinviti verdi. Browser88/88, history16/16,legacy36/36+probeoriginali verdi. Native tsc/lint/build/checkpack exit0 suconfigoriginale; dist solo generated ripristinato200112, nuovipreservati nelpathB0c4a-DIST-RESTORE.json,0distcommit. HTTPcreate/list/revoke e preview/apply/outbound/contentread, Phone/Webproof, producer/consumer/UI/live ancora da completare;0/42live,0/2percorsi completi,taskglobaleIN CORSO. Questo è SDK/proiezione, non featureinviti fruibile.
+
+## B0c4b1 HTTP inviti — pronto solo SDK
+
+GET /api/agents/:agentId/channels/web/invitations e POST allo stesso percorso/revoke: sessione Forge + SA/owner, managementID validato, nessun token S2S nel browser. Draft canonici B0c4a/C3; risposte metadata senza scope/identity/Clerk/provider. Unavailable distinto da vuoto attestato, proiezione solo fonte fresca autorizzata. Receipt requestId/revisione esattamente expected+1/email normalizzata o invitationId revocato; replay non implica nuova autorizzazione. Correlazione del receipt NON prova ownership/identità o ammissione: producer deve risolvere binding e autenticazione prima del writer, ricaricare fonte dopo await e proiettare metadata solo dopo questi controlli. Nessun handler/storage/migrazione/accountlink montato dal bridge.
+
+13/13 nuovi, baseline3AssertionError/13 e0other. Finale24/24source+2/2compiled funzionali, SHA source3a9ba9ac/barrel46cc94f9 ripristinati identici. Prima23/24: operazione ignota era mascherata da draft invalida, aggiunto solo caso revoke valido/azione ignota, seconda campagna24/24 con0other. Fixture iniziale record derivato con proprietà undefined poi ricostruito esplicito equivalente, nessuna asserzione indebolita. Full4524/4524 in160/160file,0skip; typecheck/lint/build/check:pack0. HTTP ESM+CJS32/32, inviti24/24, browser88/88, historyTGemail16/16, legacy36/36+probe originali. Prove B0c4b1-RESULT/QUALITY/COMPILED e HTTP-INVITATION-MUTATIONS. Dist rigenerato per prove e ripristinato su200112, nuovi generated conservati in/private/tmp (B0c4b1-DIST-RESTORE.json);0dist commit.
+
+R35220538 ha provato gap voiceSessions as-is/pre-mint e configurationTGemail. Decisione220707: stesso writer/lock Factory anche perWeb, tentativo pre-mint in nuova tabella pressovoice/migrazione0015,voiceSessions intatta. Risposta220903 chiede owner/perimetro/compatibilità prima extension: BirthKindTGemail, OwnedResourceTGemail, accesspolicyTGemail e arraylength2 non si allargano implicitamente. Perimetro agent-channel-configuration non ancora assegnatoC. Prossimi facciataWeb/proofPhoneWeb/outbound/content, poi producer/consumer/pin/WT coor. 0/42 live,0/2 percorsi completi, task globaleIN CORSO.
