@@ -61,4 +61,6 @@ __exportStar(require("./model-catalog.cjs"), exports);
 __exportStar(require("./capability-model-settings.cjs"), exports);
 __exportStar(require("./agent-model-configuration.cjs"), exports);
 __exportStar(require("./models-batch.cjs"), exports);
+// Canonical server-owned model consumer bindings; no runtime installation is inferred.
+__exportStar(require("./model-consumers.cjs"), exports);
 //# sourceMappingURL=index.js.map

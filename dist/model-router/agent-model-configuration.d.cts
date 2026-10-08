@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { type AgentRuntimeIdentity } from "../agent/agent-runtime-identity.cjs";
-/** Stable server-owned slot identifiers, including existing agent_chat/mem0_* slots. */
+/** Canonical conversation slot; memory/audio slots are added with their qualified consumers. */
+export declare const AGENT_CHAT_MODEL_SLOT_ID = "agent_chat";
+/** Generic syntax stays additive for existing custom and future consumer slots. */
 export declare const ModelSlotIdSchema: z.ZodString;
 export declare const ModelSelectionTierSchema: z.ZodEnum<{
     standard: "standard";

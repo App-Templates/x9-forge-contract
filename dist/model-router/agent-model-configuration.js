@@ -7,7 +7,9 @@ import { CapabilityAgentParametersSchema } from "../capability/parameters.js";
 import { CapabilityModelSettingsSchema } from "./capability-model-settings.js";
 import { MODEL_TIERS } from "./model-tier.js";
 import { ModelDescriptorSchema, ModelFunctionSchema, sameModelDescriptor } from "./model-catalog.js";
-/** Stable server-owned slot identifiers, including existing agent_chat/mem0_* slots. */
+/** Canonical conversation slot; memory/audio slots are added with their qualified consumers. */
+export const AGENT_CHAT_MODEL_SLOT_ID = 'agent_chat';
+/** Generic syntax stays additive for existing custom and future consumer slots. */
 export const ModelSlotIdSchema = z.string().regex(/^[a-z][a-z0-9._-]{0,63}$/);
 export const ModelSelectionTierSchema = z.enum([...MODEL_TIERS, 'fallback']);
 export const AgentModelSelectionSchema = z.object({ slotId: ModelSlotIdSchema, settings: CapabilityModelSettingsSchema }).strict();
