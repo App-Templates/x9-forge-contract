@@ -1,0 +1,405 @@
+{
+  "base": "a251bbc9451381a67afa10f330fa5a3b501e8ba4",
+  "branch": "codex/canali-c2-bridge",
+  "protected": [
+    {
+      "path": "src/agent/agent-channel-access.ts",
+      "identical": true,
+      "sha256": "babd4136086cbdbc869b2ba0414cb583ac73bfb162a9ad7cdb4080c37e8ee345"
+    },
+    {
+      "path": "src/agent/agent-channel-configuration.ts",
+      "identical": true,
+      "sha256": "7a55a1f82f77b4effdbe30907a204881fda1faeb4de74b42f6eeb683c82e2779"
+    },
+    {
+      "path": "src/agent/agent-channel-attestation.ts",
+      "identical": true,
+      "sha256": "be874bafbb498d760d7cf282ca55a08cb2034236449219a0bd39628b7df23881"
+    },
+    {
+      "path": "src/agent/agent-context-file.ts",
+      "identical": true,
+      "sha256": "06c287011ee1f145edf483d5d56b0a794b56c2c788cc1484505040cedfc8b12b"
+    },
+    {
+      "path": "src/capability/voice/agent-voice-settings.ts",
+      "identical": true,
+      "sha256": "1b215b039af952ef51294aa4da30426611afdb195a97e17eb4d4a3e1371f159b"
+    },
+    {
+      "path": "package.json",
+      "identical": true,
+      "sha256": "009e8871330aafc29d10863845417800c1626aca06f1c5105077e1d82000e573"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "identical": true,
+      "sha256": "5ebfaf45adc99d7da7d6511d7c88e2e76f0bf14f3292438cff8054b1843a02b3"
+    },
+    {
+      "path": "tests/agent/r2-channel-configuration.test.ts",
+      "identical": true,
+      "sha256": "01129386119c3480d866d3e3f72c4e4fbb354263c75bc96c1d706fcea64e969e"
+    }
+  ],
+  "paths": [
+    {
+      "path": ".planning/phases/canali-c2-bridge/PLAN.md",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/SUMMARY.md",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-baseline.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-check-pack.txt",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-green.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-module-proof.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/absence-evidence-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/absence-evidence-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/active-route-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/active-route-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/clock-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/clock-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/config-error-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/config-error-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-birth-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-birth-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-owner-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/context-owner-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-policy-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-policy-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-version-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/current-version-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-kind-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-kind-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-owner-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-owner-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-version-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/evidence-version-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/initial.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-age-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-age-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-available-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/line-available-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/mutations.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/number-evidence-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/number-evidence-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-applied-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-applied-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-version-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/policy-version-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-line-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-line-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-owner-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/routing-owner-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-age-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-age-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-error-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-error-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-readiness-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-readiness-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-state-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/runtime-state-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-access-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-access-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-config-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-config-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-number-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-number-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-policy-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-policy-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-routing-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/strict-routing-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/vault-identity-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/vault-identity-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-order-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-order-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-state-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-proof/version-state-restored.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/b1-vault-red.json",
+      "allowed": true
+    },
+    {
+      "path": ".planning/phases/canali-c2-bridge/mutate-b1.py",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.js.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.cjs",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.cjs.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.cts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.cts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.ts",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.d.ts.map",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.js",
+      "allowed": true
+    },
+    {
+      "path": "dist/agent/index.js.map",
+      "allowed": true
+    },
+    {
+      "path": "src/agent/agent-phone-channel.ts",
+      "allowed": true
+    },
+    {
+      "path": "src/agent/index.ts",
+      "allowed": true
+    },
+    {
+      "path": "tests/agent/agent-phone-channel.test.ts",
+      "allowed": true
+    }
+  ],
+  "changes": 89
+}

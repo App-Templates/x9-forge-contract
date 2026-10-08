@@ -83,3 +83,7 @@ Approvazione del perimetro sopra, fonte/nomi/schema telefonico Rubrica di D (dom
 ## Vincolo sprint114734
 
 C2 non entra nel rilascio13: continuare secondo piano, senza suite completa12:00-12:30. Posti riservati alle verifiche di rilascio. Richiesta perimetro114719 ancora pendente alla scrittura; frozen install0 e hookperimetro conservato.
+
+## Perimetro aperto 11:53 / B1 12:04
+
+RISPOSTA115300 e perimetri/codex_canali-c2-bridge.txt aprono i13file del piano + dist solo da build. B1 numero/binding/config/context implementato e verificato soltanto in locale:70/70nuovi test,152/152matrice con82regressioni.30/30mutazioni semantiche e30/30ripristini con hash;56assertioni fallite/2100mutante,2100/2100ripristini. Nessuna full12:00–12:30. Fonte Rubrica D115122 non ancora decisa; B3 sospeso e nessun campo ipotetico. F0115237 ricevuto, fuori release13.
