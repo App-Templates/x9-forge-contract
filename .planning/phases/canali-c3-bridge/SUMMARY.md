@@ -1,0 +1,3 @@
+# CANALI-C3-BRIDGE — preparation only
+
+08/10/2026 12:25 Europe/Rome. Assigned123-1 basea251bbc/1.43.0, clean at intake, dependencies installed by coordinator. PLAN reuses accepted R-31 and existing canonical provider contracts. B1 proposes only Web access/pause policy, scope/version/request readback correlation and invitation validity; complete link/admission/session/provider/catalog remains later B2/X9/F1. No product source or proof green yet. Request exact four source/test paths plus generated dist before code. Forge118-1 full is currently running on coordinator-aligneda8b0671e; no bridge test/build concurrently. No version/release/consumer/server/secret change.
