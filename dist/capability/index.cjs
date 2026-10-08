@@ -74,4 +74,5 @@ __exportStar(require("./agent-elevenlabs/web-session.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-catalog.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-context.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-browser.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-invitations.cjs"), exports);
 //# sourceMappingURL=index.js.map

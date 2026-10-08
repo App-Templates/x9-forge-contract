@@ -33,4 +33,5 @@ export * from "./agent-elevenlabs/web-session.cjs";
 export * from "./agent-elevenlabs/web-catalog.cjs";
 export * from "./agent-elevenlabs/web-context.cjs";
 export * from "./agent-elevenlabs/web-browser.cjs";
+export * from "./agent-elevenlabs/web-invitations.cjs";
 //# sourceMappingURL=index.d.ts.map

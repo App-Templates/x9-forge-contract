@@ -39,4 +39,5 @@ export * from "./agent-elevenlabs/web-session.js";
 export * from "./agent-elevenlabs/web-catalog.js";
 export * from "./agent-elevenlabs/web-context.js";
 export * from "./agent-elevenlabs/web-browser.js";
+export * from "./agent-elevenlabs/web-invitations.js";
 //# sourceMappingURL=index.js.map

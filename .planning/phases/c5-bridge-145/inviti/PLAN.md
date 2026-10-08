@@ -1,19 +1,19 @@
-# Bridge1.45 — delta inviti SDK
+# Bridge 1.45 — integrazione inviti SDK
 
-Ordinecoordinatrice215455:integraSUBITO062dab3175665e91d60591530da6c574538ff67e sopra92e669a,review indipendente,dist/full,nuovoSHAcoor;quello diventa145definitiva. F0B150checkpoint77359d12soloDOC/baseline132,0prodotti,precedenzaquestolotto. Timer21:57:19→22:42:19/45min3repair,slot forge-v2-F-c5-bridge-145-inviti2/5fino22:42:19. Pin/versione/push/CI/packageconsumer solo coordinatrice;PR29associata,nonmodificata daF.
+Ordine della coordinatrice 215455: integrare il lotto pronto 062dab31 sopra 92e669a, revisione indipendente, distribuzioni e suite completa; consegnare il nuovo SHA per la 1.45 definitiva. F0B torna prioritario dopo questa consegna. Timer 21:57:19–22:42:19 CEST, massimo 45 minuti o tre riparazioni. Slot forge-v2-F-c5-bridge-145-inviti. Perimetro codex_c5-bridge-145.txt. Push, versione, rilascio e pin consumer restano della coordinatrice; PR29 associata alla chat.
 
 ## Fruibilità (R-34)
 
-SDKemail→registryowners/Clerk→invitoC3 autenticato,sconosciutononammette,pending senza principal,unavailable≠notregistered. Listato pubblico solo metadata con revoca/scadenza,scope/accountprivatinonesposti. Producer/HTTP/storage/issuer/browser nonmontati daSDK:0flowlive,nessunauserfeature100%dichiarata. Poiconsumer145pubblicoforF0B.
+Il pacchetto descrive inviti Web autenticati, destinatari dal registro owners/Clerk, pending senza principal, indisponibilità distinta da utente non registrato. Le proiezioni restituiscono solo metadati pubblici. La prova riguarda fixture sintetiche del pacchetto: handler, persistenza, lookup reale, emissione e percorso browser non sono implementati da questo lotto. Nessuna feature utente dichiarata completa e zero verifiche dal vivo.
 
 ## Esistente (R-35)
 
-src/capability/agent-elevenlabs/web-channel.ts:54 recordC3/isCurrent esistenti;src/capability/index.ts:92barrel pubblico;schemascope/email/revision/binding canonici riusati. NuovodeltaCdefineDraft/Lookup/Pending/List/proiezionepura,nessunlookupDB/auth/accountlink/ledger/provisioning. Cambia lo stack:no,owners/Clerkauthority eadmissionC3 invariati. Non usareRubricacomevincoloWeb.
+src/capability/agent-elevenlabs/web-channel.ts:54 contiene il record canonico C3 e il controllo di validità; src/capability/index.ts esporta il modulo pubblico. Scope, email, revisione e binding riusano i validatori esistenti. Cambia lo stack: no; nessun nuovo registro di utenti, account link, protocollo, ledger o autorità. La Rubrica non limita i destinatari Web.
 
-## Perimetro/ref/sequenza
+## Sequenza e confini
 
-Perimetro codex_c5-bridge-145.txt includesweb-invitations,capabilitybarrel,testsspecifici/proofC,dist ephaseF. Author062publicPRONTO215039,base6c4db38;ignorareWIPsuccessivi. Ref92e669acleaninitialverified;package/locksourcebaseimmutable. Mergeonlyref,sourcesintatte,conflitti soloexport. ReviewseparataC30nuovi/32source+2compiled dichiarati,nostro rerun nativefull/mutazioni campione suguardieesatte epublicexportESM/CJS;erroreassertfunzionale,restorebyte+verde. Nessunnuovotestlow-impactduplicato,riuso fixtureautori+namespacepubblici. NativebuildNode24.14.1 env-i,fullVitestworker1/configoriginale0skip,tipi/lint/pack,CJSoriginale eB/E/CsmokeesplicitiNode20+24,NodeNextE. Manifest exactauthor bytes/restored0violazioni,SHA localehandoffcoor. Ogni commit SUMMARY+PLANriletti. Caso nonbarrel/querynuovo oAPI/WIP→noneditareautore:richiesta.
+Merge del solo ref pronto, sorgenti e test autori intatti. Revisione di lookup, binding completo, destinatario/revisione, date, pending e proiezione pubblica. Riuso dei 30 test e dello smoke pubblico dell’autore; quattro mutazioni sorgente e una perdita dell’export, con rosso AssertionError e ripristino byte esatto. Le due esecuzioni ESM/CJS della perdita dell’export restano una sola mutazione. Build nativa, suite completa con un worker, tipi/lint/pack e controlli pubblici Node20/24. Manifest di integrità e perimetro, distribuzioni rigenerate. Conservare i raw precedenti senza sovrascriverli. Nuovi lotti C ancora WIP esclusi. Dopo ogni commit rileggere PLAN e SUMMARY.
 
-## Consegna e limiti
+## Consegna
 
-Ancora0nuovimerge/build/testFdelta;precedente4678NONattribuito aldelta30. Campioninuovi distinti dallerevisioni15precedenti. Appendereproofsenza sovrascrivere raw/manifeststorici,nuovo workspacework/c5-bridge-145-inviti. Fonte unavailable non lista vuota néinvitoanonimo,principal/revision/binding riattestatidai producer prima/dopoawait. Noactual.env/segreti/server/provider/live/push/pin. Al timer checkpointveritiero senzagreenincompleto.
+Prove finali in PROOF.json e SOURCE-MANIFEST.json; raw distinti in work/c5-bridge-145-inviti/raw. Verdetto limitato al pacchetto SDK. Nessuna modifica package/lock, push, pin, handler o dato esterno. F0B preparato su 77359d12 resta in attesa del riferimento pubblico e del pin autorizzato.
