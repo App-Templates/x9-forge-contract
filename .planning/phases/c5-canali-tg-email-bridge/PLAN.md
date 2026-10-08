@@ -1,6 +1,6 @@
 # C5 Canali TG/email — bridge B
 
-Ultimo aggiornamento: 08/10/2026 20:38 CEST.
+Ultimo aggiornamento: 08/10/2026 21:06 CEST.
 
 Assegnazione: posta 20261008-202442, worktree 147-1, branch codex/c5-canali-tg-bridge, base ae7c464c458814b26baca17106c8dce80f4c6f84. Il piano generale della bacheca C5-CANALI-TG-EMAIL-PLAN.md ha SHA256 86fee95ed80b96d66dce64cd3277b4a6d14d515814bfdfe68ff12f77edde28a4. È stato letto con le decisioni 192927 e 202442. Bacheca e MESSAGGI sono sola lettura; si comunica con posta.py e compito.py.
 
@@ -32,3 +32,10 @@ Test prima del codice e rosso per asserzione pertinente, non errore di import. O
 ### Esistente B2 (R-35)
 
 src/http/endpoints/forge-agent-channel-access.ts:12 riusa sessione server owner/SA; :67–80 facciate browser access/preview/apply. internal-agent-channel-access.ts:7 params management/kind e :12–25 producer S2S. internal-factory-telegram-token.ts:58 mantiene il token manuale. Ricerca src bridge per create-resource/rotate-token/resource-operation prima di B1 non ha trovato descriptor risorsa tardiva. Vecchio Forge4f3fc42 telegram.service.ts:179 e agentmail.service.ts:54 creano risorse nel provisioning; la sostituzione token manuale corrente è Forge00a468 rotate-telegram-token.ts:58, tramite routes/telegram-token.routes.ts:34. B2 riusa forma della facciata e autenticazione, senza cambiare producer, writer, storage, routing o flusso fra servizi. I descriptor nuovi sono l'anello bridge risorse assegnato da 192927/202442; installazione e raccordi richiedono i lotti consumer con perimetro e prove separati.
+
+
+### Esistente B3 e dipendenze (R-35)
+
+Ricerca readonly in Git: Forge00a468 packages/db/src/schema.ts:17–22 contiene già owners.email, telegramUserId e clerkUserId. services/factory/src/routes/owner.routes.ts:15–19 definisce questi input, POST/PUT richiedono requireSuperadmin e scrivono tramite ownerRepo. telegram-allow.routes.ts:47–53 risolve l'owner dell'agente e usa il suo telegramUserId, non una qualunque chat ammessa. Nel vecchio Forge4f3fc42 sono presenti gli stessi campi e registrazione. Non si costruisce un altro collegamento account o registro destinatari. Sono valori registrati amministrativamente: non vanno chiamati verifica crittografica di proprietà Telegram/email. Richiesta decisione di riuso alla coordinatrice nella posta 210509; assente/nonvalido/nonammesso non autorizza un invio e non apre la policy. Nessuna lettura di valori reali o context di produzione.
+
+C, risposta210137, conferma che HISTORY4 89cc499 non attesta ancora resource/version né reply consegnata: prepara B0c3historyproof nel proprio perimetro. B non usa isAgentChannelHistoryVerificationCurrent da solo per Funziona. Risposta B210343: ResourceIntent B1 è il contratto di creazione/rotazione, non un ledger probe installato. Per B3 si propone di congelare requestId e configurazione APPLIED canonica (scope/identity/kind/applied.version/resource), riusando AgentChannelConfigurationSchema, poi confrontare quella corrente dopo awaits. Nessun nuovo archivio/history DTO locale. Outbound consegnato resta in attesa dell'utente; verified richiede evidenza server del vero ingresso owner → turno → risposta consegnata sulla stessa risorsa/versione. Forma finale concordata con C, source import autorizzato e autorità destinatario sono prerequisiti prima del codice B3.

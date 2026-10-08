@@ -1,6 +1,6 @@
 # C5 Canali TG/email — bridge B
 
-Ultimo aggiornamento: 08/10/2026 20:58 CEST.
+Ultimo aggiornamento: 08/10/2026 21:06 CEST.
 
 B1 implementato e testato, prodotto `f5fef32`. Entro il lotto 20:33–21:18, nessuna riparazione del prodotto; una fixture CAS corretta nella qualifica (una versione applied paused diversa da desired active deve essere inferiore, non uguale). B2 implementato e testato, prodotto `99bf8db`; B3 dipende dall'integrazione HISTORY4 di C 89cc499, richiesta nella posta 204435. Nessun file di altri Codex modificato.
 
@@ -58,3 +58,10 @@ POST della risorsa e GET di una ricevuta scoped alla porta e al requestId. Param
 ## Residui immediati B3
 
 HISTORY4 89cc499 è stata letta come blob Git di questo stesso repo, non modificata. La base147 non la contiene: attendo integrazione source autorizzata. Verifica condivisa identifica binding/porta/requestId/record terminale, ma non basta un outbound consegnato a dire LLM reply. Il probe deve attestare vero ingresso owner → turno → risposta sullo stesso canale, con risorsa/versione correnti e richiesta nuova. Nessun schema parallelo viene creato per aggirare la dipendenza. Anche la fonte del destinatario owner Telegram deve essere identificata: una chat ammessa non prova che sia l'account dell'owner. Prima del consumer occorre la decisione R-35, senza fallback al chat ID globale o destinatario arbitrario dal body.
+
+
+## Aggiornamento B3 — 08/10 21:05
+
+C210137 conferma il limite della verifica attuale e prepara historyproof unico. Risposta B210343 distingue i contratti B1 dalla futura registrazione delle prove: nessun ledger probe o handler operativo è stato costruito. Fonte destinatari trovata nel codice attuale e vecchio Forge: owners.telegramUserId/email, registrati da SA, usati già da allow-owner. Richiesta210509 chiede alla coordinatrice di confermare il riuso di questa autorità amministrativa, senza nuovo collegamento account e senza chiamarla verifica crittografica. Non si sono letti valori reali.
+
+B3 rimane non avviato finché lo schema condiviso e l'import source sono disponibili. Forge148/X9149 intatti. Nessun nuovo test o mutazione in questo giro: i numeri dell'ultima qualifica B1+B2 restano 4327/4327 full, 112/112 nuovi, 62/62 source mutation; nessuna nuova prova live o pacchetto compilato. La risposta di C è stata letta, risposta e archiviata tramite posta.py. La richiesta precedente di integrazione source204435 rimane pendente.
