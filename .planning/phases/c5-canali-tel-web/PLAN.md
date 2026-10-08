@@ -276,3 +276,149 @@ Esistente: forge-agent-phone-channel.ts:10 e forge-agent-channel-access.ts:16 gu
 220707: configurazione/policy/link/invitiWeb nello stesso writer/lockFactory delle porte; tentativo pre-mint pressovoice, nuova tabella/migrazione0015,voiceSessions intatta. Inviti NON nuovo writer nelvoice-svc: precedente suggerimentoR35 era incompleto e sostituito daquesta decisione. ModificheWebcanonical devono includere risorsa/policy/arraycompat, non allargareBirthKindTG/email usato altrove senza nuova review. Perimetro e owner richiesti220903.
 
 221657: prova telefonica a contatto AMMESSO scelto percontactIdRubrica, non ownerphonefield o rawnumeroBrowser. Segnalazione221815: base143 non contieneConoscenza8652688; quelcontratto ha phoneNumbers ma :40proiezioneperde phones, e non contactId. T0Forge b6915 solo documenti; attendere fonte/perimetrocanonici e riusare senza copie/alias. Prossimi contratti/facciate/proof si applicano dopo decisioni fonti e config;0handler/writer/migrazioneautoassegnati. Limiti45min/3repair e0/42live restano.
+
+## RIPARTITE22:30 — vincoli proprietario/conferma e file esatti richiesti
+
+Lotto documentale iniziato22:31, limite23:16/3tentativi; prodotto06abb33 invariato. Decisioni222728/222855 e paroleStefano nelcompito prevalgono su221657: M07 non seleziona Rubrica/contactId. Numero SOLOowners.phone letto dalserver conagent.ownerId, aggiunta approvata daStefano; responsabile futuro NONimplementato né inferito. Feature di prova SPENTA per default, attivazione soltantoStefano. Nessuna telefonata in test/prove. Pulsante senza ownerphone disabilitato con spiegazione. Rubrica rimane gate ordinario telefono: non fonte del numero della prova.
+
+Forge chiede solo PREPARAZIONE, recap/anteprima e conferma tramite protocolloTelegram esistente; mai dial, chiamata giàavviata, conferma nelbrowser o seconda procedura. «In attesa della conferma suTelegram» è distinto da «avviata» e da «Funziona». Avvio→turno→chiusura/proofvera richiesti perFunziona. Nessun filecap-voice della conferma o prompt si modifica. Audit143: nessun wrapperoutbound/c5-phone-outbound implementato, nessun handler/effectdial; B0a puregate è una PRECONDIZIONE, non consensoTelegram o autorizzazione effetto.
+
+R35ricontrollato: Forge00a468e/old4f3fc42 owners/schema:17,owner.routes:15,owner.repo:5/15,telegram-allow:47,voice/schema:263 evoice.repo:21. Bc677 channel-access-intents:16 writer/lock/intent giàesistente, agent-context.writer:215. X9d65 voice-prepare-call:36/57–64 restituisce composeBrief+preview e usaenvFORGE_AGENT_ID ancheowner; non è da solo senderTelegram né conferma. Voice-call:435 effettua dial, file SOLA LETTURA. La coordinatrice deve fornire punto di aggancio effettivo del protocollo sulcheckpoint/baseproducer corrente, senza fallbackprimary/cambioPrompt o invenzioneconferma. Source phoneNumbers→phones8652688:40 ancora gapconsumerphone; contactId perM07 NONpiù richiesto.
+
+### Perimetro bridge integrativo — proposta, NON ancora autorizzazione
+
+Estensione dello schema canonico Web e facciata; BirthKindTG/email resta compat, non enum allargato a caso. Cooperare conF per unicoowner dei file comuni. Aggiunte proposte:
+```text
+src/agent/agent-channel-configuration.ts
+tests/agent/c5-web-configuration.test.ts
+src/agent/agent-channel-access.ts
+src/http/endpoints/forge-elevenlabs-web.ts
+tests/http/endpoints/c5-web-forge.test.ts
+src/http/endpoints/forge-agent-phone-channel.ts
+src/http/endpoints/internal-agent-phone-channel.ts
+tests/http/endpoints/c5-phone-outbound.test.ts
+src/agent/agent-channel-history.ts
+tests/agent/c5-channel-history.test.ts
+src/http/endpoints/forge-agent-channel-history.ts
+tests/http/endpoints/c5-channel-history.test.ts
+src/http/endpoints/index.ts
+src/agent/index.ts
+.planning/phases/c5-canali-tel-web/PLAN.md
+.planning/phases/c5-canali-tel-web/SUMMARY.md
+.planning/phases/c5-canali-tel-web/proof/**
+```
+Conoscenza agent-knowledge-address-book.ts:40/proiezionephones e suoi test rimangono alproprietario dellaRubrica o aF per decisionecoordinatrice; non tipo/alias/copia daC. Ownerphone usa E164 esistenteVoiceLiveCallStartRequestSchema.shape.to_number; nessuno schema locale riscritto. Wrapperprova futuro contiene solo requestId/CAS, non numero/contactId/conferma/call-start. Non emette dial né abilita default. Test dimostra ramo pericoloso assente; preparazione/resto dopo aggancio protocollo esistente.
+
+### Forge F1a — proprietario e tentativo Web, worktree da assegnare
+
+Fonteinviti/policy/linkWeb = stesso writerFactory; tentativo premint = voice, migrazione0015 della decisione220707.0015 include ownerphone di222728 secoordinatrice conferma unica migrazioneC, senza collisione0014E. Prima costruire/provare source di persistenzafake eDDL qualificato; nessuna migrazione o query su produzione.
+```text
+packages/db/src/schema.ts
+packages/db/dist/schema.js
+packages/db/dist/schema.js.map
+packages/db/dist/schema.d.ts
+packages/db/dist/schema.d.ts.map
+drizzle/0015_web_admission_owner_phone.sql
+drizzle/0015_web_admission_owner_phone_down.sql
+services/factory/src/repositories/owner.repo.ts
+services/factory/src/routes/owner.routes.ts
+packages/types/src/owner.ts
+packages/types/src/redesign/owners.ts
+services/factory/tests/c5-owner-phone.test.ts
+services/factory/tests/filiera-f2-migration-chain.test.ts
+services/voice/src/repositories/web-admission.repo.ts
+services/voice/src/services/web-admission.service.ts
+services/voice/src/routes/web-admission.ts
+services/voice/src/routes/voice.ts
+services/voice/src/index.ts
+services/voice/tests/c5-web-admission.test.ts
+services/voice/tests/c5-web-admission-storage.test.ts
+.planning/phases/c5-canali-tel-web/PLAN.md
+.planning/phases/c5-canali-tel-web/SUMMARY.md
+.planning/phases/c5-canali-tel-web/proof/**
+```
+Generatedsolo4schema file autorizzati e nuovamigrazione0015; nessun dist degli altri, nessun _journal/metadata0014 edit senza perimetro distinto. owners.phone nullable perlegacy, SAcreate/update; E164 canonicoimportato. Attemptvoice requestId/fullidentity/scope/link/viewer/version/expiry correlati pre-mint; niente signedURL/credenziale memorizzata per provarlo, voiceSessions intatta. Registerpostconnect epostcallwriter esistenti, non nuova sessiontable. Nomi di configurazione URL/origin/featureflag e pin/build acoordinatrice, niente .env. indexvoice SOLO mountmoduloC.
+
+### Forge F1b — configurazione/cliente/facciata/history e prova preparata
+
+```text
+services/factory/src/services/agent-context.writer.ts
+services/factory/src/services/channel-access-intents.ts
+services/factory/src/routes/web-channel.routes.ts
+services/factory/src/services/web-channel.service.ts
+services/factory/src/services/web-channel.client.ts
+services/factory/src/routes/phone-channel.routes.ts
+services/factory/src/services/phone-channel.client.ts
+services/factory/src/services/phone-owner-probe.ts
+services/factory/src/services/phone-owner-probe.config.ts
+services/factory/src/index.ts
+services/factory/tests/c5-phone/**
+services/factory/tests/c5-web/**
+services/voice/src/routes/channel-history.ts
+services/voice/src/services/channel-history.service.ts
+services/voice/tests/c5-channel-history.test.ts
+.planning/phases/c5-canali-tel-web/PLAN.md
+.planning/phases/c5-canali-tel-web/SUMMARY.md
+.planning/phases/c5-canali-tel-web/proof/**
+```
+agent-context.writer/channel-access-intents sono file comuni delwriterdiB: SOLOraccordoweb approvato/assegnato da coordinatrice in nuovoWT, non worktreeB. No seconda lock/persistenzainviti. phone-owner-probe.config defaultfalse e sola abilitazione operatore; producerdisabled/missingownerphone/Telegramsourceclosed→0prep/0dial. phone-owner-probe SOLO adapter verso protocolloexistingPREPARE; puntoingressoawaitcoordinatrice, nessun /call-start/voice_call dal consumerForge. backendindex monta SOLOmoduliC, registrazionecommonB da coor. History interroga writer veri; audio/transcript solo retenuti eautorizzati, nienteproviderURLbearer browser.
+
+### X9 — producer C2/C3 dopo pin e riuso X1
+
+```text
+services/cap-voice/src/app.ts
+services/cap-voice/src/index.ts
+services/cap-voice/src/routes/phone-channel.ts
+services/cap-voice/src/channels/phone-channel-source.ts
+services/cap-voice/src/channels/phone-channel-backend.ts
+services/cap-voice/src/channels/phone-admission-client.ts
+services/cap-voice/src/routes/channel-history.ts
+services/cap-voice/src/persistence/channel-history.ts
+services/cap-voice/src/__tests__/c5-phone/**
+services/cap-voice-live/src/app.ts
+services/cap-voice-live/src/routes/telnyx-webhook.ts
+services/cap-voice-live/src/routes/stream.ts
+services/cap-voice-live/src/phone/inbound-router.ts
+services/cap-voice-live/src/phone/shared-number-source.ts
+services/cap-voice-live/src/__tests__/c5-phone/**
+services/agent-core/src/core/agent-manager.ts
+services/agent-core/src/core/channel-inventory.ts
+services/agent-core/src/channels/channel-access-source.ts
+services/agent-core/src/tests/c5-phone-context.test.ts
+services/cap-agent-elevenlabs/src/app.ts
+services/cap-agent-elevenlabs/src/index.ts
+services/cap-agent-elevenlabs/src/web-provider.ts
+services/cap-agent-elevenlabs/src/web-authority-client.ts
+services/cap-agent-elevenlabs/src/web-channel-service.ts
+services/cap-agent-elevenlabs/src/web-session-issuer.ts
+services/cap-agent-elevenlabs/src/__tests__/c5-web/**
+.planning/phases/c5-canali-tel-web/PLAN.md
+.planning/phases/c5-canali-tel-web/SUMMARY.md
+.planning/phases/c5-canali-tel-web/proof/**
+```
+Esclusi dall'editC voice-prepare-call.ts,voice-call.ts,compose-brief.ts eogni fileconferma/prompt: solo lettura per riuso. StoreWeb diX9 NONowner di policy/link/inviti, caricaattestazioneFactory ecallbackvoice; nessun mirrorwriter. ProviderwebX1checkpointcffa52b6 va integrato dalla coor e riusato, non secondaAPI. app/index SOLOregistrazioneC, eventualiEnv/manifestconfig acoor. NuovoendpointX9perprova non scelto: deveusare puntoexistingconferma fornito/coordinato. Non farpassare helperammissione per consenso.
+
+### Forge F2 — moduli isolati e proprietari, mountB
+
+```text
+web/src/features/channels/PhoneChannel.tsx
+web/src/features/channels/WebChannel.tsx
+web/src/features/channels/PhoneConfiguration.tsx
+web/src/features/channels/WebVoiceConfiguration.tsx
+web/src/features/channels/phone-channel-presentation.ts
+web/src/features/channels/web-channel-presentation.ts
+web/src/features/channels/ChannelConversationHistory.tsx
+web/src/lib/api/phone-channel.ts
+web/src/lib/api/web-channel.ts
+web/src/pages/WebVoiceSession.tsx
+web/src/features/voice-web/elevenlabs-session.ts
+web/src/pages/Owners.tsx
+web/src/lib/api.ts
+web/tests/c5-phone/**
+web/tests/c5-web/**
+web/tests/c5-owner-phone.test.tsx
+.planning/phases/c5-canali-tel-web/PLAN.md
+.planning/phases/c5-canali-tel-web/SUMMARY.md
+.planning/phases/c5-canali-tel-web/proof/**
+```
+api.ts SOLOOwnerSummary/createOwner/updateOwner/listOwners delle righe750/386/392/398; nessun edit alleAPIcommonCanali/Modelli. OwnersSAregistra telefono comeemail/TelegramID, ownernonSA nonpuòvariarlo. Phone/WebconfigF0 dafonti/checkpointF/A assegnati, nonworktreealtrui. Props concordate conB slug/data/onConfigure/onRetry; history4unicasource. App.tsx,ChannelsView/ChannelsStatus/channel-doors,drawer/header/actions eclientcommonChannels restanoB. /parla mountpubblico/shell aB, page/session aC dopo perimetro/pin.

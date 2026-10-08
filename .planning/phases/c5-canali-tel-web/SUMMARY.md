@@ -1,6 +1,6 @@
 # C5 Canali Telefono/Web — SUMMARY incrementale
 
-Ultimo aggiornamento: 08/10/2026 22:19. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
+Ultimo aggiornamento: 08/10/2026 22:37. Worktree143-1, branch codex/c5-canali-bridge, base27749e4.
 
 ## Stato
 
@@ -115,3 +115,11 @@ Decisione221657 corregge M07: «Chiamami per una prova» seleziona un CONTATTO A
 Esistente: git8652688 agent-knowledge-address-book.ts:20 phoneNumbers (modulo assente143), :40 toAgentChannelAddressBook proietta SOLOemails; nuova phones diB0a non proiettata. Non è una fonte telefonica completa consumabile dal gate. Mancano contactIdcanonici anche in quel contratto; T0Forge b6915ea2 è SOLO preparazione documentale, producerRubrica mai implementato. Non copiare lo schema o inventare un tipo locale al posto diR14. InformatoF. Serve decisione/coor/ownerConoscenza per projectionphones/contactId e nuova base143 o altroWT. ConfigurationWeb220903 resta in attesaowner/perimetro/compatKind: nessun edit agent-channel-configuration fuori perimetro.
 
 Tutti i prodottiC fino06abb33 sono pronti per revisione indipendente, non feature operativa. Prossimi lottiPhone/Webproof, facciataWeb, outboundcontact e letturecontenuti devono agganciarsi a questi proprietari/fonti canonici e ai writer esistenti; nessun nuovo writer/storage/flow si sceglie localmente. Non ripetere lotti qualificati. Spesa resta esclusa/congelata. Task globaleIN CORSO,0/42live/0/2completi; nessun intervento diStefano richiesto ora.
+
+## RIPARTITE22:30 — checkpoint del raccordo, prodotto invariato
+
+Riletti PLAN/SUMMARY e posta222728/222855/223040, task: paroleStefano22:27/22:30. Vecchia decisione221657 annullata: prova SOLOowners.phone risolto server tramiteagent.ownerId (campo SA approvato), nessun contactIdRubrica/rawnumeroBrowser. Responsabile solo futuroaggancio. FeatureSPENTA di default; no telefonata reale/test/prova. Forge non compone chiamate: SOLOchiede preparazione/recap/anteprima/confermaTelegram delprotocollo esistente. Non si modifica alcun filecap-voice chegestisceconferma,nessunnuovowriter/proceduraDial.
+
+Audit143pulito90f41e9/prodotto06abb33:0wrapperoutbound,c5-phone-outbound nonimplementato,0handler,0effetti. GateB0a puro≠consensoTelegram: nessunagganciodialda rimuovere nel prodottoC. VerificaX9d65read-only voice-prepare-call:36/57–64 producepreview eusaenvprimaryowner, non è da solo sender/conferma; voice-call:435 èdial (nonedit). Chiestopuntodiaggancio corrente alla coor prima consumerdefaultoff. Rubrica8652688projectionphones ancora da correggere dalowner, contactId NONnecessario perM07.
+
+PLAN contiene ora FILEESATTI per bridge integrativo, ForgeF1aowner/attemptWeb0015,ForgeF1bwriter/client/probe-prep, X9phone/web eForgeF2moduli+ownerSA. Migrazione0015 eDBschema/dist4 append daassegnare; una sola writerFactorypolicy/link/inviti, tentativovoice,voiceSessions intatta. CommonwriterB/index raccordati dalla coor, nonedit nelWTB; voice_prepare_call/voice_call/composeBrief/conferma esclusi. Nessun prodotto/modellotipo copiato, pin/WT/schemafileextra ancora da assegnare. No nuove suite/mut/lease in questo lotdocumentale; ultime4524/4524/160,24/24+2/2HTTPrestano invariate,0/42live/0/2percorsi. Non CONSEGNATOglobale.
