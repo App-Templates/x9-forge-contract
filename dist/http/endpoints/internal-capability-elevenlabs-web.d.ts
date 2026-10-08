@@ -16,6 +16,7 @@ export declare const elevenLabsWebSnapshotContract: {
                 public: "public";
             }>;
             paused: z.ZodBoolean;
+            enabled: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         link: z.ZodObject<{
             scope: z.ZodObject<{
@@ -120,6 +121,7 @@ export declare const elevenLabsWebPolicyContract: {
             public: "public";
         }>;
         paused: z.ZodBoolean;
+        enabled: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -138,6 +140,7 @@ export declare const elevenLabsWebPolicyContract: {
                 public: "public";
             }>;
             paused: z.ZodBoolean;
+            enabled: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
     }, z.core.$strict>;
     readonly authType: "secret";

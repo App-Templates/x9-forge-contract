@@ -1,10 +1,20 @@
 # C5 bridge1.45 — SUMMARY
 
-Ultimo aggiornamento21:14. LottoF21:09:02–21:54:02. PRESO210744,letturebase/autori completate; slotpreso. Prima del codice PLAN con R35/R34 e richiesta211001 per nuovo perimetro.0merge,0suiteF,0distF. C211148 conferma587db2e NON prontoSDK eexportWIP inqualifica,aspettareHEAD; E204832schema8pezzi inattesadecisione; B112casi/62mutsource da rerun/reviewcompiled.
+PRONTO locale per coordinatrice: branch codex/c5-bridge-145 nel140-1, baseae7c464, autoriBc8a2683/E7d4c3f3/C6c4db3880519b039bcad390b409ee8ad3490a86e. Source finaledb3afaa, commit distribuzione/prove successivo. APPROVE indipendente limitato ai tre prodotti pubblici; B0 Modelli di F non è nuova revisione indipendente. Timer21:09:02→21:54:02 invariato,nessunrepairdi prodotto,prima scadenza.
+
+Full finale4678/4678 in162/162file,0skip,Node24.14.1/env-i/configurazione nativa/worker1. Build376/376dtsportabili;15/15controlli successivi exit0 oltrebuild. Smoke per Node24+20: legacy36/36probe piùfixture runner originale,E27/27,C88/88,B29/29,Croundtrip16/16;tipi pubbliciE NodeNext0. Non sommare ripetizioni per versione come nuovi casi. Runner/config/package/versione1.44.0/lock invariati.
+
+Mutazioni indipendenti15/15candidati:2E+3Csource prima delta,2Csource sul delta,8Bcompiled sulla sorgente finale separati ESM/CJS (16runrossi,8mutazioni). AssertionError funzionali,0other,source exactrestore. Nuovo smokeB pubblico autorizzato eseguito esplicitamente.13/13source prodotto identici ai refautori;2/2B0 identici adae7c464;F risolve solo barrel,genera dist e aggiunge prova indipendente. REVIEW/PROOF/runner qui,raw conhash workspace.
 
 ## Fruibilità alla consegna (R-34)
 
-Contratti soltanto: nessun handler/consumer/provider/percorso utente reale montato da F.0live. Appliedrisorsa non reply; historyattestationB3 ancora distinto. B0b/nascita/Spesa esclusi,Chiavi su stradaesistente210744,F0BsoloModelli dopo pacchettopubblico. Nessunpush/deploy. Decisioni/perimetro/refqualificatiprima consolidamento.
+Pacchetto locale compilato verificato;0percorsi utente dal vivo eseguiti. Nessun handler/autenticazione/ledger/tombstone reale/risposta provider/cleanup installato dal bridge. Applied risorsa non reply; roundtripTG/email è guardia su fatti owners→ingresso→turno→reply e stessa risorsa/policy applicate. Telefono/web richiedono prova conversazione distinta. Context/workspace E solo sgancio riferimenti runtime; Factory mantiene writer filesystem/provider. Funzione100% non dichiarata. Mancano consumer/montaggio/prove dati veri e contrattiC inviti/HTTPsuccessivi in coda212643;nessunWIP importato. Release/push/CI/bump1.45/pin alla coordinatrice,nessuno daF. B0bprivato/nascita/Spesa esclusi;Chiavi strada applyAgent/job/reload esistente210744;F0BsoloModelli futuro via apply-configD.
+
+## Rettifiche e tracciabilità
+
+CheckpointC587 prematuramente unito,conservato su codex/c5-bridge-145-checkpoint-C;delivery ripartita da2bf7187 prima dei ref pubblici pronti,nessunreset/cancellazione o checkpoint nonqualificato consegnato. Dist diagnostica preservata workspace. Prima full4656 registrata in output/avanza,ma raw full/quality sovrascritto nel secondo giro per errore percorso report. Raw finale4678 e mutazioni/restore integri,copiato finale anche raw/second-final. Non attribuire4656 alla sorgente finale o dichiarare due rawfull preservati. Manifest inizialmente fallito per percorsoB0 inesistente,poi corretto e13/13+2/2byte verificati;0creditoalsetupfallito.
+
+## Cronologia del lotto
 
 21:16: perimetro211227 autorizzato; B congelato c8a2683 unito109ef88. E211247 conferma decisione8pezzi: context/workspace SOLOsgancio riferimenti runtime, filesystemFactory invariato. E97d5c1b inmerge, conflitti soloagent/httpbarrel risolti conservando entrambi gli export. Nessun modelloB0 modificato. C587db2e checkpointSDK nonpronto, attendoqualificafinale.
 

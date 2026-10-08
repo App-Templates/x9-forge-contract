@@ -12,7 +12,7 @@ Esiste già: i barrel unici src/agent/index.ts,src/http/endpoints/index.ts,src/c
 
 ## Fonti e dipendenze
 
-Baseae7c464; C: b6984d4/7df1143/8a00ec5/89cc499/bc1f3c8 qualificati source,587db2e checkpointbrowser NON prontoSDK; ref browser pronto c8306c0; delta history roundtrip PRONTO6c4db3880519b039bcad390b409ee8ad3490a86e consegnato212519,22nuovi/17source+2compiled dichiarati. Solo questo deltaqualificato,nessunaltroWIP. E0dfbd9d+docs7d4c3f3 pronto; R35risolta210744. Bf5fef32/99bf8db+docsc8a2683,112nuovi/62source mutations dichiarati, pacchetto compiled ancora da verificare. Nessun WIP degli autori letto o importato. AGENTS globale rispettato; STATO/PLAN/SUMMARY autori letti. Slot forge-v2-F-c5-bridge-145 prenotato21:11 fino21:56.
+Baseae7c464; C: b6984d4/7df1143/8a00ec5/89cc499/bc1f3c8 qualificati source,587db2e checkpointbrowser NON prontoSDK; ref browser pronto c8306c0; delta history roundtrip PRONTO6c4db3880519b039bcad390b409ee8ad3490a86e consegnato212519,22nuovi/17source+2compiled dichiarati. Solo questo deltaqualificato,nessunaltroWIP. E0dfbd9d+docs7d4c3f3 pronto; R35risolta210744. Bf5fef32/99bf8db+docsc8a2683,112nuovi/62source mutations dichiarati, pacchetto compilato qualificato daF con8/8mutanti ESM+CJS e29/29smoke. Nessun WIP degli autori letto o importato. AGENTS globale rispettato; STATO/PLAN/SUMMARY autori letti. Slot forge-v2-F-c5-bridge-145 prenotato21:11 fino21:56.
 
 ## Perimetro e sequenza
 
@@ -26,4 +26,6 @@ Richiesta211001: nuovo perimetrobranch; sorgenti autori solo merge dei commit pu
 
 ## Consegna e limiti
 
-Bmerged109ef88/Emerged2bf7187; Efinal7d4c3f3 ora consolidato. Build diagnostica29/29 B prima del ref finale C, non qualifica finale. Checkpoint C anticipato conservato solo su branch codex/c5-bridge-145-checkpoint-C; delivery ripartita da2bf7187 senza quel checkpoint. Perimetro211227 e211522 autorizzato. I numeri degli autori sono prove dichiarate, non ancora rerun indipendente. CSDK/Edecisione/perimetro risolti; finale integrata da qualificare. Nessun server/env/dato reale/key/providerbrowserlive. Non conteggiare mutazioni ridondantiE3sopravvissute come qualificate. Non attribuire validità completa all'optional Vault legacy di E: consumatore deve attestare identità prima degli effetti. APPROVE solo sui contratti/verifiche ottenuti, mai feature100% o spostamento cleanup. A fine timer preservare lavoro e qualifiche svolte con checkpoint, non aggirare i gate.
+Sequenza completata:merge pubbliciB/E/C fino6c4db38,barrelunion,distnativa376dts,full4678/4678/162file0skip,quality15/15 oltrebuild,mutazioni15/15 funzionali (8Bcompiledual,2Esource,5Csource in due snapshot) ripristinate.13/13source prodotto esatteautori e2/2B0 esattebase;package/lock/versione invariati. REVIEW e PROOF descrivono ogni denominatore e i limiti. Slotrilascio a consegna;SHA locale alla coordinatrice,nessunpush/CI/tag/release/pin daF. ContrattiCsuccessivi inviti/HTTP/phonewebproof attendono coda coordinata,nessunWIP importato.
+
+Nessun server/env/dato reale/key/providerbrowserlive. Non contare3guardie ridondantiE sopravvissute comequalificate. Vaultlegacy opzionaleE non attestaautoritàeffetti. APPROVEsolo contratti/prove ottenuti,0flowlive,nonfeature100% néspostamento cleanup. CheckpointCprematuro conservato separato e rettifiche report/SHA spiegateinSUMMARY.
