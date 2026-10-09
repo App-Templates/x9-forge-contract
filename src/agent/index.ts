@@ -93,3 +93,8 @@ export * from './agent-deletion.js';
 export * from './agent-phone-admission.js';
 
 export * from './agent-channel-history.js';
+
+// Canonical descriptor digest shared by the control plane and runtime.
+export * from './agent-workspace-digest.js';
+
+export * from './ordinary-authority.js';
