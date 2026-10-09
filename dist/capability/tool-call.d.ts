@@ -23,8 +23,65 @@ export declare const ToolCallRequestSchema: z.ZodObject<{
     credentials: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>;
     tenantId: z.ZodOptional<z.ZodString>;
     ownerId: z.ZodOptional<z.ZodString>;
+    configVersion: z.ZodOptional<z.ZodNumber>;
+    executionContext: z.ZodOptional<z.ZodObject<{
+        admissionId: z.ZodUUID;
+        challenge: z.ZodString;
+        hostIssuedAt: z.ZodISODateTime;
+        hostDeadlineAt: z.ZodISODateTime;
+        companyId: z.ZodUUID;
+        paperclipAgentId: z.ZodUUID;
+        runId: z.ZodUUID;
+        issueId: z.ZodUUID;
+        capability: z.ZodLiteral<"paperclip">;
+        source: z.ZodLiteral<"x9_native_admission">;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        configVersion: z.ZodNumber;
+        provisioningRevision: z.ZodNumber;
+        sessionId: z.ZodString;
+    }, z.core.$strict>>;
 }, z.core.$strip>;
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
+/** Structural Paperclip guard. Consumers still authenticate and compare current native/readback state. */
+export declare const PaperclipToolCallRequestSchema: z.ZodObject<{
+    callId: z.ZodString;
+    tool: z.ZodString;
+    input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+    agentId: z.ZodString;
+    sessionId: z.ZodString;
+    userId: z.ZodOptional<z.ZodString>;
+    credentials: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>;
+    tenantId: z.ZodOptional<z.ZodString>;
+    ownerId: z.ZodOptional<z.ZodString>;
+    configVersion: z.ZodOptional<z.ZodNumber>;
+    executionContext: z.ZodOptional<z.ZodObject<{
+        admissionId: z.ZodUUID;
+        challenge: z.ZodString;
+        hostIssuedAt: z.ZodISODateTime;
+        hostDeadlineAt: z.ZodISODateTime;
+        companyId: z.ZodUUID;
+        paperclipAgentId: z.ZodUUID;
+        runId: z.ZodUUID;
+        issueId: z.ZodUUID;
+        capability: z.ZodLiteral<"paperclip">;
+        source: z.ZodLiteral<"x9_native_admission">;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        configVersion: z.ZodNumber;
+        provisioningRevision: z.ZodNumber;
+        sessionId: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type PaperclipToolCallRequest = z.infer<typeof PaperclipToolCallRequestSchema>;
+/** Project a server admission matching the cap readback; does not read/select any credential. */
+export declare function toPaperclipToolCallScope(rawReadback: unknown, rawExecution: unknown): Pick<ToolCallRequest, 'tenantId' | 'ownerId' | 'agentId' | 'sessionId' | 'configVersion' | 'executionContext'>;
 export declare const ToolCallSuccessResponseSchema: z.ZodObject<{
     callId: z.ZodString;
     status: z.ZodLiteral<"success">;

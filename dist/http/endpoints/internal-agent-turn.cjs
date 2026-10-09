@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnParamsSchema = void 0;
 exports.internalAgentTurnPath = internalAgentTurnPath;
 const zod_1 = require("zod");
+const native_admission_js_1 = require("../../capability/paperclip/native-admission.cjs");
 const internal_memory_extract_js_1 = require("./internal-memory-extract.cjs");
 const capability_turn_lead_js_1 = require("../../capability/capability-turn-lead.cjs");
 const internal_turn_js_1 = require("./internal-turn.cjs");
@@ -26,6 +27,13 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
+ * Paperclip adds optional two-phase `paperclipAdmission` on this same route.
+ * The host authenticates exactly one loaded per-agent adapter secret through
+ * X-Internal-Secret, denies generic/global credentials for this branch, and
+ * reserves/consumes native runs before model work. Schema parsing establishes
+ * no authentication, receipt ownership, current native state or replay protection.
+ * Admission schemas contain native wire primitives only, avoiding an agent-id import cycle.
+ *
  * Errors: 400 invalid agentId/body, 401 missing/wrong secret, 403 primary
  * agent, 404 `{ ok: false, error: 'unknown_agent' }`, 500 turn failure.
  *
@@ -40,10 +48,23 @@ exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestS
     turn: capability_turn_lead_js_1.AgentTurnSchema.optional(),
     /** Trusted caller identity, never taken from model text or tool input. */
     userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
+    /** Dedicated per-agent native authentication is checked by the host before admission. */
+    paperclipAdmission: zod_1.z.lazy(() => native_admission_js_1.PaperclipAdmissionRequestSchema).optional(),
+}).superRefine((body, ctx) => {
+    if (body.paperclipAdmission && (body.turn !== undefined || body.attachment !== undefined || body.history !== undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['paperclipAdmission'], message: 'Native admission excludes voice turns, history and attachments' });
+    }
 });
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
 exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema.extend({ moveId: capability_turn_lead_js_1.AgentTurnMoveIdSchema.optional(),
-    lead: capability_turn_lead_js_1.CapabilityLeadInstructionsSchema.optional(), note: capability_turn_lead_js_1.CapabilityNoteSchema.optional() });
+    lead: capability_turn_lead_js_1.CapabilityLeadInstructionsSchema.optional(), note: capability_turn_lead_js_1.CapabilityNoteSchema.optional(),
+    paperclipAdmission: zod_1.z.lazy(() => native_admission_js_1.PaperclipAdmissionResponseSchema).optional(),
+}).superRefine((body, ctx) => {
+    if (body.paperclipAdmission?.phase === 'prepared' && (body.reply !== '' || body.updatedHistory.length !== 0
+        || body.moveId !== undefined || body.lead !== undefined || body.note !== undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['paperclipAdmission'], message: 'Prepare returns admission metadata without a model turn' });
+    }
+});
 exports.InternalAgentTurnErrorResponseSchema = internal_turn_js_1.InternalTurnErrorResponseSchema;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';

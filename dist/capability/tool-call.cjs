@@ -1,8 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = void 0;
+exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.PaperclipToolCallRequestSchema = exports.ToolCallRequestSchema = void 0;
+exports.toPaperclipToolCallScope = toPaperclipToolCallScope;
 const zod_1 = require("zod");
 const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
+const agent_config_js_1 = require("./ricerca/agent-config.cjs");
+const execution_context_js_1 = require("./paperclip/execution-context.cjs");
+const tools_js_1 = require("./paperclip/tools.cjs");
 /**
  * Request sent by X9 agent-core to a capability service.
  *
@@ -39,7 +43,49 @@ exports.ToolCallRequestSchema = zod_1.z.object({
      */
     tenantId: zod_1.z.string().min(1).optional(),
     ownerId: zod_1.z.string().min(1).optional(),
+    /** Loaded applied config revision; optional for legacy capabilities. */
+    configVersion: agent_config_js_1.AgentConfigVersionSchema.optional(),
+    /** Server-produced ephemeral native admission; never model input or credentials. */
+    executionContext: execution_context_js_1.PaperclipExecutionContextSchema.optional(),
 });
+/** Structural Paperclip guard. Consumers still authenticate and compare current native/readback state. */
+exports.PaperclipToolCallRequestSchema = exports.ToolCallRequestSchema.strict().superRefine((call, ctx) => {
+    if (!Object.values(tools_js_1.PAPERCLIP_TOOLS).includes(call.tool)) {
+        ctx.addIssue({ code: 'custom', path: ['tool'], message: 'Canonical Paperclip tool required' });
+    }
+    const execution = call.executionContext;
+    if (!execution) {
+        ctx.addIssue({ code: 'custom', path: ['executionContext'], message: 'Native admission required' });
+    }
+    else {
+        if (call.tenantId !== execution.scope.tenantId || call.ownerId !== execution.scope.ownerId
+            || call.agentId !== execution.scope.agentId) {
+            ctx.addIssue({ code: 'custom', path: ['executionContext', 'scope'], message: 'Dispatch scope mismatch' });
+        }
+        if (call.sessionId !== execution.sessionId) {
+            ctx.addIssue({ code: 'custom', path: ['sessionId'], message: 'Admitted session mismatch' });
+        }
+        if (call.configVersion !== execution.configVersion) {
+            ctx.addIssue({ code: 'custom', path: ['configVersion'], message: 'Applied revision mismatch' });
+        }
+    }
+    const keys = Object.keys(call.credentials ?? {});
+    if (keys.length !== 1 || keys[0] !== execution_context_js_1.PAPERCLIP_API_KEY || !call.credentials?.[execution_context_js_1.PAPERCLIP_API_KEY]?.trim()) {
+        ctx.addIssue({ code: 'custom', path: ['credentials'], message: 'Exactly the own native API key required' });
+    }
+});
+/** Project a server admission matching the cap readback; does not read/select any credential. */
+function toPaperclipToolCallScope(rawReadback, rawExecution) {
+    if (!(0, execution_context_js_1.matchesPaperclipExecution)(rawReadback, rawExecution))
+        throw new Error('Paperclip binding mismatch');
+    const executionContext = execution_context_js_1.PaperclipExecutionContextSchema.parse(rawExecution);
+    return {
+        ...executionContext.scope,
+        sessionId: executionContext.sessionId,
+        configVersion: executionContext.configVersion,
+        executionContext,
+    };
+}
 // -- Response variants -------------------------------------------------------
 exports.ToolCallSuccessResponseSchema = zod_1.z.object({
     callId: zod_1.z.string().min(1),

@@ -119,3 +119,6 @@ export type PaperclipManualConfirmation = z.infer<typeof PaperclipManualConfirma
 export type PaperclipDecisionView = z.infer<typeof PaperclipDecisionViewSchema>;
 
 export * from './agent-config.js';
+
+export * from './execution-context.js';
+export * from './native-admission.js';

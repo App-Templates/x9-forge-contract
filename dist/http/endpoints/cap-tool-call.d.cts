@@ -21,6 +21,27 @@ export declare const capToolCallContract: {
         credentials: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>;
         tenantId: z.ZodOptional<z.ZodString>;
         ownerId: z.ZodOptional<z.ZodString>;
+        configVersion: z.ZodOptional<z.ZodNumber>;
+        executionContext: z.ZodOptional<z.ZodObject<{
+            admissionId: z.ZodUUID;
+            challenge: z.ZodString;
+            hostIssuedAt: z.ZodISODateTime;
+            hostDeadlineAt: z.ZodISODateTime;
+            companyId: z.ZodUUID;
+            paperclipAgentId: z.ZodUUID;
+            runId: z.ZodUUID;
+            issueId: z.ZodUUID;
+            capability: z.ZodLiteral<"paperclip">;
+            source: z.ZodLiteral<"x9_native_admission">;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            configVersion: z.ZodNumber;
+            provisioningRevision: z.ZodNumber;
+            sessionId: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         callId: z.ZodString;

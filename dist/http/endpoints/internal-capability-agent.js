@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PaperclipAgentConfigSchema, PaperclipAgentInstallRequestSchema, PaperclipAgentReadbackSchema } from "../../capability/paperclip/agent-config.js";
 import { AgentConfigVersionSchema, CapabilityAgentIdSchema, ResearchAgentConfigSchema } from "../../capability/ricerca/agent-config.js";
 import { AGENT_SPEND_MAX_DAYS, AgentDaySchema, AgentSpendDaySchema } from "../../capability/ricerca/spend.js";
 import { LabAgentConfigSchema } from "../../capability/lab/agent-config.js";
@@ -107,5 +108,39 @@ export const labAgentGrowthContract = {
     authType: 'secret',
     paramsSchema: CapabilityAgentParamsSchema,
     responseSchema: AgentGrowthResponseSchema,
+};
+/** Paperclip desired settings reuse the generic versioned config path and saved/stale responses. */
+export const paperclipAgentConfigPutContract = {
+    method: 'PUT',
+    path: '/internal/capability/agents/:agentId/config',
+    authType: 'secret',
+    paramsSchema: CapabilityAgentParamsSchema,
+    bodySchema: PaperclipAgentConfigSchema,
+    responseSchema: AgentConfigSavedSchema,
+};
+export const paperclipAgentConfigGetContract = {
+    method: 'GET',
+    path: '/internal/capability/agents/:agentId/config',
+    authType: 'secret',
+    paramsSchema: CapabilityAgentParamsSchema,
+    responseSchema: PaperclipAgentConfigSchema,
+};
+export const paperclipAgentInstallPath = (agentId) => agentPath(agentId, 'install');
+export const paperclipAgentReadbackPath = (agentId) => agentPath(agentId, 'readback');
+/** Internal install derives native identity from trusted inventory; a config PUT never installs. */
+export const paperclipAgentInstallContract = {
+    method: 'POST',
+    path: '/internal/capability/agents/:agentId/install',
+    authType: 'secret',
+    paramsSchema: CapabilityAgentParamsSchema,
+    bodySchema: PaperclipAgentInstallRequestSchema,
+    responseSchema: PaperclipAgentReadbackSchema,
+};
+export const paperclipAgentReadbackContract = {
+    method: 'GET',
+    path: '/internal/capability/agents/:agentId/readback',
+    authType: 'secret',
+    paramsSchema: CapabilityAgentParamsSchema,
+    responseSchema: PaperclipAgentReadbackSchema,
 };
 //# sourceMappingURL=internal-capability-agent.js.map

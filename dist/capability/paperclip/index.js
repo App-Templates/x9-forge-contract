@@ -100,4 +100,7 @@ export const PaperclipDecisionViewSchema = z.strictObject({
     textSha256: z.string().regex(/^[a-f0-9]{64}$/), unitId: Text.optional(), incrementId: Text.optional(),
     eventType: Text.optional(), decisionId: Reference, recipientRef: Text.optional(),
 });
+export * from "./agent-config.js";
+export * from "./execution-context.js";
+export * from "./native-admission.js";
 //# sourceMappingURL=index.js.map

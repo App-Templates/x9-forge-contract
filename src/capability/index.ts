@@ -19,6 +19,9 @@ export {
 
 export {
   ToolCallRequestSchema,
+  PaperclipToolCallRequestSchema,
+  toPaperclipToolCallScope,
+  type PaperclipToolCallRequest,
   ToolCallSuccessResponseSchema,
   ToolCallErrorResponseSchema,
   ToolCallResponseSchema,

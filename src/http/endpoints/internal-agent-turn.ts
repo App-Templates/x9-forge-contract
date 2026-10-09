@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PaperclipAdmissionRequestSchema, PaperclipAdmissionResponseSchema } from '../../capability/paperclip/native-admission.js';
 import { InternalMemoryExtractRequestSchema } from './internal-memory-extract.js';
 import { AgentTurnSchema, AgentTurnMoveIdSchema, CapabilityLeadInstructionsSchema, CapabilityNoteSchema } from '../../capability/capability-turn-lead.js';
 import {
@@ -27,6 +28,13 @@ import {
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
+ * Paperclip adds optional two-phase `paperclipAdmission` on this same route.
+ * The host authenticates exactly one loaded per-agent adapter secret through
+ * X-Internal-Secret, denies generic/global credentials for this branch, and
+ * reserves/consumes native runs before model work. Schema parsing establishes
+ * no authentication, receipt ownership, current native state or replay protection.
+ * Admission schemas contain native wire primitives only, avoiding an agent-id import cycle.
+ *
  * Errors: 400 invalid agentId/body, 401 missing/wrong secret, 403 primary
  * agent, 404 `{ ok: false, error: 'unknown_agent' }`, 500 turn failure.
  *
@@ -44,12 +52,25 @@ export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema.extend({
   turn: AgentTurnSchema.optional(),
   /** Trusted caller identity, never taken from model text or tool input. */
   userId: InternalMemoryExtractRequestSchema.shape.userId,
+  /** Dedicated per-agent native authentication is checked by the host before admission. */
+  paperclipAdmission: z.lazy(() => PaperclipAdmissionRequestSchema).optional(),
+}).superRefine((body, ctx) => {
+  if (body.paperclipAdmission && (body.turn !== undefined || body.attachment !== undefined || body.history !== undefined)) {
+    ctx.addIssue({ code: 'custom', path: ['paperclipAdmission'], message: 'Native admission excludes voice turns, history and attachments' });
+  }
 });
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
 export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional(),
-  lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional() });
+  lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional(),
+  paperclipAdmission: z.lazy(() => PaperclipAdmissionResponseSchema).optional(),
+}).superRefine((body, ctx) => {
+  if (body.paperclipAdmission?.phase === 'prepared' && (body.reply !== '' || body.updatedHistory.length !== 0
+    || body.moveId !== undefined || body.lead !== undefined || body.note !== undefined)) {
+    ctx.addIssue({ code: 'custom', path: ['paperclipAdmission'], message: 'Prepare returns admission metadata without a model turn' });
+  }
+});
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 
 export const InternalAgentTurnErrorResponseSchema = InternalTurnErrorResponseSchema;

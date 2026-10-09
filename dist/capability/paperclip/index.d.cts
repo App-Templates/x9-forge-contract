@@ -238,4 +238,7 @@ export type PaperclipCommunicationRecord = z.infer<typeof PaperclipCommunication
 export type PaperclipReplyRecord = z.infer<typeof PaperclipReplyRecordSchema>;
 export type PaperclipManualConfirmation = z.infer<typeof PaperclipManualConfirmationSchema>;
 export type PaperclipDecisionView = z.infer<typeof PaperclipDecisionViewSchema>;
+export * from "./agent-config.cjs";
+export * from "./execution-context.cjs";
+export * from "./native-admission.cjs";
 //# sourceMappingURL=index.d.ts.map

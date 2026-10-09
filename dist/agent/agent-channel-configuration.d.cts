@@ -294,6 +294,19 @@ export declare const AgentContextWithChannelsSchema: z.ZodObject<{
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
+    capabilityInstallations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        capability: z.ZodLiteral<"paperclip">;
+        installation: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            version: z.ZodNumber;
+            enabled: z.ZodBoolean;
+            registryFingerprint: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
         model: z.ZodString;
@@ -603,6 +616,19 @@ export declare const AgentContextWithChannelsWriteSchema: z.ZodObject<{
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
+    capabilityInstallations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        capability: z.ZodLiteral<"paperclip">;
+        installation: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            version: z.ZodNumber;
+            enabled: z.ZodBoolean;
+            registryFingerprint: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
         model: z.ZodString;

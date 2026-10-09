@@ -1,5 +1,10 @@
 import { z } from 'zod';
 import { InternalMemoryExtractRequestSchema } from '../http/endpoints/internal-memory-extract.js';
+import { AgentConfigVersionSchema } from './ricerca/agent-config.js';
+import {
+  PaperclipExecutionContextSchema, matchesPaperclipExecution, PAPERCLIP_API_KEY,
+} from './paperclip/execution-context.js';
+import { PAPERCLIP_TOOLS } from './paperclip/tools.js';
 
 /**
  * Request sent by X9 agent-core to a capability service.
@@ -37,9 +42,55 @@ export const ToolCallRequestSchema = z.object({
    */
   tenantId: z.string().min(1).optional(),
   ownerId: z.string().min(1).optional(),
+  /** Loaded applied config revision; optional for legacy capabilities. */
+  configVersion: AgentConfigVersionSchema.optional(),
+  /** Server-produced ephemeral native admission; never model input or credentials. */
+  executionContext: PaperclipExecutionContextSchema.optional(),
 });
 
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
+
+/** Structural Paperclip guard. Consumers still authenticate and compare current native/readback state. */
+export const PaperclipToolCallRequestSchema = ToolCallRequestSchema.strict().superRefine((call, ctx) => {
+  if (!(Object.values(PAPERCLIP_TOOLS) as string[]).includes(call.tool)) {
+    ctx.addIssue({ code: 'custom', path: ['tool'], message: 'Canonical Paperclip tool required' });
+  }
+  const execution = call.executionContext;
+  if (!execution) {
+    ctx.addIssue({ code: 'custom', path: ['executionContext'], message: 'Native admission required' });
+  } else {
+    if (call.tenantId !== execution.scope.tenantId || call.ownerId !== execution.scope.ownerId
+      || call.agentId !== execution.scope.agentId) {
+      ctx.addIssue({ code: 'custom', path: ['executionContext', 'scope'], message: 'Dispatch scope mismatch' });
+    }
+    if (call.sessionId !== execution.sessionId) {
+      ctx.addIssue({ code: 'custom', path: ['sessionId'], message: 'Admitted session mismatch' });
+    }
+    if (call.configVersion !== execution.configVersion) {
+      ctx.addIssue({ code: 'custom', path: ['configVersion'], message: 'Applied revision mismatch' });
+    }
+  }
+  const keys = Object.keys(call.credentials ?? {});
+  if (keys.length !== 1 || keys[0] !== PAPERCLIP_API_KEY || !call.credentials?.[PAPERCLIP_API_KEY]?.trim()) {
+    ctx.addIssue({ code: 'custom', path: ['credentials'], message: 'Exactly the own native API key required' });
+  }
+});
+export type PaperclipToolCallRequest = z.infer<typeof PaperclipToolCallRequestSchema>;
+
+/** Project a server admission matching the cap readback; does not read/select any credential. */
+export function toPaperclipToolCallScope(rawReadback: unknown, rawExecution: unknown): Pick<
+  ToolCallRequest, 'tenantId' | 'ownerId' | 'agentId' | 'sessionId' | 'configVersion' | 'executionContext'
+> {
+  if (!matchesPaperclipExecution(rawReadback, rawExecution)) throw new Error('Paperclip binding mismatch');
+  const executionContext = PaperclipExecutionContextSchema.parse(rawExecution);
+  return {
+    ...executionContext.scope,
+    sessionId: executionContext.sessionId,
+    configVersion: executionContext.configVersion,
+    executionContext,
+  };
+}
+
 
 // -- Response variants -------------------------------------------------------
 

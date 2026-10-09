@@ -19,6 +19,13 @@ import { z } from 'zod';
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
+ * Paperclip adds optional two-phase `paperclipAdmission` on this same route.
+ * The host authenticates exactly one loaded per-agent adapter secret through
+ * X-Internal-Secret, denies generic/global credentials for this branch, and
+ * reserves/consumes native runs before model work. Schema parsing establishes
+ * no authentication, receipt ownership, current native state or replay protection.
+ * Admission schemas contain native wire primitives only, avoiding an agent-id import cycle.
+ *
  * Errors: 400 invalid agentId/body, 401 missing/wrong secret, 403 primary
  * agent, 404 `{ ok: false, error: 'unknown_agent' }`, 500 turn failure.
  *
@@ -90,6 +97,18 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         ended: z.ZodBoolean;
     }, z.core.$strict>], "kind">>;
     userId: z.ZodOptional<z.ZodString>;
+    paperclipAdmission: z.ZodOptional<z.ZodLazy<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        phase: z.ZodLiteral<"prepare">;
+        native: z.ZodObject<{
+            companyId: z.ZodUUID;
+            paperclipAgentId: z.ZodUUID;
+            runId: z.ZodUUID;
+            issueId: z.ZodUUID;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        phase: z.ZodLiteral<"commit">;
+        admissionId: z.ZodUUID;
+    }, z.core.$strict>], "phase">>>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
@@ -115,6 +134,21 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
     moveId: z.ZodOptional<z.ZodString>;
     lead: z.ZodOptional<z.ZodString>;
     note: z.ZodOptional<z.ZodString>;
+    paperclipAdmission: z.ZodOptional<z.ZodLazy<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        admissionId: z.ZodUUID;
+        challenge: z.ZodString;
+        hostIssuedAt: z.ZodISODateTime;
+        hostDeadlineAt: z.ZodISODateTime;
+        companyId: z.ZodUUID;
+        paperclipAgentId: z.ZodUUID;
+        runId: z.ZodUUID;
+        issueId: z.ZodUUID;
+        phase: z.ZodLiteral<"prepared">;
+    }, z.core.$strict>, z.ZodObject<{
+        phase: z.ZodLiteral<"committed">;
+        admissionId: z.ZodUUID;
+        runId: z.ZodUUID;
+    }, z.core.$strict>], "phase">>>;
 }, z.core.$strip>;
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
@@ -195,6 +229,18 @@ export declare const internalAgentTurnContract: {
             ended: z.ZodBoolean;
         }, z.core.$strict>], "kind">>;
         userId: z.ZodOptional<z.ZodString>;
+        paperclipAdmission: z.ZodOptional<z.ZodLazy<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            phase: z.ZodLiteral<"prepare">;
+            native: z.ZodObject<{
+                companyId: z.ZodUUID;
+                paperclipAgentId: z.ZodUUID;
+                runId: z.ZodUUID;
+                issueId: z.ZodUUID;
+            }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            phase: z.ZodLiteral<"commit">;
+            admissionId: z.ZodUUID;
+        }, z.core.$strict>], "phase">>>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -218,6 +264,21 @@ export declare const internalAgentTurnContract: {
         moveId: z.ZodOptional<z.ZodString>;
         lead: z.ZodOptional<z.ZodString>;
         note: z.ZodOptional<z.ZodString>;
+        paperclipAdmission: z.ZodOptional<z.ZodLazy<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            admissionId: z.ZodUUID;
+            challenge: z.ZodString;
+            hostIssuedAt: z.ZodISODateTime;
+            hostDeadlineAt: z.ZodISODateTime;
+            companyId: z.ZodUUID;
+            paperclipAgentId: z.ZodUUID;
+            runId: z.ZodUUID;
+            issueId: z.ZodUUID;
+            phase: z.ZodLiteral<"prepared">;
+        }, z.core.$strict>, z.ZodObject<{
+            phase: z.ZodLiteral<"committed">;
+            admissionId: z.ZodUUID;
+            runId: z.ZodUUID;
+        }, z.core.$strict>], "phase">>>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agent-turn.d.ts.map

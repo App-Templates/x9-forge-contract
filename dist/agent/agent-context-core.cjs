@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentContextCoreSchema = exports.LlmConfigSchema = void 0;
 const zod_1 = require("zod");
+const agent_config_js_1 = require("../capability/paperclip/agent-config.cjs");
 const agent_identity_js_1 = require("./agent-identity.cjs");
 const agent_credentials_js_1 = require("./agent-credentials.cjs");
 /**
@@ -29,6 +30,8 @@ exports.AgentContextCoreSchema = zod_1.z
     agentId: agent_identity_js_1.AgentIdSchema,
     ownerId: agent_identity_js_1.OwnerIdSchema,
     credentials: agent_credentials_js_1.AgentCredentialsSchema,
+    /** Trusted desired installation metadata; no native run or credentials are persisted here. */
+    capabilityInstallations: zod_1.z.array(agent_config_js_1.PaperclipCapabilityInstallationSchema).max(1).optional(),
     llmConfig: exports.LlmConfigSchema,
     telegramAllowFrom: zod_1.z.array(zod_1.z.string()),
     /**

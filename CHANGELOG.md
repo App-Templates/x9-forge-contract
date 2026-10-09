@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — Phase 60 Paperclip per-agent contracts
+
+- Add ordinary desired configuration, operator-provisioned native binding provenance, trusted install/readback and optional loaded-context/reload attestations. Desired settings do not grant native identity or permissions.
+- Add native prepare/commit admission metadata on the existing per-agent turn endpoint, an immutable receipt with exact host challenge, and server-produced execution context. Host deadlines bound host work only.
+- Add a Paperclip dispatch guard and binding/receipt correspondence helpers; preserve generic legacy envelopes. Only the own native API key reaches the cap; run IDs and adapter authentication are separate ephemeral/control-plane data.
+- Source/design independently approved by C18cb8ec. These contracts do not implement consumer CAS, native provisioning, authenticated admission/replay/primary provenance or live readiness. Package metadata remains the released 1.45.0 base pending coordinated composition/publication.
+
 ## 1.45.0 — 2026-10-09
 
 - Add the canonical `@x9-forge/contracts/capability/paperclip` subpath and capability barrel exports for material events, configurable role routing, resolved routes, durable handoff envelopes/receipts and manual decision audit records.

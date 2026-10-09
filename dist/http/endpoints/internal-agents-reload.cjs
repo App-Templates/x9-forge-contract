@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.reloadAgentContract = exports.ReloadAgentErrorResponseSchema = exports.ReloadAgentResponseSchema = exports.ReloadAgentParamsSchema = void 0;
 const zod_1 = require("zod");
+const agent_config_js_1 = require("../../capability/paperclip/agent-config.cjs");
 /**
  * POST /internal/agents/:agentId/reload — reload a running agent.
  * Direction: Forge factory-svc -> X9 agent-core
@@ -29,6 +30,8 @@ exports.ReloadAgentResponseSchema = zod_1.z.object({
      * the real wire shape rather than fixing a runtime failure.
      */
     telegram: zod_1.z.literal('skipped').optional(),
+    /** Actual cap readback after this reload; absence remains valid for legacy capabilities. */
+    capabilityAttestations: zod_1.z.array(agent_config_js_1.PaperclipCapabilityAttestationSchema).max(1).optional(),
 });
 exports.ReloadAgentErrorResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),

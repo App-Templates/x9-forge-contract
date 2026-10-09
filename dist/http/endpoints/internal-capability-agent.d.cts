@@ -341,4 +341,108 @@ export type AgentConfigStale = z.infer<typeof AgentConfigStaleSchema>;
 export type AgentSpendQuery = z.infer<typeof AgentSpendQuerySchema>;
 export type AgentSpendResponse = z.infer<typeof AgentSpendResponseSchema>;
 export type AgentGrowthResponse = z.infer<typeof AgentGrowthResponseSchema>;
+/** Paperclip desired settings reuse the generic versioned config path and saved/stale responses. */
+export declare const paperclipAgentConfigPutContract: {
+    readonly method: "PUT";
+    readonly path: "/internal/capability/agents/:agentId/config";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly bodySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        version: z.ZodNumber;
+        unitId: z.ZodString;
+        roleRef: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        version: z.ZodNumber;
+    }, z.core.$strict>;
+};
+export declare const paperclipAgentConfigGetContract: {
+    readonly method: "GET";
+    readonly path: "/internal/capability/agents/:agentId/config";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly responseSchema: z.ZodObject<{
+        agentId: z.ZodString;
+        version: z.ZodNumber;
+        unitId: z.ZodString;
+        roleRef: z.ZodString;
+    }, z.core.$strict>;
+};
+export declare const paperclipAgentInstallPath: (agentId: string) => string;
+export declare const paperclipAgentReadbackPath: (agentId: string) => string;
+/** Internal install derives native identity from trusted inventory; a config PUT never installs. */
+export declare const paperclipAgentInstallContract: {
+    readonly method: "POST";
+    readonly path: "/internal/capability/agents/:agentId/install";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly bodySchema: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        version: z.ZodNumber;
+        enabled: z.ZodBoolean;
+        registryFingerprint: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        unitId: z.ZodString;
+        companyId: z.ZodUUID;
+        paperclipAgentId: z.ZodUUID;
+        enabled: z.ZodBoolean;
+        roleAgents: z.ZodRecord<z.ZodString, z.ZodUUID>;
+        callerRoleRef: z.ZodString;
+        provisioningRevision: z.ZodNumber;
+        provenance: z.ZodObject<{
+            source: z.ZodLiteral<"native_operator_inventory">;
+            inventoryFingerprint: z.ZodString;
+        }, z.core.$strict>;
+        appliedVersion: z.ZodNumber;
+        registryFingerprint: z.ZodString;
+        configFingerprint: z.ZodString;
+    }, z.core.$strict>;
+};
+export declare const paperclipAgentReadbackContract: {
+    readonly method: "GET";
+    readonly path: "/internal/capability/agents/:agentId/readback";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly responseSchema: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        unitId: z.ZodString;
+        companyId: z.ZodUUID;
+        paperclipAgentId: z.ZodUUID;
+        enabled: z.ZodBoolean;
+        roleAgents: z.ZodRecord<z.ZodString, z.ZodUUID>;
+        callerRoleRef: z.ZodString;
+        provisioningRevision: z.ZodNumber;
+        provenance: z.ZodObject<{
+            source: z.ZodLiteral<"native_operator_inventory">;
+            inventoryFingerprint: z.ZodString;
+        }, z.core.$strict>;
+        appliedVersion: z.ZodNumber;
+        registryFingerprint: z.ZodString;
+        configFingerprint: z.ZodString;
+    }, z.core.$strict>;
+};
 //# sourceMappingURL=internal-capability-agent.d.ts.map

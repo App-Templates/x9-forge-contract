@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PaperclipCapabilityAttestationSchema } from "../../capability/paperclip/agent-config.js";
 /**
  * POST /internal/agents/:agentId/reload — reload a running agent.
  * Direction: Forge factory-svc -> X9 agent-core
@@ -26,6 +27,8 @@ export const ReloadAgentResponseSchema = z.object({
      * the real wire shape rather than fixing a runtime failure.
      */
     telegram: z.literal('skipped').optional(),
+    /** Actual cap readback after this reload; absence remains valid for legacy capabilities. */
+    capabilityAttestations: z.array(PaperclipCapabilityAttestationSchema).max(1).optional(),
 });
 export const ReloadAgentErrorResponseSchema = z.object({
     ok: z.literal(false),

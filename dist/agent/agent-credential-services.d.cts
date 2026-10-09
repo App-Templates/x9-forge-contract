@@ -56,9 +56,9 @@ export declare const AgentCredentialInternalServiceSchema: z.ZodEnum<{
     forge: "forge";
 }>;
 export declare const AgentCredentialKindSchema: z.ZodEnum<{
+    identifier: "identifier";
     credential: "credential";
     setting: "setting";
-    identifier: "identifier";
 }>;
 export declare const AgentCredentialServiceSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     type: z.ZodLiteral<"commercial">;
@@ -153,9 +153,9 @@ export declare const AgentCredentialServiceMetadataSchema: z.ZodObject<{
     }>;
     label: z.ZodString;
     kind: z.ZodEnum<{
+        identifier: "identifier";
         credential: "credential";
         setting: "setting";
-        identifier: "identifier";
     }>;
     secret: z.ZodBoolean;
     service: z.ZodDiscriminatedUnion<[z.ZodObject<{

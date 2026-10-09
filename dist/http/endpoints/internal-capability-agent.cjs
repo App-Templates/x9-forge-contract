@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
+exports.paperclipAgentReadbackContract = exports.paperclipAgentInstallContract = exports.paperclipAgentReadbackPath = exports.paperclipAgentInstallPath = exports.paperclipAgentConfigGetContract = exports.paperclipAgentConfigPutContract = exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
 const zod_1 = require("zod");
-const agent_config_js_1 = require("../../capability/ricerca/agent-config.cjs");
+const agent_config_js_1 = require("../../capability/paperclip/agent-config.cjs");
+const agent_config_js_2 = require("../../capability/ricerca/agent-config.cjs");
 const spend_js_1 = require("../../capability/ricerca/spend.cjs");
-const agent_config_js_2 = require("../../capability/lab/agent-config.cjs");
+const agent_config_js_3 = require("../../capability/lab/agent-config.cjs");
 const competence_js_1 = require("../../capability/lab/competence.cjs");
 /**
  * A capability's routes for ONE agent it serves (v1.28.0, Phase 54).
@@ -20,7 +21,7 @@ const competence_js_1 = require("../../capability/lab/competence.cjs");
  *
  * Consumers (planned): agent-x9 services/cap-ricerca, services/cap-lab (servers); forge-v2 agent management (client).
  */
-exports.CapabilityAgentParamsSchema = zod_1.z.object({ agentId: agent_config_js_1.CapabilityAgentIdSchema });
+exports.CapabilityAgentParamsSchema = zod_1.z.object({ agentId: agent_config_js_2.CapabilityAgentIdSchema });
 function agentPath(agentId, tail) {
     return `/internal/capability/agents/${exports.CapabilityAgentParamsSchema.parse({ agentId }).agentId}/${tail}`;
 }
@@ -31,11 +32,11 @@ const capAgentSpendPath = (agentId) => agentPath(agentId, 'spend');
 exports.capAgentSpendPath = capAgentSpendPath;
 const capAgentGrowthPath = (agentId) => agentPath(agentId, 'growth');
 exports.capAgentGrowthPath = capAgentGrowthPath;
-exports.AgentConfigSavedSchema = zod_1.z.object({ ok: zod_1.z.literal(true), version: agent_config_js_1.AgentConfigVersionSchema }).strict();
+exports.AgentConfigSavedSchema = zod_1.z.object({ ok: zod_1.z.literal(true), version: agent_config_js_2.AgentConfigVersionSchema }).strict();
 exports.AgentConfigStaleSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
     error: zod_1.z.literal('stale_version'),
-    currentVersion: agent_config_js_1.AgentConfigVersionSchema,
+    currentVersion: agent_config_js_2.AgentConfigVersionSchema,
 }).strict();
 exports.CapabilityAgentRouteErrorSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
@@ -47,7 +48,7 @@ exports.ricercaAgentConfigPutContract = {
     path: '/internal/capability/agents/:agentId/config',
     authType: 'secret',
     paramsSchema: exports.CapabilityAgentParamsSchema,
-    bodySchema: agent_config_js_1.ResearchAgentConfigSchema,
+    bodySchema: agent_config_js_2.ResearchAgentConfigSchema,
     responseSchema: exports.AgentConfigSavedSchema,
 };
 exports.ricercaAgentConfigGetContract = {
@@ -55,7 +56,7 @@ exports.ricercaAgentConfigGetContract = {
     path: '/internal/capability/agents/:agentId/config',
     authType: 'secret',
     paramsSchema: exports.CapabilityAgentParamsSchema,
-    responseSchema: agent_config_js_1.ResearchAgentConfigSchema,
+    responseSchema: agent_config_js_2.ResearchAgentConfigSchema,
 };
 /** cap-lab's configuration of an agent: the wiki's domain, conventions, kinds of pages and links. */
 exports.labAgentConfigPutContract = {
@@ -63,7 +64,7 @@ exports.labAgentConfigPutContract = {
     path: '/internal/capability/agents/:agentId/config',
     authType: 'secret',
     paramsSchema: exports.CapabilityAgentParamsSchema,
-    bodySchema: agent_config_js_2.LabAgentConfigSchema,
+    bodySchema: agent_config_js_3.LabAgentConfigSchema,
     responseSchema: exports.AgentConfigSavedSchema,
 };
 exports.labAgentConfigGetContract = {
@@ -71,7 +72,7 @@ exports.labAgentConfigGetContract = {
     path: '/internal/capability/agents/:agentId/config',
     authType: 'secret',
     paramsSchema: exports.CapabilityAgentParamsSchema,
-    responseSchema: agent_config_js_2.LabAgentConfigSchema,
+    responseSchema: agent_config_js_3.LabAgentConfigSchema,
 };
 var spend_js_2 = require("../../capability/ricerca/spend.cjs");
 Object.defineProperty(exports, "AGENT_SPEND_MAX_DAYS", { enumerable: true, get: function () { return spend_js_2.AGENT_SPEND_MAX_DAYS; } });
@@ -96,7 +97,7 @@ exports.ricercaAgentSpendContract = {
 exports.labAgentSpendContract = { ...exports.ricercaAgentSpendContract };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 exports.AgentGrowthResponseSchema = zod_1.z.object({
-    agentId: agent_config_js_1.CapabilityAgentIdSchema,
+    agentId: agent_config_js_2.CapabilityAgentIdSchema,
     nodes: zod_1.z.array(competence_js_1.CompetenceNodeViewSchema).max(5000),
     gaps: zod_1.z.array(competence_js_1.CompetenceGapSchema).max(200),
     wiki: zod_1.z.object({
@@ -114,5 +115,41 @@ exports.labAgentGrowthContract = {
     authType: 'secret',
     paramsSchema: exports.CapabilityAgentParamsSchema,
     responseSchema: exports.AgentGrowthResponseSchema,
+};
+/** Paperclip desired settings reuse the generic versioned config path and saved/stale responses. */
+exports.paperclipAgentConfigPutContract = {
+    method: 'PUT',
+    path: '/internal/capability/agents/:agentId/config',
+    authType: 'secret',
+    paramsSchema: exports.CapabilityAgentParamsSchema,
+    bodySchema: agent_config_js_1.PaperclipAgentConfigSchema,
+    responseSchema: exports.AgentConfigSavedSchema,
+};
+exports.paperclipAgentConfigGetContract = {
+    method: 'GET',
+    path: '/internal/capability/agents/:agentId/config',
+    authType: 'secret',
+    paramsSchema: exports.CapabilityAgentParamsSchema,
+    responseSchema: agent_config_js_1.PaperclipAgentConfigSchema,
+};
+const paperclipAgentInstallPath = (agentId) => agentPath(agentId, 'install');
+exports.paperclipAgentInstallPath = paperclipAgentInstallPath;
+const paperclipAgentReadbackPath = (agentId) => agentPath(agentId, 'readback');
+exports.paperclipAgentReadbackPath = paperclipAgentReadbackPath;
+/** Internal install derives native identity from trusted inventory; a config PUT never installs. */
+exports.paperclipAgentInstallContract = {
+    method: 'POST',
+    path: '/internal/capability/agents/:agentId/install',
+    authType: 'secret',
+    paramsSchema: exports.CapabilityAgentParamsSchema,
+    bodySchema: agent_config_js_1.PaperclipAgentInstallRequestSchema,
+    responseSchema: agent_config_js_1.PaperclipAgentReadbackSchema,
+};
+exports.paperclipAgentReadbackContract = {
+    method: 'GET',
+    path: '/internal/capability/agents/:agentId/readback',
+    authType: 'secret',
+    paramsSchema: exports.CapabilityAgentParamsSchema,
+    responseSchema: agent_config_js_1.PaperclipAgentReadbackSchema,
 };
 //# sourceMappingURL=internal-capability-agent.js.map

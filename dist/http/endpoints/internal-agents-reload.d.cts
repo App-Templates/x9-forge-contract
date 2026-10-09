@@ -19,6 +19,30 @@ export declare const ReloadAgentResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     agentId: z.ZodString;
     telegram: z.ZodOptional<z.ZodLiteral<"skipped">>;
+    capabilityAttestations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        capability: z.ZodLiteral<"paperclip">;
+        readback: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            unitId: z.ZodString;
+            companyId: z.ZodUUID;
+            paperclipAgentId: z.ZodUUID;
+            enabled: z.ZodBoolean;
+            roleAgents: z.ZodRecord<z.ZodString, z.ZodUUID>;
+            callerRoleRef: z.ZodString;
+            provisioningRevision: z.ZodNumber;
+            provenance: z.ZodObject<{
+                source: z.ZodLiteral<"native_operator_inventory">;
+                inventoryFingerprint: z.ZodString;
+            }, z.core.$strict>;
+            appliedVersion: z.ZodNumber;
+            registryFingerprint: z.ZodString;
+            configFingerprint: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>>>;
 }, z.core.$strip>;
 export type ReloadAgentResponse = z.infer<typeof ReloadAgentResponseSchema>;
 export declare const ReloadAgentErrorResponseSchema: z.ZodObject<{
@@ -37,6 +61,30 @@ export declare const reloadAgentContract: {
         ok: z.ZodLiteral<true>;
         agentId: z.ZodString;
         telegram: z.ZodOptional<z.ZodLiteral<"skipped">>;
+        capabilityAttestations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            capability: z.ZodLiteral<"paperclip">;
+            readback: z.ZodObject<{
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>;
+                unitId: z.ZodString;
+                companyId: z.ZodUUID;
+                paperclipAgentId: z.ZodUUID;
+                enabled: z.ZodBoolean;
+                roleAgents: z.ZodRecord<z.ZodString, z.ZodUUID>;
+                callerRoleRef: z.ZodString;
+                provisioningRevision: z.ZodNumber;
+                provenance: z.ZodObject<{
+                    source: z.ZodLiteral<"native_operator_inventory">;
+                    inventoryFingerprint: z.ZodString;
+                }, z.core.$strict>;
+                appliedVersion: z.ZodNumber;
+                registryFingerprint: z.ZodString;
+                configFingerprint: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>>>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agents-reload.d.ts.map
