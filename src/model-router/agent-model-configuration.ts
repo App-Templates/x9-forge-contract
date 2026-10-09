@@ -1,107 +1,19 @@
 import { z } from 'zod';
 import { AgentContextIdentitySchema, AgentContextWithIdentitySchema, AgentContextWithIdentityWriteSchema } from '../agent/agent-context-identity.js';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../capability/capability-call-context.js';
-import { AgentRuntimeIdentitySchema, type AgentRuntimeIdentity } from '../agent/agent-runtime-identity.js';
-import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema } from '../agent/agent-management.js';
+import { AgentRuntimeIdentitySchema } from '../agent/agent-runtime-identity.js';
+import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema, sameAgentCommand } from '../agent/agent-management.js';
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from '../agent/agent-context-file.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
-import { CapabilityModelSettingsSchema } from './capability-model-settings.js';
-import { MODEL_TIERS } from './model-tier.js';
+import { modelSettingsSelections, sameModelFeatures } from './capability-model-settings.js';
+import { ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema } from './model-slot.js';
+import { findModelConsumerDefinition, registeredModelConsumers } from './model-consumers.js';
+export { AGENT_CHAT_MODEL_SLOT_ID, ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema, AgentModelBootstrapPreconditionSchema } from './model-slot.js';
 import { ModelDescriptorSchema, ModelFunctionSchema, sameModelDescriptor } from './model-catalog.js';
 
-/** Canonical conversation slot; memory/audio slots are added with their qualified consumers. */
-export const AGENT_CHAT_MODEL_SLOT_ID = 'agent_chat';
-/** Generic syntax stays additive for existing custom and future consumer slots. */
-export const ModelSlotIdSchema = z.string().regex(/^[a-z][a-z0-9._-]{0,63}$/);
-export const ModelSelectionTierSchema = z.enum([...MODEL_TIERS, 'fallback']);
-export const AgentModelSelectionSchema = z.object({ slotId: ModelSlotIdSchema, settings: CapabilityModelSettingsSchema }).strict();
-/** Complete declared model authority; legacy runtime mappings remain optional elsewhere. */
-const CompleteModelIdentitySchema = AgentRuntimeIdentitySchema.extend({
-  managementAgentId: AgentRuntimeIdentitySchema.shape.managementAgentId.refine(value => value.trim().length > 0, 'Model identity must not be blank'),
-  runtimeAgentId: AgentRuntimeIdentitySchema.shape.runtimeAgentId.refine(value => value.trim().length > 0, 'Model identity must not be blank'),
-  vaultAgentId: z.number().int().positive(),
-}).strict();
-
-/** Source-neutral metadata: the store resolves this declared source and verifies its current version. */
-export const AgentModelSourceSchema = z.object({
-  identity: CompleteModelIdentitySchema,
-  sourceVersion: AgentConfigVersionSchema,
-}).strict();
-export type AgentModelSource = z.infer<typeof AgentModelSourceSchema>;
-
-/** Custom remains custom even when its descriptor equals the source's descriptor. */
-export const AgentModelBindingSchema = z.discriminatedUnion('origin', [
-  z.object({ slotId: ModelSlotIdSchema, origin: z.literal('master'), source: AgentModelSourceSchema }).strict(),
-  z.object({ slotId: ModelSlotIdSchema, origin: z.literal('custom'), source: z.never().optional() }).strict(),
-]);
-export type AgentModelBinding = z.infer<typeof AgentModelBindingSchema>;
-
-/** One explicit binding per selection; scope is declared authority, never provider credentials. */
-export const AgentModelsProvenanceSchema = z.object({
-  scope: CapabilityAgentScopeSchema.refine(scope => [scope.agentId, scope.ownerId, scope.tenantId].every(value => value.trim().length > 0), 'Model scope must not be blank'),
-  bindings: z.array(AgentModelBindingSchema).min(1).max(64),
-}).strict().superRefine((value, ctx) => {
-  if (new Set(value.bindings.map(binding => binding.slotId)).size !== value.bindings.length) {
-    ctx.addIssue({ code: 'custom', path: ['bindings'], message: 'Duplicate model binding' });
-  }
-});
-export type AgentModelsProvenance = z.infer<typeof AgentModelsProvenanceSchema>;
-
-export const AgentModelsConfigurationSchema = z.object({
-  schemaVersion: z.literal(1),
-  identity: AgentRuntimeIdentitySchema.strict(),
-  configVersion: AgentConfigVersionSchema,
-  selections: z.array(AgentModelSelectionSchema).min(1).max(64),
-  /** Absent on 1.43 legacy; malformed explicit provenance is never discarded. */
-  provenance: AgentModelsProvenanceSchema.optional(),
-}).strict().superRefine((config, ctx) => {
-  if (new Set(config.selections.map(entry => entry.slotId)).size !== config.selections.length) ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Duplicate model slot' });
-  if (config.provenance === undefined) return;
-  const provenance = config.provenance;
-  if (!CompleteModelIdentitySchema.safeParse(config.identity).success) {
-    ctx.addIssue({ code: 'custom', path: ['identity'], message: 'Explicit model provenance requires complete identity' });
-  }
-  if (provenance.scope.agentId !== config.identity.runtimeAgentId) {
-    ctx.addIssue({ code: 'custom', path: ['provenance', 'scope'], message: 'Model scope must name the declared runtime' });
-  }
-  if (provenance.bindings.length !== config.selections.length || config.selections.some(selection => !provenance.bindings.some(binding => binding.slotId === selection.slotId))) {
-    ctx.addIssue({ code: 'custom', path: ['provenance', 'bindings'], message: 'Every model selection requires exactly one binding' });
-  }
-  const ownIds = new Set([config.identity.managementAgentId, config.identity.runtimeAgentId]);
-  const sources: AgentModelSource['identity'][] = [];
-  for (const [index, binding] of provenance.bindings.entries()) {
-    if (binding.origin !== 'master') continue;
-    const source = binding.source.identity;
-    if (ownIds.has(source.managementAgentId) || ownIds.has(source.runtimeAgentId) || source.vaultAgentId === config.identity.vaultAgentId) {
-      ctx.addIssue({ code: 'custom', path: ['provenance', 'bindings', index, 'source'], message: 'A model source cannot be the destination agent' });
-    }
-    if (sources.some(previous => (previous.managementAgentId === source.managementAgentId || previous.runtimeAgentId === source.runtimeAgentId || previous.managementAgentId === source.runtimeAgentId || previous.runtimeAgentId === source.managementAgentId || previous.vaultAgentId === source.vaultAgentId) && !sameModelAgentIdentity(previous, source))) {
-      ctx.addIssue({ code: 'custom', path: ['provenance', 'bindings', index, 'source'], message: 'Model source identity mapping is ambiguous' });
-    }
-    sources.push(source);
-  }
-});
-export type AgentModelsConfiguration = z.infer<typeof AgentModelsConfigurationSchema>;
-
-/** Modern store/writer boundary: provenance and all three identifiers are mandatory. */
-export const AgentModelsConfigurationWithProvenanceSchema = AgentModelsConfigurationSchema.safeExtend({
-  identity: CompleteModelIdentitySchema,
-  provenance: AgentModelsProvenanceSchema,
-});
-export type AgentModelsConfigurationWithProvenance = z.infer<typeof AgentModelsConfigurationWithProvenanceSchema>;
-export type AgentModelsConfigurationWithProvenanceInput = z.input<typeof AgentModelsConfigurationWithProvenanceSchema>;
-
-/** Parsing returns detached metadata and supplies no source, binding or model defaults. */
-export function createAgentModelsConfigurationWithProvenance(input: AgentModelsConfigurationWithProvenanceInput): AgentModelsConfigurationWithProvenance {
-  return AgentModelsConfigurationWithProvenanceSchema.parse(input);
-}
-
-
-/** Compare the canonical mapping, including the optional Vault numeric identity. */
-export function sameModelAgentIdentity(left: AgentRuntimeIdentity, right: AgentRuntimeIdentity): boolean {
-  return left.managementAgentId === right.managementAgentId && left.runtimeAgentId === right.runtimeAgentId && left.vaultAgentId === right.vaultAgentId;
-}
+import { ModelSelectionTierSchema, AgentModelSelectionSchema, CompleteModelIdentitySchema, AgentModelsConfigurationSchema, AgentModelsConfigurationWithProvenanceSchema, sameModelAgentIdentity, type AgentModelsConfiguration } from './agent-model-configuration-values.js';
+export { ModelSelectionTierSchema, AgentModelSelectionSchema, AgentModelSourceSchema, AgentModelBindingSchema, AgentModelsProvenanceSchema, AgentModelsConfigurationSchema, AgentModelsConfigurationWithProvenanceSchema, createAgentModelsConfigurationWithProvenance, sameModelAgentIdentity, type AgentModelSource, type AgentModelBinding, type AgentModelsProvenance, type AgentModelsConfiguration, type AgentModelsConfigurationWithProvenance, type AgentModelsConfigurationWithProvenanceInput } from './agent-model-configuration-values.js';
 
 const contextModels = { modelConfiguration: AgentModelsConfigurationSchema.optional() };
 const checkContext = (context: { agentId: string; configVersion?: number | undefined; modelConfiguration?: AgentModelsConfiguration | undefined } & Record<string, unknown>, ctx: z.RefinementCtx): void => {
@@ -153,7 +65,10 @@ export const AgentRuntimeModelSelectionSchema = z.object({
   function: ModelFunctionSchema,
   tier: ModelSelectionTierSchema,
   descriptor: ModelDescriptorSchema,
-}).strict();
+  embeddingDimensions: z.number().int().positive().optional(),
+}).strict().superRefine((selection, ctx) => {
+  if (selection.embeddingDimensions !== undefined && selection.function !== 'embedding') ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Vector dimension belongs only to embedding' });
+});
 /** Producer evidence of the selections actually installed for each function/tier, not a global reload count. */
 export const AgentModelRuntimeAttestationSchema = z.object({
   identity: AgentRuntimeIdentitySchema.strict(),
@@ -166,12 +81,102 @@ export const AgentModelRuntimeAttestationSchema = z.object({
 });
 export type AgentModelRuntimeAttestation = z.infer<typeof AgentModelRuntimeAttestationSchema>;
 
+/** Read-only generation of the actually loaded Master, never a saved/applied configuration version. */
+const ModelSourceScopeSchema = CapabilityAgentScopeSchema.refine(scope => [scope.agentId, scope.ownerId, scope.tenantId].every(value => value.trim().length > 0), 'Source scope must not be blank');
+const ModelInitialSourceBaseSchema = z.object({
+  schemaVersion: z.literal(1), identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
+  authority: z.literal('runtime-loaded'),
+  sourceVersion: AgentModelBootstrapSourceVersionSchema,
+  observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
+  coverage: z.enum(['complete', 'partial']),
+  selections: z.array(AgentModelSelectionSchema).max(64), missingSlots: z.array(ModelSlotIdSchema).max(64),
+  /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
+  excludedSlots: z.array(z.object({ slotId: ModelSlotIdSchema, state: z.enum(['not-installed', 'not-applicable']), reason: z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
+}).strict();
+const checkLoadedModelSource = (source: z.infer<typeof ModelInitialSourceBaseSchema>, ctx: z.RefinementCtx): void => {
+  if (source.scope.agentId !== source.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
+  if (Date.parse(source.validUntil) <= Date.parse(source.observedAt)) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Source validity ends after observation' });
+  const present = source.selections.map(selection => selection.slotId);
+  const all = [...present, ...source.missingSlots, ...(source.excludedSlots ?? []).map(slot => slot.slotId)];
+  const registered = registeredModelConsumers().map(consumer => consumer.slotId);
+  if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot))) ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });
+  if ((source.coverage === 'complete') !== (source.missingSlots.length === 0) || (source.coverage === 'complete' && source.selections.length === 0)) ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
+  for (const [index, selection] of source.selections.entries()) {
+    const consumer = findModelConsumerDefinition(selection.slotId);
+    const actual = selection.settings;
+    if (consumer === undefined || consumer.capability !== actual.capability || consumer.function !== actual.function || !sameModelFeatures(consumer.requirements, actual.requirements) || consumer.routing !== (actual.mode === 'single' ? 'single' : actual.mode === 'failover' ? 'failover' : 'tiered')) ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });
+  }
+};
+/** Loaded selections before first Forge apply; an explicit role is strictly rejected. */
+export const AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.superRefine(checkLoadedModelSource);
+export type AgentModelInitialSource = z.infer<typeof AgentModelInitialSourceSchema>;
+export const AgentModelBootstrapSourceSchema = ModelInitialSourceBaseSchema.extend({ role: z.literal('master') }).superRefine(checkLoadedModelSource);
+export type AgentModelBootstrapSource = z.infer<typeof AgentModelBootstrapSourceSchema>;
+export const AgentModelBootstrapSourceExpectationSchema = z.object({ identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema }).strict();
+export type AgentModelBootstrapSourceExpectation = z.infer<typeof AgentModelBootstrapSourceExpectationSchema>;
+/** Caller supplies a fresh server-side generation recheck after awaits. Parsing alone cannot prove runtime authority. */
+export function isAgentModelBootstrapSourceCurrent(input: unknown, expected: unknown, now = new Date()): boolean {
+  return isLoadedModelSourceCurrent(input, expected, AgentModelBootstrapSourceSchema, now);
+}
+/** Bootstrap-equivalent validity; callers still recheck the actual generation after awaits. */
+export function isAgentModelInitialSourceCurrent(input: unknown, expected: unknown, now = new Date()): boolean {
+  return isLoadedModelSourceCurrent(input, expected, AgentModelInitialSourceSchema, now);
+}
+function isLoadedModelSourceCurrent(input: unknown, expected: unknown, sourceSchema: z.ZodType<AgentModelInitialSource>, now: Date): boolean {
+  const parsed = sourceSchema.safeParse(input);
+  const target = AgentModelBootstrapSourceExpectationSchema.safeParse(expected);
+  if (!parsed.success || !target.success) return false;
+  const source = parsed.data; const expectation = target.data; const time = now.getTime();
+  if (source.coverage !== 'complete' || source.selections.length === 0 || !Number.isFinite(time) || time < Date.parse(source.observedAt) - 5_000 || time >= Date.parse(source.validUntil)) return false;
+  return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && sameCapabilityScope(source.scope, expectation.scope);
+}
+
+/** Loaded modern source generation; never inferred from Forge's configuration version. */
+export const AgentModelSourceObservationSchema = AgentModelBootstrapSourceExpectationSchema.safeExtend({
+  observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
+}).superRefine((source, ctx) => {
+  if (source.scope.agentId !== source.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope', 'agentId'], message: 'Observed model source scope must name its runtime identity' });
+  if (Date.parse(source.validUntil) <= Date.parse(source.observedAt)) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Observed source validity must end after observation' });
+});
+export type AgentModelSourceObservation = z.infer<typeof AgentModelSourceObservationSchema>;
+
+/** A fresh HTTP generation is necessary for a command; producers still recheck after every await. */
+export function isAgentModelSourceObservationCurrent(input: unknown, expected: unknown, now = new Date()): boolean {
+  const parsed = AgentModelSourceObservationSchema.safeParse(input);
+  const target = AgentModelBootstrapSourceExpectationSchema.safeParse(expected);
+  if (!parsed.success || !target.success) return false;
+  const source = parsed.data; const expectation = target.data; const time = now.getTime(); const observed = Date.parse(source.observedAt);
+  if (!Number.isFinite(time) || time < observed - 5_000 || time > observed + 60_000 || time >= Date.parse(source.validUntil)) return false;
+  return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && sameCapabilityScope(source.scope, expectation.scope);
+}
+
 export const AgentModelsStateSchema = z.object({
   identity: AgentRuntimeIdentitySchema.strict(),
   versions: AgentConfigVersionStateSchema.nullable(),
   saved: AgentModelsConfigurationSchema.nullable(),
   runtime: AgentModelRuntimeAttestationSchema.nullable(),
+  /** Absent on existing consumers; explicit null means no qualified loaded Master source. */
+  bootstrapSource: AgentModelBootstrapSourceSchema.nullable().optional(),
+  /** Actual generation of an already saved, scoped runtime configuration; no default for old producers. */
+  sourceObservation: AgentModelSourceObservationSchema.nullable().optional(),
+  /** Before persisted authority exists; this source does not assign the Master role. */
+  initialSource: AgentModelInitialSourceSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {
+  if (state.initialSource != null) {
+    if (!sameModelAgentIdentity(state.identity, state.initialSource.identity)) ctx.addIssue({ code: 'custom', path: ['initialSource', 'identity'], message: 'Initial source belongs to this state identity' });
+    if (state.saved !== null || state.runtime !== null || state.versions !== null) ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot claim a saved or applied version' });
+    if (state.bootstrapSource != null || state.sourceObservation != null) ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot coexist with another model authority' });
+  }
+  if (state.sourceObservation != null) {
+    const source = state.sourceObservation;
+    if (state.saved === null || state.saved.provenance === undefined) ctx.addIssue({ code: 'custom', path: ['sourceObservation'], message: 'Modern source observation requires saved scoped model authority' });
+    if (!sameModelAgentIdentity(state.identity, source.identity)) ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'identity'], message: 'Observed source belongs to this state identity' });
+    if (state.saved?.provenance !== undefined && !sameCapabilityScope(state.saved.provenance.scope, source.scope)) ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'scope'], message: 'Observed source belongs to the saved model scope' });
+  }
+  if (state.bootstrapSource != null) {
+    if (!sameModelAgentIdentity(state.identity, state.bootstrapSource.identity)) ctx.addIssue({ code: 'custom', path: ['bootstrapSource', 'identity'], message: 'Bootstrap source belongs to this state identity' });
+    if (state.saved !== null || state.runtime !== null || state.versions !== null) ctx.addIssue({ code: 'custom', path: ['bootstrapSource'], message: 'Bootstrap source cannot claim a saved or applied version' });
+  }
   if (state.saved !== null) {
     if (!sameModelAgentIdentity(state.identity, state.saved.identity)) ctx.addIssue({ code: 'custom', path: ['saved', 'identity'], message: 'Saved models belong to another agent' });
     if (state.saved.configVersion !== state.versions?.desired) ctx.addIssue({ code: 'custom', path: ['saved', 'configVersion'], message: 'Saved model version must be the desired version' });
@@ -192,16 +197,42 @@ export function isAgentModelApplyConfirmed(configuration: unknown, requestedComm
   if (!config.success || !command.success || !result.success || !attestation.success) return false;
   const saved = config.data; const request = command.data; const response = result.data; const actual = attestation.data;
   if (request.action !== 'apply-config' || response.action !== 'apply-config') return false;
+  if (request.modelConfiguration !== undefined) {
+    const authority = AgentModelsConfigurationWithProvenanceSchema.safeParse(saved);
+    if (!authority.success || !sameAgentCommand(request, { ...request, modelConfiguration: authority.data })) return false;
+  }
   if (request.desiredVersion !== saved.configVersion || response.versions?.applied !== saved.configVersion || actual.configVersion !== saved.configVersion) return false;
   if (response.requestId !== request.requestId || actual.requestId !== request.requestId) return false;
   if (response.agentId !== saved.identity.managementAgentId || response.identity === undefined || !sameModelAgentIdentity(saved.identity, response.identity) || !sameModelAgentIdentity(saved.identity, actual.identity)) return false;
   if (response.outcome !== 'ok' || !response.results.some(entry => entry.target.kind === 'runtime' && entry.target.targetId === saved.identity.runtimeAgentId && entry.outcome === 'ok')) return false;
   const timestamp = now.getTime(); const observed = Date.parse(actual.observedAt);
   if (!Number.isFinite(timestamp) || timestamp < observed - 5_000 || timestamp > observed + 60_000) return false;
-  if (actual.selections.length !== saved.selections.length * 4) return false;
-  return saved.selections.every(slot => [...MODEL_TIERS, 'fallback' as const].every(tier => {
+  return isAgentModelRuntimeConfigurationMatching(saved, actual, now);
+}
+
+/** Fresh exact installed positions, including vector dimension, independent of transport/receipt. */
+export function isAgentModelRuntimeConfigurationMatching(configuration: unknown, runtimeEvidence: unknown, now = new Date()): boolean {
+  const config = AgentModelsConfigurationSchema.safeParse(configuration);
+  const evidence = AgentModelRuntimeAttestationSchema.safeParse(runtimeEvidence);
+  if (!config.success || !evidence.success) return false;
+  const saved = config.data; const actual = evidence.data;
+  if (!sameModelAgentIdentity(saved.identity, actual.identity) || saved.configVersion !== actual.configVersion) return false;
+  const timestamp = now.getTime(); const observed = Date.parse(actual.observedAt);
+  if (!Number.isFinite(timestamp) || timestamp < observed - 5_000 || timestamp > observed + 60_000) return false;
+  if (actual.selections.length !== saved.selections.reduce((count, slot) => count + modelSettingsSelections(slot.settings).length, 0)) return false;
+  return saved.selections.every(slot => modelSettingsSelections(slot.settings).every(({ tier, descriptor }) => {
     const selection = actual.selections.find(entry => entry.slotId === slot.slotId && entry.tier === tier);
-    const expected = tier === 'fallback' ? slot.settings.fallback : slot.settings.tiers[tier];
-    return selection !== undefined && selection.capability === slot.settings.capability && selection.function === slot.settings.function && sameModelDescriptor(selection.descriptor, expected);
+    const dimensionMatches = slot.settings.mode !== 'single' || slot.settings.function !== 'embedding' || selection?.embeddingDimensions === slot.settings.embeddingDimensions;
+    return selection !== undefined && dimensionMatches && selection.capability === slot.settings.capability && selection.function === slot.settings.function && sameModelDescriptor(selection.descriptor, descriptor);
   }));
+}
+
+/** Recheck the actual runtime source after awaits, before committing explicit model authority. */
+export function isAgentModelCommandSourceCurrent(input: unknown, freshSource: unknown, now = new Date()): boolean {
+  const command = AgentManagementCommandSchema.safeParse(input);
+  const source = z.union([AgentModelSourceObservationSchema, AgentModelBootstrapSourceExpectationSchema]).safeParse(freshSource);
+  if (!command.success || command.data.action !== 'apply-config' || command.data.modelConfiguration === undefined || !source.success) return false;
+  const configuration = command.data.modelConfiguration;
+  if ('observedAt' in source.data) return isAgentModelSourceObservationCurrent(source.data, { identity: configuration.identity, scope: configuration.provenance.scope, sourceVersion: command.data.modelExpectedSourceVersion }, now);
+  return command.data.modelExpectedSourceVersion === source.data.sourceVersion && sameModelAgentIdentity(configuration.identity, source.data.identity) && sameCapabilityScope(configuration.provenance.scope, source.data.scope);
 }

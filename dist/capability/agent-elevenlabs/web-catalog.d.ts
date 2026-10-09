@@ -60,6 +60,8 @@ export declare const ElevenLabsWebCatalogSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             limits: z.ZodOptional<z.ZodObject<{
                 maxInputTokens: z.ZodOptional<z.ZodNumber>;

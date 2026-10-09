@@ -1,15 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AGENT_CORE_MODEL_CONSUMER = exports.AGENT_CORE_MODEL_CAPABILITY_ID = exports.ModelConsumerRegistrySchema = exports.ModelConsumerSchema = void 0;
+exports.ModelConsumerDefinitionSchema = exports.AGENT_CORE_MODEL_CONSUMER = exports.AGENT_CORE_MODEL_CAPABILITY_ID = exports.ModelConsumerRegistrySchema = exports.ModelConsumerSchema = void 0;
 exports.registeredModelConsumers = registeredModelConsumers;
+exports.registeredModelConsumerDefinitions = registeredModelConsumerDefinitions;
 exports.findModelConsumer = findModelConsumer;
+exports.findModelConsumerDefinition = findModelConsumerDefinition;
 const zod_1 = require("zod");
 const parameters_js_1 = require("../capability/parameters.cjs");
-const agent_model_configuration_js_1 = require("./agent-model-configuration.cjs");
+const model_slot_js_1 = require("./model-slot.cjs");
 const model_catalog_js_1 = require("./model-catalog.cjs");
 /** Server consumer requirements, not model support, credential access or installed-agent evidence. */
 exports.ModelConsumerSchema = zod_1.z.object({
-    slotId: agent_model_configuration_js_1.ModelSlotIdSchema,
+    slotId: model_slot_js_1.ModelSlotIdSchema,
     capability: parameters_js_1.CapabilityAgentParametersSchema.shape.capability,
     function: model_catalog_js_1.ModelFunctionSchema,
     requirements: model_catalog_js_1.ModelFeaturesSchema,
@@ -19,15 +21,68 @@ exports.ModelConsumerRegistrySchema = zod_1.z.array(exports.ModelConsumerSchema)
 exports.AGENT_CORE_MODEL_CAPABILITY_ID = 'agent-core';
 /** Existing complete fallback serves stream ingress; token streaming is not claimed by this metadata. */
 exports.AGENT_CORE_MODEL_CONSUMER = Object.freeze({
-    slotId: agent_model_configuration_js_1.AGENT_CHAT_MODEL_SLOT_ID, capability: exports.AGENT_CORE_MODEL_CAPABILITY_ID, function: 'reasoning',
+    slotId: model_slot_js_1.AGENT_CHAT_MODEL_SLOT_ID, capability: exports.AGENT_CORE_MODEL_CAPABILITY_ID, function: 'reasoning',
     requirements: Object.freeze({ tools: true, stream: false, structuredOutput: false }),
 });
-const consumers = exports.ModelConsumerRegistrySchema.parse([exports.AGENT_CORE_MODEL_CONSUMER]);
+/** Current execution scope and change boundary; registration is not installation evidence. */
+exports.ModelConsumerDefinitionSchema = exports.ModelConsumerSchema.extend({
+    label: zod_1.z.string().trim().min(1).max(120),
+    inventoryIds: zod_1.z.array(zod_1.z.string().regex(/^C(?:0[1-9]|[12][0-9]|3[0-4])$/)).min(1).max(34)
+        .refine(ids => new Set(ids).size === ids.length, { message: 'Unique inventory references' }),
+    scope: zod_1.z.enum(['agent', 'service', 'session', 'remote-agent', 'pipeline']),
+    changeBoundary: zod_1.z.enum(['next-turn', 'next-call', 'next-session', 'rebuild', 'remote-update']),
+    routing: zod_1.z.enum(['tiered', 'single', 'failover']),
+    /** Existing shared choice; consumers must not silently split or overwrite its other uses. */
+    linkedSelectionGroup: model_slot_js_1.ModelSlotIdSchema.optional(),
+}).strict();
+const noFeatures = { tools: false, stream: false, structuredOutput: false };
+const definitions = [
+    { ...exports.AGENT_CORE_MODEL_CONSUMER, inventoryIds: ['C01'], scope: 'agent', changeBoundary: 'next-turn', routing: 'tiered' },
+    { slotId: 'agent_classifier', capability: 'agent-core', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C02'], scope: 'agent', changeBoundary: 'next-turn', routing: 'single' },
+    { slotId: 'memory_extraction', capability: 'memory', function: 'memory-extraction', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C03'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'memory_embedding', capability: 'memory', function: 'embedding', requirements: { ...noFeatures }, inventoryIds: ['C04'], scope: 'service', changeBoundary: 'rebuild', routing: 'single' },
+    { slotId: 'rag_embedding', capability: 'rag', function: 'embedding', requirements: { ...noFeatures }, inventoryIds: ['C05'], scope: 'service', changeBoundary: 'rebuild', routing: 'single' },
+    { slotId: 'rag_claim_extraction', capability: 'rag', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C06'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'rag_llm_standard' },
+    { slotId: 'rag_claim_validation', capability: 'rag', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C07'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'rag_llm_standard' },
+    { slotId: 'rag_topic_synthesis', capability: 'rag', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C08'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'rag_llm_standard' },
+    { slotId: 'voice_phone_live', capability: 'voice-live', function: 'voice', requirements: { ...noFeatures, stream: true }, inventoryIds: ['C09'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_audio' },
+    { slotId: 'voice_phone_delegation', capability: 'voice-live', function: 'reasoning', requirements: { ...noFeatures, tools: true }, inventoryIds: ['C10'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_backend' },
+    { slotId: 'voice_web_live', capability: 'voice-live', function: 'voice', requirements: { ...noFeatures, stream: true }, inventoryIds: ['C11'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_audio' },
+    { slotId: 'voice_web_delegation', capability: 'voice-live', function: 'reasoning', requirements: { ...noFeatures, tools: true }, inventoryIds: ['C12'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_backend' },
+    { slotId: 'voice_call_recap', capability: 'voice', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C13'], scope: 'agent', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'elevenlabs_agent_llm', capability: 'agent-elevenlabs', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C14'], scope: 'remote-agent', changeBoundary: 'remote-update', routing: 'single' },
+    { slotId: 'elevenlabs_agent_tts', capability: 'agent-elevenlabs', function: 'tts', requirements: { ...noFeatures }, inventoryIds: ['C15'], scope: 'remote-agent', changeBoundary: 'remote-update', routing: 'single' },
+    { slotId: 'agent_telegram_tts', capability: 'agent-core', function: 'tts', requirements: { ...noFeatures }, inventoryIds: ['C16'], scope: 'agent', changeBoundary: 'next-turn', routing: 'single' },
+    { slotId: 'scheduler_tts', capability: 'scheduler', function: 'tts', requirements: { ...noFeatures }, inventoryIds: ['C17'], scope: 'agent', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'briefing_tts', capability: 'briefing', function: 'tts', requirements: { ...noFeatures }, inventoryIds: ['C18'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'stt_file', capability: 'stt', function: 'transcription', requirements: { ...noFeatures }, inventoryIds: ['C19'], scope: 'service', changeBoundary: 'next-call', routing: 'failover' },
+    { slotId: 'glasses_stt', capability: 'glasses', function: 'transcription', requirements: { ...noFeatures, stream: true }, inventoryIds: ['C20'], scope: 'session', changeBoundary: 'next-session', routing: 'single' },
+    { slotId: 'glasses_tts', capability: 'glasses', function: 'tts', requirements: { ...noFeatures, stream: true }, inventoryIds: ['C21'], scope: 'session', changeBoundary: 'next-session', routing: 'single' },
+    { slotId: 'qa_text', capability: 'qa', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C22'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'qa_llm' },
+    { slotId: 'qa_vision', capability: 'qa', function: 'reasoning', requirements: { ...noFeatures, vision: true }, inventoryIds: ['C23'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'qa_llm' },
+    { slotId: 'security_vision', capability: 'security', function: 'reasoning', requirements: { ...noFeatures, vision: true, structuredOutput: true }, inventoryIds: ['C24'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'security_rules', capability: 'security', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C25'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'news_digest', capability: 'news', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C26'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'news_rules', capability: 'news', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C27'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'netatmo_rules', capability: 'netatmo', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C28'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'briefing_rules', capability: 'briefing', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C29'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
+    { slotId: 'research_search', capability: 'ricerca', function: 'reasoning', requirements: { ...noFeatures, webSearch: true }, inventoryIds: ['C30'], scope: 'agent', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'research_model' },
+    { slotId: 'research_structure', capability: 'ricerca', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C31'], scope: 'agent', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'research_model' },
+    { slotId: 'mindfulness_chat', capability: 'mindfulness', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C32'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
+    { slotId: 'mindfulness_tts', capability: 'mindfulness', function: 'tts', requirements: { ...noFeatures }, inventoryIds: ['C33'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
+    { slotId: 'mindfulness_stt', capability: 'mindfulness', function: 'transcription', requirements: { ...noFeatures }, inventoryIds: ['C34'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
+].map(value => exports.ModelConsumerDefinitionSchema.parse({ ...value, label: value.slotId.split('_').map(word => word[0].toUpperCase() + word.slice(1)).join(' ') }));
+const consumers = exports.ModelConsumerRegistrySchema.parse(definitions.map(({ slotId, capability, function: fn, requirements }) => ({ slotId, capability, function: fn, requirements })));
 /** Detached reads prevent one caller from changing another caller's binding or requirements. */
 function registeredModelConsumers() { return structuredClone(consumers); }
+function registeredModelConsumerDefinitions() { return structuredClone(definitions); }
 /** Exact server registration only. Unknown or malformed input never selects a default consumer. */
 function findModelConsumer(slotId) {
     const found = consumers.find(consumer => consumer.slotId === slotId);
+    return found === undefined ? undefined : structuredClone(found);
+}
+function findModelConsumerDefinition(slotId) {
+    const found = definitions.find(consumer => consumer.slotId === slotId);
     return found === undefined ? undefined : structuredClone(found);
 }
 //# sourceMappingURL=model-consumers.js.map

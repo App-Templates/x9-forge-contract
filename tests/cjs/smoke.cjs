@@ -205,4 +205,13 @@ require('./bridge-130-smoke.cjs');
 require('./r7-workspace-smoke.cjs');
 require('./model-catalog-smoke.cjs');
 require('./models-batch-smoke.cjs');
+// 34-24: compose the model contracts with every retained02/18 smoke above.
+for (const script of ['public-entrypoints-first.mjs', 'model-consumers-smoke.mjs', 'c5-models-consumers-smoke.mjs', 'model-local-authority-smoke.mjs', 'chiavi-model-composition-smoke.mjs']) {
+  require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, script)], { stdio: 'inherit' });
+}
+const legacyObservationOutput = require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, 'model-legacy-observation-smoke.mjs')], { encoding: 'utf8' });
+const legacyObservationProbe = JSON.parse(legacyObservationOutput.trim());
+assert.equal(legacyObservationProbe.marker, 'LEGACY_OBSERVATION_PUBLIC_PROBE');
+assert.equal(legacyObservationProbe.passed, 4);
+console.log(legacyObservationOutput.trim());
 process.exit(0);

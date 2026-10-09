@@ -64,8 +64,8 @@ export declare const MemoryWriteCandidateSchema: z.ZodObject<{
     scope: z.ZodEnum<{
         user: "user";
         owner: "owner";
-        platform: "platform";
         agent: "agent";
+        platform: "platform";
     }>;
     type: z.ZodEnum<{
         profile: "profile";

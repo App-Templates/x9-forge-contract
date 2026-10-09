@@ -54,12 +54,12 @@ export declare const AgentCredentialCommercialServiceSchema: z.ZodEnum<{
     anthropic: "anthropic";
     google: "google";
     telegram: "telegram";
+    netatmo: "netatmo";
     elevenlabs: "elevenlabs";
     telnyx: "telnyx";
     qdrant: "qdrant";
     agentmail: "agentmail";
     hostinger: "hostinger";
-    netatmo: "netatmo";
 }>;
 export declare const AgentCredentialInternalServiceSchema: z.ZodEnum<{
     x9: "x9";
@@ -77,12 +77,12 @@ export declare const AgentCredentialServiceSchema: z.ZodDiscriminatedUnion<[z.Zo
         anthropic: "anthropic";
         google: "google";
         telegram: "telegram";
+        netatmo: "netatmo";
         elevenlabs: "elevenlabs";
         telnyx: "telnyx";
         qdrant: "qdrant";
         agentmail: "agentmail";
         hostinger: "hostinger";
-        netatmo: "netatmo";
     }>;
 }, z.core.$strict>, z.ZodObject<{
     type: z.ZodLiteral<"internal">;
@@ -97,12 +97,12 @@ export declare const AgentCredentialServiceSchema: z.ZodDiscriminatedUnion<[z.Zo
         anthropic: "anthropic";
         google: "google";
         telegram: "telegram";
+        netatmo: "netatmo";
         elevenlabs: "elevenlabs";
         telnyx: "telnyx";
         qdrant: "qdrant";
         agentmail: "agentmail";
         hostinger: "hostinger";
-        netatmo: "netatmo";
     }>>;
 }, z.core.$strict>], "type">;
 export type AgentCredentialService = z.infer<typeof AgentCredentialServiceSchema>;
@@ -186,12 +186,12 @@ export declare const AgentCredentialServiceMetadataSchema: z.ZodObject<{
             anthropic: "anthropic";
             google: "google";
             telegram: "telegram";
+            netatmo: "netatmo";
             elevenlabs: "elevenlabs";
             telnyx: "telnyx";
             qdrant: "qdrant";
             agentmail: "agentmail";
             hostinger: "hostinger";
-            netatmo: "netatmo";
         }>;
     }, z.core.$strict>, z.ZodObject<{
         type: z.ZodLiteral<"internal">;
@@ -206,12 +206,12 @@ export declare const AgentCredentialServiceMetadataSchema: z.ZodObject<{
             anthropic: "anthropic";
             google: "google";
             telegram: "telegram";
+            netatmo: "netatmo";
             elevenlabs: "elevenlabs";
             telnyx: "telnyx";
             qdrant: "qdrant";
             agentmail: "agentmail";
             hostinger: "hostinger";
-            netatmo: "netatmo";
         }>>;
     }, z.core.$strict>], "type">;
 }, z.core.$strict>;
