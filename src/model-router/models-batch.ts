@@ -130,7 +130,7 @@ export function validateAgentModelsBatch(input: unknown, serverOverview: unknown
     if (settings === null) continue;
     if (settings.capability !== row.capability || settings.function !== row.function) issues.add('slot-function-mismatch');
     const required = row.requirements;
-    if ( (required.tools !== settings.requirements.tools || required.stream !== settings.requirements.stream || required.structuredOutput !== settings.requirements.structuredOutput)) issues.add('requirements-mismatch');
+    if ( (required.tools !== settings.requirements.tools || required.stream !== settings.requirements.stream || required.structuredOutput !== settings.requirements.structuredOutput || (required.vision ?? false) !== (settings.requirements.vision ?? false) || (required.webSearch ?? false) !== (settings.requirements.webSearch ?? false))) issues.add('requirements-mismatch');
     const matching = catalogs.filter(entry => entry.agentId === agent.identity.managementAgentId);
     const catalog = matching[0];
     if (matching.length !== 1 || catalog === undefined || row.catalogVersion !== catalog.version) { issues.add('catalog-unavailable'); continue; }

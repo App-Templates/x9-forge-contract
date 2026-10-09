@@ -19,11 +19,31 @@ const PinnedModelSettingsSchema = z.object({ ...base, mode: z.literal('pin'), pi
   }
   if (!sameModelDescriptor(settings.pin, settings.fallback)) ctx.addIssue({ code: 'custom', path: ['fallback'], message: 'A pin must also cover the fallback descriptor' });
 });
-/** Additive capability configuration; existing legacy routing DTOs remain unchanged. */
-export const CapabilityModelSettingsSchema = z.union([AutomaticModelSettingsSchema, PinnedModelSettingsSchema]);
+const SingleModelSettingsSchema = z.object({
+  ...base, tiers: z.never().optional(), fallback: z.never().optional(),
+  mode: z.literal('single'), descriptor: ModelDescriptorSchema,
+  embeddingDimensions: z.number().int().positive().optional(),
+}).strict().superRefine((settings, ctx) => {
+  if ((settings.function === 'embedding') !== (settings.embeddingDimensions !== undefined)) ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });
+});
+const FailoverModelSettingsSchema = z.object({
+  ...base, tiers: z.never().optional(),
+  mode: z.literal('failover'), primary: ModelDescriptorSchema,
+}).strict().superRefine((settings, ctx) => {
+  if (settings.function === 'embedding') ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });
+});
+/** Existing tiered choices remain unchanged; single and failover describe their actual executable paths. */
+export const CapabilityModelSettingsSchema = z.union([AutomaticModelSettingsSchema, PinnedModelSettingsSchema, SingleModelSettingsSchema, FailoverModelSettingsSchema]);
 export type CapabilityModelSettings = z.infer<typeof CapabilityModelSettingsSchema>;
 
-export type CapabilityModelValidationIssue = 'invalid-settings' | 'invalid-catalog' | 'agent-mismatch' | 'catalog-version-mismatch' | 'catalog-unavailable' | 'catalog-stale' | 'model-not-attested' | 'model-unavailable' | 'feature-unsupported';
+/** The installed positions expected for one choice; never invent reasoning tiers for a single-model service. */
+export function modelSettingsSelections(settings: CapabilityModelSettings): Array<{ tier: 'standard' | 'advanced' | 'reasoning' | 'fallback' | 'primary'; descriptor: z.infer<typeof ModelDescriptorSchema> }> {
+  if (settings.mode === 'single') return [{ tier: 'primary', descriptor: settings.descriptor }];
+  if (settings.mode === 'failover') return [{ tier: 'primary', descriptor: settings.primary }, { tier: 'fallback', descriptor: settings.fallback }];
+  return [...MODEL_TIERS.map(tier => ({ tier, descriptor: settings.tiers[tier] })), { tier: 'fallback', descriptor: settings.fallback }];
+}
+
+export type CapabilityModelValidationIssue = 'invalid-settings' | 'invalid-catalog' | 'agent-mismatch' | 'catalog-version-mismatch' | 'catalog-unavailable' | 'catalog-stale' | 'model-not-attested' | 'model-unavailable' | 'feature-unsupported' | 'embedding-dimension-mismatch';
 
 /** Validate the selected metadata against a fresh catalog for the explicitly addressed management agent. */
 export function validateCapabilityModels(input: unknown, source: unknown, agentId: string, now = new Date()): CapabilityModelValidationIssue[] {
@@ -39,11 +59,12 @@ export function validateCapabilityModels(input: unknown, source: unknown, agentI
   const timestamp = now.getTime();
   if (!Number.isFinite(timestamp) || catalog.observedAt === null || catalog.validUntil === null || timestamp < Date.parse(catalog.observedAt) - 5_000 || timestamp >= Date.parse(catalog.validUntil)) return ['catalog-stale'];
   const issues = new Set<CapabilityModelValidationIssue>();
-  for (const descriptor of [...MODEL_TIERS.map(tier => settings.tiers[tier]), settings.fallback]) {
+  for (const { descriptor } of modelSettingsSelections(settings)) {
     const entry = catalog.entries.find(candidate => candidate.function === settings.function && sameModelDescriptor(candidate, descriptor));
     if (!entry) { issues.add('model-not-attested'); continue; }
     if (entry.access !== 'available' || entry.runtimeSupport !== 'supported') { issues.add('model-unavailable'); continue; }
-    if ((settings.requirements.tools && !entry.features.tools) || (settings.requirements.stream && !entry.features.stream) || ((settings.requirements.structuredOutput || settings.function === 'memory-extraction') && !entry.features.structuredOutput)) issues.add('feature-unsupported');
+    if (settings.mode === 'single' && settings.function === 'embedding' && entry.embeddingDimensions !== settings.embeddingDimensions) issues.add('embedding-dimension-mismatch');
+    if ((settings.requirements.vision === true && entry.features.vision !== true) || (settings.requirements.webSearch === true && entry.features.webSearch !== true) || (settings.requirements.tools && !entry.features.tools) || (settings.requirements.stream && !entry.features.stream) || ((settings.requirements.structuredOutput || settings.function === 'memory-extraction') && !entry.features.structuredOutput)) issues.add('feature-unsupported');
   }
   return [...issues];
 }

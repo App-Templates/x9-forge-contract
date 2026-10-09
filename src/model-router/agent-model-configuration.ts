@@ -6,15 +6,14 @@ import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManag
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from '../agent/agent-context-file.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
-import { CapabilityModelSettingsSchema } from './capability-model-settings.js';
+import { CapabilityModelSettingsSchema, modelSettingsSelections } from './capability-model-settings.js';
 import { MODEL_TIERS } from './model-tier.js';
+import { ModelSlotIdSchema } from './model-slot.js';
+import { findModelConsumer, registeredModelConsumers } from './model-consumers.js';
+export { AGENT_CHAT_MODEL_SLOT_ID, ModelSlotIdSchema } from './model-slot.js';
 import { ModelDescriptorSchema, ModelFunctionSchema, sameModelDescriptor } from './model-catalog.js';
 
-/** Canonical conversation slot; memory/audio slots are added with their qualified consumers. */
-export const AGENT_CHAT_MODEL_SLOT_ID = 'agent_chat';
-/** Generic syntax stays additive for existing custom and future consumer slots. */
-export const ModelSlotIdSchema = z.string().regex(/^[a-z][a-z0-9._-]{0,63}$/);
-export const ModelSelectionTierSchema = z.enum([...MODEL_TIERS, 'fallback']);
+export const ModelSelectionTierSchema = z.enum([...MODEL_TIERS, 'fallback', 'primary']);
 export const AgentModelSelectionSchema = z.object({ slotId: ModelSlotIdSchema, settings: CapabilityModelSettingsSchema }).strict();
 /** Complete declared model authority; legacy runtime mappings remain optional elsewhere. */
 const CompleteModelIdentitySchema = AgentRuntimeIdentitySchema.extend({
@@ -153,7 +152,10 @@ export const AgentRuntimeModelSelectionSchema = z.object({
   function: ModelFunctionSchema,
   tier: ModelSelectionTierSchema,
   descriptor: ModelDescriptorSchema,
-}).strict();
+  embeddingDimensions: z.number().int().positive().optional(),
+}).strict().superRefine((selection, ctx) => {
+  if (selection.embeddingDimensions !== undefined && selection.function !== 'embedding') ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Vector dimension belongs only to embedding' });
+});
 /** Producer evidence of the selections actually installed for each function/tier, not a global reload count. */
 export const AgentModelRuntimeAttestationSchema = z.object({
   identity: AgentRuntimeIdentitySchema.strict(),
@@ -166,12 +168,55 @@ export const AgentModelRuntimeAttestationSchema = z.object({
 });
 export type AgentModelRuntimeAttestation = z.infer<typeof AgentModelRuntimeAttestationSchema>;
 
+/** Read-only generation of the actually loaded Master, never a saved/applied configuration version. */
+export const AgentModelBootstrapSourceVersionSchema = z.string().trim().min(1).max(128);
+const ModelSourceScopeSchema = CapabilityAgentScopeSchema.refine(scope => [scope.agentId, scope.ownerId, scope.tenantId].every(value => value.trim().length > 0), 'Source scope must not be blank');
+export const AgentModelBootstrapSourceSchema = z.object({
+  schemaVersion: z.literal(1), identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
+  role: z.literal('master'), authority: z.literal('runtime-loaded'),
+  sourceVersion: AgentModelBootstrapSourceVersionSchema,
+  observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
+  coverage: z.enum(['complete', 'partial']),
+  selections: z.array(AgentModelSelectionSchema).max(64), missingSlots: z.array(ModelSlotIdSchema).max(64),
+}).strict().superRefine((source, ctx) => {
+  if (source.scope.agentId !== source.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
+  if (Date.parse(source.validUntil) <= Date.parse(source.observedAt)) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Source validity ends after observation' });
+  const present = source.selections.map(selection => selection.slotId);
+  const all = [...present, ...source.missingSlots];
+  const registered = registeredModelConsumers().map(consumer => consumer.slotId);
+  if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot))) ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });
+  if ((source.coverage === 'complete') !== (source.missingSlots.length === 0)) ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
+  for (const [index, selection] of source.selections.entries()) {
+    const consumer = findModelConsumer(selection.slotId);
+    const actual = selection.settings;
+    if (consumer === undefined || consumer.capability !== actual.capability || consumer.function !== actual.function || JSON.stringify(consumer.requirements) !== JSON.stringify(actual.requirements)) ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });
+  }
+});
+export type AgentModelBootstrapSource = z.infer<typeof AgentModelBootstrapSourceSchema>;
+export const AgentModelBootstrapSourceExpectationSchema = z.object({ identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema }).strict();
+export type AgentModelBootstrapSourceExpectation = z.infer<typeof AgentModelBootstrapSourceExpectationSchema>;
+/** Caller supplies a fresh server-side generation recheck after awaits. Parsing alone cannot prove runtime authority. */
+export function isAgentModelBootstrapSourceCurrent(input: unknown, expected: unknown, now = new Date()): boolean {
+  const parsed = AgentModelBootstrapSourceSchema.safeParse(input);
+  const target = AgentModelBootstrapSourceExpectationSchema.safeParse(expected);
+  if (!parsed.success || !target.success) return false;
+  const source = parsed.data; const expectation = target.data; const time = now.getTime();
+  if (source.coverage !== 'complete' || !Number.isFinite(time) || time < Date.parse(source.observedAt) - 5_000 || time >= Date.parse(source.validUntil)) return false;
+  return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && sameCapabilityScope(source.scope, expectation.scope);
+}
+
 export const AgentModelsStateSchema = z.object({
   identity: AgentRuntimeIdentitySchema.strict(),
   versions: AgentConfigVersionStateSchema.nullable(),
   saved: AgentModelsConfigurationSchema.nullable(),
   runtime: AgentModelRuntimeAttestationSchema.nullable(),
+  /** Absent on existing consumers; explicit null means no qualified loaded Master source. */
+  bootstrapSource: AgentModelBootstrapSourceSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {
+  if (state.bootstrapSource != null) {
+    if (!sameModelAgentIdentity(state.identity, state.bootstrapSource.identity)) ctx.addIssue({ code: 'custom', path: ['bootstrapSource', 'identity'], message: 'Bootstrap source belongs to this state identity' });
+    if (state.saved !== null || state.runtime !== null || state.versions !== null) ctx.addIssue({ code: 'custom', path: ['bootstrapSource'], message: 'Bootstrap source cannot claim a saved or applied version' });
+  }
   if (state.saved !== null) {
     if (!sameModelAgentIdentity(state.identity, state.saved.identity)) ctx.addIssue({ code: 'custom', path: ['saved', 'identity'], message: 'Saved models belong to another agent' });
     if (state.saved.configVersion !== state.versions?.desired) ctx.addIssue({ code: 'custom', path: ['saved', 'configVersion'], message: 'Saved model version must be the desired version' });
@@ -198,10 +243,10 @@ export function isAgentModelApplyConfirmed(configuration: unknown, requestedComm
   if (response.outcome !== 'ok' || !response.results.some(entry => entry.target.kind === 'runtime' && entry.target.targetId === saved.identity.runtimeAgentId && entry.outcome === 'ok')) return false;
   const timestamp = now.getTime(); const observed = Date.parse(actual.observedAt);
   if (!Number.isFinite(timestamp) || timestamp < observed - 5_000 || timestamp > observed + 60_000) return false;
-  if (actual.selections.length !== saved.selections.length * 4) return false;
-  return saved.selections.every(slot => [...MODEL_TIERS, 'fallback' as const].every(tier => {
+  if (actual.selections.length !== saved.selections.reduce((count, slot) => count + modelSettingsSelections(slot.settings).length, 0)) return false;
+  return saved.selections.every(slot => modelSettingsSelections(slot.settings).every(({ tier, descriptor }) => {
     const selection = actual.selections.find(entry => entry.slotId === slot.slotId && entry.tier === tier);
-    const expected = tier === 'fallback' ? slot.settings.fallback : slot.settings.tiers[tier];
-    return selection !== undefined && selection.capability === slot.settings.capability && selection.function === slot.settings.function && sameModelDescriptor(selection.descriptor, expected);
+    const dimensionMatches = slot.settings.mode !== 'single' || slot.settings.function !== 'embedding' || selection?.embeddingDimensions === slot.settings.embeddingDimensions;
+    return selection !== undefined && dimensionMatches && selection.capability === slot.settings.capability && selection.function === slot.settings.function && sameModelDescriptor(selection.descriptor, descriptor);
   }));
 }
