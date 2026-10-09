@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 /** Trusted identity shared by capability admission and native per-agent turns. */
 export declare const CapabilityCallIdentitySchema: z.ZodObject<{
     agentId: z.ZodString;
