@@ -1261,6 +1261,43 @@ export declare const internalModelsPreviewContract: {
             }, z.core.$strict>>;
         }, z.core.$strict>;
         expiresAt: z.ZodISODateTime;
+        fanoutImpact: z.ZodOptional<z.ZodObject<{
+            token: z.ZodObject<{
+                version: z.ZodString;
+                sourceVersion: z.ZodString;
+                relationVersion: z.ZodString;
+            }, z.core.$strict>;
+            masterIdentity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodNumber;
+            }, z.core.$strict>;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            tenantId: z.ZodString;
+            recipients: z.ZodArray<z.ZodObject<{
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                displayName: z.ZodNullable<z.ZodString>;
+                slots: z.ZodArray<z.ZodObject<{
+                    slotId: z.ZodString;
+                    binding: z.ZodEnum<{
+                        custom: "custom";
+                        master: "master";
+                    }>;
+                    effect: z.ZodEnum<{
+                        changes: "changes";
+                        preserved: "preserved";
+                    }>;
+                    currentVersion: z.ZodNumber;
+                    nextVersion: z.ZodNumber;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
         agents: z.ZodArray<z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
