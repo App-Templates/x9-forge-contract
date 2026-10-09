@@ -46,7 +46,7 @@ if (consumerMode) {
   const entry = realpathSync(createRequire(join(root, 'package.json')).resolve('@x9-forge/contracts'));
   const installedRoot = dirname(dirname(entry));
   assert.ok(installedRoot !== expectedBridge && !installedRoot.startsWith(expectedBridge + sep), 'Installed package must be outside author bridge');
-  assert.ok(installedRoot.startsWith(installRoot + sep + 'node_modules' + sep), 'Installed package must be in consumer node_modules');
+  assert.ok(installedRoot.startsWith(installRoot + sep + 'node_modules' + sep + '.pnpm' + sep), 'Installed package must be in native consumer virtual store');
   const dependency = `git+https://github.com/App-Templates/x9-forge-contract.git#${options['expected-sha']}`;
   assert.equal(readManifest(installRoot).pnpm?.overrides?.['@x9-forge/contracts'], dependency, 'Consumer override must pin expected Git SHA');
   const lock = readFileSync(join(installRoot, 'pnpm-lock.yaml'), 'utf8');
@@ -63,7 +63,7 @@ if (consumerMode) {
   const remote = `https://codeload.github.com/App-Templates/x9-forge-contract/tar.gz/${options['expected-sha']}`;
   assert.equal(bridgeDependency[1], dependency, 'Native consumer specifier must pin expected SHA');
   assert.ok(bridgeDependency[2].startsWith(remote + '(') || bridgeDependency[2] === remote, 'Native consumer resolution must use expected remote SHA');
-  assert.ok(installedRoot.includes(options['expected-sha']), 'Installed resolution must identify expected SHA');
+  assert.equal(readFileSync(join(installRoot, 'node_modules/.pnpm/lock.yaml'), 'utf8'), lock, 'Installed virtual-store lock must match frozen consumer lock');
   manifest = readManifest(installedRoot);
   assert.equal(manifest.version, options['expected-version'], 'Installed version must match release');
   assert.equal(manifest.name, '@x9-forge/contracts', 'Installed package identity must match');
