@@ -73,3 +73,9 @@ L'utente deve vedere tutte le scelte e cambiare il Master sincronizzando solo i 
 ## Esito da distinguere
 
 Implementato contratto; testato locale con conteggi/denominatori e prove. Verificato dal vivo: zero. Rilascio e integrazione a coordinatrice dopo revisione indipendente.
+
+## Raccordi autorizzati 08:22 e completezza concordata
+
+Coordinatrice082252 autorizza src/agent/agent-management.ts/tests/agent e il trasporto servizi in internal-models-batch. modelBootstrap opzionale{expectedSourceVersion,expectedAbsent:true} nel normale apply-config; la precondizione parte dell'idempotenza. Source completa copre tutte34dichiarazioni tramite selections/missingSlots/excludedSlots osservati. Esclusioni non-installed/non-applicable con ragione e stessa generation; un modello attivo ignoto resta missing. Zero provider-call in reader, zero context export.
+
+Servizi: ModelConsumerInstallRequest/RuntimeState/InstallReceipt, scope owner/tenant/runtime, identità3ID, slot/version/request/source-generation e readback. POST state/install canonici con header esistente e slot params/body concordi. Registrazione sceglie servizio fidato, mai URL del browser. Rebuild riusa ModelEmbeddingRebuild e active precedente fino a completamento; receipt pending/failed noninstalled. JSON Schema esporta solo la shape: crossfield/refinement/CAS/freschezza richiedono validation del producer canonico (anche perPython), non dichiarati coperti dal solo JSON Schema. Nuovo helper runtime matching condiviso non4tier; settings equivalence preserva mode/requisiti/dimensione/catalog.

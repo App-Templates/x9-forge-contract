@@ -24,6 +24,7 @@ export const AGENT_CORE_MODEL_CONSUMER = Object.freeze({
 } satisfies ModelConsumer);
 /** Current execution scope and change boundary; registration is not installation evidence. */
 export const ModelConsumerDefinitionSchema = ModelConsumerSchema.extend({
+  label: z.string().trim().min(1).max(120),
   inventoryIds: z.array(z.string().regex(/^C(?:0[1-9]|[12][0-9]|3[0-4])$/)).min(1).max(34)
     .refine(ids => new Set(ids).size === ids.length, { message: 'Unique inventory references' }),
   scope: z.enum(['agent', 'service', 'session', 'remote-agent', 'pipeline']),
@@ -37,16 +38,16 @@ export type ModelConsumerDefinition = z.infer<typeof ModelConsumerDefinitionSche
 const noFeatures = { tools: false, stream: false, structuredOutput: false };
 const definitions: ModelConsumerDefinition[] = [
   { ...AGENT_CORE_MODEL_CONSUMER, inventoryIds: ['C01'], scope: 'agent', changeBoundary: 'next-turn', routing: 'tiered' },
-  { slotId: 'agent_classifier', capability: 'agent-core', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C02'], scope: 'agent', changeBoundary: 'next-turn', routing: 'single' },
+  { slotId: 'agent_classifier', capability: 'agent-core', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C02'], scope: 'agent', changeBoundary: 'next-turn', routing: 'single' },
   { slotId: 'memory_extraction', capability: 'memory', function: 'memory-extraction', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C03'], scope: 'service', changeBoundary: 'next-call', routing: 'single' },
   { slotId: 'memory_embedding', capability: 'memory', function: 'embedding', requirements: { ...noFeatures }, inventoryIds: ['C04'], scope: 'service', changeBoundary: 'rebuild', routing: 'single' },
   { slotId: 'rag_embedding', capability: 'rag', function: 'embedding', requirements: { ...noFeatures }, inventoryIds: ['C05'], scope: 'service', changeBoundary: 'rebuild', routing: 'single' },
   { slotId: 'rag_claim_extraction', capability: 'rag', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C06'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'rag_llm_standard' },
   { slotId: 'rag_claim_validation', capability: 'rag', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C07'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'rag_llm_standard' },
   { slotId: 'rag_topic_synthesis', capability: 'rag', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C08'], scope: 'service', changeBoundary: 'next-call', routing: 'single', linkedSelectionGroup: 'rag_llm_standard' },
-  { slotId: 'voice_phone_live', capability: 'voice-live', function: 'voice', requirements: { ...noFeatures, tools: true }, inventoryIds: ['C09'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_audio' },
+  { slotId: 'voice_phone_live', capability: 'voice-live', function: 'voice', requirements: { ...noFeatures, stream: true }, inventoryIds: ['C09'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_audio' },
   { slotId: 'voice_phone_delegation', capability: 'voice-live', function: 'reasoning', requirements: { ...noFeatures, tools: true }, inventoryIds: ['C10'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_backend' },
-  { slotId: 'voice_web_live', capability: 'voice-live', function: 'voice', requirements: { ...noFeatures, tools: true }, inventoryIds: ['C11'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_audio' },
+  { slotId: 'voice_web_live', capability: 'voice-live', function: 'voice', requirements: { ...noFeatures, stream: true }, inventoryIds: ['C11'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_audio' },
   { slotId: 'voice_web_delegation', capability: 'voice-live', function: 'reasoning', requirements: { ...noFeatures, tools: true }, inventoryIds: ['C12'], scope: 'session', changeBoundary: 'next-session', routing: 'single', linkedSelectionGroup: 'voice_live_backend' },
   { slotId: 'voice_call_recap', capability: 'voice', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C13'], scope: 'agent', changeBoundary: 'next-call', routing: 'single' },
   { slotId: 'elevenlabs_agent_llm', capability: 'agent-elevenlabs', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C14'], scope: 'remote-agent', changeBoundary: 'remote-update', routing: 'single' },
@@ -70,7 +71,7 @@ const definitions: ModelConsumerDefinition[] = [
   { slotId: 'mindfulness_chat', capability: 'mindfulness', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C32'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
   { slotId: 'mindfulness_tts', capability: 'mindfulness', function: 'tts', requirements: { ...noFeatures }, inventoryIds: ['C33'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
   { slotId: 'mindfulness_stt', capability: 'mindfulness', function: 'transcription', requirements: { ...noFeatures }, inventoryIds: ['C34'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
-].map(value => ModelConsumerDefinitionSchema.parse(value));
+].map(value => ModelConsumerDefinitionSchema.parse({ ...value, label: value.slotId.split('_').map(word => word[0]!.toUpperCase() + word.slice(1)).join(' ') }));
 const consumers = ModelConsumerRegistrySchema.parse(definitions.map(({ slotId, capability, function: fn, requirements }) => ({ slotId, capability, function: fn, requirements })));
 
 /** Detached reads prevent one caller from changing another caller's binding or requirements. */

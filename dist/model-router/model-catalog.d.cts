@@ -40,6 +40,8 @@ export declare const ModelFeaturesSchema: z.ZodObject<{
     tools: z.ZodBoolean;
     stream: z.ZodBoolean;
     structuredOutput: z.ZodBoolean;
+    vision: z.ZodOptional<z.ZodBoolean>;
+    webSearch: z.ZodOptional<z.ZodBoolean>;
 }, z.core.$strict>;
 /** Missing limits mean unknown; only producer-attested values may be displayed. */
 export declare const ModelLimitsSchema: z.ZodObject<{
@@ -85,6 +87,8 @@ export declare const ModelCatalogEntrySchema: z.ZodObject<{
         tools: z.ZodBoolean;
         stream: z.ZodBoolean;
         structuredOutput: z.ZodBoolean;
+        vision: z.ZodOptional<z.ZodBoolean>;
+        webSearch: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
     limits: z.ZodOptional<z.ZodObject<{
         maxInputTokens: z.ZodOptional<z.ZodNumber>;
@@ -164,6 +168,8 @@ export declare const ModelCatalogSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         limits: z.ZodOptional<z.ZodObject<{
             maxInputTokens: z.ZodOptional<z.ZodNumber>;

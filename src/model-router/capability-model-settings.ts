@@ -68,3 +68,18 @@ export function validateCapabilityModels(input: unknown, source: unknown, agentI
   }
   return [...issues];
 }
+
+/** Canonical settings equivalence independent of object key order; no origins or versions are inferred. */
+export function sameCapabilityModelSettings(left: unknown, right: unknown): boolean {
+  const a = CapabilityModelSettingsSchema.safeParse(left); const b = CapabilityModelSettingsSchema.safeParse(right);
+  if (!a.success || !b.success) return false;
+  const x = a.data; const y = b.data;
+  if (x.capability !== y.capability || x.function !== y.function || x.catalogVersion !== y.catalogVersion || x.mode !== y.mode) return false;
+  if (!sameModelFeatures(x.requirements, y.requirements)) return false;
+  if (x.mode === 'single' && y.mode === 'single' && x.embeddingDimensions !== y.embeddingDimensions) return false;
+  const xs = modelSettingsSelections(x); const ys = modelSettingsSelections(y);
+  return xs.length === ys.length && xs.every((selection, index) => selection.tier === ys[index]?.tier && sameModelDescriptor(selection.descriptor, ys[index]!.descriptor));
+}
+export function sameModelFeatures(left: z.infer<typeof ModelFeaturesSchema>, right: z.infer<typeof ModelFeaturesSchema>): boolean {
+  return left.tools === right.tools && left.stream === right.stream && left.structuredOutput === right.structuredOutput && (left.vision ?? false) === (right.vision ?? false) && (left.webSearch ?? false) === (right.webSearch ?? false);
+}

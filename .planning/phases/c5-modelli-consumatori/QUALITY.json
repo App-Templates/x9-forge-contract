@@ -1,0 +1,52 @@
+{
+  "fullNative": {
+    "passed": 4971,
+    "total": 4971,
+    "files": 165,
+    "skip": 0,
+    "exit": 0,
+    "beforeBuild": true
+  },
+  "steps": [
+    {
+      "step": "types",
+      "exit": 0,
+      "seconds": 1.86
+    },
+    {
+      "step": "lint",
+      "exit": 0,
+      "seconds": 3.79
+    },
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 5.47
+    },
+    {
+      "step": "pack-check",
+      "exit": 0,
+      "seconds": 3.93
+    },
+    {
+      "step": "cjs-native",
+      "exit": 0,
+      "seconds": 0.24
+    },
+    {
+      "step": "cjs-consumers",
+      "exit": 0,
+      "seconds": 0.19
+    },
+    {
+      "step": "public",
+      "exit": 0,
+      "seconds": 0.3
+    },
+    {
+      "step": "archive",
+      "exit": 0,
+      "seconds": 0.75
+    }
+  ]
+}

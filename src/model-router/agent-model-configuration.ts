@@ -6,11 +6,11 @@ import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManag
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from '../agent/agent-context-file.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
-import { CapabilityModelSettingsSchema, modelSettingsSelections } from './capability-model-settings.js';
+import { CapabilityModelSettingsSchema, modelSettingsSelections, sameModelFeatures } from './capability-model-settings.js';
 import { MODEL_TIERS } from './model-tier.js';
-import { ModelSlotIdSchema } from './model-slot.js';
-import { findModelConsumer, registeredModelConsumers } from './model-consumers.js';
-export { AGENT_CHAT_MODEL_SLOT_ID, ModelSlotIdSchema } from './model-slot.js';
+import { ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema } from './model-slot.js';
+import { findModelConsumerDefinition, registeredModelConsumers } from './model-consumers.js';
+export { AGENT_CHAT_MODEL_SLOT_ID, ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema, AgentModelBootstrapPreconditionSchema } from './model-slot.js';
 import { ModelDescriptorSchema, ModelFunctionSchema, sameModelDescriptor } from './model-catalog.js';
 
 export const ModelSelectionTierSchema = z.enum([...MODEL_TIERS, 'fallback', 'primary']);
@@ -169,7 +169,6 @@ export const AgentModelRuntimeAttestationSchema = z.object({
 export type AgentModelRuntimeAttestation = z.infer<typeof AgentModelRuntimeAttestationSchema>;
 
 /** Read-only generation of the actually loaded Master, never a saved/applied configuration version. */
-export const AgentModelBootstrapSourceVersionSchema = z.string().trim().min(1).max(128);
 const ModelSourceScopeSchema = CapabilityAgentScopeSchema.refine(scope => [scope.agentId, scope.ownerId, scope.tenantId].every(value => value.trim().length > 0), 'Source scope must not be blank');
 export const AgentModelBootstrapSourceSchema = z.object({
   schemaVersion: z.literal(1), identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
@@ -178,18 +177,20 @@ export const AgentModelBootstrapSourceSchema = z.object({
   observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
   coverage: z.enum(['complete', 'partial']),
   selections: z.array(AgentModelSelectionSchema).max(64), missingSlots: z.array(ModelSlotIdSchema).max(64),
+  /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
+  excludedSlots: z.array(z.object({ slotId: ModelSlotIdSchema, state: z.enum(['not-installed', 'not-applicable']), reason: z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
 }).strict().superRefine((source, ctx) => {
   if (source.scope.agentId !== source.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
   if (Date.parse(source.validUntil) <= Date.parse(source.observedAt)) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Source validity ends after observation' });
   const present = source.selections.map(selection => selection.slotId);
-  const all = [...present, ...source.missingSlots];
+  const all = [...present, ...source.missingSlots, ...(source.excludedSlots ?? []).map(slot => slot.slotId)];
   const registered = registeredModelConsumers().map(consumer => consumer.slotId);
   if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot))) ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });
-  if ((source.coverage === 'complete') !== (source.missingSlots.length === 0)) ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
+  if ((source.coverage === 'complete') !== (source.missingSlots.length === 0) || (source.coverage === 'complete' && source.selections.length === 0)) ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
   for (const [index, selection] of source.selections.entries()) {
-    const consumer = findModelConsumer(selection.slotId);
+    const consumer = findModelConsumerDefinition(selection.slotId);
     const actual = selection.settings;
-    if (consumer === undefined || consumer.capability !== actual.capability || consumer.function !== actual.function || JSON.stringify(consumer.requirements) !== JSON.stringify(actual.requirements)) ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });
+    if (consumer === undefined || consumer.capability !== actual.capability || consumer.function !== actual.function || !sameModelFeatures(consumer.requirements, actual.requirements) || consumer.routing !== (actual.mode === 'single' ? 'single' : actual.mode === 'failover' ? 'failover' : 'tiered')) ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });
   }
 });
 export type AgentModelBootstrapSource = z.infer<typeof AgentModelBootstrapSourceSchema>;
@@ -201,7 +202,7 @@ export function isAgentModelBootstrapSourceCurrent(input: unknown, expected: unk
   const target = AgentModelBootstrapSourceExpectationSchema.safeParse(expected);
   if (!parsed.success || !target.success) return false;
   const source = parsed.data; const expectation = target.data; const time = now.getTime();
-  if (source.coverage !== 'complete' || !Number.isFinite(time) || time < Date.parse(source.observedAt) - 5_000 || time >= Date.parse(source.validUntil)) return false;
+  if (source.coverage !== 'complete' || source.selections.length === 0 || !Number.isFinite(time) || time < Date.parse(source.observedAt) - 5_000 || time >= Date.parse(source.validUntil)) return false;
   return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && sameCapabilityScope(source.scope, expectation.scope);
 }
 
@@ -241,6 +242,18 @@ export function isAgentModelApplyConfirmed(configuration: unknown, requestedComm
   if (response.requestId !== request.requestId || actual.requestId !== request.requestId) return false;
   if (response.agentId !== saved.identity.managementAgentId || response.identity === undefined || !sameModelAgentIdentity(saved.identity, response.identity) || !sameModelAgentIdentity(saved.identity, actual.identity)) return false;
   if (response.outcome !== 'ok' || !response.results.some(entry => entry.target.kind === 'runtime' && entry.target.targetId === saved.identity.runtimeAgentId && entry.outcome === 'ok')) return false;
+  const timestamp = now.getTime(); const observed = Date.parse(actual.observedAt);
+  if (!Number.isFinite(timestamp) || timestamp < observed - 5_000 || timestamp > observed + 60_000) return false;
+  return isAgentModelRuntimeConfigurationMatching(saved, actual, now);
+}
+
+/** Fresh exact installed positions, including vector dimension, independent of transport/receipt. */
+export function isAgentModelRuntimeConfigurationMatching(configuration: unknown, runtimeEvidence: unknown, now = new Date()): boolean {
+  const config = AgentModelsConfigurationSchema.safeParse(configuration);
+  const evidence = AgentModelRuntimeAttestationSchema.safeParse(runtimeEvidence);
+  if (!config.success || !evidence.success) return false;
+  const saved = config.data; const actual = evidence.data;
+  if (!sameModelAgentIdentity(saved.identity, actual.identity) || saved.configVersion !== actual.configVersion) return false;
   const timestamp = now.getTime(); const observed = Date.parse(actual.observedAt);
   if (!Number.isFinite(timestamp) || timestamp < observed - 5_000 || timestamp > observed + 60_000) return false;
   if (actual.selections.length !== saved.selections.reduce((count, slot) => count + modelSettingsSelections(slot.settings).length, 0)) return false;

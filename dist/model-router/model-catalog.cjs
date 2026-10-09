@@ -18,7 +18,7 @@ exports.ModelDescriptorSchema = zod_1.z.object({
     protocol: exports.ModelApiProtocolSchema,
     adapterId: RegisteredIdSchema,
 }).strict();
-exports.ModelFeaturesSchema = zod_1.z.object({ tools: zod_1.z.boolean(), stream: zod_1.z.boolean(), structuredOutput: zod_1.z.boolean() }).strict();
+exports.ModelFeaturesSchema = zod_1.z.object({ tools: zod_1.z.boolean(), stream: zod_1.z.boolean(), structuredOutput: zod_1.z.boolean(), vision: zod_1.z.boolean().optional(), webSearch: zod_1.z.boolean().optional() }).strict();
 /** Missing limits mean unknown; only producer-attested values may be displayed. */
 exports.ModelLimitsSchema = zod_1.z.object({
     maxInputTokens: zod_1.z.number().int().positive().optional(),

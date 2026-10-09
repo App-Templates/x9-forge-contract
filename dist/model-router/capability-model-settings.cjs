@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityModelSettingsSchema = void 0;
+exports.modelSettingsSelections = modelSettingsSelections;
 exports.validateCapabilityModels = validateCapabilityModels;
+exports.sameCapabilityModelSettings = sameCapabilityModelSettings;
+exports.sameModelFeatures = sameModelFeatures;
 const zod_1 = require("zod");
 const parameters_js_1 = require("../capability/parameters.cjs");
 const model_tier_js_1 = require("./model-tier.cjs");
@@ -24,8 +27,31 @@ const PinnedModelSettingsSchema = zod_1.z.object({ ...base, mode: zod_1.z.litera
     if (!(0, model_catalog_js_1.sameModelDescriptor)(settings.pin, settings.fallback))
         ctx.addIssue({ code: 'custom', path: ['fallback'], message: 'A pin must also cover the fallback descriptor' });
 });
-/** Additive capability configuration; existing legacy routing DTOs remain unchanged. */
-exports.CapabilityModelSettingsSchema = zod_1.z.union([AutomaticModelSettingsSchema, PinnedModelSettingsSchema]);
+const SingleModelSettingsSchema = zod_1.z.object({
+    ...base, tiers: zod_1.z.never().optional(), fallback: zod_1.z.never().optional(),
+    mode: zod_1.z.literal('single'), descriptor: model_catalog_js_1.ModelDescriptorSchema,
+    embeddingDimensions: zod_1.z.number().int().positive().optional(),
+}).strict().superRefine((settings, ctx) => {
+    if ((settings.function === 'embedding') !== (settings.embeddingDimensions !== undefined))
+        ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });
+});
+const FailoverModelSettingsSchema = zod_1.z.object({
+    ...base, tiers: zod_1.z.never().optional(),
+    mode: zod_1.z.literal('failover'), primary: model_catalog_js_1.ModelDescriptorSchema,
+}).strict().superRefine((settings, ctx) => {
+    if (settings.function === 'embedding')
+        ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });
+});
+/** Existing tiered choices remain unchanged; single and failover describe their actual executable paths. */
+exports.CapabilityModelSettingsSchema = zod_1.z.union([AutomaticModelSettingsSchema, PinnedModelSettingsSchema, SingleModelSettingsSchema, FailoverModelSettingsSchema]);
+/** The installed positions expected for one choice; never invent reasoning tiers for a single-model service. */
+function modelSettingsSelections(settings) {
+    if (settings.mode === 'single')
+        return [{ tier: 'primary', descriptor: settings.descriptor }];
+    if (settings.mode === 'failover')
+        return [{ tier: 'primary', descriptor: settings.primary }, { tier: 'fallback', descriptor: settings.fallback }];
+    return [...model_tier_js_1.MODEL_TIERS.map(tier => ({ tier, descriptor: settings.tiers[tier] })), { tier: 'fallback', descriptor: settings.fallback }];
+}
 /** Validate the selected metadata against a fresh catalog for the explicitly addressed management agent. */
 function validateCapabilityModels(input, source, agentId, now = new Date()) {
     const selected = exports.CapabilityModelSettingsSchema.safeParse(input);
@@ -46,7 +72,7 @@ function validateCapabilityModels(input, source, agentId, now = new Date()) {
     if (!Number.isFinite(timestamp) || catalog.observedAt === null || catalog.validUntil === null || timestamp < Date.parse(catalog.observedAt) - 5_000 || timestamp >= Date.parse(catalog.validUntil))
         return ['catalog-stale'];
     const issues = new Set();
-    for (const descriptor of [...model_tier_js_1.MODEL_TIERS.map(tier => settings.tiers[tier]), settings.fallback]) {
+    for (const { descriptor } of modelSettingsSelections(settings)) {
         const entry = catalog.entries.find(candidate => candidate.function === settings.function && (0, model_catalog_js_1.sameModelDescriptor)(candidate, descriptor));
         if (!entry) {
             issues.add('model-not-attested');
@@ -56,9 +82,32 @@ function validateCapabilityModels(input, source, agentId, now = new Date()) {
             issues.add('model-unavailable');
             continue;
         }
-        if ((settings.requirements.tools && !entry.features.tools) || (settings.requirements.stream && !entry.features.stream) || ((settings.requirements.structuredOutput || settings.function === 'memory-extraction') && !entry.features.structuredOutput))
+        if (settings.mode === 'single' && settings.function === 'embedding' && entry.embeddingDimensions !== settings.embeddingDimensions)
+            issues.add('embedding-dimension-mismatch');
+        if ((settings.requirements.vision === true && entry.features.vision !== true) || (settings.requirements.webSearch === true && entry.features.webSearch !== true) || (settings.requirements.tools && !entry.features.tools) || (settings.requirements.stream && !entry.features.stream) || ((settings.requirements.structuredOutput || settings.function === 'memory-extraction') && !entry.features.structuredOutput))
             issues.add('feature-unsupported');
     }
     return [...issues];
+}
+/** Canonical settings equivalence independent of object key order; no origins or versions are inferred. */
+function sameCapabilityModelSettings(left, right) {
+    const a = exports.CapabilityModelSettingsSchema.safeParse(left);
+    const b = exports.CapabilityModelSettingsSchema.safeParse(right);
+    if (!a.success || !b.success)
+        return false;
+    const x = a.data;
+    const y = b.data;
+    if (x.capability !== y.capability || x.function !== y.function || x.catalogVersion !== y.catalogVersion || x.mode !== y.mode)
+        return false;
+    if (!sameModelFeatures(x.requirements, y.requirements))
+        return false;
+    if (x.mode === 'single' && y.mode === 'single' && x.embeddingDimensions !== y.embeddingDimensions)
+        return false;
+    const xs = modelSettingsSelections(x);
+    const ys = modelSettingsSelections(y);
+    return xs.length === ys.length && xs.every((selection, index) => selection.tier === ys[index]?.tier && (0, model_catalog_js_1.sameModelDescriptor)(selection.descriptor, ys[index].descriptor));
+}
+function sameModelFeatures(left, right) {
+    return left.tools === right.tools && left.stream === right.stream && left.structuredOutput === right.structuredOutput && (left.vision ?? false) === (right.vision ?? false) && (left.webSearch ?? false) === (right.webSearch ?? false);
 }
 //# sourceMappingURL=capability-model-settings.js.map

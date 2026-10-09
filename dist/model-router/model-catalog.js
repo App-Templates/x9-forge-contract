@@ -13,7 +13,7 @@ export const ModelDescriptorSchema = z.object({
     protocol: ModelApiProtocolSchema,
     adapterId: RegisteredIdSchema,
 }).strict();
-export const ModelFeaturesSchema = z.object({ tools: z.boolean(), stream: z.boolean(), structuredOutput: z.boolean() }).strict();
+export const ModelFeaturesSchema = z.object({ tools: z.boolean(), stream: z.boolean(), structuredOutput: z.boolean(), vision: z.boolean().optional(), webSearch: z.boolean().optional() }).strict();
 /** Missing limits mean unknown; only producer-attested values may be displayed. */
 export const ModelLimitsSchema = z.object({
     maxInputTokens: z.number().int().positive().optional(),

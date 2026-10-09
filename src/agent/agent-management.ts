@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AgentModelBootstrapPreconditionSchema } from '../model-router/model-slot.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { AgentWorkspaceAttestationSchema, type AgentWorkspaceAttestation } from './agent-workspace-attestation.js';
 import { AgentRuntimeIdentitySchema } from './agent-runtime-identity.js';
@@ -126,6 +127,8 @@ const ApplyConfigCommandSchema = z.object({
   action: z.literal('apply-config'),
   requestId: AgentManagementRequestIdSchema,
   desiredVersion: AgentConfigVersionSchema,
+  /** Initial model-only priming: loaded generation and absent persisted authority are rechecked in X9. */
+  modelBootstrap: AgentModelBootstrapPreconditionSchema.optional(),
 }).strict();
 
 export const AgentManagementCommandSchema = z.union([LifecycleCommandSchema, ApplyConfigCommandSchema]);
@@ -135,7 +138,7 @@ export type AgentManagementCommand = z.infer<typeof AgentManagementCommandSchema
 export function sameAgentCommand(a: AgentManagementCommand, b: AgentManagementCommand): boolean {
   if (a.action !== b.action) return false;
   if (a.action === 'apply-config' || b.action === 'apply-config') {
-    return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion;
+    return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion && a.modelBootstrap?.expectedSourceVersion === b.modelBootstrap?.expectedSourceVersion && a.modelBootstrap?.expectedAbsent === b.modelBootstrap?.expectedAbsent;
   }
   const keys = (command: typeof a) => ('targets' in command && command.targets ? command.targets.map(targetKey).sort() : null);
   const left = keys(a);

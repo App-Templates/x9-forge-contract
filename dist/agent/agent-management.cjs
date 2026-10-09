@@ -4,6 +4,7 @@ exports.AgentManagementStateSchema = exports.AgentManagementTargetCapabilitySche
 exports.sameAgentCommand = sameAgentCommand;
 exports.deriveAgentManagementOutcome = deriveAgentManagementOutcome;
 const zod_1 = require("zod");
+const model_slot_js_1 = require("../model-router/model-slot.cjs");
 const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const agent_workspace_attestation_js_1 = require("./agent-workspace-attestation.cjs");
 const agent_runtime_identity_js_1 = require("./agent-runtime-identity.cjs");
@@ -105,6 +106,8 @@ const ApplyConfigCommandSchema = zod_1.z.object({
     action: zod_1.z.literal('apply-config'),
     requestId: exports.AgentManagementRequestIdSchema,
     desiredVersion: agent_config_js_1.AgentConfigVersionSchema,
+    /** Initial model-only priming: loaded generation and absent persisted authority are rechecked in X9. */
+    modelBootstrap: model_slot_js_1.AgentModelBootstrapPreconditionSchema.optional(),
 }).strict();
 exports.AgentManagementCommandSchema = zod_1.z.union([LifecycleCommandSchema, ApplyConfigCommandSchema]);
 /** Same command (action, version, target set) — the replay test for one `requestId`. Target order is irrelevant. */
@@ -112,7 +115,7 @@ function sameAgentCommand(a, b) {
     if (a.action !== b.action)
         return false;
     if (a.action === 'apply-config' || b.action === 'apply-config') {
-        return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion;
+        return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion && a.modelBootstrap?.expectedSourceVersion === b.modelBootstrap?.expectedSourceVersion && a.modelBootstrap?.expectedAbsent === b.modelBootstrap?.expectedAbsent;
     }
     const keys = (command) => ('targets' in command && command.targets ? command.targets.map(targetKey).sort() : null);
     const left = keys(a);

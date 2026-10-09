@@ -67,6 +67,10 @@ export declare const agentCommandContract: {
         action: z.ZodLiteral<"apply-config">;
         requestId: z.ZodString;
         desiredVersion: z.ZodNumber;
+        modelBootstrap: z.ZodOptional<z.ZodObject<{
+            expectedSourceVersion: z.ZodString;
+            expectedAbsent: z.ZodLiteral<true>;
+        }, z.core.$strict>>;
     }, z.core.$strict>]>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

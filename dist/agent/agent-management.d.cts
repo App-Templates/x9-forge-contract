@@ -132,6 +132,10 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
     action: z.ZodLiteral<"apply-config">;
     requestId: z.ZodString;
     desiredVersion: z.ZodNumber;
+    modelBootstrap: z.ZodOptional<z.ZodObject<{
+        expectedSourceVersion: z.ZodString;
+        expectedAbsent: z.ZodLiteral<true>;
+    }, z.core.$strict>>;
 }, z.core.$strict>]>;
 export type AgentManagementCommand = z.infer<typeof AgentManagementCommandSchema>;
 /** Same command (action, version, target set) — the replay test for one `requestId`. Target order is irrelevant. */
