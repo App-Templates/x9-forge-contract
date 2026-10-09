@@ -108,6 +108,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
     }>;
     reason: z.ZodNullable<z.ZodString>;
     origin: z.ZodEnum<{
+        unknown: "unknown";
         custom: "custom";
         master: "master";
     }>;
@@ -848,6 +849,23 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
         reason: z.ZodNullable<z.ZodString>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
+/** Read-side inventory evidence; absence on old producers is not an attestation of zero. */
+export declare const AgentModelsOverviewCoverageSchema: z.ZodObject<{
+    identity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strict>;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    status: z.ZodEnum<{
+        unavailable: "unavailable";
+        partial: "partial";
+        complete: "complete";
+    }>;
+    missingSlots: z.ZodArray<z.ZodString>;
+    reason: z.ZodNullable<z.ZodString>;
+}, z.core.$strict>;
+export type AgentModelsOverviewCoverage = z.infer<typeof AgentModelsOverviewCoverageSchema>;
 export declare const AgentModelsOverviewSchema: z.ZodObject<{
     version: z.ZodString;
     observedAt: z.ZodISODateTime;
@@ -880,6 +898,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
         }>;
         reason: z.ZodNullable<z.ZodString>;
         origin: z.ZodEnum<{
+            unknown: "unknown";
             custom: "custom";
             master: "master";
         }>;
@@ -1620,6 +1639,21 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
             reason: z.ZodNullable<z.ZodString>;
         }, z.core.$strict>>;
     }, z.core.$strict>>;
+    coverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strict>;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        status: z.ZodEnum<{
+            unavailable: "unavailable";
+            partial: "partial";
+            complete: "complete";
+        }>;
+        missingSlots: z.ZodArray<z.ZodString>;
+        reason: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type AgentModelsOverview = z.infer<typeof AgentModelsOverviewSchema>;
 export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
