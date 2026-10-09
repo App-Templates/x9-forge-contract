@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
-status: awaiting_independent_review
+status: awaiting_coordinator_publication
 stopped_at: v1.0 milestone closed via `/gsd-complete-milestone` (Path B).
 last_updated: "2026-10-09T15:16:35.274Z"
 progress:
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-16 after v1.0 close)
 
 Phase: 55 (cap-paperclip-release) — LOCAL PREPARATION COMPLETE
 Plan: 1 of 1
-**Status:** Awaiting independent candidate review/publication; historical cleanup parked
+**Status:** Independently approved local candidate (C4fe25f2); awaiting coordinator publication/consumer integration; historical cleanup parked
 **Last completed:** v1.0 Bridge Foundation (2026-04-16, PR #1 merged, git tag `v1.0`)
 
 To start the next milestone: `/clear` then `/gsd-new-milestone`.

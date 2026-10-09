@@ -84,5 +84,35 @@
     "email": 0,
     "deployment": 0
   },
-  "status": "local candidate; independent review and coordinator-owned publication pending"
+  "status": "Independently approved local candidate; coordinator publication/consumer integration pending",
+  "independentReview": {
+    "status": "APPROVE scoped",
+    "reviewCommit": "4fe25f2",
+    "candidate": "15b839ce3d92fa0c0be19d8bf262438b95283cfb",
+    "product": "e6c1f97e46503ab89022f94fcbfd8f40e904fbca",
+    "report": "/Users/admintemp/Downloads/Claude/filiera-codex-163-1/c-rilascio/reviews/bridge-145-release/REVIEW.md",
+    "freshTests": {
+      "passed": 118,
+      "total": 118,
+      "files": 4
+    },
+    "sourceCuts": {
+      "killed": 1,
+      "total": 1
+    },
+    "metadataCuts": {
+      "killed": 2,
+      "total": 2
+    },
+    "archiveEntries": {
+      "identical": 1450,
+      "total": 1450
+    },
+    "availability": {
+      "passed": 63,
+      "total": 63
+    },
+    "archiveSha256": "721da65bbb6960402c65552add8ace77b82e1149a14b2485f91bb7a8d77d0e2c",
+    "limits": "Previous Cfull4094/4094 on854 retained by identity, not new1.45 full. Local package only; no native/provider/email/VPS."
+  }
 }

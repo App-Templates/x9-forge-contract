@@ -20,3 +20,7 @@ Consumers can import the unpacked actual1.45 archive through ESM/CJS subpath and
 ## GSD outcome
 
 Plan/research/checker/execution/author-review roles inline under board constraint; structure valid2 tasks/0 errors/0 warnings. No new agent, no auto-advance into historical cleanup. Both planned local tasks completed; publication is not claimed.
+
+## Independent candidate approval — 2026-10-09 17:54
+
+C4fe25f2 APPROVE scoped candidate15b839ce/producte6c1f97. Read complete REVIEW.md and SUMMARY.md under /Users/admintemp/Downloads/Claude/filiera-codex-163-1/c-rilascio/reviews/bridge-145-release/. Fresh118/118/4file,1source causal cut/exact restore; build/types/lint0,DTS362/362, compiled groups36/36+6/6+15/15+16/16+39/39. Actual archive1450/1450 entries/SHA identical to D, availability63/63, Node16/Bundler/publint/attw4/4;2/2 metadata assertion cuts/exact restore. Prior Cfull4094/4094/153 on854 carried by1909/1909 identity, not rerun1.45.18/18 historical exports,1448/1448 rebuilt dist,8/8 source hashes. Historical1rootCJSwarning disclosed; cache/npm diagnostics excluded. This approval certifies local contract package only, no deployment/provider/email or completed user workflow. Candidate source remains unchanged; this later commit records approval only.
