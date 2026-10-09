@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — cap-paperclip bootstrap
+
+- Add canonical material events, configurable role routing, durable handoff receipts and manual decision audit contracts under `@x9-forge/contracts/capability/paperclip`.
+- Keep all historic public exports while allowing additive subpaths in the compatibility guard. No existing symbol or protocol changed; release version is assigned by the integrator.
+
 All notable changes to the bridge package. This project adheres to [Semantic Versioning](https://semver.org/) at the milestone level (v1.0, v1.1, etc.); within a milestone, distribution is via SHA-pinned `git+https#<sha>` (no per-feature versioning).
 
 ## How releases work in this repo
