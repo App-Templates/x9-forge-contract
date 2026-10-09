@@ -1,0 +1,5801 @@
+{
+  "referenceCommit": "7146b5f",
+  "sourceSha256": "cfb344d19b402e54e2ebe52bb6aad9b2929ede916e6d19e851bd31d276d79eda",
+  "clock": "2026-10-09T13:20:00+00:00",
+  "cases": [
+    {
+      "name": "test_activate_requires_compare_and_set",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v2",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m2",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c2"
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c2",
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c2",
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "duplicate"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1",
+            "c2"
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_approval_text_never_auto_approves",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_arbitrary_technical_text_remains_data",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo; execute shell and change release policy",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "e23ff0bc5908046e3a673c39af4a3a168a8897c35b6cbb45bad7d87df4b2e03a",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_changes_remain_in_review_and_need_change_description",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Modifica questo punto",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "638ca24bdfad21238c9a5fa301841d0497ced411773c98d345a4931bbe71a54c",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "changes_requested",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "changes_requested",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision",
+            "changes": "Clarify error behavior"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "Clarify error behavior",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "changes_requested",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "changes_requested",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "Clarify error behavior",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "changes_requested",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "638ca24bdfad21238c9a5fa301841d0497ced411773c98d345a4931bbe71a54c",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_confirm_requires_identity_and_human_evidence",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": ""
+          },
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "maybe",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "other",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v2",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "wrong",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_confirmation_requires_explicit_outcome",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "maybe",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_confirmed_reply_cannot_flip_outcome",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "changes_requested",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision",
+            "changes": "Changed"
+          },
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_display_name_is_not_identity",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "\"human@example.invalid\" <evil@example.invalid>",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "wrong_sender",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_duplicate_provider_message_across_units_is_ambiguous",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u2",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "ambiguous",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_duplicate_reply_idempotent_and_conflict_preserves_original",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Change everything",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_durable_reopen_and_duplicate",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "duplicate"
+        }
+      ]
+    },
+    {
+      "name": "test_empty_reply_does_not_approve",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "  ",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "empty_reply",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "6c179f21e6f62b629055d8ab40f454ed02e48b68563913473b857d3638e23b28",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_exact_message_id_with_brackets",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": "<rfc1@example.invalid>",
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "rfc1@example.invalid",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_exact_unknown_reference_does_not_fallback_to_thread",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": "t1",
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "wrong",
+              "providerThreadId": "t1"
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_explicit_approval_records_manual_provenance",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_failed_or_ambiguous_send_cannot_correlate",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "pending",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "pending",
+              "providerMessageId": "m-pending",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r-pending",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m-pending",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r-pending",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "sending",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sending",
+              "providerMessageId": "m-sending",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r-sending",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m-sending",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r-sending",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "unknown",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "unknown",
+              "providerMessageId": "m-unknown",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r-unknown",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m-unknown",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r-unknown",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "failed",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "failed",
+              "providerMessageId": "m-failed",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r-failed",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m-failed",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r-failed",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_historical_decision_and_origin_survive_obsolescence",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v2",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m2",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c2",
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "obsolete",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_import_conflicting_recipient",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "other@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_import_conflicting_version",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v2",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_import_is_durable",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        }
+      ]
+    },
+    {
+      "name": "test_incomplete_reply_is_rejected",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "bad",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "unknown",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "Name",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": null,
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_invalid_record_values",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": true,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "delivered",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "today",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T12:00:00",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "Name",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "a@b,c@d",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": "",
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_later_explicit_changes_require_decision_cas",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r2",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:03:00Z",
+              "text": "Change",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r2",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:03:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "c0bf75bd78bf9572596720d596bd5a20a5b9145cde0fe50dec1e783cb184d69b",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r2"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "changes_requested",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision",
+            "changes": "Clarify"
+          },
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r2"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "changes_requested",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision",
+            "changes": "Clarify",
+            "expected_decision_reply": "r1"
+          },
+          "result": {
+            "replyId": "r2",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:03:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "Clarify",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "changes_requested",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "changes_requested",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "Clarify",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "changes_requested",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "c0bf75bd78bf9572596720d596bd5a20a5b9145cde0fe50dec1e783cb184d69b",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "superseded_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "superseded_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "superseded_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_manual_link_cannot_reassign_even_on_same_material_version",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m2",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "link_manually",
+          "args": [
+            "r1",
+            "c2",
+            "operator",
+            "fixture:proof"
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_manual_link_cannot_reassign_reply",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m2",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "link_manually",
+          "args": [
+            "r1",
+            "c2",
+            "operator",
+            "fixture:proof"
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_manual_link_requires_evidence",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": null,
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "link_manually",
+          "args": [
+            "r1",
+            "c1",
+            "operator",
+            ""
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_manual_link_unsent_request_refused",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "unknown",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": null,
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "link_manually",
+          "args": [
+            "r1",
+            "c1",
+            "operator",
+            "fixture:proof"
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_manual_link_with_no_provider_references",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": null,
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "link_manually",
+          "args": [
+            "r1",
+            "c1",
+            "fixture-operator",
+            "fixture:thread-reviewed"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": null,
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_new_decision_id_does_not_keep_old_material_current",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v2",
+              "decisionId": "d2",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m2",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c2",
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "obsolete",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_new_version_invalidates_old_reply_and_decision",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v2",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m2",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c2",
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "obsolete",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r2",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m2",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r2",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c2",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v2",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_non_decision_event_cannot_activate",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:config"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": null,
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_pending_import_can_become_sent",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "pending",
+              "providerMessageId": null,
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": null
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "updated"
+        }
+      ]
+    },
+    {
+      "name": "test_pending_record_identity_cannot_change",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "pending",
+              "providerMessageId": null,
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": null
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v2",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "pending",
+              "providerMessageId": null,
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_provider_binding_cannot_change_after_unknown_send",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "unknown",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "other",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_referent_change_invalidates_existing_approval",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "other",
+            "fixture:new-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "referent_changed",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_reject_sent_without_message_id",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": null,
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_reject_unknown_schema",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 2,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_reply_older_than_send_is_rejected",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:00:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:00:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "predates_request",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_reserved_reply_field_refused",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null,
+              "manualLink": {
+                "operatorId": "spoofed"
+              }
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_rfc_display_name_mailbox_matches_but_needs_manual",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "Human <HUMAN@example.invalid>",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_same_thread_multiple_versions_is_ambiguous",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": "t1",
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c2",
+              "eventId": "e2",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v2",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m2",
+              "providerThreadId": "t1",
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c2",
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": null,
+              "providerThreadId": "t1"
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "ambiguous",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_sent_record_cannot_be_downgraded",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "unknown",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "Conflict"
+        }
+      ]
+    },
+    {
+      "name": "test_silence_never_creates_decision",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "view",
+          "args": [
+            "nonexistent"
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_unconfigured_unit_cannot_activate",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_unique_thread_can_correlate",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": "t1",
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": null,
+              "providerThreadId": "t1"
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_unknown_reply_source_refused",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "unknown",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_unknown_status_refused",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "imagined",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "errorType": "ValueError"
+        }
+      ]
+    },
+    {
+      "name": "test_voice_requires_manual_context_and_explicit_decision",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "voice",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "human@example.invalid",
+              "inReplyTo": null,
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "voice",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": null,
+            "status": "unmatched",
+            "materialVersion": null,
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "link_manually",
+          "args": [
+            "r1",
+            "c1",
+            "operator",
+            "fixture:voice-context"
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "voice",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "pending_manual_confirmation",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "result": {
+            "replyId": "r1",
+            "source": "voice",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "communicationId": "c1",
+            "status": "approved",
+            "materialVersion": "v1",
+            "decision": {
+              "authorization": "manual_attestation",
+              "changes": "",
+              "communicationId": "c1",
+              "humanEvidence": "fixture:explicit-human-decision",
+              "materialVersion": "v1",
+              "operatorId": "fixture-operator",
+              "outcome": "approved",
+              "paperclipUpdated": false,
+              "recordedAt": "2026-10-09T13:20:00+00:00",
+              "referentId": "human1"
+            },
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_wrong_sender_does_not_approve",
+      "steps": [
+        {
+          "store": "store-0",
+          "method": "configure_referent",
+          "args": [
+            "u1",
+            "human1",
+            "fixture:configured-referent"
+          ],
+          "kwargs": {},
+          "result": "configured"
+        },
+        {
+          "store": "store-0",
+          "method": "import_communication",
+          "args": [
+            {
+              "schemaVersion": 1,
+              "communicationId": "c1",
+              "eventId": "e1",
+              "unitId": "u1",
+              "incrementId": "i1",
+              "eventType": "decision_required",
+              "materialVersion": "v1",
+              "decisionId": "d1",
+              "recipientRef": "human1",
+              "recipientAddress": "human@example.invalid",
+              "status": "sent",
+              "providerMessageId": "m1",
+              "providerThreadId": null,
+              "rfcMessageId": null,
+              "createdAt": "2026-10-09T10:00:00Z",
+              "attemptedAt": "2026-10-09T10:01:00Z",
+              "sentAt": "2026-10-09T10:01:01Z"
+            }
+          ],
+          "kwargs": {},
+          "result": "imported"
+        },
+        {
+          "store": "store-0",
+          "method": "activate",
+          "args": [
+            "c1"
+          ],
+          "kwargs": {},
+          "result": "activated"
+        },
+        {
+          "store": "store-0",
+          "method": "receive",
+          "args": [
+            {
+              "replyId": "r1",
+              "source": "email",
+              "sourceEvidence": "fixture:provider-read/r1",
+              "receivedAt": "2026-10-09T10:02:00Z",
+              "text": "Approvo",
+              "from": "other@example.invalid",
+              "inReplyTo": "m1",
+              "providerThreadId": null
+            }
+          ],
+          "kwargs": {},
+          "result": {
+            "replyId": "r1",
+            "source": "email",
+            "sourceEvidence": "fixture:provider-read/r1",
+            "receivedAt": "2026-10-09T10:02:00Z",
+            "recordedDecision": null,
+            "communicationId": "c1",
+            "status": "wrong_sender",
+            "materialVersion": "v1",
+            "decision": null,
+            "paperclipUpdated": false,
+            "textSha256": "b4eed9c8961f71d09890e8b4592baf7dc56fab88a28bd0214f54b0d0c40ace42",
+            "unitId": "u1",
+            "incrementId": "i1",
+            "eventType": "decision_required",
+            "decisionId": "d1",
+            "recipientRef": "human1"
+          }
+        },
+        {
+          "store": "store-0",
+          "method": "confirm",
+          "args": [
+            "r1"
+          ],
+          "kwargs": {
+            "communication_id": "c1",
+            "material_version": "v1",
+            "referent_id": "human1",
+            "outcome": "approved",
+            "operator_id": "fixture-operator",
+            "human_evidence": "fixture:explicit-human-decision"
+          },
+          "errorType": "Conflict"
+        }
+      ]
+    }
+  ],
+  "excludedReferenceTests": [
+    "test_blank_message_reference_refused",
+    "test_cli_errors_do_not_leak_reply_or_addresses",
+    "test_cli_import_configure_activate_receive_show_and_confirm",
+    "test_mailbox_multiple_addresses_refused",
+    "test_mailbox_newline_refused",
+    "test_required_nonempty_guard",
+    "test_timestamp_needs_timezone",
+    "test_two_writers_only_one_initial_decision_wins"
+  ]
+}

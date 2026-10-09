@@ -1,0 +1,69 @@
+{
+  "sourceSha256": "d825c988aaada745d7cca4257330dd6d7bbef304c8502337b09eb7c20bdf23f3",
+  "snapshot": "/private/tmp/d-paperclip-contracts-kq1_rjvl",
+  "killed": 12,
+  "total": 12,
+  "restored": true,
+  "mutations": [
+    {
+      "name": "strict-tool",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "limit-zero",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "limit-high",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "limit-integer",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "empty-statuses",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "duplicate-statuses",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "unknown-status",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "uuid",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "role-blank",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "scope-required",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "positive-operation",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "positive-view",
+      "assertionRed": true,
+      "exitCode": 1
+    }
+  ]
+}

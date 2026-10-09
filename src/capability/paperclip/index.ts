@@ -67,3 +67,53 @@ export type PaperclipResolvedRoute = z.infer<typeof PaperclipResolvedRouteSchema
 export type PaperclipHandoff = z.infer<typeof PaperclipHandoffSchema>;
 export type PaperclipHandoffReceipt = z.infer<typeof PaperclipHandoffReceiptSchema>;
 export type PaperclipDecisionRecord = z.infer<typeof PaperclipDecisionRecordSchema>;
+
+export * from './tools.js';
+
+/** Provider communication references correlate an exact material version with a human reply. */
+const Reference = Text.nullable().optional();
+export const PaperclipCommunicationRecordSchema = z.strictObject({
+  schemaVersion: z.literal(1), communicationId: Text, eventId: Text, unitId: Text, incrementId: Text,
+  eventType: Text, materialVersion: Text, decisionId: Reference,
+  recipientRef: Text, recipientAddress: Text.regex(Email),
+  status: z.enum(['pending', 'sending', 'sent', 'unknown', 'failed']),
+  providerMessageId: Reference, providerThreadId: Reference, rfcMessageId: Reference,
+  createdAt: Timestamp, attemptedAt: Timestamp.nullable().optional(), sentAt: Timestamp.nullable().optional(),
+  attempts: z.number().int().nonnegative().optional(), errorCode: Reference,
+}).superRefine((record, ctx) => {
+  if (record.status === 'sent' && (!record.providerMessageId || !record.sentAt)) {
+    ctx.addIssue({ code: 'custom', path: ['status'], message: 'Sent requires provider message and timestamp' });
+  }
+});
+/** Mailbox interpretation is performed by the reply adapter; display names remain data. */
+export const PaperclipReplyRecordSchema = z.strictObject({
+  replyId: Text, source: z.enum(['email', 'voice']), sourceEvidence: Text,
+  receivedAt: Timestamp, text: z.string().max(262144), from: Text.optional(),
+  inReplyTo: Reference, providerThreadId: Reference,
+}).superRefine((record, ctx) => {
+  if (record.source === 'email' && (!record.from || /[\r\n]/.test(record.from) || !record.from.includes('@'))) {
+    ctx.addIssue({ code: 'custom', path: ['from'], message: 'Email sender required' });
+  }
+});
+export const PaperclipManualConfirmationSchema = z.strictObject({
+  communicationId: Text, materialVersion: Text, referentId: Text,
+  outcome: z.enum(['approved', 'changes_requested']), operatorId: Text, humanEvidence: Text,
+  changes: z.string().max(4096).default(''), expectedDecisionReply: Reference,
+}).superRefine((record, ctx) => {
+  if (record.outcome === 'changes_requested' && !record.changes.trim()) {
+    ctx.addIssue({ code: 'custom', path: ['changes'], message: 'Requested changes required' });
+  }
+});
+export const PaperclipDecisionViewSchema = z.strictObject({
+  replyId: Text, source: z.enum(['email', 'voice']), sourceEvidence: Text, receivedAt: Timestamp,
+  recordedDecision: PaperclipDecisionRecordSchema.nullable(), communicationId: Text.nullable(),
+  status: z.enum(['ambiguous', 'approved', 'changes_requested', 'empty_reply', 'obsolete',
+    'pending_manual_confirmation', 'predates_request', 'referent_changed', 'superseded_confirmation', 'unmatched', 'wrong_sender']),
+  materialVersion: Text.nullable(), decision: PaperclipDecisionRecordSchema.nullable(), paperclipUpdated: z.literal(false),
+  textSha256: z.string().regex(/^[a-f0-9]{64}$/), unitId: Text.optional(), incrementId: Text.optional(),
+  eventType: Text.optional(), decisionId: Reference, recipientRef: Text.optional(),
+});
+export type PaperclipCommunicationRecord = z.infer<typeof PaperclipCommunicationRecordSchema>;
+export type PaperclipReplyRecord = z.infer<typeof PaperclipReplyRecordSchema>;
+export type PaperclipManualConfirmation = z.infer<typeof PaperclipManualConfirmationSchema>;
+export type PaperclipDecisionView = z.infer<typeof PaperclipDecisionViewSchema>;
