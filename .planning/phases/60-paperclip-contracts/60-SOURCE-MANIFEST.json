@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-09T16:17:13.353081+00:00",
+  "sourceDesignVerified": false,
+  "implementationQualified": false,
+  "entries": [
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1",
+      "commit": "61da2a914d558e757f58779f83926468c4546d1b",
+      "path": "a-paperclip/src/provision.mjs",
+      "sha256": "c5e445a9737a3769b494fd6f8b40f4c2bd34ed4250782381c1c0c026ac291d99",
+      "bytes": 9490
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1",
+      "commit": "61da2a914d558e757f58779f83926468c4546d1b",
+      "path": "a-paperclip/BOOTSTRAP-VPS.md",
+      "sha256": "2c6250b8d20cfd063ba55b0e8c173dd10d11395b5bdc6b11d363f30aedeebb5c",
+      "bytes": 6457
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1",
+      "commit": "d3f5d2661cb1759f6ce92229b3710e956a83bae5",
+      "path": "a-paperclip/REST-S12.md",
+      "sha256": "0fb799576d091bb43a4d002aca3b8a382812fb76170f788e989e89a277e0a696",
+      "bytes": 5211
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1",
+      "commit": "8c7b6fb024c83ca41d268c0174bbe14e898eaf4a",
+      "path": "a-paperclip/RUN-HOLDER.md",
+      "sha256": "83e3cb1e1d6215d3b381f58d276fb31e0cb41b67f85158a22df97c7555cbc2b4",
+      "bytes": 9285
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1",
+      "commit": "8c7b6fb024c83ca41d268c0174bbe14e898eaf4a",
+      "path": "a-paperclip/src/native-run-holder.mjs",
+      "sha256": "93d6f43d484908676a6a7403dce98fef187977f7d4de09bd8f1d31400f45fabe",
+      "bytes": 6449
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1",
+      "commit": "90b67c6cc80b3fa8d6e89deb57220df0acb2cd97",
+      "path": "a-paperclip/RUN-HOLDER.md",
+      "sha256": "e77c5cbb0a4256371c017ce79727bf7fe59c2654488f8b3cdf19fd205fa90fee",
+      "bytes": 10479
+    },
+    {
+      "package": "@paperclipai/server",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+server@2026.1005.0_@modelcontextprotocol+sdk@1.32.1_zod@4.6.5__@noble+hashes@2.4_jgpahb5xncuqn4flcxevbnyliu/node_modules/@paperclipai/server/package.json",
+      "sha256": "72c6650955a273a9f0646802f97af3105716c745974078f91facc20ce56b8a63",
+      "bytes": 5455
+    },
+    {
+      "package": "@paperclipai/server",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+server@2026.1005.0_@modelcontextprotocol+sdk@1.32.1_zod@4.6.5__@noble+hashes@2.4_jgpahb5xncuqn4flcxevbnyliu/node_modules/@paperclipai/server/dist/routes/agents.js",
+      "sha256": "af5bffef1668800b612a16207ffb4f43315599f11e8fee7e179b4bae73f433c2",
+      "bytes": 341268
+    },
+    {
+      "package": "@paperclipai/server",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+server@2026.1005.0_@modelcontextprotocol+sdk@1.32.1_zod@4.6.5__@noble+hashes@2.4_jgpahb5xncuqn4flcxevbnyliu/node_modules/@paperclipai/server/dist/routes/companies.js",
+      "sha256": "c80cce6bfe47f185637708ab05c787153eb38e782a118e0e93679708d4bb9d0f",
+      "bytes": 66688
+    },
+    {
+      "package": "@paperclipai/server",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+server@2026.1005.0_@modelcontextprotocol+sdk@1.32.1_zod@4.6.5__@noble+hashes@2.4_jgpahb5xncuqn4flcxevbnyliu/node_modules/@paperclipai/server/dist/services/heartbeat.js",
+      "sha256": "e539f436e33f704689c6b059b1c02500a1f652fc903055f2d5d66a079bf99601",
+      "bytes": 1191863
+    },
+    {
+      "package": "@paperclipai/shared",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+shared@2026.1005.0/node_modules/@paperclipai/shared/package.json",
+      "sha256": "eed4d4188964dbcdedfa2952c35e8afd387a74e06ff66d38f53cbf699e54c65f",
+      "bytes": 1237
+    },
+    {
+      "package": "@paperclipai/shared",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+shared@2026.1005.0/node_modules/@paperclipai/shared/dist/validators/agent.js",
+      "sha256": "ac341ecc3a1aea47ecc9fe0ab92f77d66c06d632e64a077543ab570d9a3cdfae",
+      "bytes": 11461
+    },
+    {
+      "package": "@paperclipai/shared",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+shared@2026.1005.0/node_modules/@paperclipai/shared/dist/constants.js",
+      "sha256": "7191d0d89c3c6abafeb8c30010775abdf9c9a3ba148f34c2aaf78e8352714a99",
+      "bytes": 37787
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-171-1",
+      "commit": "b22032d264cc32838524a9927f67200c5acd6f7b",
+      "path": "src/http/endpoints/internal-agent-turn.ts",
+      "sha256": "5e30b4c74b2c80ca112019af13a7f7952dd92b400ce9a870ecd5c24b79da4393",
+      "bytes": 3890
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-171-1",
+      "commit": "b22032d264cc32838524a9927f67200c5acd6f7b",
+      "path": "src/http/endpoints/internal-turn.ts",
+      "sha256": "7c07bab761af587b7004b236f2099a16d95868aa00779708aa363fe64e16490d",
+      "bytes": 3169
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-171-1",
+      "commit": "b22032d264cc32838524a9927f67200c5acd6f7b",
+      "path": "src/capability/paperclip/tools.ts",
+      "sha256": "d825c988aaada745d7cca4257330dd6d7bbef304c8502337b09eb7c20bdf23f3",
+      "bytes": 2321
+    }
+  ]
+}
