@@ -1,0 +1,11 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ✓ tests/agent/agent-credentials.test.ts (10 tests) 8ms
+ ✓ tests/agent/agent-credential-services.test.ts (77 tests) 11ms
+
+ Test Files  2 passed (2)
+      Tests  87 passed (87)
+   Start at  20:21:48
+   Duration  920ms (transform 261ms, setup 10ms, collect 510ms, tests 19ms, environment 0ms, prepare 78ms)
+

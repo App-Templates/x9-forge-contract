@@ -1,0 +1,196 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/agent/agent-credential-services.test.ts (76 tests | 6 failed) 20ms
+   ✓ Canonical credential services > exports the metadata through the public agent entry 1ms
+   × Canonical credential services > covers exactly every declared key, including the additional auth gate 8ms
+     → expected [ 'OPENAI_API_KEY', …(41) ] to have a length of 43 but got 42
+   ✓ Canonical credential services > attests service/kind/label and no values for OPENAI_API_KEY 1ms
+   ✓ Canonical credential services > attests service/kind/label and no values for ANTHROPIC_API_KEY 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for GOOGLE_API_KEY 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for AGENT_CHAT_MODEL 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for TELEGRAM_BOT_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for ELEVENLABS_API_KEY 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for ELEVENLABS_VOICE_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for ELEVENLABS_MODEL_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for TTS_PROVIDER 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for OPENAI_TTS_MODEL 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for OPENAI_TTS_VOICE 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for STT_PRIMARY_PROVIDER 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for OPENAI_STT_MODEL 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for VOICE_CALL_PROVIDER 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for OPENAI_LIVE_VOICE 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for OPENAI_LIVE_BACKEND_MODEL 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for TELNYX_API_KEY 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for TELNYX_CONNECTION_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for TELNYX_FROM_NUMBER 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for TELNYX_PUBLIC_KEY 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for LIVE_WEB_AUTH_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for QDRANT_API_KEY 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for ELEVENLABS_MINDFULNESS_AGENT_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for FORGE_VOICE_REGISTER_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for AGENTMAIL_API_KEY 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for AGENTMAIL_INBOX_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for AGENT_EMAIL 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for GOOGLE_CALENDAR_CLIENT_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for GOOGLE_CALENDAR_CLIENT_SECRET 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for GOOGLE_CALENDAR_REFRESH_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for GOOGLE_CONTACTS_CLIENT_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for GOOGLE_CONTACTS_CLIENT_SECRET 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for GOOGLE_CONTACTS_REFRESH_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for NETATMO_CLIENT_ID 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for NETATMO_CLIENT_SECRET 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for NETATMO_REFRESH_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for NETATMO_ACCESS_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for NETATMO_PASSWORD 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for INTERNAL_SECRET 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for X9_INTERNAL_SECRET 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for HOSTINGER_API_TOKEN 0ms
+   ✓ Canonical credential services > attests service/kind/label and no values for INTERNAL_TOKEN 0ms
+   ✓ Canonical credential services > rejects invented commercial service made-up 0ms
+   ✓ Canonical credential services > rejects invented commercial service voice 0ms
+   ✓ Canonical credential services > rejects invented commercial service email 0ms
+   ✓ Canonical credential services > rejects invented commercial service system 0ms
+   ✓ Canonical credential services > rejects invented commercial service openai_live 0ms
+   ✓ Canonical credential services > rejects malformed service {"type":"multi-provider","candidates":[]} 0ms
+   ✓ Canonical credential services > rejects malformed service {"type":"multi-provider","candidates":["openai"]} 0ms
+   ✓ Canonical credential services > rejects malformed service {"type":"multi-provider","candidates":["openai","openai"]} 0ms
+   ✓ Canonical credential services > rejects malformed service {"type":"multi-provider","candidates":["openai","fake"]} 0ms
+   ✓ Canonical credential services > rejects malformed service {"type":"internal","id":"fake"} 0ms
+   ✓ Canonical credential services > rejects malformed service {"type":"commercial","id":"openai","value":"not-metadata"} 0ms
+   ✓ Canonical credential services > unknown key  never guesses a provider 0ms
+   ✓ Canonical credential services > unknown key CUSTOM_CAPABILITY_KEY never guesses a provider 0ms
+   ✓ Canonical credential services > unknown key NETATMO_UNKNOWN_KEY never guesses a provider 0ms
+   ✓ Canonical credential services > unknown key __proto__ never guesses a provider 0ms
+   ✓ Canonical credential services > unknown key constructor never guesses a provider 0ms
+   ✓ Canonical credential services > unknown key toString never guesses a provider 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"service":{"type":"commercial","id":"google"}} 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"service":{"type":"internal","id":"x9"}} 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"kind":"setting"} 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"secret":false} 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"label":""} 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"label":"   "} 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"label":"Un altro servizio"} 0ms
+   ✓ Canonical credential services > rejects forged or value-bearing metadata {"value":"not-metadata"} 0ms
+   ✓ Canonical credential services > does not allow a candidate selector to claim one active provider 0ms
+   ✓ Canonical credential services > registry and nested arrays cannot be mutated by consumers 1ms
+   × Canonical Netatmo account email > attests the public account email as a Netatmo credential 1ms
+     → expected null to deeply equal { key: 'NETATMO_EMAIL', …(4) }
+   × Canonical Netatmo account email > rejects forged Netatmo account metadata {"secret":true} 0ms
+     → expected null not to be null
+   × Canonical Netatmo account email > rejects forged Netatmo account metadata {"kind":"identifier"} 0ms
+     → expected null not to be null
+   × Canonical Netatmo account email > rejects forged Netatmo account metadata {"service":{"type":"internal","id":"x9"}} 0ms
+     → expected null not to be null
+   × Canonical Netatmo account email > rejects forged Netatmo account metadata {"label":"Email"} 0ms
+     → expected null not to be null
+ ❯ tests/agent/agent-credentials.test.ts (10 tests | 2 failed) 23ms
+   ✓ KNOWN_CREDENTIAL_KEYS > has at least 16 known keys 1ms
+   ✓ KNOWN_CREDENTIAL_KEYS > includes core credential keys 3ms
+   ✓ KNOWN_CREDENTIAL_KEYS > Phase 50: includes voice-note provider-lane keys 4ms
+   ✓ AgentCredentialsSchema > parses full production credentials 0ms
+   ✓ AgentCredentialsSchema > accepts empty credentials object 1ms
+   ✓ AgentCredentialsSchema > accepts dynamic capability-specific keys via catchall 0ms
+   ✓ AgentCredentialsSchema > rejects non-string credential values 2ms
+   ✓ AgentCredentialsSchema > rejects non-string dynamic key values 0ms
+   × Netatmo account credential > declares the account email as a known key 9ms
+     → expected [ 'OPENAI_API_KEY', …(40) ] to include 'NETATMO_EMAIL'
+   × Netatmo account credential > declares an explicit optional string schema for the account email 2ms
+     → expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-credential-services.test.ts > Canonical credential services > covers exactly every declared key, including the additional auth gate
+AssertionError: expected [ 'OPENAI_API_KEY', …(41) ] to have a length of 43 but got 42
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 43[39m
+[31m+ 42[39m
+
+ ❯ tests/agent/agent-credential-services.test.ts:20:246
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/agent/agent-credential-services.test.ts > Canonical Netatmo account email > attests the public account email as a Netatmo credential
+AssertionError: expected null to deeply equal { key: 'NETATMO_EMAIL', …(4) }
+
+[32m- Expected:[39m 
+{
+  "key": "NETATMO_EMAIL",
+  "kind": "credential",
+  "label": "Indirizzo email account Netatmo",
+  "secret": false,
+  "service": {
+    "id": "netatmo",
+    "type": "commercial",
+  },
+}
+
+[31m+ Received:[39m 
+null
+
+ ❯ tests/agent/agent-credential-services.test.ts:42:32
+     40| describe('Canonical Netatmo account email', () => {
+     41|  it('attests the public account email as a Netatmo credential', () => {
+     42|   expect(get('NETATMO_EMAIL')).toEqual({key:'NETATMO_EMAIL',label:'Ind…
+       |                                ^
+     43|  });
+     44|  it.each([{secret:true},{kind:'identifier'},{service:{type:'internal',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/agent/agent-credential-services.test.ts > Canonical Netatmo account email > rejects forged Netatmo account metadata {"secret":true}
+ FAIL  tests/agent/agent-credential-services.test.ts > Canonical Netatmo account email > rejects forged Netatmo account metadata {"kind":"identifier"}
+ FAIL  tests/agent/agent-credential-services.test.ts > Canonical Netatmo account email > rejects forged Netatmo account metadata {"service":{"type":"internal","id":"x9"}}
+ FAIL  tests/agent/agent-credential-services.test.ts > Canonical Netatmo account email > rejects forged Netatmo account metadata {"label":"Email"}
+AssertionError: expected null not to be null
+ ❯ tests/agent/agent-credential-services.test.ts:46:21
+     44|  it.each([{secret:true},{kind:'identifier'},{service:{type:'internal',…
+     45|   const entry = get('NETATMO_EMAIL');
+     46|   expect(entry).not.toBeNull();
+       |                     ^
+     47|   expect(metadata.safeParse({...entry,...patch}).success).toBe(false);
+     48|  });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > Netatmo account credential > declares the account email as a known key
+AssertionError: expected [ 'OPENAI_API_KEY', …(40) ] to include 'NETATMO_EMAIL'
+ ❯ tests/agent/agent-credentials.test.ts:82:35
+     80| describe('Netatmo account credential', () => {
+     81|   it('declares the account email as a known key', () => {
+     82|     expect(KNOWN_CREDENTIAL_KEYS).toContain('NETATMO_EMAIL');
+       |                                   ^
+     83|   });
+     84| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > Netatmo account credential > declares an explicit optional string schema for the account email
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ tests/agent/agent-credentials.test.ts:86:74
+     84| 
+     85|   it('declares an explicit optional string schema for the account emai…
+     86|     expect(Object.hasOwn(AgentCredentialsSchema.shape, 'NETATMO_EMAIL'…
+       |                                                                          ^
+     87|     const field = AgentCredentialsSchema.shape['NETATMO_EMAIL' as keyo…
+     88|     expect(field.isOptional()).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  8 failed | 78 passed (86)
+   Start at  20:19:44
+   Duration  716ms (transform 174ms, setup 5ms, collect 338ms, tests 43ms, environment 0ms, prepare 87ms)
+

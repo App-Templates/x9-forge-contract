@@ -1,0 +1,47 @@
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    key: 'NETATMO_EMAIL',
+    kind: 'credential',
++   label: 'Email',
+-   label: 'Indirizzo email account Netatmo',
+    secret: false,
+    service: {
+      id: 'netatmo',
+      type: 'commercial'
+    }
+
+    at Object.<anonymous> (/private/tmp/codex-a-chiavi-completamento/proofs/34-02/private-compiled-package/tests/cjs/smoke.cjs:41:8)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    key: 'NETATMO_EMAIL',
+    label: 'Email',
+    kind: 'credential',
+    service: { type: 'commercial', id: 'netatmo' },
+    secret: false
+  },
+  expected: {
+    key: 'NETATMO_EMAIL',
+    label: 'Indirizzo email account Netatmo',
+    kind: 'credential',
+    secret: false,
+    service: { type: 'commercial', id: 'netatmo' }
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.14.1
