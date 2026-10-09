@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
 status: executing
-stopped_at: Phase 2 context gathered; research and Bcoordination pending
+stopped_at: Phase 2 STOP Stefano112545; source endpoint checkpoint4d30c39; no work until RIPARTITE
 last_updated: "2026-10-09T09:23:38.208Z"
 progress:
   total_phases: 2
@@ -143,7 +143,7 @@ None active. v1.0 closed cleanly with explicit Known Gaps recorded.
 ## Session Continuity
 
 Last session: 2026-10-09T09:13:10.666Z
-Stopped at: Phase 2 context gathered; research and Bcoordination pending
+Stopped at: Phase 2 STOP Stefano112545; source endpoint checkpoint4d30c39; no work until RIPARTITE
 Next action: `/clear` then `/gsd-new-milestone` (when ready to plan v1.1).
 
 ## Remote & baseline
@@ -163,3 +163,7 @@ Next action: `/clear` then `/gsd-new-milestone` (when ready to plan v1.1).
 ## Modelli bridge 145 completion (2026-10-09)
 
 Releasea5103c97 qualified by01-VERIFICATION; M145-01/02/03complete. Source5036/5036in167files0pending,quality10/10,dist1544/1544;remote3roots,4contexts144loads,632Modelsassertions,8types;19provenance+8typefaults restored. Existing ShimCleanup milestone is not completed by this release-only phase. Next: independentCodexreview, then authorizedlocal-authority endpoint task.
+
+## Phase 02 STOP checkpoint (2026-10-09 11:26)
+
+STOP Stefano via coordinator112545. Only task1 source endpoint committed4d30c39,17/17focused/8/8faultsrestored. Initialsource and fullnative/dist/compiled tasks not started, phase incomplete. No new work/tests/messages until RIPARTITE. See02-01-SUMMARY.md.
