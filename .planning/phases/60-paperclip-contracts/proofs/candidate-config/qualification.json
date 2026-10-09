@@ -1,0 +1,351 @@
+{
+  "sourceHashes": {
+    "src/capability/paperclip/agent-config.ts": "6eb9d29c5bb023e85015ac6e9900b3e3a76e79180b32bbfb562a356c7e0c95b9",
+    "src/http/endpoints/internal-capability-agent.ts": "3dee1975b8adf7ead7acbe3d11df4f643c62a06f17a2bed006a9687189eb3485",
+    "src/agent/agent-context-core.ts": "6a19daf0f3ae8aa024a045acc551a88423b03b7c74df68e69695dfb178f5bf5b",
+    "src/http/endpoints/internal-agents-reload.ts": "aa9d5ae74dfc89227358ea403833556d340df9c4cb2ef98a32f6aeb70bbcd913"
+  },
+  "mutations": [
+    {
+      "name": "desired-strict",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "f3fba3c8c573f1291aee489b51b8616434f7b1a651ce233bd2344444a78b6c3a"
+    },
+    {
+      "name": "desired-agent-path",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "a2f9b986876d8e41d1a4feb057604cc5c57d2d357fa32e18a29bee4af40d60d2"
+    },
+    {
+      "name": "desired-version",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "d39e8ec4ea8aa82a470265d263a175ca9da72b9041cb229182c30240d95a43cf"
+    },
+    {
+      "name": "desired-unit",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "556d3e2584bcbfc677bb1c0dc9856e3fa485ad54ed58a90c523fc2d59b4ed310"
+    },
+    {
+      "name": "desired-role",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "8ab26b650ff724d85e6a5889d491c9c0a39405be48e9d796dcffe69ddf0bbbc1"
+    },
+    {
+      "name": "fingerprint-format",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "74f933d79ccf46435df648ab7771c5f62513262c2c1fb15e784f22444d534649"
+    },
+    {
+      "name": "provenance-source",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "961bbfa059d4edc337e703de560ba0633e70bfbe83a7bedea7bff3df3489fc95"
+    },
+    {
+      "name": "provenance-strict",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "37704ef398ad392666f3115129e2d3c658de87950cbe26fc3111bf36e3dd16d6"
+    },
+    {
+      "name": "binding-caller-role-required",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "6cf54675cd56f95d7add259b5906972b2fcb9cb63aad70c54b4782c103f042a2"
+    },
+    {
+      "name": "binding-provision-revision",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "9a37147bb2a9d8c53bd0cca8921ff5809401d4f5b886d1f618c139190e29e11b"
+    },
+    {
+      "name": "binding-provenance-required",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "ca913e0200a26ce2ac7e1b6666fedbb115f26239196df53adf4ac60c461b0dac"
+    },
+    {
+      "name": "install-strict",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "c823897b8dfa622f7da165b9efee4f8a3a7796e42e3ef816283b1fc7c59e7ef0"
+    },
+    {
+      "name": "install-scope-required",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "9379ba9daf2352f69893fb6df256b8b6fe00b801e30381f232c9f2216ad01191"
+    },
+    {
+      "name": "install-version",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "240b194cbb1365f1aa692491cce9addc8bbc27b393cac754e31f062174590d85"
+    },
+    {
+      "name": "install-state-type",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "bbd09b2c17f802dbd1657d72e9e724f191c55b3b101ac31d3a178bf77d9758e2"
+    },
+    {
+      "name": "install-registry-required",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "1a79e190b87c0ea980cd9921f36ecfc81e6dda26ff15bd426bef7479e616381e"
+    },
+    {
+      "name": "readback-applied-version",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "2a7fd2aed01b910ffc511d661e5b08380f40db4828e8e64cf17e0a5c176c16b5"
+    },
+    {
+      "name": "readback-config-required",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "d14a8127c7a4e13e88b38eeb8826ce591778bd740de7c9fc881287e34150745e"
+    },
+    {
+      "name": "correspondence-shape",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "fa5c59daf031db354e785146434a52e0d5b06490ba1d36a785860f62b2c3b8d3"
+    },
+    {
+      "name": "correspondence-scope",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "8193065a9545fec0dd5c2fc16470139fa253803814de5515c1ee14c9ac6c42b5"
+    },
+    {
+      "name": "correspondence-version",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "4a00121a475432c854686076497fbbb1c6df397ceff5adcda0e8649a083afeda"
+    },
+    {
+      "name": "correspondence-enabled",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "4483835f801b154eb6202da1f2461b3e0a59b007ad98147ac8428e1b02fac3a6"
+    },
+    {
+      "name": "correspondence-registry",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "4ea61063f7f10494a6475905874b6289b0ad2f24183a50724833e590b73f8968"
+    },
+    {
+      "name": "installation-wrapper-strict",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "e7976470496987fef644ccfd5df0ad44f0452610c6e820ed79e6cac98f7c09c4"
+    },
+    {
+      "name": "attestation-wrapper-strict",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "5b36aee2deb198bf97b0e98702f480c53ddd70f4b575646103690bbb3c71d2ca"
+    },
+    {
+      "name": "installation-capability",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "a0eada9597d59fdb3d0c9802e4bc530b94c20ccd8dcb6975bdc81b8e0d7d2fe4"
+    },
+    {
+      "name": "attestation-capability",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "dd8e40a41b4dbe80473be46298c6bed886880ddea46242d189919f562a212245"
+    },
+    {
+      "name": "context-bound",
+      "file": "src/agent/agent-context-core.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "16e73cf571bf66626fe36c5d2f4d66545147c23713e1bb8c916bea519f0a5318"
+    },
+    {
+      "name": "context-install-validation",
+      "file": "src/agent/agent-context-core.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "4d9715e6115fd52581977a6653447d860381152f121b5a3adc9003fffc33ce9b"
+    },
+    {
+      "name": "reload-bound",
+      "file": "src/http/endpoints/internal-agents-reload.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "b5fa3b5bced7b7f954e5eb10d74945a9b7f0a4caa6f0d4ec93aadf8e7c1fefa0"
+    },
+    {
+      "name": "reload-attestation-validation",
+      "file": "src/http/endpoints/internal-agents-reload.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "90df149e2c1b1c7f68997d38f7fb854e9e0e7c07da96509a4265e8aa796aee16"
+    },
+    {
+      "name": "paperclipAgentConfigPutContract-auth",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "d92c05e0345e78b5e2e7b8a032d3cab50ca3177ab7c0bd3dbb2e7130adc69667"
+    },
+    {
+      "name": "paperclipAgentConfigPutContract-path",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "c2f65dcd80f2f2ce103d6981e2b58c923d9fac4db51953498c12f758f7090a26"
+    },
+    {
+      "name": "paperclipAgentConfigPutContract-method",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "d0d5f93a46a7fd8d225bdafdb7e5baf5096e46511fcfbdc14350afd71086e3dc"
+    },
+    {
+      "name": "paperclipAgentConfigGetContract-auth",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "728909f8a411132ef7192117591bdfff3f9d6995201979b4bfb66af79c463f89"
+    },
+    {
+      "name": "paperclipAgentConfigGetContract-path",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "1010a9fed54c61ea9117a6554f2e558b9815b77006c3b9aa9bb4dc3762ee5dda"
+    },
+    {
+      "name": "paperclipAgentConfigGetContract-method",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "9e16e15a4c33bd106ed43f30069408736b9d6294ff2414e165c3711817a7642a"
+    },
+    {
+      "name": "paperclipAgentInstallContract-auth",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "545740e273b9fe07fda90eb086c80f55a91e169f3987e7b0dfd5a228d486d07b"
+    },
+    {
+      "name": "paperclipAgentInstallContract-path",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "be6e1a7e1e6b26138559f6fbeaaca338eb4efd50c7c80850f2b2cb3a73084e60"
+    },
+    {
+      "name": "paperclipAgentInstallContract-method",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "848e58d07d9071ed8c4a70f410c6364622ab2b0c442e20307645af398738b9c6"
+    },
+    {
+      "name": "paperclipAgentReadbackContract-auth",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "92a57872f39de72ad2e816734c71bcd5375945c7a494d508cdba4421ef4c4293"
+    },
+    {
+      "name": "paperclipAgentReadbackContract-path",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "6e9725034bb168030cfafeb5256a9b677c4c48da29629087202db0c5a0208765"
+    },
+    {
+      "name": "paperclipAgentReadbackContract-method",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "1e286e359bef29abd554ce33f50b4ba0b811601db5b12a4f112087f533bc2fa5"
+    },
+    {
+      "name": "install-helper-tail",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "63992f64a5f8a2599d2611d123fc1f835ef525a1c04647fa8d79134120a078f2"
+    },
+    {
+      "name": "readback-helper-tail",
+      "file": "src/http/endpoints/internal-capability-agent.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "8c10be167aa63dd4747d05b5158e8904420a20e25ae514429fce5fbb49103566"
+    },
+    {
+      "name": "readback-strict",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "fcb6b3709282f615f346994e3bbbdffd1a61318f19733a4fa3daaa429d075346"
+    },
+    {
+      "name": "readback-scope-strict",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "211a3fb0e17484e23856f2eab8a460cdf63ad1cb687d57b6b321a0d799e37bd8"
+    },
+    {
+      "name": "readback-state-type",
+      "file": "src/capability/paperclip/agent-config.ts",
+      "exitCode": 1,
+      "semanticRed": true,
+      "logSha256": "a10d998adf9667eb883cf24d468dcf310dba9705017b54082ff2c51be9a7ff3e"
+    }
+  ],
+  "exactRestore": true,
+  "planned": 48,
+  "qualified": 48,
+  "restoredGreenExit": 0,
+  "elapsedSeconds": 69.45
+}

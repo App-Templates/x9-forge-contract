@@ -1,0 +1,1315 @@
+{
+  "productSha": "ab08abb7788797854ea7734130a108a8c74e15cd",
+  "files": [
+    {
+      "path": "proofs/candidate-config/attestation-capability.log",
+      "bytes": 3540,
+      "sha256": "dd8e40a41b4dbe80473be46298c6bed886880ddea46242d189919f562a212245"
+    },
+    {
+      "path": "proofs/candidate-config/attestation-wrapper-strict.log",
+      "bytes": 3438,
+      "sha256": "5b36aee2deb198bf97b0e98702f480c53ddd70f4b575646103690bbb3c71d2ca"
+    },
+    {
+      "path": "proofs/candidate-config/binding-caller-role-required.log",
+      "bytes": 5765,
+      "sha256": "6cf54675cd56f95d7add259b5906972b2fcb9cb63aad70c54b4782c103f042a2"
+    },
+    {
+      "path": "proofs/candidate-config/binding-provenance-required.log",
+      "bytes": 5762,
+      "sha256": "ca913e0200a26ce2ac7e1b6666fedbb115f26239196df53adf4ac60c461b0dac"
+    },
+    {
+      "path": "proofs/candidate-config/binding-provision-revision.log",
+      "bytes": 6515,
+      "sha256": "9a37147bb2a9d8c53bd0cca8921ff5809401d4f5b886d1f618c139190e29e11b"
+    },
+    {
+      "path": "proofs/candidate-config/context-bound.log",
+      "bytes": 3501,
+      "sha256": "16e73cf571bf66626fe36c5d2f4d66545147c23713e1bb8c916bea519f0a5318"
+    },
+    {
+      "path": "proofs/candidate-config/context-install-validation.log",
+      "bytes": 5243,
+      "sha256": "4d9715e6115fd52581977a6653447d860381152f121b5a3adc9003fffc33ce9b"
+    },
+    {
+      "path": "proofs/candidate-config/correspondence-enabled.log",
+      "bytes": 5732,
+      "sha256": "4483835f801b154eb6202da1f2461b3e0a59b007ad98147ac8428e1b02fac3a6"
+    },
+    {
+      "path": "proofs/candidate-config/correspondence-registry.log",
+      "bytes": 5786,
+      "sha256": "4ea61063f7f10494a6475905874b6289b0ad2f24183a50724833e590b73f8968"
+    },
+    {
+      "path": "proofs/candidate-config/correspondence-scope.log",
+      "bytes": 6083,
+      "sha256": "8193065a9545fec0dd5c2fc16470139fa253803814de5515c1ee14c9ac6c42b5"
+    },
+    {
+      "path": "proofs/candidate-config/correspondence-shape.log",
+      "bytes": 5801,
+      "sha256": "fa5c59daf031db354e785146434a52e0d5b06490ba1d36a785860f62b2c3b8d3"
+    },
+    {
+      "path": "proofs/candidate-config/correspondence-version.log",
+      "bytes": 5734,
+      "sha256": "4a00121a475432c854686076497fbbb1c6df397ceff5adcda0e8649a083afeda"
+    },
+    {
+      "path": "proofs/candidate-config/desired-agent-path.log",
+      "bytes": 6282,
+      "sha256": "a2f9b986876d8e41d1a4feb057604cc5c57d2d357fa32e18a29bee4af40d60d2"
+    },
+    {
+      "path": "proofs/candidate-config/desired-role.log",
+      "bytes": 5823,
+      "sha256": "8ab26b650ff724d85e6a5889d491c9c0a39405be48e9d796dcffe69ddf0bbbc1"
+    },
+    {
+      "path": "proofs/candidate-config/desired-strict.log",
+      "bytes": 7263,
+      "sha256": "f3fba3c8c573f1291aee489b51b8616434f7b1a651ce233bd2344444a78b6c3a"
+    },
+    {
+      "path": "proofs/candidate-config/desired-unit.log",
+      "bytes": 5822,
+      "sha256": "556d3e2584bcbfc677bb1c0dc9856e3fa485ad54ed58a90c523fc2d59b4ed310"
+    },
+    {
+      "path": "proofs/candidate-config/desired-version.log",
+      "bytes": 6096,
+      "sha256": "d39e8ec4ea8aa82a470265d263a175ca9da72b9041cb229182c30240d95a43cf"
+    },
+    {
+      "path": "proofs/candidate-config/fingerprint-format.log",
+      "bytes": 6458,
+      "sha256": "74f933d79ccf46435df648ab7771c5f62513262c2c1fb15e784f22444d534649"
+    },
+    {
+      "path": "proofs/candidate-config/install-helper-tail.log",
+      "bytes": 3733,
+      "sha256": "63992f64a5f8a2599d2611d123fc1f835ef525a1c04647fa8d79134120a078f2"
+    },
+    {
+      "path": "proofs/candidate-config/install-registry-required.log",
+      "bytes": 5792,
+      "sha256": "1a79e190b87c0ea980cd9921f36ecfc81e6dda26ff15bd426bef7479e616381e"
+    },
+    {
+      "path": "proofs/candidate-config/install-scope-required.log",
+      "bytes": 5814,
+      "sha256": "9379ba9daf2352f69893fb6df256b8b6fe00b801e30381f232c9f2216ad01191"
+    },
+    {
+      "path": "proofs/candidate-config/install-state-type.log",
+      "bytes": 5791,
+      "sha256": "bbd09b2c17f802dbd1657d72e9e724f191c55b3b101ac31d3a178bf77d9758e2"
+    },
+    {
+      "path": "proofs/candidate-config/install-strict.log",
+      "bytes": 6698,
+      "sha256": "c823897b8dfa622f7da165b9efee4f8a3a7796e42e3ef816283b1fc7c59e7ef0"
+    },
+    {
+      "path": "proofs/candidate-config/install-version.log",
+      "bytes": 3477,
+      "sha256": "240b194cbb1365f1aa692491cce9addc8bbc27b393cac754e31f062174590d85"
+    },
+    {
+      "path": "proofs/candidate-config/installation-capability.log",
+      "bytes": 3521,
+      "sha256": "a0eada9597d59fdb3d0c9802e4bc530b94c20ccd8dcb6975bdc81b8e0d7d2fe4"
+    },
+    {
+      "path": "proofs/candidate-config/installation-wrapper-strict.log",
+      "bytes": 3411,
+      "sha256": "e7976470496987fef644ccfd5df0ad44f0452610c6e820ed79e6cac98f7c09c4"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentConfigGetContract-auth.log",
+      "bytes": 3522,
+      "sha256": "728909f8a411132ef7192117591bdfff3f9d6995201979b4bfb66af79c463f89"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentConfigGetContract-method.log",
+      "bytes": 3497,
+      "sha256": "9e16e15a4c33bd106ed43f30069408736b9d6294ff2414e165c3711817a7642a"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentConfigGetContract-path.log",
+      "bytes": 3719,
+      "sha256": "1010a9fed54c61ea9117a6554f2e558b9815b77006c3b9aa9bb4dc3762ee5dda"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentConfigPutContract-auth.log",
+      "bytes": 3520,
+      "sha256": "d92c05e0345e78b5e2e7b8a032d3cab50ca3177ab7c0bd3dbb2e7130adc69667"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentConfigPutContract-method.log",
+      "bytes": 3487,
+      "sha256": "d0d5f93a46a7fd8d225bdafdb7e5baf5096e46511fcfbdc14350afd71086e3dc"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentConfigPutContract-path.log",
+      "bytes": 3709,
+      "sha256": "c2f65dcd80f2f2ce103d6981e2b58c923d9fac4db51953498c12f758f7090a26"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentInstallContract-auth.log",
+      "bytes": 3521,
+      "sha256": "545740e273b9fe07fda90eb086c80f55a91e169f3987e7b0dfd5a228d486d07b"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentInstallContract-method.log",
+      "bytes": 3430,
+      "sha256": "848e58d07d9071ed8c4a70f410c6364622ab2b0c442e20307645af398738b9c6"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentInstallContract-path.log",
+      "bytes": 3710,
+      "sha256": "be6e1a7e1e6b26138559f6fbeaaca338eb4efd50c7c80850f2b2cb3a73084e60"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentReadbackContract-auth.log",
+      "bytes": 3522,
+      "sha256": "92a57872f39de72ad2e816734c71bcd5375945c7a494d508cdba4421ef4c4293"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentReadbackContract-method.log",
+      "bytes": 3497,
+      "sha256": "1e286e359bef29abd554ce33f50b4ba0b811601db5b12a4f112087f533bc2fa5"
+    },
+    {
+      "path": "proofs/candidate-config/paperclipAgentReadbackContract-path.log",
+      "bytes": 3723,
+      "sha256": "6e9725034bb168030cfafeb5256a9b677c4c48da29629087202db0c5a0208765"
+    },
+    {
+      "path": "proofs/candidate-config/provenance-source.log",
+      "bytes": 5888,
+      "sha256": "961bbfa059d4edc337e703de560ba0633e70bfbe83a7bedea7bff3df3489fc95"
+    },
+    {
+      "path": "proofs/candidate-config/provenance-strict.log",
+      "bytes": 5832,
+      "sha256": "37704ef398ad392666f3115129e2d3c658de87950cbe26fc3111bf36e3dd16d6"
+    },
+    {
+      "path": "proofs/candidate-config/qualification.json",
+      "bytes": 12575,
+      "sha256": "58b853f040297791a0a54f105d9c7c252a05b4ed5cffe3a6532a7d34c50993df"
+    },
+    {
+      "path": "proofs/candidate-config/readback-applied-version.log",
+      "bytes": 3498,
+      "sha256": "2a7fd2aed01b910ffc511d661e5b08380f40db4828e8e64cf17e0a5c176c16b5"
+    },
+    {
+      "path": "proofs/candidate-config/readback-config-required.log",
+      "bytes": 5737,
+      "sha256": "d14a8127c7a4e13e88b38eeb8826ce591778bd740de7c9fc881287e34150745e"
+    },
+    {
+      "path": "proofs/candidate-config/readback-helper-tail.log",
+      "bytes": 3735,
+      "sha256": "8c10be167aa63dd4747d05b5158e8904420a20e25ae514429fce5fbb49103566"
+    },
+    {
+      "path": "proofs/candidate-config/readback-scope-strict.log",
+      "bytes": 5801,
+      "sha256": "211a3fb0e17484e23856f2eab8a460cdf63ad1cb687d57b6b321a0d799e37bd8"
+    },
+    {
+      "path": "proofs/candidate-config/readback-state-type.log",
+      "bytes": 5773,
+      "sha256": "a10d998adf9667eb883cf24d468dcf310dba9705017b54082ff2c51be9a7ff3e"
+    },
+    {
+      "path": "proofs/candidate-config/readback-strict.log",
+      "bytes": 5801,
+      "sha256": "fcb6b3709282f615f346994e3bbbdffd1a61318f19733a4fa3daaa429d075346"
+    },
+    {
+      "path": "proofs/candidate-config/reload-attestation-validation.log",
+      "bytes": 7260,
+      "sha256": "90df149e2c1b1c7f68997d38f7fb854e9e0e7c07da96509a4265e8aa796aee16"
+    },
+    {
+      "path": "proofs/candidate-config/reload-bound.log",
+      "bytes": 3602,
+      "sha256": "b5fa3b5bced7b7f954e5eb10d74945a9b7f0a4caa6f0d4ec93aadf8e7c1fefa0"
+    },
+    {
+      "path": "proofs/candidate-config/restored-green.log",
+      "bytes": 387,
+      "sha256": "99ffa7f0495d87b63a9743e17d8054606dd4d8304eb5ed25d1f47416af6b355a"
+    },
+    {
+      "path": "proofs/final-candidate/build.log",
+      "bytes": 4232,
+      "sha256": "6425ebe315c3a4248c1b2f97e29a9ceae9280238bde3f6ce39f866402f9c6d84"
+    },
+    {
+      "path": "proofs/final-candidate/config-mutate.py",
+      "bytes": 8298,
+      "sha256": "9652bebc78bc2330662def5660a198a1fe20b07b09610dea00326cd7f7af6e5d"
+    },
+    {
+      "path": "proofs/final-candidate/export-mutate.py",
+      "bytes": 1553,
+      "sha256": "1654fa5e567393a82e865fd5f86d52cb6552f1ffc37aa2f5a67b3e705adddbe9"
+    },
+    {
+      "path": "proofs/final-candidate/full.log",
+      "bytes": 13868,
+      "sha256": "c91c3949fab8b6c8f1e22a82ebb1a249fab2bc3af4b1989bcfe8f483a074403e"
+    },
+    {
+      "path": "proofs/final-candidate/lint.log",
+      "bytes": 126,
+      "sha256": "a3d4121fc888571301f2d2e1bf2ce41d5d1ffc67a1ea7a078e1394b309544f87"
+    },
+    {
+      "path": "proofs/final-candidate/package-proof.py",
+      "bytes": 9295,
+      "sha256": "ceb1d65051bc4bb5b84faa6c3feaa462e83e96501f2fab607c64ca01b7f54ef7"
+    },
+    {
+      "path": "proofs/final-candidate/packcheck.log",
+      "bytes": 4582,
+      "sha256": "9a3554e0f4fd39dbb708a971d48a58b318e8f76ff7028336561417f7dda190ff"
+    },
+    {
+      "path": "proofs/final-candidate/public-exports-tdd.log",
+      "bytes": 98475,
+      "sha256": "e32a04d2a61197cab33da326673f2a4c89bc75b7787062410373961fa14ec63f"
+    },
+    {
+      "path": "proofs/final-candidate/qualification.json",
+      "bytes": 3250,
+      "sha256": "2cb604ed89cc098b1f27e7cb7585012aaec1422f31c644a84e8dca912cad6b10"
+    },
+    {
+      "path": "proofs/final-candidate/run-export-tdd.log",
+      "bytes": 1145,
+      "sha256": "ac35697bd7da1eb08b4929d23d982956606415daebbd0277556c7d7a16d52d84"
+    },
+    {
+      "path": "proofs/final-candidate/run-mutate.py",
+      "bytes": 9858,
+      "sha256": "b82daf7bb9d6b6375aaa5d2cc96ba7798f5bd4cb8c90d108f43b5c387c24b83d"
+    },
+    {
+      "path": "proofs/final-candidate/types.log",
+      "bytes": 127,
+      "sha256": "7dda20c3acdaedfb9e815f85b4470dd79c3350907706b24bb764ebae5c96ac95"
+    },
+    {
+      "path": "proofs/package/cjs-challenge-fault.log",
+      "bytes": 537,
+      "sha256": "4d669bb6ed1fb923277e4b599c78bffe02a7a3ab5e47b85c4f8cbae858b61bbb"
+    },
+    {
+      "path": "proofs/package/cjs-execution-required-fault.log",
+      "bytes": 537,
+      "sha256": "3e6e89869aa1970fdeea8f27652faef124d0b7a344ae5fb6bca8671e118f5a2a"
+    },
+    {
+      "path": "proofs/package/cjs-restored.log",
+      "bytes": 57,
+      "sha256": "6c67127603b4a44029fbf43e030f8fc3b584ff2c58585a21856fe742350a38bb"
+    },
+    {
+      "path": "proofs/package/cjs.log",
+      "bytes": 57,
+      "sha256": "6c67127603b4a44029fbf43e030f8fc3b584ff2c58585a21856fe742350a38bb"
+    },
+    {
+      "path": "proofs/package/diagnostic-missing-export.log",
+      "bytes": 520,
+      "sha256": "04d53fc0d7d1ca6eb48f39f6020c3573208b62ccfe3a13fcd4a91efd9d563370"
+    },
+    {
+      "path": "proofs/package/esm-challenge-fault.log",
+      "bytes": 537,
+      "sha256": "4d669bb6ed1fb923277e4b599c78bffe02a7a3ab5e47b85c4f8cbae858b61bbb"
+    },
+    {
+      "path": "proofs/package/esm-execution-required-fault.log",
+      "bytes": 537,
+      "sha256": "3e6e89869aa1970fdeea8f27652faef124d0b7a344ae5fb6bca8671e118f5a2a"
+    },
+    {
+      "path": "proofs/package/esm-restored.log",
+      "bytes": 57,
+      "sha256": "9c204cbd6e83120d42b61e466084c54a30459bc1b20579ee86bfc10df11b80e8"
+    },
+    {
+      "path": "proofs/package/esm.log",
+      "bytes": 57,
+      "sha256": "9c204cbd6e83120d42b61e466084c54a30459bc1b20579ee86bfc10df11b80e8"
+    },
+    {
+      "path": "proofs/package/pack.log",
+      "bytes": 58375,
+      "sha256": "55a49ac6edc9f720fed6a71d4d0407e75b535be972d6b8a78c756796a4bb470a"
+    },
+    {
+      "path": "proofs/package/probe.mjs",
+      "bytes": 4808,
+      "sha256": "8f8a60a4696c8d3d209978eae5d21c715adea1716ab680c4005967bec3a6f461"
+    },
+    {
+      "path": "proofs/package/qualification.json",
+      "bytes": 2246,
+      "sha256": "d9b13aaddb855ddbb62dbe737c1265b01743b81fc4475d4382d056523d3c90d6"
+    },
+    {
+      "path": "proofs/package/types-cjs-node16.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/package/types-esm-bundler.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/package/types-esm-node16.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/partial-config/attestation-capability.log",
+      "bytes": 3539,
+      "sha256": "469c6ec22c0936d53db91b2c2df558dc84c35093e2a096e9766b36878e43b7cb"
+    },
+    {
+      "path": "proofs/partial-config/attestation-wrapper-strict.log",
+      "bytes": 3437,
+      "sha256": "fd98ac3270874b907d0a9e02835dccd28d734997147859c7b1fd28722d4f8843"
+    },
+    {
+      "path": "proofs/partial-config/binding-caller-role-required.log",
+      "bytes": 5648,
+      "sha256": "3892d9e852360d17ade6245148bd3ea7f0f9eb8a54dfc0cf963f118c3af9744c"
+    },
+    {
+      "path": "proofs/partial-config/binding-provenance-required.log",
+      "bytes": 5646,
+      "sha256": "1738516b4c2039510fd74eb932e6da92d45ffdee000af23690cdb552a693f7ac"
+    },
+    {
+      "path": "proofs/partial-config/binding-provision-revision.log",
+      "bytes": 5656,
+      "sha256": "eeef4f1fb54bde7adc90b32322eeeedff850f8ecec6198b36eebba93f6c67449"
+    },
+    {
+      "path": "proofs/partial-config/context-bound.log",
+      "bytes": 3501,
+      "sha256": "b53bae9233083a2150c6f7dc0de0a24b864b6b0a7b6a6347aeab80ed26c73de5"
+    },
+    {
+      "path": "proofs/partial-config/context-install-validation.log",
+      "bytes": 5242,
+      "sha256": "5d84602a5c4e01ae4715ca1c528f6569b3e34b26aa658c5aab928a30c0a68c5c"
+    },
+    {
+      "path": "proofs/partial-config/correspondence-enabled.log",
+      "bytes": 5614,
+      "sha256": "4eaaee495ad55ad44ed25be520bbb836bec0cb5c810b436d5a831f928927e1ce"
+    },
+    {
+      "path": "proofs/partial-config/correspondence-registry.log",
+      "bytes": 5669,
+      "sha256": "5a893afb8b0c332c52f855c36ae758ac4e3175e9fa304e90fb688a214c0603eb"
+    },
+    {
+      "path": "proofs/partial-config/correspondence-scope.log",
+      "bytes": 5966,
+      "sha256": "3be0de29197860e23daece13c6f91cd36271eb256e3e1e970200d9d39b9276e3"
+    },
+    {
+      "path": "proofs/partial-config/correspondence-shape.log",
+      "bytes": 5683,
+      "sha256": "7492722b94291ae858273b5a48b03ac70121e45ea042cccd3c4e2865255cd000"
+    },
+    {
+      "path": "proofs/partial-config/correspondence-version.log",
+      "bytes": 5617,
+      "sha256": "006f9ab5e78c618cee73f714fd38f4af996985b5a5b35a508af039fe29f7a177"
+    },
+    {
+      "path": "proofs/partial-config/desired-agent-path.log",
+      "bytes": 6166,
+      "sha256": "cf93dd40c8649e78e3adff7d58648e992bc2165bd2ea1a690cc4e9b306402a86"
+    },
+    {
+      "path": "proofs/partial-config/desired-role.log",
+      "bytes": 5707,
+      "sha256": "f6f207236bd0bcc5d96a6f4e148cb579633e0305f929b50567971e09300cedde"
+    },
+    {
+      "path": "proofs/partial-config/desired-strict.log",
+      "bytes": 7147,
+      "sha256": "01239ef72895f6d222ce5b953e2db7444c5e07059c909091630b8cf2aec34fe3"
+    },
+    {
+      "path": "proofs/partial-config/desired-unit.log",
+      "bytes": 5706,
+      "sha256": "59e07820fde94b0e6d39084efe27226e094ed5480e6f13cc9ccee85745c3d203"
+    },
+    {
+      "path": "proofs/partial-config/desired-version.log",
+      "bytes": 5981,
+      "sha256": "20706a49f29e4e103c2809f4d59292ae7290e86f549986dd159f885f8b6aa57d"
+    },
+    {
+      "path": "proofs/partial-config/fingerprint-format.log",
+      "bytes": 6342,
+      "sha256": "9e1539084144a76c934174df7425d05eb316534112b09250c5e14b1402a4e666"
+    },
+    {
+      "path": "proofs/partial-config/install-helper-tail.log",
+      "bytes": 3734,
+      "sha256": "9fc60fb0a3f71b5c074d6408c9c2c006e5c9c3f54d765940911d17b27c6d6851"
+    },
+    {
+      "path": "proofs/partial-config/install-registry-required.log",
+      "bytes": 5675,
+      "sha256": "1edddc295a22e9a49f5359fc2ad839b706d88676ad1949e3e8c3da3de9355d49"
+    },
+    {
+      "path": "proofs/partial-config/install-scope-required.log",
+      "bytes": 5694,
+      "sha256": "81a086a0f47f60eeab00d5b81a8cbbabdf67cae53806236bd84bec98de846fd9"
+    },
+    {
+      "path": "proofs/partial-config/install-state-type.log",
+      "bytes": 5675,
+      "sha256": "8bc94798ec216b0e8949a88fbc509071c8aef7f5c64a9f48b152bb40bafb17c7"
+    },
+    {
+      "path": "proofs/partial-config/install-strict.log",
+      "bytes": 5779,
+      "sha256": "a2142725a0f221d2b47ac93d5d17b96494a6516aa68c200e3cc7833a10030e88"
+    },
+    {
+      "path": "proofs/partial-config/install-version.log",
+      "bytes": 3475,
+      "sha256": "e24e7ac8d2b0e266619629225b7a7e89ace79fd444ffd6b39be11d340b691a91"
+    },
+    {
+      "path": "proofs/partial-config/installation-capability.log",
+      "bytes": 3523,
+      "sha256": "6891c88885c57314397124d89c141ec755a00566571777489845e1f2f87a36ec"
+    },
+    {
+      "path": "proofs/partial-config/installation-wrapper-strict.log",
+      "bytes": 3410,
+      "sha256": "611166d8eac0a332e0286e6e886b61c44bcbd9b9549042955949eccb7ae01cb8"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentConfigGetContract-auth.log",
+      "bytes": 3519,
+      "sha256": "bb62e0c0361da35528e989aeb41f49ffcf1c96b4e9801c803b0aec14131d31d9"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentConfigGetContract-method.log",
+      "bytes": 3496,
+      "sha256": "a554fab35bb4a22581eaeb20380145c50c1d0fe99d74792fdf0e9f6dc6703340"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentConfigGetContract-path.log",
+      "bytes": 3719,
+      "sha256": "29ebb3adb5e496b40568309e4a8bc0b87675a9bb28cabe02040a3894cae9b105"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentConfigPutContract-auth.log",
+      "bytes": 3521,
+      "sha256": "a352c24d10dff52a65e463b91b35c0b1ae5adf2244f1293dc11a94dc6cfee785"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentConfigPutContract-method.log",
+      "bytes": 3485,
+      "sha256": "a48e1afd7c53e7d439d18b9477eaa9ab3aa11aa733390b1370383a927f2a5048"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentConfigPutContract-path.log",
+      "bytes": 3708,
+      "sha256": "ec453827957f51e55885a68520c6c98f0e3fa4656ac91483ebe7218bf2765aa1"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentInstallContract-auth.log",
+      "bytes": 3520,
+      "sha256": "e79e9f51a3ca735da2b7a03728e3575672ae0d360b347e791dc097debff0ed32"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentInstallContract-method.log",
+      "bytes": 3429,
+      "sha256": "fb2d1336558bc03d198f82f603248dd70f57c47c7e3932ce47d455c369c961c9"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentInstallContract-path.log",
+      "bytes": 3709,
+      "sha256": "08eb5f9531da5f56b16d788aafe72e373c2250b643ed527d040091b3d7df4491"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentReadbackContract-auth.log",
+      "bytes": 3521,
+      "sha256": "364a0de0216b8f12bca71a96dcb05d9b0aba888498eac016bf81dffe7c0faa3f"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentReadbackContract-method.log",
+      "bytes": 3498,
+      "sha256": "69881c399c87726921406f6339b86e47085dd4d5b2bc24743e9b1a6fec477111"
+    },
+    {
+      "path": "proofs/partial-config/paperclipAgentReadbackContract-path.log",
+      "bytes": 3724,
+      "sha256": "743d824f5d9149dfbfa48b2b9b6a81457d233246c3a63fab6a210544f9755ea3"
+    },
+    {
+      "path": "proofs/partial-config/provenance-source.log",
+      "bytes": 5771,
+      "sha256": "ebe940a771c086e66e330824fc98c3000cc8c5d6a602151f2d20d433f96e6e0b"
+    },
+    {
+      "path": "proofs/partial-config/provenance-strict.log",
+      "bytes": 5714,
+      "sha256": "ae3b958564d6f4b77ab6201ac2c3bfa1c570224be44f5ae8942e6ce364eeaea8"
+    },
+    {
+      "path": "proofs/partial-config/qualification.json",
+      "bytes": 12825,
+      "sha256": "80864730972d6ca34ae1a3dbe0b4b8ec8ab04fd0b758151ad763c2f0a4813b50"
+    },
+    {
+      "path": "proofs/partial-config/readback-applied-version.log",
+      "bytes": 3497,
+      "sha256": "8b03bf3e390deec3602042398eab8c136024a321d82013366dda3711c52b0ceb"
+    },
+    {
+      "path": "proofs/partial-config/readback-config-required.log",
+      "bytes": 5622,
+      "sha256": "e4ceb64e177b60215e6c7fe1cbdb10c47623be66ca5f6cde74c950864a9da098"
+    },
+    {
+      "path": "proofs/partial-config/readback-helper-tail.log",
+      "bytes": 3735,
+      "sha256": "971018388af446e16fdfe7b8a2cd4c086f4f2a5b28201f505b6a7e277083515e"
+    },
+    {
+      "path": "proofs/partial-config/readback-provision-revision.log",
+      "bytes": 5765,
+      "sha256": "04f338544e5b525dc13438f11269ff4aab92fe4574631051a7b241f6d0927789"
+    },
+    {
+      "path": "proofs/partial-config/readback-scope-strict.log",
+      "bytes": 5686,
+      "sha256": "f029e3f2844072b3326cfd4d9263619dbeeef439efc838d1d690d23c3502e455"
+    },
+    {
+      "path": "proofs/partial-config/readback-state-type.log",
+      "bytes": 5657,
+      "sha256": "6d0d7c10e7ed1d4b293979ac0a08bee6203e09995387d549a7ae91e4d5e96927"
+    },
+    {
+      "path": "proofs/partial-config/readback-strict.log",
+      "bytes": 5699,
+      "sha256": "424c483c3fcc086ad27a72c75abeec92f7c2e48c5c39dad46bde0e0d537b460e"
+    },
+    {
+      "path": "proofs/partial-config/reload-attestation-validation.log",
+      "bytes": 6869,
+      "sha256": "651da11a1814966bebc428ebee16124badb98e4d7219d2cb318dcb924599732f"
+    },
+    {
+      "path": "proofs/partial-config/reload-bound.log",
+      "bytes": 3602,
+      "sha256": "720a0ee39a24b043399f866ffe5355bc38f0dcbc7c4e9a5a6490b23d02c6bb1a"
+    },
+    {
+      "path": "proofs/partial-config/restored-green.log",
+      "bytes": 387,
+      "sha256": "13c24d280c0b2ca4c0e5c3f5a7c7d661f884b6470b7a5e79495c573c42951ee5"
+    },
+    {
+      "path": "proofs/partial-config-final/attestation-capability.log",
+      "bytes": 3539,
+      "sha256": "3a6c6eeb60641193d32fa40140aac2e9ce72d9910274daadcf4acfe9da294cf7"
+    },
+    {
+      "path": "proofs/partial-config-final/attestation-wrapper-strict.log",
+      "bytes": 3437,
+      "sha256": "7479cd6eabdd76c6eeca57b4faf754e2ea887fad61279c26e939091cb9944c0f"
+    },
+    {
+      "path": "proofs/partial-config-final/binding-caller-role-required.log",
+      "bytes": 5765,
+      "sha256": "2bc11a430c2b6834bf7a0e37e5e8beda66a5c813c6017ccfcf321c6836d28f38"
+    },
+    {
+      "path": "proofs/partial-config-final/binding-provenance-required.log",
+      "bytes": 5761,
+      "sha256": "f862f5f6d9797ed65e83e95bd1830227149116c29423da10bced77fea34e95df"
+    },
+    {
+      "path": "proofs/partial-config-final/binding-provision-revision.log",
+      "bytes": 6514,
+      "sha256": "5f4f6247df86319a9387cb673939fc660f9f425e35f6647a99aec8d0af2349f7"
+    },
+    {
+      "path": "proofs/partial-config-final/context-bound.log",
+      "bytes": 3502,
+      "sha256": "027fad7c47f08c7b44a05fdf1d71a7e02ecd2480f6f5eb1a04bc01ee8e845d0e"
+    },
+    {
+      "path": "proofs/partial-config-final/context-install-validation.log",
+      "bytes": 5245,
+      "sha256": "f583dfa8ab305de9652ef766a5038e44bb8c05fcd93ecd62c3f01a15eb9efc2f"
+    },
+    {
+      "path": "proofs/partial-config-final/correspondence-enabled.log",
+      "bytes": 5731,
+      "sha256": "5728eb5fd9f8ae14027767cfebdcaca4de698ed51ebe9ecf45f0b6da64745959"
+    },
+    {
+      "path": "proofs/partial-config-final/correspondence-registry.log",
+      "bytes": 5785,
+      "sha256": "5801639e7904fd1b37996450351acb30d974510e74c33208058bc9f5ba2f9c6d"
+    },
+    {
+      "path": "proofs/partial-config-final/correspondence-scope.log",
+      "bytes": 6083,
+      "sha256": "08cbe2cccf85f043f6b8a87595cd4c43e3bba5606c57e5a74a7eadfc4eb41faa"
+    },
+    {
+      "path": "proofs/partial-config-final/correspondence-shape.log",
+      "bytes": 5801,
+      "sha256": "01563e9788db93756ea18ec2c529dece097f5bec15086d3c8c5da954f1ed470f"
+    },
+    {
+      "path": "proofs/partial-config-final/correspondence-version.log",
+      "bytes": 5734,
+      "sha256": "b33fc3532fb7c3e2589d58e804c149b850143aa43d6e1dd6889d233ffc80bffa"
+    },
+    {
+      "path": "proofs/partial-config-final/desired-agent-path.log",
+      "bytes": 6284,
+      "sha256": "34702314bf1c5f7be437e8e14343b1eaf890516d8bb7a27da65037a8207607dc"
+    },
+    {
+      "path": "proofs/partial-config-final/desired-role.log",
+      "bytes": 5822,
+      "sha256": "1ba9963c0171117f2828e24c8084414550b734e0453c552d919b369161c6f24b"
+    },
+    {
+      "path": "proofs/partial-config-final/desired-strict.log",
+      "bytes": 7263,
+      "sha256": "e9a31824b62a0c28aed2bc778ec80e7ba47337ab01adbfc0aa23d12bfa14fe5a"
+    },
+    {
+      "path": "proofs/partial-config-final/desired-unit.log",
+      "bytes": 5822,
+      "sha256": "645ce304e22031c75cbbd10130ec324472efdfd42df236abefeeaf0b39fcf01a"
+    },
+    {
+      "path": "proofs/partial-config-final/desired-version.log",
+      "bytes": 6097,
+      "sha256": "274ff7c077d54734993e375106eb36372e8344ef9409b62cf7f5ca941b2bd4ca"
+    },
+    {
+      "path": "proofs/partial-config-final/fingerprint-format.log",
+      "bytes": 6457,
+      "sha256": "ae172ec049a052f0eaded99a177d574702fc7ff3d1f0f41de03f139e16c905a5"
+    },
+    {
+      "path": "proofs/partial-config-final/install-helper-tail.log",
+      "bytes": 3733,
+      "sha256": "82f84ca3fd2a9f4628752063cfc3f4b71d4b9b668722663a5f3d0384fb4f914d"
+    },
+    {
+      "path": "proofs/partial-config-final/install-registry-required.log",
+      "bytes": 5791,
+      "sha256": "344e1f0e1060e17a207f2b6412eb50cae6f2cef8c6d65c18f24295787a3626fe"
+    },
+    {
+      "path": "proofs/partial-config-final/install-scope-required.log",
+      "bytes": 5811,
+      "sha256": "2eb56ae41a33993f74d28576cfc4c353f809a3312da5268f9cf7e12f90f3fda5"
+    },
+    {
+      "path": "proofs/partial-config-final/install-state-type.log",
+      "bytes": 5790,
+      "sha256": "67a3ce600f260610f9ab11c2a04ca50df9c77e6fa3ca81076049d8b4bd777488"
+    },
+    {
+      "path": "proofs/partial-config-final/install-strict.log",
+      "bytes": 6696,
+      "sha256": "805b9d25ed88ff772172e27448c2fcebd4606f0d6e89b5f209b3c73bcbf01e6d"
+    },
+    {
+      "path": "proofs/partial-config-final/install-version.log",
+      "bytes": 3475,
+      "sha256": "6541b607ccbc9a2511616c4ffabe03924045705ab7c249823ce3d1f0aa675673"
+    },
+    {
+      "path": "proofs/partial-config-final/installation-capability.log",
+      "bytes": 3523,
+      "sha256": "9d1f7f27494c6fbbb5696ce4ebb59e864aa2b51998145002287157a9c9bb8021"
+    },
+    {
+      "path": "proofs/partial-config-final/installation-wrapper-strict.log",
+      "bytes": 3409,
+      "sha256": "a7786e3e316a8bb440194cdbdbe6f5918575f97379e8f8440d83ad63126ab05a"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentConfigGetContract-auth.log",
+      "bytes": 3521,
+      "sha256": "5344f04025f3c1885f81a0040da8d92b180b2d9ee0f30c9707d543677c26e6d2"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentConfigGetContract-method.log",
+      "bytes": 3496,
+      "sha256": "be4a210929ac55ade164c838a935e6aa803f01a6de75b6d5692ff8fb919a6fe4"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentConfigGetContract-path.log",
+      "bytes": 3720,
+      "sha256": "8c14bc909d9aeb3f87cd64c40b0f14a03f7ce10622698a6487d8ba38ba0cf3d9"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentConfigPutContract-auth.log",
+      "bytes": 3520,
+      "sha256": "4b88fcc3e684a09727c743688b00ada2507dd950457d3d95fb2a4d5370cc6f11"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentConfigPutContract-method.log",
+      "bytes": 3487,
+      "sha256": "6639071b16b0cb8897504e745a2d8adc10411f9270100bbbf7c39226ae1de1bc"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentConfigPutContract-path.log",
+      "bytes": 3710,
+      "sha256": "53744dfb1073f9be7eea49528f46d66a32f0b4f5f7f82b3d31d8e9b4aa2dd93d"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentInstallContract-auth.log",
+      "bytes": 3522,
+      "sha256": "80914af14d3c0193eb388a4a282bc273d55c130efc7e0ba1aa5fa46c94b9929f"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentInstallContract-method.log",
+      "bytes": 3430,
+      "sha256": "9e87072cd17ccbf29852d4edd44bb358b8c8c28104a7e1f786eb2249775d875e"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentInstallContract-path.log",
+      "bytes": 3710,
+      "sha256": "b17488d12c27ac3a8993f13729333b5a8b92126028e3006f76e1d0eca9bf6119"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentReadbackContract-auth.log",
+      "bytes": 3523,
+      "sha256": "ce2e145e38e70ba96568e2fb5fe4b81abf6b38b69f3ea30c5564efbec0ec7fae"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentReadbackContract-method.log",
+      "bytes": 3497,
+      "sha256": "5e91ecdafff4167a0ab59f0d28608e719851a4808c1de8bbaeca5fb23d1e8a46"
+    },
+    {
+      "path": "proofs/partial-config-final/paperclipAgentReadbackContract-path.log",
+      "bytes": 3725,
+      "sha256": "c765c742c19598d34c30027f4fe1a36cc131aa085cbb21761a9bb9c97c295ced"
+    },
+    {
+      "path": "proofs/partial-config-final/provenance-source.log",
+      "bytes": 5886,
+      "sha256": "318cf6fa0b617e97988016c02ab86f81bb7a68ce6ed4b827453ad86ea5000ae1"
+    },
+    {
+      "path": "proofs/partial-config-final/provenance-strict.log",
+      "bytes": 5830,
+      "sha256": "fcf09cefa3a7969ffdd575047f07c330fc0d22bf060a7977e3e7b58898d1ec69"
+    },
+    {
+      "path": "proofs/partial-config-final/qualification.json",
+      "bytes": 12574,
+      "sha256": "e764ac9658c65afcae380cac810f227068516695381f7585cfc6f9caccd196a2"
+    },
+    {
+      "path": "proofs/partial-config-final/readback-applied-version.log",
+      "bytes": 3498,
+      "sha256": "11d89eb6e3997a2e7a109dfc85556de6f84bcdf8ba29fc6b58c4ef6da11b3170"
+    },
+    {
+      "path": "proofs/partial-config-final/readback-config-required.log",
+      "bytes": 5737,
+      "sha256": "114deea97ff0f829510010ec7729eace521cf9226a73b866d5f81a0846397052"
+    },
+    {
+      "path": "proofs/partial-config-final/readback-helper-tail.log",
+      "bytes": 3735,
+      "sha256": "e337e34d0325a6a049decce87afa5ef5ec7abd7bd4a59c6c095283ca66eb117c"
+    },
+    {
+      "path": "proofs/partial-config-final/readback-scope-strict.log",
+      "bytes": 5802,
+      "sha256": "d0ad0bbcb93b906a5dfbf585d676812c04e8e40e39365dd42fdc463af89e8776"
+    },
+    {
+      "path": "proofs/partial-config-final/readback-state-type.log",
+      "bytes": 5773,
+      "sha256": "6711160927d2712da3aff21220cb1aa718d650e2aca06499a7eb75c74f2d6b25"
+    },
+    {
+      "path": "proofs/partial-config-final/readback-strict.log",
+      "bytes": 5801,
+      "sha256": "a9fe774cfb26e74ac6b044bfad4d428c9451834a9a6b68f7a8d4afdff98d0875"
+    },
+    {
+      "path": "proofs/partial-config-final/reload-attestation-validation.log",
+      "bytes": 7259,
+      "sha256": "0a259ada802187b8cd679df55d91c3bf9986794558f68ecf9cf6ea36e16eced7"
+    },
+    {
+      "path": "proofs/partial-config-final/reload-bound.log",
+      "bytes": 3602,
+      "sha256": "c3e26c95a9c39be43eb59f395bccc3b70d402dd83e7091afe1c344d0ba0cf973"
+    },
+    {
+      "path": "proofs/partial-config-final/restored-green.log",
+      "bytes": 387,
+      "sha256": "709e555882fb7974f17a90a5fcf4ff3f93927cb4ac9c06e45a24388921ffa84b"
+    },
+    {
+      "path": "proofs/public-exports/PaperclipToolCallRequestSchema.log",
+      "bytes": 97598,
+      "sha256": "2aad890c28351330dfdb480338e1fb80b9e70009c40e2b499879a62634b3ce20"
+    },
+    {
+      "path": "proofs/public-exports/qualification.json",
+      "bytes": 539,
+      "sha256": "474a4e4bf9e87d0457f88daaf21afe00d02eff0d7148c65d08f7bbd3da81fadf"
+    },
+    {
+      "path": "proofs/public-exports/restored-green.log",
+      "bytes": 336,
+      "sha256": "cc9182d519510a84647ad4c867a990f942c95b289e53805c97e5bc4549ed5652"
+    },
+    {
+      "path": "proofs/public-exports/toPaperclipToolCallScope.log",
+      "bytes": 15344,
+      "sha256": "7f5b9f30de5e6463dae953da14a1efac62e6ba09aa119249806e61515307095d"
+    },
+    {
+      "path": "proofs/run-contracts/adapter-key-wire-name.log",
+      "bytes": 15265,
+      "sha256": "809f74c7a1a56d0a8a9341b5b116a76eeaf3f7e33718f861993d14c680b9b279"
+    },
+    {
+      "path": "proofs/run-contracts/admission-uuid.log",
+      "bytes": 15183,
+      "sha256": "c996e3690276128d0cb882d6c7475e215b8ece350d9a2ae846660f7a947fba49"
+    },
+    {
+      "path": "proofs/run-contracts/api-key-wire-name.log",
+      "bytes": 15272,
+      "sha256": "250e468035213bee2249ebe1ddd1fc6cf00e63f6e361cf26cf0d177f4e7bf1b1"
+    },
+    {
+      "path": "proofs/run-contracts/call-config-version.log",
+      "bytes": 16116,
+      "sha256": "7ba89f7a1d109229859cb3fb02529156cec5400826ff5548661b88cb53e5d58e"
+    },
+    {
+      "path": "proofs/run-contracts/call-scope-agentId.log",
+      "bytes": 15173,
+      "sha256": "5604f822a32d097ac649b08c43a800313e5b30cc4ecd2d039f97dd85f53e17db"
+    },
+    {
+      "path": "proofs/run-contracts/call-scope-ownerId.log",
+      "bytes": 16011,
+      "sha256": "9f52c0bdfdee38ebbaa04c1bc6f56a18c19dbdd357001f92156832d7add0651c"
+    },
+    {
+      "path": "proofs/run-contracts/call-scope-tenantId.log",
+      "bytes": 16013,
+      "sha256": "fc5c366bc55f39437c8734b8348e9404cbf268205ab7989fbb138e3bd9541857"
+    },
+    {
+      "path": "proofs/run-contracts/call-session.log",
+      "bytes": 15175,
+      "sha256": "062c59fc43be05746d8b2a4b8b5c48ad7d4a030162f9c6dfaeffec86b7575662"
+    },
+    {
+      "path": "proofs/run-contracts/canonical-tool-guard.log",
+      "bytes": 15580,
+      "sha256": "efd2e3c2a0286ee66c523fa04f6d6d1214ecb722da2cc3ba8bde6acf152054e8"
+    },
+    {
+      "path": "proofs/run-contracts/challenge-format.log",
+      "bytes": 16368,
+      "sha256": "1a57125b518e990fce6c7637e7410722da388a10fc4a8d2cd2e5c85dd03cef83"
+    },
+    {
+      "path": "proofs/run-contracts/challenge-required.log",
+      "bytes": 15254,
+      "sha256": "1bf0152af734f415dac5b475faf8bf85c67e5c9a71f2250be3b39e3b96b02af8"
+    },
+    {
+      "path": "proofs/run-contracts/commit-admission-required.log",
+      "bytes": 15298,
+      "sha256": "04bf05a3edac909fb9760d343fda2a04fb54d57339942d48df710132378d706c"
+    },
+    {
+      "path": "proofs/run-contracts/commit-admission-uuid.log",
+      "bytes": 15257,
+      "sha256": "9ea6d801e70fcc61f4746de2af0de5145f66ca4ca6434d2dfb474bf7f856b399"
+    },
+    {
+      "path": "proofs/run-contracts/commit-strict.log",
+      "bytes": 16213,
+      "sha256": "68e97a5ec872d7ea79fac7d4ece973228f0d9e92217e517b7ceb45ce2313dfce"
+    },
+    {
+      "path": "proofs/run-contracts/committed-run-required.log",
+      "bytes": 15276,
+      "sha256": "41fd4ed80007cb319c356c7c73bac93e59da4616d84dbbaba97758710f9f2426"
+    },
+    {
+      "path": "proofs/run-contracts/committed-run-uuid.log",
+      "bytes": 15367,
+      "sha256": "11f06572c6fe59c391fbcc7134146b00d7a79f18165a1667506e1d5b8f214000"
+    },
+    {
+      "path": "proofs/run-contracts/committed-strict.log",
+      "bytes": 15325,
+      "sha256": "f64bc0e8f71d1f174cd2b730dd1a8835f1a26880e1a9787918117540ee5868d4"
+    },
+    {
+      "path": "proofs/run-contracts/credential-value-required.log",
+      "bytes": 15484,
+      "sha256": "f47481cd00a1de057649f8f36a8dcc6140013467ca2061fe29d9eb8d29f1ccc8"
+    },
+    {
+      "path": "proofs/run-contracts/execution-capability.log",
+      "bytes": 15237,
+      "sha256": "339d000ea219657a9ea647717427c87dca950a33ba860eb97fc5d246a36435ac"
+    },
+    {
+      "path": "proofs/run-contracts/execution-configVersion-positive.log",
+      "bytes": 15182,
+      "sha256": "dbade0313cbdfb0753717f2a02db33dbe412878b10e92a46196886cd2630fc7e"
+    },
+    {
+      "path": "proofs/run-contracts/execution-correspondence-companyId.log",
+      "bytes": 15127,
+      "sha256": "e90c5e6b82a17926ec2f134bba92ccd272960043b9faab44ab304059d6fc82e6"
+    },
+    {
+      "path": "proofs/run-contracts/execution-correspondence-configVersion.log",
+      "bytes": 15124,
+      "sha256": "318a91f029f1a6315ae3aa0367e10c06d0f5b66b74c64541559042889e086fe3"
+    },
+    {
+      "path": "proofs/run-contracts/execution-correspondence-enabled.log",
+      "bytes": 15175,
+      "sha256": "657c64be06fc299a1135ad852ccc523a55131b7ba068606fd987b0472bfe0051"
+    },
+    {
+      "path": "proofs/run-contracts/execution-correspondence-paperclipAgentId.log",
+      "bytes": 15133,
+      "sha256": "99fbc4afeb15136b4e7db2ecc3ebc865868858e7918ca7eb75909255b2cf468f"
+    },
+    {
+      "path": "proofs/run-contracts/execution-correspondence-parse.log",
+      "bytes": 15146,
+      "sha256": "bcaca65b80efade3778d933d0480ad645f58dbe5f26e7aebaa6ead3fbd64942e"
+    },
+    {
+      "path": "proofs/run-contracts/execution-correspondence-provisioningRevision.log",
+      "bytes": 15131,
+      "sha256": "ec646bfe9bb24fe4f20a5204ab4cb2667adc3ef87d31166298e158b854b7339e"
+    },
+    {
+      "path": "proofs/run-contracts/execution-correspondence-scope.log",
+      "bytes": 15579,
+      "sha256": "d7b502ad82d074a176d7b552d9a22450b1080676994c053eab5d99e81a565a17"
+    },
+    {
+      "path": "proofs/run-contracts/execution-provisioningRevision-positive.log",
+      "bytes": 15189,
+      "sha256": "64482b3180ecb15e1699a2285be22222cbca92f3b7a8caf8ad19d36a15b81608"
+    },
+    {
+      "path": "proofs/run-contracts/execution-scope-complete.log",
+      "bytes": 15174,
+      "sha256": "fc31f5f4c509e58fe96b825c7a8f4554d0019bf103b670bd64bb8054f840fc0f"
+    },
+    {
+      "path": "proofs/run-contracts/execution-session.log",
+      "bytes": 15240,
+      "sha256": "31156988f5984c3fb77f2ff6a5f86358207c8f7fa68555c6489505e3d925451d"
+    },
+    {
+      "path": "proofs/run-contracts/execution-source.log",
+      "bytes": 15234,
+      "sha256": "de3e0229dcb127e7a24c632d9853b69ce5bc6ade29863054417cf7f2a50040bd"
+    },
+    {
+      "path": "proofs/run-contracts/host-timestamp-iso.log",
+      "bytes": 15339,
+      "sha256": "66fac32b3fdc74b1ee89c54c1593bd122dc1d5485776706959f14a93bc37b13d"
+    },
+    {
+      "path": "proofs/run-contracts/host-window-clock-parse.log",
+      "bytes": 15168,
+      "sha256": "5cc56e6749a4b1d47ce3e79efdffc168228c2e2f6efe76e8b0acbc9352c47508"
+    },
+    {
+      "path": "proofs/run-contracts/host-window-expiry.log",
+      "bytes": 15246,
+      "sha256": "48d29797739d3a018505a6e3898b6544619402fa0cccedabbdf590ef08c4a7c8"
+    },
+    {
+      "path": "proofs/run-contracts/host-window-issued.log",
+      "bytes": 15248,
+      "sha256": "1218d521bce0a388c3988827631483d2a581f555f0c010b7892bea58f60c0918"
+    },
+    {
+      "path": "proofs/run-contracts/ingress-admission-validation.log",
+      "bytes": 19285,
+      "sha256": "8b437fa3ed35234d5733e8c0d8a0b06952b688f873e395d0b7fac7d97a068f67"
+    },
+    {
+      "path": "proofs/run-contracts/ingress-excludes-attachment.log",
+      "bytes": 15157,
+      "sha256": "32f689adf0221cc5549b103dabcde373eb9483714d59fe13c6e745bea9c1ed8b"
+    },
+    {
+      "path": "proofs/run-contracts/ingress-excludes-history.log",
+      "bytes": 15154,
+      "sha256": "24196c3113504d72a69aef1b6b65ae48294fe80cabfeccea784713cbf94ec8df"
+    },
+    {
+      "path": "proofs/run-contracts/ingress-excludes-turn.log",
+      "bytes": 15151,
+      "sha256": "9b417c06ad9b608bb1a6c3ace09f4662bf891ac2112ae0ae8016842b35eaab5e"
+    },
+    {
+      "path": "proofs/run-contracts/ingress-response-validation.log",
+      "bytes": 20276,
+      "sha256": "deb0f570c5ff4b28b9d5631343a6262966a5d5913539be8c313cd9be78b3d6ef"
+    },
+    {
+      "path": "proofs/run-contracts/metadata-strict.log",
+      "bytes": 17382,
+      "sha256": "f951c6626fd98db74422c691dfc5bca46e4edfb188fefe656e1495d2c1cb02bf"
+    },
+    {
+      "path": "proofs/run-contracts/minimum-credential-count.log",
+      "bytes": 15731,
+      "sha256": "24e27d705c64a69d3f8d5c0c850d2f4bd3241d9cfc105c65833ffb4e38d2ade3"
+    },
+    {
+      "path": "proofs/run-contracts/native-companyId-uuid.log",
+      "bytes": 15162,
+      "sha256": "83faf300b9a866652ebdb2ead2106ca9f9750839c0e71ba0c9c0ae24899df75e"
+    },
+    {
+      "path": "proofs/run-contracts/native-execution-required.log",
+      "bytes": 15312,
+      "sha256": "3993b786efb004a90fce5a63c6837fc905f6bf6e4073d892fba7e0c7b18113bc"
+    },
+    {
+      "path": "proofs/run-contracts/native-identity-strict.log",
+      "bytes": 16264,
+      "sha256": "e3be23b3e4d5a0afc5506ab3ae2feb52323df8e579875520f14cf47e825f0f55"
+    },
+    {
+      "path": "proofs/run-contracts/native-issueId-uuid.log",
+      "bytes": 15160,
+      "sha256": "8661c1827e18ccdc1ddb3b8f2b9a3d92003dcb7b44070d82775a4f534ddd011b"
+    },
+    {
+      "path": "proofs/run-contracts/native-paperclipAgentId-uuid.log",
+      "bytes": 15169,
+      "sha256": "38f41ac8d94321a9a1432dd7bb0e2f2218e6b36bdb133bebf9d1a8b9b47cc14e"
+    },
+    {
+      "path": "proofs/run-contracts/native-runId-uuid.log",
+      "bytes": 15158,
+      "sha256": "82bc9a8da3bd6c06cb1d30ec0b6d570a649fa17cf0bc573b6143672aceb2c689"
+    },
+    {
+      "path": "proofs/run-contracts/ordered-host-window.log",
+      "bytes": 16481,
+      "sha256": "774a1a65e0529b6c600d0a8f700f72fdb49774677266d79a822aa7b549124946"
+    },
+    {
+      "path": "proofs/run-contracts/own-credential-bag.log",
+      "bytes": 16966,
+      "sha256": "57b98fa471612906231a081b06b6df748440dbb820da6b216acf9de355913c1e"
+    },
+    {
+      "path": "proofs/run-contracts/paperclip-call-strict.log",
+      "bytes": 15183,
+      "sha256": "ff2ffe535eacc8945b5eec075af520e6c76096c06b00eecf5e69edcd275f09ef"
+    },
+    {
+      "path": "proofs/run-contracts/prepare-native-required.log",
+      "bytes": 16112,
+      "sha256": "59f63095f74318cb627598cc4a98384b5275959e2ad41ec19c80dd772ea8c91e"
+    },
+    {
+      "path": "proofs/run-contracts/prepare-strict.log",
+      "bytes": 16015,
+      "sha256": "3e286cbba210197ca77f805ff96b306d22e35842b77f0eb1373367341bf6b7ff"
+    },
+    {
+      "path": "proofs/run-contracts/prepared-excludes-lead.log",
+      "bytes": 15266,
+      "sha256": "7eb7ba5adb7ecd011a72caaa80c6efa130ffc3828e780420127d20c5238d7795"
+    },
+    {
+      "path": "proofs/run-contracts/prepared-excludes-moveId.log",
+      "bytes": 15267,
+      "sha256": "874ae068ce3cde9c38d1147d7d3287b34382174568f1569f58babd0b14263d44"
+    },
+    {
+      "path": "proofs/run-contracts/prepared-excludes-note.log",
+      "bytes": 15266,
+      "sha256": "d476e033848fae85a7413800ee627a8fe32b036afdbcd2f71112edb186407ee0"
+    },
+    {
+      "path": "proofs/run-contracts/prepared-excludes-reply.log",
+      "bytes": 15272,
+      "sha256": "16f9dd4715551411a2cde32ecf12ddffeed3dfced449649bbaeb06382b818aae"
+    },
+    {
+      "path": "proofs/run-contracts/prepared-excludes-updatedHistory.log",
+      "bytes": 15315,
+      "sha256": "9ea8ffe19d0a4c7c00cad5c6df51d7f1e64b6c19c9776103f665efc69fbd3831"
+    },
+    {
+      "path": "proofs/run-contracts/prepared-strict.log",
+      "bytes": 16179,
+      "sha256": "8d0e230a68151e08360468f09aa175768d8eab1c93b5bd3193f81b2a68ee8041"
+    },
+    {
+      "path": "proofs/run-contracts/projection-config-version.log",
+      "bytes": 15639,
+      "sha256": "651e2f51ba5dfec40432db01dbbca468a304b64ceb65d20668e39b1cba41978c"
+    },
+    {
+      "path": "proofs/run-contracts/projection-correspondence.log",
+      "bytes": 15548,
+      "sha256": "8d37e1b05e4e5ebdf531f263923f1a4ff5060eba312e8212e9cbf0108b73d126"
+    },
+    {
+      "path": "proofs/run-contracts/projection-scope.log",
+      "bytes": 15805,
+      "sha256": "3205f2129e2a3c4f965cf1dfb6c33511efc8d719655b21697c22d4024fef4080"
+    },
+    {
+      "path": "proofs/run-contracts/projection-session.log",
+      "bytes": 15516,
+      "sha256": "2532ea7e6d08e9fa457070d222c1262cc9033fe79b964bb15b76b15007427228"
+    },
+    {
+      "path": "proofs/run-contracts/qualification.json",
+      "bytes": 19602,
+      "sha256": "22e350fd3ccdb584cceb64f5f7aefe6c77a399238012358b12769c76423c2952"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-admissionId.log",
+      "bytes": 15061,
+      "sha256": "8120ccaf7b31170be7a71cada08f4eb5e61eb599b4a4c733b92b6fc6e257915c"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-challenge.log",
+      "bytes": 15059,
+      "sha256": "24e4a2d03b4ccdcacebda63187a4c6c7d3bc743e7dd92668f9d199b4a519b0ae"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-companyId.log",
+      "bytes": 15059,
+      "sha256": "25168e956d5235c6e7c4d508a7d0c5b34e82c8e26b7c82e237ca15dbaa457a95"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-hostDeadlineAt.log",
+      "bytes": 15064,
+      "sha256": "2209d7d8b7e5206453e8da89bc63f670d20be576cd24ed5196d2d95b3753134c"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-hostIssuedAt.log",
+      "bytes": 15062,
+      "sha256": "c898466388b238ed6d92c6e344264b568c9de102856d1b26d40e876ee97d7bdb"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-issueId.log",
+      "bytes": 15057,
+      "sha256": "010495f84577e2e0f4b1c306e59b5adf0bc74dff3fff3e2e150ea21dee63001a"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-paperclipAgentId.log",
+      "bytes": 15066,
+      "sha256": "cc39a36571535542e9f9d4c83e9d87e025f05618190ebe2188c4cb28facb13a6"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-parse.log",
+      "bytes": 15106,
+      "sha256": "7519086de4c79ac9b8c317e33a0b3981065bc009146c907ae56a5c6715dd757c"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-correspondence-runId.log",
+      "bytes": 15055,
+      "sha256": "f3367afebd123d07526a16a88dc811c64c9e42cc8fd6dddf066b70aea41df217"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-kind.log",
+      "bytes": 15164,
+      "sha256": "ffea79f7f91a3f976c72847e8a0751b64f2455e135cf4ea71688db96268f7b0c"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-schema-version.log",
+      "bytes": 15217,
+      "sha256": "ca2c46c5e92cf268cbed5a140b97e9132ec0d00dd0cce39fe7e8ec652f98e939"
+    },
+    {
+      "path": "proofs/run-contracts/receipt-strict.log",
+      "bytes": 16295,
+      "sha256": "604e3ae13d267fa6a1d7521aab435e0a41e76e24096eb91997a31a532b26af37"
+    },
+    {
+      "path": "proofs/run-contracts/restored-green.log",
+      "bytes": 336,
+      "sha256": "90ed81e48703ea78fcfb73117ce1d0849ce9716e0bbe54ea523d9550cb998f83"
+    },
+    {
+      "path": "proofs/run-contracts/tool-config-field.log",
+      "bytes": 17804,
+      "sha256": "2bd423db42ed535864ad549627259914b4ac33fa6fb4d9809e763707ea5c7889"
+    },
+    {
+      "path": "proofs/run-contracts/tool-execution-field.log",
+      "bytes": 17820,
+      "sha256": "a7f220f42d9c2cdd89aa43969a8e344335aa33b323960fa9d2cb76aab9736f2c"
+    },
+    {
+      "path": "proofs/source-manifest-qualification.json",
+      "bytes": 243,
+      "sha256": "a4048edc34b1fb558e44d21bb0c42149af211a87d47aee27755c6d520bcd239c"
+    }
+  ]
+}

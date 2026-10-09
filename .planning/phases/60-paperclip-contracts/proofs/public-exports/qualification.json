@@ -1,0 +1,19 @@
+{
+  "sourceHash": "92406384efb054c57bb32b62e6c8ba70a42d85bef6736cd646fb5b65b10554ab",
+  "faults": [
+    {
+      "name": "PaperclipToolCallRequestSchema",
+      "semanticRed": true,
+      "exitCode": 1,
+      "logSha256": "2aad890c28351330dfdb480338e1fb80b9e70009c40e2b499879a62634b3ce20"
+    },
+    {
+      "name": "toPaperclipToolCallScope",
+      "semanticRed": true,
+      "exitCode": 1,
+      "logSha256": "7f5b9f30de5e6463dae953da14a1efac62e6ba09aa119249806e61515307095d"
+    }
+  ],
+  "exactRestore": true,
+  "restoredGreenExit": 0
+}

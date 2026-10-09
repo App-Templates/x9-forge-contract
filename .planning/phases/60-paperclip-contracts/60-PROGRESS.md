@@ -37,3 +37,11 @@ Implemented and locally tested source contracts only. No owner can yet apply a v
 Source-manifest reproducibility check:24/24byte-count/digests on frozen sources; private copy corrupted digest gives1/1AssertionError; exact committed manifest restored24/24. proofssource-manifest-qualification.json;0producttests/0nativecalls. Active state counts55complete+60incomplete (1/2), avoiding a stale100percent from phase55.
 
 C190545 closes independent source/design gate for815d820+aa401599 only. Run transport lot19:10–19:55 begins on that design; product functionality/consumer/live remain unqualified. C review evidence is documentary/source-only and is not added to author product-test counts.
+
+## Current candidate — 2026-10-09 19:30 CEST
+
+Product ab08abb7788797854ea7734130a108a8c74e15cd; complete bridge source/config/install/run/HTTP candidate locally tested, independent functional review pending. This supersedes earlier remaining-source statements; plan01 stays incomplete and noSUMMARY is created before exact-SHA review. Source gate C18cb8ec true; implementation gate false. Run lot19:10–19:55 checkpoint closes early with the review dependency separated.
+
+Full4271/4271 in156files=4094base+177new,0skip; build/types/lint0;127/127source faults (77run+48config+2barrel),4/4compiled faults, exact restores. New suite112 includes the missing public exports caught by isolated consumer, corrected after2/2semantic reds; import-cycle/pack-TypeError/tsbuildinfoEPERM diagnostics excluded. Package20/20semantic cases perESM/CJS,19/19subpath availability performat,3/3type consumers;1474archiveentries/SHA in60-REVIEW-REQUEST. Existing check:pack warning retained, no runtime/native/model/deploy/push. Version metadata remains released1.45base pending composition, not publication.
+
+Remaining: independent functional review, fixes if any, then canonical01 handoff; D02 cap/nativeadapter and E03/04/05 implementation +06integration/live qualification. D10 cap167 alignment directive181529 remains deferred until its close.

@@ -1,0 +1,107 @@
+{
+  "productSha": "ab08abb7788797854ea7734130a108a8c74e15cd",
+  "baseSha": "b22032d264cc32838524a9927f67200c5acd6f7b",
+  "sourceDesignReview": "C18cb8ec",
+  "SOURCE_DESIGN_VERIFIED": true,
+  "IMPLEMENTATION_QUALIFIED": false,
+  "fullSuite": {
+    "passed": 4271,
+    "total": 4271,
+    "files": 156,
+    "skipped": 0,
+    "newTests": 177,
+    "baseTests": 4094
+  },
+  "newSuites": {
+    "config": 49,
+    "httpContextReload": 16,
+    "executionAdmissionDispatch": 112
+  },
+  "sourceFaults": {
+    "run": 77,
+    "configInstall": 48,
+    "publicExports": 2,
+    "qualified": 127,
+    "planned": 127,
+    "exactRestores": true
+  },
+  "compiledFaults": {
+    "qualified": 4,
+    "planned": 4,
+    "guardsPerFormat": 2,
+    "formats": [
+      "esm",
+      "cjs"
+    ],
+    "exactPackageRestore": true
+  },
+  "package": {
+    "path": "/private/tmp/d60-package-illcpmog/x9-forge-contracts-1.45.0.tgz",
+    "sha256": "ba163521ce950ed10e688c518f834ea1068fdfaa561899e79055aac52c405813",
+    "entries": 1474
+  },
+  "subpathAvailability": {
+    "perFormat": 19,
+    "formats": 2,
+    "total": 38,
+    "semanticTests": false
+  },
+  "packageSemanticCases": {
+    "perFormat": 20,
+    "formats": 2
+  },
+  "typeConsumers": 3,
+  "portableDeclarations": 368,
+  "buildExit": 0,
+  "typecheckExit": 0,
+  "lintExit": 0,
+  "packCheckExit": 0,
+  "historicalPackWarnings": 1,
+  "cjsSmoke": {
+    "publicAvailability": 36,
+    "compat131": 6,
+    "workspace": 15,
+    "catalog": 16,
+    "batch": 39
+  },
+  "diagnosticsExcluded": [
+    "initial import cycle (resolved by native wire module)",
+    "isolated package missing public export (fixed and semantically regressed)",
+    "tsbuildinfo EPERM (authorized retry exit0)"
+  ],
+  "logs": {
+    "full": {
+      "sha256": "c91c3949fab8b6c8f1e22a82ebb1a249fab2bc3af4b1989bcfe8f483a074403e",
+      "path": ".planning/phases/60-paperclip-contracts/proofs/final-candidate/full.log"
+    },
+    "build": {
+      "sha256": "6425ebe315c3a4248c1b2f97e29a9ceae9280238bde3f6ce39f866402f9c6d84",
+      "path": ".planning/phases/60-paperclip-contracts/proofs/final-candidate/build.log"
+    },
+    "types": {
+      "sha256": "7dda20c3acdaedfb9e815f85b4470dd79c3350907706b24bb764ebae5c96ac95",
+      "path": ".planning/phases/60-paperclip-contracts/proofs/final-candidate/types.log"
+    },
+    "lint": {
+      "sha256": "a3d4121fc888571301f2d2e1bf2ce41d5d1ffc67a1ea7a078e1394b309544f87",
+      "path": ".planning/phases/60-paperclip-contracts/proofs/final-candidate/lint.log"
+    },
+    "packcheck": {
+      "sha256": "9a3554e0f4fd39dbb708a971d48a58b318e8f76ff7028336561417f7dda190ff",
+      "path": ".planning/phases/60-paperclip-contracts/proofs/final-candidate/packcheck.log"
+    },
+    "run-export-tdd": {
+      "sha256": "ac35697bd7da1eb08b4929d23d982956606415daebbd0277556c7d7a16d52d84",
+      "path": ".planning/phases/60-paperclip-contracts/proofs/final-candidate/run-export-tdd.log"
+    },
+    "public-exports-tdd": {
+      "sha256": "e32a04d2a61197cab33da326673f2a4c89bc75b7787062410373961fa14ec63f",
+      "path": ".planning/phases/60-paperclip-contracts/proofs/final-candidate/public-exports-tdd.log"
+    }
+  },
+  "liveNativeCalls": 0,
+  "modelCalls": 0,
+  "pushes": 0,
+  "deploys": 0,
+  "functionalIndependentReview": "pending"
+}

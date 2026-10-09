@@ -1,0 +1,75 @@
+{
+  "directory": "/private/tmp/d60-package-illcpmog",
+  "checks": [
+    {
+      "name": "pack",
+      "exitCode": 0,
+      "logSha256": "55a49ac6edc9f720fed6a71d4d0407e75b535be972d6b8a78c756796a4bb470a"
+    },
+    {
+      "name": "esm",
+      "exitCode": 0,
+      "logSha256": "9c204cbd6e83120d42b61e466084c54a30459bc1b20579ee86bfc10df11b80e8"
+    },
+    {
+      "name": "cjs",
+      "exitCode": 0,
+      "logSha256": "6c67127603b4a44029fbf43e030f8fc3b584ff2c58585a21856fe742350a38bb"
+    },
+    {
+      "name": "types-esm-node16",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "types-cjs-node16",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "types-esm-bundler",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "esm-challenge-fault",
+      "semanticRed": true,
+      "exitCode": 1,
+      "logSha256": "4d669bb6ed1fb923277e4b599c78bffe02a7a3ab5e47b85c4f8cbae858b61bbb"
+    },
+    {
+      "name": "esm-execution-required-fault",
+      "semanticRed": true,
+      "exitCode": 1,
+      "logSha256": "3e6e89869aa1970fdeea8f27652faef124d0b7a344ae5fb6bca8671e118f5a2a"
+    },
+    {
+      "name": "esm-restored",
+      "exitCode": 0,
+      "logSha256": "9c204cbd6e83120d42b61e466084c54a30459bc1b20579ee86bfc10df11b80e8"
+    },
+    {
+      "name": "cjs-challenge-fault",
+      "semanticRed": true,
+      "exitCode": 1,
+      "logSha256": "4d669bb6ed1fb923277e4b599c78bffe02a7a3ab5e47b85c4f8cbae858b61bbb"
+    },
+    {
+      "name": "cjs-execution-required-fault",
+      "semanticRed": true,
+      "exitCode": 1,
+      "logSha256": "3e6e89869aa1970fdeea8f27652faef124d0b7a344ae5fb6bca8671e118f5a2a"
+    },
+    {
+      "name": "cjs-restored",
+      "exitCode": 0,
+      "logSha256": "6c67127603b4a44029fbf43e030f8fc3b584ff2c58585a21856fe742350a38bb"
+    }
+  ],
+  "archive": {
+    "path": "/private/tmp/d60-package-illcpmog/x9-forge-contracts-1.45.0.tgz",
+    "sha256": "ba163521ce950ed10e688c518f834ea1068fdfaa561899e79055aac52c405813",
+    "entries": 1474
+  },
+  "exactPackageRestore": true
+}
