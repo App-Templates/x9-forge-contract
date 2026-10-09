@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalAgentModelsStateContract = exports.internalModelsBatchContract = exports.internalModelsPreviewContract = exports.internalModelsOverviewContract = void 0;
+exports.internalModelConsumerInstallContract = exports.internalModelConsumerStateContract = exports.internalAgentModelsStateContract = exports.internalModelsBatchContract = exports.internalModelsPreviewContract = exports.internalModelsOverviewContract = void 0;
 exports.agentModelsStatePath = agentModelsStatePath;
+const zod_1 = require("zod");
 const index_js_1 = require("../../auth/index.cjs");
+const model_slot_js_1 = require("../../model-router/model-slot.cjs");
+const model_consumer_execution_js_1 = require("../../model-router/model-consumer-execution.cjs");
 const agent_model_configuration_js_1 = require("../../model-router/agent-model-configuration.cjs");
 const models_batch_js_1 = require("../../model-router/models-batch.cjs");
 const internal_agents_management_js_1 = require("./internal-agents-management.cjs");
@@ -32,4 +35,17 @@ exports.internalAgentModelsStateContract = {
 function agentModelsStatePath(agentId) {
     return exports.internalAgentModelsStateContract.path.replace(':agentId', internal_agents_management_js_1.AgentManagementParamsSchema.parse({ agentId }).agentId);
 }
+/** Same metadata contract in each consumer service; registry binding chooses the trusted service URL. */
+exports.internalModelConsumerStateContract = {
+    method: 'POST', path: '/internal/models/consumers/:slotId/state',
+    authType: 'secret', authHeader: index_js_1.INTERNAL_SECRET_HEADER,
+    paramsSchema: zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema }).strict(),
+    bodySchema: model_consumer_execution_js_1.ModelConsumerStateRequestSchema, responseSchema: model_consumer_execution_js_1.ModelConsumerRuntimeStateSchema,
+};
+exports.internalModelConsumerInstallContract = {
+    method: 'POST', path: '/internal/models/consumers/:slotId/install',
+    authType: 'secret', authHeader: index_js_1.INTERNAL_SECRET_HEADER,
+    paramsSchema: zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema }).strict(),
+    bodySchema: model_consumer_execution_js_1.ModelConsumerInstallRequestSchema, responseSchema: model_consumer_execution_js_1.ModelConsumerInstallReceiptSchema,
+};
 //# sourceMappingURL=internal-models-batch.js.map

@@ -1,0 +1,30 @@
+[
+  {
+    "format": "js",
+    "case": "unknown",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0
+  },
+  {
+    "format": "js",
+    "case": "access",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0
+  },
+  {
+    "format": "cjs",
+    "case": "unknown",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0
+  },
+  {
+    "format": "cjs",
+    "case": "access",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0
+  }
+]

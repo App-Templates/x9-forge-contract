@@ -1,0 +1,52 @@
+{
+  "scope": "B0c2b public browser SDK only, no handlers or live channel",
+  "newTests": 39,
+  "targeted": {
+    "passed": 124,
+    "total": 124,
+    "files": 2
+  },
+  "full": {
+    "passed": 4459,
+    "total": 4459,
+    "files": 158,
+    "skipped": 0
+  },
+  "sourceMutations": {
+    "qualified": 20,
+    "total": 20,
+    "restored": true
+  },
+  "quality": [
+    {
+      "check": "targeted",
+      "exitCode": 0
+    },
+    {
+      "check": "typecheck",
+      "exitCode": 0
+    },
+    {
+      "check": "lint",
+      "exitCode": 0
+    },
+    {
+      "check": "build",
+      "exitCode": 0
+    },
+    {
+      "check": "pack",
+      "exitCode": 0
+    }
+  ],
+  "compiledGreen": {
+    "passed": 88,
+    "total": 88
+  },
+  "compiledMutationQualified": 2,
+  "pending": "X9/Forge producer/consumer not assigned; B0c3a history proof is separate uncommitted WIP",
+  "live": {
+    "passed": 0,
+    "total": 42
+  }
+}

@@ -80,4 +80,11 @@ __exportStar(require("./agent-phone-channel.cjs"), exports);
 __exportStar(require("./agent-phone-commands.cjs"), exports);
 // Forge-declared context authority, including explicit Master/heir provenance.
 __exportStar(require("./agent-context-identity.cjs"), exports);
+// C5 resource operations for existing agents; no credential material.
+__exportStar(require("./agent-channel-resource-operation.cjs"), exports);
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+__exportStar(require("./agent-deletion.cjs"), exports);
+// C5: exact telephone admission and explicit server-owned outbound correlation.
+__exportStar(require("./agent-phone-admission.cjs"), exports);
+__exportStar(require("./agent-channel-history.cjs"), exports);
 //# sourceMappingURL=index.js.map

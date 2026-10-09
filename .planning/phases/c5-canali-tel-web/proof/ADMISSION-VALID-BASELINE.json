@@ -1,0 +1,18 @@
+{
+  "name": "valid-fixture-closed-baseline",
+  "exitCode": 1,
+  "totalTests": 84,
+  "functionalAssertions": [
+    "C5 exact telephone Rubrica gate admits an exact complete scoped phone entry, preserving email independence",
+    "C5 exact telephone Rubrica gate enforces inclusive current-source age and rejects invalid clocks/windows",
+    "C5 inbound admission after verified routing admits a current loaded applied phone and exact trusted caller",
+    "C5 inbound admission after verified routing keeps APPLIED policy effective while a different desired policy is pending",
+    "C5 inbound admission after verified routing uses applied voice when a different desired voice is pending",
+    "C5 inbound admission after verified routing allows explicit applied anyone policy without a Rubrica but still needs a canonical caller",
+    "C5 inbound admission after verified routing does not replace a still applied configuration with a failed desired edit",
+    "C5 explicit server-owned outbound request admits an exact Rubrica destination and correlated unexpired explicit request",
+    "C5 explicit server-owned outbound request never extends anyone inbound permission to outbound destinations"
+  ],
+  "otherFailureCount": 0,
+  "qualified": true
+}

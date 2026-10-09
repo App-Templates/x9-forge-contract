@@ -44,4 +44,11 @@ export * from "./agent-phone-channel.js";
 export * from "./agent-phone-commands.js";
 // Forge-declared context authority, including explicit Master/heir provenance.
 export * from "./agent-context-identity.js";
+// C5 resource operations for existing agents; no credential material.
+export * from "./agent-channel-resource-operation.js";
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from "./agent-deletion.js";
+// C5: exact telephone admission and explicit server-owned outbound correlation.
+export * from "./agent-phone-admission.js";
+export * from "./agent-channel-history.js";
 //# sourceMappingURL=index.js.map

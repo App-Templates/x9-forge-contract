@@ -1,0 +1,176 @@
+{
+  "total": 14,
+  "qualified": 14,
+  "sourceRestored": true,
+  "sha256": "7b57a2666918a4d7aba7544985c9439967b271da763a342c109dc24b9344ff09",
+  "mutations": [
+    {
+      "name": "identity-tenantId",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects canonical identity belonging to another tenantId"
+      ]
+    },
+    {
+      "name": "identity-ownerId",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects canonical identity belonging to another ownerId"
+      ]
+    },
+    {
+      "name": "identity-agentId",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects canonical identity belonging to another agentId"
+      ]
+    },
+    {
+      "name": "diagnostic-identity",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority does not claim identity_unavailable when the identity is already resolved"
+      ]
+    },
+    {
+      "name": "active-lifecycle",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority does not turn archived lifecycle into a successful authority",
+        "C5 canonical D identity in web authority does not turn removed lifecycle into a successful authority",
+        "C5 canonical D identity in web authority does not turn unavailable lifecycle into a successful authority"
+      ]
+    },
+    {
+      "name": "resolved-identity",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority preserves legacy closed failure and the existing correlation-only helper"
+      ]
+    },
+    {
+      "name": "expected-identity",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 7,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority supports a canonical heir without guessing a Master or Vault key",
+        "C5 canonical D identity in web authority refuses stale expected managementAgentId even with the same owner/runtime",
+        "C5 canonical D identity in web authority refuses stale expected vaultAgentId even with the same owner/runtime",
+        "C5 canonical D identity in web authority never fabricates missing expected identity null",
+        "C5 canonical D identity in web authority never fabricates missing expected identity undefined",
+        "C5 canonical D identity in web authority never fabricates missing expected identity {}",
+        "C5 canonical D identity in web authority never fabricates missing expected identity {\"agentId\":\"runtime-web-test\",\"ownerId\":\"owner-web-test\",\"tenantId\":\"tenant-web-test\",\"role\":\"master\",\"identity\":{\"managementAgentId\":\"management-web-test\",\"runtimeAgentId\":\"runtime-web-test\"}}"
+      ]
+    },
+    {
+      "name": "identity-match",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority supports a canonical heir without guessing a Master or Vault key",
+        "C5 canonical D identity in web authority refuses stale expected managementAgentId even with the same owner/runtime",
+        "C5 canonical D identity in web authority refuses stale expected vaultAgentId even with the same owner/runtime"
+      ]
+    },
+    {
+      "name": "current-authority",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 5,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority requires after-await phase correlation without accepting a before snapshot",
+        "C5 canonical D identity in web authority denies future or expired authority at clock delta -1",
+        "C5 canonical D identity in web authority denies future or expired authority at clock delta 60000",
+        "C5 canonical D identity in web authority denies future or expired authority at clock delta 60001",
+        "C5 canonical D identity in web authority requires the expected server viewer, origin and authority version"
+      ]
+    },
+    {
+      "name": "success-strict",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects private fields in successful authority"
+      ]
+    },
+    {
+      "name": "success-request",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects success with mismatched snapshot requestId"
+      ]
+    },
+    {
+      "name": "success-scope",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects response and snapshot belonging to another canonical scope"
+      ]
+    },
+    {
+      "name": "success-link",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects success with mismatched snapshot linkId"
+      ]
+    },
+    {
+      "name": "success-phase",
+      "exitCode": 1,
+      "totalTests": 31,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 canonical D identity in web authority rejects success with mismatched snapshot phase"
+      ]
+    }
+  ]
+}

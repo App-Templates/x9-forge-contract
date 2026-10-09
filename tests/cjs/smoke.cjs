@@ -161,4 +161,6 @@ require('./bridge-130-smoke.cjs');
 require('./r7-workspace-smoke.cjs');
 require('./model-catalog-smoke.cjs');
 require('./models-batch-smoke.cjs');
+// Check every public entrypoint before any module cache can hide initialization cycles.
+require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, 'public-entrypoints-first.mjs')], { stdio: 'inherit' });
 process.exit(0);

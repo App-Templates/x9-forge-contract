@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ElevenLabsWebAuthorityResponseSchema = exports.ElevenLabsWebAuthoritySnapshotSchema = exports.ElevenLabsWebAuthorityRequestSchema = exports.ElevenLabsWebAdmissionPhaseSchema = void 0;
 exports.isElevenLabsWebAuthorityCurrent = isElevenLabsWebAuthorityCurrent;
+exports.isElevenLabsWebAuthorityUsable = isElevenLabsWebAuthorityUsable;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const agent_config_js_1 = require("../ricerca/agent-config.cjs");
 const agent_management_js_1 = require("../../agent/agent-management.cjs");
+const agent_context_identity_js_1 = require("../../agent/agent-context-identity.cjs");
 const web_session_js_1 = require("./web-session.cjs");
 exports.ElevenLabsWebAdmissionPhaseSchema = zod_1.z.enum(['before', 'after']);
 /** X9 sends correlation only; Forge reloads the authenticated attempt from its own server state. */
@@ -22,8 +24,7 @@ const ConfiguredOriginSchema = zod_1.z.url().refine((value) => {
     return url.protocol === 'https:' && url.username === '' && url.password === ''
         && url.pathname === '/' && url.search === '' && url.hash === '';
 }, { message: 'Expected the configured HTTPS origin without user info, path, query or fragment' });
-// Single unresolved identity slot. Replace with D's verified canonical export after coordinator integration.
-const AgentContextIdentitySchema = zod_1.z.null();
+// Reuse D's declared context authority. Null remains legacy diagnostic evidence only.
 /** Forge-only evidence. Parsing this snapshot never grants admission or authenticates a viewer. */
 exports.ElevenLabsWebAuthoritySnapshotSchema = exports.ElevenLabsWebAuthorityRequestSchema.extend({
     viewer: web_session_js_1.ElevenLabsWebViewerSchema,
@@ -32,8 +33,12 @@ exports.ElevenLabsWebAuthoritySnapshotSchema = exports.ElevenLabsWebAuthorityReq
     authorityVersion: agent_config_js_1.AgentConfigVersionSchema,
     observedAt: zod_1.z.iso.datetime({ offset: true }),
     expiresAt: zod_1.z.iso.datetime({ offset: true }),
-    agentIdentity: AgentContextIdentitySchema,
+    agentIdentity: agent_context_identity_js_1.AgentContextIdentitySchema.nullable(),
 }).superRefine((snapshot, ctx) => {
+    const identity = snapshot.agentIdentity;
+    if (identity !== null && !(0, capability_call_context_js_1.sameCapabilityScope)({ tenantId: identity.tenantId, ownerId: identity.ownerId, agentId: identity.agentId }, snapshot.scope)) {
+        ctx.addIssue({ code: 'custom', path: ['agentIdentity'], message: 'Context authority belongs to another tenant, owner or runtime agent' }); // guard:identity-scope
+    }
     const duration = Date.parse(snapshot.expiresAt) - Date.parse(snapshot.observedAt);
     if (duration <= 0)
         ctx.addIssue({ code: 'custom', path: ['expiresAt'], message: 'Authority expiry must follow observation' });
@@ -61,8 +66,8 @@ function isElevenLabsWebAuthorityCurrent(rawRequest, rawSnapshot, expectedViewer
         && Date.parse(evidence.observedAt) <= time
         && Date.parse(evidence.expiresAt) > time;
 }
-/** No successful issuance is representable until the canonical agent identity is integrated. */
-exports.ElevenLabsWebAuthorityResponseSchema = zod_1.z.object({
+/** Legacy closed failures remain valid; diagnostics never grant authority. */
+const ElevenLabsWebAuthorityFailureSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
     request: exports.ElevenLabsWebAuthorityRequestSchema,
     error: zod_1.z.enum(['identity_unavailable', 'source_unavailable', 'admission_expired', 'identity_mismatch', 'viewer_unavailable']),
@@ -71,6 +76,8 @@ exports.ElevenLabsWebAuthorityResponseSchema = zod_1.z.object({
     if ((response.error === 'identity_unavailable') !== (response.snapshot !== undefined)) {
         ctx.addIssue({ code: 'custom', path: ['snapshot'], message: 'Only unresolved identity returns a diagnostic snapshot' });
     }
+    if (response.snapshot?.agentIdentity != null)
+        ctx.addIssue({ code: 'custom', path: ['snapshot'], message: 'Unresolved identity cannot publish resolved authority' }); // guard:failure-identity
     if (response.snapshot !== undefined) {
         const request = response.request, snapshot = response.snapshot;
         if (snapshot.requestId !== request.requestId || !(0, capability_call_context_js_1.sameCapabilityScope)(snapshot.scope, request.scope)
@@ -79,4 +86,33 @@ exports.ElevenLabsWebAuthorityResponseSchema = zod_1.z.object({
         }
     }
 });
+/** Successful authority is scoped evidence only, not provider mapping or permission to issue a session. */
+const ElevenLabsWebResolvedAuthoritySnapshotSchema = exports.ElevenLabsWebAuthoritySnapshotSchema.safeExtend({
+    agentIdentity: agent_context_identity_js_1.AgentContextIdentitySchema,
+}).superRefine((snapshot, ctx) => {
+    if (snapshot.lifecycle !== 'active')
+        ctx.addIssue({ code: 'custom', path: ['lifecycle'], message: 'Only an active agent can provide usable web authority' }); // guard:success-lifecycle
+});
+const ElevenLabsWebAuthoritySuccessSchema = zod_1.z.object({
+    ok: zod_1.z.literal(true), request: exports.ElevenLabsWebAuthorityRequestSchema, snapshot: ElevenLabsWebResolvedAuthoritySnapshotSchema,
+}).strict().superRefine((response, ctx) => {
+    const request = response.request, snapshot = response.snapshot;
+    if (snapshot.requestId !== request.requestId || !(0, capability_call_context_js_1.sameCapabilityScope)(snapshot.scope, request.scope)
+        || snapshot.linkId !== request.linkId || snapshot.phase !== request.phase) {
+        ctx.addIssue({ code: 'custom', path: ['snapshot'], message: 'Successful evidence must match the server attempt' }); // guard:success-correlation
+    }
+});
+exports.ElevenLabsWebAuthorityResponseSchema = zod_1.z.discriminatedUnion('ok', [ElevenLabsWebAuthorityFailureSchema, ElevenLabsWebAuthoritySuccessSchema]);
+/** Canonical identity and current correlation only. Expected identity is reloaded from the producer's server authority,
+ * never the browser. The issuer must separately recheck policy, invitation, link and provider mapping before/after await.
+ * The legacy current helper remains correlation-only and does not turn a null diagnostic into usable authority.
+ */
+function isElevenLabsWebAuthorityUsable(rawRequest, rawResponse, expectedViewer, configuredOrigin, expectedVersion, expectedIdentity, now) {
+    const response = exports.ElevenLabsWebAuthorityResponseSchema.safeParse(rawResponse);
+    const identity = agent_context_identity_js_1.AgentContextIdentitySchema.safeParse(expectedIdentity);
+    if (!response.success || !response.data.ok || !identity.success)
+        return false; // guard:usable-parse
+    return isElevenLabsWebAuthorityCurrent(rawRequest, response.data.snapshot, expectedViewer, configuredOrigin, expectedVersion, now)
+        && JSON.stringify(response.data.snapshot.agentIdentity) === JSON.stringify(identity.data); // guard:usable-identity
+}
 //# sourceMappingURL=web-context.js.map

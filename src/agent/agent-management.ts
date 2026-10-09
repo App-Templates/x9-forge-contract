@@ -1,4 +1,10 @@
+import { AgentManagementRequestIdSchema, AgentManagementOutcomeSchema, AgentManagementOverallOutcomeSchema, AgentManagementReasonSchema, AgentConfigVersionStateSchema, deriveAgentManagementOutcome, type AgentConfigVersionState } from './agent-model-management-values.js';
+export { AgentManagementRequestIdSchema, AgentManagementOutcomeSchema, AgentManagementOverallOutcomeSchema, AgentManagementReasonCodeSchema, AgentManagementReasonSchema, AgentConfigVersionStateSchema, deriveAgentManagementOutcome, type AgentManagementRequestId, type AgentManagementOutcome, type AgentManagementOverallOutcome, type AgentManagementReasonCode, type AgentManagementReason, type AgentConfigVersionState } from './agent-model-management-values.js';
 import { z } from 'zod';
+import { AgentModelBootstrapPreconditionSchema, AgentModelBootstrapSourceVersionSchema } from '../model-router/model-slot.js';
+import { AgentModelsConfigurationWithProvenanceSchema } from '../model-router/agent-model-configuration-values.js';
+import { findModelConsumerDefinition } from '../model-router/model-consumers.js';
+import { sameModelFeatures } from '../model-router/capability-model-settings.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { AgentWorkspaceAttestationSchema, type AgentWorkspaceAttestation } from './agent-workspace-attestation.js';
 import { AgentRuntimeIdentitySchema } from './agent-runtime-identity.js';
@@ -22,10 +28,6 @@ export type AgentLifecycleAction = z.infer<typeof AgentLifecycleActionSchema>;
 export const AgentManagementActionSchema = z.enum([...AgentLifecycleActionSchema.options, 'apply-config']);
 export type AgentManagementAction = z.infer<typeof AgentManagementActionSchema>;
 
-/** Caller-chosen idempotency key, unique per intended command (e.g. a UUID). */
-export const AgentManagementRequestIdSchema = z.string().min(8).max(128).regex(/^[A-Za-z0-9][A-Za-z0-9._:-]*$/);
-export type AgentManagementRequestId = z.infer<typeof AgentManagementRequestIdSchema>;
-
 export const AgentManagementTargetKindSchema = z.enum(['runtime', 'channel', 'capability']);
 export type AgentManagementTargetKind = z.infer<typeof AgentManagementTargetKindSchema>;
 
@@ -35,35 +37,6 @@ export const AgentManagementTargetSchema = z.object({
   targetId: z.string().min(1).max(128),
 }).strict();
 export type AgentManagementTarget = z.infer<typeof AgentManagementTargetSchema>;
-
-export const AgentManagementOutcomeSchema = z.enum(['ok', 'error', 'unmanageable']);
-export type AgentManagementOutcome = z.infer<typeof AgentManagementOutcomeSchema>;
-
-export const AgentManagementOverallOutcomeSchema = z.enum(['ok', 'partial', 'error', 'unmanageable']);
-export type AgentManagementOverallOutcome = z.infer<typeof AgentManagementOverallOutcomeSchema>;
-
-export const AgentManagementReasonCodeSchema = z.enum([
-  'not-loaded',
-  'load-failed',
-  'validation-failed',
-  'timeout',
-  'source-unavailable',
-  /** The action would affect the runtime shared with other agents. */
-  'shared-runtime',
-  /** The channel is owned by an external provider/capability and is not driven by this command. */
-  'externally-owned',
-  'not-supported',
-  'in-progress',
-  'unknown',
-]);
-export type AgentManagementReasonCode = z.infer<typeof AgentManagementReasonCodeSchema>;
-
-/** `detail` is sanitized operator text: never secrets, tokens or personal data. */
-export const AgentManagementReasonSchema = z.object({
-  code: AgentManagementReasonCodeSchema,
-  detail: z.string().min(1).max(500).optional(),
-}).strict();
-export type AgentManagementReason = z.infer<typeof AgentManagementReasonSchema>;
 
 const targetKey = (target: AgentManagementTarget): string => `${target.kind}:${target.targetId}`;
 
@@ -82,28 +55,6 @@ function addDuplicateTargetIssues(targets: readonly AgentManagementTarget[], ctx
     seen.add(key);
   }
 }
-
-/** Desired (saved) vs applied (effective) configuration version of one agent. */
-export const AgentConfigVersionStateSchema = z.object({
-  desired: AgentConfigVersionSchema,
-  /** null: no configuration version was ever applied. */
-  applied: AgentConfigVersionSchema.nullable(),
-  /** Last failed apply, newer than the applied version; null when none is pending. */
-  failed: z.object({ version: AgentConfigVersionSchema, reason: AgentManagementReasonSchema }).strict().nullable(),
-}).superRefine((versions, ctx) => {
-  if (versions.applied !== null && versions.applied > versions.desired) {
-    ctx.addIssue({ code: 'custom', path: ['applied'], message: 'Applied version cannot be ahead of the desired one' });
-  }
-  if (versions.failed !== null) {
-    if (versions.failed.version <= (versions.applied ?? 0)) {
-      ctx.addIssue({ code: 'custom', path: ['failed', 'version'], message: 'A failed version must be newer than the applied one' });
-    }
-    if (versions.failed.version > versions.desired) {
-      ctx.addIssue({ code: 'custom', path: ['failed', 'version'], message: 'A failed version cannot be ahead of the desired one' });
-    }
-  }
-});
-export type AgentConfigVersionState = z.infer<typeof AgentConfigVersionStateSchema>;
 
 /** A loaded D-A9 bundle is the applied configuration snapshot, never the desired version. */
 function addWorkspaceVersionIssues(workspace: AgentWorkspaceAttestation | null | undefined, versions: AgentConfigVersionState | null | undefined, ctx: z.RefinementCtx): void {
@@ -126,16 +77,50 @@ const ApplyConfigCommandSchema = z.object({
   action: z.literal('apply-config'),
   requestId: AgentManagementRequestIdSchema,
   desiredVersion: AgentConfigVersionSchema,
-}).strict();
+  /** Initial model-only priming: loaded generation and absent persisted authority are rechecked in X9. */
+  modelBootstrap: AgentModelBootstrapPreconditionSchema.optional(),
+  /** Explicit scoped model authority for a private Master; lazy evaluation preserves the existing module cycle. */
+  modelConfiguration: z.lazy(() => AgentModelsConfigurationWithProvenanceSchema).optional(),
+  /** CAS against the current runtime generation, independent from desiredVersion. */
+  modelExpectedSourceVersion: AgentModelBootstrapSourceVersionSchema.optional(),
+}).strict().superRefine((command, ctx) => {
+  if ((command.modelConfiguration !== undefined) !== (command.modelExpectedSourceVersion !== undefined)) {
+    ctx.addIssue({ code: 'custom', path: ['modelExpectedSourceVersion'], message: 'An explicit model configuration requires its observed source generation' });
+  }
+  if (command.modelConfiguration?.configVersion !== undefined && command.modelConfiguration.configVersion !== command.desiredVersion) {
+    ctx.addIssue({ code: 'custom', path: ['modelConfiguration', 'configVersion'], message: 'Model configuration version must equal desiredVersion' });
+  }
+  if (command.modelConfiguration !== undefined && command.modelBootstrap !== undefined && command.modelExpectedSourceVersion !== command.modelBootstrap.expectedSourceVersion) {
+    ctx.addIssue({ code: 'custom', path: ['modelExpectedSourceVersion'], message: 'Explicit configuration and bootstrap require the same observed source generation' });
+  }
+  for (const [index, selection] of (command.modelConfiguration?.selections ?? []).entries()) {
+    const consumer = findModelConsumerDefinition(selection.slotId);
+    if (consumer === undefined || selection.settings.capability !== consumer.capability || selection.settings.function !== consumer.function || !sameModelFeatures(selection.settings.requirements, consumer.requirements) || (consumer.routing === 'tiered' ? !['automatic', 'pin'].includes(selection.settings.mode) : selection.settings.mode !== consumer.routing)) {
+      ctx.addIssue({ code: 'custom', path: ['modelConfiguration', 'selections', index], message: 'Explicit model authority must match the registered consumer' });
+    }
+  }
+});
 
 export const AgentManagementCommandSchema = z.union([LifecycleCommandSchema, ApplyConfigCommandSchema]);
 export type AgentManagementCommand = z.infer<typeof AgentManagementCommandSchema>;
 
 /** Same command (action, version, target set) — the replay test for one `requestId`. Target order is irrelevant. */
+/** Deterministic JSON comparison; selection/binding sets are independent of field and slot order. */
+function canonicalCommandValue(value: unknown, key = ''): unknown {
+  if (Array.isArray(value)) {
+    const values = value.map(entry => canonicalCommandValue(entry));
+    return key === 'selections' || key === 'bindings' ? values.sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right))) : values;
+  }
+  if (value !== null && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).filter(([, item]) => item !== undefined).sort(([left], [right]) => left.localeCompare(right)).map(([name, item]) => [name, canonicalCommandValue(item, name)]));
+  }
+  return value;
+}
+
 export function sameAgentCommand(a: AgentManagementCommand, b: AgentManagementCommand): boolean {
   if (a.action !== b.action) return false;
   if (a.action === 'apply-config' || b.action === 'apply-config') {
-    return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion;
+    return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion && a.modelBootstrap?.expectedSourceVersion === b.modelBootstrap?.expectedSourceVersion && a.modelBootstrap?.expectedAbsent === b.modelBootstrap?.expectedAbsent && a.modelExpectedSourceVersion === b.modelExpectedSourceVersion && JSON.stringify(canonicalCommandValue(a.modelConfiguration)) === JSON.stringify(canonicalCommandValue(b.modelConfiguration));
   }
   const keys = (command: typeof a) => ('targets' in command && command.targets ? command.targets.map(targetKey).sort() : null);
   const left = keys(a);
@@ -155,15 +140,6 @@ export const AgentManagementTargetResultSchema = z.object({
   }
 });
 export type AgentManagementTargetResult = z.infer<typeof AgentManagementTargetResultSchema>;
-
-/** ok: all ok · unmanageable: none manageable · error: none ok · partial: some ok, some not. */
-export function deriveAgentManagementOutcome(results: ReadonlyArray<{ readonly outcome: AgentManagementOutcome }>): AgentManagementOverallOutcome {
-  const okCount = results.filter((result) => result.outcome === 'ok').length;
-  if (results.length > 0 && okCount === results.length) return 'ok';
-  if (results.length > 0 && results.every((result) => result.outcome === 'unmanageable')) return 'unmanageable';
-  if (okCount === 0) return 'error';
-  return 'partial';
-}
 
 /** Response to a processed command (`ok: true` = processed; read `outcome` for what happened). */
 export const AgentManagementCommandResultSchema = z.object({

@@ -16,6 +16,7 @@ export declare const elevenLabsWebSnapshotContract: {
                 public: "public";
             }>;
             paused: z.ZodBoolean;
+            enabled: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         link: z.ZodObject<{
             scope: z.ZodObject<{
@@ -120,6 +121,7 @@ export declare const elevenLabsWebPolicyContract: {
             public: "public";
         }>;
         paused: z.ZodBoolean;
+        enabled: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -138,6 +140,7 @@ export declare const elevenLabsWebPolicyContract: {
                 public: "public";
             }>;
             paused: z.ZodBoolean;
+            enabled: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
     }, z.core.$strict>;
     readonly authType: "secret";
@@ -208,6 +211,8 @@ export declare const elevenLabsWebCatalogContract: {
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 limits: z.ZodOptional<z.ZodObject<{
                     maxInputTokens: z.ZodOptional<z.ZodNumber>;
@@ -218,6 +223,17 @@ export declare const elevenLabsWebCatalogContract: {
                 embeddingDimensions: z.ZodOptional<z.ZodNumber>;
                 reason: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>>;
+            inventory: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                access: z.ZodEnum<{
+                    unknown: "unknown";
+                    available: "available";
+                    unavailable: "unavailable";
+                    "not-configured": "not-configured";
+                }>;
+                compatibility: z.ZodLiteral<"unqualified">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>;
         voices: z.ZodObject<{
             version: z.ZodString;

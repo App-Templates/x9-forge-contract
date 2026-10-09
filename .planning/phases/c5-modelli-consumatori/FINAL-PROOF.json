@@ -1,0 +1,124 @@
+{
+  "base": "e22e7a2d138be7120cd79800a7ada102183e7e74",
+  "sourceCheckpoint": "0524fff8733ef25bb81288f4f85644d1c5426ca6",
+  "newTests": 263,
+  "fullNative": {
+    "passed": 4971,
+    "total": 4971,
+    "files": 165,
+    "skip": 0,
+    "exit": 0,
+    "beforeBuild": true
+  },
+  "quality": [
+    {
+      "step": "types",
+      "exit": 0,
+      "seconds": 1.86
+    },
+    {
+      "step": "lint",
+      "exit": 0,
+      "seconds": 3.79
+    },
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 5.47
+    },
+    {
+      "step": "pack-check",
+      "exit": 0,
+      "seconds": 3.93
+    },
+    {
+      "step": "cjs-native",
+      "exit": 0,
+      "seconds": 0.24
+    },
+    {
+      "step": "cjs-consumers",
+      "exit": 0,
+      "seconds": 0.19
+    },
+    {
+      "step": "public",
+      "exit": 0,
+      "seconds": 0.3
+    },
+    {
+      "step": "archive",
+      "exit": 0,
+      "seconds": 0.75
+    }
+  ],
+  "sourceFaults": {
+    "qualified": 72,
+    "total": 72,
+    "restored": {
+      "exit": 0,
+      "passed": 263,
+      "total": 263
+    },
+    "hashesRestored": {
+      "src/model-router/model-consumers.ts": true,
+      "src/model-router/model-slot.ts": true,
+      "src/model-router/model-catalog.ts": true,
+      "src/model-router/capability-model-settings.ts": true,
+      "src/model-router/agent-model-configuration.ts": true,
+      "src/model-router/model-consumer-execution.ts": true,
+      "src/model-router/models-batch.ts": true,
+      "src/agent/agent-management.ts": true
+    }
+  },
+  "compiledFaults": {
+    "faults": [
+      {
+        "surface": "js",
+        "redExit": 1,
+        "semantic": "AssertionError true !== false",
+        "sha256": "fbfeb6ca12526b278016ecbb6222b07c698c353ab61ffe4070728afede4da075",
+        "restored": true,
+        "fresh": {
+          "passed": 104,
+          "total": 104,
+          "surfaces": 8
+        }
+      },
+      {
+        "surface": "cjs",
+        "redExit": 1,
+        "semantic": "AssertionError true !== false",
+        "sha256": "2d0d0377824cd22bc5687132db7048514c7575ea299bf7c7c706f2e494c09744",
+        "restored": true,
+        "fresh": {
+          "passed": 104,
+          "total": 104,
+          "surfaces": 8
+        }
+      }
+    ],
+    "qualified": 2,
+    "total": 2
+  },
+  "perimeter": {
+    "files": 117,
+    "outside": [],
+    "deleted": 0,
+    "protectedEqual": {
+      "package.json": true,
+      "pnpm-lock.yaml": true,
+      "vitest.config.ts": true,
+      "src/capability/agent-elevenlabs/web-catalog.ts": true
+    }
+  },
+  "live": {
+    "verified": 0,
+    "inventory": 34
+  },
+  "limitations": [
+    "JSON schemas are shape-only; producer validates refinements, CAS and actual readback.",
+    "No handler, provider operation, deployment or integration.",
+    "Master subsequent model configuration transport requested separately at 08:43."
+  ]
+}

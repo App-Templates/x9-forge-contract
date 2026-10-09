@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModelCatalogSchema = exports.ModelCatalogEntrySchema = exports.ModelLimitsSchema = exports.ModelFeaturesSchema = exports.ModelDescriptorSchema = exports.ModelCatalogVersionSchema = exports.ModelFunctionSchema = exports.ModelApiProtocolSchema = exports.ModelCatalogProviderIdSchema = void 0;
+exports.ModelCatalogSchema = exports.ModelCatalogInventoryEntrySchema = exports.ModelCatalogEntrySchema = exports.ModelLimitsSchema = exports.ModelFeaturesSchema = exports.ModelDescriptorSchema = exports.ModelCatalogVersionSchema = exports.ModelFunctionSchema = exports.ModelApiProtocolSchema = exports.ModelCatalogProviderIdSchema = void 0;
 exports.normalizeModelProvider = normalizeModelProvider;
 exports.sameModelDescriptor = sameModelDescriptor;
 const zod_1 = require("zod");
@@ -18,7 +18,7 @@ exports.ModelDescriptorSchema = zod_1.z.object({
     protocol: exports.ModelApiProtocolSchema,
     adapterId: RegisteredIdSchema,
 }).strict();
-exports.ModelFeaturesSchema = zod_1.z.object({ tools: zod_1.z.boolean(), stream: zod_1.z.boolean(), structuredOutput: zod_1.z.boolean() }).strict();
+exports.ModelFeaturesSchema = zod_1.z.object({ tools: zod_1.z.boolean(), stream: zod_1.z.boolean(), structuredOutput: zod_1.z.boolean(), vision: zod_1.z.boolean().optional(), webSearch: zod_1.z.boolean().optional() }).strict();
 /** Missing limits mean unknown; only producer-attested values may be displayed. */
 exports.ModelLimitsSchema = zod_1.z.object({
     maxInputTokens: zod_1.z.number().int().positive().optional(),
@@ -45,6 +45,13 @@ exports.ModelCatalogEntrySchema = exports.ModelDescriptorSchema.extend({
         ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Dimensions are present exactly for embedding models' });
     }
 });
+/** Provider-observed IDs whose executable compatibility has not been qualified. Never selectable. */
+exports.ModelCatalogInventoryEntrySchema = zod_1.z.object({
+    provider: exports.ModelCatalogProviderIdSchema,
+    modelId: agent_config_js_1.CapabilityModelIdSchema,
+    access: exports.ModelCatalogEntrySchema.shape.access,
+    compatibility: zod_1.z.literal('unqualified'),
+}).strict();
 /** Metadata snapshot scoped to one management agent; producer owns discovery and source-version invalidation. */
 exports.ModelCatalogSchema = zod_1.z.object({
     agentId: agent_identity_js_1.AgentIdSchema,
@@ -55,6 +62,8 @@ exports.ModelCatalogSchema = zod_1.z.object({
     validUntil: zod_1.z.iso.datetime({ offset: true }).nullable(),
     state: zod_1.z.enum(['available', 'partial', 'unavailable', 'not-configured']),
     entries: zod_1.z.array(exports.ModelCatalogEntrySchema),
+    /** Absent means legacy/unobserved; [] means this observation found no unqualified IDs. */
+    inventory: zod_1.z.array(exports.ModelCatalogInventoryEntrySchema).optional(),
 }).strict().superRefine((catalog, ctx) => {
     if ((catalog.observedAt === null) !== (catalog.validUntil === null)) {
         ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Observation and validity timestamps are present together' });
@@ -64,6 +73,24 @@ exports.ModelCatalogSchema = zod_1.z.object({
     }
     if (catalog.observedAt !== null && catalog.validUntil !== null && Date.parse(catalog.validUntil) <= Date.parse(catalog.observedAt)) {
         ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Catalog validity must end after its observation' });
+    }
+    if (catalog.inventory !== undefined) {
+        if (catalog.observedAt === null) {
+            ctx.addIssue({ code: 'custom', path: ['inventory'], message: 'Explicit inventory requires a provider observation' });
+        }
+        if (catalog.inventory.length > 0 && catalog.state !== 'partial') {
+            ctx.addIssue({ code: 'custom', path: ['state'], message: 'Unqualified model IDs require a partial catalog' });
+        }
+        const inventoryIds = new Set();
+        for (const [index, entry] of catalog.inventory.entries()) {
+            const key = JSON.stringify([entry.provider, entry.modelId]);
+            if (inventoryIds.has(key))
+                ctx.addIssue({ code: 'custom', path: ['inventory', index], message: 'Duplicate provider model inventory ID' });
+            if (catalog.entries.some(qualified => qualified.provider === entry.provider && qualified.modelId === entry.modelId)) {
+                ctx.addIssue({ code: 'custom', path: ['inventory', index], message: 'Qualified model IDs belong in catalog entries only' });
+            }
+            inventoryIds.add(key);
+        }
     }
     const seen = new Set();
     for (const [index, entry] of catalog.entries.entries()) {

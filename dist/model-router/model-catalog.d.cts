@@ -40,6 +40,8 @@ export declare const ModelFeaturesSchema: z.ZodObject<{
     tools: z.ZodBoolean;
     stream: z.ZodBoolean;
     structuredOutput: z.ZodBoolean;
+    vision: z.ZodOptional<z.ZodBoolean>;
+    webSearch: z.ZodOptional<z.ZodBoolean>;
 }, z.core.$strict>;
 /** Missing limits mean unknown; only producer-attested values may be displayed. */
 export declare const ModelLimitsSchema: z.ZodObject<{
@@ -85,6 +87,8 @@ export declare const ModelCatalogEntrySchema: z.ZodObject<{
         tools: z.ZodBoolean;
         stream: z.ZodBoolean;
         structuredOutput: z.ZodBoolean;
+        vision: z.ZodOptional<z.ZodBoolean>;
+        webSearch: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
     limits: z.ZodOptional<z.ZodObject<{
         maxInputTokens: z.ZodOptional<z.ZodNumber>;
@@ -96,6 +100,19 @@ export declare const ModelCatalogEntrySchema: z.ZodObject<{
     reason: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type ModelCatalogEntry = z.infer<typeof ModelCatalogEntrySchema>;
+/** Provider-observed IDs whose executable compatibility has not been qualified. Never selectable. */
+export declare const ModelCatalogInventoryEntrySchema: z.ZodObject<{
+    provider: z.ZodString;
+    modelId: z.ZodString;
+    access: z.ZodEnum<{
+        unknown: "unknown";
+        available: "available";
+        unavailable: "unavailable";
+        "not-configured": "not-configured";
+    }>;
+    compatibility: z.ZodLiteral<"unqualified">;
+}, z.core.$strict>;
+export type ModelCatalogInventoryEntry = z.infer<typeof ModelCatalogInventoryEntrySchema>;
 /** Metadata snapshot scoped to one management agent; producer owns discovery and source-version invalidation. */
 export declare const ModelCatalogSchema: z.ZodObject<{
     agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -151,6 +168,8 @@ export declare const ModelCatalogSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         limits: z.ZodOptional<z.ZodObject<{
             maxInputTokens: z.ZodOptional<z.ZodNumber>;
@@ -161,6 +180,17 @@ export declare const ModelCatalogSchema: z.ZodObject<{
         embeddingDimensions: z.ZodOptional<z.ZodNumber>;
         reason: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
+    inventory: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        provider: z.ZodString;
+        modelId: z.ZodString;
+        access: z.ZodEnum<{
+            unknown: "unknown";
+            available: "available";
+            unavailable: "unavailable";
+            "not-configured": "not-configured";
+        }>;
+        compatibility: z.ZodLiteral<"unqualified">;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type ModelCatalog = z.infer<typeof ModelCatalogSchema>;
 /** Normalize only at the server boundary; new wire descriptors always carry canonical ids. */

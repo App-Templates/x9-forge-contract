@@ -30,4 +30,8 @@ export * from "./agent-channel-access-requests.js";
 export * from "./agent-phone-channel.js";
 export * from "./agent-phone-commands.js";
 export * from "./agent-context-identity.js";
+export * from "./agent-channel-resource-operation.js";
+export * from "./agent-deletion.js";
+export * from "./agent-phone-admission.js";
+export * from "./agent-channel-history.js";
 //# sourceMappingURL=index.d.ts.map

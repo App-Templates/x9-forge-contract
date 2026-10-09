@@ -33,8 +33,8 @@ export declare const LabIngestInputSchema: z.ZodObject<{
         agentId: z.ZodString;
         state: z.ZodEnum<{
             failed: "failed";
-            running: "running";
             completed: "completed";
+            running: "running";
             queued: "queued";
             budget_exhausted: "budget_exhausted";
         }>;
@@ -71,8 +71,8 @@ export declare const LabIngestStatusOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         completed: "completed";
+        running: "running";
         queued: "queued";
         budget_exhausted: "budget_exhausted";
     }>;

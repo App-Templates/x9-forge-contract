@@ -38,6 +38,7 @@ export declare const ElevenLabsWebAdmissionSnapshotSchema: z.ZodObject<{
             public: "public";
         }>;
         paused: z.ZodBoolean;
+        enabled: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
     link: z.ZodObject<{
         scope: z.ZodObject<{
@@ -212,6 +213,8 @@ export declare const ElevenLabsWebSessionResultSchema: z.ZodObject<{
     signedUrl: z.ZodURL;
 }, z.core.$strict>;
 export type ElevenLabsWebSessionResult = z.infer<typeof ElevenLabsWebSessionResultSchema>;
+/** Reuses C3 transport validation. A valid URL is a bearer format, never evidence of admission or resource privacy. */
+export declare function isElevenLabsWebSignedConnectionUrl(rawUrl: unknown, expectedProviderAgentId: unknown): boolean;
 /**
  * Recheck completion against NEW server evidence/viewer. Pause/revoke blocks new issuance; an already
  * delivered provider bearer URL or established conversation cannot be revoked by this validation helper.

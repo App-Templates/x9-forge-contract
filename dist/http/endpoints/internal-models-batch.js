@@ -1,4 +1,7 @@
+import { z } from 'zod';
 import { INTERNAL_SECRET_HEADER } from "../../auth/index.js";
+import { ModelSlotIdSchema } from "../../model-router/model-slot.js";
+import { ModelConsumerStateRequestSchema, ModelConsumerRuntimeStateSchema, ModelConsumerInstallRequestSchema, ModelConsumerInstallReceiptSchema } from "../../model-router/model-consumer-execution.js";
 import { AgentModelsStateSchema } from "../../model-router/agent-model-configuration.js";
 import { AgentModelsOverviewSchema, AgentModelsBatchPreviewRequestSchema, AgentModelsBatchPreviewSchema, AgentModelsBatchRequestSchema, AgentModelsBatchResultSchema } from "../../model-router/models-batch.js";
 import { AgentManagementParamsSchema } from "./internal-agents-management.js";
@@ -28,4 +31,17 @@ export const internalAgentModelsStateContract = {
 export function agentModelsStatePath(agentId) {
     return internalAgentModelsStateContract.path.replace(':agentId', AgentManagementParamsSchema.parse({ agentId }).agentId);
 }
+/** Same metadata contract in each consumer service; registry binding chooses the trusted service URL. */
+export const internalModelConsumerStateContract = {
+    method: 'POST', path: '/internal/models/consumers/:slotId/state',
+    authType: 'secret', authHeader: INTERNAL_SECRET_HEADER,
+    paramsSchema: z.object({ slotId: ModelSlotIdSchema }).strict(),
+    bodySchema: ModelConsumerStateRequestSchema, responseSchema: ModelConsumerRuntimeStateSchema,
+};
+export const internalModelConsumerInstallContract = {
+    method: 'POST', path: '/internal/models/consumers/:slotId/install',
+    authType: 'secret', authHeader: INTERNAL_SECRET_HEADER,
+    paramsSchema: z.object({ slotId: ModelSlotIdSchema }).strict(),
+    bodySchema: ModelConsumerInstallRequestSchema, responseSchema: ModelConsumerInstallReceiptSchema,
+};
 //# sourceMappingURL=internal-models-batch.js.map

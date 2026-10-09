@@ -1,0 +1,21 @@
+# Revisione indipendente BRIDGE 1.45
+
+APPROVE limitato ai contratti pubblici di B c8a2683, E7d4c3f3 e C6c4db38, consolidati su ae7c464. F non è autore dei tre prodotti. Nessun rilievo bloccante trovato; B0 Modelli di F non è oggetto di nuova revisione indipendente.
+
+B: intento risorsa stretto, browser senza credenziali/URL/identità; replay confronta tutto l'intento. Correlazione route e autorizzazione mantengono management/runtime/Vault/owner/tenant. Rotazione preserva il bot; applicato richiede nuova versione e osservazione successiva all'operazione. Nuova fixture compilata indipendente 29/29 ESM+CJS,8/8 mutanti di protezione qualificati separatamente ESM e CJS (16/16esecuzioni rosse funzionali) tramite AssertionError con build valida e ripristino esatto. I due formati non sono conteggiati come16mutazioni. 29 è il numero di asserzioni,8 quello dei mutanti; disponibilità SDK è un mutante composito di export, non tre mutanti separati.
+
+E: POST cancellazione distinto da stop/archivio,8 pezzi obbligatori, tombstone durevole e isolamento prima degli effetti, esito parziale onesto, requestId e tre identità correlate. Context/workspace significano sgancio di riferimenti runtime secondo decisione210744; Factory resta writer di filesystem/provider/dati. Vault opzionale legacy non attesta da solo autorità per effetti. Due campioni indipendenti Vault/tombstone rossi funzionali e ripristino; le tre guardie ridondanti sopravvissute dichiarate dall'autore non sono contate come qualificate.
+
+C: Rubrica/ammissione usa telefoni E.164, fonte completa, applicato corrente, richieste outbound esplicite e brevi; pubblico inbound non autorizza outbound. Browser espone solo6 campi di lease dopo ammissione e autoritàD correnti; export dal capability barrel evita il ciclo TDZ. Off è distinto da pausa. Storico4kind resta metadati senza contenuti/URL; helper precedente è solo correlazione. Nuovo roundtrip TG/email richiede proprietario atteso da owners, ingresso→turno→reply, risorsa e policy/versione applicate identiche e osservazioni correnti. Campioni source indipendenti3 prima del delta+2 sul delta finale: richiesta outbound, autorità browser, binding storico, proprietario e generazione risorsa. Nessun parser installa autenticazione o prova provider reale.
+
+## Prove e denominatori
+
+Full finale4678/4678 in162/162file,0skip, configurazione nativa,Node24.14.1 env-i worker1. Build376/376 dichiarazioni portabili. Qualità15/15comandi exit0 oltre alla build: full/tipi/lint/checkpack,4 smoke ciascunoNode24+20,roundtripNode24+20 e tipi pubbliciE NodeNext. Smoke per versioneNode: originale36/36probe più probe aggiunti dal runner nativo; E27/27,C88/88,B29/29,Croundtrip16/16. Non sommare run Node20+24 come nuovi casi indipendenti.
+
+Mutazioni F15/15candidati:2E source+3C source sul consolidato prima del delta;8B compiled (entrambi i formati) e2C source sul delta finale. Tutte falliscono per asserzione con0errori secondari; source ripristinate byte per byte. Il primo full4656/4656 è registrato in SUMMARY e output strumenti, non attribuito allo SHA successivo. Un errore nel percorso dei resoconti ha sovrascritto il suo raw full/quality durante il secondo giro: il raw finale4678 è conservato, le campagne mutazioni e restore sono rimaste intatte. Report, comandi, hash e percorsi raw immutabili nel PROOF.json. Nessuna guardia/test originale indebolita; nuovo smokeB eseguito esplicitamente senza cambiare runner/config.
+
+## Fruibilità alla consegna (R-34)
+
+Contratti integrati e pacchetto locale compilato verificato.0percorsi dal vivo eseguiti. Applied risorsa non implica reply; nuova attestazione roundtrip resta una guardia su fatti server prodotti dal percorso esistente. Mancano montaggio producer/consumer e prove con dati veri; telefono/web richiedono ancora prova conversazione canonica distinta. Cancellazione non persiste tombstone né cancella dati finché il producer non implementa le istruzioni. Il semaforo di feature100% resta aperto.
+
+13/13source di prodotto sono esattamente i byte degli autori;2/2source B0 identici ad ae7c464. Solo barrel risolti con unione export,dist generata,nuovo smokeB e documenti/prove F. Package/versione1.44.0 e lock invariati: bump1.45,push/CI/release/pin a carico della coordinatrice. Nessun WIP privato o nuova strada Chiavi.
