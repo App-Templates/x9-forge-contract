@@ -95,8 +95,8 @@ export declare const internalAgentPhoneSnapshotContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -160,8 +160,8 @@ export declare const internalAgentPhoneSnapshotContract: {
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
     }, z.core.$strict>;
     readonly errorResponseSchema: z.ZodObject<{
@@ -304,8 +304,8 @@ export declare const internalAgentPhoneApplyContract: {
                         state: z.ZodEnum<{
                             error: "error";
                             unknown: "unknown";
-                            stopped: "stopped";
                             loaded: "loaded";
+                            stopped: "stopped";
                             paused: "paused";
                         }>;
                         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -369,8 +369,8 @@ export declare const internalAgentPhoneApplyContract: {
             runtimeLoadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
             }>;
         }, z.core.$strict>;
         error: z.ZodNullable<z.ZodEnum<{
@@ -522,8 +522,8 @@ export declare const internalAgentPhoneRouteContract: {
                         state: z.ZodEnum<{
                             error: "error";
                             unknown: "unknown";
-                            stopped: "stopped";
                             loaded: "loaded";
+                            stopped: "stopped";
                             paused: "paused";
                         }>;
                         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -587,8 +587,8 @@ export declare const internalAgentPhoneRouteContract: {
             runtimeLoadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
             }>;
         }, z.core.$strict>>;
         resolvedAt: z.ZodISODateTime;

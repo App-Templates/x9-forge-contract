@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { CapabilityParametersDeclarationSchema } from "./parameters.js";
+import { CapabilityOrdinaryDeclarationSchema, checkOrdinaryDeclarationCompatibility } from "./ordinary-declaration.js";
 import { CapabilityPresentationDeclarationSchema } from "./presentation.js";
 import { CapabilityTurnLeadDeclarationSchema } from "./capability-turn-lead.js";
 import { CapabilityToolSchema } from "./capability-tool.js";
@@ -42,7 +43,9 @@ export const CapabilityManifestSchema = z.object({
     turnLead: CapabilityTurnLeadDeclarationSchema.optional(),
     /** Ordinary parameter metadata (B1); absent preserves every pre-v1.29 payload. */
     parameters: CapabilityParametersDeclarationSchema.optional(),
+    /** Complete ordinary-v2 metadata, including typed structured settings; retains all declared B1 definitions. */
+    ordinaryParameters: CapabilityOrdinaryDeclarationSchema.optional(),
     /** Optional output/feedback/trend sections (B7), never configuration of an external project. */
     presentation: CapabilityPresentationDeclarationSchema.optional(),
-});
+}).superRefine(checkOrdinaryDeclarationCompatibility);
 //# sourceMappingURL=capability-manifest.js.map

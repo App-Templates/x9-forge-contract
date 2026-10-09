@@ -15,6 +15,7 @@ const agent_management_js_1 = require("./agent-management.cjs");
 const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const agent_registry_file_js_1 = require("../capability/agent-registry-file.cjs");
 const parameters_js_1 = require("../capability/parameters.cjs");
+const ordinary_configuration_js_1 = require("../capability/ordinary-configuration.cjs");
 /** D-A9: these exact root-relative names replace Forge's temporary CORE_MODEL_FILES list. */
 exports.AGENT_WORKSPACE_HUMAN_FILES = ['IDENTITY.md', 'SOUL.md', 'POLICIES.md', 'USER.md'];
 exports.AGENT_WORKSPACE_TOOLS_FILE = 'TOOLS.md';
@@ -112,6 +113,7 @@ exports.AgentWorkspaceDescriptorSchema = zod_1.z.object({
     tools: exports.AgentWorkspaceToolsSchema,
     registry: agent_registry_file_js_1.AgentRegistryFileSchema,
     skills: zod_1.z.array(exports.AgentWorkspaceSkillSchema).max(exports.AGENT_WORKSPACE_LIMITS.skills),
+    ordinaryConfigurations: zod_1.z.array(ordinary_configuration_js_1.CapabilityOrdinaryConfigurationSchema).max(exports.AGENT_WORKSPACE_LIMITS.skills).optional(),
 }).strict().superRefine((workspace, ctx) => {
     if (new Set(workspace.files.map(file => file.name)).size !== exports.AGENT_WORKSPACE_HUMAN_FILES.length)
         ctx.addIssue({ code: 'custom', path: ['files'], message: 'Exactly one of each human file is required' });
@@ -126,6 +128,13 @@ exports.AgentWorkspaceDescriptorSchema = zod_1.z.object({
     if (new Set(names).size !== names.length)
         ctx.addIssue({ code: 'custom', path: ['registry'], message: 'Registry capability names must be unique' });
     const enabled = new Set(workspace.registry.capabilities.filter(entry => entry.enabled).map(entry => entry.name));
+    const ordinary = workspace.ordinaryConfigurations ?? [];
+    if (new Set(ordinary.map(config => config.capability)).size !== ordinary.length)
+        ctx.addIssue({ code: 'custom', path: ['ordinaryConfigurations'], message: 'One frozen configuration per capability' });
+    for (const [index, config] of ordinary.entries()) {
+        if (!enabled.has(config.capability) || config.scope.agentId !== workspace.agentId || config.scope.ownerId !== workspace.ownerId || config.scope.tenantId !== workspace.tenantId)
+            ctx.addIssue({ code: 'custom', path: ['ordinaryConfigurations', index], message: 'Frozen ordinary configuration must belong to this enabled target' });
+    }
     const declared = new Set(workspace.skills.map(skill => skill.capability));
     if (declared.size !== workspace.skills.length)
         ctx.addIssue({ code: 'custom', path: ['skills'], message: 'One progressive skill per capability' });

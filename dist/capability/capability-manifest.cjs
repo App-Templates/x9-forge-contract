@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityManifestSchema = void 0;
 const zod_1 = require("zod");
 const parameters_js_1 = require("./parameters.cjs");
+const ordinary_declaration_js_1 = require("./ordinary-declaration.cjs");
 const presentation_js_1 = require("./presentation.cjs");
 const capability_turn_lead_js_1 = require("./capability-turn-lead.cjs");
 const capability_tool_js_1 = require("./capability-tool.cjs");
@@ -45,7 +46,9 @@ exports.CapabilityManifestSchema = zod_1.z.object({
     turnLead: capability_turn_lead_js_1.CapabilityTurnLeadDeclarationSchema.optional(),
     /** Ordinary parameter metadata (B1); absent preserves every pre-v1.29 payload. */
     parameters: parameters_js_1.CapabilityParametersDeclarationSchema.optional(),
+    /** Complete ordinary-v2 metadata, including typed structured settings; retains all declared B1 definitions. */
+    ordinaryParameters: ordinary_declaration_js_1.CapabilityOrdinaryDeclarationSchema.optional(),
     /** Optional output/feedback/trend sections (B7), never configuration of an external project. */
     presentation: presentation_js_1.CapabilityPresentationDeclarationSchema.optional(),
-});
+}).superRefine(ordinary_declaration_js_1.checkOrdinaryDeclarationCompatibility);
 //# sourceMappingURL=capability-manifest.js.map

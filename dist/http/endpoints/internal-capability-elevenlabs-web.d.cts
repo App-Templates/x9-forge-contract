@@ -63,8 +63,8 @@ export declare const elevenLabsWebSnapshotContract: {
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -81,8 +81,8 @@ export declare const elevenLabsWebSnapshotContract: {
         lifecycle: z.ZodEnum<{
             unavailable: "unavailable";
             active: "active";
-            archived: "archived";
             removed: "removed";
+            archived: "archived";
         }>;
         invitation: z.ZodNullable<z.ZodObject<{
             invitationId: z.ZodString;

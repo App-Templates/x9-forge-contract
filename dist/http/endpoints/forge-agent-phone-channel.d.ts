@@ -130,8 +130,8 @@ export declare const ForgeAgentPhonePreviewSchema: z.ZodObject<{
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -195,8 +195,8 @@ export declare const ForgeAgentPhonePreviewSchema: z.ZodObject<{
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
     }, z.core.$strict>;
 }, z.core.$strict>;
@@ -292,8 +292,8 @@ export declare const forgeAgentPhoneSnapshotContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -357,8 +357,8 @@ export declare const forgeAgentPhoneSnapshotContract: {
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
     }, z.core.$strict>;
     readonly errorResponseSchema: z.ZodObject<{
@@ -514,8 +514,8 @@ export declare const forgeAgentPhonePreviewContract: {
                         state: z.ZodEnum<{
                             error: "error";
                             unknown: "unknown";
-                            stopped: "stopped";
                             loaded: "loaded";
+                            stopped: "stopped";
                             paused: "paused";
                         }>;
                         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -579,8 +579,8 @@ export declare const forgeAgentPhonePreviewContract: {
             runtimeLoadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
             }>;
         }, z.core.$strict>;
     }, z.core.$strict>;
@@ -735,8 +735,8 @@ export declare const forgeAgentPhoneApplyContract: {
                         state: z.ZodEnum<{
                             error: "error";
                             unknown: "unknown";
-                            stopped: "stopped";
                             loaded: "loaded";
+                            stopped: "stopped";
                             paused: "paused";
                         }>;
                         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -800,8 +800,8 @@ export declare const forgeAgentPhoneApplyContract: {
             runtimeLoadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
             }>;
         }, z.core.$strict>;
         error: z.ZodNullable<z.ZodEnum<{

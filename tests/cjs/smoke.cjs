@@ -214,4 +214,5 @@ const legacyObservationProbe = JSON.parse(legacyObservationOutput.trim());
 assert.equal(legacyObservationProbe.marker, 'LEGACY_OBSERVATION_PUBLIC_PROBE');
 assert.equal(legacyObservationProbe.passed, 4);
 console.log(legacyObservationOutput.trim());
+require('./capabilities-ordinary-smoke.cjs');
 process.exit(0);

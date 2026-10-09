@@ -34,4 +34,6 @@ export * from "./agent-channel-resource-operation.cjs";
 export * from "./agent-deletion.cjs";
 export * from "./agent-phone-admission.cjs";
 export * from "./agent-channel-history.cjs";
+export * from "./agent-workspace-digest.cjs";
+export * from "./ordinary-authority.cjs";
 //# sourceMappingURL=index.d.ts.map

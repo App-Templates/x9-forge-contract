@@ -5,7 +5,7 @@ exports.agentCapabilitiesOf = agentCapabilitiesOf;
 const zod_1 = require("zod");
 const capability_registry_entry_js_1 = require("../capability/capability-registry-entry.cjs");
 /** Registry observation for one agent; never includes locations, credentials or tool configuration. */
-exports.AgentInventoryCapabilitySchema = capability_registry_entry_js_1.CapabilityRegistryEntrySchema.pick({ name: true, enabled: true }).strict();
+exports.AgentInventoryCapabilitySchema = zod_1.z.object({ name: capability_registry_entry_js_1.CapabilityRegistryEntrySchema.shape.name, enabled: capability_registry_entry_js_1.CapabilityRegistryEntrySchema.shape.enabled }).strict();
 exports.AgentInventoryCapabilitiesSchema = zod_1.z.array(exports.AgentInventoryCapabilitySchema);
 /** Only the declared registry observation: [] is known empty, missing/null/invalid is unknown. */
 function agentCapabilitiesOf(row) {

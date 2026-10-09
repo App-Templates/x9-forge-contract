@@ -54,4 +54,5 @@ export * from "./internal-agent-channel-history.cjs";
 export * from "./forge-agent-channel-history.cjs";
 export * from "./internal-agent-tool-dispatch.cjs";
 export * from "./internal-agent-model-source-observation.cjs";
+export * from "./internal-agents-ordinary-authority.cjs";
 //# sourceMappingURL=index.d.ts.map

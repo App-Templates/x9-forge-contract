@@ -69,8 +69,8 @@ export declare const elevenLabsWebAuthorityContract: {
             lifecycle: z.ZodEnum<{
                 unavailable: "unavailable";
                 active: "active";
-                archived: "archived";
                 removed: "removed";
+                archived: "archived";
             }>;
             configuredOrigin: z.ZodURL;
             authorityVersion: z.ZodNumber;
@@ -140,8 +140,8 @@ export declare const elevenLabsWebAuthorityContract: {
             lifecycle: z.ZodEnum<{
                 unavailable: "unavailable";
                 active: "active";
-                archived: "archived";
                 removed: "removed";
+                archived: "archived";
             }>;
             configuredOrigin: z.ZodURL;
             authorityVersion: z.ZodNumber;
