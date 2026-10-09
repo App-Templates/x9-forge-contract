@@ -44,8 +44,8 @@ export declare const CapabilityCallContextSchema: z.ZodObject<{
     capability: z.ZodString;
     configVersion: z.ZodNullable<z.ZodNumber>;
     settings: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
-    credentials: z.ZodRecord<z.ZodString, z.ZodString>;
-    credentialVersions: z.ZodRecord<z.ZodString, z.ZodNumber>;
+    credentials: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodString>;
+    credentialVersions: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodLazy<z.ZodNumber>>;
 }, z.core.$strict>;
 export type CapabilityCallContext = z.infer<typeof CapabilityCallContextSchema>;
 export declare const CapabilityCallContextErrorCodeSchema: z.ZodEnum<{
@@ -65,7 +65,7 @@ export declare const CapabilityCallContextRequestSchema: z.ZodObject<{
         userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
     capability: z.ZodString;
-    keys: z.ZodArray<z.ZodString>;
+    keys: z.ZodArray<z.ZodLazy<z.ZodString>>;
 }, z.core.$strict>;
 export type CapabilityCallContextRequest = z.infer<typeof CapabilityCallContextRequestSchema>;
 export declare const CapabilityCallContextErrorSchema: z.ZodObject<{
@@ -77,7 +77,7 @@ export declare const CapabilityCallContextErrorSchema: z.ZodObject<{
         capability_not_installed: "capability_not_installed";
         identity_mismatch: "identity_mismatch";
     }>;
-    keys: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    keys: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodString>>>;
 }, z.core.$strip>;
 export type CapabilityCallContextError = z.infer<typeof CapabilityCallContextErrorSchema>;
 export declare const CapabilityCallContextResponseSchema: z.ZodUnion<readonly [z.ZodObject<{
@@ -92,8 +92,8 @@ export declare const CapabilityCallContextResponseSchema: z.ZodUnion<readonly [z
         capability: z.ZodString;
         configVersion: z.ZodNullable<z.ZodNumber>;
         settings: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
-        credentials: z.ZodRecord<z.ZodString, z.ZodString>;
-        credentialVersions: z.ZodRecord<z.ZodString, z.ZodNumber>;
+        credentials: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodString>;
+        credentialVersions: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodLazy<z.ZodNumber>>;
     }, z.core.$strict>;
 }, z.core.$strip>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
@@ -104,7 +104,7 @@ export declare const CapabilityCallContextResponseSchema: z.ZodUnion<readonly [z
         capability_not_installed: "capability_not_installed";
         identity_mismatch: "identity_mismatch";
     }>;
-    keys: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    keys: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodString>>>;
 }, z.core.$strip>]>;
 export type CapabilityCallContextResponse = z.infer<typeof CapabilityCallContextResponseSchema>;
 export type PickCapabilityCredentialsResult = {

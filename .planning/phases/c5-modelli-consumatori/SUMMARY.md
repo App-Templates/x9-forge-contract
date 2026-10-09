@@ -44,3 +44,14 @@ Prodotto congelato f364f3b175e082cd755125614a18680830daf5b2, codice/dist invaria
 ## Regressione import iniziale — 09/10 09:41
 
 Ricevuto APPROVE A sul delta f364/docs8161, ma C ha trovato una superficie non coperta dalle prove precedenti: primo import pubblico vault in processo pulito fallisce CredentialKeySchema TDZ. Riprodotto anche nel156-1 senza modifiche. Il prodotto f364 non è più dichiarato qualificato per tutti i consumer; correzione separata e matrice completa richiesta dalla coordinatrice093906. PLAN aggiornato prima di codice/test. Verifica C4 sospesa come priorità; suo full privato271 già avviato può concludersi.
+
+
+## Correzione import pubblico qualificata — 09/10 09:52
+
+Solo capability-call-context sorgente: cinque riferimenti lazy agli stessi CredentialKeySchema/CredentialVersionSchema canonici. Nessuna modifica credential-link, nessuna forma/validazione semantica nuova. Sourcefull nativo prima build5036/5036 in167/167file,0skip. Node24.14.1/env-i; tipi/lint/build/pack e smoke8/8comandi exit0;386/386dichiarazioni portabili. Lint ricontrollato dopo il collegamento del nuovo test al normale tests/cjs/smoke.cjs.
+
+Nuovo test enumera18/18exportpubblici del package×2formati, ciascuno primo import/require in un processo pulito; http include gli endpoint, nessun subpath inesistente inventato. Inizialmente35/36caricamenti e, rafforzando con il parser dei nomi canonici,34/36verdi: vaultESMTDZ e vaultCJSschema inizializzato incompleto, entrambi AssertionError semantici. Dopo fix36/36verdi. Nativepublicmodelli158/158 econsumer48/48verdi.
+
+Mutazioni causali2/2compiled: riferimenti eager reintrodotti separatamente inESM/CJS, ognuno1fallimento vault e36/36fresh dopo restore;2/2hash ripristinati. Campagna controllo harness: fault intenzionale nei36entryfile pubblici,36/36AssertionError,36/36hashrestaurati,36/36freshverdi; è una campagna simultanea, non36mutazioni isolate. Normale smoke con faultESM→exit1/AssertionError, restore→exit0: nuovo controllo realmente nel comando di test ordinario.
+
+IMPORT-FIX-PROOF.json riassume risultati; raw e script riproducibili nell’output c5-modelli-import-fix della chat. Package/lock/config invariati;0cancellazioni;13file prodotto tutti nel perimetro autorizzato, più documenti di fase. Fruibilità: caricamento locale ripristinato,0/34consumer live. NuovoSHA ancora da verificare daA e integrare;f364da solo resta insufficiente.
