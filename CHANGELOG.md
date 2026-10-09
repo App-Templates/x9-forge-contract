@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — positive legacy model observation
+
+- Add canonical observed consumer readback with actual settings and strictly null configVersion/requestId; preserve installed confirmation, receipt outcomes and unknown semantics.
+- Retain canonical identity/scope/routing/reason/embedding validation. Producers must prove actual legacy authority and fail closed when modern authority is present; consumer wiring and live bootstrap remain separate qualification.
+- Add source, compiled public-format and type probes without changing package version, exports or dependency pins.
+
 ## Unreleased — roleless InitialSource contract
 
 - Add strict AgentModelInitialSourceSchema/type and Bootstrap-equivalent current helper through existing root/model-router exports; preserve all34 canonical consumer coverage, routing/settings and Master-only Bootstrap.

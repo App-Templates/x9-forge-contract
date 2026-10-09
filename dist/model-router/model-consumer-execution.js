@@ -43,7 +43,7 @@ export const ModelConsumerRuntimeStateSchema = z.object({
     schemaVersion: z.literal(1), identity: Identity, scope: Scope, slotId: ModelSlotIdSchema,
     sourceVersion: AgentModelBootstrapSourceVersionSchema,
     observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
-    status: z.enum(['installed', 'pending', 'failed', 'unknown']),
+    status: z.enum(['installed', 'pending', 'failed', 'unknown', 'observed']),
     configVersion: AgentConfigVersionSchema.nullable(), requestId: AgentManagementRequestIdSchema.nullable(),
     settings: CapabilityModelSettingsSchema.nullable(), reason: z.string().trim().min(1).max(500).nullable(),
     embedding: ModelEmbeddingRebuildSchema.nullable(),
@@ -59,6 +59,13 @@ export const ModelConsumerRuntimeStateSchema = z.object({
         ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Readback must match the registered consumer' });
     if (state.status === 'installed' && (state.settings === null || state.configVersion === null || state.requestId === null))
         ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Installed requires actual selection, version and request' });
+    // Positive legacy readback carries no Forge installation authority.
+    if (state.status === 'observed' && state.settings === null)
+        ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Observed requires actual legacy selection' });
+    if (state.status === 'observed' && state.configVersion !== null)
+        ctx.addIssue({ code: 'custom', path: ['configVersion'], message: 'Observed cannot claim an installed config version' });
+    if (state.status === 'observed' && state.requestId !== null)
+        ctx.addIssue({ code: 'custom', path: ['requestId'], message: 'Observed cannot claim an installation request' });
     if (state.embedding !== null) {
         if (state.settings?.mode !== 'single' || state.settings.function !== 'embedding' || !sameModelDescriptor(state.settings.descriptor, state.embedding.active))
             ctx.addIssue({ code: 'custom', path: ['embedding'], message: 'Readback must use the active vector space' });

@@ -51,7 +51,7 @@ exports.ModelConsumerRuntimeStateSchema = zod_1.z.object({
     schemaVersion: zod_1.z.literal(1), identity: Identity, scope: Scope, slotId: model_slot_js_1.ModelSlotIdSchema,
     sourceVersion: agent_model_configuration_js_1.AgentModelBootstrapSourceVersionSchema,
     observedAt: zod_1.z.iso.datetime({ offset: true }), validUntil: zod_1.z.iso.datetime({ offset: true }),
-    status: zod_1.z.enum(['installed', 'pending', 'failed', 'unknown']),
+    status: zod_1.z.enum(['installed', 'pending', 'failed', 'unknown', 'observed']),
     configVersion: agent_config_js_1.AgentConfigVersionSchema.nullable(), requestId: agent_management_js_1.AgentManagementRequestIdSchema.nullable(),
     settings: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(), reason: zod_1.z.string().trim().min(1).max(500).nullable(),
     embedding: models_batch_js_1.ModelEmbeddingRebuildSchema.nullable(),
@@ -67,6 +67,13 @@ exports.ModelConsumerRuntimeStateSchema = zod_1.z.object({
         ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Readback must match the registered consumer' });
     if (state.status === 'installed' && (state.settings === null || state.configVersion === null || state.requestId === null))
         ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Installed requires actual selection, version and request' });
+    // Positive legacy readback carries no Forge installation authority.
+    if (state.status === 'observed' && state.settings === null)
+        ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Observed requires actual legacy selection' });
+    if (state.status === 'observed' && state.configVersion !== null)
+        ctx.addIssue({ code: 'custom', path: ['configVersion'], message: 'Observed cannot claim an installed config version' });
+    if (state.status === 'observed' && state.requestId !== null)
+        ctx.addIssue({ code: 'custom', path: ['requestId'], message: 'Observed cannot claim an installation request' });
     if (state.embedding !== null) {
         if (state.settings?.mode !== 'single' || state.settings.function !== 'embedding' || !(0, model_catalog_js_1.sameModelDescriptor)(state.settings.descriptor, state.embedding.active))
             ctx.addIssue({ code: 'custom', path: ['embedding'], message: 'Readback must use the active vector space' });

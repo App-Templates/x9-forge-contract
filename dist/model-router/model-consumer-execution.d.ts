@@ -250,6 +250,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
         failed: "failed";
         pending: "pending";
         installed: "installed";
+        observed: "observed";
     }>;
     configVersion: z.ZodNullable<z.ZodNumber>;
     requestId: z.ZodNullable<z.ZodString>;
@@ -551,6 +552,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
             failed: "failed";
             pending: "pending";
             installed: "installed";
+            observed: "observed";
         }>;
         configVersion: z.ZodNullable<z.ZodNumber>;
         requestId: z.ZodNullable<z.ZodString>;

@@ -3028,6 +3028,7 @@ export declare const internalModelConsumerStateContract: {
             failed: "failed";
             pending: "pending";
             installed: "installed";
+            observed: "observed";
         }>;
         configVersion: z.ZodNullable<z.ZodNumber>;
         requestId: z.ZodNullable<z.ZodString>;
@@ -3563,6 +3564,7 @@ export declare const internalModelConsumerInstallContract: {
                 failed: "failed";
                 pending: "pending";
                 installed: "installed";
+                observed: "observed";
             }>;
             configVersion: z.ZodNullable<z.ZodNumber>;
             requestId: z.ZodNullable<z.ZodString>;
