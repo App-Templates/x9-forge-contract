@@ -1,0 +1,2509 @@
+{
+  "base": "e22e7a2d138be7120cd79800a7ada102183e7e74",
+  "rawArtifacts": [
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-BUILD.txt",
+      "sha256": "bdbf6e5b340767fcf33e40f3d6f6668e766d299959884ab60808fe6346b50131",
+      "bytes": 4134
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-CJS-SMOKE.txt",
+      "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+      "bytes": 3513
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-COMPILED-CUTS.json",
+      "sha256": "564fd044b90d8c1142cfcf13cf6f909f827be4d1923054e536dd88cfc91ad997",
+      "bytes": 51502
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-CUTS.json",
+      "sha256": "2f6c47adab7dd2cca23cfd7781363ae9149b9613d0e1ef6334de65f5b48de381",
+      "bytes": 31179
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-FINAL.json",
+      "sha256": "e337c4948c655069d4f658c76df636b6c8d16a679074f17dff4e349d5500a4ab",
+      "bytes": 2066766
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-FINAL.txt",
+      "sha256": "6d184db1dcc9bc4795949d79cf5195c0137f44425f97d868bd35625e407c007a",
+      "bytes": 79
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-FULL-FRESH.json",
+      "sha256": "59fda86087f13c5ea42f5b44a873d0094a0ffaf91c6cf9a115b35e21ca5ef425",
+      "bytes": 2066426
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-FULL-FRESH.txt",
+      "sha256": "f6348563b62f1624b0dc61eceeebdd06da280e831b47f9e2f2bb1a44dda0bc2c",
+      "bytes": 84
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-FULL.json",
+      "sha256": "7b62ada8d73ebe898f78fbd85503c9e7cbd8ef0e9bea7b078aa4f307ccaefa8f",
+      "bytes": 2061081
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-FULL.txt",
+      "sha256": "21dcee29b37e022ed64707a00775ea505cffb1e22c7a36eef77c01ad265caf4f",
+      "bytes": 78
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-GREEN.json",
+      "sha256": "ced1855e8d1115266d8b9d7c550fef8d8de9200dc4487407ab1f00df8fab2ecd",
+      "bytes": 34639
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-GREEN.txt",
+      "sha256": "27e3e18fa266bffc657d904135b49f2d6df165b12c1b2ae0dd6f662f8ddc5d6a",
+      "bytes": 79
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-LINT.txt",
+      "sha256": "13d59bf3134058f2650a049baf50bfc24d1713ac37be648e1d2d9b0ed18e1f0e",
+      "bytes": 126
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-PACK.txt",
+      "sha256": "3003cb1655119e20f4d846361c682dc83ccd0afdcf2de1726ec3c1eb82ba11e2",
+      "bytes": 4384
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-PROBE-LINT.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-QUALITY.json",
+      "sha256": "b11637eebf57cc1c92a20884816ad913d5a98d7fb3159614efef3163c9c12dad",
+      "bytes": 200
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-RED.json",
+      "sha256": "d034c0c5f29f8f00b19ae252ba2a580352523e03b27b9f4204f7e077ff8a2695",
+      "bytes": 52317
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-RED.txt",
+      "sha256": "cc44ef94c68697c710050792d587d9474976faa5efdb3bdf5ad1df7840aae10d",
+      "bytes": 77
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/BRIDGE-TYPECHECK.txt",
+      "sha256": "93bf11c09c1ea6e6a654ff6966bf6e6b8fa04a927f10ce017d3c0f60e443d2d7",
+      "bytes": 127
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-BASELINE.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-01-known-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "d625c7196ddac92829bee96f1dbf7256f70b5772e4dd8c056d47899ee9acbfce",
+      "bytes": 654
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-02-shape-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "17bd52b3e41d09b1edad3f41e126e1c5d026d3a228331bd953c0632a3b684e94",
+      "bytes": 659
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "a0996f4bae1a8f0a179ede9a85ee1b6f9ef6f65bcb7810584f1dbf9a9c050bd0",
+      "bytes": 658
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "f9f79d2fbdc7d0b41fa9b60248c5e18c900c7819f358fa951a461812462af1a4",
+      "bytes": 663
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "f1ff82451b7bfaf39976c2d810df8d31ebadf49701a077ea23f960e8c4e819a2",
+      "bytes": 658
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "f4c05697a24b7a5e0e9429d59b52060ae03a5c276a585b62cdab54edeaaff7dc",
+      "bytes": 663
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-07-known-NETATMO_CLIENT_ID.txt",
+      "sha256": "e6d746d5e986323c3f5bdc20444f269dd48a12be1788e965abaf94902147ef2a",
+      "bytes": 646
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-08-shape-NETATMO_CLIENT_ID.txt",
+      "sha256": "8fbbbbb9d550a09ceabe45da73a622e4d4287a226eae67e40ecc2a092a37010d",
+      "bytes": 651
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-09-known-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "4e8bdcd4028722b000dc1641bc8456a3d4b5bd4e69d1ea631326b9368bd8e009",
+      "bytes": 650
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-10-shape-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "4c23834a4f00b62534b0319f8f08be4d4ea2bfa90802966c8b068af5f5583257",
+      "bytes": 655
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-11-known-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "e2c6b63c85106ad75cfd61f26a2424bc029bdcaaab29c3417de80acf01fc0e76",
+      "bytes": 650
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-12-shape-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "0ebca4ba709b90a546daeb8dd448879a5aba234b45e791b86cbd9b3742db8986",
+      "bytes": 655
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-13-known-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "6e5a7ce24b6bdf92ef24c4c0c44224e26cf6452d4f0a6ac97f014f214883f02d",
+      "bytes": 649
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-14-shape-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "762898808dfa3d83415a682c624bcc78564121f3a6b6c995a4084bba3642520e",
+      "bytes": 654
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-15-known-NETATMO_PASSWORD.txt",
+      "sha256": "8534067b421984a170e50f51c1de25e30842135350c57fb432f30e5eaf6ea317",
+      "bytes": 645
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-16-shape-NETATMO_PASSWORD.txt",
+      "sha256": "28b37a201df1b4eb3407d6532615e7cf82e0892e75e0ba4a6e78588a0af3f51f",
+      "bytes": 650
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-17-kind-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-18-secret-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "4b55835602b9076af949e98d142c0e48fcec07f1e1279036ee19e7b55532cba4",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-19-service-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "3dec1f0962ac24bb623f25a1192e46b8982cb942c49c229352ee3a9a5660bfd0",
+      "bytes": 824
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-20-missing-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "912ef21aba80b2e0d43f650af483c83633a4d1ec5d22404d7cb6b4036b689b50",
+      "bytes": 662
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-21-kind-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-22-secret-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "4b55835602b9076af949e98d142c0e48fcec07f1e1279036ee19e7b55532cba4",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-23-service-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "3dec1f0962ac24bb623f25a1192e46b8982cb942c49c229352ee3a9a5660bfd0",
+      "bytes": 824
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "c2225c2948b4a2d13ab36965da17c1b18a65cf189d809aa8e41bbc57b900ff03",
+      "bytes": 662
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "8a14a0fb2b1f9c840ec0833c23dfdc12885c97c7bc6bb10fcaabcab79dae4e85",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "3dec1f0962ac24bb623f25a1192e46b8982cb942c49c229352ee3a9a5660bfd0",
+      "bytes": 824
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "5bcdd110221cd4449f749b2d06b9dc71b2d6b47132d3c03eb5042ef3922b6ec1",
+      "bytes": 666
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "8a14a0fb2b1f9c840ec0833c23dfdc12885c97c7bc6bb10fcaabcab79dae4e85",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "3dec1f0962ac24bb623f25a1192e46b8982cb942c49c229352ee3a9a5660bfd0",
+      "bytes": 824
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "ea8b68478d36bb2c05393e91f9ed3ce7ceee31ecfa3a05f0d604f70fa9efa042",
+      "bytes": 666
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-33-kind-NETATMO_CLIENT_ID.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-34-secret-NETATMO_CLIENT_ID.txt",
+      "sha256": "4b55835602b9076af949e98d142c0e48fcec07f1e1279036ee19e7b55532cba4",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-35-service-NETATMO_CLIENT_ID.txt",
+      "sha256": "14336acbea88b63400ac94a8baa877ec77e97785b389f9fa00dd7bd270493b87",
+      "bytes": 826
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-36-missing-NETATMO_CLIENT_ID.txt",
+      "sha256": "cc42ae5328cc55c01334b4df0b264dde91da4087905b8ac66b7b065b7d86cdb7",
+      "bytes": 654
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-37-kind-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-38-secret-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "8a14a0fb2b1f9c840ec0833c23dfdc12885c97c7bc6bb10fcaabcab79dae4e85",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-39-service-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "14336acbea88b63400ac94a8baa877ec77e97785b389f9fa00dd7bd270493b87",
+      "bytes": 826
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-40-missing-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "7df6b92270f807abf10e4bb2ebf695dadc659f1e111ec12b0e8e3a0da7238ab8",
+      "bytes": 658
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-41-kind-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-42-secret-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "8a14a0fb2b1f9c840ec0833c23dfdc12885c97c7bc6bb10fcaabcab79dae4e85",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-43-service-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "14336acbea88b63400ac94a8baa877ec77e97785b389f9fa00dd7bd270493b87",
+      "bytes": 826
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-44-missing-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "e3fc839d5328e89a5f9a03f4b5ad8caba9cacbc92ba5244063e3bf31837d1bb3",
+      "bytes": 658
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-45-kind-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-46-secret-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "8a14a0fb2b1f9c840ec0833c23dfdc12885c97c7bc6bb10fcaabcab79dae4e85",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-47-service-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "14336acbea88b63400ac94a8baa877ec77e97785b389f9fa00dd7bd270493b87",
+      "bytes": 826
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-48-missing-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "055b36a4f0961aef94444b2b66c65eac55e827d895d54c02805999b2be90a67e",
+      "bytes": 657
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-49-kind-NETATMO_PASSWORD.txt",
+      "sha256": "893a305f4d46952f15eb77a7f269b55ccb31a55eb65dc50e7213f9a6c6289e01",
+      "bytes": 730
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-50-secret-NETATMO_PASSWORD.txt",
+      "sha256": "8a14a0fb2b1f9c840ec0833c23dfdc12885c97c7bc6bb10fcaabcab79dae4e85",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-51-service-NETATMO_PASSWORD.txt",
+      "sha256": "14336acbea88b63400ac94a8baa877ec77e97785b389f9fa00dd7bd270493b87",
+      "bytes": 826
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-52-missing-NETATMO_PASSWORD.txt",
+      "sha256": "42ac22e4296d71fdc919d4dc72b19fdab8108c45f1d8cfe8e03218b0ebea607c",
+      "bytes": 653
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-CUT-53-netatmo-enum.txt",
+      "sha256": "6d8338521bb15b588d1aff0019575165cb818c000fc079df9dd475d4f62a7085",
+      "bytes": 680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-01-known-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-02-shape-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-07-known-NETATMO_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-08-shape-NETATMO_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-09-known-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-10-shape-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-11-known-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-12-shape-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-13-known-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-14-shape-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-15-known-NETATMO_PASSWORD.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-16-shape-NETATMO_PASSWORD.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-17-kind-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-18-secret-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-19-service-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-20-missing-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-21-kind-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-22-secret-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-23-service-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-33-kind-NETATMO_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-34-secret-NETATMO_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-35-service-NETATMO_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-36-missing-NETATMO_CLIENT_ID.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-37-kind-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-38-secret-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-39-service-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-40-missing-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-41-kind-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-42-secret-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-43-service-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-44-missing-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-45-kind-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-46-secret-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-47-service-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-48-missing-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-49-kind-NETATMO_PASSWORD.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-50-secret-NETATMO_PASSWORD.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-51-service-NETATMO_PASSWORD.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-52-missing-NETATMO_PASSWORD.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-cjs-RESTORE-53-netatmo-enum.txt",
+      "sha256": "9cf7415415f8383bf03a75e3737f914aff9c7d1f496117bd698fed5ed926502a",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-BASELINE.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-01-known-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "34ab0ebf66ac039e3493bc47258f9a907b07900cb4e546703572854a8eb5fbbf",
+      "bytes": 416
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-02-shape-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "db1e5c7c8c2920c623903af24bcc97ab5b4fea5b4da0e8ae2bca2f125f24cdc9",
+      "bytes": 421
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "fffc128df81a98b3c7affbf36ce16d3490968263c29e7ceec6f89996cb1678a2",
+      "bytes": 420
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "86929816170dc41f8192a40c803ee82a4d44ae4825d71b0129d0fe25b8086909",
+      "bytes": 425
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9a6ebdad467ed04fab03505de954ada3d4be0fb89e752797c3494d38b61b2ead",
+      "bytes": 420
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "6147831a773bc3c5eace9c1a5cbe78d2d35a63ddc41535f66457ac254d181201",
+      "bytes": 425
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-07-known-NETATMO_CLIENT_ID.txt",
+      "sha256": "2a9daa9c7e46607aa4df6a7cbc8b47766fcd1b9affc3b8a6acb74b3d73d28983",
+      "bytes": 408
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-08-shape-NETATMO_CLIENT_ID.txt",
+      "sha256": "ea0b8d54f9bd4c468c50f71993274330d8433285b9302c0c646b59a1fe8fd11a",
+      "bytes": 413
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-09-known-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "04561bdd17339735ca8a453f1fa5bd2e44caf4f62cc50a404e679d6983af8f77",
+      "bytes": 412
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-10-shape-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "255edf7b396fe3fde520a910ca2f13841db0ba4c8ce3a4a3fb6a7ff86959a99c",
+      "bytes": 417
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-11-known-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "527fc39ba1b83185c4ed7ec0252811f48b00680587b95f5509795f177749ed3c",
+      "bytes": 412
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-12-shape-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "dd2ee8aa9dfe6896d80579239773e3a76fb8013a9a42da07379d90904484caac",
+      "bytes": 417
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-13-known-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "153822f5792cd578e848489eeefdb99bca9bb676913f80a92cff897dd1685384",
+      "bytes": 411
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-14-shape-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "d92c4bd6ad40cf4693474fd3ebcfb14875419b1f2fbad75ed5c3a66e3a2faa71",
+      "bytes": 416
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-15-known-NETATMO_PASSWORD.txt",
+      "sha256": "7f8e583645d192528dc1a4462ce4d1cdc259183420f9b396308b2d12a5b5455d",
+      "bytes": 407
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-16-shape-NETATMO_PASSWORD.txt",
+      "sha256": "ee250dbb213395ac38ae8ee9bfd64ac1836844a0b2cec37822c3b32ac97bf2c6",
+      "bytes": 412
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-17-kind-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-18-secret-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "a5d32393bdc3fc689c2f12517917dc0562fbf6bd96163caacefa1818f4c5e2d1",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-19-service-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "298b19988ab29553d5f75f433a0ea878b2a446e588ab6db9200ba6cb47d94d9c",
+      "bytes": 586
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-20-missing-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "7c37d788eba912656fb2c4360f816f7113b1c418935c9d1e5936f0816321c0bf",
+      "bytes": 424
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-21-kind-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-22-secret-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "a5d32393bdc3fc689c2f12517917dc0562fbf6bd96163caacefa1818f4c5e2d1",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-23-service-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "298b19988ab29553d5f75f433a0ea878b2a446e588ab6db9200ba6cb47d94d9c",
+      "bytes": 586
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "f6f4869b58d3a5cb367db93e74d1fdbedee13e92cb1c7eb55b0de206313872c6",
+      "bytes": 424
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "a616f6ab70522cda26ca4f103460b5bdc06a2cf6395fe8a6bc532089f37582d6",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "298b19988ab29553d5f75f433a0ea878b2a446e588ab6db9200ba6cb47d94d9c",
+      "bytes": 586
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "a575059f73afda85de3dbb2bb69d8f4b66678653bc4d0bb1d74d03376e5c0d53",
+      "bytes": 428
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "a616f6ab70522cda26ca4f103460b5bdc06a2cf6395fe8a6bc532089f37582d6",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "298b19988ab29553d5f75f433a0ea878b2a446e588ab6db9200ba6cb47d94d9c",
+      "bytes": 586
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "70e182888bbe531cd2adc17d28a729a2da9336894bf4c310f1a8a526f02666a1",
+      "bytes": 428
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-33-kind-NETATMO_CLIENT_ID.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-34-secret-NETATMO_CLIENT_ID.txt",
+      "sha256": "a5d32393bdc3fc689c2f12517917dc0562fbf6bd96163caacefa1818f4c5e2d1",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-35-service-NETATMO_CLIENT_ID.txt",
+      "sha256": "50f10e95dfd8e47b01095477b61766d3435427e64da28f47f5792a20a54b66f8",
+      "bytes": 588
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-36-missing-NETATMO_CLIENT_ID.txt",
+      "sha256": "dea54a7e5e8f60da6a8918fabc4005e09af3fa8286e4c0fb966990be4ad948b6",
+      "bytes": 416
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-37-kind-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-38-secret-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "a616f6ab70522cda26ca4f103460b5bdc06a2cf6395fe8a6bc532089f37582d6",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-39-service-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "50f10e95dfd8e47b01095477b61766d3435427e64da28f47f5792a20a54b66f8",
+      "bytes": 588
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-40-missing-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "7b0b7689b4012ff5184f5009becd4a95768bc0fe637b8e331aadbd282f41b4bb",
+      "bytes": 420
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-41-kind-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-42-secret-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "a616f6ab70522cda26ca4f103460b5bdc06a2cf6395fe8a6bc532089f37582d6",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-43-service-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "50f10e95dfd8e47b01095477b61766d3435427e64da28f47f5792a20a54b66f8",
+      "bytes": 588
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-44-missing-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "78ca22676ee89dbdd1433d5a993f53032612a98122bff68414e4998f87e61a1b",
+      "bytes": 420
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-45-kind-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-46-secret-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "a616f6ab70522cda26ca4f103460b5bdc06a2cf6395fe8a6bc532089f37582d6",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-47-service-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "50f10e95dfd8e47b01095477b61766d3435427e64da28f47f5792a20a54b66f8",
+      "bytes": 588
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-48-missing-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "66676a3d42a71af3d5632e7e013acfcf36ad164ded00bc4946aa8a8351eebbd6",
+      "bytes": 419
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-49-kind-NETATMO_PASSWORD.txt",
+      "sha256": "030e0a1e240b0df283901069c01dd2c74f548ebf1bd167f6b50c8186e446973e",
+      "bytes": 492
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-50-secret-NETATMO_PASSWORD.txt",
+      "sha256": "a616f6ab70522cda26ca4f103460b5bdc06a2cf6395fe8a6bc532089f37582d6",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-51-service-NETATMO_PASSWORD.txt",
+      "sha256": "50f10e95dfd8e47b01095477b61766d3435427e64da28f47f5792a20a54b66f8",
+      "bytes": 588
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-52-missing-NETATMO_PASSWORD.txt",
+      "sha256": "84da96ad6d37ae6858e7fbd600dc5d5b9a5fb0e98aaadb0195e205682110d251",
+      "bytes": 415
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-CUT-53-netatmo-enum.txt",
+      "sha256": "6555dcea06823afac643178c441b97c9980b0454bfec35e66414966bbbfcb812",
+      "bytes": 442
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-01-known-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-02-shape-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-07-known-NETATMO_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-08-shape-NETATMO_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-09-known-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-10-shape-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-11-known-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-12-shape-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-13-known-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-14-shape-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-15-known-NETATMO_PASSWORD.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-16-shape-NETATMO_PASSWORD.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-17-kind-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-18-secret-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-19-service-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-20-missing-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-21-kind-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-22-secret-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-23-service-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-33-kind-NETATMO_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-34-secret-NETATMO_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-35-service-NETATMO_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-36-missing-NETATMO_CLIENT_ID.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-37-kind-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-38-secret-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-39-service-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-40-missing-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-41-kind-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-42-secret-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-43-service-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-44-missing-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-45-kind-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-46-secret-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-47-service-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-48-missing-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-49-kind-NETATMO_PASSWORD.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-50-secret-NETATMO_PASSWORD.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-51-service-NETATMO_PASSWORD.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-52-missing-NETATMO_PASSWORD.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/COMPILED-esm-RESTORE-53-netatmo-enum.txt",
+      "sha256": "ef7e970d6c9bc44d11aecdc5854b160b3173f520fd884b919d2cfe4018506665",
+      "bytes": 38
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-01-known-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "5a63913b0b0540a8f710300e376f0fedbb4ff11072efd0dac7f721a8e9e4ff50",
+      "bytes": 13219
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-01-known-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "1689b2523ccb2c6afb5316fcd5d75200e68283fbd92f74665d0ed67ac29f963f",
+      "bytes": 105
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-02-shape-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "161cadd2c1b16eca182e1b8eefe189cd0570e7a4f7a51f638c32eb7abea7ac1c",
+      "bytes": 11608
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-02-shape-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "34e1fed36026fc3d44fc6b7b9513393cea6cc65b102bb2225ca01ecbb87ded00",
+      "bytes": 105
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "ad0bfb9466b431ca3d83c169a5275ecd27381be19e706f8e3a1cc58a1a87f493",
+      "bytes": 13225
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "44cf606628fc12ef6e5ce3ae76f973a4f16c8fc10faa26d73e3cac139b8247d6",
+      "bytes": 109
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "94d584bde670856d5a6f5dc240f87758ffb3dcbafcc233de32a4979869d32b41",
+      "bytes": 11609
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ca6cb4eb7c1b770834e560b3480f15ee418f7dc941e90fdb370b53b5d41e2e42",
+      "bytes": 109
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "8c1a83190420fdd64dd9d6b48df8db301f0a2b8aacdd7dcc87106643ade71bde",
+      "bytes": 13226
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "b395ce186553fcaec0b00355d187d9f489e59074f1f7ff088f9b9c9b9f1437e0",
+      "bytes": 109
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "7df70860b6dc492bd99b2791c003b6bcabf169c6146b1b3d9908cf007496ba0d",
+      "bytes": 11609
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9f6903805651552dad462e925e88d187c7a1f3b810ae2c176b921e8ea3ea239a",
+      "bytes": 109
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-07-known-NETATMO_CLIENT_ID.json",
+      "sha256": "9bc44ec0a17563082cf9a4ea8817359760f59fa758c51e3436d32567a9602771",
+      "bytes": 13203
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-07-known-NETATMO_CLIENT_ID.txt",
+      "sha256": "f86e97f1b844a8d4771e849f4e64ee222746c05b3b76ea4cfe982bfb68446505",
+      "bytes": 97
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-08-shape-NETATMO_CLIENT_ID.json",
+      "sha256": "9130779f7c157686509fd405ef6f4e4eaf6318f742b0933e3f452d84c2009730",
+      "bytes": 11599
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-08-shape-NETATMO_CLIENT_ID.txt",
+      "sha256": "4823e5225af8facd5b9d0735d4ce925a12a704b78e0fb8905b039c327207db35",
+      "bytes": 97
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-09-known-NETATMO_CLIENT_SECRET.json",
+      "sha256": "706bf9dad8ea23e59d0749ddd162effbacf882d6d9e113f63560ed536d70a34d",
+      "bytes": 13205
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-09-known-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "d964771846551714a09c5990ffe380e1184f1a494da9b732fc5a20ea89868b29",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-10-shape-NETATMO_CLIENT_SECRET.json",
+      "sha256": "afb940f6e6de3c12508352cb2d1c73012930dbff0d6fd539b3f9ade06ad81bc0",
+      "bytes": 11599
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-10-shape-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "8e48c836ff0676c7b917a4a1b72b39148bf702382e20ea3461319df9019ae910",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-11-known-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "2c70cf3e2fa0f093d18e4a0faef4648e544e06db6de07d62d2be01658373e756",
+      "bytes": 13213
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-11-known-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "87456b8a266345f0765c2eb9699feeb6efa1baa8dd8b5e7fa4d072a1f7a0c19d",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-12-shape-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "4de961cba4b67003428203e05cd157ef65c6d969d67932d611ecf5795b90861f",
+      "bytes": 11603
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-12-shape-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "4c84249372deaee9d9fff00151284eca28895f8d0798a431b5ab160f8fa6e129",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-13-known-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "67c1d059e1621058b3cbe50b4749db034f939dc9a38c34b666ec296d6fb6342e",
+      "bytes": 13213
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-13-known-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "8d07b363aee0a1b2648e10cdeda1de73c6b39de82331d6ea7b962748121eee1f",
+      "bytes": 100
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-14-shape-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "32611f42de6f91e6e5d3aff48e334c44dc8e7f5361bcd72b80db843974495edd",
+      "bytes": 11610
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-14-shape-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "7899531f55c12088bf22b154a6cc13117989e54595fa1deae7a14d5fd2a3e9d7",
+      "bytes": 100
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-15-known-NETATMO_PASSWORD.json",
+      "sha256": "53f57aef53503f360b480af7a14ef7f4d8ee6f34b4c03f4573ec6fc3477f8f64",
+      "bytes": 13212
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-15-known-NETATMO_PASSWORD.txt",
+      "sha256": "5280055f4efee0a68fb646405d7b2c98b49d242971e95cc564dc3ad25863e4c7",
+      "bytes": 96
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-16-shape-NETATMO_PASSWORD.json",
+      "sha256": "cdbd0337fce6e9b2f2957edc7e9ca3416649b92f945216c63041ca4d0d3294fa",
+      "bytes": 11592
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-16-shape-NETATMO_PASSWORD.txt",
+      "sha256": "5addf2cf8a8fcc8fd6778a19d22ff885e6257d52be44f639eaa8cca92b69925a",
+      "bytes": 96
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-17-kind-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "1177951c2d80402577c922112cba89239cbade4693861ebc77181ac5fcf4d015",
+      "bytes": 11620
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-17-kind-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "63248d4211bd965a903740788e6007f9a0434b650d7e3d4ec033e6223c701de6",
+      "bytes": 104
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-18-secret-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "d54af023563db12fc4105b4a652db1df1419abbf1e99282e52aca58c9969ff04",
+      "bytes": 11616
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-18-secret-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "d064edb6b192fa40e7a08fde16c4ce98d910383ab830cf87870bd2ba5c6c3a7b",
+      "bytes": 106
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-19-service-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "3b29d28f7d63175c9cfb2aa973b6bf50708c75e61fa191f89b342cd79b733ba5",
+      "bytes": 11624
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-19-service-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "15cf3d983ffbabeada24c4481938d6908f726477f4abf366bbf9337482dbc32c",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-20-missing-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "59dcb8dae39650631e506a53c9c58e64198995247c7d8e9fca5a025e644c09fb",
+      "bytes": 11456
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-20-missing-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "9095c4bed116b2c7c29981ee286539686ebe917972a13785cad33debaf504e3e",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-21-kind-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "abf223dca6b351734b95f3a3729351b2e3e92b56c1766227aaef2968ce2af834",
+      "bytes": 11610
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-21-kind-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "91a149b3f352e6bd537a3e89450d59ad391f0df10848c34a290a5cdf0e22e60f",
+      "bytes": 104
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-22-secret-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "1229129cec6f9f029c948e8e803230cc97636080853aaca5fbe434d5293322b4",
+      "bytes": 11621
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-22-secret-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "f63830f262b1da567e3262f7c0ef5d6eecb91a599312ed44a70a0d6cd9cf1f46",
+      "bytes": 106
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-23-service-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "b3fbfcb49a551d5c735d19894ef894c746ba10b9c7d5d742db6334eb06413bde",
+      "bytes": 11618
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-23-service-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "7f5ebde41e0722e59401c9baf3ce9f292aff8f2ef7d16bf6b29e27ad40c39f7c",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-24-missing-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "2b0d0b7f47a3953d53315c33b189f4f3329035b91428ca5c83de1735671d45bf",
+      "bytes": 11458
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "f7666267afed39c00f867a2e48124cfc4862d1cfffd2d388b488c10803bb6401",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "d213135de7e49089e4b225f4a59b7bc667c1cff924fcdc4d86e42699c4b268a0",
+      "bytes": 11621
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "5e77957dde39d6dc13903289dee387b4ea3ce5768bcb050f572b6bbf2e838ada",
+      "bytes": 108
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "8389ec4d2549baf85e9c97529828327dd6358036080878b65a4db01a6f5ddc54",
+      "bytes": 11614
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "ace1be31182d4020ec7761d60826d93322db164467769af138684c9a40be8060",
+      "bytes": 110
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "f089f0fcb17e0a1050a0967bf47a82acb6ef1747d15f8031ed3ba32b72ad2b1a",
+      "bytes": 11624
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "6665e2442df8f872aa5801e06b148f1679b1a3d1beaaf9465777316c13503e07",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "85f207c748a0a3029c5562c58537f4f7376b26169c11cf106d58ee0e4ab78ca4",
+      "bytes": 11456
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "6562ebaea26df6f2e58a573f37121b640cc5627f424b666e176504d9b68d3a98",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "3a5361cd70a4aa546666ff8b5d7e4fccdb5cf063a16b2f772b1d526ccec718b5",
+      "bytes": 11621
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "c4f8dbba4d66eb34306ecdb7f7a9b9bb10843cca7f084f28eb21f8bc131af999",
+      "bytes": 108
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "29e5287c6b09eda209aa94ccaf23fe6c4a16f28147078fc93f08ab17da13e1db",
+      "bytes": 11616
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "9560f46ea2ae1c5bff4e015c55c545b24a1bcf1a3454a16aef31c84071d1a1af",
+      "bytes": 110
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "681803f701c50c7b954b24400851e199980555118867f23e42e737ac3877b48f",
+      "bytes": 11622
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "6ffb8a4486a1b8ff47e6fdce31a9c85b162054d46a9c9c0f5f084a148c3816da",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "6ffdbbb54ff83751d230570a84da11c6e9016d46ba5cf7a5cec82c5a45691e7c",
+      "bytes": 11457
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "5d59b3d29685b44f1548c5f92866f688b82b39177f08ec4d7db7e32ae48abaa4",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-33-kind-NETATMO_CLIENT_ID.json",
+      "sha256": "2197beba4224bfc3caf20bf24627d858c9cda8403a11fcd0839469e39716c8a5",
+      "bytes": 11668
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-33-kind-NETATMO_CLIENT_ID.txt",
+      "sha256": "4d1e62cedf6cf5b5fa4c5f05ee162dc5db20aefee5bb2fb5649608524b877d7b",
+      "bytes": 96
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-34-secret-NETATMO_CLIENT_ID.json",
+      "sha256": "30f2cd121de25948780ef6fb919da005c568255f9a143a37cc8d1cb009d977d8",
+      "bytes": 11674
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-34-secret-NETATMO_CLIENT_ID.txt",
+      "sha256": "5a5ed03dfa527f6348362a0ddae498f2359f208bfe3ef3b7c7c8ce381054b040",
+      "bytes": 98
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-35-service-NETATMO_CLIENT_ID.json",
+      "sha256": "f0e08681b43cbcab8dd187218b480f24982f0fc694a62f9368943e4c13e3931d",
+      "bytes": 11668
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-35-service-NETATMO_CLIENT_ID.txt",
+      "sha256": "7f70df0b7d2fff536893d2767a5fe1b0b759a0ef2bf61d0fb26c36eff00605d9",
+      "bytes": 99
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-36-missing-NETATMO_CLIENT_ID.json",
+      "sha256": "22c55f9af144e343c62d6ba822fefba0eea447157c00442d7059192700acd923",
+      "bytes": 11441
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-36-missing-NETATMO_CLIENT_ID.txt",
+      "sha256": "70b4b9577b6c0f3e8203fa84f4f1d57def8ef4decbab1f660795fbddd7406eaf",
+      "bytes": 99
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-37-kind-NETATMO_CLIENT_SECRET.json",
+      "sha256": "e7c6573b42e4f6bd997ef0b1955b4aea0b139d0844f168685cb50a2b76f4c2f8",
+      "bytes": 11682
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-37-kind-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "4a44de689032657be694e0407c12c71d2b0f8e75542673b2261d4dc4f7a6a362",
+      "bytes": 100
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-38-secret-NETATMO_CLIENT_SECRET.json",
+      "sha256": "37f6170f0566eba870699a80821f15db7c7e95f890b965f1adaebe88e9bab9fe",
+      "bytes": 11680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-38-secret-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "dbe66d88f20bd60848401bcad179ebff678845fec7559114b2a5f7d3ca4c994d",
+      "bytes": 102
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-39-service-NETATMO_CLIENT_SECRET.json",
+      "sha256": "411ab91ea08d0f5ec47fcced6376023b54baf02a17ac3bade8609a3c37fbe7c6",
+      "bytes": 11679
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-39-service-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "cde2a7f0ed18e8501fa0b7579ce575688f7db46b419d557879dc0e544c32338a",
+      "bytes": 103
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-40-missing-NETATMO_CLIENT_SECRET.json",
+      "sha256": "23cae2671375b1316eda79af41317085313bf22057fdf0759c5e0b623aa00618",
+      "bytes": 11458
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-40-missing-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "e8de9043eca3e401b88224b2f5a75b0aa5bff2d2a85e8bd855f422ac5ea62665",
+      "bytes": 103
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-41-kind-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "337aaafd9cbe86cd4af1a82db37613c7d21f3c49158548b8edf0e3b26dce2a43",
+      "bytes": 11678
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-41-kind-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "1010f84295444fdd618741e3be328cf19ed820818eb790b11e1f2b28e7c9e369",
+      "bytes": 100
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-42-secret-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "8ebe17b50ba3aa07263f38b05e12019e58a0b77504ef2f4581edc0e3596b8e49",
+      "bytes": 11667
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-42-secret-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "daf07090f7e9b79b6237a4609931d2d0e83631ee342be9563c909a8636848edf",
+      "bytes": 102
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-43-service-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "707a684dd97c5c585083c85ec9eb1bc6962aac77d65c551d8ea6f2020ec5ac10",
+      "bytes": 11681
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-43-service-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "233eb17fe2317b9c52719b380c592680860f02ef60533fa0ec9e14cf1013db33",
+      "bytes": 103
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-44-missing-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "5d1b0555d1904d85fd56eb93dbe72fa5fb37b2b70863ae3a11266b0247b4111c",
+      "bytes": 11456
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-44-missing-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "65b903b4b3d7e1d7aaa1669b7ae7605bc5f51547d32ddc547a764ddea30d3c59",
+      "bytes": 103
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-45-kind-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "be42fe1bc5d4c63a9256dd7dc756be6b2091ec1fd10d11887013ec60ff3dd1a2",
+      "bytes": 11678
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-45-kind-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "b0bce468400f7cdfefc2c62b0f796c4921321021282bb1e3a907d306c9dd2ffe",
+      "bytes": 99
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-46-secret-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "97faf9883941b086908b7d171a31ea238b6a36311a34a0d8823afc272ff76980",
+      "bytes": 11680
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-46-secret-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "1af6f429944136b90e03325ac055ee5cb6e7f267386931b632cbb6e80409ebc3",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-47-service-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "3ec3224010847a3cb9c6b3e074b260f689312962fad7814f4e0203438b656e5c",
+      "bytes": 11682
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-47-service-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "f879ccc8efee324028398b0fd559e2f349ca723afef14f3bd83a43b86bc7da69",
+      "bytes": 102
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-48-missing-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "de4c026429e63096938879c50f7158cdb085b5ad52f063265a92ae5477109d83",
+      "bytes": 11451
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-48-missing-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "e75de97bb95d748cd963243732dede6361fd5faa9e7d37056577ee4603c9649e",
+      "bytes": 102
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-49-kind-NETATMO_PASSWORD.json",
+      "sha256": "4b433089172598d3cc47114691d34bdd7cfb09962cf94a8abf7a6abd5d70fb25",
+      "bytes": 11665
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-49-kind-NETATMO_PASSWORD.txt",
+      "sha256": "62b897fb54dbd00979aa53cd5d1070121a6eb493be1409d9fe0d40a2428e853a",
+      "bytes": 95
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-50-secret-NETATMO_PASSWORD.json",
+      "sha256": "18ef8ffb2a16a7a23074f1a6d4c013a5a3cc14f32d428dbb8f2fcc12d27cdf73",
+      "bytes": 11665
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-50-secret-NETATMO_PASSWORD.txt",
+      "sha256": "274e7f5b0d6d0bc1c90ff91f358ee6e77da2f614449af2ff1f8c832c8b79e668",
+      "bytes": 97
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-51-service-NETATMO_PASSWORD.json",
+      "sha256": "3bad8665b912379401389282b2b9addacb3a5de4c11f44f27b95f7a8b2f6dc8e",
+      "bytes": 11667
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-51-service-NETATMO_PASSWORD.txt",
+      "sha256": "3ab5a861eb3094dd5de6859386f10a846023b09fe288ef736af5b65c7bd870b0",
+      "bytes": 98
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-52-missing-NETATMO_PASSWORD.json",
+      "sha256": "4fdcf6c62414820e9b67fa83dd95681a018a6f5d64aa41d81c70dab8438c8ec9",
+      "bytes": 11453
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-52-missing-NETATMO_PASSWORD.txt",
+      "sha256": "b520a10928585b6e81e7a6f7751be142e669e4ce098000d5177118a9586cbd92",
+      "bytes": 98
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-53-netatmo-enum.json",
+      "sha256": "6a2647f53f31489d893030406fc4ce03c661a7c2e43c7dc8ca406424e9b4994f",
+      "bytes": 17928
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/CUT-53-netatmo-enum.txt",
+      "sha256": "19cef78fc907b01d19fd05ed23af1ce676a8d048d5c262b63b795e3b5426f8c9",
+      "bytes": 86
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/DIAGNOSTIC-EXCLUDED-COMPILED-esm-CUT-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "d60fe269038c2990e5148680898ee716e192c00a530d151f44a8058e89290a80",
+      "bytes": 898
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/DIAGNOSTIC-EXCLUDED-CUT-24-missing-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "b19b4d8cdf22edf572323c0d1862228e9be633c5bdd569542ac0881b1c1584cf",
+      "bytes": 904
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/DIAGNOSTIC-EXCLUDED-CUT-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "f7666267afed39c00f867a2e48124cfc4862d1cfffd2d388b488c10803bb6401",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/DIAGNOSTIC-EXCLUDED-QUALIFY-COMPILED.txt",
+      "sha256": "a33ff1695ce76a53589aad8c7ce249a2f21afcca8aba712d0c724b46ab4c955c",
+      "bytes": 344
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/DIAGNOSTIC-EXCLUDED-QUALIFY.txt",
+      "sha256": "4efbe44f5bbba8ebcc5f08ae842d0d9c5ed0a618741297bfb0b4417a94530b94",
+      "bytes": 444
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/QUALIFY-COMPILED.txt",
+      "sha256": "3613e580c4846aa6b1bc258fb42949acc58a9de4b56d5695dbfe0fbe4d0c14aa",
+      "bytes": 36
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/QUALIFY.txt",
+      "sha256": "ab319f128db5fd41dffb2a822f1c34d862360e45b8e130231e0c67dbac11b707",
+      "bytes": 56
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-01-known-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "d572955b71a601017a637f5402bb23964dda16ef0789251862e8552270fdf5d3",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-01-known-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "f51b0a49dcce3489a54ab993d455a9537d945189da9380a4026dd2f8ed0714b1",
+      "bytes": 109
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-02-shape-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "864681cda50bc430b802c11a5f5ed1cf1ea6b46ea9c5ef963c3f044a7d8180ef",
+      "bytes": 9842
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-02-shape-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "6615cd5910191e37d4bec2d64b50a0b9a40530a4548b611b32dc46a9a4d9f44a",
+      "bytes": 109
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "e70609d5b05e2b97f166ccc618313ac88b1fa4dec6d453d712b3b7c386e68a71",
+      "bytes": 9855
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-03-known-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "fe80b9d2e632eda50929b6a5376ecd3fdb904127d65f61dbb2a38c00e5f83bbb",
+      "bytes": 113
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "2293d7a47c4b1d34d5fea682d81ccecb9ac0431ecc05034a9e8860370803d6e1",
+      "bytes": 9857
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-04-shape-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "4e18afc86e9ac1dbea98158c848631e57c685b7bd5cf112d7ae264bdd9683a28",
+      "bytes": 113
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "be2e8132b2e35e43370bcc09343059b0adba57019c582bf3a5e787fda9efb99e",
+      "bytes": 9862
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-05-known-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "050b685e538463faf2fa2830be30bd429d94d6114de894f3fa097599521d7452",
+      "bytes": 113
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "b009c96240472b577623aec8e7ba75731a59b0560490f7e840380b215f927ba8",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-06-shape-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "b5d774c51c1a1a22833410d5b5f746acb1f92f2177aeb671c18f1f3dd5206cae",
+      "bytes": 113
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-07-known-NETATMO_CLIENT_ID.json",
+      "sha256": "a540c240d7fc18f1140f37df485bbff7f092919e5aee25f758084bb366c2c19b",
+      "bytes": 9861
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-07-known-NETATMO_CLIENT_ID.txt",
+      "sha256": "f1cdd49ec0346b80628c27cad3478483c46d044addefec1edc444b2d76da2fe1",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-08-shape-NETATMO_CLIENT_ID.json",
+      "sha256": "46b01965c01d1f01e2a7f474df6cf8812146f40fc766eb7440a47f4f0bbb5455",
+      "bytes": 9856
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-08-shape-NETATMO_CLIENT_ID.txt",
+      "sha256": "9ea8085b1437afdf871b4a74c2dc00c8bc41ae9581259dfc07ea310d9d0be32c",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-09-known-NETATMO_CLIENT_SECRET.json",
+      "sha256": "d7a270bb54718929fbb284f09b90c1c8e10599912b6864df75812f3860231430",
+      "bytes": 9861
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-09-known-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "f00b5b9abdbd05ebac202724eb82393307689bb56c528d4cf50cb4ca376255d7",
+      "bytes": 105
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-10-shape-NETATMO_CLIENT_SECRET.json",
+      "sha256": "8fe065fb0ceb7f778df74ab266536e0adc47e7ef5bd5c2b0b32fad48d4af42d0",
+      "bytes": 9848
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-10-shape-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "b271d7c64a5226fa7ebfac4e0c4bf9505bd450ec3071f45c2c6a94fc41aac27a",
+      "bytes": 105
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-11-known-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "29c6ed3974b0dbdba90fc29e6fb20e101ab2e2601ea8bdf72c7f147f4f006718",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-11-known-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "547ac2b2dbfd1661e09bdc94dd98b54c52737fb81ef024496b223a192b403265",
+      "bytes": 105
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-12-shape-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "2ba5286a8245ff6926b5d794a659aa00391dcc98fb0fc264ea4512d1a977725c",
+      "bytes": 9857
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-12-shape-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "5d72aa0ca314d3f08bd9e02c3cbeb19f967ddb91427f4b8f1870ed0ed5322637",
+      "bytes": 105
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-13-known-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "3fe8f56c3cd0fe48833637e5ddd7a3f8f322dc4744b4a7ef7acbddcde6c1bd40",
+      "bytes": 9862
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-13-known-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "6089724eab5cb07d4b41fd59868b953e247b4191ddc8b6be5b0f02abf51a975f",
+      "bytes": 104
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-14-shape-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "ff6a7a6b0a330e81560db93bb6ec1806b3b9613463f8a97cff9d3eb72039e1e5",
+      "bytes": 9863
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-14-shape-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "0fac57a61026cc1d11bdceab064492cef8558a0a03e7daea2aa2b677217bcde7",
+      "bytes": 104
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-15-known-NETATMO_PASSWORD.json",
+      "sha256": "adc10dd984bae044e797e7dd71d37170007b65dae80aca26b9219b7856e02f03",
+      "bytes": 9862
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-15-known-NETATMO_PASSWORD.txt",
+      "sha256": "218a34d9f75f81d033ecaa43ff546b2ed837c46eda8cc2bd6e36ea491b61effb",
+      "bytes": 100
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-16-shape-NETATMO_PASSWORD.json",
+      "sha256": "a0179e53d2091252eedbad8864b0481775b7f5b2582f5dcf6aa69fb3bf7fd085",
+      "bytes": 9855
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-16-shape-NETATMO_PASSWORD.txt",
+      "sha256": "01c5c78dfb1d81dbd95991188484a8010049476f4bdc0ce5402caa91c3b7a0e0",
+      "bytes": 100
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-17-kind-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "4be6f1bfd29366e8e929287b296533717e0184c71f80ef4b4b7479bacfa9f1f1",
+      "bytes": 9856
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-17-kind-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "b5fc105924809bc6a8313a7b841fc4f2d882254871e87bb0db781287795fd4df",
+      "bytes": 108
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-18-secret-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "78f2e425fe8a16b266c8a49a8578d498f91a69d7389de01998fbf04a2b2db1ae",
+      "bytes": 9843
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-18-secret-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "58344057b3a07371207a3a565e77b6f4dc9728dfce2088440406aeeb13e11ad3",
+      "bytes": 110
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-19-service-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "f3e88f7dc1c6a5707b545fb5e0f21442b374f2bc7715e5e3d59eb990f81c1da9",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-19-service-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "ae0420f3e94bb3b4acba1c8b1c9b2f46234c918a32c5450c4df02a10d0048b8c",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-20-missing-GOOGLE_CALENDAR_CLIENT_ID.json",
+      "sha256": "4cc9f7aadabf8427f047f5b91e8b37bedc20ab5756996bba861ae7b158b5a143",
+      "bytes": 9858
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-20-missing-GOOGLE_CALENDAR_CLIENT_ID.txt",
+      "sha256": "771067ea14010b579e9c28a7551db022c31917fdb1f8d66dd505aaf69f719127",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-21-kind-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "b8b48e851d04a2f150dbe30a41c7a89db84f4e1d65390f7f92781c756b5d1801",
+      "bytes": 9861
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-21-kind-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "fcc2a542417b88ed5b9d1dc355bb350b2834ecd5b0b0383c90d327e9e8cc4fe2",
+      "bytes": 108
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-22-secret-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "12a30b5816f7b8e9a0923edfad5f2caf97fe6a62c6df04fe9e36b472a78d4e1d",
+      "bytes": 9860
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-22-secret-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "05df6929bb6cbeb86629d122949ec7004f3be45dedcfea16bc393c46c68aabd5",
+      "bytes": 110
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-23-service-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "a14e045fcd51eb1c7da5ce17680b3871e8a10802dcd36b2cd82df23eb776704c",
+      "bytes": 9861
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-23-service-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "ef19728097304c359c6ccf2d2e6ada5fc16ca871764fc6373f590a6c3d96aa60",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-24-missing-GOOGLE_CONTACTS_CLIENT_ID.json",
+      "sha256": "0d656293c96d472a14eda04470140210e9860e4914bec975b6850e073a060d9a",
+      "bytes": 9848
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-24-missing-GOOGLE_CONTACTS_CLIENT_ID.txt",
+      "sha256": "99a46e1705f44b7c87d8a995e22a351a1168984c6e2ffaa59d050caf8823565c",
+      "bytes": 111
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "9bb770269acb9b31c91eb2a087b345a81875d68ff725b1b00d52ee71c3b02c0f",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-25-kind-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "6aafa4735d0fa5a015c56aee758eb401f20abbd5f07fea2a7b092d7a6469e196",
+      "bytes": 112
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "56df03d993f4fb060d3ba7cfbf7316a3d2471f5084f980f47b4685a12809d6be",
+      "bytes": 9860
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-26-secret-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "608e5ecd262c5a1d8e3f4b9ac1c83e106b61a5d1dace32f459f2048f973eca2f",
+      "bytes": 114
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "32f886f1edb20b999610775d22a2394439e988ff4f4ba66a2870f377b83996f9",
+      "bytes": 9854
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-27-service-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "5b2362bdf62b99e4ca0be578106daaed1ce16472faa9ea4532b201b78fb072d7",
+      "bytes": 115
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.json",
+      "sha256": "982e915bb07d85efa801d31a03f9641bf1534baec8374b908bc29c79624507bb",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-28-missing-GOOGLE_CONTACTS_CLIENT_SECRET.txt",
+      "sha256": "e9a7e39944be624ad09fa48dc31b4a2e198d890d7930ff8580338dad43cf55ee",
+      "bytes": 115
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "1421dfd7e82b1e6be142d2c85da15378ba84e580b1e60c6ddb5324a37aad8d0b",
+      "bytes": 9848
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-29-kind-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "bc007bbc5d95f1c622502a3fc3acc810e349e41c89b2cc55768f9566c5ea7b9b",
+      "bytes": 112
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "fd52692a1373396578960d5f875fa65c33971534dbb073a4fca23b4925226348",
+      "bytes": 9856
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-30-secret-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "e6c5c22452b52fefa333a86a3e70f8d1158cb834a3ccc1fc6de2cc1d05f3abc8",
+      "bytes": 114
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "c8fe9f4259d64017ec9c5c42dea0890ee602679cba7940f1e45770f56edb0b17",
+      "bytes": 9863
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-31-service-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "770cbd9c092bb0b8370ba40be932ba18bbe1051b5446cf409ea1c5c081c44005",
+      "bytes": 115
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.json",
+      "sha256": "a6749c8d12bc483d9225f7c72a22b9312d281ff499ffd78cc682041014802586",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-32-missing-GOOGLE_CONTACTS_REFRESH_TOKEN.txt",
+      "sha256": "eb929c5f4e05b668c154218fcced7855286aa3f1ae58c5943223f1b9c1f688d6",
+      "bytes": 115
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-33-kind-NETATMO_CLIENT_ID.json",
+      "sha256": "4533112c81568fd187b6c42d953303e9bec2b8389e83d6dc5962a85053dccad7",
+      "bytes": 9861
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-33-kind-NETATMO_CLIENT_ID.txt",
+      "sha256": "471c124f3932768f02eb6a4ee5ed0d6ee1a2ea6aef860c06f55b69fa83517511",
+      "bytes": 100
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-34-secret-NETATMO_CLIENT_ID.json",
+      "sha256": "55b8534fcda78ade81f8c28d3555d203f9d091af8f0c7efd933a369a7bcb505b",
+      "bytes": 9865
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-34-secret-NETATMO_CLIENT_ID.txt",
+      "sha256": "57c02db6736c7db37318d79e34224344b136ed01f61e4b8ef816bfbeb7bf691e",
+      "bytes": 102
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-35-service-NETATMO_CLIENT_ID.json",
+      "sha256": "64107c58f80726d9818b412dcad072a30942c5bad0315d7a06a837bf33047529",
+      "bytes": 9847
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-35-service-NETATMO_CLIENT_ID.txt",
+      "sha256": "a0f214a4bbb47c655136d645d4f4769fdea02b1762ae1228faffbb5410ff85e1",
+      "bytes": 103
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-36-missing-NETATMO_CLIENT_ID.json",
+      "sha256": "e8385d5e101aa772113b7292e1fa6419f0edf3ed691bbfee8565d1ae3d64eea7",
+      "bytes": 9858
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-36-missing-NETATMO_CLIENT_ID.txt",
+      "sha256": "b6c31415ee40a2db3a1ade3bebc612e2bd1bcdc596479ab890a60dbcfbdead0d",
+      "bytes": 103
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-37-kind-NETATMO_CLIENT_SECRET.json",
+      "sha256": "fc5c072625d11ee473829a074e201f06e6000eecb638c5de5da3b34201df608e",
+      "bytes": 9858
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-37-kind-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "2cb6ff438f6d295d38052f9374d0f77d37a5258dd29f8c2bc4ba4ea27c982376",
+      "bytes": 104
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-38-secret-NETATMO_CLIENT_SECRET.json",
+      "sha256": "b5659f065350d05aa7a487b696b66798fcc5bfecf9a8b3ec24269e5d6c0bc5b2",
+      "bytes": 9861
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-38-secret-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "cd6cbd815d09b891eca239863663a2fc69524815a73de7b7bb66cd4519ba7778",
+      "bytes": 106
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-39-service-NETATMO_CLIENT_SECRET.json",
+      "sha256": "6f5aaca2105dc0cd4219e13b3d40c247f717c49a0fd4afe397e911a1889ebc57",
+      "bytes": 9857
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-39-service-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "e07289e8e5cd418074da8c41f00103c0d673bb0b9d0ad2c44c339ba852564bf7",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-40-missing-NETATMO_CLIENT_SECRET.json",
+      "sha256": "5c784b4a9ecf96d6b85d76cd2f1be96744115464cfe2790c2679a1f54ad7343f",
+      "bytes": 9861
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-40-missing-NETATMO_CLIENT_SECRET.txt",
+      "sha256": "45c71aa8b313375b8f799138d2ba62c6c4c01ab9edd56520a93b925cf7e24d99",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-41-kind-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "dc9e70013e1f969f4c12280706cd21e3dfab5d901abb5f76018f6a997db5af64",
+      "bytes": 9860
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-41-kind-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "94ab84416411afffb58884d54257635f4d36d5d94d1decd26ab4c584e7f41a88",
+      "bytes": 104
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-42-secret-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "9b9dcd2d38700bb6a20d7fd3f442e7030890788caedfefde9d71e45877301e3b",
+      "bytes": 9857
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-42-secret-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "8ef5fadb323771f73c20edcaf80b73afc965f1e297ebcebc75f9fe808772db81",
+      "bytes": 106
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-43-service-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "fbe746c4f23a0ec80047965c406cb4e56727611a1c2c35945e818edbd03a0d09",
+      "bytes": 9862
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-43-service-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "09cc586a375447cf439ca5896860c258ead1f509befc63aad11b7dd5ee832c33",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-44-missing-NETATMO_REFRESH_TOKEN.json",
+      "sha256": "aa5d0ac321be2da470fea4a5eb71ff876484dfb06f8e436d8191a4e4b3ce7778",
+      "bytes": 9864
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-44-missing-NETATMO_REFRESH_TOKEN.txt",
+      "sha256": "35fddf8055e234b60fabfc2fe76b4e6fa837b70e4c0572c37d1990a00e1cc20d",
+      "bytes": 107
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-45-kind-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "14894c30c33d67afce90fed3d3f6ba44412a9c69c5deefbde9acac90fa0f5fb9",
+      "bytes": 9864
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-45-kind-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "aa193e1b6ed8356038b5d590e63c1914496abbcddf4e0830aa498ac225c8e762",
+      "bytes": 103
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-46-secret-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "654ed105ce935821ee2754ede36f56e97afdd4628aae2b8215369e6f9bbfc86b",
+      "bytes": 9860
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-46-secret-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "345063f1aab2bfbb788cb41e35e293f1ab02475b888ecb07bcf392197bf7f5e9",
+      "bytes": 105
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-47-service-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "a4bc74c93472979ef9c0f6648035ac3cb0c09d8de00c068780cc969c5960072c",
+      "bytes": 9855
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-47-service-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "1c1964d7968347d116b2661ab1aa10e91f2018551db827bf514c5bff483f9e59",
+      "bytes": 106
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-48-missing-NETATMO_ACCESS_TOKEN.json",
+      "sha256": "c93db04d163711718062d0718c1c42d7f5dc3c70aec1e2efa1324c8f720c703e",
+      "bytes": 9857
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-48-missing-NETATMO_ACCESS_TOKEN.txt",
+      "sha256": "cdf72fc8e824c50105bec9333e448d144aab59fb05d5d3ae92e51a78fd325fac",
+      "bytes": 106
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-49-kind-NETATMO_PASSWORD.json",
+      "sha256": "ac0d27596309c8f9bf88387da1f0388aa728e26282fbbcfa8f4bcc01e51e6b5e",
+      "bytes": 9858
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-49-kind-NETATMO_PASSWORD.txt",
+      "sha256": "8475c8ef66ac988964684b296c8cdf358d6d7b49c579bbd2966d365dc22dba7f",
+      "bytes": 99
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-50-secret-NETATMO_PASSWORD.json",
+      "sha256": "78162bf1e103dd6e1e9dcd4289a56771e8c91c5c3610eee4d032e2a997382172",
+      "bytes": 9859
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-50-secret-NETATMO_PASSWORD.txt",
+      "sha256": "2aa8443511cd41665c4aaf58bee9e9146805feb23e18724b1c5b1bda60444718",
+      "bytes": 101
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-51-service-NETATMO_PASSWORD.json",
+      "sha256": "7a20c935b0d1c5afb5db3b5aa9d4411408c92d3e8fe90f757fd11a4019b28935",
+      "bytes": 9862
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-51-service-NETATMO_PASSWORD.txt",
+      "sha256": "87085b64d9d5c751fdcc6560cbc47ef2a418b6f40be276bcc722eb4c28a4207b",
+      "bytes": 102
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-52-missing-NETATMO_PASSWORD.json",
+      "sha256": "b97975e21f0c2ce19d6bfee73d62f992a0c8bc7ef32fb2175b984c72f3d92420",
+      "bytes": 9857
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-52-missing-NETATMO_PASSWORD.txt",
+      "sha256": "16ed604ead9be2d77b1438041b98a5c46a82d8698bf491291d2e1e0f2190bf4f",
+      "bytes": 102
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-53-netatmo-enum.json",
+      "sha256": "c25b80c9df68ba8d6c2d04e59e668f636d9fb7b0f7f7700b5e079193b6503e76",
+      "bytes": 9857
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/RESTORE-53-netatmo-enum.txt",
+      "sha256": "6c64f8b113a1b52429680f8162df56a9093d16711004eef5087b80cf1b5c19e1",
+      "bytes": 90
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/qualify-compiled.py",
+      "sha256": "20baaa8bdc5f9cabd662cbd87df805cf34388f66d7bc26e25a1407e49e350539",
+      "bytes": 3000
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/qualify.py",
+      "sha256": "0584985092d175d8fb5cfb59b17fe14ca82ca549b7b82a158badc4f1d243b43e",
+      "bytes": 3288
+    },
+    {
+      "path": ".planning/phases/chiavi-indice-completo/proof/quality.py",
+      "sha256": "184ec4b10058d34ff0a3e639c8f7066676565b856ddfddae6fea5a1f4df72f40",
+      "bytes": 781
+    }
+  ],
+  "productHashes": [
+    {
+      "path": "dist/agent/agent-channel-configuration.d.cts",
+      "sha256": "3964ac35fd59c9dd541a4f04b672455c2d01b80279821c26af6561dc832a241d"
+    },
+    {
+      "path": "dist/agent/agent-channel-configuration.d.cts.map",
+      "sha256": "7677ede513c146e882df87132ceb387c02148cb6d523c44d5f28de61860452ea"
+    },
+    {
+      "path": "dist/agent/agent-channel-configuration.d.ts",
+      "sha256": "613a8ee8b77aa95d0deedb4fddb9b71dab504aabb9805a91369e2635deb2da69"
+    },
+    {
+      "path": "dist/agent/agent-channel-configuration.d.ts.map",
+      "sha256": "f91a45b337a5313436a576404b80c0fa6cf12c15237224ce2a178eecbfd2137c"
+    },
+    {
+      "path": "dist/agent/agent-context-core.d.cts",
+      "sha256": "d2b06d88fb59cef43983a099229db30d893d8c6978e1b20e4ac24cea30255214"
+    },
+    {
+      "path": "dist/agent/agent-context-core.d.cts.map",
+      "sha256": "b512991fd122c1955a88257f925dc50ad2d1ab358bd2fba856267044c0a74770"
+    },
+    {
+      "path": "dist/agent/agent-context-core.d.ts",
+      "sha256": "d2b06d88fb59cef43983a099229db30d893d8c6978e1b20e4ac24cea30255214"
+    },
+    {
+      "path": "dist/agent/agent-context-core.d.ts.map",
+      "sha256": "b512991fd122c1955a88257f925dc50ad2d1ab358bd2fba856267044c0a74770"
+    },
+    {
+      "path": "dist/agent/agent-context-file.d.cts",
+      "sha256": "92ba9fdf73142728fa2d3ffa4beccbcef8dfed9f65a296b56e382cef98c78126"
+    },
+    {
+      "path": "dist/agent/agent-context-file.d.cts.map",
+      "sha256": "317220ee7c01022367195f35027657f057d07ddd660bdb7101899f3f3ab12492"
+    },
+    {
+      "path": "dist/agent/agent-context-file.d.ts",
+      "sha256": "92ba9fdf73142728fa2d3ffa4beccbcef8dfed9f65a296b56e382cef98c78126"
+    },
+    {
+      "path": "dist/agent/agent-context-file.d.ts.map",
+      "sha256": "317220ee7c01022367195f35027657f057d07ddd660bdb7101899f3f3ab12492"
+    },
+    {
+      "path": "dist/agent/agent-context-identity.d.cts",
+      "sha256": "eca56ff9bfb2104f6f100ec54d6569bcdd689bfe8f0eb32d26146700589be16b"
+    },
+    {
+      "path": "dist/agent/agent-context-identity.d.cts.map",
+      "sha256": "044cc8119b561f8d19fefe592b44b4658805c635711603cbe596ee59276916d6"
+    },
+    {
+      "path": "dist/agent/agent-context-identity.d.ts",
+      "sha256": "eca56ff9bfb2104f6f100ec54d6569bcdd689bfe8f0eb32d26146700589be16b"
+    },
+    {
+      "path": "dist/agent/agent-context-identity.d.ts.map",
+      "sha256": "044cc8119b561f8d19fefe592b44b4658805c635711603cbe596ee59276916d6"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.cjs",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.cjs.map",
+      "sha256": "3f931791631bdc24de1cd94ad6bafd7596c5827e17ba3ce8c67a5cec0c6b4fb8"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.d.cts",
+      "sha256": "d3303ade237417541d4afebc6c5451cd8f0a2f0611660ce443bc7e9fc64adf54"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.d.cts.map",
+      "sha256": "b9e5dca1ee60c94b2945742a9ee423006c7dd327500a9e087cb83ac9303cc4d2"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.d.ts",
+      "sha256": "5a311c159f570df70480bf1129eacb0e71ed4597d529e430ca27eb53ac8148ce"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.d.ts.map",
+      "sha256": "424679c28107ca8a78bfa4d63c3a3e243a80801e05682439d846faad5bcdca39"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.js",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97"
+    },
+    {
+      "path": "dist/agent/agent-credential-services.js.map",
+      "sha256": "af6da0dc034552544fb7af6c8bda26ab8a59abd6083c8d4d179ded80e4e5b188"
+    },
+    {
+      "path": "dist/agent/agent-credentials.cjs",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f"
+    },
+    {
+      "path": "dist/agent/agent-credentials.cjs.map",
+      "sha256": "70fe2babbafd0b37d7c84c111c465ba98e2d49e4562e18876e618cfc1bac043a"
+    },
+    {
+      "path": "dist/agent/agent-credentials.d.cts",
+      "sha256": "74fbbed788bdf2c0ee97982ebdae584a5f46c9f536999cff967b871b4586dff5"
+    },
+    {
+      "path": "dist/agent/agent-credentials.d.cts.map",
+      "sha256": "88bbae537158dd5715bca477d3632cd27e180e8244ce736440ddba6086da20d1"
+    },
+    {
+      "path": "dist/agent/agent-credentials.d.ts",
+      "sha256": "74fbbed788bdf2c0ee97982ebdae584a5f46c9f536999cff967b871b4586dff5"
+    },
+    {
+      "path": "dist/agent/agent-credentials.d.ts.map",
+      "sha256": "88bbae537158dd5715bca477d3632cd27e180e8244ce736440ddba6086da20d1"
+    },
+    {
+      "path": "dist/agent/agent-credentials.js",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858"
+    },
+    {
+      "path": "dist/agent/agent-credentials.js.map",
+      "sha256": "83d8b561d270aeecb6856ce5b668a45554e5f3c0b15186709b72ccf1bdf63f81"
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.cts",
+      "sha256": "650d14ff42c7b0d42e4bee559ee6f37ccab2856172f0f876cb68b444f9ee7fd4"
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.cts.map",
+      "sha256": "7046b7abe9b70cb692e693303a83df1dcdaad9a82c3a69efb7a93379a754d0c9"
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.ts",
+      "sha256": "650d14ff42c7b0d42e4bee559ee6f37ccab2856172f0f876cb68b444f9ee7fd4"
+    },
+    {
+      "path": "dist/agent/agent-phone-channel.d.ts.map",
+      "sha256": "7046b7abe9b70cb692e693303a83df1dcdaad9a82c3a69efb7a93379a754d0c9"
+    },
+    {
+      "path": "dist/agent/agent-workspace.d.cts",
+      "sha256": "b8318971b804a06f61bf87bfca46318f42682a5824953fab85cfbd93e89491db"
+    },
+    {
+      "path": "dist/agent/agent-workspace.d.cts.map",
+      "sha256": "aacd9c19f56b1774b87b64327d4695acaa69914eb13b404f3d7cf7fc1a1ef817"
+    },
+    {
+      "path": "dist/agent/agent-workspace.d.ts",
+      "sha256": "96e1db623db516e292d9e76b1c3a3acf5474870135fa3293879890dcd885c438"
+    },
+    {
+      "path": "dist/agent/agent-workspace.d.ts.map",
+      "sha256": "2fff041c0d32b7875e00d8282d02401c969e56126aa9ada15b53813fdd3a1971"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.cts",
+      "sha256": "368f40f44454e05cff79d2546ae07f2bb4dfd5c352a9dfba7fdedf68428d7005"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.cts.map",
+      "sha256": "a42dcd782ddde724d27de2e122b1ebc8a905e5ce1651958e221a141740bf62af"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.ts",
+      "sha256": "47668372c219391188c36983cd06a9bc7fca322cd6ba94ccee5f5f1e8bf7f428"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.ts.map",
+      "sha256": "5f9f2a617fd5ee2f034d7b7d56d781a3cc76f7225fea12b33378c2d7eebd4c14"
+    },
+    {
+      "path": "src/agent/agent-credential-services.ts",
+      "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3"
+    },
+    {
+      "path": "src/agent/agent-credentials.ts",
+      "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1"
+    },
+    {
+      "path": "tests/agent/agent-credential-services.test.ts",
+      "sha256": "1e20c7c671bf4cc69868a78d39e83978b519fb479f4af145aeea411e428a98e9"
+    },
+    {
+      "path": "tests/agent/credential-provider-index.test.ts",
+      "sha256": "84be51ea45e17d63e0b8b9ff3513931306f9e10c8ce8383cb8154677595a1e49"
+    },
+    {
+      "path": "tests/cjs/credential-provider-index.mjs",
+      "sha256": "a00e4efc8a47d363bfb214dd3d57662fa49cf0c6425d5287c0618dc2a9a2360c"
+    }
+  ],
+  "red": {
+    "passed": 0,
+    "failedAssertions": 25,
+    "total": 25
+  },
+  "targeted": {
+    "passed": 104,
+    "total": 104
+  },
+  "fullFinal": {
+    "passed": 4741,
+    "total": 4741,
+    "files": 164,
+    "skip": 0
+  },
+  "sourceCuts": {
+    "qualified": 53,
+    "total": 53,
+    "freshCasesPerCut": 25
+  },
+  "compiledCuts": {
+    "qualified": 106,
+    "total": 106,
+    "variants": 2,
+    "freshCasesPerCut": 25
+  },
+  "excludedDiagnostics": [
+    "First complete run had an ESM load failure while build cleaned dist; discarded and rerun after build.",
+    "Initial missing-entry mutation left a duplicate comma; syntax errors excluded, corrected delimiter and complete campaign repeated."
+  ],
+  "liveVerification": false
+}

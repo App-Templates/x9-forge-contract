@@ -4,7 +4,7 @@ import { MODEL_PROVIDERS } from "../model-router/model-provider.js";
 /** Metadata only: this module never accepts credential values or resolves the active provider. */
 export const AGENT_CREDENTIAL_SERVICE_KEYS = [...new Set([...KNOWN_CREDENTIAL_KEYS, ...AUTH_GATE_FIELDS])];
 export const AgentCredentialServiceKeySchema = z.enum(AGENT_CREDENTIAL_SERVICE_KEYS);
-export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger'];
+export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo'];
 export const AgentCredentialCommercialServiceSchema = z.enum(AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS);
 export const AgentCredentialInternalServiceSchema = z.enum(['x9', 'forge']);
 export const AgentCredentialKindSchema = z.enum(['credential', 'setting', 'identifier']);
@@ -325,9 +325,81 @@ const definitions = {
         },
         "secret": false
     },
+    "GOOGLE_CONTACTS_CLIENT_ID": {
+        "label": "Identificativo del client Google Contacts",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "google"
+        },
+        "secret": false
+    },
+    "GOOGLE_CONTACTS_CLIENT_SECRET": {
+        "label": "Segreto del client Google Contacts",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "google"
+        },
+        "secret": true
+    },
+    "GOOGLE_CONTACTS_REFRESH_TOKEN": {
+        "label": "Token di rinnovo Google Contacts",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "google"
+        },
+        "secret": true
+    },
+    "NETATMO_CLIENT_ID": {
+        "label": "Identificativo del client Netatmo",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "netatmo"
+        },
+        "secret": false
+    },
+    "NETATMO_CLIENT_SECRET": {
+        "label": "Segreto del client Netatmo",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "netatmo"
+        },
+        "secret": true
+    },
+    "NETATMO_REFRESH_TOKEN": {
+        "label": "Token di rinnovo Netatmo",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "netatmo"
+        },
+        "secret": true
+    },
+    "NETATMO_ACCESS_TOKEN": {
+        "label": "Token di accesso Netatmo",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "netatmo"
+        },
+        "secret": true
+    },
+    "NETATMO_PASSWORD": {
+        "label": "Segreto di accesso Netatmo",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "netatmo"
+        },
+        "secret": true
+    },
     "GOOGLE_CALENDAR_CLIENT_ID": {
         "label": "Identificativo del client Google Calendar",
-        "kind": "identifier",
+        "kind": "credential",
         "service": {
             "type": "commercial",
             "id": "google"
