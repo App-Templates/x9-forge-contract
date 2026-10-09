@@ -2,7 +2,24 @@
 
 Codex F. Base e22e7a2d, worktree 156-1, branch codex/c5-modelli-consumatori-bridge. Mandato coordinatrice 20261009-080850, decisioni Stefano: Sì X9 da Forge; No, tutte insieme. Lotto massimo 45 minuti dalla presa in carico, tre tentativi per passo. Nessun consumer X9/Forge modificato qui; il 150-1 è passato a B.
 
-## Esistente (R-35), con Vecchio Forge
+## Esistente (R-35)
+
+**Esiste già?** in parte: il ponte registra agent_chat, impostazioni, stato e comando apply-config già esistenti; mancano le altre funzioni osservate e il trasporto completo al Master privato.
+
+**Dove vive oggi:** src/model-router/model-consumers.ts:78, src/model-router/agent-model-configuration.ts:141, src/agent/agent-management.ts:76. Le righe descrivono le sedi del registro, dello stato canonico e del normale comando; le implementazioni attuali sono state lette prima del lavoro e i riferimenti storici sono nel testo seguente.
+
+**Come funziona oggi:** Forge salva la scelta e invia apply-config con desiredVersion; X9 legge il contesto dell'agente, applica e attesta lo stato. Il Master privato non riceve le modifiche dal contesto Factory; prima del primo Store deve essere letto lo stato caricato reale. Il bridge definisce le forme e i controlli condivisi; i producer fanno le letture e le scritture vere.
+
+**Vecchio Forge:** web/src/pages/agent/Models.tsx:29 e web/src/pages/agent/Models.tsx:155 sul ref origin/main 4f3fc42bf26ef191642f7f8d0cc94153c1302fe0; web/src/pages/GlobalModels.tsx:45 e services/vault/src/routes/vault.ts:521, censiti nel memo D. Scelta/reset/rilettura e origine agente/globale/default erano già presenti, con quattro slot agente e tre globali.
+
+**Comportamento da mantenere:** l'utente vede le scelte realmente usate, le cambia o ripristina e rilegge la scelta effettiva; provenienza e ambito restano espliciti, nessun modello inventato, stato desiderato e applicato distinti, agenti e clienti isolati. Le funzioni del vecchio Forge restano rappresentate, ora nel censimento completo.
+
+**Cosa si riusa:** descriptor, settings, identità, scope, versioni, provenance, endpoint state e comando apply-config canonici; il contesto privato rimane nel producer X9.
+
+**Si riscrive?** no: si riusa lo stack esistente con campi additivi e uno schema canonico condiviso; l'isolamento dei moduli risolve i cicli senza riscrivere DTO nei consumer.
+
+**Cambia come funziona lo stack?** sì, approvato da Stefano: «Sì, X9 da Forge (Consigliato)» e «No, tutte insieme», decisioni09/10 riportate dalla coordinatrice080850. Il Master privato riceve il comando completo e conserva il suo contesto X9; questa è la variazione autorizzata.
+
 
 Registro src/model-router/model-consumers.ts espone solo agent_chat e requisiti tools/stream/structuredOutput. Stato GET /internal/agents/:agentId/models/state mantiene saved/runtime/versioni distinti. Descriptor, settings tiered, identità, provenienza, writer e batch/rebuild esistono. Riutilizzarli, nessun endpoint/header alternativo.
 

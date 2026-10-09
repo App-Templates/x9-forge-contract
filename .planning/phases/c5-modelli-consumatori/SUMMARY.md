@@ -35,3 +35,7 @@ Tipi/lint/build/pack-check/CJS nativo/CJS consumer/export pubblici/archive:8/8ex
 ## Perimetro, prove e residui
 
 Solo perimetro autorizzato,0cancellazioni.12derivati fuori modello autorizzati091018 e prodotti dalla build,4web-catalog autorizzati084204; sorgenti Backup/Memory/Vault/Elevencatalog invariati. package/lock/config invariati. Nessun segreto letto o modificato. DELTA-FINAL-PROOF.json/DELTA-MUTATIONS.json/OBS-MUTATIONS.json/DELTA-COMPILED-FAULT.json contengono witness/denominatori/hash; script di mutazione e manifest con lograw completi negli output della chat. Prove del primo lotto conservate separate in prove-base.zip, prove.zip include anche il delta. PLAN e SUMMARY riletti; gate fruibilità compilato con le etichette richieste, nessun bypass. Revisione delta adA e integrazione alla coordinatrice.
+
+## Rettifica formale 09:20
+
+Prodotto congelato f364f3b175e082cd755125614a18680830daf5b2, codice/dist invariati. Il gate di consegna ha rifiutato il titolo PLAN «Esistente (R-35), con Vecchio Forge»: richiedeva l'intestazione esatta e le etichette in grassetto. Riformattati i contenuti già presenti nel PLAN iniziale, conservati riferimenti e decisioni approvate; verifiche R34/R35 ora0mancanze. Questo è un commit soltanto documentale, nessun controllo del prodotto ripetuto o aggirato.
