@@ -33,3 +33,5 @@ Independent review of exact admission design; resolve any findings, then canonic
 ## Fruibilità alla consegna (R-34)
 
 Implemented and locally tested source contracts only. No owner can yet apply a verified Paperclip native run through X9 on this checkpoint. Desired save, actual installation/readback and native execution remain distinct; live readiness is unverified.
+
+Source-manifest reproducibility check:24/24byte-count/digests on frozen sources; private copy corrupted digest gives1/1AssertionError; exact committed manifest restored24/24. proofssource-manifest-qualification.json;0producttests/0nativecalls. Active state counts55complete+60incomplete (1/2), avoiding a stale100percent from phase55.

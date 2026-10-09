@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
 status: executing
-stopped_at: v1.0 milestone closed via `/gsd-complete-milestone` (Path B).
-last_updated: "2026-10-09T15:16:35.274Z"
+stopped_at: Phase60 checkpoint815d820; awaiting independent source/design review, consumer implementations pending.
+last_updated: "2026-10-09T16:44:26.038991+00:00"
 progress:
-  total_phases: 1
+  total_phases: 2
   completed_phases: 1
-  total_plans: 1
+  total_plans: 2
   completed_plans: 1
-  percent: 100
+  percent: 50
 ---
 
 # Project State
@@ -153,3 +153,7 @@ Next action: `/clear` then `/gsd-new-milestone` (when ready to plan v1.1).
 - Baseline tag agent-x9: `pre-bridge-migration-2026-04-14` (origin)
 - Baseline tag forge-v2: `pre-bridge-migration-2026-04-14` (origin)
 - VPS Hostinger snapshot: 2026-04-14 by Stefano via hPanel
+
+## Paperclip active progress scope
+
+Progress metadata above counts phase55 (merged) and60 (incomplete) only; it is not a recount of historical milestones. Checkpoint815d820 has119/119targeted tests and48/48final causal faults; source/design review requested from C184315. No release/build/consumer/live completion claimed.

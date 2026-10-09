@@ -1,0 +1,12 @@
+{
+  "sourceRecords": 24,
+  "verified": 24,
+  "faults": 1,
+  "semanticRed": {
+    "kind": "AssertionError",
+    "message": "source digest mismatch: a-paperclip/src/provision.mjs"
+  },
+  "restored": 24,
+  "productTests": 0,
+  "nativeCalls": 0
+}
