@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.44.0",
+  "version": "1.45.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -28,7 +28,8 @@
       "./rag": "./src/rag/index.ts",
       "./vault": "./src/vault/index.ts",
       "./capability/parameters": "./src/capability/parameters.ts",
-      "./capability/presentation": "./src/capability/presentation.ts"
+      "./capability/presentation": "./src/capability/presentation.ts",
+      "./capability/paperclip": "./src/capability/paperclip/index.ts"
     }
   },
   "exports": {
@@ -121,6 +122,11 @@
       "types": "./dist/capability/presentation.d.cts",
       "import": "./dist/capability/presentation.js",
       "require": "./dist/capability/presentation.cjs"
+    },
+    "./capability/paperclip": {
+      "types": "./dist/capability/paperclip/index.d.cts",
+      "import": "./dist/capability/paperclip/index.js",
+      "require": "./dist/capability/paperclip/index.cjs"
     }
   },
   "files": [
