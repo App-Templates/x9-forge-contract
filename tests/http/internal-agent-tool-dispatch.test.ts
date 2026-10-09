@@ -101,3 +101,7 @@ it('admits native Briefing Calendar dependencies without inventing recipient cre
  expect(entry.identifierKeys).not.toContain('TELEGRAM_CHAT_ID');
  expect(entry.modelVisible).toBe(false);
 });
+
+it('preserves the selected TTS provider for native scheduled Briefing', () => {
+ expect(api.INTERNAL_AGENT_EXECUTIONS.scheduler_briefing_generate.settingKeys).toContain('TTS_PROVIDER');
+});
