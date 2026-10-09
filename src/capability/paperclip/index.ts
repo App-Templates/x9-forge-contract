@@ -117,3 +117,5 @@ export type PaperclipCommunicationRecord = z.infer<typeof PaperclipCommunication
 export type PaperclipReplyRecord = z.infer<typeof PaperclipReplyRecordSchema>;
 export type PaperclipManualConfirmation = z.infer<typeof PaperclipManualConfirmationSchema>;
 export type PaperclipDecisionView = z.infer<typeof PaperclipDecisionViewSchema>;
+
+export * from './agent-config.js';

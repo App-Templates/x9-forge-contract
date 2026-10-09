@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PaperclipCapabilityInstallationSchema } from '../capability/paperclip/agent-config.js';
 import { AgentIdSchema, OwnerIdSchema } from './agent-identity.js';
 import { AgentCredentialsSchema } from './agent-credentials.js';
 
@@ -29,6 +30,8 @@ export const AgentContextCoreSchema = z
     agentId: AgentIdSchema,
     ownerId: OwnerIdSchema,
     credentials: AgentCredentialsSchema,
+    /** Trusted desired installation metadata; no native run or credentials are persisted here. */
+    capabilityInstallations: z.array(PaperclipCapabilityInstallationSchema).max(1).optional(),
     llmConfig: LlmConfigSchema,
     telegramAllowFrom: z.array(z.string()),
     /**

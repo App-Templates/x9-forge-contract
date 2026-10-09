@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PaperclipAgentConfigSchema, PaperclipAgentInstallRequestSchema, PaperclipAgentReadbackSchema } from '../../capability/paperclip/agent-config.js';
 import { AgentConfigVersionSchema, CapabilityAgentIdSchema, ResearchAgentConfigSchema } from '../../capability/ricerca/agent-config.js';
 import { AGENT_SPEND_MAX_DAYS, AgentDaySchema, AgentSpendDaySchema } from '../../capability/ricerca/spend.js';
 import { LabAgentConfigSchema } from '../../capability/lab/agent-config.js';
@@ -21,7 +22,7 @@ import { CompetenceGapSchema, CompetenceNodeViewSchema } from '../../capability/
 
 export const CapabilityAgentParamsSchema = z.object({ agentId: CapabilityAgentIdSchema });
 
-function agentPath(agentId: string, tail: 'config' | 'spend' | 'growth'): string {
+function agentPath(agentId: string, tail: 'config' | 'spend' | 'growth' | 'install' | 'readback'): string {
   return `/internal/capability/agents/${CapabilityAgentParamsSchema.parse({ agentId }).agentId}/${tail}`;
 }
 /** Build the concrete paths for an agent id (validated). */
@@ -125,3 +126,40 @@ export type AgentConfigStale = z.infer<typeof AgentConfigStaleSchema>;
 export type AgentSpendQuery = z.infer<typeof AgentSpendQuerySchema>;
 export type AgentSpendResponse = z.infer<typeof AgentSpendResponseSchema>;
 export type AgentGrowthResponse = z.infer<typeof AgentGrowthResponseSchema>;
+
+/** Paperclip desired settings reuse the generic versioned config path and saved/stale responses. */
+export const paperclipAgentConfigPutContract = {
+  method: 'PUT' as const,
+  path: '/internal/capability/agents/:agentId/config' as const,
+  authType: 'secret' as const,
+  paramsSchema: CapabilityAgentParamsSchema,
+  bodySchema: PaperclipAgentConfigSchema,
+  responseSchema: AgentConfigSavedSchema,
+} as const;
+export const paperclipAgentConfigGetContract = {
+  method: 'GET' as const,
+  path: '/internal/capability/agents/:agentId/config' as const,
+  authType: 'secret' as const,
+  paramsSchema: CapabilityAgentParamsSchema,
+  responseSchema: PaperclipAgentConfigSchema,
+} as const;
+
+export const paperclipAgentInstallPath = (agentId: string) => agentPath(agentId, 'install');
+export const paperclipAgentReadbackPath = (agentId: string) => agentPath(agentId, 'readback');
+
+/** Internal install derives native identity from trusted inventory; a config PUT never installs. */
+export const paperclipAgentInstallContract = {
+  method: 'POST' as const,
+  path: '/internal/capability/agents/:agentId/install' as const,
+  authType: 'secret' as const,
+  paramsSchema: CapabilityAgentParamsSchema,
+  bodySchema: PaperclipAgentInstallRequestSchema,
+  responseSchema: PaperclipAgentReadbackSchema,
+} as const;
+export const paperclipAgentReadbackContract = {
+  method: 'GET' as const,
+  path: '/internal/capability/agents/:agentId/readback' as const,
+  authType: 'secret' as const,
+  paramsSchema: CapabilityAgentParamsSchema,
+  responseSchema: PaperclipAgentReadbackSchema,
+} as const;

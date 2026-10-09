@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-10-09T16:17:13.353081+00:00",
+  "observedAt": "2026-10-09T16:40:53.260838+00:00",
   "sourceDesignVerified": false,
   "implementationQualified": false,
   "entries": [
@@ -115,6 +115,62 @@
       "path": "src/capability/paperclip/tools.ts",
       "sha256": "d825c988aaada745d7cca4257330dd6d7bbef304c8502337b09eb7c20bdf23f3",
       "bytes": 2321
+    },
+    {
+      "package": "@paperclipai/server",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+server@2026.1005.0_@modelcontextprotocol+sdk@1.32.1_zod@4.6.5__@noble+hashes@2.4_jgpahb5xncuqn4flcxevbnyliu/node_modules/@paperclipai/server/dist/adapters/process/execute.js",
+      "sha256": "c4b1170b02b7272cba475e90d95aa727246485c1853b2e4ad0274b7553bd7cb4",
+      "bytes": 3248
+    },
+    {
+      "package": "@paperclipai/server",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+server@2026.1005.0_@modelcontextprotocol+sdk@1.32.1_zod@4.6.5__@noble+hashes@2.4_jgpahb5xncuqn4flcxevbnyliu/node_modules/@paperclipai/server/dist/services/execution-workspace-policy.js",
+      "sha256": "db03bed79c01902b0a93f8aca89729d4155b0cb28131d17ade4c78a181d724ff",
+      "bytes": 17238
+    },
+    {
+      "package": "@paperclipai/shared",
+      "version": "2026.1005.0",
+      "path": "/Users/admintemp/Downloads/Claude/filiera-codex-161-1/a-paperclip/node_modules/.pnpm/@paperclipai+shared@2026.1005.0/node_modules/@paperclipai/shared/dist/validators/secret.js",
+      "sha256": "df93dc0115af3a3c0ce83bdb9f8473d52fce47d452f98f83e235a448fd568552",
+      "bytes": 15366
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/agent-x9-codex-173-1",
+      "commit": "c56bdc01a3239de2a4269f82bea0b88b9a1b4580",
+      "path": "services/agent-core/src/index.ts",
+      "sha256": "1476bfda8dc7ce8307238783cae3008e0f4ebee8d224786c5920159adfbabada",
+      "bytes": 68551
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/agent-x9-codex-173-1",
+      "commit": "c56bdc01a3239de2a4269f82bea0b88b9a1b4580",
+      "path": "services/agent-core/src/routes/internal-agent-turn.ts",
+      "sha256": "ae9e996c69d2a5df4b06c787480e8be3d4748216aa8fe2b7a5dfa7d788bbcbb1",
+      "bytes": 13591
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/agent-x9-codex-173-1",
+      "commit": "c56bdc01a3239de2a4269f82bea0b88b9a1b4580",
+      "path": "services/agent-core/src/core/agent-manager.ts",
+      "sha256": "67f2e20a7376d943f789ee9c65a38eb86ba62686abd74730a48e76dcb9fa32df",
+      "bytes": 13551
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/agent-x9-codex-173-1",
+      "commit": "c56bdc01a3239de2a4269f82bea0b88b9a1b4580",
+      "path": "services/agent-core/src/core/primary-identity.ts",
+      "sha256": "0fe289a4913010e5a969f1c76cfb76cbd99b117409d0f15efd72b92f22e29be1",
+      "bytes": 1309
+    },
+    {
+      "repository": "/Users/admintemp/Downloads/Claude/agent-x9-codex-173-1",
+      "commit": "c56bdc01a3239de2a4269f82bea0b88b9a1b4580",
+      "path": "services/agent-core/src/core/agent-management.ts",
+      "sha256": "c4b48fcbc537f7fd9ed1ff9209fa1796a2ab59fca58b9a9e4305a5f2c53ed1f8",
+      "bytes": 16114
     }
   ]
 }
