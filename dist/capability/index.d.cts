@@ -32,4 +32,5 @@ export * from "./agent-elevenlabs/web-channel.cjs";
 export * from "./agent-elevenlabs/web-session.cjs";
 export * from "./agent-elevenlabs/web-catalog.cjs";
 export * from "./agent-elevenlabs/web-context.cjs";
+export * from "./paperclip/index.cjs";
 //# sourceMappingURL=index.d.ts.map
