@@ -7,6 +7,15 @@ import { AgentWorkspaceAttestationSchema } from "../agent/agent-workspace-attest
 import { AgentManagementRequestIdSchema } from "../agent/agent-model-management-values.js";
 export const CapabilityOrdinaryBundleReferenceSchema = AgentWorkspaceAttestationSchema.pick({ appliedVersion: true, sha256: true });
 export const CapabilityOrdinaryMembershipSchema = z.enum(['enabled', 'disabled', 'removed']);
+/** Operational admission is separate from loaded configuration and membership. */
+export const CapabilityOrdinaryExecutionSchema = z.enum(['running', 'stopped']);
+export const CapabilityOrdinaryOperationSchema = z.discriminatedUnion('action', [
+    z.object({ action: z.literal('apply-config'), execution: CapabilityOrdinaryExecutionSchema }).strict(),
+    z.object({ action: z.literal('reload'), execution: CapabilityOrdinaryExecutionSchema }).strict(),
+    z.object({ action: z.literal('start'), execution: z.literal('running') }).strict(),
+    z.object({ action: z.literal('stop'), execution: z.literal('stopped') }).strict(),
+    z.object({ action: z.literal('restart'), execution: z.literal('running') }).strict(),
+]);
 export const CapabilityOrdinaryLifecycleRequestSchema = z.object({
     format: z.literal('ordinary-lifecycle-v1'),
     requestId: AgentManagementRequestIdSchema,
@@ -16,6 +25,7 @@ export const CapabilityOrdinaryLifecycleRequestSchema = z.object({
     phase: z.enum(['prepare', 'suspend', 'activate', 'rollback']),
     transition: z.object({ from: CapabilityOrdinaryBundleReferenceSchema.nullable(), to: CapabilityOrdinaryBundleReferenceSchema }).strict(),
     targetMembership: CapabilityOrdinaryMembershipSchema,
+    operation: CapabilityOrdinaryOperationSchema.optional(),
     configuration: CapabilityOrdinaryConfigurationSchema.optional(),
 }).strict().superRefine((request, ctx) => {
     if (request.scope.agentId !== request.identity.runtimeAgentId)
@@ -34,6 +44,7 @@ export const CapabilityOrdinaryLifecycleReceiptSchema = z.object({
     replayed: z.boolean(),
     ordinaryState: CapabilityOrdinaryConfigStateSchema,
     membershipEffective: z.enum(['enabled', 'disabled', 'removed', 'unknown']),
+    executionEffective: z.enum(['running', 'stopped', 'unknown']).optional(),
     observedAt: z.iso.datetime({ offset: true }).nullable(),
 }).strict().superRefine((receipt, ctx) => {
     if (!sameCapabilityScope(receipt.request.scope, receipt.ordinaryState.scope) || receipt.request.capability !== receipt.ordinaryState.capability)
@@ -50,6 +61,17 @@ export const CapabilityOrdinaryLifecycleReceiptSchema = z.object({
     }
     if (receipt.request.phase === 'activate' && receipt.outcome === 'ok' && receipt.status === 'complete' && (receipt.membershipEffective !== receipt.request.targetMembership || receipt.observedAt === null))
         ctx.addIssue({ code: 'custom', message: 'Activation needs confirmed target membership' });
+    if (receipt.request.operation) {
+        const expected = receipt.request.targetMembership === 'enabled' ? receipt.request.operation.execution : 'stopped';
+        if (receipt.request.phase === 'prepare' || receipt.request.phase === 'suspend') {
+            if (receipt.executionEffective !== 'unknown')
+                ctx.addIssue({ code: 'custom', message: 'Preparation cannot attest execution' });
+        }
+        else if (receipt.status === 'complete' && receipt.outcome === 'ok' && receipt.request.phase === 'activate'
+            && (receipt.executionEffective !== expected || receipt.observedAt === null)) {
+            ctx.addIssue({ code: 'custom', message: 'Activation needs actual target execution evidence' });
+        }
+    }
     if (receipt.membershipEffective === 'disabled' || receipt.membershipEffective === 'removed') {
         if (receipt.ordinaryState.runtimeState !== 'unloaded' || receipt.ordinaryState.applied !== null || receipt.ordinaryState.effectiveParameters.length !== 0)
             ctx.addIssue({ code: 'custom', message: 'Inactive consumer cannot attest loaded parameters' });
@@ -63,6 +85,7 @@ export const CapabilityOrdinaryLifecycleTransactionSchema = z.object({
     receipts: z.array(CapabilityOrdinaryLifecycleReceiptSchema).max(4),
     previousState: CapabilityOrdinaryConfigStateSchema,
     previousMembership: z.enum(['enabled', 'disabled', 'removed', 'unknown']),
+    previousExecution: z.enum(['running', 'stopped', 'unknown']).optional(),
 }).strict();
 /** Validation is pure. The producer owns durable slot/receipt/fence storage and consumer reconciliation. */
 export function parseCapabilityOrdinaryLifecycle(request, authority) {
@@ -74,8 +97,17 @@ export function parseCapabilityOrdinaryLifecycle(request, authority) {
         throw new Error('Lifecycle authority scope or identity mismatch');
     if (!sameOrdinaryData(parsed.transition.to, authority.bundle) || parsed.targetMembership !== authority.membership || !sameOrdinaryData(parsed.configuration ?? null, authority.configuration))
         throw new Error('Lifecycle candidate mismatch');
-    if (parsed.transition.from && parsed.transition.to.appliedVersion <= parsed.transition.from.appliedVersion)
+    const operation = authority.operation === undefined ? undefined : CapabilityOrdinaryOperationSchema.parse(authority.operation);
+    if (!sameOrdinaryData(parsed.operation ?? null, operation ?? null))
+        throw new Error('Lifecycle operational authority mismatch');
+    if (operation && ['start', 'stop', 'restart'].includes(operation.action)) {
+        if (!sameOrdinaryData(parsed.transition.from, parsed.transition.to))
+            throw new Error('Runtime command cannot change the loaded bundle');
+    }
+    else if (!(operation?.action === 'reload' && sameOrdinaryData(parsed.transition.from, parsed.transition.to))
+        && parsed.transition.from && parsed.transition.to.appliedVersion <= parsed.transition.from.appliedVersion) {
         throw new Error('Lifecycle candidate must advance bundle');
+    }
     const transaction = authority.transaction ? CapabilityOrdinaryLifecycleTransactionSchema.parse(authority.transaction) : null;
     if (transaction) {
         const { phase: _phase, ...retained } = transaction.request;
@@ -133,6 +165,8 @@ export function parseCapabilityOrdinaryLifecycleReceipt(receipt, request, transa
             throw new Error('Candidate next_apply not confirmed by consumer');
     }
     if (request.phase === 'rollback') {
+        if (request.operation && (parsed.executionEffective !== (transaction.previousExecution ?? 'unknown') || parsed.observedAt === null))
+            throw new Error('Rollback execution not confirmed');
         if (parsed.membershipEffective !== transaction.previousMembership || parsed.observedAt === null)
             throw new Error('Rollback membership not confirmed');
         if (request.transition.from === null && (parsed.ordinaryState.runtimeState !== 'unloaded' || parsed.ordinaryState.applied !== null || parsed.ordinaryState.effectiveParameters.length > 0))

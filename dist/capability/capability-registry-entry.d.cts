@@ -50,6 +50,10 @@ export declare const CapabilityRegistryEntrySchema: z.ZodObject<{
         }>;
     }, z.core.$strip>>;
     requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        key: z.ZodLazy<z.ZodString>;
+        required: z.ZodBoolean;
+    }, z.core.$strict>>>;
     context: z.ZodOptional<z.ZodObject<{
         maxChars: z.ZodNumber;
     }, z.core.$strip>>;

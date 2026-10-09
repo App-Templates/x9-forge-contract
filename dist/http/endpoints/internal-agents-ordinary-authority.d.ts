@@ -559,6 +559,28 @@ export declare const agentOrdinaryAuthorityContract: {
                 }, z.core.$strict>>]>>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
+        operation: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            action: z.ZodLiteral<"apply-config">;
+            execution: z.ZodEnum<{
+                stopped: "stopped";
+                running: "running";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"reload">;
+            execution: z.ZodEnum<{
+                stopped: "stopped";
+                running: "running";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"start">;
+            execution: z.ZodLiteral<"running">;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"stop">;
+            execution: z.ZodLiteral<"stopped">;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"restart">;
+            execution: z.ZodLiteral<"running">;
+        }, z.core.$strict>], "action">>;
     }, z.core.$strict>;
     readonly method: "GET";
     readonly path: "/internal/agents/:agentId/management";

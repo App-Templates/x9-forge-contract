@@ -12,6 +12,34 @@ export declare const CapabilityOrdinaryMembershipSchema: z.ZodEnum<{
     disabled: "disabled";
     removed: "removed";
 }>;
+/** Operational admission is separate from loaded configuration and membership. */
+export declare const CapabilityOrdinaryExecutionSchema: z.ZodEnum<{
+    stopped: "stopped";
+    running: "running";
+}>;
+export declare const CapabilityOrdinaryOperationSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    action: z.ZodLiteral<"apply-config">;
+    execution: z.ZodEnum<{
+        stopped: "stopped";
+        running: "running";
+    }>;
+}, z.core.$strict>, z.ZodObject<{
+    action: z.ZodLiteral<"reload">;
+    execution: z.ZodEnum<{
+        stopped: "stopped";
+        running: "running";
+    }>;
+}, z.core.$strict>, z.ZodObject<{
+    action: z.ZodLiteral<"start">;
+    execution: z.ZodLiteral<"running">;
+}, z.core.$strict>, z.ZodObject<{
+    action: z.ZodLiteral<"stop">;
+    execution: z.ZodLiteral<"stopped">;
+}, z.core.$strict>, z.ZodObject<{
+    action: z.ZodLiteral<"restart">;
+    execution: z.ZodLiteral<"running">;
+}, z.core.$strict>], "action">;
+export type CapabilityOrdinaryOperation = z.infer<typeof CapabilityOrdinaryOperationSchema>;
 export declare const CapabilityOrdinaryLifecycleRequestSchema: z.ZodObject<{
     format: z.ZodLiteral<"ordinary-lifecycle-v1">;
     requestId: z.ZodString;
@@ -47,6 +75,28 @@ export declare const CapabilityOrdinaryLifecycleRequestSchema: z.ZodObject<{
         disabled: "disabled";
         removed: "removed";
     }>;
+    operation: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        action: z.ZodLiteral<"apply-config">;
+        execution: z.ZodEnum<{
+            stopped: "stopped";
+            running: "running";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"reload">;
+        execution: z.ZodEnum<{
+            stopped: "stopped";
+            running: "running";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"start">;
+        execution: z.ZodLiteral<"running">;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"stop">;
+        execution: z.ZodLiteral<"stopped">;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"restart">;
+        execution: z.ZodLiteral<"running">;
+    }, z.core.$strict>], "action">>;
     configuration: z.ZodOptional<z.ZodObject<{
         format: z.ZodLiteral<"ordinary-v2">;
         scope: z.ZodObject<{
@@ -611,6 +661,28 @@ export declare const CapabilityOrdinaryLifecycleReceiptSchema: z.ZodObject<{
             disabled: "disabled";
             removed: "removed";
         }>;
+        operation: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            action: z.ZodLiteral<"apply-config">;
+            execution: z.ZodEnum<{
+                stopped: "stopped";
+                running: "running";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"reload">;
+            execution: z.ZodEnum<{
+                stopped: "stopped";
+                running: "running";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"start">;
+            execution: z.ZodLiteral<"running">;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"stop">;
+            execution: z.ZodLiteral<"stopped">;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"restart">;
+            execution: z.ZodLiteral<"running">;
+        }, z.core.$strict>], "action">>;
         configuration: z.ZodOptional<z.ZodObject<{
             format: z.ZodLiteral<"ordinary-v2">;
             scope: z.ZodObject<{
@@ -2408,6 +2480,11 @@ export declare const CapabilityOrdinaryLifecycleReceiptSchema: z.ZodObject<{
         disabled: "disabled";
         removed: "removed";
     }>;
+    executionEffective: z.ZodOptional<z.ZodEnum<{
+        unknown: "unknown";
+        stopped: "stopped";
+        running: "running";
+    }>>;
     observedAt: z.ZodNullable<z.ZodISODateTime>;
 }, z.core.$strict>;
 export type CapabilityOrdinaryLifecycleReceipt = z.infer<typeof CapabilityOrdinaryLifecycleReceiptSchema>;
@@ -2447,6 +2524,28 @@ export declare const CapabilityOrdinaryLifecycleTransactionSchema: z.ZodObject<{
             disabled: "disabled";
             removed: "removed";
         }>;
+        operation: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            action: z.ZodLiteral<"apply-config">;
+            execution: z.ZodEnum<{
+                stopped: "stopped";
+                running: "running";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"reload">;
+            execution: z.ZodEnum<{
+                stopped: "stopped";
+                running: "running";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"start">;
+            execution: z.ZodLiteral<"running">;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"stop">;
+            execution: z.ZodLiteral<"stopped">;
+        }, z.core.$strict>, z.ZodObject<{
+            action: z.ZodLiteral<"restart">;
+            execution: z.ZodLiteral<"running">;
+        }, z.core.$strict>], "action">>;
         configuration: z.ZodOptional<z.ZodObject<{
             format: z.ZodLiteral<"ordinary-v2">;
             scope: z.ZodObject<{
@@ -3020,6 +3119,28 @@ export declare const CapabilityOrdinaryLifecycleTransactionSchema: z.ZodObject<{
                 disabled: "disabled";
                 removed: "removed";
             }>;
+            operation: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                action: z.ZodLiteral<"apply-config">;
+                execution: z.ZodEnum<{
+                    stopped: "stopped";
+                    running: "running";
+                }>;
+            }, z.core.$strict>, z.ZodObject<{
+                action: z.ZodLiteral<"reload">;
+                execution: z.ZodEnum<{
+                    stopped: "stopped";
+                    running: "running";
+                }>;
+            }, z.core.$strict>, z.ZodObject<{
+                action: z.ZodLiteral<"start">;
+                execution: z.ZodLiteral<"running">;
+            }, z.core.$strict>, z.ZodObject<{
+                action: z.ZodLiteral<"stop">;
+                execution: z.ZodLiteral<"stopped">;
+            }, z.core.$strict>, z.ZodObject<{
+                action: z.ZodLiteral<"restart">;
+                execution: z.ZodLiteral<"running">;
+            }, z.core.$strict>], "action">>;
             configuration: z.ZodOptional<z.ZodObject<{
                 format: z.ZodLiteral<"ordinary-v2">;
                 scope: z.ZodObject<{
@@ -4817,6 +4938,11 @@ export declare const CapabilityOrdinaryLifecycleTransactionSchema: z.ZodObject<{
             disabled: "disabled";
             removed: "removed";
         }>;
+        executionEffective: z.ZodOptional<z.ZodEnum<{
+            unknown: "unknown";
+            stopped: "stopped";
+            running: "running";
+        }>>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
     }, z.core.$strict>>;
     previousState: z.ZodObject<{
@@ -6077,6 +6203,11 @@ export declare const CapabilityOrdinaryLifecycleTransactionSchema: z.ZodObject<{
         disabled: "disabled";
         removed: "removed";
     }>;
+    previousExecution: z.ZodOptional<z.ZodEnum<{
+        unknown: "unknown";
+        stopped: "stopped";
+        running: "running";
+    }>>;
 }, z.core.$strict>;
 export type CapabilityOrdinaryLifecycleTransaction = z.infer<typeof CapabilityOrdinaryLifecycleTransactionSchema>;
 /** Obtained from authenticated CoreApply lookup of the verified candidate, never from the request body. */
@@ -6090,6 +6221,7 @@ export type CapabilityOrdinaryLifecycleAuthority = {
     membership: z.infer<typeof CapabilityOrdinaryMembershipSchema>;
     configuration: CapabilityOrdinaryConfiguration | null;
     transaction: CapabilityOrdinaryLifecycleTransaction | null;
+    operation?: CapabilityOrdinaryOperation | undefined;
 };
 /** Validation is pure. The producer owns durable slot/receipt/fence storage and consumer reconciliation. */
 export declare function parseCapabilityOrdinaryLifecycle(request: unknown, authority: CapabilityOrdinaryLifecycleAuthority): {

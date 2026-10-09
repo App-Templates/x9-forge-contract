@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityManifestSchema = void 0;
 const zod_1 = require("zod");
+const capability_credential_requirements_js_1 = require("./capability-credential-requirements.cjs");
 const parameters_js_1 = require("./parameters.cjs");
 const ordinary_declaration_js_1 = require("./ordinary-declaration.cjs");
 const presentation_js_1 = require("./presentation.cjs");
@@ -35,6 +36,8 @@ exports.CapabilityManifestSchema = zod_1.z.object({
      * @since v1.5.0 (Bug D1 — quick-260422-wrz)
      */
     requires: zod_1.z.array(zod_1.z.string().min(1)).optional(),
+    /** Explicit per-call fields from loaded agent context; absence authorizes no new credential projection. */
+    credentialRequirements: capability_credential_requirements_js_1.CapabilityCredentialRequirementsSchema.optional(),
     /**
      * The capability serves `POST /context`: what it knows about an agent, put in front of the model by the runtime
      * at every turn (see capability-context.ts). Absent: no context (every manifest before v1.24.0).

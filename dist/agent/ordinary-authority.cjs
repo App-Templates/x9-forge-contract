@@ -9,6 +9,7 @@ const parameters_js_1 = require("../capability/parameters.cjs");
 const ordinary_configuration_js_1 = require("../capability/ordinary-configuration.cjs");
 const ordinary_lifecycle_js_1 = require("../capability/ordinary-lifecycle.cjs");
 const agent_runtime_identity_js_1 = require("./agent-runtime-identity.cjs");
+const agent_management_js_1 = require("./agent-management.cjs");
 const agent_model_management_values_js_1 = require("./agent-model-management-values.cjs");
 const agent_workspace_js_1 = require("./agent-workspace.cjs");
 const agent_workspace_digest_js_1 = require("./agent-workspace-digest.cjs");
@@ -27,6 +28,7 @@ exports.AgentOrdinaryAuthoritySchema = zod_1.z.object({
     scope, identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.strict(), capability: name, requestId: agent_model_management_values_js_1.AgentManagementRequestIdSchema,
     bundle: reference, membership: zod_1.z.enum(['enabled', 'disabled', 'removed']),
     configuration: ordinary_configuration_js_1.CapabilityOrdinaryConfigurationSchema.nullable(),
+    operation: ordinary_lifecycle_js_1.CapabilityOrdinaryOperationSchema.optional(),
 }).strict().superRefine((authority, ctx) => {
     if (authority.scope.agentId !== authority.identity.runtimeAgentId)
         ctx.addIssue({ code: 'custom', path: ['identity'], message: 'Runtime identity must match authority scope' });
@@ -46,12 +48,23 @@ async function projectAgentOrdinaryAuthority(input) {
         || input.retainedRequestId !== query.requestId || bundle.appliedVersion !== query.bundleVersion
         || bundle.sha256 !== query.bundleSha256)
         throw new Error('Lookup does not match the retained verified bundle');
+    let operation;
+    if (input.command !== undefined || input.execution !== undefined) {
+        const command = agent_management_js_1.AgentManagementCommandSchema.parse(input.command);
+        const commandBundle = input.commandBundle === undefined ? bundle : ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.parse(input.commandBundle);
+        operation = ordinary_lifecycle_js_1.CapabilityOrdinaryOperationSchema.parse({ action: command.action, execution: input.execution });
+        if (command.requestId !== query.requestId || ('targets' in command && command.targets
+            && !command.targets.some(target => target.kind === 'runtime' && target.targetId === identity.runtimeAgentId))
+            || (command.action === 'apply-config' && command.desiredVersion !== commandBundle.appliedVersion)) {
+            throw new Error('Retained management command does not authorize this operation');
+        }
+    }
     const entry = descriptor.registry.capabilities.find(item => item.name === query.capability);
     const configuration = descriptor.ordinaryConfigurations?.find(item => item.capability === query.capability) ?? null;
     return exports.AgentOrdinaryAuthoritySchema.parse({
         scope: { tenantId: query.tenantId, ownerId: query.ownerId, agentId: query.runtimeAgentId },
         identity, capability: query.capability, requestId: query.requestId, bundle,
-        membership: entry ? entry.enabled ? 'enabled' : 'disabled' : 'removed', configuration,
+        membership: entry ? entry.enabled ? 'enabled' : 'disabled' : 'removed', configuration, ...(operation ? { operation } : {}),
     });
 }
 /** Service-side binding of an authenticated reply to the exact lookup and expected Core mapping. */

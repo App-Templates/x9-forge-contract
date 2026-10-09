@@ -196,5 +196,38 @@ class GeneratedContractTests(unittest.TestCase):
             self.contracts.validate_contract('lifecycleReceipt', dict(receipt, membershipEffective='enabled', observedAt='2026-10-09T00:00:00Z'), authority=binding)
 
 
+    def test_operational_commands_keep_bundle_and_bind_authenticated_intent(self):
+        request, authority, transaction, receipt = self.lifecycle()
+        operation = dict(action='stop', execution='stopped')
+        bundle = authority['bundle']
+        request = dict(request, operation=operation, transition={'from': bundle, 'to': bundle})
+        authority = dict(authority, operation=operation, current=bundle)
+        self.assertEqual(self.contracts.validate_lifecycle_request(request, authority=authority)['request'], request)
+        for change in (dict(operation=None), dict(operation=dict(action='start', execution='running'))):
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                self.contracts.validate_lifecycle_request(request, authority=dict(authority, **change))
+        changed = dict(bundle, appliedVersion=8)
+        with self.assertRaises(ValueError):
+            self.contracts.validate_lifecycle_request(dict(request, transition={'from': bundle, 'to': changed}), authority=dict(authority, bundle=changed))
+        with self.assertRaises(ValueError):
+            self.contracts.validate_lifecycle_request(dict(request, operation=dict(action='stop', execution='running')), authority=authority)
+
+    def test_operational_receipt_requires_observed_execution_and_restores_previous(self):
+        request, authority, transaction, receipt = self.lifecycle()
+        request = dict(request, phase='activate', operation=dict(action='apply-config', execution='stopped'), transition={'from': dict(appliedVersion=6, sha256='b' * 64), 'to': authority['bundle']})
+        state = dict(receipt['ordinaryState'], runtimeState='loaded')
+        transaction = dict(transaction, request=dict(request, phase='prepare'), previousState=state, previousMembership='enabled', previousExecution='running')
+        receipt = dict(receipt, request=request, ordinaryState=state, membershipEffective='enabled', executionEffective='stopped', observedAt='2026-10-10T00:00:00Z')
+        context = dict(request=request, transaction=transaction)
+        self.assertEqual(self.contracts.validate_contract('lifecycleReceipt', receipt, authority=context), receipt)
+        for execution in ('running', None):
+            with self.subTest(execution=execution), self.assertRaises(ValueError):
+                self.contracts.validate_contract('lifecycleReceipt', dict(receipt, executionEffective=execution), authority=context)
+        rollback = dict(request, phase='rollback')
+        result = dict(receipt, request=rollback, membershipEffective='enabled', executionEffective='running')
+        self.assertEqual(self.contracts.validate_contract('lifecycleReceipt', result, authority=dict(context, request=rollback)), result)
+        with self.assertRaises(ValueError):
+            self.contracts.validate_contract('lifecycleReceipt', dict(result, executionEffective='stopped'), authority=dict(context, request=rollback))
+
 if __name__ == '__main__':
     unittest.main()

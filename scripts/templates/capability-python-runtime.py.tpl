@@ -213,6 +213,13 @@ def _receipt_semantics(receipt):
     if request['phase'] == 'activate' and receipt['outcome'] == 'ok' and receipt['status'] == 'complete':
         if receipt['membershipEffective'] != request['targetMembership'] or receipt['observedAt'] is None:
             raise ValueError('Activation requires confirmed target membership')
+    if request.get('operation'):
+        expected = request['operation']['execution'] if request['targetMembership'] == 'enabled' else 'stopped'
+        if request['phase'] in policy['preparationPhases']:
+            if receipt.get('executionEffective') != 'unknown':
+                raise ValueError('Preparation cannot attest execution')
+        elif request['phase'] == 'activate' and receipt['status'] == 'complete' and receipt['outcome'] == 'ok' and (receipt.get('executionEffective') != expected or receipt['observedAt'] is None):
+            raise ValueError('Activation requires actual execution evidence')
     if receipt['membershipEffective'] in policy['inactiveMemberships'] and state['runtimeState'] != 'unloaded':
         raise ValueError('Inactive membership cannot attest loaded runtime')
 
@@ -225,7 +232,11 @@ def _lifecycle_request(request, authority, rule):
         if not _equal(_at(request, left), _at(authority, right)):
             raise ValueError('Lifecycle authority binding mismatch')
     transition, transaction = request['transition'], authority['transaction']
-    if transition['from'] is not None and transition['to']['appliedVersion'] <= transition['from']['appliedVersion']:
+    operation = request.get('operation')
+    if operation and operation['action'] in rule['sameBundleActions']:
+        if not _equal(transition['from'], transition['to']):
+            raise ValueError('Runtime command cannot change the loaded bundle')
+    elif not (operation and operation['action'] in rule['reloadActions'] and _equal(transition['from'], transition['to'])) and transition['from'] is not None and transition['to']['appliedVersion'] <= transition['from']['appliedVersion']:
         raise ValueError('Lifecycle candidate must advance')
     if transaction is not None:
         retained = _request_binding(transaction['request'], rule['ignoredBindingFields'])
@@ -274,6 +285,8 @@ def _lifecycle_receipt(receipt, authority):
     if request['phase'] in policy['preparationPhases'] and not _equal(receipt['ordinaryState'], transaction['previousState']):
         raise ValueError('Preparation cannot attest candidate state')
     if request['phase'] == 'rollback':
+        if request.get('operation') and (receipt.get('executionEffective') != transaction.get('previousExecution', 'unknown') or receipt['observedAt'] is None):
+            raise ValueError('Rollback execution not confirmed')
         if receipt['membershipEffective'] != transaction['previousMembership'] or receipt['observedAt'] is None:
             raise ValueError('Rollback membership not confirmed')
         if request['transition']['from'] is None and receipt['ordinaryState']['runtimeState'] != 'unloaded':

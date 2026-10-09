@@ -43,6 +43,28 @@ declare const authorityResponse: z.ZodObject<{
         disabled: "disabled";
         removed: "removed";
     }>;
+    operation: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        action: z.ZodLiteral<"apply-config">;
+        execution: z.ZodEnum<{
+            stopped: "stopped";
+            running: "running";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"reload">;
+        execution: z.ZodEnum<{
+            stopped: "stopped";
+            running: "running";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"start">;
+        execution: z.ZodLiteral<"running">;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"stop">;
+        execution: z.ZodLiteral<"stopped">;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"restart">;
+        execution: z.ZodLiteral<"running">;
+    }, z.core.$strict>], "action">>;
     configuration: z.ZodNull;
 }, z.core.$strict>;
 declare const ragCall: z.ZodObject<{
@@ -93,6 +115,8 @@ export type PortableCapabilityRule = {
     capability: string;
 } | {
     op: 'lifecycle_request';
+    sameBundleActions: string[];
+    reloadActions: string[];
     phaseOrder: Record<string, string[]>;
     runtimeBinding: [string, string];
     authorityBindings: Array<[string, string]>;

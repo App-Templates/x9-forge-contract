@@ -72,10 +72,10 @@ const receiptRule = { op: 'lifecycle_receipt',
     runtimeBinding: ['request.scope.agentId', 'request.identity.runtimeAgentId'],
     preparationPhases: ['prepare', 'suspend'], inactiveMemberships: ['disabled', 'removed'], fenceFields: ['operationId', 'fence'],
 };
-const lifecycleRules = [{ op: 'lifecycle_request', phaseOrder: {
+const lifecycleRules = [{ op: 'lifecycle_request', sameBundleActions: ['start', 'stop', 'restart'], reloadActions: ['reload'], phaseOrder: {
             prepare: [], suspend: ['prepared'], activate: ['suspended'], rollback: ['prepared', 'suspended', 'activated'],
         }, runtimeBinding: ['scope.agentId', 'identity.runtimeAgentId'],
-        authorityBindings: [['scope', 'scope'], ['identity', 'identity'], ['capability', 'capability'], ['requestId', 'requestId'], ['transition.to', 'bundle'], ['targetMembership', 'membership']],
+        authorityBindings: [['scope', 'scope'], ['identity', 'identity'], ['capability', 'capability'], ['requestId', 'requestId'], ['transition.to', 'bundle'], ['targetMembership', 'membership'], ['operation', 'operation']],
         ignoredBindingFields: ['phase'], previousStateBindings: [['previousState.scope', 'scope'], ['previousState.capability', 'capability']],
         receiptFenceFields: ['operationId', 'fence'], ambiguousStates: ['pending', 'ambiguous'],
     }];

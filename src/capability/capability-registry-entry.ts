@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { CapabilityCredentialRequirementsSchema } from './capability-credential-requirements.js';
 import { CapabilityParametersDeclarationSchema } from './parameters.js';
 import { CapabilityOrdinaryDeclarationSchema, checkOrdinaryDeclarationCompatibility } from './ordinary-declaration.js';
 import { CapabilityPresentationDeclarationSchema } from './presentation.js';
@@ -63,6 +64,8 @@ export const CapabilityRegistryEntrySchema = z.object({
    * @since v1.5.0 (Bug D1 — quick-260422-wrz)
    */
   requires: z.array(z.string().min(1)).optional(),
+  /** Explicit per-call fields from loaded agent context; absence authorizes no new credential projection. */
+  credentialRequirements: CapabilityCredentialRequirementsSchema.optional(),
   /**
    * Copied from the manifest's `context` by the registry writer (Forge deploy.machine), like `tools`: the runtime
    * asks this capability for the agent's context at every turn. Absent: never asked.

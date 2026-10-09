@@ -109,3 +109,4 @@ export * from './agent-elevenlabs/web-invitations.js';
 
 // Canonical portable contracts for the Python capability consumer.
 export * from './portable-contracts.js';
+export * from './capability-credential-requirements.js';

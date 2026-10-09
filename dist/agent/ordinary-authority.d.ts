@@ -560,6 +560,28 @@ export declare const AgentOrdinaryAuthoritySchema: z.ZodObject<{
             }, z.core.$strict>>]>>;
         }, z.core.$strict>>;
     }, z.core.$strict>>;
+    operation: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        action: z.ZodLiteral<"apply-config">;
+        execution: z.ZodEnum<{
+            stopped: "stopped";
+            running: "running";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"reload">;
+        execution: z.ZodEnum<{
+            stopped: "stopped";
+            running: "running";
+        }>;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"start">;
+        execution: z.ZodLiteral<"running">;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"stop">;
+        execution: z.ZodLiteral<"stopped">;
+    }, z.core.$strict>, z.ZodObject<{
+        action: z.ZodLiteral<"restart">;
+        execution: z.ZodLiteral<"running">;
+    }, z.core.$strict>], "action">>;
 }, z.core.$strict>;
 export type AgentOrdinaryAuthority = z.infer<typeof AgentOrdinaryAuthoritySchema>;
 /** Core-only projection from a retained, file-verified bundle. Hash validation does not verify files itself. */
@@ -568,6 +590,9 @@ export declare function projectAgentOrdinaryAuthority(input: {
     descriptor: unknown;
     identity: unknown;
     retainedRequestId: string;
+    command?: unknown;
+    execution?: unknown;
+    commandBundle?: unknown;
 }): Promise<AgentOrdinaryAuthority>;
 /** Service-side binding of an authenticated reply to the exact lookup and expected Core mapping. */
 export declare function parseAgentOrdinaryAuthorityResponse(response: unknown, lookup: unknown, expectedIdentity: unknown): AgentOrdinaryAuthority;

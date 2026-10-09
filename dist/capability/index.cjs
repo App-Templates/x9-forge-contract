@@ -85,4 +85,5 @@ __exportStar(require("./agent-elevenlabs/web-browser.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-invitations.cjs"), exports);
 // Canonical portable contracts for the Python capability consumer.
 __exportStar(require("./portable-contracts.cjs"), exports);
+__exportStar(require("./capability-credential-requirements.cjs"), exports);
 //# sourceMappingURL=index.js.map

@@ -35,7 +35,7 @@ export type PortableCapabilityRule =
   | { op: 'normalize_integer'; path: string; schema: Record<string, unknown> }
   | { op: 'authority_lookup'; identitySchema: Record<string, unknown>; bindings: Array<{ path: string; authorityPath: string }> }
   | { op: 'membership_call'; capability: string }
-  | { op: 'lifecycle_request'; phaseOrder: Record<string, string[]>; runtimeBinding: [string, string];
+  | { op: 'lifecycle_request'; sameBundleActions: string[]; reloadActions: string[]; phaseOrder: Record<string, string[]>; runtimeBinding: [string, string];
     authorityBindings: Array<[string, string]>; ignoredBindingFields: string[];
     previousStateBindings: Array<[string, string]>; receiptFenceFields: string[]; ambiguousStates: string[] }
   | { op: 'lifecycle_receipt'; targetBindings: Array<[string, string]>; runtimeBinding: [string, string];
@@ -95,10 +95,10 @@ const receiptRule: PortableCapabilityRule = { op: 'lifecycle_receipt',
   runtimeBinding: ['request.scope.agentId', 'request.identity.runtimeAgentId'],
   preparationPhases: ['prepare', 'suspend'], inactiveMemberships: ['disabled', 'removed'], fenceFields: ['operationId', 'fence'],
 };
-const lifecycleRules: PortableCapabilityRule[] = [{ op: 'lifecycle_request', phaseOrder: {
+const lifecycleRules: PortableCapabilityRule[] = [{ op: 'lifecycle_request', sameBundleActions: ['start', 'stop', 'restart'], reloadActions: ['reload'], phaseOrder: {
   prepare: [], suspend: ['prepared'], activate: ['suspended'], rollback: ['prepared', 'suspended', 'activated'],
 }, runtimeBinding: ['scope.agentId', 'identity.runtimeAgentId'],
-authorityBindings: [['scope', 'scope'], ['identity', 'identity'], ['capability', 'capability'], ['requestId', 'requestId'], ['transition.to', 'bundle'], ['targetMembership', 'membership']],
+authorityBindings: [['scope', 'scope'], ['identity', 'identity'], ['capability', 'capability'], ['requestId', 'requestId'], ['transition.to', 'bundle'], ['targetMembership', 'membership'], ['operation', 'operation']],
 ignoredBindingFields: ['phase'], previousStateBindings: [['previousState.scope', 'scope'], ['previousState.capability', 'capability']],
 receiptFenceFields: ['operationId', 'fence'], ambiguousStates: ['pending', 'ambiguous'],
 }];
