@@ -242,6 +242,10 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
                 }>;
             }, z.core.$strip>>;
             requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodLazy<z.ZodString>;
+                required: z.ZodBoolean;
+            }, z.core.$strict>>>;
             context: z.ZodOptional<z.ZodObject<{
                 maxChars: z.ZodNumber;
             }, z.core.$strip>>;
@@ -578,6 +582,10 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                     }>;
                 }, z.core.$strip>>;
                 requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodLazy<z.ZodString>;
+                    required: z.ZodBoolean;
+                }, z.core.$strict>>>;
                 context: z.ZodOptional<z.ZodObject<{
                     maxChars: z.ZodNumber;
                 }, z.core.$strip>>;
@@ -1229,6 +1237,10 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                     }>;
                 }, z.core.$strip>>;
                 requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodLazy<z.ZodString>;
+                    required: z.ZodBoolean;
+                }, z.core.$strict>>>;
                 context: z.ZodOptional<z.ZodObject<{
                     maxChars: z.ZodNumber;
                 }, z.core.$strip>>;
@@ -1868,6 +1880,10 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                     }>;
                 }, z.core.$strip>>;
                 requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodLazy<z.ZodString>;
+                    required: z.ZodBoolean;
+                }, z.core.$strict>>>;
                 context: z.ZodOptional<z.ZodObject<{
                     maxChars: z.ZodNumber;
                 }, z.core.$strip>>;

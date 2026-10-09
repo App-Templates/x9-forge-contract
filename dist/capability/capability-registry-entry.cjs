@@ -4,6 +4,7 @@ exports.CapabilityRegistryEntrySchema = void 0;
 exports.toEndpoint = toEndpoint;
 exports.fromEndpoint = fromEndpoint;
 const zod_1 = require("zod");
+const capability_credential_requirements_js_1 = require("./capability-credential-requirements.cjs");
 const parameters_js_1 = require("./parameters.cjs");
 const presentation_js_1 = require("./presentation.cjs");
 const capability_turn_lead_js_1 = require("./capability-turn-lead.cjs");
@@ -66,6 +67,8 @@ exports.CapabilityRegistryEntrySchema = zod_1.z.object({
      * @since v1.5.0 (Bug D1 — quick-260422-wrz)
      */
     requires: zod_1.z.array(zod_1.z.string().min(1)).optional(),
+    /** Explicit per-call fields from loaded agent context; absence authorizes no new credential projection. */
+    credentialRequirements: capability_credential_requirements_js_1.CapabilityCredentialRequirementsSchema.optional(),
     /**
      * Copied from the manifest's `context` by the registry writer (Forge deploy.machine), like `tools`: the runtime
      * asks this capability for the agent's context at every turn. Absent: never asked.
