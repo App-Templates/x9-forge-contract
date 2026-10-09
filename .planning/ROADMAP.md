@@ -83,10 +83,10 @@ Plans:
 **Goal:** Canonical local source observation and pre-bootstrap loaded model source without fabricated Master role.
 **Requirements**: AUTH-01, AUTH-02, AUTH-03
 **Depends on:** Phase 1
-**Plans:** 0 plans
+**Plans:** 1 plan
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 2 to break down)
+- [ ] 02-01-PLAN.md — local observation endpoint, roleless initial source, native qualification
 
 ---
 
