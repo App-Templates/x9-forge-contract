@@ -75,16 +75,17 @@ export const AgentModelRuntimeAttestationSchema = z.object({
 });
 /** Read-only generation of the actually loaded Master, never a saved/applied configuration version. */
 const ModelSourceScopeSchema = CapabilityAgentScopeSchema.refine(scope => [scope.agentId, scope.ownerId, scope.tenantId].every(value => value.trim().length > 0), 'Source scope must not be blank');
-export const AgentModelBootstrapSourceSchema = z.object({
+const ModelInitialSourceBaseSchema = z.object({
     schemaVersion: z.literal(1), identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
-    role: z.literal('master'), authority: z.literal('runtime-loaded'),
+    authority: z.literal('runtime-loaded'),
     sourceVersion: AgentModelBootstrapSourceVersionSchema,
     observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
     coverage: z.enum(['complete', 'partial']),
     selections: z.array(AgentModelSelectionSchema).max(64), missingSlots: z.array(ModelSlotIdSchema).max(64),
     /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
     excludedSlots: z.array(z.object({ slotId: ModelSlotIdSchema, state: z.enum(['not-installed', 'not-applicable']), reason: z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
-}).strict().superRefine((source, ctx) => {
+}).strict();
+const checkLoadedModelSource = (source, ctx) => {
     if (source.scope.agentId !== source.identity.runtimeAgentId)
         ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
     if (Date.parse(source.validUntil) <= Date.parse(source.observedAt))
@@ -102,11 +103,21 @@ export const AgentModelBootstrapSourceSchema = z.object({
         if (consumer === undefined || consumer.capability !== actual.capability || consumer.function !== actual.function || !sameModelFeatures(consumer.requirements, actual.requirements) || consumer.routing !== (actual.mode === 'single' ? 'single' : actual.mode === 'failover' ? 'failover' : 'tiered'))
             ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });
     }
-});
+};
+/** Loaded selections before first Forge apply; an explicit role is strictly rejected. */
+export const AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.superRefine(checkLoadedModelSource);
+export const AgentModelBootstrapSourceSchema = ModelInitialSourceBaseSchema.extend({ role: z.literal('master') }).superRefine(checkLoadedModelSource);
 export const AgentModelBootstrapSourceExpectationSchema = z.object({ identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema }).strict();
 /** Caller supplies a fresh server-side generation recheck after awaits. Parsing alone cannot prove runtime authority. */
 export function isAgentModelBootstrapSourceCurrent(input, expected, now = new Date()) {
-    const parsed = AgentModelBootstrapSourceSchema.safeParse(input);
+    return isLoadedModelSourceCurrent(input, expected, AgentModelBootstrapSourceSchema, now);
+}
+/** Bootstrap-equivalent validity; callers still recheck the actual generation after awaits. */
+export function isAgentModelInitialSourceCurrent(input, expected, now = new Date()) {
+    return isLoadedModelSourceCurrent(input, expected, AgentModelInitialSourceSchema, now);
+}
+function isLoadedModelSourceCurrent(input, expected, sourceSchema, now) {
+    const parsed = sourceSchema.safeParse(input);
     const target = AgentModelBootstrapSourceExpectationSchema.safeParse(expected);
     if (!parsed.success || !target.success)
         return false;
@@ -149,7 +160,17 @@ export const AgentModelsStateSchema = z.object({
     bootstrapSource: AgentModelBootstrapSourceSchema.nullable().optional(),
     /** Actual generation of an already saved, scoped runtime configuration; no default for old producers. */
     sourceObservation: AgentModelSourceObservationSchema.nullable().optional(),
+    /** Before persisted authority exists; this source does not assign the Master role. */
+    initialSource: AgentModelInitialSourceSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {
+    if (state.initialSource != null) {
+        if (!sameModelAgentIdentity(state.identity, state.initialSource.identity))
+            ctx.addIssue({ code: 'custom', path: ['initialSource', 'identity'], message: 'Initial source belongs to this state identity' });
+        if (state.saved !== null || state.runtime !== null || state.versions !== null)
+            ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot claim a saved or applied version' });
+        if (state.bootstrapSource != null || state.sourceObservation != null)
+            ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot coexist with another model authority' });
+    }
     if (state.sourceObservation != null) {
         const source = state.sourceObservation;
         if (state.saved === null || state.saved.provenance === undefined)

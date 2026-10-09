@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — roleless InitialSource contract
+
+- Add strict AgentModelInitialSourceSchema/type and Bootstrap-equivalent current helper through existing root/model-router exports; preserve all34 canonical consumer coverage, routing/settings and Master-only Bootstrap.
+- Add optional nullable state.initialSource with exact identity, null saved/runtime/versions and mutually exclusive source authority. No new maximumage is added to Bootstrap-equivalent freshness.
+- Qualify the additive contract separately from composition; packageversion stays1.45.0. Runtime firstMaster/bootstrap and first-save preservation remain consumer work, with no live claim.
+
 All notable changes to the bridge package. This project adheres to [Semantic Versioning](https://semver.org/) at the milestone level (v1.0, v1.1, etc.); within a milestone, distribution is via SHA-pinned `git+https#<sha>` (no per-feature versioning).
 
 ## How releases work in this repo

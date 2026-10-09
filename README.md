@@ -332,3 +332,9 @@ This source addition does not implement either consumer, apply a migration or ex
 Version bump and consolidated `dist/` belong to the integration owner. After the native build,
 run `node tests/cjs/agent-deletion-smoke.cjs` and compile `tests/cjs/agent-deletion-types.cts`
 with NodeNext; the existing package smoke runner is unchanged in this limited perimeter.
+
+## Roleless initial model source
+
+AgentModelInitialSourceSchema, AgentModelInitialSource and isAgentModelInitialSourceCurrent are additive root/model-router contracts for loaded selections before first Forge apply. The strict source rejects any role, binds all three identity fields and the runtime scope, and requires every one of34 registered consumers to be selected, explicitly missing or observed excluded exactly once. Complete source is nonempty and has no missing consumers. Bootstrap remains Master-only; the initial helper shares its validity and generation checks without an added sixty-second maximumage.
+
+AgentModelsStateSchema.initialSource is optional/nullable and requires matching identity, null saved/runtime/versions and absent/null competing sources. The existing HTTP local-source observation stays roleless and strict. These contracts implement no runtime reader, first-save persistence or provider call; X9/Forge still own loaded topology, preservation of all34 choices and post-await generation rechecks.
