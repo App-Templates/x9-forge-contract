@@ -77,4 +77,5 @@ __exportStar(require("./internal-agents-deletion.cjs"), exports);
 __exportStar(require("./internal-agent-channel-history.cjs"), exports);
 __exportStar(require("./forge-agent-channel-history.cjs"), exports);
 __exportStar(require("./internal-agent-model-source-observation.cjs"), exports);
+__exportStar(require("./forge-master-model-authority.cjs"), exports);
 //# sourceMappingURL=index.js.map
