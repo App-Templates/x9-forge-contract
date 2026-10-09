@@ -76,11 +76,11 @@ Canonical refs: package.json, CHANGELOG.md, README.md, .planning/phases/c5-model
 
 Plans:
 - [x] 01-01-PLAN.md — version, distribution, isolated consumer install and public entrypoints
+- [x] 01-02-PLAN.md — final SHA installation and native compiler provenance gap closure
 
 ---
 
 *Last updated: 2026-04-16 after v1.0 milestone close*
 
-- [x] 01-02-PLAN.md — final SHA installation and native compiler provenance gap closure
 
 **Verification:** passed; release a5103c97;3/3installroots,144/144loads,632/632Models,8/8types;19/19provenance and8/8typefaults restored. Independent release review pending.

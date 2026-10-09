@@ -7,7 +7,7 @@ requirements_verified: [M145-01, M145-02, M145-03]
 release_sha: a5103c97c39b6178e8d53f201f27352c0fb58220
 native_source_execution_sha: f68b97c4e85f135c4ab37097227b1733ab5509b3
 re_verification:
-  previous_status: gaps_found
+  previous_historical gaps_found
   previous_score: 2/3
   gaps_closed: [M145-03]
   gaps_remaining: []

@@ -44,3 +44,5 @@ Raw proof directory: workspace work/c5-bridge-145-gsd. Primary filesFINAL-PROOF.
 ## Self-Check: PASSED
 
 All reported denominators are asserted by finish-proof.py against rawJSON; release/productcommits exist; canonicalsrc/dist/lock unchanged from6d; alltemporary installed/type faults restored exactly. Independentreview remains external to authorGSD verification.
+
+Nativecompletion was executed on an isolated document copy because its progress-table regex matches archivedPhase1 globally. Only newrelease tracking was applied to authorrepo. Its first warning matched the literal historical gap-status narrative despite currentpassedfrontmatter; clarified that narrative and reran nativecompletion with0warnings. Originalrawdiagnostic retained. HistoricalShimCleanup notmarkedcomplete.
