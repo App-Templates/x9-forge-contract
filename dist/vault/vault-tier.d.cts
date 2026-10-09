@@ -9,8 +9,8 @@ import { z } from 'zod';
 export declare const VAULT_TIERS: readonly ["platform", "owner", "agent"];
 export declare const VaultTierSchema: z.ZodEnum<{
     owner: "owner";
-    platform: "platform";
     agent: "agent";
+    platform: "platform";
 }>;
 export type VaultTier = z.infer<typeof VaultTierSchema>;
 /**

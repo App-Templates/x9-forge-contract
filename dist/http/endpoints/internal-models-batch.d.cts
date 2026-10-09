@@ -1473,11 +1473,11 @@ export declare const internalModelsPreviewContract: {
                     }, z.core.$strict>]>;
                 }, z.core.$strict>>;
                 provenance: z.ZodOptional<z.ZodObject<{
-                    scope: z.ZodObject<{
+                    scope: z.ZodLazy<z.ZodObject<{
                         agentId: z.ZodString;
                         ownerId: z.ZodString;
                         tenantId: z.ZodString;
-                    }, z.core.$strict>;
+                    }, z.core.$strict>>;
                     bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                         slotId: z.ZodString;
                         origin: z.ZodLiteral<"master">;
@@ -1965,11 +1965,11 @@ export declare const internalModelsBatchContract: {
                     }, z.core.$strict>]>;
                 }, z.core.$strict>>;
                 provenance: z.ZodOptional<z.ZodObject<{
-                    scope: z.ZodObject<{
+                    scope: z.ZodLazy<z.ZodObject<{
                         agentId: z.ZodString;
                         ownerId: z.ZodString;
                         tenantId: z.ZodString;
-                    }, z.core.$strict>;
+                    }, z.core.$strict>>;
                     bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                         slotId: z.ZodString;
                         origin: z.ZodLiteral<"master">;
@@ -2398,11 +2398,11 @@ export declare const internalAgentModelsStateContract: {
                 }, z.core.$strict>]>;
             }, z.core.$strict>>;
             provenance: z.ZodOptional<z.ZodObject<{
-                scope: z.ZodObject<{
+                scope: z.ZodLazy<z.ZodObject<{
                     agentId: z.ZodString;
                     ownerId: z.ZodString;
                     tenantId: z.ZodString;
-                }, z.core.$strict>;
+                }, z.core.$strict>>;
                 bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     slotId: z.ZodString;
                     origin: z.ZodLiteral<"master">;
@@ -2708,6 +2708,21 @@ export declare const internalAgentModelsStateContract: {
                 }>;
                 reason: z.ZodString;
             }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
+        sourceObservation: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodNumber;
+            }, z.core.$strict>;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            sourceVersion: z.ZodString;
+            observedAt: z.ZodISODateTime;
+            validUntil: z.ZodISODateTime;
         }, z.core.$strict>>>;
     }, z.core.$strict>;
 };

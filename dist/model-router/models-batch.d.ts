@@ -3211,11 +3211,11 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                 }, z.core.$strict>]>;
             }, z.core.$strict>>;
             provenance: z.ZodOptional<z.ZodObject<{
-                scope: z.ZodObject<{
+                scope: z.ZodLazy<z.ZodObject<{
                     agentId: z.ZodString;
                     ownerId: z.ZodString;
                     tenantId: z.ZodString;
-                }, z.core.$strict>;
+                }, z.core.$strict>>;
                 bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     slotId: z.ZodString;
                     origin: z.ZodLiteral<"master">;
@@ -3487,11 +3487,11 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                 }, z.core.$strict>]>;
             }, z.core.$strict>>;
             provenance: z.ZodOptional<z.ZodObject<{
-                scope: z.ZodObject<{
+                scope: z.ZodLazy<z.ZodObject<{
                     agentId: z.ZodString;
                     ownerId: z.ZodString;
                     tenantId: z.ZodString;
-                }, z.core.$strict>;
+                }, z.core.$strict>>;
                 bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     slotId: z.ZodString;
                     origin: z.ZodLiteral<"master">;

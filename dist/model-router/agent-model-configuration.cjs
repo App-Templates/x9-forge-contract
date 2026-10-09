@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentModelsStateSchema = exports.AgentModelBootstrapSourceExpectationSchema = exports.AgentModelBootstrapSourceSchema = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelProvenanceWriteSchema = exports.AgentContextWithModelProvenanceSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.AgentModelsConfigurationWithProvenanceSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelsProvenanceSchema = exports.AgentModelBindingSchema = exports.AgentModelSourceSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.AgentModelBootstrapPreconditionSchema = exports.AgentModelBootstrapSourceVersionSchema = exports.ModelSlotIdSchema = exports.AGENT_CHAT_MODEL_SLOT_ID = void 0;
-exports.createAgentModelsConfigurationWithProvenance = createAgentModelsConfigurationWithProvenance;
-exports.sameModelAgentIdentity = sameModelAgentIdentity;
+exports.AgentModelsStateSchema = exports.AgentModelSourceObservationSchema = exports.AgentModelBootstrapSourceExpectationSchema = exports.AgentModelBootstrapSourceSchema = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelProvenanceWriteSchema = exports.AgentContextWithModelProvenanceSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.sameModelAgentIdentity = exports.createAgentModelsConfigurationWithProvenance = exports.AgentModelsConfigurationWithProvenanceSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelsProvenanceSchema = exports.AgentModelBindingSchema = exports.AgentModelSourceSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.AgentModelBootstrapPreconditionSchema = exports.AgentModelBootstrapSourceVersionSchema = exports.ModelSlotIdSchema = exports.AGENT_CHAT_MODEL_SLOT_ID = void 0;
 exports.isAgentModelBootstrapSourceCurrent = isAgentModelBootstrapSourceCurrent;
+exports.isAgentModelSourceObservationCurrent = isAgentModelSourceObservationCurrent;
 exports.isAgentModelApplyConfirmed = isAgentModelApplyConfirmed;
 exports.isAgentModelRuntimeConfigurationMatching = isAgentModelRuntimeConfigurationMatching;
+exports.isAgentModelCommandSourceCurrent = isAgentModelCommandSourceCurrent;
 const zod_1 = require("zod");
 const agent_context_identity_js_1 = require("../agent/agent-context-identity.cjs");
 const capability_call_context_js_1 = require("../capability/capability-call-context.cjs");
@@ -15,7 +15,6 @@ const agent_context_file_js_1 = require("../agent/agent-context-file.cjs");
 const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const parameters_js_1 = require("../capability/parameters.cjs");
 const capability_model_settings_js_1 = require("./capability-model-settings.cjs");
-const model_tier_js_1 = require("./model-tier.cjs");
 const model_slot_js_1 = require("./model-slot.cjs");
 const model_consumers_js_1 = require("./model-consumers.cjs");
 var model_slot_js_2 = require("./model-slot.cjs");
@@ -24,84 +23,18 @@ Object.defineProperty(exports, "ModelSlotIdSchema", { enumerable: true, get: fun
 Object.defineProperty(exports, "AgentModelBootstrapSourceVersionSchema", { enumerable: true, get: function () { return model_slot_js_2.AgentModelBootstrapSourceVersionSchema; } });
 Object.defineProperty(exports, "AgentModelBootstrapPreconditionSchema", { enumerable: true, get: function () { return model_slot_js_2.AgentModelBootstrapPreconditionSchema; } });
 const model_catalog_js_1 = require("./model-catalog.cjs");
-exports.ModelSelectionTierSchema = zod_1.z.enum([...model_tier_js_1.MODEL_TIERS, 'fallback', 'primary']);
-exports.AgentModelSelectionSchema = zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema, settings: capability_model_settings_js_1.CapabilityModelSettingsSchema }).strict();
-/** Complete declared model authority; legacy runtime mappings remain optional elsewhere. */
-const CompleteModelIdentitySchema = agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.extend({
-    managementAgentId: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.shape.managementAgentId.refine(value => value.trim().length > 0, 'Model identity must not be blank'),
-    runtimeAgentId: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.shape.runtimeAgentId.refine(value => value.trim().length > 0, 'Model identity must not be blank'),
-    vaultAgentId: zod_1.z.number().int().positive(),
-}).strict();
-/** Source-neutral metadata: the store resolves this declared source and verifies its current version. */
-exports.AgentModelSourceSchema = zod_1.z.object({
-    identity: CompleteModelIdentitySchema,
-    sourceVersion: agent_config_js_1.AgentConfigVersionSchema,
-}).strict();
-/** Custom remains custom even when its descriptor equals the source's descriptor. */
-exports.AgentModelBindingSchema = zod_1.z.discriminatedUnion('origin', [
-    zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema, origin: zod_1.z.literal('master'), source: exports.AgentModelSourceSchema }).strict(),
-    zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema, origin: zod_1.z.literal('custom'), source: zod_1.z.never().optional() }).strict(),
-]);
-/** One explicit binding per selection; scope is declared authority, never provider credentials. */
-exports.AgentModelsProvenanceSchema = zod_1.z.object({
-    scope: capability_call_context_js_1.CapabilityAgentScopeSchema.refine(scope => [scope.agentId, scope.ownerId, scope.tenantId].every(value => value.trim().length > 0), 'Model scope must not be blank'),
-    bindings: zod_1.z.array(exports.AgentModelBindingSchema).min(1).max(64),
-}).strict().superRefine((value, ctx) => {
-    if (new Set(value.bindings.map(binding => binding.slotId)).size !== value.bindings.length) {
-        ctx.addIssue({ code: 'custom', path: ['bindings'], message: 'Duplicate model binding' });
-    }
-});
-exports.AgentModelsConfigurationSchema = zod_1.z.object({
-    schemaVersion: zod_1.z.literal(1),
-    identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.strict(),
-    configVersion: agent_config_js_1.AgentConfigVersionSchema,
-    selections: zod_1.z.array(exports.AgentModelSelectionSchema).min(1).max(64),
-    /** Absent on 1.43 legacy; malformed explicit provenance is never discarded. */
-    provenance: exports.AgentModelsProvenanceSchema.optional(),
-}).strict().superRefine((config, ctx) => {
-    if (new Set(config.selections.map(entry => entry.slotId)).size !== config.selections.length)
-        ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Duplicate model slot' });
-    if (config.provenance === undefined)
-        return;
-    const provenance = config.provenance;
-    if (!CompleteModelIdentitySchema.safeParse(config.identity).success) {
-        ctx.addIssue({ code: 'custom', path: ['identity'], message: 'Explicit model provenance requires complete identity' });
-    }
-    if (provenance.scope.agentId !== config.identity.runtimeAgentId) {
-        ctx.addIssue({ code: 'custom', path: ['provenance', 'scope'], message: 'Model scope must name the declared runtime' });
-    }
-    if (provenance.bindings.length !== config.selections.length || config.selections.some(selection => !provenance.bindings.some(binding => binding.slotId === selection.slotId))) {
-        ctx.addIssue({ code: 'custom', path: ['provenance', 'bindings'], message: 'Every model selection requires exactly one binding' });
-    }
-    const ownIds = new Set([config.identity.managementAgentId, config.identity.runtimeAgentId]);
-    const sources = [];
-    for (const [index, binding] of provenance.bindings.entries()) {
-        if (binding.origin !== 'master')
-            continue;
-        const source = binding.source.identity;
-        if (ownIds.has(source.managementAgentId) || ownIds.has(source.runtimeAgentId) || source.vaultAgentId === config.identity.vaultAgentId) {
-            ctx.addIssue({ code: 'custom', path: ['provenance', 'bindings', index, 'source'], message: 'A model source cannot be the destination agent' });
-        }
-        if (sources.some(previous => (previous.managementAgentId === source.managementAgentId || previous.runtimeAgentId === source.runtimeAgentId || previous.managementAgentId === source.runtimeAgentId || previous.runtimeAgentId === source.managementAgentId || previous.vaultAgentId === source.vaultAgentId) && !sameModelAgentIdentity(previous, source))) {
-            ctx.addIssue({ code: 'custom', path: ['provenance', 'bindings', index, 'source'], message: 'Model source identity mapping is ambiguous' });
-        }
-        sources.push(source);
-    }
-});
-/** Modern store/writer boundary: provenance and all three identifiers are mandatory. */
-exports.AgentModelsConfigurationWithProvenanceSchema = exports.AgentModelsConfigurationSchema.safeExtend({
-    identity: CompleteModelIdentitySchema,
-    provenance: exports.AgentModelsProvenanceSchema,
-});
-/** Parsing returns detached metadata and supplies no source, binding or model defaults. */
-function createAgentModelsConfigurationWithProvenance(input) {
-    return exports.AgentModelsConfigurationWithProvenanceSchema.parse(input);
-}
-/** Compare the canonical mapping, including the optional Vault numeric identity. */
-function sameModelAgentIdentity(left, right) {
-    return left.managementAgentId === right.managementAgentId && left.runtimeAgentId === right.runtimeAgentId && left.vaultAgentId === right.vaultAgentId;
-}
-const contextModels = { modelConfiguration: exports.AgentModelsConfigurationSchema.optional() };
+const agent_model_configuration_values_js_1 = require("./agent-model-configuration-values.cjs");
+var agent_model_configuration_values_js_2 = require("./agent-model-configuration-values.cjs");
+Object.defineProperty(exports, "ModelSelectionTierSchema", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.ModelSelectionTierSchema; } });
+Object.defineProperty(exports, "AgentModelSelectionSchema", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.AgentModelSelectionSchema; } });
+Object.defineProperty(exports, "AgentModelSourceSchema", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.AgentModelSourceSchema; } });
+Object.defineProperty(exports, "AgentModelBindingSchema", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.AgentModelBindingSchema; } });
+Object.defineProperty(exports, "AgentModelsProvenanceSchema", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.AgentModelsProvenanceSchema; } });
+Object.defineProperty(exports, "AgentModelsConfigurationSchema", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.AgentModelsConfigurationSchema; } });
+Object.defineProperty(exports, "AgentModelsConfigurationWithProvenanceSchema", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.AgentModelsConfigurationWithProvenanceSchema; } });
+Object.defineProperty(exports, "createAgentModelsConfigurationWithProvenance", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.createAgentModelsConfigurationWithProvenance; } });
+Object.defineProperty(exports, "sameModelAgentIdentity", { enumerable: true, get: function () { return agent_model_configuration_values_js_2.sameModelAgentIdentity; } });
+const contextModels = { modelConfiguration: agent_model_configuration_values_js_1.AgentModelsConfigurationSchema.optional() };
 const checkContext = (context, ctx) => {
     if (context.modelConfiguration === undefined)
         return;
@@ -121,7 +54,7 @@ const checkContext = (context, ctx) => {
         return;
     }
     const declared = authority.data;
-    if (!sameModelAgentIdentity(config.identity, declared.identity)) {
+    if (!(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(config.identity, declared.identity)) {
         ctx.addIssue({ code: 'custom', path: ['modelConfiguration', 'identity'], message: 'Models must match every context identity field' });
     }
     if (!(0, capability_call_context_js_1.sameCapabilityScope)(config.provenance.scope, { agentId: declared.agentId, ownerId: declared.ownerId, tenantId: declared.tenantId })) {
@@ -137,13 +70,13 @@ const checkContext = (context, ctx) => {
 exports.AgentContextWithModelsSchema = agent_context_file_js_1.AgentContextFileSchema.safeExtend(contextModels).superRefine(checkContext);
 exports.AgentContextWithModelsWriteSchema = agent_context_file_js_1.AgentContextFileWriteSchema.safeExtend(contextModels).superRefine(checkContext);
 /** Complete identity/channel guards plus mandatory, scoped model provenance. */
-exports.AgentContextWithModelProvenanceSchema = agent_context_identity_js_1.AgentContextWithIdentitySchema.and(exports.AgentContextWithModelsSchema.safeExtend({ modelConfiguration: exports.AgentModelsConfigurationWithProvenanceSchema }));
-exports.AgentContextWithModelProvenanceWriteSchema = agent_context_identity_js_1.AgentContextWithIdentityWriteSchema.and(exports.AgentContextWithModelsWriteSchema.safeExtend({ modelConfiguration: exports.AgentModelsConfigurationWithProvenanceSchema }));
+exports.AgentContextWithModelProvenanceSchema = agent_context_identity_js_1.AgentContextWithIdentitySchema.and(exports.AgentContextWithModelsSchema.safeExtend({ modelConfiguration: agent_model_configuration_values_js_1.AgentModelsConfigurationWithProvenanceSchema }));
+exports.AgentContextWithModelProvenanceWriteSchema = agent_context_identity_js_1.AgentContextWithIdentityWriteSchema.and(exports.AgentContextWithModelsWriteSchema.safeExtend({ modelConfiguration: agent_model_configuration_values_js_1.AgentModelsConfigurationWithProvenanceSchema }));
 exports.AgentRuntimeModelSelectionSchema = zod_1.z.object({
     slotId: model_slot_js_1.ModelSlotIdSchema,
     capability: parameters_js_1.CapabilityAgentParametersSchema.shape.capability,
     function: model_catalog_js_1.ModelFunctionSchema,
-    tier: exports.ModelSelectionTierSchema,
+    tier: agent_model_configuration_values_js_1.ModelSelectionTierSchema,
     descriptor: model_catalog_js_1.ModelDescriptorSchema,
     embeddingDimensions: zod_1.z.number().int().positive().optional(),
 }).strict().superRefine((selection, ctx) => {
@@ -164,12 +97,12 @@ exports.AgentModelRuntimeAttestationSchema = zod_1.z.object({
 /** Read-only generation of the actually loaded Master, never a saved/applied configuration version. */
 const ModelSourceScopeSchema = capability_call_context_js_1.CapabilityAgentScopeSchema.refine(scope => [scope.agentId, scope.ownerId, scope.tenantId].every(value => value.trim().length > 0), 'Source scope must not be blank');
 exports.AgentModelBootstrapSourceSchema = zod_1.z.object({
-    schemaVersion: zod_1.z.literal(1), identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
+    schemaVersion: zod_1.z.literal(1), identity: agent_model_configuration_values_js_1.CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
     role: zod_1.z.literal('master'), authority: zod_1.z.literal('runtime-loaded'),
     sourceVersion: model_slot_js_1.AgentModelBootstrapSourceVersionSchema,
     observedAt: zod_1.z.iso.datetime({ offset: true }), validUntil: zod_1.z.iso.datetime({ offset: true }),
     coverage: zod_1.z.enum(['complete', 'partial']),
-    selections: zod_1.z.array(exports.AgentModelSelectionSchema).max(64), missingSlots: zod_1.z.array(model_slot_js_1.ModelSlotIdSchema).max(64),
+    selections: zod_1.z.array(agent_model_configuration_values_js_1.AgentModelSelectionSchema).max(64), missingSlots: zod_1.z.array(model_slot_js_1.ModelSlotIdSchema).max(64),
     /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
     excludedSlots: zod_1.z.array(zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema, state: zod_1.z.enum(['not-installed', 'not-applicable']), reason: zod_1.z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
 }).strict().superRefine((source, ctx) => {
@@ -191,7 +124,7 @@ exports.AgentModelBootstrapSourceSchema = zod_1.z.object({
             ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });
     }
 });
-exports.AgentModelBootstrapSourceExpectationSchema = zod_1.z.object({ identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema, sourceVersion: model_slot_js_1.AgentModelBootstrapSourceVersionSchema }).strict();
+exports.AgentModelBootstrapSourceExpectationSchema = zod_1.z.object({ identity: agent_model_configuration_values_js_1.CompleteModelIdentitySchema, scope: ModelSourceScopeSchema, sourceVersion: model_slot_js_1.AgentModelBootstrapSourceVersionSchema }).strict();
 /** Caller supplies a fresh server-side generation recheck after awaits. Parsing alone cannot prove runtime authority. */
 function isAgentModelBootstrapSourceCurrent(input, expected, now = new Date()) {
     const parsed = exports.AgentModelBootstrapSourceSchema.safeParse(input);
@@ -203,30 +136,64 @@ function isAgentModelBootstrapSourceCurrent(input, expected, now = new Date()) {
     const time = now.getTime();
     if (source.coverage !== 'complete' || source.selections.length === 0 || !Number.isFinite(time) || time < Date.parse(source.observedAt) - 5_000 || time >= Date.parse(source.validUntil))
         return false;
-    return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && (0, capability_call_context_js_1.sameCapabilityScope)(source.scope, expectation.scope);
+    return source.sourceVersion === expectation.sourceVersion && (0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(source.identity, expectation.identity) && (0, capability_call_context_js_1.sameCapabilityScope)(source.scope, expectation.scope);
+}
+/** Loaded modern source generation; never inferred from Forge's configuration version. */
+exports.AgentModelSourceObservationSchema = exports.AgentModelBootstrapSourceExpectationSchema.safeExtend({
+    observedAt: zod_1.z.iso.datetime({ offset: true }), validUntil: zod_1.z.iso.datetime({ offset: true }),
+}).superRefine((source, ctx) => {
+    if (source.scope.agentId !== source.identity.runtimeAgentId)
+        ctx.addIssue({ code: 'custom', path: ['scope', 'agentId'], message: 'Observed model source scope must name its runtime identity' });
+    if (Date.parse(source.validUntil) <= Date.parse(source.observedAt))
+        ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Observed source validity must end after observation' });
+});
+/** A fresh HTTP generation is necessary for a command; producers still recheck after every await. */
+function isAgentModelSourceObservationCurrent(input, expected, now = new Date()) {
+    const parsed = exports.AgentModelSourceObservationSchema.safeParse(input);
+    const target = exports.AgentModelBootstrapSourceExpectationSchema.safeParse(expected);
+    if (!parsed.success || !target.success)
+        return false;
+    const source = parsed.data;
+    const expectation = target.data;
+    const time = now.getTime();
+    const observed = Date.parse(source.observedAt);
+    if (!Number.isFinite(time) || time < observed - 5_000 || time > observed + 60_000 || time >= Date.parse(source.validUntil))
+        return false;
+    return source.sourceVersion === expectation.sourceVersion && (0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(source.identity, expectation.identity) && (0, capability_call_context_js_1.sameCapabilityScope)(source.scope, expectation.scope);
 }
 exports.AgentModelsStateSchema = zod_1.z.object({
     identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.strict(),
     versions: agent_management_js_1.AgentConfigVersionStateSchema.nullable(),
-    saved: exports.AgentModelsConfigurationSchema.nullable(),
+    saved: agent_model_configuration_values_js_1.AgentModelsConfigurationSchema.nullable(),
     runtime: exports.AgentModelRuntimeAttestationSchema.nullable(),
     /** Absent on existing consumers; explicit null means no qualified loaded Master source. */
     bootstrapSource: exports.AgentModelBootstrapSourceSchema.nullable().optional(),
+    /** Actual generation of an already saved, scoped runtime configuration; no default for old producers. */
+    sourceObservation: exports.AgentModelSourceObservationSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {
+    if (state.sourceObservation != null) {
+        const source = state.sourceObservation;
+        if (state.saved === null || state.saved.provenance === undefined)
+            ctx.addIssue({ code: 'custom', path: ['sourceObservation'], message: 'Modern source observation requires saved scoped model authority' });
+        if (!(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(state.identity, source.identity))
+            ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'identity'], message: 'Observed source belongs to this state identity' });
+        if (state.saved?.provenance !== undefined && !(0, capability_call_context_js_1.sameCapabilityScope)(state.saved.provenance.scope, source.scope))
+            ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'scope'], message: 'Observed source belongs to the saved model scope' });
+    }
     if (state.bootstrapSource != null) {
-        if (!sameModelAgentIdentity(state.identity, state.bootstrapSource.identity))
+        if (!(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(state.identity, state.bootstrapSource.identity))
             ctx.addIssue({ code: 'custom', path: ['bootstrapSource', 'identity'], message: 'Bootstrap source belongs to this state identity' });
         if (state.saved !== null || state.runtime !== null || state.versions !== null)
             ctx.addIssue({ code: 'custom', path: ['bootstrapSource'], message: 'Bootstrap source cannot claim a saved or applied version' });
     }
     if (state.saved !== null) {
-        if (!sameModelAgentIdentity(state.identity, state.saved.identity))
+        if (!(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(state.identity, state.saved.identity))
             ctx.addIssue({ code: 'custom', path: ['saved', 'identity'], message: 'Saved models belong to another agent' });
         if (state.saved.configVersion !== state.versions?.desired)
             ctx.addIssue({ code: 'custom', path: ['saved', 'configVersion'], message: 'Saved model version must be the desired version' });
     }
     if (state.runtime !== null) {
-        if (!sameModelAgentIdentity(state.identity, state.runtime.identity))
+        if (!(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(state.identity, state.runtime.identity))
             ctx.addIssue({ code: 'custom', path: ['runtime', 'identity'], message: 'Runtime models belong to another agent' });
         if (state.runtime.configVersion !== state.versions?.applied)
             ctx.addIssue({ code: 'custom', path: ['runtime', 'configVersion'], message: 'Runtime model version must be the applied version' });
@@ -234,7 +201,7 @@ exports.AgentModelsStateSchema = zod_1.z.object({
 });
 /** No side effects: null, timeout, stale or mismatched evidence remains unconfirmed; identical replays are valid. */
 function isAgentModelApplyConfirmed(configuration, requestedCommand, processedResult, runtimeEvidence, now = new Date()) {
-    const config = exports.AgentModelsConfigurationSchema.safeParse(configuration);
+    const config = agent_model_configuration_values_js_1.AgentModelsConfigurationSchema.safeParse(configuration);
     const command = agent_management_js_1.AgentManagementCommandSchema.safeParse(requestedCommand);
     const result = agent_management_js_1.AgentManagementCommandResultSchema.safeParse(processedResult);
     const attestation = exports.AgentModelRuntimeAttestationSchema.safeParse(runtimeEvidence);
@@ -246,11 +213,16 @@ function isAgentModelApplyConfirmed(configuration, requestedCommand, processedRe
     const actual = attestation.data;
     if (request.action !== 'apply-config' || response.action !== 'apply-config')
         return false;
+    if (request.modelConfiguration !== undefined) {
+        const authority = agent_model_configuration_values_js_1.AgentModelsConfigurationWithProvenanceSchema.safeParse(saved);
+        if (!authority.success || !(0, agent_management_js_1.sameAgentCommand)(request, { ...request, modelConfiguration: authority.data }))
+            return false;
+    }
     if (request.desiredVersion !== saved.configVersion || response.versions?.applied !== saved.configVersion || actual.configVersion !== saved.configVersion)
         return false;
     if (response.requestId !== request.requestId || actual.requestId !== request.requestId)
         return false;
-    if (response.agentId !== saved.identity.managementAgentId || response.identity === undefined || !sameModelAgentIdentity(saved.identity, response.identity) || !sameModelAgentIdentity(saved.identity, actual.identity))
+    if (response.agentId !== saved.identity.managementAgentId || response.identity === undefined || !(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(saved.identity, response.identity) || !(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(saved.identity, actual.identity))
         return false;
     if (response.outcome !== 'ok' || !response.results.some(entry => entry.target.kind === 'runtime' && entry.target.targetId === saved.identity.runtimeAgentId && entry.outcome === 'ok'))
         return false;
@@ -262,13 +234,13 @@ function isAgentModelApplyConfirmed(configuration, requestedCommand, processedRe
 }
 /** Fresh exact installed positions, including vector dimension, independent of transport/receipt. */
 function isAgentModelRuntimeConfigurationMatching(configuration, runtimeEvidence, now = new Date()) {
-    const config = exports.AgentModelsConfigurationSchema.safeParse(configuration);
+    const config = agent_model_configuration_values_js_1.AgentModelsConfigurationSchema.safeParse(configuration);
     const evidence = exports.AgentModelRuntimeAttestationSchema.safeParse(runtimeEvidence);
     if (!config.success || !evidence.success)
         return false;
     const saved = config.data;
     const actual = evidence.data;
-    if (!sameModelAgentIdentity(saved.identity, actual.identity) || saved.configVersion !== actual.configVersion)
+    if (!(0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(saved.identity, actual.identity) || saved.configVersion !== actual.configVersion)
         return false;
     const timestamp = now.getTime();
     const observed = Date.parse(actual.observedAt);
@@ -281,5 +253,16 @@ function isAgentModelRuntimeConfigurationMatching(configuration, runtimeEvidence
         const dimensionMatches = slot.settings.mode !== 'single' || slot.settings.function !== 'embedding' || selection?.embeddingDimensions === slot.settings.embeddingDimensions;
         return selection !== undefined && dimensionMatches && selection.capability === slot.settings.capability && selection.function === slot.settings.function && (0, model_catalog_js_1.sameModelDescriptor)(selection.descriptor, descriptor);
     }));
+}
+/** Recheck the actual runtime source after awaits, before committing explicit model authority. */
+function isAgentModelCommandSourceCurrent(input, freshSource, now = new Date()) {
+    const command = agent_management_js_1.AgentManagementCommandSchema.safeParse(input);
+    const source = zod_1.z.union([exports.AgentModelSourceObservationSchema, exports.AgentModelBootstrapSourceExpectationSchema]).safeParse(freshSource);
+    if (!command.success || command.data.action !== 'apply-config' || command.data.modelConfiguration === undefined || !source.success)
+        return false;
+    const configuration = command.data.modelConfiguration;
+    if ('observedAt' in source.data)
+        return isAgentModelSourceObservationCurrent(source.data, { identity: configuration.identity, scope: configuration.provenance.scope, sourceVersion: command.data.modelExpectedSourceVersion }, now);
+    return command.data.modelExpectedSourceVersion === source.data.sourceVersion && (0, agent_model_configuration_values_js_1.sameModelAgentIdentity)(configuration.identity, source.data.identity) && (0, capability_call_context_js_1.sameCapabilityScope)(configuration.provenance.scope, source.data.scope);
 }
 //# sourceMappingURL=agent-model-configuration.js.map

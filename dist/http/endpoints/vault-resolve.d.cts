@@ -38,8 +38,8 @@ export declare const VaultResolveResponseSchema: z.ZodObject<{
     value: z.ZodString;
     tier: z.ZodEnum<{
         owner: "owner";
-        platform: "platform";
         agent: "agent";
+        platform: "platform";
     }>;
 }, z.core.$strip>;
 export type VaultResolveResponse = z.infer<typeof VaultResolveResponseSchema>;
@@ -69,8 +69,8 @@ export declare const vaultResolveContract: {
         value: z.ZodString;
         tier: z.ZodEnum<{
             owner: "owner";
-            platform: "platform";
             agent: "agent";
+            platform: "platform";
         }>;
     }, z.core.$strip>;
 };

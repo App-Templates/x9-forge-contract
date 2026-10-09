@@ -242,11 +242,11 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                     }, z.core.$strict>]>;
                 }, z.core.$strict>>;
                 provenance: z.ZodOptional<z.ZodObject<{
-                    scope: z.ZodObject<{
+                    scope: z.ZodLazy<z.ZodObject<{
                         agentId: z.ZodString;
                         ownerId: z.ZodString;
                         tenantId: z.ZodString;
-                    }, z.core.$strict>;
+                    }, z.core.$strict>>;
                     bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                         slotId: z.ZodString;
                         origin: z.ZodLiteral<"master">;
@@ -2748,11 +2748,11 @@ export declare const forgeModelsPreviewContract: {
                     }, z.core.$strict>]>;
                 }, z.core.$strict>>;
                 provenance: z.ZodOptional<z.ZodObject<{
-                    scope: z.ZodObject<{
+                    scope: z.ZodLazy<z.ZodObject<{
                         agentId: z.ZodString;
                         ownerId: z.ZodString;
                         tenantId: z.ZodString;
-                    }, z.core.$strict>;
+                    }, z.core.$strict>>;
                     bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                         slotId: z.ZodString;
                         origin: z.ZodLiteral<"master">;
@@ -3240,11 +3240,11 @@ export declare const forgeModelsBatchContract: {
                     }, z.core.$strict>]>;
                 }, z.core.$strict>>;
                 provenance: z.ZodOptional<z.ZodObject<{
-                    scope: z.ZodObject<{
+                    scope: z.ZodLazy<z.ZodObject<{
                         agentId: z.ZodString;
                         ownerId: z.ZodString;
                         tenantId: z.ZodString;
-                    }, z.core.$strict>;
+                    }, z.core.$strict>>;
                     bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                         slotId: z.ZodString;
                         origin: z.ZodLiteral<"master">;
@@ -3657,11 +3657,11 @@ export declare const forgeModelsProgressContract: {
                         }, z.core.$strict>]>;
                     }, z.core.$strict>>;
                     provenance: z.ZodOptional<z.ZodObject<{
-                        scope: z.ZodObject<{
+                        scope: z.ZodLazy<z.ZodObject<{
                             agentId: z.ZodString;
                             ownerId: z.ZodString;
                             tenantId: z.ZodString;
-                        }, z.core.$strict>;
+                        }, z.core.$strict>>;
                         bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                             slotId: z.ZodString;
                             origin: z.ZodLiteral<"master">;

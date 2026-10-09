@@ -7,7 +7,7 @@ const scope={agentId:identity.runtimeAgentId,ownerId:'synthetic-owner',tenantId:
 const descriptor={provider:'openai',modelId:'synthetic-model',protocol:'chat-completions',adapterId:'synthetic-adapter'};
 const settings={capability:'agent-core',function:'reasoning',catalogVersion:'synthetic-catalog',requirements:{tools:false,stream:false,structuredOutput:false},mode:'single',descriptor};
 for(const [label,api] of [['CJS-root',require('@x9-forge/contracts')],['CJS-router',require('@x9-forge/contracts/model-router')],['ESM-root',await import('../../dist/index.js')],['ESM-router',await import('../../dist/model-router/index.js')]]){
- for(const name of ['registeredModelConsumerDefinitions','findModelConsumerDefinition','ModelConsumerInstallRequestSchema','ModelConsumerRuntimeStateSchema','ModelConsumerInstallReceiptSchema','isModelConsumerInstallConfirmed','isModelConsumerInstallRequestCurrent','isModelConsumerRouteRequestMatching','isAgentModelRuntimeConfigurationMatching','modelSettingsSelections','sameCapabilityModelSettings','AgentModelBootstrapSourceSchema','AgentModelBootstrapPreconditionSchema','modelConsumerTransportJsonSchemas']){assert.notEqual(Reflect.get(api,name),undefined,`${label}: ${name}`);passed++;}
+ for(const name of ['AgentModelSourceObservationSchema','isAgentModelSourceObservationCurrent','isAgentModelCommandSourceCurrent','registeredModelConsumerDefinitions','findModelConsumerDefinition','ModelConsumerInstallRequestSchema','ModelConsumerRuntimeStateSchema','ModelConsumerInstallReceiptSchema','isModelConsumerInstallConfirmed','isModelConsumerInstallRequestCurrent','isModelConsumerRouteRequestMatching','isAgentModelRuntimeConfigurationMatching','modelSettingsSelections','sameCapabilityModelSettings','AgentModelBootstrapSourceSchema','AgentModelBootstrapPreconditionSchema','modelConsumerTransportJsonSchemas']){assert.notEqual(Reflect.get(api,name),undefined,`${label}: ${name}`);passed++;}
  assert.equal(api.registeredModelConsumerDefinitions().length,34);passed++;
  assert.equal(api.findModelConsumerDefinition('qa_vision').requirements.vision,true);passed++;
  assert.equal(api.findModelConsumerDefinition('research_search').requirements.webSearch,true);passed++;
@@ -19,6 +19,20 @@ for(const [label,api] of [['CJS-root',require('@x9-forge/contracts')],['CJS-rout
  assert.equal(api.isModelConsumerInstallRequestCurrent(request,{identity,scope,sourceVersion:'synthetic-source-1'}),true);passed++;
  assert.equal(api.isModelConsumerInstallRequestCurrent(request,{identity,scope,sourceVersion:'changed'}),false);passed++;
  assert.equal(api.modelConsumerTransportJsonSchemas().install.additionalProperties,false);passed++;
+ const configuration={schemaVersion:1,identity,configVersion:1,selections:[{slotId:'agent_classifier',settings}],provenance:{scope,bindings:[{slotId:'agent_classifier',origin:'custom'}]}};
+ const command={action:'apply-config',desiredVersion:1,requestId:request.requestId,modelConfiguration:configuration,modelExpectedSourceVersion:'synthetic-source-1'};
+ assert.equal(api.isAgentModelCommandSourceCurrent(command,{identity,scope,sourceVersion:'synthetic-source-1'}),true);passed++;
+ assert.equal(api.isAgentModelCommandSourceCurrent(command,{identity,scope,sourceVersion:'changed'}),false);passed++;
+ assert.equal(api.isAgentModelCommandSourceCurrent(command,{identity,scope:{...scope,ownerId:'changed'},sourceVersion:'synthetic-source-1'}),false);passed++;
+ const observation={identity,scope,sourceVersion:'synthetic-source-1',observedAt:'2026-10-09T07:07:00Z',validUntil:'2026-10-09T07:07:30Z'};
+ const now=new Date('2026-10-09T07:07:01Z');
+ assert.equal(api.AgentModelSourceObservationSchema.safeParse(observation).success,true);passed++;
+ assert.equal(api.isAgentModelSourceObservationCurrent(observation,{identity,scope,sourceVersion:'synthetic-source-1'},now),true);passed++;
+ assert.equal(api.isAgentModelSourceObservationCurrent(observation,{identity,scope,sourceVersion:'synthetic-source-1'},new Date('2026-10-09T07:07:30Z')),false);passed++;
+ assert.equal(api.AgentModelsStateSchema.safeParse({identity,versions:{desired:1,applied:null,failed:null},saved:configuration,runtime:null,sourceObservation:observation}).success,true);passed++;
+ assert.equal(api.isAgentModelCommandSourceCurrent(command,observation,now),true);passed++;
+
+
 }
 for(const [label,api] of [['CJS-http',require('@x9-forge/contracts/http')],['ESM-http',await import('../../dist/http/index.js')]]){
  assert.equal(api.internalModelConsumerInstallContract.path,'/internal/models/consumers/:slotId/install',label);passed++;
@@ -29,5 +43,13 @@ for(const [label,api] of [['CJS-agent',require('@x9-forge/contracts/agent')],['E
  const command={...base,modelBootstrap:{expectedSourceVersion:'synthetic-source-1',expectedAbsent:true}};
  assert.equal(api.AgentManagementCommandSchema.safeParse(command).success,true,label);passed++;
  assert.equal(api.sameAgentCommand(command,base),false,label);passed++;
+ const configuration={schemaVersion:1,identity,configVersion:1,selections:[{slotId:'agent_classifier',settings}],provenance:{scope,bindings:[{slotId:'agent_classifier',origin:'custom'}]}};
+ const explicit={...base,modelConfiguration:configuration,modelExpectedSourceVersion:'synthetic-source-1'};
+ assert.equal(api.AgentManagementCommandSchema.safeParse(explicit).success,true,label);passed++;
+ assert.equal(api.sameAgentCommand(explicit,base),false,label);passed++;
+ assert.equal(api.sameAgentCommand(explicit,{...explicit,modelExpectedSourceVersion:'changed'}),false,label);passed++;
+ assert.equal(api.sameAgentCommand(explicit,{...explicit,modelConfiguration:{...configuration,selections:[{slotId:'agent_classifier',settings:{...settings,descriptor:{...descriptor,modelId:'synthetic-other'}}}]}}),false,label);passed++;
+ assert.equal(api.AgentManagementCommandSchema.safeParse({...explicit,modelConfiguration:{...configuration,configVersion:2}}).success,false,label);passed++;
+
 }
-console.log(JSON.stringify({passed,total:104,surfaces:8}));
+console.log(JSON.stringify({passed,total:158,surfaces:8}));

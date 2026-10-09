@@ -1,19 +1,37 @@
-# C5-MODELLI-CONSUMATORI — SUMMARY
+# C5-MODELLI-CONSUMATORI-BRIDGE — SUMMARY
 
-Consegna locale 09/10, lotto 08:10–08:55. Base e22e7a2d138be7120cd79800a7ada102183e7e74. Primo checkpoint source0524fff, definitivo con dist ricostruito in questo commit. PLAN prima del codice e autorizzazioni081537/082252/082438/082607/084204. Nessun push, merge, tag o deploy.
+Consegna locale del contratto e del delta Master privato, 09/10. Base34consumatori27107045e253ce68b5a791b472c1604c5cce5651 già APPROVE indipendente daA085928. Delta separato autorizzato084357/084806/090653, PLAN5eb96cf prima del codice, termine09:31. Nessun push/merge/tag/deploy daF.
 
 ## Fruibilità alla consegna (R-34)
 
-Implementato e testato il contratto di34/34 dichiarazioni C01–C34: metadata inventario, scope, confini, routing tiered/single/failover; dimensioni embedding; vision/webSearch. Fonte Master canonica strict con selections/missing/excluded osservati, complete>=1selection e nessun missing attivo; identità3ID/scope/generation/freschezza. Primo Store conserva assenza e versioni null, non inventa installed. Precondizione modelBootstrap CAS nel normale apply-config e idempotenza. Trasporto state/install/receipt dei servizi, JSON Schema shape-only, runtime matching comune senza quattro tier inventati. Source,classifier e voice requirements confermati dai proprietari D/E.
+**La feature è completa?** Il contratto assegnato del ponte è implementato e testato localmente. La feature Modelli nel prodotto non è dichiarata completa: pagina, writer, lettori e installer dei consumer devono essere integrati e provati dagli altri proprietari.
 
-Il percorso utente completo resta da integrare: lettori, writer, installer e pagina nei lotti B/C/D/E. Vivo0/34. Non si dichiara Modelli100% né disponibilità dal registro. Nessun contesto privato, provider, segreto o dato vivo letto. Nuovo raccordo B083815: apply-config non porta ancora configurazione completa per successive modificheMaster; richiesta additiva alla coordinatrice084316, distinta da questo congelamento. Contratto e limiti operativi in CONTRATTO.md.
+**Cosa ne impedisce l'uso?** Il ponte non contiene handler o un'interfaccia utente. B/C/D/E devono collegare lettura e salvataggio Master, writer privato, servizi e pagina; integrazione e prova dal vivo restano necessarie. Installazioni verificate dal vivo0/34. Il delta richiede revisione indipendente diA.
 
-## Prove causali
+**Prova del percorso dell'utente:** Non eseguita dal vivo in questo lotto di contratto: nessun dato in produzione è stato letto o modificato. Il percorso «apri Modelli, leggi la fonte osservata, cambia scelta Master, salva/applica e rileggi quella effettiva» si deve provare nell'integrazione diB/C/D/E. Qui la prova locale usa fixture sintetiche nella stessa forma canonica delle risposte, import pubblici e guasti mirati; non è spacciata per percorso utente in produzione.
 
-Prima implementazione: vecchi42/42 verdi; nuovi155:143AssertionError semantici,2ZodError esclusi,10già verdi. Nuovo trasporto rosso55/55 semantici. Campagna finale263/263 test nuovi:72/72 guasti source qualificati con AssertionError,8/8hash ripristinati, fresh263/263. Due errori tecnici nel mutante definition-detached esclusi: il credito viene dalle35AssertionError di quel mutante. Tentativo precedente interrotto a32 e mutante mascherato non contato; aggiunta prova isolata e rerun finale72 completo.
+## Corrispondenza aspettativa e tavola (R-34)
 
-Full nativo prima della build:4971/4971,165/165file,0skip,exit0,Node24.14.1,un worker,ambiente pulito,nessun filtro/alias/config modificato. Nuovi263,precedenti4708. Tipi/stile/build/pack-check/CJS nativo/CJS consumer/export pubblici/archive:8/8passi exit0; lint0warning;382/382declaration portabili. Check pack conserva profilo baseline node16 e avviso root CJS.types sotto ESM, nessuna esclusione aggiunta. Export reali root/router/http/agent ESM+CJS104/104controlli su8superfici. Due guasti compilati CAS ESM/CJS:2/2AssertionError,2/2hash ripristinati e104/104fresh dopo ciascun restore. Nuovo script pubblico incluso in tests/cjs.
+**Aspettativa:** non serve: il lotto è un contratto del ponte senza pagina; l'aspettativa dell'utente si verifica nella pagina diC e nell'integrazione conB/D/E. Il PLAN mantiene comunque la corrispondenza delle34funzioni C01–C34.
 
-## Perimetro e riproduzione
+**Tavola:** non serve: questo contratto non costruisce un'interfaccia visiva; la tavola e il percorso reale appartengono alla pagina Modelli diC e ai suoi consumer.
 
-Solo perimetro autorizzato;4derivati web-catalog d.ts/d.cts+map autorizzati084204 e prodotti dalla build,fonte invariata.0cancellazioni. package/lock/config/reader web-catalog invariati. Vecchi assert cardinalità aggiornati intenzionalmente1→34, agent_chat e guardie mantenuti. FINAL-PROOF.json/MUTATIONS.json/QUALITY.json/COMPILED-FAULT.json contengono denominatori e witness; mutate.py/compiled-fault.py riproducono i guasti in serie con restore. Prove raw complete e tarball locale sono nel deliverable prove.zip, percorso esterno indicato nell'avanzamento. Revisione indipendente da A, integrazione coordinatrice.
+## Contratto consegnato
+
+34/34dichiarazioni del censimento, requisiti scope/confine/routing, single/failover oltre tiered, dimensione embedding, vision/webSearch; fonte iniziale Master complete con missing/excluded osservati; service install/state/receipt con CAS/readback; JSON Schema shape-only (refinements e osservazione reale restano ai producer). Registrazione non equivale a installazione. Classificatore e voice requisiti confermatiD/E. PrimoStore usa normale modelBootstrap expectedAbsent:true e generation reale, non versione inventata.
+
+Delta: modelConfiguration opzionale sul normale apply-config riusa configurazione canonica con identità3ID e provenance; configVersion===desiredVersion. modelExpectedSourceVersion obbligatoria esattamente con configurazione, uguale bootstrap.expectedSourceVersion se presente; opaca, indipendente dalle versioni numeriche. Scelta/provenance/generation fanno parte dell'idempotenza, ordine oggetti e selections/bindings irrilevante. isAgentModelApplyConfirmed confronta anche la scelta effettivamente trasmessa con autorità salvata/readback. state.sourceObservation opzionale/null espone generation moderna solo con saved/provenance e identità/scope coerenti, observedAt/validUntil e helperfresh(max60s,futuro5s,scadenza). SourceCurrent accetta HTTPobservationfresca o generation letta dal producer, sempre CAS dopoawait prima writer. Nessuna sourceVersion derivata da configVersion. CONTRATTO.md spiega tutti gli export e i limiti.
+
+Schema canonico isolato in agent-model-configuration-values, riesportato dagli entrypoint esistenti; Scope lazy evita cicli di inizializzazione. Managementvalues estratti4/4blocchi byte-identici. Nessun contratto Vault riscritto, nessun DTO dei consumer copiato, nessun provider/default o contesto privato esportato.
+
+## Prove con denominatori
+
+Base congelata:4971/4971native,165/165file,0skip;263nuovi/4708precedenti;72/72fault source e2/2compiled con restore;104/104public8entrypoint;quality8/8exit0. A ha rifatto full4971,10source+2distfault indipendenti,4263/4263byteparity e199/199manifest, APPROVE senzaP1/P2. Non copre il delta.
+
+Delta: testprima comando27:8/27AssertionError,19/27già verdi; fonte31:25/31AssertionError e6/31già verdi. Testfinali65/65(34comando+31fonte). Guasti32/32semantici(17comando+15fonte), ogni mutante con AssertionError; restore e fresh34/34+31/31. I tentativi con guardie mascherate dal diverso errore provenance/shape non sono accreditati: corretti i test isolati e ripetuta tutta la campagna. Primo full con67importfailure tecnici non accreditato; schema isolato, regressioni native186/186nei percorsi coinvolti; full definitivo prima build5036/5036,167/167file,0skip,Node24.14.1,un worker,ambiente pulito,nessun filtro/alias/config modificato.263base+65delta=328nuovi,4708precedenti.
+
+Tipi/lint/build/pack-check/CJS nativo/CJS consumer/export pubblici/archive:8/8exit0,lint0warning,386/386declaration portabili. Avviso pack root CJS.types sotto ESM e profilo originale node16 restano espliciti, nessuna esclusione nuova. Export reali ESM/CJS root/router/http/agent158/158controlli su8superfici. Compilati:6/6fault(replay/generation/expiry per ESM/CJS),6/6restore+fresh158/158 dopo ogni ripristino. Nuove fixture canoniche sono sintetiche e non attestano alcun provider/runtime installato.
+
+## Perimetro, prove e residui
+
+Solo perimetro autorizzato,0cancellazioni.12derivati fuori modello autorizzati091018 e prodotti dalla build,4web-catalog autorizzati084204; sorgenti Backup/Memory/Vault/Elevencatalog invariati. package/lock/config invariati. Nessun segreto letto o modificato. DELTA-FINAL-PROOF.json/DELTA-MUTATIONS.json/OBS-MUTATIONS.json/DELTA-COMPILED-FAULT.json contengono witness/denominatori/hash; script di mutazione e manifest con lograw completi negli output della chat. Prove del primo lotto conservate separate in prove-base.zip, prove.zip include anche il delta. PLAN e SUMMARY riletti; gate fruibilità compilato con le etichette richieste, nessun bypass. Revisione delta adA e integrazione alla coordinatrice.
