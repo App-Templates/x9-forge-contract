@@ -72,6 +72,17 @@ export declare const internalAgentModelCatalogContract: {
             embeddingDimensions: z.ZodOptional<z.ZodNumber>;
             reason: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
+        inventory: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            access: z.ZodEnum<{
+                unknown: "unknown";
+                available: "available";
+                unavailable: "unavailable";
+                "not-configured": "not-configured";
+            }>;
+            compatibility: z.ZodLiteral<"unqualified">;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
 };
 export declare function agentModelCatalogPath(agentId: string): string;

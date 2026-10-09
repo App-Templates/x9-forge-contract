@@ -1,0 +1,441 @@
+{
+  "sourceBefore": "ece5dae3aad800d195c7ec63fecd8fafb81291906895eef30cd37cd7085394e8",
+  "results": [
+    {
+      "id": 1,
+      "control": "public-source-export",
+      "exit": 1,
+      "tests": 171,
+      "passed": 170,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP01 exports AgentModelSourceSchema"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 2,
+      "control": "source-strict",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects unknown source metadata",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit unknown source metadata"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 3,
+      "control": "source-positive-version",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects source version invalid 0",
+        "C5 model provenance public boundary MP03 strict snapshot rejects source version invalid 1",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit source version invalid 0",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit source version invalid 1"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 4,
+      "control": "source-integer-version",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects source version invalid 2",
+        "C5 model provenance public boundary MP03 strict snapshot rejects source version invalid 3",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit source version invalid 2",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit source version invalid 3"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 5,
+      "control": "source-version-required",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects missing source version",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit missing source version"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 6,
+      "control": "complete-vault-required",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects missing target vaultAgentId",
+        "C5 model provenance public boundary MP03 strict snapshot rejects missing source vaultAgentId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit missing target vaultAgentId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit missing source vaultAgentId"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 7,
+      "control": "complete-management-nonblank",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects blank target managementAgentId",
+        "C5 model provenance public boundary MP03 strict snapshot rejects blank source managementAgentId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit blank target managementAgentId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit blank source managementAgentId"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 8,
+      "control": "complete-runtime-nonblank",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects blank source runtimeAgentId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit blank source runtimeAgentId"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 9,
+      "control": "master-source-required",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects missing source",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit missing source"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 10,
+      "control": "custom-source-forbidden",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects custom carrying source",
+        "C5 model provenance public boundary MP03 strict snapshot rejects null custom source",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit custom carrying source",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit null custom source"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 11,
+      "control": "binding-strict",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects unknown binding metadata",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit unknown binding metadata"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 12,
+      "control": "scope-nonblank",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects blank scope ownerId",
+        "C5 model provenance public boundary MP03 strict snapshot rejects blank scope tenantId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit blank scope ownerId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit blank scope tenantId"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 13,
+      "control": "provenance-strict",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects unknown provenance metadata",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit unknown provenance metadata"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 14,
+      "control": "bindings-minimum",
+      "exit": 1,
+      "tests": 171,
+      "passed": 170,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP22 standalone provenance requires nonempty bindings"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 15,
+      "control": "bindings-maximum",
+      "exit": 1,
+      "tests": 171,
+      "passed": 170,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP23 standalone provenance bounds distinct bindings"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 16,
+      "control": "bindings-unique",
+      "exit": 1,
+      "tests": 171,
+      "passed": 170,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP21 standalone provenance rejects duplicate slots"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 17,
+      "control": "legacy-explicit-complete-identity",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit missing target vaultAgentId",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit blank target managementAgentId"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 18,
+      "control": "scope-runtime-match",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects scope uses management alias",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit scope uses management alias"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 19,
+      "control": "binding-cardinality",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects unselected binding",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit unselected binding"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 20,
+      "control": "binding-membership",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects wrong slot binding",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit wrong slot binding"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 21,
+      "control": "source-self-management",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects self source management",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit self source management"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 22,
+      "control": "source-self-runtime",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects self source runtime",
+        "C5 model provenance public boundary MP03 strict snapshot rejects self source cross alias",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit self source runtime",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit self source cross alias"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 23,
+      "control": "source-self-vault",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects self source Vault",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit self source Vault"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 24,
+      "control": "source-mapping-consistency",
+      "exit": 1,
+      "tests": 171,
+      "passed": 169,
+      "failed": 2,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP03 strict snapshot rejects conflicting source mapping",
+        "C5 model provenance public boundary MP07 additive parser rejects malformed explicit conflicting source mapping"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 25,
+      "control": "detached-constructor",
+      "exit": 1,
+      "tests": 171,
+      "passed": 170,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP05 returns a detached snapshot without changing caller values"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 26,
+      "control": "context-identity-match",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP10 AgentContextWithModelProvenanceSchema rejects root/config managementAgentId mismatch",
+        "C5 model provenance public boundary MP10 AgentContextWithModelProvenanceSchema rejects root/config vaultAgentId mismatch",
+        "C5 model provenance public boundary MP10 AgentContextWithModelProvenanceWriteSchema rejects root/config managementAgentId mismatch",
+        "C5 model provenance public boundary MP10 AgentContextWithModelProvenanceWriteSchema rejects root/config vaultAgentId mismatch"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 27,
+      "control": "context-scope-match",
+      "exit": 1,
+      "tests": 171,
+      "passed": 166,
+      "failed": 5,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP11 AgentContextWithModelProvenanceSchema rejects ownerId mismatch",
+        "C5 model provenance public boundary MP11 AgentContextWithModelProvenanceSchema rejects tenantId mismatch",
+        "C5 model provenance public boundary MP11 AgentContextWithModelProvenanceWriteSchema rejects ownerId mismatch",
+        "C5 model provenance public boundary MP11 AgentContextWithModelProvenanceWriteSchema rejects tenantId mismatch",
+        "C5 model provenance public boundary MP17 existing model reader also validates explicit scope and authority"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 28,
+      "control": "context-parent-match",
+      "exit": 1,
+      "tests": 171,
+      "passed": 167,
+      "failed": 4,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP12 AgentContextWithModelProvenanceSchema rejects another runtime Master",
+        "C5 model provenance public boundary MP15 AgentContextWithModelProvenanceSchema rejects Master declaring inherited slots",
+        "C5 model provenance public boundary MP12 AgentContextWithModelProvenanceWriteSchema rejects another runtime Master",
+        "C5 model provenance public boundary MP15 AgentContextWithModelProvenanceWriteSchema rejects Master declaring inherited slots"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 29,
+      "control": "modern-required-provenance",
+      "exit": 1,
+      "tests": 171,
+      "passed": 170,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP13 AgentContextWithModelProvenanceSchema refuses legacy selection as a new provenance snapshot"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    },
+    {
+      "id": 30,
+      "control": "writer-credential-guards",
+      "exit": 1,
+      "tests": 171,
+      "passed": 170,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 model provenance public boundary MP18 modern reader preserves legacy internal credential policy while writer refuses it"
+      ],
+      "technicalErrors": [],
+      "restored": 171
+    }
+  ],
+  "sourceAfter": "ece5dae3aad800d195c7ec63fecd8fafb81291906895eef30cd37cd7085394e8",
+  "elapsedSeconds": 99.026
+}
