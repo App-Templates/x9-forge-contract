@@ -1,0 +1,128 @@
+[
+  {
+    "case": "unknown-master",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "unknown-master-version",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "unknown-readonly",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "unknown-blank",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "complete-missing",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "complete-reason",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "incomplete-reason",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "missing-unique",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "identity-full",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "owner-binding",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "coverage-unique",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "present-missing",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "namespace",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "vault-unique",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "owner-access",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "6ea05fca2df41282c0a39eb6aae2900dccd2030c0772ae5b75b9f0f2173b7645"
+  },
+  {
+    "case": "writer-coverage",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "writer-unrelated",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  },
+  {
+    "case": "coverage-strict",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "restored_sha256": "674269d407f754b2db7bfb80c29377e7e2679f24cce343d2b84a8400785ad39a"
+  }
+]

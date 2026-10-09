@@ -94,3 +94,7 @@ Plans:
 
 
 **Verification:** passed; release a5103c97;3/3installroots,144/144loads,632/632Models,8/8types;19/19provenance and8/8typefaults restored. Independent release review pending.
+
+## Phase03 — Modelli consultazione (mandato150615)
+
+- [x]03-01 Contratto locale source/dist qualificato; reviewindipendente al raccordofinale. Piano derivato da10-01a4cae50. Source028c863,dist3c84de6; SUMMARY nella fase03. Non chiude phase02 o milestone storico.

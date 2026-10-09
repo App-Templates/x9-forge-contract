@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
 status: executing
-stopped_at: Phase 2 STOP Stefano112545; source endpoint checkpoint4d30c39; no work until RIPARTITE
+stopped_at: Phase 3 contract locally qualified; mandate150615; independent review/integration pending
 last_updated: "2026-10-09T09:23:38.208Z"
 progress:
   total_phases: 2
@@ -167,3 +167,7 @@ Releasea5103c97 qualified by01-VERIFICATION; M145-01/02/03complete. Source5036/5
 ## Phase 02 STOP checkpoint (2026-10-09 11:26)
 
 STOP Stefano via coordinator112545. Only task1 source endpoint committed4d30c39,17/17focused/8/8faultsrestored. Initialsource and fullnative/dist/compiled tasks not started, phase incomplete. No new work/tests/messages until RIPARTITE. See02-01-SUMMARY.md.
+
+## Phase03 consultazione — 09/10 15:20
+
+Autorizzata150615 dopo pianoa4cae50 APPROVE C. Source028c863/dist3c84de6 qualificati5086/5086,18/18sourcefault,4/4packfault. Pubblicazione richiesta151942. Phase02 resta incompleta; InitialSource noneseguito. Next:X9reader157-1, poiForge150-1+C153-1, candidato/review indipendente.
