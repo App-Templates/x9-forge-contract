@@ -94,3 +94,10 @@ it('rejects the complete canonical credential and platform-internal catalog in c
   const compiled = await import('@x9-forge/contracts/http');
   assertAllCanonicalCredentialResultsRejected(compiled.InternalAgentToolDispatchResponseSchema);
 });
+
+it('admits native Briefing Calendar dependencies without inventing recipient credentials', () => {
+ const entry = api.INTERNAL_AGENT_EXECUTIONS.scheduler_briefing_generate;
+ expect(entry.credentialKeys).toEqual(expect.arrayContaining(['GOOGLE_CALENDAR_CLIENT_ID','GOOGLE_CALENDAR_CLIENT_SECRET','GOOGLE_CALENDAR_REFRESH_TOKEN']));
+ expect(entry.identifierKeys).not.toContain('TELEGRAM_CHAT_ID');
+ expect(entry.modelVisible).toBe(false);
+});
