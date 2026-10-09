@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
 status: executing
-stopped_at: Phase60 checkpoint815d820; awaiting independent source/design review, consumer implementations pending.
+stopped_at: Phase60 source/design approved C18cb8ec; run transport lot19:10–19:55, consumer implementations pending.
 last_updated: "2026-10-09T16:44:26.038991+00:00"
 progress:
   total_phases: 2
@@ -20,13 +20,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-16 after v1.0 close)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilità DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 60 — paperclip-contracts (partial execution; native→X9 admission design open)
+**Current focus:** Phase 60 — paperclip-contracts (partial execution; source/design approved; canonical run transport executing)
 
 ## Current Position
 
 Phase: 60 (paperclip-contracts) — EXECUTING PARTIAL
 Plan: 1 of 1
-**Status:** 55 merged on main as b22032d (coordinator180753). Phase60 plan rebased onto that base;16 source records frozen, source-design/implementation gates false. Independent config/install contracts underway; run transport waits for verified admission design. Historical cleanup parked.
+**Status:** 55 merged on main as b22032d (coordinator180753). Phase60 plan rebased onto that base;24 source records frozen and source/design approved C18cb8ec on815d820+aa401599. Config/install source tested; canonical run transport executing. Implementation gate remains false. Historical cleanup parked.
 **Last completed:** v1.0 Bridge Foundation (2026-04-16, PR #1 merged, git tag `v1.0`)
 
 To start the next milestone: `/clear` then `/gsd-new-milestone`.

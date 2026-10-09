@@ -1,6 +1,6 @@
 # Paperclip authority discovery — phase 60, task 1
 
-Status: SOURCE_DESIGN_VERIFIED=false; IMPLEMENTATION_QUALIFIED=false.
+Status: SOURCE_DESIGN_VERIFIED=true for the final approved section (C18cb8ec, 815d820 + aa401599); IMPLEMENTATION_QUALIFIED=false.
 Source discovery is complete for native APIs; the X9 host admission path remains absent. No product contract for an unverified run producer has been implemented. No native API calls, secret reads, provisioning, VPS operations or model/provider calls were performed.
 
 ## Version evidence
@@ -109,3 +109,9 @@ D171 will define ordinary config/applied binding/install/readback plus native pr
 D02 implements inventory, CAS/install/readback/current native checks and the single-shot native process bridge; E03 the existing writer/tier-agent filters for both keys; E04 admission/auth/primary/ephemeral reservation and ctx→tool envelope; E05 desired/applied UI;06 integration/live gates. These are the approved existing services, not another queue/orchestrator.
 
 SOURCE_DESIGN_VERIFIED remains false until this exact design receives independent review and unresolved findings are closed. IMPLEMENTATION_QUALIFIED remains false until02/04 are actually delivered and tested. A source/design gate never waits for all downstream implementations; implementation tests never become proof merely because a schema parses. The first discovery lot18:09–18:54 is closed as a partial checkpoint; pending design review is a split dependency, not a green completion. C185654 requested an explicit required challenge echo; this isolated documentary correction closes that ambiguity for review without implementing a DTO or qualifying a consumer.
+
+## Independent source/design gate closed — C190545
+
+C18cb8ec c-rilascio/reviews/d60-source-design/REVIEW.md in filiera-codex-163-1 approves ONLY the exact source/design815d820 + aa401599 (intermediate bookkeeping6a2d4f9 reviewed). 24/24 declared source digests plus2 supplemental native utils sources,21/21 original delta identities,16/16 documentary obligations with16/16 omission checks and39/39 persisted proof hashes. These are source/document checks, not product/native tests. C did not rerun the author's119config tests. Earlier false/open statements above record the discovery history; the final approved design and this limited gate supersede them.
+
+SOURCE_DESIGN_VERIFIED=true enables canonical run/ingress contracts. IMPLEMENTATION_QUALIFIED=false; downstream CAS, per-agent writer, primary provenance, authenticated admission/replay/native-current-state integration and live operation remain pending. No source/design approval certifies a runtime reservation or lease.
