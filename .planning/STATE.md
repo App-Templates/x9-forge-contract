@@ -146,3 +146,9 @@ Next action: `/clear` then `/gsd-new-milestone` (when ready to plan v1.1).
 - Baseline tag agent-x9: `pre-bridge-migration-2026-04-14` (origin)
 - Baseline tag forge-v2: `pre-bridge-migration-2026-04-14` (origin)
 - VPS Hostinger snapshot: 2026-04-14 by Stefano via hPanel
+
+## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 1 added: Modelli bridge 145 (C5-MODELLI-BRIDGE-145-GSD), separate current release work; archived v1.0 history preserved.

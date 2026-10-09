@@ -65,6 +65,18 @@ Full archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md) · Audit: [v1.0-MILE
 | M. Memory Engine v2 Contracts | v1.0 | 1/1 | ✅ Complete | 2026-04-15 |
 | 7. Shim Removal (opzionale) | v1.1 | 0/2 | Planned | - |
 
+### Phase 1: Modelli bridge 145
+
+**Goal:** Prepare version 1.45.0 of the approved Models contracts with native distribution and actual SHA-pinned isolated consumer installations.
+**Requirements**: M145-01, M145-02, M145-03
+**Depends on:** Approved Models contracts at 6d1bafbd; independent import-fix review and coordinator publication before remote installation proof.
+**Plans:** 1 plan
+
+Canonical refs: package.json, CHANGELOG.md, README.md, .planning/phases/c5-modelli-consumatori/CONTRATTO.md
+
+Plans:
+- [ ] 01-01-PLAN.md — version, distribution, isolated consumer install and public entrypoints
+
 ---
 
 *Last updated: 2026-04-16 after v1.0 milestone close*
