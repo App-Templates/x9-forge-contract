@@ -5,7 +5,9 @@ exports.sameCapabilityScope = sameCapabilityScope;
 exports.pickCapabilityCredentials = pickCapabilityCredentials;
 exports.toToolCallScope = toToolCallScope;
 const zod_1 = require("zod");
-const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
+const capability_call_identity_js_1 = require("./capability-call-identity.cjs");
+var capability_call_identity_js_2 = require("./capability-call-identity.cjs");
+Object.defineProperty(exports, "CapabilityCallIdentitySchema", { enumerable: true, get: function () { return capability_call_identity_js_2.CapabilityCallIdentitySchema; } });
 const credential_link_js_1 = require("../vault/credential-link.cjs");
 const platform_internal_credentials_js_1 = require("../vault/platform-internal-credentials.cjs");
 const agent_config_js_1 = require("./ricerca/agent-config.cjs");
@@ -20,16 +22,10 @@ const parameters_js_1 = require("./parameters.cjs");
  * - Missing key, unavailable source, disabled / not installed capability and forged identity are distinct errors;
  *   a consumer never falls back to a process-global key.
  */
-exports.CapabilityCallIdentitySchema = internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.pick({
-    tenantId: true,
-    ownerId: true,
-    agentId: true,
-    userId: true,
-}).strict();
 /** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
-exports.CapabilityAgentScopeSchema = exports.CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
+exports.CapabilityAgentScopeSchema = capability_call_identity_js_1.CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
-exports.CapabilityPersonScopeSchema = exports.CapabilityCallIdentitySchema.required({ userId: true }); // strict, inherited
+exports.CapabilityPersonScopeSchema = capability_call_identity_js_1.CapabilityCallIdentitySchema.required({ userId: true }); // strict, inherited
 /** Same tenant, owner and agent (and person when both carry one). */
 function sameCapabilityScope(a, b) {
     return a.tenantId === b.tenantId && a.ownerId === b.ownerId && a.agentId === b.agentId && a.userId === b.userId;
@@ -43,7 +39,7 @@ function addKeyAlignmentIssues(left, right, ctx) {
     }
 }
 exports.CapabilityCallContextSchema = zod_1.z.object({
-    identity: exports.CapabilityCallIdentitySchema,
+    identity: capability_call_identity_js_1.CapabilityCallIdentitySchema,
     capability: CapabilityNameSchema,
     /** Applied version of this capability's per-agent configuration; null when it has none. */
     configVersion: agent_config_js_1.AgentConfigVersionSchema.nullable(),
@@ -65,7 +61,7 @@ exports.CapabilityCallContextErrorCodeSchema = zod_1.z.enum([
 ]);
 /** Forge validates `keys` against what this capability declares; it never returns undeclared keys. */
 exports.CapabilityCallContextRequestSchema = zod_1.z.object({
-    identity: exports.CapabilityCallIdentitySchema,
+    identity: capability_call_identity_js_1.CapabilityCallIdentitySchema,
     capability: CapabilityNameSchema,
     keys: zod_1.z.array(zod_1.z.lazy(() => credential_link_js_1.CredentialKeySchema)).max(64)
         .refine((keys) => new Set(keys).size === keys.length, { message: 'keys must be unique' }),

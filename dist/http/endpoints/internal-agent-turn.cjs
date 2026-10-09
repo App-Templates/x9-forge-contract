@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnParamsSchema = void 0;
 exports.internalAgentTurnPath = internalAgentTurnPath;
 const zod_1 = require("zod");
+const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
 const internal_memory_extract_js_1 = require("./internal-memory-extract.cjs");
 const capability_turn_lead_js_1 = require("../../capability/capability-turn-lead.cjs");
 const internal_turn_js_1 = require("./internal-turn.cjs");
@@ -16,8 +17,8 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
  * This sibling runs the turn with the deps of the agent named in the path
  * (workspace, registry, memory identity from its own context.json), so a voice
  * session bound to a Forge-created agent never touches the personal agent's
- * memory. agent-core refuses the primary agent id here (403): the personal
- * agent stays reachable only through the existing routes.
+ * memory. A primary turn additionally requires the complete trusted identity
+ * to match its current loaded context; legacy primary bodies remain refused.
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
@@ -38,6 +39,8 @@ exports.InternalAgentTurnParamsSchema = zod_1.z.object({
 });
 exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestSchema.extend({
     turn: capability_turn_lead_js_1.AgentTurnSchema.optional(),
+    /** Server-owned admission identity, matched against the current loaded context. */
+    identity: capability_call_identity_js_1.CapabilityCallIdentitySchema.optional(),
     /** Trusted caller identity, never taken from model text or tool input. */
     userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
 });
@@ -47,7 +50,7 @@ exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnRespons
 exports.InternalAgentTurnErrorResponseSchema = internal_turn_js_1.InternalTurnErrorResponseSchema;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';
-/** Error code returned with 403 when the path names the env primary agent. */
+/** Error code returned with 403 for a primary turn without a scoped admission. */
 exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = 'primary_agent_forbidden';
 /** Build the concrete path for an agent id (validated). */
 function internalAgentTurnPath(agentId) {

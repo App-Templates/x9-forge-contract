@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { type CapabilityCallIdentity } from "./capability-call-identity.cjs";
+export { CapabilityCallIdentitySchema, type CapabilityCallIdentity } from "./capability-call-identity.cjs";
 import type { ToolCallRequest } from "./tool-call.cjs";
 /**
  * Per-call capability context (R3, v1.31.0) — what ONE capability receives for ONE call of ONE agent.
@@ -10,13 +12,6 @@ import type { ToolCallRequest } from "./tool-call.cjs";
  * - Missing key, unavailable source, disabled / not installed capability and forged identity are distinct errors;
  *   a consumer never falls back to a process-global key.
  */
-export declare const CapabilityCallIdentitySchema: z.ZodObject<{
-    agentId: z.ZodString;
-    ownerId: z.ZodString;
-    tenantId: z.ZodString;
-    userId: z.ZodOptional<z.ZodString>;
-}, z.core.$strict>;
-export type CapabilityCallIdentity = z.infer<typeof CapabilityCallIdentitySchema>;
 /** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
 export declare const CapabilityAgentScopeSchema: z.ZodObject<{
     agentId: z.ZodString;

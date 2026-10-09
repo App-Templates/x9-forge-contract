@@ -9,8 +9,8 @@ import { z } from 'zod';
  * This sibling runs the turn with the deps of the agent named in the path
  * (workspace, registry, memory identity from its own context.json), so a voice
  * session bound to a Forge-created agent never touches the personal agent's
- * memory. agent-core refuses the primary agent id here (403): the personal
- * agent stays reachable only through the existing routes.
+ * memory. A primary turn additionally requires the complete trusted identity
+ * to match its current loaded context; legacy primary bodies remain refused.
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
@@ -89,6 +89,12 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         spokenText: z.ZodString;
         ended: z.ZodBoolean;
     }, z.core.$strict>], "kind">>;
+    identity: z.ZodOptional<z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>;
     userId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
@@ -124,7 +130,7 @@ export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
 export type InternalAgentTurnErrorResponse = z.infer<typeof InternalAgentTurnErrorResponseSchema>;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 export declare const INTERNAL_AGENT_TURN_UNKNOWN_AGENT: "unknown_agent";
-/** Error code returned with 403 when the path names the env primary agent. */
+/** Error code returned with 403 for a primary turn without a scoped admission. */
 export declare const INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN: "primary_agent_forbidden";
 /** Build the concrete path for an agent id (validated). */
 export declare function internalAgentTurnPath(agentId: string): string;
@@ -194,6 +200,12 @@ export declare const internalAgentTurnContract: {
             spokenText: z.ZodString;
             ended: z.ZodBoolean;
         }, z.core.$strict>], "kind">>;
+        identity: z.ZodOptional<z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
         userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
