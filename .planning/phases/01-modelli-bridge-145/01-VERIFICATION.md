@@ -1,140 +1,129 @@
 ---
 phase: 01-modelli-bridge-145
 verified: 2026-10-09
-status: gaps_found
-score: 2/3 must-have truths verified
+status: passed
+score: 3/3 must-have truths verified
+requirements_verified: [M145-01, M145-02, M145-03]
 release_sha: a5103c97c39b6178e8d53f201f27352c0fb58220
-native_qualified_candidate: f68b97c4e85f135c4ab37097227b1733ab5509b3
-verification_scope: tasks 1 and 2 verified; task 3 stopped under R32 after three attempts, pending new authorized lot
+native_source_execution_sha: f68b97c4e85f135c4ab37097227b1733ab5509b3
+re_verification:
+  previous_status: gaps_found
+  previous_score: 2/3
+  gaps_closed: [M145-03]
+  gaps_remaining: []
+  regressions: []
 overrides_applied: 0
-gaps:
-  - truth: Three immutable consumer installation roots install the published release SHA; four contexts resolve 18 public paths in ESM/CJS.
-    status: failed
-    reason: Task 3 reached the R32 three-attempt limit. Earlier f68 candidate installed in three roots, but final a510 release has not been installed and the complete four-context compiler/load/guard-mutation matrix is missing. TS6 needs explicit-file ignoreConfig while TS5 rejects that flag.
-    artifacts:
-      - path: work/c5-bridge-145-gsd/INSTALLS.json
-        issue: Six successful stages prove three roots installed earlier f68, not the final a510 release. Final SHA update and frozen installation remain required.
-      - path: tests/cjs/public-entrypoints-first.mjs
-        issue: Consumer mode exists and is substantive, but completed four-context installation results and causal guard qualification are pending assessment.
-    missing:
-      - New authorized lot after author's request at 10:53:41; no further execution under the exhausted lot.
-      - Compiler invocation chosen per actual consumer TypeScript major: explicit-file TS>=6 uses ignoreConfig, TS5 does not.
-      - Install published a5103c97c39b6178e8d53f201f27352c0fb58220 in all three immutable native roots, with subsequent frozen installs.
-      - Final-SHA four-context matrix, 36/36 fresh import/require checks each, 144/144 total, matching installed version/export map/dist hashes.
-      - Final-SHA eight separate NodeNext compilation results and deliberate failures of each new provenance guard, with exact restoration and fresh green.
-      - Delivery R34 evidence updated with actual completed install path, followed by independent release review.
+gaps: []
+independent_release_review: pending another Codex
 ---
 
-# Phase 1 goal-backward verification — draft
+# Phase 1 — final goal-backward verification
 
-**Status: gaps_found, 2/3 truths verified.** M145-01 and M145-02 retain the verified native contract/distribution evidence. M145-03 is incomplete: task3 was **SALTATO under R32 after three attempts**, and the author requested a new authorized lot at10:53:41. Final commit **a5103c97c39b6178e8d53f201f27352c0fb58220** was published by the coordinator at10:52:35, but has not yet been installed in the final matrix. No further execution is authorized by this report.
+**PASSED: 3/3 observable truths and all three requirements verified.** The approved Modelli contracts are identified as1.45.0, retain their qualified native distribution, and are actually installed from final published commit **a5103c97c39b6178e8d53f201f27352c0fb58220** in Forge and X9 isolated consumers. This author-phase GSD verification does not replace the pending independent release review by another Codex, or a live product qualification.
 
-## Actual task3 cutoff — supersedes earlier pending-only descriptions below
+Repository: `/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-156-1`. Latest observed documentation HEAD8ac3ba2a41a82311abb3150485aa32cba5da92df; release/product SHA is explicitlya510, not that documentation HEAD. Raw directory, abbreviated **RAW**: `/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd`.
 
-The previous sections' task1/task2 assessment is preserved as historical qualification for f68. The following observed task3 evidence supersedes statements below that installation results had not been assessed.
+Method: GSD goal-backward re-verification of prior M145-03 gap, inspection of actual runner/plan/diff and named raw logs, plus lightweight independent reads and SHA256 comparisons of current installed packages. Previously passed M145-01/02 received a source/distribution identity sanity check. No heavy suite, build, install, application or mutation was executed by this verifier, and no author repository was modified. Existing full source execution belongs to **f68b97c4**, with canonical source/dist/lock unchanged afterward; it is not relabelled a full run ona510.
 
-| Evidence | Actual result | What it proves |
+## Observable truths and requirements
+
+| Truth / requirement | Status | Evidence |
 |---|---|---|
-| RAW/INSTALLS.json | **6/6 stages exit0**: update/frozen for ForgeFactory,ForgeWeb,X9; all identify **f68b97c4e85f135c4ab37097227b1733ab5509b3**. | Genuine earlier-candidate GitHTTPS installation in3/3roots. Does not prove installation of finala510. |
-| RAW/CONSUMER-CHECKS.json, Factory |36/36fresh entrypoint cases;158/158Models assertions from factory-models.log; **2/2 separate TS commands exit0**. | Factory context on installedf68, using corrected author runner. |
-| Same report, Web |36/36fresh entrypoint cases;158/158Models assertions from web-models.log. ESM type probe exit1: **TS5023 unknown --ignoreConfig**. | Web load/model proof on installedf68; compiler qualification incomplete. |
-| Core and SDK | No completed final context results in this campaign. | **0/2 contexts qualified**, not inferred from X9 installation success. |
-| RAW/REVIEW-DRAFT.md | Latest targeted review explicitly identifiesa510 and remains clean. | Static two-assertion provenance correction reviewed; no final native install or negative-test coverage inferred. |
+| Release metadata identifies1.45.0 and approved contracts accurately — M145-01 | VERIFIED | `package.json:3`, `CHANGELOG.md:13`, `README.md:5`; version-only package change. Release notes describe registry/settings/source/CAS/execution contracts and initial-import correction without claiming handlers or runtime completion. RAW/metadata-red.log shows wrongversion1.44→AssertionError; metadata-green.log shows candidate success. |
+| Native regression and reproducible committed distribution retain canonical contracts — M145-02 | VERIFIED, retained native proof | RAW/full-native.json:5036/5036 cases in167file results,0pending/skip/todo; QUALITY.json:10/10commands exit0; dts.log:386/386portable declarations; BUILD-PARITY.json:1544/1544files. Default-final report is byte-identical to default-before,36/36. Follow-up lint-final.exit=0. Current Git diff of src/dist/pnpm-lock against approved6d is empty. |
+| Published finalSHA is installed natively in Forge/X9 and all public paths resolve — M145-03 | VERIFIED, gap closed | RAW/INSTALLS.json:6/6stages for3/3roots onexacta510; CONSUMER-CHECKS.json:16/16commands;4contexts×18paths×2formats=144/144freshloads;8/8separateTScompilations;19/19semanticprovenancefaults and8/8typefaults red/restored. Independently read currentinstalled dist:6176/6176comparisons equal candidate and recorded report. |
 
-There are **72/144 fresh load cases observed on the earlier installedf68**, **2/8 successful consumer-format compilation commands**, and **0/144 finala510 load cases qualified**. The two158/158Models assertion groups are distinct context executions; they are not158newcontract tests or runtime paths. No consumer-guard mutation campaign has been qualified yet.
+Roadmap phase goal and PLAN truths are satisfied together. REQUIREMENTS names two consumer families; authorized PLAN's stronger three-root/four-context acceptance was retained in full. There are no scope overrides.
 
-### Three attempts and concrete gap
+Native Vitest JSON reports566suite objects from nested suites; **167** is the file denominator. Ten quality commands and16consumer commands are process outcomes, not counts of new semantic assertions. The158Models assertions per context are existing public contract checks;632/632executions do not claim632newtests or runtime flows.
 
-1. **Attempt1 — pnpm virtual-store filename assumption.** RAW/CONSUMER-CHECKS-ATTEMPT1.json and factory-entrypoints-ATTEMPT1.log show Factory exit1, AssertionError `Installed resolution must identify expected SHA`. pnpm's virtual-store folder truncates the SHA; this was a false harness assumption, not a contract semantic regression and not credited as a deliberate mutation. Corrective commita510 confines installedRoot to native`.pnpm` and requires installed virtual-store lock bytes equal the consumer lock, retaining selected-importer exactSHA/version/export/dist guards.
-2. **Attempt2 — TypeScript6 explicit-file invocation.** Retained RAW/attempt-f68/factory-types-mts.log records TS5112 because a tsconfig exists and explicit files were passed without `--ignoreConfig`. The compiler invocation needed the actual TS6 profile.
-3. **Attempt3 — uniform flag breaks TypeScript5.** RAW/web-types-mts.log records TS5023 unknown`--ignoreConfig`; RAW/CONSUMER-CHECKS.json records Web type probe exit1 after successful Factory/ Web loads and Factory types. TypeScript5 does not accept the TS6 flag. The attempt limit was reached; continuing automatically would violate R32.
+## Actual installation and resolution matrix
 
-Next authorized gap plan must choose a compiler profile from **each context's actual installed compiler major**, preserving NodeNext/strict/noEmit settings: TS>=6 explicit-file invocation withignoreConfig; TS5 invocation without that flag. Do not change consumer TypeScript dependency versions to make the harness pass. Then install exactpublisheda510 in all3roots, frozeninstall, run4×36loads and8separatecompiles, qualify new guard mutations, restore bytes and collect finalfreshgreen.
+All roots are private copies under RAW, materialized from safe tracked immutable consumer revisions. ForgeFactory and ForgeWeb use **8814f3c6f287b97761ae012dc4c1bb0f2349d31d**; X9 uses **f2cf34aa1f8bdba99d28c496d3d1f598de1d2a06**. `SNAPSHOTS.json` records sources and excluded protected paths.
 
-The clean a510 review concerns only the provenance assertions; full native source/build proof belongs to f68. Contract source/dist remained unchanged by a510, so their prior native qualification is retained with that precise provenance, rather than claiming a fresh full suite ran on a510. Final consumer checks must exercise the a510 runner and installeda510 package together. No publication gap remains; the gap is final-SHA installation plus compiler-profile/matrix and causal guard qualification. No local tarball substitution or acceptance override is warranted.
+| Installed context, relative to RAW | Root | Fresh loads | Existing Models assertions | Separate TS probes | Current dist byte comparisons |
+|---|---|---|---|---|---|
+| `forge-factory/services/factory` | `forge-factory` |36/36|158/158|2/2|1544/1544|
+| `forge-web/web` | `forge-web` |36/36|158/158|2/2|1544/1544|
+| `x9/services/agent-core` | `x9` |36/36|158/158|2/2|1544/1544|
+| `x9/packages/capability-sdk` | `x9` |36/36|158/158|2/2|1544/1544|
+| **Total** | **3/3 roots** |**144/144**|**632/632**|**8/8**|**6176/6176**|
 
-Repository: `/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-156-1`. Initial inspected clean HEAD/native proof: **f68b97c4e85f135c4ab37097227b1733ab5509b3**; latest observed HEAD/provenance correction: **a5103c97c39b6178e8d53f201f27352c0fb58220**. Base contract: **6d1bafbd9f7dbf2edcadaeab48430e232d9f3c60**. Raw evidence root, abbreviated **RAW** below: `/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd`.
+The6176count is four context comparisons; core andSDK resolve the same physical X9 package tree. There are three independent installation roots, not four independently installed package trees.
 
-Method: read-only code/config/diff and existing raw-results inspection under `gsd-verifier` goal-backward instructions and `verify-phase` workflow. Read verification override, gate and calibration guidance. No suite, build, install, application, mutation, publication or repository edit executed by this verifier. A lightweight read-only SHA256 comparison of current dist against the raw build report was performed. No SUMMARY was used as sole proof. No previous phase VERIFICATION or accepted override was present at inspection.
+`INSTALLS.json` records native `pnpm install --lockfile-only --no-frozen-lockfile --prefer-offline`, followed by actual `pnpm install --frozen-lockfile --prefer-offline`, for each root; all six stages exit0 and identifya510. The override is GitHTTPS#fullSHA and native lock resolution uses codeload/thatSHA. This is the package manager's real Git dependency transport, not a substituted local tarball. Native lifecycle policy remained active; no `--ignore-scripts` fallback was introduced. Unrelated lifecycle scripts blocked by the existing allowlist and hooks-only prepare's nonfatal missing.git notice remain explicit limits.
 
-## Goal and observable truths
+### Independent current installed-artifact reads
 
-Roadmap goal (`.planning/ROADMAP.md:70`): prepare version1.45.0 of the approved Models contracts with native distribution and actual SHA-pinned isolated consumer installations. PLAN's three truths preserve the entire goal; the implementation task count cannot replace these acceptance criteria.
+For each named `*-entrypoints.json`, the verifier read `provenance.installedRoot` from disk, parsed the adjacent actual package manifest, hashed every current dist file and compared the whole path/hash map with both the author candidate and recorded installed hashes. All four identifyversion1.45.0 andexacta510;1544files/contextmatch. Root and installed virtual-store `lock.yaml` bytes are equal in all four contexts. Therefore final stored results are also consistent with current restored installation bytes.
 
-| # | Observable truth | Status | Evidence |
-|---|---|---|---|
-| 1 | Release metadata identifies1.45.0 and approved Models contracts accurately. | VERIFIED | `package.json:3`; `CHANGELOG.md:13` and Added/Fixed text; `README.md:5`. Version-only package diff, scoped accurate documentation. Metadata baseline red and candidate green in RAW/metadata-red.log, metadata-green.log. |
-| 2 | Complete native regression and reproducible committed dist retain canonical contracts. | VERIFIED | RAW/full-native.json:5036/5036 cases,167 file results,0pending/skip/todo; RAW/QUALITY.json:10/10 commands exit0; RAW/dts.log:386/386 portable declarations; RAW/BUILD-PARITY.json:1544/1544 files. Independent read-only current dist hashes match all1544 report entries. `git diff 6d1bafbd..HEAD -- src dist pnpm-lock.yaml` is empty. |
-| 3 | Three immutable native install roots obtain the published release SHA, and four installed contexts load all18paths in both formats. | PENDING / GAP | Consumer harness exists, but local default36/36 is bridge self-reference. Final remote transport, installed-provenance,144/144load,8/8compilation and consumer-guard mutation evidence remain to be assessed after orchestrator update. |
+Actual installed roots are native paths below each root's `node_modules/.pnpm/.../node_modules/@x9-forge/contracts`; they are outside the author bridge. pnpm truncates the virtual folder's display SHA, so provenance properly uses the actual importer/root/installed locks plus full content hashes, rather than falsely requiring the entire SHA in a folder name.
 
-Vitest reports566/566 suite objects because nested describes are counted; **167 file results** is the correct file denominator. Do not report566files.
+## Existence, substance and wiring
 
-## Artifact verification: exists, substantive, wired
+| Link / artifact | Verification |
+|---|---|
+| Native metadata/build → release package | Version1.45, unchanged exports/scripts/dependencies; native zshy/dts/check:pack results and1544-file second-build parity supported by raw reports and build-parity.py. |
+| Native test → independent first-entrypoint runner | `package.json:135` → `tests/cjs/smoke.cjs:165`; default36/36report identical before/final after consumer CLI addition. |
+| Explicit context → installed package | Runner:40–49 requires all context options and confines context/install/realpath to native store. Actual consumer createRequire resolution is exercised in four contexts. |
+| Consumer override/selected importer → immutable remote SHA | Runner:50–66 binds exactGitHTTPSoverride, specifically selected importer specifier/codeloadresolution and installed/root lock equality. The unrelated expected-SHA-entry mutation fails as intended. |
+| Installed package → version/export map/dist | Runner:67–74 checks actual package identity/version, full export map and full distribution hashes. Current independent6176-file comparison agrees. |
+| Context → first-import runtime semantics | Runner:77–90 launches a fresh process for each path/format from consumer cwd, checks nonempty namespace and actual valid/invalid canonical key parsing.144results allpassed. |
+| Installed declarations → consumer compiler | Eight separate NodeNext strict/noEmit compilations; Factory/core/SDK retain nativeTS6 with explicit-fileignoreConfig, Web retains nativeTS5 without it. Wrong canonical function type causesTS2322inall8probes. |
 
-| Artifact | Existence/substance | Wiring and outcome |
-|---|---|---|
-| `package.json` | Present; version1.45.0; export/scripts/dependency map retained. | Native commands and manifests identify candidate version; VERIFIED. |
-| `CHANGELOG.md` | Present; specific Modelli registry/configuration/source/CAS/execution-contract additions and first-load fix. | Describes pre-existing approved contracts and expressly states no handler/live runtime introduction; VERIFIED. |
-| `README.md` | Present; narrow version,18entrypoint list, hooks-only prepare and committed dist correction. | Consistent with actual manifest/build policy; VERIFIED for release-facing change. Historical unrelated documentation was not a new acceptance target. |
-| `metadata-check.mjs` | Present; exact version assertion. | Invoked in quality and local guard evidence. Baseline1.44.0 produced semantic AssertionError, then candidate green; VERIFIED. |
-| `tests/cjs/public-entrypoints-first.mjs` default mode | Present; enumerates manifest, spawns clean process per path/format, validates namespace plus canonical valid/invalid key parser. | Existing native smoke invokes runner at `tests/cjs/smoke.cjs:165`. RAW/default-before.json and default-after.json both36/36 and byte-identical; VERIFIED default regression. |
-| Same runner, consumer mode | Present; complete required CLI options, consumer-root confinement, consumer createRequire resolution, specific lock importer, version/export/hash guards. | Static wiring is substantive; installed invocation and guard mutations pending assessment. Not labelled a working transport proof merely because code exists. |
-| Committed dist |1544tracked files with complete path/hash maps. | RAW/build-parity.py:7–12 records native second build, exact hash equality, and equality of generated/tracked path sets. Read-only verifier comparison confirms1544/1544 current bytes match report. Native build produces no committed dist change from approved6d base; this is valid, not an omitted rebuild. |
+These are substantive executed links, not merely existing files. UI/ORM data-flow gates are not applicable: no UI or database schema changed. RAW/SCHEMA-DRIFT.json records drift_detected=false,blocking=false. RAW/SNAPSHOT-DELTA.json records all tracked consumer files unchanged except package.json/pnpm-lock.yaml/pnpm-workspace.yaml in each private snapshot; outsideInstallationConfigChanges=0 for3/3roots.
 
-The release delta itself contains five files: metadata-check, CHANGELOG, README, package version and runner. Phase planning commits additionally contain documentation. **0 contract source,0 dist,0 dependency-lock changes** relative to6d base. No new DTO or provider behavior is introduced.
+## Causal negative checks and exact restoration
 
-## Key links and data flow
+The verifier inspected every named red and restored log referenced by `CONSUMER-MUTATIONS.json`. All **19/19** show the expected AssertionError guard, not network/install/timeout failure; every restored log ends36/36first-entrypointchecks and has recorded exit0. Mutation script restores original bytes and asserts equality for modified manifests, lock files and dist, and restores the actual consumer symlink. Current installed manifests/locks/dist agree with the candidate independently after the campaign.
 
-| Link | Inspection | Status |
-|---|---|---|
-| Native build → declarations/dist | `package.json:131` runs zshy then portability validator; raw build/dts and parity evidence agree. | VERIFIED |
-| Native test → default first-entrypoint smoke | `package.json:135` invokes CJS smoke, which invokes runner; recorded native-cjs/default results exit0. | VERIFIED |
-| CLI consumer → installed resolver | Runner:40–49 requires context and install root, resolves root entry through context createRequire, rejects author bridge/outside node_modules. | STATIC WIRED; live invocation pending |
-| Consumer override/selected importer lock → expected remote SHA | Runner:50–66 checks root override plus specifically delimited consumer importer specifier and codeload resolution; unrelated lock entry cannot satisfy this code. | STATIC WIRED; targeted negative evidence pending |
-| Installed package → exact candidate artifacts | Runner:67–74 checks identity/version/export map and all dist file SHA256s. | STATIC WIRED; actual installation evidence pending |
-| Selected context → fresh first-import subprocess | Runner:77–90 enumerates18keys×2formats and spawns with `cwd: root`. Default root is bridge; consumer mode explicitly selects installed context. | Default VERIFIED, consumer pending |
+| Deliberate fault | Observed semantic guard |
+|---|---|
+| unknown-option / missing-value / required-consumer-option | CLI unknownoption / missingvalue / requiredconsumer assertions |
+| expected-version / sha-shape | Installedversion mismatch / immutableSHAshape assertion |
+| consumer-containment / author-self-reference | Context containment / outsideauthorbridge assertion |
+| override / installed-name / export-map | ExpectedGitoverride / packageidentity / completeexportmap assertion |
+| importer-missing / dependency-missing | Selectednativeimporter / actualbridge dependency assertion |
+| specifier-sha / resolution-sha-unrelated-preserved | Selectedimporter's exactspecifier / exactremoteSHA assertion |
+| installed-lock | Installedvirtualstorelock equals frozenrootlock assertion |
+| dist-byte / dist-symlink | Fulldistributionhash equality / nosymlinks assertion |
+| outside-node-modules / resolution-sha-path | Actualpackage must lie in nativeconsumer `.pnpm` store assertion |
 
-No UI/data-fetch rendering was introduced, so GSD Level4 UI data-flow trace is not applicable. Relevant upstream flow here is Git dependency → native lock/importer → installed package → runtime module resolution; that final transport chain is deliberately not credited until task3 finishes.
+Two path cases exercise the same native-store guard under different copied-package destinations; they are two causal faults, not two distinct product safeguards. The campaign validates provenance/CLI assertions. It does not introduce or claim19independenttests of all18exporttargets. Existing first-import parser semantics remain directly asserted in the144fresh processes.
 
-## Requirements coverage
+`TYPE-MUTATIONS.json` records **8/8** separate `.mts`/`.cts` faults: canonical function string changed to42, each redexit2/TS2322, exactRestoration=true andrestoreexit0. The verifier read all eight named `context-types-format-red.log` diagnostics. Type mutation script uses finally to restore original bytes, reruns each original compilation and assertsbyteequality. Metadata wrongversion red/green is **1/1**, separate from the19provenancefaults and8typefaults.
 
-| Requirement | Source | Status | Evidence/limit |
-|---|---|---|---|
-| M145-01 |01-01-PLAN, task1; REQUIREMENTS.md:5 | VERIFIED |1.45.0 metadata and accurate existing-contract release notes. Wrong-version assertion observed red, then green. |
-| M145-02 |01-01-PLAN, task2; REQUIREMENTS.md:6 | VERIFIED |5036/5036native source,10/10quality commands,386/386dts,18paths×2formats36/36,1544/1544reproducible dist, canonical source unchanged. |
-| M145-03 |01-01-PLAN, task3; REQUIREMENTS.md:7 | PENDING / GAP | Phase requirement says two consumer families; authorized PLAN adds three roots/four contexts, which cannot be reduced. Final proof must use this release's published immutable SHA. |
+## Prior gap trajectory, retained honestly
 
-## Raw evidence assessment
+Initial verification was **gaps_found2/3**. First task3 lot stopped under R32 after three technical attempts: fullSHA-in-pnpm-folder false assumption; TS6 explicitfiles needsignoreConfig; WebTS5 rejects that flag. Earlierf68 results are preserved in their diagnostic history and not counted as finala510qualification. Coordinator publication ofa510 at10:52:35 resolved the publication gate; new gap lot authorized10:55:01 permitted resumed execution under01-02.
 
-- **RAW/full-native.json**: success=true,5036total/passed,0failed/pending/todo,167testResults. Native source run precedes quality build in executor record; verifier did not rerun it.
-- **RAW/QUALITY.json**, backed by named logs: metadata-green,types,lint,build,dts,default-after,public-models,public-consumers,native-cjs,pack all exit0, **10/10**. Preserve individual result meanings; ten commands are not ten semantic assertions.
-- **RAW/BUILD-PARITY.json** and **RAW/build-parity.py**:1544/1544 matching distribution files, exact tracked path set, second native build asserted successful. Verifier independently checked current dist map equals recorded map.
-- **RAW/LOCAL-GUARDS.json**, **metadata-red.log**, **metadata-green.log**, **default-before.json**, **default-after.json**, **mutations.py:7–10**:1/1metadata red/green,36/36default cases unchanged, raw default report bytes identical. This qualifies the metadata/default checks only; it does **not** qualify newly added consumer guards.
-- **RAW/REVIEW-DRAFT.md**: clean static review after selected-importer guard correction. This supports code review, not install completion, causal negative coverage or independent final release approval.
-- **RAW/SNAPSHOTS.json**: immutable source materializations for three roots: two Forge copies from8814f3c6f287b97761ae012dc4c1bb0f2349d31d and one X9 copy fromf2cf34aa1f8bdba99d28c496d3d1f598de1d2a06. Snapshot existence and safe excluded-path metadata are preparatory, not successful SHA installations.
+During the gap mutation campaign, a workspace-only delimiter bug interrupted after13qualified faults. `CONSUMER-MUTATIONS-ATTEMPT1.json` preserves those13; the script corrected its delimiter, retained qualified results and ran only thesixremaining faults. Final19records are19distinct observations, not13+19. The failed harness interruption itself is not credited as semantic fault coverage. All final install/load/type/mutation totals above refer toactuala510results.
 
-Native `check:pack` exits0 with the pre-existing root CJS.types ambiguity warning and existing node16/false-cjs profile. No new exclusion was added. Report this limitation rather than saying warning-free.
+Native fullsource5036/5036 was executed onf68 before build. A510 changes only two provenance assertions in the test runner; later changes are phase documentation. The verifier independently checked canonical src/dist/pnpm-lock unchanged from6d, preserving native contract/build qualification without claiming a repeated full run on finalSHA. Default-final36/36byteequality and follow-up lint0 cover the amended runner's retained default behavior.
 
-## Anti-patterns and review limits
-
-No TODO/FIXME/placeholder stub found in the changed runner. Its logs report actual results and are not placeholder implementation. The precise importer guard avoids the earlier unrelated-lock-entry false positive. The optional consumer path does not alter the existing default probe body or results.
-
-The source/data contract is unchanged, so broad product re-review is unnecessary here. Actual transport could still fail because the candidate SHA is unpublished or the package manager policy rejects it; such failures are release gaps, not semantic red tests. No fallback tarball or local link is acceptable as evidence for M145-03. No override applies, and none is suggested for an incomplete requirement.
+No TODO/FIXME/placeholder stub was found in the reviewed changed runner. Native check:pack exits0 under its unchangednode16/false-cjsprofile, with the pre-existing CJS.types ambiguity warning explicitly retained; this is not warning-free package qualification. No false green, fallback local package, unapproved contract rewrite or runtime inference is accepted here.
 
 ## Fruibilità alla consegna (R-34)
 
-**La feature è completa?** La preparazione locale della release è implementata e testata nei limiti M145-01/M145-02. La fase di rilascio non è ancora verificata completa: M145-03 deve chiudersi con la prova vera del nuovo SHA nei consumatori.
+**La feature è completa?** La fase assegnata di distribuzione del contratto Modelli1.45.0 è implementata e verificata: metadata, distribuzione nativa e installazione del commitpubblicatoa510nei consumatori isolati Forge/X9. La feature Modelli nel prodotto e il suo cambio effettivo nei runtime non sono dichiarati completi da questa fase.
 
-**Cosa ne impedisce l'uso?** Il commit finalea510 è stato pubblicato dalla coordinatrice, ma manca la sua installazione qualificata nelle tre copie isolate e la matrice completa dei quattro contesti. Il lotto si è fermato dopo tre tentativi R32; profili TS6/TS5 da distinguere nel nuovo lotto richiesto. La disponibilità dei contratti non dimostra l'applicazione dei modelli nei runtime; **0/34 consumer dal vivo verificati da questa fase**.
+**Cosa ne impedisce l'uso?** Non rimangono gap di installazione nei tre ambienti isolati provati. Restano la revisione indipendente della release da parte di un altroCodex, l'adozione coordinata nei consumatori reali e la prova funzionale dal vivo della feature complessiva. **0/34 percorsi Modelli dal vivo verificati da questa fase.** F non ha eseguito push/tag/merge/deploy; la pubblicazione è della coordinatrice.
 
-**Prova del percorso dell'utente:** Chi integra Forge/X9 sceglie SHAimmutabile → installa con policy nativa → risolve pacchetto1.45.0 dalla propria cartella → carica18sottopercorsi ESM/CJS → compila contro dichiarazioni installate. Sull'earlierf68 sono osservati3/3installazioni (6/6stadi),72/144caricamenti nei soli contesti Factory/Web e2/8compilazioni inFactory. Nessuna matrice finale installata su a510 ancora qualificata; core/SDK e nuove mutazioni restano da provare nel nuovo lotto.
+**Prova del percorso dell'utente:** Chi integra il contratto parte dai commitimmutabili Forge8814f3c6/X9f2cf34aa in copie private; imposta GitHTTPS#**a5103c97c39b6178e8d53f201f27352c0fb58220** con policy nativa; aggiorna il lock; installa frozen; risolve il pacchetto dalla cartella effettiva Factory/Web/core/SDK; controlla versione1.45.0, export e1544filedist; esegue144/144primiimport/require,632/632asserzioniModelli e8/8compilazioni. Le prove negative rilevano19/19guasti di provenienza e8/8guasti di tipo; i ripristini tornano verdi e i file installati correnti sono identici alla distribuzione candidata.
 
 ## Corrispondenza aspettativa e tavola (R-34)
 
-**Aspettativa:** ROADMAP fase1, REQUIREMENTS M145-01/02/03 e PLAN richiedono una release identificabile, compilata fedelmente e realmente installabile da SHA in Forge/X9. Le prime due parti sono provate; la terza è il gap dichiarato.
+**Aspettativa:** fase1 dellaROADMAP eM145-01/02/03 richiedono release identificabile, distribuzione canonica fedele e installazione autentica daSHA inForge/X9.
 
-**Tavola:** non serve: la fase riguarda distribuzione e contratti, senza interfaccia visiva. Nessun esito UI o comportamento live è dedotto dalle prove di pacchetto.
+| Aspettativa | Percorso provato / corrispondenza |
+|---|---|
+| Identificazione1.45 e note accurate | package/CHANGELOG/README; metadato wrongversion rosso→verde; M145-01VERIFIED |
+| Contratti e distribuzione nativa integri |5036/5036baselinef68,10/10qualità,386/386dichiarazioni,1544/1544parità; source/distidentitàconfermata; M145-02VERIFIED |
+| Installazione pubblicata e risoluzioneconsumer |3/3root,6/6stadi,4/4contesti,144/144caricamenti,8/8compilazioni,6176/6176confrontibyte; M145-03VERIFIED |
+| Controlli capaci di rilevare il guasto |1/1metadato,19/19provenienza,8/8tipi rossi e ripristinati; nessuna failure di rete accreditata |
 
-## Gaps summary and re-verification
+**Tavola:** non serve: questa fase distribuisce un pacchetto di contratti senza interfaccia visiva. La tavola della paginaModelli e le prove utente sui runtime appartengono alle rispettive fasi prodotto.
 
-One goal gap remains: qualify task3 end-to-end distribution of final **a5103c97c39b6178e8d53f201f27352c0fb58220**, already published by the coordinator. **Wait for a new authorized lot before execution.** Under that lot, fix compiler profiles per context, install the finalSHA, collect the full144/144load and8/8compilation matrix, and qualify all new guard mutations with restoration/freshgreen. Reverify only this gap fully and sanity-check retained metadata/dist without repeating expensive native suites unless a new code change justifies it. Update to `passed` only when the three-root/four-context goal has observed final-SHA evidence. Independent release review/delivery remains a separate coordination gate.
+## Final outcome
+
+All three phase requirements are verified; prior goal gap M145-03 is closed with observed finalSHA evidence. **Status passed,3/3.** Canonical contract identity, actual native transport and installed runtime/type resolution are all supported. Scope is exclusively **01-modelli-bridge-145**, the new release phase; it does not mark historical v1.0 Capability Contracts, Shim Cleanup or an entire unrelated milestone complete. Independent review by another Codex remains pending and must be recorded separately; this verifier report does not grant publication, merge, deployment or live-product approval.

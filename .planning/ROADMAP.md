@@ -70,13 +70,17 @@ Full archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md) · Audit: [v1.0-MILE
 **Goal:** Prepare version 1.45.0 of the approved Models contracts with native distribution and actual SHA-pinned isolated consumer installations.
 **Requirements**: M145-01, M145-02, M145-03
 **Depends on:** Approved Models contracts at 6d1bafbd; independent import-fix review and coordinator publication before remote installation proof.
-**Plans:** 1 plan
+**Plans:** 2/2 plans complete (2026-10-09)
 
 Canonical refs: package.json, CHANGELOG.md, README.md, .planning/phases/c5-modelli-consumatori/CONTRATTO.md
 
 Plans:
-- [ ] 01-01-PLAN.md — version, distribution, isolated consumer install and public entrypoints
+- [x] 01-01-PLAN.md — version, distribution, isolated consumer install and public entrypoints
 
 ---
 
 *Last updated: 2026-04-16 after v1.0 milestone close*
+
+- [x] 01-02-PLAN.md — final SHA installation and native compiler provenance gap closure
+
+**Verification:** passed; release a5103c97;3/3installroots,144/144loads,632/632Models,8/8types;19/19provenance and8/8typefaults restored. Independent release review pending.
