@@ -36,6 +36,10 @@ Raw proof directory: workspace work/c5-bridge-145-gsd. Primary filesFINAL-PROOF.
 
 ## Fruibilità alla consegna (R-34)
 
+- **La feature è completa?** Sì, per il compito di preparazione e installabilità del pacchetto1.45: i tre requisiti M145 sono verificati. La feature Modelli nel suo insieme resta ai compiti consumer/runtime e alla prova dal vivo,0/34qui.
+- **Cosa ne impedisce l'uso?** Nulla impedisce l'installazione e il caricamento del pacchetto dallo SHAa510pubblicato. Il rilascio coordinato dei consumer, la revisione indipendente e i flussi utente restano esterni a questa fase, senza affermarli conclusi.
+- **Prova del percorso dell'utente:** eseguita l'importazione GitHTTPS dello SHAa510nelle copie isolate dei veri snapshotForge8814f3c6eX9f2cf34aa. Aggiornato il lock nativo, eseguite treinstallazioni frozen, aperto il pacchetto risolto daFactory/Web/core/SDK, confrontati versione1.45.0,exportmap e6176file contro il rilascio. I quattro contesti hanno poi caricato tutti18ingressi inESM/CJS e compilato i tipi canonici. Passi e risultati effettivi in INSTALLS.json,CONSUMER-CHECKS.json e quattroentrypoints.json nel pacchetto prove; nessun DTO/copia locale è stata usata come prova di installazione.
+
 1. Cosa può fare: installare il contratto Modelli1.45.0 daSHAimmutabile nei consumerForge/X9 e caricare tutti18ingressi ESM/CJS con tipi coerenti.
 2. Percorso provato: snapshotForge8814f3c6Factory/Web eX9f2cf34aa core/SDK → overrideGitHTTPSa510 → locknativo aggiornato → installfrozen → risoluzione pacchetto da ciascunconsumer → versione/export/dist verificati →144caricamenti,632assertionModelli,8compilazioni,guasti/ripristini.
 3. Corrispondenza: identificazione1.45PASS;distribuzionecanonicaPASS1544/1544;installazioneconsumerPASS3/3root+4/4contesti. Tavola nonserve: pacchetto senzaUI.
@@ -46,3 +50,14 @@ Raw proof directory: workspace work/c5-bridge-145-gsd. Primary filesFINAL-PROOF.
 All reported denominators are asserted by finish-proof.py against rawJSON; release/productcommits exist; canonicalsrc/dist/lock unchanged from6d; alltemporary installed/type faults restored exactly. Independentreview remains external to authorGSD verification.
 
 Nativecompletion was executed on an isolated document copy because its progress-table regex matches archivedPhase1 globally. Only newrelease tracking was applied to authorrepo. Its first warning matched the literal historical gap-status narrative despite currentpassedfrontmatter; clarified that narrative and reran nativecompletion with0warnings. Originalrawdiagnostic retained. HistoricalShimCleanup notmarkedcomplete.
+
+## Corrispondenza aspettativa e tavola (R-34)
+
+**Aspettativa:** non serve: questa fase distribuisce un pacchetto di contratti già approvati; la decisione canonica è in01-CONTEXT.md, non introduce un nuovo percorso utente Modelli.
+**Tavola:** non serve: il pacchetto non ha interfaccia, pulsanti o colonne; si verifica tramite la reale installazione nei consumer.
+
+| Elemento | Cosa si costruisce | Come si prova | Esito |
+| --- | --- | --- | --- |
+| Identificare1.45.0 | Versione e changelog | Manifest reale e guardia versione | fatto:1/1metadatared/green,versioneinstallata1.45in4/4contesti |
+| Distribuzione canonica | ESM/CJS e dichiarazioni | Buildnative e hashcompleti | fatto:1544/1544parità,386/386dichiarazioni |
+| Installabile nei consumer | Dipendenza remotaSHA | Locknativo,risoluzionereale,ingressi e tipi | fatto:3/3root,144/144load,8/8TS,6176/6176file |
