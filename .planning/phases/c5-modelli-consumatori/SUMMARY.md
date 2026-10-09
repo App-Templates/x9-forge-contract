@@ -39,3 +39,8 @@ Solo perimetro autorizzato,0cancellazioni.12derivati fuori modello autorizzati09
 ## Rettifica formale 09:20
 
 Prodotto congelato f364f3b175e082cd755125614a18680830daf5b2, codice/dist invariati. Il gate di consegna ha rifiutato il titolo PLAN «Esistente (R-35), con Vecchio Forge»: richiedeva l'intestazione esatta e le etichette in grassetto. Riformattati i contenuti già presenti nel PLAN iniziale, conservati riferimenti e decisioni approvate; verifiche R34/R35 ora0mancanze. Questo è un commit soltanto documentale, nessun controllo del prodotto ripetuto o aggirato.
+
+
+## Regressione import iniziale — 09/10 09:41
+
+Ricevuto APPROVE A sul delta f364/docs8161, ma C ha trovato una superficie non coperta dalle prove precedenti: primo import pubblico vault in processo pulito fallisce CredentialKeySchema TDZ. Riprodotto anche nel156-1 senza modifiche. Il prodotto f364 non è più dichiarato qualificato per tutti i consumer; correzione separata e matrice completa richiesta dalla coordinatrice093906. PLAN aggiornato prima di codice/test. Verifica C4 sospesa come priorità; suo full privato271 già avviato può concludersi.

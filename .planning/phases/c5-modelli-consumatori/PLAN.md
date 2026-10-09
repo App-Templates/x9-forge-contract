@@ -104,3 +104,10 @@ Esistente (con Vecchio Forge): apply-config porta desiredVersion e CAS primoStor
 ### Lettura generation moderna (autorizzazione090653)
 
 Esistente: bootstrapSource espone generation solo prima del primoStore; state moderno ha saved/runtime/versions senza generation opaca. Comportamento: sourceObservation opzionale/null aggiunge fonte osservata scoped e tempo, esclusivamente con saved completo/provenance; nessuna conversione configVersion→sourceVersion. Si riscrive? No, endpointstate invariato e SourceExpectation riusato. Fruibilità: B legge generation prima di scegliere/modificareMaster, D la produce veramente e CAS dopoawait; prova dalvivo rimane ai producer. Corrispondenza: leggiModelli→sourceObservationfresca→modelExpectedSourceVersion nelcomando→generationrecheck→writerprivato→readback configurazione effettiva. Testprima,mutazioni,fullnativo ebuildnuovasufontedefinitiva.
+
+
+## Correzione import pubblico iniziale — 09/10 09:41
+
+Ordine coordinatrice093906, precedenza sulla verifica C4. Esistente: credential-link importa gli stessi valori canonici management attraverso agent-management; il delta Master porta quest’ultimo al modello scoped e a CapabilityAgentScope. CapabilityCallContextSchema:58 legge CredentialKeySchema durante il ritorno circolare. Si riusa lo schema canonico; nessuna forma o validazione cambia. Perimetro aggiuntivo autorizzato: capability-call-context, credential-link, relativi dist, tests/cjs.
+
+Prima una matrice che avvia ogni export pubblico del package come primo import in un processo pulito, ESM e CJS, inclusi vault/agent/model-router/capability/http (gli endpoint sono esportati da http). Rosso intenzionale sul checkpoint congelato, poi riferimenti lazy soltanto dove necessari per togliere il ciclo. Full sorgente nativa prima della build, matrice compilata verde dopo, test schema esistenti e mutazione/ripristino causale. Nuovo SHA separato, verifica A e pin dei consumer coordinati. Fruibilità: ripristina il caricamento dei consumer; non prova runtime/provider né feature completa. Stack invariato. Lotto09:41–10:26, max45min/3tentativi tecnici.
