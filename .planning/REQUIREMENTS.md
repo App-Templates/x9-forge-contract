@@ -11,3 +11,15 @@ Scope: only C5-MODELLI-BRIDGE-145-GSD. Historical v1.0 requirements remain in mi
 | M145-01 | 1 Modelli bridge 145 | Complete |
 | M145-02 | 1 Modelli bridge 145 | Complete |
 | M145-03 | 1 Modelli bridge 145 | Complete |
+
+## Modelli authority locale — phase2
+
+- [ ] **AUTH-01**: Canonical internalGET exposes existingrolelesslocalSourceObservation withcanonicalauth/header/params, validatedpath andHTTPexports, includingpreprimingwithoutrecursiveaggregate.
+- [ ] **AUTH-02**: Additivepre-bootstraploadedsource representscompleteactualconsumerselections andsamegenerationCAS withoutpriorMasterrole; exactstateidentity/absenceguards; oldmaster-only andmodernsourceconstraints unchanged; Bcoordinationrecorded.
+- [ ] **AUTH-03**: Nativefullsource/quality/dist/publicESM-CJS qualifynewcontracts; eachnewguarddeliberatelybroken/restored; localcommitsreviewable, publicationonlycoordinator andindependentCodexreviewpending.
+
+| Requirement | Phase | Status |
+| --- | --- | --- |
+| AUTH-01 | 2 Modelli authority locale | Pending |
+| AUTH-02 | 2 Modelli authority locale | Pending |
+| AUTH-03 | 2 Modelli authority locale | Pending |

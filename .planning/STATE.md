@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
-status: complete
-stopped_at: Phase 1 release qualified; independent review pending
-last_updated: "2026-10-09T09:05:48.058572+00:00"
+status: completed
+stopped_at: Phase 2 context gathered; research and Bcoordination pending
+last_updated: "2026-10-09T09:13:10.669Z"
 progress:
-  total_phases: 1
+  total_phases: 2
   completed_phases: 1
   total_plans: 2
   completed_plans: 2
@@ -142,8 +142,8 @@ None active. v1.0 closed cleanly with explicit Known Gaps recorded.
 
 ## Session Continuity
 
-Last session: 2026-10-09T08:30:05.075Z
-Stopped at: Phase 1 context gathered
+Last session: 2026-10-09T09:13:10.666Z
+Stopped at: Phase 2 context gathered; research and Bcoordination pending
 Next action: `/clear` then `/gsd-new-milestone` (when ready to plan v1.1).
 
 ## Remote & baseline

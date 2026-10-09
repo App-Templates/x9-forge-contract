@@ -78,6 +78,16 @@ Plans:
 - [x] 01-01-PLAN.md — version, distribution, isolated consumer install and public entrypoints
 - [x] 01-02-PLAN.md — final SHA installation and native compiler provenance gap closure
 
+### Phase 2: Modelli authority locale
+
+**Goal:** Canonical local source observation and pre-bootstrap loaded model source without fabricated Master role.
+**Requirements**: AUTH-01, AUTH-02, AUTH-03
+**Depends on:** Phase 1
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 2 to break down)
+
 ---
 
 *Last updated: 2026-04-16 after v1.0 milestone close*
