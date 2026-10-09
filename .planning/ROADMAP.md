@@ -76,6 +76,6 @@ Full archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md) · Audit: [v1.0-MILE
 **Depends on:** Reviewed Paperclip D4/D5 contracts; native service D6 independent approval.
 **Requirements:** PCL-REL-01, PCL-REL-02, PCL-REL-03
 **Plans:** 1
-- [ ] 55-01-PLAN.md — integrate reviewed source, release metadata, full build/test/pack compatibility and handoff
+- [x] 55-01-PLAN.md — integrate reviewed source, release metadata, full build/test/pack compatibility and handoff
 
 This scoped bootstrap phase leaves historical v1.1 cleanup parked. No publish, push, PR, merge or deployment by Codex D.
