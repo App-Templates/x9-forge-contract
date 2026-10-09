@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { ordinaryCapabilityAgentConfigGetContract, ordinaryCapabilityAgentConfigPutContract, ordinaryCapabilityLifecyclePutContract, selectCapabilityAgentConfigFormat, parseOrdinaryCapabilityAgentConfigGet, parseOrdinaryCapabilityAgentConfigPut, parseOrdinaryCapabilityLifecyclePut } from '../../src/http/endpoints/internal-capability-agent.js';
 import {
   AgentConfigStaleSchema,
   AgentSpendResponseSchema,
@@ -60,5 +61,41 @@ describe('per-agent capability routes (v1.28.0)', () => {
     };
     expect(AgentGrowthResponseSchema.safeParse(growth).success).toBe(true);
     expect(AgentGrowthResponseSchema.safeParse({ ...growth, wiki: { ...growth.wiki, pages: -1 } }).success).toBe(false);
+  });
+});
+
+describe('ordinary explicit config transport', () => {
+  const scope = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'runtime-a' }, capability = 'cap-news';
+  const configuration = { format: 'ordinary-v2', scope, capability, version: 1, parameters: [] };
+  const body = { requestId: 'ordinary-request-a', expectedVersion: null, configuration };
+  const query = { format: 'ordinary-v2', ...scope, capability };
+  const target = { scope, capability, parameters: [] };
+  it('reuses the path and secret auth without changing legacy contract bodies', () => {
+    for (const contract of [ordinaryCapabilityAgentConfigPutContract, ordinaryCapabilityAgentConfigGetContract, ordinaryCapabilityLifecyclePutContract]) {
+      expect(contract.path).toBe(ricercaAgentConfigPutContract.path); expect(contract.authType).toBe('secret');
+    }
+    expect(selectCapabilityAgentConfigFormat('GET', {})).toBe('legacy');
+    expect(selectCapabilityAgentConfigFormat('PUT', { agentId: 'samira', version: 1 })).toBe('legacy');
+    expect(selectCapabilityAgentConfigFormat('GET', query)).toBe('ordinary-v2');
+    expect(selectCapabilityAgentConfigFormat('PUT', body)).toBe('ordinary-v2');
+    expect(selectCapabilityAgentConfigFormat('PUT', { format: 'ordinary-lifecycle-v1' })).toBe('ordinary-lifecycle-v1');
+  });
+  it('rejects unknown or wrongly placed formats before legacy fallback', () => {
+    for (const value of [{ format: 'unknown' }, { configuration: { format: 'unknown' } }, { configuration: {} }, { format: 'ordinary-v2' }]) expect(() => selectCapabilityAgentConfigFormat('PUT', value)).toThrow();
+    expect(() => selectCapabilityAgentConfigFormat('GET', { format: 'ordinary-lifecycle-v1' })).toThrow();
+  });
+  it('binds GET path, full query scope and capability to server authority', () => {
+    expect(parseOrdinaryCapabilityAgentConfigGet(query, { agentId: scope.agentId }, target)).toEqual(query);
+    expect(() => parseOrdinaryCapabilityAgentConfigGet(query, { agentId: 'other' }, target)).toThrow('target');
+    for (const key of ['tenantId', 'ownerId', 'agentId', 'capability']) expect(() => parseOrdinaryCapabilityAgentConfigGet({ ...query, [key]: 'other' }, { agentId: key === 'agentId' ? 'other' : scope.agentId }, target)).toThrow('target');
+  });
+  it('binds ordinary and lifecycle PUT to runtime path identity', () => {
+    expect(parseOrdinaryCapabilityAgentConfigPut(body, { agentId: scope.agentId }, target, null)).toEqual(body);
+    expect(() => parseOrdinaryCapabilityAgentConfigPut(body, { agentId: 'other' }, target, null)).toThrow('path');
+    const identity = { managementAgentId: 'management-a', runtimeAgentId: scope.agentId }, bundle = { appliedVersion: 1, sha256: 'a'.repeat(64) };
+    const request = { format: 'ordinary-lifecycle-v1', requestId: body.requestId, scope, identity, capability, phase: 'prepare', transition: { from: null, to: bundle }, targetMembership: 'enabled', configuration };
+    const authority = { ...target, requestId: body.requestId, identity, bundle, current: null, membership: 'enabled', configuration, transaction: null };
+    expect(parseOrdinaryCapabilityLifecyclePut(request, { agentId: scope.agentId }, authority).request).toEqual(request);
+    expect(() => parseOrdinaryCapabilityLifecyclePut(request, { agentId: 'other' }, authority)).toThrow('path');
   });
 });

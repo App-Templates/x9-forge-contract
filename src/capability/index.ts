@@ -71,6 +71,13 @@ export {
 export * from './capability-turn-lead.js';
 
 export * from './parameters.js';
+export * from './ordinary-configuration.js';
+export * from './ordinary-lifecycle.js';
+export * from './configuration/feeds.js';
+export * from './configuration/briefing.js';
+export * from './configuration/conditions.js';
+export * from './configuration/rules.js';
+export * from './configuration/camera-policy.js';
 export * from './presentation.js';
 
 // Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
