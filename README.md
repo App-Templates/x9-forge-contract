@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Package:** `@x9-forge/contracts` · **Versione:** `1.27.1` (2026-10-05, chiavi interne di piattaforma fuori dai contesti degli agenti). Precedenti: `1.27.0` onboarding condotto dalla voce, `1.26.0` identità utente, `1.25.0` guida dei turni (MVP-07), `1.24.0` contesto per turno.
+**Package:** `@x9-forge/contracts` · **Version:** `1.45.0` (2026-10-09, approved Models contracts and independent ESM/CJS entrypoint loading).
 
 ## Why this repo exists (R-14 NON NEGOZIABILE)
 
@@ -23,7 +23,7 @@ pnpm add "@x9-forge/contracts@git+https://github.com/App-Templates/x9-forge-cont
 ```
 
 `dist/` è versionata dal rilascio 1.7.1: ogni modifica ai sorgenti include la build ESM/CJS aggiornata,
-verificata su Node 20. `prepare` installa solo gli hook. Il repository è privato; i consumer usano uno SHA
+verified with the native build and public entrypoint checks on Node 24 (package minimum: Node 20). `prepare` installa solo gli hook. Il repository è privato; i consumer usano uno SHA
 approvato (oppure il collegamento locale per lo sviluppo).
 
 ## Dev locale (hot-reload)
@@ -56,7 +56,7 @@ Then `pnpm install`. Bridge edits are visible to the consumer on the next `tsc -
        ┌─────────────────────┴────────────────────────────────┐
        │  x9-forge-contract-bridge  ·  @x9-forge/contracts    │  ← types, no runtime
        │  Zod schemas + TS types + endpoint contracts         │
-       │  8 sub-paths · 67 contract files · 384 tests         │
+       │  18 public entrypoints · ESM/CJS + declarations         │
        └─────────────────────┬────────────────────────────────┘
                              │  both repos import from here
                              │  (SHA-pinned, no semver drift)
@@ -72,7 +72,11 @@ The bridge is a **compile-time** contract package. No runtime, no server. When F
 
 ## Sub-paths and coverage
 
-8 sub-path exports. Import via `@x9-forge/contracts/<sub-path>`.
+18 public entrypoints, including the package root. Import the root as `@x9-forge/contracts` or a listed subpath as `@x9-forge/contracts/<sub-path>`.
+
+Authoritative export keys: `.`, `./auth`, `./agent`, `./capability`, `./voice`, `./capability/stt`, `./capability/tts`, `./capability/voice-live`, `./capability/ricerca`, `./capability/lab`, `./http`, `./memory`, `./messaging`, `./model-router`, `./rag`, `./vault`, `./capability/parameters`, `./capability/presentation`.
+
+The table below describes the original domain groups; the export keys above list every installable entrypoint.
 
 | Sub-path | Files | Covers |
 |----------|-------|--------|

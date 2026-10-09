@@ -4,9 +4,24 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ## How releases work in this repo
 
-- **No npm registry.** Consumers (agent-x9, forge-v2) depend via `git+https://github.com/App-Templates/x9-forge-contract.git#<sha>` with a `prepare` build script.
+- **No npm registry.** Consumers (agent-x9, forge-v2) depend via `git+https://github.com/App-Templates/x9-forge-contract.git#<sha>` with committed ESM/CJS `dist/`; `prepare` installs hooks only.
 - **Atomic SHA bump.** Breaking contract changes require atomic SHA bump in BOTH consumer repos in the same step (RLSE-02). Never one consumer at a time.
 - **Deprecation workflow** (RLSE-03): When deprecating a public symbol, add `/** @deprecated <reason — removal in v<X.Y>> */` JSDoc with explicit removal milestone. Minimum 1 milestone-cycle grace period before removal.
+
+---
+
+## v1.45.0 — approved Models contracts and independent public entrypoint loading
+
+### Added (additive)
+
+- Canonical registry of 34 model consumers, single/failover policy, embedding dimensions, labels, scope and execution boundaries.
+- Explicit Models source observations and generation, Master/agent configuration, compare-and-swap versions, installation transport, rebuild and readback metadata.
+- These contracts were already implemented and independently reviewed before this release; version 1.45.0 makes their distribution explicit. No handler or live runtime behavior is introduced here.
+
+### Fixed
+
+- Public entrypoints initialize independently in ESM and CommonJS after the approved deferred canonical credential-key schema correction. The native CJS smoke includes all 18 entrypoints in fresh processes.
+- Release documentation describes committed distribution files and the actual hooks-only `prepare` step. Consumers must install an approved immutable Git SHA.
 
 ---
 
