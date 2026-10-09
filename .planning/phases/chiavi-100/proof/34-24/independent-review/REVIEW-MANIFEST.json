@@ -1,0 +1,110 @@
+{
+  "status": "clean",
+  "verdict": "PASS",
+  "scope": "34-24 frozen producer code and archive only",
+  "product_diff_sha256": "ed10074dfd33a130aff6e0ffd5f5d7985f8173622d35567a143c6ebf344c719f",
+  "archive_sha256": "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc",
+  "manifest_sha256": "237b485d3c632b1704d8a2661260d8f4e82acc85a1dbf858de4cf1f5ff01dcbd",
+  "proofs": [
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/REVIEW.md",
+      "sha256": "55c5922bece9a2ceb28019abd271506a22989a80dcdb29b4912a791b0fa3c384"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/fault-baseline.log",
+      "sha256": "7a770d46daa0e0d0e015f53a7711aa5ea56b5c46e0152e1dbbabe3e93ea4926b"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/fault-observed-authority-red.log",
+      "sha256": "3d2024e68e2d1013f033a0922ce5f2b49818bf319af0c5bc0191481c97ab4e9e"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/fault-restored-green.log",
+      "sha256": "f74dabb94ca62b7c10b7287aa95ec5f0401e3102d1ec0b6eae14fb686625e82f"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/fault-source.config.mjs",
+      "sha256": "c229f86621f37ad8c2b0e03990ef8e7837e3a488979e6eb47be2e127316b9520"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-c5-models-consumers-smoke.log",
+      "sha256": "932c7848fb4542a9af449ac00c3280e95abb94bba23b65c0f0ee1f18e4ea8174"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-chiavi-model-composition-smoke.log",
+      "sha256": "0ae99fe395da659ed57b9971723d255f9bd9250caf8a9571d579fc9f41d489e3"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-declarations.log",
+      "sha256": "6414d1b31b80c8134677b15c8b1414094dc80f8690b4ae5c14b1ae00834b0eef"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-fault-matrix.json",
+      "sha256": "55d0f7ff976985250fea535dd74528f79f1ae17b111005a79b19b66f01b77aa0"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-install-command.json",
+      "sha256": "6996d000635de6acb3cbc55de82762e3d9598b11723129178d0bfc04ad469626"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-install-store-command.json",
+      "sha256": "f38018ff54f307a0a43226d7af6cbf942113abe57ac14853d969abf89dd035bc"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-install-store.log",
+      "sha256": "251ea89751a0b0435712bd9d3d4245280a4b85208d565ca12ccbd991df9f0599"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-install.log",
+      "sha256": "7c2f1fe190278b97096814f7a0a3aebfc6ddb4227a1ee911952a138449082de2"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-model-consumers-smoke.log",
+      "sha256": "b42b2a6713c2a9508e475f2c45212574e712910fb92811fdfba7869de3c58884"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-model-legacy-observation-smoke.log",
+      "sha256": "ac3c7c5cdec44bacfd700c3008a123c23d1932efee3e416087534ee2750efb36"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-model-local-authority-smoke.log",
+      "sha256": "1f0663f12dbae888c4e691f2d72520324a94f08dc9ee7015280907d011a9e787"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-preservation-check.json",
+      "sha256": "d93c55f2d93ec85b500054f41dc62f578d20ec53107a2e59e4ee96a900eb707b"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-public-command-matrix.json",
+      "sha256": "ff4633d8aeb1f5bf69214f9f1bb44b8b51cfac484af9576fe5e7b09d286ed110"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/independent-public-entrypoints-first.log",
+      "sha256": "1ab260719b1f59e483a7a82b6f803a425797ea5e337550e8af66cbf212aea2bc"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/native-focused-command.json",
+      "sha256": "b5faea044336460b39e1095db0ab5e0bcf17684b3f16cb0e43dd78bc30e8a4b6"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/native-focused.log",
+      "sha256": "b97d89033e405b6bada7491dc6f586990b4bea024f72352ca95184af9e89ac9e"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/native.config.mjs",
+      "sha256": "ec32fc931edb538fd80875477accccaa23dc30a054218f6d0e62fbfcfa190f6d"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/review-barrel-lazy.diff",
+      "sha256": "caa133c70120b2b2f124959500c7edd80fd0390ffe8528ef37733b50dc692c05"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/snapshot-artifact-check.json",
+      "sha256": "812463a1ffb4794a134e07696acd6ce575b40986b16805aad39ed4f0b58ebbe4"
+    },
+    {
+      "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/source-raw-semantic-audit.json",
+      "sha256": "ef41f6ee3b87968cc3fc03861cc940ac2749a6828d5fba8b4e4955d1fbf63c2f"
+    }
+  ]
+}

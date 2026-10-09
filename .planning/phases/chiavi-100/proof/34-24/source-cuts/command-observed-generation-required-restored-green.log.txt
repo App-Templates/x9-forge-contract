@@ -1,0 +1,13 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/agent/c5-model-configuration-command.test.ts", "--maxWorkers=1", "-t", "D07"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ✓ tests/agent/c5-model-configuration-command.test.ts (34 tests | 30 skipped) 4ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed | 30 skipped (34)
+   Start at  21:49:15
+   Duration  609ms (transform 269ms, setup 4ms, collect 467ms, tests 4ms, environment 0ms, prepare 33ms)
+
+
+EXIT_CODE=0

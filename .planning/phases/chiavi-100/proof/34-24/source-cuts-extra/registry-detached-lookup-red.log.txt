@@ -1,0 +1,526 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/c5-model-consumers.test.ts", "--maxWorkers=1", "-t", "R02"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/c5-model-consumers.test.ts (172 tests | 34 failed | 138 skipped) 17ms
+   ↓ C5 registered consumer inventory > R01 covers exactly the 34 inventoried choices without model defaults
+   × C5 registered consumer inventory > R02 exact canonical lookup agent_chat remains detached 6ms
+     → expected { slotId: 'agent_chat', …(8) } to not deeply equal { slotId: 'agent_chat', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup agent_classifier remains detached 1ms
+     → expected { slotId: 'agent_classifier', …(8) } to not deeply equal { slotId: 'agent_classifier', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup memory_extraction remains detached 0ms
+     → expected { slotId: 'memory_extraction', …(8) } to not deeply equal { slotId: 'memory_extraction', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup memory_embedding remains detached 1ms
+     → expected { slotId: 'memory_embedding', …(8) } to not deeply equal { slotId: 'memory_embedding', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup rag_embedding remains detached 0ms
+     → expected { slotId: 'rag_embedding', …(8) } to not deeply equal { slotId: 'rag_embedding', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup rag_claim_extraction remains detached 0ms
+     → expected { …(10) } to not deeply equal { …(10) }
+   × C5 registered consumer inventory > R02 exact canonical lookup rag_claim_validation remains detached 0ms
+     → expected { …(10) } to not deeply equal { …(10) }
+   × C5 registered consumer inventory > R02 exact canonical lookup rag_topic_synthesis remains detached 0ms
+     → expected { slotId: 'rag_topic_synthesis', …(9) } to not deeply equal { slotId: 'rag_topic_synthesis', …(9) }
+   × C5 registered consumer inventory > R02 exact canonical lookup voice_phone_live remains detached 0ms
+     → expected { slotId: 'voice_phone_live', …(9) } to not deeply equal { slotId: 'voice_phone_live', …(9) }
+   × C5 registered consumer inventory > R02 exact canonical lookup voice_phone_delegation remains detached 0ms
+     → expected { …(10) } to not deeply equal { …(10) }
+   × C5 registered consumer inventory > R02 exact canonical lookup voice_web_live remains detached 0ms
+     → expected { slotId: 'voice_web_live', …(9) } to not deeply equal { slotId: 'voice_web_live', …(9) }
+   × C5 registered consumer inventory > R02 exact canonical lookup voice_web_delegation remains detached 0ms
+     → expected { …(10) } to not deeply equal { …(10) }
+   × C5 registered consumer inventory > R02 exact canonical lookup voice_call_recap remains detached 0ms
+     → expected { slotId: 'voice_call_recap', …(8) } to not deeply equal { slotId: 'voice_call_recap', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup elevenlabs_agent_llm remains detached 0ms
+     → expected { Object (slotId, capability, ...) } to not deeply equal { Object (slotId, capability, ...) }
+   × C5 registered consumer inventory > R02 exact canonical lookup elevenlabs_agent_tts remains detached 0ms
+     → expected { Object (slotId, capability, ...) } to not deeply equal { Object (slotId, capability, ...) }
+   × C5 registered consumer inventory > R02 exact canonical lookup agent_telegram_tts remains detached 0ms
+     → expected { slotId: 'agent_telegram_tts', …(8) } to not deeply equal { slotId: 'agent_telegram_tts', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup scheduler_tts remains detached 0ms
+     → expected { slotId: 'scheduler_tts', …(8) } to not deeply equal { slotId: 'scheduler_tts', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup briefing_tts remains detached 0ms
+     → expected { slotId: 'briefing_tts', …(8) } to not deeply equal { slotId: 'briefing_tts', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup stt_file remains detached 0ms
+     → expected { slotId: 'stt_file', …(8) } to not deeply equal { slotId: 'stt_file', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup glasses_stt remains detached 0ms
+     → expected { slotId: 'glasses_stt', …(8) } to not deeply equal { slotId: 'glasses_stt', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup glasses_tts remains detached 0ms
+     → expected { slotId: 'glasses_tts', …(8) } to not deeply equal { slotId: 'glasses_tts', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup qa_text remains detached 0ms
+     → expected { slotId: 'qa_text', …(9) } to not deeply equal { slotId: 'qa_text', …(9) }
+   × C5 registered consumer inventory > R02 exact canonical lookup qa_vision remains detached 0ms
+     → expected { slotId: 'qa_vision', …(9) } to not deeply equal { slotId: 'qa_vision', …(9) }
+   × C5 registered consumer inventory > R02 exact canonical lookup security_vision remains detached 0ms
+     → expected { slotId: 'security_vision', …(8) } to not deeply equal { slotId: 'security_vision', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup security_rules remains detached 0ms
+     → expected { slotId: 'security_rules', …(8) } to not deeply equal { slotId: 'security_rules', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup news_digest remains detached 0ms
+     → expected { slotId: 'news_digest', …(8) } to not deeply equal { slotId: 'news_digest', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup news_rules remains detached 0ms
+     → expected { slotId: 'news_rules', …(8) } to not deeply equal { slotId: 'news_rules', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup netatmo_rules remains detached 0ms
+     → expected { slotId: 'netatmo_rules', …(8) } to not deeply equal { slotId: 'netatmo_rules', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup briefing_rules remains detached 0ms
+     → expected { slotId: 'briefing_rules', …(8) } to not deeply equal { slotId: 'briefing_rules', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup research_search remains detached 0ms
+     → expected { slotId: 'research_search', …(9) } to not deeply equal { slotId: 'research_search', …(9) }
+   × C5 registered consumer inventory > R02 exact canonical lookup research_structure remains detached 0ms
+     → expected { slotId: 'research_structure', …(9) } to not deeply equal { slotId: 'research_structure', …(9) }
+   × C5 registered consumer inventory > R02 exact canonical lookup mindfulness_chat remains detached 0ms
+     → expected { slotId: 'mindfulness_chat', …(8) } to not deeply equal { slotId: 'mindfulness_chat', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup mindfulness_tts remains detached 0ms
+     → expected { slotId: 'mindfulness_tts', …(8) } to not deeply equal { slotId: 'mindfulness_tts', …(8) }
+   × C5 registered consumer inventory > R02 exact canonical lookup mindfulness_stt remains detached 0ms
+     → expected { slotId: 'mindfulness_stt', …(8) } to not deeply equal { slotId: 'mindfulness_stt', …(8) }
+   ↓ C5 registered consumer inventory > R10 labels distinguish all 34 choices
+   ↓ C5 registered consumer inventory > R03 registry definitions are detached including inventory IDs
+   ↓ C5 registered consumer inventory > R04 unknown consumer grants no default "../agent_chat"
+   ↓ C5 registered consumer inventory > R04 unknown consumer grants no default "AGENT_CHAT"
+   ↓ C5 registered consumer inventory > R04 unknown consumer grants no default "agent_chat "
+   ↓ C5 registered consumer inventory > R04 unknown consumer grants no default null
+   ↓ C5 registered consumer inventory > R04 unknown consumer grants no default {}
+   ↓ C5 registered consumer inventory > R04 unknown consumer grants no default "__proto__"
+   ↓ C5 registered consumer inventory > R05 declares real image, structured, search and streaming requirements separately
+   ↓ C5 registered consumer inventory > R06 definition requires label
+   ↓ C5 registered consumer inventory > R06 definition requires scope
+   ↓ C5 registered consumer inventory > R06 definition requires changeBoundary
+   ↓ C5 registered consumer inventory > R06 definition requires routing
+   ↓ C5 registered consumer inventory > R06 definition requires inventoryIds
+   ↓ C5 registered consumer inventory > R07 definition rejects malformed metadata {"scope":"unknown"}
+   ↓ C5 registered consumer inventory > R07 definition rejects malformed metadata {"changeBoundary":"immediate"}
+   ↓ C5 registered consumer inventory > R07 definition rejects malformed metadata {"routing":"unknown"}
+   ↓ C5 registered consumer inventory > R07 definition rejects malformed metadata {"inventoryIds":[]}
+   ↓ C5 registered consumer inventory > R07 definition rejects malformed metadata {"inventoryIds":["C99"]}
+   ↓ C5 registered consumer inventory > R07 definition rejects malformed metadata {"inventoryIds":["C01","C01"]}
+   ↓ C5 registered consumer inventory > R07 definition rejects malformed metadata {"extra":true}
+   ↓ C5 registered consumer inventory > R08 preserves agent_chat public requirements and old generic custom slots
+   ↓ C5 registered consumer inventory > R09 documents existing linked choices without aliasing slots
+   ↓ C5 single and failover model settings > S01 transports a single actual choice without artificial tiers
+   ↓ C5 single and failover model settings > S02 retains ordered primary/fallback choices
+   ↓ C5 single and failover model settings > S03 rejects invalid single {"descriptor":null}
+   ↓ C5 single and failover model settings > S03 rejects invalid single {}
+   ↓ C5 single and failover model settings > S03 rejects invalid single {"mode":"unknown"}
+   ↓ C5 single and failover model settings > S03 rejects invalid single {"tiers":{}}
+   ↓ C5 single and failover model settings > S03 rejects invalid single {"extra":true}
+   ↓ C5 single and failover model settings > S04 embedding requires positive integer dimension undefined
+   ↓ C5 single and failover model settings > S04 embedding requires positive integer dimension 0
+   ↓ C5 single and failover model settings > S04 embedding requires positive integer dimension -1
+   ↓ C5 single and failover model settings > S04 embedding requires positive integer dimension 1.5
+   ↓ C5 single and failover model settings > S08 failover requires primary
+   ↓ C5 single and failover model settings > S08 failover requires fallback
+   ↓ C5 single and failover model settings > S09 failover refuses unrelated fields {"descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}
+   ↓ C5 single and failover model settings > S09 failover refuses unrelated fields {"tiers":{}}
+   ↓ C5 single and failover model settings > S09 failover refuses unrelated fields {"embeddingDimensions":1536}
+   ↓ C5 single and failover model settings > S10 extra feature metadata must be boolean vision
+   ↓ C5 single and failover model settings > S10 extra feature metadata must be boolean webSearch
+   ↓ C5 single and failover model settings > S05 dimension is reserved for embedding
+   ↓ C5 single and failover model settings > S06 vision requires explicit catalog support
+   ↓ C5 single and failover model settings > S06 webSearch requires explicit catalog support
+   ↓ C5 single and failover model settings > S07 embedding dimension must match the current catalog
+   ↓ C5 read-only Master bootstrap source > B01 complete source is strict and detached, with no invented saved/applied version
+   ↓ C5 read-only Master bootstrap source > B02 source requires identity
+   ↓ C5 read-only Master bootstrap source > B02 source requires scope
+   ↓ C5 read-only Master bootstrap source > B02 source requires role
+   ↓ C5 read-only Master bootstrap source > B02 source requires authority
+   ↓ C5 read-only Master bootstrap source > B02 source requires sourceVersion
+   ↓ C5 read-only Master bootstrap source > B02 source requires observedAt
+   ↓ C5 read-only Master bootstrap source > B02 source requires validUntil
+   ↓ C5 read-only Master bootstrap source > B02 source requires coverage
+   ↓ C5 read-only Master bootstrap source > B02 source requires selections
+   ↓ C5 read-only Master bootstrap source > B02 source requires missingSlots
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"role":"erede"}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"authority":"catalog"}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"sourceVersion":""}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"sourceVersion":" "}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"coverage":"unknown"}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"configVersion":1}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"credentials":{}}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"context":{}}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"extra":true}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"missingSlots":["unknown"]}
+   ↓ C5 read-only Master bootstrap source > B03 rejects invalid or private metadata {"missingSlots":["agent_chat","agent_chat"]}
+   ↓ C5 read-only Master bootstrap source > B04 complete identity requires managementAgentId
+   ↓ C5 read-only Master bootstrap source > B04 complete identity requires runtimeAgentId
+   ↓ C5 read-only Master bootstrap source > B04 complete identity requires vaultAgentId
+   ↓ C5 read-only Master bootstrap source > B05 source scope cannot omit ownerId
+   ↓ C5 read-only Master bootstrap source > B05 source scope cannot omit tenantId
+   ↓ C5 read-only Master bootstrap source > B05 source scope cannot omit agentId
+   ↓ C5 read-only Master bootstrap source > B06 scope names the attested runtime exactly
+   ↓ C5 read-only Master bootstrap source > B07 missing agent_chat never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing agent_classifier never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing memory_extraction never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing memory_embedding never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing rag_embedding never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing rag_claim_extraction never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing rag_claim_validation never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing rag_topic_synthesis never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing voice_phone_live never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing voice_phone_delegation never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing voice_web_live never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing voice_web_delegation never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing voice_call_recap never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing elevenlabs_agent_llm never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing elevenlabs_agent_tts never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing agent_telegram_tts never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing scheduler_tts never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing briefing_tts never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing stt_file never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing glasses_stt never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing glasses_tts never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing qa_text never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing qa_vision never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing security_vision never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing security_rules never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing news_digest never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing news_rules never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing netatmo_rules never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing briefing_rules never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing research_search never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing research_structure never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing mindfulness_chat never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing mindfulness_tts never becomes complete
+   ↓ C5 read-only Master bootstrap source > B07 missing mindfulness_stt never becomes complete
+   ↓ C5 read-only Master bootstrap source > B08 duplicate/unknown slot is rejected, coverage cannot overlap
+   ↓ C5 read-only Master bootstrap source > B09 consumer rejects changed capability
+   ↓ C5 read-only Master bootstrap source > B09 consumer rejects changed function
+   ↓ C5 read-only Master bootstrap source > B09 consumer rejects changed requirements
+   ↓ C5 read-only Master bootstrap source > B10 fresh recheck refuses a race or scope mismatch {"sourceVersion":"synthetic-generation-2"}
+   ↓ C5 read-only Master bootstrap source > B10 fresh recheck refuses a race or scope mismatch {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}}
+   ↓ C5 read-only Master bootstrap source > B10 fresh recheck refuses a race or scope mismatch {"identity":{"managementAgentId":"other","runtimeAgentId":"synthetic-runtime","vaultAgentId":71}}
+   ↓ C5 read-only Master bootstrap source > B10 fresh recheck refuses a race or scope mismatch {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"other","vaultAgentId":71}}
+   ↓ C5 read-only Master bootstrap source > B10 fresh recheck refuses a race or scope mismatch {"scope":{"agentId":"synthetic-runtime","ownerId":"other","tenantId":"synthetic-tenant"}}
+   ↓ C5 read-only Master bootstrap source > B10 fresh recheck refuses a race or scope mismatch {"scope":{"agentId":"synthetic-runtime","ownerId":"synthetic-owner","tenantId":"other"}}
+   ↓ C5 read-only Master bootstrap source > B10 fresh recheck refuses a race or scope mismatch {"scope":{"agentId":"other","ownerId":"synthetic-owner","tenantId":"synthetic-tenant"}}
+   ↓ C5 read-only Master bootstrap source > B11 rejects expired/future/invalid clock 2026-10-09T06:20:30Z
+   ↓ C5 read-only Master bootstrap source > B11 rejects expired/future/invalid clock 2026-10-09T06:21:00Z
+   ↓ C5 read-only Master bootstrap source > B11 rejects expired/future/invalid clock 2026-10-09T06:19:00Z
+   ↓ C5 read-only Master bootstrap source > B11 rejects expired/future/invalid clock invalid
+   ↓ C5 read-only Master bootstrap source > B12 validity end must be strictly after observation
+   ↓ C5 read-only Master bootstrap source > B13 unknown models stay explicit missing and never use defaults
+   ↓ C5 read-only Master bootstrap source > B16 observed inactive services are explicit exclusions, active unknown stays missing
+   ↓ C5 read-only Master bootstrap source > B17 exclusion is observed and strict {"state":"unknown"}
+   ↓ C5 read-only Master bootstrap source > B17 exclusion is observed and strict {"reason":""}
+   ↓ C5 read-only Master bootstrap source > B17 exclusion is observed and strict {"extra":true}
+   ↓ C5 read-only Master bootstrap source > B18 duplicate excluded consumer cannot erase coverage
+   ↓ C5 read-only Master bootstrap source > B19 all excluded is not a complete loaded Master
+   ↓ C5 read-only Master bootstrap source > B20 complete cannot contain an active missing slot even with total coverage
+   ↓ C5 read-only Master bootstrap source > R12 core and audio requirements preserve the actual payload contracts
+   ↓ C5 read-only Master bootstrap source > B14 existing state endpoint accepts additive legacy source without installed claim
+   ↓ C5 read-only Master bootstrap source > B15 source is not saved/applied and belongs to state identity {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}}
+   ↓ C5 read-only Master bootstrap source > B15 source is not saved/applied and belongs to state identity {"versions":{"desired":1,"applied":null,"failed":null}}
+   ↓ C5 read-only Master bootstrap source > B15 source is not saved/applied and belongs to state identity {"runtime":{}}
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 34 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup agent_chat remains detached
+AssertionError: expected { slotId: 'agent_chat', …(8) } to not deeply equal { slotId: 'agent_chat', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup agent_classifier remains detached
+AssertionError: expected { slotId: 'agent_classifier', …(8) } to not deeply equal { slotId: 'agent_classifier', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup memory_extraction remains detached
+AssertionError: expected { slotId: 'memory_extraction', …(8) } to not deeply equal { slotId: 'memory_extraction', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup memory_embedding remains detached
+AssertionError: expected { slotId: 'memory_embedding', …(8) } to not deeply equal { slotId: 'memory_embedding', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup rag_embedding remains detached
+AssertionError: expected { slotId: 'rag_embedding', …(8) } to not deeply equal { slotId: 'rag_embedding', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup rag_claim_extraction remains detached
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup rag_claim_validation remains detached
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup voice_phone_delegation remains detached
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup voice_web_delegation remains detached
+AssertionError: expected { …(10) } to not deeply equal { …(10) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup rag_topic_synthesis remains detached
+AssertionError: expected { slotId: 'rag_topic_synthesis', …(9) } to not deeply equal { slotId: 'rag_topic_synthesis', …(9) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup voice_phone_live remains detached
+AssertionError: expected { slotId: 'voice_phone_live', …(9) } to not deeply equal { slotId: 'voice_phone_live', …(9) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup voice_web_live remains detached
+AssertionError: expected { slotId: 'voice_web_live', …(9) } to not deeply equal { slotId: 'voice_web_live', …(9) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup voice_call_recap remains detached
+AssertionError: expected { slotId: 'voice_call_recap', …(8) } to not deeply equal { slotId: 'voice_call_recap', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup elevenlabs_agent_llm remains detached
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup elevenlabs_agent_tts remains detached
+AssertionError: expected { Object (slotId, capability, ...) } to not deeply equal { Object (slotId, capability, ...) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup agent_telegram_tts remains detached
+AssertionError: expected { slotId: 'agent_telegram_tts', …(8) } to not deeply equal { slotId: 'agent_telegram_tts', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup scheduler_tts remains detached
+AssertionError: expected { slotId: 'scheduler_tts', …(8) } to not deeply equal { slotId: 'scheduler_tts', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup briefing_tts remains detached
+AssertionError: expected { slotId: 'briefing_tts', …(8) } to not deeply equal { slotId: 'briefing_tts', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup stt_file remains detached
+AssertionError: expected { slotId: 'stt_file', …(8) } to not deeply equal { slotId: 'stt_file', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup glasses_stt remains detached
+AssertionError: expected { slotId: 'glasses_stt', …(8) } to not deeply equal { slotId: 'glasses_stt', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup glasses_tts remains detached
+AssertionError: expected { slotId: 'glasses_tts', …(8) } to not deeply equal { slotId: 'glasses_tts', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup qa_text remains detached
+AssertionError: expected { slotId: 'qa_text', …(9) } to not deeply equal { slotId: 'qa_text', …(9) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup qa_vision remains detached
+AssertionError: expected { slotId: 'qa_vision', …(9) } to not deeply equal { slotId: 'qa_vision', …(9) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup security_vision remains detached
+AssertionError: expected { slotId: 'security_vision', …(8) } to not deeply equal { slotId: 'security_vision', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup security_rules remains detached
+AssertionError: expected { slotId: 'security_rules', …(8) } to not deeply equal { slotId: 'security_rules', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup news_digest remains detached
+AssertionError: expected { slotId: 'news_digest', …(8) } to not deeply equal { slotId: 'news_digest', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup news_rules remains detached
+AssertionError: expected { slotId: 'news_rules', …(8) } to not deeply equal { slotId: 'news_rules', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup netatmo_rules remains detached
+AssertionError: expected { slotId: 'netatmo_rules', …(8) } to not deeply equal { slotId: 'netatmo_rules', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup briefing_rules remains detached
+AssertionError: expected { slotId: 'briefing_rules', …(8) } to not deeply equal { slotId: 'briefing_rules', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup research_search remains detached
+AssertionError: expected { slotId: 'research_search', …(9) } to not deeply equal { slotId: 'research_search', …(9) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup research_structure remains detached
+AssertionError: expected { slotId: 'research_structure', …(9) } to not deeply equal { slotId: 'research_structure', …(9) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup mindfulness_chat remains detached
+AssertionError: expected { slotId: 'mindfulness_chat', …(8) } to not deeply equal { slotId: 'mindfulness_chat', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup mindfulness_tts remains detached
+AssertionError: expected { slotId: 'mindfulness_tts', …(8) } to not deeply equal { slotId: 'mindfulness_tts', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/34]⎯
+
+ FAIL  tests/model-router/c5-model-consumers.test.ts > C5 registered consumer inventory > R02 exact canonical lookup mindfulness_stt remains detached
+AssertionError: expected { slotId: 'mindfulness_stt', …(8) } to not deeply equal { slotId: 'mindfulness_stt', …(8) }
+
+Compared values have no visual difference.
+
+ ❯ tests/model-router/c5-model-consumers.test.ts:22:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/34]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  34 failed | 138 skipped (172)
+   Start at  21:51:05
+   Duration  594ms (transform 252ms, setup 4ms, collect 441ms, tests 17ms, environment 0ms, prepare 30ms)
+
+
+EXIT_CODE=1

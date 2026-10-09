@@ -1,0 +1,4 @@
+$ ["git", "rev-parse", "HEAD"]
+144369c716b3f91ad1d09b093930759bc5a1d803
+
+EXIT_CODE=0

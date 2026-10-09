@@ -1,0 +1,55 @@
+{
+  "manifest": "/private/tmp/codex-a-chiavi-completamento/artifacts/34-24/contracts-manifest.json",
+  "manifest_sha256": "5cf3f76584b232767f97c6111cbb15891b9abae734d209a43b47240c2ec732cd",
+  "archive": "/private/tmp/codex-a-chiavi-completamento/artifacts/34-24/revision-1/x9-forge-contracts.tgz",
+  "archive_sha256": "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc",
+  "diff": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/final-product.diff",
+  "diff_sha256": "ed10074dfd33a130aff6e0ffd5f5d7985f8173622d35567a143c6ebf344c719f",
+  "snapshot_sha256": "5aee41d26bbdfd08dc867303c76422ae2b4dcaee07085e20a6da35f0adef1cbc",
+  "source_count": 195,
+  "dist_count": 1560,
+  "test_count": 21,
+  "product_file_count": 199,
+  "counts": {
+    "full_native_source_before_build": {
+      "passed": 5383,
+      "total": 5383,
+      "files": 175
+    },
+    "focused_after_build": {
+      "passed": 1270,
+      "total": 1270,
+      "files": 30
+    },
+    "new_native_tests": 583,
+    "mixed_source_tests": 64,
+    "mixed_compiled_assertions": 276,
+    "first_import_orders": {
+      "passed": 36,
+      "total": 36
+    },
+    "initial_http_compiled_assertions": 186,
+    "observed_compiled_assertions": 112,
+    "c5_compiled_assertions": 158,
+    "consumer_compat_compiled_assertions": 48,
+    "typescript_fixture_files": 6,
+    "portable_declaration_files": 390,
+    "source_causal_families": {
+      "passed": 73,
+      "total": 73,
+      "raw_attempts": 74,
+      "semantic_red_attempts": 73
+    },
+    "packed_causal_cuts": {
+      "passed": 13,
+      "total": 13
+    },
+    "protected_source_files": 179,
+    "protected18test_files": 3,
+    "retained_archives": 2,
+    "archive_dist_matches": 1560,
+    "installed_dist_matches": 1560
+  },
+  "source_commit": "5806a8556e08be0a672db9e4cbc590be1d19bd1b",
+  "independent_review_status": "PASSED"
+}

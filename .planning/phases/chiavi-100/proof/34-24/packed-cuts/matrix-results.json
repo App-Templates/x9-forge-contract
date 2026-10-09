@@ -1,0 +1,132 @@
+[
+  {
+    "name": "esm-model-execution-export",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/index.js",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "09b51fbd58f602e56f9727daf90ffb352484d96103ea1b7c8cf3560ecd67e5ae",
+    "restore_sha256": "09b51fbd58f602e56f9727daf90ffb352484d96103ea1b7c8cf3560ecd67e5ae",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "cjs-model-execution-export",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/index.cjs",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "09479f4889a9b7ad9251b0354332de86bdbf85783ae6d60050b810f859f4aa6e",
+    "restore_sha256": "09479f4889a9b7ad9251b0354332de86bdbf85783ae6d60050b810f859f4aa6e",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "esm-initial-export",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/agent-model-configuration.js",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "6576ad48cd2dc7a1d2ec82725844639a5a8318b2d77f497d127fc18579bd71cd",
+    "restore_sha256": "6576ad48cd2dc7a1d2ec82725844639a5a8318b2d77f497d127fc18579bd71cd",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "cjs-initial-export-publication",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/agent-model-configuration.cjs",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "6df36e268d0c3b2f56aa6c99d96d44b36a6c3b1d0b22ad75aa5da301a7d50c9d",
+    "restore_sha256": "6df36e268d0c3b2f56aa6c99d96d44b36a6c3b1d0b22ad75aa5da301a7d50c9d",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "esm-canonical-internal-token",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/http/endpoints/internal-agent-tool-dispatch.js",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "6f5f9a6682f0152dae5febd84822cfbbea286e704dba35bbeaf21c24a53dbf04",
+    "restore_sha256": "6f5f9a6682f0152dae5febd84822cfbbea286e704dba35bbeaf21c24a53dbf04",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "cjs-canonical-internal-token",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/http/endpoints/internal-agent-tool-dispatch.cjs",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "1405be2b09fa677f3d6dfb92a07a383f591ffffad711a8700c12480e19caf3e1",
+    "restore_sha256": "1405be2b09fa677f3d6dfb92a07a383f591ffffad711a8700c12480e19caf3e1",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "initial-type",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/agent-model-configuration.d.cts",
+    "caught": true,
+    "red_exit": 2,
+    "fresh_green_exit": 0,
+    "before_sha256": "dc9bf89dd65af99491288b6e83ad5d2a85ece103fe4935b80802d083ede14a0e",
+    "restore_sha256": "dc9bf89dd65af99491288b6e83ad5d2a85ece103fe4935b80802d083ede14a0e",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "observed-type",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/model-consumer-execution.d.cts",
+    "caught": true,
+    "red_exit": 2,
+    "fresh_green_exit": 0,
+    "before_sha256": "d38bd4b7ab729c4dbabc8c1eadbd89208827268ec6f61da256cb41243cea6763",
+    "restore_sha256": "d38bd4b7ab729c4dbabc8c1eadbd89208827268ec6f61da256cb41243cea6763",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "local-http-type",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/http/endpoints/internal-agent-model-source-observation.d.cts",
+    "caught": true,
+    "red_exit": 2,
+    "fresh_green_exit": 0,
+    "before_sha256": "48089ad6c55cef58b9ec8b352739b7c026f4f9454b3c1ac8a5b08d19b6f20832",
+    "restore_sha256": "48089ad6c55cef58b9ec8b352739b7c026f4f9454b3c1ac8a5b08d19b6f20832",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "managed-voice-type",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/capability/voice-live/index.d.cts",
+    "caught": true,
+    "red_exit": 2,
+    "fresh_green_exit": 0,
+    "before_sha256": "617be3700a1b47e1ab23fe3755a2e43b326922d9e40d674db1766a668e095f7f",
+    "restore_sha256": "617be3700a1b47e1ab23fe3755a2e43b326922d9e40d674db1766a668e095f7f",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "research-lease-type",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/capability/ricerca/index.d.cts",
+    "caught": true,
+    "red_exit": 2,
+    "fresh_green_exit": 0,
+    "before_sha256": "2f33f8c60b6cc5975b05e16ea8d7cf6c0c4fc6f408b89034f94a5b9ceb74dfde",
+    "restore_sha256": "2f33f8c60b6cc5975b05e16ea8d7cf6c0c4fc6f408b89034f94a5b9ceb74dfde",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "archive-byte-tamper",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/archive-fault-copy.tgz",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc",
+    "restore_sha256": "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc",
+    "inode_safe_atomic_private_replacement": true
+  },
+  {
+    "name": "manifest-binding-tamper",
+    "path": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/manifest-fault-copy.json",
+    "caught": true,
+    "red_exit": 1,
+    "fresh_green_exit": 0,
+    "before_sha256": "aaddb1781f8e3d63ffea8f252156992175d72f2047fb06dd6ea271d046f7a9a3",
+    "restore_sha256": "aaddb1781f8e3d63ffea8f252156992175d72f2047fb06dd6ea271d046f7a9a3",
+    "inode_safe_atomic_private_replacement": true
+  }
+]

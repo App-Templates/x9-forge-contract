@@ -1,0 +1,1773 @@
+[
+  {
+    "private_relative_path": "check-pack.log",
+    "durable_relative_path": "proof/34-24/check-pack.log.txt",
+    "sha256": "e4371c4dd14653b738e452205ac9c5f7516aa0ea7eb155222152dae1c24fba8a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "consumer-install.log",
+    "durable_relative_path": "proof/34-24/consumer-install.log.txt",
+    "sha256": "a9bbd06ea39868f0766123afb7801ef64c5aab37b57e4f28dc93438ea466a6c0",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "focused-after-build.log",
+    "durable_relative_path": "proof/34-24/focused-after-build.log.txt",
+    "sha256": "60cc76d6966005d003e526251aa28d50e12217a2764f4964145667c8ded8111c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "green-cjs.log",
+    "durable_relative_path": "proof/34-24/green-cjs.log.txt",
+    "sha256": "8fd3b1c4921965fb4dae5e748b79375c714f27f491a76adb655a2107a63afb0d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "green-declarations.log",
+    "durable_relative_path": "proof/34-24/green-declarations.log.txt",
+    "sha256": "a2db285c199d671a7bc8113f70eae206f13024b72da02bb47b5e1801f4620283",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "hook-effective-after.log",
+    "durable_relative_path": "proof/34-24/hook-effective-after.log.txt",
+    "sha256": "c949ae2bf7a81bba30cf5dc94e25f41d49d2b853d3936381fba423669b9b263a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "hook-effective-before.log",
+    "durable_relative_path": "proof/34-24/hook-effective-before.log.txt",
+    "sha256": "c949ae2bf7a81bba30cf5dc94e25f41d49d2b853d3936381fba423669b9b263a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "hook-effective-restored.log",
+    "durable_relative_path": "proof/34-24/hook-effective-restored.log.txt",
+    "sha256": "c949ae2bf7a81bba30cf5dc94e25f41d49d2b853d3936381fba423669b9b263a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "lint-focused.log",
+    "durable_relative_path": "proof/34-24/lint-focused.log.txt",
+    "sha256": "a8b0cf8f6ea6a7c553eae82559ef274e0e5c34bddcb8468a8c617dba0f2b1e40",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "pack.log",
+    "durable_relative_path": "proof/34-24/pack.log.txt",
+    "sha256": "1a6a5e9b11db8512e9d032fff1d1f658ace6592e8ef240d9c3c7033779de24d7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-c5-models-consumers-smoke.log",
+    "durable_relative_path": "proof/34-24/packed-c5-models-consumers-smoke.log.txt",
+    "sha256": "5342af145a5546f62e0f0e090d4bd848d793c744ec152ed8ee515026c50252cb",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-chiavi-model-composition-smoke.log",
+    "durable_relative_path": "proof/34-24/packed-chiavi-model-composition-smoke.log.txt",
+    "sha256": "f12a13bd5685f6acacafef1428ccaab586d02a84d716eccca2ff1452ad8da6bf",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/archive-byte-tamper-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/archive-byte-tamper-red.log.txt",
+    "sha256": "060508c579a2a56e4b0dd52bd8d9ef70433c00850f037e66bda30ebb5b82e2db",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/archive-byte-tamper-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/archive-byte-tamper-restored-green.log.txt",
+    "sha256": "00af0ba7ad5820ff2cdcb85bdee85b5868137a7c2024c9e3a33e188a2ebc8a1c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/cjs-canonical-internal-token-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/cjs-canonical-internal-token-red.log.txt",
+    "sha256": "ad7657ba272e2278dd508a672bd8f060afaaeca28b114c3cc4c7340c818239d2",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/cjs-canonical-internal-token-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/cjs-canonical-internal-token-restored-green.log.txt",
+    "sha256": "bb1753e7c70b12284a708ba5f27b82abf8ec998bf6b1a6f9d1045c0a3b35f92e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/cjs-initial-export-publication-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/cjs-initial-export-publication-red.log.txt",
+    "sha256": "800aa25d518147bad416d701c9269c003ceacc65f7f294935055d25a8448edf6",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/cjs-initial-export-publication-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/cjs-initial-export-publication-restored-green.log.txt",
+    "sha256": "f12a13bd5685f6acacafef1428ccaab586d02a84d716eccca2ff1452ad8da6bf",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/cjs-initial-export-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/cjs-initial-export-red.log.txt",
+    "sha256": "10f899ff6ca46d7419ea0706b6c3d5a57630de68264d97916618120686f6229d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/cjs-model-execution-export-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/cjs-model-execution-export-red.log.txt",
+    "sha256": "72e1edc11787f3343695074087e3a3b5ca69545f5b87495c524f0177c0d86f21",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/cjs-model-execution-export-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/cjs-model-execution-export-restored-green.log.txt",
+    "sha256": "f12a13bd5685f6acacafef1428ccaab586d02a84d716eccca2ff1452ad8da6bf",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/esm-canonical-internal-token-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/esm-canonical-internal-token-red.log.txt",
+    "sha256": "5242997f90b46268e40981b40705979e8542e2d9e4ac32fe85c9a052fcefd269",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/esm-canonical-internal-token-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/esm-canonical-internal-token-restored-green.log.txt",
+    "sha256": "058e8d4bb8bc35667214612a51572745a6d1b0eaace137a0f1cc6967b9b1c346",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/esm-initial-export-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/esm-initial-export-red.log.txt",
+    "sha256": "307241091699859fcbcb0dec5ccabc3e1b44f0f9746d90aded0597d9bd63a05e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/esm-initial-export-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/esm-initial-export-restored-green.log.txt",
+    "sha256": "f12a13bd5685f6acacafef1428ccaab586d02a84d716eccca2ff1452ad8da6bf",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/esm-model-execution-export-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/esm-model-execution-export-red.log.txt",
+    "sha256": "f5be787c58e83abd3fb6dd37125a4be4c443005a2fcbd78b33e1c6f7872026b7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/esm-model-execution-export-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/esm-model-execution-export-restored-green.log.txt",
+    "sha256": "f12a13bd5685f6acacafef1428ccaab586d02a84d716eccca2ff1452ad8da6bf",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/initial-type-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/initial-type-red.log.txt",
+    "sha256": "ce24f9dc9110a98fd95dba960d55cd0e18d6e0804f08ca8daaeacbc70056a0d8",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/initial-type-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/initial-type-restored-green.log.txt",
+    "sha256": "6c487f023a9a9e9773103f10fc59f57678676abf9be0f96dd46c8d8b0379e19f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/local-http-type-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/local-http-type-red.log.txt",
+    "sha256": "99116a053fdb91e64101a12f03c9da5f6b5a0162265747c7eafd4d7c9b10a3fe",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/local-http-type-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/local-http-type-restored-green.log.txt",
+    "sha256": "6c487f023a9a9e9773103f10fc59f57678676abf9be0f96dd46c8d8b0379e19f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/managed-voice-type-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/managed-voice-type-red.log.txt",
+    "sha256": "763cf285e108cc28f9d70363444909df508b31924d6c808af601056cd85bda92",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/managed-voice-type-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/managed-voice-type-restored-green.log.txt",
+    "sha256": "6c487f023a9a9e9773103f10fc59f57678676abf9be0f96dd46c8d8b0379e19f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/manifest-binding-tamper-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/manifest-binding-tamper-red.log.txt",
+    "sha256": "cbeea5f70efb67199f2701ef8d939dbe710be6e7656ed5a416dba953bbcbbb08",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/manifest-binding-tamper-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/manifest-binding-tamper-restored-green.log.txt",
+    "sha256": "0115dec0143b6f56805d3ffe5090d87feb9833088e13ca3abe24a9f15d48e46f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/matrix-results.json",
+    "durable_relative_path": "proof/34-24/packed-cuts/matrix-results.json",
+    "sha256": "17461992f826a3487bb510cda39772f46dac44eac827ee043a0ee579025f421a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/observed-type-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/observed-type-red.log.txt",
+    "sha256": "2e5812983f8a30b660849b2da638a9277f96b01ab73c7a98ccea542bb79b2d11",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/observed-type-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/observed-type-restored-green.log.txt",
+    "sha256": "6c487f023a9a9e9773103f10fc59f57678676abf9be0f96dd46c8d8b0379e19f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/research-lease-type-red.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/research-lease-type-red.log.txt",
+    "sha256": "0cb92ff4ddf4a0d92237481341a8377d3bfd134b52668a5dede67e58ccd30eda",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-cuts/research-lease-type-restored-green.log",
+    "durable_relative_path": "proof/34-24/packed-cuts/research-lease-type-restored-green.log.txt",
+    "sha256": "6c487f023a9a9e9773103f10fc59f57678676abf9be0f96dd46c8d8b0379e19f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-model-consumers-smoke.log",
+    "durable_relative_path": "proof/34-24/packed-model-consumers-smoke.log.txt",
+    "sha256": "38c545ef783e83f5381d9177941f732487d20b2dee0dad209b66b4e5d55b5448",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-model-legacy-observation-smoke.log",
+    "durable_relative_path": "proof/34-24/packed-model-legacy-observation-smoke.log.txt",
+    "sha256": "ba6edc632ada5574f4cfd6e6cec13fca36623ff1c717c634195b8d60290faa8e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-model-local-authority-smoke.log",
+    "durable_relative_path": "proof/34-24/packed-model-local-authority-smoke.log.txt",
+    "sha256": "98f7f7e2fe31ba75220a90254e53f8d56b74b2b094c4263def6394b3a89b27b5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-public-entrypoints-first.log",
+    "durable_relative_path": "proof/34-24/packed-public-entrypoints-first.log.txt",
+    "sha256": "f669ebe6298c3e09edf84c4bfd100e927efe4c7e0b3effcde4dac9d24f9d5051",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "packed-types.log",
+    "durable_relative_path": "proof/34-24/packed-types.log.txt",
+    "sha256": "386eef6fb929596671e8c062b92212b60be9073bbf95331b94f4c317702f5a37",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/build.log",
+    "durable_relative_path": "proof/34-24/preparation/build.log.txt",
+    "sha256": "7f08bed35dda9e5515351c9ee5794591733b82285546e7f37bb1073dc51ef11e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/full-native-source-before-build.log",
+    "durable_relative_path": "proof/34-24/preparation/full-native-source-before-build.log.txt",
+    "sha256": "d9a87a58540bf9b535415cbaf59bd5ea5e3770d7fb40b539dcc3973f6b7cebd6",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/green-first-composition.log",
+    "durable_relative_path": "proof/34-24/preparation/green-first-composition.log.txt",
+    "sha256": "76479b6b93ebbce27fb129bc5a1adf9b58e5bdb022fa340dd767bf7c73e1f56f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/green-model-and-retained-source.log",
+    "durable_relative_path": "proof/34-24/preparation/green-model-and-retained-source.log.txt",
+    "sha256": "72fe0a79410fe986513b40a6d79aea3889e6bd79b3491e49fdab9241123f5c0f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/private-cjs-initial-loader-cut-restored-green.log",
+    "durable_relative_path": "proof/34-24/preparation/private-cjs-initial-loader-cut-restored-green.log.txt",
+    "sha256": "a0497c19cce6529d972784d680c6de2a125e16eb427590a937afc54037e9babd",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/red-compiled-before-build.log",
+    "durable_relative_path": "proof/34-24/preparation/red-compiled-before-build.log.txt",
+    "sha256": "90c5b1f8d5773160a5be2e317239b09ccc8f8ba56e2a67ac4cb3c47840fef04c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/red-corrected-composition.log",
+    "durable_relative_path": "proof/34-24/preparation/red-corrected-composition.log.txt",
+    "sha256": "39dd7f46b3473675e519a4d4bac0dbbdaf641e79b6960a48369b9a438a78eba4",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/red-declarations-before-build.log",
+    "durable_relative_path": "proof/34-24/preparation/red-declarations-before-build.log.txt",
+    "sha256": "b9a8038e082a40f06f5c8c066624d90119666a0acb5a7c71990027b2b7cd6a8a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/red-first-composition.log",
+    "durable_relative_path": "proof/34-24/preparation/red-first-composition.log.txt",
+    "sha256": "c3ac78381ddad000b8b33e38941eaca9624c514b7739605d06fe92a52078dbf8",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/semantic-baseline.log",
+    "durable_relative_path": "proof/34-24/preparation/semantic-baseline.log.txt",
+    "sha256": "095b16ef7fec472d7a051964b541254b25491ea4f476843a09838c910c575933",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/toolchain.log",
+    "durable_relative_path": "proof/34-24/preparation/toolchain.log.txt",
+    "sha256": "30fde0ba28fb040fae3ca3250a3ff8c953fd95f27083edf702455c4a9e23ad13",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "preparation/unknown-slots-baseline.log",
+    "durable_relative_path": "proof/34-24/preparation/unknown-slots-baseline.log.txt",
+    "sha256": "fadca09e9db1d90c85bc3538ba6dc6c3ea80f453f2832603c2ae0136122e8462",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "private-harness-relative-path-failure.log",
+    "durable_relative_path": "proof/34-24/private-harness-relative-path-failure.log.txt",
+    "sha256": "a921a88a4054fdba46e9769ce768f5534c39d7596921e51873603bd49313ab68",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/catalog-embedding-dimension-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/catalog-embedding-dimension-red.log.txt",
+    "sha256": "0712e4b5a2f5311e0c5f32583511bcc6506e1b3c62393e7b6ca52c1e80e3b098",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/catalog-embedding-dimension-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/catalog-embedding-dimension-restored-green.log.txt",
+    "sha256": "a792eed66c94f7d0f8e86ad97d238465b08b469066a9ac180b4a856c2cc97039",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/catalog-vision-search-support-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/catalog-vision-search-support-red.log.txt",
+    "sha256": "956da3ec185dcc464daa54b7ed6cd6cdc3707b2544fd3485d396f815b72e8560",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/catalog-vision-search-support-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/catalog-vision-search-support-restored-green.log.txt",
+    "sha256": "0a0a1c22632405fc93c13ea8b686b605bca7fc44b2c39b95c6a305d459f53e24",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-bootstrap-generation-matches-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-bootstrap-generation-matches-red.log.txt",
+    "sha256": "cf727c49f5840e47268178ecc0041068efc993067b8677f1c1a07820d45bb45b",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-bootstrap-generation-matches-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-bootstrap-generation-matches-restored-green.log.txt",
+    "sha256": "9c62fcba0ca783b0b6cf63933b1de153ca7ea0da20a3ce558cd972d3e1d3d7cd",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-observed-generation-required-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-observed-generation-required-red.log.txt",
+    "sha256": "76db737e0a23aaf10feca39d2175f3303013e1f25a54d20bac74895c95bea3cc",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-observed-generation-required-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-observed-generation-required-restored-green.log.txt",
+    "sha256": "4c64fd9cb03c9c1ba9fe928f398007e2eca8991ef08a3e30dee5b0a047aa3657",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-replay-full-semantic-identity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-replay-full-semantic-identity-red.log.txt",
+    "sha256": "421557f230555c4bd34bdf109d195269d38203f3d6c446c5d99cbf9913b761ec",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-replay-full-semantic-identity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-replay-full-semantic-identity-restored-green.log.txt",
+    "sha256": "3c75aa24351c10d269a56c0bfb6b6e6baadffb0e1ee51a4e1521129ee8971ff9",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-version-cas-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-version-cas-red.log.txt",
+    "sha256": "67f61ae6edf51dae9f72019cd61ab859ba947c7103226dafcd5d39b3ae0145e2",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/command-version-cas-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/command-version-cas-restored-green.log.txt",
+    "sha256": "febbe91a8458f532a9dff77e6f0be6d90abbc24f464b010d17ce7a4717d20a60",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-active-vector-space-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-active-vector-space-red.log.txt",
+    "sha256": "16f4dba518b3cadc345ebb085dee0358893aed0cbeeb1d8413cd5a3e11178d2d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-active-vector-space-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-active-vector-space-restored-green.log.txt",
+    "sha256": "b08f1b3b7861325cd495df3795e1104635be0a2ba8618151c061989bddea43b3",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-confirm-freshness-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-confirm-freshness-red.log.txt",
+    "sha256": "f0c0fa3a331d0f908b34b0ba40be9fd135dca051947b31b9740a575575f6cf02",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-confirm-freshness-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-confirm-freshness-restored-green.log.txt",
+    "sha256": "e6a4cca85d69d04df23479e6540ee9eef35f6880e176b1151a46cf83b92713d0",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-confirm-identity-scope-settings-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-confirm-identity-scope-settings-red.log.txt",
+    "sha256": "854f3aec8e222a5d8d7ec355a33320594a6ab63f37a0782c19b048aa08e1bf34",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-confirm-identity-scope-settings-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-confirm-identity-scope-settings-restored-green.log.txt",
+    "sha256": "60713282dcc1c2c7e65bf3649123b595ea21ea4a94e674c27fc36629a5ce0339",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-confirm-request-version-slot-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-confirm-request-version-slot-red.log.txt",
+    "sha256": "e886c5b22000a5b3968bd5582a319dfe626b5b8a41b6f639328c4346d32bc1a2",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-confirm-request-version-slot-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-confirm-request-version-slot-restored-green.log.txt",
+    "sha256": "b1643caef0e40e35e3c19e974c422685c1d4f61a7e31677dc4cfb69d8715ab8a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-current-cas-authority-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-current-cas-authority-red.log.txt",
+    "sha256": "ffe60e17ba5812601b29807d865ef3e42af1bb9c72edfac051972159542efa40",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-current-cas-authority-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-current-cas-authority-restored-green.log.txt",
+    "sha256": "5e4dc7137efc2b3319ba74bf03ac01b4a47c93cf60ed4c45ad2aae8dcddeb048",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-install-registered-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-install-registered-red.log.txt",
+    "sha256": "5cce97446db47aea228cfa42dec12a782923997918bfd156c53e7206cfc7455c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-install-registered-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-install-registered-restored-green.log.txt",
+    "sha256": "aff0407a2a2e9e09bb93f747a9b247042d6942373f2b58acba63e1276f996fc4",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-installed-complete-proof-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-installed-complete-proof-red.log.txt",
+    "sha256": "636cf41a1ff0fb2b47496533ddca65a3e7d1d2a252725f4183d5f97a479bac12",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-installed-complete-proof-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-installed-complete-proof-restored-green.log.txt",
+    "sha256": "2c9b0f5dd5e89f09be9ce6dcfe9e0cb32b810a0d828fa7df2d96bbdcc914ac1b",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-installed-receipt-matches-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-installed-receipt-matches-red.log.txt",
+    "sha256": "be8e479d19ea5bd5af001e22ce05091f53f8104dc9489f6028f45a85c8e7ef13",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-installed-receipt-matches-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-installed-receipt-matches-restored-green.log.txt",
+    "sha256": "2a4270eb0bd7cd866ee793a89b5949c4d9898c6e94c1ae029439143560be4ec6",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-observed-actual-settings-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-observed-actual-settings-red.log.txt",
+    "sha256": "4eae8cbc913eda0f4492f1cf0dba6d03bf14ed6286b0eda73996079215bdbee0",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-observed-actual-settings-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-observed-actual-settings-restored-green.log.txt",
+    "sha256": "463befce5b024a459a06fe08fff895b550a5b4836c4c8e8b796ae64711faed25",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-observed-no-request-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-observed-no-request-red.log.txt",
+    "sha256": "ba7a2d8d503d16631a88dfb96c660072efcc730d7c3c302deb98832fd8707870",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-observed-no-request-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-observed-no-request-restored-green.log.txt",
+    "sha256": "a7e3dc03c9f36d164d7f7a5758f350bc73d13f62335b8113182c7d7ac3000b04",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-observed-no-version-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-observed-no-version-red.log.txt",
+    "sha256": "c70f9663883176a791e9bd1b849833b25a1f41621d0c1366218f16fb4deaeeee",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-observed-no-version-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-observed-no-version-restored-green.log.txt",
+    "sha256": "a76de9da257fc4547e4bb710deaa8420c27bab9e00625dc52a06a2360648e6b2",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-pending-never-installed-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-pending-never-installed-red.log.txt",
+    "sha256": "bb90f915fa44acf164467abca1a26d1cb0476ae7566892ff8f7e1beeba5cf8af",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-pending-never-installed-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-pending-never-installed-restored-green.log.txt",
+    "sha256": "2bf721783570d8b1b3937c51aada38eaac723255170d39794226e1e28b68eaa5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-read-request-registered-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-read-request-registered-red.log.txt",
+    "sha256": "cae8810d2813b25a4d3988dac8b89d5abd754f8b71bac3d84f3a50907db958c5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-read-request-registered-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-read-request-registered-restored-green.log.txt",
+    "sha256": "839766209126f45ac59a45e451532e2a5b863a833e85cad7bb7a75f56789e202",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-public-reason-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-public-reason-red.log.txt",
+    "sha256": "f8e1de25ee03f6a531d9f3193b9d4849594ed493695132a1bf71354ab750f564",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-public-reason-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-public-reason-restored-green.log.txt",
+    "sha256": "ca180cb80a025af0aa5c529889d14590e4e9085a989581656ede2864603f541d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-registered-settings-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-registered-settings-red.log.txt",
+    "sha256": "867565fa1dee5a01530966081a73d444db3b43d4e83ccd28138015bdb4dc64fc",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-registered-settings-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-registered-settings-restored-green.log.txt",
+    "sha256": "e3d1b30fce4ef77c68c8fd722e06a99848a197e0cc012057f6a16a08d6a149cb",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-registered-slot-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-registered-slot-red.log.txt",
+    "sha256": "131b6b9e02b824bda6de1cff6dcb5f739d475cc5472759e92da016a123a012a5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-registered-slot-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-registered-slot-restored-green.log.txt",
+    "sha256": "de3ca0d7897848bef7df4ff83b232e76259c85040c015cd38fdb19d2fbb129c9",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-validity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-validity-red.log.txt",
+    "sha256": "bff8b23f8cda19b45264774ec3801c78914d871f44bf9b229fa9b0a6abf151a5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-readback-validity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-readback-validity-restored-green.log.txt",
+    "sha256": "56fddb6cb70d1cbc48d37b9642b22385ce06acd3a9baaa2322b1f345bbfb59be",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-rebuild-before-install-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-rebuild-before-install-red.log.txt",
+    "sha256": "b33c6582a7023bd2391716100131f57818233d19b9409ab4b7538127f91d6895",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-rebuild-before-install-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-rebuild-before-install-restored-green.log.txt",
+    "sha256": "05f76c266812942381efe4e825eb85ae76884c714269b1fb6fdf0daf1af380af",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-route-slot-binding-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-route-slot-binding-red.log.txt",
+    "sha256": "389ebee3b7a3a28d436ba2c01cef33db7309d198f17a4a7c62a1c08d2e71bd86",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-route-slot-binding-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-route-slot-binding-restored-green.log.txt",
+    "sha256": "8d4f568e0faf760c1a804f27a07b80f4d311b321d8936fd74f6983b137accaee",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-runtime-scoped-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-runtime-scoped-red.log.txt",
+    "sha256": "0f60ea0982274706380233818c346a2dfaad599c3a2dff9c3920495124512e7f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/consumer-runtime-scoped-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/consumer-runtime-scoped-restored-green.log.txt",
+    "sha256": "f654ab2975f4a2b52047c1dac9167065e3f7d26639e2231a24fa56551e3f4615",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/failover-no-embedding-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/failover-no-embedding-red.log.txt",
+    "sha256": "d8a1cd76ba7b97c88467497ff58bf95621dc43cc79bc9aca4baf75e4cc12feef",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/failover-no-embedding-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/failover-no-embedding-restored-green.log.txt",
+    "sha256": "d77ec7da7bc51377236aefc59c8406a191abbe9a6ad2876e3d85e74226cae6ae",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/failover-selection-order-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/failover-selection-order-red.log.txt",
+    "sha256": "a719e1899e891c470ca70c05e7f0c474f4be4caa83898356a5ede6bcc772a01c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/failover-selection-order-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/failover-selection-order-restored-green.log.txt",
+    "sha256": "4107e7f1e73d0214537111128252cb1d553aee30e20e774a196a8843f3028bc5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/fixture-repair/failover-no-embedding-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/fixture-repair/failover-no-embedding-red.log.txt",
+    "sha256": "c732601fedcf6ba0710deaf820ac349b6a6c3ba4e9610ef45a37ff5b4ac898a0",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/fixture-repair/failover-no-embedding-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/fixture-repair/failover-no-embedding-restored-green.log.txt",
+    "sha256": "624abe6710d9b9c997bc8445dd39a68fccde3ca4343b392fb6f282feb9e8d352",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/fixture-repair/matrix-results.json",
+    "durable_relative_path": "proof/34-24/source-cuts/fixture-repair/matrix-results.json",
+    "sha256": "444ed056498fac3a14588279111e2299b514cad925c93016db8ec8132631cd0f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-canonical-consumer-settings-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-canonical-consumer-settings-red.log.txt",
+    "sha256": "242500b7f1fc002e52759049ae5af26b8c94fdaeb77e6bd30f09fe58410634f4",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-canonical-consumer-settings-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-canonical-consumer-settings-restored-green.log.txt",
+    "sha256": "d4f7ad3d79ad812945c82f3b5d72de7db56d82937d6763037b98da4b3dbecbde",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-complete-slot-partition-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-complete-slot-partition-red.log.txt",
+    "sha256": "306cb502d51ab1d61b47bd5e98962520a0d101f8af972276dc9ad476e7a927c9",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-complete-slot-partition-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-complete-slot-partition-restored-green.log.txt",
+    "sha256": "a6c393ac4d6283a4979dc6f8b1f9cb3d286fd04ca91a2934276c52fbac0f6402",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-complete-vault-identity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-complete-vault-identity-red.log.txt",
+    "sha256": "7edfb5044558e78e4e9203c9c1717c65ae46e9fbd39f1b1e52d433312f7ed4f3",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-complete-vault-identity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-complete-vault-identity-restored-green.log.txt",
+    "sha256": "2ebd972afdeaf984003c6362d67217b3b4488d1b9ef6021d6edf390a995dd01b",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-fresh-time-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-fresh-time-red.log.txt",
+    "sha256": "cf339a7a32f07e81ced0bd1aa2b8bfdc0b6aa79048254316777eb8efff0db51d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-fresh-time-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-fresh-time-restored-green.log.txt",
+    "sha256": "3b572763380013754061ea00475a1c3870452774bd987acf00175c757ba636aa",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-generation-identity-scope-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-generation-identity-scope-red.log.txt",
+    "sha256": "c8429183d4ee9474d8228267eb91dc4f1fa5a432508963b6aac7a89e916084a3",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-generation-identity-scope-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-generation-identity-scope-restored-green.log.txt",
+    "sha256": "cf148c511da060226edbacb13642316035bc59bd774cd63076184826cefe5a1d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-no-missing-or-all-excluded-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-no-missing-or-all-excluded-red.log.txt",
+    "sha256": "4b9654c36dd6176b826a62ee1816dff81af198144ad9850d3fdf256be847439e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-no-missing-or-all-excluded-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-no-missing-or-all-excluded-restored-green.log.txt",
+    "sha256": "8c782044eb530a41acf464ccd8a7f50db7ec0fd9ca7eba14d573af48f12f1127",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-roleless-strict-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-roleless-strict-red.log.txt",
+    "sha256": "488991bb5bc1f6954745825e457ecb149ba0b3d53cb50c4c1ca363d69b456632",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-roleless-strict-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-roleless-strict-restored-green.log.txt",
+    "sha256": "1ee8f0736eeb28e9383ef75a2578764b71d0bc02ea6ecae9dfcff3e7b24e1447",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-runtime-binding-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-runtime-binding-red.log.txt",
+    "sha256": "7db3b92e743f80528190dfcc4c98ebb062f2adb3c7ab1198f83f4d56f928914d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-runtime-binding-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-runtime-binding-restored-green.log.txt",
+    "sha256": "f2578950fcf5d0869ef4f0800c390e0ad91ae2302afdeaf9859a360c9f796028",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-state-exact-identity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-state-exact-identity-red.log.txt",
+    "sha256": "afb49d032c0d5dcacdbf4658c1cab512c119ee3f75f4c8ecfb026d3e5aefdb12",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-state-exact-identity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-state-exact-identity-restored-green.log.txt",
+    "sha256": "43261cc7c9742a3eef1653df672707feec22fc346b1a2c8ea486240b4e5b1644",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-state-no-competing-authority-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-state-no-competing-authority-red.log.txt",
+    "sha256": "f19383df24bbdab8ed1c80c9d847696c266616ab6dc0bcc8d2f341977d72cfea",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-state-no-competing-authority-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-state-no-competing-authority-restored-green.log.txt",
+    "sha256": "bc5b767afecb49b7bdf43720650757bb9d730e499987974508ba6f7252a7ce9c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-state-no-saved-version-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-state-no-saved-version-red.log.txt",
+    "sha256": "9699b78f682309dc7c9fc2a90fd64cb9f8c8b209c4a0dfaff2f341448aca181b",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-state-no-saved-version-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-state-no-saved-version-restored-green.log.txt",
+    "sha256": "e85603c7604752c0f75ca097f46f677448213cf4d54aecf5828e9720afe949f0",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-validity-window-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-validity-window-red.log.txt",
+    "sha256": "8b3e7e694422d60f1856f2a71de5388ab4ac991d12a721f8c63b61f44dbe8353",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/initial-validity-window-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/initial-validity-window-restored-green.log.txt",
+    "sha256": "dd1461c20854293f298e0d12be448357e24e2e19ba8b5950593676da3519e236",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/matrix-results.json",
+    "durable_relative_path": "proof/34-24/source-cuts/matrix-results.json",
+    "sha256": "2c5a966b0d704f696194ed01bfd16dddab5dc02d38054c65850ebdbc1535c694",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-freshness-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-freshness-red.log.txt",
+    "sha256": "0ba3adb8fd5deeeb7e90d7f6e1bb5a4c3ffff37bceba7b32a7f968539b5a4ab7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-freshness-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-freshness-restored-green.log.txt",
+    "sha256": "adfe147fcc0836877d5b72fac544f24535cd80dda1a37c24f1f21f1d11682c6e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-runtime-binding-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-runtime-binding-red.log.txt",
+    "sha256": "d69608fe2b30dbf7c94653df692b6465b15ffee795bea9c871ee23d45753fcf5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-runtime-binding-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-runtime-binding-restored-green.log.txt",
+    "sha256": "312f24e4cd26fe492244b8b8b3bb2eba6465afea8e82859c62632494ca7ac7cd",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-saved-provenance-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-saved-provenance-red.log.txt",
+    "sha256": "7044a3ada780610ff68eedf258ce7ed24ecbc1bf3724e87a4126f54c243a3dbe",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-saved-provenance-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-saved-provenance-restored-green.log.txt",
+    "sha256": "2599b6c8fb1e9f5b363b07864d8abddd9ddaf4a58d8c3f1a543abbc5de64ffe3",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-state-identity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-state-identity-red.log.txt",
+    "sha256": "8e78a56ce43661b630d649e8502256e00adc9bdacf9bb7c50dccc04def9ab044",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-state-identity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-state-identity-restored-green.log.txt",
+    "sha256": "1ed4ad99510ed32e4c72069ab49582332a407c36ddac276dc6ce90e98d112fe7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-state-scope-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-state-scope-red.log.txt",
+    "sha256": "a02e54d983b8bfbf9ad566124006122b9732a53747ab555ca5880ffdb261fa98",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-state-scope-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-state-scope-restored-green.log.txt",
+    "sha256": "a342a3c2e50a10eee887238df8cdfbbf1483fb6f01702568cdf9f31911051b86",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-time-order-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-time-order-red.log.txt",
+    "sha256": "f132f672fce9699b6e7b18cd4f0aab38cee055cc36893d846ff49f42aba0a40f",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/modern-source-time-order-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/modern-source-time-order-restored-green.log.txt",
+    "sha256": "43f50efce6233d7b634a22e9e4f7f8185b3158f22663d397ccdb26a2623793c0",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-complete-no-missing-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-complete-no-missing-red.log.txt",
+    "sha256": "f966e7f6dce9dfb8959d9c3f14fea3b10c1026c861b1ddf3827af736b4fae5d1",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-complete-no-missing-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-complete-no-missing-restored-green.log.txt",
+    "sha256": "418f86602ac989b2078e8208386bf174f072d68bcebeba6f6f98651bdd2bd724",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-cross-namespace-identity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-cross-namespace-identity-red.log.txt",
+    "sha256": "3744e113fc45f66631c489ab8ac1ce2ac72918fdb2db34e02e73e52ff9811d40",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-cross-namespace-identity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-cross-namespace-identity-restored-green.log.txt",
+    "sha256": "0817c824f88ba179bf8cb585501ec58572080b4aa03567bc2ca25ccc78d0fde3",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-exact-identity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-exact-identity-red.log.txt",
+    "sha256": "59ba9da3b2d042247ef0ea48bfde02031fe9bd075759e1b1083a7414ef590591",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-exact-identity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-exact-identity-restored-green.log.txt",
+    "sha256": "14bd682f98b429a379d77594947e0bb69d1f6ff668036f951af3206b748d71aa",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-incomplete-public-reason-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-incomplete-public-reason-red.log.txt",
+    "sha256": "b947a6cfb285b1715b611f53d5fadcee77dc0d849267ca24e579d2572a92af28",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-incomplete-public-reason-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-incomplete-public-reason-restored-green.log.txt",
+    "sha256": "28319e4cb8d2351b809744a3f3df7c9bc3068e064901cee2e612fddd92faa375",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-missing-slots-unique-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-missing-slots-unique-red.log.txt",
+    "sha256": "40dcdd4062efd02a951331612f44ba97d7f6de5829dd8fabde3e70b1f7f18680",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-missing-slots-unique-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-missing-slots-unique-restored-green.log.txt",
+    "sha256": "5c83df2161d96ba7b4a08d6db241d61ffdf4c20c10e6e9faf4ac8582f3fc11c9",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-owner-binding-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-owner-binding-red.log.txt",
+    "sha256": "fb56cf4f03139723b769c96cb471947a1b2b3ec46f292560092087d7b5db3d03",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-owner-binding-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-owner-binding-restored-green.log.txt",
+    "sha256": "1964df0c872b6be6675c3528e2259d14185ee2b0c830a0780e235cf0f290a26b",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-owner-coverage-access-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-owner-coverage-access-red.log.txt",
+    "sha256": "f1f6f72c0b36560fb58f095139c615e72317d320cc1e5dc8158036065816d053",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-owner-coverage-access-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-owner-coverage-access-restored-green.log.txt",
+    "sha256": "2ecc9ab6e83afee9e51e30d9db781488b8c4a19404b93ac3f9a892570adcbdae",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-present-missing-disjoint-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-present-missing-disjoint-red.log.txt",
+    "sha256": "77e446141210e833a45e933611095e6929c4a77b3268ef6fa1d3551b96d5f5ef",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-present-missing-disjoint-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-present-missing-disjoint-restored-green.log.txt",
+    "sha256": "49d3e9fb1374d7c6391671c5f8f2d9be8be86d915d3231f18711e786defa455c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-unique-coverage-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-unique-coverage-red.log.txt",
+    "sha256": "ba2b7361ba1f85420ef7331c29724937fd2d9a24e3becea9a7f2e08927d4c5f7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-unique-coverage-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-unique-coverage-restored-green.log.txt",
+    "sha256": "f6235cdae92792841782abd9f46d0d8403cf530f97e4d68395e2ca2b4641723e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-unknown-provenance-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-unknown-provenance-red.log.txt",
+    "sha256": "766b8b018e16461c393e4b14322532decd0b755094cd101efe1fac984e156f2c",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-unknown-provenance-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-unknown-provenance-restored-green.log.txt",
+    "sha256": "57fb6040b49ebad9ddb9b5f498beec4df44ebff08917ef704cc897ef24fd384b",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-vault-identity-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-vault-identity-red.log.txt",
+    "sha256": "683199e152740e9f026536d61ae142b1e15581579009536c12a7427df4e11af9",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/overview-vault-identity-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/overview-vault-identity-restored-green.log.txt",
+    "sha256": "4d9178a7cc163e63bbb245a4a8515cec4165b925c95936ba9b19bdb711d633a6",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/single-embedding-dimension-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/single-embedding-dimension-red.log.txt",
+    "sha256": "0fbfe1220e84fd3872a8d8142763e75cec84b461bf322c82a5eb1530e8c65f5b",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/single-embedding-dimension-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/single-embedding-dimension-restored-green.log.txt",
+    "sha256": "5f62473cd681d93d630cbf24998477796b71b84b63a05b2010af0cceaf1ef663",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/single-selection-position-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/single-selection-position-red.log.txt",
+    "sha256": "7a26c83dc2b7a1cb46b1a48e15771304564f5136ddaf49cdc9bb0d18ee74970d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/single-selection-position-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/single-selection-position-restored-green.log.txt",
+    "sha256": "e2dba9476401da88627d22bf1849ec6274e27eed1b243007cc986c8890d0e00e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/writer-coverage-request-scoped-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/writer-coverage-request-scoped-red.log.txt",
+    "sha256": "d3fc10f0883944381fb993eeb83f6413705d2ca94d00dc367329307ed03117d3",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/writer-coverage-request-scoped-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/writer-coverage-request-scoped-restored-green.log.txt",
+    "sha256": "5ac25b7dd15663eca23252ec7c1af6cc8f3fa303196704082e38bffb10d88465",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/writer-unrelated-coverage-does-not-block-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts/writer-unrelated-coverage-does-not-block-red.log.txt",
+    "sha256": "8515c6b3ee01ece5db118ccf0c0ef5a6ba436c8a075113e47c816f7780c8d2e6",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts/writer-unrelated-coverage-does-not-block-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts/writer-unrelated-coverage-does-not-block-restored-green.log.txt",
+    "sha256": "f22a45f9ce4fd061700aebed9df013fd579a2803c846db4ea0b7aa538d9fe630",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/apply-confirm-explicit-authority-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/apply-confirm-explicit-authority-red.log.txt",
+    "sha256": "72c931c95165f83f56ce7e01f90d002b44657ab4dd351358129c4e8c927d8233",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/apply-confirm-explicit-authority-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/apply-confirm-explicit-authority-restored-green.log.txt",
+    "sha256": "bd2b4f4a514f90680caa07152abfa1cdde46ebba98cff859d4336ab8ad3936f3",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/command-direct-generation-authority-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/command-direct-generation-authority-red.log.txt",
+    "sha256": "74bccb6e964a80af262685f8d4c1d9b30aad736e14ab0bc1c2b3df77133cbbf1",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/command-direct-generation-authority-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/command-direct-generation-authority-restored-green.log.txt",
+    "sha256": "3ebd58d10b3781f6440fa4417d8d32aaa3e9747c19db49ea2c8d232c31363237",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/command-registered-consumer-authority-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/command-registered-consumer-authority-red.log.txt",
+    "sha256": "ae887a688ea8f126413e029c51ce60f726db0b422f295424760574e187648b5d",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/command-registered-consumer-authority-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/command-registered-consumer-authority-restored-green.log.txt",
+    "sha256": "1c0bc81b103da5615e19588c77b669825bda3b703d4deea23eda0e4f37f16918",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/local-http-required-auth-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/local-http-required-auth-red.log.txt",
+    "sha256": "018d7486b22eb2aa7343bd83183fc0bf25a6f485d8e034341b2658e98c745b0a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/local-http-required-auth-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/local-http-required-auth-restored-green.log.txt",
+    "sha256": "f4a1bd5ad18c786577e347899ac1e7691c0809e51f94e2870ec5fe66c0e4b8d1",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/matrix-results.json",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/matrix-results.json",
+    "sha256": "ea342b1415a66d8cc148b77336b91a1237076e4920570db39dba5c53a1e82977",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/public-model-execution-export-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/public-model-execution-export-red.log.txt",
+    "sha256": "48ba84cf5c7d0b989e79bc4e1a02cdd6ce5fea5417fb689383e9ef9e310a3146",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/public-model-execution-export-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/public-model-execution-export-restored-green.log.txt",
+    "sha256": "765d408fc2e4a07025c8a1c7e30d3a097bc97f82b44ed1ef9a8dd72c0502aace",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-detached-definitions-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-detached-definitions-red.log.txt",
+    "sha256": "2d837f84fe27df60dfcc592fa08ecd92b9ae7cb80e883959511c195c89d518b7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-detached-definitions-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-detached-definitions-restored-green.log.txt",
+    "sha256": "bb96cf31f89dc7cadf4740c89de5ea2623b074d0ac3df993c87fb675d8ec37b5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-detached-lookup-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-detached-lookup-red.log.txt",
+    "sha256": "19d0c777ede804234416ba0d1c4a4b25175b99efe75031e6e0d640a70552b45e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-detached-lookup-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-detached-lookup-restored-green.log.txt",
+    "sha256": "ee9e331d75fbd29d130c3ea2e48bbec1ddf94a011e0a169577a554e46c26ffa2",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-feature-types-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-feature-types-red.log.txt",
+    "sha256": "75fbf1ce527290fbd8de7d49c1ce00456d4ecf0744378df7d7123085034ae4f5",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-feature-types-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-feature-types-restored-green.log.txt",
+    "sha256": "762937778e85affa7258adbf3389114b6b28e9dae1965cc9d2cfbd2c9ff3e481",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-required-metadata-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-required-metadata-red.log.txt",
+    "sha256": "449864363ff0843eb8d4132fae6bc48af75601362d5b7e423209c5dc36e75492",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/registry-required-metadata-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/registry-required-metadata-restored-green.log.txt",
+    "sha256": "a5465dbf3566bc586fe29b08d814c446c070b3ac16623a24c9a63e978d730f26",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/runtime-exact-position-count-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/runtime-exact-position-count-red.log.txt",
+    "sha256": "1a345c90e2818c670f2006ad1641ab8b5f7072313ca737946b68bb97f2d5f9b1",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/runtime-exact-position-count-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/runtime-exact-position-count-restored-green.log.txt",
+    "sha256": "5e459adb571e7a3397d5074d75b683b28bbc8e6127a6819cee79d82cd8a550eb",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/runtime-exact-selection-metadata-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/runtime-exact-selection-metadata-red.log.txt",
+    "sha256": "b2e4ab7b7b6061d9a9b038247f31f8d4e62eb1e85993a1281dbe8ce14d6d71e7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/runtime-exact-selection-metadata-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/runtime-exact-selection-metadata-restored-green.log.txt",
+    "sha256": "80f9319d3a42fcc92b496c076594d343dcdc91c1c1618a4a12facae5023b0382",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/runtime-vector-dimension-red.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/runtime-vector-dimension-red.log.txt",
+    "sha256": "e649f50c6c2b21b758110e3ccf7d6253acf1c374ba432a888b164d24fcbe7c9a",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-cuts-extra/runtime-vector-dimension-restored-green.log",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/runtime-vector-dimension-restored-green.log.txt",
+    "sha256": "ba93e5dc048fc297a21a9900aa1f090df268ce957e8a0acaeec40eda9da8735e",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "source-parent.log",
+    "durable_relative_path": "proof/34-24/source-parent.log.txt",
+    "sha256": "e5cd88ab055d56fe8f1e51f02f82279fcca163709aed38fad28552313b260664",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "typecheck.log",
+    "durable_relative_path": "proof/34-24/typecheck.log.txt",
+    "sha256": "6ebcdbd97e7f322c0ce5409ee03f1a86e7c2c58ac0d4d98597426cdb89b81bf7",
+    "byte_identical": true,
+    "diagnostic_classification": "See manifest limitations and summary; loader/harness/insensitive attempts are excluded from valid RED denominators."
+  },
+  {
+    "private_relative_path": "REVIEW-READY.md",
+    "durable_relative_path": "proof/34-24/REVIEW-READY.md",
+    "sha256": "27245435c4f1b1f0202c3673bc93c11fd3d694ab4117e363e5089efd817b3726",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "after-build.json",
+    "durable_relative_path": "proof/34-24/after-build.json",
+    "sha256": "aa8df838c5b094eab8d84b8eb197a22d0382a191cfbb5d4dabe0169442bec013",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "after-source-cuts.json",
+    "durable_relative_path": "proof/34-24/after-source-cuts.json",
+    "sha256": "aa8df838c5b094eab8d84b8eb197a22d0382a191cfbb5d4dabe0169442bec013",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "assert-preservation.py",
+    "durable_relative_path": "proof/34-24/assert-preservation.py",
+    "sha256": "a8eda1f412c9f02deca2445bd699331f707b275cd7da1a3653f54793f4120547",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "final-preservation.json",
+    "durable_relative_path": "proof/34-24/final-preservation.json",
+    "sha256": "aa8df838c5b094eab8d84b8eb197a22d0382a191cfbb5d4dabe0169442bec013",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "hooks-snapshot.json",
+    "durable_relative_path": "proof/34-24/hooks-snapshot.json",
+    "sha256": "f7eb2e26ae1d19886c97ebcd6804a0aa7a02f40eff810111b665410e76d9247c",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/REVIEW-MANIFEST.json",
+    "durable_relative_path": "proof/34-24/independent-review/REVIEW-MANIFEST.json",
+    "sha256": "410868c1a9f0e02a15246d235c2e19c9e817569a2ed62c5c746f5fef31f9d3b5",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/REVIEW.md",
+    "durable_relative_path": "proof/34-24/independent-review/REVIEW.md",
+    "sha256": "55c5922bece9a2ceb28019abd271506a22989a80dcdb29b4912a791b0fa3c384",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/fault-baseline.log",
+    "durable_relative_path": "proof/34-24/independent-review/fault-baseline.log.txt",
+    "sha256": "7a770d46daa0e0d0e015f53a7711aa5ea56b5c46e0152e1dbbabe3e93ea4926b",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/fault-cache/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json",
+    "durable_relative_path": "proof/34-24/independent-review/fault-cache/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json",
+    "sha256": "6e4b2236bd5b977bb2669ba58d9b387f72c5071a5633ccfb2071eed4f9f3aee8",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/fault-observed-authority-red.log",
+    "durable_relative_path": "proof/34-24/independent-review/fault-observed-authority-red.log.txt",
+    "sha256": "3d2024e68e2d1013f033a0922ce5f2b49818bf319af0c5bc0191481c97ab4e9e",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/fault-restored-green.log",
+    "durable_relative_path": "proof/34-24/independent-review/fault-restored-green.log.txt",
+    "sha256": "f74dabb94ca62b7c10b7287aa95ec5f0401e3102d1ec0b6eae14fb686625e82f",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/fault-source/package.json",
+    "durable_relative_path": "proof/34-24/independent-review/fault-source/package.json",
+    "sha256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-c5-models-consumers-smoke.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-c5-models-consumers-smoke.log.txt",
+    "sha256": "932c7848fb4542a9af449ac00c3280e95abb94bba23b65c0f0ee1f18e4ea8174",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-chiavi-model-composition-smoke.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-chiavi-model-composition-smoke.log.txt",
+    "sha256": "0ae99fe395da659ed57b9971723d255f9bd9250caf8a9571d579fc9f41d489e3",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-declarations.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-declarations.log.txt",
+    "sha256": "6414d1b31b80c8134677b15c8b1414094dc80f8690b4ae5c14b1ae00834b0eef",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-fault-matrix.json",
+    "durable_relative_path": "proof/34-24/independent-review/independent-fault-matrix.json",
+    "sha256": "55d0f7ff976985250fea535dd74528f79f1ae17b111005a79b19b66f01b77aa0",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-install-command.json",
+    "durable_relative_path": "proof/34-24/independent-review/independent-install-command.json",
+    "sha256": "6996d000635de6acb3cbc55de82762e3d9598b11723129178d0bfc04ad469626",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-install-store-command.json",
+    "durable_relative_path": "proof/34-24/independent-review/independent-install-store-command.json",
+    "sha256": "f38018ff54f307a0a43226d7af6cbf942113abe57ac14853d969abf89dd035bc",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-install-store.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-install-store.log.txt",
+    "sha256": "251ea89751a0b0435712bd9d3d4245280a4b85208d565ca12ccbd991df9f0599",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-install.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-install.log.txt",
+    "sha256": "7c2f1fe190278b97096814f7a0a3aebfc6ddb4227a1ee911952a138449082de2",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-model-consumers-smoke.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-model-consumers-smoke.log.txt",
+    "sha256": "b42b2a6713c2a9508e475f2c45212574e712910fb92811fdfba7869de3c58884",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-model-legacy-observation-smoke.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-model-legacy-observation-smoke.log.txt",
+    "sha256": "ac3c7c5cdec44bacfd700c3008a123c23d1932efee3e416087534ee2750efb36",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-model-local-authority-smoke.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-model-local-authority-smoke.log.txt",
+    "sha256": "1f0663f12dbae888c4e691f2d72520324a94f08dc9ee7015280907d011a9e787",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-preservation-check.json",
+    "durable_relative_path": "proof/34-24/independent-review/independent-preservation-check.json",
+    "sha256": "d93c55f2d93ec85b500054f41dc62f578d20ec53107a2e59e4ee96a900eb707b",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-public-command-matrix.json",
+    "durable_relative_path": "proof/34-24/independent-review/independent-public-command-matrix.json",
+    "sha256": "ff4633d8aeb1f5bf69214f9f1bb44b8b51cfac484af9576fe5e7b09d286ed110",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/independent-public-entrypoints-first.log",
+    "durable_relative_path": "proof/34-24/independent-review/independent-public-entrypoints-first.log.txt",
+    "sha256": "1ab260719b1f59e483a7a82b6f803a425797ea5e337550e8af66cbf212aea2bc",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/native-cache/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json",
+    "durable_relative_path": "proof/34-24/independent-review/native-cache/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json",
+    "sha256": "40e515fe25962ec5c4b248ad4d8ffb44e68621008a98c3e684fec636e4e9b53d",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/native-focused-command.json",
+    "durable_relative_path": "proof/34-24/independent-review/native-focused-command.json",
+    "sha256": "b5faea044336460b39e1095db0ab5e0bcf17684b3f16cb0e43dd78bc30e8a4b6",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/native-focused.log",
+    "durable_relative_path": "proof/34-24/independent-review/native-focused.log.txt",
+    "sha256": "b97d89033e405b6bada7491dc6f586990b4bea024f72352ca95184af9e89ac9e",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/snapshot-artifact-check.json",
+    "durable_relative_path": "proof/34-24/independent-review/snapshot-artifact-check.json",
+    "sha256": "812463a1ffb4794a134e07696acd6ce575b40986b16805aad39ed4f0b58ebbe4",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "independent-review/source-raw-semantic-audit.json",
+    "durable_relative_path": "proof/34-24/independent-review/source-raw-semantic-audit.json",
+    "sha256": "ef41f6ee3b87968cc3fc03861cc940ac2749a6828d5fba8b4e4955d1fbf63c2f",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "package-proof-resume.py",
+    "durable_relative_path": "proof/34-24/package-proof-resume.py",
+    "sha256": "a00ba2ccd654d3ec793e57416d9cd2e7cd9602bf6da75a62e9a8756eacec3ca1",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "package-proof.py",
+    "durable_relative_path": "proof/34-24/package-proof.py",
+    "sha256": "eeb797ed1c59e7c14f9a052f76475cef40d70179970484a09d5eed8ee826d3d6",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "packed-cuts.py",
+    "durable_relative_path": "proof/34-24/packed-cuts.py",
+    "sha256": "58fde55a86a4bb72a1f2ff7edbf3ce03ce378a3ca5f5418ea4620cb3415c26d9",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "packed-cuts/matrix-results.json",
+    "durable_relative_path": "proof/34-24/packed-cuts/matrix-results.json",
+    "sha256": "17461992f826a3487bb510cda39772f46dac44eac827ee043a0ee579025f421a",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "parent-independent-identities.json",
+    "durable_relative_path": "proof/34-24/parent-independent-identities.json",
+    "sha256": "c84902b95cb66213b47d9b3a51d1829f2eadd9974399bfbe2e29616913bbb379",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "preparation/baseline-preservation.json",
+    "durable_relative_path": "proof/34-24/preparation/baseline-preservation.json",
+    "sha256": "d6bd7be3459e997c386ee271991f53759f6a1ecf9b2372a190abe0a4b50b8811",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "preparation/run.py",
+    "durable_relative_path": "proof/34-24/preparation/run.py",
+    "sha256": "e16e3d268da1608d7b2b571a2821eee7a271de52df05a2e5010bda062ba6366f",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "product-commit-identity.json",
+    "durable_relative_path": "proof/34-24/product-commit-identity.json",
+    "sha256": "719c6a95d1c1b84b09a61d8e1ca13e3a9efcea1a43fa606434643b2ef0d8c542",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "qualify-native.py",
+    "durable_relative_path": "proof/34-24/qualify-native.py",
+    "sha256": "fb9fe814fc03d9ca26eb922ce7c1de542902269e8f66586685e23e87f8979d47",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts-extra.py",
+    "durable_relative_path": "proof/34-24/source-cuts-extra.py",
+    "sha256": "c3d8ba341c5133a6be5b492a41e8c369410e4b4814838733c8671069691ad1a0",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts-extra/matrix-input.json",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/matrix-input.json",
+    "sha256": "09129938d1c857540c2923a5d981d5476468a01e68049e7c6e842800493f16b5",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts-extra/matrix-results.json",
+    "durable_relative_path": "proof/34-24/source-cuts-extra/matrix-results.json",
+    "sha256": "ea342b1415a66d8cc148b77336b91a1237076e4920570db39dba5c53a1e82977",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts.py",
+    "durable_relative_path": "proof/34-24/source-cuts.py",
+    "sha256": "20e07ab9950181fdb2846f23c8951b23e3426d788efb320c6440cd08938351d6",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts/fixture-repair/matrix-input.json",
+    "durable_relative_path": "proof/34-24/source-cuts/fixture-repair/matrix-input.json",
+    "sha256": "909629e50c16b2a373323f3d3b0e9333699b4e60efb9c40d292a41b8c15b7d58",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts/fixture-repair/matrix-results.json",
+    "durable_relative_path": "proof/34-24/source-cuts/fixture-repair/matrix-results.json",
+    "sha256": "444ed056498fac3a14588279111e2299b514cad925c93016db8ec8132631cd0f",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts/matrix-input.json",
+    "durable_relative_path": "proof/34-24/source-cuts/matrix-input.json",
+    "sha256": "167dd975a76118d8d4345e759c1a09f09f6d71f66b96a0b87a2fcabc86fcf7bf",
+    "byte_identical": true
+  },
+  {
+    "private_relative_path": "source-cuts/matrix-results.json",
+    "durable_relative_path": "proof/34-24/source-cuts/matrix-results.json",
+    "sha256": "2c5a966b0d704f696194ed01bfd16dddab5dc02d38054c65850ebdbc1535c694",
+    "byte_identical": true
+  }
+]

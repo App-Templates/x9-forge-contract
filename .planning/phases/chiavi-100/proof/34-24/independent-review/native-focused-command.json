@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/native.config.mjs",
+    "tests/model-router/chiavi-model-composition.test.ts",
+    "tests/model-router/agent-model-initial-source.test.ts",
+    "tests/model-router/agent-model-local-source-http.test.ts",
+    "tests/model-router/c5-model-consumer-execution.test.ts",
+    "tests/http/internal-agent-tool-dispatch.test.ts",
+    "tests/capability/voice-live.test.ts",
+    "tests/capability/ricerca-job-execution.test.ts",
+    "--maxWorkers=1"
+  ],
+  "cwd": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1",
+  "env": {
+    "PATH": "/Users/admintemp/.nvm/versions/node/v24.14.1/bin:/usr/bin:/bin",
+    "CI": "true",
+    "NO_COLOR": "1",
+    "TMPDIR": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review",
+    "DEBUG_PRINT_LIMIT": "0"
+  },
+  "exit": 0
+}

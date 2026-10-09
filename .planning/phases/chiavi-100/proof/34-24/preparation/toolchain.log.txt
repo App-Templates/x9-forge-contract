@@ -1,0 +1,4 @@
+$ ["pnpm", "exec", "node", "-e", "console.log(JSON.stringify({node:process.version,pnpm:process.env.npm_config_user_agent,vitest:require(\"vitest/package.json\").version,typescript:require(\"typescript/package.json\").version}))"]
+{"node":"v24.14.1","pnpm":"pnpm/9.15.9 npm/? node/v24.14.1 darwin arm64","vitest":"3.2.4","typescript":"6.0.2"}
+
+EXIT_CODE=0

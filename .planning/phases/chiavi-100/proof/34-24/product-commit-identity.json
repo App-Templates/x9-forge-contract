@@ -1,0 +1,12 @@
+{
+  "source_commit": "5806a8556e08be0a672db9e4cbc590be1d19bd1b",
+  "parent": "144369c716b3f91ad1d09b093930759bc5a1d803",
+  "source_files": 195,
+  "dist_files": 1560,
+  "test_files": 21,
+  "changed_files": 199,
+  "all_git_blob_hashes_match": true,
+  "guard_unchanged": true,
+  "archive_sha256": "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc",
+  "clean_after_product_commit": true
+}

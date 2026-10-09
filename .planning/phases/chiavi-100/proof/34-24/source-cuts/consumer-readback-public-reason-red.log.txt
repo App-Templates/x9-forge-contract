@@ -1,0 +1,81 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/model-consumer-legacy-observation.test.ts", "--maxWorkers=1"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/model-consumer-legacy-observation.test.ts (45 tests | 1 failed) 15ms
+   ✓ positive legacy observation without Forge installation authority > O01 admits actual canonical agent_classifier selection 3ms
+   ✓ positive legacy observation without Forge installation authority > O01 admits actual canonical agent_chat selection 0ms
+   ✓ positive legacy observation without Forge installation authority > O01 admits actual canonical stt_file selection 1ms
+   ✓ positive legacy observation without Forge installation authority > O01 admits actual canonical memory_embedding selection 0ms
+   ✓ positive legacy observation without Forge installation authority > O02 requires actual settings 0ms
+   ✓ positive legacy observation without Forge installation authority > O03 forbids a claimed config version 0ms
+   ✓ positive legacy observation without Forge installation authority > O04 forbids a claimed request 0ms
+   ✓ positive legacy observation without Forge installation authority > O05 forbids both installation fields 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"settings":{"capability":"memory","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"settings":{"capability":"agent-core","function":"tts","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":true,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":true,"stream":false,"structuredOutput":false},"mode":"automatic","tiers":{"standard":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"},"advanced":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"},"reasoning":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}},"fallback":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"scope":{"agentId":"another-runtime","ownerId":"synthetic-owner","tenantId":"synthetic-tenant"}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"scope":{"agentId":"synthetic-runtime","ownerId":" ","tenantId":"synthetic-tenant"}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"identity":{"managementAgentId":" ","runtimeAgentId":"synthetic-runtime","vaultAgentId":71}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"identity":{"managementAgentId":"synthetic-agent","runtimeAgentId":" ","vaultAgentId":71}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"identity":{"managementAgentId":"synthetic-agent","runtimeAgentId":"synthetic-runtime","vaultAgentId":0}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"validUntil":"2026-10-09T06:20:00Z"} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"validUntil":"invalid"} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"observedAt":"invalid"} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"sourceVersion":" "} 0ms
+   × positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"reason":null} 4ms
+     → expected true to be false // Object.is equality
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"reason":" "} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"role":"master"} 0ms
+   ✓ positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"extra":true} 0ms
+   ✓ positive legacy observation without Forge installation authority > O07 trims the public reason using the existing reason rule 0ms
+   ✓ positive legacy observation without Forge installation authority > O08 observes the active embedding while target rebuild is running 1ms
+   ✓ positive legacy observation without Forge installation authority > O09 never confirms an installed receipt even with complete forged correlation 1ms
+   ✓ positive legacy observation without Forge installation authority > O10 does not add receipt outcome observed 0ms
+   ✓ positive legacy observation without Forge installation authority > O10 does not add receipt outcome ok 0ms
+   ✓ positive legacy observation without Forge installation authority > O11 preserves non-confirming pending receipt 0ms
+   ✓ positive legacy observation without Forge installation authority > O11 preserves non-confirming failed receipt 0ms
+   ✓ positive legacy observation without Forge installation authority > O12 preserves old unknown with settings 0ms
+   ✓ positive legacy observation without Forge installation authority > O12 preserves old pending with settings 0ms
+   ✓ positive legacy observation without Forge installation authority > O12 preserves old failed with settings 0ms
+   ✓ positive legacy observation without Forge installation authority > O13 preserves actual installed confirmation 0ms
+   ✓ positive legacy observation without Forge installation authority > O14 installed evidence/correlation remains required {"configVersion":null} 0ms
+   ✓ positive legacy observation without Forge installation authority > O14 installed evidence/correlation remains required {"requestId":null} 0ms
+   ✓ positive legacy observation without Forge installation authority > O14 installed evidence/correlation remains required {"settings":null} 0ms
+   ✓ positive legacy observation without Forge installation authority > O14 installed evidence/correlation remains required {"configVersion":2} 0ms
+   ✓ positive legacy observation without Forge installation authority > O14 installed evidence/correlation remains required {"requestId":"another-request"} 0ms
+   ✓ positive legacy observation without Forge installation authority > O14 installed evidence/correlation remains required {"settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"another-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}} 0ms
+   ✓ positive legacy observation without Forge installation authority > O15 installed freshness remains required 2026-10-09T06:20:30Z 0ms
+   ✓ positive legacy observation without Forge installation authority > O15 installed freshness remains required 2026-10-09T06:19:00Z 0ms
+   ✓ positive legacy observation without Forge installation authority > O15 installed freshness remains required invalid 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/model-consumer-legacy-observation.test.ts > positive legacy observation without Forge installation authority > O06 preserves canonical evidence guards {"reason":null}
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/model-router/model-consumer-legacy-observation.test.ts:50:99
+     48|     { role: 'master' },
+     49|     { extra: true },
+     50|   ])('O06 preserves canonical evidence guards %j', patch => expect(par…
+       |                                                                                                   ^
+     51|   it('O07 trims the public reason using the existing reason rule', () …
+     52|     expect(ModelConsumerRuntimeStateSchema.parse({ ...state, reason: '…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 44 passed (45)
+   Start at  21:47:52
+   Duration  398ms (transform 138ms, setup 4ms, collect 245ms, tests 15ms, environment 0ms, prepare 32ms)
+
+
+EXIT_CODE=1

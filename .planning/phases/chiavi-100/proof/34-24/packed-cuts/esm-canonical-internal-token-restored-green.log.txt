@@ -1,0 +1,4 @@
+$ ["node", "result-guard-probe.mjs", "esm"]
+canonical INTERNAL_TOKEN result assertion:1/1
+
+EXIT_CODE=0

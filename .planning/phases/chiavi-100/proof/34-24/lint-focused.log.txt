@@ -1,0 +1,18 @@
+$ ["pnpm", "exec", "eslint", "src/agent/agent-model-management-values.ts", "src/agent/agent-management.ts", "src/capability/capability-call-context.ts", "src/model-router/agent-model-configuration-values.ts", "src/model-router/model-slot.ts", "src/model-router/agent-model-configuration.ts", "src/model-router/model-consumer-execution.ts", "src/model-router/capability-model-settings.ts", "src/model-router/model-consumers.ts", "src/model-router/model-catalog.ts", "src/model-router/models-batch.ts", "src/model-router/index.ts", "src/http/endpoints/internal-agent-model-source-observation.ts", "src/http/endpoints/internal-models-batch.ts", "src/http/endpoints/forge-models.ts", "src/http/endpoints/index.ts", "tests/agent/c5-model-configuration-command.test.ts", "tests/model-router/agent-model-initial-source.test.ts", "tests/model-router/agent-model-local-source-http.test.ts", "tests/model-router/c5-model-consumer-execution.test.ts", "tests/model-router/c5-model-consumers.test.ts", "tests/model-router/c5-model-source-observation.test.ts", "tests/model-router/model-consumer-legacy-observation.test.ts", "tests/model-router/models-overview-coverage.test.ts", "tests/model-router/model-consumers.test.ts", "tests/model-router/chiavi-model-composition.test.ts", "tests/cjs/model-consumers-smoke.mjs", "tests/cjs/c5-models-consumers-smoke.mjs", "tests/cjs/model-legacy-observation-smoke.mjs", "tests/cjs/model-legacy-observation-types.cts", "tests/cjs/model-legacy-observation-types.mts", "tests/cjs/model-local-authority-smoke.mjs", "tests/cjs/model-local-authority-types.cts", "tests/cjs/model-local-authority-types.mts", "tests/cjs/public-entrypoints-first.mjs", "tests/cjs/chiavi-model-composition-smoke.mjs", "tests/cjs/smoke.cjs"]
+
+/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/tests/cjs/model-legacy-observation-types.cts
+  0:0  warning  File ignored because no matching configuration was supplied
+
+/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/tests/cjs/model-legacy-observation-types.mts
+  0:0  warning  File ignored because no matching configuration was supplied
+
+/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/tests/cjs/model-local-authority-types.cts
+  0:0  warning  File ignored because no matching configuration was supplied
+
+/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/tests/cjs/model-local-authority-types.mts
+  0:0  warning  File ignored because no matching configuration was supplied
+
+✖ 4 problems (0 errors, 4 warnings)
+
+
+EXIT_CODE=0

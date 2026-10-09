@@ -1,0 +1,4 @@
+$ ["/usr/bin/python3", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/hash-probe.py", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/archive-fault-copy.tgz", "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc"]
+archive hash1/1
+
+EXIT_CODE=0

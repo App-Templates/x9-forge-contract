@@ -1,0 +1,8 @@
+(node:29690) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Progress: resolved 1, reused 0, downloaded 0, added 0
+ ERR_PNPM_EPERM  Failed to add tarball from "/private/tmp/codex-a-chiavi-completamento/artifacts/34-24/revision-1/x9-forge-contracts.tgz" to store: EPERM: operation not permitted, open '/Users/admintemp/Library/pnpm/store/v3/files/2d/5ad1b480aa2c60006dda900f748b6a262c7c67bbef03343bb89682ae6b222453ed1eb72e0ad6cd092de3213fcc0f0ed94214411cf7ef0f8283e6a1f553554829690'
+
+This error happened while installing a direct dependency of /private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/consumer
+
+EXIT 1

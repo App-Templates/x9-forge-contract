@@ -1,0 +1,65 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/agent/c5-model-configuration-command.test.ts", "--maxWorkers=1", "-t", "D16"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/agent/c5-model-configuration-command.test.ts (34 tests | 1 failed | 33 skipped) 11ms
+   ↓ Private Master configuration command > D01 carries canonical configuration on the existing endpoint
+   ↓ Private Master configuration command > D02 changed model selection is not a replay even with equal version/key
+   ↓ Private Master configuration command > D03 absence of configuration differs from explicit configuration
+   ↓ Private Master configuration command > D04 changed observed generation is not a replay
+   ↓ Private Master configuration command > D05 equivalent detached configuration is a replay
+   ↓ Private Master configuration command > D06 configuration version 1 must equal desiredVersion
+   ↓ Private Master configuration command > D06 configuration version 3 must equal desiredVersion
+   ↓ Private Master configuration command > D07 rejects missing or inconsistent generation {}
+   ↓ Private Master configuration command > D07 rejects missing or inconsistent generation {"modelExpectedSourceVersion":" "}
+   ↓ Private Master configuration command > D07 rejects missing or inconsistent generation {}
+   ↓ Private Master configuration command > D07 rejects missing or inconsistent generation {"modelBootstrap":{"expectedSourceVersion":"different","expectedAbsent":true}}
+   ↓ Private Master configuration command > D08 bootstrap and explicit configuration use the same observed generation
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime"}}
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {}
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {"provenance":{"scope":{"agentId":"other","ownerId":"synthetic-owner","tenantId":"synthetic-tenant"},"bindings":[{"slotId":"agent_classifier","origin":"custom"}]}}
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {"selections":[]}
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {"selections":[{"slotId":"agent_classifier","settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}},{"slotId":"agent_classifier","settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}]}
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {"context":{}}
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {"selections":[{"slotId":"unregistered","settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}]}
+   ↓ Private Master configuration command > D09 canonical authority rejects invalid config {"selections":[{"slotId":"agent_classifier","settings":{"capability":"other","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}]}
+   ↓ Private Master configuration command > D10 start cannot carry a model configuration
+   ↓ Private Master configuration command > D10 stop cannot carry a model configuration
+   ↓ Private Master configuration command > D10 restart cannot carry a model configuration
+   ↓ Private Master configuration command > D10 reload cannot carry a model configuration
+   ↓ Private Master configuration command > D11 binding origin remains part of command identity
+   ↓ Private Master configuration command > D12 different tenant does not replay another authority
+   ↓ Private Master configuration command > D13 exact producer request can be checked against fresh source and route
+   ↓ D14 rejects registered slot with wrong settings {"function":"tts"}
+   ↓ D14 rejects registered slot with wrong settings {"requirements":{"tools":true,"stream":false,"structuredOutput":false}}
+   ↓ D14 rejects registered slot with wrong settings {"mode":"automatic","tiers":{"standard":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"},"advanced":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"},"reasoning":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}},"fallback":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}
+   ↓ D15 selection/binding and object property order do not change command identity
+   × D16 apply confirmation requires the actual configuration carried by the command 10ms
+     → expected true to be false // Object.is equality
+   ↓ D17 an unregistered slot is rejected with otherwise coherent provenance
+   ↓ D18 a registered single slot rejects a valid automatic shape
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/c5-model-configuration-command.test.ts > D16 apply confirmation requires the actual configuration carried by the command
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/agent/c5-model-configuration-command.test.ts:31:1052
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 33 skipped (34)
+   Start at  21:51:20
+   Duration  1.03s (transform 409ms, setup 6ms, collect 739ms, tests 11ms, environment 0ms, prepare 42ms)
+
+
+EXIT_CODE=1

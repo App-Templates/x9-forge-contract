@@ -1,0 +1,132 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/agent-model-initial-source.test.ts", "--maxWorkers=1"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/agent-model-initial-source.test.ts (96 tests | 1 failed) 77ms
+   ✓ roleless loaded model source before first Forge apply > I01 is strict, detached, complete and roleless; old bootstrap remains Master-only 8ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires schemaVersion 1ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires identity 2ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires scope 1ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires authority 0ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires sourceVersion 0ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires observedAt 0ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires validUntil 0ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires coverage 1ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires selections 0ms
+   ✓ roleless loaded model source before first Forge apply > I02 requires missingSlots 0ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"role":"master"} 0ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"role":"erede"} 1ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"role":"unknown"} 0ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"credentials":{}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"context":{}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"configVersion":1} 0ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"authority":"catalog"} 0ms
+   ✓ roleless loaded model source before first Forge apply > I03 refuses fabricated or private authority {"sourceVersion":" "} 1ms
+   ✓ roleless loaded model source before first Forge apply > I04 requires complete identity managementAgentId 1ms
+   ✓ roleless loaded model source before first Forge apply > I04 requires complete identity runtimeAgentId 0ms
+   ✓ roleless loaded model source before first Forge apply > I04 requires complete identity vaultAgentId 0ms
+   ✓ roleless loaded model source before first Forge apply > I05 requires nonblank scope agentId 1ms
+   ✓ roleless loaded model source before first Forge apply > I05 requires nonblank scope ownerId 3ms
+   ✓ roleless loaded model source before first Forge apply > I05 requires nonblank scope tenantId 1ms
+   ✓ roleless loaded model source before first Forge apply > I06 binds runtime scope and strictly ordered validity 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered agent_chat blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered agent_classifier blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered memory_extraction blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered memory_embedding blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered rag_embedding blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered rag_claim_extraction blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered rag_claim_validation blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered rag_topic_synthesis blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered voice_phone_live blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered voice_phone_delegation blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered voice_web_live blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered voice_web_delegation blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered voice_call_recap blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered elevenlabs_agent_llm blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered elevenlabs_agent_tts blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered agent_telegram_tts blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered scheduler_tts blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered briefing_tts blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered stt_file blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered glasses_stt blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered glasses_tts blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered qa_text blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered qa_vision blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered security_vision blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered security_rules blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered news_digest blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered news_rules blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered netatmo_rules blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered briefing_rules blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered research_search blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered research_structure blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered mindfulness_chat blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered mindfulness_tts blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I07 missing registered mindfulness_stt blocks completeness 1ms
+   ✓ roleless loaded model source before first Forge apply > I08 refuses duplicate/unknown/overlapping slot coverage 1ms
+   × roleless loaded model source before first Forge apply > I09 same-generation exclusions preserve complete installed selections; all-excluded is blocked 4ms
+     → expected true to be false // Object.is equality
+   ✓ roleless loaded model source before first Forge apply > I10 enforces canonical consumer capability 0ms
+   ✓ roleless loaded model source before first Forge apply > I10 enforces canonical consumer function 0ms
+   ✓ roleless loaded model source before first Forge apply > I10 enforces canonical consumer requirements 0ms
+   ✓ roleless loaded model source before first Forge apply > I10 enforces canonical consumer mode 0ms
+   ✓ roleless loaded model source before first Forge apply > I11 checks exact generation and every identity/scope field {"sourceVersion":"another-generation"} 0ms
+   ✓ roleless loaded model source before first Forge apply > I11 checks exact generation and every identity/scope field {"identity":{"managementAgentId":"another","runtimeAgentId":"synthetic-runtime","vaultAgentId":71}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I11 checks exact generation and every identity/scope field {"identity":{"managementAgentId":"synthetic-agent","runtimeAgentId":"another","vaultAgentId":71}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I11 checks exact generation and every identity/scope field {"identity":{"managementAgentId":"synthetic-agent","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I11 checks exact generation and every identity/scope field {"scope":{"agentId":"another","ownerId":"synthetic-owner","tenantId":"synthetic-tenant"}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I11 checks exact generation and every identity/scope field {"scope":{"agentId":"synthetic-runtime","ownerId":"another","tenantId":"synthetic-tenant"}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I11 checks exact generation and every identity/scope field {"scope":{"agentId":"synthetic-runtime","ownerId":"synthetic-owner","tenantId":"another"}} 0ms
+   ✓ roleless loaded model source before first Forge apply > I12 rejects expired/future/invalid clock 2026-10-09T06:20:30Z 1ms
+   ✓ roleless loaded model source before first Forge apply > I12 rejects expired/future/invalid clock 2026-10-09T06:19:53Z 0ms
+   ✓ roleless loaded model source before first Forge apply > I12 rejects expired/future/invalid clock invalid 0ms
+   ✓ roleless loaded model source before first Forge apply > I13 preserves bootstrap freshness semantics including explicit longer validity and future tolerance boundary 1ms
+   ✓ roleless loaded model source before first Forge apply > I14 accepts additive initial/absent/null state without defaulting authority 1ms
+   ✓ roleless loaded model source before first Forge apply > I15 binds initial source to state identity managementAgentId 0ms
+   ✓ roleless loaded model source before first Forge apply > I15 binds initial source to state identity runtimeAgentId 0ms
+   ✓ roleless loaded model source before first Forge apply > I15 binds initial source to state identity vaultAgentId 0ms
+   ✓ roleless loaded model source before first Forge apply > I16 refuses any persisted or applied version state, including null counters 1ms
+   ✓ roleless loaded model source before first Forge apply > I17 refuses concurrent old bootstrap authority and preserves modern saved requirement 1ms
+   ✓ roleless loaded model source before first Forge apply > I18 refuses saved and runtime authorities independently 1ms
+   ✓ roleless loaded model source before first Forge apply > I19 current helper rejects malformed source or expectation before authorizing use 1ms
+   ✓ roleless loaded model source before first Forge apply > I21 keeps modern observation stale after sixty seconds without adding that cap to initial source 0ms
+   ✓ roleless loaded model source before first Forge apply > I22 rejects unobserved or noncanonical exclusions {"state":"unknown"} 0ms
+   ✓ roleless loaded model source before first Forge apply > I22 rejects unobserved or noncanonical exclusions {"reason":""} 0ms
+   ✓ roleless loaded model source before first Forge apply > I22 rejects unobserved or noncanonical exclusions {"extra":true} 0ms
+   ✓ roleless loaded model source before first Forge apply > I23 unknown models stay missing and unknown or duplicate missing slots cannot erase coverage 0ms
+   ✓ roleless loaded model source before first Forge apply > I24 independently reports initial authority conflict with saved 1ms
+   ✓ roleless loaded model source before first Forge apply > I24 independently reports initial authority conflict with runtime 0ms
+   ✓ roleless loaded model source before first Forge apply > I24 independently reports initial authority conflict with versions 0ms
+   ✓ roleless loaded model source before first Forge apply > I25 independently reports competing bootstrapSource even when another legacy guard also rejects it 1ms
+   ✓ roleless loaded model source before first Forge apply > I25 independently reports competing sourceObservation even when another legacy guard also rejects it 0ms
+   ✓ roleless loaded model source before first Forge apply > I20 state validates the initial payload itself without stripping role or private metadata 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/agent-model-initial-source.test.ts > roleless loaded model source before first Forge apply > I09 same-generation exclusions preserve complete installed selections; all-excluded is blocked
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/model-router/agent-model-initial-source.test.ts:88:47
+     86|     expect(schema().safeParse(value).success).toBe(true); expect(curre…
+     87|     value['selections'] = []; value['excludedSlots'] = definitions.map…
+     88|     expect(schema().safeParse(value).success).toBe(false);
+       |                                               ^
+     89|   });
+     90|   it.each(['capability', 'function', 'requirements', 'mode'])('I10 enf…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 95 passed (96)
+   Start at  21:46:52
+   Duration  433ms (transform 127ms, setup 4ms, collect 220ms, tests 77ms, environment 0ms, prepare 30ms)
+
+
+EXIT_CODE=1

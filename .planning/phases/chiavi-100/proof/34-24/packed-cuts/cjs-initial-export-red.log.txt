@@ -1,0 +1,20 @@
+$ ["node", "chiavi-model-composition-smoke.mjs"]
+/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/agent-model-configuration.cjs:186
+    initialSource: exports.AgentModelInitialSourceSchema.nullable().optional(),
+                                                         ^
+
+TypeError: Cannot read properties of undefined (reading 'nullable')
+    at Object.<anonymous> (/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/agent-model-configuration.cjs:186:58)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/node_modules/.pnpm/@x9-forge+contracts@file+..+..+..+artifacts+34-24+revision-1+x9-forge-contracts.tgz_zod@4.3.6/node_modules/@x9-forge/contracts/dist/model-router/index.cjs:62:14)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+
+Node.js v24.14.1
+
+EXIT_CODE=1

@@ -1,0 +1,218 @@
+[
+  {
+    "name": "registry-detached-definitions",
+    "file": "src/model-router/model-consumers.ts",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "R03",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "88ef9b03b1843df23a18c28c95c073adf33750595c0257413695aed54e7587f3",
+    "original_sha256": "88ef9b03b1843df23a18c28c95c073adf33750595c0257413695aed54e7587f3",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  1 failed | 171 skipped (172)"
+    ],
+    "green_summary": [
+      "Tests  1 passed | 171 skipped (172)"
+    ]
+  },
+  {
+    "name": "registry-detached-lookup",
+    "file": "src/model-router/model-consumers.ts",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "R02",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "88ef9b03b1843df23a18c28c95c073adf33750595c0257413695aed54e7587f3",
+    "original_sha256": "88ef9b03b1843df23a18c28c95c073adf33750595c0257413695aed54e7587f3",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 34 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  34 failed | 138 skipped (172)"
+    ],
+    "green_summary": [
+      "Tests  34 passed | 138 skipped (172)"
+    ]
+  },
+  {
+    "name": "registry-required-metadata",
+    "file": "src/model-router/model-consumers.ts",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "R06",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "88ef9b03b1843df23a18c28c95c073adf33750595c0257413695aed54e7587f3",
+    "original_sha256": "88ef9b03b1843df23a18c28c95c073adf33750595c0257413695aed54e7587f3",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 5 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  5 failed | 167 skipped (172)"
+    ],
+    "green_summary": [
+      "Tests  5 passed | 167 skipped (172)"
+    ]
+  },
+  {
+    "name": "registry-feature-types",
+    "file": "src/model-router/model-catalog.ts",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "S10",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "ae9c7cb56430a974fe3348c76b5e59eced2f14c0cd1439ccdab0d98a5c93d137",
+    "original_sha256": "ae9c7cb56430a974fe3348c76b5e59eced2f14c0cd1439ccdab0d98a5c93d137",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 2 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  2 failed | 170 skipped (172)"
+    ],
+    "green_summary": [
+      "Tests  2 passed | 170 skipped (172)"
+    ]
+  },
+  {
+    "name": "runtime-exact-position-count",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": "M03|M08",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "original_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  1 failed | 1 passed | 89 skipped (91)"
+    ],
+    "green_summary": [
+      "Tests  2 passed | 89 skipped (91)"
+    ]
+  },
+  {
+    "name": "runtime-vector-dimension",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": "M04",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "original_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  1 failed | 90 skipped (91)"
+    ],
+    "green_summary": [
+      "Tests  1 passed | 90 skipped (91)"
+    ]
+  },
+  {
+    "name": "runtime-exact-selection-metadata",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": "M02",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "original_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 3 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  3 failed | 4 passed | 84 skipped (91)"
+    ],
+    "green_summary": [
+      "Tests  7 passed | 84 skipped (91)"
+    ]
+  },
+  {
+    "name": "apply-confirm-explicit-authority",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D16",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "original_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  1 failed | 33 skipped (34)"
+    ],
+    "green_summary": [
+      "Tests  1 passed | 33 skipped (34)"
+    ]
+  },
+  {
+    "name": "command-direct-generation-authority",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D13",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "original_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  1 failed | 33 skipped (34)"
+    ],
+    "green_summary": [
+      "Tests  1 passed | 33 skipped (34)"
+    ]
+  },
+  {
+    "name": "command-registered-consumer-authority",
+    "file": "src/agent/agent-management.ts",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D17|D18",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "df8821c7bdf1f90ea0dd0b59b87c33b3c417d3a4f761d05581506854570f6a68",
+    "original_sha256": "df8821c7bdf1f90ea0dd0b59b87c33b3c417d3a4f761d05581506854570f6a68",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 2 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  2 failed | 32 skipped (34)"
+    ],
+    "green_summary": [
+      "Tests  2 passed | 32 skipped (34)"
+    ]
+  },
+  {
+    "name": "local-http-required-auth",
+    "file": "src/http/endpoints/internal-agent-model-source-observation.ts",
+    "test": "tests/model-router/agent-model-local-source-http.test.ts",
+    "pattern": null,
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "9acc82498e9a3695366108ca69933601107a3b54c1d798ed530268e52c063f7a",
+    "original_sha256": "9acc82498e9a3695366108ca69933601107a3b54c1d798ed530268e52c063f7a",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  1 failed | 16 passed (17)"
+    ],
+    "green_summary": [
+      "Tests  17 passed (17)"
+    ]
+  },
+  {
+    "name": "public-model-execution-export",
+    "file": "src/model-router/index.ts",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": "C01",
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "48ab301c57133eef4705baa72230eba32013dcf9f951a7e350a9ef71400dc2fe",
+    "original_sha256": "48ab301c57133eef4705baa72230eba32013dcf9f951a7e350a9ef71400dc2fe",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 4 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  4 failed | 3 passed | 57 skipped (64)"
+    ],
+    "green_summary": [
+      "Tests  7 passed | 57 skipped (64)"
+    ]
+  }
+]

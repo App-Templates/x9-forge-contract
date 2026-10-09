@@ -1,0 +1,136 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/chiavi-model-composition.test.ts", "--maxWorkers=1", "-t", "C01"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/chiavi-model-composition.test.ts (64 tests | 4 failed | 57 skipped) 4ms
+   ✓ qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical AgentModelInitialSourceSchema from the real root and router 1ms
+   ✓ qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical AgentModelBootstrapSourceSchema from the real root and router 0ms
+   ✓ qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical AgentModelSourceObservationSchema from the real root and router 0ms
+   × qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerRuntimeStateSchema from the real root and router 2ms
+     → composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined
+   × qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerStateRequestSchema from the real root and router 0ms
+     → composed public export ModelConsumerStateRequestSchema: expected undefined to be defined
+   × qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerInstallRequestSchema from the real root and router 0ms
+     → composed public export ModelConsumerInstallRequestSchema: expected undefined to be defined
+   × qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerInstallReceiptSchema from the real root and router 0ms
+     → composed public export ModelConsumerInstallReceiptSchema: expected undefined to be defined
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C02 retains actual HTTP internalAgentModelSourceObservationContract with canonical response
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C02 retains actual HTTP internalModelConsumerStateContract with canonical response
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C02 retains actual HTTP internalModelConsumerInstallContract with canonical response
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C03 accepts complete roleless Initial while bootstrap retains its explicit Master role
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C04 Initial never assigns role master
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C04 Initial never assigns role erede
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C05 Initial cannot coexist with saved authority
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C05 Initial cannot coexist with runtime authority
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C05 Initial cannot coexist with versions authority
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C05 Initial cannot coexist with bootstrapSource authority
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C05 Initial cannot coexist with sourceObservation authority
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C06 Initial requires complete managementAgentId and exact identity
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C06 Initial requires complete runtimeAgentId and exact identity
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C06 Initial requires complete vaultAgentId and exact identity
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C07 Initial binds exact nonblank scope agentId
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C07 Initial binds exact nonblank scope ownerId
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C07 Initial binds exact nonblank scope tenantId
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C08 source generation, expiry and coverage are actual authority
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C09 observed settings are positive evidence with no installation claim
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C10 observed forbids fabricated install fields {"configVersion":1}
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C10 observed forbids fabricated install fields {"requestId":"synthetic-install-0001"}
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C11 observed cannot manufacture installed receipt confirmation
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C12 single embedding requires its actual dimension; failover cannot change vector space
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C13 coverage-only owner data remains authorized through the real facade guard
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical OPENAI_API_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical ANTHROPIC_API_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical GOOGLE_API_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical TELEGRAM_BOT_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical ELEVENLABS_API_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical TELNYX_API_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical TELNYX_PUBLIC_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical LIVE_WEB_AUTH_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical QDRANT_API_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical FORGE_VOICE_REGISTER_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical AGENTMAIL_API_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical GOOGLE_CALENDAR_CLIENT_ID
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical GOOGLE_CALENDAR_CLIENT_SECRET
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical GOOGLE_CALENDAR_REFRESH_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical GOOGLE_CONTACTS_CLIENT_ID
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical GOOGLE_CONTACTS_CLIENT_SECRET
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical GOOGLE_CONTACTS_REFRESH_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical NETATMO_EMAIL
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical NETATMO_CLIENT_ID
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical NETATMO_CLIENT_SECRET
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical NETATMO_REFRESH_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical NETATMO_ACCESS_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical NETATMO_PASSWORD
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical INTERNAL_SECRET
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical X9_INTERNAL_SECRET
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical HOSTINGER_API_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical INTERNAL_TOKEN
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical TELEGRAM_SESSION_STRING
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C14 retained18 response excludes root and nested canonical APPROVALS_SIGNING_KEY
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C15 retained18 immutable internal targets preserve credential/identifier/setting separation
+   ↓ qualified Initial/observed composed with retained Chiavi contracts > C16 retained18 managed/standalone voice and internal lease exports survive public composition
+   ↓ unknown consumer admission remains explicit > C17 unknown runtime slot cannot attest even noninstalled empty state
+   ↓ unknown consumer admission remains explicit > C18 unknown read slot never receives a default consumer
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/chiavi-model-composition.test.ts > qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerRuntimeStateSchema from the real root and router
+AssertionError: composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined
+ ❯ exported tests/model-router/chiavi-model-composition.test.ts:13:51
+     11| function exported(namespace: object, name: string): unknown {
+     12|   const value: unknown = Reflect.get(namespace, name);
+     13|   expect(value, `composed public export ${name}`).toBeDefined();
+       |                                                   ^
+     14|   return value;
+     15| }
+ ❯ tests/model-router/chiavi-model-composition.test.ts:44:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/model-router/chiavi-model-composition.test.ts > qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerStateRequestSchema from the real root and router
+AssertionError: composed public export ModelConsumerStateRequestSchema: expected undefined to be defined
+ ❯ exported tests/model-router/chiavi-model-composition.test.ts:13:51
+     11| function exported(namespace: object, name: string): unknown {
+     12|   const value: unknown = Reflect.get(namespace, name);
+     13|   expect(value, `composed public export ${name}`).toBeDefined();
+       |                                                   ^
+     14|   return value;
+     15| }
+ ❯ tests/model-router/chiavi-model-composition.test.ts:44:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/model-router/chiavi-model-composition.test.ts > qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerInstallRequestSchema from the real root and router
+AssertionError: composed public export ModelConsumerInstallRequestSchema: expected undefined to be defined
+ ❯ exported tests/model-router/chiavi-model-composition.test.ts:13:51
+     11| function exported(namespace: object, name: string): unknown {
+     12|   const value: unknown = Reflect.get(namespace, name);
+     13|   expect(value, `composed public export ${name}`).toBeDefined();
+       |                                                   ^
+     14|   return value;
+     15| }
+ ❯ tests/model-router/chiavi-model-composition.test.ts:44:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/model-router/chiavi-model-composition.test.ts > qualified Initial/observed composed with retained Chiavi contracts > C01 publishes canonical ModelConsumerInstallReceiptSchema from the real root and router
+AssertionError: composed public export ModelConsumerInstallReceiptSchema: expected undefined to be defined
+ ❯ exported tests/model-router/chiavi-model-composition.test.ts:13:51
+     11| function exported(namespace: object, name: string): unknown {
+     12|   const value: unknown = Reflect.get(namespace, name);
+     13|   expect(value, `composed public export ${name}`).toBeDefined();
+       |                                                   ^
+     14|   return value;
+     15| }
+ ❯ tests/model-router/chiavi-model-composition.test.ts:44:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 3 passed | 57 skipped (64)
+   Start at  21:51:30
+   Duration  586ms (transform 259ms, setup 4ms, collect 449ms, tests 4ms, environment 0ms, prepare 31ms)
+
+
+EXIT_CODE=1

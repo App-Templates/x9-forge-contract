@@ -1,0 +1,7 @@
+$ ["pnpm", "typecheck"]
+
+> @x9-forge/contracts@1.44.0 typecheck /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+> tsc --noEmit
+
+
+EXIT_CODE=0

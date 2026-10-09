@@ -1,0 +1,4 @@
+$ ["/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/consumer/c5-models-consumers-smoke.mjs"]
+{"passed":158,"total":158,"surfaces":8}
+
+EXIT 0

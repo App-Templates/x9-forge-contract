@@ -1,0 +1,490 @@
+[
+  {
+    "name": "initial-runtime-binding",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "  if (source.scope.agentId !== source.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-validity-window",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "  if (Date.parse(source.validUntil) <= Date.parse(source.observedAt)) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Source validity ends after observation' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Source validity ends after observation' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-complete-slot-partition",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "  if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot))) ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-no-missing-or-all-excluded",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "  if ((source.coverage === 'complete') !== (source.missingSlots.length === 0) || (source.coverage === 'complete' && source.selections.length === 0)) ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-canonical-consumer-settings",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "    if (consumer === undefined || consumer.capability !== actual.capability || consumer.function !== actual.function || !sameModelFeatures(consumer.requirements, actual.requirements) || consumer.routing !== (actual.mode === 'single' ? 'single' : actual.mode === 'failover' ? 'failover' : 'tiered')) ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['selections', index], message: 'Source settings must match the canonical consumer and its requirements' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-state-exact-identity",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "    if (!sameModelAgentIdentity(state.identity, state.initialSource.identity)) ctx.addIssue({ code: 'custom', path: ['initialSource', 'identity'], message: 'Initial source belongs to this state identity' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['initialSource', 'identity'], message: 'Initial source belongs to this state identity' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-state-no-saved-version",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "    if (state.saved !== null || state.runtime !== null || state.versions !== null) ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot claim a saved or applied version' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot claim a saved or applied version' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-state-no-competing-authority",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "    if (state.bootstrapSource != null || state.sourceObservation != null) ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot coexist with another model authority' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot coexist with another model authority' });",
+    "test": "tests/model-router/agent-model-initial-source.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "initial-roleless-strict",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "export const AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.superRefine(checkLoadedModelSource);",
+    "new": "export const AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.loose().superRefine(checkLoadedModelSource);",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": "C04"
+  },
+  {
+    "name": "initial-complete-vault-identity",
+    "file": "src/model-router/agent-model-configuration-values.ts",
+    "old": "vaultAgentId: z.number().int().positive(),",
+    "new": "vaultAgentId: z.number().int().positive().optional(),",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": "C06"
+  },
+  {
+    "name": "initial-fresh-time",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "if (source.coverage !== 'complete' || source.selections.length === 0 || !Number.isFinite(time) || time < Date.parse(source.observedAt) - 5_000 || time >= Date.parse(source.validUntil)) return false;",
+    "new": "if (source.coverage !== 'complete' || source.selections.length === 0) return false;",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": "C08"
+  },
+  {
+    "name": "initial-generation-identity-scope",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && sameCapabilityScope(source.scope, expectation.scope);",
+    "new": "return true;",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": "C06|C07|C08"
+  },
+  {
+    "name": "modern-source-runtime-binding",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "  if (source.scope.agentId !== source.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope', 'agentId'], message: 'Observed model source scope must name its runtime identity' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['scope', 'agentId'], message: 'Observed model source scope must name its runtime identity' });",
+    "test": "tests/model-router/c5-model-source-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "modern-source-time-order",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "  if (Date.parse(source.validUntil) <= Date.parse(source.observedAt)) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Observed source validity must end after observation' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Observed source validity must end after observation' });",
+    "test": "tests/model-router/c5-model-source-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "modern-source-saved-provenance",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "    if (state.saved === null || state.saved.provenance === undefined) ctx.addIssue({ code: 'custom', path: ['sourceObservation'], message: 'Modern source observation requires saved scoped model authority' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['sourceObservation'], message: 'Modern source observation requires saved scoped model authority' });",
+    "test": "tests/model-router/c5-model-source-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "modern-source-state-identity",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "    if (!sameModelAgentIdentity(state.identity, source.identity)) ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'identity'], message: 'Observed source belongs to this state identity' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'identity'], message: 'Observed source belongs to this state identity' });",
+    "test": "tests/model-router/c5-model-source-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "modern-source-state-scope",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "    if (state.saved?.provenance !== undefined && !sameCapabilityScope(state.saved.provenance.scope, source.scope)) ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'scope'], message: 'Observed source belongs to the saved model scope' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['sourceObservation', 'scope'], message: 'Observed source belongs to the saved model scope' });",
+    "test": "tests/model-router/c5-model-source-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "modern-source-freshness",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "if (!Number.isFinite(time) || time < observed - 5_000 || time > observed + 60_000 || time >= Date.parse(source.validUntil)) return false;",
+    "new": "if (false) return false;",
+    "test": "tests/model-router/c5-model-source-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-install-registered",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (!isRegisteredModelConsumerSelection(request.slotId, request.settings)) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Install exactly the registered consumer selection' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Install exactly the registered consumer selection' });",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-runtime-scoped",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (value.scope.agentId !== value.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Consumer scope names the addressed runtime' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Consumer scope names the addressed runtime' });",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-readback-registered-slot",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (findModelConsumerDefinition(state.slotId) === undefined) ctx.addIssue({ code: 'custom', path: ['slotId'], message: 'Unknown consumer cannot attest installation' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['slotId'], message: 'Unknown consumer cannot attest installation' });",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-readback-validity",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (Date.parse(state.validUntil) <= Date.parse(state.observedAt)) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Readback validity ends after observation' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Readback validity ends after observation' });",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-readback-public-reason",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if ((state.status === 'installed') !== (state.reason === null)) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Non-installed state has a sanitized reason' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Non-installed state has a sanitized reason' });",
+    "test": "tests/model-router/model-consumer-legacy-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-readback-registered-settings",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (state.settings !== null && !isRegisteredModelConsumerSelection(state.slotId, state.settings)) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Readback must match the registered consumer' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Readback must match the registered consumer' });",
+    "test": "tests/model-router/model-consumer-legacy-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-installed-complete-proof",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (state.status === 'installed' && (state.settings === null || state.configVersion === null || state.requestId === null)) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Installed requires actual selection, version and request' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Installed requires actual selection, version and request' });",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-observed-actual-settings",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (state.status === 'observed' && state.settings === null) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Observed requires actual legacy selection' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['settings'], message: 'Observed requires actual legacy selection' });",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-observed-no-version",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (state.status === 'observed' && state.configVersion !== null) ctx.addIssue({ code: 'custom', path: ['configVersion'], message: 'Observed cannot claim an installed config version' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['configVersion'], message: 'Observed cannot claim an installed config version' });",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-observed-no-request",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (state.status === 'observed' && state.requestId !== null) ctx.addIssue({ code: 'custom', path: ['requestId'], message: 'Observed cannot claim an installation request' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['requestId'], message: 'Observed cannot claim an installation request' });",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-active-vector-space",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "    if (state.settings?.mode !== 'single' || state.settings.function !== 'embedding' || !sameModelDescriptor(state.settings.descriptor, state.embedding.active)) ctx.addIssue({ code: 'custom', path: ['embedding'], message: 'Readback must use the active vector space' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['embedding'], message: 'Readback must use the active vector space' });",
+    "test": "tests/model-router/model-consumer-legacy-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-rebuild-before-install",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "    if (state.status === 'installed' && state.embedding.state !== 'completed') ctx.addIssue({ code: 'custom', path: ['status'], message: 'Rebuild must complete before target installation' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['status'], message: 'Rebuild must complete before target installation' });",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-installed-receipt-matches",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (receipt.outcome === 'installed' && (receipt.state.status !== 'installed' || receipt.state.requestId !== receipt.requestId)) ctx.addIssue({ code: 'custom', path: ['state'], message: 'Installed receipt identifies the actually completed request' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['state'], message: 'Installed receipt identifies the actually completed request' });",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-pending-never-installed",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (receipt.outcome !== 'installed' && receipt.state.status === 'installed') ctx.addIssue({ code: 'custom', path: ['outcome'], message: 'Pending/failed receipt must not claim target installed' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['outcome'], message: 'Pending/failed receipt must not claim target installed' });",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-read-request-registered",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "  if (findModelConsumerDefinition(request.slotId) === undefined) ctx.addIssue({ code: 'custom', path: ['slotId'], message: 'Read only a registered consumer' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['slotId'], message: 'Read only a registered consumer' });",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-current-cas-authority",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "return request.success && source.success && request.data.expectedSourceVersion === source.data.sourceVersion && sameModelAgentIdentity(request.data.identity, source.data.identity) && sameCapabilityScope(request.data.scope, source.data.scope);",
+    "new": "return request.success && source.success;",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-confirm-freshness",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "if (receipt.outcome !== 'installed' || state.status !== 'installed' || !Number.isFinite(time) || time < Date.parse(state.observedAt) - 5_000 || time >= Date.parse(state.validUntil)) return false;",
+    "new": "if (receipt.outcome !== 'installed' || state.status !== 'installed') return false;",
+    "test": "tests/model-router/model-consumer-legacy-observation.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-confirm-request-version-slot",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "if (receipt.requestId !== request.requestId || state.requestId !== request.requestId || state.configVersion !== request.configVersion || state.slotId !== request.slotId) return false;",
+    "new": "if (false) return false;",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-confirm-identity-scope-settings",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "return sameModelAgentIdentity(request.identity, state.identity) && sameCapabilityScope(request.scope, state.scope) && sameCapabilityModelSettings(request.settings, state.settings);",
+    "new": "return true;",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "consumer-route-slot-binding",
+    "file": "src/model-router/model-consumer-execution.ts",
+    "old": "return path.success && request.success && path.data.slotId === request.data.slotId;",
+    "new": "return path.success && request.success;",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "single-embedding-dimension",
+    "file": "src/model-router/capability-model-settings.ts",
+    "old": "  if ((settings.function === 'embedding') !== (settings.embeddingDimensions !== undefined)) ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "failover-no-embedding",
+    "file": "src/model-router/capability-model-settings.ts",
+    "old": "  if (settings.function === 'embedding') ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "single-selection-position",
+    "file": "src/model-router/capability-model-settings.ts",
+    "old": "if (settings.mode === 'single') return [{ tier: 'primary', descriptor: settings.descriptor }];",
+    "new": "if (settings.mode === 'single') return [{ tier: 'fallback', descriptor: settings.descriptor }];",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "S01"
+  },
+  {
+    "name": "failover-selection-order",
+    "file": "src/model-router/capability-model-settings.ts",
+    "old": "if (settings.mode === 'failover') return [{ tier: 'primary', descriptor: settings.primary }, { tier: 'fallback', descriptor: settings.fallback }];",
+    "new": "if (settings.mode === 'failover') return [{ tier: 'fallback', descriptor: settings.fallback }, { tier: 'primary', descriptor: settings.primary }];",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "S02"
+  },
+  {
+    "name": "catalog-embedding-dimension",
+    "file": "src/model-router/capability-model-settings.ts",
+    "old": "if (settings.mode === 'single' && settings.function === 'embedding' && entry.embeddingDimensions !== settings.embeddingDimensions) issues.add('embedding-dimension-mismatch');",
+    "new": "if (false) issues.add('embedding-dimension-mismatch');",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "S07"
+  },
+  {
+    "name": "catalog-vision-search-support",
+    "file": "src/model-router/capability-model-settings.ts",
+    "old": "(settings.requirements.vision === true && entry.features.vision !== true) || (settings.requirements.webSearch === true && entry.features.webSearch !== true) || ",
+    "new": "",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "S06"
+  },
+  {
+    "name": "overview-unknown-provenance",
+    "file": "src/model-router/models-batch.ts",
+    "old": "  if (row.origin === 'unknown' && (row.masterAgentId !== null || row.masterConfigVersion !== null || row.editability !== 'readonly' || row.reason === null || row.reason.trim().length === 0)) ctx.addIssue({ code: 'custom', path: ['origin'], message: 'Unknown provenance is readonly without a claimed Master' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['origin'], message: 'Unknown provenance is readonly without a claimed Master' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-complete-no-missing",
+    "file": "src/model-router/models-batch.ts",
+    "old": "  if (coverage.status === 'complete' && (coverage.missingSlots.length !== 0 || coverage.reason !== null)) ctx.addIssue({ code: 'custom', path: ['status'], message: 'Complete inventory has no missing slots or reason' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['status'], message: 'Complete inventory has no missing slots or reason' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-incomplete-public-reason",
+    "file": "src/model-router/models-batch.ts",
+    "old": "  if (coverage.status !== 'complete' && coverage.reason === null) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Incomplete inventory requires a public reason' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Incomplete inventory requires a public reason' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-missing-slots-unique",
+    "file": "src/model-router/models-batch.ts",
+    "old": "  if (new Set(coverage.missingSlots).size !== coverage.missingSlots.length) ctx.addIssue({ code: 'custom', path: ['missingSlots'], message: 'Duplicate missing slot' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['missingSlots'], message: 'Duplicate missing slot' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-exact-identity",
+    "file": "src/model-router/models-batch.ts",
+    "old": "    if (known !== undefined && !sameModelAgentIdentity(known, entry.identity)) ctx.addIssue({ code: 'custom', path: [...path, 'identity'], message: 'Inconsistent agent identity' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: [...path, 'identity'], message: 'Inconsistent agent identity' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-owner-binding",
+    "file": "src/model-router/models-batch.ts",
+    "old": "    if (owners.has(agentId) && owners.get(agentId) !== entry.ownerId) ctx.addIssue({ code: 'custom', path: [...path, 'ownerId'], message: 'An agent has exactly one owner' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: [...path, 'ownerId'], message: 'An agent has exactly one owner' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-unique-coverage",
+    "file": "src/model-router/models-batch.ts",
+    "old": "    if (covered.has(agentId)) ctx.addIssue({ code: 'custom', path: ['coverage', index, 'identity'], message: 'Duplicate agent coverage' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['coverage', index, 'identity'], message: 'Duplicate agent coverage' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-present-missing-disjoint",
+    "file": "src/model-router/models-batch.ts",
+    "old": "    if (coverage.missingSlots.some(slot => slots.has(`${agentId}:${slot}`))) ctx.addIssue({ code: 'custom', path: ['coverage', index, 'missingSlots'], message: 'A slot cannot be both present and missing' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['coverage', index, 'missingSlots'], message: 'A slot cannot be both present and missing' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-cross-namespace-identity",
+    "file": "src/model-router/models-batch.ts",
+    "old": "  if (!AgentRuntimeIdentitiesSchema.safeParse([...identities.values()]).success) ctx.addIssue({ code: 'custom', path: ['rows'], message: 'Ambiguous agent identities' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['rows'], message: 'Ambiguous agent identities' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-vault-identity",
+    "file": "src/model-router/models-batch.ts",
+    "old": "    if (vaultIds.has(identity.vaultAgentId)) ctx.addIssue({ code: 'custom', path: ['rows'], message: 'Ambiguous vault identities' });",
+    "new": "    if (false) ctx.addIssue({ code: 'custom', path: ['rows'], message: 'Ambiguous vault identities' });",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "overview-owner-coverage-access",
+    "file": "src/http/endpoints/forge-models.ts",
+    "old": "[...overview.data.rows, ...(overview.data.coverage ?? [])]",
+    "new": "overview.data.rows",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": "C13"
+  },
+  {
+    "name": "writer-coverage-request-scoped",
+    "file": "src/model-router/models-batch.ts",
+    "old": "if (coverage !== undefined && coverage.status !== 'complete') issues.add('slot-unavailable');",
+    "new": "if (false) issues.add('slot-unavailable');",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": "W04"
+  },
+  {
+    "name": "writer-unrelated-coverage-does-not-block",
+    "file": "src/model-router/models-batch.ts",
+    "old": "const coverage = overview.coverage?.find(entry => sameModelAgentIdentity(entry.identity, agent.identity));",
+    "new": "const coverage = overview.coverage?.find(entry => entry.status !== 'complete');",
+    "test": "tests/model-router/models-overview-coverage.test.ts",
+    "pattern": "W01|W03"
+  },
+  {
+    "name": "command-version-cas",
+    "file": "src/agent/agent-management.ts",
+    "old": "if (command.modelConfiguration?.configVersion !== undefined && command.modelConfiguration.configVersion !== command.desiredVersion) {",
+    "new": "if (false) {",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D06"
+  },
+  {
+    "name": "command-observed-generation-required",
+    "file": "src/agent/agent-management.ts",
+    "old": "if ((command.modelConfiguration !== undefined) !== (command.modelExpectedSourceVersion !== undefined)) {",
+    "new": "if (false) {",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D07"
+  },
+  {
+    "name": "command-bootstrap-generation-matches",
+    "file": "src/agent/agent-management.ts",
+    "old": "if (command.modelConfiguration !== undefined && command.modelBootstrap !== undefined && command.modelExpectedSourceVersion !== command.modelBootstrap.expectedSourceVersion) {",
+    "new": "if (false) {",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D07"
+  },
+  {
+    "name": "command-replay-full-semantic-identity",
+    "file": "src/agent/agent-management.ts",
+    "old": "JSON.stringify(canonicalCommandValue(a.modelConfiguration)) === JSON.stringify(canonicalCommandValue(b.modelConfiguration))",
+    "new": "true",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D02|D03|D11|D12"
+  }
+]
