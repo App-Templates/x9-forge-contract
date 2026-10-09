@@ -31,6 +31,36 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+// 34-18: exercise genuine CommonJS exports rather than a source alias.
+const internalExecution = require('@x9-forge/contracts/http');
+const managedVoice = require('@x9-forge/contracts/capability/voice-live');
+const researchExecution = require('@x9-forge/contracts/capability/ricerca');
+assert.equal(typeof internalExecution.internalAgentToolDispatchPath, 'function');
+assert.equal(internalExecution.internalAgentToolDispatchPath('agent-a'), '/internal/agents/agent-a/tools/dispatch');
+assert.equal(internalExecution.INTERNAL_AGENT_EXECUTIONS.scheduler_telegram_text.target, 'builtin');
+assert.equal(Object.keys(internalExecution.INTERNAL_AGENT_EXECUTIONS).length, 8);
+assert.equal(internalExecution.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'r', identity: { tenantId: 't', ownerId: 'o', agentId: 'a' }, execution: 'scheduler_telegram_text', input: { chatId: 1, text: 'hello' } }).success, true);
+assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ callId: 'r', status: 'success', output: { credentials: {} } }).success, false);
+assert.equal(researchExecution.researchExecutePath(), '/call/research_execute');
+assert.equal(researchExecution.ResearchExecuteInputSchema.safeParse({ researchId: 'r', leaseToken: '00000000-0000-4000-8000-000000000001' }).success, true);
+assert.equal(Object.values(researchExecution.RICERCA_TOOLS).includes('research_execute'), false);
+assert.equal(typeof managedVoice.ManagedVoiceLiveCallStartRequestSchema.safeParse, 'function');
+assert.equal(managedVoice.ManagedVoiceLiveCallStartRequestSchema.safeParse({}).success, false);
+assert.equal(managedVoice.ManagedVoiceLiveCredentialsSchema.safeParse({ OPENAI_API_KEY: 'fixture', TELNYX_API_KEY: 'fixture', TELNYX_CONNECTION_ID: 'fixture', TELNYX_FROM_NUMBER: '+393331234567', TELNYX_PUBLIC_KEY: 'fixture' }).success, true);
+assert.equal(managedVoice.ManagedVoiceLiveCredentialsSchema.safeParse({ INTERNAL_SECRET: 'fixture' }).success, false);
+console.log('[cjs-smoke] bounded execution/managed handoff/research lease: 13/13 assertions');
+const credentialCatalog = require('@x9-forge/contracts/agent');
+const platformCatalog = require('@x9-forge/contracts/vault');
+const forbiddenCanonicalKeys = [...credentialCatalog.AGENT_CREDENTIAL_SERVICE_KEYS.filter(key => credentialCatalog.getAgentCredentialServiceMetadata(key)?.kind === 'credential'), ...platformCatalog.PLATFORM_INTERNAL_CREDENTIAL_KEYS];
+for (const key of forbiddenCanonicalKeys) {
+  const result = { callId: 'r', status: 'success', output: {} };
+  assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, [key]: 'fixture' }).success, false, 'root result rejects canonical ' + key);
+  assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, output: { [key]: 'fixture' } }).success, false, 'output rejects canonical ' + key);
+  assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, output: { nested: [{ [key]: 'fixture' }] } }).success, false, 'nested output rejects canonical ' + key);
+}
+console.log('[cjs-smoke] canonical credential result assertions: ' + (3 * forbiddenCanonicalKeys.length) + '/' + (3 * forbiddenCanonicalKeys.length));
+
+
 // Exercise the account bundle through the actual CommonJS package export.
 const agentCredentials = require('@x9-forge/contracts/agent');
 assert.ok(agentCredentials.KNOWN_CREDENTIAL_KEYS.includes('NETATMO_EMAIL'), 'NETATMO_EMAIL must be a known key');
