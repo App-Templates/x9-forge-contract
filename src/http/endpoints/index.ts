@@ -76,3 +76,5 @@ export * from './internal-agent-channel-history.js';
 export * from './forge-agent-channel-history.js';
 
 export * from './internal-agent-model-source-observation.js';
+
+export * from './forge-master-model-authority.js';
