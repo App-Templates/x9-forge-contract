@@ -79,3 +79,12 @@ Full archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md) · Audit: [v1.0-MILE
 - [x] 55-01-PLAN.md — integrate reviewed source, release metadata, full build/test/pack compatibility and handoff
 
 This scoped bootstrap phase leaves historical v1.1 cleanup parked. No publish, push, PR, merge or deployment by Codex D.
+
+### Phase 60: Paperclip canonical per-agent integration contracts
+
+**Goal:** Define verified authority design and additive config/execution/install/readback/reload contracts on the existing loaded AgentContext credential flow, enabling reviewed consumer implementations.
+**Requirements:** PC-02, PC-03, PC-05
+**Plans:** 1
+- [ ] 60-01-PLAN.md — authority, config/execution, installation/readback/reload contracts
+
+Only bridge task01 assigned. Other consumer repos and historic cleanup remain parked; live completion separate.
