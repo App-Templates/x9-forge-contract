@@ -31,6 +31,20 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+// Exercise the account bundle through the actual CommonJS package export.
+const agentCredentials = require('@x9-forge/contracts/agent');
+assert.ok(agentCredentials.KNOWN_CREDENTIAL_KEYS.includes('NETATMO_EMAIL'), 'NETATMO_EMAIL must be a known key');
+assert.ok(Object.hasOwn(agentCredentials.AgentCredentialsSchema.shape, 'NETATMO_EMAIL'), 'NETATMO_EMAIL must have an explicit schema');
+assert.equal(agentCredentials.AgentCredentialsSchema.shape.NETATMO_EMAIL.isOptional(), true);
+assert.equal(agentCredentials.AgentCredentialsSchema.shape.NETATMO_EMAIL.safeParse('synthetic@example.invalid').success, true);
+assert.equal(agentCredentials.AgentCredentialsSchema.shape.NETATMO_EMAIL.safeParse(123).success, false);
+assert.deepEqual(agentCredentials.getAgentCredentialServiceMetadata('NETATMO_EMAIL'), {
+  key: 'NETATMO_EMAIL', label: 'Indirizzo email account Netatmo', kind: 'credential',
+  secret: false, service: { type: 'commercial', id: 'netatmo' },
+});
+assert.equal(agentCredentials.getAgentCredentialServiceMetadata('NETATMO_UNKNOWN_KEY'), null);
+console.log('[cjs-smoke] Netatmo account bundle: 7/7 assertions');
+
 // C3-B1: the canonical Web policy/invitation API must exist in the real CJS package.
 const webChannel = require('@x9-forge/contracts/capability');
 // C3-B3: validate the real compiled callback and its unresolved-identity denial gate.

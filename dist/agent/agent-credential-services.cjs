@@ -356,6 +356,15 @@ const definitions = {
         },
         "secret": true
     },
+    "NETATMO_EMAIL": {
+        "label": "Indirizzo email account Netatmo",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "netatmo"
+        },
+        "secret": false
+    },
     "NETATMO_CLIENT_ID": {
         "label": "Identificativo del client Netatmo",
         "kind": "credential",

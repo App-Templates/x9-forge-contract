@@ -853,6 +853,7 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
         GOOGLE_CONTACTS_CLIENT_ID: z.ZodOptional<z.ZodString>;
         GOOGLE_CONTACTS_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         GOOGLE_CONTACTS_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_EMAIL: z.ZodOptional<z.ZodString>;
         NETATMO_CLIENT_ID: z.ZodOptional<z.ZodString>;
         NETATMO_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         NETATMO_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
@@ -1491,6 +1492,7 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
         GOOGLE_CONTACTS_CLIENT_ID: z.ZodOptional<z.ZodString>;
         GOOGLE_CONTACTS_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         GOOGLE_CONTACTS_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_EMAIL: z.ZodOptional<z.ZodString>;
         NETATMO_CLIENT_ID: z.ZodOptional<z.ZodString>;
         NETATMO_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         NETATMO_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
