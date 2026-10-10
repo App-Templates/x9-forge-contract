@@ -7,6 +7,8 @@ import { CapabilityAgentParametersSchema } from "../capability/parameters.js";
 import { CapabilityModelSettingsSchema, validateCapabilityModels } from "./capability-model-settings.js";
 import { ModelCatalogSchema, ModelCatalogVersionSchema, ModelDescriptorSchema, ModelFunctionSchema, ModelFeaturesSchema, sameModelDescriptor } from "./model-catalog.js";
 import { AgentModelsConfigurationSchema, AgentModelRuntimeAttestationSchema, ModelSlotIdSchema, isAgentModelApplyConfirmed, sameModelAgentIdentity } from "./agent-model-configuration.js";
+import { CompleteModelIdentitySchema } from "./agent-model-configuration-values.js";
+import { AgentModelBootstrapSourceVersionSchema } from "./model-slot.js";
 export const ModelCostMetadataSchema = z.discriminatedUnion('state', [
     z.object({ state: z.literal('unknown'), reason: z.string().min(1).max(500) }).strict(),
     z.object({
@@ -142,11 +144,48 @@ export const AgentModelsBatchIntentSchema = z.union([AgentModelsBatchRequestSche
 const sameSettings = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const normalizedConfiguration = (config) => JSON.stringify({ ...config, selections: [...config.selections].sort((left, right) => left.slotId.localeCompare(right.slotId)) });
 const normalizedRequest = (request) => JSON.stringify({ ...request, agents: request.agents.map(agent => ({ ...agent, changes: [...agent.changes].sort((a, b) => a.slotId.localeCompare(b.slotId)) })).sort((a, b) => a.identity.managementAgentId.localeCompare(b.identity.managementAgentId)) });
+/** Server-produced relation snapshot. It describes impact and never grants permission. */
+export const AgentModelsMasterImpactSchema = z.object({
+    token: z.object({ version: ModelCatalogVersionSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema, relationVersion: ModelCatalogVersionSchema }).strict(),
+    masterIdentity: CompleteModelIdentitySchema,
+    ownerId: OwnerIdSchema.refine(value => value.trim().length > 0), tenantId: z.string().trim().min(1).max(128),
+    recipients: z.array(z.object({
+        identity: CompleteModelIdentitySchema,
+        ownerId: OwnerIdSchema.refine(value => value.trim().length > 0), tenantId: z.string().trim().min(1).max(128),
+        displayName: z.string().trim().min(1).max(160).regex(/^[^<>\u0000-\u001f\u007f]+$/).nullable(),
+        slots: z.array(z.object({
+            slotId: ModelSlotIdSchema, binding: z.enum(['master', 'custom']), effect: z.enum(['changes', 'preserved']),
+            currentVersion: AgentConfigVersionSchema, nextVersion: AgentConfigVersionSchema,
+        }).strict()).min(1).max(64),
+    }).strict()).max(2048),
+}).strict().superRefine((impact, ctx) => {
+    const identities = [impact.masterIdentity, ...impact.recipients.map(recipient => recipient.identity)];
+    if (!AgentRuntimeIdentitiesSchema.safeParse(identities).success || new Set(identities.map(identity => identity.vaultAgentId)).size !== identities.length)
+        ctx.addIssue({ code: 'custom', path: ['recipients'], message: 'Master and recipients require unambiguous complete identities' });
+    for (const [index, recipient] of impact.recipients.entries()) {
+        if (recipient.ownerId !== impact.ownerId || recipient.tenantId !== impact.tenantId)
+            ctx.addIssue({ code: 'custom', path: ['recipients', index], message: 'Recipient belongs to another owner or tenant' });
+        if (new Set(recipient.slots.map(slot => slot.slotId)).size !== recipient.slots.length)
+            ctx.addIssue({ code: 'custom', path: ['recipients', index, 'slots'], message: 'Duplicate recipient slot' });
+        for (const [slotIndex, slot] of recipient.slots.entries()) {
+            if ((slot.binding === 'custom' && slot.effect !== 'preserved') || (slot.effect === 'preserved' ? slot.nextVersion !== slot.currentVersion : slot.nextVersion <= slot.currentVersion))
+                ctx.addIssue({ code: 'custom', path: ['recipients', index, 'slots', slotIndex], message: 'Custom selections are preserved; changed selections advance their version' });
+        }
+    }
+});
+/** Compare only against a complete, authenticated server-held snapshot, never a filtered overview. */
+export function isAgentModelsMasterImpactCurrent(input, serverSnapshot) {
+    const candidate = AgentModelsMasterImpactSchema.safeParse(input), current = AgentModelsMasterImpactSchema.safeParse(serverSnapshot);
+    return candidate.success && current.success && JSON.stringify(candidate.data) === JSON.stringify(current.data);
+}
 export const AgentModelsBatchPreviewSchema = z.object({
     previewId: AgentManagementRequestIdSchema, request: AgentModelsBatchPreviewRequestSchema,
     expiresAt: z.iso.datetime({ offset: true }),
+    fanoutImpact: AgentModelsMasterImpactSchema.optional(),
     agents: z.array(z.object({ identity: AgentRuntimeIdentitySchema.strict(), expectedVersion: AgentConfigVersionSchema, next: AgentModelsConfigurationSchema, impact: z.array(z.string().min(1).max(500)).max(64) }).strict()).min(1).max(64),
 }).strict().superRefine((preview, ctx) => {
+    if (preview.fanoutImpact !== undefined && !preview.agents.some(agent => sameModelAgentIdentity(agent.identity, preview.fanoutImpact.masterIdentity)))
+        ctx.addIssue({ code: 'custom', path: ['fanoutImpact', 'masterIdentity'], message: 'Master impact belongs to a requested agent' });
     if (preview.agents.length !== preview.request.agents.length || new Set(preview.agents.map(agent => agent.identity.managementAgentId)).size !== preview.agents.length)
         ctx.addIssue({ code: 'custom', path: ['agents'], message: 'Preview must cover each requested agent exactly once' });
     for (const [index, agent] of preview.agents.entries()) {

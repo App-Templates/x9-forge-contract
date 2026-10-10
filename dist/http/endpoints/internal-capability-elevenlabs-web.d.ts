@@ -186,6 +186,7 @@ export declare const elevenLabsWebCatalogContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
                 function: z.ZodEnum<{

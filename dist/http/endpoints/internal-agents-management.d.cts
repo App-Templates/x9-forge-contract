@@ -111,6 +111,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -126,6 +127,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -143,6 +145,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -179,6 +182,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -194,6 +198,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -213,6 +218,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -249,6 +255,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -281,6 +288,7 @@ export declare const agentCommandContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;

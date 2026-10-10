@@ -1,10 +1,22 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — positive legacy model observation
+
+- Add canonical observed consumer readback with actual settings and strictly null configVersion/requestId; preserve installed confirmation, receipt outcomes and unknown semantics.
+- Retain canonical identity/scope/routing/reason/embedding validation. Producers must prove actual legacy authority and fail closed when modern authority is present; consumer wiring and live bootstrap remain separate qualification.
+- Add source, compiled public-format and type probes without changing package version, exports or dependency pins.
+
+## Unreleased — roleless InitialSource contract
+
+- Add strict AgentModelInitialSourceSchema/type and Bootstrap-equivalent current helper through existing root/model-router exports; preserve all34 canonical consumer coverage, routing/settings and Master-only Bootstrap.
+- Add optional nullable state.initialSource with exact identity, null saved/runtime/versions and mutually exclusive source authority. No new maximumage is added to Bootstrap-equivalent freshness.
+- Qualify the additive contract separately from composition; packageversion stays1.45.0. Runtime firstMaster/bootstrap and first-save preservation remain consumer work, with no live claim.
+
 All notable changes to the bridge package. This project adheres to [Semantic Versioning](https://semver.org/) at the milestone level (v1.0, v1.1, etc.); within a milestone, distribution is via SHA-pinned `git+https#<sha>` (no per-feature versioning).
 
 ## How releases work in this repo
 
-- **No npm registry.** Consumers (agent-x9, forge-v2) depend via `git+https://github.com/App-Templates/x9-forge-contract.git#<sha>` with a `prepare` build script.
+- **No npm registry.** Consumers (agent-x9, forge-v2) depend via `git+https://github.com/App-Templates/x9-forge-contract.git#<sha>` with committed ESM/CJS `dist/`; `prepare` installs hooks only.
 - **Atomic SHA bump.** Breaking contract changes require atomic SHA bump in BOTH consumer repos in the same step (RLSE-02). Never one consumer at a time.
 - **Deprecation workflow** (RLSE-03): When deprecating a public symbol, add `/** @deprecated <reason — removal in v<X.Y>> */` JSDoc with explicit removal milestone. Minimum 1 milestone-cycle grace period before removal.
 
@@ -42,6 +54,21 @@ Solo aggiunte.
   Input stretti, uguali agli schemi nativi dei tool. Inventario delle esecuzioni: da 8 a 18.
 
 Solo aggiunte: nessun simbolo esistente cambia o viene rimosso.
+
+---
+
+## v1.45.0 — approved Models contracts and independent public entrypoint loading
+
+### Added (additive)
+
+- Canonical registry of 34 model consumers, single/failover policy, embedding dimensions, labels, scope and execution boundaries.
+- Explicit Models source observations and generation, Master/agent configuration, compare-and-swap versions, installation transport, rebuild and readback metadata.
+- These contracts were already implemented and independently reviewed before this release; version 1.45.0 makes their distribution explicit. No handler or live runtime behavior is introduced here.
+
+### Fixed
+
+- Public entrypoints initialize independently in ESM and CommonJS after the approved deferred canonical credential-key schema correction. The native CJS smoke includes all 18 entrypoints in fresh processes.
+- Release documentation describes committed distribution files and the actual hooks-only `prepare` step. Consumers must install an approved immutable Git SHA.
 
 ---
 

@@ -1,0 +1,91 @@
+{
+  "releaseSHA": "a5103c97c39b6178e8d53f201f27352c0fb58220",
+  "version": "1.45.0",
+  "nativeFull": {
+    "passed": 5036,
+    "total": 5036,
+    "files": 167,
+    "pending": 0,
+    "sourceIdentityBase": "6d1bafbd",
+    "executedOn": "f68b97c4; later changes only tests/documentation"
+  },
+  "quality": {
+    "passed": 10,
+    "total": 10,
+    "followupLintExit": 0
+  },
+  "distParity": {
+    "matched": 1544,
+    "total": 1544
+  },
+  "nativeInstallRoots": {
+    "passed": 3,
+    "total": 3,
+    "commandsPassed": 6,
+    "commandsTotal": 6
+  },
+  "consumerLoads": {
+    "passed": 144,
+    "total": 144
+  },
+  "consumerModels": {
+    "passed": 632,
+    "total": 632
+  },
+  "consumerDist": {
+    "matched": 6176,
+    "total": 6176
+  },
+  "consumerTypes": {
+    "passed": 8,
+    "total": 8
+  },
+  "typeFaults": {
+    "redAndRestored": 8,
+    "total": 8
+  },
+  "provenanceFaults": {
+    "redAndRestored": 19,
+    "total": 19
+  },
+  "metadataFaults": {
+    "redAndRestored": 1,
+    "total": 1
+  },
+  "liveModelFlows": {
+    "verified": 0,
+    "total": 34
+  },
+  "independentReleaseReview": "pending another Codex",
+  "publication": "coordinator published a510; no Fpush/tag/deploy",
+  "contexts": [
+    {
+      "consumer": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/forge-factory/services/factory",
+      "installRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/forge-factory",
+      "installedRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/forge-factory/node_modules/.pnpm/@x9-forge+contracts@https+++codeload.github.com+App-Templates+x9-forge-contract+tar.gz+a5103c_xlxolvpcxvrgvlzkcvfj2hshau/node_modules/@x9-forge/contracts",
+      "version": "1.45.0",
+      "sha": "a5103c97c39b6178e8d53f201f27352c0fb58220"
+    },
+    {
+      "consumer": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/forge-web/web",
+      "installRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/forge-web",
+      "installedRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/forge-web/node_modules/.pnpm/@x9-forge+contracts@https+++codeload.github.com+App-Templates+x9-forge-contract+tar.gz+a5103c_xlxolvpcxvrgvlzkcvfj2hshau/node_modules/@x9-forge/contracts",
+      "version": "1.45.0",
+      "sha": "a5103c97c39b6178e8d53f201f27352c0fb58220"
+    },
+    {
+      "consumer": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/x9/services/agent-core",
+      "installRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/x9",
+      "installedRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/x9/node_modules/.pnpm/@x9-forge+contracts@https+++codeload.github.com+App-Templates+x9-forge-contract+tar.gz+a5103c_xlxolvpcxvrgvlzkcvfj2hshau/node_modules/@x9-forge/contracts",
+      "version": "1.45.0",
+      "sha": "a5103c97c39b6178e8d53f201f27352c0fb58220"
+    },
+    {
+      "consumer": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/x9/packages/capability-sdk",
+      "installRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/x9",
+      "installedRoot": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145-gsd/x9/node_modules/.pnpm/@x9-forge+contracts@https+++codeload.github.com+App-Templates+x9-forge-contract+tar.gz+a5103c_xlxolvpcxvrgvlzkcvfj2hshau/node_modules/@x9-forge/contracts",
+      "version": "1.45.0",
+      "sha": "a5103c97c39b6178e8d53f201f27352c0fb58220"
+    }
+  ]
+}

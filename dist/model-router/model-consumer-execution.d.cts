@@ -52,6 +52,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -67,6 +68,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -84,6 +86,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -120,6 +123,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -135,6 +139,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -154,6 +159,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -190,6 +196,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -222,6 +229,7 @@ export declare const ModelConsumerInstallRequestSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -289,6 +297,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -304,6 +313,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -321,6 +331,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -357,6 +368,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -372,6 +384,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -391,6 +404,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -427,6 +441,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -459,6 +474,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -483,6 +499,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -498,6 +515,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -513,6 +531,7 @@ export declare const ModelConsumerRuntimeStateSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -591,6 +610,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -606,6 +626,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -623,6 +644,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -659,6 +681,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -674,6 +697,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -693,6 +717,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -729,6 +754,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -761,6 +787,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -785,6 +812,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -800,6 +828,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -815,6 +844,7 @@ export declare const ModelConsumerInstallReceiptSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;

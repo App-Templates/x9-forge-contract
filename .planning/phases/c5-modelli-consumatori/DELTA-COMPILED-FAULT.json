@@ -1,0 +1,84 @@
+{
+  "qualified": 6,
+  "total": 6,
+  "faults": [
+    {
+      "surface": "js",
+      "guard": "replay",
+      "semantic": "AssertionError true !== false",
+      "redExit": 1,
+      "hashRestored": true,
+      "sha256": "478a8549ba9cf9f44510d28238ee5a96826267a4937fe8554240a9513c087aaf",
+      "fresh": {
+        "passed": 158,
+        "total": 158,
+        "surfaces": 8
+      }
+    },
+    {
+      "surface": "js",
+      "guard": "source",
+      "semantic": "AssertionError true !== false",
+      "redExit": 1,
+      "hashRestored": true,
+      "sha256": "3674bec93f99e3d4277c3403eaea56d129eeb03516a35ea5b211fdb27a57840d",
+      "fresh": {
+        "passed": 158,
+        "total": 158,
+        "surfaces": 8
+      }
+    },
+    {
+      "surface": "cjs",
+      "guard": "replay",
+      "semantic": "AssertionError true !== false",
+      "redExit": 1,
+      "hashRestored": true,
+      "sha256": "edd1e62e20ab853eb48ae48c11ddb347254ea6d2f12784b6dbd8a5de5323b73d",
+      "fresh": {
+        "passed": 158,
+        "total": 158,
+        "surfaces": 8
+      }
+    },
+    {
+      "surface": "cjs",
+      "guard": "source",
+      "semantic": "AssertionError true !== false",
+      "redExit": 1,
+      "hashRestored": true,
+      "sha256": "77cdc5a6327bdc9ee8e00fd3dbfdff2a2bc456741ec0e90c4c9c0043c890274b",
+      "fresh": {
+        "passed": 158,
+        "total": 158,
+        "surfaces": 8
+      }
+    },
+    {
+      "surface": "js",
+      "guard": "expiry",
+      "semantic": "AssertionError true !== false",
+      "redExit": 1,
+      "hashRestored": true,
+      "sha256": "3674bec93f99e3d4277c3403eaea56d129eeb03516a35ea5b211fdb27a57840d",
+      "fresh": {
+        "passed": 158,
+        "total": 158,
+        "surfaces": 8
+      }
+    },
+    {
+      "surface": "cjs",
+      "guard": "expiry",
+      "semantic": "AssertionError true !== false",
+      "redExit": 1,
+      "hashRestored": true,
+      "sha256": "77cdc5a6327bdc9ee8e00fd3dbfdff2a2bc456741ec0e90c4c9c0043c890274b",
+      "fresh": {
+        "passed": 158,
+        "total": 158,
+        "surfaces": 8
+      }
+    }
+  ]
+}

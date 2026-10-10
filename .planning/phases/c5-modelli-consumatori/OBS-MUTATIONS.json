@@ -1,0 +1,222 @@
+{
+  "mutations": [
+    {
+      "name": "observed-time-required",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O02 requires observedAt",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "valid-until-required",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O02 requires validUntil",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "observed-scope-runtime",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O03 rejects invalid observation {\"scope\":{\"agentId\":\"other\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "observed-interval",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O03 rejects invalid observation {\"validUntil\":\"2026-10-09T07:07:00Z\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O03 rejects invalid observation {\"validUntil\":\"2026-10-09T07:06:59Z\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "finite-clock",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O05 expired/future/invalid clock invalid is not current",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "future-clock",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O05 expired/future/invalid clock 2026-10-09T07:06:54Z is not current",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "maximum-age",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O06 an old observation with a long expiry is still stale",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "expired-clock",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O05 expired/future/invalid clock 2026-10-09T07:07:30Z is not current",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "observed-generation",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O04 changed authority is not current {\"sourceVersion\":\"changed\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "observed-identity",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O04 changed authority is not current {\"identity\":{\"managementAgentId\":\"other\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O04 changed authority is not current {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "observed-scope",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O04 changed authority is not current {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"other\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O04 changed authority is not current {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"other\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "saved-observed-authority",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O08 observation requires saved scoped authority {\"saved\":null,\"versions\":null}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O08 observation requires saved scoped authority {\"saved\":{\"schemaVersion\":1,\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71},\"configVersion\":2,\"selections\":[{\"slotId\":\"agent_classifier\",\"settings\":{\"capability\":\"agent-core\",\"function\":\"reasoning\",\"catalogVersion\":\"synthetic-catalog\",\"requirements\":{\"tools\":false,\"stream\":false,\"structuredOutput\":false},\"mode\":\"single\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}}]}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "state-observed-identity",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O07 state does not claim another observed authority {\"identity\":{\"managementAgentId\":\"other\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O07 state does not claim another observed authority {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "state-observed-scope",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O07 state does not claim another observed authority {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"other\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Modern model source generation observation O07 state does not claim another observed authority {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"other\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "command-http-freshness",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Modern model source generation observation O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    }
+  ],
+  "fresh": {
+    "passed": 31,
+    "total": 31,
+    "exit": 0
+  },
+  "hashRestored": true
+}

@@ -9,7 +9,7 @@ const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 /** Server registered ids, never browser supplied URLs or credentials. */
 const RegisteredIdSchema = zod_1.z.string().regex(/^[a-z][a-z0-9._-]{0,63}$/);
 exports.ModelCatalogProviderIdSchema = RegisteredIdSchema.refine(value => value !== 'claude' && value !== 'gemini', { message: 'Use canonical provider ids' });
-exports.ModelApiProtocolSchema = zod_1.z.enum(['responses', 'chat-completions', 'messages', 'generate-content', 'embeddings', 'speech', 'transcriptions', 'realtime']);
+exports.ModelApiProtocolSchema = zod_1.z.enum(['responses', 'chat-completions', 'messages', 'generate-content', 'embeddings', 'speech', 'transcriptions', 'realtime', 'live']);
 exports.ModelFunctionSchema = zod_1.z.enum(['reasoning', 'memory-extraction', 'embedding', 'tts', 'transcription', 'voice']);
 exports.ModelCatalogVersionSchema = zod_1.z.string().min(1).max(64);
 exports.ModelDescriptorSchema = zod_1.z.object({
