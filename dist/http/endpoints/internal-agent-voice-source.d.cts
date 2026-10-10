@@ -21,6 +21,7 @@ export declare const AgentVoiceSourceSchema: z.ZodObject<{
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
+    /** As written in the context; the caller identity is validated by the capability (name rules are its own). */
     displayName: z.ZodString;
     voiceConfiguration: z.ZodNullable<z.ZodObject<{
         agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -438,6 +439,7 @@ export declare const internalAgentVoiceSourceContract: {
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        /** As written in the context; the caller identity is validated by the capability (name rules are its own). */
         displayName: z.ZodString;
         voiceConfiguration: z.ZodNullable<z.ZodObject<{
             agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -831,4 +833,13 @@ export declare const internalAgentVoiceSourceContract: {
         workspacePath: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
 };
+/**
+ * The source of ONE loaded agent, from its validated context. Used by agent-core to answer the contract above and by
+ * consumers' fixtures, so the projection exists once: whitelisted fields only, no credential, no token, no raw context.
+ *
+ * Returns null — «no source», never a reconstruction — when the context is not a valid one, has no tenant, or has no
+ * Forge management identity (explicit, or the concordant pair of its channel configurations). The runtime id is the
+ * id the agent is loaded by; the vault id is only carried when Forge wrote it.
+ */
+export declare function agentVoiceSourceOf(context: unknown): AgentVoiceSource | null;
 //# sourceMappingURL=internal-agent-voice-source.d.ts.map

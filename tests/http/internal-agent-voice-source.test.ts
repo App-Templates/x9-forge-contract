@@ -29,6 +29,10 @@ describe('applied voice source of a loaded agent (agent-core → capability)', (
     expect(api.AgentVoiceSourceSchema.safeParse(ordinary).success).toBe(true);
   });
 
+  it('keeps the display name as written: the capability validates the caller identity, not the source', () => {
+    expect(api.AgentVoiceSourceSchema.safeParse(source({ displayName: '   ' })).success).toBe(true);
+  });
+
   it('says «unconfigured» with null, never an invented default', () => {
     expect(api.AgentVoiceSourceSchema.safeParse(source({ voiceConfiguration: null })).success).toBe(true);
     expect(api.AgentVoiceSourceSchema.safeParse(source({ voiceConfiguration: undefined })).success).toBe(false);
@@ -42,11 +46,42 @@ describe('applied voice source of a loaded agent (agent-core → capability)', (
     ['no identity', { identity: undefined }],
     ['no tenant', { tenantId: '' }],
     ['no owner', { ownerId: undefined }],
-    ['blank display name', { displayName: '   ' }],
     ['applied without version', { voiceConfiguration: { ...config('x9-staging'), versions: { desired: 1, applied: null, failed: null } } }],
     ['settings outside the contract', { voiceConfiguration: { ...config('x9-staging'), applied: { ...settings, transports: [] } } }],
   ])('rejects %s', (_label, over) => {
     expect(api.AgentVoiceSourceSchema.safeParse(source(over)).success).toBe(false);
+  });
+});
+
+describe('agentVoiceSourceOf — the projection of a loaded context', () => {
+  const context = (over: Record<string, unknown> = {}) => ({
+    agentId: 'alpha', ownerId: '2', tenantId: '1', displayName: 'Alpha',
+    identity: { managementAgentId: 'alpha', runtimeAgentId: 'alpha', vaultAgentId: 40 },
+    credentials: { OPENAI_API_KEY: 'fixture-key' }, llmConfig: { provider: 'openai', model: 'm' },
+    telegramBotToken: 'fixture-bot', telegramAllowFrom: ['1'], workspacePath: '/data/agents/alpha/workspace', registryPath: '/r',
+    voiceConfiguration: config('alpha'), ...over,
+  });
+  it('keeps only the whitelisted fields: no credential, token, path of the registry or raw context', () => {
+    const projected = api.agentVoiceSourceOf(context());
+    expect(projected).toEqual({
+      agentId: 'alpha', ownerId: '2', tenantId: '1', displayName: 'Alpha',
+      identity: { managementAgentId: 'alpha', runtimeAgentId: 'alpha', vaultAgentId: 40 }, voiceConfiguration: config('alpha'),
+    });
+    expect(JSON.stringify(projected)).not.toMatch(/fixture-key|fixture-bot|registryPath/);
+  });
+  it('says null (unconfigured) when no voice was applied', () => {
+    expect(api.agentVoiceSourceOf(context({ voiceConfiguration: undefined }))?.voiceConfiguration).toBeNull();
+  });
+  it.each([
+    ['no tenant', { tenantId: undefined }],
+    ['no explicit identity and no channels', { identity: undefined }],
+    ['a voice configuration of another management agent', { voiceConfiguration: config('someone-else') }],
+  ])('has no source for %s: nothing is reconstructed', (_label, over) => {
+    expect(api.agentVoiceSourceOf(context(over))).toBeNull();
+  });
+  it('has no source for something that is not a context', () => {
+    expect(api.agentVoiceSourceOf(null)).toBeNull();
+    expect(api.agentVoiceSourceOf({ agentId: 'x' })).toBeNull();
   });
 });
 

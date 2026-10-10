@@ -10,6 +10,15 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.44.3 — la proiezione è una funzione del contratto
+
+### Added (additive)
+
+- `./http/endpoints`: `agentVoiceSourceOf(context)` — la proiezione whitelist di un contesto caricato verso `AgentVoiceSource`, una sola volta
+  (agent-core la usa per rispondere, i consumatori per le fixture). `null` = nessuna fonte: mai una ricostruzione.
+
+---
+
 ## v1.44.2 — fonte della voce applicata di un agente caricato (cap-voice)
 
 ### Added (additive)

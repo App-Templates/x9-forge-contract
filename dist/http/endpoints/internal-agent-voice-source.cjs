@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalAgentVoiceSourceContract = exports.AgentVoiceSourceParamsSchema = exports.AgentVoiceSourceSchema = void 0;
 exports.internalAgentVoiceSourcePath = internalAgentVoiceSourcePath;
+exports.agentVoiceSourceOf = agentVoiceSourceOf;
 const zod_1 = require("zod");
 const agent_runtime_identity_js_1 = require("../../agent/agent-runtime-identity.cjs");
+const agent_channel_configuration_js_1 = require("../../agent/agent-channel-configuration.cjs");
 const agent_workspace_js_1 = require("../../agent/agent-workspace.cjs");
 const agent_voice_settings_js_1 = require("../../capability/voice/agent-voice-settings.cjs");
 const internal_agents_management_js_1 = require("./internal-agents-management.cjs");
@@ -25,7 +27,8 @@ exports.AgentVoiceSourceSchema = zod_1.z.strictObject({
     tenantId: zod_1.z.string().min(1),
     /** Forge's explicit root identity: management id, runtime id, vault id. A context without it has no source. */
     identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema,
-    displayName: zod_1.z.string().trim().min(1).max(200),
+    /** As written in the context; the caller identity is validated by the capability (name rules are its own). */
+    displayName: zod_1.z.string().max(1000),
     voiceConfiguration: agent_voice_settings_js_1.AgentVoiceConfigSchema.nullable(),
     /** Applied workspace attestation + its path, only when the agent has one (the primary agent has none). */
     workspace: agent_workspace_js_1.AgentWorkspaceDescriptorSchema.optional(),
@@ -45,4 +48,34 @@ exports.internalAgentVoiceSourceContract = {
     paramsSchema: exports.AgentVoiceSourceParamsSchema,
     responseSchema: exports.AgentVoiceSourceSchema,
 };
+/**
+ * The source of ONE loaded agent, from its validated context. Used by agent-core to answer the contract above and by
+ * consumers' fixtures, so the projection exists once: whitelisted fields only, no credential, no token, no raw context.
+ *
+ * Returns null — «no source», never a reconstruction — when the context is not a valid one, has no tenant, or has no
+ * Forge management identity (explicit, or the concordant pair of its channel configurations). The runtime id is the
+ * id the agent is loaded by; the vault id is only carried when Forge wrote it.
+ */
+function agentVoiceSourceOf(context) {
+    const parsed = agent_workspace_js_1.AgentContextWithWorkspaceSchema.safeParse(context);
+    if (!parsed.success)
+        return null;
+    const ctx = parsed.data;
+    const managementAgentId = (0, agent_channel_configuration_js_1.managementAgentIdOf)(ctx);
+    if (managementAgentId === null || ctx.tenantId === undefined)
+        return null;
+    const projection = exports.AgentVoiceSourceSchema.safeParse({
+        agentId: ctx.agentId,
+        ownerId: ctx.ownerId,
+        tenantId: ctx.tenantId,
+        identity: {
+            managementAgentId, runtimeAgentId: ctx.agentId,
+            ...(ctx.identity?.vaultAgentId === undefined ? {} : { vaultAgentId: ctx.identity.vaultAgentId }),
+        },
+        displayName: ctx.displayName,
+        voiceConfiguration: ctx.voiceConfiguration ?? null,
+        ...(ctx.workspace === undefined ? {} : { workspace: ctx.workspace, workspacePath: ctx.workspacePath }),
+    });
+    return projection.success ? projection.data : null;
+}
 //# sourceMappingURL=internal-agent-voice-source.js.map

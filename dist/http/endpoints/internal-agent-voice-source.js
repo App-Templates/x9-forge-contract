@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { AgentRuntimeIdentitySchema } from "../../agent/agent-runtime-identity.js";
-import { AgentWorkspaceDescriptorSchema } from "../../agent/agent-workspace.js";
+import { managementAgentIdOf } from "../../agent/agent-channel-configuration.js";
+import { AgentContextWithWorkspaceSchema, AgentWorkspaceDescriptorSchema } from "../../agent/agent-workspace.js";
 import { AgentVoiceConfigSchema } from "../../capability/voice/agent-voice-settings.js";
 import { AgentManagementParamsSchema } from "./internal-agents-management.js";
 /**
@@ -21,7 +22,8 @@ export const AgentVoiceSourceSchema = z.strictObject({
     tenantId: z.string().min(1),
     /** Forge's explicit root identity: management id, runtime id, vault id. A context without it has no source. */
     identity: AgentRuntimeIdentitySchema,
-    displayName: z.string().trim().min(1).max(200),
+    /** As written in the context; the caller identity is validated by the capability (name rules are its own). */
+    displayName: z.string().max(1000),
     voiceConfiguration: AgentVoiceConfigSchema.nullable(),
     /** Applied workspace attestation + its path, only when the agent has one (the primary agent has none). */
     workspace: AgentWorkspaceDescriptorSchema.optional(),
@@ -41,4 +43,34 @@ export const internalAgentVoiceSourceContract = {
     paramsSchema: AgentVoiceSourceParamsSchema,
     responseSchema: AgentVoiceSourceSchema,
 };
+/**
+ * The source of ONE loaded agent, from its validated context. Used by agent-core to answer the contract above and by
+ * consumers' fixtures, so the projection exists once: whitelisted fields only, no credential, no token, no raw context.
+ *
+ * Returns null — «no source», never a reconstruction — when the context is not a valid one, has no tenant, or has no
+ * Forge management identity (explicit, or the concordant pair of its channel configurations). The runtime id is the
+ * id the agent is loaded by; the vault id is only carried when Forge wrote it.
+ */
+export function agentVoiceSourceOf(context) {
+    const parsed = AgentContextWithWorkspaceSchema.safeParse(context);
+    if (!parsed.success)
+        return null;
+    const ctx = parsed.data;
+    const managementAgentId = managementAgentIdOf(ctx);
+    if (managementAgentId === null || ctx.tenantId === undefined)
+        return null;
+    const projection = AgentVoiceSourceSchema.safeParse({
+        agentId: ctx.agentId,
+        ownerId: ctx.ownerId,
+        tenantId: ctx.tenantId,
+        identity: {
+            managementAgentId, runtimeAgentId: ctx.agentId,
+            ...(ctx.identity?.vaultAgentId === undefined ? {} : { vaultAgentId: ctx.identity.vaultAgentId }),
+        },
+        displayName: ctx.displayName,
+        voiceConfiguration: ctx.voiceConfiguration ?? null,
+        ...(ctx.workspace === undefined ? {} : { workspace: ctx.workspace, workspacePath: ctx.workspacePath }),
+    });
+    return projection.success ? projection.data : null;
+}
 //# sourceMappingURL=internal-agent-voice-source.js.map
