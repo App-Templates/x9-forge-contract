@@ -191,13 +191,13 @@ export declare const ForgeAgentPhonePreviewSchema: z.ZodObject<{
             }, z.core.$strict>>;
         }, z.core.$strict>;
         observedAt: z.ZodISODateTime;
-        agentArchived: z.ZodBoolean;
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
             stopped: "stopped";
             loaded: "loaded";
         }>;
+        agentArchived: z.ZodBoolean;
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type ForgeAgentPhonePreview = z.infer<typeof ForgeAgentPhonePreviewSchema>;
@@ -353,13 +353,13 @@ export declare const forgeAgentPhoneSnapshotContract: {
             }, z.core.$strict>>;
         }, z.core.$strict>;
         observedAt: z.ZodISODateTime;
-        agentArchived: z.ZodBoolean;
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
             stopped: "stopped";
             loaded: "loaded";
         }>;
+        agentArchived: z.ZodBoolean;
     }, z.core.$strict>;
     readonly errorResponseSchema: z.ZodObject<{
         ok: z.ZodLiteral<false>;
@@ -575,13 +575,13 @@ export declare const forgeAgentPhonePreviewContract: {
                 }, z.core.$strict>>;
             }, z.core.$strict>;
             observedAt: z.ZodISODateTime;
-            agentArchived: z.ZodBoolean;
             runtimeLoadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
                 stopped: "stopped";
                 loaded: "loaded";
             }>;
+            agentArchived: z.ZodBoolean;
         }, z.core.$strict>;
     }, z.core.$strict>;
     readonly errorResponseSchema: z.ZodObject<{
@@ -651,6 +651,29 @@ export declare const forgeAgentPhoneApplyContract: {
             pending: "pending";
         }>;
         completedAt: z.ZodISODateTime;
+        error: z.ZodNullable<z.ZodEnum<{
+            invalid_request: "invalid_request";
+            agent_not_found: "agent_not_found";
+            idempotency_conflict: "idempotency_conflict";
+            source_unavailable: "source_unavailable";
+            identity_mismatch: "identity_mismatch";
+            load_failed: "load_failed";
+            apply_failed: "apply_failed";
+            reconcile_pending: "reconcile_pending";
+            stale_version: "stale_version";
+            request_not_found: "request_not_found";
+            command_in_progress: "command_in_progress";
+            address_book_unavailable: "address_book_unavailable";
+            queue_limit: "queue_limit";
+            not_supported: "not_supported";
+        }>>;
+        action: z.ZodLiteral<"apply-channel">;
+        requestId: z.ZodString;
+        desiredVersion: z.ZodNumber;
+        expectedAppliedVersion: z.ZodNullable<z.ZodNumber>;
+        requestChanges: z.ZodNull;
+        expectedNumberVersion: z.ZodNullable<z.ZodNumber>;
+        expectedRoutingIdentity: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
         snapshot: z.ZodObject<{
             configuration: z.ZodObject<{
                 scope: z.ZodObject<{
@@ -796,37 +819,14 @@ export declare const forgeAgentPhoneApplyContract: {
                 }, z.core.$strict>>;
             }, z.core.$strict>;
             observedAt: z.ZodISODateTime;
-            agentArchived: z.ZodBoolean;
             runtimeLoadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
                 stopped: "stopped";
                 loaded: "loaded";
             }>;
+            agentArchived: z.ZodBoolean;
         }, z.core.$strict>;
-        error: z.ZodNullable<z.ZodEnum<{
-            invalid_request: "invalid_request";
-            agent_not_found: "agent_not_found";
-            idempotency_conflict: "idempotency_conflict";
-            source_unavailable: "source_unavailable";
-            identity_mismatch: "identity_mismatch";
-            load_failed: "load_failed";
-            apply_failed: "apply_failed";
-            reconcile_pending: "reconcile_pending";
-            stale_version: "stale_version";
-            request_not_found: "request_not_found";
-            command_in_progress: "command_in_progress";
-            address_book_unavailable: "address_book_unavailable";
-            queue_limit: "queue_limit";
-            not_supported: "not_supported";
-        }>>;
-        action: z.ZodLiteral<"apply-channel">;
-        requestId: z.ZodString;
-        desiredVersion: z.ZodNumber;
-        expectedAppliedVersion: z.ZodNullable<z.ZodNumber>;
-        requestChanges: z.ZodNull;
-        expectedNumberVersion: z.ZodNullable<z.ZodNumber>;
-        expectedRoutingIdentity: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
     }, z.core.$strict>;
     readonly errorResponseSchema: z.ZodObject<{
         ok: z.ZodLiteral<false>;

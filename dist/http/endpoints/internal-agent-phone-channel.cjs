@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalAgentPhoneRouteContract = exports.internalAgentPhoneApplyContract = exports.internalAgentPhoneSnapshotContract = exports.AgentPhoneParamsSchema = void 0;
+exports.internalAgentPhoneRuntimeRouteContract = exports.internalAgentPhoneRuntimeApplyContract = exports.internalAgentPhoneRuntimeSnapshotContract = exports.internalAgentPhoneRouteContract = exports.internalAgentPhoneApplyContract = exports.internalAgentPhoneSnapshotContract = exports.AgentPhoneParamsSchema = void 0;
 exports.internalAgentPhonePath = internalAgentPhonePath;
 exports.internalAgentPhoneApplyPath = internalAgentPhoneApplyPath;
 const internal_agents_management_js_1 = require("./internal-agents-management.cjs");
@@ -29,4 +29,11 @@ function phonePath(template, agentId) {
 }
 function internalAgentPhonePath(agentId) { return phonePath(exports.internalAgentPhoneSnapshotContract.path, agentId); }
 function internalAgentPhoneApplyPath(agentId) { return phonePath(exports.internalAgentPhoneApplyContract.path, agentId); }
+/**
+ * Runtime-only response views on the same private paths. Retained legacy exports describe older
+ * producers; new producers and Forge clients must adopt this view together. No archive default.
+ */
+exports.internalAgentPhoneRuntimeSnapshotContract = { ...exports.internalAgentPhoneSnapshotContract, responseSchema: agent_phone_commands_js_1.AgentPhoneRuntimeSnapshotSchema };
+exports.internalAgentPhoneRuntimeApplyContract = { ...exports.internalAgentPhoneApplyContract, responseSchema: agent_phone_commands_js_1.AgentPhoneRuntimeApplyResultSchema };
+exports.internalAgentPhoneRuntimeRouteContract = { ...exports.internalAgentPhoneRouteContract, responseSchema: agent_phone_commands_js_1.AgentPhoneRuntimeRouteResultSchema };
 //# sourceMappingURL=internal-agent-phone-channel.js.map

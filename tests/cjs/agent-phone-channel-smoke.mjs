@@ -33,6 +33,21 @@ const draft = { requestId: 'phone-draft-001', expectedDesiredVersion: 2, expecte
   desiredState: 'paused', policy, expectedNumberVersion: 2, expectedRoutingIdentity: 'route-alpha' };
 const owner = { role: 'owner', ownerId: scope.ownerId, tenantId: scope.tenantId };
 for (const { agent, http } of modules) {
+  const { agentArchived: _archive, ...runtimeSnapshot } = snapshot();
+  const runtimeReceipt = { ...receipt(), snapshot: runtimeSnapshot };
+  const runtimeResolution = { event: event(), snapshot: runtimeSnapshot, resolvedAt: instant };
+  equal(agent.AgentPhoneRuntimeSnapshotSchema.parse(runtimeSnapshot), runtimeSnapshot);
+  equal(agent.AgentPhoneRuntimeSnapshotSchema.safeParse(snapshot()).success, false);
+  equal(agent.AgentPhoneSnapshotSchema.safeParse(runtimeSnapshot).success, false);
+  equal(agent.isAgentPhoneRuntimeApplyReady(command(), runtimeSnapshot, binding, now), true);
+  equal(agent.isAgentPhoneApplyReady(command(), { ...snapshot(), agentArchived: true }, binding, now), false);
+  equal(agent.isAgentPhoneRuntimeResultForCommand(command(), runtimeReceipt, binding, now), true);
+  equal(agent.resolveAgentPhoneRuntimeRoute(event(), { ...inventory(), snapshots: [runtimeSnapshot] }, now), runtimeSnapshot);
+  equal(agent.isAgentPhoneRuntimeRouteResultForEvent(event(), runtimeResolution, now), true);
+  equal(http.internalAgentPhoneRuntimeSnapshotContract.responseSchema.parse(runtimeSnapshot), runtimeSnapshot);
+  equal(http.internalAgentPhoneRuntimeApplyContract.responseSchema.parse(runtimeReceipt), runtimeReceipt);
+  equal(http.internalAgentPhoneRuntimeRouteContract.responseSchema.parse(runtimeResolution), runtimeResolution);
+
   equal(agent.AgentContextWithPhoneSchema.parse(agent.AgentContextWithPhoneWriteSchema.parse(context)), context);
   equal(agent.AgentContextWithPhoneSchema.parse(legacy), legacy);
   equal(agent.AgentBirthChannelKindSchema.safeParse('phone').success, false);
