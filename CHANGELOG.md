@@ -1,5 +1,22 @@
 # Changelog — @x9-forge/contracts
 
+## v1.47.0 — rilascio unico: Chiavi (1.44.3) + Modelli (27fa07d, 1.45.0) + Paperclip (main 1.45.0)
+
+Composizione senza nuovi contratti: unisce le tre linee, nessun simbolo rimosso (verificato su ogni sottopercorso,
+ESM, contro i tre pacchetti di origine).
+
+- Linea Chiavi `codex/chiavi-100-bridge` 6dc32d6 (1.44.3): requisiti minimi delle credenziali, esecuzioni fisse dei chiamanti diretti (1.44.1),
+  fonte della voce applicata e `agentVoiceSourceOf` (1.44.2/1.44.3), composizione dei contratti di modello con Chiavi.
+- Linea Modelli `codex/c5-modelli-consumatori-bridge` 27fa07d (1.45.0): registro dei 34 consumatori, autorità del Master, osservazioni locali
+  (agente, primario, backend telefono), InitialSource, fonti legacy con protocollo Live.
+- `main` b22032d (1.45.0): sottopercorso `capability/paperclip`.
+- Conflitti: `internal-agent-model-source-observation.ts` lato Modelli (superset); `endpoints/index.ts`, `capability/index.ts`: unione;
+  `tests/cjs/smoke.cjs` lato Chiavi (superset). La composizione 1.46.0 di F (`codex/modelli-canonical-complete-f`, d6523a5) NON è inclusa.
+- Versione 1.47.0 perché 1.45.0 indicava due contenuti diversi (Modelli e Paperclip) e 1.46.0 è il nome della composizione di F non unita.
+- `.nvmrc` 24 (standard dello stack, R-32).
+
+---
+
 ## Unreleased — positive legacy model observation
 
 - Add canonical observed consumer readback with actual settings and strictly null configVersion/requestId; preserve installed confirmation, receipt outcomes and unknown semantics.
