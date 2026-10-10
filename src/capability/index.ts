@@ -100,3 +100,5 @@ export * from './agent-elevenlabs/web-browser.js';
 export * from './agent-elevenlabs/web-invitations.js';
 
 export * from './capability-credential-requirements.js';
+
+export * from './paperclip/index.js';

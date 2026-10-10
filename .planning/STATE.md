@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
-status: executing
-stopped_at: Phase 3 contract locally qualified; mandate150615; independent review/integration pending
-last_updated: "2026-10-09T09:23:38.208Z"
+status: awaiting_coordinator_publication
+stopped_at: v1.0 milestone closed via `/gsd-complete-milestone` (Path B).
+last_updated: "2026-10-09T15:16:35.274Z"
 progress:
-  total_phases: 2
+  total_phases: 1
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 2
-  percent: 67
+  total_plans: 1
+  completed_plans: 1
+  percent: 100
 ---
 
 # Project State
@@ -20,13 +20,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-16 after v1.0 close)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilità DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 1 — Modelli bridge 145
+**Current focus:** Phase 55 — cap-paperclip-release
 
 ## Current Position
 
-Phase: 1 (Modelli bridge 145) — COMPLETE
-Plan: 2 of 2
-**Status:** Ready to execute
+Phase: 55 (cap-paperclip-release) — LOCAL PREPARATION COMPLETE
+Plan: 1 of 1
+**Status:** Independently approved local candidate (C4fe25f2); awaiting coordinator publication/consumer integration; historical cleanup parked
 **Last completed:** v1.0 Bridge Foundation (2026-04-16, PR #1 merged, git tag `v1.0`)
 
 To start the next milestone: `/clear` then `/gsd-new-milestone`.
@@ -142,8 +142,8 @@ None active. v1.0 closed cleanly with explicit Known Gaps recorded.
 
 ## Session Continuity
 
-Last session: 2026-10-09T09:13:10.666Z
-Stopped at: Phase 2 STOP Stefano112545; source endpoint checkpoint4d30c39; no work until RIPARTITE
+Last session: 2026-04-16T15:35:00Z
+Stopped at: v1.0 milestone closed via `/gsd-complete-milestone` (Path B).
 Next action: `/clear` then `/gsd-new-milestone` (when ready to plan v1.1).
 
 ## Remote & baseline
@@ -153,21 +153,3 @@ Next action: `/clear` then `/gsd-new-milestone` (when ready to plan v1.1).
 - Baseline tag agent-x9: `pre-bridge-migration-2026-04-14` (origin)
 - Baseline tag forge-v2: `pre-bridge-migration-2026-04-14` (origin)
 - VPS Hostinger snapshot: 2026-04-14 by Stefano via hPanel
-
-## Accumulated Context
-
-### Roadmap Evolution
-
-- Phase 1 added: Modelli bridge 145 (C5-MODELLI-BRIDGE-145-GSD), separate current release work; archived v1.0 history preserved.
-
-## Modelli bridge 145 completion (2026-10-09)
-
-Releasea5103c97 qualified by01-VERIFICATION; M145-01/02/03complete. Source5036/5036in167files0pending,quality10/10,dist1544/1544;remote3roots,4contexts144loads,632Modelsassertions,8types;19provenance+8typefaults restored. Existing ShimCleanup milestone is not completed by this release-only phase. Next: independentCodexreview, then authorizedlocal-authority endpoint task.
-
-## Phase 02 STOP checkpoint (2026-10-09 11:26)
-
-STOP Stefano via coordinator112545. Only task1 source endpoint committed4d30c39,17/17focused/8/8faultsrestored. Initialsource and fullnative/dist/compiled tasks not started, phase incomplete. No new work/tests/messages until RIPARTITE. See02-01-SUMMARY.md.
-
-## Phase03 consultazione — 09/10 15:20
-
-Autorizzata150615 dopo pianoa4cae50 APPROVE C. Source028c863/dist3c84de6 qualificati5086/5086,18/18sourcefault,4/4packfault. Pubblicazione richiesta151942. Phase02 resta incompleta; InitialSource noneseguito. Next:X9reader157-1, poiForge150-1+C153-1, candidato/review indipendente.

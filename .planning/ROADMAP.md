@@ -65,36 +65,17 @@ Full archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md) · Audit: [v1.0-MILE
 | M. Memory Engine v2 Contracts | v1.0 | 1/1 | ✅ Complete | 2026-04-15 |
 | 7. Shim Removal (opzionale) | v1.1 | 0/2 | Planned | - |
 
-### Phase 1: Modelli bridge 145
-
-**Goal:** Prepare version 1.45.0 of the approved Models contracts with native distribution and actual SHA-pinned isolated consumer installations.
-**Requirements**: M145-01, M145-02, M145-03
-**Depends on:** Approved Models contracts at 6d1bafbd; independent import-fix review and coordinator publication before remote installation proof.
-**Plans:** 2/2 plans complete (2026-10-09)
-
-Canonical refs: package.json, CHANGELOG.md, README.md, .planning/phases/c5-modelli-consumatori/CONTRATTO.md
-
-Plans:
-- [x] 01-01-PLAN.md — version, distribution, isolated consumer install and public entrypoints
-- [x] 01-02-PLAN.md — final SHA installation and native compiler provenance gap closure
-
-### Phase 2: Modelli authority locale
-
-**Goal:** Canonical local source observation and pre-bootstrap loaded model source without fabricated Master role.
-**Requirements**: AUTH-01, AUTH-02, AUTH-03
-**Depends on:** Phase 1
-**Plans:** 1 plan
-
-Plans:
-- [ ] 02-01-PLAN.md — local observation endpoint, roleless initial source, native qualification
-
 ---
 
 *Last updated: 2026-04-16 after v1.0 milestone close*
 
 
-**Verification:** passed; release a5103c97;3/3installroots,144/144loads,632/632Models,8/8types;19/19provenance and8/8typefaults restored. Independent release review pending.
+### Phase 55: Paperclip additive bridge 1.45 release candidate
 
-## Phase03 — Modelli consultazione (mandato150615)
+**Goal:** Integrate the reviewed Paperclip contracts854f36a8 from origin/main8b44af1 as additive bridge1.45.0 with regenerated dist and complete local qualification, ready for independent review and coordinator-owned PR/merge.
+**Depends on:** Reviewed Paperclip D4/D5 contracts; native service D6 independent approval.
+**Requirements:** PCL-REL-01, PCL-REL-02, PCL-REL-03
+**Plans:** 1
+- [x] 55-01-PLAN.md — integrate reviewed source, release metadata, full build/test/pack compatibility and handoff
 
-- [x]03-01 Contratto locale source/dist qualificato; reviewindipendente al raccordofinale. Piano derivato da10-01a4cae50. Source028c863,dist3c84de6; SUMMARY nella fase03. Non chiude phase02 o milestone storico.
+This scoped bootstrap phase leaves historical v1.1 cleanup parked. No publish, push, PR, merge or deployment by Codex D.

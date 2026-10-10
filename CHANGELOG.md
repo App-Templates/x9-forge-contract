@@ -12,6 +12,16 @@
 - Add optional nullable state.initialSource with exact identity, null saved/runtime/versions and mutually exclusive source authority. No new maximumage is added to Bootstrap-equivalent freshness.
 - Qualify the additive contract separately from composition; packageversion stays1.45.0. Runtime firstMaster/bootstrap and first-save preservation remain consumer work, with no live claim.
 
+---
+
+## 1.45.0 — 2026-10-09
+
+- Add the canonical `@x9-forge/contracts/capability/paperclip` subpath and capability barrel exports for material events, configurable role routing, resolved routes, durable handoff envelopes/receipts and manual decision audit records.
+- Add four native Paperclip tool identifiers with strict input/output schemas and server-owned tenant/owner/agent-to-native company/agent/role bindings.
+- Add communication, reply, host-only manual confirmation and decision-view schemas. Manual attestation records provenance and never claims to update Paperclip or exposes an LLM confirmation tool.
+- Preserve every historic public subpath/symbol while allowing additive exports in the compatibility guard; regenerate ESM, CJS and portable declarations. No existing protocol changed.
+- This package supplies contracts only. Per-agent provisioning, credentials, service deployment and real material/email workflow remain consumer/operator integration work.
+
 All notable changes to the bridge package. This project adheres to [Semantic Versioning](https://semver.org/) at the milestone level (v1.0, v1.1, etc.); within a milestone, distribution is via SHA-pinned `git+https#<sha>` (no per-feature versioning).
 
 ## How releases work in this repo

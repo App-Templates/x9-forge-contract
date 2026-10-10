@@ -1,0 +1,173 @@
+{
+  "sourceSha256": "a8d4997aa00619474b9d6c233dff7722520acbb002fa04eb208fe28cb5294907",
+  "snapshot": "/private/tmp/d-paperclip-contracts-_g27ltfi",
+  "killed": 25,
+  "total": 25,
+  "restored": true,
+  "mutations": [
+    {
+      "name": "strict-boundary",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "nonblank",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "max-length",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "required-links",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "event-kind",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "timestamp",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "test-flag",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "empty-decision-ref",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "config-version",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "config-event-kind",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "verified-boolean",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "config-email",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "route-email",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "handoff-version",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "handoff-id",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "receipt-status",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "receipt-id",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "manual-authority",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "no-paperclip-effect",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "human-evidence",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "required-changes",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "decision-outcome",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "positive-roundtrip",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "positive-all-events",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "positive-generic-channel",
+      "assertionRed": true,
+      "exitCode": 1
+    }
+  ],
+  "testsSeenAssertionRed": {
+    "seen": 32,
+    "total": 32,
+    "names": [
+      "allows another channel and unverified configuration without declaring it resolved",
+      "allows every material event and absent optional evidence fields",
+      "refuses blank identifier",
+      "refuses blank link",
+      "refuses config injection",
+      "refuses config invalid email",
+      "refuses config version",
+      "refuses decision automated authorization",
+      "refuses decision extra effect",
+      "refuses decision missing changes",
+      "refuses decision missing evidence",
+      "refuses decision mutation claim",
+      "refuses decision reference",
+      "refuses decision unknown outcome",
+      "refuses event extra recipient",
+      "refuses event kind",
+      "refuses handoff identifier",
+      "refuses handoff version",
+      "refuses invalid timestamp",
+      "refuses missing links",
+      "refuses oversized summary",
+      "refuses receipt blank id",
+      "refuses receipt status",
+      "refuses referent verification boolean",
+      "refuses role injection",
+      "refuses route display name",
+      "refuses route injection",
+      "refuses route invalid email",
+      "refuses test boolean",
+      "refuses timestamp without timezone",
+      "refuses unknown config event",
+      "round-trips existing E1/E2 envelopes without adding fields"
+    ]
+  },
+  "testsSha256": "0d9cf8644a75507a3c831b4953bcf0eac1484948345c38d86767b44c2aa077ad"
+}

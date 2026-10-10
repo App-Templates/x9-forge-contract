@@ -76,4 +76,5 @@ __exportStar(require("./agent-elevenlabs/web-context.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-browser.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-invitations.cjs"), exports);
 __exportStar(require("./capability-credential-requirements.cjs"), exports);
+__exportStar(require("./paperclip/index.cjs"), exports);
 //# sourceMappingURL=index.js.map

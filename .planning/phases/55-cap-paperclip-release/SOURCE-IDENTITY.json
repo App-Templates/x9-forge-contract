@@ -1,0 +1,20 @@
+{
+  "frozenSource": "854f36a8f88280bad6c5b19249e8ababeee5bb44",
+  "filesCompared": 8,
+  "total": 8,
+  "sha256": {
+    "src/capability/paperclip/index.ts": "b2a09f94af7729e7acd00da0e3c6c15980ac7297d3a36a4a014cdf04ccf35ed9",
+    "src/capability/paperclip/tools.ts": "d825c988aaada745d7cca4257330dd6d7bbef304c8502337b09eb7c20bdf23f3",
+    "src/capability/index.ts": "e8eaebd352e30fc20d5779a5c45b2d1708bb7bf9535d7a3e148f39aaa7ade8aa",
+    "tests/paperclip-contracts.test.ts": "0d9cf8644a75507a3c831b4953bcf0eac1484948345c38d86767b44c2aa077ad",
+    "tests/paperclip-tools.test.ts": "4a09b34487dfe69ee7aa734c422b92870a56762ee1992a56199aa5f7c542219b",
+    "tests/paperclip-decisions.test.ts": "a4bcf827dc1b0c7ef83b1ffc71c24f385c5277adfb9fe729ffcbfba7120e44d2",
+    "tests/fixtures/paperclip-decisions-golden.json": "1ad41736909ca02e86829eb44a9c61105a0ed741f2b7de90d5305903799630fb",
+    "tests/compat/bridge-130-compat.test.ts": "2ed58e0d5cb150fdb232b6f1c7444e0d472f90b59f010fa62219ba6fe9b74ddc"
+  },
+  "historicalExportsPreserved": 18,
+  "historicalExportsTotal": 18,
+  "newSubpaths": [
+    "./capability/paperclip"
+  ]
+}
