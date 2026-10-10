@@ -15,4 +15,5 @@ export { SseTextFrameSchema, SseToolCallStartFrameSchema, SseToolCallEndFrameSch
 // SSE parser helpers
 export { parseSseFrame, parseSseStream } from "./sse-parser.js";
 export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from "./endpoints/cap-tool-call.js";
+export * from "./endpoints/forge-elevenlabs-web.js";
 //# sourceMappingURL=index.js.map
