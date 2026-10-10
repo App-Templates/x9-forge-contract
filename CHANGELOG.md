@@ -10,6 +10,18 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.44.2 — fonte della voce applicata di un agente caricato (cap-voice)
+
+### Added (additive)
+
+- `./http/endpoints`: **`internalAgentVoiceSourceContract`** (`GET /internal/agents/:agentId/voice-source`, `:agentId` = id runtime) e `AgentVoiceSourceSchema`:
+  proiezione non segreta del contesto CARICATO in agent-core (scope, identità, nome, `voiceConfiguration` o null, attestazione del workspace).
+  Stessa risposta per un agente da file e per l'agente primario da env: le capacità non leggono più il disco di altri servizi.
+
+Solo aggiunte.
+
+---
+
 ## v1.44.1 — esecuzioni fisse per i chiamanti diretti (cap-voice, cap-security)
 
 ### Added (additive)

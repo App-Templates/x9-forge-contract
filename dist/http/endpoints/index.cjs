@@ -77,5 +77,6 @@ __exportStar(require("./internal-agents-deletion.cjs"), exports);
 __exportStar(require("./internal-agent-channel-history.cjs"), exports);
 __exportStar(require("./forge-agent-channel-history.cjs"), exports);
 __exportStar(require("./internal-agent-tool-dispatch.cjs"), exports);
+__exportStar(require("./internal-agent-voice-source.cjs"), exports);
 __exportStar(require("./internal-agent-model-source-observation.cjs"), exports);
 //# sourceMappingURL=index.js.map
