@@ -54,4 +54,8 @@ export * from "./internal-agent-channel-history.cjs";
 export * from "./forge-agent-channel-history.cjs";
 export * from "./internal-agent-model-source-observation.cjs";
 export * from "./forge-master-model-authority.cjs";
+export * from "./internal-agent-tool-dispatch.cjs";
+export * from "./internal-agents-ordinary-authority.cjs";
+export * from "./forge-elevenlabs-web.cjs";
+export * from "./internal-agent-address-book.cjs";
 //# sourceMappingURL=index.d.ts.map

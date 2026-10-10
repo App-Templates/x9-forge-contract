@@ -26,6 +26,7 @@ export declare const AgentAddressBookResponseSchema: z.ZodObject<{
         version: z.ZodNullable<z.ZodNumber>;
         observedAt: z.ZodNullable<z.ZodISODateTime>;
         emails: z.ZodNullable<z.ZodArray<z.ZodEmail>>;
+        phones: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodString>>>;
         scope: z.ZodObject<{
             agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
@@ -91,6 +92,7 @@ export declare const internalAgentAddressBookContract: {
             version: z.ZodNullable<z.ZodNumber>;
             observedAt: z.ZodNullable<z.ZodISODateTime>;
             emails: z.ZodNullable<z.ZodArray<z.ZodEmail>>;
+            phones: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodString>>>;
             scope: z.ZodObject<{
                 agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;

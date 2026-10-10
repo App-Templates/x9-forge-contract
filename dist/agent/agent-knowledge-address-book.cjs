@@ -33,11 +33,11 @@ exports.AgentKnowledgeAddressBookSchema = agent_channel_access_js_1.AgentChannel
 function createAgentKnowledgeAddressBook(input) {
     return exports.AgentKnowledgeAddressBookSchema.parse(input);
 }
-/** Validated C1 projection, preserving authority, completeness, version, time and exact email entries. */
+/** Validated C1 projection, preserving authority, completeness, version, time and exact email/telephone entries. */
 function toAgentChannelAddressBook(rawBook) {
     const book = exports.AgentKnowledgeAddressBookSchema.parse(rawBook);
     return agent_channel_access_js_1.AgentChannelAddressBookSchema.parse({ scope: book.scope, identity: book.identity, status: book.status,
-        version: book.version, observedAt: book.observedAt, emails: book.emails });
+        version: book.version, observedAt: book.observedAt, emails: book.emails, phones: book.phoneNumbers });
 }
 /** Current complete source only. Consumers recheck remote revocations after awaits before effects. */
 function isAgentKnowledgeAddressBookCurrent(rawBook, rawBinding, now, maximumAgeMs = 60_000) {

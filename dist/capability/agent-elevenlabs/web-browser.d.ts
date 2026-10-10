@@ -36,9 +36,9 @@ export declare const ElevenLabsWebBrowserMetadataSchema: z.ZodObject<{
     displayName: z.ZodString;
     state: z.ZodEnum<{
         unavailable: "unavailable";
+        off: "off";
         paused: "paused";
         ready: "ready";
-        off: "off";
     }>;
     observedAt: z.ZodISODateTime;
 }, z.core.$strict>;

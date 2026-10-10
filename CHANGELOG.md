@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## 1.46.0 — composed local candidate
+
+- Compose Paperclip, Keys, Models, scoped capability configuration, phone/Web channels and Knowledge without removing existing public entrypoints.
+- Retain 35 registered model consumers, roleless InitialSource, positive legacy observation, primary local-source and phone backend observation contracts.
+- Preserve public Web metadata/session and administrative invitation APIs together; carry Knowledge telephone entries into the canonical admission projection.
+- This is a local integration candidate. Consumer pins, final verification and independent review precede publication; no deployed behavior is claimed.
+
 ## 1.45.0 — 2026-10-09
 
 - Add the canonical `@x9-forge/contracts/capability/paperclip` subpath and capability barrel exports for material events, configurable role routing, resolved routes, durable handoff envelopes/receipts and manual decision audit records.

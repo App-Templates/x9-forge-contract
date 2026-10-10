@@ -84,8 +84,8 @@ export declare const AgentPhoneRuntimeSnapshotSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -148,8 +148,8 @@ export declare const AgentPhoneRuntimeSnapshotSchema: z.ZodObject<{
     runtimeLoadState: z.ZodEnum<{
         error: "error";
         unknown: "unknown";
-        stopped: "stopped";
         loaded: "loaded";
+        stopped: "stopped";
     }>;
 }, z.core.$strict>;
 export type AgentPhoneRuntimeSnapshot = z.infer<typeof AgentPhoneRuntimeSnapshotSchema>;
@@ -646,8 +646,8 @@ export declare const AgentPhoneApplyResultSchema: z.ZodObject<{
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -710,8 +710,8 @@ export declare const AgentPhoneApplyResultSchema: z.ZodObject<{
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
         agentArchived: z.ZodBoolean;
     }, z.core.$strict>;
@@ -828,8 +828,8 @@ export declare const AgentPhoneRuntimeRoutingInventorySchema: z.ZodObject<{
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -892,8 +892,8 @@ export declare const AgentPhoneRuntimeRoutingInventorySchema: z.ZodObject<{
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
@@ -1328,8 +1328,8 @@ export declare const AgentPhoneRouteResultSchema: z.ZodObject<{
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -1392,8 +1392,8 @@ export declare const AgentPhoneRouteResultSchema: z.ZodObject<{
         runtimeLoadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
         agentArchived: z.ZodBoolean;
     }, z.core.$strict>>;

@@ -13,6 +13,7 @@ export declare const AgentKnowledgeAddressBookSchema: z.ZodObject<{
     version: z.ZodNullable<z.ZodNumber>;
     observedAt: z.ZodNullable<z.ZodISODateTime>;
     emails: z.ZodNullable<z.ZodArray<z.ZodEmail>>;
+    phones: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodString>>>;
     scope: z.ZodObject<{
         agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
@@ -29,7 +30,7 @@ export type AgentKnowledgeAddressBook = z.infer<typeof AgentKnowledgeAddressBook
 export type AgentKnowledgeAddressBookInput = z.input<typeof AgentKnowledgeAddressBookSchema>;
 /** Mandatory writer boundary; returns detached validated values without defaults. */
 export declare function createAgentKnowledgeAddressBook(input: AgentKnowledgeAddressBookInput): AgentKnowledgeAddressBook;
-/** Validated C1 projection, preserving authority, completeness, version, time and exact email entries. */
+/** Validated C1 projection, preserving authority, completeness, version, time and exact email/telephone entries. */
 export declare function toAgentChannelAddressBook(rawBook: unknown): AgentChannelAddressBook;
 /** Current complete source only. Consumers recheck remote revocations after awaits before effects. */
 export declare function isAgentKnowledgeAddressBookCurrent(rawBook: unknown, rawBinding: unknown, now: number, maximumAgeMs?: number): boolean;
