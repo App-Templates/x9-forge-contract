@@ -33,4 +33,15 @@ export * from "./agent-elevenlabs/web-session.cjs";
 export * from "./agent-elevenlabs/web-catalog.cjs";
 export * from "./agent-elevenlabs/web-context.cjs";
 export * from "./paperclip/index.cjs";
+export * from "./coach/program-version.cjs";
+export * from "./coach/execution.cjs";
+export * from "./coach/measures.cjs";
+export * from "./coach/accounting.cjs";
+export * from "./coach/rolling-budget.cjs";
+export * from "./agent-elevenlabs/coach-binding.cjs";
+export * from "./coach/operational/index.cjs";
+export * from "./agent-elevenlabs/native-session.cjs";
+export * from "./agent-elevenlabs/native-tools.cjs";
+export * from "./agent-elevenlabs/native-config.cjs";
+export * from "./agent-elevenlabs/native-readback.cjs";
 //# sourceMappingURL=index.d.ts.map

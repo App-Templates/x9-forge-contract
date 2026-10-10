@@ -38,6 +38,7 @@ export declare const ElevenLabsWebAdmissionSnapshotSchema: z.ZodObject<{
             public: "public";
         }>;
         paused: z.ZodBoolean;
+        enabled: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
     link: z.ZodObject<{
         scope: z.ZodObject<{

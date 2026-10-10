@@ -11,6 +11,8 @@ export const ElevenLabsWebPolicySchema = z.object({
   version: AgentConfigVersionSchema,
   access: ElevenLabsWebAccessSchema,
   paused: z.boolean(),
+  /** Omitted legacy commands preserve the stored flag; explicit false is meaningful. */
+  enabled: z.boolean().optional(),
 }).strict();
 export type ElevenLabsWebPolicy = z.infer<typeof ElevenLabsWebPolicySchema>;
 
@@ -21,6 +23,8 @@ export const ElevenLabsWebPolicyChangeSchema = z.object({
   expectedVersion: AgentConfigVersionSchema,
   access: ElevenLabsWebAccessSchema,
   paused: z.boolean(),
+  /** Omitted legacy commands preserve the stored flag; explicit false is meaningful. */
+  enabled: z.boolean().optional(),
 }).strict();
 export type ElevenLabsWebPolicyChange = z.infer<typeof ElevenLabsWebPolicyChangeSchema>;
 export const ElevenLabsWebPolicyResultSchema = z.object({
@@ -42,7 +46,8 @@ export function isElevenLabsWebPolicyResultCurrent(request: unknown, result: unk
     && sameCapabilityScope(actual.policy.scope, expected.scope)
     && actual.policy.version === expected.expectedVersion + 1
     && actual.policy.access === expected.access
-    && actual.policy.paused === expected.paused;
+    && actual.policy.paused === expected.paused
+    && (expected.enabled === undefined || actual.policy.enabled === expected.enabled);
 }
 
 /** Server-owned record, not an authorization token or proof of an authenticated viewer. */

@@ -19,6 +19,7 @@ export declare const ElevenLabsWebPolicySchema: z.ZodObject<{
         public: "public";
     }>;
     paused: z.ZodBoolean;
+    enabled: z.ZodOptional<z.ZodBoolean>;
 }, z.core.$strict>;
 export type ElevenLabsWebPolicy = z.infer<typeof ElevenLabsWebPolicySchema>;
 /** First execution advances the Web policy exactly once; replay returns that same revision. */
@@ -36,6 +37,7 @@ export declare const ElevenLabsWebPolicyChangeSchema: z.ZodObject<{
         public: "public";
     }>;
     paused: z.ZodBoolean;
+    enabled: z.ZodOptional<z.ZodBoolean>;
 }, z.core.$strict>;
 export type ElevenLabsWebPolicyChange = z.infer<typeof ElevenLabsWebPolicyChangeSchema>;
 export declare const ElevenLabsWebPolicyResultSchema: z.ZodObject<{
@@ -55,6 +57,7 @@ export declare const ElevenLabsWebPolicyResultSchema: z.ZodObject<{
             public: "public";
         }>;
         paused: z.ZodBoolean;
+        enabled: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type ElevenLabsWebPolicyResult = z.infer<typeof ElevenLabsWebPolicyResultSchema>;

@@ -15,4 +15,8 @@ export type { SseTextFrame, SseToolCallStartFrame, SseToolCallEndFrame, SseDoneF
 export { parseSseFrame, parseSseStream } from "./sse-parser.cjs";
 export type { ParsedSseEvent } from "./sse-parser.cjs";
 export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from "./endpoints/cap-tool-call.cjs";
+export * from "./endpoints/coach-operational-common.cjs";
+export * from "./endpoints/coach-operational-write.cjs";
+export * from "./endpoints/coach-operational-read.cjs";
+export * from "./endpoints/native-channel.cjs";
 //# sourceMappingURL=index.d.ts.map

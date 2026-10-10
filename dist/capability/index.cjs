@@ -74,4 +74,15 @@ __exportStar(require("./agent-elevenlabs/web-session.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-catalog.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-context.cjs"), exports);
 __exportStar(require("./paperclip/index.cjs"), exports);
+__exportStar(require("./coach/program-version.cjs"), exports);
+__exportStar(require("./coach/execution.cjs"), exports);
+__exportStar(require("./coach/measures.cjs"), exports);
+__exportStar(require("./coach/accounting.cjs"), exports);
+__exportStar(require("./coach/rolling-budget.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/coach-binding.cjs"), exports);
+__exportStar(require("./coach/operational/index.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-session.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-tools.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-config.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-readback.cjs"), exports);
 //# sourceMappingURL=index.js.map

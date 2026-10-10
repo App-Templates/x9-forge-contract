@@ -31,3 +31,14 @@ it('rejects an invitation not yet created',()=>expect(valid(invitation,scope,'pe
 it('rejects an invalid current clock',()=>expect(valid(invitation,scope,'person-a',3,new Date('invalid'))).toBe(false));
 it.each([null,{}, {...invitation,scope:{...scope,ownerId:''}}, {...invitation,recipientUserId:''}, {...invitation,expiresAt:'invalid'},{...invitation,createdAt:invitation.expiresAt},{...invitation,createdAt:'2026-10-08T12:00:00Z'},{...invitation,revokedAt:'2026-10-08T09:00:00Z'}])('rejects malformed or contradictory invitation %j',record=>{expect(ElevenLabsWebInvitationSchema.safeParse(record).success).toBe(false);expect(valid(record)).toBe(false);});
 it('rejects malformed expected scope',()=>expect(valid(invitation,{})).toBe(false));
+
+it.each([true,false])('preserves explicit enabled=%s through canonical policy/change/readback',enabled=>{
+ expect(ElevenLabsWebPolicySchema.safeParse({...policy,enabled}).success).toBe(true);
+ expect(ElevenLabsWebPolicyChangeSchema.safeParse({...change,enabled}).success).toBe(true);
+ expect(ElevenLabsWebPolicySchema.parse({...policy,enabled})).toEqual({...policy,enabled});
+ expect(ElevenLabsWebPolicyChangeSchema.parse({...change,enabled})).toEqual({...change,enabled});
+ expect(isElevenLabsWebPolicyResultCurrent({...change,enabled},{...result,policy:{...policy,enabled}})).toBe(true);
+ expect(isElevenLabsWebPolicyResultCurrent({...change,enabled},{...result,policy:{...policy,enabled:!enabled}})).toBe(false);
+ expect(isElevenLabsWebPolicyResultCurrent({...change,enabled},result)).toBe(false);
+ expect(isElevenLabsWebPolicyResultCurrent(change,{...result,policy:{...policy,enabled}})).toBe(true);
+});

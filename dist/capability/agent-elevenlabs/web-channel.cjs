@@ -14,6 +14,8 @@ exports.ElevenLabsWebPolicySchema = zod_1.z.object({
     version: agent_config_js_1.AgentConfigVersionSchema,
     access: exports.ElevenLabsWebAccessSchema,
     paused: zod_1.z.boolean(),
+    /** Omitted legacy commands preserve the stored flag; explicit false is meaningful. */
+    enabled: zod_1.z.boolean().optional(),
 }).strict();
 /** First execution advances the Web policy exactly once; replay returns that same revision. */
 exports.ElevenLabsWebPolicyChangeSchema = zod_1.z.object({
@@ -22,6 +24,8 @@ exports.ElevenLabsWebPolicyChangeSchema = zod_1.z.object({
     expectedVersion: agent_config_js_1.AgentConfigVersionSchema,
     access: exports.ElevenLabsWebAccessSchema,
     paused: zod_1.z.boolean(),
+    /** Omitted legacy commands preserve the stored flag; explicit false is meaningful. */
+    enabled: zod_1.z.boolean().optional(),
 }).strict();
 exports.ElevenLabsWebPolicyResultSchema = zod_1.z.object({
     ok: zod_1.z.literal(true),
@@ -41,7 +45,8 @@ function isElevenLabsWebPolicyResultCurrent(request, result) {
         && (0, capability_call_context_js_1.sameCapabilityScope)(actual.policy.scope, expected.scope)
         && actual.policy.version === expected.expectedVersion + 1
         && actual.policy.access === expected.access
-        && actual.policy.paused === expected.paused;
+        && actual.policy.paused === expected.paused
+        && (expected.enabled === undefined || actual.policy.enabled === expected.enabled);
 }
 /** Server-owned record, not an authorization token or proof of an authenticated viewer. */
 exports.ElevenLabsWebInvitationSchema = zod_1.z.object({

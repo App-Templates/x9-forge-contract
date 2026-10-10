@@ -63,3 +63,9 @@ export type {
 export { parseSseFrame, parseSseStream } from './sse-parser.js';
 export type { ParsedSseEvent } from './sse-parser.js';
 export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from './endpoints/cap-tool-call.js';
+
+export * from './endpoints/coach-operational-common.js';
+export * from './endpoints/coach-operational-write.js';
+export * from './endpoints/coach-operational-read.js';
+
+export * from './endpoints/native-channel.js';

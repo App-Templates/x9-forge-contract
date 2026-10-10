@@ -150,6 +150,29 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         }, z.core.$strict>;
                     }, z.core.$strict>]>;
                 }, z.core.$strict>>;
+                provenance: z.ZodOptional<z.ZodObject<{
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>;
+                    bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        slotId: z.ZodString;
+                        origin: z.ZodLiteral<"master">;
+                        source: z.ZodObject<{
+                            identity: z.ZodObject<{
+                                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                vaultAgentId: z.ZodNumber;
+                            }, z.core.$strict>;
+                            sourceVersion: z.ZodNumber;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        slotId: z.ZodString;
+                        origin: z.ZodLiteral<"custom">;
+                        source: z.ZodOptional<z.ZodNever>;
+                    }, z.core.$strict>], "origin">>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             savedVersion: z.ZodNullable<z.ZodNumber>;
             status: z.ZodEnum<{
@@ -742,9 +765,9 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
             embedding: z.ZodNullable<z.ZodObject<{
                 state: z.ZodEnum<{
                     failed: "failed";
+                    completed: "completed";
                     pending: "pending";
                     running: "running";
-                    completed: "completed";
                 }>;
                 previous: z.ZodObject<{
                     provider: z.ZodString;
@@ -1245,9 +1268,9 @@ export declare const forgeModelsOverviewContract: {
             embedding: z.ZodNullable<z.ZodObject<{
                 state: z.ZodEnum<{
                     failed: "failed";
+                    completed: "completed";
                     pending: "pending";
                     running: "running";
-                    completed: "completed";
                 }>;
                 previous: z.ZodObject<{
                     provider: z.ZodString;
@@ -1375,6 +1398,17 @@ export declare const forgeModelsCatalogContract: {
             embeddingDimensions: z.ZodOptional<z.ZodNumber>;
             reason: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
+        inventory: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            access: z.ZodEnum<{
+                unknown: "unknown";
+                available: "available";
+                unavailable: "unavailable";
+                "not-configured": "not-configured";
+            }>;
+            compatibility: z.ZodLiteral<"unqualified">;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
     readonly authentication: "forge-session";
     readonly authorization: "sa-or-agent-owner";
@@ -1795,6 +1829,29 @@ export declare const forgeModelsPreviewContract: {
                         }, z.core.$strict>;
                     }, z.core.$strict>]>;
                 }, z.core.$strict>>;
+                provenance: z.ZodOptional<z.ZodObject<{
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>;
+                    bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        slotId: z.ZodString;
+                        origin: z.ZodLiteral<"master">;
+                        source: z.ZodObject<{
+                            identity: z.ZodObject<{
+                                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                vaultAgentId: z.ZodNumber;
+                            }, z.core.$strict>;
+                            sourceVersion: z.ZodNumber;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        slotId: z.ZodString;
+                        origin: z.ZodLiteral<"custom">;
+                        source: z.ZodOptional<z.ZodNever>;
+                    }, z.core.$strict>], "origin">>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             impact: z.ZodArray<z.ZodString>;
         }, z.core.$strict>>;
@@ -2081,6 +2138,29 @@ export declare const forgeModelsBatchContract: {
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
                     }, z.core.$strict>]>;
+                }, z.core.$strict>>;
+                provenance: z.ZodOptional<z.ZodObject<{
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>;
+                    bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        slotId: z.ZodString;
+                        origin: z.ZodLiteral<"master">;
+                        source: z.ZodObject<{
+                            identity: z.ZodObject<{
+                                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                vaultAgentId: z.ZodNumber;
+                            }, z.core.$strict>;
+                            sourceVersion: z.ZodNumber;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        slotId: z.ZodString;
+                        origin: z.ZodLiteral<"custom">;
+                        source: z.ZodOptional<z.ZodNever>;
+                    }, z.core.$strict>], "origin">>;
                 }, z.core.$strict>>;
             }, z.core.$strict>;
             savedVersion: z.ZodNullable<z.ZodNumber>;
@@ -2382,6 +2462,29 @@ export declare const forgeModelsProgressContract: {
                                 adapterId: z.ZodString;
                             }, z.core.$strict>;
                         }, z.core.$strict>]>;
+                    }, z.core.$strict>>;
+                    provenance: z.ZodOptional<z.ZodObject<{
+                        scope: z.ZodObject<{
+                            agentId: z.ZodString;
+                            ownerId: z.ZodString;
+                            tenantId: z.ZodString;
+                        }, z.core.$strict>;
+                        bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            slotId: z.ZodString;
+                            origin: z.ZodLiteral<"master">;
+                            source: z.ZodObject<{
+                                identity: z.ZodObject<{
+                                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                                    vaultAgentId: z.ZodNumber;
+                                }, z.core.$strict>;
+                                sourceVersion: z.ZodNumber;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            slotId: z.ZodString;
+                            origin: z.ZodLiteral<"custom">;
+                            source: z.ZodOptional<z.ZodNever>;
+                        }, z.core.$strict>], "origin">>;
                     }, z.core.$strict>>;
                 }, z.core.$strict>;
                 savedVersion: z.ZodNullable<z.ZodNumber>;
@@ -2975,9 +3078,9 @@ export declare const forgeModelsProgressContract: {
                 embedding: z.ZodNullable<z.ZodObject<{
                     state: z.ZodEnum<{
                         failed: "failed";
+                        completed: "completed";
                         pending: "pending";
                         running: "running";
-                        completed: "completed";
                     }>;
                     previous: z.ZodObject<{
                         provider: z.ZodString;
