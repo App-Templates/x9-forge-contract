@@ -16,4 +16,6 @@ export { parseSseFrame, parseSseStream } from "./sse-parser.cjs";
 export type { ParsedSseEvent } from "./sse-parser.cjs";
 export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from "./endpoints/cap-tool-call.cjs";
 export * from "./endpoints/forge-elevenlabs-web.cjs";
+export * from "./endpoints/internal-agent-channel-history-content.cjs";
+export * from "./endpoints/forge-agent-channel-history-content.cjs";
 //# sourceMappingURL=index.d.ts.map

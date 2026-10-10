@@ -50,4 +50,6 @@ Object.defineProperty(exports, "capToolCallContract", { enumerable: true, get: f
 Object.defineProperty(exports, "capToolCallPath", { enumerable: true, get: function () { return cap_tool_call_js_1.capToolCallPath; } });
 Object.defineProperty(exports, "CapToolCallParamsSchema", { enumerable: true, get: function () { return cap_tool_call_js_1.CapToolCallParamsSchema; } });
 __exportStar(require("./endpoints/forge-elevenlabs-web.cjs"), exports);
+__exportStar(require("./endpoints/internal-agent-channel-history-content.cjs"), exports);
+__exportStar(require("./endpoints/forge-agent-channel-history-content.cjs"), exports);
 //# sourceMappingURL=index.js.map
