@@ -1,0 +1,25 @@
+{
+  "total": 2,
+  "qualified": 2,
+  "results": [
+    {
+      "format": "esm",
+      "exitCode": 1,
+      "functionalAssertion": true,
+      "secondaryError": false
+    },
+    {
+      "format": "cjs",
+      "exitCode": 1,
+      "functionalAssertion": true,
+      "secondaryError": false
+    }
+  ],
+  "restored": true,
+  "sha256": "46cc94f9064a5bcd6395d39b4852caae5df003fb3966b6be817786653c15c56d",
+  "green": {
+    "checks": 32,
+    "total": 32,
+    "status": "passed"
+  }
+}

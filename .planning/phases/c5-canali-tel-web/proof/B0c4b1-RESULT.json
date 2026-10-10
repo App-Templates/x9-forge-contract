@@ -1,0 +1,74 @@
+{
+  "newTests": 13,
+  "full": {
+    "passed": 4524,
+    "total": 4524,
+    "files": 160,
+    "skipped": 0
+  },
+  "baseline": {
+    "total": 13,
+    "failedFunctional": 3,
+    "other": 0
+  },
+  "sourceMutations": {
+    "qualified": 24,
+    "total": 24,
+    "restored": true,
+    "sha256": "3a9ba9ac9a4238af7c38b43dbda5ee4dbcd9b1044341c8d80fc473a9ce94683c"
+  },
+  "compiledMutations": {
+    "total": 2,
+    "qualified": 2,
+    "results": [
+      {
+        "format": "esm",
+        "exitCode": 1,
+        "functionalAssertion": true,
+        "secondaryError": false
+      },
+      {
+        "format": "cjs",
+        "exitCode": 1,
+        "functionalAssertion": true,
+        "secondaryError": false
+      }
+    ],
+    "restored": true,
+    "sha256": "46cc94f9064a5bcd6395d39b4852caae5df003fb3966b6be817786653c15c56d",
+    "green": {
+      "checks": 32,
+      "total": 32,
+      "status": "passed"
+    }
+  },
+  "quality": [
+    {
+      "check": "full",
+      "exitCode": 0
+    },
+    {
+      "check": "typecheck",
+      "exitCode": 0
+    },
+    {
+      "check": "lint",
+      "exitCode": 0
+    },
+    {
+      "check": "build",
+      "exitCode": 0
+    },
+    {
+      "check": "pack",
+      "exitCode": 0
+    }
+  ],
+  "live": {
+    "passed": 0,
+    "total": 42
+  },
+  "globalStatus": "IN CORSO",
+  "handlers": 0,
+  "newWriters": 0
+}

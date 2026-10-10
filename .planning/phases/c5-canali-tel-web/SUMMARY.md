@@ -22,3 +22,5 @@ Composizione/pin pubblico coordinati con F prima dell'adozione nei consumer.
 Restano ammissione inbound, autorità Web/inviti/catalogo, storico voce e prova utente completa.
 Review indipendente e suite completa alla consegna dell'intera funzione, non di questo raccordo.
 Misura 10/10 dal base del lotto: 103 righe prodotto, 139 test, 24 documenti; derivati build separati.
+
+Inviti amministrativi 06abb33 conservati additivamente con facciata pubblica Web; composizione da verificare.
