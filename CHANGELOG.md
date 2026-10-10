@@ -16,6 +16,8 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 - `./http`: additive Web administrative snapshot, policy preview/apply and read-only catalog descriptors, bound to current Forge owner/SA session evidence.
 - `./agent` / `./http`: bounded plain-text channel transcript DTO and opaque-entry authenticated reads, with explicit unavailable/retention states and full binding correlation. No provider URL or raw envelope is exposed.
+- `./http`: administrative Web invitation list/invite/revoke descriptors bound to current Forge owner/SA session evidence (composed from d6523a5).
+- `./agent` / `./http`: scoped Knowledge address-book snapshot schema and internal read contract (composed from 8652688).
 
 - `./capability` / `./http/endpoints`: **descrittore della voce** per capacità vocali (BRIDGE-VOICE-DESCRIPTOR). Autore Codex E, verifica Codex F (APPROVE).
 - `./http/endpoints`: **contratto del canale telefono** (CANALI-C2-BRIDGE B1+B2+B4). Autore Codex F, verifica Codex D (APPROVE).
