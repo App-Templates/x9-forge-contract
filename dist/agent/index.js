@@ -55,4 +55,5 @@ export * from "./agent-channel-history.js";
 export * from "./agent-workspace-digest.js";
 export * from "./ordinary-authority.js";
 export * from "./agent-knowledge-address-book.js";
+export * from "./agent-channel-history-content.js";
 //# sourceMappingURL=index.js.map

@@ -37,4 +37,5 @@ export * from "./agent-channel-history.cjs";
 export * from "./agent-workspace-digest.cjs";
 export * from "./ordinary-authority.cjs";
 export * from "./agent-knowledge-address-book.cjs";
+export * from "./agent-channel-history-content.cjs";
 //# sourceMappingURL=index.d.ts.map

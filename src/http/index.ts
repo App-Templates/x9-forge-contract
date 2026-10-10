@@ -65,3 +65,6 @@ export type { ParsedSseEvent } from './sse-parser.js';
 export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from './endpoints/cap-tool-call.js';
 
 export * from './endpoints/forge-elevenlabs-web.js';
+
+export * from './endpoints/internal-agent-channel-history-content.js';
+export * from './endpoints/forge-agent-channel-history-content.js';

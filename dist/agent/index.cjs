@@ -91,4 +91,5 @@ __exportStar(require("./agent-channel-history.cjs"), exports);
 __exportStar(require("./agent-workspace-digest.cjs"), exports);
 __exportStar(require("./ordinary-authority.cjs"), exports);
 __exportStar(require("./agent-knowledge-address-book.cjs"), exports);
+__exportStar(require("./agent-channel-history-content.cjs"), exports);
 //# sourceMappingURL=index.js.map
