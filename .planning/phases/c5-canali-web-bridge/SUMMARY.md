@@ -19,6 +19,8 @@ Descrittori e helper non montano handler né autenticano chiamanti; producer e c
 Fonte phone conserva trascrizione nel webhook; Email richiede lettura del corpo, TG/Web il proprio evento preciso.
 Contenuti audio restano senza rotta; non si dichiara audio disponibile o trascrizione vuota per assenza.
 Composizione unica affidata a F; pin pubblicato precede adozione API/UI nei consumer.
+Eredità 10/10: composti inviti amministrativi list/invite/revoke (da d6523a5) e contratti Rubrica Knowledge (da 8652688); solo Canali, nessun contratto Modelli/Paperclip/Coach.
+Suite completa 170 file/5014 test, smoke CJS 36/36, tipi/lint/build 0, export ESM+CJS verificati; .nvmrc 24 (R-32).
 Pagina Parla, authority corrente, UI/SDK montato e letture contenuto reali restano da completare.
 Review indipendente e suite completa alla consegna funzione; nessun push, merge, deploy o cancellazione.
 Prove Web dal vivo0/1; nessuna dichiarazione100%.
