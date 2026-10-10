@@ -66,6 +66,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -81,6 +82,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -98,6 +100,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -134,6 +137,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -149,6 +153,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -168,6 +173,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -204,6 +210,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -236,6 +243,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -394,6 +402,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -497,6 +506,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -512,6 +522,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -529,6 +540,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -565,6 +577,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -580,6 +593,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -599,6 +613,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -635,6 +650,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -667,6 +683,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -706,6 +723,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -721,6 +739,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -738,6 +757,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -774,6 +794,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -789,6 +810,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -808,6 +830,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -844,6 +867,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -876,6 +900,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -915,6 +940,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -930,6 +956,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -947,6 +974,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -983,6 +1011,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -998,6 +1027,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1017,6 +1047,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1053,6 +1084,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1085,6 +1117,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1150,6 +1183,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1165,6 +1199,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1180,6 +1215,7 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1291,6 +1327,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1306,6 +1343,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1323,6 +1361,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1359,6 +1398,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1374,6 +1414,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1393,6 +1434,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1429,6 +1471,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1461,6 +1504,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1500,6 +1544,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1515,6 +1560,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1532,6 +1578,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1568,6 +1615,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1583,6 +1631,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1602,6 +1651,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1638,6 +1688,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1670,6 +1721,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1709,6 +1761,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1724,6 +1777,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1741,6 +1795,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1777,6 +1832,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1792,6 +1848,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1811,6 +1868,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1847,6 +1905,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1879,6 +1938,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1944,6 +2004,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1959,6 +2020,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1974,6 +2036,7 @@ export declare const forgeModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -2038,6 +2101,7 @@ export declare const forgeModelsCatalogContract: {
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
             function: z.ZodEnum<{
@@ -2141,6 +2205,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2156,6 +2221,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2173,6 +2239,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2209,6 +2276,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2224,6 +2292,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2243,6 +2312,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2279,6 +2349,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2311,6 +2382,7 @@ export declare const forgeModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2371,6 +2443,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -2386,6 +2459,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2403,6 +2477,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2439,6 +2514,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -2454,6 +2530,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2473,6 +2550,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2509,6 +2587,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2541,6 +2620,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2641,6 +2721,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -2656,6 +2737,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2673,6 +2755,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2709,6 +2792,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -2724,6 +2808,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2743,6 +2828,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2779,6 +2865,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2811,6 +2898,7 @@ export declare const forgeModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2897,6 +2985,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2912,6 +3001,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2929,6 +3019,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2965,6 +3056,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2980,6 +3072,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2999,6 +3092,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -3035,6 +3129,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -3067,6 +3162,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -3133,6 +3229,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -3148,6 +3245,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -3165,6 +3263,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -3201,6 +3300,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -3216,6 +3316,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -3235,6 +3336,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -3271,6 +3373,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -3303,6 +3406,7 @@ export declare const forgeModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -3461,6 +3565,7 @@ export declare const forgeModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -3550,6 +3655,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>>;
@@ -3565,6 +3671,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>;
@@ -3582,6 +3689,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>;
@@ -3618,6 +3726,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>>;
@@ -3633,6 +3742,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>;
@@ -3652,6 +3762,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>;
@@ -3688,6 +3799,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>;
@@ -3720,6 +3832,7 @@ export declare const forgeModelsProgressContract: {
                                     speech: "speech";
                                     transcriptions: "transcriptions";
                                     realtime: "realtime";
+                                    live: "live";
                                 }>;
                                 adapterId: z.ZodString;
                             }, z.core.$strict>;
@@ -3878,6 +3991,7 @@ export declare const forgeModelsProgressContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -3981,6 +4095,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -3996,6 +4111,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4013,6 +4129,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4049,6 +4166,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -4064,6 +4182,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4083,6 +4202,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4119,6 +4239,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4151,6 +4272,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4190,6 +4312,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -4205,6 +4328,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4222,6 +4346,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4258,6 +4383,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -4273,6 +4399,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4292,6 +4419,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4328,6 +4456,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4360,6 +4489,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4399,6 +4529,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -4414,6 +4545,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4431,6 +4563,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4467,6 +4600,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -4482,6 +4616,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4501,6 +4636,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4537,6 +4673,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4569,6 +4706,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4634,6 +4772,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4649,6 +4788,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -4664,6 +4804,7 @@ export declare const forgeModelsProgressContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;

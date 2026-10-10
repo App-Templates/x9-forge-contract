@@ -5,7 +5,7 @@ import { CapabilityModelIdSchema } from '../capability/ricerca/agent-config.js';
 /** Server registered ids, never browser supplied URLs or credentials. */
 const RegisteredIdSchema = z.string().regex(/^[a-z][a-z0-9._-]{0,63}$/);
 export const ModelCatalogProviderIdSchema = RegisteredIdSchema.refine(value => value !== 'claude' && value !== 'gemini', { message: 'Use canonical provider ids' });
-export const ModelApiProtocolSchema = z.enum(['responses', 'chat-completions', 'messages', 'generate-content', 'embeddings', 'speech', 'transcriptions', 'realtime']);
+export const ModelApiProtocolSchema = z.enum(['responses', 'chat-completions', 'messages', 'generate-content', 'embeddings', 'speech', 'transcriptions', 'realtime', 'live']);
 export const ModelFunctionSchema = z.enum(['reasoning', 'memory-extraction', 'embedding', 'tts', 'transcription', 'voice']);
 export const ModelCatalogVersionSchema = z.string().min(1).max(64);
 

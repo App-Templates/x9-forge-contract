@@ -44,6 +44,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -59,6 +60,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -76,6 +78,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -112,6 +115,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -127,6 +131,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -146,6 +151,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -182,6 +188,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -214,6 +221,7 @@ export declare const AgentModelSelectionSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -323,6 +331,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -338,6 +347,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -355,6 +365,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -391,6 +402,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -406,6 +418,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -425,6 +438,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -461,6 +475,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -493,6 +508,7 @@ export declare const AgentModelsConfigurationSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -564,6 +580,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -579,6 +596,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -596,6 +614,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -632,6 +651,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -647,6 +667,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -666,6 +687,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -702,6 +724,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -734,6 +757,7 @@ export declare const AgentModelsConfigurationWithProvenanceSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;

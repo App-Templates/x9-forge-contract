@@ -87,6 +87,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -102,6 +103,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -119,6 +121,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -155,6 +158,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -170,6 +174,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -189,6 +194,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -225,6 +231,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -257,6 +264,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -296,6 +304,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -311,6 +320,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -328,6 +338,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -364,6 +375,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -379,6 +391,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -398,6 +411,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -434,6 +448,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -466,6 +481,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -505,6 +521,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -520,6 +537,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -537,6 +555,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -573,6 +592,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -588,6 +608,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -607,6 +628,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -643,6 +665,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -675,6 +698,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -740,6 +764,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -755,6 +780,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -770,6 +796,7 @@ export declare const internalModelsOverviewContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -850,6 +877,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -865,6 +893,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -882,6 +911,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -918,6 +948,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -933,6 +964,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -952,6 +984,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -988,6 +1021,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1020,6 +1054,7 @@ export declare const internalModelsPreviewContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1080,6 +1115,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -1095,6 +1131,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1112,6 +1149,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1148,6 +1186,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -1163,6 +1202,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1182,6 +1222,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1218,6 +1259,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1250,6 +1292,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1350,6 +1393,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -1365,6 +1409,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1382,6 +1427,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1418,6 +1464,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -1433,6 +1480,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1452,6 +1500,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1488,6 +1537,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1520,6 +1570,7 @@ export declare const internalModelsPreviewContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1606,6 +1657,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -1621,6 +1673,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1638,6 +1691,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1674,6 +1728,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -1689,6 +1744,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1708,6 +1764,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1744,6 +1801,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1776,6 +1834,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1842,6 +1901,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -1857,6 +1917,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1874,6 +1935,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1910,6 +1972,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>>;
@@ -1925,6 +1988,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1944,6 +2008,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -1980,6 +2045,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2012,6 +2078,7 @@ export declare const internalModelsBatchContract: {
                                 speech: "speech";
                                 transcriptions: "transcriptions";
                                 realtime: "realtime";
+                                live: "live";
                             }>;
                             adapterId: z.ZodString;
                         }, z.core.$strict>;
@@ -2170,6 +2237,7 @@ export declare const internalModelsBatchContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2275,6 +2343,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2290,6 +2359,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2307,6 +2377,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2343,6 +2414,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2358,6 +2430,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2377,6 +2450,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2413,6 +2487,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2445,6 +2520,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2513,6 +2589,7 @@ export declare const internalAgentModelsStateContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -2576,6 +2653,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2591,6 +2669,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2608,6 +2687,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2644,6 +2724,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2659,6 +2740,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2678,6 +2760,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2714,6 +2797,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2746,6 +2830,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2834,6 +2919,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2849,6 +2935,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2866,6 +2953,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2902,6 +2990,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2917,6 +3006,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2936,6 +3026,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2972,6 +3063,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -3004,6 +3096,7 @@ export declare const internalAgentModelsStateContract: {
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -3104,6 +3197,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -3119,6 +3213,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3136,6 +3231,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3172,6 +3268,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -3187,6 +3284,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3206,6 +3304,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3242,6 +3341,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3274,6 +3374,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3298,6 +3399,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3313,6 +3415,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3328,6 +3431,7 @@ export declare const internalModelConsumerStateContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3398,6 +3502,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -3413,6 +3518,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3430,6 +3536,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3466,6 +3573,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -3481,6 +3589,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3500,6 +3609,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3536,6 +3646,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3568,6 +3679,7 @@ export declare const internalModelConsumerInstallContract: {
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -3640,6 +3752,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -3655,6 +3768,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3672,6 +3786,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3708,6 +3823,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -3723,6 +3839,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3742,6 +3859,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3778,6 +3896,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3810,6 +3929,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3834,6 +3954,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3849,6 +3970,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -3864,6 +3986,7 @@ export declare const internalModelConsumerInstallContract: {
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;

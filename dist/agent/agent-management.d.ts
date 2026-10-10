@@ -107,6 +107,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -122,6 +123,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -139,6 +141,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -175,6 +178,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -190,6 +194,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -209,6 +214,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -245,6 +251,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -277,6 +284,7 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;

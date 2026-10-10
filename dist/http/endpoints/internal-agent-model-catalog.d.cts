@@ -37,6 +37,7 @@ export declare const internalAgentModelCatalogContract: {
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
             function: z.ZodEnum<{

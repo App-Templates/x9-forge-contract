@@ -9,6 +9,7 @@ export declare const ModelApiProtocolSchema: z.ZodEnum<{
     speech: "speech";
     transcriptions: "transcriptions";
     realtime: "realtime";
+    live: "live";
 }>;
 export declare const ModelFunctionSchema: z.ZodEnum<{
     reasoning: "reasoning";
@@ -31,6 +32,7 @@ export declare const ModelDescriptorSchema: z.ZodObject<{
         speech: "speech";
         transcriptions: "transcriptions";
         realtime: "realtime";
+        live: "live";
     }>;
     adapterId: z.ZodString;
 }, z.core.$strict>;
@@ -62,6 +64,7 @@ export declare const ModelCatalogEntrySchema: z.ZodObject<{
         speech: "speech";
         transcriptions: "transcriptions";
         realtime: "realtime";
+        live: "live";
     }>;
     adapterId: z.ZodString;
     function: z.ZodEnum<{
@@ -143,6 +146,7 @@ export declare const ModelCatalogSchema: z.ZodObject<{
             speech: "speech";
             transcriptions: "transcriptions";
             realtime: "realtime";
+            live: "live";
         }>;
         adapterId: z.ZodString;
         function: z.ZodEnum<{

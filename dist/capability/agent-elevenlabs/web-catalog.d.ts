@@ -35,6 +35,7 @@ export declare const ElevenLabsWebCatalogSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
             function: z.ZodEnum<{
