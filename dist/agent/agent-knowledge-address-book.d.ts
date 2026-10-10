@@ -32,6 +32,9 @@ export type AgentKnowledgeAddressBookInput = z.input<typeof AgentKnowledgeAddres
 export declare function createAgentKnowledgeAddressBook(input: AgentKnowledgeAddressBookInput): AgentKnowledgeAddressBook;
 /** Validated C1 projection, preserving authority, completeness, version, time and exact email entries. */
 export declare function toAgentChannelAddressBook(rawBook: unknown): AgentChannelAddressBook;
+/** Same validated book projected for the telephone gate: exact E.164 entries only from a complete source. The email
+ * projection above stays byte-identical; emails are kept because the C1 book shape requires them for a complete source. */
+export declare function toAgentChannelPhoneAddressBook(rawBook: unknown): AgentChannelAddressBook;
 /** Current complete source only. Consumers recheck remote revocations after awaits before effects. */
 export declare function isAgentKnowledgeAddressBookCurrent(rawBook: unknown, rawBinding: unknown, now: number, maximumAgeMs?: number): boolean;
 //# sourceMappingURL=agent-knowledge-address-book.d.ts.map

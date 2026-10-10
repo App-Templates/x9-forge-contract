@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentKnowledgeAddressBookSchema = exports.AgentKnowledgePhoneNumberSchema = void 0;
 exports.createAgentKnowledgeAddressBook = createAgentKnowledgeAddressBook;
 exports.toAgentChannelAddressBook = toAgentChannelAddressBook;
+exports.toAgentChannelPhoneAddressBook = toAgentChannelPhoneAddressBook;
 exports.isAgentKnowledgeAddressBookCurrent = isAgentKnowledgeAddressBookCurrent;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability/capability-call-context.cjs");
@@ -38,6 +39,13 @@ function toAgentChannelAddressBook(rawBook) {
     const book = exports.AgentKnowledgeAddressBookSchema.parse(rawBook);
     return agent_channel_access_js_1.AgentChannelAddressBookSchema.parse({ scope: book.scope, identity: book.identity, status: book.status,
         version: book.version, observedAt: book.observedAt, emails: book.emails });
+}
+/** Same validated book projected for the telephone gate: exact E.164 entries only from a complete source. The email
+ * projection above stays byte-identical; emails are kept because the C1 book shape requires them for a complete source. */
+function toAgentChannelPhoneAddressBook(rawBook) {
+    const book = exports.AgentKnowledgeAddressBookSchema.parse(rawBook);
+    return agent_channel_access_js_1.AgentChannelAddressBookSchema.parse({ scope: book.scope, identity: book.identity, status: book.status,
+        version: book.version, observedAt: book.observedAt, emails: book.emails, phones: book.phoneNumbers });
 }
 /** Current complete source only. Consumers recheck remote revocations after awaits before effects. */
 function isAgentKnowledgeAddressBookCurrent(rawBook, rawBinding, now, maximumAgeMs = 60_000) {

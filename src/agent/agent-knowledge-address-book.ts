@@ -43,6 +43,14 @@ export function toAgentChannelAddressBook(rawBook: unknown): AgentChannelAddress
     version: book.version, observedAt: book.observedAt, emails: book.emails });
 }
 
+/** Same validated book projected for the telephone gate: exact E.164 entries only from a complete source. The email
+ * projection above stays byte-identical; emails are kept because the C1 book shape requires them for a complete source. */
+export function toAgentChannelPhoneAddressBook(rawBook: unknown): AgentChannelAddressBook {
+  const book = AgentKnowledgeAddressBookSchema.parse(rawBook);
+  return AgentChannelAddressBookSchema.parse({ scope: book.scope, identity: book.identity, status: book.status,
+    version: book.version, observedAt: book.observedAt, emails: book.emails, phones: book.phoneNumbers });
+}
+
 /** Current complete source only. Consumers recheck remote revocations after awaits before effects. */
 export function isAgentKnowledgeAddressBookCurrent(rawBook: unknown, rawBinding: unknown,
   now: number, maximumAgeMs = 60_000): boolean {

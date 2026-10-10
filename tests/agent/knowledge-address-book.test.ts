@@ -61,6 +61,25 @@ describe('canonical knowledge address-book', () => {
     expect(publicAgent.isEmailSenderAdmitted({ kind: 'email', mode: 'address-book' }, 'stranger@example.test', result, binding(), now)).toBe(false);
     expect(publicAgent.AgentChannelAddressBookSchema.safeParse(input).success).toBe(false);
   });
+  it('projects the same book into the exact telephone gate without touching the email projection', () => {
+    expect(api.toAgentChannelPhoneAddressBook).toBeTypeOf('function'); const input = book(); const result = api.toAgentChannelPhoneAddressBook(input);
+    expect(result).toEqual({ scope: input.scope, identity: input.identity, status: 'complete', version: 7, observedAt: input.observedAt, emails: ['person@example.test'], phones: ['+12345678'] });
+    expect(publicAgent.AgentChannelAddressBookSchema.parse(result)).toEqual(result);
+    expect(publicAgent.isPhoneNumberInAddressBook('+12345678', result, binding(), now)).toBe(true);
+    expect(publicAgent.isPhoneNumberInAddressBook('+22345678', result, binding(), now)).toBe(false);
+    expect(api.toAgentChannelAddressBook(input)).not.toHaveProperty('phones');
+  });
+  it('never publishes phones for an incomplete source and refuses an invalid book', () => {
+    expect(api.toAgentChannelPhoneAddressBook).toBeTypeOf('function');
+    const partial = api.toAgentChannelPhoneAddressBook({ ...book(), status: 'partial', version: null, observedAt: null, emails: null, phoneNumbers: null });
+    expect(partial.phones ?? null).toBeNull(); expect(publicAgent.isPhoneNumberInAddressBook('+12345678', partial, binding(), now)).toBe(false);
+    expect(() => api.toAgentChannelPhoneAddressBook({ ...book(), phoneNumbers: null })).toThrow();
+    expect(() => api.toAgentChannelPhoneAddressBook({ ...book(), phoneNumbers: ['not-a-number'] })).toThrow();
+  });
+  it('keeps the telephone projection detached from the caller input', () => {
+    const input = book(); const out = api.toAgentChannelPhoneAddressBook(input); input.phoneNumbers.push('+22345678'); input.identity.vaultAgentId = 88;
+    expect(out.phones).toEqual(['+12345678']); expect(out.identity.vaultAgentId).toBe(17);
+  });
   it('refuses an invalid book at projection boundary', () => { expect(api.toAgentChannelAddressBook).toBeTypeOf('function'); expect(() => api.toAgentChannelAddressBook({ ...book(), phoneNumbers: null })).toThrow(); });
   it('keeps partial unavailable in C1 projection', () => { expect(api.toAgentChannelAddressBook).toBeTypeOf('function'); expect(() => api.toAgentChannelAddressBook({ ...book(), status: 'partial', emails: null, phoneNumbers: null })).not.toThrow(); const result = api.toAgentChannelAddressBook({ ...book(), status: 'partial', emails: null, phoneNumbers: null }); expect(result.emails).toBeNull(); expect(publicAgent.isEmailSenderAdmitted({ kind: 'email', mode: 'address-book' }, 'person@example.test', result, binding(), now)).toBe(false); });
   it('requires well formed book and binding', () => { expect(current(null)).toBe(false); expect(current(book(), null)).toBe(false); });
