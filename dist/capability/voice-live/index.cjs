@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VoiceLiveCallEndReasonSchema = exports.VoiceLiveWebSessionResponseSchema = exports.VoiceLiveWebSessionRequestSchema = exports.VoiceLiveTranscriptTurnSchema = exports.VoiceLiveCallStartResponseSchema = exports.VoiceLiveCallStartRequestSchema = exports.VoiceLiveToolDefinitionSchema = exports.CAP_VOICE_LIVE_DEFAULT_PORT = void 0;
+exports.VoiceLiveCallEndReasonSchema = exports.VoiceLiveWebSessionResponseSchema = exports.VoiceLiveWebSessionRequestSchema = exports.VoiceLiveTranscriptTurnSchema = exports.ManagedVoiceLiveCallStartResponseSchema = exports.VoiceLiveCallStartResponseSchema = exports.ManagedVoiceLiveCallStartRequestSchema = exports.ManagedVoiceLiveCredentialsSchema = exports.StandaloneVoiceLiveCallStartRequestSchema = exports.VoiceLiveCallStartRequestSchema = exports.VoiceLiveToolDefinitionSchema = exports.CAP_VOICE_LIVE_DEFAULT_PORT = void 0;
 /**
  * cap-voice-live contracts — sub-path `@x9-forge/contracts/capability/voice-live`.
  *
@@ -19,6 +19,8 @@ exports.VoiceLiveCallEndReasonSchema = exports.VoiceLiveWebSessionResponseSchema
  * STRICT (internal X9 boundary, R-14): no `.passthrough()`.
  */
 const zod_1 = require("zod");
+const agent_credentials_js_1 = require("../../agent/agent-credentials.cjs");
+const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const provider_js_1 = require("../voice/provider.cjs");
 const internal_agent_turn_js_1 = require("../../http/endpoints/internal-agent-turn.cjs");
 /** Default TCP port of cap-voice-live inside the X9 docker network. */
@@ -62,6 +64,24 @@ exports.VoiceLiveCallStartRequestSchema = zod_1.z.strictObject({
     /** BCP-47 hint for the post-call summary language (e.g. "it"). */
     locale: zod_1.z.string().min(1).default('it'),
 });
+/** Explicit standalone mode is selected by trusted server configuration, never inferred from missing managed keys. */
+exports.StandaloneVoiceLiveCallStartRequestSchema = exports.VoiceLiveCallStartRequestSchema.extend({
+    credentialPolicy: zod_1.z.literal('standalone'),
+});
+/** Only the OpenAI-Live/Telnyx call lane is admitted here; ElevenLabs uses its native call lane. */
+exports.ManagedVoiceLiveCredentialsSchema = agent_credentials_js_1.AgentCredentialsSchema.pick({
+    OPENAI_API_KEY: true, TELNYX_API_KEY: true, TELNYX_CONNECTION_ID: true,
+    TELNYX_FROM_NUMBER: true, TELNYX_PUBLIC_KEY: true,
+}).strict().required().refine(bundle => Object.values(bundle).every(value => value.trim().length > 0), {
+    message: 'Every admitted call field must be nonempty',
+});
+exports.ManagedVoiceLiveCallStartRequestSchema = exports.VoiceLiveCallStartRequestSchema.extend({
+    credentialPolicy: zod_1.z.literal('managed'),
+    identity: capability_call_context_js_1.CapabilityCallIdentitySchema,
+    credentials: exports.ManagedVoiceLiveCredentialsSchema,
+}).refine(request => request.agent_id === request.identity.agentId, {
+    path: ['identity', 'agentId'], message: 'Managed call identity must match the addressed agent',
+});
 exports.VoiceLiveCallStartResponseSchema = zod_1.z.object({
     call_id: zod_1.z.string().min(1),
     provider: provider_js_1.VoiceProviderSchema,
@@ -74,6 +94,8 @@ exports.VoiceLiveCallStartResponseSchema = zod_1.z.object({
     conversation_id: zod_1.z.string().min(1),
     started_at: zod_1.z.string().datetime({ offset: true }),
 });
+/** Managed boundary returns only the native call result, never admitted credentials. */
+exports.ManagedVoiceLiveCallStartResponseSchema = exports.VoiceLiveCallStartResponseSchema.strict();
 /** One transcript turn as reconstructed from GPT-Live transcript deltas. */
 exports.VoiceLiveTranscriptTurnSchema = zod_1.z.object({
     role: zod_1.z.enum(['agent', 'user']),

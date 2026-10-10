@@ -76,3 +76,17 @@ describe('AgentCredentialsSchema', () => {
     ).toThrow();
   });
 });
+
+describe('Netatmo account credential', () => {
+  it('declares the account email as a known key', () => {
+    expect(KNOWN_CREDENTIAL_KEYS).toContain('NETATMO_EMAIL');
+  });
+
+  it('declares an explicit optional string schema for the account email', () => {
+    expect(Object.hasOwn(AgentCredentialsSchema.shape, 'NETATMO_EMAIL')).toBe(true);
+    const field = AgentCredentialsSchema.shape['NETATMO_EMAIL' as keyof typeof AgentCredentialsSchema.shape];
+    expect(field.isOptional()).toBe(true);
+    expect(field.safeParse('synthetic@example.invalid').success).toBe(true);
+    expect(field.safeParse(123).success).toBe(false);
+  });
+});

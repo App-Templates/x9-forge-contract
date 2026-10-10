@@ -73,3 +73,11 @@ export type LabCompetenceOutput = z.infer<typeof LabCompetenceOutputSchema>;
 
 export type LabIngestStatusInput = z.infer<typeof LabIngestStatusInputSchema>;
 export type LabIngestStatusOutput = z.infer<typeof LabIngestStatusOutputSchema>;
+
+/** Worker-owned paid execution, deliberately excluded from model-visible LAB_TOOLS. */
+export const LAB_INTERNAL_TOOLS = { execute: 'lab_execute' } as const;
+/** Receiver validates the current full-scope SQL claim and its unexpired lease before effects. */
+export const LabExecuteInputSchema = z.strictObject({ jobId: LabIngestIdSchema, leaseToken: z.uuid() });
+export const LabExecuteOutputSchema = z.strictObject({ jobId: LabIngestIdSchema, state: ResearchStateSchema });
+export type LabExecuteInput = z.infer<typeof LabExecuteInputSchema>;
+export type LabExecuteOutput = z.infer<typeof LabExecuteOutputSchema>;

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { CapabilityCallIdentitySchema } from "../../capability/capability-call-identity.js";
 import { InternalMemoryExtractRequestSchema } from "./internal-memory-extract.js";
 import { AgentTurnSchema, AgentTurnMoveIdSchema, CapabilityLeadInstructionsSchema, CapabilityNoteSchema } from "../../capability/capability-turn-lead.js";
 import { InternalTurnRequestSchema, InternalTurnResponseSchema, InternalTurnErrorResponseSchema, } from "./internal-turn.js";
@@ -34,6 +35,8 @@ export const InternalAgentTurnParamsSchema = z.object({
 });
 export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema.extend({
     turn: AgentTurnSchema.optional(),
+    /** Trusted server scope, checked against the current admitted agent. */
+    identity: CapabilityCallIdentitySchema.optional(),
     /** Trusted caller identity, never taken from model text or tool input. */
     userId: InternalMemoryExtractRequestSchema.shape.userId,
 });

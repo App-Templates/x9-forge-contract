@@ -36,7 +36,7 @@ exports.AgentTurnSchema = zod_1.z.discriminatedUnion('kind', [
 /** Presence opts in; absence is legacy. Forge copies this declaration without inventing defaults. */
 exports.CapabilityTurnLeadDeclarationSchema = zod_1.z.object({}).strict();
 /** Identity comes from the authenticated runtime; the single-company MVP uses the existing context envelope. */
-exports.CapabilityTurnLeadRequestSchema = capability_context_js_1.CapabilityContextRequestSchema.extend({
+exports.CapabilityTurnLeadRequestSchema = capability_context_js_1.CapabilityContextRequestSchema.safeExtend({
     turn: exports.AgentTurnSchema,
 }).strict();
 exports.CapabilityTurnLeadResponseSchema = zod_1.z.discriminatedUnion('kind', [

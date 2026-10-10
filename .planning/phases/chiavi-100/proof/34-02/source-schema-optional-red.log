@@ -1,0 +1,168 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ✓ tests/agent/agent-credential-services.test.ts (77 tests) 10ms
+ ❯ tests/agent/agent-credentials.test.ts (10 tests | 5 failed) 9ms
+   ✓ KNOWN_CREDENTIAL_KEYS > has at least 16 known keys 1ms
+   ✓ KNOWN_CREDENTIAL_KEYS > includes core credential keys 1ms
+   × KNOWN_CREDENTIAL_KEYS > Phase 50: includes voice-note provider-lane keys 4ms
+     → [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+   × AgentCredentialsSchema > parses full production credentials 0ms
+     → [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+   × AgentCredentialsSchema > accepts empty credentials object 0ms
+     → [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+   × AgentCredentialsSchema > accepts dynamic capability-specific keys via catchall 0ms
+     → [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+   ✓ AgentCredentialsSchema > rejects non-string credential values 0ms
+   ✓ AgentCredentialsSchema > rejects non-string dynamic key values 0ms
+   ✓ Netatmo account credential > declares the account email as a known key 0ms
+   × Netatmo account credential > declares an explicit optional string schema for the account email 2ms
+     → expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > KNOWN_CREDENTIAL_KEYS > Phase 50: includes voice-note provider-lane keys
+ZodError: [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+ ❯ tests/agent/agent-credentials.test.ts:29:35
+     27|       expect(keys).toContain(k);
+     28|     }
+     29|     expect(AgentCredentialsSchema.parse({ TTS_PROVIDER: 'openai' }).TT…
+       |                                   ^
+     30|   });
+     31| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > AgentCredentialsSchema > parses full production credentials
+ZodError: [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+ ❯ tests/agent/agent-credentials.test.ts:35:43
+     33| describe('AgentCredentialsSchema', () => {
+     34|   it('parses full production credentials', () => {
+     35|     const result = AgentCredentialsSchema.parse({
+       |                                           ^
+     36|       OPENAI_API_KEY: 'sk-test',
+     37|       TELEGRAM_BOT_TOKEN: '123:abc',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > AgentCredentialsSchema > accepts empty credentials object
+ZodError: [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+ ❯ tests/agent/agent-credentials.test.ts:51:43
+     49| 
+     50|   it('accepts empty credentials object', () => {
+     51|     const result = AgentCredentialsSchema.parse({});
+       |                                           ^
+     52|     expect(result).toEqual({});
+     53|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > AgentCredentialsSchema > accepts dynamic capability-specific keys via catchall
+ZodError: [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "NETATMO_EMAIL"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  }
+]
+ ❯ tests/agent/agent-credentials.test.ts:56:43
+     54| 
+     55|   it('accepts dynamic capability-specific keys via catchall', () => {
+     56|     const result = AgentCredentialsSchema.parse({
+       |                                           ^
+     57|       OPENAI_API_KEY: 'sk-test',
+     58|       NETATMO_CLIENT_ID: 'netatmo-id',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > Netatmo account credential > declares an explicit optional string schema for the account email
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ tests/agent/agent-credentials.test.ts:88:32
+     86|     expect(Object.hasOwn(AgentCredentialsSchema.shape, 'NETATMO_EMAIL'…
+     87|     const field = AgentCredentialsSchema.shape['NETATMO_EMAIL' as keyo…
+     88|     expect(field.isOptional()).toBe(true);
+       |                                ^
+     89|     expect(field.safeParse('synthetic@example.invalid').success).toBe(…
+     90|     expect(field.safeParse(123).success).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  5 failed | 82 passed (87)
+   Start at  20:21:43
+   Duration  736ms (transform 215ms, setup 5ms, collect 416ms, tests 19ms, environment 0ms, prepare 80ms)
+

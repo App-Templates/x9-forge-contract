@@ -6,6 +6,8 @@ export declare const capTurnLeadContract: {
     readonly authType: "secret";
     readonly bodySchema: z.ZodObject<{
         agentId: z.ZodString;
+        tenantId: z.ZodOptional<z.ZodString>;
+        ownerId: z.ZodOptional<z.ZodString>;
         sessionId: z.ZodString;
         userId: z.ZodOptional<z.ZodString>;
         channelId: z.ZodOptional<z.ZodString>;

@@ -217,6 +217,93 @@ export declare const CapabilityModelSettingsSchema: z.ZodUnion<readonly [z.ZodOb
         }>;
         adapterId: z.ZodString;
     }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    tiers: z.ZodOptional<z.ZodNever>;
+    fallback: z.ZodOptional<z.ZodNever>;
+    mode: z.ZodLiteral<"single">;
+    descriptor: z.ZodObject<{
+        provider: z.ZodString;
+        modelId: z.ZodString;
+        protocol: z.ZodEnum<{
+            responses: "responses";
+            "chat-completions": "chat-completions";
+            messages: "messages";
+            "generate-content": "generate-content";
+            embeddings: "embeddings";
+            speech: "speech";
+            transcriptions: "transcriptions";
+            realtime: "realtime";
+        }>;
+        adapterId: z.ZodString;
+    }, z.core.$strict>;
+    embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+    capability: z.ZodString;
+    function: z.ZodEnum<{
+        reasoning: "reasoning";
+        "memory-extraction": "memory-extraction";
+        embedding: "embedding";
+        tts: "tts";
+        transcription: "transcription";
+        voice: "voice";
+    }>;
+    catalogVersion: z.ZodString;
+    requirements: z.ZodObject<{
+        tools: z.ZodBoolean;
+        stream: z.ZodBoolean;
+        structuredOutput: z.ZodBoolean;
+        vision: z.ZodOptional<z.ZodBoolean>;
+        webSearch: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    tiers: z.ZodOptional<z.ZodNever>;
+    mode: z.ZodLiteral<"failover">;
+    primary: z.ZodObject<{
+        provider: z.ZodString;
+        modelId: z.ZodString;
+        protocol: z.ZodEnum<{
+            responses: "responses";
+            "chat-completions": "chat-completions";
+            messages: "messages";
+            "generate-content": "generate-content";
+            embeddings: "embeddings";
+            speech: "speech";
+            transcriptions: "transcriptions";
+            realtime: "realtime";
+        }>;
+        adapterId: z.ZodString;
+    }, z.core.$strict>;
+    capability: z.ZodString;
+    function: z.ZodEnum<{
+        reasoning: "reasoning";
+        "memory-extraction": "memory-extraction";
+        embedding: "embedding";
+        tts: "tts";
+        transcription: "transcription";
+        voice: "voice";
+    }>;
+    catalogVersion: z.ZodString;
+    requirements: z.ZodObject<{
+        tools: z.ZodBoolean;
+        stream: z.ZodBoolean;
+        structuredOutput: z.ZodBoolean;
+        vision: z.ZodOptional<z.ZodBoolean>;
+        webSearch: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$strict>;
+    fallback: z.ZodObject<{
+        provider: z.ZodString;
+        modelId: z.ZodString;
+        protocol: z.ZodEnum<{
+            responses: "responses";
+            "chat-completions": "chat-completions";
+            messages: "messages";
+            "generate-content": "generate-content";
+            embeddings: "embeddings";
+            speech: "speech";
+            transcriptions: "transcriptions";
+            realtime: "realtime";
+        }>;
+        adapterId: z.ZodString;
+    }, z.core.$strict>;
 }, z.core.$strict>]>;
 export type CapabilityModelSettings = z.infer<typeof CapabilityModelSettingsSchema>;
 /** The installed positions expected for one choice; never invent reasoning tiers for a single-model service. */

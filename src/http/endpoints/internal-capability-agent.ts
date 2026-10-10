@@ -3,6 +3,9 @@ import { AgentConfigVersionSchema, CapabilityAgentIdSchema, ResearchAgentConfigS
 import { AGENT_SPEND_MAX_DAYS, AgentDaySchema, AgentSpendDaySchema } from '../../capability/ricerca/spend.js';
 import { LabAgentConfigSchema } from '../../capability/lab/agent-config.js';
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from '../../capability/lab/competence.js';
+import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../../capability/capability-call-context.js';
+import { CapabilityOrdinaryConfigWriteSchema, CapabilityOrdinaryConfigStateSchema, parseCapabilityOrdinaryWrite, type CapabilityOrdinaryTarget, type CapabilityOrdinaryConfiguration } from '../../capability/ordinary-configuration.js';
+import { CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, parseCapabilityOrdinaryLifecycle, type CapabilityOrdinaryLifecycleAuthority } from '../../capability/ordinary-lifecycle.js';
 
 /**
  * A capability's routes for ONE agent it serves (v1.28.0, Phase 54).
@@ -78,7 +81,10 @@ export const labAgentConfigGetContract = {
 export { AGENT_SPEND_MAX_DAYS } from '../../capability/ricerca/spend.js';
 
 /** GET /internal/capability/agents/:agentId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — days in the agent's time zone. */
-export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentDaySchema }).strict()
+export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentDaySchema,
+  tenantId: CapabilityAgentScopeSchema.shape.tenantId.optional(), ownerId: CapabilityAgentScopeSchema.shape.ownerId.optional(),
+}).strict()
+  .refine(q => (q.tenantId === undefined) === (q.ownerId === undefined), { message: 'Incomplete managed spend scope' })
   .refine(q => q.from <= q.to, { message: 'from after to' })
   .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
 export const AgentSpendResponseSchema = z.object({
@@ -125,3 +131,39 @@ export type AgentConfigStale = z.infer<typeof AgentConfigStaleSchema>;
 export type AgentSpendQuery = z.infer<typeof AgentSpendQuerySchema>;
 export type AgentSpendResponse = z.infer<typeof AgentSpendResponseSchema>;
 export type AgentGrowthResponse = z.infer<typeof AgentGrowthResponseSchema>;
+
+/** Explicit additive format selection on the existing routes; unknown formats never fall back to legacy. */
+export function selectCapabilityAgentConfigFormat(method: 'GET' | 'PUT', input: unknown): 'legacy' | 'ordinary-v2' | 'ordinary-lifecycle-v1' {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('Invalid configuration envelope');
+  const data = input as Record<string, unknown>;
+  if (Object.hasOwn(data, 'format')) {
+    if (method === 'GET' && data.format === 'ordinary-v2') return 'ordinary-v2';
+    if (method === 'PUT' && data.format === 'ordinary-lifecycle-v1') return 'ordinary-lifecycle-v1';
+    throw new Error('Unsupported configuration format');
+  }
+  if (method === 'PUT' && Object.hasOwn(data, 'configuration')) {
+    const config = data.configuration;
+    if (config && typeof config === 'object' && !Array.isArray(config) && (config as Record<string, unknown>).format === 'ordinary-v2') return 'ordinary-v2';
+    throw new Error('Unsupported configuration format');
+  }
+  return 'legacy';
+}
+export const CapabilityOrdinaryConfigQuerySchema = CapabilityAgentScopeSchema.extend({ format: z.literal('ordinary-v2'), capability: z.string().trim().min(1).max(100) }).strict();
+export function parseOrdinaryCapabilityAgentConfigGet(query: unknown, params: unknown, authority: Pick<CapabilityOrdinaryTarget, 'scope' | 'capability'>): z.infer<typeof CapabilityOrdinaryConfigQuerySchema> {
+  const parsed = CapabilityOrdinaryConfigQuerySchema.parse(query), path = CapabilityAgentParamsSchema.parse(params);
+  if (path.agentId !== parsed.agentId || !sameCapabilityScope(parsed, authority.scope) || parsed.capability !== authority.capability) throw new Error('Ordinary GET target mismatch');
+  return parsed;
+}
+export function parseOrdinaryCapabilityAgentConfigPut(body: unknown, params: unknown, authority: CapabilityOrdinaryTarget, currentVersion: number | null, masters: readonly CapabilityOrdinaryConfiguration[] = []): z.infer<typeof CapabilityOrdinaryConfigWriteSchema> {
+  const parsed = parseCapabilityOrdinaryWrite(body, authority, currentVersion, masters), path = CapabilityAgentParamsSchema.parse(params);
+  if (path.agentId !== parsed.configuration.scope.agentId) throw new Error('Ordinary PUT path mismatch');
+  return parsed;
+}
+export function parseOrdinaryCapabilityLifecyclePut(body: unknown, params: unknown, authority: CapabilityOrdinaryLifecycleAuthority): ReturnType<typeof parseCapabilityOrdinaryLifecycle> {
+  const parsed = parseCapabilityOrdinaryLifecycle(body, authority), path = CapabilityAgentParamsSchema.parse(params);
+  if (path.agentId !== parsed.request.scope.agentId) throw new Error('Lifecycle PUT path mismatch');
+  return parsed;
+}
+export const ordinaryCapabilityAgentConfigPutContract = { ...ricercaAgentConfigPutContract, bodySchema: CapabilityOrdinaryConfigWriteSchema, responseSchema: CapabilityOrdinaryConfigStateSchema } as const;
+export const ordinaryCapabilityAgentConfigGetContract = { ...ricercaAgentConfigGetContract, querySchema: CapabilityOrdinaryConfigQuerySchema, responseSchema: CapabilityOrdinaryConfigStateSchema } as const;
+export const ordinaryCapabilityLifecyclePutContract = { ...ricercaAgentConfigPutContract, bodySchema: CapabilityOrdinaryLifecycleRequestSchema, responseSchema: CapabilityOrdinaryLifecycleReceiptSchema } as const;

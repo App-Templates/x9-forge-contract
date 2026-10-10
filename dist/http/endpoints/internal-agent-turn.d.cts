@@ -89,6 +89,12 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         spokenText: z.ZodString;
         ended: z.ZodBoolean;
     }, z.core.$strict>], "kind">>;
+    identity: z.ZodOptional<z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>;
     userId: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
@@ -194,6 +200,12 @@ export declare const internalAgentTurnContract: {
             spokenText: z.ZodString;
             ended: z.ZodBoolean;
         }, z.core.$strict>], "kind">>;
+        identity: z.ZodOptional<z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
         userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{

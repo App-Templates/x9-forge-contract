@@ -1,0 +1,1 @@
+JSON report written to /private/tmp/a-chiavi-indice-20261009/CUT-35-service-NETATMO_CLIENT_ID.json

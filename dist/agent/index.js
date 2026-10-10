@@ -51,4 +51,7 @@ export * from "./agent-deletion.js";
 // C5: exact telephone admission and explicit server-owned outbound correlation.
 export * from "./agent-phone-admission.js";
 export * from "./agent-channel-history.js";
+// Canonical descriptor digest shared by the control plane and runtime.
+export * from "./agent-workspace-digest.js";
+export * from "./ordinary-authority.js";
 //# sourceMappingURL=index.js.map

@@ -31,6 +31,53 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+// 34-18: exercise genuine CommonJS exports rather than a source alias.
+const internalExecution = require('@x9-forge/contracts/http');
+const managedVoice = require('@x9-forge/contracts/capability/voice-live');
+const researchExecution = require('@x9-forge/contracts/capability/ricerca');
+assert.equal(typeof internalExecution.internalAgentToolDispatchPath, 'function');
+assert.equal(internalExecution.internalAgentToolDispatchPath('agent-a'), '/internal/agents/agent-a/tools/dispatch');
+assert.equal(internalExecution.INTERNAL_AGENT_EXECUTIONS.scheduler_telegram_text.target, 'builtin');
+assert.equal(Object.keys(internalExecution.INTERNAL_AGENT_EXECUTIONS).length, 13);
+assert.equal(internalExecution.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'r', identity: { tenantId: 't', ownerId: 'o', agentId: 'a' }, execution: 'scheduler_telegram_text', input: { chatId: 1, text: 'hello' } }).success, true);
+assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ callId: 'r', status: 'success', output: { credentials: {} } }).success, false);
+assert.equal(researchExecution.researchExecutePath(), '/call/research_execute');
+assert.equal(researchExecution.ResearchExecuteInputSchema.safeParse({ researchId: 'r', leaseToken: '00000000-0000-4000-8000-000000000001' }).success, true);
+assert.equal(Object.values(researchExecution.RICERCA_TOOLS).includes('research_execute'), false);
+assert.equal(typeof managedVoice.ManagedVoiceLiveCallStartRequestSchema.safeParse, 'function');
+assert.equal(managedVoice.ManagedVoiceLiveCallStartRequestSchema.safeParse({}).success, false);
+assert.equal(managedVoice.ManagedVoiceLiveCredentialsSchema.safeParse({ OPENAI_API_KEY: 'fixture', TELNYX_API_KEY: 'fixture', TELNYX_CONNECTION_ID: 'fixture', TELNYX_FROM_NUMBER: '+393331234567', TELNYX_PUBLIC_KEY: 'fixture' }).success, true);
+assert.equal(managedVoice.ManagedVoiceLiveCredentialsSchema.safeParse({ INTERNAL_SECRET: 'fixture' }).success, false);
+for (const execution of ['news_digest', 'news_digest_topic', 'calendar_today', 'calendar_week', 'lab_execute']) {
+  assert.equal(internalExecution.INTERNAL_AGENT_EXECUTIONS[execution].modelVisible, false, execution);
+}
+console.log('[cjs-smoke] bounded execution/managed handoff/research lease: 18/18 assertions');
+const credentialCatalog = require('@x9-forge/contracts/agent');
+const platformCatalog = require('@x9-forge/contracts/vault');
+const forbiddenCanonicalKeys = [...credentialCatalog.AGENT_CREDENTIAL_SERVICE_KEYS.filter(key => credentialCatalog.getAgentCredentialServiceMetadata(key)?.kind === 'credential'), ...platformCatalog.PLATFORM_INTERNAL_CREDENTIAL_KEYS];
+for (const key of forbiddenCanonicalKeys) {
+  const result = { callId: 'r', status: 'success', output: {} };
+  assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, [key]: 'fixture' }).success, false, 'root result rejects canonical ' + key);
+  assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, output: { [key]: 'fixture' } }).success, false, 'output rejects canonical ' + key);
+  assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, output: { nested: [{ [key]: 'fixture' }] } }).success, false, 'nested output rejects canonical ' + key);
+}
+console.log('[cjs-smoke] canonical credential result assertions: ' + (3 * forbiddenCanonicalKeys.length) + '/' + (3 * forbiddenCanonicalKeys.length));
+
+
+// Exercise the account bundle through the actual CommonJS package export.
+const agentCredentials = require('@x9-forge/contracts/agent');
+assert.ok(agentCredentials.KNOWN_CREDENTIAL_KEYS.includes('NETATMO_EMAIL'), 'NETATMO_EMAIL must be a known key');
+assert.ok(Object.hasOwn(agentCredentials.AgentCredentialsSchema.shape, 'NETATMO_EMAIL'), 'NETATMO_EMAIL must have an explicit schema');
+assert.equal(agentCredentials.AgentCredentialsSchema.shape.NETATMO_EMAIL.isOptional(), true);
+assert.equal(agentCredentials.AgentCredentialsSchema.shape.NETATMO_EMAIL.safeParse('synthetic@example.invalid').success, true);
+assert.equal(agentCredentials.AgentCredentialsSchema.shape.NETATMO_EMAIL.safeParse(123).success, false);
+assert.deepEqual(agentCredentials.getAgentCredentialServiceMetadata('NETATMO_EMAIL'), {
+  key: 'NETATMO_EMAIL', label: 'Indirizzo email account Netatmo', kind: 'credential',
+  secret: false, service: { type: 'commercial', id: 'netatmo' },
+});
+assert.equal(agentCredentials.getAgentCredentialServiceMetadata('NETATMO_UNKNOWN_KEY'), null);
+console.log('[cjs-smoke] Netatmo account bundle: 7/7 assertions');
+
 // C3-B1: the canonical Web policy/invitation API must exist in the real CJS package.
 const webChannel = require('@x9-forge/contracts/capability');
 // C3-B3: validate the real compiled callback and its unresolved-identity denial gate.
@@ -161,14 +208,14 @@ require('./bridge-130-smoke.cjs');
 require('./r7-workspace-smoke.cjs');
 require('./model-catalog-smoke.cjs');
 require('./models-batch-smoke.cjs');
-// Check every public entrypoint before any module cache can hide initialization cycles.
-require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, 'public-entrypoints-first.mjs')], { stdio: 'inherit' });
-// Canonical roleless source and local-observation API through public compiled exports.
-require("node:child_process").execFileSync(process.execPath, [require("node:path").join(__dirname, "model-local-authority-smoke.mjs")], { stdio: "inherit" });
-// A public legacy observation probe must execute before successful smoke exit.
+// 34-24: compose the model contracts with every retained02/18 smoke above.
+for (const script of ['public-entrypoints-first.mjs', 'model-consumers-smoke.mjs', 'c5-models-consumers-smoke.mjs', 'model-local-authority-smoke.mjs', 'chiavi-model-composition-smoke.mjs']) {
+  require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, script)], { stdio: 'inherit' });
+}
 const legacyObservationOutput = require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, 'model-legacy-observation-smoke.mjs')], { encoding: 'utf8' });
 const legacyObservationProbe = JSON.parse(legacyObservationOutput.trim());
-require('node:assert/strict').equal(legacyObservationProbe.marker, 'LEGACY_OBSERVATION_PUBLIC_PROBE', 'Legacy observation semantic probe must execute');
-require('node:assert/strict').equal(legacyObservationProbe.passed, 4, 'Every fresh public format must be qualified');
+assert.equal(legacyObservationProbe.marker, 'LEGACY_OBSERVATION_PUBLIC_PROBE');
+assert.equal(legacyObservationProbe.passed, 4);
 console.log(legacyObservationOutput.trim());
+require('./capabilities-ordinary-smoke.cjs');
 process.exit(0);

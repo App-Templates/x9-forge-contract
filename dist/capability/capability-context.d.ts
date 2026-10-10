@@ -30,6 +30,8 @@ export declare const CapabilityContextDeclarationSchema: z.ZodObject<{
 export type CapabilityContextDeclaration = z.infer<typeof CapabilityContextDeclarationSchema>;
 export declare const CapabilityContextRequestSchema: z.ZodObject<{
     agentId: z.ZodString;
+    tenantId: z.ZodOptional<z.ZodString>;
+    ownerId: z.ZodOptional<z.ZodString>;
     sessionId: z.ZodString;
     userId: z.ZodOptional<z.ZodString>;
     channelId: z.ZodOptional<z.ZodString>;

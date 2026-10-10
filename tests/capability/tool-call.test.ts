@@ -108,3 +108,18 @@ describe('ToolCallResponseSchema', () => {
     expect(ToolCallResponseSchema.safeParse(unknownStatus).success).toBe(false);
   });
 });
+
+describe('ordinary applied call transport', () => {
+  const ordinaryConfiguration = { scope: { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'agent-master' }, capability: 'cap-news', version: 7, values: { limit: 7 } };
+  const call = { ...VALID_REQUEST, tenantId: 'tenant-a', ownerId: 'owner-a', ordinaryConfiguration };
+  it('preserves the frozen ordinary snapshot without reading model input', () => {
+    expect(ToolCallRequestSchema.parse(call)).toEqual(call);
+    expect(ToolCallRequestSchema.parse({ ...VALID_REQUEST, input: { ordinaryConfiguration } })).not.toHaveProperty('ordinaryConfiguration');
+  });
+  it.each(['tenantId', 'ownerId', 'agentId'] as const)('rejects different outer %s', key => {
+    expect(ToolCallRequestSchema.safeParse({ ...call, [key]: 'other' }).success).toBe(false);
+  });
+  it('requires full outer scope for an ordinary snapshot', () => {
+    expect(ToolCallRequestSchema.safeParse({ ...VALID_REQUEST, ordinaryConfiguration }).success).toBe(false);
+  });
+});

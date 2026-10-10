@@ -1,0 +1,114 @@
+[
+  {
+    "cut": "source-schema-known",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "eed84ba5aa275c79f7a02d75fd4637484bed12d15d85d6a49178b36ddee1b5f5",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-schema-schema",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "eed84ba5aa275c79f7a02d75fd4637484bed12d15d85d6a49178b36ddee1b5f5",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-schema-optional",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "eed84ba5aa275c79f7a02d75fd4637484bed12d15d85d6a49178b36ddee1b5f5",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-schema-string",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "eed84ba5aa275c79f7a02d75fd4637484bed12d15d85d6a49178b36ddee1b5f5",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-schema-non-string",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "eed84ba5aa275c79f7a02d75fd4637484bed12d15d85d6a49178b36ddee1b5f5",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-metadata",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-secret",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-kind",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-service",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-label",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-forged-secret",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-forged-kind",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-forged-service",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  },
+  {
+    "cut": "source-metadata-forged-label",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "7b95929b97bd674657032fc651854bec5ab064d6a47eb928787dec2be26dfd5b",
+    "exact_restore": true
+  }
+]

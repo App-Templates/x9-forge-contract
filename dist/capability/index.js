@@ -22,6 +22,14 @@ export { EnvSchemaFieldSchema, EnvSchemaDocSchema, } from "./env-schema.js";
 export { HealthStatusSchema, } from "./health-status.js";
 export * from "./capability-turn-lead.js";
 export * from "./parameters.js";
+export * from "./ordinary-configuration.js";
+export * from "./ordinary-declaration.js";
+export * from "./ordinary-lifecycle.js";
+export * from "./configuration/feeds.js";
+export * from "./configuration/briefing.js";
+export * from "./configuration/conditions.js";
+export * from "./configuration/rules.js";
+export * from "./configuration/camera-policy.js";
 export * from "./presentation.js";
 // Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
 export * from "./capability-call-context.js";
@@ -41,4 +49,7 @@ export * from "./agent-elevenlabs/web-context.js";
 export * from "./paperclip/index.js";
 export * from "./agent-elevenlabs/web-browser.js";
 export * from "./agent-elevenlabs/web-invitations.js";
+// Canonical portable contracts for the Python capability consumer.
+export * from "./portable-contracts.js";
+export * from "./capability-credential-requirements.js";
 //# sourceMappingURL=index.js.map

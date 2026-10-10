@@ -95,8 +95,8 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
         loadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
         channelsComplete: z.ZodBoolean;
         channels: z.ZodArray<z.ZodObject<{
@@ -110,8 +110,8 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -170,8 +170,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
             loadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
             }>;
             channelsComplete: z.ZodBoolean;
             channels: z.ZodArray<z.ZodObject<{
@@ -185,8 +185,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -276,8 +276,8 @@ export declare const listAgentsContract: {
                 loadState: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                 }>;
                 channelsComplete: z.ZodBoolean;
                 channels: z.ZodArray<z.ZodObject<{
@@ -291,8 +291,8 @@ export declare const listAgentsContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;

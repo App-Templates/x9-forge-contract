@@ -22,6 +22,14 @@ export { EnvSchemaFieldSchema, EnvSchemaDocSchema, type EnvSchemaField, type Env
 export { HealthStatusSchema, type HealthStatus, } from "./health-status.cjs";
 export * from "./capability-turn-lead.cjs";
 export * from "./parameters.cjs";
+export * from "./ordinary-configuration.cjs";
+export * from "./ordinary-declaration.cjs";
+export * from "./ordinary-lifecycle.cjs";
+export * from "./configuration/feeds.cjs";
+export * from "./configuration/briefing.cjs";
+export * from "./configuration/conditions.cjs";
+export * from "./configuration/rules.cjs";
+export * from "./configuration/camera-policy.cjs";
 export * from "./presentation.cjs";
 export * from "./capability-call-context.cjs";
 export * from "./agent-elevenlabs/index.cjs";
@@ -35,4 +43,6 @@ export * from "./agent-elevenlabs/web-context.cjs";
 export * from "./paperclip/index.cjs";
 export * from "./agent-elevenlabs/web-browser.cjs";
 export * from "./agent-elevenlabs/web-invitations.cjs";
+export * from "./portable-contracts.cjs";
+export * from "./capability-credential-requirements.cjs";
 //# sourceMappingURL=index.d.ts.map
