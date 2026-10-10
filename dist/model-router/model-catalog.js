@@ -40,6 +40,13 @@ export const ModelCatalogEntrySchema = ModelDescriptorSchema.extend({
         ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Dimensions are present exactly for embedding models' });
     }
 });
+/** Provider-observed IDs whose executable compatibility has not been qualified. Never selectable. */
+export const ModelCatalogInventoryEntrySchema = z.object({
+    provider: ModelCatalogProviderIdSchema,
+    modelId: CapabilityModelIdSchema,
+    access: ModelCatalogEntrySchema.shape.access,
+    compatibility: z.literal('unqualified'),
+}).strict();
 /** Metadata snapshot scoped to one management agent; producer owns discovery and source-version invalidation. */
 export const ModelCatalogSchema = z.object({
     agentId: AgentIdSchema,
@@ -50,6 +57,8 @@ export const ModelCatalogSchema = z.object({
     validUntil: z.iso.datetime({ offset: true }).nullable(),
     state: z.enum(['available', 'partial', 'unavailable', 'not-configured']),
     entries: z.array(ModelCatalogEntrySchema),
+    /** Absent means legacy/unobserved; [] means this observation found no unqualified IDs. */
+    inventory: z.array(ModelCatalogInventoryEntrySchema).optional(),
 }).strict().superRefine((catalog, ctx) => {
     if ((catalog.observedAt === null) !== (catalog.validUntil === null)) {
         ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Observation and validity timestamps are present together' });
@@ -59,6 +68,24 @@ export const ModelCatalogSchema = z.object({
     }
     if (catalog.observedAt !== null && catalog.validUntil !== null && Date.parse(catalog.validUntil) <= Date.parse(catalog.observedAt)) {
         ctx.addIssue({ code: 'custom', path: ['validUntil'], message: 'Catalog validity must end after its observation' });
+    }
+    if (catalog.inventory !== undefined) {
+        if (catalog.observedAt === null) {
+            ctx.addIssue({ code: 'custom', path: ['inventory'], message: 'Explicit inventory requires a provider observation' });
+        }
+        if (catalog.inventory.length > 0 && catalog.state !== 'partial') {
+            ctx.addIssue({ code: 'custom', path: ['state'], message: 'Unqualified model IDs require a partial catalog' });
+        }
+        const inventoryIds = new Set();
+        for (const [index, entry] of catalog.inventory.entries()) {
+            const key = JSON.stringify([entry.provider, entry.modelId]);
+            if (inventoryIds.has(key))
+                ctx.addIssue({ code: 'custom', path: ['inventory', index], message: 'Duplicate provider model inventory ID' });
+            if (catalog.entries.some(qualified => qualified.provider === entry.provider && qualified.modelId === entry.modelId)) {
+                ctx.addIssue({ code: 'custom', path: ['inventory', index], message: 'Qualified model IDs belong in catalog entries only' });
+            }
+            inventoryIds.add(key);
+        }
     }
     const seen = new Set();
     for (const [index, entry] of catalog.entries.entries()) {
