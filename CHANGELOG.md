@@ -10,6 +10,20 @@ All notable changes to the bridge package. This project adheres to [Semantic Ver
 
 ---
 
+## v1.44.1 — esecuzioni fisse per i chiamanti diretti (cap-voice, cap-security)
+
+### Added (additive)
+
+- `./http/endpoints`: dieci esecuzioni fisse in `INTERNAL_AGENT_EXECUTIONS` per i servizi che chiamano una capacità
+  senza passare dal turno di un agente: `voice_calendar_{week,create,update,delete}`, `voice_email_send`,
+  `voice_contacts_search`, `voice_schedule_create`, `security_{light_on_group,light_on,come_home}`. Il chiamante dice COSA fare per l'agente
+  indirizzato; chiavi, identificativi e identità sono sempre quelli dell'agente caricato in agent-core, mai del chiamante.
+  Input stretti, uguali agli schemi nativi dei tool. Inventario delle esecuzioni: da 8 a 18.
+
+Solo aggiunte: nessun simbolo esistente cambia o viene rimosso.
+
+---
+
 ## v1.44.0 — voce, telefono, canale web e identità esplicita del contesto agente
 
 ### Added (additive)

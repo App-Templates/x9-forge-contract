@@ -117,7 +117,7 @@ describe('qualified Initial/observed composed with retained Chiavi contracts', (
     expect(HTTP.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, output: { nested: { [key]: 'synthetic-value' } } }).success).toBe(false);
   });
   it('C15 retained18 immutable internal targets preserve credential/identifier/setting separation', () => {
-    expect(Object.keys(HTTP.INTERNAL_AGENT_EXECUTIONS)).toHaveLength(8);
+    expect(Object.keys(HTTP.INTERNAL_AGENT_EXECUTIONS)).toHaveLength(18);
     const target = HTTP.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit;
     expect(target.credentialKeys).toEqual(['ELEVENLABS_API_KEY']);
     expect(target.identifierKeys).toEqual(['ELEVENLABS_VOICE_ID']);

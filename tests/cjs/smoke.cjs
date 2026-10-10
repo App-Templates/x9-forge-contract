@@ -38,7 +38,7 @@ const researchExecution = require('@x9-forge/contracts/capability/ricerca');
 assert.equal(typeof internalExecution.internalAgentToolDispatchPath, 'function');
 assert.equal(internalExecution.internalAgentToolDispatchPath('agent-a'), '/internal/agents/agent-a/tools/dispatch');
 assert.equal(internalExecution.INTERNAL_AGENT_EXECUTIONS.scheduler_telegram_text.target, 'builtin');
-assert.equal(Object.keys(internalExecution.INTERNAL_AGENT_EXECUTIONS).length, 8);
+assert.equal(Object.keys(internalExecution.INTERNAL_AGENT_EXECUTIONS).length, 18);
 assert.equal(internalExecution.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'r', identity: { tenantId: 't', ownerId: 'o', agentId: 'a' }, execution: 'scheduler_telegram_text', input: { chatId: 1, text: 'hello' } }).success, true);
 assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ callId: 'r', status: 'success', output: { credentials: {} } }).success, false);
 assert.equal(researchExecution.researchExecutePath(), '/call/research_execute');

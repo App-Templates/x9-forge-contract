@@ -44,7 +44,7 @@ for (const mode of ['esm', 'cjs']) {
  const keys=[...new Set([...agent.AGENT_CREDENTIAL_SERVICE_KEYS.filter(k=>agent.getAgentCredentialServiceMetadata(k)?.kind==='credential'),...vault.PLATFORM_INTERNAL_CREDENTIAL_KEYS])];
  check(keys.includes('INTERNAL_TOKEN'),true,mode+' complete credential catalog');
  for(const key of keys) {const result={callId:'composition-call',status:'success',output:{}};check(http.InternalAgentToolDispatchResponseSchema.safeParse({...result,[key]:'synthetic-value'}).success,false,mode+' root credential '+key);check(http.InternalAgentToolDispatchResponseSchema.safeParse({...result,output:{nested:[{[key]:'synthetic-value'}]}}).success,false,mode+' nested credential '+key);}
- check(Object.keys(http.INTERNAL_AGENT_EXECUTIONS).length,8,mode+' bounded internal target inventory');
+ check(Object.keys(http.INTERNAL_AGENT_EXECUTIONS).length,18,mode+' bounded internal target inventory');
  for(const entry of Object.values(http.INTERNAL_AGENT_EXECUTIONS)){check(entry.modelVisible,false,mode+' private execution');for(const field of ['credentialKeys','identifierKeys','settingKeys'])check(Object.isFrozen(entry[field]),true,mode+' immutable '+field);}
  const glasses=http.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit;
  check(glasses.credentialKeys,['ELEVENLABS_API_KEY'],mode+' minimal credential');check(glasses.identifierKeys,['ELEVENLABS_VOICE_ID'],mode+' required identifier');check(glasses.settingKeys,['ELEVENLABS_MODEL_ID'],mode+' required setting');

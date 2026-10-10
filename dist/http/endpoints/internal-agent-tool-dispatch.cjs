@@ -15,6 +15,34 @@ const text = zod_1.z.string().min(1).max(32_000);
 const telegramInput = zod_1.z.strictObject({ chatId: zod_1.z.union([zod_1.z.number().int(), zod_1.z.string().min(1).max(64)]), text });
 const sessionInput = zod_1.z.strictObject({ sessionId: zod_1.z.string().min(1).max(256) });
 const voiceInput = zod_1.z.strictObject({ toNumber: zod_1.z.string().regex(/^\+[1-9]\d{7,14}$/), callBrief: text, contactName: zod_1.z.string().min(1).max(256) });
+// Service-to-capability adapters (cap-voice mid-call tools, cap-security alarm/sentinel): the caller names WHAT to do for
+// the addressed agent; keys, identifiers and identity are never the caller's. Inputs mirror the native tool schemas.
+const isoDay = zod_1.z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+const calendarId = zod_1.z.string().min(1).max(256);
+const eventChanges = zod_1.z.strictObject({
+    summary: zod_1.z.string().min(1).max(1024).optional(), startTime: zod_1.z.string().min(1).max(64).optional(), endTime: zod_1.z.string().min(1).max(64).optional(),
+    location: zod_1.z.string().max(1024).optional(), description: zod_1.z.string().max(8192).optional(),
+});
+const calendarWeekInput = zod_1.z.strictObject({ targetDate: isoDay });
+const calendarCreateInput = zod_1.z.strictObject({
+    summary: zod_1.z.string().min(1).max(1024), startTime: zod_1.z.string().min(1).max(64), endTime: zod_1.z.string().min(1).max(64),
+    location: zod_1.z.string().max(1024).optional(), description: zod_1.z.string().max(8192).optional(), calendarId: calendarId.optional(),
+});
+const calendarUpdateInput = zod_1.z.strictObject({ eventId: zod_1.z.string().min(1).max(256), changes: eventChanges, calendarId: calendarId.optional() });
+const calendarDeleteInput = zod_1.z.strictObject({ eventId: zod_1.z.string().min(1).max(256), calendarId: calendarId.optional() });
+const emailSendInput = zod_1.z.strictObject({ to: zod_1.z.string().email().max(320), subject: zod_1.z.string().min(1).max(998), text: zod_1.z.string().min(1).max(100_000), html: zod_1.z.string().max(200_000).optional() });
+const contactsSearchInput = zod_1.z.strictObject({ query: zod_1.z.string().min(1).max(256) });
+const lightGroupInput = zod_1.z.strictObject({ group: zod_1.z.string().min(1).max(64) });
+const lightInput = zod_1.z.strictObject({ name: zod_1.z.string().min(1).max(128) });
+const noInput = zod_1.z.strictObject({});
+const reminderInput = zod_1.z.strictObject({
+    type: zod_1.z.literal('one_shot'), scheduledFor: zod_1.z.string().min(1).max(64),
+    action: zod_1.z.enum(['voice_call', 'telegram_text', 'telegram_voice']),
+    recipient: zod_1.z.strictObject({ name: zod_1.z.string().min(1).max(256), phone: zod_1.z.string().max(32).optional(), telegramChatId: zod_1.z.number().int().optional() }),
+    brief: zod_1.z.string().min(1).max(8000),
+});
+const GOOGLE_CALENDAR = ['GOOGLE_CALENDAR_CLIENT_ID', 'GOOGLE_CALENDAR_CLIENT_SECRET', 'GOOGLE_CALENDAR_REFRESH_TOKEN'];
+const NETATMO_OAUTH = ['NETATMO_CLIENT_ID', 'NETATMO_CLIENT_SECRET', 'NETATMO_ACCESS_TOKEN', 'NETATMO_REFRESH_TOKEN'];
 function registration(capability, tool, inputSchema, credentialKeys, identifierKeys = [], settingKeys = []) {
     return Object.freeze({ target: 'capability', capability, tool, path: (0, cap_tool_call_js_1.capToolCallPath)(tool), inputSchema,
         credentialKeys: Object.freeze([...credentialKeys]), identifierKeys: Object.freeze([...identifierKeys]), settingKeys: Object.freeze([...settingKeys]), modelVisible: false });
@@ -34,6 +62,18 @@ exports.INTERNAL_AGENT_EXECUTIONS = Object.freeze({
     glasses_session_admit: registration('glasses', 'glasses_session_admit', sessionInput, ['ELEVENLABS_API_KEY'], ['ELEVENLABS_VOICE_ID'], ['ELEVENLABS_MODEL_ID']),
     websocket_session_admit: registration('websocket', 'websocket_session_admit', sessionInput, ['ELEVENLABS_API_KEY'], ['ELEVENLABS_VOICE_ID', 'ELEVENLABS_MINDFULNESS_AGENT_ID'], ['ELEVENLABS_MODEL_ID']),
     voice_web_session_admit: registration('voice-live', 'voice_web_session_admit', index_js_1.VoiceLiveWebSessionRequestSchema.omit({ agent_id: true }), ['OPENAI_API_KEY'], [], ['OPENAI_LIVE_VOICE', 'OPENAI_LIVE_BACKEND_MODEL']),
+    // cap-voice mid-call tools, hold lifecycle and reminders: always the keys of the agent whose call it is.
+    voice_calendar_week: registration('calendar', 'calendar_week', calendarWeekInput, GOOGLE_CALENDAR),
+    voice_calendar_create: registration('calendar', 'calendar_create', calendarCreateInput, GOOGLE_CALENDAR),
+    voice_calendar_update: registration('calendar', 'calendar_update', calendarUpdateInput, GOOGLE_CALENDAR),
+    voice_calendar_delete: registration('calendar', 'calendar_delete', calendarDeleteInput, GOOGLE_CALENDAR),
+    voice_email_send: registration('email', 'email_send', emailSendInput, ['AGENTMAIL_API_KEY'], ['AGENTMAIL_INBOX_ID']),
+    voice_contacts_search: registration('contacts', 'contacts_search', contactsSearchInput, ['GOOGLE_CONTACTS_CLIENT_ID', 'GOOGLE_CONTACTS_CLIENT_SECRET', 'GOOGLE_CONTACTS_REFRESH_TOKEN']),
+    voice_schedule_create: registration('scheduler', 'schedule_create', reminderInput, []),
+    // cap-security alarm and sentinel: the home of the agent the alarm belongs to.
+    security_light_on_group: registration('netatmo', 'light_on_group', lightGroupInput, NETATMO_OAUTH),
+    security_light_on: registration('netatmo', 'light_on', lightInput, NETATMO_OAUTH),
+    security_come_home: registration('netatmo', 'come_home', noInput, [...NETATMO_OAUTH, 'NETATMO_EMAIL', 'NETATMO_PASSWORD']),
 });
 exports.InternalAgentExecutionSchema = zod_1.z.enum(Object.keys(exports.INTERNAL_AGENT_EXECUTIONS));
 /** Correlation does not authorize side-effect replay: receivers retain native lease/idempotency guards. */
