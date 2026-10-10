@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "bridge03_attempt": 3,
+  "runner_artifact": [
+    "3b5d17d41af4643db1d6ae48d1622be99ef8d1418daa8cf4c120ff25a0f1c31c",
+    {
+      "bridge_commands.py": "9d8f8dc0b0cdbff30b14e04ffc58f18b16f990af2dcb53125b7adb8ed3af234d",
+      "bridge_guard.cjs": "24a235bd037cff7d4f31bfe58eaba419ce913fdc82d2c7269a770d03650f4bd8",
+      "tests/test_bridge_commands.py": "4577893afa20f90cee6e9d88f370956785b00841cba87fd05a90e3004b778da8",
+      "tests/bridge-guard.test.cjs": "e135a2fba1650b7a57ad6a3aaed7e5b7e3eb3d565fdeb0c5b86212ca268016a7",
+      "policy.py": "a9e396d29f0d220a66e2857ada3aacd89225a2d599404fb7007f1a5b867e5a26",
+      "run_baseline.py": "d89bb6e63e7cffabfa7b951ea9e008d875e186fce61e4899d0790562c8053621",
+      "prepare_dependencies.py": "86dd01cb0c5e022d1a47fe79ec160be513d6fecc49d60cc4afe728999fe2480c",
+      "copy_stack.py": "131a2dd80aa6784da6485d31fbe319afbf659d6260d714cefded2309076b730a",
+      "mutate_guards.py": "6e426007bb0b4c8901463fe1619f6bb924087de5f35a983ffb661e5ed4115d72"
+    }
+  ],
+  "operation": "install",
+  "records": [
+    {
+      "argv": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/lib/node_modules/pnpm/bin/pnpm.cjs",
+        "install",
+        "--offline",
+        "--frozen-lockfile",
+        "--ignore-scripts",
+        "--store-dir",
+        "/Users/admintemp/Documents/New Project/Meditation-Forge/stack/.isolation-runtime/store-qualified",
+        "--package-import-method=copy"
+      ],
+      "exit": 0,
+      "stdout": "Lockfile is up to date, resolution step is skipped\nProgress: resolved 1, reused 0, downloaded 0, added 0\nPackages: +235\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\nProgress: resolved 235, reused 235, downloaded 0, added 229\nProgress: resolved 235, reused 235, downloaded 0, added 235, done\n\ndevDependencies:\n+ @arethetypeswrong/cli 0.18.2\n+ @types/node 22.19.17\n+ @typescript-eslint/eslint-plugin 8.58.2\n+ @typescript-eslint/parser 8.58.2\n+ eslint 9.39.4\n+ husky 9.1.7\n+ publint 0.3.18\n+ typescript 6.0.2\n+ vitest 3.2.4\n+ zod 4.3.6\n+ zshy 0.7.2\n\nDone in 1.5s using pnpm v9.15.9\n",
+      "stderr": "(node:2532) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n"
+    }
+  ],
+  "error": null,
+  "seconds": 1.6102299690246582,
+  "before": {
+    "package.json": "bc58d79ee9b4c178f36bbd6a8fe90c4791a18cf08e8d195e666609cfe46cc04c",
+    "pnpm-lock.yaml": "5ebfaf45adc99d7da7d6511d7c88e2e76f0bf14f3292438cff8054b1843a02b3"
+  },
+  "after": {
+    "package.json": "bc58d79ee9b4c178f36bbd6a8fe90c4791a18cf08e8d195e666609cfe46cc04c",
+    "pnpm-lock.yaml": "5ebfaf45adc99d7da7d6511d7c88e2e76f0bf14f3292438cff8054b1843a02b3"
+  },
+  "manifest_lock_unchanged": true,
+  "dependency_proof_sha256": "47263383fe31a15e7ff43885014451a799c3ee9bcaf05442cb001bceb920a3e9",
+  "producer": "gsd_isolated_stack_executor",
+  "capture": "wrapper delegates unchanged qualified bounded_run and records actual result",
+  "historical_attempt2_sha256": "e6025432438e8a58aa9788ab303f825dfabf81f811ec612cc56a81eef04935ed"
+}

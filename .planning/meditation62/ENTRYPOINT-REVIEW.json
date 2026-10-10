@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "reviewer": "/root/gsd_operational_plan_checker",
+  "artifact_sha256": "b547e66af113e452d6f2dc68c1ded3edd410609017adb42700684725ad633385",
+  "review_sha256": "8a886de40399013ce4e639df64ae9874af865c784e1aa56a9cb638a3d9b20f7f",
+  "evidence_sha256": "3b69a0daf2309a2da2a89393971bf862f8506b4596f7cc61552492863fff4382",
+  "scope": "Six actual public installed bin/package/alias and unchanged script metadata only; attw --pack and zshy cleanup not authorized; exact descendants and replacement matrix require1qe distinct qualification before baseline",
+  "commandMatrixQualified": false,
+  "requiredToolingLot": "261010-1qe"
+}

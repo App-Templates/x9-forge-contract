@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "lot": "quick-261010-1f6",
+  "start_utc": "2026-10-09T23:15:30.667428+00:00",
+  "deadline_utc": "2026-10-10T00:00:30.667428+00:00",
+  "cumulative_attempt_limit": 3,
+  "attempt": 1,
+  "original03": "checkpointed incomplete3/3; never renewed",
+  "plan_sha256": "857adbbadebe1068f9b4860c2480d80b0a474432d865098ec6fd98588cd2f8b6",
+  "plan_review_sha256": "c982720a4b8f83e23cd4edcbf454ff489acc6e4b3a5c5f5ffacc551ee8501a1c",
+  "status": "INCOMPLETE_CHECKPOINT_DEADLINE_EXPIRED",
+  "entrypoint_artifact_sha256": "b547e66af113e452d6f2dc68c1ded3edd410609017adb42700684725ad633385",
+  "freeze_sha256": "4a5e40f1eca9401a5db8479a8b93374292e076b2335a02459e570b1fc69cbaea",
+  "implementation_attempt": 2,
+  "tooling_artifact_sha256": "c233dc5bff87f8d091e8117d99f5443b4a19b5ca8ceb10c3a2fe7737db12a3da",
+  "attempts_used": 2,
+  "baseline_exit": 2,
+  "baseline_tests_collected": 0,
+  "baseline_runtime_errors": 1,
+  "checkpoint_commit": "caf780a5",
+  "source_identical_count": 472
+}

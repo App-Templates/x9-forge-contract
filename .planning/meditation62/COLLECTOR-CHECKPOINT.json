@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "bridge03_attempts_consumed": 3,
+  "deadline_utc": "2026-10-09 23:19:00",
+  "status": "BLOCKED_COLLECTOR_PUBLIC_NAME",
+  "actual_error": "BRIDGE_PUBLIC_NAME at collect_entrypoints/public_file; no binary content read by collector",
+  "install_proof_sha256": "ac50289a7b06cc074643716d6333f675e03295ffc031eea6decc40c21b6196af",
+  "install_exit": 0,
+  "package_lock_unchanged": true,
+  "node_entries_metadata_only": [
+    {
+      "tool": "tsc",
+      "entry": "/Users/admintemp/Documents/New Project/Meditation-Forge/stack/contracts-candidate/node_modules/.pnpm/typescript@6.0.2/node_modules/typescript/bin/tsc",
+      "package": "typescript",
+      "version": "6.0.2",
+      "package_sha256": "bb6ee7e709ae60426e30b8d393df4d939ee61407794b4f053ce6338d6eaa8c63",
+      "bytes": 45,
+      "nlink": 1,
+      "content_read": false
+    },
+    {
+      "tool": "eslint",
+      "entry": "/Users/admintemp/Documents/New Project/Meditation-Forge/stack/contracts-candidate/node_modules/.pnpm/eslint@9.39.4/node_modules/eslint/bin/eslint.js",
+      "package": "eslint",
+      "version": "9.39.4",
+      "package_sha256": "80a7caf2adf34963e47b32a1e75157de6d6814c3ae5a9d90358ddd9364833fe7",
+      "bytes": 5610,
+      "nlink": 1,
+      "content_read": false
+    },
+    {
+      "tool": "zshy",
+      "entry": "/Users/admintemp/Documents/New Project/Meditation-Forge/stack/contracts-candidate/node_modules/.pnpm/zshy@0.7.2_typescript@6.0.2/node_modules/zshy/dist/index.cjs",
+      "package": "zshy",
+      "version": "0.7.2",
+      "package_sha256": "88fe07d0f806e3b1b21dccf578fa097f78ac034d1e9d1ffe9acdbdc476f82daf",
+      "bytes": 350,
+      "nlink": 1,
+      "content_read": false
+    },
+    {
+      "tool": "publint",
+      "entry": "/Users/admintemp/Documents/New Project/Meditation-Forge/stack/contracts-candidate/node_modules/.pnpm/publint@0.3.18/node_modules/publint/src/cli.js",
+      "package": "publint",
+      "version": "0.3.18",
+      "package_sha256": "f3cfd570d8076cda5af75949723f9bfe9748de63fd0b1c2c61dc6bf931653e39",
+      "bytes": 8588,
+      "nlink": 1,
+      "content_read": false
+    },
+    {
+      "tool": "attw",
+      "entry": "/Users/admintemp/Documents/New Project/Meditation-Forge/stack/contracts-candidate/node_modules/.pnpm/@arethetypeswrong+cli@0.18.2/node_modules/@arethetypeswrong/cli/dist/index.js",
+      "package": "@arethetypeswrong/cli",
+      "version": "0.18.2",
+      "package_sha256": "a6e314798af89b1cbd2ffd9b8dce4d302defa9302fbb9172136879c1869527b6",
+      "bytes": 10010,
+      "nlink": 1,
+      "content_read": false
+    },
+    {
+      "tool": "vitest",
+      "entry": "/Users/admintemp/Documents/New Project/Meditation-Forge/stack/contracts-candidate/node_modules/.pnpm/vitest@3.2.4_@types+node@22.19.17/node_modules/vitest/vitest.mjs",
+      "package": "vitest",
+      "version": "3.2.4",
+      "package_sha256": "555361762b31957f3960220aad50df9f43c9f82d830862ef6e3588168fbe111c",
+      "bytes": 43,
+      "nlink": 1,
+      "content_read": false
+    }
+  ],
+  "qualified_runner_artifact": "3b5d17d41af4643db1d6ae48d1622be99ef8d1418daa8cf4c120ff25a0f1c31c",
+  "producer": "gsd_isolated_stack_executor",
+  "scope": "Six installed public package manifests and entry metadata only; no entry content, bin invocation, build, baseline or native"
+}
