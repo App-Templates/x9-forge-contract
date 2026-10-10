@@ -1,0 +1,18 @@
+{
+  "authority": "coordinatrice posta200112",
+  "worktree": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-143-1",
+  "generatedTrackedRestored": 100,
+  "untrackedPreserved": 8,
+  "preservedAt": "/private/tmp/c5-canali-143-generated-0mvo_kdf",
+  "files": [
+    "dist/agent/agent-phone-admission.cjs",
+    "dist/agent/agent-phone-admission.cjs.map",
+    "dist/agent/agent-phone-admission.d.cts",
+    "dist/agent/agent-phone-admission.d.cts.map",
+    "dist/agent/agent-phone-admission.d.ts",
+    "dist/agent/agent-phone-admission.d.ts.map",
+    "dist/agent/agent-phone-admission.js",
+    "dist/agent/agent-phone-admission.js.map"
+  ],
+  "distDiffAfter": ""
+}

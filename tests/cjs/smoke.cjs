@@ -161,4 +161,14 @@ require('./bridge-130-smoke.cjs');
 require('./r7-workspace-smoke.cjs');
 require('./model-catalog-smoke.cjs');
 require('./models-batch-smoke.cjs');
+// Check every public entrypoint before any module cache can hide initialization cycles.
+require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, 'public-entrypoints-first.mjs')], { stdio: 'inherit' });
+// Canonical roleless source and local-observation API through public compiled exports.
+require("node:child_process").execFileSync(process.execPath, [require("node:path").join(__dirname, "model-local-authority-smoke.mjs")], { stdio: "inherit" });
+// A public legacy observation probe must execute before successful smoke exit.
+const legacyObservationOutput = require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, 'model-legacy-observation-smoke.mjs')], { encoding: 'utf8' });
+const legacyObservationProbe = JSON.parse(legacyObservationOutput.trim());
+require('node:assert/strict').equal(legacyObservationProbe.marker, 'LEGACY_OBSERVATION_PUBLIC_PROBE', 'Legacy observation semantic probe must execute');
+require('node:assert/strict').equal(legacyObservationProbe.passed, 4, 'Every fresh public format must be qualified');
+console.log(legacyObservationOutput.trim());
 process.exit(0);

@@ -1,0 +1,20 @@
+{
+  "mutations": [
+    {
+      "variant": "esm",
+      "exitCode": 1,
+      "qualified": true,
+      "failure": "public export expected function, got undefined"
+    },
+    {
+      "variant": "cjs",
+      "exitCode": 1,
+      "qualified": true,
+      "failure": "public export expected function, got undefined"
+    }
+  ],
+  "qualified": 2,
+  "total": 2,
+  "sourceRestored": true,
+  "sha256": "e1f149b07e0ed3bb0499045bd3f2dc44371b28eebe45ac817ccf24379cbbae4a"
+}

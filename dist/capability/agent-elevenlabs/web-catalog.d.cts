@@ -35,6 +35,7 @@ export declare const ElevenLabsWebCatalogSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
             function: z.ZodEnum<{
@@ -60,6 +61,8 @@ export declare const ElevenLabsWebCatalogSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             limits: z.ZodOptional<z.ZodObject<{
                 maxInputTokens: z.ZodOptional<z.ZodNumber>;
@@ -70,6 +73,17 @@ export declare const ElevenLabsWebCatalogSchema: z.ZodObject<{
             embeddingDimensions: z.ZodOptional<z.ZodNumber>;
             reason: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
+        inventory: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            access: z.ZodEnum<{
+                unknown: "unknown";
+                available: "available";
+                unavailable: "unavailable";
+                "not-configured": "not-configured";
+            }>;
+            compatibility: z.ZodLiteral<"unqualified">;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
     voices: z.ZodObject<{
         version: z.ZodString;

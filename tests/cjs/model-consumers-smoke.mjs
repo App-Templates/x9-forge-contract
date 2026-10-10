@@ -8,7 +8,7 @@ for(const [loader,api] of [['CJS-root',require('@x9-forge/contracts')],['CJS-rou
  for(const name of names){assert.notEqual(Reflect.get(api,name),undefined,`${loader}: ${name}`);passed++;}
  assert.equal(api.AGENT_CHAT_MODEL_SLOT_ID,'agent_chat');passed++;
  assert.deepEqual(api.AGENT_CORE_MODEL_CONSUMER,expected);passed++;
- assert.deepEqual(api.registeredModelConsumers(),[expected]);passed++;
+ assert.equal(api.registeredModelConsumers().length,34);assert.deepEqual(api.registeredModelConsumers()[0],expected);passed++;
  assert.equal(api.findModelConsumer('unknown-consumer'),undefined);passed++;
  assert.equal(api.ModelConsumerSchema.safeParse({...expected,extra:true}).success,false);passed++;
 }

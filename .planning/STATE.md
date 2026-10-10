@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Shim Cleanup + Bookkeeping
-status: awaiting_coordinator_publication
+status: integrating_models_channels_capabilities
 stopped_at: v1.0 milestone closed via `/gsd-complete-milestone` (Path B).
 last_updated: "2026-10-09T15:16:35.274Z"
 progress:
@@ -20,7 +20,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-16 after v1.0 close)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilità DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Phase 55 — cap-paperclip-release
+**Current focus:** Composizione locale Modelli, Canali e Capability; pubblicazione non autorizzata
 
 ## Current Position
 

@@ -22,9 +22,9 @@ export declare const ModelCostMetadataSchema: z.ZodDiscriminatedUnion<[z.ZodObje
 export declare const ModelEmbeddingRebuildSchema: z.ZodObject<{
     state: z.ZodEnum<{
         failed: "failed";
+        completed: "completed";
         pending: "pending";
         running: "running";
-        completed: "completed";
     }>;
     previous: z.ZodObject<{
         provider: z.ZodString;
@@ -38,6 +38,7 @@ export declare const ModelEmbeddingRebuildSchema: z.ZodObject<{
             speech: "speech";
             transcriptions: "transcriptions";
             realtime: "realtime";
+            live: "live";
         }>;
         adapterId: z.ZodString;
     }, z.core.$strict>;
@@ -53,6 +54,7 @@ export declare const ModelEmbeddingRebuildSchema: z.ZodObject<{
             speech: "speech";
             transcriptions: "transcriptions";
             realtime: "realtime";
+            live: "live";
         }>;
         adapterId: z.ZodString;
     }, z.core.$strict>;
@@ -68,6 +70,7 @@ export declare const ModelEmbeddingRebuildSchema: z.ZodObject<{
             speech: "speech";
             transcriptions: "transcriptions";
             realtime: "realtime";
+            live: "live";
         }>;
         adapterId: z.ZodString;
     }, z.core.$strict>;
@@ -108,6 +111,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
     }>;
     reason: z.ZodNullable<z.ZodString>;
     origin: z.ZodEnum<{
+        unknown: "unknown";
         custom: "custom";
         master: "master";
     }>;
@@ -117,6 +121,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
         tools: z.ZodBoolean;
         stream: z.ZodBoolean;
         structuredOutput: z.ZodBoolean;
+        vision: z.ZodOptional<z.ZodBoolean>;
+        webSearch: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strict>;
     default: z.ZodNullable<z.ZodUnion<readonly [z.ZodObject<{
         mode: z.ZodLiteral<"automatic">;
@@ -134,6 +140,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -151,6 +159,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -166,6 +175,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -183,6 +193,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -200,6 +211,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -217,6 +230,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -232,6 +246,97 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        fallback: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"single">;
+        descriptor: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"failover">;
+        primary: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+        fallback: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -252,6 +357,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -269,6 +376,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -284,6 +392,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -301,6 +410,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -318,6 +428,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -335,6 +447,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -350,6 +463,97 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        fallback: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"single">;
+        descriptor: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"failover">;
+        primary: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+        fallback: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -370,6 +574,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -387,6 +593,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -402,6 +609,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -419,6 +627,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -436,6 +645,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -453,6 +664,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -468,6 +680,97 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        fallback: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"single">;
+        descriptor: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"failover">;
+        primary: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+        fallback: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -517,9 +820,9 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
     embedding: z.ZodNullable<z.ZodObject<{
         state: z.ZodEnum<{
             failed: "failed";
+            completed: "completed";
             pending: "pending";
             running: "running";
-            completed: "completed";
         }>;
         previous: z.ZodObject<{
             provider: z.ZodString;
@@ -533,6 +836,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -548,6 +852,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -563,6 +868,7 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -573,6 +879,23 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
         reason: z.ZodNullable<z.ZodString>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
+/** Read-side inventory evidence; absence on old producers is not an attestation of zero. */
+export declare const AgentModelsOverviewCoverageSchema: z.ZodObject<{
+    identity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strict>;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    status: z.ZodEnum<{
+        unavailable: "unavailable";
+        partial: "partial";
+        complete: "complete";
+    }>;
+    missingSlots: z.ZodArray<z.ZodString>;
+    reason: z.ZodNullable<z.ZodString>;
+}, z.core.$strict>;
+export type AgentModelsOverviewCoverage = z.infer<typeof AgentModelsOverviewCoverageSchema>;
 export declare const AgentModelsOverviewSchema: z.ZodObject<{
     version: z.ZodString;
     observedAt: z.ZodISODateTime;
@@ -605,6 +928,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
         }>;
         reason: z.ZodNullable<z.ZodString>;
         origin: z.ZodEnum<{
+            unknown: "unknown";
             custom: "custom";
             master: "master";
         }>;
@@ -614,6 +938,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         default: z.ZodNullable<z.ZodUnion<readonly [z.ZodObject<{
             mode: z.ZodLiteral<"automatic">;
@@ -631,6 +957,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             tiers: z.ZodRecord<z.ZodEnum<{
                 standard: "standard";
@@ -648,6 +976,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -663,6 +992,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -680,6 +1010,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -697,6 +1028,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             tiers: z.ZodRecord<z.ZodEnum<{
                 standard: "standard";
@@ -714,6 +1047,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -729,6 +1063,97 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            tiers: z.ZodOptional<z.ZodNever>;
+            fallback: z.ZodOptional<z.ZodNever>;
+            mode: z.ZodLiteral<"single">;
+            descriptor: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+            embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+            capability: z.ZodString;
+            function: z.ZodEnum<{
+                reasoning: "reasoning";
+                "memory-extraction": "memory-extraction";
+                embedding: "embedding";
+                tts: "tts";
+                transcription: "transcription";
+                voice: "voice";
+            }>;
+            catalogVersion: z.ZodString;
+            requirements: z.ZodObject<{
+                tools: z.ZodBoolean;
+                stream: z.ZodBoolean;
+                structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            tiers: z.ZodOptional<z.ZodNever>;
+            mode: z.ZodLiteral<"failover">;
+            primary: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+            capability: z.ZodString;
+            function: z.ZodEnum<{
+                reasoning: "reasoning";
+                "memory-extraction": "memory-extraction";
+                embedding: "embedding";
+                tts: "tts";
+                transcription: "transcription";
+                voice: "voice";
+            }>;
+            catalogVersion: z.ZodString;
+            requirements: z.ZodObject<{
+                tools: z.ZodBoolean;
+                stream: z.ZodBoolean;
+                structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>;
+            fallback: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -749,6 +1174,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             tiers: z.ZodRecord<z.ZodEnum<{
                 standard: "standard";
@@ -766,6 +1193,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -781,6 +1209,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -798,6 +1227,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -815,6 +1245,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             tiers: z.ZodRecord<z.ZodEnum<{
                 standard: "standard";
@@ -832,6 +1264,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -847,6 +1280,97 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            tiers: z.ZodOptional<z.ZodNever>;
+            fallback: z.ZodOptional<z.ZodNever>;
+            mode: z.ZodLiteral<"single">;
+            descriptor: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+            embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+            capability: z.ZodString;
+            function: z.ZodEnum<{
+                reasoning: "reasoning";
+                "memory-extraction": "memory-extraction";
+                embedding: "embedding";
+                tts: "tts";
+                transcription: "transcription";
+                voice: "voice";
+            }>;
+            catalogVersion: z.ZodString;
+            requirements: z.ZodObject<{
+                tools: z.ZodBoolean;
+                stream: z.ZodBoolean;
+                structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            tiers: z.ZodOptional<z.ZodNever>;
+            mode: z.ZodLiteral<"failover">;
+            primary: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+            capability: z.ZodString;
+            function: z.ZodEnum<{
+                reasoning: "reasoning";
+                "memory-extraction": "memory-extraction";
+                embedding: "embedding";
+                tts: "tts";
+                transcription: "transcription";
+                voice: "voice";
+            }>;
+            catalogVersion: z.ZodString;
+            requirements: z.ZodObject<{
+                tools: z.ZodBoolean;
+                stream: z.ZodBoolean;
+                structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>;
+            fallback: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -867,6 +1391,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             tiers: z.ZodRecord<z.ZodEnum<{
                 standard: "standard";
@@ -884,6 +1410,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -899,6 +1426,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -916,6 +1444,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -933,6 +1462,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
                 structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>;
             tiers: z.ZodRecord<z.ZodEnum<{
                 standard: "standard";
@@ -950,6 +1481,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>>;
@@ -965,6 +1497,97 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            tiers: z.ZodOptional<z.ZodNever>;
+            fallback: z.ZodOptional<z.ZodNever>;
+            mode: z.ZodLiteral<"single">;
+            descriptor: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+            embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+            capability: z.ZodString;
+            function: z.ZodEnum<{
+                reasoning: "reasoning";
+                "memory-extraction": "memory-extraction";
+                embedding: "embedding";
+                tts: "tts";
+                transcription: "transcription";
+                voice: "voice";
+            }>;
+            catalogVersion: z.ZodString;
+            requirements: z.ZodObject<{
+                tools: z.ZodBoolean;
+                stream: z.ZodBoolean;
+                structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            tiers: z.ZodOptional<z.ZodNever>;
+            mode: z.ZodLiteral<"failover">;
+            primary: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
+                }>;
+                adapterId: z.ZodString;
+            }, z.core.$strict>;
+            capability: z.ZodString;
+            function: z.ZodEnum<{
+                reasoning: "reasoning";
+                "memory-extraction": "memory-extraction";
+                embedding: "embedding";
+                tts: "tts";
+                transcription: "transcription";
+                voice: "voice";
+            }>;
+            catalogVersion: z.ZodString;
+            requirements: z.ZodObject<{
+                tools: z.ZodBoolean;
+                stream: z.ZodBoolean;
+                structuredOutput: z.ZodBoolean;
+                vision: z.ZodOptional<z.ZodBoolean>;
+                webSearch: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>;
+            fallback: z.ZodObject<{
+                provider: z.ZodString;
+                modelId: z.ZodString;
+                protocol: z.ZodEnum<{
+                    responses: "responses";
+                    "chat-completions": "chat-completions";
+                    messages: "messages";
+                    "generate-content": "generate-content";
+                    embeddings: "embeddings";
+                    speech: "speech";
+                    transcriptions: "transcriptions";
+                    realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -1014,9 +1637,9 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
         embedding: z.ZodNullable<z.ZodObject<{
             state: z.ZodEnum<{
                 failed: "failed";
+                completed: "completed";
                 pending: "pending";
                 running: "running";
-                completed: "completed";
             }>;
             previous: z.ZodObject<{
                 provider: z.ZodString;
@@ -1030,6 +1653,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -1045,6 +1669,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -1060,6 +1685,7 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                     speech: "speech";
                     transcriptions: "transcriptions";
                     realtime: "realtime";
+                    live: "live";
                 }>;
                 adapterId: z.ZodString;
             }, z.core.$strict>;
@@ -1070,6 +1696,21 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
             reason: z.ZodNullable<z.ZodString>;
         }, z.core.$strict>>;
     }, z.core.$strict>>;
+    coverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strict>;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        status: z.ZodEnum<{
+            unavailable: "unavailable";
+            partial: "partial";
+            complete: "complete";
+        }>;
+        missingSlots: z.ZodArray<z.ZodString>;
+        reason: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type AgentModelsOverview = z.infer<typeof AgentModelsOverviewSchema>;
 export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -1091,6 +1732,8 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -1108,6 +1751,7 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -1123,6 +1767,7 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -1140,6 +1785,7 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -1157,6 +1803,8 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
             structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strict>;
         tiers: z.ZodRecord<z.ZodEnum<{
             standard: "standard";
@@ -1174,6 +1822,7 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>>;
@@ -1189,6 +1838,97 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
                 speech: "speech";
                 transcriptions: "transcriptions";
                 realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        fallback: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"single">;
+        descriptor: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        tiers: z.ZodOptional<z.ZodNever>;
+        mode: z.ZodLiteral<"failover">;
+        primary: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
+            }>;
+            adapterId: z.ZodString;
+        }, z.core.$strict>;
+        capability: z.ZodString;
+        function: z.ZodEnum<{
+            reasoning: "reasoning";
+            "memory-extraction": "memory-extraction";
+            embedding: "embedding";
+            tts: "tts";
+            transcription: "transcription";
+            voice: "voice";
+        }>;
+        catalogVersion: z.ZodString;
+        requirements: z.ZodObject<{
+            tools: z.ZodBoolean;
+            stream: z.ZodBoolean;
+            structuredOutput: z.ZodBoolean;
+            vision: z.ZodOptional<z.ZodBoolean>;
+            webSearch: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+        fallback: z.ZodObject<{
+            provider: z.ZodString;
+            modelId: z.ZodString;
+            protocol: z.ZodEnum<{
+                responses: "responses";
+                "chat-completions": "chat-completions";
+                messages: "messages";
+                "generate-content": "generate-content";
+                embeddings: "embeddings";
+                speech: "speech";
+                transcriptions: "transcriptions";
+                realtime: "realtime";
+                live: "live";
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
@@ -1226,6 +1966,8 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1243,6 +1985,7 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1258,6 +2001,7 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1275,6 +2019,7 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1292,6 +2037,8 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1309,6 +2056,7 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1324,6 +2072,97 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                fallback: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"single">;
+                descriptor: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"failover">;
+                primary: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+                fallback: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1363,6 +2202,8 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1380,6 +2221,7 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1395,6 +2237,7 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1412,6 +2255,7 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1429,6 +2273,8 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1446,6 +2292,7 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1461,6 +2308,97 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                fallback: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"single">;
+                descriptor: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"failover">;
+                primary: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+                fallback: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1501,6 +2439,8 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1518,6 +2458,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1533,6 +2474,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1550,6 +2492,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1567,6 +2510,8 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1584,6 +2529,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1599,6 +2545,97 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                fallback: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"single">;
+                descriptor: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"failover">;
+                primary: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+                fallback: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1638,6 +2675,8 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1655,6 +2694,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1670,6 +2710,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1687,6 +2728,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1704,6 +2746,8 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
                     structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>;
                 tiers: z.ZodRecord<z.ZodEnum<{
                     standard: "standard";
@@ -1721,6 +2765,7 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>>;
@@ -1736,6 +2781,97 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                fallback: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"single">;
+                descriptor: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                tiers: z.ZodOptional<z.ZodNever>;
+                mode: z.ZodLiteral<"failover">;
+                primary: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
+                    }>;
+                    adapterId: z.ZodString;
+                }, z.core.$strict>;
+                capability: z.ZodString;
+                function: z.ZodEnum<{
+                    reasoning: "reasoning";
+                    "memory-extraction": "memory-extraction";
+                    embedding: "embedding";
+                    tts: "tts";
+                    transcription: "transcription";
+                    voice: "voice";
+                }>;
+                catalogVersion: z.ZodString;
+                requirements: z.ZodObject<{
+                    tools: z.ZodBoolean;
+                    stream: z.ZodBoolean;
+                    structuredOutput: z.ZodBoolean;
+                    vision: z.ZodOptional<z.ZodBoolean>;
+                    webSearch: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>;
+                fallback: z.ZodObject<{
+                    provider: z.ZodString;
+                    modelId: z.ZodString;
+                    protocol: z.ZodEnum<{
+                        responses: "responses";
+                        "chat-completions": "chat-completions";
+                        messages: "messages";
+                        "generate-content": "generate-content";
+                        embeddings: "embeddings";
+                        speech: "speech";
+                        transcriptions: "transcriptions";
+                        realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
@@ -1747,6 +2883,47 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
     }, z.core.$strict>>;
 }, z.core.$strict>]>;
 export type AgentModelsBatchRequest = z.infer<typeof AgentModelsBatchRequestSchema>;
+/** Server-produced relation snapshot. It describes impact and never grants permission. */
+export declare const AgentModelsMasterImpactSchema: z.ZodObject<{
+    token: z.ZodObject<{
+        version: z.ZodString;
+        sourceVersion: z.ZodString;
+        relationVersion: z.ZodString;
+    }, z.core.$strict>;
+    masterIdentity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    tenantId: z.ZodString;
+    recipients: z.ZodArray<z.ZodObject<{
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        tenantId: z.ZodString;
+        displayName: z.ZodNullable<z.ZodString>;
+        slots: z.ZodArray<z.ZodObject<{
+            slotId: z.ZodString;
+            binding: z.ZodEnum<{
+                custom: "custom";
+                master: "master";
+            }>;
+            effect: z.ZodEnum<{
+                changes: "changes";
+                preserved: "preserved";
+            }>;
+            currentVersion: z.ZodNumber;
+            nextVersion: z.ZodNumber;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type AgentModelsMasterImpact = z.infer<typeof AgentModelsMasterImpactSchema>;
+/** Compare only against a complete, authenticated server-held snapshot, never a filtered overview. */
+export declare function isAgentModelsMasterImpactCurrent(input: unknown, serverSnapshot: unknown): boolean;
 export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
     previewId: z.ZodString;
     request: z.ZodObject<{
@@ -1778,6 +2955,8 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                         tools: z.ZodBoolean;
                         stream: z.ZodBoolean;
                         structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
                     }, z.core.$strict>;
                     tiers: z.ZodRecord<z.ZodEnum<{
                         standard: "standard";
@@ -1795,6 +2974,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -1810,6 +2990,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1827,6 +3008,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1844,6 +3026,8 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                         tools: z.ZodBoolean;
                         stream: z.ZodBoolean;
                         structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
                     }, z.core.$strict>;
                     tiers: z.ZodRecord<z.ZodEnum<{
                         standard: "standard";
@@ -1861,6 +3045,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -1876,6 +3061,97 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    tiers: z.ZodOptional<z.ZodNever>;
+                    fallback: z.ZodOptional<z.ZodNever>;
+                    mode: z.ZodLiteral<"single">;
+                    descriptor: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                    embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+                    capability: z.ZodString;
+                    function: z.ZodEnum<{
+                        reasoning: "reasoning";
+                        "memory-extraction": "memory-extraction";
+                        embedding: "embedding";
+                        tts: "tts";
+                        transcription: "transcription";
+                        voice: "voice";
+                    }>;
+                    catalogVersion: z.ZodString;
+                    requirements: z.ZodObject<{
+                        tools: z.ZodBoolean;
+                        stream: z.ZodBoolean;
+                        structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    tiers: z.ZodOptional<z.ZodNever>;
+                    mode: z.ZodLiteral<"failover">;
+                    primary: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                    capability: z.ZodString;
+                    function: z.ZodEnum<{
+                        reasoning: "reasoning";
+                        "memory-extraction": "memory-extraction";
+                        embedding: "embedding";
+                        tts: "tts";
+                        transcription: "transcription";
+                        voice: "voice";
+                    }>;
+                    catalogVersion: z.ZodString;
+                    requirements: z.ZodObject<{
+                        tools: z.ZodBoolean;
+                        stream: z.ZodBoolean;
+                        structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>;
+                    fallback: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1887,6 +3163,43 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
         }, z.core.$strict>>;
     }, z.core.$strict>;
     expiresAt: z.ZodISODateTime;
+    fanoutImpact: z.ZodOptional<z.ZodObject<{
+        token: z.ZodObject<{
+            version: z.ZodString;
+            sourceVersion: z.ZodString;
+            relationVersion: z.ZodString;
+        }, z.core.$strict>;
+        masterIdentity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        tenantId: z.ZodString;
+        recipients: z.ZodArray<z.ZodObject<{
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodNumber;
+            }, z.core.$strict>;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            tenantId: z.ZodString;
+            displayName: z.ZodNullable<z.ZodString>;
+            slots: z.ZodArray<z.ZodObject<{
+                slotId: z.ZodString;
+                binding: z.ZodEnum<{
+                    custom: "custom";
+                    master: "master";
+                }>;
+                effect: z.ZodEnum<{
+                    changes: "changes";
+                    preserved: "preserved";
+                }>;
+                currentVersion: z.ZodNumber;
+                nextVersion: z.ZodNumber;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
     agents: z.ZodArray<z.ZodObject<{
         identity: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -1920,6 +3233,8 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                         tools: z.ZodBoolean;
                         stream: z.ZodBoolean;
                         structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
                     }, z.core.$strict>;
                     tiers: z.ZodRecord<z.ZodEnum<{
                         standard: "standard";
@@ -1937,6 +3252,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -1952,6 +3268,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1969,6 +3286,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -1986,6 +3304,8 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                         tools: z.ZodBoolean;
                         stream: z.ZodBoolean;
                         structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
                     }, z.core.$strict>;
                     tiers: z.ZodRecord<z.ZodEnum<{
                         standard: "standard";
@@ -2003,6 +3323,7 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2018,10 +3339,124 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    tiers: z.ZodOptional<z.ZodNever>;
+                    fallback: z.ZodOptional<z.ZodNever>;
+                    mode: z.ZodLiteral<"single">;
+                    descriptor: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                    embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+                    capability: z.ZodString;
+                    function: z.ZodEnum<{
+                        reasoning: "reasoning";
+                        "memory-extraction": "memory-extraction";
+                        embedding: "embedding";
+                        tts: "tts";
+                        transcription: "transcription";
+                        voice: "voice";
+                    }>;
+                    catalogVersion: z.ZodString;
+                    requirements: z.ZodObject<{
+                        tools: z.ZodBoolean;
+                        stream: z.ZodBoolean;
+                        structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    tiers: z.ZodOptional<z.ZodNever>;
+                    mode: z.ZodLiteral<"failover">;
+                    primary: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                    capability: z.ZodString;
+                    function: z.ZodEnum<{
+                        reasoning: "reasoning";
+                        "memory-extraction": "memory-extraction";
+                        embedding: "embedding";
+                        tts: "tts";
+                        transcription: "transcription";
+                        voice: "voice";
+                    }>;
+                    catalogVersion: z.ZodString;
+                    requirements: z.ZodObject<{
+                        tools: z.ZodBoolean;
+                        stream: z.ZodBoolean;
+                        structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>;
+                    fallback: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
                 }, z.core.$strict>]>;
+            }, z.core.$strict>>;
+            provenance: z.ZodOptional<z.ZodObject<{
+                scope: z.ZodLazy<z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>>;
+                bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    slotId: z.ZodString;
+                    origin: z.ZodLiteral<"master">;
+                    source: z.ZodObject<{
+                        identity: z.ZodObject<{
+                            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                            vaultAgentId: z.ZodNumber;
+                        }, z.core.$strict>;
+                        sourceVersion: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    slotId: z.ZodString;
+                    origin: z.ZodLiteral<"custom">;
+                    source: z.ZodOptional<z.ZodNever>;
+                }, z.core.$strict>], "origin">>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
         impact: z.ZodArray<z.ZodString>;
@@ -2082,6 +3517,8 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                         tools: z.ZodBoolean;
                         stream: z.ZodBoolean;
                         structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
                     }, z.core.$strict>;
                     tiers: z.ZodRecord<z.ZodEnum<{
                         standard: "standard";
@@ -2099,6 +3536,7 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2114,6 +3552,7 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2131,6 +3570,7 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
@@ -2148,6 +3588,8 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                         tools: z.ZodBoolean;
                         stream: z.ZodBoolean;
                         structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
                     }, z.core.$strict>;
                     tiers: z.ZodRecord<z.ZodEnum<{
                         standard: "standard";
@@ -2165,6 +3607,7 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>>;
@@ -2180,10 +3623,124 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                             speech: "speech";
                             transcriptions: "transcriptions";
                             realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    tiers: z.ZodOptional<z.ZodNever>;
+                    fallback: z.ZodOptional<z.ZodNever>;
+                    mode: z.ZodLiteral<"single">;
+                    descriptor: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                    embeddingDimensions: z.ZodOptional<z.ZodNumber>;
+                    capability: z.ZodString;
+                    function: z.ZodEnum<{
+                        reasoning: "reasoning";
+                        "memory-extraction": "memory-extraction";
+                        embedding: "embedding";
+                        tts: "tts";
+                        transcription: "transcription";
+                        voice: "voice";
+                    }>;
+                    catalogVersion: z.ZodString;
+                    requirements: z.ZodObject<{
+                        tools: z.ZodBoolean;
+                        stream: z.ZodBoolean;
+                        structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    tiers: z.ZodOptional<z.ZodNever>;
+                    mode: z.ZodLiteral<"failover">;
+                    primary: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
+                        }>;
+                        adapterId: z.ZodString;
+                    }, z.core.$strict>;
+                    capability: z.ZodString;
+                    function: z.ZodEnum<{
+                        reasoning: "reasoning";
+                        "memory-extraction": "memory-extraction";
+                        embedding: "embedding";
+                        tts: "tts";
+                        transcription: "transcription";
+                        voice: "voice";
+                    }>;
+                    catalogVersion: z.ZodString;
+                    requirements: z.ZodObject<{
+                        tools: z.ZodBoolean;
+                        stream: z.ZodBoolean;
+                        structuredOutput: z.ZodBoolean;
+                        vision: z.ZodOptional<z.ZodBoolean>;
+                        webSearch: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>;
+                    fallback: z.ZodObject<{
+                        provider: z.ZodString;
+                        modelId: z.ZodString;
+                        protocol: z.ZodEnum<{
+                            responses: "responses";
+                            "chat-completions": "chat-completions";
+                            messages: "messages";
+                            "generate-content": "generate-content";
+                            embeddings: "embeddings";
+                            speech: "speech";
+                            transcriptions: "transcriptions";
+                            realtime: "realtime";
+                            live: "live";
                         }>;
                         adapterId: z.ZodString;
                     }, z.core.$strict>;
                 }, z.core.$strict>]>;
+            }, z.core.$strict>>;
+            provenance: z.ZodOptional<z.ZodObject<{
+                scope: z.ZodLazy<z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>>;
+                bindings: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    slotId: z.ZodString;
+                    origin: z.ZodLiteral<"master">;
+                    source: z.ZodObject<{
+                        identity: z.ZodObject<{
+                            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                            vaultAgentId: z.ZodNumber;
+                        }, z.core.$strict>;
+                        sourceVersion: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    slotId: z.ZodString;
+                    origin: z.ZodLiteral<"custom">;
+                    source: z.ZodOptional<z.ZodNever>;
+                }, z.core.$strict>], "origin">>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
         savedVersion: z.ZodNullable<z.ZodNumber>;
@@ -2301,6 +3858,7 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                     advanced: "advanced";
                     reasoning: "reasoning";
                     fallback: "fallback";
+                    primary: "primary";
                 }>;
                 descriptor: z.ZodObject<{
                     provider: z.ZodString;
@@ -2314,9 +3872,11 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                         speech: "speech";
                         transcriptions: "transcriptions";
                         realtime: "realtime";
+                        live: "live";
                     }>;
                     adapterId: z.ZodString;
                 }, z.core.$strict>;
+                embeddingDimensions: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
         reason: z.ZodNullable<z.ZodObject<{

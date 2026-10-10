@@ -22,7 +22,7 @@ export declare const elevenLabsWebAuthorityContract: {
             after: "after";
         }>;
     }, z.core.$strict>;
-    readonly responseSchema: z.ZodObject<{
+    readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         ok: z.ZodLiteral<false>;
         request: z.ZodObject<{
             requestId: z.ZodString;
@@ -76,8 +76,101 @@ export declare const elevenLabsWebAuthorityContract: {
             authorityVersion: z.ZodNumber;
             observedAt: z.ZodISODateTime;
             expiresAt: z.ZodISODateTime;
-            agentIdentity: z.ZodNull;
+            agentIdentity: z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"master">;
+                masterAgentId: z.ZodOptional<z.ZodNever>;
+            }, z.core.$strict>, z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"erede">;
+                masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            }, z.core.$strict>], "role">>;
         }, z.core.$strict>>;
-    }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        request: z.ZodObject<{
+            requestId: z.ZodString;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            linkId: z.ZodString;
+            phase: z.ZodEnum<{
+                before: "before";
+                after: "after";
+            }>;
+        }, z.core.$strict>;
+        snapshot: z.ZodObject<{
+            requestId: z.ZodString;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            linkId: z.ZodString;
+            phase: z.ZodEnum<{
+                before: "before";
+                after: "after";
+            }>;
+            viewer: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"anonymous">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"authenticated">;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                owner: z.ZodNullable<z.ZodObject<{
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>], "kind">;
+            lifecycle: z.ZodEnum<{
+                unavailable: "unavailable";
+                active: "active";
+                archived: "archived";
+                removed: "removed";
+            }>;
+            configuredOrigin: z.ZodURL;
+            authorityVersion: z.ZodNumber;
+            observedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+            agentIdentity: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"master">;
+                masterAgentId: z.ZodOptional<z.ZodNever>;
+            }, z.core.$strict>, z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"erede">;
+                masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            }, z.core.$strict>], "role">;
+        }, z.core.$strict>;
+    }, z.core.$strict>], "ok">;
 };
 //# sourceMappingURL=capability-elevenlabs-web-context.d.ts.map

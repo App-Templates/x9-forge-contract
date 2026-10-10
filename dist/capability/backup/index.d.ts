@@ -36,8 +36,8 @@ export declare const BackupSnapshotSchema: z.ZodObject<{
     restoreSec: z.ZodNumber;
     release: z.ZodNullable<z.ZodString>;
     origin: z.ZodEnum<{
-        approved: "approved";
         external: "external";
+        approved: "approved";
     }>;
 }, z.core.$strict>;
 export type BackupSnapshot = z.infer<typeof BackupSnapshotSchema>;
@@ -53,9 +53,9 @@ export declare const BackupActionKindSchema: z.ZodEnum<{
 }>;
 export declare const BackupActionStateSchema: z.ZodEnum<{
     failed: "failed";
-    running: "running";
     ready: "ready";
     expired: "expired";
+    running: "running";
     "awaiting-approval": "awaiting-approval";
 }>;
 export type BackupActionState = z.infer<typeof BackupActionStateSchema>;
@@ -68,9 +68,9 @@ export declare const BackupActionSchema: z.ZodObject<{
     }>;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         ready: "ready";
         expired: "expired";
+        running: "running";
         "awaiting-approval": "awaiting-approval";
     }>;
     release: z.ZodNullable<z.ZodString>;
@@ -94,8 +94,8 @@ export declare const BackupStatusSchema: z.ZodObject<{
         restoreSec: z.ZodNumber;
         release: z.ZodNullable<z.ZodString>;
         origin: z.ZodEnum<{
-            approved: "approved";
             external: "external";
+            approved: "approved";
         }>;
     }, z.core.$strict>>;
     action: z.ZodNullable<z.ZodObject<{
@@ -107,9 +107,9 @@ export declare const BackupStatusSchema: z.ZodObject<{
         }>;
         state: z.ZodEnum<{
             failed: "failed";
-            running: "running";
             ready: "ready";
             expired: "expired";
+            running: "running";
             "awaiting-approval": "awaiting-approval";
         }>;
         release: z.ZodNullable<z.ZodString>;
@@ -194,8 +194,8 @@ export declare const backupDeviceStatusContract: {
             restoreSec: z.ZodNumber;
             release: z.ZodNullable<z.ZodString>;
             origin: z.ZodEnum<{
-                approved: "approved";
                 external: "external";
+                approved: "approved";
             }>;
         }, z.core.$strict>>;
         action: z.ZodNullable<z.ZodObject<{
@@ -207,9 +207,9 @@ export declare const backupDeviceStatusContract: {
             }>;
             state: z.ZodEnum<{
                 failed: "failed";
-                running: "running";
                 ready: "ready";
                 expired: "expired";
+                running: "running";
                 "awaiting-approval": "awaiting-approval";
             }>;
             release: z.ZodNullable<z.ZodString>;
@@ -254,9 +254,9 @@ export declare const BackupDeviceRequestResponseSchema: z.ZodDiscriminatedUnion<
         }>;
         state: z.ZodEnum<{
             failed: "failed";
-            running: "running";
             ready: "ready";
             expired: "expired";
+            running: "running";
             "awaiting-approval": "awaiting-approval";
         }>;
         release: z.ZodNullable<z.ZodString>;
@@ -292,9 +292,9 @@ export declare const backupDeviceRequestContract: {
             }>;
             state: z.ZodEnum<{
                 failed: "failed";
-                running: "running";
                 ready: "ready";
                 expired: "expired";
+                running: "running";
                 "awaiting-approval": "awaiting-approval";
             }>;
             release: z.ZodNullable<z.ZodString>;

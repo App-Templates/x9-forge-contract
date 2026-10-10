@@ -77,9 +77,9 @@ export declare const AgentCreationRequestSchema: z.ZodObject<{
 export type AgentCreationRequest = z.infer<typeof AgentCreationRequestSchema>;
 export declare const AgentCreationPhaseSchema: z.ZodEnum<{
     incomplete: "incomplete";
+    completed: "completed";
     pending: "pending";
     running: "running";
-    completed: "completed";
 }>;
 export declare const AgentCreationFailureSchema: z.ZodObject<{
     step: z.ZodEnum<{
@@ -196,9 +196,9 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
     agentRecordId: z.ZodNullable<z.ZodNumber>;
     phase: z.ZodEnum<{
         incomplete: "incomplete";
+        completed: "completed";
         pending: "pending";
         running: "running";
-        completed: "completed";
     }>;
     channels: z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
@@ -479,9 +479,9 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
         agentRecordId: z.ZodNullable<z.ZodNumber>;
         phase: z.ZodEnum<{
             incomplete: "incomplete";
+            completed: "completed";
             pending: "pending";
             running: "running";
-            completed: "completed";
         }>;
         channels: z.ZodArray<z.ZodObject<{
             kind: z.ZodEnum<{

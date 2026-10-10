@@ -65,6 +65,29 @@ Full archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md) · Audit: [v1.0-MILE
 | M. Memory Engine v2 Contracts | v1.0 | 1/1 | ✅ Complete | 2026-04-15 |
 | 7. Shim Removal (opzionale) | v1.1 | 0/2 | Planned | - |
 
+### Phase 1: Modelli bridge 145
+
+**Goal:** Prepare version 1.45.0 of the approved Models contracts with native distribution and actual SHA-pinned isolated consumer installations.
+**Requirements**: M145-01, M145-02, M145-03
+**Depends on:** Approved Models contracts at 6d1bafbd; independent import-fix review and coordinator publication before remote installation proof.
+**Plans:** 2/2 plans complete (2026-10-09)
+
+Canonical refs: package.json, CHANGELOG.md, README.md, .planning/phases/c5-modelli-consumatori/CONTRATTO.md
+
+Plans:
+- [x] 01-01-PLAN.md — version, distribution, isolated consumer install and public entrypoints
+- [x] 01-02-PLAN.md — final SHA installation and native compiler provenance gap closure
+
+### Phase 2: Modelli authority locale
+
+**Goal:** Canonical local source observation and pre-bootstrap loaded model source without fabricated Master role.
+**Requirements**: AUTH-01, AUTH-02, AUTH-03
+**Depends on:** Phase 1
+**Plans:** 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — local observation endpoint, roleless initial source, native qualification
+
 ---
 
 *Last updated: 2026-04-16 after v1.0 milestone close*
@@ -79,3 +102,9 @@ Full archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md) · Audit: [v1.0-MILE
 - [x] 55-01-PLAN.md — integrate reviewed source, release metadata, full build/test/pack compatibility and handoff
 
 This scoped bootstrap phase leaves historical v1.1 cleanup parked. No publish, push, PR, merge or deployment by Codex D.
+
+**Verification:** passed; release a5103c97;3/3installroots,144/144loads,632/632Models,8/8types;19/19provenance and8/8typefaults restored. Independent release review pending.
+
+## Phase03 — Modelli consultazione (mandato150615)
+
+- [x]03-01 Contratto locale source/dist qualificato; reviewindipendente al raccordofinale. Piano derivato da10-01a4cae50. Source028c863,dist3c84de6; SUMMARY nella fase03. Non chiude phase02 o milestone storico.

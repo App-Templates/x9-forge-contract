@@ -49,8 +49,9 @@ exports.CapabilityCallContextSchema = zod_1.z.object({
     configVersion: agent_config_js_1.AgentConfigVersionSchema.nullable(),
     /** Resolved ordinary settings for this agent (never credentials). */
     settings: zod_1.z.record(parameters_js_1.CapabilityParameterKeySchema, parameters_js_1.CapabilityParameterValueSchema).optional(),
-    credentials: zod_1.z.record(credential_link_js_1.CredentialKeySchema, zod_1.z.string().min(1)),
-    credentialVersions: zod_1.z.record(credential_link_js_1.CredentialKeySchema, credential_link_js_1.CredentialVersionSchema),
+    // Resolve canonical credential schemas after the public entrypoint cycle initializes.
+    credentials: zod_1.z.record(zod_1.z.lazy(() => credential_link_js_1.CredentialKeySchema), zod_1.z.string().min(1)),
+    credentialVersions: zod_1.z.record(zod_1.z.lazy(() => credential_link_js_1.CredentialKeySchema), zod_1.z.lazy(() => credential_link_js_1.CredentialVersionSchema)),
 }).strict().superRefine((context, ctx) => {
     addKeyAlignmentIssues(context.credentials, context.credentialVersions, ctx);
 });
@@ -66,14 +67,14 @@ exports.CapabilityCallContextErrorCodeSchema = zod_1.z.enum([
 exports.CapabilityCallContextRequestSchema = zod_1.z.object({
     identity: exports.CapabilityCallIdentitySchema,
     capability: CapabilityNameSchema,
-    keys: zod_1.z.array(credential_link_js_1.CredentialKeySchema).max(64)
+    keys: zod_1.z.array(zod_1.z.lazy(() => credential_link_js_1.CredentialKeySchema)).max(64)
         .refine((keys) => new Set(keys).size === keys.length, { message: 'keys must be unique' }),
 }).strict();
 exports.CapabilityCallContextErrorSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
     error: exports.CapabilityCallContextErrorCodeSchema,
     /** credential_missing only: the absent keys (names, never values). */
-    keys: zod_1.z.array(credential_link_js_1.CredentialKeySchema).min(1).optional(),
+    keys: zod_1.z.array(zod_1.z.lazy(() => credential_link_js_1.CredentialKeySchema)).min(1).optional(),
 }).superRefine((response, ctx) => {
     if ((response.error === 'credential_missing') !== (response.keys !== undefined)) {
         ctx.addIssue({ code: 'custom', path: ['keys'], message: 'keys are listed exactly for credential_missing' });

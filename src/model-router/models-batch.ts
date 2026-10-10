@@ -7,6 +7,8 @@ import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
 import { CapabilityModelSettingsSchema, validateCapabilityModels } from './capability-model-settings.js';
 import { ModelCatalogSchema, ModelCatalogVersionSchema, ModelDescriptorSchema, ModelFunctionSchema, ModelFeaturesSchema, sameModelDescriptor } from './model-catalog.js';
 import { AgentModelsConfigurationSchema, AgentModelRuntimeAttestationSchema, ModelSlotIdSchema, isAgentModelApplyConfirmed, sameModelAgentIdentity } from './agent-model-configuration.js';
+import { CompleteModelIdentitySchema } from './agent-model-configuration-values.js';
+import { AgentModelBootstrapSourceVersionSchema } from './model-slot.js';
 
 export const ModelCostMetadataSchema = z.discriminatedUnion('state', [
   z.object({ state: z.literal('unknown'), reason: z.string().min(1).max(500) }).strict(),
@@ -38,7 +40,7 @@ export const AgentModelOverviewRowSchema = z.object({
   channelId: z.string().min(1).max(128).nullable(),
   installation: z.enum(['installed', 'absent', 'unknown']),
   editability: z.enum(['editable', 'readonly']), reason: z.string().min(1).max(500).nullable(),
-  origin: z.enum(['master', 'custom']), masterAgentId: AgentIdSchema.nullable(), masterConfigVersion: AgentConfigVersionSchema.nullable(),
+  origin: z.enum(['master', 'custom', 'unknown']), masterAgentId: AgentIdSchema.nullable(), masterConfigVersion: AgentConfigVersionSchema.nullable(),
   requirements: ModelFeaturesSchema,
   default: CapabilityModelSettingsSchema.nullable(), saved: CapabilityModelSettingsSchema.nullable(), applied: CapabilityModelSettingsSchema.nullable(),
   versions: AgentConfigVersionStateSchema.nullable(), catalogVersion: ModelCatalogVersionSchema.nullable(),
@@ -46,6 +48,7 @@ export const AgentModelOverviewRowSchema = z.object({
 }).strict().superRefine((row, ctx) => {
   if ((row.editability === 'readonly') !== (row.reason !== null)) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Readonly rows require a reason' });
   if (row.origin === 'master' && (row.masterAgentId === null || row.masterConfigVersion === null)) ctx.addIssue({ code: 'custom', path: ['masterAgentId'], message: 'Master inheritance requires an explicit source agent' });
+  if (row.origin === 'unknown' && (row.masterAgentId !== null || row.masterConfigVersion !== null || row.editability !== 'readonly' || row.reason === null || row.reason.trim().length === 0)) ctx.addIssue({ code: 'custom', path: ['origin'], message: 'Unknown provenance is readonly without a claimed Master' });
   for (const field of ['default', 'saved', 'applied'] as const) {
     const value = row[field];
     if (value !== null && (value.capability !== row.capability || value.function !== row.function)) ctx.addIssue({ code: 'custom', path: [field], message: 'Selection must belong to the displayed capability/function' });
@@ -53,15 +56,34 @@ export const AgentModelOverviewRowSchema = z.object({
   if (row.applied !== null && row.versions?.applied == null) ctx.addIssue({ code: 'custom', path: ['applied'], message: 'An applied selection requires an attested applied version' });
   if (row.embedding !== null && row.function !== 'embedding') ctx.addIssue({ code: 'custom', path: ['embedding'], message: 'Rebuild metadata belongs only to embedding slots' });
 });
-export const AgentModelsOverviewSchema = z.object({ version: ModelCatalogVersionSchema, observedAt: z.iso.datetime({ offset: true }), rows: z.array(AgentModelOverviewRowSchema).max(2048) }).strict().superRefine((overview, ctx) => {
+/** Read-side inventory evidence; absence on old producers is not an attestation of zero. */
+export const AgentModelsOverviewCoverageSchema = z.object({
+  identity: AgentRuntimeIdentitySchema.strict(), ownerId: OwnerIdSchema,
+  status: z.enum(['complete', 'partial', 'unavailable']),
+  missingSlots: z.array(ModelSlotIdSchema), reason: z.string().trim().min(1).max(500).nullable(),
+}).strict().superRefine((coverage, ctx) => {
+  if (coverage.status === 'complete' && (coverage.missingSlots.length !== 0 || coverage.reason !== null)) ctx.addIssue({ code: 'custom', path: ['status'], message: 'Complete inventory has no missing slots or reason' });
+  if (coverage.status !== 'complete' && coverage.reason === null) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Incomplete inventory requires a public reason' });
+  if (new Set(coverage.missingSlots).size !== coverage.missingSlots.length) ctx.addIssue({ code: 'custom', path: ['missingSlots'], message: 'Duplicate missing slot' });
+});
+export type AgentModelsOverviewCoverage = z.infer<typeof AgentModelsOverviewCoverageSchema>;
+export const AgentModelsOverviewSchema = z.object({
+  version: ModelCatalogVersionSchema, observedAt: z.iso.datetime({ offset: true }),
+  rows: z.array(AgentModelOverviewRowSchema).max(2048),
+  coverage: z.array(AgentModelsOverviewCoverageSchema).max(2048).optional(),
+}).strict().superRefine((overview, ctx) => {
   const owners = new Map<string, string>(); const versions = new Map<string, string>();
   const identities = new Map<string, z.infer<typeof AgentRuntimeIdentitySchema>>(); const slots = new Set<string>();
+  const bind = (entry: { identity: z.infer<typeof AgentRuntimeIdentitySchema>; ownerId: string }, path: (string | number)[]): void => {
+    const agentId = entry.identity.managementAgentId; const known = identities.get(agentId);
+    if (known !== undefined && !sameModelAgentIdentity(known, entry.identity)) ctx.addIssue({ code: 'custom', path: [...path, 'identity'], message: 'Inconsistent agent identity' });
+    identities.set(agentId, entry.identity);
+    if (owners.has(agentId) && owners.get(agentId) !== entry.ownerId) ctx.addIssue({ code: 'custom', path: [...path, 'ownerId'], message: 'An agent has exactly one owner' });
+    owners.set(agentId, entry.ownerId);
+  };
   for (const [index, row] of overview.rows.entries()) {
-    const agentId = row.identity.managementAgentId; const known = identities.get(agentId);
-    if (known !== undefined && !sameModelAgentIdentity(known, row.identity)) ctx.addIssue({ code: 'custom', path: ['rows', index, 'identity'], message: 'Inconsistent agent identity' });
-    identities.set(agentId, row.identity);
-    if (owners.has(agentId) && owners.get(agentId) !== row.ownerId) ctx.addIssue({ code: 'custom', path: ['rows', index, 'ownerId'], message: 'An agent has exactly one owner' });
-    owners.set(agentId, row.ownerId);
+    bind(row, ['rows', index]);
+    const agentId = row.identity.managementAgentId;
     const version = JSON.stringify(row.versions);
     if (versions.has(agentId) && versions.get(agentId) !== version) ctx.addIssue({ code: 'custom', path: ['rows', index, 'versions'], message: 'All slots use the same agent configuration versions' });
     versions.set(agentId, version);
@@ -69,7 +91,21 @@ export const AgentModelsOverviewSchema = z.object({ version: ModelCatalogVersion
     if (slots.has(key)) ctx.addIssue({ code: 'custom', path: ['rows', index, 'slotId'], message: 'Duplicate agent/slot row' });
     slots.add(key);
   }
+  const covered = new Set<string>();
+  for (const [index, coverage] of (overview.coverage ?? []).entries()) {
+    bind(coverage, ['coverage', index]);
+    const agentId = coverage.identity.managementAgentId;
+    if (covered.has(agentId)) ctx.addIssue({ code: 'custom', path: ['coverage', index, 'identity'], message: 'Duplicate agent coverage' });
+    covered.add(agentId);
+    if (coverage.missingSlots.some(slot => slots.has(`${agentId}:${slot}`))) ctx.addIssue({ code: 'custom', path: ['coverage', index, 'missingSlots'], message: 'A slot cannot be both present and missing' });
+  }
   if (!AgentRuntimeIdentitiesSchema.safeParse([...identities.values()]).success) ctx.addIssue({ code: 'custom', path: ['rows'], message: 'Ambiguous agent identities' });
+  const vaultIds = new Set<number>();
+  for (const identity of identities.values()) {
+    if (identity.vaultAgentId === undefined) continue;
+    if (vaultIds.has(identity.vaultAgentId)) ctx.addIssue({ code: 'custom', path: ['rows'], message: 'Ambiguous vault identities' });
+    vaultIds.add(identity.vaultAgentId);
+  }
 });
 export type AgentModelsOverview = z.infer<typeof AgentModelsOverviewSchema>;
 
@@ -91,11 +127,51 @@ const sameSettings = (left: z.infer<typeof CapabilityModelSettingsSchema>, right
 const normalizedConfiguration = (config: z.infer<typeof AgentModelsConfigurationSchema>): string => JSON.stringify({ ...config, selections: [...config.selections].sort((left, right) => left.slotId.localeCompare(right.slotId)) });
 const normalizedRequest = (request: z.infer<typeof AgentModelsBatchPreviewRequestSchema>): string => JSON.stringify({ ...request, agents: request.agents.map(agent => ({ ...agent, changes: [...agent.changes].sort((a, b) => a.slotId.localeCompare(b.slotId)) })).sort((a, b) => a.identity.managementAgentId.localeCompare(b.identity.managementAgentId)) });
 
+/** Server-produced relation snapshot. It describes impact and never grants permission. */
+export const AgentModelsMasterImpactSchema = z.object({
+  token: z.object({ version: ModelCatalogVersionSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema, relationVersion: ModelCatalogVersionSchema }).strict(),
+  masterIdentity: CompleteModelIdentitySchema,
+  ownerId: OwnerIdSchema.refine(value => value.trim().length > 0), tenantId: z.string().trim().min(1).max(128),
+  recipients: z.array(z.object({
+    identity: CompleteModelIdentitySchema,
+    ownerId: OwnerIdSchema.refine(value => value.trim().length > 0), tenantId: z.string().trim().min(1).max(128),
+    displayName: z.string().trim().min(1).max(160).regex(/^[^<>\u0000-\u001f\u007f]+$/).nullable(),
+    slots: z.array(z.object({
+      slotId: ModelSlotIdSchema, binding: z.enum(['master', 'custom']), effect: z.enum(['changes', 'preserved']),
+      currentVersion: AgentConfigVersionSchema, nextVersion: AgentConfigVersionSchema,
+    }).strict()).min(1).max(64),
+  }).strict()).max(2048),
+}).strict().superRefine((impact, ctx) => {
+  const identities = [impact.masterIdentity, ...impact.recipients.map(recipient => recipient.identity)];
+  if (!AgentRuntimeIdentitiesSchema.safeParse(identities).success || new Set(identities.map(identity => identity.vaultAgentId)).size !== identities.length)
+    ctx.addIssue({ code: 'custom', path: ['recipients'], message: 'Master and recipients require unambiguous complete identities' });
+  for (const [index, recipient] of impact.recipients.entries()) {
+    if (recipient.ownerId !== impact.ownerId || recipient.tenantId !== impact.tenantId)
+      ctx.addIssue({ code: 'custom', path: ['recipients', index], message: 'Recipient belongs to another owner or tenant' });
+    if (new Set(recipient.slots.map(slot => slot.slotId)).size !== recipient.slots.length)
+      ctx.addIssue({ code: 'custom', path: ['recipients', index, 'slots'], message: 'Duplicate recipient slot' });
+    for (const [slotIndex, slot] of recipient.slots.entries()) {
+      if ((slot.binding === 'custom' && slot.effect !== 'preserved') || (slot.effect === 'preserved' ? slot.nextVersion !== slot.currentVersion : slot.nextVersion <= slot.currentVersion))
+        ctx.addIssue({ code: 'custom', path: ['recipients', index, 'slots', slotIndex], message: 'Custom selections are preserved; changed selections advance their version' });
+    }
+  }
+});
+export type AgentModelsMasterImpact = z.infer<typeof AgentModelsMasterImpactSchema>;
+
+/** Compare only against a complete, authenticated server-held snapshot, never a filtered overview. */
+export function isAgentModelsMasterImpactCurrent(input: unknown, serverSnapshot: unknown): boolean {
+  const candidate = AgentModelsMasterImpactSchema.safeParse(input), current = AgentModelsMasterImpactSchema.safeParse(serverSnapshot);
+  return candidate.success && current.success && JSON.stringify(candidate.data) === JSON.stringify(current.data);
+}
+
 export const AgentModelsBatchPreviewSchema = z.object({
   previewId: AgentManagementRequestIdSchema, request: AgentModelsBatchPreviewRequestSchema,
   expiresAt: z.iso.datetime({ offset: true }),
+  fanoutImpact: AgentModelsMasterImpactSchema.optional(),
   agents: z.array(z.object({ identity: AgentRuntimeIdentitySchema.strict(), expectedVersion: AgentConfigVersionSchema, next: AgentModelsConfigurationSchema, impact: z.array(z.string().min(1).max(500)).max(64) }).strict()).min(1).max(64),
 }).strict().superRefine((preview, ctx) => {
+  if (preview.fanoutImpact !== undefined && !preview.agents.some(agent => sameModelAgentIdentity(agent.identity, preview.fanoutImpact!.masterIdentity)))
+    ctx.addIssue({ code: 'custom', path: ['fanoutImpact', 'masterIdentity'], message: 'Master impact belongs to a requested agent' });
   if (preview.agents.length !== preview.request.agents.length || new Set(preview.agents.map(agent => agent.identity.managementAgentId)).size !== preview.agents.length) ctx.addIssue({ code: 'custom', path: ['agents'], message: 'Preview must cover each requested agent exactly once' });
   for (const [index, agent] of preview.agents.entries()) {
     const request = preview.request.agents.find(entry => entry.identity.managementAgentId === agent.identity.managementAgentId);
@@ -118,23 +194,27 @@ export function validateAgentModelsBatch(input: unknown, serverOverview: unknown
   if (request.overviewVersion !== overview.version) return ['overview-version-mismatch'];
   const catalogs = serverCatalogs.map(value => ModelCatalogSchema.safeParse(value)).flatMap(value => value.success ? [value.data] : []);
   const issues = new Set<AgentModelsBatchValidationIssue>();
-  for (const agent of request.agents) for (const change of agent.changes) {
-    const row = overview.rows.find(entry => entry.identity.managementAgentId === agent.identity.managementAgentId && entry.slotId === change.slotId);
-    if (row === undefined) { issues.add('slot-not-found'); continue; }
-    if (!sameModelAgentIdentity(row.identity, agent.identity)) { issues.add('identity-mismatch'); continue; }
-    if (row.versions === null) issues.add('version-unknown'); else if (row.versions.desired !== agent.expectedVersion) issues.add('version-conflict');
-    if (row.installation !== 'installed') issues.add('slot-unavailable');
-    if (row.editability !== 'editable') issues.add('slot-readonly');
-    const settings = change.action === 'set' ? change.settings : row.default;
-    if (change.action === 'reset-master' && (row.masterAgentId === null || row.masterConfigVersion === null || settings === null)) { issues.add('master-default-unavailable'); continue; }
-    if (settings === null) continue;
-    if (settings.capability !== row.capability || settings.function !== row.function) issues.add('slot-function-mismatch');
-    const required = row.requirements;
-    if ( (required.tools !== settings.requirements.tools || required.stream !== settings.requirements.stream || required.structuredOutput !== settings.requirements.structuredOutput)) issues.add('requirements-mismatch');
-    const matching = catalogs.filter(entry => entry.agentId === agent.identity.managementAgentId);
-    const catalog = matching[0];
-    if (matching.length !== 1 || catalog === undefined || row.catalogVersion !== catalog.version) { issues.add('catalog-unavailable'); continue; }
-    if (validateCapabilityModels(settings, catalog, agent.identity.managementAgentId, now).length > 0) issues.add('model-selection-invalid');
+  for (const agent of request.agents) {
+    const coverage = overview.coverage?.find(entry => sameModelAgentIdentity(entry.identity, agent.identity));
+    if (coverage !== undefined && coverage.status !== 'complete') issues.add('slot-unavailable');
+    for (const change of agent.changes) {
+      const row = overview.rows.find(entry => entry.identity.managementAgentId === agent.identity.managementAgentId && entry.slotId === change.slotId);
+      if (row === undefined) { issues.add('slot-not-found'); continue; }
+      if (!sameModelAgentIdentity(row.identity, agent.identity)) { issues.add('identity-mismatch'); continue; }
+      if (row.versions === null) issues.add('version-unknown'); else if (row.versions.desired !== agent.expectedVersion) issues.add('version-conflict');
+      if (row.installation !== 'installed') issues.add('slot-unavailable');
+      if (row.editability !== 'editable' || row.origin === 'unknown') issues.add('slot-readonly');
+      const settings = change.action === 'set' ? change.settings : row.default;
+      if (change.action === 'reset-master' && (row.masterAgentId === null || row.masterConfigVersion === null || settings === null)) { issues.add('master-default-unavailable'); continue; }
+      if (settings === null) continue;
+      if (settings.capability !== row.capability || settings.function !== row.function) issues.add('slot-function-mismatch');
+      const required = row.requirements;
+      if ( (required.tools !== settings.requirements.tools || required.stream !== settings.requirements.stream || required.structuredOutput !== settings.requirements.structuredOutput || (required.vision ?? false) !== (settings.requirements.vision ?? false) || (required.webSearch ?? false) !== (settings.requirements.webSearch ?? false))) issues.add('requirements-mismatch');
+      const matching = catalogs.filter(entry => entry.agentId === agent.identity.managementAgentId);
+      const catalog = matching[0];
+      if (matching.length !== 1 || catalog === undefined || row.catalogVersion !== catalog.version) { issues.add('catalog-unavailable'); continue; }
+      if (validateCapabilityModels(settings, catalog, agent.identity.managementAgentId, now).length > 0) issues.add('model-selection-invalid');
+    }
   }
   return [...issues];
 }

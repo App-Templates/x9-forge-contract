@@ -1,0 +1,1159 @@
+{
+  "mutations": [
+    {
+      "name": "definition-label",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R06 definition requires label",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "definition-scope",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R06 definition requires scope",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "definition-boundary",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R06 definition requires changeBoundary",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "definition-routing",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R06 definition requires routing",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "inventory-empty",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R07 definition rejects malformed metadata {\"inventoryIds\":[]}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "inventory-range",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R07 definition rejects malformed metadata {\"inventoryIds\":[\"C99\"]}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "inventory-unique",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R07 definition rejects malformed metadata {\"inventoryIds\":[\"C01\",\"C01\"]}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "definition-strict",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R07 definition rejects malformed metadata {\"extra\":true}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "definition-detached",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 35,
+      "technical": [
+        {
+          "name": "C5 read-only Master bootstrap source B01 complete source is strict and detached, with no invented saved/applied version",
+          "message": "ZodError: ["
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B14 existing state endpoint accepts additive legacy source without installed claim",
+          "message": "ZodError: ["
+        }
+      ],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R03 registry definitions are detached including inventory IDs",
+          "message": "AssertionError: expected [ 'C01', 'C99' ] to deeply equal [ 'C01' ]"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing agent_classifier never becomes complete",
+          "message": "AssertionError: expected false to be true // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing memory_extraction never becomes complete",
+          "message": "AssertionError: expected false to be true // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "definition-lookup-detached",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 34,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R02 exact canonical lookup agent_chat remains detached",
+          "message": "AssertionError: expected { slotId: 'agent_chat', \u2026(8) } to not deeply equal { slotId: 'agent_chat', \u2026(8) }"
+        },
+        {
+          "name": "C5 registered consumer inventory R02 exact canonical lookup agent_classifier remains detached",
+          "message": "AssertionError: expected { slotId: 'agent_classifier', \u2026(8) } to not deeply equal { slotId: 'agent_classifier', \u2026(8) }"
+        },
+        {
+          "name": "C5 registered consumer inventory R02 exact canonical lookup memory_extraction remains detached",
+          "message": "AssertionError: expected { slotId: 'memory_extraction', \u2026(8) } to not deeply equal { slotId: 'memory_extraction', \u2026(8) }"
+        }
+      ]
+    },
+    {
+      "name": "definition-label-distinct",
+      "file": "src/model-router/model-consumers.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 registered consumer inventory R10 labels distinguish all 34 choices",
+          "message": "AssertionError: expected 1 to be 34 // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-version-blank",
+      "file": "src/model-router/model-slot.ts",
+      "exit": 1,
+      "assertions": 5,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E03 rejects unauthorized shape {\"expectedSourceVersion\":\" \"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E08 installed state has complete evidence {\"sourceVersion\":\" \"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E13 apply-config carries optional bootstrap absence/generation CAS without breaking old commands",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "bootstrap-absence",
+      "file": "src/model-router/model-slot.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E13 apply-config carries optional bootstrap absence/generation CAS without breaking old commands",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "vision-boolean",
+      "file": "src/model-router/model-catalog.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S10 extra feature metadata must be boolean vision",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "websearch-boolean",
+      "file": "src/model-router/model-catalog.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S10 extra feature metadata must be boolean webSearch",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "single-dimension-required",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S04 embedding requires positive integer dimension undefined",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 single and failover model settings S05 dimension is reserved for embedding",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "single-dimension-positive",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S04 embedding requires positive integer dimension 0",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 single and failover model settings S04 embedding requires positive integer dimension -1",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 single and failover model settings S04 embedding requires positive integer dimension 1.5",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "single-strict",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S03 rejects invalid single {\"extra\":true}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "failover-strict",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S09 failover refuses unrelated fields {\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 single and failover model settings S09 failover refuses unrelated fields {\"embeddingDimensions\":1536}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "catalog-vision",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S06 vision requires explicit catalog support",
+          "message": "AssertionError: expected [] to deeply equal [ 'feature-unsupported' ]"
+        }
+      ]
+    },
+    {
+      "name": "catalog-websearch",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S06 webSearch requires explicit catalog support",
+          "message": "AssertionError: expected [] to deeply equal [ 'feature-unsupported' ]"
+        }
+      ]
+    },
+    {
+      "name": "catalog-dimension",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 single and failover model settings S07 embedding dimension must match the current catalog",
+          "message": "AssertionError: expected [] to deeply equal [ 'embedding-dimension-mismatch' ]"
+        }
+      ]
+    },
+    {
+      "name": "single-position",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 4,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M01 single consumer matches one primary only",
+          "message": "AssertionError: expected false to be true // Object.is equality"
+        },
+        {
+          "name": "C5 shared runtime comparison M02 runtime mismatch {\"selections\":[{\"slotId\":\"agent_classifier\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"tier\":\"standard\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}]} stays unconfirmed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 shared runtime comparison M04 runtime vector dimension is part of installation evidence",
+          "message": "AssertionError: expected false to be true // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "failover-position",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M03 failover requires both ordered descriptors",
+          "message": "AssertionError: expected false to be true // Object.is equality"
+        },
+        {
+          "name": "C5 single and failover model settings S02 retains ordered primary/fallback choices",
+          "message": "AssertionError: expected [ { tier: 'primary', \u2026(1) } ] to deeply equal [ { tier: 'primary', \u2026(1) }, \u2026(1) ]"
+        }
+      ]
+    },
+    {
+      "name": "settings-equivalence-mode-authority",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M06 equivalent settings preserve mode/features/dimension/catalog authority",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "settings-equivalence-features",
+      "file": "src/model-router/capability-model-settings.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M06 equivalent settings preserve mode/features/dimension/catalog authority",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-role",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B03 rejects invalid or private metadata {\"role\":\"erede\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-authority",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B03 rejects invalid or private metadata {\"authority\":\"catalog\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-strict",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 4,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B03 rejects invalid or private metadata {\"configVersion\":1}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B03 rejects invalid or private metadata {\"credentials\":{}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B03 rejects invalid or private metadata {\"context\":{}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-scope",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B06 scope names the attested runtime exactly",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-validity-order",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B12 validity end must be strictly after observation",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-coverage",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 36,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing agent_chat never becomes complete",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing agent_classifier never becomes complete",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing memory_extraction never becomes complete",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-complete-missing",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B20 complete cannot contain an active missing slot even with total coverage",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-complete-empty",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B19 all excluded is not a complete loaded Master",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-consumer-binding",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B09 consumer rejects changed capability",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B09 consumer rejects changed requirements",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-exclusion-state",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B17 exclusion is observed and strict {\"state\":\"unknown\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-exclusion-reason",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B17 exclusion is observed and strict {\"reason\":\"\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-exclusion-strict",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B17 exclusion is observed and strict {\"extra\":true}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-current-complete",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 35,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing agent_chat never becomes complete",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing agent_classifier never becomes complete",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B07 missing memory_extraction never becomes complete",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-current-freshness",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 4,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B11 rejects expired/future/invalid clock 2026-10-09T06:20:30Z",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B11 rejects expired/future/invalid clock 2026-10-09T06:21:00Z",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B11 rejects expired/future/invalid clock 2026-10-09T06:19:00Z",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-current-generation",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B10 fresh recheck refuses a race or scope mismatch {\"sourceVersion\":\"synthetic-generation-2\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-current-identity",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B10 fresh recheck refuses a race or scope mismatch {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B10 fresh recheck refuses a race or scope mismatch {\"identity\":{\"managementAgentId\":\"other\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B10 fresh recheck refuses a race or scope mismatch {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"other\",\"vaultAgentId\":71}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-current-owner",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B10 fresh recheck refuses a race or scope mismatch {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"other\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B10 fresh recheck refuses a race or scope mismatch {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"other\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 read-only Master bootstrap source B10 fresh recheck refuses a race or scope mismatch {\"scope\":{\"agentId\":\"other\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-state-identity",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B15 source is not saved/applied and belongs to state identity {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-state-no-saved-claim",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 read-only Master bootstrap source B15 source is not saved/applied and belongs to state identity {\"versions\":{\"desired\":1,\"applied\":null,\"failed\":null}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "runtime-match-identity-version",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M02 runtime mismatch {\"configVersion\":2} stays unconfirmed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 shared runtime comparison M02 runtime mismatch {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}} stays unconfirmed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "runtime-match-freshness",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M05 stale runtime 2026-10-09T06:22:00Z remains unconfirmed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 shared runtime comparison M05 stale runtime 2026-10-09T06:19:00Z remains unconfirmed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 shared runtime comparison M05 stale runtime invalid remains unconfirmed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "runtime-match-count",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M08 extra runtime consumer does not prove the requested aggregate",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "runtime-match-dimension",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M04 runtime vector dimension is part of installation evidence",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "runtime-match-descriptor",
+      "file": "src/model-router/agent-model-configuration.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M02 runtime mismatch {\"selections\":[{\"slotId\":\"agent_classifier\",\"capability\":\"agent-core\",\"function\":\"reasoning\",\"tier\":\"primary\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"other\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}]} stays unconfirmed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "install-canonical-binding",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E03 rejects unauthorized shape {\"settings\":{\"capability\":\"memory\",\"function\":\"reasoning\",\"catalogVersion\":\"synthetic-catalog\",\"requirements\":{\"tools\":false,\"stream\":false,\"structuredOutput\":false},\"mode\":\"single\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E03 rejects unauthorized shape {\"settings\":{\"capability\":\"agent-core\",\"function\":\"reasoning\",\"catalogVersion\":\"synthetic-catalog\",\"requirements\":{\"tools\":false,\"stream\":false,\"structuredOutput\":true},\"mode\":\"single\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E17 readback schema rejects wrong consumer independently of the request",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "install-scope",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E03 rejects unauthorized shape {\"scope\":{\"agentId\":\"other\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E10 shared scope cannot make another agent installed",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "install-request-strict",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 4,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E03 rejects unauthorized shape {\"extra\":true}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E03 rejects unauthorized shape {\"credentials\":{}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E03 rejects unauthorized shape {\"context\":{}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "readback-registered-selection",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E17 readback schema rejects wrong consumer independently of the request",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "readback-window-order",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E08 installed state has complete evidence {\"validUntil\":\"2026-10-09T06:20:00Z\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "readback-status-reason",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E05 wrong readback never proves installation {\"reason\":\"unexpected\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E09 unknown state stays unknown with sanitized reason",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "readback-installed-completeness",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E08 installed state has complete evidence {\"settings\":null}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E08 installed state has complete evidence {\"configVersion\":null}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E08 installed state has complete evidence {\"requestId\":null}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "readback-strict",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E08 installed state has complete evidence {\"extra\":true}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E12 canonical transport publishes strict JSON schemas for Python and the same scope paths",
+          "message": "AssertionError: expected {} to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "readback-rebuild-complete",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E18 previous embedding active is not target installed while rebuilding",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "receipt-correspondence",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E16 receipt schema alone rejects conflicting completion {\"requestId\":\"other-request\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "receipt-pending-not-installed",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E16 receipt schema alone rejects conflicting completion {\"outcome\":\"pending\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E16 receipt schema alone rejects conflicting completion {\"outcome\":\"failed\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "receipt-strict",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E06 pending/failed or mismatched receipt is unconfirmed {\"extra\":true}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E12 canonical transport publishes strict JSON schemas for Python and the same scope paths",
+          "message": "AssertionError: expected {} to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "install-cas-generation",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E04 install CAS uses the fresh observed generation {\"sourceVersion\":\"changed\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "install-cas-identity",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E04 install CAS uses the fresh observed generation {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E04 install CAS uses the fresh observed generation {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"other\",\"vaultAgentId\":71}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "install-cas-scope",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E04 install CAS uses the fresh observed generation {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"other\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E04 install CAS uses the fresh observed generation {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"other\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E04 install CAS uses the fresh observed generation {\"scope\":{\"agentId\":\"other\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "confirmation-clock",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 3,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E07 readback must be fresh 2026-10-09T06:20:30Z",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E07 readback must be fresh 2026-10-09T06:19:00Z",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E07 readback must be fresh invalid",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "confirmation-receipt-authority",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E05 wrong readback never proves installation {\"configVersion\":2}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "confirmation-identity",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E05 wrong readback never proves installation {\"identity\":{\"managementAgentId\":\"other\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E05 wrong readback never proves installation {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "confirmation-scope",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 2,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E05 wrong readback never proves installation {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"other\",\"tenantId\":\"synthetic-tenant\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "C5 consumer installation transport E05 wrong readback never proves installation {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"other\"}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "confirmation-settings",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E05 wrong readback never proves installation {\"settings\":{\"capability\":\"agent-core\",\"function\":\"reasoning\",\"catalogVersion\":\"synthetic-catalog\",\"requirements\":{\"tools\":false,\"stream\":false,\"structuredOutput\":false},\"mode\":\"single\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-other\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "route-body-slot",
+      "file": "src/model-router/model-consumer-execution.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 shared runtime comparison M07 transport route binding rejects a path/body slot mismatch",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "bootstrap-replay",
+      "file": "src/agent/agent-management.ts",
+      "exit": 1,
+      "assertions": 1,
+      "technical": [],
+      "witnesses": [
+        {
+          "name": "C5 consumer installation transport E14 replay identity includes the bootstrap precondition",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    }
+  ],
+  "started": "2026-10-09T08:35:17+0200",
+  "baseline": {
+    "exit": 0,
+    "passed": 263,
+    "total": 263
+  },
+  "restored": {
+    "exit": 0,
+    "passed": 263,
+    "total": 263
+  },
+  "hashesRestored": {
+    "src/model-router/model-consumers.ts": true,
+    "src/model-router/model-slot.ts": true,
+    "src/model-router/model-catalog.ts": true,
+    "src/model-router/capability-model-settings.ts": true,
+    "src/model-router/agent-model-configuration.ts": true,
+    "src/model-router/model-consumer-execution.ts": true,
+    "src/model-router/models-batch.ts": true,
+    "src/agent/agent-management.ts": true
+  },
+  "finished": "2026-10-09T08:37:01+0200"
+}

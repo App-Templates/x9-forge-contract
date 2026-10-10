@@ -1,0 +1,43 @@
+{
+  "productCommit": "636f671",
+  "mergeCommit": "05475816688d5e59fb09d62521193e2e79f08f2c",
+  "main": "8b44af1f98c25b40f9bed68305da328f9c5888be",
+  "source": {
+    "src/model-router/agent-model-configuration.ts": "ece5dae3aad800d195c7ec63fecd8fafb81291906895eef30cd37cd7085394e8",
+    "src/model-router/model-catalog.ts": "1eca8897b27414cad62eb67d633b6bfe452b1ba5133e74d3ed8a08d08d928174"
+  },
+  "targeted": {
+    "numTotalTests": 665,
+    "numPassedTests": 665,
+    "numFailedTests": 0,
+    "numPendingTests": 0
+  },
+  "testFiles": 8,
+  "newTests": 216,
+  "legacyTests": 449,
+  "provenanceMutations": 30,
+  "inventoryMutations": 11,
+  "publicAssertions": 34,
+  "compiledMutations": 2,
+  "typeGuards": 5,
+  "quality": {
+    "typesExit": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "portableDeclarations": 358,
+    "packExit": 0,
+    "packProfile": "node16 --ignore-rules false-cjs",
+    "packWarning": "existing ambiguous root CJS types under import",
+    "legacyCjsExit": 0
+  },
+  "fullSuite": "not run locally; coordinator will push draft PR for CI",
+  "live": 0,
+  "productRepairs": 0,
+  "rawCount": 199,
+  "localRuntime": {
+    "node": "v24.11.1",
+    "pnpm": "9.15.9"
+  },
+  "distRestored": 72,
+  "distAuthority": "20261008-185400-coordinatrice-a-codex-f-risposta"
+}
