@@ -38,7 +38,7 @@ const researchExecution = require('@x9-forge/contracts/capability/ricerca');
 assert.equal(typeof internalExecution.internalAgentToolDispatchPath, 'function');
 assert.equal(internalExecution.internalAgentToolDispatchPath('agent-a'), '/internal/agents/agent-a/tools/dispatch');
 assert.equal(internalExecution.INTERNAL_AGENT_EXECUTIONS.scheduler_telegram_text.target, 'builtin');
-assert.equal(Object.keys(internalExecution.INTERNAL_AGENT_EXECUTIONS).length, 8);
+assert.equal(Object.keys(internalExecution.INTERNAL_AGENT_EXECUTIONS).length, 13);
 assert.equal(internalExecution.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'r', identity: { tenantId: 't', ownerId: 'o', agentId: 'a' }, execution: 'scheduler_telegram_text', input: { chatId: 1, text: 'hello' } }).success, true);
 assert.equal(internalExecution.InternalAgentToolDispatchResponseSchema.safeParse({ callId: 'r', status: 'success', output: { credentials: {} } }).success, false);
 assert.equal(researchExecution.researchExecutePath(), '/call/research_execute');
@@ -48,7 +48,10 @@ assert.equal(typeof managedVoice.ManagedVoiceLiveCallStartRequestSchema.safePars
 assert.equal(managedVoice.ManagedVoiceLiveCallStartRequestSchema.safeParse({}).success, false);
 assert.equal(managedVoice.ManagedVoiceLiveCredentialsSchema.safeParse({ OPENAI_API_KEY: 'fixture', TELNYX_API_KEY: 'fixture', TELNYX_CONNECTION_ID: 'fixture', TELNYX_FROM_NUMBER: '+393331234567', TELNYX_PUBLIC_KEY: 'fixture' }).success, true);
 assert.equal(managedVoice.ManagedVoiceLiveCredentialsSchema.safeParse({ INTERNAL_SECRET: 'fixture' }).success, false);
-console.log('[cjs-smoke] bounded execution/managed handoff/research lease: 13/13 assertions');
+for (const execution of ['news_digest', 'news_digest_topic', 'calendar_today', 'calendar_week', 'lab_execute']) {
+  assert.equal(internalExecution.INTERNAL_AGENT_EXECUTIONS[execution].modelVisible, false, execution);
+}
+console.log('[cjs-smoke] bounded execution/managed handoff/research lease: 18/18 assertions');
 const credentialCatalog = require('@x9-forge/contracts/agent');
 const platformCatalog = require('@x9-forge/contracts/vault');
 const forbiddenCanonicalKeys = [...credentialCatalog.AGENT_CREDENTIAL_SERVICE_KEYS.filter(key => credentialCatalog.getAgentCredentialServiceMetadata(key)?.kind === 'credential'), ...platformCatalog.PLATFORM_INTERNAL_CREDENTIAL_KEYS];

@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { InternalMemoryExtractRequestSchema } from "../http/endpoints/internal-memory-extract.js";
+import { CapabilityCallIdentitySchema } from "./capability-call-identity.js";
+export { CapabilityCallIdentitySchema } from "./capability-call-identity.js";
 import { CredentialKeySchema, CredentialVersionSchema } from "../vault/credential-link.js";
 import { isPlatformInternalCredentialKey } from "../vault/platform-internal-credentials.js";
 import { AgentConfigVersionSchema } from "./ricerca/agent-config.js";
@@ -14,12 +15,6 @@ import { CapabilityAgentParametersSchema, CapabilityParameterKeySchema, Capabili
  * - Missing key, unavailable source, disabled / not installed capability and forged identity are distinct errors;
  *   a consumer never falls back to a process-global key.
  */
-export const CapabilityCallIdentitySchema = InternalMemoryExtractRequestSchema.pick({
-    tenantId: true,
-    ownerId: true,
-    agentId: true,
-    userId: true,
-}).strict();
 /** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
 export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */

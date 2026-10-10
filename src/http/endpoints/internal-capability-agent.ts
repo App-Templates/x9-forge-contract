@@ -81,7 +81,10 @@ export const labAgentConfigGetContract = {
 export { AGENT_SPEND_MAX_DAYS } from '../../capability/ricerca/spend.js';
 
 /** GET /internal/capability/agents/:agentId/spend?from=YYYY-MM-DD&to=YYYY-MM-DD — days in the agent's time zone. */
-export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentDaySchema }).strict()
+export const AgentSpendQuerySchema = z.object({ from: AgentDaySchema, to: AgentDaySchema,
+  tenantId: CapabilityAgentScopeSchema.shape.tenantId.optional(), ownerId: CapabilityAgentScopeSchema.shape.ownerId.optional(),
+}).strict()
+  .refine(q => (q.tenantId === undefined) === (q.ownerId === undefined), { message: 'Incomplete managed spend scope' })
   .refine(q => q.from <= q.to, { message: 'from after to' })
   .refine(q => (Date.parse(q.to) - Date.parse(q.from)) / 86_400_000 < AGENT_SPEND_MAX_DAYS, { message: 'window too long' });
 export const AgentSpendResponseSchema = z.object({

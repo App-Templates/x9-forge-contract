@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
+exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
 const zod_1 = require("zod");
 const research_js_1 = require("../ricerca/research.cjs");
 const competence_js_1 = require("./competence.cjs");
@@ -52,4 +52,9 @@ exports.LabGapsInputSchema = zod_1.z.object({ limit: zod_1.z.number().int().min(
 exports.LabGapsOutputSchema = zod_1.z.object({ gaps: zod_1.z.array(competence_js_1.CompetenceGapSchema).max(50) }).strict();
 exports.LabCompetenceInputSchema = zod_1.z.object({}).strict();
 exports.LabCompetenceOutputSchema = zod_1.z.object({ nodes: zod_1.z.array(competence_js_1.CompetenceNodeViewSchema).max(5000) }).strict();
+/** Worker-owned paid execution, deliberately excluded from model-visible LAB_TOOLS. */
+exports.LAB_INTERNAL_TOOLS = { execute: 'lab_execute' };
+/** Receiver validates the current full-scope SQL claim and its unexpired lease before effects. */
+exports.LabExecuteInputSchema = zod_1.z.strictObject({ jobId: exports.LabIngestIdSchema, leaseToken: zod_1.z.uuid() });
+exports.LabExecuteOutputSchema = zod_1.z.strictObject({ jobId: exports.LabIngestIdSchema, state: research_js_1.ResearchStateSchema });
 //# sourceMappingURL=tools.js.map

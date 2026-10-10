@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## 1.46.0-capabilities-c.2 — local development
+
+- Preserve full tenant/owner scope in context and spend requests, with explicit legacy compatibility; share trusted identity with native per-agent turns.
+- Add fixed News/Calendar calls and SQL-lease-only Lab execution; keep internal actions outside model-visible manifests and results free of credentials.
+- Register the actual Lab digest model reader (C35); no inactive read-model slot. Consumers: X9 capability-sdk/Core/News/Briefing/Ricerca/Lab/QA, Forge existing model and capability panels. Local package only.
+
 ## 1.46.0-capabilities-c.0 — local development
 
 - Add scoped ordinary configuration, Master provenance, per-key effective observations and remote lifecycle on existing per-agent routes. Preserve B1/legacy formats.

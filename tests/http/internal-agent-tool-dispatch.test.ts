@@ -44,10 +44,10 @@ describe('bounded internal agent execution', () => {
       expect(api.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, ...patch }).success).toBe(false);
     }
   });
-  it('registers only eight internal fixed actions with native call paths', () => {
+  it('registers only thirteen internal fixed actions with native call paths', () => {
     expect(api.INTERNAL_AGENT_EXECUTIONS).toBeDefined();
     const entries = Object.entries(api.INTERNAL_AGENT_EXECUTIONS) as Array<[string, (typeof api.INTERNAL_AGENT_EXECUTIONS)[keyof typeof api.INTERNAL_AGENT_EXECUTIONS]]>;
-    expect(entries).toHaveLength(8);
+    expect(entries).toHaveLength(13);
     expect(entries.every(([, entry]) => entry.modelVisible === false && (entry.target === 'builtin' || entry.path === api.capToolCallPath(entry.tool)))).toBe(true);
     expect(api.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit.credentialKeys).toEqual(['ELEVENLABS_API_KEY']);
     expect(api.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit.identifierKeys).toEqual(['ELEVENLABS_VOICE_ID']);

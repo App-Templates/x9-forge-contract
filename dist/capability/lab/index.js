@@ -12,5 +12,5 @@
 export { KindSlugSchema, LabAgentConfigSchema, LabBudgetSchema, LabModelsSchema } from "./agent-config.js";
 export { WikiOriginSchema, WikiSourceIdSchema, WikiPageSlugSchema, WikiSourceSchema, WikiPageSchema, WikiClaimStatusSchema, WikiClaimSchema, WikiLinkSchema, } from "./wiki.js";
 export { COMPETENCE_MAX_LEVEL, CompetenceNodeIdSchema, CompetenceNodeViewSchema, CompetenceGapReasonSchema, CompetenceGapSchema, } from "./competence.js";
-export { LAB_TOOLS, LabIngestInputSchema, LabIngestOutputSchema, LabToolErrorSchema, LabIngestIdSchema, LabIngestStatusInputSchema, LabIngestStatusOutputSchema, LabQueryInputSchema, LabQueryOutputSchema, LabGapsInputSchema, LabGapsOutputSchema, LabCompetenceInputSchema, LabCompetenceOutputSchema, } from "./tools.js";
+export { LAB_TOOLS, LAB_INTERNAL_TOOLS, LabExecuteInputSchema, LabExecuteOutputSchema, LabIngestInputSchema, LabIngestOutputSchema, LabToolErrorSchema, LabIngestIdSchema, LabIngestStatusInputSchema, LabIngestStatusOutputSchema, LabQueryInputSchema, LabQueryOutputSchema, LabGapsInputSchema, LabGapsOutputSchema, LabCompetenceInputSchema, LabCompetenceOutputSchema, } from "./tools.js";
 //# sourceMappingURL=index.js.map

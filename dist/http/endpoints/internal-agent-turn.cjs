@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnParamsSchema = void 0;
 exports.internalAgentTurnPath = internalAgentTurnPath;
 const zod_1 = require("zod");
+const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
 const internal_memory_extract_js_1 = require("./internal-memory-extract.cjs");
 const capability_turn_lead_js_1 = require("../../capability/capability-turn-lead.cjs");
 const internal_turn_js_1 = require("./internal-turn.cjs");
@@ -38,6 +39,8 @@ exports.InternalAgentTurnParamsSchema = zod_1.z.object({
 });
 exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestSchema.extend({
     turn: capability_turn_lead_js_1.AgentTurnSchema.optional(),
+    /** Trusted server scope, checked against the current admitted agent. */
+    identity: capability_call_identity_js_1.CapabilityCallIdentitySchema.optional(),
     /** Trusted caller identity, never taken from model text or tool input. */
     userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
 });

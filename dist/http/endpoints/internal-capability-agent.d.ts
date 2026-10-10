@@ -188,6 +188,8 @@ export { AGENT_SPEND_MAX_DAYS } from "../../capability/ricerca/spend.js";
 export declare const AgentSpendQuerySchema: z.ZodObject<{
     from: z.ZodString;
     to: z.ZodString;
+    tenantId: z.ZodOptional<z.ZodString>;
+    ownerId: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const AgentSpendResponseSchema: z.ZodObject<{
     days: z.ZodArray<z.ZodObject<{
@@ -218,6 +220,8 @@ export declare const ricercaAgentSpendContract: {
     readonly querySchema: z.ZodObject<{
         from: z.ZodString;
         to: z.ZodString;
+        tenantId: z.ZodOptional<z.ZodString>;
+        ownerId: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         days: z.ZodArray<z.ZodObject<{
@@ -250,6 +254,8 @@ export declare const labAgentSpendContract: {
     readonly querySchema: z.ZodObject<{
         from: z.ZodString;
         to: z.ZodString;
+        tenantId: z.ZodOptional<z.ZodString>;
+        ownerId: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         days: z.ZodArray<z.ZodObject<{
