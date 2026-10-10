@@ -45,4 +45,15 @@ export * from "./agent-elevenlabs/web-browser.js";
 export * from "./agent-elevenlabs/web-invitations.js";
 export * from "./portable-contracts.js";
 export * from "./capability-credential-requirements.js";
+export * from "./coach/program-version.js";
+export * from "./coach/execution.js";
+export * from "./coach/measures.js";
+export * from "./coach/accounting.js";
+export * from "./coach/rolling-budget.js";
+export * from "./agent-elevenlabs/coach-binding.js";
+export * from "./coach/operational/index.js";
+export * from "./agent-elevenlabs/native-session.js";
+export * from "./agent-elevenlabs/native-tools.js";
+export * from "./agent-elevenlabs/native-config.js";
+export * from "./agent-elevenlabs/native-readback.js";
 //# sourceMappingURL=index.d.ts.map

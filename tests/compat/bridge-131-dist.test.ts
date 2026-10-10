@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
@@ -45,7 +46,7 @@ describe('1.31 additive contracts are published from existing subpaths', () => {
     it(`exports ${names.length} new symbols from ${subpath} in ESM and CJS`, async () => {
       const target = pkg.exports[subpath]!;
       const esm = await import(new URL(target.import, root).href) as Record<string, unknown>;
-      const cjs = createRequire(import.meta.url)(new URL(target.require, root).pathname) as Record<string, unknown>;
+      const cjs = createRequire(import.meta.url)(fileURLToPath(new URL(target.require, root))) as Record<string, unknown>;
       expect(names.filter((name) => !(name in esm))).toEqual([]);
       expect(names.filter((name) => !(name in cjs))).toEqual([]);
     });

@@ -52,4 +52,8 @@ Object.defineProperty(exports, "CapToolCallParamsSchema", { enumerable: true, ge
 __exportStar(require("./endpoints/forge-elevenlabs-web.cjs"), exports);
 __exportStar(require("./endpoints/internal-agent-channel-history-content.cjs"), exports);
 __exportStar(require("./endpoints/forge-agent-channel-history-content.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-common.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-write.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-read.cjs"), exports);
+__exportStar(require("./endpoints/native-channel.cjs"), exports);
 //# sourceMappingURL=index.js.map

@@ -142,3 +142,6 @@ export type {
   RagDocumentOpenRequest,
   RagDocumentOpenResponse,
 } from './rag-document.js';
+
+export * from './authorized-context.js';
+export * from './qualified-citation.js';

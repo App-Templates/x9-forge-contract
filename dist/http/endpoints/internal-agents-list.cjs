@@ -3,11 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.listAgentsContract = exports.ListAgentsResponseSchema = exports.ListAgentsAgentSchema = exports.RuntimeErrorKindSchema = exports.ForgeRuntimeStatusSchema = exports.RuntimeAgentStatusSchema = void 0;
 exports.getListAgentsRuntimeState = getListAgentsRuntimeState;
 exports.getListAgentsCapabilities = getListAgentsCapabilities;
+exports.getListAgentsAuthority = getListAgentsAuthority;
 const zod_1 = require("zod");
 const agent_inventory_metadata_js_1 = require("../../agent/agent-inventory-metadata.cjs");
 const agent_workspace_attestation_js_1 = require("../../agent/agent-workspace-attestation.cjs");
 const agent_runtime_identity_js_1 = require("../../agent/agent-runtime-identity.cjs");
 const agent_runtime_state_js_1 = require("../../agent/agent-runtime-state.cjs");
+const agent_context_identity_js_1 = require("../../agent/agent-context-identity.cjs");
 const agent_runtime_source_js_1 = require("../../agent/agent-runtime-source.cjs");
 /**
  * GET /internal/agents — list all loaded agents.
@@ -82,12 +84,25 @@ exports.ListAgentsAgentSchema = zod_1.z.object({
     lastError: zod_1.z.string().nullable().optional(),
     // Canonical metadata is additive; legacy bot status is never channel evidence.
     identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.optional(),
+    /** Complete authority projected from the loaded public context; absent/null never imply a role. */
+    authority: agent_context_identity_js_1.AgentContextIdentitySchema.nullable().optional(),
     runtime: agent_runtime_state_js_1.AgentRuntimeSnapshotSchema.optional(),
     /** Effective snapshot only; absent is legacy, null is not attested, never desired-file fallback. */
     workspace: agent_workspace_attestation_js_1.AgentWorkspaceAttestationSchema.nullable().optional(),
     /** Registry metadata actually observed by X9 for this agent; null is unknown, [] is known empty. */
     capabilities: agent_inventory_metadata_js_1.AgentInventoryCapabilitiesSchema.nullable().optional(),
 }).superRefine((agent, ctx) => {
+    if (agent.authority) {
+        const declared = agent.authority;
+        if (declared.agentId !== agent.agentId || declared.ownerId !== agent.ownerId) {
+            ctx.addIssue({ code: 'custom', path: ['authority'], message: 'Declared authority must match the inventory owner and runtime agent' });
+        }
+        if (!agent.identity || declared.identity.managementAgentId !== agent.identity.managementAgentId
+            || declared.identity.runtimeAgentId !== agent.identity.runtimeAgentId
+            || declared.identity.vaultAgentId !== agent.identity.vaultAgentId) {
+            ctx.addIssue({ code: 'custom', path: ['authority', 'identity'], message: 'Declared authority requires the exact inventory identity triplet' });
+        }
+    }
     if (agent.identity && agent.agentId !== agent.identity.runtimeAgentId) {
         ctx.addIssue({ code: 'custom', path: ['identity', 'runtimeAgentId'], message: 'Runtime identity must match the list row agentId' });
     }
@@ -133,6 +148,20 @@ function getListAgentsCapabilities(input, agentId) {
     const agent = response.data.agents.find((candidate) => candidate.agentId === agentId
         || candidate.identity?.managementAgentId === agentId);
     return (0, agent_inventory_metadata_js_1.agentCapabilitiesOf)(agent);
+}
+/** Fresh declared context metadata, never inferred from legacy inventory or bot status. */
+function getListAgentsAuthority(input, agentId, now, maxAgeSeconds = 60) {
+    const response = exports.ListAgentsResponseSchema.safeParse(input);
+    if (!response.success || response.data.source?.availability !== 'available')
+        return null;
+    const observed = Date.parse(response.data.source.observedAt ?? '');
+    const current = now.getTime();
+    if (!Number.isFinite(current) || !Number.isFinite(observed) || !Number.isFinite(maxAgeSeconds)
+        || maxAgeSeconds <= 0 || maxAgeSeconds > 60 || observed > current || current - observed > maxAgeSeconds * 1000)
+        return null;
+    const agent = response.data.agents.find(candidate => candidate.agentId === agentId
+        || candidate.identity?.managementAgentId === agentId);
+    return agent?.authority ?? null;
 }
 exports.listAgentsContract = {
     method: 'GET',

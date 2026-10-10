@@ -4,6 +4,7 @@
 
 - Compose Paperclip, Keys, Models, scoped capability configuration, phone/Web channels and Knowledge without removing existing public entrypoints.
 - Retain 35 registered model consumers, roleless InitialSource, positive legacy observation, primary local-source and phone backend observation contracts.
+- Add Coach versioned program/session operations, native ElevenLabs channels, scoped RAG citations and loaded inventory authority; retain the qualified Web admission/readback semantics.
 - Preserve public Web metadata/session and administrative invitation APIs together; carry Knowledge telephone entries into the canonical admission projection.
 - This is a local integration candidate. Consumer pins, final verification and independent review precede publication; no deployed behavior is claimed.
 

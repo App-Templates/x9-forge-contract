@@ -112,3 +112,20 @@ export * from './agent-elevenlabs/web-invitations.js';
 // Canonical portable contracts for the Python capability consumer.
 export * from './portable-contracts.js';
 export * from './capability-credential-requirements.js';
+export * from './coach/program-version.js';
+export * from './coach/execution.js';
+
+export * from './coach/measures.js';
+export * from './coach/accounting.js';
+export * from './coach/rolling-budget.js';
+
+export * from './agent-elevenlabs/coach-binding.js';
+
+export * from './coach/operational/index.js';
+
+export * from './agent-elevenlabs/native-session.js';
+
+export * from './agent-elevenlabs/native-tools.js';
+
+export * from './agent-elevenlabs/native-config.js';
+export * from './agent-elevenlabs/native-readback.js';

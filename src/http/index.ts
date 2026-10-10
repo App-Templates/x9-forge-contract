@@ -68,3 +68,8 @@ export * from './endpoints/forge-elevenlabs-web.js';
 
 export * from './endpoints/internal-agent-channel-history-content.js';
 export * from './endpoints/forge-agent-channel-history-content.js';
+export * from './endpoints/coach-operational-common.js';
+export * from './endpoints/coach-operational-write.js';
+export * from './endpoints/coach-operational-read.js';
+
+export * from './endpoints/native-channel.js';

@@ -1,0 +1,12 @@
+import { fixtures as f } from './meditation-contract-fixtures.js';
+export const opening = f.CoachSessionOpeningRef;
+export const metadata = { requestId: 'synthetic-command-1', opening, expectedRevision: 0 };
+export const definition = { scope: opening.program.scope, programId: opening.program.programId, version: opening.program.programVersion, kind: 'generic', title: 'Synthetic program', locale: 'it', steps: [{ stepId: 'one', order: 0, title: 'One' }] };
+export const programRequest = { requestId: 'synthetic-apply-1', program: opening.program, definition, expectedProgramVersion: null };
+export const budget = { status: 'known', budget: f.CoachRollingBudget, quota: f.CoachSessionQuota };
+export const reservation = { reservationId: 'synthetic-reserve-1', openingId: opening.openingId, scope: opening.scope, version: 1, status: 'held', limitSeconds: 30, createdAt: opening.openedAt, updatedAt: opening.openedAt, expiresAt: null };
+export const projection = { strategy: opening.program.strategy, value: { plan: [{ segment: 'one', seconds: 30 }], pace: 1, silence: 3, preferences: { setting: 'synthetic' } } };
+export const response = { ok: true, requestId: metadata.requestId, replayed: false, opening, revision: 1 };
+export const snapshot = f.CoachSessionExecutionSnapshot;
+export const accounting = { ...f.CoachSessionAccounting, snapshotId: snapshot.snapshotId, usage: { ...f.CoachProviderUsage, snapshotId: snapshot.snapshotId }, practice: f.CoachPracticeObservation, outcome: 'interrupted', progressionCredit: false };
+export const state = { opening, revision: 1, lifecycle: 'opened', practice: null, measureDefinitions: [f.CoachMeasureDefinition], initialSnapshot: null, latestRevision: null, projection, measures: [f.CoachMeasureObservation], accounting: null, budget, reservation };

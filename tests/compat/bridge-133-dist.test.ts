@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
@@ -19,7 +20,7 @@ describe('1.33 configVersion published from ./agent', () => {
     const target = pkg.exports['./agent']![kind];
     const mod = (kind === 'import'
       ? await import(new URL(target, root).href)
-      : createRequire(import.meta.url)(new URL(target, root).pathname)) as Agent;
+      : createRequire(import.meta.url)(fileURLToPath(new URL(target, root)))) as Agent;
     expect(mod.appliedAgentConfigVersion({ configVersion: 4 })).toBe(4);
     expect(mod.appliedAgentConfigVersion({})).toBeNull();
     expect(mod.AgentContextFileSchema.safeParse({ ...context, configVersion: 4 }).success).toBe(true);

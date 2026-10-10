@@ -87,4 +87,15 @@ __exportStar(require("./agent-elevenlabs/web-invitations.cjs"), exports);
 // Canonical portable contracts for the Python capability consumer.
 __exportStar(require("./portable-contracts.cjs"), exports);
 __exportStar(require("./capability-credential-requirements.cjs"), exports);
+__exportStar(require("./coach/program-version.cjs"), exports);
+__exportStar(require("./coach/execution.cjs"), exports);
+__exportStar(require("./coach/measures.cjs"), exports);
+__exportStar(require("./coach/accounting.cjs"), exports);
+__exportStar(require("./coach/rolling-budget.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/coach-binding.cjs"), exports);
+__exportStar(require("./coach/operational/index.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-session.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-tools.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-config.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-readback.cjs"), exports);
 //# sourceMappingURL=index.js.map
