@@ -59,3 +59,31 @@ it('keeps browser policy changes scoped by authenticated server resolution only'
   expect(nativeBrowserPolicyChangeContract.authType).toBe('forge_session'); expect(nativeBrowserPolicyReadContract.authType).toBe('forge_session');
   expect(nativeBrowserPolicyPath('synthetic-management')).toBe('/api/agents/synthetic-management/native/web-policy');
 });
+
+const callbackTime = (milliseconds: number) => new Date(Date.parse(at) + milliseconds).toISOString();
+const admitted = { ...binding, boundAt: callbackTime(1000) };
+const claimed = { binding: admitted, providerConversationId: 'synthetic-early-conversation', attachedAt: callbackTime(3000) };
+const earlyEvent = { eventId: 'synthetic-early-event', providerConversationId: claimed.providerConversationId,
+  providerAgentId: admitted.mapping.providerAgentId, occurredAt: callbackTime(2000), bodySha256: 'c'.repeat(64) };
+const retriedReceipt = { callback: earlyEvent, binding: claimed, receivedAt: callbackTime(4000), inboxStatus: 'accepted', effectStatus: 'pending' };
+
+it('accepts the same authentic pre-claim event on retry after the original conversation is claimed', () => {
+  expect(Receipt.safeParse({ ...retriedReceipt, binding: undefined, receivedAt: callbackTime(2500) }).success).toBe(false);
+  expect(Receipt.safeParse(retriedReceipt).success).toBe(true);
+  expect(callbackCurrent(retriedReceipt, claimed, now)).toBe(true);
+  expect(Receipt.safeParse({ ...retriedReceipt, inboxStatus: 'duplicate' }).success).toBe(true);
+  expect(callbackCurrent(retriedReceipt, { ...claimed, providerConversationId: 'foreign-conversation' }, now)).toBe(false);
+  expect(Receipt.safeParse({ ...retriedReceipt, callback: { ...earlyEvent, providerAgentId: 'foreign-provider' } }).success).toBe(false);
+});
+
+it('rejects callback events before the original server admission boundary', () => {
+  expect(Receipt.safeParse({ ...retriedReceipt, callback: { ...earlyEvent, occurredAt: callbackTime(999) } }).success).toBe(false);
+  expect(Receipt.safeParse({ ...retriedReceipt, callback: { ...earlyEvent, occurredAt: admitted.boundAt } }).success).toBe(true);
+});
+
+it('rejects events later than receipt and receipts later than the current server clock', () => {
+  expect(Receipt.safeParse({ ...retriedReceipt, callback: { ...earlyEvent, occurredAt: callbackTime(4001) } }).success).toBe(false);
+  const future = { ...retriedReceipt, callback: { ...earlyEvent, occurredAt: callbackTime(5001) }, receivedAt: callbackTime(5001) };
+  expect(Receipt.safeParse(future).success).toBe(true);
+  expect(callbackCurrent(future, claimed, now)).toBe(false);
+});

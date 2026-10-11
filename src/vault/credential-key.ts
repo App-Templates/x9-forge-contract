@@ -5,4 +5,3 @@ import { isPlatformInternalCredentialKey } from './platform-internal-credentials
 export const CredentialKeySchema = z.string().max(128).regex(/^[A-Za-z_][A-Za-z0-9_.-]*$/)
   .refine((key) => !isPlatformInternalCredentialKey(key), { message: 'Platform-internal credential keys are never exposed per agent' });
 export type CredentialKey = z.infer<typeof CredentialKeySchema>;
-

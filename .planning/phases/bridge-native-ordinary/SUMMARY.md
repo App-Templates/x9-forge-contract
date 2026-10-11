@@ -21,4 +21,5 @@ Package version/exports/lockfile/CHANGELOG unchanged; no consumer pin, push, pub
 ## Fruibilità alla consegna (R-34)
 Consumers can declare/write/inherit/freeze concrete native settings through ordinary-v2 and import the local package.
 Provider use, end-to-end consumer adoption and live verification remain with D; final independent review pending.
-Measure: product +69/-46 across 12 source files, tests +126/-0, PLAN+SUMMARY 43 lines; generated dist excluded.
+Measure: product +69/-46 across 12 source files, tests +126/-0, PLAN+SUMMARY 44 lines; generated dist excluded.
+Ultimo aggiornamento: 20:08 — local commit 6e3f15d; callback delta follows separately, coordinator composes c.3.
