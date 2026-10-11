@@ -23,6 +23,7 @@ Commands: vitest full/focused with isolated config; tsc --noEmit; eslint5files; 
 ## Fruibilità alla consegna (R-34)
 D can install the archive and import canonical authority schemas/helper from capability and routes/helper from http.
 Examples/proofs are synthetic and production-shaped; no caller credential or latest-grant lookup authorizes a person.
-Final independent review requested from D after the local commit; producer integration and live operation remain open.
+D221306 APPROVE5405bda: 0P1/P2, archive hash and32/32 changed dist verified; test counts read, not rerun by D.
+Producer integration and live operation remain open; the explicit proof transport follow-up is documented separately.
 No existing schema, ordinary configuration, models-batch, version/pin, consumer, original checkout or production changed.
 No push, merge, deployment, browser, real call or migration performed.

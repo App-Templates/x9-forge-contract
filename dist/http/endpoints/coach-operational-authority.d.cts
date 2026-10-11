@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { type CoachOperationalAuthorityProofRef } from "../../capability/coach/operational/authority.cjs";
 /** Internal authentication identifies the producer; explicit current person/program authority is still required. */
 export declare const coachOperationalAuthorityResolveContract: {
     readonly path: "/internal/capability/agents/:agentId/coach/v2/authority/resolve";
@@ -696,4 +697,21 @@ export declare const coachOperationalAuthorityRecheckContract: {
 };
 export declare function capCoachOperationalAuthorityPath(agentId: string, action: 'resolve' | 'recheck'): string;
 export declare function isCoachOperationalAuthorityForRoute(rawRequest: unknown, rawParams: unknown, action: 'resolve' | 'recheck'): boolean;
+/** A single opaque evidence reference, not authentication or authorization. */
+export declare const COACH_OPERATIONAL_AUTHORITY_PROOF_HEADER: "X-X9-Coach-Authority-Proof";
+export declare const CoachOperationalAuthorityProofHeaderSchema: z.ZodPipe<z.ZodPipe<z.ZodString, z.ZodTransform<{
+    kind: string;
+    proofId: string;
+}, string>>, z.ZodObject<{
+    kind: z.ZodEnum<{
+        session: "session";
+        admission: "admission";
+    }>;
+    proofId: z.ZodString;
+}, z.core.$strict>>;
+export declare function formatCoachOperationalAuthorityProofHeader(rawProofRef: unknown): string;
+/** mode comes from trusted server policy, never from a caller-selected legacy flag.
+ * Arrays, merged duplicate headers and malformed values must fail even in legacy mode.
+ * The producer must correlate this reference with current scoped server evidence after every await. */
+export declare function parseCoachOperationalAuthorityProofHeader(raw: unknown, mode: 'legacy' | 'managed'): CoachOperationalAuthorityProofRef | null;
 //# sourceMappingURL=coach-operational-authority.d.ts.map

@@ -14,3 +14,9 @@ No pin, version bump, consumer edits, push or deploy.
 D can import the local artifact for explicit person/program authorization before opening and for later session operations.
 Use synthetic production-shaped admission/session examples; a transport credential alone never grants permission.
 Producer integration, browser, real sessions and migration remain part of the common release; no live evidence claimed here.
+
+## Explicit proof transport follow-up
+D221306 identified that existing operational HTTP DTOs cannot carry the server-selected proofRef.
+D221604 agreed one non-credential canonical header; add its schema/parser/formatter only to the new HTTP module.
+Legacy permits only absent undefined; managed requires a valid reference; malformed/duplicate input never degrades.
+Preserve existing operational DTOs; scoped producer policy and durable evidence remain the authorization source.

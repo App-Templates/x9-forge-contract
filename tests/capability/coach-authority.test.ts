@@ -164,3 +164,45 @@ it('binds budget read without an opening to the exact person and program proof',
   const request = { ...f.request, phase: 'after' };
   expect(c.isCoachOperationalAuthorityCurrent(request, { ...f.result, request }, f.proof, now)).toBe(true);
 });
+
+it('publishes the non-credential authority proof header independently of authentication', () => {
+  expect(h.COACH_OPERATIONAL_AUTHORITY_PROOF_HEADER).toBe('X-X9-Coach-Authority-Proof');
+  expect(h.COACH_OPERATIONAL_AUTHORITY_PROOF_HEADER).not.toBe(INTERNAL_SECRET_HEADER);
+});
+it.each(['admission', 'session'])('round-trips %s authority proof header with canonical reference bounds', kind => {
+  for (const proofId of ['eight-id', 'synthetic:proof.one-two', 'a'.repeat(128)]) {
+    const ref = { kind, proofId }, encoded = h.formatCoachOperationalAuthorityProofHeader(ref);
+    expect(encoded).toBe(`${kind}:${proofId}`);
+    expect(h.CoachOperationalAuthorityProofHeaderSchema.parse(encoded)).toEqual(ref);
+    for (const mode of ['legacy', 'managed'] as const)
+      expect(h.parseCoachOperationalAuthorityProofHeader(encoded, mode)).toEqual(ref);
+  }
+});
+it('permits a missing authority proof header only for explicitly legacy server policy', () => {
+  expect(h.parseCoachOperationalAuthorityProofHeader(undefined, 'legacy')).toBeNull();
+  expect(() => h.parseCoachOperationalAuthorityProofHeader(undefined, 'managed')).toThrow();
+});
+it.each([
+  null, '', 'admission', 'admissionX', 'sessionX', 'admission:', 'admission:short', 'unknown:synthetic-proof',
+  ' admission:synthetic-proof', 'admission:synthetic-proof ', 'session:synthetic-proof\r\nX-Forged:1',
+  'admission:synthetic-proof,session:synthetic-proof', ['admission:synthetic-proof'],
+  ['admission:synthetic-proof', 'session:synthetic-proof'], { kind: 'admission', proofId: 'synthetic-proof' },
+  'admission:' + 'a'.repeat(129), 'session:synthetic/proof',
+])('rejects malformed or duplicate authority proof header %# in both policies', raw => {
+  for (const mode of ['legacy', 'managed'] as const)
+    expect(() => h.parseCoachOperationalAuthorityProofHeader(raw, mode)).toThrow();
+});
+it.each([undefined, null, { kind: 'admission', proofId: 'short' },
+  { kind: 'other', proofId: 'synthetic-proof' }, { kind: 'session', proofId: 'synthetic-proof', token: 'forged' },
+])('refuses invalid evidence when formatting authority proof header %#', raw => {
+  expect(() => h.formatCoachOperationalAuthorityProofHeader(raw)).toThrow();
+});
+it('rejects unknown policy and does not derive authority from an authority proof header', () => {
+  expect(() => h.parseCoachOperationalAuthorityProofHeader('admission:synthetic-proof', 'caller-selected' as 'legacy')).toThrow();
+  const f = fixture();
+  const proofRef = h.parseCoachOperationalAuthorityProofHeader('admission:synthetic-other', 'managed');
+  expect(proofRef).toEqual({ kind: 'admission', proofId: 'synthetic-other' });
+  const request = { ...f.request, proofRef };
+  expect(c.CoachOperationalAuthorityRequestSchema.safeParse(request).success).toBe(true);
+  expect(c.isCoachOperationalAuthorityCurrent(request, { ...f.result, request }, f.proof, now)).toBe(false);
+});
