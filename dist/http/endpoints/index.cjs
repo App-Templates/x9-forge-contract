@@ -82,4 +82,5 @@ __exportStar(require("./internal-agent-tool-dispatch.cjs"), exports);
 __exportStar(require("./internal-agents-ordinary-authority.cjs"), exports);
 __exportStar(require("./forge-elevenlabs-web.cjs"), exports);
 __exportStar(require("./internal-agent-address-book.cjs"), exports);
+__exportStar(require("./native-binding-read.cjs"), exports);
 //# sourceMappingURL=index.js.map

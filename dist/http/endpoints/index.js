@@ -66,4 +66,5 @@ export * from "./internal-agent-tool-dispatch.js";
 export * from "./internal-agents-ordinary-authority.js";
 export * from "./forge-elevenlabs-web.js";
 export * from "./internal-agent-address-book.js";
+export * from "./native-binding-read.js";
 //# sourceMappingURL=index.js.map
