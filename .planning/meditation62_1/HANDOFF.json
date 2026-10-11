@@ -1,0 +1,162 @@
+{
+  "package": "@x9-forge/contracts",
+  "packageVersion": "1.45.0",
+  "apiSubpath": "http",
+  "producerCommit": "40c4415d71b89b32fabbab3e0bab4e9a5b0cc152",
+  "artifact": {
+    "file": "meditation62-final-30bf6f5d464be77034b60c52732d32b131acf525a5c5306cb9fd1e8876a5774e.tgz",
+    "sha256": "30bf6f5d464be77034b60c52732d32b131acf525a5c5306cb9fd1e8876a5774e"
+  },
+  "operations": [
+    {
+      "export": "coachProgramApplyContract",
+      "method": "PUT",
+      "path": "/internal/capability/agents/:agentId/coach/v2/programs/:programId/revisions/:programVersion",
+      "params": "CoachOperationalProgramParamsSchema",
+      "body": "CoachProgramApplyRequestSchema",
+      "response": "CoachProgramApplyResultSchema",
+      "helper": "capCoachOperationalProgramRevisionPath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachOpeningContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/openings",
+      "params": "CoachOperationalAgentParamsSchema",
+      "body": "CoachOpeningRequestSchema",
+      "response": "CoachOpeningResultSchema",
+      "helper": "capCoachOpeningPath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachConversationInputContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/:sessionId/inputs",
+      "params": "CoachOperationalSessionParamsSchema",
+      "body": "CoachConversationInputRequestSchema",
+      "response": "CoachConversationResultSchema",
+      "helper": "capCoachSessionInputPath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachExecutionStartContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/:sessionId/start",
+      "params": "CoachOperationalSessionParamsSchema",
+      "body": "CoachExecutionStartRequestSchema",
+      "response": "CoachExecutionStartResultSchema",
+      "helper": "capCoachExecutionStartPath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachExecutionEventContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/:sessionId/events",
+      "params": "CoachOperationalSessionParamsSchema",
+      "body": "CoachExecutionEventRequestSchema",
+      "response": "CoachExecutionEventResultSchema",
+      "helper": "capCoachExecutionEventPath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachGuideEndContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/:sessionId/end-guide",
+      "params": "CoachOperationalSessionParamsSchema",
+      "body": "CoachGuideEndRequestSchema",
+      "response": "CoachGuideEndResultSchema",
+      "helper": "capCoachGuideEndPath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachSessionCloseContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/:sessionId/close",
+      "params": "CoachOperationalSessionParamsSchema",
+      "body": "CoachSessionCloseRequestSchema",
+      "response": "CoachSessionCloseResultSchema",
+      "helper": "capCoachSessionClosePath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachUsageObserveContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/:sessionId/usage",
+      "params": "CoachOperationalSessionParamsSchema",
+      "body": "CoachUsageObserveRequestSchema",
+      "response": "CoachUsageObserveResultSchema",
+      "helper": "capCoachUsageObservePath",
+      "bodyResponseSubpath": "capability",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachProgramVersionReadContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/programs/read",
+      "params": "CoachOperationalAgentParamsSchema",
+      "body": "CoachProgramVersionReadRequestSchema",
+      "response": "CoachProgramVersionReadResultSchema",
+      "helper": "capCoachProgramVersionReadPath",
+      "bodyResponseSubpath": "http",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachOperationalSessionReadContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/read",
+      "params": "CoachOperationalAgentParamsSchema",
+      "body": "CoachOperationalSessionReadRequestSchema",
+      "response": "CoachOperationalSessionReadResultSchema",
+      "helper": "capCoachOperationalSessionReadPath",
+      "bodyResponseSubpath": "http",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachSessionRevisionsReadContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/sessions/revisions/read",
+      "params": "CoachOperationalAgentParamsSchema",
+      "body": "CoachSessionRevisionsReadRequestSchema",
+      "response": "CoachSessionRevisionsPageSchema",
+      "helper": "capCoachSessionRevisionsReadPath",
+      "bodyResponseSubpath": "http",
+      "paramsSubpath": "http"
+    },
+    {
+      "export": "coachOperationalBudgetReadContract",
+      "method": "POST",
+      "path": "/internal/capability/agents/:agentId/coach/v2/budget/read",
+      "params": "CoachOperationalAgentParamsSchema",
+      "body": "CoachOperationalBudgetReadRequestSchema",
+      "response": "CoachOperationalBudgetReadResultSchema",
+      "helper": "capCoachOperationalBudgetReadPath",
+      "bodyResponseSubpath": "http",
+      "paramsSubpath": "http"
+    }
+  ],
+  "shared": {
+    "authType": "secret",
+    "headerReference": "@x9-forge/contracts/auth#INTERNAL_SECRET_HEADER",
+    "errorSchema": "CoachOperationalErrorSchema",
+    "errorStatus": "COACH_OPERATIONAL_ERROR_STATUS",
+    "personScope": "@x9-forge/contracts/capability#CapabilityPersonScopeSchema",
+    "requestResponseTypes": "Infer from each canonical schema; no local DTO copies."
+  },
+  "trustAndLimits": [
+    "The shared secret authenticates a service; it does not grant tenant/owner/agent/user authority.",
+    "Schema correlation is separate from current assignment, verified call/provider evidence and atomic state transitions in cap-coach.",
+    "Unknown/pending/uncertain budget or usage is preserved; the model/browser cannot manufacture server time, billable usage or progression.",
+    "Program revisions and snapshots stay pinned; bounded revision pages use canonical request/result correlation helpers.",
+    "Domain payload is carried by canonical bounded schemas and validated by a known versioned strategy; no dynamic module or code path.",
+    "This is the existing operational artifact recovered from phase62, not a new package build. No publication, migration, provider/live or full MED completion.",
+    "Consumer wiring63 and provider64/project66/Forge67/migration68/live69 remain separate delivery gates."
+  ],
+  "review": "REVIEW.md; consumer must read the independent verdict before using this delivery."
+}
