@@ -129,29 +129,3 @@ describe('initial observed model rows', () => {
   });
   it('rejects an initial selection on a saved row', () => { expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [{ ...row(), initial: settings() }] }).success).toBe(false); });
 });
-
-describe('initial batch compare and swap', () => {
- const initialOverview = () => ({...overview(), rows:[{...row(),origin:'initial',initial:settings(),default:null,saved:null,applied:null,versions:null,masterAgentId:null,masterConfigVersion:null}],coverage:[{identity,ownerId:'owner-42',status:'partial',missingSlots:[],reason:'Stato iniziale, non ancora salvato'}]});
- const firstRequest = () => {const value=request();value.agents[0]!.expectedVersion=0;return value;};
- const firstPreview = () => {const value=preview();value.request.agents[0]!.expectedVersion=0;value.agents[0]!.expectedVersion=0;value.agents[0]!.next.configVersion=1;return value;};
- it('accepts initial CAS zero and previews configuration one without a fake saved version',()=>{
-  expect(api.validateAgentModelsBatch(firstRequest(),initialOverview(),[catalog()],now)).toEqual([]);
-  expect(api.isAgentModelsBatchPreviewCurrent(firstRequest(),firstPreview(),initialOverview(),now)).toBe(true);
- });
- it('rejects nonzero CAS on an initial selection',()=>{expect(api.validateAgentModelsBatch(request(),initialOverview(),[catalog()],now)).toContain('version-conflict');});
- it('does not allow initial CAS on a saved or unknown row',()=>{
-  expect(api.validateAgentModelsBatch(firstRequest(),overview(),[catalog()],now)).toContain('version-conflict');
-  const value=initialOverview();Object.assign(value.rows[0]!,{origin:'unknown',initial:null,editability:'readonly',reason:'Unattested'});
-  expect(api.validateAgentModelsBatch(firstRequest(),value,[catalog()],now)).toContain('version-unknown');
- });
- it.each(['readonly','absent','missing'])('keeps %s evidence blocked for first save',kind=>{
-  const value=initialOverview();if(kind==='readonly')Object.assign(value.rows[0]!,{editability:'readonly',reason:'Not Master'});
-  if(kind==='absent')value.rows[0]!.installation='absent';if(kind==='missing')value.coverage[0]!.missingSlots=['news_digest'];
-  expect(api.validateAgentModelsBatch(firstRequest(),value,[catalog()],now)).toContain(kind==='readonly'?'slot-readonly':'slot-unavailable');
- });
- it('invalidates an initial preview if CAS or editability changes',()=>{
-  expect(api.isAgentModelsBatchPreviewCurrent(request(),firstPreview(),initialOverview(),now)).toBe(false);
-  const value=initialOverview();Object.assign(value.rows[0]!,{editability:'readonly',reason:'No longer Master'});
-  expect(api.isAgentModelsBatchPreviewCurrent(firstRequest(),firstPreview(),value,now)).toBe(false);
- });
-});

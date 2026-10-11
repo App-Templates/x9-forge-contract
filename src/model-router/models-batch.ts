@@ -118,7 +118,7 @@ export const AgentModelSlotChangeSchema = z.discriminatedUnion('action', [
   z.object({ action: z.literal('set'), slotId: ModelSlotIdSchema, settings: CapabilityModelSettingsSchema }).strict(),
   z.object({ action: z.literal('reset-master'), slotId: ModelSlotIdSchema }).strict(),
 ]);
-const BatchAgentChangeSchema = z.object({ identity: AgentRuntimeIdentitySchema.strict(), expectedVersion: z.union([z.literal(0), AgentConfigVersionSchema]), changes: z.array(AgentModelSlotChangeSchema).min(1).max(64) }).strict().superRefine((agent, ctx) => {
+const BatchAgentChangeSchema = z.object({ identity: AgentRuntimeIdentitySchema.strict(), expectedVersion: AgentConfigVersionSchema, changes: z.array(AgentModelSlotChangeSchema).min(1).max(64) }).strict().superRefine((agent, ctx) => {
   if (new Set(agent.changes.map(change => change.slotId)).size !== agent.changes.length) ctx.addIssue({ code: 'custom', path: ['changes'], message: 'Duplicate changed slot' });
 });
 export const AgentModelsBatchPreviewRequestSchema = z.object({ requestId: AgentManagementRequestIdSchema, overviewVersion: ModelCatalogVersionSchema, agents: z.array(BatchAgentChangeSchema).min(1).max(64) }).strict().superRefine((request, ctx) => {
@@ -173,7 +173,7 @@ export const AgentModelsBatchPreviewSchema = z.object({
   previewId: AgentManagementRequestIdSchema, request: AgentModelsBatchPreviewRequestSchema,
   expiresAt: z.iso.datetime({ offset: true }),
   fanoutImpact: AgentModelsMasterImpactSchema.optional(),
-  agents: z.array(z.object({ identity: AgentRuntimeIdentitySchema.strict(), expectedVersion: z.union([z.literal(0), AgentConfigVersionSchema]), next: AgentModelsConfigurationSchema, impact: z.array(z.string().min(1).max(500)).max(64) }).strict()).min(1).max(64),
+  agents: z.array(z.object({ identity: AgentRuntimeIdentitySchema.strict(), expectedVersion: AgentConfigVersionSchema, next: AgentModelsConfigurationSchema, impact: z.array(z.string().min(1).max(500)).max(64) }).strict()).min(1).max(64),
 }).strict().superRefine((preview, ctx) => {
   if (preview.fanoutImpact !== undefined && !preview.agents.some(agent => sameModelAgentIdentity(agent.identity, preview.fanoutImpact!.masterIdentity)))
     ctx.addIssue({ code: 'custom', path: ['fanoutImpact', 'masterIdentity'], message: 'Master impact belongs to a requested agent' });
@@ -201,14 +201,12 @@ export function validateAgentModelsBatch(input: unknown, serverOverview: unknown
   const issues = new Set<AgentModelsBatchValidationIssue>();
   for (const agent of request.agents) {
     const coverage = overview.coverage?.find(entry => sameModelAgentIdentity(entry.identity, agent.identity));
-    const initialBatch = agent.expectedVersion === 0 && agent.changes.every(change => overview.rows.some(row => sameModelAgentIdentity(row.identity, agent.identity) && row.slotId === change.slotId && row.origin === 'initial'));
-    if (coverage !== undefined && coverage.status !== 'complete' && !(initialBatch && coverage.status === 'partial' && coverage.missingSlots.length === 0)) issues.add('slot-unavailable');
+    if (coverage !== undefined && coverage.status !== 'complete') issues.add('slot-unavailable');
     for (const change of agent.changes) {
       const row = overview.rows.find(entry => entry.identity.managementAgentId === agent.identity.managementAgentId && entry.slotId === change.slotId);
       if (row === undefined) { issues.add('slot-not-found'); continue; }
       if (!sameModelAgentIdentity(row.identity, agent.identity)) { issues.add('identity-mismatch'); continue; }
-      if (row.origin === 'initial') { if (agent.expectedVersion !== 0) issues.add('version-conflict'); }
-      else if (row.versions === null) issues.add('version-unknown'); else if (row.versions.desired !== agent.expectedVersion) issues.add('version-conflict');
+      if (row.versions === null) issues.add('version-unknown'); else if (row.versions.desired !== agent.expectedVersion) issues.add('version-conflict');
       if (row.installation !== 'installed') issues.add('slot-unavailable');
       if (row.editability !== 'editable' || row.origin === 'unknown') issues.add('slot-readonly');
       const settings = change.action === 'set' ? change.settings : row.default;
@@ -236,14 +234,6 @@ export function isAgentModelsBatchPreviewCurrent(input: unknown, serverPreview: 
   for (const agent of preview.data.agents) {
     const intent = changes.agents.find(entry => sameModelAgentIdentity(entry.identity, agent.identity));
     if (intent === undefined) return false;
-    for (const change of intent.changes) {
-      const row = overview.data.rows.find(entry => sameModelAgentIdentity(entry.identity, agent.identity) && entry.slotId === change.slotId);
-      if (intent.expectedVersion === 0 || row?.origin === 'initial') {
-        const coverage = overview.data.coverage?.find(entry => sameModelAgentIdentity(entry.identity, agent.identity));
-        if (intent.expectedVersion !== 0 || row?.origin !== 'initial' || row.editability !== 'editable' || row.installation !== 'installed'
-          || (coverage !== undefined && coverage.status !== 'complete' && !(coverage.status === 'partial' && coverage.missingSlots.length === 0))) return false;
-      }
-    }
     for (const change of intent.changes) if (change.action === 'reset-master') {
       const row = overview.data.rows.find(entry => sameModelAgentIdentity(entry.identity, agent.identity) && entry.slotId === change.slotId);
       const selection = agent.next.selections.find(entry => entry.slotId === change.slotId);
