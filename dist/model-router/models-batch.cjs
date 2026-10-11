@@ -49,8 +49,9 @@ exports.AgentModelOverviewRowSchema = zod_1.z.object({
     channelId: zod_1.z.string().min(1).max(128).nullable(),
     installation: zod_1.z.enum(['installed', 'absent', 'unknown']),
     editability: zod_1.z.enum(['editable', 'readonly']), reason: zod_1.z.string().min(1).max(500).nullable(),
-    origin: zod_1.z.enum(['master', 'custom', 'unknown']), masterAgentId: agent_identity_js_1.AgentIdSchema.nullable(), masterConfigVersion: agent_config_js_1.AgentConfigVersionSchema.nullable(),
+    origin: zod_1.z.enum(['master', 'custom', 'unknown', 'initial']), masterAgentId: agent_identity_js_1.AgentIdSchema.nullable(), masterConfigVersion: agent_config_js_1.AgentConfigVersionSchema.nullable(),
     requirements: model_catalog_js_1.ModelFeaturesSchema,
+    initial: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable().optional(),
     default: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(), saved: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(), applied: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(),
     versions: agent_management_js_1.AgentConfigVersionStateSchema.nullable(), catalogVersion: model_catalog_js_1.ModelCatalogVersionSchema.nullable(),
     cost: exports.ModelCostMetadataSchema, embedding: exports.ModelEmbeddingRebuildSchema.nullable(),
@@ -61,9 +62,15 @@ exports.AgentModelOverviewRowSchema = zod_1.z.object({
         ctx.addIssue({ code: 'custom', path: ['masterAgentId'], message: 'Master inheritance requires an explicit source agent' });
     if (row.origin === 'unknown' && (row.masterAgentId !== null || row.masterConfigVersion !== null || row.editability !== 'readonly' || row.reason === null || row.reason.trim().length === 0))
         ctx.addIssue({ code: 'custom', path: ['origin'], message: 'Unknown provenance is readonly without a claimed Master' });
-    for (const field of ['default', 'saved', 'applied']) {
+    if (row.origin === 'initial') {
+        if (row.initial == null || row.saved !== null || row.applied !== null || row.versions !== null || row.default !== null || row.masterAgentId !== null || row.masterConfigVersion !== null)
+            ctx.addIssue({ code: 'custom', path: ['initial'], message: 'Initial observations require a selection without saved, applied or inherited evidence' });
+    }
+    else if (row.initial != null)
+        ctx.addIssue({ code: 'custom', path: ['initial'], message: 'Initial selections belong only to initial rows' });
+    for (const field of ['initial', 'default', 'saved', 'applied']) {
         const value = row[field];
-        if (value !== null && (value.capability !== row.capability || value.function !== row.function))
+        if (value != null && (value.capability !== row.capability || value.function !== row.function))
             ctx.addIssue({ code: 'custom', path: [field], message: 'Selection must belong to the displayed capability/function' });
     }
     if (row.applied !== null && row.versions?.applied == null)

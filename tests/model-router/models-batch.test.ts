@@ -110,3 +110,22 @@ it('distinguishes proposed, saved and applied versions in each batch result', ()
 it('binds reset-Master preview selections to the current server default', () => { const input = request(); Object.assign(input.agents[0]!, { changes: [{ action: 'reset-master', slotId: 'agent_chat' }] }); const proposed = preview(); Object.assign(proposed.request.agents[0]!, { changes: [{ action: 'reset-master', slotId: 'agent_chat' }] }); expect(api.isAgentModelsBatchPreviewCurrent(input, proposed, overview(), now)).toBe(true); proposed.agents[0]!.next.selections[0]!.settings.catalogVersion = 'other-default'; expect(api.isAgentModelsBatchPreviewCurrent(input, proposed, overview(), now)).toBe(false); });
 
 it('checks the final configuration as a slot set rather than serialization order', () => { const submitted = request(); const proposed = preview(); const response = appliedBatch(); const extra = { slotId: 'news_digest', settings: settings() }; proposed.agents[0]!.next.selections.push(clone(extra)); response.results[0]!.configuration.selections.push(clone(extra)); const copied = response.results[0]!.runtime.selections.map(entry => ({ ...clone(entry), slotId: 'news_digest' })); response.results[0]!.runtime.selections.push(...copied); response.results[0]!.configuration.selections.reverse(); expect(api.isAgentModelsBatchResultConsistent(submitted, proposed, response, now)).toBe(true); });
+
+describe('initial observed model rows', () => {
+  const initialRow = () => ({ ...row(), origin: 'initial', initial: settings(), default: null, saved: null, applied: null, versions: null, masterAgentId: null, masterConfigVersion: null });
+  it('accepts initial editable and readonly selections without claiming persistence', () => {
+    expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [initialRow()] }).success).toBe(true);
+    expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [{ ...initialRow(), editability: 'readonly', reason: 'Stato attuale, non ancora salvato' }] }).success).toBe(true);
+  });
+  it('keeps legacy rows without the additive field compatible', () => { expect(api.AgentModelsOverviewSchema.safeParse(overview()).success).toBe(true); });
+  it.each(['initial', 'saved', 'applied', 'versions', 'masterAgentId', 'masterConfigVersion', 'default'])('rejects initial rows with inconsistent %s evidence', field => {
+    const value = initialRow();
+    Object.assign(value, { [field]: field === 'initial' ? null : row()[field as keyof ReturnType<typeof row>] });
+    expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [value] }).success).toBe(false);
+  });
+  it.each(['capability', 'function'])('binds initial %s to its displayed slot', field => {
+    const value = initialRow(); Object.assign(value.initial, { [field]: field === 'capability' ? 'cap-news' : 'tts' });
+    expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [value] }).success).toBe(false);
+  });
+  it('rejects an initial selection on a saved row', () => { expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [{ ...row(), initial: settings() }] }).success).toBe(false); });
+});

@@ -40,8 +40,9 @@ export const AgentModelOverviewRowSchema = z.object({
   channelId: z.string().min(1).max(128).nullable(),
   installation: z.enum(['installed', 'absent', 'unknown']),
   editability: z.enum(['editable', 'readonly']), reason: z.string().min(1).max(500).nullable(),
-  origin: z.enum(['master', 'custom', 'unknown']), masterAgentId: AgentIdSchema.nullable(), masterConfigVersion: AgentConfigVersionSchema.nullable(),
+  origin: z.enum(['master', 'custom', 'unknown', 'initial']), masterAgentId: AgentIdSchema.nullable(), masterConfigVersion: AgentConfigVersionSchema.nullable(),
   requirements: ModelFeaturesSchema,
+  initial: CapabilityModelSettingsSchema.nullable().optional(),
   default: CapabilityModelSettingsSchema.nullable(), saved: CapabilityModelSettingsSchema.nullable(), applied: CapabilityModelSettingsSchema.nullable(),
   versions: AgentConfigVersionStateSchema.nullable(), catalogVersion: ModelCatalogVersionSchema.nullable(),
   cost: ModelCostMetadataSchema, embedding: ModelEmbeddingRebuildSchema.nullable(),
@@ -49,9 +50,13 @@ export const AgentModelOverviewRowSchema = z.object({
   if ((row.editability === 'readonly') !== (row.reason !== null)) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Readonly rows require a reason' });
   if (row.origin === 'master' && (row.masterAgentId === null || row.masterConfigVersion === null)) ctx.addIssue({ code: 'custom', path: ['masterAgentId'], message: 'Master inheritance requires an explicit source agent' });
   if (row.origin === 'unknown' && (row.masterAgentId !== null || row.masterConfigVersion !== null || row.editability !== 'readonly' || row.reason === null || row.reason.trim().length === 0)) ctx.addIssue({ code: 'custom', path: ['origin'], message: 'Unknown provenance is readonly without a claimed Master' });
-  for (const field of ['default', 'saved', 'applied'] as const) {
+  if (row.origin === 'initial') {
+    if (row.initial == null || row.saved !== null || row.applied !== null || row.versions !== null || row.default !== null || row.masterAgentId !== null || row.masterConfigVersion !== null)
+      ctx.addIssue({ code: 'custom', path: ['initial'], message: 'Initial observations require a selection without saved, applied or inherited evidence' });
+  } else if (row.initial != null) ctx.addIssue({ code: 'custom', path: ['initial'], message: 'Initial selections belong only to initial rows' });
+  for (const field of ['initial', 'default', 'saved', 'applied'] as const) {
     const value = row[field];
-    if (value !== null && (value.capability !== row.capability || value.function !== row.function)) ctx.addIssue({ code: 'custom', path: [field], message: 'Selection must belong to the displayed capability/function' });
+    if (value != null && (value.capability !== row.capability || value.function !== row.function)) ctx.addIssue({ code: 'custom', path: [field], message: 'Selection must belong to the displayed capability/function' });
   }
   if (row.applied !== null && row.versions?.applied == null) ctx.addIssue({ code: 'custom', path: ['applied'], message: 'An applied selection requires an attested applied version' });
   if (row.embedding !== null && row.function !== 'embedding') ctx.addIssue({ code: 'custom', path: ['embedding'], message: 'Rebuild metadata belongs only to embedding slots' });
