@@ -64,3 +64,8 @@ describe('News/Briefing canonical readback', () => {
     expect(NewsBriefingStateSchema.safeParse(value).success).toBe(false);
   });
 });
+
+it('preserves the existing News capacity of one hundred user feeds plus default feeds', () => {
+  const feeds = Array.from({ length: 115 }, (_, index) => ({ ...feed, url: `https://example.org/feed/${index}` }));
+  expect(NewsBriefingCommandSchema.parse({ ...base, family: 'news', changes: [{ type: 'feeds.replace', feeds }] }).changes[0]).toEqual({ type: 'feeds.replace', feeds });
+});

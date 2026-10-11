@@ -92,3 +92,25 @@ it('prepare cannot attest a changed candidate; rollback first activation restore
   expect(parseCapabilityOrdinaryLifecycleReceipt(result, rollback, firstTransaction)).toEqual(result);
   expect(() => parseCapabilityOrdinaryLifecycleReceipt({ ...result, ordinaryState: { ...emptyState, runtimeState: 'loaded' }, membershipEffective: 'enabled' }, rollback, { ...firstTransaction, previousMembership: 'enabled' })).toThrow('absence');
 });
+
+it.each(['news', 'briefing'])('allows %s rollback to retain a newer fully observed immediate revision', capability => {
+  const observedAt = '2026-10-11T18:40:00Z';
+  const parameter = { key: 'hoursBack', type: 'integer', label: 'Lookback', description: 'Lookback', status: 'decided', reference: 'consumer', appliesWhen: 'immediate', consumes: true, optional: false, editableBy: ['owner'] };
+  const old = { format: 'ordinary-v2', scope, capability, version: 3, parameters: [{ parameter, origin: { kind: 'agent_override' }, value: 26 }] };
+  const desired = { ...old, version: 4, parameters: [{ ...old.parameters[0], value: 1 }] };
+  const previousState = { ...emptyState, capability, desired: old, runtimeState: 'loaded', applied: { configuration: old, loadedAt: observedAt }, effectiveParameters: [{ scope, capability, key: 'hoursBack', value: 26, sourceConfigVersion: 3, mode: 'immediate', observedAt }] };
+  const rollback = CapabilityOrdinaryLifecycleRequestSchema.parse({ ...request, capability, phase: 'rollback' });
+  const retained = { ...transaction, request: { ...rollback, phase: 'prepare' }, previousState, previousMembership: 'enabled' };
+  const result = { ...receipt, request: rollback, membershipEffective: 'enabled', observedAt, ordinaryState: { ...previousState, desired, applied: { configuration: desired, loadedAt: observedAt }, effectiveParameters: [{ ...previousState.effectiveParameters[0], value: 1, sourceConfigVersion: 4 }] } };
+  expect(parseCapabilityOrdinaryLifecycleReceipt(result, rollback, retained).ordinaryState.applied?.configuration).toEqual(desired);
+  const checked = (value: unknown) => parseCapabilityOrdinaryLifecycleReceipt(value, rollback, retained);
+  expect(() => checked({ ...result, ordinaryState: { ...result.ordinaryState, desired: old, applied: null } })).toThrow();
+  expect(() => checked({ ...result, ordinaryState: { ...result.ordinaryState, applied: null } })).toThrow();
+  const nextApply = { ...desired, parameters: [{ ...desired.parameters[0], parameter: { ...parameter, appliesWhen: 'next_apply' } }] };
+  expect(() => checked({ ...result, ordinaryState: { ...result.ordinaryState, desired: nextApply, applied: { configuration: nextApply, loadedAt: observedAt }, effectiveParameters: [{ ...result.ordinaryState.effectiveParameters[0], mode: 'next_apply' }] } })).toThrow();
+  expect(() => checked({ ...result, fence: 2 })).toThrow();
+  expect(() => parseCapabilityOrdinaryLifecycleReceipt(result, rollback, { ...retained, previousState: { ...previousState, desired } })).toThrow();
+  const otherRequest = { ...rollback, capability: 'backup' };
+  const other = { ...result, request: otherRequest, ordinaryState: { ...result.ordinaryState, capability: 'backup', desired: { ...desired, capability: 'backup' }, applied: { configuration: { ...desired, capability: 'backup' }, loadedAt: observedAt }, effectiveParameters: result.ordinaryState.effectiveParameters.map(entry => ({ ...entry, capability: 'backup' })) } };
+  expect(() => parseCapabilityOrdinaryLifecycleReceipt(other, otherRequest, { ...retained, previousState: { ...emptyState, capability: 'backup' } })).toThrow();
+});
