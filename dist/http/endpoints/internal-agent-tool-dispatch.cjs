@@ -12,6 +12,7 @@ const index_js_1 = require("../../capability/voice-live/index.cjs");
 const agent_credential_services_js_1 = require("../../agent/agent-credential-services.cjs");
 const platform_internal_credentials_js_1 = require("../../vault/platform-internal-credentials.cjs");
 const cap_tool_call_js_1 = require("./cap-tool-call.cjs");
+const briefing_js_1 = require("../../capability/configuration/briefing.cjs");
 const text = zod_1.z.string().min(1).max(32_000);
 const telegramInput = zod_1.z.strictObject({ chatId: zod_1.z.union([zod_1.z.number().int(), zod_1.z.string().min(1).max(64)]), text });
 const sessionInput = zod_1.z.strictObject({ sessionId: zod_1.z.string().min(1).max(256) });
@@ -34,8 +35,11 @@ exports.INTERNAL_AGENT_EXECUTIONS = Object.freeze({
     news_digest: registration('news', 'news_digest', zod_1.z.strictObject({
         categories: zod_1.z.array(zod_1.z.string().min(1).max(200)).max(100).optional(),
         skipCategories: zod_1.z.array(zod_1.z.string().min(1).max(200)).max(100).optional(),
+        feeds: briefing_js_1.BriefingSettingsSchema.shape.feeds,
+        categoryWeights: briefing_js_1.BriefingSettingsSchema.shape.categoryWeights.optional(),
+        promptStyle: briefing_js_1.BriefingSettingsSchema.shape.promptStyle.optional(),
     }), ['OPENAI_API_KEY']),
-    news_digest_topic: registration('news', 'news_digest_topic', zod_1.z.strictObject({ topic: zod_1.z.string().min(1).max(200).optional() }), ['OPENAI_API_KEY']),
+    news_digest_topic: registration('news', 'news_digest_topic', zod_1.z.strictObject({ topic: zod_1.z.string().min(1).max(200).optional(), promptStyle: briefing_js_1.BriefingSettingsSchema.shape.promptStyle.optional() }), ['OPENAI_API_KEY']),
     calendar_today: registration('calendar', 'calendar_today', zod_1.z.strictObject({ date: zod_1.z.iso.date().optional() }), ['GOOGLE_CALENDAR_CLIENT_ID', 'GOOGLE_CALENDAR_CLIENT_SECRET', 'GOOGLE_CALENDAR_REFRESH_TOKEN']),
     calendar_week: registration('calendar', 'calendar_week', zod_1.z.strictObject({ targetDate: zod_1.z.iso.date().optional(), weekOffset: zod_1.z.number().int().min(-4).max(4).optional() }), ['GOOGLE_CALENDAR_CLIENT_ID', 'GOOGLE_CALENDAR_CLIENT_SECRET', 'GOOGLE_CALENDAR_REFRESH_TOKEN']),
     lab_execute: registration('lab', tools_js_2.LAB_INTERNAL_TOOLS.execute, tools_js_2.LabExecuteInputSchema, ['OPENAI_API_KEY']),

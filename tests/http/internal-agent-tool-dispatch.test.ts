@@ -94,3 +94,11 @@ it('rejects the complete canonical credential and platform-internal catalog in c
   const compiled = await import('@x9-forge/contracts/http');
   assertAllCanonicalCredentialResultsRejected(compiled.InternalAgentToolDispatchResponseSchema);
 });
+
+it.each([
+  { execution: 'news_digest', input: { feeds: [{ url: 'https://personal.example/rss', category: 'tech', weight: 4 }], categoryWeights: { tech: 3 }, promptStyle: 'technical' } },
+  { execution: 'news_digest_topic', input: { topic: 'meteo', promptStyle: 'concise' } },
+])('carries actual Briefing News selection through the bounded Core dispatch: $execution', input => {
+  const parsed = api.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'briefing-settings-dispatch', identity, ...input });
+  expect(parsed.success).toBe(true);
+});

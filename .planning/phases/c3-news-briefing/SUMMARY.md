@@ -19,6 +19,7 @@ Tipi/lint verdi e build492/492dts dopo il delta; niente suite completa, review p
 
 Decisione210949: comando esplicito legacy.adopt e provenienza producer per campo, inclusi default/motivo invalido.
 Contratto nuovo1/1 RED prima;47/47 mirati verdi, tipi PASS dopo correzione exactOptional, build492/492dts.
+Dispatch Core News raccordato ai codec Briefing esistenti (feeds/pesi/stile):2/2 RED prima,26/26 mirati GREEN; tipi/lint/build492dts PASS.
 ## Fruibilità alla consegna (R-34)
 Non consegnato: questo checkpoint non permette ancora modifiche da Forge/X9.
 Restano writer unico/adozione legacy, reader e timer reali, UI, percorso composto e revisione finale.

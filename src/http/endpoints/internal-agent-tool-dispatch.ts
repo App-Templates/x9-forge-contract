@@ -9,6 +9,7 @@ import type { KnownCredentialKey } from '../../agent/agent-credentials.js';
 import { AGENT_CREDENTIAL_SERVICE_KEYS, getAgentCredentialServiceMetadata } from '../../agent/agent-credential-services.js';
 import { PLATFORM_INTERNAL_CREDENTIAL_KEYS } from '../../vault/platform-internal-credentials.js';
 import { capToolCallPath } from './cap-tool-call.js';
+import { BriefingSettingsSchema } from '../../capability/configuration/briefing.js';
 
 const text = z.string().min(1).max(32_000);
 const telegramInput = z.strictObject({ chatId: z.union([z.number().int(), z.string().min(1).max(64)]), text });
@@ -39,8 +40,11 @@ export const INTERNAL_AGENT_EXECUTIONS = Object.freeze({
   news_digest: registration('news', 'news_digest', z.strictObject({
     categories: z.array(z.string().min(1).max(200)).max(100).optional(),
     skipCategories: z.array(z.string().min(1).max(200)).max(100).optional(),
+    feeds: BriefingSettingsSchema.shape.feeds,
+    categoryWeights: BriefingSettingsSchema.shape.categoryWeights.optional(),
+    promptStyle: BriefingSettingsSchema.shape.promptStyle.optional(),
   }), ['OPENAI_API_KEY']),
-  news_digest_topic: registration('news', 'news_digest_topic', z.strictObject({ topic: z.string().min(1).max(200).optional() }), ['OPENAI_API_KEY']),
+  news_digest_topic: registration('news', 'news_digest_topic', z.strictObject({ topic: z.string().min(1).max(200).optional(), promptStyle: BriefingSettingsSchema.shape.promptStyle.optional() }), ['OPENAI_API_KEY']),
   calendar_today: registration('calendar', 'calendar_today', z.strictObject({ date: z.iso.date().optional() }),
     ['GOOGLE_CALENDAR_CLIENT_ID', 'GOOGLE_CALENDAR_CLIENT_SECRET', 'GOOGLE_CALENDAR_REFRESH_TOKEN']),
   calendar_week: registration('calendar', 'calendar_week', z.strictObject({ targetDate: z.iso.date().optional(), weekOffset: z.number().int().min(-4).max(4).optional() }),
