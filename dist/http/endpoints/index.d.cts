@@ -59,4 +59,6 @@ export * from "./internal-agents-ordinary-authority.cjs";
 export * from "./forge-elevenlabs-web.cjs";
 export * from "./internal-agent-address-book.cjs";
 export * from "./native-binding-read.cjs";
+export * from "./coach-person-program-read.cjs";
+export * from "./coach-browser.cjs";
 //# sourceMappingURL=index.d.ts.map
