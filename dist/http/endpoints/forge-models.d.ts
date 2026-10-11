@@ -2602,7 +2602,7 @@ export declare const forgeModelsPreviewContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strict>;
-            expectedVersion: z.ZodNumber;
+            expectedVersion: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodNumber]>;
             changes: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 action: z.ZodLiteral<"set">;
                 slotId: z.ZodString;
@@ -2840,7 +2840,7 @@ export declare const forgeModelsPreviewContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strict>;
-                expectedVersion: z.ZodNumber;
+                expectedVersion: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodNumber]>;
                 changes: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     action: z.ZodLiteral<"set">;
                     slotId: z.ZodString;
@@ -3111,7 +3111,7 @@ export declare const forgeModelsPreviewContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strict>;
-            expectedVersion: z.ZodNumber;
+            expectedVersion: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodNumber]>;
             next: z.ZodObject<{
                 schemaVersion: z.ZodLiteral<1>;
                 identity: z.ZodObject<{
@@ -3382,7 +3382,7 @@ export declare const forgeModelsBatchContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strict>;
-            expectedVersion: z.ZodNumber;
+            expectedVersion: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodNumber]>;
             changes: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 action: z.ZodLiteral<"set">;
                 slotId: z.ZodString;
