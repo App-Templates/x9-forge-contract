@@ -10,7 +10,7 @@ Prove: `pnpm exec vitest run tests/capability/news-briefing-settings.test.ts tes
 Esito: 60/60 in4file (45nuovi+15regressioni). Prima strict schema:19/29 rifiuti fallivano; URL malformato poi1/32rosso, corretto.
 Mutazioni sicurezza2/2intercettate: scope/famiglia4/4assertionrosse, metadati regole2/2rosse; ripristino60/60verde.
 `pnpm typecheck`, lint dei6file e `git diff --check` verdi; corretto il tipo generico prima della conferma60/60.
-Build/ESM-CJS ancora da eseguire: posto pesante chiesto tramite posta193105, nessuna risposta al19:39.
+Posto ricevuto194224: build/dts492/492 e14/14smoke compilati ESM/CJS verdi; `check:pack` verde (warning tipi CJS esistente).
 Install offline mancava1tarball; dipendenze terze parti riusate con copia isolata dal vecchio worktree, senza sue modifiche.
 Nessuna suite completa, revisione indipendente anticipata, push, integrazione o deploy.
 
@@ -19,4 +19,4 @@ Non consegnato: questo checkpoint non permette ancora modifiche da Forge/X9.
 Restano writer unico/adozione legacy, reader e timer reali, UI, percorso composto e revisione finale.
 Prova dal vivo non eseguita; nessuna dichiarazione100%.
 
-Misura giornata c.3: prodotto132righe, test103righe; piano66righe + SUMMARY22righe (perimetri separati).
+Misura giornata c.3: prodotto132righe, test103righe; piano88righe + SUMMARY22righe (perimetri/compilati separati).

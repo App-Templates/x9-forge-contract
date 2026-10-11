@@ -99,4 +99,5 @@ __exportStar(require("./agent-elevenlabs/native-session-grant.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/native-tools.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/native-config.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/native-readback.cjs"), exports);
+__exportStar(require("./configuration/news-briefing.cjs"), exports);
 //# sourceMappingURL=index.js.map

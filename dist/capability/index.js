@@ -64,4 +64,5 @@ export * from "./agent-elevenlabs/native-session-grant.js";
 export * from "./agent-elevenlabs/native-tools.js";
 export * from "./agent-elevenlabs/native-config.js";
 export * from "./agent-elevenlabs/native-readback.js";
+export * from "./configuration/news-briefing.js";
 //# sourceMappingURL=index.js.map

@@ -57,4 +57,5 @@ export * from "./agent-elevenlabs/native-session-grant.cjs";
 export * from "./agent-elevenlabs/native-tools.cjs";
 export * from "./agent-elevenlabs/native-config.cjs";
 export * from "./agent-elevenlabs/native-readback.cjs";
+export * from "./configuration/news-briefing.cjs";
 //# sourceMappingURL=index.d.ts.map
