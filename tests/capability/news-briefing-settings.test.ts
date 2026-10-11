@@ -91,3 +91,19 @@ it('carries canonical origins without accepting browser Master authority',()=>{
  expect(NewsBriefingStateSchema.parse(value)).toEqual(value);
  for(const change of [{type:'parameter.follow-master',key:'recipients'},{type:'parameter.follow-master',key:'hoursBack',masterId:'forged'},{type:'feeds.inherit'}])expect(NewsBriefingCommandSchema.safeParse({...base,family:'news',changes:[change]}).success).toBe(false);
 });
+
+const masterSource={tenantId:scope.tenantId,ownerId:scope.ownerId,masterId:'master-a',version:4};
+it('carries a reviewed Master revision and a guarded refresh through the producer writer',()=>{
+ for(const type of ['parameter.follow-master','parameter.refresh-master']) {
+  const input={...base,family:'news',changes:[{type,key:'hoursBack',source:masterSource}]};
+  expect(NewsBriefingCommandSchema.parse(input)).toEqual(input);
+ }
+});
+it('exposes a typed canonical Master preview for before/after review',()=>{
+ const value={family:'news',scope,version:2,settings,effective:null,execution:'running',master:{scope:{...scope,agentId:'master-a'},version:4,settings:{...settings,hoursBack:12}}};
+ expect(NewsBriefingStateSchema.parse(value)).toEqual(value);
+ for(const master of [{...value.master,scope},{...value.master,scope:{...value.master.scope,ownerId:'foreign'}}])expect(NewsBriefingStateSchema.safeParse({...value,master}).success).toBe(false);
+});
+it('rejects cross-owner and self-referential Master command claims',()=>{
+ for(const source of [{...masterSource,ownerId:'foreign'},{...masterSource,tenantId:'foreign'},{...masterSource,masterId:scope.agentId}])expect(NewsBriefingCommandSchema.safeParse({...base,family:'news',changes:[{type:'parameter.refresh-master',key:'hoursBack',source}]}).success).toBe(false);
+});

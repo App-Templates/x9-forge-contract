@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { capNewsBriefingSettingsPath, NewsBriefingQuerySchema, parseNewsBriefingCommand, newsBriefingSettingsGetContract, newsBriefingSettingsPostContract } from '../../src/http/endpoints/internal-capability-news-briefing.js';
+import { capNewsBriefingSettingsPath, NewsBriefingQuerySchema, parseNewsBriefingCommand, newsBriefingSettingsGetContract, newsBriefingSettingsPostContract, newsBriefingPropagationContract } from '../../src/http/endpoints/internal-capability-news-briefing.js';
 
 const scope = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'runtime-a' };
 const authority = { scope, family: 'news' as const, currentVersion: 1 };
@@ -34,4 +34,19 @@ describe('Scoped News/Briefing settings boundary', () => {
     expect(NewsBriefingQuerySchema.safeParse({ ...scope, family: 'security' }).success).toBe(false);
     expect(NewsBriefingQuerySchema.parse({ tenantId: scope.tenantId, ownerId: scope.ownerId, family: 'briefing' })).toEqual({ tenantId: scope.tenantId, ownerId: scope.ownerId, family: 'briefing' });
   });
+});
+
+it('reports partial Master propagation in the same Save receipt',()=>{
+ const settings={feeds:[],hoursBack:12,cronSchedule:'0 6 * * *',rules:[]};
+ const propagation={sourceVersion:2,status:'pending',targets:[{scope:{...scope,agentId:'follower'},identity:{managementAgentId:'follower-ui',runtimeAgentId:'follower'},outcome:'failed'}]};
+ const receipt={requestId:'request-1',replayed:false,state:{family:'news',scope,version:2,settings,effective:null,execution:'running'},propagation};
+ expect(newsBriefingSettingsPostContract.responseSchema.parse(receipt)).toEqual(receipt);
+ expect(newsBriefingSettingsPostContract.responseSchema.safeParse({...receipt,propagation:{...propagation,status:'complete'}}).success).toBe(false);
+ expect(newsBriefingSettingsPostContract.responseSchema.safeParse({...receipt,propagation:{...propagation,sourceVersion:3}}).success).toBe(false);
+});
+it('defines an authenticated producer-to-Core propagation boundary with server-resolved identity',()=>{
+ expect(newsBriefingPropagationContract.authType).toBe('secret');
+ const command={scope,family:'news',requestId:'request-1',version:2};
+ expect(newsBriefingPropagationContract.bodySchema.parse(command)).toEqual(command);
+ expect(newsBriefingPropagationContract.bodySchema.safeParse({...command,endpoint:'http://forged'}).success).toBe(false);
 });

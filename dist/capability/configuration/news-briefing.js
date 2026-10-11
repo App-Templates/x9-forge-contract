@@ -48,7 +48,9 @@ export const BriefingRuleDraftSchema = BriefingRuleSchema.pick({ condition: true
 const adoptLegacy = z.object({ type: z.literal('legacy.adopt') }).strict();
 const newsKeys = NewsSettingsSchema.keyof();
 const briefingKeys = BriefingManagedSettingsSchema.keyof();
-const followMaster = (keys) => z.object({ type: z.literal('parameter.follow-master'), key: keys }).strict();
+const masterSource = CapabilityOrdinaryOriginSchema.options[3].shape.source;
+const followMaster = (keys) => z.object({ type: z.literal('parameter.follow-master'), key: keys, source: masterSource.optional() }).strict();
+const refreshMaster = (keys) => z.object({ type: z.literal('parameter.refresh-master'), key: keys, source: masterSource }).strict();
 const override = (keys) => z.object({ type: z.literal('parameter.override'), key: keys }).strict();
 const removeRule = z.object({ type: z.literal('rule.remove'), id: NewsRuleSchema.shape.id }).strict();
 export const NewsChangeSchema = z.discriminatedUnion('type', [
@@ -56,14 +58,14 @@ export const NewsChangeSchema = z.discriminatedUnion('type', [
     z.object({ type: z.literal('feeds.replace'), feeds: NewsManagedFeedsSchema }).strict(),
     z.object({ type: z.literal('rule.add'), rule: NewsRuleDraftSchema }).strict(),
     z.object({ type: z.literal('rule.update'), id: NewsRuleSchema.shape.id, rule: NewsRuleDraftSchema }).strict(),
-    removeRule, adoptLegacy, followMaster(newsKeys), override(newsKeys),
+    removeRule, adoptLegacy, followMaster(newsKeys), override(newsKeys), refreshMaster(newsKeys),
 ]);
 export const BriefingChangeSchema = z.discriminatedUnion('type', [
     z.object({ type: z.literal('settings.patch'), settings: briefingPatch }).strict(),
     z.object({ type: z.literal('feeds.replace'), feeds: BriefingManagedFeedsSchema }).strict(),
     z.object({ type: z.literal('rule.add'), rule: BriefingRuleDraftSchema }).strict(),
     z.object({ type: z.literal('rule.update'), id: BriefingRuleSchema.shape.id, rule: BriefingRuleDraftSchema }).strict(),
-    removeRule, adoptLegacy, followMaster(briefingKeys), override(briefingKeys),
+    removeRule, adoptLegacy, followMaster(briefingKeys), override(briefingKeys), refreshMaster(briefingKeys),
     z.object({ type: z.literal('feeds.inherit') }).strict(),
 ]);
 const command = {
@@ -74,7 +76,11 @@ const command = {
 export const NewsBriefingCommandSchema = z.discriminatedUnion('family', [
     z.object({ ...command, family: z.literal('news'), changes: z.array(NewsChangeSchema).min(1).max(100) }).strict(),
     z.object({ ...command, family: z.literal('briefing'), changes: z.array(BriefingChangeSchema).min(1).max(100) }).strict(),
-]);
+]).superRefine((value, ctx) => {
+    for (const [index, change] of value.changes.entries())
+        if ('source' in change && change.source && (change.source.tenantId !== value.scope.tenantId || change.source.ownerId !== value.scope.ownerId || change.source.masterId === value.scope.agentId))
+            ctx.addIssue({ code: 'custom', path: ['changes', index, 'source'], message: 'Master source must belong to another agent of the same tenant and owner' });
+});
 /** Recorded with the producer journal revision, never supplied by a browser command. */
 export const NewsBriefingAdoptionSchema = z.object({
     version: AgentConfigVersionSchema,
@@ -86,6 +92,8 @@ export const NewsBriefingAdoptionSchema = z.object({
     }).strict()).max(11),
 }).strict();
 function validateEffective(value, ctx) {
+    if (value.master && (value.master.scope.tenantId !== value.scope.tenantId || value.master.scope.ownerId !== value.scope.ownerId || value.master.scope.agentId === value.scope.agentId))
+        ctx.addIssue({ code: 'custom', path: ['master'], message: 'Master preview target mismatch' });
     if (value.adoption && value.adoption.version > value.version)
         ctx.addIssue({ code: 'custom', path: ['adoption'], message: 'Adoption revision is newer than saved settings' });
     if (value.effective && (value.effective.version > value.version
@@ -97,6 +105,7 @@ function state(family, settings) {
     return z.object({
         family: z.literal(family), scope: CapabilityAgentScopeSchema, version: AgentConfigVersionSchema,
         settings,
+        master: z.object({ scope: CapabilityAgentScopeSchema, version: AgentConfigVersionSchema, settings }).strict().optional(),
         effective: z.object({ version: AgentConfigVersionSchema, settings, observedAt: z.iso.datetime({ offset: true }) }).strict().nullable(),
         execution: z.enum(['running', 'stopped', 'unknown']),
         adoption: NewsBriefingAdoptionSchema.optional(),

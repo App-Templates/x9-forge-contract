@@ -8,6 +8,36 @@ export declare const NewsBriefingQuerySchema: z.ZodObject<{
         news: "news";
     }>;
 }, z.core.$strict>;
+/** Derived from canonical producer journals; failures remain visible on an idempotent Save retry. */
+export declare const NewsBriefingPropagationSchema: z.ZodObject<{
+    sourceVersion: z.ZodNumber;
+    status: z.ZodEnum<{
+        complete: "complete";
+        pending: "pending";
+        "not-applicable": "not-applicable";
+        superseded: "superseded";
+    }>;
+    targets: z.ZodArray<z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>;
+        outcome: z.ZodEnum<{
+            failed: "failed";
+            pending: "pending";
+            updated: "updated";
+            superseded: "superseded";
+        }>;
+        version: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type NewsBriefingPropagation = z.infer<typeof NewsBriefingPropagationSchema>;
 export declare const NewsBriefingCommandResultSchema: z.ZodObject<{
     requestId: z.ZodString;
     replayed: z.ZodBoolean;
@@ -56,6 +86,51 @@ export declare const NewsBriefingCommandResultSchema: z.ZodObject<{
                 locked: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
+        master: z.ZodOptional<z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            version: z.ZodNumber;
+            settings: z.ZodObject<{
+                feeds: z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                    label: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>;
+                hoursBack: z.ZodNumber;
+                cronSchedule: z.ZodString;
+                rules: z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"news">;
+                    condition: z.ZodType<import("../../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_hours_back">;
+                        hours: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_max_per_category">;
+                        category: z.ZodString;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
         effective: z.ZodNullable<z.ZodObject<{
             version: z.ZodNumber;
             settings: z.ZodObject<{
@@ -232,6 +307,78 @@ export declare const NewsBriefingCommandResultSchema: z.ZodObject<{
                 locked: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
+        master: z.ZodOptional<z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            version: z.ZodNumber;
+            settings: z.ZodObject<{
+                greeting: z.ZodString;
+                tone: z.ZodEnum<{
+                    formal: "formal";
+                    terse: "terse";
+                    friendly: "friendly";
+                }>;
+                maxWords: z.ZodNumber;
+                promptStyle: z.ZodString;
+                categoryWeights: z.ZodRecord<z.ZodString, z.ZodNumber>;
+                structure: z.ZodArray<z.ZodString>;
+                feeds: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    weight: z.ZodDefault<z.ZodNumber>;
+                }, z.core.$strict>>>;
+                cronSchedule: z.ZodString;
+                newsCronSchedule: z.ZodString;
+                rules: z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"briefing">;
+                    condition: z.ZodType<import("../../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_tone">;
+                        tone: z.ZodEnum<{
+                            formal: "formal";
+                            terse: "terse";
+                            friendly: "friendly";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_maxWords">;
+                        maxWords: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_greeting">;
+                        greeting: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"skip_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_closing">;
+                        text: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_cronSchedule">;
+                        cron: z.ZodString;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
         effective: z.ZodNullable<z.ZodObject<{
             version: z.ZodNumber;
             settings: z.ZodObject<{
@@ -364,7 +511,98 @@ export declare const NewsBriefingCommandResultSchema: z.ZodObject<{
             }, z.core.$strict>], "kind">;
         }, z.core.$strict>>>;
     }, z.core.$strict>], "family">;
+    propagation: z.ZodOptional<z.ZodObject<{
+        sourceVersion: z.ZodNumber;
+        status: z.ZodEnum<{
+            complete: "complete";
+            pending: "pending";
+            "not-applicable": "not-applicable";
+            superseded: "superseded";
+        }>;
+        targets: z.ZodArray<z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            outcome: z.ZodEnum<{
+                failed: "failed";
+                pending: "pending";
+                updated: "updated";
+                superseded: "superseded";
+            }>;
+            version: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
+export declare const NewsBriefingPropagationRequestSchema: z.ZodObject<{
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    family: z.ZodEnum<{
+        briefing: "briefing";
+        news: "news";
+    }>;
+    requestId: z.ZodString;
+    version: z.ZodNumber;
+}, z.core.$strict>;
+export declare const capNewsBriefingPropagationPath: (agentId: string) => string;
+export declare const newsBriefingPropagationContract: {
+    readonly method: "POST";
+    readonly path: "/internal/capability/agents/:agentId/settings/propagation";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly bodySchema: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        family: z.ZodEnum<{
+            briefing: "briefing";
+            news: "news";
+        }>;
+        requestId: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        sourceVersion: z.ZodNumber;
+        status: z.ZodEnum<{
+            complete: "complete";
+            pending: "pending";
+            "not-applicable": "not-applicable";
+            superseded: "superseded";
+        }>;
+        targets: z.ZodArray<z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            outcome: z.ZodEnum<{
+                failed: "failed";
+                pending: "pending";
+                updated: "updated";
+                superseded: "superseded";
+            }>;
+            version: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+};
 export declare const capNewsBriefingSettingsPath: (agentId: string) => string;
 export declare const newsBriefingSettingsGetContract: {
     readonly method: "GET";
@@ -426,6 +664,51 @@ export declare const newsBriefingSettingsGetContract: {
                 locked: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
+        master: z.ZodOptional<z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            version: z.ZodNumber;
+            settings: z.ZodObject<{
+                feeds: z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                    label: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>;
+                hoursBack: z.ZodNumber;
+                cronSchedule: z.ZodString;
+                rules: z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"news">;
+                    condition: z.ZodType<import("../../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_hours_back">;
+                        hours: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_max_per_category">;
+                        category: z.ZodString;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
         effective: z.ZodNullable<z.ZodObject<{
             version: z.ZodNumber;
             settings: z.ZodObject<{
@@ -602,6 +885,78 @@ export declare const newsBriefingSettingsGetContract: {
                 locked: z.ZodOptional<z.ZodBoolean>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
+        master: z.ZodOptional<z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            version: z.ZodNumber;
+            settings: z.ZodObject<{
+                greeting: z.ZodString;
+                tone: z.ZodEnum<{
+                    formal: "formal";
+                    terse: "terse";
+                    friendly: "friendly";
+                }>;
+                maxWords: z.ZodNumber;
+                promptStyle: z.ZodString;
+                categoryWeights: z.ZodRecord<z.ZodString, z.ZodNumber>;
+                structure: z.ZodArray<z.ZodString>;
+                feeds: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    weight: z.ZodDefault<z.ZodNumber>;
+                }, z.core.$strict>>>;
+                cronSchedule: z.ZodString;
+                newsCronSchedule: z.ZodString;
+                rules: z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"briefing">;
+                    condition: z.ZodType<import("../../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_tone">;
+                        tone: z.ZodEnum<{
+                            formal: "formal";
+                            terse: "terse";
+                            friendly: "friendly";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_maxWords">;
+                        maxWords: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_greeting">;
+                        greeting: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"skip_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_closing">;
+                        text: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_cronSchedule">;
+                        cron: z.ZodString;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
         effective: z.ZodNullable<z.ZodObject<{
             version: z.ZodNumber;
             settings: z.ZodObject<{
@@ -812,6 +1167,12 @@ export declare const newsBriefingSettingsPostContract: {
                 cronSchedule: "cronSchedule";
                 rules: "rules";
             }>;
+            source: z.ZodOptional<z.ZodObject<{
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                masterId: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"parameter.override">;
             key: z.ZodEnum<{
@@ -820,6 +1181,20 @@ export declare const newsBriefingSettingsPostContract: {
                 cronSchedule: "cronSchedule";
                 rules: "rules";
             }>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"parameter.refresh-master">;
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                cronSchedule: "cronSchedule";
+                rules: "rules";
+            }>;
+            source: z.ZodObject<{
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                masterId: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>;
         }, z.core.$strict>], "type">>;
         scope: z.ZodObject<{
             agentId: z.ZodString;
@@ -949,6 +1324,12 @@ export declare const newsBriefingSettingsPostContract: {
                 newsCronSchedule: "newsCronSchedule";
                 rules: "rules";
             }>;
+            source: z.ZodOptional<z.ZodObject<{
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                masterId: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"parameter.override">;
             key: z.ZodEnum<{
@@ -963,6 +1344,26 @@ export declare const newsBriefingSettingsPostContract: {
                 newsCronSchedule: "newsCronSchedule";
                 rules: "rules";
             }>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"parameter.refresh-master">;
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+            source: z.ZodObject<{
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                masterId: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"feeds.inherit">;
         }, z.core.$strict>], "type">>;
@@ -1022,6 +1423,51 @@ export declare const newsBriefingSettingsPostContract: {
                     locked: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>>;
             }, z.core.$strict>;
+            master: z.ZodOptional<z.ZodObject<{
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>;
+                version: z.ZodNumber;
+                settings: z.ZodObject<{
+                    feeds: z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                        label: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>;
+                    hoursBack: z.ZodNumber;
+                    cronSchedule: z.ZodString;
+                    rules: z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"news">;
+                        condition: z.ZodType<import("../../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_hours_back">;
+                            hours: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_max_per_category">;
+                            category: z.ZodString;
+                            max: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
             effective: z.ZodNullable<z.ZodObject<{
                 version: z.ZodNumber;
                 settings: z.ZodObject<{
@@ -1198,6 +1644,78 @@ export declare const newsBriefingSettingsPostContract: {
                     locked: z.ZodOptional<z.ZodBoolean>;
                 }, z.core.$strict>>;
             }, z.core.$strict>;
+            master: z.ZodOptional<z.ZodObject<{
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>;
+                version: z.ZodNumber;
+                settings: z.ZodObject<{
+                    greeting: z.ZodString;
+                    tone: z.ZodEnum<{
+                        formal: "formal";
+                        terse: "terse";
+                        friendly: "friendly";
+                    }>;
+                    maxWords: z.ZodNumber;
+                    promptStyle: z.ZodString;
+                    categoryWeights: z.ZodRecord<z.ZodString, z.ZodNumber>;
+                    structure: z.ZodArray<z.ZodString>;
+                    feeds: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        weight: z.ZodDefault<z.ZodNumber>;
+                    }, z.core.$strict>>>;
+                    cronSchedule: z.ZodString;
+                    newsCronSchedule: z.ZodString;
+                    rules: z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"briefing">;
+                        condition: z.ZodType<import("../../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_tone">;
+                            tone: z.ZodEnum<{
+                                formal: "formal";
+                                terse: "terse";
+                                friendly: "friendly";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_maxWords">;
+                            maxWords: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_greeting">;
+                            greeting: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"skip_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_closing">;
+                            text: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_cronSchedule">;
+                            cron: z.ZodString;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
             effective: z.ZodNullable<z.ZodObject<{
                 version: z.ZodNumber;
                 settings: z.ZodObject<{
@@ -1330,6 +1848,34 @@ export declare const newsBriefingSettingsPostContract: {
                 }, z.core.$strict>], "kind">;
             }, z.core.$strict>>>;
         }, z.core.$strict>], "family">;
+        propagation: z.ZodOptional<z.ZodObject<{
+            sourceVersion: z.ZodNumber;
+            status: z.ZodEnum<{
+                complete: "complete";
+                pending: "pending";
+                "not-applicable": "not-applicable";
+                superseded: "superseded";
+            }>;
+            targets: z.ZodArray<z.ZodObject<{
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
+                }, z.core.$strip>;
+                outcome: z.ZodEnum<{
+                    failed: "failed";
+                    pending: "pending";
+                    updated: "updated";
+                    superseded: "superseded";
+                }>;
+                version: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
 };
 /** Resolve identity and scope on the server; check durable request replay before calling this CAS validator. */
@@ -1402,9 +1948,24 @@ export declare function parseNewsBriefingCommand(input: unknown, authority: {
     } | {
         type: "parameter.follow-master";
         key: "feeds" | "hoursBack" | "cronSchedule" | "rules";
+        source?: {
+            ownerId: string;
+            tenantId: string;
+            masterId: string;
+            version: number;
+        } | undefined;
     } | {
         type: "parameter.override";
         key: "feeds" | "hoursBack" | "cronSchedule" | "rules";
+    } | {
+        type: "parameter.refresh-master";
+        key: "feeds" | "hoursBack" | "cronSchedule" | "rules";
+        source: {
+            ownerId: string;
+            tenantId: string;
+            masterId: string;
+            version: number;
+        };
     })[];
     scope: {
         agentId: string;
@@ -1511,9 +2072,24 @@ export declare function parseNewsBriefingCommand(input: unknown, authority: {
     } | {
         type: "parameter.follow-master";
         key: "feeds" | "categoryWeights" | "greeting" | "tone" | "maxWords" | "promptStyle" | "structure" | "cronSchedule" | "newsCronSchedule" | "rules";
+        source?: {
+            ownerId: string;
+            tenantId: string;
+            masterId: string;
+            version: number;
+        } | undefined;
     } | {
         type: "parameter.override";
         key: "feeds" | "categoryWeights" | "greeting" | "tone" | "maxWords" | "promptStyle" | "structure" | "cronSchedule" | "newsCronSchedule" | "rules";
+    } | {
+        type: "parameter.refresh-master";
+        key: "feeds" | "categoryWeights" | "greeting" | "tone" | "maxWords" | "promptStyle" | "structure" | "cronSchedule" | "newsCronSchedule" | "rules";
+        source: {
+            ownerId: string;
+            tenantId: string;
+            masterId: string;
+            version: number;
+        };
     } | {
         type: "feeds.inherit";
     })[];

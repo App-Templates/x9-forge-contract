@@ -51,7 +51,9 @@ exports.BriefingRuleDraftSchema = rules_js_1.BriefingRuleSchema.pick({ condition
 const adoptLegacy = zod_1.z.object({ type: zod_1.z.literal('legacy.adopt') }).strict();
 const newsKeys = exports.NewsSettingsSchema.keyof();
 const briefingKeys = exports.BriefingManagedSettingsSchema.keyof();
-const followMaster = (keys) => zod_1.z.object({ type: zod_1.z.literal('parameter.follow-master'), key: keys }).strict();
+const masterSource = ordinary_configuration_js_1.CapabilityOrdinaryOriginSchema.options[3].shape.source;
+const followMaster = (keys) => zod_1.z.object({ type: zod_1.z.literal('parameter.follow-master'), key: keys, source: masterSource.optional() }).strict();
+const refreshMaster = (keys) => zod_1.z.object({ type: zod_1.z.literal('parameter.refresh-master'), key: keys, source: masterSource }).strict();
 const override = (keys) => zod_1.z.object({ type: zod_1.z.literal('parameter.override'), key: keys }).strict();
 const removeRule = zod_1.z.object({ type: zod_1.z.literal('rule.remove'), id: rules_js_1.NewsRuleSchema.shape.id }).strict();
 exports.NewsChangeSchema = zod_1.z.discriminatedUnion('type', [
@@ -59,14 +61,14 @@ exports.NewsChangeSchema = zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({ type: zod_1.z.literal('feeds.replace'), feeds: exports.NewsManagedFeedsSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.add'), rule: exports.NewsRuleDraftSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.update'), id: rules_js_1.NewsRuleSchema.shape.id, rule: exports.NewsRuleDraftSchema }).strict(),
-    removeRule, adoptLegacy, followMaster(newsKeys), override(newsKeys),
+    removeRule, adoptLegacy, followMaster(newsKeys), override(newsKeys), refreshMaster(newsKeys),
 ]);
 exports.BriefingChangeSchema = zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({ type: zod_1.z.literal('settings.patch'), settings: briefingPatch }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('feeds.replace'), feeds: exports.BriefingManagedFeedsSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.add'), rule: exports.BriefingRuleDraftSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.update'), id: rules_js_1.BriefingRuleSchema.shape.id, rule: exports.BriefingRuleDraftSchema }).strict(),
-    removeRule, adoptLegacy, followMaster(briefingKeys), override(briefingKeys),
+    removeRule, adoptLegacy, followMaster(briefingKeys), override(briefingKeys), refreshMaster(briefingKeys),
     zod_1.z.object({ type: zod_1.z.literal('feeds.inherit') }).strict(),
 ]);
 const command = {
@@ -77,7 +79,11 @@ const command = {
 exports.NewsBriefingCommandSchema = zod_1.z.discriminatedUnion('family', [
     zod_1.z.object({ ...command, family: zod_1.z.literal('news'), changes: zod_1.z.array(exports.NewsChangeSchema).min(1).max(100) }).strict(),
     zod_1.z.object({ ...command, family: zod_1.z.literal('briefing'), changes: zod_1.z.array(exports.BriefingChangeSchema).min(1).max(100) }).strict(),
-]);
+]).superRefine((value, ctx) => {
+    for (const [index, change] of value.changes.entries())
+        if ('source' in change && change.source && (change.source.tenantId !== value.scope.tenantId || change.source.ownerId !== value.scope.ownerId || change.source.masterId === value.scope.agentId))
+            ctx.addIssue({ code: 'custom', path: ['changes', index, 'source'], message: 'Master source must belong to another agent of the same tenant and owner' });
+});
 /** Recorded with the producer journal revision, never supplied by a browser command. */
 exports.NewsBriefingAdoptionSchema = zod_1.z.object({
     version: agent_config_js_1.AgentConfigVersionSchema,
@@ -89,6 +95,8 @@ exports.NewsBriefingAdoptionSchema = zod_1.z.object({
     }).strict()).max(11),
 }).strict();
 function validateEffective(value, ctx) {
+    if (value.master && (value.master.scope.tenantId !== value.scope.tenantId || value.master.scope.ownerId !== value.scope.ownerId || value.master.scope.agentId === value.scope.agentId))
+        ctx.addIssue({ code: 'custom', path: ['master'], message: 'Master preview target mismatch' });
     if (value.adoption && value.adoption.version > value.version)
         ctx.addIssue({ code: 'custom', path: ['adoption'], message: 'Adoption revision is newer than saved settings' });
     if (value.effective && (value.effective.version > value.version
@@ -100,6 +108,7 @@ function state(family, settings) {
     return zod_1.z.object({
         family: zod_1.z.literal(family), scope: capability_call_context_js_1.CapabilityAgentScopeSchema, version: agent_config_js_1.AgentConfigVersionSchema,
         settings,
+        master: zod_1.z.object({ scope: capability_call_context_js_1.CapabilityAgentScopeSchema, version: agent_config_js_1.AgentConfigVersionSchema, settings }).strict().optional(),
         effective: zod_1.z.object({ version: agent_config_js_1.AgentConfigVersionSchema, settings, observedAt: zod_1.z.iso.datetime({ offset: true }) }).strict().nullable(),
         execution: zod_1.z.enum(['running', 'stopped', 'unknown']),
         adoption: exports.NewsBriefingAdoptionSchema.optional(),
