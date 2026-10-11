@@ -20,15 +20,15 @@ export declare const ElevenLabsProviderAgentIdSchema: z.ZodString;
 export type ElevenLabsProviderAgentId = z.infer<typeof ElevenLabsProviderAgentIdSchema>;
 /** webhook: the provider calls the capability's `/call/:tool` · client: handled by the project UI. */
 export declare const ElevenLabsToolKindSchema: z.ZodEnum<{
-    webhook: "webhook";
     client: "client";
+    webhook: "webhook";
 }>;
 export type ElevenLabsToolKind = z.infer<typeof ElevenLabsToolKindSchema>;
 export declare const ElevenLabsToolBindingSchema: z.ZodObject<{
     name: z.ZodString;
     kind: z.ZodEnum<{
-        webhook: "webhook";
         client: "client";
+        webhook: "webhook";
     }>;
     description: z.ZodString;
 }, z.core.$strict>;
@@ -44,8 +44,8 @@ export declare const ElevenLabsAgentConfigSchema: z.ZodObject<{
     tools: z.ZodArray<z.ZodObject<{
         name: z.ZodString;
         kind: z.ZodEnum<{
-            webhook: "webhook";
             client: "client";
+            webhook: "webhook";
         }>;
         description: z.ZodString;
     }, z.core.$strict>>;
@@ -75,8 +75,8 @@ export declare const ElevenLabsProvisionRequestSchema: z.ZodObject<{
         tools: z.ZodArray<z.ZodObject<{
             name: z.ZodString;
             kind: z.ZodEnum<{
-                webhook: "webhook";
                 client: "client";
+                webhook: "webhook";
             }>;
             description: z.ZodString;
         }, z.core.$strict>>;

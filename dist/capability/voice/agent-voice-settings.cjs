@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OutboundCallerIdentitySchema = exports.AgentVoiceErrorCodeSchema = exports.VoiceProviderCatalogSchema = exports.VoiceProviderCatalogEntrySchema = exports.AgentVoiceConfigSchema = exports.AgentVoiceSettingsSchema = exports.AgentVoiceLocaleSchema = exports.AgentVoiceModelSchema = exports.AgentVoiceIdSchema = exports.AgentVoiceTransportSchema = exports.AgentVoiceProtocolSchema = exports.AgentVoiceProviderIdSchema = exports.KNOWN_AGENT_VOICE_PROVIDERS = void 0;
 exports.validateAgentVoiceSettings = validateAgentVoiceSettings;
 exports.outboundCallerIdentityFor = outboundCallerIdentityFor;
+const agent_voice_values_js_1 = require("./agent-voice-values.cjs");
 const zod_1 = require("zod");
 const provider_js_1 = require("./provider.cjs");
 const index_js_1 = require("../voice-live/index.cjs");
@@ -28,11 +29,10 @@ exports.AgentVoiceProviderIdSchema = zod_1.z.string().regex(/^[a-z][a-z0-9_]{1,6
 exports.AgentVoiceProtocolSchema = zod_1.z.enum(['websocket', 'webrtc', 'sip']);
 /** phone: calls over the outbound Telnyx number · web: browser/app sessions. */
 exports.AgentVoiceTransportSchema = zod_1.z.enum(['phone', 'web']);
-/** Provider voice id: a menu value for GPT voices, the voice id for ElevenLabs. */
-exports.AgentVoiceIdSchema = zod_1.z.string().min(1).max(128);
-exports.AgentVoiceModelSchema = zod_1.z.string().min(1).max(128);
-/** BCP-47 language tag, e.g. it or it-IT. */
-exports.AgentVoiceLocaleSchema = zod_1.z.string().regex(/^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$/);
+var agent_voice_values_js_2 = require("./agent-voice-values.cjs");
+Object.defineProperty(exports, "AgentVoiceIdSchema", { enumerable: true, get: function () { return agent_voice_values_js_2.AgentVoiceIdSchema; } });
+Object.defineProperty(exports, "AgentVoiceModelSchema", { enumerable: true, get: function () { return agent_voice_values_js_2.AgentVoiceModelSchema; } });
+Object.defineProperty(exports, "AgentVoiceLocaleSchema", { enumerable: true, get: function () { return agent_voice_values_js_2.AgentVoiceLocaleSchema; } });
 const TransportsSchema = zod_1.z.array(exports.AgentVoiceTransportSchema).min(1).max(2)
     .refine((transports) => new Set(transports).size === transports.length, { message: 'Duplicate transport' });
 exports.AgentVoiceSettingsSchema = zod_1.z.discriminatedUnion('mode', [
@@ -42,10 +42,10 @@ exports.AgentVoiceSettingsSchema = zod_1.z.discriminatedUnion('mode', [
         provider: exports.AgentVoiceProviderIdSchema,
         protocol: exports.AgentVoiceProtocolSchema,
         transports: TransportsSchema,
-        voiceId: exports.AgentVoiceIdSchema,
-        model: exports.AgentVoiceModelSchema,
+        voiceId: agent_voice_values_js_1.AgentVoiceIdSchema,
+        model: agent_voice_values_js_1.AgentVoiceModelSchema,
         /** BCP-47 language of the voice, e.g. it-IT. */
-        locale: exports.AgentVoiceLocaleSchema.optional(),
+        locale: agent_voice_values_js_1.AgentVoiceLocaleSchema.optional(),
         /** Provider parameters (e.g. stability, speed); never credentials. */
         params: zod_1.z.record(parameters_js_1.CapabilityParameterKeySchema, parameters_js_1.CapabilityParameterValueSchema).optional(),
     }).strict(),
@@ -77,10 +77,10 @@ exports.VoiceProviderCatalogEntrySchema = zod_1.z.object({
     label: LabelSchema,
     protocols: zod_1.z.array(exports.AgentVoiceProtocolSchema).min(1),
     transports: zod_1.z.array(exports.AgentVoiceTransportSchema).min(1),
-    models: zod_1.z.array(zod_1.z.object({ id: exports.AgentVoiceModelSchema, label: LabelSchema })).min(1),
+    models: zod_1.z.array(zod_1.z.object({ id: agent_voice_values_js_1.AgentVoiceModelSchema, label: LabelSchema })).min(1),
     voices: zod_1.z.discriminatedUnion('kind', [
         /** Closed list (e.g. GPT stock voices): Forge shows a menu. */
-        zod_1.z.object({ kind: zod_1.z.literal('menu'), options: zod_1.z.array(zod_1.z.object({ id: exports.AgentVoiceIdSchema, label: LabelSchema })).min(1) }),
+        zod_1.z.object({ kind: zod_1.z.literal('menu'), options: zod_1.z.array(zod_1.z.object({ id: agent_voice_values_js_1.AgentVoiceIdSchema, label: LabelSchema })).min(1) }),
         /** Free provider voice id (e.g. ElevenLabs): Forge shows a field validated by `pattern`. */
         zod_1.z.object({ kind: zod_1.z.literal('id'), pattern: PatternSchema }),
     ]),
@@ -134,7 +134,7 @@ exports.OutboundCallerIdentitySchema = zod_1.z.object({
     /** Name the agent introduces itself with (e.g. «Francesca»). */
     displayName: zod_1.z.string().trim().min(1).max(80),
     persona: zod_1.z.string().trim().min(1).max(2000).optional(),
-    voice: zod_1.z.object({ provider: exports.AgentVoiceProviderIdSchema, voiceId: exports.AgentVoiceIdSchema, model: exports.AgentVoiceModelSchema }).strict(),
+    voice: zod_1.z.object({ provider: exports.AgentVoiceProviderIdSchema, voiceId: agent_voice_values_js_1.AgentVoiceIdSchema, model: agent_voice_values_js_1.AgentVoiceModelSchema }).strict(),
     /** The single shared outbound number (E.164), same rule as cap-voice-live. */
     fromNumber: index_js_1.VoiceLiveCallStartRequestSchema.shape.to_number,
     /** Applied voice settings version used for this call (a change mid-call never swaps the voice). */

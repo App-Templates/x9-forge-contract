@@ -3,8 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ElevenLabsNativeToolReferenceSchema = exports.ElevenLabsNativeToolsSchema = exports.ElevenLabsNativeToolSchema = exports.ElevenLabsNativeBuiltinToolSchema = exports.ElevenLabsNativeWebhookToolSchema = exports.ElevenLabsNativeClientToolSchema = exports.ElevenLabsNativeHeaderLocatorSchema = exports.ElevenLabsNativeInputSchemaSchema = void 0;
 const zod_1 = require("zod");
 const capability_tool_js_1 = require("../capability-tool.cjs");
-const credential_link_js_1 = require("../../vault/credential-link.cjs");
-const shared_js_1 = require("../coach/shared.cjs");
+const credential_key_js_1 = require("../../vault/credential-key.cjs");
+const agent_management_request_id_js_1 = require("../../agent/agent-management-request-id.cjs");
+const text_js_1 = require("../coach/text.cjs");
 const description = zod_1.z.string().max(4000).optional();
 const ElevenLabsNativeInputPropertySchema = zod_1.z.lazy(() => zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({ type: zod_1.z.literal('string'), description, enum: zod_1.z.array(zod_1.z.string().max(500)).min(1).max(128).refine(x => new Set(x).size === x.length).optional(), minLength: zod_1.z.number().int().nonnegative().max(65536).optional(), maxLength: zod_1.z.number().int().nonnegative().max(65536).optional() }).strict(),
@@ -53,8 +54,8 @@ const base = { name: capability_tool_js_1.CapabilityToolSchema.shape.name.min(1)
 exports.ElevenLabsNativeHeaderLocatorSchema = zod_1.z.object({
     name: zod_1.z.string().min(1).max(128).regex(/^[A-Za-z][A-Za-z0-9-]*$/),
     source: zod_1.z.discriminatedUnion('kind', [
-        zod_1.z.object({ kind: zod_1.z.literal('credential'), key: credential_link_js_1.CredentialKeySchema }).strict(),
-        zod_1.z.object({ kind: zod_1.z.literal('session'), bindingId: shared_js_1.RefId }).strict(),
+        zod_1.z.object({ kind: zod_1.z.literal('credential'), key: credential_key_js_1.CredentialKeySchema }).strict(),
+        zod_1.z.object({ kind: zod_1.z.literal('session'), bindingId: agent_management_request_id_js_1.AgentManagementRequestIdSchema }).strict(),
     ]),
 }).strict();
 exports.ElevenLabsNativeClientToolSchema = zod_1.z.object({ ...base, type: zod_1.z.literal('client'),
@@ -74,5 +75,5 @@ exports.ElevenLabsNativeBuiltinToolSchema = zod_1.z.object({ ...base, type: zod_
 }).strict().refine(x => x.name === x.params.system_tool_type, 'Builtin name and system type agree');
 exports.ElevenLabsNativeToolSchema = zod_1.z.discriminatedUnion('type', [exports.ElevenLabsNativeClientToolSchema, exports.ElevenLabsNativeWebhookToolSchema, exports.ElevenLabsNativeBuiltinToolSchema]);
 exports.ElevenLabsNativeToolsSchema = zod_1.z.array(exports.ElevenLabsNativeToolSchema).max(64).refine(x => new Set(x.map(t => t.name)).size === x.length, 'Unique native tools');
-exports.ElevenLabsNativeToolReferenceSchema = zod_1.z.object({ name: shared_js_1.Text128, kind: zod_1.z.enum(['client', 'webhook', 'system']) }).strict();
+exports.ElevenLabsNativeToolReferenceSchema = zod_1.z.object({ name: text_js_1.Text128, kind: zod_1.z.enum(['client', 'webhook', 'system']) }).strict();
 //# sourceMappingURL=native-tools.js.map
