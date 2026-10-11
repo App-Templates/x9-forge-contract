@@ -69,3 +69,11 @@ it('preserves the existing News capacity of one hundred user feeds plus default 
   const feeds = Array.from({ length: 115 }, (_, index) => ({ ...feed, url: `https://example.org/feed/${index}` }));
   expect(NewsBriefingCommandSchema.parse({ ...base, family: 'news', changes: [{ type: 'feeds.replace', feeds }] }).changes[0]).toEqual({ type: 'feeds.replace', feeds });
 });
+
+it('carries an explicit producer adoption command and visible per-field provenance', () => {
+  const command = { ...base, family: 'news', changes: [{ type: 'legacy.adopt' }] };
+  expect(NewsBriefingCommandSchema.parse(command)).toEqual(command);
+  const state = { family: 'news', scope, version: 2, settings, effective: null, execution: 'stopped', adoption: { version: 2, requestId: base.requestId, fields: [{ key: 'feeds', source: 'legacy-file' }, { key: 'hoursBack', source: 'declared-default', reason: 'invalid-legacy-value' }] } };
+  expect(NewsBriefingStateSchema.parse(state)).toEqual(state);
+  expect(NewsBriefingStateSchema.safeParse({ ...state, adoption: { ...state.adoption, version: 3 } }).success).toBe(false);
+});

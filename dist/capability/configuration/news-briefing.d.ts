@@ -229,6 +229,8 @@ export declare const NewsChangeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
 }, z.core.$strict>, z.ZodObject<{
     type: z.ZodLiteral<"rule.remove">;
     id: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    type: z.ZodLiteral<"legacy.adopt">;
 }, z.core.$strict>], "type">;
 export declare const BriefingChangeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     type: z.ZodLiteral<"settings.patch">;
@@ -333,6 +335,8 @@ export declare const BriefingChangeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<
 }, z.core.$strict>, z.ZodObject<{
     type: z.ZodLiteral<"rule.remove">;
     id: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    type: z.ZodLiteral<"legacy.adopt">;
 }, z.core.$strict>], "type">;
 export declare const NewsBriefingCommandSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     family: z.ZodLiteral<"news">;
@@ -394,6 +398,8 @@ export declare const NewsBriefingCommandSchema: z.ZodDiscriminatedUnion<[z.ZodOb
     }, z.core.$strict>, z.ZodObject<{
         type: z.ZodLiteral<"rule.remove">;
         id: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        type: z.ZodLiteral<"legacy.adopt">;
     }, z.core.$strict>], "type">>;
     scope: z.ZodObject<{
         agentId: z.ZodString;
@@ -507,6 +513,8 @@ export declare const NewsBriefingCommandSchema: z.ZodDiscriminatedUnion<[z.ZodOb
     }, z.core.$strict>, z.ZodObject<{
         type: z.ZodLiteral<"rule.remove">;
         id: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        type: z.ZodLiteral<"legacy.adopt">;
     }, z.core.$strict>], "type">>;
     scope: z.ZodObject<{
         agentId: z.ZodString;
@@ -516,6 +524,32 @@ export declare const NewsBriefingCommandSchema: z.ZodDiscriminatedUnion<[z.ZodOb
     requestId: z.ZodString;
     expectedVersion: z.ZodNullable<z.ZodNumber>;
 }, z.core.$strict>], "family">;
+/** Recorded with the producer journal revision, never supplied by a browser command. */
+export declare const NewsBriefingAdoptionSchema: z.ZodObject<{
+    version: z.ZodNumber;
+    requestId: z.ZodString;
+    fields: z.ZodArray<z.ZodObject<{
+        key: z.ZodEnum<{
+            feeds: "feeds";
+            hoursBack: "hoursBack";
+            categoryWeights: "categoryWeights";
+            greeting: "greeting";
+            tone: "tone";
+            maxWords: "maxWords";
+            promptStyle: "promptStyle";
+            structure: "structure";
+            cronSchedule: "cronSchedule";
+            newsCronSchedule: "newsCronSchedule";
+            rules: "rules";
+        }>;
+        source: z.ZodEnum<{
+            "legacy-file": "legacy-file";
+            "declared-default": "declared-default";
+        }>;
+        reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type NewsBriefingAdoption = z.infer<typeof NewsBriefingAdoptionSchema>;
 export declare const NewsBriefingStateSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     family: z.ZodLiteral<"news">;
     scope: z.ZodObject<{
@@ -607,6 +641,30 @@ export declare const NewsBriefingStateSchema: z.ZodDiscriminatedUnion<[z.ZodObje
         stopped: "stopped";
         running: "running";
     }>;
+    adoption: z.ZodOptional<z.ZodObject<{
+        version: z.ZodNumber;
+        requestId: z.ZodString;
+        fields: z.ZodArray<z.ZodObject<{
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+            source: z.ZodEnum<{
+                "legacy-file": "legacy-file";
+                "declared-default": "declared-default";
+            }>;
+            reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     family: z.ZodLiteral<"briefing">;
     scope: z.ZodObject<{
@@ -752,6 +810,30 @@ export declare const NewsBriefingStateSchema: z.ZodDiscriminatedUnion<[z.ZodObje
         stopped: "stopped";
         running: "running";
     }>;
+    adoption: z.ZodOptional<z.ZodObject<{
+        version: z.ZodNumber;
+        requestId: z.ZodString;
+        fields: z.ZodArray<z.ZodObject<{
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+            source: z.ZodEnum<{
+                "legacy-file": "legacy-file";
+                "declared-default": "declared-default";
+            }>;
+            reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>], "family">;
 export type NewsBriefingCommand = z.infer<typeof NewsBriefingCommandSchema>;
 export type NewsBriefingState = z.infer<typeof NewsBriefingStateSchema>;

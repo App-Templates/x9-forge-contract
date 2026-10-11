@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NewsBriefingStateSchema = exports.NewsBriefingCommandSchema = exports.BriefingChangeSchema = exports.NewsChangeSchema = exports.BriefingRuleDraftSchema = exports.NewsRuleDraftSchema = exports.BriefingManagedSettingsSchema = exports.NewsSettingsSchema = exports.BriefingManagedFeedsSchema = exports.NewsManagedFeedsSchema = exports.NewsBriefingFamilySchema = void 0;
+exports.NewsBriefingStateSchema = exports.NewsBriefingAdoptionSchema = exports.NewsBriefingCommandSchema = exports.BriefingChangeSchema = exports.NewsChangeSchema = exports.BriefingRuleDraftSchema = exports.NewsRuleDraftSchema = exports.BriefingManagedSettingsSchema = exports.NewsSettingsSchema = exports.BriefingManagedFeedsSchema = exports.NewsManagedFeedsSchema = exports.NewsBriefingFamilySchema = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const agent_model_management_values_js_1 = require("../../agent/agent-model-management-values.cjs");
@@ -48,20 +48,21 @@ const briefingPatch = exports.BriefingManagedSettingsSchema.omit({ feeds: true, 
 /** IDs, timestamps, priorities and operator authority are created only by the producer. */
 exports.NewsRuleDraftSchema = rules_js_1.NewsRuleSchema.pick({ condition: true, action: true, description: true }).strict();
 exports.BriefingRuleDraftSchema = rules_js_1.BriefingRuleSchema.pick({ condition: true, action: true, description: true }).strict();
+const adoptLegacy = zod_1.z.object({ type: zod_1.z.literal('legacy.adopt') }).strict();
 const removeRule = zod_1.z.object({ type: zod_1.z.literal('rule.remove'), id: rules_js_1.NewsRuleSchema.shape.id }).strict();
 exports.NewsChangeSchema = zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({ type: zod_1.z.literal('settings.patch'), settings: newsPatch }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('feeds.replace'), feeds: exports.NewsManagedFeedsSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.add'), rule: exports.NewsRuleDraftSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.update'), id: rules_js_1.NewsRuleSchema.shape.id, rule: exports.NewsRuleDraftSchema }).strict(),
-    removeRule,
+    removeRule, adoptLegacy,
 ]);
 exports.BriefingChangeSchema = zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({ type: zod_1.z.literal('settings.patch'), settings: briefingPatch }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('feeds.replace'), feeds: exports.BriefingManagedFeedsSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.add'), rule: exports.BriefingRuleDraftSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.update'), id: rules_js_1.BriefingRuleSchema.shape.id, rule: exports.BriefingRuleDraftSchema }).strict(),
-    removeRule,
+    removeRule, adoptLegacy,
 ]);
 const command = {
     scope: capability_call_context_js_1.CapabilityAgentScopeSchema,
@@ -72,7 +73,19 @@ exports.NewsBriefingCommandSchema = zod_1.z.discriminatedUnion('family', [
     zod_1.z.object({ ...command, family: zod_1.z.literal('news'), changes: zod_1.z.array(exports.NewsChangeSchema).min(1).max(100) }).strict(),
     zod_1.z.object({ ...command, family: zod_1.z.literal('briefing'), changes: zod_1.z.array(exports.BriefingChangeSchema).min(1).max(100) }).strict(),
 ]);
+/** Recorded with the producer journal revision, never supplied by a browser command. */
+exports.NewsBriefingAdoptionSchema = zod_1.z.object({
+    version: agent_config_js_1.AgentConfigVersionSchema,
+    requestId: agent_model_management_values_js_1.AgentManagementRequestIdSchema,
+    fields: zod_1.z.array(zod_1.z.object({
+        key: zod_1.z.enum(['feeds', 'rules', 'hoursBack', 'cronSchedule', 'newsCronSchedule', 'greeting', 'tone', 'maxWords', 'promptStyle', 'structure', 'categoryWeights']),
+        source: zod_1.z.enum(['legacy-file', 'declared-default']),
+        reason: zod_1.z.literal('invalid-legacy-value').optional(),
+    }).strict()).max(11),
+}).strict();
 function validateEffective(value, ctx) {
+    if (value.adoption && value.adoption.version > value.version)
+        ctx.addIssue({ code: 'custom', path: ['adoption'], message: 'Adoption revision is newer than saved settings' });
     if (value.effective && (value.effective.version > value.version
         || value.effective.version === value.version && !(0, ordinary_configuration_js_1.sameOrdinaryData)(value.settings, value.effective.settings))) {
         ctx.addIssue({ code: 'custom', path: ['effective'], message: 'Effective revision conflicts with saved settings' });
@@ -84,6 +97,7 @@ function state(family, settings) {
         settings,
         effective: zod_1.z.object({ version: agent_config_js_1.AgentConfigVersionSchema, settings, observedAt: zod_1.z.iso.datetime({ offset: true }) }).strict().nullable(),
         execution: zod_1.z.enum(['running', 'stopped', 'unknown']),
+        adoption: exports.NewsBriefingAdoptionSchema.optional(),
     }).strict();
 }
 exports.NewsBriefingStateSchema = zod_1.z.discriminatedUnion('family', [

@@ -17,6 +17,8 @@ Limite feed globale rimosso: News ammette già15default+100utente; limite produc
 Regressioni nuove3/3rosse prima; mirati83/83 in6file verdi, mutazione famiglia2/2rosse e ripristino83/83.
 Tipi/lint verdi e build492/492dts dopo il delta; niente suite completa, review parziale, push o deploy.
 
+Decisione210949: comando esplicito legacy.adopt e provenienza producer per campo, inclusi default/motivo invalido.
+Contratto nuovo1/1 RED prima;47/47 mirati verdi, tipi PASS dopo correzione exactOptional, build492/492dts.
 ## Fruibilità alla consegna (R-34)
 Non consegnato: questo checkpoint non permette ancora modifiche da Forge/X9.
 Restano writer unico/adozione legacy, reader e timer reali, UI, percorso composto e revisione finale.
