@@ -22,4 +22,5 @@ export * from "./endpoints/coach-operational-common.cjs";
 export * from "./endpoints/coach-operational-write.cjs";
 export * from "./endpoints/coach-operational-read.cjs";
 export * from "./endpoints/native-channel.cjs";
+export * from "./endpoints/coach-operational-authority.cjs";
 //# sourceMappingURL=index.d.ts.map

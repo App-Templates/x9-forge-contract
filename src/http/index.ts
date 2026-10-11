@@ -73,3 +73,5 @@ export * from './endpoints/coach-operational-write.js';
 export * from './endpoints/coach-operational-read.js';
 
 export * from './endpoints/native-channel.js';
+
+export * from './endpoints/coach-operational-authority.js';
