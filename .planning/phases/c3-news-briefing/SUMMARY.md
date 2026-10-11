@@ -1,4 +1,4 @@
-# c.3 News/Briefing — checkpoint Bridge
+# c.3 News/Briefing — pronto per revisione indipendente
 Piano unico CAPABILITIES-C3-NEWS-BRIEFING-PLAN.md; mandati191730/194224,215615,221507.
 Codec feed/regole/impostazioni esistenti, stato salvato/effettivo distinto e comandi semantici strict.
 GET/POST scoped con CAS; audit regole creato nel producer; nessun destinatario/Security/Netatmo.
@@ -17,6 +17,6 @@ Mutazione Master cross-owner/self:1/1RED intercettata, ripristino57/57GREEN.
 Tipi/lint4file/diffcheckPASS; build492/492dts e compilatiESM/CJS4/4PASS.
 Comando mirato: pnpm exec vitest run tests/capability/news-briefing-settings.test.ts tests/http/news-briefing-settings.test.ts --maxWorkers=1 --minWorkers=1.
 ## Stato della funzione
-Checkpoint locale, non consegnato: SDK/Core/UI/composta ancora da chiudere per221507.
-Suite completa pertinente e unica review indipendente alla fine; nessun live/push/deploy/pin.
-Misura prodotto/test/documenti da riconciliare alla consegna; compilati e perimetri separati.
+Finale completo6148/6148 in224file: pnpm exec vitest run --maxWorkers=1 --minWorkers=1.
+SDK/Core/UI e composta implementati/verificati localmente; attesa unica revisione indipendente, nessun live/push/deploy/pin.
+Misura Bridge c.3 11–12/10:202righe prodotto/191test/22documenti aggiunte rispetto alla base; compilati7085righe separati.
