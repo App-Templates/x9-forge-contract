@@ -10,8 +10,6 @@ import { BriefingRuleSchema, BriefingRulesSchema, NewsRuleSchema, NewsRulesSchem
 export const NewsBriefingFamilySchema = z.enum(['news', 'briefing']);
 const cron = z.string().min(1).max(100);
 function validateFeeds(feeds, ctx) {
-    if (feeds.length > 100)
-        ctx.addIssue({ code: 'custom', message: 'Too many feeds' });
     const urls = new Set();
     for (const [index, feed] of feeds.entries()) {
         // The promoted feed codec already reports malformed URLs; do not turn safeParse into a thrown exception.

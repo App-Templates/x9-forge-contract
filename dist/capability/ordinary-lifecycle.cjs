@@ -176,8 +176,16 @@ function parseCapabilityOrdinaryLifecycleReceipt(receipt, request, transaction) 
             throw new Error('Rollback membership not confirmed');
         if (request.transition.from === null && (parsed.ordinaryState.runtimeState !== 'unloaded' || parsed.ordinaryState.applied !== null || parsed.ordinaryState.effectiveParameters.length > 0))
             throw new Error('First activation rollback must restore absence');
-        if (request.transition.from !== null && !(0, ordinary_configuration_js_1.sameOrdinaryData)(parsed.ordinaryState.applied, transaction.previousState.applied))
-            throw new Error('Rollback previous applied configuration not confirmed');
+        if (request.transition.from !== null && !(0, ordinary_configuration_js_1.sameOrdinaryData)(parsed.ordinaryState.applied, transaction.previousState.applied)) {
+            const { desired, applied } = parsed.ordinaryState;
+            // News/Briefing settings are immediate and journal-owned after adoption; rollback keeps newer observed edits.
+            const newerImmediate = (request.capability === 'news' || request.capability === 'briefing') && desired && applied
+                && desired.version > (transaction.previousState.desired?.version ?? 0)
+                && desired.parameters.every(entry => entry.parameter.appliesWhen === 'immediate')
+                && (0, ordinary_configuration_js_1.sameOrdinaryData)(applied.configuration, desired);
+            if (!newerImmediate)
+                throw new Error('Rollback previous applied configuration not confirmed');
+        }
     }
     return parsed;
 }

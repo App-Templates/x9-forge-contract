@@ -13,8 +13,6 @@ const rules_js_1 = require("./rules.cjs");
 exports.NewsBriefingFamilySchema = zod_1.z.enum(['news', 'briefing']);
 const cron = zod_1.z.string().min(1).max(100);
 function validateFeeds(feeds, ctx) {
-    if (feeds.length > 100)
-        ctx.addIssue({ code: 'custom', message: 'Too many feeds' });
     const urls = new Set();
     for (const [index, feed] of feeds.entries()) {
         // The promoted feed codec already reports malformed URLs; do not turn safeParse into a thrown exception.
