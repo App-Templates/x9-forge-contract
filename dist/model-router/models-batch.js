@@ -54,7 +54,7 @@ export const AgentModelOverviewRowSchema = z.object({
     if (row.origin === 'unknown' && (row.masterAgentId !== null || row.masterConfigVersion !== null || row.editability !== 'readonly' || row.reason === null || row.reason.trim().length === 0))
         ctx.addIssue({ code: 'custom', path: ['origin'], message: 'Unknown provenance is readonly without a claimed Master' });
     if (row.origin === 'initial') {
-        if (row.initial == null || row.saved !== null || row.applied !== null || row.versions !== null || row.default !== null || row.masterAgentId !== null || row.masterConfigVersion !== null)
+        if (row.editability !== 'readonly' || row.initial == null || row.saved !== null || row.applied !== null || row.versions !== null || row.default !== null || row.masterAgentId !== null || row.masterConfigVersion !== null)
             ctx.addIssue({ code: 'custom', path: ['initial'], message: 'Initial observations require a selection without saved, applied or inherited evidence' });
     }
     else if (row.initial != null)

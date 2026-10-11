@@ -112,10 +112,10 @@ it('binds reset-Master preview selections to the current server default', () => 
 it('checks the final configuration as a slot set rather than serialization order', () => { const submitted = request(); const proposed = preview(); const response = appliedBatch(); const extra = { slotId: 'news_digest', settings: settings() }; proposed.agents[0]!.next.selections.push(clone(extra)); response.results[0]!.configuration.selections.push(clone(extra)); const copied = response.results[0]!.runtime.selections.map(entry => ({ ...clone(entry), slotId: 'news_digest' })); response.results[0]!.runtime.selections.push(...copied); response.results[0]!.configuration.selections.reverse(); expect(api.isAgentModelsBatchResultConsistent(submitted, proposed, response, now)).toBe(true); });
 
 describe('initial observed model rows', () => {
-  const initialRow = () => ({ ...row(), origin: 'initial', initial: settings(), default: null, saved: null, applied: null, versions: null, masterAgentId: null, masterConfigVersion: null });
-  it('accepts initial editable and readonly selections without claiming persistence', () => {
+  const initialRow = () => ({ ...row(), editability: 'readonly', reason: 'Stato attuale, non ancora salvato', origin: 'initial', initial: settings(), default: null, saved: null, applied: null, versions: null, masterAgentId: null, masterConfigVersion: null });
+  it('accepts readonly initial selections without claiming persistence', () => {
     expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [initialRow()] }).success).toBe(true);
-    expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [{ ...initialRow(), editability: 'readonly', reason: 'Stato attuale, non ancora salvato' }] }).success).toBe(true);
+    expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [{ ...initialRow(), editability: 'editable', reason: null }] }).success).toBe(false);
   });
   it('keeps legacy rows without the additive field compatible', () => { expect(api.AgentModelsOverviewSchema.safeParse(overview()).success).toBe(true); });
   it.each(['initial', 'saved', 'applied', 'versions', 'masterAgentId', 'masterConfigVersion', 'default'])('rejects initial rows with inconsistent %s evidence', field => {
@@ -128,4 +128,11 @@ describe('initial observed model rows', () => {
     expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [value] }).success).toBe(false);
   });
   it('rejects an initial selection on a saved row', () => { expect(api.AgentModelsOverviewSchema.safeParse({ ...overview(), rows: [{ ...row(), initial: settings() }] }).success).toBe(false); });
+});
+
+it('rejects CAS zero without weakening the existing first-Apply flow', () => {
+ const value=request();value.agents[0]!.expectedVersion=0;
+ expect(api.AgentModelsBatchRequestSchema.safeParse(value).success).toBe(false);
+ const proposed=preview();proposed.agents[0]!.expectedVersion=0;proposed.agents[0]!.next.configVersion=1;proposed.request.agents[0]!.expectedVersion=0;
+ expect(api.AgentModelsBatchPreviewSchema.safeParse(proposed).success).toBe(false);
 });
