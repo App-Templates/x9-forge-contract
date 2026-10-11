@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nativeBrowserPolicyChangeContract = exports.nativeBrowserPolicyReadContract = exports.NativeBrowserPolicyChangeSchema = exports.NativeBrowserPolicyParamsSchema = exports.nativeReadbackContract = exports.nativeApplyContract = exports.nativePromptBundleContract = exports.ElevenLabsNativePromptBundleResultSchema = exports.ElevenLabsNativePromptBundleRequestSchema = exports.nativeCallbackContract = exports.ELEVENLABS_NATIVE_SIGNATURE_HEADER = exports.nativePauseContract = exports.nativeExecutionAttachContract = exports.nativeConversationBindContract = exports.nativeMintContract = exports.nativeOpeningContract = exports.nativeAuthorityRecheckContract = exports.nativeAuthorityResolveContract = exports.nativeBrowserAdmissionContract = exports.ElevenLabsNativeBrowserAdmissionResultSchema = exports.ElevenLabsNativeBrowserAdmissionRequestSchema = void 0;
+exports.nativeBrowserPolicyChangeContract = exports.nativeBrowserPolicyReadContract = exports.NativeBrowserPolicyChangeSchema = exports.NativeBrowserPolicyParamsSchema = exports.nativeReadbackContract = exports.nativeApplyContract = exports.nativePromptBundleContract = exports.ElevenLabsNativePromptBundleResultSchema = exports.ElevenLabsNativePromptBundleRequestSchema = exports.nativeCallbackContract = exports.ELEVENLABS_NATIVE_SIGNATURE_HEADER = exports.nativePauseContract = exports.nativeExecutionAttachContract = exports.nativeConversationBindContract = exports.nativeMintContract = exports.nativeOpeningContract = exports.nativeSessionGrantRecheckContract = exports.nativeSessionGrantResolveContract = exports.nativeSessionGrantIssueContract = exports.nativeAuthorityRecheckContract = exports.nativeAuthorityResolveContract = exports.nativeBrowserAdmissionContract = exports.ElevenLabsNativeBrowserAdmissionResultSchema = exports.ElevenLabsNativeBrowserAdmissionRequestSchema = void 0;
 exports.capElevenLabsNativePath = capElevenLabsNativePath;
 exports.capElevenLabsNativeAuthorityPath = capElevenLabsNativeAuthorityPath;
+exports.capElevenLabsNativeSessionGrantPath = capElevenLabsNativeSessionGrantPath;
+exports.isElevenLabsNativeSessionGrantIssueForRoute = isElevenLabsNativeSessionGrantIssueForRoute;
+exports.isElevenLabsNativeSessionGrantAuthorityForRoute = isElevenLabsNativeSessionGrantAuthorityForRoute;
 exports.isElevenLabsNativePromptBundleForRequest = isElevenLabsNativePromptBundleForRequest;
 exports.nativeBrowserPolicyPath = nativeBrowserPolicyPath;
 const zod_1 = require("zod");
@@ -18,6 +21,7 @@ const native_readback_js_1 = require("../../capability/agent-elevenlabs/native-r
 const native_session_js_2 = require("../../capability/agent-elevenlabs/native-session.cjs");
 const web_channel_js_1 = require("../../capability/agent-elevenlabs/web-channel.cjs");
 const index_js_1 = require("../../auth/index.cjs");
+const native_session_grant_js_1 = require("../../capability/agent-elevenlabs/native-session-grant.cjs");
 exports.ElevenLabsNativeBrowserAdmissionRequestSchema = zod_1.z.object({ requestId: shared_js_1.RefId, linkId: shared_js_1.RefId, program: program_version_js_1.CoachProgramVersionRefSchema }).strict();
 /** Public facade excludes user identity, policy, mapping and connection credentials. */
 exports.ElevenLabsNativeBrowserAdmissionResultSchema = zod_1.z.object({ ok: zod_1.z.literal(true), attemptId: shared_js_1.RefId, expiresAt: shared_js_1.Instant }).strict();
@@ -27,6 +31,9 @@ const internal = { method: 'POST', authType: 'secret', authHeader: index_js_1.IN
 const prefix = '/internal/capability/agents/:agentId/elevenlabs/native';
 exports.nativeAuthorityResolveContract = { ...internal, path: prefix + '/authority/resolve', bodySchema: native_session_js_1.ElevenLabsNativeAuthorityRequestSchema, responseSchema: native_session_js_1.ElevenLabsNativeAuthorityResultSchema };
 exports.nativeAuthorityRecheckContract = { ...internal, path: prefix + '/authority/recheck', bodySchema: native_session_js_1.ElevenLabsNativeAuthorityRequestSchema, responseSchema: native_session_js_1.ElevenLabsNativeAuthorityResultSchema };
+exports.nativeSessionGrantIssueContract = { ...internal, path: prefix + '/session-grants/issue', bodySchema: native_session_grant_js_1.ElevenLabsNativeSessionGrantIssueRequestSchema, responseSchema: native_session_grant_js_1.ElevenLabsNativeSessionGrantSchema };
+exports.nativeSessionGrantResolveContract = { ...internal, path: prefix + '/session-grants/resolve', bodySchema: native_session_grant_js_1.ElevenLabsNativeSessionGrantAuthorityRequestSchema, responseSchema: native_session_grant_js_1.ElevenLabsNativeSessionGrantAuthorityResultSchema };
+exports.nativeSessionGrantRecheckContract = { ...internal, path: prefix + '/session-grants/recheck', bodySchema: native_session_grant_js_1.ElevenLabsNativeSessionGrantAuthorityRequestSchema, responseSchema: native_session_grant_js_1.ElevenLabsNativeSessionGrantAuthorityResultSchema };
 exports.nativeOpeningContract = { ...internal, path: prefix + '/opening', bodySchema: zod_1.z.object({ requestId: shared_js_1.RefId, attempt: native_session_js_1.ElevenLabsNativeAdmissionAttemptSchema }).strict(), responseSchema: native_session_js_1.ElevenLabsNativeSessionBindingSchema };
 exports.nativeMintContract = { ...internal, path: prefix + '/mint', bodySchema: native_session_js_1.ElevenLabsNativeMintRequestSchema, responseSchema: native_session_js_1.ElevenLabsNativeMintResultSchema };
 exports.nativeConversationBindContract = { ...internal, path: prefix + '/conversation', bodySchema: native_session_js_1.ElevenLabsNativeConversationBindingSchema, responseSchema: native_session_js_1.ElevenLabsNativeConversationBindingSchema };
@@ -39,6 +46,17 @@ exports.nativeCallbackContract = { method: 'POST', path: prefix + '/callback', a
     paramsSchema: internal_capability_agent_js_1.CapabilityAgentParamsSchema, responseSchema: native_session_js_1.ElevenLabsNativeCallbackReceiptSchema };
 function capElevenLabsNativePath(agentId) { return prefix.replace(':agentId', encodeURIComponent(internal_capability_agent_js_1.CapabilityAgentParamsSchema.parse({ agentId }).agentId)); }
 function capElevenLabsNativeAuthorityPath(agentId, phase) { return capElevenLabsNativePath(agentId) + '/authority/' + zod_1.z.enum(['resolve', 'recheck']).parse(phase); }
+function capElevenLabsNativeSessionGrantPath(agentId, action) {
+    return capElevenLabsNativePath(agentId) + '/session-grants/' + zod_1.z.enum(['issue', 'resolve', 'recheck']).parse(action);
+}
+function isElevenLabsNativeSessionGrantIssueForRoute(rawRequest, rawParams) {
+    const request = native_session_grant_js_1.ElevenLabsNativeSessionGrantIssueRequestSchema.safeParse(rawRequest), params = internal_capability_agent_js_1.CapabilityAgentParamsSchema.safeParse(rawParams);
+    return request.success && params.success && request.data.conversation.binding.opening.scope.agentId === params.data.agentId;
+}
+function isElevenLabsNativeSessionGrantAuthorityForRoute(rawRequest, rawParams) {
+    const request = native_session_grant_js_1.ElevenLabsNativeSessionGrantAuthorityRequestSchema.safeParse(rawRequest), params = internal_capability_agent_js_1.CapabilityAgentParamsSchema.safeParse(rawParams);
+    return request.success && params.success && request.data.scope.agentId === params.data.agentId;
+}
 exports.ElevenLabsNativePromptBundleRequestSchema = zod_1.z.object({ scope: capability_call_context_js_1.CapabilityAgentScopeSchema,
     configVersion: agent_config_js_1.AgentConfigVersionSchema, promptBundleHash: native_session_js_2.ElevenLabsPromptBundleHashSchema }).strict();
 /** Internal resolved bundle only. No browser route returns private rendered content. */

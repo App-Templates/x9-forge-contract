@@ -82,6 +82,7 @@ __exportStar(require("./coach/rolling-budget.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/coach-binding.cjs"), exports);
 __exportStar(require("./coach/operational/index.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/native-session.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-session-grant.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/native-tools.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/native-config.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/native-readback.cjs"), exports);
