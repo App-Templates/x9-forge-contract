@@ -65,7 +65,17 @@ declare const authorityResponse: z.ZodObject<{
         action: z.ZodLiteral<"restart">;
         execution: z.ZodLiteral<"running">;
     }, z.core.$strict>], "action">>;
-    configuration: z.ZodNull;
+    configuration: z.ZodNullable<z.ZodObject<{
+        format: z.ZodLiteral<"ordinary-v2">;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        capability: z.ZodString;
+        version: z.ZodNumber;
+        parameters: z.ZodArray<z.ZodNever>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 declare const ragCall: z.ZodObject<{
     callId: z.ZodString;
@@ -89,6 +99,10 @@ declare const ragCall: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type PortableCapabilityRule = {
+    op: 'empty_configuration_target';
+} | {
+    op: 'ordinary_empty_state';
+} | {
     op: 'max_properties';
     path: string;
     max: number;
@@ -120,6 +134,7 @@ export type PortableCapabilityRule = {
     phaseOrder: Record<string, string[]>;
     runtimeBinding: [string, string];
     authorityBindings: Array<[string, string]>;
+    nullishBindingFields: string[];
     ignoredBindingFields: string[];
     previousStateBindings: Array<[string, string]>;
     receiptFenceFields: string[];

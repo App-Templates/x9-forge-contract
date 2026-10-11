@@ -53,6 +53,7 @@ export * from "./coach/rolling-budget.cjs";
 export * from "./agent-elevenlabs/coach-binding.cjs";
 export * from "./coach/operational/index.cjs";
 export * from "./agent-elevenlabs/native-session.cjs";
+export * from "./agent-elevenlabs/native-session-grant.cjs";
 export * from "./agent-elevenlabs/native-tools.cjs";
 export * from "./agent-elevenlabs/native-config.cjs";
 export * from "./agent-elevenlabs/native-readback.cjs";

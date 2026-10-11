@@ -279,6 +279,580 @@ export declare const nativeAuthorityRecheckContract: {
         agentId: z.ZodString;
     }, z.core.$strip>;
 };
+export declare const nativeSessionGrantIssueContract: {
+    readonly path: string;
+    readonly bodySchema: z.ZodObject<{
+        requestId: z.ZodString;
+        conversation: z.ZodObject<{
+            binding: z.ZodObject<{
+                bindingId: z.ZodString;
+                attemptId: z.ZodString;
+                opening: z.ZodObject<{
+                    openingId: z.ZodString;
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                    }, z.core.$strict>;
+                    sessionId: z.ZodString;
+                    program: z.ZodObject<{
+                        scope: z.ZodObject<{
+                            agentId: z.ZodString;
+                            ownerId: z.ZodString;
+                            tenantId: z.ZodString;
+                        }, z.core.$strict>;
+                        programId: z.ZodString;
+                        programVersion: z.ZodNumber;
+                        strategy: z.ZodObject<{
+                            strategyId: z.ZodString;
+                            strategyVersion: z.ZodString;
+                        }, z.core.$strict>;
+                        catalogRevision: z.ZodString;
+                        policyRevision: z.ZodString;
+                        progressionRevision: z.ZodString;
+                        measureDefinitionRevision: z.ZodString;
+                    }, z.core.$strict>;
+                    appliedConfigVersion: z.ZodNumber;
+                    openedAt: z.ZodISODateTime;
+                }, z.core.$strict>;
+                mapping: z.ZodObject<{
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>;
+                    providerAgentId: z.ZodString;
+                    origin: z.ZodEnum<{
+                        provisioned: "provisioned";
+                        adopted: "adopted";
+                    }>;
+                    createdAt: z.ZodISODateTime;
+                    appliedConfigVersion: z.ZodNumber;
+                }, z.core.$strip>;
+                configVersion: z.ZodNumber;
+                promptBundleHash: z.ZodString;
+                boundAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            providerConversationId: z.ZodString;
+            attachedAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        grantId: z.ZodString;
+        requestId: z.ZodString;
+        attempt: z.ZodObject<{
+            attemptId: z.ZodString;
+            requestId: z.ZodString;
+            linkId: z.ZodString;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+            }, z.core.$strict>;
+            viewer: z.ZodObject<{
+                kind: z.ZodLiteral<"authenticated">;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                owner: z.ZodNullable<z.ZodObject<{
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>;
+            agentIdentity: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"master">;
+                masterAgentId: z.ZodOptional<z.ZodNever>;
+            }, z.core.$strict>, z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"erede">;
+                masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            }, z.core.$strict>], "role">;
+            program: z.ZodObject<{
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>;
+                programId: z.ZodString;
+                programVersion: z.ZodNumber;
+                strategy: z.ZodObject<{
+                    strategyId: z.ZodString;
+                    strategyVersion: z.ZodString;
+                }, z.core.$strict>;
+                catalogRevision: z.ZodString;
+                policyRevision: z.ZodString;
+                progressionRevision: z.ZodString;
+                measureDefinitionRevision: z.ZodString;
+            }, z.core.$strict>;
+            configVersion: z.ZodNumber;
+            promptBundleHash: z.ZodString;
+            policyVersion: z.ZodNumber;
+            status: z.ZodEnum<{
+                pending: "pending";
+                expired: "expired";
+                revoked: "revoked";
+                admitted: "admitted";
+            }>;
+            createdAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        conversation: z.ZodObject<{
+            binding: z.ZodObject<{
+                bindingId: z.ZodString;
+                attemptId: z.ZodString;
+                opening: z.ZodObject<{
+                    openingId: z.ZodString;
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                    }, z.core.$strict>;
+                    sessionId: z.ZodString;
+                    program: z.ZodObject<{
+                        scope: z.ZodObject<{
+                            agentId: z.ZodString;
+                            ownerId: z.ZodString;
+                            tenantId: z.ZodString;
+                        }, z.core.$strict>;
+                        programId: z.ZodString;
+                        programVersion: z.ZodNumber;
+                        strategy: z.ZodObject<{
+                            strategyId: z.ZodString;
+                            strategyVersion: z.ZodString;
+                        }, z.core.$strict>;
+                        catalogRevision: z.ZodString;
+                        policyRevision: z.ZodString;
+                        progressionRevision: z.ZodString;
+                        measureDefinitionRevision: z.ZodString;
+                    }, z.core.$strict>;
+                    appliedConfigVersion: z.ZodNumber;
+                    openedAt: z.ZodISODateTime;
+                }, z.core.$strict>;
+                mapping: z.ZodObject<{
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>;
+                    providerAgentId: z.ZodString;
+                    origin: z.ZodEnum<{
+                        provisioned: "provisioned";
+                        adopted: "adopted";
+                    }>;
+                    createdAt: z.ZodISODateTime;
+                    appliedConfigVersion: z.ZodNumber;
+                }, z.core.$strip>;
+                configVersion: z.ZodNumber;
+                promptBundleHash: z.ZodString;
+                boundAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            providerConversationId: z.ZodString;
+            attachedAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+        status: z.ZodEnum<{
+            active: "active";
+            revoked: "revoked";
+            closed: "closed";
+            draining: "draining";
+        }>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly authType: "secret";
+    readonly authHeader: "X-Internal-Secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+};
+export declare const nativeSessionGrantResolveContract: {
+    readonly path: string;
+    readonly bodySchema: z.ZodObject<{
+        requestId: z.ZodString;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        grantId: z.ZodString;
+        operation: z.ZodEnum<{
+            continue: "continue";
+            guide_start: "guide_start";
+        }>;
+        phase: z.ZodEnum<{
+            before: "before";
+            after: "after";
+        }>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        request: z.ZodObject<{
+            requestId: z.ZodString;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+            }, z.core.$strict>;
+            grantId: z.ZodString;
+            operation: z.ZodEnum<{
+                continue: "continue";
+                guide_start: "guide_start";
+            }>;
+            phase: z.ZodEnum<{
+                before: "before";
+                after: "after";
+            }>;
+        }, z.core.$strict>;
+        grant: z.ZodObject<{
+            grantId: z.ZodString;
+            requestId: z.ZodString;
+            attempt: z.ZodObject<{
+                attemptId: z.ZodString;
+                requestId: z.ZodString;
+                linkId: z.ZodString;
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                    userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                }, z.core.$strict>;
+                viewer: z.ZodObject<{
+                    kind: z.ZodLiteral<"authenticated">;
+                    userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                    owner: z.ZodNullable<z.ZodObject<{
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>;
+                agentIdentity: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                    tenantId: z.ZodString;
+                    identity: z.ZodObject<{
+                        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        vaultAgentId: z.ZodNumber;
+                    }, z.core.$strict>;
+                    role: z.ZodLiteral<"master">;
+                    masterAgentId: z.ZodOptional<z.ZodNever>;
+                }, z.core.$strict>, z.ZodObject<{
+                    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                    tenantId: z.ZodString;
+                    identity: z.ZodObject<{
+                        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        vaultAgentId: z.ZodNumber;
+                    }, z.core.$strict>;
+                    role: z.ZodLiteral<"erede">;
+                    masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                }, z.core.$strict>], "role">;
+                program: z.ZodObject<{
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>;
+                    programId: z.ZodString;
+                    programVersion: z.ZodNumber;
+                    strategy: z.ZodObject<{
+                        strategyId: z.ZodString;
+                        strategyVersion: z.ZodString;
+                    }, z.core.$strict>;
+                    catalogRevision: z.ZodString;
+                    policyRevision: z.ZodString;
+                    progressionRevision: z.ZodString;
+                    measureDefinitionRevision: z.ZodString;
+                }, z.core.$strict>;
+                configVersion: z.ZodNumber;
+                promptBundleHash: z.ZodString;
+                policyVersion: z.ZodNumber;
+                status: z.ZodEnum<{
+                    pending: "pending";
+                    expired: "expired";
+                    revoked: "revoked";
+                    admitted: "admitted";
+                }>;
+                createdAt: z.ZodISODateTime;
+                expiresAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            conversation: z.ZodObject<{
+                binding: z.ZodObject<{
+                    bindingId: z.ZodString;
+                    attemptId: z.ZodString;
+                    opening: z.ZodObject<{
+                        openingId: z.ZodString;
+                        scope: z.ZodObject<{
+                            agentId: z.ZodString;
+                            ownerId: z.ZodString;
+                            tenantId: z.ZodString;
+                            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                        }, z.core.$strict>;
+                        sessionId: z.ZodString;
+                        program: z.ZodObject<{
+                            scope: z.ZodObject<{
+                                agentId: z.ZodString;
+                                ownerId: z.ZodString;
+                                tenantId: z.ZodString;
+                            }, z.core.$strict>;
+                            programId: z.ZodString;
+                            programVersion: z.ZodNumber;
+                            strategy: z.ZodObject<{
+                                strategyId: z.ZodString;
+                                strategyVersion: z.ZodString;
+                            }, z.core.$strict>;
+                            catalogRevision: z.ZodString;
+                            policyRevision: z.ZodString;
+                            progressionRevision: z.ZodString;
+                            measureDefinitionRevision: z.ZodString;
+                        }, z.core.$strict>;
+                        appliedConfigVersion: z.ZodNumber;
+                        openedAt: z.ZodISODateTime;
+                    }, z.core.$strict>;
+                    mapping: z.ZodObject<{
+                        scope: z.ZodObject<{
+                            agentId: z.ZodString;
+                            ownerId: z.ZodString;
+                            tenantId: z.ZodString;
+                        }, z.core.$strict>;
+                        providerAgentId: z.ZodString;
+                        origin: z.ZodEnum<{
+                            provisioned: "provisioned";
+                            adopted: "adopted";
+                        }>;
+                        createdAt: z.ZodISODateTime;
+                        appliedConfigVersion: z.ZodNumber;
+                    }, z.core.$strip>;
+                    configVersion: z.ZodNumber;
+                    promptBundleHash: z.ZodString;
+                    boundAt: z.ZodISODateTime;
+                }, z.core.$strict>;
+                providerConversationId: z.ZodString;
+                attachedAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+            status: z.ZodEnum<{
+                active: "active";
+                revoked: "revoked";
+                closed: "closed";
+                draining: "draining";
+            }>;
+        }, z.core.$strict>;
+        observedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly authType: "secret";
+    readonly authHeader: "X-Internal-Secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+};
+export declare const nativeSessionGrantRecheckContract: {
+    readonly path: string;
+    readonly bodySchema: z.ZodObject<{
+        requestId: z.ZodString;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        grantId: z.ZodString;
+        operation: z.ZodEnum<{
+            continue: "continue";
+            guide_start: "guide_start";
+        }>;
+        phase: z.ZodEnum<{
+            before: "before";
+            after: "after";
+        }>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        request: z.ZodObject<{
+            requestId: z.ZodString;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+            }, z.core.$strict>;
+            grantId: z.ZodString;
+            operation: z.ZodEnum<{
+                continue: "continue";
+                guide_start: "guide_start";
+            }>;
+            phase: z.ZodEnum<{
+                before: "before";
+                after: "after";
+            }>;
+        }, z.core.$strict>;
+        grant: z.ZodObject<{
+            grantId: z.ZodString;
+            requestId: z.ZodString;
+            attempt: z.ZodObject<{
+                attemptId: z.ZodString;
+                requestId: z.ZodString;
+                linkId: z.ZodString;
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                    userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                }, z.core.$strict>;
+                viewer: z.ZodObject<{
+                    kind: z.ZodLiteral<"authenticated">;
+                    userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                    owner: z.ZodNullable<z.ZodObject<{
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>;
+                agentIdentity: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                    tenantId: z.ZodString;
+                    identity: z.ZodObject<{
+                        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        vaultAgentId: z.ZodNumber;
+                    }, z.core.$strict>;
+                    role: z.ZodLiteral<"master">;
+                    masterAgentId: z.ZodOptional<z.ZodNever>;
+                }, z.core.$strict>, z.ZodObject<{
+                    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                    tenantId: z.ZodString;
+                    identity: z.ZodObject<{
+                        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        vaultAgentId: z.ZodNumber;
+                    }, z.core.$strict>;
+                    role: z.ZodLiteral<"erede">;
+                    masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                }, z.core.$strict>], "role">;
+                program: z.ZodObject<{
+                    scope: z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>;
+                    programId: z.ZodString;
+                    programVersion: z.ZodNumber;
+                    strategy: z.ZodObject<{
+                        strategyId: z.ZodString;
+                        strategyVersion: z.ZodString;
+                    }, z.core.$strict>;
+                    catalogRevision: z.ZodString;
+                    policyRevision: z.ZodString;
+                    progressionRevision: z.ZodString;
+                    measureDefinitionRevision: z.ZodString;
+                }, z.core.$strict>;
+                configVersion: z.ZodNumber;
+                promptBundleHash: z.ZodString;
+                policyVersion: z.ZodNumber;
+                status: z.ZodEnum<{
+                    pending: "pending";
+                    expired: "expired";
+                    revoked: "revoked";
+                    admitted: "admitted";
+                }>;
+                createdAt: z.ZodISODateTime;
+                expiresAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            conversation: z.ZodObject<{
+                binding: z.ZodObject<{
+                    bindingId: z.ZodString;
+                    attemptId: z.ZodString;
+                    opening: z.ZodObject<{
+                        openingId: z.ZodString;
+                        scope: z.ZodObject<{
+                            agentId: z.ZodString;
+                            ownerId: z.ZodString;
+                            tenantId: z.ZodString;
+                            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+                        }, z.core.$strict>;
+                        sessionId: z.ZodString;
+                        program: z.ZodObject<{
+                            scope: z.ZodObject<{
+                                agentId: z.ZodString;
+                                ownerId: z.ZodString;
+                                tenantId: z.ZodString;
+                            }, z.core.$strict>;
+                            programId: z.ZodString;
+                            programVersion: z.ZodNumber;
+                            strategy: z.ZodObject<{
+                                strategyId: z.ZodString;
+                                strategyVersion: z.ZodString;
+                            }, z.core.$strict>;
+                            catalogRevision: z.ZodString;
+                            policyRevision: z.ZodString;
+                            progressionRevision: z.ZodString;
+                            measureDefinitionRevision: z.ZodString;
+                        }, z.core.$strict>;
+                        appliedConfigVersion: z.ZodNumber;
+                        openedAt: z.ZodISODateTime;
+                    }, z.core.$strict>;
+                    mapping: z.ZodObject<{
+                        scope: z.ZodObject<{
+                            agentId: z.ZodString;
+                            ownerId: z.ZodString;
+                            tenantId: z.ZodString;
+                        }, z.core.$strict>;
+                        providerAgentId: z.ZodString;
+                        origin: z.ZodEnum<{
+                            provisioned: "provisioned";
+                            adopted: "adopted";
+                        }>;
+                        createdAt: z.ZodISODateTime;
+                        appliedConfigVersion: z.ZodNumber;
+                    }, z.core.$strip>;
+                    configVersion: z.ZodNumber;
+                    promptBundleHash: z.ZodString;
+                    boundAt: z.ZodISODateTime;
+                }, z.core.$strict>;
+                providerConversationId: z.ZodString;
+                attachedAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+            status: z.ZodEnum<{
+                active: "active";
+                revoked: "revoked";
+                closed: "closed";
+                draining: "draining";
+            }>;
+        }, z.core.$strict>;
+        observedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly authType: "secret";
+    readonly authHeader: "X-Internal-Secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+};
 export declare const nativeOpeningContract: {
     readonly path: string;
     readonly bodySchema: z.ZodObject<{
@@ -1046,6 +1620,9 @@ export declare const nativeCallbackContract: {
 };
 export declare function capElevenLabsNativePath(agentId: string): string;
 export declare function capElevenLabsNativeAuthorityPath(agentId: string, phase: 'resolve' | 'recheck'): string;
+export declare function capElevenLabsNativeSessionGrantPath(agentId: string, action: 'issue' | 'resolve' | 'recheck'): string;
+export declare function isElevenLabsNativeSessionGrantIssueForRoute(rawRequest: unknown, rawParams: unknown): boolean;
+export declare function isElevenLabsNativeSessionGrantAuthorityForRoute(rawRequest: unknown, rawParams: unknown): boolean;
 export declare const ElevenLabsNativePromptBundleRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{
         agentId: z.ZodString;

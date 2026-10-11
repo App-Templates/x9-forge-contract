@@ -53,6 +53,7 @@ export * from "./coach/rolling-budget.js";
 export * from "./agent-elevenlabs/coach-binding.js";
 export * from "./coach/operational/index.js";
 export * from "./agent-elevenlabs/native-session.js";
+export * from "./agent-elevenlabs/native-session-grant.js";
 export * from "./agent-elevenlabs/native-tools.js";
 export * from "./agent-elevenlabs/native-config.js";
 export * from "./agent-elevenlabs/native-readback.js";

@@ -13,6 +13,8 @@ import { ElevenLabsNativeConfigReadbackSchema } from '../../capability/agent-ele
 import { ElevenLabsPromptBundleHashSchema } from '../../capability/agent-elevenlabs/native-session.js';
 import { ElevenLabsWebPolicySchema, ElevenLabsWebPolicyChangeSchema, ElevenLabsWebPolicyResultSchema } from '../../capability/agent-elevenlabs/web-channel.js';
 import { INTERNAL_SECRET_HEADER } from '../../auth/index.js';
+import { ElevenLabsNativeSessionGrantSchema, ElevenLabsNativeSessionGrantIssueRequestSchema,
+  ElevenLabsNativeSessionGrantAuthorityRequestSchema, ElevenLabsNativeSessionGrantAuthorityResultSchema } from '../../capability/agent-elevenlabs/native-session-grant.js';
 export const ElevenLabsNativeBrowserAdmissionRequestSchema = z.object({ requestId: RefId, linkId: RefId, program: CoachProgramVersionRefSchema }).strict();
 export type ElevenLabsNativeBrowserAdmissionRequest = z.infer<typeof ElevenLabsNativeBrowserAdmissionRequestSchema>;
 /** Public facade excludes user identity, policy, mapping and connection credentials. */
@@ -24,6 +26,9 @@ const internal = { method: 'POST', authType: 'secret', authHeader: INTERNAL_SECR
 const prefix = '/internal/capability/agents/:agentId/elevenlabs/native';
 export const nativeAuthorityResolveContract = { ...internal, path: prefix + '/authority/resolve', bodySchema: ElevenLabsNativeAuthorityRequestSchema, responseSchema: ElevenLabsNativeAuthorityResultSchema } as const;
 export const nativeAuthorityRecheckContract = { ...internal, path: prefix + '/authority/recheck', bodySchema: ElevenLabsNativeAuthorityRequestSchema, responseSchema: ElevenLabsNativeAuthorityResultSchema } as const;
+export const nativeSessionGrantIssueContract = { ...internal, path: prefix + '/session-grants/issue', bodySchema: ElevenLabsNativeSessionGrantIssueRequestSchema, responseSchema: ElevenLabsNativeSessionGrantSchema } as const;
+export const nativeSessionGrantResolveContract = { ...internal, path: prefix + '/session-grants/resolve', bodySchema: ElevenLabsNativeSessionGrantAuthorityRequestSchema, responseSchema: ElevenLabsNativeSessionGrantAuthorityResultSchema } as const;
+export const nativeSessionGrantRecheckContract = { ...internal, path: prefix + '/session-grants/recheck', bodySchema: ElevenLabsNativeSessionGrantAuthorityRequestSchema, responseSchema: ElevenLabsNativeSessionGrantAuthorityResultSchema } as const;
 export const nativeOpeningContract = { ...internal, path: prefix + '/opening', bodySchema: z.object({ requestId: RefId, attempt: ElevenLabsNativeAdmissionAttemptSchema }).strict(), responseSchema: ElevenLabsNativeSessionBindingSchema } as const;
 export const nativeMintContract = { ...internal, path: prefix + '/mint', bodySchema: ElevenLabsNativeMintRequestSchema, responseSchema: ElevenLabsNativeMintResultSchema } as const;
 export const nativeConversationBindContract = { ...internal, path: prefix + '/conversation', bodySchema: ElevenLabsNativeConversationBindingSchema, responseSchema: ElevenLabsNativeConversationBindingSchema } as const;
@@ -36,6 +41,17 @@ export const nativeCallbackContract = { method: 'POST', path: prefix + '/callbac
   paramsSchema: CapabilityAgentParamsSchema, responseSchema: ElevenLabsNativeCallbackReceiptSchema } as const;
 export function capElevenLabsNativePath(agentId: string): string { return prefix.replace(':agentId', encodeURIComponent(CapabilityAgentParamsSchema.parse({ agentId }).agentId)); }
 export function capElevenLabsNativeAuthorityPath(agentId: string, phase: 'resolve' | 'recheck'): string { return capElevenLabsNativePath(agentId) + '/authority/' + z.enum(['resolve', 'recheck']).parse(phase); }
+export function capElevenLabsNativeSessionGrantPath(agentId: string, action: 'issue' | 'resolve' | 'recheck'): string {
+  return capElevenLabsNativePath(agentId) + '/session-grants/' + z.enum(['issue', 'resolve', 'recheck']).parse(action);
+}
+export function isElevenLabsNativeSessionGrantIssueForRoute(rawRequest: unknown, rawParams: unknown): boolean {
+  const request = ElevenLabsNativeSessionGrantIssueRequestSchema.safeParse(rawRequest), params = CapabilityAgentParamsSchema.safeParse(rawParams);
+  return request.success && params.success && request.data.conversation.binding.opening.scope.agentId === params.data.agentId;
+}
+export function isElevenLabsNativeSessionGrantAuthorityForRoute(rawRequest: unknown, rawParams: unknown): boolean {
+  const request = ElevenLabsNativeSessionGrantAuthorityRequestSchema.safeParse(rawRequest), params = CapabilityAgentParamsSchema.safeParse(rawParams);
+  return request.success && params.success && request.data.scope.agentId === params.data.agentId;
+}
 
 export const ElevenLabsNativePromptBundleRequestSchema = z.object({ scope: CapabilityAgentScopeSchema,
   configVersion: AgentConfigVersionSchema, promptBundleHash: ElevenLabsPromptBundleHashSchema }).strict();

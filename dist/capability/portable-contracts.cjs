@@ -23,12 +23,13 @@ const ordinaryCall = tool_call_js_1.ToolCallRequestSchema.safeExtend({
     tenantId: tool_call_js_1.ToolCallRequestSchema.shape.tenantId.unwrap(), ownerId: tool_call_js_1.ToolCallRequestSchema.shape.ownerId.unwrap(),
     ordinaryConfiguration: snapshot,
 }).strict();
-const authorityResponse = ordinary_authority_js_1.AgentOrdinaryAuthoritySchema.safeExtend({ configuration: zod_1.z.null() });
+const emptyConfiguration = ordinary_configuration_js_1.CapabilityOrdinaryConfigurationSchema.safeExtend({ parameters: zod_1.z.array(zod_1.z.never()).max(0) });
+const authorityResponse = ordinary_authority_js_1.AgentOrdinaryAuthoritySchema.safeExtend({ configuration: emptyConfiguration.nullable() });
 const ragCall = tool_call_js_1.ToolCallRequestSchema.safeExtend({
     tenantId: tool_call_js_1.ToolCallRequestSchema.shape.tenantId.unwrap(), ownerId: tool_call_js_1.ToolCallRequestSchema.shape.ownerId.unwrap(), ordinaryConfiguration: snapshot.optional(),
 }).strict();
-const lifecycleRequest = ordinary_lifecycle_js_1.CapabilityOrdinaryLifecycleRequestSchema.safeExtend({ configuration: zod_1.z.never().optional() });
-const emptyState = ordinary_configuration_js_1.CapabilityOrdinaryConfigStateSchema.safeExtend({ desired: zod_1.z.null(), applied: zod_1.z.null(), failed: zod_1.z.null(), effectiveParameters: zod_1.z.array(zod_1.z.never()).max(0) });
+const lifecycleRequest = ordinary_lifecycle_js_1.CapabilityOrdinaryLifecycleRequestSchema.safeExtend({ configuration: emptyConfiguration.optional() });
+const emptyState = ordinary_configuration_js_1.CapabilityOrdinaryConfigStateSchema.safeExtend({ desired: emptyConfiguration.nullable(), applied: ordinary_configuration_js_1.CapabilityOrdinaryAppliedSchema.safeExtend({ configuration: emptyConfiguration }).nullable(), failed: zod_1.z.null(), effectiveParameters: zod_1.z.array(zod_1.z.never()).max(0) });
 const lifecycleReceipt = ordinary_lifecycle_js_1.CapabilityOrdinaryLifecycleReceiptSchema.safeExtend({ request: lifecycleRequest, ordinaryState: emptyState });
 const lifecycleTransaction = ordinary_lifecycle_js_1.CapabilityOrdinaryLifecycleTransactionSchema.safeExtend({
     request: lifecycleRequest, previousState: emptyState, receipts: zod_1.z.array(lifecycleReceipt).max(4),
@@ -63,6 +64,7 @@ const callRules = [
     { op: 'authority_equal', path: 'ordinaryConfiguration' },
 ];
 const authorityRules = [
+    { op: 'empty_configuration_target' },
     { op: 'equal_paths', left: 'scope.agentId', right: 'identity.runtimeAgentId' },
     { op: 'authority_lookup', identitySchema: zod_1.z.toJSONSchema(ordinary_authority_js_1.AgentOrdinaryAuthoritySchema.shape.identity), bindings: [
             { path: 'scope.tenantId', authorityPath: 'lookup.tenantId' },
@@ -83,7 +85,8 @@ const receiptRule = { op: 'lifecycle_receipt',
 const lifecycleRules = [{ op: 'lifecycle_request', sameBundleActions: ['start', 'stop', 'restart'], reloadActions: ['reload'], phaseOrder: {
             prepare: [], suspend: ['prepared'], activate: ['suspended'], rollback: ['prepared', 'suspended', 'activated'],
         }, runtimeBinding: ['scope.agentId', 'identity.runtimeAgentId'],
-        authorityBindings: [['scope', 'scope'], ['identity', 'identity'], ['capability', 'capability'], ['requestId', 'requestId'], ['transition.to', 'bundle'], ['targetMembership', 'membership'], ['operation', 'operation']],
+        authorityBindings: [['scope', 'scope'], ['identity', 'identity'], ['capability', 'capability'], ['requestId', 'requestId'], ['transition.to', 'bundle'], ['targetMembership', 'membership'], ['operation', 'operation'], ['configuration', 'configuration']],
+        nullishBindingFields: ['configuration', 'operation'],
         ignoredBindingFields: ['phase'], previousStateBindings: [['previousState.scope', 'scope'], ['previousState.capability', 'capability']],
         receiptFenceFields: ['operationId', 'fence'], ambiguousStates: ['pending', 'ambiguous'],
     }];
@@ -111,22 +114,26 @@ function getPortableCapabilityContracts() {
     add('ragQueryRequest', rag_query_js_1.RagQueryRequestSchema, [], 0);
     add('ragQueryResponse', rag_query_js_1.RagQueryResponseSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
-    add('authorityResponse', authorityResponse, authorityRules, 1);
-    contracts.authorityResponse.limitations = ['Only configuration:null: full configuration/Master/structured refinements remain gated'];
+    add('authorityResponse', authorityResponse, authorityRules, 2);
+    contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
     contracts.ordinaryToolCall.limitations = ['Only B1 primitive values; structured values require qualified portable codecs'];
     add('configuration', ordinary_configuration_js_1.CapabilityOrdinaryConfigurationSchema, [], null, ['Parameter declarations/resolutions/structured/Master semantics are not yet portable']);
-    add('lifecycleRequest', lifecycleRequest, lifecycleRules, 1);
-    add('lifecycleReceipt', lifecycleReceipt, [receiptRule], 3);
-    add('lifecycleTransaction', lifecycleTransaction, [], 3, ['Internal shape: use lifecycle request/receipt admission for semantic validation']);
-    add('lifecycleAuthority', lifecycleAuthority, [], 4, ['Internal shape: use lifecycle request admission for semantic validation']);
+    add('emptyConfiguration', emptyConfiguration, [], 1);
+    add('ordinaryQuery', internal_capability_agent_js_1.ordinaryCapabilityAgentConfigGetContract.querySchema, [], 0);
+    add('ordinaryState', emptyState, [{ op: 'ordinary_empty_state' }], 2);
+    add('lifecycleRequest', lifecycleRequest, lifecycleRules, 2);
+    add('lifecycleReceipt', lifecycleReceipt, [receiptRule], 4);
+    add('lifecycleTransaction', lifecycleTransaction, [], 4, ['Internal shape: use lifecycle request/receipt admission for semantic validation']);
+    add('lifecycleAuthority', lifecycleAuthority, [], 5, ['Internal shape: use lifecycle request admission for semantic validation']);
     for (const name of ['lifecycleRequest', 'lifecycleReceipt', 'lifecycleTransaction', 'lifecycleAuthority']) {
-        contracts[name].limitations = ['Only capabilities without ordinary configuration; durable effects and reconciliation are consumer-owned'];
+        contracts[name].limitations = ['Only null or frozen configurations with zero parameters; durable effects and reconciliation are consumer-owned'];
     }
     const transport = (contract) => ({
         method: contract.method, path: contract.path, authHeader: auth_headers_js_1.INTERNAL_SECRET_HEADER, paramsSchema: zod_1.z.toJSONSchema(contract.paramsSchema),
     });
     return { format: 'x9-capability-portable-v1', contracts, transports: {
             authority: { ...transport(internal_agents_ordinary_authority_js_1.agentOrdinaryAuthorityContract), queryContract: 'authorityQuery' },
+            ordinaryGet: { ...transport(internal_capability_agent_js_1.ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
             lifecycle: transport(internal_capability_agent_js_1.ordinaryCapabilityLifecyclePutContract), call: transport(cap_tool_call_js_1.capToolCallContract),
         } };
 }
@@ -137,6 +144,12 @@ function at(value, path) {
 function applyPortableCapabilityRules(value, rules, authority) {
     for (const rule of rules) {
         switch (rule.op) {
+            case 'empty_configuration_target':
+                authorityResponse.parse(value);
+                break;
+            case 'ordinary_empty_state':
+                emptyState.parse(value);
+                break;
             case 'max_properties': {
                 const target = at(value, rule.path);
                 if (!target || typeof target !== 'object' || Array.isArray(target) || Object.keys(target).length > rule.max)
