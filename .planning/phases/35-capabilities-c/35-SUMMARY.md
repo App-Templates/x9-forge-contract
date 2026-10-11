@@ -6,9 +6,10 @@ status: implemented-contracts
 Ordinary-v2 unifica valori primitivi/structured, provenienza Master, CAS, stato per chiave e snapshot next_apply.
 Manifest/registry conservano ordinaryParameters, metadati B1 e credentialRequirements A07 senza valori.
 Lifecycle e autorità minima legano scope, identità, requestId e digest; start/stop/restart mantengono il bundle, Apply distingue configurazione caricata ed esecuzione osservata.
-Modulo Python generato dal contratto/IR canonico: RAG e lifecycle senza settings; configurazione structured Python esplicitamente non supportata.
+Modulo Python generato dal contratto/IR canonico: RAG/lifecycle: null o frozen ordinary vuoto, GET canonico e ricevute scoped; parametri/Master/structured Python restano rifiutati.
 Pacchetto privato locale 1.46.0-capabilities-c.2 preparato per X9 SDK/Core/servizi e Forge factory/web; nessuna release.
 ## Prove
+11/10 15:41: portable RAG accetta solo null/configurazione senza parametri; binding configurazione/versione, target, stato loaded e rollback conservano parità TS/Python. GET ordinary deriva dal contratto HTTP canonico. RED nuovo1/1, poi5/5 mirati (inclusi15/15 Python storici); taglio binding configurazione1/1 intercettato/ripristinato,5/5 verdi. Typecheck/lint2/2file/build PASS,418/418 dichiarazioni; nessun bump/pin. Log /private/tmp/c-portable-rag-{red,green,binding-mutation,restored,types,lint,build}.log. Consumer X9 ancora da aggiornare serialmente, nessuna prova live.
 Vitest con --config vitest.capabilities-c.config.ts sui 12 file toccati: 345/345 test PASS; raccordo operativo e A07: 85/85 mirati PASS.
 pnpm typecheck; eslint dei file toccati: PASS. RED iniziale metadata 4/7, poi 7/7 GREEN.
 Mutazioni sicurezza/permessi intercettate e ripristinate: ordinary/lifecycle 8/8, codec 6/6, autorità 1/1, metadata 1/1, Python 9/9; autorità operativa 3/3.

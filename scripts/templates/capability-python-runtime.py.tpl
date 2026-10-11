@@ -196,9 +196,40 @@ def _request_binding(request, omitted):
     return {key: value for key, value in request.items() if key not in omitted}
 
 
+def _configuration_target(configuration, scope, capability):
+    if configuration is not None and (not _equal(configuration['scope'], scope) or configuration['capability'] != capability):
+        raise ValueError('Configuration target mismatch')
+
+
+def _authority_configuration(authority):
+    _configuration_target(authority['configuration'], authority['scope'], authority['capability'])
+    if authority['configuration'] is not None and authority['membership'] != 'enabled':
+        raise ValueError('Inactive membership cannot carry configuration')
+
+
+def _request_configuration(request):
+    _configuration_target(request.get('configuration'), request['scope'], request['capability'])
+    if request.get('configuration') is not None and request['targetMembership'] != 'enabled':
+        raise ValueError('Inactive lifecycle cannot carry configuration')
+
+
+def _state_semantics(state):
+    desired, applied = state['desired'], state['applied']
+    _configuration_target(desired, state['scope'], state['capability'])
+    if applied is not None:
+        configuration = applied['configuration']
+        _configuration_target(configuration, state['scope'], state['capability'])
+        if state['runtimeState'] != 'loaded' or desired is None or configuration['version'] > desired['version']:
+            raise ValueError('Applied configuration requires loaded desired history')
+        if configuration['version'] == desired['version'] and not _equal(configuration, desired):
+            raise ValueError('One revision cannot have different desired and applied values')
+
+
 def _receipt_semantics(receipt):
     policy = CATALOG['contracts']['lifecycleReceipt']['rules'][0]
     request, state = receipt['request'], receipt['ordinaryState']
+    _request_configuration(request)
+    _state_semantics(state)
     for left, right in policy['targetBindings']:
         if not _equal(_at(receipt, left), _at(receipt, right)):
             raise ValueError('Lifecycle receipt target mismatch')
@@ -226,10 +257,16 @@ def _receipt_semantics(receipt):
 
 def _lifecycle_request(request, authority, rule):
     authority = _internal('lifecycleAuthority', authority)
+    _request_configuration(request)
+    _authority_configuration(authority)
     if not _equal(_at(request, rule['runtimeBinding'][0]), _at(request, rule['runtimeBinding'][1])):
         raise ValueError('Lifecycle runtime identity mismatch')
     for left, right in rule['authorityBindings']:
-        if not _equal(_at(request, left), _at(authority, right)):
+        actual, expected = _at(request, left), _at(authority, right)
+        if left in rule['nullishBindingFields']:
+            actual = None if actual is _MISSING else actual
+            expected = None if expected is _MISSING else expected
+        if not _equal(actual, expected):
             raise ValueError('Lifecycle authority binding mismatch')
     transition, transaction = request['transition'], authority['transaction']
     operation = request.get('operation')
@@ -239,6 +276,7 @@ def _lifecycle_request(request, authority, rule):
     elif not (operation and operation['action'] in rule['reloadActions'] and _equal(transition['from'], transition['to'])) and transition['from'] is not None and transition['to']['appliedVersion'] <= transition['from']['appliedVersion']:
         raise ValueError('Lifecycle candidate must advance')
     if transaction is not None:
+        _state_semantics(transaction['previousState'])
         retained = _request_binding(transaction['request'], rule['ignoredBindingFields'])
         if not _equal(retained, _request_binding(request, rule['ignoredBindingFields'])) or any(not _equal(_at(transaction, left), _at(request, right)) for left, right in rule['previousStateBindings']):
             raise ValueError('Lifecycle immutable transaction mismatch')
@@ -272,6 +310,8 @@ def _lifecycle_receipt(receipt, authority):
         raise ValueError('Lifecycle receipt transaction authority required')
     request = _internal('lifecycleRequest', authority['request'])
     transaction = _internal('lifecycleTransaction', authority['transaction'])
+    _request_configuration(request)
+    _state_semantics(transaction['previousState'])
     runtime = CATALOG['contracts']['lifecycleRequest']['rules'][0]['runtimeBinding']
     if not _equal(_at(transaction['request'], runtime[0]), _at(transaction['request'], runtime[1])):
         raise ValueError('Retained lifecycle runtime identity mismatch')
@@ -284,7 +324,11 @@ def _lifecycle_receipt(receipt, authority):
         return
     if request['phase'] in policy['preparationPhases'] and not _equal(receipt['ordinaryState'], transaction['previousState']):
         raise ValueError('Preparation cannot attest candidate state')
+    if request['phase'] == 'activate' and request['targetMembership'] == 'enabled' and request.get('configuration') is not None and receipt['ordinaryState']['runtimeState'] != 'loaded':
+        raise ValueError('Enabled consumer not confirmed loaded')
     if request['phase'] == 'rollback':
+        if request['transition']['from'] is not None and not _equal(receipt['ordinaryState']['applied'], transaction['previousState']['applied']):
+            raise ValueError('Rollback previous applied configuration not confirmed')
         if request.get('operation') and (receipt.get('executionEffective') != transaction.get('previousExecution', 'unknown') or receipt['observedAt'] is None):
             raise ValueError('Rollback execution not confirmed')
         if receipt['membershipEffective'] != transaction['previousMembership'] or receipt['observedAt'] is None:
@@ -295,7 +339,11 @@ def _lifecycle_receipt(receipt, authority):
 
 def _rules(value, rules, authority):
     for rule in rules:
-        if rule['op'] == 'max_properties':
+        if rule['op'] == 'empty_configuration_target':
+            _authority_configuration(value)
+        elif rule['op'] == 'ordinary_empty_state':
+            _state_semantics(value)
+        elif rule['op'] == 'max_properties':
             target = _at(value, rule['path'])
             if not isinstance(target, dict) or len(target) > rule['max']:
                 raise ValueError('Ordinary key count mismatch')
@@ -396,7 +444,7 @@ for _contract in CATALOG['contracts'].values():
     if _contract['supported']:
         _schema_supported(_contract['schema'])
         for _rule in _contract['rules']:
-            if _rule['op'] not in {'max_properties', 'equal_paths', 'authority_equal', 'normalize_integer', 'authority_lookup', 'membership_call', 'lifecycle_request', 'lifecycle_receipt'}:
+            if _rule['op'] not in {'empty_configuration_target', 'ordinary_empty_state', 'max_properties', 'equal_paths', 'authority_equal', 'normalize_integer', 'authority_lookup', 'membership_call', 'lifecycle_request', 'lifecycle_receipt'}:
                 raise ValueError('Unsupported portable semantic rule')
             for _schema_key in ('schema', 'identitySchema'):
                 if _schema_key in _rule:
