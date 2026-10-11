@@ -26,3 +26,5 @@ Restano writer unico/adozione legacy, reader e timer reali, UI, percorso compost
 Prova dal vivo non eseguita; nessuna dichiarazione100%.
 
 Misura giornata c.3 Bridge: prodotto140righe, test130righe; piano88righe + SUMMARY25righe (perimetri/compilati separati).
+
+- Segue/Torna al Master e feeds.inherit: decisione215615, solo comandi c.3 additivi; 5/5RED→52/52mirati, tipi/lint/build492dts/ESM-CJS4/4PASS.

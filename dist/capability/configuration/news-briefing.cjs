@@ -49,20 +49,25 @@ const briefingPatch = exports.BriefingManagedSettingsSchema.omit({ feeds: true, 
 exports.NewsRuleDraftSchema = rules_js_1.NewsRuleSchema.pick({ condition: true, action: true, description: true }).strict();
 exports.BriefingRuleDraftSchema = rules_js_1.BriefingRuleSchema.pick({ condition: true, action: true, description: true }).strict();
 const adoptLegacy = zod_1.z.object({ type: zod_1.z.literal('legacy.adopt') }).strict();
+const newsKeys = exports.NewsSettingsSchema.keyof();
+const briefingKeys = exports.BriefingManagedSettingsSchema.keyof();
+const followMaster = (keys) => zod_1.z.object({ type: zod_1.z.literal('parameter.follow-master'), key: keys }).strict();
+const override = (keys) => zod_1.z.object({ type: zod_1.z.literal('parameter.override'), key: keys }).strict();
 const removeRule = zod_1.z.object({ type: zod_1.z.literal('rule.remove'), id: rules_js_1.NewsRuleSchema.shape.id }).strict();
 exports.NewsChangeSchema = zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({ type: zod_1.z.literal('settings.patch'), settings: newsPatch }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('feeds.replace'), feeds: exports.NewsManagedFeedsSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.add'), rule: exports.NewsRuleDraftSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.update'), id: rules_js_1.NewsRuleSchema.shape.id, rule: exports.NewsRuleDraftSchema }).strict(),
-    removeRule, adoptLegacy,
+    removeRule, adoptLegacy, followMaster(newsKeys), override(newsKeys),
 ]);
 exports.BriefingChangeSchema = zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({ type: zod_1.z.literal('settings.patch'), settings: briefingPatch }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('feeds.replace'), feeds: exports.BriefingManagedFeedsSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.add'), rule: exports.BriefingRuleDraftSchema }).strict(),
     zod_1.z.object({ type: zod_1.z.literal('rule.update'), id: rules_js_1.BriefingRuleSchema.shape.id, rule: exports.BriefingRuleDraftSchema }).strict(),
-    removeRule, adoptLegacy,
+    removeRule, adoptLegacy, followMaster(briefingKeys), override(briefingKeys),
+    zod_1.z.object({ type: zod_1.z.literal('feeds.inherit') }).strict(),
 ]);
 const command = {
     scope: capability_call_context_js_1.CapabilityAgentScopeSchema,
@@ -98,6 +103,7 @@ function state(family, settings) {
         effective: zod_1.z.object({ version: agent_config_js_1.AgentConfigVersionSchema, settings, observedAt: zod_1.z.iso.datetime({ offset: true }) }).strict().nullable(),
         execution: zod_1.z.enum(['running', 'stopped', 'unknown']),
         adoption: exports.NewsBriefingAdoptionSchema.optional(),
+        inheritance: zod_1.z.array(zod_1.z.object({ key: family === 'news' ? newsKeys : briefingKeys, origin: ordinary_configuration_js_1.CapabilityOrdinaryOriginSchema }).strict()).max(11).refine(values => new Set(values.map(value => value.key)).size === values.length, 'Duplicate inherited parameter').optional(),
     }).strict();
 }
 exports.NewsBriefingStateSchema = zod_1.z.discriminatedUnion('family', [

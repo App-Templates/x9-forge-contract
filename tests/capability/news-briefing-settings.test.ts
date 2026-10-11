@@ -77,3 +77,17 @@ it('carries an explicit producer adoption command and visible per-field provenan
   expect(NewsBriefingStateSchema.parse(state)).toEqual(state);
   expect(NewsBriefingStateSchema.safeParse({ ...state, adoption: { ...state.adoption, version: 3 } }).success).toBe(false);
 });
+
+it.each([
+ ['news',{type:'parameter.follow-master',key:'hoursBack'}],
+ ['news',{type:'parameter.override',key:'hoursBack'}],
+ ['briefing',{type:'parameter.follow-master',key:'greeting'}],
+ ['briefing',{type:'feeds.inherit'}],
+])('preserves existing inheritance with semantic %s command %j',(family,change)=>{
+ const input={...base,family,changes:[change]};expect(NewsBriefingCommandSchema.parse(input)).toEqual(input);
+});
+it('carries canonical origins without accepting browser Master authority',()=>{
+ const value={family:'news',scope,version:2,settings,effective:null,execution:'running',inheritance:[{key:'hoursBack',origin:{kind:'master',source:{tenantId:scope.tenantId,ownerId:scope.ownerId,masterId:'master-a',version:4}}}]};
+ expect(NewsBriefingStateSchema.parse(value)).toEqual(value);
+ for(const change of [{type:'parameter.follow-master',key:'recipients'},{type:'parameter.follow-master',key:'hoursBack',masterId:'forged'},{type:'feeds.inherit'}])expect(NewsBriefingCommandSchema.safeParse({...base,family:'news',changes:[change]}).success).toBe(false);
+});

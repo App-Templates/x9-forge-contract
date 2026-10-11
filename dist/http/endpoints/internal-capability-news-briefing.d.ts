@@ -126,6 +126,40 @@ export declare const NewsBriefingCommandResultSchema: z.ZodObject<{
                 reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
+        inheritance: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                cronSchedule: "cronSchedule";
+                rules: "rules";
+            }> | z.ZodEnum<{
+                feeds: "feeds";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"platform_default">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"agent_override">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"needs_choice">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"master">;
+                source: z.ZodObject<{
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                    masterId: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">;
+        }, z.core.$strict>>>;
     }, z.core.$strict>, z.ZodObject<{
         family: z.ZodLiteral<"briefing">;
         scope: z.ZodObject<{
@@ -295,6 +329,40 @@ export declare const NewsBriefingCommandResultSchema: z.ZodObject<{
                 reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
+        inheritance: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                cronSchedule: "cronSchedule";
+                rules: "rules";
+            }> | z.ZodEnum<{
+                feeds: "feeds";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"platform_default">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"agent_override">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"needs_choice">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"master">;
+                source: z.ZodObject<{
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                    masterId: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">;
+        }, z.core.$strict>>>;
     }, z.core.$strict>], "family">;
 }, z.core.$strict>;
 export declare const capNewsBriefingSettingsPath: (agentId: string) => string;
@@ -428,6 +496,40 @@ export declare const newsBriefingSettingsGetContract: {
                 reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
+        inheritance: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                cronSchedule: "cronSchedule";
+                rules: "rules";
+            }> | z.ZodEnum<{
+                feeds: "feeds";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"platform_default">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"agent_override">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"needs_choice">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"master">;
+                source: z.ZodObject<{
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                    masterId: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">;
+        }, z.core.$strict>>>;
     }, z.core.$strict>, z.ZodObject<{
         family: z.ZodLiteral<"briefing">;
         scope: z.ZodObject<{
@@ -597,6 +699,40 @@ export declare const newsBriefingSettingsGetContract: {
                 reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
+        inheritance: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                cronSchedule: "cronSchedule";
+                rules: "rules";
+            }> | z.ZodEnum<{
+                feeds: "feeds";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"platform_default">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"agent_override">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"needs_choice">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"master">;
+                source: z.ZodObject<{
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                    masterId: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">;
+        }, z.core.$strict>>>;
     }, z.core.$strict>], "family">;
 };
 export declare const newsBriefingSettingsPostContract: {
@@ -668,6 +804,22 @@ export declare const newsBriefingSettingsPostContract: {
             id: z.ZodString;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"legacy.adopt">;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"parameter.follow-master">;
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                cronSchedule: "cronSchedule";
+                rules: "rules";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"parameter.override">;
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                hoursBack: "hoursBack";
+                cronSchedule: "cronSchedule";
+                rules: "rules";
+            }>;
         }, z.core.$strict>], "type">>;
         scope: z.ZodObject<{
             agentId: z.ZodString;
@@ -783,6 +935,36 @@ export declare const newsBriefingSettingsPostContract: {
             id: z.ZodString;
         }, z.core.$strict>, z.ZodObject<{
             type: z.ZodLiteral<"legacy.adopt">;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"parameter.follow-master">;
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"parameter.override">;
+            key: z.ZodEnum<{
+                feeds: "feeds";
+                categoryWeights: "categoryWeights";
+                greeting: "greeting";
+                tone: "tone";
+                maxWords: "maxWords";
+                promptStyle: "promptStyle";
+                structure: "structure";
+                cronSchedule: "cronSchedule";
+                newsCronSchedule: "newsCronSchedule";
+                rules: "rules";
+            }>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"feeds.inherit">;
         }, z.core.$strict>], "type">>;
         scope: z.ZodObject<{
             agentId: z.ZodString;
@@ -910,6 +1092,40 @@ export declare const newsBriefingSettingsPostContract: {
                     reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
                 }, z.core.$strict>>;
             }, z.core.$strict>>;
+            inheritance: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodEnum<{
+                    feeds: "feeds";
+                    hoursBack: "hoursBack";
+                    cronSchedule: "cronSchedule";
+                    rules: "rules";
+                }> | z.ZodEnum<{
+                    feeds: "feeds";
+                    categoryWeights: "categoryWeights";
+                    greeting: "greeting";
+                    tone: "tone";
+                    maxWords: "maxWords";
+                    promptStyle: "promptStyle";
+                    structure: "structure";
+                    cronSchedule: "cronSchedule";
+                    newsCronSchedule: "newsCronSchedule";
+                    rules: "rules";
+                }>;
+                origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"platform_default">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"agent_override">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"needs_choice">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"master">;
+                    source: z.ZodObject<{
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                        masterId: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>, z.ZodObject<{
             family: z.ZodLiteral<"briefing">;
             scope: z.ZodObject<{
@@ -1079,6 +1295,40 @@ export declare const newsBriefingSettingsPostContract: {
                     reason: z.ZodOptional<z.ZodLiteral<"invalid-legacy-value">>;
                 }, z.core.$strict>>;
             }, z.core.$strict>>;
+            inheritance: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodEnum<{
+                    feeds: "feeds";
+                    hoursBack: "hoursBack";
+                    cronSchedule: "cronSchedule";
+                    rules: "rules";
+                }> | z.ZodEnum<{
+                    feeds: "feeds";
+                    categoryWeights: "categoryWeights";
+                    greeting: "greeting";
+                    tone: "tone";
+                    maxWords: "maxWords";
+                    promptStyle: "promptStyle";
+                    structure: "structure";
+                    cronSchedule: "cronSchedule";
+                    newsCronSchedule: "newsCronSchedule";
+                    rules: "rules";
+                }>;
+                origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"platform_default">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"agent_override">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"needs_choice">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"master">;
+                    source: z.ZodObject<{
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                        masterId: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">;
+            }, z.core.$strict>>>;
         }, z.core.$strict>], "family">;
     }, z.core.$strict>;
 };
@@ -1149,6 +1399,12 @@ export declare function parseNewsBriefingCommand(input: unknown, authority: {
         id: string;
     } | {
         type: "legacy.adopt";
+    } | {
+        type: "parameter.follow-master";
+        key: "feeds" | "hoursBack" | "cronSchedule" | "rules";
+    } | {
+        type: "parameter.override";
+        key: "feeds" | "hoursBack" | "cronSchedule" | "rules";
     })[];
     scope: {
         agentId: string;
@@ -1252,6 +1508,14 @@ export declare function parseNewsBriefingCommand(input: unknown, authority: {
             };
             condition: import("../../capability/index.js").Condition;
         };
+    } | {
+        type: "parameter.follow-master";
+        key: "feeds" | "categoryWeights" | "greeting" | "tone" | "maxWords" | "promptStyle" | "structure" | "cronSchedule" | "newsCronSchedule" | "rules";
+    } | {
+        type: "parameter.override";
+        key: "feeds" | "categoryWeights" | "greeting" | "tone" | "maxWords" | "promptStyle" | "structure" | "cronSchedule" | "newsCronSchedule" | "rules";
+    } | {
+        type: "feeds.inherit";
     })[];
     scope: {
         agentId: string;

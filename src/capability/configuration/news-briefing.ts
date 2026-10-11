@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
 import { AgentManagementRequestIdSchema } from '../../agent/agent-model-management-values.js';
 import { AgentConfigVersionSchema } from '../ricerca/agent-config.js';
-import { sameOrdinaryData } from '../ordinary-configuration.js';
+import { CapabilityOrdinaryOriginSchema, sameOrdinaryData } from '../ordinary-configuration.js';
 import { BriefingFeedsSchema, NewsFeedsSchema } from './feeds.js';
 import { BriefingSettingsSchema } from './briefing.js';
 import { BriefingRuleSchema, BriefingRulesSchema, NewsRuleSchema, NewsRulesSchema } from './rules.js';
@@ -46,20 +46,25 @@ const briefingPatch = BriefingManagedSettingsSchema.omit({ feeds: true, rules: t
 export const NewsRuleDraftSchema = NewsRuleSchema.pick({ condition: true, action: true, description: true }).strict();
 export const BriefingRuleDraftSchema = BriefingRuleSchema.pick({ condition: true, action: true, description: true }).strict();
 const adoptLegacy = z.object({ type: z.literal('legacy.adopt') }).strict();
+const newsKeys = NewsSettingsSchema.keyof();
+const briefingKeys = BriefingManagedSettingsSchema.keyof();
+const followMaster = <S extends z.ZodType>(keys: S) => z.object({ type: z.literal('parameter.follow-master'), key: keys }).strict();
+const override = <S extends z.ZodType>(keys: S) => z.object({ type: z.literal('parameter.override'), key: keys }).strict();
 const removeRule = z.object({ type: z.literal('rule.remove'), id: NewsRuleSchema.shape.id }).strict();
 export const NewsChangeSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('settings.patch'), settings: newsPatch }).strict(),
   z.object({ type: z.literal('feeds.replace'), feeds: NewsManagedFeedsSchema }).strict(),
   z.object({ type: z.literal('rule.add'), rule: NewsRuleDraftSchema }).strict(),
   z.object({ type: z.literal('rule.update'), id: NewsRuleSchema.shape.id, rule: NewsRuleDraftSchema }).strict(),
-  removeRule, adoptLegacy,
+  removeRule, adoptLegacy, followMaster(newsKeys), override(newsKeys),
 ]);
 export const BriefingChangeSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('settings.patch'), settings: briefingPatch }).strict(),
   z.object({ type: z.literal('feeds.replace'), feeds: BriefingManagedFeedsSchema }).strict(),
   z.object({ type: z.literal('rule.add'), rule: BriefingRuleDraftSchema }).strict(),
   z.object({ type: z.literal('rule.update'), id: BriefingRuleSchema.shape.id, rule: BriefingRuleDraftSchema }).strict(),
-  removeRule, adoptLegacy,
+  removeRule, adoptLegacy, followMaster(briefingKeys), override(briefingKeys),
+  z.object({ type: z.literal('feeds.inherit') }).strict(),
 ]);
 const command = {
   scope: CapabilityAgentScopeSchema,
@@ -97,6 +102,7 @@ function state<S extends z.ZodType, F extends 'news' | 'briefing'>(family: F, se
     effective: z.object({ version: AgentConfigVersionSchema, settings, observedAt: z.iso.datetime({ offset: true }) }).strict().nullable(),
     execution: z.enum(['running', 'stopped', 'unknown']),
     adoption: NewsBriefingAdoptionSchema.optional(),
+    inheritance: z.array(z.object({ key: family === 'news' ? newsKeys : briefingKeys, origin: CapabilityOrdinaryOriginSchema }).strict()).max(11).refine(values => new Set(values.map(value => value.key)).size === values.length, 'Duplicate inherited parameter').optional(),
   }).strict();
 }
 export const NewsBriefingStateSchema = z.discriminatedUnion('family', [
