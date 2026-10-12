@@ -24,4 +24,4 @@ Artifact: chat outputs/bridge-compose-1210/x9-forge-contracts-1.47.0-composed.tg
 One local package imports initial Models, News/Briefing, Native and Coach; synthetic production-shaped payloads pass.
 Initial observations stay read-only and reject CAS0; native/browser and Master scope boundaries remain enforced.
 Consumer adoption and real-provider/PWA flow are not verified here; independent D review and coordinator control2 remain.
-Manual additions today: product0 lines; new tests108 lines; PLAN+SUMMARY+new CHANGELOG entry50 lines; imported/generated excluded.
+Manual additions today: product0 lines; new tests108 lines; PLAN14+SUMMARY27+new CHANGELOG entry7=48 lines; imported/generated excluded.
