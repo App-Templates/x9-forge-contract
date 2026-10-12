@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — approved contract composition (version remains 1.47.0)
+
+- Merge initial read-only models (524b5fad), c.3 News/Briefing (e45f815) and Native/Coach/browser (d98c0c05), retaining their history.
+- Preserve all 18 existing internal actions and TTS_PROVIDER; add the five approved C actions: news_digest, news_digest_topic, calendar_today, calendar_week, lab_execute.
+- Retain positive model CAS, scoped ordinary configuration and authenticated browser/native boundaries; rebuild ESM/CJS and portable Python from the combined source.
+- Local candidate only: consumer pins, adoption and live verification remain separate.
+
 ## v1.47.0 — rilascio unico: Chiavi (1.44.3) + Modelli (27fa07d, 1.45.0) + Paperclip (main 1.45.0)
 
 Composizione senza nuovi contratti: unisce le tre linee, nessun simbolo rimosso (verificato su ogni sottopercorso,

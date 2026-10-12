@@ -172,8 +172,8 @@ export declare const ElevenLabsNativeToolReferenceSchema: z.ZodObject<{
     name: z.ZodString;
     kind: z.ZodEnum<{
         system: "system";
-        webhook: "webhook";
         client: "client";
+        webhook: "webhook";
     }>;
 }, z.core.$strict>;
 //# sourceMappingURL=native-tools.d.ts.map

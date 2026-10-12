@@ -97,7 +97,7 @@ export const ElevenLabsNativeCallbackReceiptSchema = z.object({
     receivedAt: Instant, inboxStatus: z.enum(['accepted', 'duplicate']), effectStatus: z.enum(['pending', 'applied', 'rejected']),
 }).strict().refine(x => x.callback.providerConversationId === x.binding.providerConversationId
     && x.callback.providerAgentId === x.binding.binding.mapping.providerAgentId
-    && Date.parse(x.callback.occurredAt) >= Date.parse(x.binding.attachedAt) && Date.parse(x.receivedAt) >= Date.parse(x.callback.occurredAt), 'Inbox receipt does not itself mean an applied effect');
+    && Date.parse(x.callback.occurredAt) >= Date.parse(x.binding.binding.boundAt) && Date.parse(x.receivedAt) >= Date.parse(x.callback.occurredAt), 'Inbox receipt does not itself mean an applied effect');
 export function isElevenLabsNativeCallbackCurrent(raw, rawBinding, now, maxSkewSeconds = 300) {
     const receipt = ElevenLabsNativeCallbackReceiptSchema.safeParse(raw), binding = ElevenLabsNativeConversationBindingSchema.safeParse(rawBinding), time = now.getTime();
     return receipt.success && binding.success && Number.isFinite(time) && Number.isInteger(maxSkewSeconds) && maxSkewSeconds > 0 && maxSkewSeconds <= 300

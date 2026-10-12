@@ -74,3 +74,5 @@ export * from './endpoints/coach-operational-read.js';
 
 export * from './endpoints/native-channel.js';
 export * from './endpoints/internal-capability-news-briefing.js';
+
+export * from './endpoints/coach-operational-authority.js';

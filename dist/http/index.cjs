@@ -57,4 +57,5 @@ __exportStar(require("./endpoints/coach-operational-write.cjs"), exports);
 __exportStar(require("./endpoints/coach-operational-read.cjs"), exports);
 __exportStar(require("./endpoints/native-channel.cjs"), exports);
 __exportStar(require("./endpoints/internal-capability-news-briefing.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-authority.cjs"), exports);
 //# sourceMappingURL=index.js.map

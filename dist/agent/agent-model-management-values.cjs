@@ -5,8 +5,8 @@ exports.deriveAgentManagementOutcome = deriveAgentManagementOutcome;
 const zod_1 = require("zod");
 const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 /** Shared management values initialize before model authority, preserving public module cycles. */
-/** Caller-chosen idempotency key, unique per intended command (e.g. a UUID). */
-exports.AgentManagementRequestIdSchema = zod_1.z.string().min(8).max(128).regex(/^[A-Za-z0-9][A-Za-z0-9._:-]*$/);
+var agent_management_request_id_js_1 = require("./agent-management-request-id.cjs");
+Object.defineProperty(exports, "AgentManagementRequestIdSchema", { enumerable: true, get: function () { return agent_management_request_id_js_1.AgentManagementRequestIdSchema; } });
 exports.AgentManagementOutcomeSchema = zod_1.z.enum(['ok', 'error', 'unmanageable']);
 exports.AgentManagementOverallOutcomeSchema = zod_1.z.enum(['ok', 'partial', 'error', 'unmanageable']);
 exports.AgentManagementReasonCodeSchema = zod_1.z.enum([

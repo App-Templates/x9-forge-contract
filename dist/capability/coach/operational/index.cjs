@@ -23,4 +23,5 @@ __exportStar(require("./conversation.cjs"), exports);
 __exportStar(require("./execution.cjs"), exports);
 __exportStar(require("./closing.cjs"), exports);
 __exportStar(require("./observations.cjs"), exports);
+__exportStar(require("./authority.cjs"), exports);
 //# sourceMappingURL=index.js.map

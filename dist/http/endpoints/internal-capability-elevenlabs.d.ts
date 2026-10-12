@@ -36,8 +36,8 @@ export declare const elevenLabsProvisionContract: {
             tools: z.ZodArray<z.ZodObject<{
                 name: z.ZodString;
                 kind: z.ZodEnum<{
-                    webhook: "webhook";
                     client: "client";
+                    webhook: "webhook";
                 }>;
                 description: z.ZodString;
             }, z.core.$strict>>;

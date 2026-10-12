@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import { CapabilityToolSchema } from "../capability-tool.js";
-import { CredentialKeySchema } from "../../vault/credential-link.js";
-import { RefId, Text128 } from "../coach/shared.js";
+import { CredentialKeySchema } from "../../vault/credential-key.js";
+import { AgentManagementRequestIdSchema as RefId } from "../../agent/agent-management-request-id.js";
+import { Text128 } from "../coach/text.js";
 const description = z.string().max(4000).optional();
 const ElevenLabsNativeInputPropertySchema = z.lazy(() => z.discriminatedUnion('type', [
     z.object({ type: z.literal('string'), description, enum: z.array(z.string().max(500)).min(1).max(128).refine(x => new Set(x).size === x.length).optional(), minLength: z.number().int().nonnegative().max(65536).optional(), maxLength: z.number().int().nonnegative().max(65536).optional() }).strict(),
