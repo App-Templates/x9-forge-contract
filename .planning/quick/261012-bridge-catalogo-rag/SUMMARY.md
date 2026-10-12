@@ -28,4 +28,4 @@ Confronto cataloghi: 14/15 descrittori identici, 12/12 supportati identici; conf
 | Elemento | Cosa si costruisce | Come si prova | Esito |
 | --- | --- | --- | --- |
 | Catalogo portabile | Verifica/proposta, nessuna modifica eseguibile | Confronto 15 forme, TS/Python | fatto: 12/12 supportate identiche; TS5/5 Python15/15 |
-Righe scritte oggi: prodotto 0, test 0, documenti 49. Review indipendente richiesta a F.
+Righe scritte oggi: prodotto 0, test 0, documenti 51. Review indipendente richiesta a F.

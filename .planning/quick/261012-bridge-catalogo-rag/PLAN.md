@@ -4,8 +4,10 @@
 **Esiste già?** Sì: generatore Python, catalogo canonico e test portabili.
 **Dove vive oggi:** `scripts/generate-portable-capability-contracts.mjs:1`, `src/capability/portable-contracts.ts:112`.
 **Come funziona oggi:** il generatore incorpora catalogo e digest nel template Python; le forme gated restano escluse.
-**Vecchio Forge:** non pertinente, nessuna pagina o flusso UI cambia.
-**Si riscrive?** No. **Cambia come funziona lo stack?** No: verifica della composizione approvata.
+**Vecchio Forge:** non esisteva: il catalogo portabile Python è un artefatto del bridge, senza pagina Forge.
+**Comportamento da mantenere:** tutte le forme RAG/lifecycle portabili già approvate restano ammesse con gli stessi vincoli.
+**Cosa si riusa:** generatore, template e test canonici portabili del bridge.
+**Si riscrive?** No. **Cambia come funziona lo stack?** no: verifica della composizione approvata.
 
 ## Fruibilità (R-34)
 **Aspettativa:** rag_query e lifecycle ordinario mantengono le forme portabili già approvate.
