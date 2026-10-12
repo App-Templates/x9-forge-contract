@@ -7,7 +7,7 @@
 **Vecchio Forge:** non esisteva: il catalogo portabile Python è un artefatto del bridge, senza pagina Forge.
 **Comportamento da mantenere:** tutte le forme RAG/lifecycle portabili già approvate restano ammesse con gli stessi vincoli.
 **Cosa si riusa:** generatore, template e test canonici portabili del bridge.
-**Si riscrive?** No.
+**Si riscrive?** no: si riusa il generatore e il runtime canonico già esistente.
 **Cambia come funziona lo stack?** no: verifica della composizione approvata.
 
 ## Fruibilità (R-34)
