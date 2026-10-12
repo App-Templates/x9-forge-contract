@@ -19,12 +19,13 @@ Prove: `vitest run tests/capability/portable-contracts.test.ts --maxWorkers=1 --
 `tsc --noEmit --tsBuildInfoFile /private/tmp/bridge-catalogo-rag-1210/types.tsbuildinfo`: uscita 0.
 Confronto cataloghi: 14/15 descrittori identici, 12/12 supportati identici; confronto runtime: codice identico.
 ## Fruibilità alla consegna (R-34)
-**Aspettativa:** rag_query e lifecycle ordinario conservano le forme portabili approvate. **Tavola:** non serve.
+**La feature è completa?** Verifica bridge completata; integrazione consumer/rilascio restano alla coordinatrice/C.
+**Cosa ne impedisce l'uso?** Il consumer deve incorporare l'artefatto selezionato; C riferisce allineamento e 22/22 ordinary.
+**Prova del percorso dell'utente:** import Python e validazione RAG/lifecycle con dati sintetici canonici; nessuna prova dal vivo.
 ## Corrispondenza aspettativa e tavola (R-34)
-| Aspettativa | Esito |
-| --- | --- |
-| rag_query e lifecycle invariati | Provati localmente: test TS 5/5 e Python 15/15; nessuna verifica dal vivo |
-**La feature è completa?** Verifica bridge completata; integrazione consumer e rilascio restano alla coordinatrice/C.
-**Cosa ne impedisce l’uso?** Il consumer deve incorporare l’artefatto del bridge che seleziona; configuration resta esclusa.
-**Prova del percorso dell’utente:** import Python e validazione RAG/lifecycle con dati sintetici canonici.
-Righe scritte oggi: prodotto 0, test 0, documenti 48. Review indipendente richiesta a F.
+**Aspettativa:** non serve: verifica tecnica della composizione già approvata, nessun nuovo comportamento utente.
+**Tavola:** non serve: nessuna UI nuova.
+| Elemento | Cosa si costruisce | Come si prova | Esito |
+| --- | --- | --- | --- |
+| Catalogo portabile | Verifica/proposta, nessuna modifica eseguibile | Confronto 15 forme, TS/Python | 12/12 supportate identiche; TS5/5 Python15/15 |
+Righe scritte oggi: prodotto 0, test 0, documenti 49. Review indipendente richiesta a F.
