@@ -24,8 +24,8 @@ Confronto cataloghi: 14/15 descrittori identici, 12/12 supportati identici; conf
 **Prova del percorso dell'utente:** import Python e validazione RAG/lifecycle con dati sintetici canonici; nessuna prova dal vivo.
 ## Corrispondenza aspettativa e tavola (R-34)
 **Aspettativa:** non serve: verifica tecnica della composizione già approvata, nessun nuovo comportamento utente.
-**Tavola:** non serve: nessuna UI nuova.
+**Tavola:** non serve: verifica tecnica di cataloghi senza nuova interfaccia utente.
 | Elemento | Cosa si costruisce | Come si prova | Esito |
 | --- | --- | --- | --- |
-| Catalogo portabile | Verifica/proposta, nessuna modifica eseguibile | Confronto 15 forme, TS/Python | 12/12 supportate identiche; TS5/5 Python15/15 |
+| Catalogo portabile | Verifica/proposta, nessuna modifica eseguibile | Confronto 15 forme, TS/Python | fatto: 12/12 supportate identiche; TS5/5 Python15/15 |
 Righe scritte oggi: prodotto 0, test 0, documenti 49. Review indipendente richiesta a F.
