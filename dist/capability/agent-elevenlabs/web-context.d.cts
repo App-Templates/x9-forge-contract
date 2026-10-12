@@ -45,8 +45,8 @@ export declare const ElevenLabsWebAuthoritySnapshotSchema: z.ZodObject<{
     lifecycle: z.ZodEnum<{
         unavailable: "unavailable";
         active: "active";
-        archived: "archived";
         removed: "removed";
+        archived: "archived";
     }>;
     configuredOrigin: z.ZodURL;
     authorityVersion: z.ZodNumber;
@@ -126,8 +126,8 @@ export declare const ElevenLabsWebAuthorityResponseSchema: z.ZodDiscriminatedUni
         lifecycle: z.ZodEnum<{
             unavailable: "unavailable";
             active: "active";
-            archived: "archived";
             removed: "removed";
+            archived: "archived";
         }>;
         configuredOrigin: z.ZodURL;
         authorityVersion: z.ZodNumber;
@@ -197,8 +197,8 @@ export declare const ElevenLabsWebAuthorityResponseSchema: z.ZodDiscriminatedUni
         lifecycle: z.ZodEnum<{
             unavailable: "unavailable";
             active: "active";
-            archived: "archived";
             removed: "removed";
+            archived: "archived";
         }>;
         configuredOrigin: z.ZodURL;
         authorityVersion: z.ZodNumber;

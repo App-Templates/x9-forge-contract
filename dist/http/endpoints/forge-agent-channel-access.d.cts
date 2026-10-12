@@ -222,8 +222,8 @@ export declare const ForgeAgentChannelAccessPreviewSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -326,8 +326,8 @@ export declare const ForgeAgentChannelAccessPreviewSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -504,8 +504,8 @@ export declare const forgeAgentChannelAccessSnapshotContract: {
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -608,8 +608,8 @@ export declare const forgeAgentChannelAccessSnapshotContract: {
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -892,8 +892,8 @@ export declare const forgeAgentChannelAccessPreviewContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -996,8 +996,8 @@ export declare const forgeAgentChannelAccessPreviewContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -1273,8 +1273,8 @@ export declare const forgeAgentChannelAccessApplyContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -1377,8 +1377,8 @@ export declare const forgeAgentChannelAccessApplyContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;

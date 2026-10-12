@@ -20,7 +20,7 @@ export const AGENT_CORE_MODEL_CONSUMER = Object.freeze({
 /** Current execution scope and change boundary; registration is not installation evidence. */
 export const ModelConsumerDefinitionSchema = ModelConsumerSchema.extend({
     label: z.string().trim().min(1).max(120),
-    inventoryIds: z.array(z.string().regex(/^C(?:0[1-9]|[12][0-9]|3[0-4])$/)).min(1).max(34)
+    inventoryIds: z.array(z.string().regex(/^C(?:0[1-9]|[12][0-9]|3[0-5])$/)).min(1).max(35)
         .refine(ids => new Set(ids).size === ids.length, { message: 'Unique inventory references' }),
     scope: z.enum(['agent', 'service', 'session', 'remote-agent', 'pipeline']),
     changeBoundary: z.enum(['next-turn', 'next-call', 'next-session', 'rebuild', 'remote-update']),
@@ -64,6 +64,7 @@ const definitions = [
     { slotId: 'mindfulness_chat', capability: 'mindfulness', function: 'reasoning', requirements: { ...noFeatures }, inventoryIds: ['C32'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
     { slotId: 'mindfulness_tts', capability: 'mindfulness', function: 'tts', requirements: { ...noFeatures }, inventoryIds: ['C33'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
     { slotId: 'mindfulness_stt', capability: 'mindfulness', function: 'transcription', requirements: { ...noFeatures }, inventoryIds: ['C34'], scope: 'pipeline', changeBoundary: 'next-session', routing: 'single' },
+    { slotId: 'lab_digest', capability: 'lab', function: 'reasoning', requirements: { ...noFeatures, structuredOutput: true }, inventoryIds: ['C35'], scope: 'agent', changeBoundary: 'next-call', routing: 'single' },
 ].map(value => ModelConsumerDefinitionSchema.parse({ ...value, label: value.slotId.split('_').map(word => word[0].toUpperCase() + word.slice(1)).join(' ') }));
 const consumers = ModelConsumerRegistrySchema.parse(definitions.map(({ slotId, capability, function: fn, requirements }) => ({ slotId, capability, function: fn, requirements })));
 /** Detached reads prevent one caller from changing another caller's binding or requirements. */

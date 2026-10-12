@@ -81,3 +81,7 @@ export * from './internal-agent-voice-source.js';
 export * from './internal-agent-model-source-observation.js';
 
 export * from './forge-master-model-authority.js';
+
+export * from './internal-agents-ordinary-authority.js';
+export * from './forge-elevenlabs-web.js';
+export * from './internal-agent-address-book.js';

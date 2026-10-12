@@ -80,4 +80,7 @@ __exportStar(require("./internal-agent-tool-dispatch.cjs"), exports);
 __exportStar(require("./internal-agent-voice-source.cjs"), exports);
 __exportStar(require("./internal-agent-model-source-observation.cjs"), exports);
 __exportStar(require("./forge-master-model-authority.cjs"), exports);
+__exportStar(require("./internal-agents-ordinary-authority.cjs"), exports);
+__exportStar(require("./forge-elevenlabs-web.cjs"), exports);
+__exportStar(require("./internal-agent-address-book.cjs"), exports);
 //# sourceMappingURL=index.js.map

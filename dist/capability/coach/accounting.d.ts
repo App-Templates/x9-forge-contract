@@ -1,0 +1,112 @@
+import { z } from 'zod';
+export declare const CoachProviderUsageSchema: z.ZodObject<{
+    providerConversationId: z.ZodString;
+    callStartedAt: z.ZodISODateTime;
+    callEndedAt: z.ZodISODateTime;
+    billableSeconds: z.ZodNullable<z.ZodNumber>;
+    durationSeconds: z.ZodNullable<z.ZodNumber>;
+    source: z.ZodEnum<{
+        unavailable: "unavailable";
+        pending: "pending";
+        "provider-report": "provider-report";
+        "transcript-lower-bound": "transcript-lower-bound";
+        estimate: "estimate";
+    }>;
+    sourceRef: z.ZodNullable<z.ZodString>;
+    confidence: z.ZodNullable<z.ZodNumber>;
+    observedAt: z.ZodISODateTime;
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>;
+    sessionId: z.ZodString;
+    openingId: z.ZodString;
+    snapshotId: z.ZodNullable<z.ZodString>;
+    usageId: z.ZodString;
+}, z.core.$strict>;
+export type CoachProviderUsage = z.infer<typeof CoachProviderUsageSchema>;
+export declare const CoachPracticeObservationSchema: z.ZodObject<{
+    snapshotId: z.ZodString;
+    startedAt: z.ZodISODateTime;
+    endedAt: z.ZodISODateTime;
+    guidedSeconds: z.ZodNumber;
+    wakeSeconds: z.ZodNumber;
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>;
+    sessionId: z.ZodString;
+    openingId: z.ZodString;
+    observationId: z.ZodString;
+}, z.core.$strict>;
+export type CoachPracticeObservation = z.infer<typeof CoachPracticeObservationSchema>;
+export declare const CoachSessionAccountingSchema: z.ZodObject<{
+    usage: z.ZodNullable<z.ZodObject<{
+        providerConversationId: z.ZodString;
+        callStartedAt: z.ZodISODateTime;
+        callEndedAt: z.ZodISODateTime;
+        billableSeconds: z.ZodNullable<z.ZodNumber>;
+        durationSeconds: z.ZodNullable<z.ZodNumber>;
+        source: z.ZodEnum<{
+            unavailable: "unavailable";
+            pending: "pending";
+            "provider-report": "provider-report";
+            "transcript-lower-bound": "transcript-lower-bound";
+            estimate: "estimate";
+        }>;
+        sourceRef: z.ZodNullable<z.ZodString>;
+        confidence: z.ZodNullable<z.ZodNumber>;
+        observedAt: z.ZodISODateTime;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        sessionId: z.ZodString;
+        openingId: z.ZodString;
+        snapshotId: z.ZodNullable<z.ZodString>;
+        usageId: z.ZodString;
+    }, z.core.$strict>>;
+    practice: z.ZodNullable<z.ZodObject<{
+        snapshotId: z.ZodString;
+        startedAt: z.ZodISODateTime;
+        endedAt: z.ZodISODateTime;
+        guidedSeconds: z.ZodNumber;
+        wakeSeconds: z.ZodNumber;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        sessionId: z.ZodString;
+        openingId: z.ZodString;
+        observationId: z.ZodString;
+    }, z.core.$strict>>;
+    outcome: z.ZodEnum<{
+        completed: "completed";
+        abandoned: "abandoned";
+        interrupted: "interrupted";
+    }>;
+    progressionCredit: z.ZodBoolean;
+    strategy: z.ZodObject<{
+        strategyId: z.ZodString;
+        strategyVersion: z.ZodString;
+    }, z.core.$strict>;
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>;
+    sessionId: z.ZodString;
+    openingId: z.ZodString;
+    snapshotId: z.ZodNullable<z.ZodString>;
+}, z.core.$strict>;
+export type CoachSessionAccounting = z.infer<typeof CoachSessionAccountingSchema>;
+//# sourceMappingURL=accounting.d.ts.map

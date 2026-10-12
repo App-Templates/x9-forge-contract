@@ -134,7 +134,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "zshy && node scripts/check-portable-dts.mjs",
+    "build": "zshy && node scripts/check-portable-dts.mjs && node scripts/generate-portable-capability-contracts.mjs",
     "check:dts": "node scripts/check-portable-dts.mjs",
     "check:pack": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
     "validate": "pnpm build && pnpm check:pack && pnpm test",

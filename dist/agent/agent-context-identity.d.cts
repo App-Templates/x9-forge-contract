@@ -202,8 +202,8 @@ export declare const AgentContextWithIdentitySchema: z.ZodDiscriminatedUnion<[z.
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -521,8 +521,8 @@ export declare const AgentContextWithIdentitySchema: z.ZodDiscriminatedUnion<[z.
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -843,8 +843,8 @@ export declare const AgentContextWithIdentityWriteSchema: z.ZodDiscriminatedUnio
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -1162,8 +1162,8 @@ export declare const AgentContextWithIdentityWriteSchema: z.ZodDiscriminatedUnio
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;

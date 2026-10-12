@@ -37,11 +37,14 @@ export type CapabilityContextDeclaration = z.infer<typeof CapabilityContextDecla
 
 export const CapabilityContextRequestSchema = z.object({
   agentId: z.string().min(1),
+  /** Full agent scope for managed consumers; both fields are present or absent. */
+  tenantId: InternalMemoryExtractRequestSchema.shape.tenantId.optional(),
+  ownerId: InternalMemoryExtractRequestSchema.shape.ownerId.optional(),
   sessionId: z.string().min(1),
   /** Scope of the authenticated end user's context; absent preserves agent scope. */
   userId: InternalMemoryExtractRequestSchema.shape.userId,
   channelId: z.string().min(1).optional(),
-});
+}).refine(value => (value.tenantId === undefined) === (value.ownerId === undefined), { message: 'Incomplete managed context scope' });
 export type CapabilityContextRequest = z.infer<typeof CapabilityContextRequestSchema>;
 
 export const CapabilityContextResponseSchema = z.object({

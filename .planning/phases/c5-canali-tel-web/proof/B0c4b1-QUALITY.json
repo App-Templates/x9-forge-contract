@@ -1,0 +1,22 @@
+[
+  {
+    "check": "full",
+    "exitCode": 0
+  },
+  {
+    "check": "typecheck",
+    "exitCode": 0
+  },
+  {
+    "check": "lint",
+    "exitCode": 0
+  },
+  {
+    "check": "build",
+    "exitCode": 0
+  },
+  {
+    "check": "pack",
+    "exitCode": 0
+  }
+]

@@ -8,7 +8,7 @@ const descriptor={provider:'openai',modelId:'synthetic-model',protocol:'chat-com
 const settings={capability:'agent-core',function:'reasoning',catalogVersion:'synthetic-catalog',requirements:{tools:false,stream:false,structuredOutput:false},mode:'single',descriptor};
 for(const [label,api] of [['CJS-root',require('@x9-forge/contracts')],['CJS-router',require('@x9-forge/contracts/model-router')],['ESM-root',await import('../../dist/index.js')],['ESM-router',await import('../../dist/model-router/index.js')]]){
  for(const name of ['AgentModelSourceObservationSchema','isAgentModelSourceObservationCurrent','isAgentModelCommandSourceCurrent','registeredModelConsumerDefinitions','findModelConsumerDefinition','ModelConsumerInstallRequestSchema','ModelConsumerRuntimeStateSchema','ModelConsumerInstallReceiptSchema','isModelConsumerInstallConfirmed','isModelConsumerInstallRequestCurrent','isModelConsumerRouteRequestMatching','isAgentModelRuntimeConfigurationMatching','modelSettingsSelections','sameCapabilityModelSettings','AgentModelBootstrapSourceSchema','AgentModelBootstrapPreconditionSchema','modelConsumerTransportJsonSchemas']){assert.notEqual(Reflect.get(api,name),undefined,`${label}: ${name}`);passed++;}
- assert.equal(api.registeredModelConsumerDefinitions().length,34);passed++;
+ assert.equal(api.registeredModelConsumerDefinitions().length,35);passed++;
  assert.equal(api.findModelConsumerDefinition('qa_vision').requirements.vision,true);passed++;
  assert.equal(api.findModelConsumerDefinition('research_search').requirements.webSearch,true);passed++;
  assert.equal(api.findModelConsumerDefinition('voice_phone_live').requirements.stream,true);passed++;

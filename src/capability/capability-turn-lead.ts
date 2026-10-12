@@ -39,7 +39,7 @@ export const CapabilityTurnLeadDeclarationSchema = z.object({}).strict();
 export type CapabilityTurnLeadDeclaration = z.infer<typeof CapabilityTurnLeadDeclarationSchema>;
 
 /** Identity comes from the authenticated runtime; the single-company MVP uses the existing context envelope. */
-export const CapabilityTurnLeadRequestSchema = CapabilityContextRequestSchema.extend({
+export const CapabilityTurnLeadRequestSchema = CapabilityContextRequestSchema.safeExtend({
   turn: AgentTurnSchema,
 }).strict();
 export type CapabilityTurnLeadRequest = z.infer<typeof CapabilityTurnLeadRequestSchema>;

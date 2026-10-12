@@ -1,0 +1,200 @@
+{
+  "total": 24,
+  "qualified": 23,
+  "results": [
+    {
+      "name": "auth-parse",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "management",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "sa",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "owner",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "tenant",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "project-authorization",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "project-missing-source",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "project-private",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "action",
+      "exitCode": 0,
+      "tests": 13,
+      "functionalFailures": 0,
+      "otherFailures": 0,
+      "qualified": false
+    },
+    {
+      "name": "result-parse",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "request",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "version",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "recipient",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "created-state",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "revoked-id",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "revoked-state",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "receipt-revision",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "response-bound",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "session",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "ownership",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "path-validation",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "strict-13",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "strict-14",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "strict-21",
+      "exitCode": 1,
+      "tests": 13,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    }
+  ],
+  "restored": true,
+  "sha256": "3a9ba9ac9a4238af7c38b43dbda5ee4dbcd9b1044341c8d80fc473a9ce94683c"
+}

@@ -2,7 +2,7 @@ import type { z } from 'zod';
 import { AgentManagementParamsSchema } from './internal-agents-management.js';
 import { AgentChannelAccessErrorResponseSchema } from '../../agent/agent-channel-access-requests.js';
 import { AgentPhoneSnapshotSchema, AgentPhoneApplyCommandSchema, AgentPhoneApplyResultSchema,
-  AgentPhoneInboundRouteEventSchema, AgentPhoneRouteResultSchema } from '../../agent/agent-phone-commands.js';
+  AgentPhoneInboundRouteEventSchema, AgentPhoneRouteResultSchema, AgentPhoneRuntimeSnapshotSchema, AgentPhoneRuntimeApplyResultSchema, AgentPhoneRuntimeRouteResultSchema } from '../../agent/agent-phone-commands.js';
 
 export const AgentPhoneParamsSchema = AgentManagementParamsSchema.strict();
 export type AgentPhoneParams = z.infer<typeof AgentPhoneParamsSchema>;
@@ -28,3 +28,11 @@ function phonePath(template: string, agentId: string): string {
 }
 export function internalAgentPhonePath(agentId: string): string { return phonePath(internalAgentPhoneSnapshotContract.path, agentId); }
 export function internalAgentPhoneApplyPath(agentId: string): string { return phonePath(internalAgentPhoneApplyContract.path, agentId); }
+
+/**
+ * Runtime-only response views on the same private paths. Retained legacy exports describe older
+ * producers; new producers and Forge clients must adopt this view together. No archive default.
+ */
+export const internalAgentPhoneRuntimeSnapshotContract = { ...internalAgentPhoneSnapshotContract, responseSchema: AgentPhoneRuntimeSnapshotSchema } as const;
+export const internalAgentPhoneRuntimeApplyContract = { ...internalAgentPhoneApplyContract, responseSchema: AgentPhoneRuntimeApplyResultSchema } as const;
+export const internalAgentPhoneRuntimeRouteContract = { ...internalAgentPhoneRouteContract, responseSchema: AgentPhoneRuntimeRouteResultSchema } as const;

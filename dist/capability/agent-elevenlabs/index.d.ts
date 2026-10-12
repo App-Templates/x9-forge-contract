@@ -148,8 +148,8 @@ export declare const ElevenLabsChannelStatusSchema: z.ZodObject<{
         state: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
             paused: "paused";
         }>;
         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -230,8 +230,8 @@ export declare const ElevenLabsProvisionResultSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;

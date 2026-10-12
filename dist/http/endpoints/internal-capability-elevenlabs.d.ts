@@ -107,8 +107,8 @@ export declare const elevenLabsProvisionContract: {
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -166,8 +166,8 @@ export declare const elevenLabsStatusContract: {
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;

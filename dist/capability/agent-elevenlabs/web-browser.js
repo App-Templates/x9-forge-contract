@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
+import { isElevenLabsWebInvitationCurrent } from "./web-channel.js";
+import { ElevenLabsWebAdmissionSnapshotSchema, ElevenLabsWebViewerSchema, isElevenLabsWebLinkCurrent, canAdmitElevenLabsWebViewer } from "./web-session.js";
 import { isElevenLabsWebAuthorityUsable } from "./web-context.js";
 import { ElevenLabsWebSessionRequestSchema, ElevenLabsWebSessionResultSchema, ElevenLabsWebLinkSchema, isElevenLabsWebSessionCurrent, isElevenLabsWebSignedConnectionUrl } from "./web-session.js";
 /** Correlation only. Forge reloads viewer, owner, scope and admission evidence from its own server session. */
@@ -36,5 +39,54 @@ export function projectElevenLabsWebBrowserSession(evidence) {
         return null; // guard:projection-authority
     return ElevenLabsWebBrowserSessionSchema.parse({ ok: true, requestId: result.data.requestId, linkId: result.data.link.linkId,
         issuedAt: result.data.issuedAt, expiresAt: result.data.expiresAt, signedUrl: result.data.signedUrl }); // guard:projection-fields
+}
+/** Public pre-Start data for an already authorized viewer. Never contains a provider artifact or private identity. */
+export const ElevenLabsWebBrowserMetadataSchema = z.object({
+    ok: z.literal(true), linkId: ElevenLabsWebLinkSchema.shape.linkId,
+    displayName: z.string().trim().min(1).max(200),
+    state: z.enum(['ready', 'off', 'paused', 'unavailable']),
+    observedAt: z.iso.datetime({ offset: true }),
+}).strict();
+/** Fixed public failures: no provider details, scope, membership or diagnostics. */
+export const ElevenLabsWebBrowserErrorResponseSchema = z.object({
+    ok: z.literal(false),
+    error: z.enum(['invalid_request', 'authentication_required', 'access_denied', 'source_unavailable', 'session_in_progress']),
+}).strict();
+export function projectElevenLabsWebBrowserMetadata(evidence) {
+    const snapshot = ElevenLabsWebAdmissionSnapshotSchema.safeParse(evidence.snapshot);
+    const viewer = ElevenLabsWebViewerSchema.safeParse(evidence.viewer);
+    const scope = CapabilityAgentScopeSchema.safeParse(evidence.expectedScope);
+    const metadata = ElevenLabsWebBrowserMetadataSchema.safeParse({ ok: true, linkId: evidence.linkId,
+        displayName: evidence.displayName, state: 'unavailable', observedAt: evidence.observedAt });
+    if (!snapshot.success || !viewer.success || !scope.success || !metadata.success
+        || !isElevenLabsWebBrowserMetadataCurrent(metadata.data, evidence.linkId, evidence.now))
+        return null;
+    const { policy, link, provider, lifecycle, invitation, invitationRevision } = snapshot.data;
+    if (lifecycle !== 'active' || link.linkId !== metadata.data.linkId
+        || !isElevenLabsWebLinkCurrent(link, scope.data, evidence.configuredOrigin)
+        || Date.parse(link.createdAt) > evidence.now.getTime())
+        return null; // guard:metadata-binding
+    // Authorization is independent of readiness: an admitted viewer may see an off or paused channel.
+    const person = viewer.data;
+    const owner = person.kind === 'authenticated' && person.owner !== null
+        && person.owner.tenantId === policy.scope.tenantId && person.owner.ownerId === policy.scope.ownerId;
+    const invited = person.kind === 'authenticated' && policy.access === 'invited' && invitation !== null
+        && isElevenLabsWebInvitationCurrent(invitation, scope.data, person.userId, invitationRevision, evidence.now);
+    if (policy.access !== 'public' && !owner && !invited)
+        return null; // guard:metadata-access
+    const providerAge = provider.observedAt === null ? Infinity : evidence.now.getTime() - Date.parse(provider.observedAt);
+    const ready = providerAge >= 0 && providerAge < 60_000
+        && canAdmitElevenLabsWebViewer(snapshot.data, scope.data, person, evidence.configuredOrigin, evidence.now);
+    return { ...metadata.data, state: policy.enabled === false ? 'off' : policy.paused ? 'paused' : ready ? 'ready' : 'unavailable' };
+}
+/** Metadata is a short-lived display observation, never permission to mint a transport lease. */
+export function isElevenLabsWebBrowserMetadataCurrent(rawMetadata, expectedLinkId, now) {
+    const metadata = ElevenLabsWebBrowserMetadataSchema.safeParse(rawMetadata);
+    const link = ElevenLabsWebLinkSchema.shape.linkId.safeParse(expectedLinkId);
+    const time = now.getTime();
+    if (!metadata.success || !link.success || !Number.isFinite(time) || metadata.data.linkId !== link.data)
+        return false;
+    const age = time - Date.parse(metadata.data.observedAt);
+    return age >= 0 && age < 60_000; // guard:metadata-freshness
 }
 //# sourceMappingURL=web-browser.js.map

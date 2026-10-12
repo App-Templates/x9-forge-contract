@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = void 0;
 const zod_1 = require("zod");
 const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
+const ordinary_configuration_js_1 = require("./ordinary-configuration.cjs");
 /**
  * Request sent by X9 agent-core to a capability service.
  *
@@ -39,6 +40,12 @@ exports.ToolCallRequestSchema = zod_1.z.object({
      */
     tenantId: zod_1.z.string().min(1).optional(),
     ownerId: zod_1.z.string().min(1).optional(),
+    /** Server-owned next_apply snapshot; never selected from model input. */
+    ordinaryConfiguration: ordinary_configuration_js_1.CapabilityOrdinaryCallSnapshotSchema.optional(),
+}).superRefine((call, ctx) => {
+    const scope = call.ordinaryConfiguration?.scope;
+    if (scope && (scope.agentId !== call.agentId || scope.tenantId !== call.tenantId || scope.ownerId !== call.ownerId))
+        ctx.addIssue({ code: 'custom', path: ['ordinaryConfiguration', 'scope'], message: 'Ordinary snapshot belongs to another call scope' });
 });
 // -- Response variants -------------------------------------------------------
 exports.ToolCallSuccessResponseSchema = zod_1.z.object({

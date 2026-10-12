@@ -18,8 +18,8 @@ export type AgentRuntimeChannelKind = z.infer<typeof AgentRuntimeChannelKindSche
 export declare const AgentRuntimeChannelStateSchema: z.ZodEnum<{
     error: "error";
     unknown: "unknown";
-    stopped: "stopped";
     loaded: "loaded";
+    stopped: "stopped";
     paused: "paused";
 }>;
 export type AgentRuntimeChannelState = z.infer<typeof AgentRuntimeChannelStateSchema>;
@@ -41,8 +41,8 @@ export declare const AgentRuntimeChannelSchema: z.ZodObject<{
     state: z.ZodEnum<{
         error: "error";
         unknown: "unknown";
-        stopped: "stopped";
         loaded: "loaded";
+        stopped: "stopped";
         paused: "paused";
     }>;
     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -61,16 +61,16 @@ export declare function telegramChannelMetadataOf(channel: unknown): AgentTelegr
 export declare const AgentRuntimeLoadStateSchema: z.ZodEnum<{
     error: "error";
     unknown: "unknown";
-    stopped: "stopped";
     loaded: "loaded";
+    stopped: "stopped";
 }>;
 export type AgentRuntimeLoadState = z.infer<typeof AgentRuntimeLoadStateSchema>;
 export declare const AgentRuntimeEvidenceSchema: z.ZodObject<{
     loadState: z.ZodEnum<{
         error: "error";
         unknown: "unknown";
-        stopped: "stopped";
         loaded: "loaded";
+        stopped: "stopped";
     }>;
     channelsComplete: z.ZodBoolean;
     channels: z.ZodArray<z.ZodObject<{
@@ -84,8 +84,8 @@ export declare const AgentRuntimeEvidenceSchema: z.ZodObject<{
         state: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
             paused: "paused";
         }>;
         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -105,8 +105,8 @@ export declare const AgentRuntimeSnapshotSchema: z.ZodObject<{
     loadState: z.ZodEnum<{
         error: "error";
         unknown: "unknown";
-        stopped: "stopped";
         loaded: "loaded";
+        stopped: "stopped";
     }>;
     channelsComplete: z.ZodBoolean;
     channels: z.ZodArray<z.ZodObject<{
@@ -120,8 +120,8 @@ export declare const AgentRuntimeSnapshotSchema: z.ZodObject<{
         state: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
             paused: "paused";
         }>;
         loaded: z.ZodNullable<z.ZodBoolean>;
