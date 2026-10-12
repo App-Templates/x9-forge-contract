@@ -18,9 +18,9 @@ Prove: `vitest run tests/capability/portable-contracts.test.ts --maxWorkers=1 --
 `python3 tests/python/test_generated_capabilities.py <artefatto-composto>`: 15/15.
 `tsc --noEmit --tsBuildInfoFile /private/tmp/bridge-catalogo-rag-1210/types.tsbuildinfo`: uscita 0.
 Confronto cataloghi: 14/15 descrittori identici, 12/12 supportati identici; confronto runtime: codice identico.
-
-## Fruibilità (R-34)
+## Fruibilità alla consegna (R-34)
 **Aspettativa:** rag_query e lifecycle ordinario conservano le forme portabili approvate. **Tavola:** non serve.
+## Corrispondenza aspettativa e tavola (R-34)
 | Aspettativa | Esito |
 | --- | --- |
 | rag_query e lifecycle invariati | Provati localmente: test TS 5/5 e Python 15/15; nessuna verifica dal vivo |
