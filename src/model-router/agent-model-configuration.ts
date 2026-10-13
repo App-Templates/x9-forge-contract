@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { AgentContextIdentitySchema, AgentContextWithIdentitySchema, AgentContextWithIdentityWriteSchema } from '../agent/agent-context-identity.js';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../capability/capability-call-context.js';
 import { AgentRuntimeIdentitySchema } from '../agent/agent-runtime-identity.js';
-import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema, sameAgentCommand } from '../agent/agent-management.js';
+import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema, AgentManagementReasonCodeSchema, sameAgentCommand } from '../agent/agent-management.js';
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from '../agent/agent-context-file.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
@@ -150,6 +150,38 @@ export function isAgentModelSourceObservationCurrent(input: unknown, expected: u
   return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && sameCapabilityScope(source.scope, expectation.scope);
 }
 
+/** Durable public progress only; producers retain private job details outside this contract. */
+export const AgentModelsPendingWorkSchema = z.object({
+  requestId: AgentManagementRequestIdSchema,
+  kind: z.enum(['initial', 'apply']),
+  desiredVersion: AgentConfigVersionSchema,
+  phase: z.enum(['accepted', 'installing', 'publishing', 'failed']),
+  startedAt: z.iso.datetime({ offset: true }),
+  updatedAt: z.iso.datetime({ offset: true }),
+  slots: z.array(z.object({
+    slotId: ModelSlotIdSchema,
+    status: z.enum(['waiting', 'installed', 'pending', 'failed']),
+    progress: z.object({
+      completed: z.number().int().nonnegative(),
+      total: z.number().int().nonnegative(),
+    }).strict().refine(value => value.completed <= value.total, 'Completed progress cannot exceed total').optional(),
+  }).strict()).max(64),
+  failure: z.object({
+    slotId: ModelSlotIdSchema.nullable(),
+    code: AgentManagementReasonCodeSchema,
+  }).strict().optional(),
+}).strict().superRefine((work, ctx) => {
+  if (new Set(work.slots.map(slot => slot.slotId)).size !== work.slots.length) ctx.addIssue({ code: 'custom', path: ['slots'], message: 'Pending work cannot repeat a consumer slot' });
+  for (const [index, slot] of work.slots.entries()) {
+    if (findModelConsumerDefinition(slot.slotId) === undefined) ctx.addIssue({ code: 'custom', path: ['slots', index, 'slotId'], message: 'Pending work requires a registered consumer' });
+  }
+  if (work.failure?.slotId != null && findModelConsumerDefinition(work.failure.slotId) === undefined) ctx.addIssue({ code: 'custom', path: ['failure', 'slotId'], message: 'Failure requires a registered consumer or null' });
+  if (Date.parse(work.updatedAt) < Date.parse(work.startedAt)) ctx.addIssue({ code: 'custom', path: ['updatedAt'], message: 'Pending work cannot update before it starts' });
+  if ((work.phase === 'failed') !== (work.failure !== undefined)) ctx.addIssue({ code: 'custom', path: ['failure'], message: 'Failure is present exactly for failed work' });
+  if (work.kind === 'initial' && work.desiredVersion !== 1) ctx.addIssue({ code: 'custom', path: ['desiredVersion'], message: 'Initial work requests the first configuration version' });
+});
+export type AgentModelsPendingWork = z.infer<typeof AgentModelsPendingWorkSchema>;
+
 export const AgentModelsStateSchema = z.object({
   identity: AgentRuntimeIdentitySchema.strict(),
   versions: AgentConfigVersionStateSchema.nullable(),
@@ -161,7 +193,13 @@ export const AgentModelsStateSchema = z.object({
   sourceObservation: AgentModelSourceObservationSchema.nullable().optional(),
   /** Before persisted authority exists; this source does not assign the Master role. */
   initialSource: AgentModelInitialSourceSchema.nullable().optional(),
+  /** Absent on older producers; null means no pending model work. */
+  pending: AgentModelsPendingWorkSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {
+  if (state.pending != null) {
+    if (state.pending.kind === 'initial' && state.saved !== null) ctx.addIssue({ code: 'custom', path: ['pending', 'kind'], message: 'Initial work requires absent saved model authority' });
+    if (state.pending.kind === 'apply' && state.saved === null) ctx.addIssue({ code: 'custom', path: ['pending', 'kind'], message: 'Apply work requires saved model authority' });
+  }
   if (state.initialSource != null) {
     if (!sameModelAgentIdentity(state.identity, state.initialSource.identity)) ctx.addIssue({ code: 'custom', path: ['initialSource', 'identity'], message: 'Initial source belongs to this state identity' });
     if (state.saved !== null || state.runtime !== null || state.versions !== null) ctx.addIssue({ code: 'custom', path: ['initialSource'], message: 'Initial source cannot claim a saved or applied version' });
