@@ -1,7 +1,8 @@
 import { z } from 'zod';
+import {ModelsApplyStateSchema} from './models-target.js';
 import { AgentIdSchema, OwnerIdSchema } from '../agent/agent-identity.js';
 import { AgentRuntimeIdentitySchema, AgentRuntimeIdentitiesSchema } from '../agent/agent-runtime-identity.js';
-import { AgentConfigVersionStateSchema, AgentManagementCommandResultSchema, AgentManagementReasonSchema, AgentManagementRequestIdSchema } from '../agent/agent-management.js';
+import { AgentConfigVersionStateSchema, AgentManagementCommandResultSchema, AgentManagementReasonSchema, AgentManagementReasonCodeSchema, AgentManagementRequestIdSchema } from '../agent/agent-management.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
 import { CapabilityModelSettingsSchema, validateCapabilityModels } from './capability-model-settings.js';
@@ -46,6 +47,10 @@ export const AgentModelOverviewRowSchema = z.object({
   default: CapabilityModelSettingsSchema.nullable(), saved: CapabilityModelSettingsSchema.nullable(), applied: CapabilityModelSettingsSchema.nullable(),
   versions: AgentConfigVersionStateSchema.nullable(), catalogVersion: ModelCatalogVersionSchema.nullable(),
   cost: ModelCostMetadataSchema, embedding: ModelEmbeddingRebuildSchema.nullable(),
+  apply: z.object({state: ModelsApplyStateSchema, reason: z.object({code: AgentManagementReasonCodeSchema,
+    text: AgentManagementReasonSchema.shape.detail.unwrap()}).strict().optional()}).strict().optional(),
+  heirs: z.object({count: z.number().int().nonnegative().nullable()}).strict().optional(),
+  card: z.object({modelsVersion: ModelCatalogVersionSchema, observedAt: z.iso.datetime({offset: true})}).strict().optional(),
 }).strict().superRefine((row, ctx) => {
   if ((row.editability === 'readonly') !== (row.reason !== null)) ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Readonly rows require a reason' });
   if (row.origin === 'master' && (row.masterAgentId === null || row.masterConfigVersion === null)) ctx.addIssue({ code: 'custom', path: ['masterAgentId'], message: 'Master inheritance requires an explicit source agent' });

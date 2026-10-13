@@ -1,5 +1,13 @@
 # Changelog — @x9-forge/contracts
 
+## v1.48.0 — models content version and durable per-slot progress
+
+- Add portable synchronous catalog/configuration content fingerprints, the shared modelsVersion and withCatalogVersion stamping helper.
+- Extend pending work with unchanged slots, typed sanitized reasons, state/install call counts and the final modelsVersion; retain previous payloads.
+- Add optional apply/heirs/card fields to existing overview rows and strict stack/agent targets with one additive async apply/job endpoint pair.
+- Add catalog-changed, catalog-version-mismatch, model-unavailable, qualification-failed and consumer-rejected management reasons.
+- Consumers tracked in CUORE-MODELLI-LOTTI-1410: X9 delta/queue/consumer jobs and Forge vault/factory/web; no consumer deployment included.
+
 ## v1.47.0 — rilascio unico: Chiavi (1.44.3) + Modelli (27fa07d, 1.45.0) + Paperclip (main 1.45.0)
 
 Composizione senza nuovi contratti: unisce le tre linee, nessun simbolo rimosso (verificato su ogni sottopercorso,

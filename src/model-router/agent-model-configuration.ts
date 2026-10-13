@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { AgentContextIdentitySchema, AgentContextWithIdentitySchema, AgentContextWithIdentityWriteSchema } from '../agent/agent-context-identity.js';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../capability/capability-call-context.js';
 import { AgentRuntimeIdentitySchema } from '../agent/agent-runtime-identity.js';
-import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema, AgentManagementReasonCodeSchema, sameAgentCommand } from '../agent/agent-management.js';
+import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema, AgentManagementReasonSchema, AgentManagementReasonCodeSchema, sameAgentCommand } from '../agent/agent-management.js';
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from '../agent/agent-context-file.js';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
@@ -10,7 +10,7 @@ import { modelSettingsSelections, sameModelFeatures } from './capability-model-s
 import { ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema } from './model-slot.js';
 import { findModelConsumerDefinition, registeredModelConsumers } from './model-consumers.js';
 export { AGENT_CHAT_MODEL_SLOT_ID, ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema, AgentModelBootstrapPreconditionSchema } from './model-slot.js';
-import { ModelDescriptorSchema, ModelFunctionSchema, sameModelDescriptor } from './model-catalog.js';
+import { ModelDescriptorSchema, ModelFunctionSchema, ModelCatalogVersionSchema, sameModelDescriptor } from './model-catalog.js';
 
 import { ModelSelectionTierSchema, AgentModelSelectionSchema, CompleteModelIdentitySchema, AgentModelsConfigurationSchema, AgentModelsConfigurationWithProvenanceSchema, sameModelAgentIdentity, type AgentModelsConfiguration } from './agent-model-configuration-values.js';
 export { ModelSelectionTierSchema, AgentModelSelectionSchema, AgentModelSourceSchema, AgentModelBindingSchema, AgentModelsProvenanceSchema, AgentModelsConfigurationSchema, AgentModelsConfigurationWithProvenanceSchema, createAgentModelsConfigurationWithProvenance, sameModelAgentIdentity, type AgentModelSource, type AgentModelBinding, type AgentModelsProvenance, type AgentModelsConfiguration, type AgentModelsConfigurationWithProvenance, type AgentModelsConfigurationWithProvenanceInput } from './agent-model-configuration-values.js';
@@ -167,12 +167,15 @@ export const AgentModelsPendingWorkSchema = z.object({
   updatedAt: z.iso.datetime({ offset: true }),
   slots: z.array(z.object({
     slotId: ModelSlotIdSchema,
-    status: z.enum(['waiting', 'installed', 'pending', 'failed']),
+    status: z.enum(['waiting', 'installed', 'pending', 'failed', 'unchanged']),
+    reason: AgentManagementReasonSchema.optional(),
+    calls: z.object({state: z.number().int().nonnegative(), install: z.number().int().nonnegative()}).strict().optional(),
     progress: z.object({
       completed: z.number().int().nonnegative(),
       total: z.number().int().nonnegative(),
     }).strict().refine(value => value.completed <= value.total, 'Completed progress cannot exceed total').optional(),
   }).strict()).max(64),
+  modelsVersion: ModelCatalogVersionSchema.optional(),
   failure: z.object({
     slotId: ModelSlotIdSchema.nullable(),
     code: AgentManagementReasonCodeSchema,
@@ -180,6 +183,8 @@ export const AgentModelsPendingWorkSchema = z.object({
 }).strict().superRefine((work, ctx) => {
   if (new Set(work.slots.map(slot => slot.slotId)).size !== work.slots.length) ctx.addIssue({ code: 'custom', path: ['slots'], message: 'Pending work cannot repeat a consumer slot' });
   for (const [index, slot] of work.slots.entries()) {
+    if (slot.status === 'unchanged' && slot.calls !== undefined && (slot.calls.state !== 0 || slot.calls.install !== 0)) ctx.addIssue({code: 'custom', path: ['slots', index, 'calls'], message: 'Unchanged slots make no consumer calls'});
+    if (slot.reason !== undefined && slot.status !== 'failed') ctx.addIssue({code: 'custom', path: ['slots', index, 'reason'], message: 'A slot reason describes a failed slot'});
     if (findModelConsumerDefinition(slot.slotId) === undefined) ctx.addIssue({ code: 'custom', path: ['slots', index, 'slotId'], message: 'Pending work requires a registered consumer' });
   }
   if (work.failure?.slotId != null && findModelConsumerDefinition(work.failure.slotId) === undefined) ctx.addIssue({ code: 'custom', path: ['failure', 'slotId'], message: 'Failure requires a registered consumer or null' });

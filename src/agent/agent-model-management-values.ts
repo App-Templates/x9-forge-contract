@@ -26,6 +26,11 @@ export const AgentManagementReasonCodeSchema = z.enum([
   'not-supported',
   'in-progress',
   'unknown',
+  'catalog-changed',
+  'catalog-version-mismatch',
+  'model-unavailable',
+  'qualification-failed',
+  'consumer-rejected',
 ]);
 export type AgentManagementReasonCode = z.infer<typeof AgentManagementReasonCodeSchema>;
 
