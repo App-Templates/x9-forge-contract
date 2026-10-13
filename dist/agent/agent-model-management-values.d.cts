@@ -18,6 +18,8 @@ export declare const AgentManagementOverallOutcomeSchema: z.ZodEnum<{
 export type AgentManagementOverallOutcome = z.infer<typeof AgentManagementOverallOutcomeSchema>;
 export declare const AgentManagementReasonCodeSchema: z.ZodEnum<{
     unknown: "unknown";
+    "catalog-version-mismatch": "catalog-version-mismatch";
+    "model-unavailable": "model-unavailable";
     "not-loaded": "not-loaded";
     "load-failed": "load-failed";
     "validation-failed": "validation-failed";
@@ -27,12 +29,17 @@ export declare const AgentManagementReasonCodeSchema: z.ZodEnum<{
     "externally-owned": "externally-owned";
     "not-supported": "not-supported";
     "in-progress": "in-progress";
+    "catalog-changed": "catalog-changed";
+    "qualification-failed": "qualification-failed";
+    "consumer-rejected": "consumer-rejected";
 }>;
 export type AgentManagementReasonCode = z.infer<typeof AgentManagementReasonCodeSchema>;
 /** `detail` is sanitized operator text: never secrets, tokens or personal data. */
 export declare const AgentManagementReasonSchema: z.ZodObject<{
     code: z.ZodEnum<{
         unknown: "unknown";
+        "catalog-version-mismatch": "catalog-version-mismatch";
+        "model-unavailable": "model-unavailable";
         "not-loaded": "not-loaded";
         "load-failed": "load-failed";
         "validation-failed": "validation-failed";
@@ -42,6 +49,9 @@ export declare const AgentManagementReasonSchema: z.ZodObject<{
         "externally-owned": "externally-owned";
         "not-supported": "not-supported";
         "in-progress": "in-progress";
+        "catalog-changed": "catalog-changed";
+        "qualification-failed": "qualification-failed";
+        "consumer-rejected": "consumer-rejected";
     }>;
     detail: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
@@ -55,6 +65,8 @@ export declare const AgentConfigVersionStateSchema: z.ZodObject<{
         reason: z.ZodObject<{
             code: z.ZodEnum<{
                 unknown: "unknown";
+                "catalog-version-mismatch": "catalog-version-mismatch";
+                "model-unavailable": "model-unavailable";
                 "not-loaded": "not-loaded";
                 "load-failed": "load-failed";
                 "validation-failed": "validation-failed";
@@ -64,6 +76,9 @@ export declare const AgentConfigVersionStateSchema: z.ZodObject<{
                 "externally-owned": "externally-owned";
                 "not-supported": "not-supported";
                 "in-progress": "in-progress";
+                "catalog-changed": "catalog-changed";
+                "qualification-failed": "qualification-failed";
+                "consumer-rejected": "consumer-rejected";
             }>;
             detail: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>;

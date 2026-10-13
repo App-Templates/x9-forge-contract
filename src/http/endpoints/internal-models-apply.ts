@@ -5,12 +5,17 @@ import {AgentManagementRequestIdSchema, AgentManagementReasonSchema} from '../..
 import {AgentConfigVersionSchema} from '../../capability/ricerca/agent-config.js';
 import {AgentModelsConfigurationSchema} from '../../model-router/agent-model-configuration-values.js';
 import {ModelsTargetSchema, ModelsApplyJobSchema} from '../../model-router/models-target.js';
+export const ModelsApplyHeirSchema = z.union([AgentIdSchema, z.object({
+  agentId: AgentIdSchema, requestId: AgentManagementRequestIdSchema,
+  desiredVersion: AgentConfigVersionSchema, configuration: AgentModelsConfigurationSchema,
+}).strict()]);
+export type ModelsApplyHeir = z.infer<typeof ModelsApplyHeirSchema>;
 export const ModelsApplyRequestSchema = z.object({
   requestId: AgentManagementRequestIdSchema, target: ModelsTargetSchema,
   desiredVersion: AgentConfigVersionSchema, configuration: AgentModelsConfigurationSchema,
-  heirs: z.array(AgentIdSchema).max(2048).optional(),
+  heirs: z.array(ModelsApplyHeirSchema).max(2048).optional(),
 }).strict().superRefine((request, ctx) => {
-  if (request.heirs && new Set(request.heirs).size !== request.heirs.length) ctx.addIssue({code: 'custom', path: ['heirs'], message: 'An heir occurs once per apply request'});
+  if (request.heirs && new Set(request.heirs.map(heir => typeof heir === 'string' ? heir : heir.agentId)).size !== request.heirs.length) ctx.addIssue({code: 'custom', path: ['heirs'], message: 'An heir occurs once per apply request'});
 });
 export type ModelsApplyRequest = z.infer<typeof ModelsApplyRequestSchema>;
 /** Accepted means queued; this receipt never claims consumer installation. */

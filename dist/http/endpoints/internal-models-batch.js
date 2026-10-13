@@ -44,4 +44,22 @@ export const internalModelConsumerInstallContract = {
     paramsSchema: z.object({ slotId: ModelSlotIdSchema }).strict(),
     bodySchema: ModelConsumerInstallRequestSchema, responseSchema: ModelConsumerInstallReceiptSchema,
 };
+/** Consumer-to-core notification, distinct from endpoints hosted by consumer services. */
+export const internalModelConsumerReportContract = {
+    method: 'POST', path: '/internal/models/consumer-reports/:slotId',
+    authType: 'secret', authHeader: INTERNAL_SECRET_HEADER,
+    paramsSchema: z.object({ slotId: ModelSlotIdSchema }).strict(),
+    bodySchema: ModelConsumerRuntimeStateSchema,
+    responseSchema: z.object({ ok: z.literal(true) }).strict(),
+};
+export function modelConsumerReportPath(slotId) {
+    const params = internalModelConsumerReportContract.paramsSchema.parse({ slotId });
+    return internalModelConsumerReportContract.path.replace(':slotId', params.slotId);
+}
+/** Both boundaries must parse before comparing the reported consumer with the route. */
+export function isModelConsumerReportMatching(params, body) {
+    const route = internalModelConsumerReportContract.paramsSchema.safeParse(params);
+    const report = internalModelConsumerReportContract.bodySchema.safeParse(body);
+    return route.success && report.success && route.data.slotId === report.data.slotId;
+}
 //# sourceMappingURL=internal-models-batch.js.map

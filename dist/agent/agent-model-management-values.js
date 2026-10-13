@@ -18,6 +18,11 @@ export const AgentManagementReasonCodeSchema = z.enum([
     'not-supported',
     'in-progress',
     'unknown',
+    'catalog-changed',
+    'catalog-version-mismatch',
+    'model-unavailable',
+    'qualification-failed',
+    'consumer-rejected',
 ]);
 /** `detail` is sanitized operator text: never secrets, tokens or personal data. */
 export const AgentManagementReasonSchema = z.object({

@@ -850,6 +850,8 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
@@ -859,6 +861,9 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -1169,6 +1174,8 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
@@ -1178,6 +1185,9 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -1799,6 +1809,8 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
@@ -1808,6 +1820,9 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -2118,6 +2133,8 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
@@ -2127,6 +2144,9 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -3151,6 +3171,83 @@ export declare const AgentModelSourceObservationSchema: z.ZodObject<{
 export type AgentModelSourceObservation = z.infer<typeof AgentModelSourceObservationSchema>;
 /** A fresh HTTP generation is necessary for a command; producers still recheck after every await. */
 export declare function isAgentModelSourceObservationCurrent(input: unknown, expected: unknown, now?: Date): boolean;
+/** Durable public progress only; producers retain private job details outside this contract. */
+export declare const AgentModelsPendingWorkSchema: z.ZodObject<{
+    requestId: z.ZodString;
+    kind: z.ZodEnum<{
+        initial: "initial";
+        apply: "apply";
+    }>;
+    desiredVersion: z.ZodNumber;
+    phase: z.ZodEnum<{
+        failed: "failed";
+        accepted: "accepted";
+        installing: "installing";
+        publishing: "publishing";
+    }>;
+    startedAt: z.ZodISODateTime;
+    updatedAt: z.ZodISODateTime;
+    slots: z.ZodArray<z.ZodObject<{
+        slotId: z.ZodString;
+        status: z.ZodEnum<{
+            failed: "failed";
+            pending: "pending";
+            waiting: "waiting";
+            installed: "installed";
+            unchanged: "unchanged";
+        }>;
+        reason: z.ZodOptional<z.ZodObject<{
+            code: z.ZodEnum<{
+                unknown: "unknown";
+                "catalog-version-mismatch": "catalog-version-mismatch";
+                "model-unavailable": "model-unavailable";
+                "not-loaded": "not-loaded";
+                "load-failed": "load-failed";
+                "validation-failed": "validation-failed";
+                timeout: "timeout";
+                "source-unavailable": "source-unavailable";
+                "shared-runtime": "shared-runtime";
+                "externally-owned": "externally-owned";
+                "not-supported": "not-supported";
+                "in-progress": "in-progress";
+                "catalog-changed": "catalog-changed";
+                "qualification-failed": "qualification-failed";
+                "consumer-rejected": "consumer-rejected";
+            }>;
+            detail: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
+        calls: z.ZodOptional<z.ZodObject<{
+            state: z.ZodNumber;
+            install: z.ZodNumber;
+        }, z.core.$strict>>;
+        progress: z.ZodOptional<z.ZodObject<{
+            completed: z.ZodNumber;
+            total: z.ZodNumber;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    modelsVersion: z.ZodOptional<z.ZodString>;
+    failure: z.ZodOptional<z.ZodObject<{
+        slotId: z.ZodNullable<z.ZodString>;
+        code: z.ZodEnum<{
+            unknown: "unknown";
+            "catalog-version-mismatch": "catalog-version-mismatch";
+            "model-unavailable": "model-unavailable";
+            "not-loaded": "not-loaded";
+            "load-failed": "load-failed";
+            "validation-failed": "validation-failed";
+            timeout: "timeout";
+            "source-unavailable": "source-unavailable";
+            "shared-runtime": "shared-runtime";
+            "externally-owned": "externally-owned";
+            "not-supported": "not-supported";
+            "in-progress": "in-progress";
+            "catalog-changed": "catalog-changed";
+            "qualification-failed": "qualification-failed";
+            "consumer-rejected": "consumer-rejected";
+        }>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type AgentModelsPendingWork = z.infer<typeof AgentModelsPendingWorkSchema>;
 export declare const AgentModelsStateSchema: z.ZodObject<{
     identity: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -3165,6 +3262,8 @@ export declare const AgentModelsStateSchema: z.ZodObject<{
             reason: z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    "catalog-version-mismatch": "catalog-version-mismatch";
+                    "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
@@ -3174,6 +3273,9 @@ export declare const AgentModelsStateSchema: z.ZodObject<{
                     "externally-owned": "externally-owned";
                     "not-supported": "not-supported";
                     "in-progress": "in-progress";
+                    "catalog-changed": "catalog-changed";
+                    "qualification-failed": "qualification-failed";
+                    "consumer-rejected": "consumer-rejected";
                 }>;
                 detail: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>;
@@ -3992,6 +4094,81 @@ export declare const AgentModelsStateSchema: z.ZodObject<{
             }>;
             reason: z.ZodString;
         }, z.core.$strict>>>;
+    }, z.core.$strict>>>;
+    pending: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        requestId: z.ZodString;
+        kind: z.ZodEnum<{
+            initial: "initial";
+            apply: "apply";
+        }>;
+        desiredVersion: z.ZodNumber;
+        phase: z.ZodEnum<{
+            failed: "failed";
+            accepted: "accepted";
+            installing: "installing";
+            publishing: "publishing";
+        }>;
+        startedAt: z.ZodISODateTime;
+        updatedAt: z.ZodISODateTime;
+        slots: z.ZodArray<z.ZodObject<{
+            slotId: z.ZodString;
+            status: z.ZodEnum<{
+                failed: "failed";
+                pending: "pending";
+                waiting: "waiting";
+                installed: "installed";
+                unchanged: "unchanged";
+            }>;
+            reason: z.ZodOptional<z.ZodObject<{
+                code: z.ZodEnum<{
+                    unknown: "unknown";
+                    "catalog-version-mismatch": "catalog-version-mismatch";
+                    "model-unavailable": "model-unavailable";
+                    "not-loaded": "not-loaded";
+                    "load-failed": "load-failed";
+                    "validation-failed": "validation-failed";
+                    timeout: "timeout";
+                    "source-unavailable": "source-unavailable";
+                    "shared-runtime": "shared-runtime";
+                    "externally-owned": "externally-owned";
+                    "not-supported": "not-supported";
+                    "in-progress": "in-progress";
+                    "catalog-changed": "catalog-changed";
+                    "qualification-failed": "qualification-failed";
+                    "consumer-rejected": "consumer-rejected";
+                }>;
+                detail: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>;
+            calls: z.ZodOptional<z.ZodObject<{
+                state: z.ZodNumber;
+                install: z.ZodNumber;
+            }, z.core.$strict>>;
+            progress: z.ZodOptional<z.ZodObject<{
+                completed: z.ZodNumber;
+                total: z.ZodNumber;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        modelsVersion: z.ZodOptional<z.ZodString>;
+        failure: z.ZodOptional<z.ZodObject<{
+            slotId: z.ZodNullable<z.ZodString>;
+            code: z.ZodEnum<{
+                unknown: "unknown";
+                "catalog-version-mismatch": "catalog-version-mismatch";
+                "model-unavailable": "model-unavailable";
+                "not-loaded": "not-loaded";
+                "load-failed": "load-failed";
+                "validation-failed": "validation-failed";
+                timeout: "timeout";
+                "source-unavailable": "source-unavailable";
+                "shared-runtime": "shared-runtime";
+                "externally-owned": "externally-owned";
+                "not-supported": "not-supported";
+                "in-progress": "in-progress";
+                "catalog-changed": "catalog-changed";
+                "qualification-failed": "qualification-failed";
+                "consumer-rejected": "consumer-rejected";
+            }>;
+        }, z.core.$strict>>;
     }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type AgentModelsState = z.infer<typeof AgentModelsStateSchema>;

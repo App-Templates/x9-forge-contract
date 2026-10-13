@@ -5,6 +5,7 @@
 - Add portable synchronous catalog/configuration content fingerprints, the shared modelsVersion and withCatalogVersion stamping helper.
 - Extend pending work with unchanged slots, typed sanitized reasons, state/install call counts and the final modelsVersion; retain previous payloads.
 - Add optional apply/heirs/card fields to existing overview rows and strict stack/agent targets with one additive async apply/job endpoint pair.
+- Accept per-heir saved configurations alongside legacy IDs and optional canonical command/runtime evidence on root/child jobs; new producers attest terminal completion explicitly.
 - Add catalog-changed, catalog-version-mismatch, model-unavailable, qualification-failed and consumer-rejected management reasons.
 - Consumers tracked in CUORE-MODELLI-LOTTI-1410: X9 delta/queue/consumer jobs and Forge vault/factory/web; no consumer deployment included.
 

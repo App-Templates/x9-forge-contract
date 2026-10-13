@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { AgentContextIdentitySchema, AgentContextWithIdentitySchema, AgentContextWithIdentityWriteSchema } from "../agent/agent-context-identity.js";
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from "../capability/capability-call-context.js";
 import { AgentRuntimeIdentitySchema } from "../agent/agent-runtime-identity.js";
-import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema, sameAgentCommand } from "../agent/agent-management.js";
+import { AgentConfigVersionStateSchema, AgentManagementCommandSchema, AgentManagementCommandResultSchema, AgentManagementRequestIdSchema, AgentManagementReasonSchema, AgentManagementReasonCodeSchema, sameAgentCommand } from "../agent/agent-management.js";
 import { AgentContextFileSchema, AgentContextFileWriteSchema } from "../agent/agent-context-file.js";
 import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js";
 import { CapabilityAgentParametersSchema } from "../capability/parameters.js";
@@ -10,7 +10,7 @@ import { modelSettingsSelections, sameModelFeatures } from "./capability-model-s
 import { ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema } from "./model-slot.js";
 import { findModelConsumerDefinition, registeredModelConsumers } from "./model-consumers.js";
 export { AGENT_CHAT_MODEL_SLOT_ID, ModelSlotIdSchema, AgentModelBootstrapSourceVersionSchema, AgentModelBootstrapPreconditionSchema } from "./model-slot.js";
-import { ModelDescriptorSchema, ModelFunctionSchema, sameModelDescriptor } from "./model-catalog.js";
+import { ModelDescriptorSchema, ModelFunctionSchema, ModelCatalogVersionSchema, sameModelDescriptor } from "./model-catalog.js";
 import { ModelSelectionTierSchema, AgentModelSelectionSchema, CompleteModelIdentitySchema, AgentModelsConfigurationSchema, AgentModelsConfigurationWithProvenanceSchema, sameModelAgentIdentity } from "./agent-model-configuration-values.js";
 export { ModelSelectionTierSchema, AgentModelSelectionSchema, AgentModelSourceSchema, AgentModelBindingSchema, AgentModelsProvenanceSchema, AgentModelsConfigurationSchema, AgentModelsConfigurationWithProvenanceSchema, createAgentModelsConfigurationWithProvenance, sameModelAgentIdentity } from "./agent-model-configuration-values.js";
 const contextModels = { modelConfiguration: AgentModelsConfigurationSchema.optional() };
@@ -78,7 +78,9 @@ const ModelSourceScopeSchema = CapabilityAgentScopeSchema.refine(scope => [scope
 const ModelInitialSourceBaseSchema = z.object({
     schemaVersion: z.literal(1), identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
     authority: z.literal('runtime-loaded'),
+    /** Producers should fingerprint the declared public content; consumers compare this opaque value only for equality. */
     sourceVersion: AgentModelBootstrapSourceVersionSchema,
+    /** Producer attestation window for that content, independent from the saved configuration version. */
     observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
     coverage: z.enum(['complete', 'partial']),
     selections: z.array(AgentModelSelectionSchema).max(64), missingSlots: z.array(ModelSlotIdSchema).max(64),
@@ -107,7 +109,11 @@ const checkLoadedModelSource = (source, ctx) => {
 /** Loaded selections before first Forge apply; an explicit role is strictly rejected. */
 export const AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.superRefine(checkLoadedModelSource);
 export const AgentModelBootstrapSourceSchema = ModelInitialSourceBaseSchema.extend({ role: z.literal('master') }).superRefine(checkLoadedModelSource);
-export const AgentModelBootstrapSourceExpectationSchema = z.object({ identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema }).strict();
+export const AgentModelBootstrapSourceExpectationSchema = z.object({
+    identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
+    /** Producer content fingerprint by convention; callers must preserve its opaque representation. */
+    sourceVersion: AgentModelBootstrapSourceVersionSchema,
+}).strict();
 /** Caller supplies a fresh server-side generation recheck after awaits. Parsing alone cannot prove runtime authority. */
 export function isAgentModelBootstrapSourceCurrent(input, expected, now = new Date()) {
     return isLoadedModelSourceCurrent(input, expected, AgentModelBootstrapSourceSchema, now);
@@ -130,6 +136,7 @@ function isLoadedModelSourceCurrent(input, expected, sourceSchema, now) {
 }
 /** Loaded modern source generation; never inferred from Forge's configuration version. */
 export const AgentModelSourceObservationSchema = AgentModelBootstrapSourceExpectationSchema.safeExtend({
+    /** Interval during which the producer attests the observed public content. */
     observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
 }).superRefine((source, ctx) => {
     if (source.scope.agentId !== source.identity.runtimeAgentId)
@@ -151,6 +158,49 @@ export function isAgentModelSourceObservationCurrent(input, expected, now = new 
         return false;
     return source.sourceVersion === expectation.sourceVersion && sameModelAgentIdentity(source.identity, expectation.identity) && sameCapabilityScope(source.scope, expectation.scope);
 }
+/** Durable public progress only; producers retain private job details outside this contract. */
+export const AgentModelsPendingWorkSchema = z.object({
+    requestId: AgentManagementRequestIdSchema,
+    kind: z.enum(['initial', 'apply']),
+    desiredVersion: AgentConfigVersionSchema,
+    phase: z.enum(['accepted', 'installing', 'publishing', 'failed']),
+    startedAt: z.iso.datetime({ offset: true }),
+    updatedAt: z.iso.datetime({ offset: true }),
+    slots: z.array(z.object({
+        slotId: ModelSlotIdSchema,
+        status: z.enum(['waiting', 'installed', 'pending', 'failed', 'unchanged']),
+        reason: AgentManagementReasonSchema.optional(),
+        calls: z.object({ state: z.number().int().nonnegative(), install: z.number().int().nonnegative() }).strict().optional(),
+        progress: z.object({
+            completed: z.number().int().nonnegative(),
+            total: z.number().int().nonnegative(),
+        }).strict().refine(value => value.completed <= value.total, 'Completed progress cannot exceed total').optional(),
+    }).strict()).max(64),
+    modelsVersion: ModelCatalogVersionSchema.optional(),
+    failure: z.object({
+        slotId: ModelSlotIdSchema.nullable(),
+        code: AgentManagementReasonCodeSchema,
+    }).strict().optional(),
+}).strict().superRefine((work, ctx) => {
+    if (new Set(work.slots.map(slot => slot.slotId)).size !== work.slots.length)
+        ctx.addIssue({ code: 'custom', path: ['slots'], message: 'Pending work cannot repeat a consumer slot' });
+    for (const [index, slot] of work.slots.entries()) {
+        if (slot.status === 'unchanged' && slot.calls !== undefined && (slot.calls.state !== 0 || slot.calls.install !== 0))
+            ctx.addIssue({ code: 'custom', path: ['slots', index, 'calls'], message: 'Unchanged slots make no consumer calls' });
+        if (slot.reason !== undefined && slot.status !== 'failed')
+            ctx.addIssue({ code: 'custom', path: ['slots', index, 'reason'], message: 'A slot reason describes a failed slot' });
+        if (findModelConsumerDefinition(slot.slotId) === undefined)
+            ctx.addIssue({ code: 'custom', path: ['slots', index, 'slotId'], message: 'Pending work requires a registered consumer' });
+    }
+    if (work.failure?.slotId != null && findModelConsumerDefinition(work.failure.slotId) === undefined)
+        ctx.addIssue({ code: 'custom', path: ['failure', 'slotId'], message: 'Failure requires a registered consumer or null' });
+    if (Date.parse(work.updatedAt) < Date.parse(work.startedAt))
+        ctx.addIssue({ code: 'custom', path: ['updatedAt'], message: 'Pending work cannot update before it starts' });
+    if ((work.phase === 'failed') !== (work.failure !== undefined))
+        ctx.addIssue({ code: 'custom', path: ['failure'], message: 'Failure is present exactly for failed work' });
+    if (work.kind === 'initial' && work.desiredVersion !== 1)
+        ctx.addIssue({ code: 'custom', path: ['desiredVersion'], message: 'Initial work requests the first configuration version' });
+});
 export const AgentModelsStateSchema = z.object({
     identity: AgentRuntimeIdentitySchema.strict(),
     versions: AgentConfigVersionStateSchema.nullable(),
@@ -162,7 +212,15 @@ export const AgentModelsStateSchema = z.object({
     sourceObservation: AgentModelSourceObservationSchema.nullable().optional(),
     /** Before persisted authority exists; this source does not assign the Master role. */
     initialSource: AgentModelInitialSourceSchema.nullable().optional(),
+    /** Absent on older producers; null means no pending model work. */
+    pending: AgentModelsPendingWorkSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {
+    if (state.pending != null) {
+        if (state.pending.kind === 'initial' && state.saved !== null)
+            ctx.addIssue({ code: 'custom', path: ['pending', 'kind'], message: 'Initial work requires absent saved model authority' });
+        if (state.pending.kind === 'apply' && state.saved === null)
+            ctx.addIssue({ code: 'custom', path: ['pending', 'kind'], message: 'Apply work requires saved model authority' });
+    }
     if (state.initialSource != null) {
         if (!sameModelAgentIdentity(state.identity, state.initialSource.identity))
             ctx.addIssue({ code: 'custom', path: ['initialSource', 'identity'], message: 'Initial source belongs to this state identity' });

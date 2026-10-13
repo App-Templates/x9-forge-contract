@@ -53,10 +53,10 @@ export declare const elevenLabsProvisionContract: {
         requestId: z.ZodString;
         replayed: z.ZodBoolean;
         outcome: z.ZodEnum<{
+            unchanged: "unchanged";
             adopted: "adopted";
             created: "created";
             updated: "updated";
-            unchanged: "unchanged";
         }>;
         mapping: z.ZodObject<{
             scope: z.ZodObject<{

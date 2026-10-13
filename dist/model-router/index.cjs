@@ -64,4 +64,6 @@ __exportStar(require("./models-batch.cjs"), exports);
 // Canonical server-owned model consumer bindings; no runtime installation is inferred.
 __exportStar(require("./model-consumers.cjs"), exports);
 __exportStar(require("./model-consumer-execution.cjs"), exports);
+__exportStar(require("./models-version.cjs"), exports);
+__exportStar(require("./models-target.cjs"), exports);
 //# sourceMappingURL=index.js.map

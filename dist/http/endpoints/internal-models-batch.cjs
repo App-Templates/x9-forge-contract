@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalModelConsumerInstallContract = exports.internalModelConsumerStateContract = exports.internalAgentModelsStateContract = exports.internalModelsBatchContract = exports.internalModelsPreviewContract = exports.internalModelsOverviewContract = void 0;
+exports.internalModelConsumerReportContract = exports.internalModelConsumerInstallContract = exports.internalModelConsumerStateContract = exports.internalAgentModelsStateContract = exports.internalModelsBatchContract = exports.internalModelsPreviewContract = exports.internalModelsOverviewContract = void 0;
 exports.agentModelsStatePath = agentModelsStatePath;
+exports.modelConsumerReportPath = modelConsumerReportPath;
+exports.isModelConsumerReportMatching = isModelConsumerReportMatching;
 const zod_1 = require("zod");
 const index_js_1 = require("../../auth/index.cjs");
 const model_slot_js_1 = require("../../model-router/model-slot.cjs");
@@ -48,4 +50,22 @@ exports.internalModelConsumerInstallContract = {
     paramsSchema: zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema }).strict(),
     bodySchema: model_consumer_execution_js_1.ModelConsumerInstallRequestSchema, responseSchema: model_consumer_execution_js_1.ModelConsumerInstallReceiptSchema,
 };
+/** Consumer-to-core notification, distinct from endpoints hosted by consumer services. */
+exports.internalModelConsumerReportContract = {
+    method: 'POST', path: '/internal/models/consumer-reports/:slotId',
+    authType: 'secret', authHeader: index_js_1.INTERNAL_SECRET_HEADER,
+    paramsSchema: zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema }).strict(),
+    bodySchema: model_consumer_execution_js_1.ModelConsumerRuntimeStateSchema,
+    responseSchema: zod_1.z.object({ ok: zod_1.z.literal(true) }).strict(),
+};
+function modelConsumerReportPath(slotId) {
+    const params = exports.internalModelConsumerReportContract.paramsSchema.parse({ slotId });
+    return exports.internalModelConsumerReportContract.path.replace(':slotId', params.slotId);
+}
+/** Both boundaries must parse before comparing the reported consumer with the route. */
+function isModelConsumerReportMatching(params, body) {
+    const route = exports.internalModelConsumerReportContract.paramsSchema.safeParse(params);
+    const report = exports.internalModelConsumerReportContract.bodySchema.safeParse(body);
+    return route.success && report.success && route.data.slotId === report.data.slotId;
+}
 //# sourceMappingURL=internal-models-batch.js.map

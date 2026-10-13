@@ -22,6 +22,11 @@ exports.AgentManagementReasonCodeSchema = zod_1.z.enum([
     'not-supported',
     'in-progress',
     'unknown',
+    'catalog-changed',
+    'catalog-version-mismatch',
+    'model-unavailable',
+    'qualification-failed',
+    'consumer-rejected',
 ]);
 /** `detail` is sanitized operator text: never secrets, tokens or personal data. */
 exports.AgentManagementReasonSchema = zod_1.z.object({

@@ -1001,6 +1001,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             reason: z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    "catalog-version-mismatch": "catalog-version-mismatch";
+                    "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
@@ -1010,6 +1012,9 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
                     "externally-owned": "externally-owned";
                     "not-supported": "not-supported";
                     "in-progress": "in-progress";
+                    "catalog-changed": "catalog-changed";
+                    "qualification-failed": "qualification-failed";
+                    "consumer-rejected": "consumer-rejected";
                 }>;
                 detail: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>;
@@ -1095,6 +1100,42 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             total: z.ZodNumber;
         }, z.core.$strict>;
         reason: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>>;
+    apply: z.ZodOptional<z.ZodObject<{
+        state: z.ZodEnum<{
+            applied: "applied";
+            failed: "failed";
+            unchanged: "unchanged";
+            queued: "queued";
+            applying: "applying";
+        }>;
+        reason: z.ZodOptional<z.ZodObject<{
+            code: z.ZodEnum<{
+                unknown: "unknown";
+                "catalog-version-mismatch": "catalog-version-mismatch";
+                "model-unavailable": "model-unavailable";
+                "not-loaded": "not-loaded";
+                "load-failed": "load-failed";
+                "validation-failed": "validation-failed";
+                timeout: "timeout";
+                "source-unavailable": "source-unavailable";
+                "shared-runtime": "shared-runtime";
+                "externally-owned": "externally-owned";
+                "not-supported": "not-supported";
+                "in-progress": "in-progress";
+                "catalog-changed": "catalog-changed";
+                "qualification-failed": "qualification-failed";
+                "consumer-rejected": "consumer-rejected";
+            }>;
+            text: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    heirs: z.ZodOptional<z.ZodObject<{
+        count: z.ZodNullable<z.ZodNumber>;
+    }, z.core.$strict>>;
+    card: z.ZodOptional<z.ZodObject<{
+        modelsVersion: z.ZodString;
+        observedAt: z.ZodISODateTime;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 /** Read-side inventory evidence; absence on old producers is not an attestation of zero. */
@@ -2036,6 +2077,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
@@ -2045,6 +2088,9 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -2130,6 +2176,42 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 total: z.ZodNumber;
             }, z.core.$strict>;
             reason: z.ZodNullable<z.ZodString>;
+        }, z.core.$strict>>;
+        apply: z.ZodOptional<z.ZodObject<{
+            state: z.ZodEnum<{
+                applied: "applied";
+                failed: "failed";
+                unchanged: "unchanged";
+                queued: "queued";
+                applying: "applying";
+            }>;
+            reason: z.ZodOptional<z.ZodObject<{
+                code: z.ZodEnum<{
+                    unknown: "unknown";
+                    "catalog-version-mismatch": "catalog-version-mismatch";
+                    "model-unavailable": "model-unavailable";
+                    "not-loaded": "not-loaded";
+                    "load-failed": "load-failed";
+                    "validation-failed": "validation-failed";
+                    timeout: "timeout";
+                    "source-unavailable": "source-unavailable";
+                    "shared-runtime": "shared-runtime";
+                    "externally-owned": "externally-owned";
+                    "not-supported": "not-supported";
+                    "in-progress": "in-progress";
+                    "catalog-changed": "catalog-changed";
+                    "qualification-failed": "qualification-failed";
+                    "consumer-rejected": "consumer-rejected";
+                }>;
+                text: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        heirs: z.ZodOptional<z.ZodObject<{
+            count: z.ZodNullable<z.ZodNumber>;
+        }, z.core.$strict>>;
+        card: z.ZodOptional<z.ZodObject<{
+            modelsVersion: z.ZodString;
+            observedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
     }, z.core.$strict>>;
     coverage: z.ZodOptional<z.ZodArray<z.ZodObject<{
@@ -4226,6 +4308,8 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                 reason: z.ZodOptional<z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
@@ -4235,6 +4319,9 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>>;
@@ -4248,6 +4335,8 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            "catalog-version-mismatch": "catalog-version-mismatch";
+                            "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
@@ -4257,6 +4346,9 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                             "externally-owned": "externally-owned";
                             "not-supported": "not-supported";
                             "in-progress": "in-progress";
+                            "catalog-changed": "catalog-changed";
+                            "qualification-failed": "qualification-failed";
+                            "consumer-rejected": "consumer-rejected";
                         }>;
                         detail: z.ZodOptional<z.ZodString>;
                     }, z.core.$strict>;
@@ -4318,6 +4410,8 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
         reason: z.ZodNullable<z.ZodObject<{
             code: z.ZodEnum<{
                 unknown: "unknown";
+                "catalog-version-mismatch": "catalog-version-mismatch";
+                "model-unavailable": "model-unavailable";
                 "not-loaded": "not-loaded";
                 "load-failed": "load-failed";
                 "validation-failed": "validation-failed";
@@ -4327,6 +4421,9 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                 "externally-owned": "externally-owned";
                 "not-supported": "not-supported";
                 "in-progress": "in-progress";
+                "catalog-changed": "catalog-changed";
+                "qualification-failed": "qualification-failed";
+                "consumer-rejected": "consumer-rejected";
             }>;
             detail: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;

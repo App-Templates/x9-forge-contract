@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentManagementStateSchema = exports.AgentManagementTargetCapabilitySchema = exports.AgentManagementCommandResultSchema = exports.AgentManagementTargetResultSchema = exports.AgentManagementCommandSchema = exports.AgentManagementTargetSchema = exports.AgentManagementTargetKindSchema = exports.AgentManagementActionSchema = exports.AgentLifecycleActionSchema = exports.deriveAgentManagementOutcome = exports.AgentConfigVersionStateSchema = exports.AgentManagementReasonSchema = exports.AgentManagementReasonCodeSchema = exports.AgentManagementOverallOutcomeSchema = exports.AgentManagementOutcomeSchema = exports.AgentManagementRequestIdSchema = void 0;
 exports.sameAgentCommand = sameAgentCommand;
+exports.isAgentManagementCommandInProgress = isAgentManagementCommandInProgress;
 const agent_model_management_values_js_1 = require("./agent-model-management-values.cjs");
 var agent_model_management_values_js_2 = require("./agent-model-management-values.cjs");
 Object.defineProperty(exports, "AgentManagementRequestIdSchema", { enumerable: true, get: function () { return agent_model_management_values_js_2.AgentManagementRequestIdSchema; } });
@@ -175,6 +176,17 @@ exports.AgentManagementCommandResultSchema = zod_1.z.object({
         }
     }
 });
+/** A valid apply response is pending only while every unsuccessful target reports in-progress. */
+function isAgentManagementCommandInProgress(input) {
+    const parsed = exports.AgentManagementCommandResultSchema.safeParse(input);
+    if (!parsed.success || parsed.data.action !== 'apply-config')
+        return false;
+    const result = parsed.data;
+    const unsuccessful = result.results.filter(entry => entry.outcome !== 'ok');
+    // Validated unsuccessful apply results cannot already have the requested version applied.
+    return unsuccessful.length > 0
+        && unsuccessful.every(entry => entry.reason?.code === 'in-progress');
+}
 /** What a target supports; an empty action list is unmanageable and must say why. */
 exports.AgentManagementTargetCapabilitySchema = zod_1.z.object({
     target: exports.AgentManagementTargetSchema,

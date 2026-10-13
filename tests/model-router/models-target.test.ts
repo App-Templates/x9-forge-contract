@@ -38,6 +38,23 @@ describe('stack and agent model targets', () => {
       expect(ModelsApplyRequestSchema.safeParse({...request(), ...patch}).success).toBe(false);
     }
   });
+  it('preserves legacy heir IDs and accepts strict server-owned per-heir configurations', () => {
+    const heir = {agentId: 'synthetic-agent-a', requestId: 'synthetic-child-request', desiredVersion: 1, configuration};
+    expect(ModelsApplyRequestSchema.parse({...request(), heirs: [heir, 'synthetic-agent-b']}).heirs).toEqual([heir, 'synthetic-agent-b']);
+    for (const heirs of [[heir, 'synthetic-agent-a'], [{...heir, private: true}], [{...heir, requestId: 'bad/path'}], [{...heir, desiredVersion: 0}]]) {
+      expect(ModelsApplyRequestSchema.safeParse({...request(), heirs}).success).toBe(false);
+    }
+  });
+  it('carries optional terminal evidence without inferring completion from publishing', () => {
+    const completed = {...job(), phase: 'publishing', state: 'applied', result: null, runtime: null,
+      children: [{agentId: 'synthetic-agent-a', state: 'failed', reason: {code: 'consumer-rejected'}, result: null, runtime: null}]};
+    expect(ModelsApplyJobSchema.parse(completed)).toEqual(completed);
+    expect(ModelsApplyJobSchema.parse(job())).not.toHaveProperty('state');
+    for (const patch of [{state: 'invented'}, {result: {}}, {runtime: {}},
+      {children: [{agentId: 'synthetic-agent-a', state: 'failed', reason: {code: 'invented'}}]}]) {
+      expect(ModelsApplyJobSchema.safeParse({...completed, ...patch}).success).toBe(false);
+    }
+  });
   it('distinguishes accepted queue admission from failed admission without claiming installation', () => {
     expect(ModelsApplyResponseSchema.safeParse({ok: true, requestId: request().requestId, outcome: 'accepted'}).success).toBe(true);
     expect(ModelsApplyResponseSchema.safeParse({ok: false, requestId: request().requestId, outcome: 'error', reason: {code: 'catalog-changed'}}).success).toBe(true);

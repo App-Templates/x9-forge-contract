@@ -8,6 +8,7 @@ exports.deriveAgentModelsBatchOutcome = deriveAgentModelsBatchOutcome;
 exports.isAgentModelsBatchResultConsistent = isAgentModelsBatchResultConsistent;
 exports.sameAgentModelsBatchRequest = sameAgentModelsBatchRequest;
 const zod_1 = require("zod");
+const models_target_js_1 = require("./models-target.cjs");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const agent_runtime_identity_js_1 = require("../agent/agent-runtime-identity.cjs");
 const agent_management_js_1 = require("../agent/agent-management.cjs");
@@ -55,6 +56,10 @@ exports.AgentModelOverviewRowSchema = zod_1.z.object({
     default: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(), saved: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(), applied: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(),
     versions: agent_management_js_1.AgentConfigVersionStateSchema.nullable(), catalogVersion: model_catalog_js_1.ModelCatalogVersionSchema.nullable(),
     cost: exports.ModelCostMetadataSchema, embedding: exports.ModelEmbeddingRebuildSchema.nullable(),
+    apply: zod_1.z.object({ state: models_target_js_1.ModelsApplyStateSchema, reason: zod_1.z.object({ code: agent_management_js_1.AgentManagementReasonCodeSchema,
+            text: agent_management_js_1.AgentManagementReasonSchema.shape.detail.unwrap() }).strict().optional() }).strict().optional(),
+    heirs: zod_1.z.object({ count: zod_1.z.number().int().nonnegative().nullable() }).strict().optional(),
+    card: zod_1.z.object({ modelsVersion: model_catalog_js_1.ModelCatalogVersionSchema, observedAt: zod_1.z.iso.datetime({ offset: true }) }).strict().optional(),
 }).strict().superRefine((row, ctx) => {
     if ((row.editability === 'readonly') !== (row.reason !== null))
         ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Readonly rows require a reason' });

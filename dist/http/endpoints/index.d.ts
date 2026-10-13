@@ -56,4 +56,5 @@ export * from "./internal-agent-tool-dispatch.js";
 export * from "./internal-agent-voice-source.js";
 export * from "./internal-agent-model-source-observation.js";
 export * from "./forge-master-model-authority.js";
+export * from "./internal-models-apply.js";
 //# sourceMappingURL=index.d.ts.map
