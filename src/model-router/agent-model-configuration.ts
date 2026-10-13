@@ -86,7 +86,9 @@ const ModelSourceScopeSchema = CapabilityAgentScopeSchema.refine(scope => [scope
 const ModelInitialSourceBaseSchema = z.object({
   schemaVersion: z.literal(1), identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
   authority: z.literal('runtime-loaded'),
+  /** Producers should fingerprint the declared public content; consumers compare this opaque value only for equality. */
   sourceVersion: AgentModelBootstrapSourceVersionSchema,
+  /** Producer attestation window for that content, independent from the saved configuration version. */
   observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
   coverage: z.enum(['complete', 'partial']),
   selections: z.array(AgentModelSelectionSchema).max(64), missingSlots: z.array(ModelSlotIdSchema).max(64),
@@ -112,7 +114,11 @@ export const AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.superR
 export type AgentModelInitialSource = z.infer<typeof AgentModelInitialSourceSchema>;
 export const AgentModelBootstrapSourceSchema = ModelInitialSourceBaseSchema.extend({ role: z.literal('master') }).superRefine(checkLoadedModelSource);
 export type AgentModelBootstrapSource = z.infer<typeof AgentModelBootstrapSourceSchema>;
-export const AgentModelBootstrapSourceExpectationSchema = z.object({ identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema }).strict();
+export const AgentModelBootstrapSourceExpectationSchema = z.object({
+  identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
+  /** Producer content fingerprint by convention; callers must preserve its opaque representation. */
+  sourceVersion: AgentModelBootstrapSourceVersionSchema,
+}).strict();
 export type AgentModelBootstrapSourceExpectation = z.infer<typeof AgentModelBootstrapSourceExpectationSchema>;
 /** Caller supplies a fresh server-side generation recheck after awaits. Parsing alone cannot prove runtime authority. */
 export function isAgentModelBootstrapSourceCurrent(input: unknown, expected: unknown, now = new Date()): boolean {
@@ -133,6 +139,7 @@ function isLoadedModelSourceCurrent(input: unknown, expected: unknown, sourceSch
 
 /** Loaded modern source generation; never inferred from Forge's configuration version. */
 export const AgentModelSourceObservationSchema = AgentModelBootstrapSourceExpectationSchema.safeExtend({
+  /** Interval during which the producer attests the observed public content. */
   observedAt: z.iso.datetime({ offset: true }), validUntil: z.iso.datetime({ offset: true }),
 }).superRefine((source, ctx) => {
   if (source.scope.agentId !== source.identity.runtimeAgentId) ctx.addIssue({ code: 'custom', path: ['scope', 'agentId'], message: 'Observed model source scope must name its runtime identity' });

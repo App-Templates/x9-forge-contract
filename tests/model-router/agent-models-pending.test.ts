@@ -45,7 +45,9 @@ const invalid: [string, unknown][] = [
 
 describe('additive pending model work', () => {
   it('round trips legacy, null and pending states without inventing work', () => {
+    expect(AgentModelsStateSchema.safeParse(state()).success).toBe(true);
     expect(AgentModelsStateSchema.parse(state())).toEqual(state());
+    expect(AgentModelsStateSchema.safeParse({ ...state(), pending: null }).success).toBe(true);
     expect(AgentModelsStateSchema.parse({ ...state(), pending: null })).toEqual({ ...state(), pending: null });
     expect(AgentModelsStateSchema.parse({ ...state(), pending: pending() })).toEqual({ ...state(), pending: pending() });
   });

@@ -185,6 +185,18 @@ export const AgentManagementCommandResultSchema = z.object({
 });
 export type AgentManagementCommandResult = z.infer<typeof AgentManagementCommandResultSchema>;
 
+/** A valid apply response is pending only while every unsuccessful target reports in-progress. */
+export function isAgentManagementCommandInProgress(input: unknown): boolean {
+  const parsed = AgentManagementCommandResultSchema.safeParse(input);
+  if (!parsed.success || parsed.data.action !== 'apply-config') return false;
+  const result = parsed.data;
+  const unsuccessful = result.results.filter(entry => entry.outcome !== 'ok');
+  // Validated unsuccessful apply results cannot already have the requested version applied.
+  return unsuccessful.length > 0
+    && unsuccessful.every(entry => entry.reason?.code === 'in-progress');
+}
+
+
 /** What a target supports; an empty action list is unmanageable and must say why. */
 export const AgentManagementTargetCapabilitySchema = z.object({
   target: AgentManagementTargetSchema,
