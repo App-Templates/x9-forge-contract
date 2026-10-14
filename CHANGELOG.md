@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — organization (C01)
+
+- Add the `@x9-forge/contracts/organization` subpath with canonical run context, attempt, outcome and operation contracts.
+- Re-export the existing organization schemas and types without changing their shapes. This is additive, with no breaking changes or organization exports at the package root.
+- Package version remains unchanged; compiled artifacts are left to the release process.
+
 ## v1.48.0 — models content version and durable per-slot progress
 
 - Add portable synchronous catalog/configuration content fingerprints, the shared modelsVersion and withCatalogVersion stamping helper.

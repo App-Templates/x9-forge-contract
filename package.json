@@ -23,6 +23,7 @@
       "./capability/lab": "./src/capability/lab/index.ts",
       "./http": "./src/http/index.ts",
       "./memory": "./src/memory/index.ts",
+      "./organization": "./src/organization/index.ts",
       "./messaging": "./src/messaging/index.ts",
       "./model-router": "./src/model-router/index.ts",
       "./rag": "./src/rag/index.ts",
@@ -92,6 +93,11 @@
       "types": "./dist/memory/index.d.cts",
       "import": "./dist/memory/index.js",
       "require": "./dist/memory/index.cjs"
+    },
+    "./organization": {
+      "types": "./dist/organization/index.d.cts",
+      "import": "./dist/organization/index.js",
+      "require": "./dist/organization/index.cjs"
     },
     "./messaging": {
       "types": "./dist/messaging/index.d.cts",
