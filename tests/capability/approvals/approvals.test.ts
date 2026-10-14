@@ -9,6 +9,9 @@ import {
   PendingApprovalsResponseSchema,
   SignedApprovalPermitSchema,
   approvalKeysContract,
+  ApprovalOwnerBindingSchema,
+  ApprovalRejectionSchema,
+  checkApprovalOwnerBinding,
   canonicalApprovalPermit,
   checkApprovalPermit,
   createApprovalRequestContract,
@@ -193,5 +196,32 @@ describe('endpoint contracts', () => {
     expect(DeliverApprovalPermitResponseSchema.safeParse({ ok: true, text: 'Snapshot avviato.' }).success).toBe(true);
     expect(DeliverApprovalPermitResponseSchema.safeParse({ ok: false, text: '' }).success).toBe(false);
     expect(DeliverApprovalPermitResponseSchema.safeParse({ ok: true, text: 'x'.repeat(501) }).success).toBe(false);
+  });
+});
+
+describe('owner <-> channel/session binding', () => {
+  const expected = { ownerId: 'owner-stefano', channel: 'telegram' as const, sessionId: 'sess-1' };
+  it('accepts the matching binding', () => {
+    expect(checkApprovalOwnerBinding(expected, { ...expected })).toEqual({ ok: true });
+  });
+  it('rejects another owner', () => {
+    const r = checkApprovalOwnerBinding(expected, { ...expected, ownerId: 'owner-altro' });
+    expect(r).toMatchObject({ ok: false, code: 'owner_mismatch' });
+    expect(ApprovalRejectionSchema.safeParse(r).success).toBe(true);
+  });
+  it('rejects a foreign session or channel', () => {
+    expect(checkApprovalOwnerBinding(expected, { ...expected, sessionId: 'sess-2' })).toMatchObject({ code: 'session_foreign' });
+    expect(checkApprovalOwnerBinding(expected, { ...expected, channel: 'email' })).toMatchObject({ code: 'session_foreign' });
+  });
+  it('rejects missing, extra-field or out-of-type bindings as provenance_missing', () => {
+    expect(checkApprovalOwnerBinding(expected, undefined)).toMatchObject({ code: 'provenance_missing' });
+    expect(checkApprovalOwnerBinding(expected, { ...expected, extra: 1 })).toMatchObject({ code: 'provenance_missing' });
+    expect(checkApprovalOwnerBinding(expected, { ...expected, channel: 'sms' })).toMatchObject({ code: 'provenance_missing' });
+    expect(checkApprovalOwnerBinding(expected, { ...expected, sessionId: '' })).toMatchObject({ code: 'provenance_missing' });
+  });
+  it('keeps the schemas strict', () => {
+    expect(ApprovalOwnerBindingSchema.safeParse({ ...expected, x: 1 }).success).toBe(false);
+    expect(ApprovalRejectionSchema.safeParse({ ok: false, code: 'owner_mismatch', message: '' }).success).toBe(false);
+    expect(ApprovalRejectionSchema.safeParse({ ok: false, code: 'nope', message: 'm' }).success).toBe(false);
   });
 });
