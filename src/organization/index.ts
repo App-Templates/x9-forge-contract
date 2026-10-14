@@ -1,5 +1,6 @@
 export * from './run-context.js';
 export * from './run-outcome.js';
+export * from './run-receipt.js';
 export * from './operations.js';
 export * from './decision-response.js';
 export * from './outcome-intake.js';
