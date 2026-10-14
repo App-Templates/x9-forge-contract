@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — cap-lab browse, dettaglio, export (T2-b), additivo
+
+- Add `capability/lab/browse`: page list (paged), page detail (page, claims, links, sources), export request/result with a server-chosen safe filename, and `LabBrowseErrorSchema` reusing `LabToolErrorSchema`.
+- Re-export growth (T2-a) and browse symbols from `@x9-forge/contracts/capability/lab`. Additive only; version and `dist` untouched.
+
 ## Unreleased — cap-dev (P04), additivo
 
 - Add the `@x9-forge/contracts/capability/dev` subpath re-exporting `signed-command` (v2 signed command, canonicalization) and `config-state` (binding, config, state).
