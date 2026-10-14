@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — C02 additivo, sub-path ./organization
+
+- Re-export from `@x9-forge/contracts/organization` the C02 contracts: `decision-response`, `outcome-intake`, `publication-ref`, `experiment`, `company-memory`.
+- Additive only: no existing shape changes and no organization exports at the package root. Version is decided by whoever releases; no `package.json` or `dist` change.
+
 ## Unreleased — organization (C01)
 
 - Add the `@x9-forge/contracts/organization` subpath with canonical run context, attempt, outcome and operation contracts.

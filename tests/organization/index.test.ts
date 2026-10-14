@@ -4,6 +4,22 @@ import * as root from '../../src/index.js';
 import * as runContext from '../../src/organization/run-context.js';
 import * as runOutcome from '../../src/organization/run-outcome.js';
 import * as operations from '../../src/organization/operations.js';
+import * as decisionResponse from '../../src/organization/decision-response.js';
+import * as outcomeIntake from '../../src/organization/outcome-intake.js';
+import * as publicationRef from '../../src/organization/publication-ref.js';
+import * as experiment from '../../src/organization/experiment.js';
+import * as companyMemory from '../../src/organization/company-memory.js';
+
+const allSymbols = {
+  ...runContext,
+  ...runOutcome,
+  ...operations,
+  ...decisionResponse,
+  ...outcomeIntake,
+  ...publicationRef,
+  ...experiment,
+  ...companyMemory,
+};
 
 describe('organization subpath', () => {
   it('exports the canonical schemas and every organization runtime symbol', () => {
@@ -11,9 +27,12 @@ describe('organization subpath', () => {
     expect(organization.RunAttemptSchema).toBe(runOutcome.RunAttemptSchema);
     expect(organization.RunOutcomeSchema).toBe(runOutcome.RunOutcomeSchema);
     expect(organization.OrganizationOperationSchema).toBe(operations.OrganizationOperationSchema);
-    expect(Object.keys(organization).sort()).toEqual(
-      Object.keys({ ...runContext, ...runOutcome, ...operations }).sort(),
-    );
+    expect(organization.DecisionResponseSchema).toBe(decisionResponse.DecisionResponseSchema);
+    expect(organization.OutcomeIntakeSchema).toBe(outcomeIntake.OutcomeIntakeSchema);
+    expect(organization.PublicationRefSchema).toBe(publicationRef.PublicationRefSchema);
+    expect(organization.ExperimentSchema).toBe(experiment.ExperimentSchema);
+    expect(organization.CompanyMemoryScopeSchema).toBe(companyMemory.CompanyMemoryScopeSchema);
+    expect(Object.keys(organization).sort()).toEqual(Object.keys(allSymbols).sort());
   });
 
   it('preserves the original run context literal without changing its shape', () => {
@@ -32,7 +51,7 @@ describe('organization subpath', () => {
   });
 
   it('keeps every organization runtime symbol out of the package root', () => {
-    for (const name of Object.keys({ ...runContext, ...runOutcome, ...operations })) {
+    for (const name of Object.keys(allSymbols)) {
       expect(root).not.toHaveProperty(name);
     }
   });
