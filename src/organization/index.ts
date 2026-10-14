@@ -6,3 +6,4 @@ export * from './outcome-intake.js';
 export * from './publication-ref.js';
 export * from './experiment.js';
 export * from './company-memory.js';
+export * from './scenario.js';

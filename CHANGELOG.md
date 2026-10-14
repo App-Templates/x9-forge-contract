@@ -1,5 +1,9 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — SIM01 versioned scenarios and corpora, additive
+
+- Add `ScenarioVersionSchema`, `ScenarioVersionRefSchema`, `ScenarioCorpusSchema` and inferred types to `@x9-forge/contracts/organization`: strict payloads, required lowercase SHA-256, positive integer versions, nonempty items/references and unique item/scenario identities. Reuse the evidence hash schema with stricter casing and presence. Version and `dist` untouched.
+
 ## Unreleased — X01 turno per agente, `organizationRun` opzionale, additivo
 
 - `InternalAgentTurnRequestSchema` gains optional `organizationRun` `{ context, attempt }` (reusing `OrganizationRunContextSchema` and `RunAttemptSchema`); `attempt.runId` must equal `context.runId`. Legacy bodies stay valid. Version and `dist` untouched.

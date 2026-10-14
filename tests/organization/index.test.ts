@@ -9,6 +9,7 @@ import * as outcomeIntake from '../../src/organization/outcome-intake.js';
 import * as publicationRef from '../../src/organization/publication-ref.js';
 import * as experiment from '../../src/organization/experiment.js';
 import * as companyMemory from '../../src/organization/company-memory.js';
+import * as scenario from '../../src/organization/scenario.js';
 
 const allSymbols = {
   ...runContext,
@@ -19,6 +20,7 @@ const allSymbols = {
   ...publicationRef,
   ...experiment,
   ...companyMemory,
+  ...scenario,
 };
 
 describe('organization subpath', () => {
@@ -32,6 +34,9 @@ describe('organization subpath', () => {
     expect(organization.PublicationRefSchema).toBe(publicationRef.PublicationRefSchema);
     expect(organization.ExperimentSchema).toBe(experiment.ExperimentSchema);
     expect(organization.CompanyMemoryScopeSchema).toBe(companyMemory.CompanyMemoryScopeSchema);
+    expect(organization.ScenarioVersionSchema).toBe(scenario.ScenarioVersionSchema);
+    expect(organization.ScenarioVersionRefSchema).toBe(scenario.ScenarioVersionRefSchema);
+    expect(organization.ScenarioCorpusSchema).toBe(scenario.ScenarioCorpusSchema);
     expect(Object.keys(organization).sort()).toEqual(Object.keys(allSymbols).sort());
   });
 
