@@ -24,6 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./internal-agents-list.cjs"), exports);
 __exportStar(require("./internal-agents-reload.cjs"), exports);
 __exportStar(require("./internal-agents-stop.cjs"), exports);
+__exportStar(require("./internal-run-stop.cjs"), exports);
 __exportStar(require("./internal-agents-management.cjs"), exports); // v1.31.0 — R1b commands + management state
 __exportStar(require("./internal-turn.cjs"), exports);
 __exportStar(require("./internal-turn-stream.cjs"), exports);
@@ -35,6 +36,7 @@ __exportStar(require("./internal-memory-extract.cjs"), exports); // Phase 36.9 �
 __exportStar(require("./internal-capability-agent.cjs"), exports); // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
 __exportStar(require("./internal-capability-elevenlabs.cjs"), exports); // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 __exportStar(require("./internal-capability-coach.cjs"), exports); // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
+__exportStar(require("./internal-capability-dev.cjs"), exports); // P04-d — cap-dev get/put config and get state
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);

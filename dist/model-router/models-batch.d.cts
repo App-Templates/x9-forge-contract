@@ -1001,12 +1001,12 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
             reason: z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
@@ -1112,12 +1112,12 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
         reason: z.ZodOptional<z.ZodObject<{
             code: z.ZodEnum<{
                 unknown: "unknown";
+                timeout: "timeout";
                 "catalog-version-mismatch": "catalog-version-mismatch";
                 "model-unavailable": "model-unavailable";
                 "not-loaded": "not-loaded";
                 "load-failed": "load-failed";
                 "validation-failed": "validation-failed";
-                timeout: "timeout";
                 "source-unavailable": "source-unavailable";
                 "shared-runtime": "shared-runtime";
                 "externally-owned": "externally-owned";
@@ -2077,12 +2077,12 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -2188,12 +2188,12 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
             reason: z.ZodOptional<z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
@@ -3994,8 +3994,8 @@ export declare const AgentModelsBatchStatusSchema: z.ZodEnum<{
 }>;
 export declare const AgentModelsBatchOutcomeSchema: z.ZodEnum<{
     applied: "applied";
-    partial: "partial";
     failed: "failed";
+    partial: "partial";
     pending: "pending";
 }>;
 export declare function deriveAgentModelsBatchOutcome(statuses: readonly z.infer<typeof AgentModelsBatchStatusSchema>[]): z.infer<typeof AgentModelsBatchOutcomeSchema>;
@@ -4004,8 +4004,8 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
     previewId: z.ZodString;
     outcome: z.ZodEnum<{
         applied: "applied";
-        partial: "partial";
         failed: "failed";
+        partial: "partial";
         pending: "pending";
     }>;
     results: z.ZodArray<z.ZodObject<{
@@ -4308,12 +4308,12 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                 reason: z.ZodOptional<z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -4335,12 +4335,12 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
@@ -4410,12 +4410,12 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
         reason: z.ZodNullable<z.ZodObject<{
             code: z.ZodEnum<{
                 unknown: "unknown";
+                timeout: "timeout";
                 "catalog-version-mismatch": "catalog-version-mismatch";
                 "model-unavailable": "model-unavailable";
                 "not-loaded": "not-loaded";
                 "load-failed": "load-failed";
                 "validation-failed": "validation-failed";
-                timeout: "timeout";
                 "source-unavailable": "source-unavailable";
                 "shared-runtime": "shared-runtime";
                 "externally-owned": "externally-owned";

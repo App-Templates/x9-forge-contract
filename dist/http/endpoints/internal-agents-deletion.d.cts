@@ -74,9 +74,9 @@ export declare const agentDeletionContract: {
         tombstoned: z.ZodBoolean;
         results: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
             step: z.ZodEnum<{
+                context: "context";
                 runtime: "runtime";
                 workspace: "workspace";
-                context: "context";
                 channels: "channels";
                 tombstone: "tombstone";
                 admission: "admission";
@@ -86,9 +86,9 @@ export declare const agentDeletionContract: {
             outcome: z.ZodLiteral<"completed">;
         }, z.core.$strict>, z.ZodObject<{
             step: z.ZodEnum<{
+                context: "context";
                 runtime: "runtime";
                 workspace: "workspace";
-                context: "context";
                 channels: "channels";
                 tombstone: "tombstone";
                 admission: "admission";
@@ -98,9 +98,9 @@ export declare const agentDeletionContract: {
             outcome: z.ZodLiteral<"absent">;
         }, z.core.$strict>, z.ZodObject<{
             step: z.ZodEnum<{
+                context: "context";
                 runtime: "runtime";
                 workspace: "workspace";
-                context: "context";
                 channels: "channels";
                 tombstone: "tombstone";
                 admission: "admission";
@@ -120,9 +120,9 @@ export declare const agentDeletionContract: {
             }>;
         }, z.core.$strict>, z.ZodObject<{
             step: z.ZodEnum<{
+                context: "context";
                 runtime: "runtime";
                 workspace: "workspace";
-                context: "context";
                 channels: "channels";
                 tombstone: "tombstone";
                 admission: "admission";

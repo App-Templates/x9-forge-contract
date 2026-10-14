@@ -47,8 +47,8 @@ export type LLMMessage = z.infer<typeof LLMMessageSchema>;
  */
 export declare const TurnAttachmentSchema: z.ZodObject<{
     type: z.ZodEnum<{
-        photo: "photo";
         document: "document";
+        photo: "photo";
         video: "video";
     }>;
     fileUrl: z.ZodString;
@@ -78,8 +78,8 @@ export declare const InternalTurnRequestSchema: z.ZodObject<{
     }, z.core.$strip>>>;
     attachment: z.ZodOptional<z.ZodObject<{
         type: z.ZodEnum<{
-            photo: "photo";
             document: "document";
+            photo: "photo";
             video: "video";
         }>;
         fileUrl: z.ZodString;
@@ -140,8 +140,8 @@ export declare const internalTurnContract: {
         }, z.core.$strip>>>;
         attachment: z.ZodOptional<z.ZodObject<{
             type: z.ZodEnum<{
-                photo: "photo";
                 document: "document";
+                photo: "photo";
                 video: "video";
             }>;
             fileUrl: z.ZodString;

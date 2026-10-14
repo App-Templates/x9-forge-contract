@@ -1,10 +1,10 @@
 /** Public cap-paperclip contracts. Native Paperclip payloads remain at the adapter boundary. */
 import { z } from 'zod';
 export declare const PaperclipMaterialEventTypeSchema: z.ZodEnum<{
+    decision_needed: "decision_needed";
     moodboard_ready: "moodboard_ready";
     board_ready: "board_ready";
     plan_verified: "plan_verified";
-    decision_needed: "decision_needed";
     release_delivered: "release_delivered";
 }>;
 export declare const PaperclipMaterialEventSchema: z.ZodObject<{
@@ -12,10 +12,10 @@ export declare const PaperclipMaterialEventSchema: z.ZodObject<{
     unitId: z.ZodString;
     incrementId: z.ZodString;
     eventType: z.ZodEnum<{
+        decision_needed: "decision_needed";
         moodboard_ready: "moodboard_ready";
         board_ready: "board_ready";
         plan_verified: "plan_verified";
-        decision_needed: "decision_needed";
         release_delivered: "release_delivered";
     }>;
     materialVersion: z.ZodString;
@@ -31,10 +31,10 @@ export declare const PaperclipRoutingConfigSchema: z.ZodObject<{
     revision: z.ZodString;
     units: z.ZodRecord<z.ZodString, z.ZodObject<{
         events: z.ZodRecord<z.ZodEnum<{
+            decision_needed: "decision_needed";
             moodboard_ready: "moodboard_ready";
             board_ready: "board_ready";
             plan_verified: "plan_verified";
-            decision_needed: "decision_needed";
             release_delivered: "release_delivered";
         }> & z.core.$partial, z.ZodString>;
         roles: z.ZodRecord<z.ZodString, z.ZodObject<{
@@ -66,10 +66,10 @@ export declare const PaperclipHandoffSchema: z.ZodObject<{
         unitId: z.ZodString;
         incrementId: z.ZodString;
         eventType: z.ZodEnum<{
+            decision_needed: "decision_needed";
             moodboard_ready: "moodboard_ready";
             board_ready: "board_ready";
             plan_verified: "plan_verified";
-            decision_needed: "decision_needed";
             release_delivered: "release_delivered";
         }>;
         materialVersion: z.ZodString;

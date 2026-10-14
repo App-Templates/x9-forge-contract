@@ -325,4 +325,38 @@ export declare const approvalKeysContract: {
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };
+/**
+ * Owner <-> channel/session binding: the approval is accepted only from the owner's own chat session.
+ * Pure check, run by the client capability before it asks cap-approvals for a permit.
+ */
+export declare const ApprovalOwnerBindingSchema: z.ZodObject<{
+    ownerId: z.ZodString;
+    channel: z.ZodEnum<{
+        email: "email";
+        voice: "voice";
+        telegram: "telegram";
+        whatsapp: "whatsapp";
+    }>;
+    sessionId: z.ZodString;
+}, z.core.$strict>;
+export type ApprovalOwnerBinding = z.infer<typeof ApprovalOwnerBindingSchema>;
+export declare const ApprovalRejectionCodeSchema: z.ZodEnum<{
+    owner_mismatch: "owner_mismatch";
+    session_foreign: "session_foreign";
+    provenance_missing: "provenance_missing";
+}>;
+export type ApprovalRejectionCode = z.infer<typeof ApprovalRejectionCodeSchema>;
+export declare const ApprovalRejectionSchema: z.ZodObject<{
+    ok: z.ZodLiteral<false>;
+    code: z.ZodEnum<{
+        owner_mismatch: "owner_mismatch";
+        session_foreign: "session_foreign";
+        provenance_missing: "provenance_missing";
+    }>;
+    message: z.ZodString;
+}, z.core.$strict>;
+export type ApprovalRejection = z.infer<typeof ApprovalRejectionSchema>;
+export declare function checkApprovalOwnerBinding(expected: ApprovalOwnerBinding, actual: unknown): {
+    ok: true;
+} | ApprovalRejection;
 //# sourceMappingURL=index.d.ts.map

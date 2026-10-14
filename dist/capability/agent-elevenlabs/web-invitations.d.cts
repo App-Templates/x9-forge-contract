@@ -27,12 +27,12 @@ export declare const ElevenLabsWebRevokeDraftSchema: z.ZodObject<{
 export type ElevenLabsWebInviteDraft = z.infer<typeof ElevenLabsWebInviteDraftSchema>;
 export type ElevenLabsWebRevokeDraft = z.infer<typeof ElevenLabsWebRevokeDraftSchema>;
 export declare const ElevenLabsWebPendingInvitationSchema: z.ZodObject<{
+    expiresAt: z.ZodISODateTime;
     scope: z.ZodObject<{
         agentId: z.ZodString;
         ownerId: z.ZodString;
         tenantId: z.ZodString;
     }, z.core.$strict>;
-    expiresAt: z.ZodISODateTime;
     createdAt: z.ZodISODateTime;
     revision: z.ZodNumber;
     invitationId: z.ZodString;
@@ -58,12 +58,12 @@ export declare const ElevenLabsWebInvitationRecordSchema: z.ZodDiscriminatedUnio
     status: z.ZodLiteral<"pending-registration">;
     email: z.ZodEmail;
     pending: z.ZodObject<{
+        expiresAt: z.ZodISODateTime;
         scope: z.ZodObject<{
             agentId: z.ZodString;
             ownerId: z.ZodString;
             tenantId: z.ZodString;
         }, z.core.$strict>;
-        expiresAt: z.ZodISODateTime;
         createdAt: z.ZodISODateTime;
         revision: z.ZodNumber;
         invitationId: z.ZodString;
@@ -106,12 +106,12 @@ export declare const ElevenLabsWebInvitationListSchema: z.ZodObject<{
         status: z.ZodLiteral<"pending-registration">;
         email: z.ZodEmail;
         pending: z.ZodObject<{
+            expiresAt: z.ZodISODateTime;
             scope: z.ZodObject<{
                 agentId: z.ZodString;
                 ownerId: z.ZodString;
                 tenantId: z.ZodString;
             }, z.core.$strict>;
-            expiresAt: z.ZodISODateTime;
             createdAt: z.ZodISODateTime;
             revision: z.ZodNumber;
             invitationId: z.ZodString;

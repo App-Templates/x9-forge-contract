@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnParamsSchema = void 0;
+exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnOrganizationRunSchema = exports.InternalAgentTurnParamsSchema = void 0;
 exports.internalAgentTurnPath = internalAgentTurnPath;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
 const internal_memory_extract_js_1 = require("./internal-memory-extract.cjs");
 const capability_turn_lead_js_1 = require("../../capability/capability-turn-lead.cjs");
+const run_context_js_1 = require("../../organization/run-context.cjs");
+const run_outcome_js_1 = require("../../organization/run-outcome.cjs");
 const internal_turn_js_1 = require("./internal-turn.cjs");
 /**
  * POST /internal/agents/:agentId/turn — synchronous turn addressed to ONE
@@ -23,7 +25,8 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
  * caller's `userId` (v1.26.0), and the voice-led `prepare`/`exchange` turns with response
- * `lead`/`note` (v1.27.0); the personal `/internal/turn` schema is unchanged.
+ * `lead`/`note` (v1.27.0), and the optional trusted `organizationRun`
+ * (run context + attempt, additive); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -37,12 +40,29 @@ const internal_turn_js_1 = require("./internal-turn.cjs");
 exports.InternalAgentTurnParamsSchema = zod_1.z.object({
     agentId: zod_1.z.string().regex(/^[a-z0-9-]+$/),
 });
+/** Trusted run context and attempt of the calling organization run; both must name the same run. */
+exports.InternalAgentTurnOrganizationRunSchema = zod_1.z
+    .strictObject({
+    context: run_context_js_1.OrganizationRunContextSchema,
+    attempt: run_outcome_js_1.RunAttemptSchema,
+})
+    .superRefine((run, ctx) => {
+    if (run.attempt.runId !== run.context.runId) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'attempt.runId must equal context.runId',
+            path: ['attempt', 'runId'],
+        });
+    }
+});
 exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestSchema.extend({
     turn: capability_turn_lead_js_1.AgentTurnSchema.optional(),
     /** Server-owned admission identity, matched against the current loaded context. */
     identity: capability_call_identity_js_1.CapabilityCallIdentitySchema.optional(),
     /** Trusted caller identity, never taken from model text or tool input. */
     userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
+    /** Trusted run context and attempt from the caller; absent on legacy bodies. */
+    organizationRun: exports.InternalAgentTurnOrganizationRunSchema.optional(),
 });
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
 exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema.extend({ moveId: capability_turn_lead_js_1.AgentTurnMoveIdSchema.optional(),

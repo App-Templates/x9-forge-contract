@@ -6,23 +6,23 @@ export declare const PAPERCLIP_TOOLS: {
     readonly assign: "paperclip_assign";
 };
 export declare const PaperclipIssueStatusSchema: z.ZodEnum<{
+    cancelled: "cancelled";
     done: "done";
     blocked: "blocked";
     backlog: "backlog";
     todo: "todo";
     in_progress: "in_progress";
     in_review: "in_review";
-    cancelled: "cancelled";
 }>;
 export declare const PaperclipQueueInputSchema: z.ZodObject<{
     statuses: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+        cancelled: "cancelled";
         done: "done";
         blocked: "blocked";
         backlog: "backlog";
         todo: "todo";
         in_progress: "in_progress";
         in_review: "in_review";
-        cancelled: "cancelled";
     }>>>;
     limit: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
@@ -32,13 +32,13 @@ export declare const PaperclipIssueInputSchema: z.ZodObject<{
 export declare const PaperclipTakeInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
     expectedStatuses: z.ZodArray<z.ZodEnum<{
+        cancelled: "cancelled";
         done: "done";
         blocked: "blocked";
         backlog: "backlog";
         todo: "todo";
         in_progress: "in_progress";
         in_review: "in_review";
-        cancelled: "cancelled";
     }>>;
 }, z.core.$strict>;
 export declare const PaperclipAssignInputSchema: z.ZodObject<{
@@ -52,13 +52,13 @@ export declare const PaperclipIssueViewSchema: z.ZodObject<{
     title: z.ZodString;
     description: z.ZodNullable<z.ZodString>;
     status: z.ZodEnum<{
+        cancelled: "cancelled";
         done: "done";
         blocked: "blocked";
         backlog: "backlog";
         todo: "todo";
         in_progress: "in_progress";
         in_review: "in_review";
-        cancelled: "cancelled";
     }>;
     assigneeAgentId: z.ZodNullable<z.ZodUUID>;
 }, z.core.$strict>;
@@ -70,13 +70,13 @@ export declare const PaperclipQueueOutputSchema: z.ZodObject<{
         title: z.ZodString;
         description: z.ZodNullable<z.ZodString>;
         status: z.ZodEnum<{
+            cancelled: "cancelled";
             done: "done";
             blocked: "blocked";
             backlog: "backlog";
             todo: "todo";
             in_progress: "in_progress";
             in_review: "in_review";
-            cancelled: "cancelled";
         }>;
         assigneeAgentId: z.ZodNullable<z.ZodUUID>;
     }, z.core.$strict>>;
@@ -89,13 +89,13 @@ export declare const PaperclipMutationOutputSchema: z.ZodObject<{
         title: z.ZodString;
         description: z.ZodNullable<z.ZodString>;
         status: z.ZodEnum<{
+            cancelled: "cancelled";
             done: "done";
             blocked: "blocked";
             backlog: "backlog";
             todo: "todo";
             in_progress: "in_progress";
             in_review: "in_review";
-            cancelled: "cancelled";
         }>;
         assigneeAgentId: z.ZodNullable<z.ZodUUID>;
     }, z.core.$strict>;

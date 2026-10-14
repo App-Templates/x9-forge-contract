@@ -305,9 +305,9 @@ export declare const internalFactoryReplayableDeployContract: {
             }, z.core.$strict>>;
             failure: z.ZodNullable<z.ZodObject<{
                 step: z.ZodEnum<{
+                    context: "context";
                     runtime: "runtime";
                     workspace: "workspace";
-                    context: "context";
                     resources: "resources";
                     "first-check": "first-check";
                     save: "save";

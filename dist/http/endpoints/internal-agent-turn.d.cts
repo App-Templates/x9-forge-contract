@@ -15,7 +15,8 @@ import { z } from 'zod';
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
  * caller's `userId` (v1.26.0), and the voice-led `prepare`/`exchange` turns with response
- * `lead`/`note` (v1.27.0); the personal `/internal/turn` schema is unchanged.
+ * `lead`/`note` (v1.27.0), and the optional trusted `organizationRun`
+ * (run context + attempt, additive); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -30,6 +31,35 @@ export declare const InternalAgentTurnParamsSchema: z.ZodObject<{
     agentId: z.ZodString;
 }, z.core.$strip>;
 export type InternalAgentTurnParams = z.infer<typeof InternalAgentTurnParamsSchema>;
+/** Trusted run context and attempt of the calling organization run; both must name the same run. */
+export declare const InternalAgentTurnOrganizationRunSchema: z.ZodObject<{
+    context: z.ZodObject<{
+        schemaVersion: z.ZodLiteral<1>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        organizationId: z.ZodString;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>;
+        issuer: z.ZodEnum<{
+            x9: "x9";
+            forge: "forge";
+            paperclip: "paperclip";
+        }>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    attempt: z.ZodObject<{
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        attemptNumber: z.ZodNumber;
+        startedAt: z.ZodISODateTime;
+        idempotencyKey: z.ZodString;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type InternalAgentTurnOrganizationRun = z.infer<typeof InternalAgentTurnOrganizationRunSchema>;
 export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
     channelId: z.ZodString;
     sessionId: z.ZodString;
@@ -52,8 +82,8 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
     }, z.core.$strip>>>;
     attachment: z.ZodOptional<z.ZodObject<{
         type: z.ZodEnum<{
-            photo: "photo";
             document: "document";
+            photo: "photo";
             video: "video";
         }>;
         fileUrl: z.ZodString;
@@ -96,6 +126,33 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
     userId: z.ZodOptional<z.ZodString>;
+    organizationRun: z.ZodOptional<z.ZodObject<{
+        context: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            organizationId: z.ZodString;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            issuer: z.ZodEnum<{
+                x9: "x9";
+                forge: "forge";
+                paperclip: "paperclip";
+            }>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        attempt: z.ZodObject<{
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            attemptNumber: z.ZodNumber;
+            startedAt: z.ZodISODateTime;
+            idempotencyKey: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
@@ -163,8 +220,8 @@ export declare const internalAgentTurnContract: {
         }, z.core.$strip>>>;
         attachment: z.ZodOptional<z.ZodObject<{
             type: z.ZodEnum<{
-                photo: "photo";
                 document: "document";
+                photo: "photo";
                 video: "video";
             }>;
             fileUrl: z.ZodString;
@@ -207,6 +264,33 @@ export declare const internalAgentTurnContract: {
             userId: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;
         userId: z.ZodOptional<z.ZodString>;
+        organizationRun: z.ZodOptional<z.ZodObject<{
+            context: z.ZodObject<{
+                schemaVersion: z.ZodLiteral<1>;
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                organizationId: z.ZodString;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
+                }, z.core.$strip>;
+                issuer: z.ZodEnum<{
+                    x9: "x9";
+                    forge: "forge";
+                    paperclip: "paperclip";
+                }>;
+                issuedAt: z.ZodISODateTime;
+                expiresAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            attempt: z.ZodObject<{
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                attemptId: z.ZodString;
+                attemptNumber: z.ZodNumber;
+                startedAt: z.ZodISODateTime;
+                idempotencyKey: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;

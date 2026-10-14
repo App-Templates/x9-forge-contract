@@ -18,12 +18,12 @@ export declare const AgentManagementOverallOutcomeSchema: z.ZodEnum<{
 export type AgentManagementOverallOutcome = z.infer<typeof AgentManagementOverallOutcomeSchema>;
 export declare const AgentManagementReasonCodeSchema: z.ZodEnum<{
     unknown: "unknown";
+    timeout: "timeout";
     "catalog-version-mismatch": "catalog-version-mismatch";
     "model-unavailable": "model-unavailable";
     "not-loaded": "not-loaded";
     "load-failed": "load-failed";
     "validation-failed": "validation-failed";
-    timeout: "timeout";
     "source-unavailable": "source-unavailable";
     "shared-runtime": "shared-runtime";
     "externally-owned": "externally-owned";
@@ -38,12 +38,12 @@ export type AgentManagementReasonCode = z.infer<typeof AgentManagementReasonCode
 export declare const AgentManagementReasonSchema: z.ZodObject<{
     code: z.ZodEnum<{
         unknown: "unknown";
+        timeout: "timeout";
         "catalog-version-mismatch": "catalog-version-mismatch";
         "model-unavailable": "model-unavailable";
         "not-loaded": "not-loaded";
         "load-failed": "load-failed";
         "validation-failed": "validation-failed";
-        timeout: "timeout";
         "source-unavailable": "source-unavailable";
         "shared-runtime": "shared-runtime";
         "externally-owned": "externally-owned";
@@ -65,12 +65,12 @@ export declare const AgentConfigVersionStateSchema: z.ZodObject<{
         reason: z.ZodObject<{
             code: z.ZodEnum<{
                 unknown: "unknown";
+                timeout: "timeout";
                 "catalog-version-mismatch": "catalog-version-mismatch";
                 "model-unavailable": "model-unavailable";
                 "not-loaded": "not-loaded";
                 "load-failed": "load-failed";
                 "validation-failed": "validation-failed";
-                timeout: "timeout";
                 "source-unavailable": "source-unavailable";
                 "shared-runtime": "shared-runtime";
                 "externally-owned": "externally-owned";

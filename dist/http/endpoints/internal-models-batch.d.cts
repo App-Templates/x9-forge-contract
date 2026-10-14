@@ -929,12 +929,12 @@ export declare const internalModelsOverviewContract: {
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
@@ -1040,12 +1040,12 @@ export declare const internalModelsOverviewContract: {
                 reason: z.ZodOptional<z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -2110,8 +2110,8 @@ export declare const internalModelsBatchContract: {
         previewId: z.ZodString;
         outcome: z.ZodEnum<{
             applied: "applied";
-            partial: "partial";
             failed: "failed";
+            partial: "partial";
             pending: "pending";
         }>;
         results: z.ZodArray<z.ZodObject<{
@@ -2414,12 +2414,12 @@ export declare const internalModelsBatchContract: {
                     reason: z.ZodOptional<z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
@@ -2441,12 +2441,12 @@ export declare const internalModelsBatchContract: {
                         reason: z.ZodObject<{
                             code: z.ZodEnum<{
                                 unknown: "unknown";
+                                timeout: "timeout";
                                 "catalog-version-mismatch": "catalog-version-mismatch";
                                 "model-unavailable": "model-unavailable";
                                 "not-loaded": "not-loaded";
                                 "load-failed": "load-failed";
                                 "validation-failed": "validation-failed";
-                                timeout: "timeout";
                                 "source-unavailable": "source-unavailable";
                                 "shared-runtime": "shared-runtime";
                                 "externally-owned": "externally-owned";
@@ -2516,12 +2516,12 @@ export declare const internalModelsBatchContract: {
             reason: z.ZodNullable<z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
@@ -2558,12 +2558,12 @@ export declare const internalAgentModelsStateContract: {
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -3418,12 +3418,12 @@ export declare const internalAgentModelsStateContract: {
                 reason: z.ZodOptional<z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -3449,12 +3449,12 @@ export declare const internalAgentModelsStateContract: {
                 slotId: z.ZodNullable<z.ZodString>;
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";

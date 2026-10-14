@@ -850,12 +850,12 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -1174,12 +1174,12 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -1809,12 +1809,12 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -2133,12 +2133,12 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -3199,12 +3199,12 @@ export declare const AgentModelsPendingWorkSchema: z.ZodObject<{
         reason: z.ZodOptional<z.ZodObject<{
             code: z.ZodEnum<{
                 unknown: "unknown";
+                timeout: "timeout";
                 "catalog-version-mismatch": "catalog-version-mismatch";
                 "model-unavailable": "model-unavailable";
                 "not-loaded": "not-loaded";
                 "load-failed": "load-failed";
                 "validation-failed": "validation-failed";
-                timeout: "timeout";
                 "source-unavailable": "source-unavailable";
                 "shared-runtime": "shared-runtime";
                 "externally-owned": "externally-owned";
@@ -3230,12 +3230,12 @@ export declare const AgentModelsPendingWorkSchema: z.ZodObject<{
         slotId: z.ZodNullable<z.ZodString>;
         code: z.ZodEnum<{
             unknown: "unknown";
+            timeout: "timeout";
             "catalog-version-mismatch": "catalog-version-mismatch";
             "model-unavailable": "model-unavailable";
             "not-loaded": "not-loaded";
             "load-failed": "load-failed";
             "validation-failed": "validation-failed";
-            timeout: "timeout";
             "source-unavailable": "source-unavailable";
             "shared-runtime": "shared-runtime";
             "externally-owned": "externally-owned";
@@ -3262,12 +3262,12 @@ export declare const AgentModelsStateSchema: z.ZodObject<{
             reason: z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
@@ -4122,12 +4122,12 @@ export declare const AgentModelsStateSchema: z.ZodObject<{
             reason: z.ZodOptional<z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
@@ -4153,12 +4153,12 @@ export declare const AgentModelsStateSchema: z.ZodObject<{
             slotId: z.ZodNullable<z.ZodString>;
             code: z.ZodEnum<{
                 unknown: "unknown";
+                timeout: "timeout";
                 "catalog-version-mismatch": "catalog-version-mismatch";
                 "model-unavailable": "model-unavailable";
                 "not-loaded": "not-loaded";
                 "load-failed": "load-failed";
                 "validation-failed": "validation-failed";
-                timeout: "timeout";
                 "source-unavailable": "source-unavailable";
                 "shared-runtime": "shared-runtime";
                 "externally-owned": "externally-owned";

@@ -7,6 +7,7 @@
 export * from "./internal-agents-list.js";
 export * from "./internal-agents-reload.js";
 export * from "./internal-agents-stop.js";
+export * from "./internal-run-stop.js";
 export * from "./internal-agents-management.js";
 export * from "./internal-turn.js";
 export * from "./internal-turn-stream.js";
@@ -18,6 +19,7 @@ export * from "./internal-memory-extract.js";
 export * from "./internal-capability-agent.js";
 export * from "./internal-capability-elevenlabs.js";
 export * from "./internal-capability-coach.js";
+export * from "./internal-capability-dev.js";
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
 export * from "./vault-resolve.js";

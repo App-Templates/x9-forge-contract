@@ -68,6 +68,8 @@ __exportStar(require("./coach/index.cjs"), exports);
 __exportStar(require("./approvals/index.cjs"), exports);
 // cap-backup: restore points of the owner's servers, first client of the signed approvals (phase 59)
 __exportStar(require("./backup/index.cjs"), exports);
+// Owner notices: a registered device of the owner asks cap-approvals to message the owner's agent chat
+__exportStar(require("./notice/index.cjs"), exports);
 // C3-B1: independent Web admission policy and server-owned invitations.
 __exportStar(require("./agent-elevenlabs/web-channel.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-session.cjs"), exports);

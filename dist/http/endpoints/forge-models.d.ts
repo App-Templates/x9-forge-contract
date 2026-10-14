@@ -16,8 +16,8 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
         previewId: z.ZodString;
         outcome: z.ZodEnum<{
             applied: "applied";
-            partial: "partial";
             failed: "failed";
+            partial: "partial";
             pending: "pending";
         }>;
         results: z.ZodArray<z.ZodObject<{
@@ -320,12 +320,12 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                     reason: z.ZodOptional<z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
@@ -347,12 +347,12 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                         reason: z.ZodObject<{
                             code: z.ZodEnum<{
                                 unknown: "unknown";
+                                timeout: "timeout";
                                 "catalog-version-mismatch": "catalog-version-mismatch";
                                 "model-unavailable": "model-unavailable";
                                 "not-loaded": "not-loaded";
                                 "load-failed": "load-failed";
                                 "validation-failed": "validation-failed";
-                                timeout: "timeout";
                                 "source-unavailable": "source-unavailable";
                                 "shared-runtime": "shared-runtime";
                                 "externally-owned": "externally-owned";
@@ -422,12 +422,12 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
             reason: z.ZodNullable<z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
@@ -1363,12 +1363,12 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
@@ -1474,12 +1474,12 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
                 reason: z.ZodOptional<z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -2443,12 +2443,12 @@ export declare const forgeModelsOverviewContract: {
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
@@ -2554,12 +2554,12 @@ export declare const forgeModelsOverviewContract: {
                 reason: z.ZodOptional<z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -3712,8 +3712,8 @@ export declare const forgeModelsBatchContract: {
         previewId: z.ZodString;
         outcome: z.ZodEnum<{
             applied: "applied";
-            partial: "partial";
             failed: "failed";
+            partial: "partial";
             pending: "pending";
         }>;
         results: z.ZodArray<z.ZodObject<{
@@ -4016,12 +4016,12 @@ export declare const forgeModelsBatchContract: {
                     reason: z.ZodOptional<z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
@@ -4043,12 +4043,12 @@ export declare const forgeModelsBatchContract: {
                         reason: z.ZodObject<{
                             code: z.ZodEnum<{
                                 unknown: "unknown";
+                                timeout: "timeout";
                                 "catalog-version-mismatch": "catalog-version-mismatch";
                                 "model-unavailable": "model-unavailable";
                                 "not-loaded": "not-loaded";
                                 "load-failed": "load-failed";
                                 "validation-failed": "validation-failed";
-                                timeout: "timeout";
                                 "source-unavailable": "source-unavailable";
                                 "shared-runtime": "shared-runtime";
                                 "externally-owned": "externally-owned";
@@ -4118,12 +4118,12 @@ export declare const forgeModelsBatchContract: {
             reason: z.ZodNullable<z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
                     "catalog-version-mismatch": "catalog-version-mismatch";
                     "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
@@ -4153,8 +4153,8 @@ export declare const forgeModelsProgressContract: {
             previewId: z.ZodString;
             outcome: z.ZodEnum<{
                 applied: "applied";
-                partial: "partial";
                 failed: "failed";
+                partial: "partial";
                 pending: "pending";
             }>;
             results: z.ZodArray<z.ZodObject<{
@@ -4457,12 +4457,12 @@ export declare const forgeModelsProgressContract: {
                         reason: z.ZodOptional<z.ZodObject<{
                             code: z.ZodEnum<{
                                 unknown: "unknown";
+                                timeout: "timeout";
                                 "catalog-version-mismatch": "catalog-version-mismatch";
                                 "model-unavailable": "model-unavailable";
                                 "not-loaded": "not-loaded";
                                 "load-failed": "load-failed";
                                 "validation-failed": "validation-failed";
-                                timeout: "timeout";
                                 "source-unavailable": "source-unavailable";
                                 "shared-runtime": "shared-runtime";
                                 "externally-owned": "externally-owned";
@@ -4484,12 +4484,12 @@ export declare const forgeModelsProgressContract: {
                             reason: z.ZodObject<{
                                 code: z.ZodEnum<{
                                     unknown: "unknown";
+                                    timeout: "timeout";
                                     "catalog-version-mismatch": "catalog-version-mismatch";
                                     "model-unavailable": "model-unavailable";
                                     "not-loaded": "not-loaded";
                                     "load-failed": "load-failed";
                                     "validation-failed": "validation-failed";
-                                    timeout: "timeout";
                                     "source-unavailable": "source-unavailable";
                                     "shared-runtime": "shared-runtime";
                                     "externally-owned": "externally-owned";
@@ -4559,12 +4559,12 @@ export declare const forgeModelsProgressContract: {
                 reason: z.ZodNullable<z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
                         "catalog-version-mismatch": "catalog-version-mismatch";
                         "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
@@ -5500,12 +5500,12 @@ export declare const forgeModelsProgressContract: {
                         reason: z.ZodObject<{
                             code: z.ZodEnum<{
                                 unknown: "unknown";
+                                timeout: "timeout";
                                 "catalog-version-mismatch": "catalog-version-mismatch";
                                 "model-unavailable": "model-unavailable";
                                 "not-loaded": "not-loaded";
                                 "load-failed": "load-failed";
                                 "validation-failed": "validation-failed";
-                                timeout: "timeout";
                                 "source-unavailable": "source-unavailable";
                                 "shared-runtime": "shared-runtime";
                                 "externally-owned": "externally-owned";
@@ -5611,12 +5611,12 @@ export declare const forgeModelsProgressContract: {
                     reason: z.ZodOptional<z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
                             "catalog-version-mismatch": "catalog-version-mismatch";
                             "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";

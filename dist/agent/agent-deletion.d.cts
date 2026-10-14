@@ -16,9 +16,9 @@ export type AgentDeletionCommand = z.infer<typeof AgentDeletionCommandSchema>;
  * Channel cleanup closes runtime handlers; Factory owns provider resource deletion.
  */
 export declare const AgentDeletionStepSchema: z.ZodEnum<{
+    context: "context";
     runtime: "runtime";
     workspace: "workspace";
-    context: "context";
     channels: "channels";
     tombstone: "tombstone";
     admission: "admission";
@@ -26,7 +26,7 @@ export declare const AgentDeletionStepSchema: z.ZodEnum<{
     "private-state": "private-state";
 }>;
 export type AgentDeletionStep = z.infer<typeof AgentDeletionStepSchema>;
-export declare const AGENT_DELETION_STEPS: ("runtime" | "workspace" | "context" | "channels" | "tombstone" | "admission" | "caches" | "private-state")[];
+export declare const AGENT_DELETION_STEPS: ("context" | "runtime" | "workspace" | "channels" | "tombstone" | "admission" | "caches" | "private-state")[];
 /** Machine codes only: no provider messages, file paths, tokens or free text diagnostics. */
 export declare const AgentDeletionFailureCodeSchema: z.ZodEnum<{
     timeout: "timeout";
@@ -41,9 +41,9 @@ export declare const AgentDeletionFailureCodeSchema: z.ZodEnum<{
 export type AgentDeletionFailureCode = z.infer<typeof AgentDeletionFailureCodeSchema>;
 export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     step: z.ZodEnum<{
+        context: "context";
         runtime: "runtime";
         workspace: "workspace";
-        context: "context";
         channels: "channels";
         tombstone: "tombstone";
         admission: "admission";
@@ -53,9 +53,9 @@ export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObj
     outcome: z.ZodLiteral<"completed">;
 }, z.core.$strict>, z.ZodObject<{
     step: z.ZodEnum<{
+        context: "context";
         runtime: "runtime";
         workspace: "workspace";
-        context: "context";
         channels: "channels";
         tombstone: "tombstone";
         admission: "admission";
@@ -65,9 +65,9 @@ export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObj
     outcome: z.ZodLiteral<"absent">;
 }, z.core.$strict>, z.ZodObject<{
     step: z.ZodEnum<{
+        context: "context";
         runtime: "runtime";
         workspace: "workspace";
-        context: "context";
         channels: "channels";
         tombstone: "tombstone";
         admission: "admission";
@@ -87,9 +87,9 @@ export declare const AgentDeletionPieceSchema: z.ZodDiscriminatedUnion<[z.ZodObj
     }>;
 }, z.core.$strict>, z.ZodObject<{
     step: z.ZodEnum<{
+        context: "context";
         runtime: "runtime";
         workspace: "workspace";
-        context: "context";
         channels: "channels";
         tombstone: "tombstone";
         admission: "admission";
@@ -126,9 +126,9 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
     tombstoned: z.ZodBoolean;
     results: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
         step: z.ZodEnum<{
+            context: "context";
             runtime: "runtime";
             workspace: "workspace";
-            context: "context";
             channels: "channels";
             tombstone: "tombstone";
             admission: "admission";
@@ -138,9 +138,9 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
         outcome: z.ZodLiteral<"completed">;
     }, z.core.$strict>, z.ZodObject<{
         step: z.ZodEnum<{
+            context: "context";
             runtime: "runtime";
             workspace: "workspace";
-            context: "context";
             channels: "channels";
             tombstone: "tombstone";
             admission: "admission";
@@ -150,9 +150,9 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
         outcome: z.ZodLiteral<"absent">;
     }, z.core.$strict>, z.ZodObject<{
         step: z.ZodEnum<{
+            context: "context";
             runtime: "runtime";
             workspace: "workspace";
-            context: "context";
             channels: "channels";
             tombstone: "tombstone";
             admission: "admission";
@@ -172,9 +172,9 @@ export declare const AgentDeletionResultSchema: z.ZodObject<{
         }>;
     }, z.core.$strict>, z.ZodObject<{
         step: z.ZodEnum<{
+            context: "context";
             runtime: "runtime";
             workspace: "workspace";
-            context: "context";
             channels: "channels";
             tombstone: "tombstone";
             admission: "admission";

@@ -8,6 +8,7 @@
 export * from "./internal-agents-list.js";
 export * from "./internal-agents-reload.js";
 export * from "./internal-agents-stop.js";
+export * from "./internal-run-stop.js";
 export * from "./internal-agents-management.js"; // v1.31.0 — R1b commands + management state
 export * from "./internal-turn.js";
 export * from "./internal-turn-stream.js";
@@ -19,6 +20,7 @@ export * from "./internal-memory-extract.js"; // Phase 36.9 — async extraction
 export * from "./internal-capability-agent.js"; // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
 export * from "./internal-capability-elevenlabs.js"; // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 export * from "./internal-capability-coach.js"; // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
+export * from "./internal-capability-dev.js"; // P04-d — cap-dev get/put config and get state
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";

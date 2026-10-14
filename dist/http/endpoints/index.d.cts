@@ -7,6 +7,7 @@
 export * from "./internal-agents-list.cjs";
 export * from "./internal-agents-reload.cjs";
 export * from "./internal-agents-stop.cjs";
+export * from "./internal-run-stop.cjs";
 export * from "./internal-agents-management.cjs";
 export * from "./internal-turn.cjs";
 export * from "./internal-turn-stream.cjs";
@@ -18,6 +19,7 @@ export * from "./internal-memory-extract.cjs";
 export * from "./internal-capability-agent.cjs";
 export * from "./internal-capability-elevenlabs.cjs";
 export * from "./internal-capability-coach.cjs";
+export * from "./internal-capability-dev.cjs";
 export * from "./webhook-post-call.cjs";
 export * from "./voice-register.cjs";
 export * from "./vault-resolve.cjs";

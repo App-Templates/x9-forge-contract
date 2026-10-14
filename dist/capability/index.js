@@ -33,6 +33,8 @@ export * from "./coach/index.js";
 export * from "./approvals/index.js";
 // cap-backup: restore points of the owner's servers, first client of the signed approvals (phase 59)
 export * from "./backup/index.js";
+// Owner notices: a registered device of the owner asks cap-approvals to message the owner's agent chat
+export * from "./notice/index.js";
 // C3-B1: independent Web admission policy and server-owned invitations.
 export * from "./agent-elevenlabs/web-channel.js";
 export * from "./agent-elevenlabs/web-session.js";

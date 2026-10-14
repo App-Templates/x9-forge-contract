@@ -28,6 +28,7 @@ export * from "./agent-elevenlabs/index.cjs";
 export * from "./coach/index.cjs";
 export * from "./approvals/index.cjs";
 export * from "./backup/index.cjs";
+export * from "./notice/index.cjs";
 export * from "./agent-elevenlabs/web-channel.cjs";
 export * from "./agent-elevenlabs/web-session.cjs";
 export * from "./agent-elevenlabs/web-catalog.cjs";
