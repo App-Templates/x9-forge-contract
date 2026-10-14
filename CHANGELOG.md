@@ -1,5 +1,9 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — X01 turno per agente, `organizationRun` opzionale, additivo
+
+- `InternalAgentTurnRequestSchema` gains optional `organizationRun` `{ context, attempt }` (reusing `OrganizationRunContextSchema` and `RunAttemptSchema`); `attempt.runId` must equal `context.runId`. Legacy bodies stay valid. Version and `dist` untouched.
+
 ## Unreleased — cap-lab browse, dettaglio, export (T2-b), additivo
 
 - Add `capability/lab/browse`: page list (paged), page detail (page, claims, links, sources), export request/result with a server-chosen safe filename, and `LabBrowseErrorSchema` reusing `LabToolErrorSchema`.
