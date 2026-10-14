@@ -104,4 +104,14 @@ describe('ExperimentSchema', () => {
       baselineRef: { kind: 'metric', ref: 'b', grantsRead: true },
     }).success).toBe(false);
   });
+
+  it('accepts a pinned corpus and stays valid without one', () => {
+    const corpus = {
+      corpusId: 'c-1',
+      scenarios: [{ scenarioId: 's-1', version: 1, contentSha256: 'a1'.repeat(32) }],
+    };
+    expect(parse({ ...base, status: 'proposed', corpus }).success).toBe(true);
+    expect(parse({ ...base, status: 'proposed' }).success).toBe(true);
+    expect(parse({ ...base, status: 'proposed', corpus: { corpusId: 'c-1', scenarios: [] } }).success).toBe(false);
+  });
 });

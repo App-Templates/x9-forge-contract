@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — SIM01-b experiment pinned to a scenario corpus, additive
+
+- `ExperimentSchema` gains optional `corpus` (`ScenarioCorpusSchema`); experiments without it stay valid.
+- Add `assertScenarioMatchesCorpus(corpus, scenario)` returning `{ ok: true }` or `{ ok: false, reason: 'unknown_scenario' | 'version_mismatch' | 'hash_mismatch' }`; re-exported from `@x9-forge/contracts/organization`. Version and `dist` untouched.
+
 ## Unreleased — SIM01 versioned scenarios and corpora, additive
 
 - Add `ScenarioVersionSchema`, `ScenarioVersionRefSchema`, `ScenarioCorpusSchema` and inferred types to `@x9-forge/contracts/organization`: strict payloads, required lowercase SHA-256, positive integer versions, nonempty items/references and unique item/scenario identities. Reuse the evidence hash schema with stricter casing and presence. Version and `dist` untouched.

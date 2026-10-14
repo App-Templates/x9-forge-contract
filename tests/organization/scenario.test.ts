@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  assertScenarioMatchesCorpus,
   ScenarioCorpusSchema,
   ScenarioVersionRefSchema,
   ScenarioVersionSchema,
@@ -97,5 +98,21 @@ describe('versioned scenarios and corpora', () => {
     for (const corpusId of ['', undefined]) {
       expect(ScenarioCorpusSchema.safeParse({ ...corpus, corpusId }).success).toBe(false);
     }
+  });
+
+  it('matches a scenario against the corpus pin', () => {
+    expect(assertScenarioMatchesCorpus(corpus, ref)).toEqual({ ok: true });
+    expect(assertScenarioMatchesCorpus(corpus, { ...ref, scenarioId: 'other' })).toEqual({
+      ok: false,
+      reason: 'unknown_scenario',
+    });
+    expect(assertScenarioMatchesCorpus(corpus, { ...ref, version: 2 })).toEqual({
+      ok: false,
+      reason: 'version_mismatch',
+    });
+    expect(assertScenarioMatchesCorpus(corpus, { ...ref, contentSha256: 'b2'.repeat(32) })).toEqual({
+      ok: false,
+      reason: 'hash_mismatch',
+    });
   });
 });

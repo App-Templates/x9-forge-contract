@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { OrganizationRunContextSchema } from './run-context.js';
 import { EvidenceRefSchema } from './run-outcome.js';
+import { ScenarioCorpusSchema } from './scenario.js';
 
 export const ExperimentStatusSchema = z.enum(['proposed', 'running', 'concluded', 'abandoned']);
 export type ExperimentStatus = z.infer<typeof ExperimentStatusSchema>;
@@ -17,6 +18,7 @@ export const ExperimentSchema = z
     hypothesisRef: z.string().min(1),
     domainVersionRef: EvidenceRefSchema,
     baselineRef: EvidenceRefSchema,
+    corpus: ScenarioCorpusSchema.optional(),
     criterionRef: z.string().min(1),
     status: ExperimentStatusSchema,
     conclusion: z.string().min(1).optional(),

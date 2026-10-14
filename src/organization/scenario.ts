@@ -52,3 +52,19 @@ export const ScenarioCorpusSchema = z
     });
   });
 export type ScenarioCorpus = z.infer<typeof ScenarioCorpusSchema>;
+
+export type ScenarioCorpusMatch =
+  | { ok: true }
+  | { ok: false; reason: 'unknown_scenario' | 'version_mismatch' | 'hash_mismatch' };
+
+/** Checks that a scenario is the exact version pinned by the corpus. */
+export function assertScenarioMatchesCorpus(
+  corpus: ScenarioCorpus,
+  scenario: ScenarioVersionRef,
+): ScenarioCorpusMatch {
+  const pinned = corpus.scenarios.find((s) => s.scenarioId === scenario.scenarioId);
+  if (pinned === undefined) return { ok: false, reason: 'unknown_scenario' };
+  if (pinned.version !== scenario.version) return { ok: false, reason: 'version_mismatch' };
+  if (pinned.contentSha256 !== scenario.contentSha256) return { ok: false, reason: 'hash_mismatch' };
+  return { ok: true };
+}
