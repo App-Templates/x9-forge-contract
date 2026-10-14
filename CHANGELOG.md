@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — cap-dev (P04), additivo
+
+- Add the `@x9-forge/contracts/capability/dev` subpath re-exporting `signed-command` (v2 signed command, canonicalization) and `config-state` (binding, config, state).
+- Additive only: no dev exports at the package root or in `./capability`. Version and `dist` untouched.
+
 ## Unreleased — C02 additivo, sub-path ./organization
 
 - Re-export from `@x9-forge/contracts/organization` the C02 contracts: `decision-response`, `outcome-intake`, `publication-ref`, `experiment`, `company-memory`.

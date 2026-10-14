@@ -15,6 +15,7 @@
       "./auth": "./src/auth/index.ts",
       "./agent": "./src/agent/index.ts",
       "./capability": "./src/capability/index.ts",
+      "./capability/dev": "./src/capability/dev/index.ts",
       "./voice": "./src/capability/voice/index.ts",
       "./capability/stt": "./src/capability/stt/index.ts",
       "./capability/tts": "./src/capability/tts/index.ts",
@@ -53,6 +54,11 @@
       "types": "./dist/capability/index.d.cts",
       "import": "./dist/capability/index.js",
       "require": "./dist/capability/index.cjs"
+    },
+    "./capability/dev": {
+      "types": "./dist/capability/dev/index.d.cts",
+      "import": "./dist/capability/dev/index.js",
+      "require": "./dist/capability/dev/index.cjs"
     },
     "./voice": {
       "types": "./dist/capability/voice/index.d.cts",
