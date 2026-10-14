@@ -1,3 +1,4 @@
+import { generateKeyPairSync, sign, verify } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import {
   canonicalizeDevSignedCommandV2,
@@ -51,6 +52,49 @@ describe('DevSignedCommandV2', () => {
 
   it.each(scopeFields)('binds scope field %s', (field) => {
     assertScopeBound(canonicalizeDevSignedCommandV2, field);
+  });
+
+  it.each([
+    ['tenantId', 'tenant-2'],
+    ['ownerId', 'owner-2'],
+    ['agentId', 'agent-2'],
+    ['boardId', 'board-2'],
+    ['computerId', 'computer-2'],
+    ['projectId', 'project-2'],
+    ['issueId', 'issue-2'],
+    ['command', 'plan'],
+    ['reportDigest', 'a'.repeat(64)],
+    ['configVersion', 1],
+    ['keyVersion', 2],
+    ['requestId', 'request-2'],
+    ['nonce', 'fedcba9876543210'],
+    ['expiresAt', '2026-10-14T12:00:01.000Z'],
+  ] as const)('rejects a signed command after mutating only %s', (field, value) => {
+    const original = DevSignedCommandV2Schema.parse(valid);
+    const mutated = DevSignedCommandV2Schema.parse({ ...original, [field]: value });
+    expect(Object.keys(original).filter((key) =>
+      Reflect.get(original, key) !== Reflect.get(mutated, key))).toEqual([field]);
+
+    const { privateKey, publicKey } = generateKeyPairSync('ed25519');
+    const assertSignatureBound = (canonicalize: typeof canonicalizeDevSignedCommandV2) => {
+      const originalBytes = Buffer.from(canonicalize(original), 'utf8');
+      const mutatedBytes = Buffer.from(canonicalize(mutated), 'utf8');
+      const signature = sign(null, originalBytes, privateKey);
+
+      expect(verify(null, originalBytes, publicKey, signature)).toBe(true);
+      expect(verify(null, mutatedBytes, publicKey, signature)).toBe(false);
+      expect(mutatedBytes.toString('utf8')).not.toBe(originalBytes.toString('utf8'));
+    };
+
+    assertSignatureBound(canonicalizeDevSignedCommandV2);
+
+    // Prove the assertions catch a canonicalizer that drops this field.
+    const omitField: typeof canonicalizeDevSignedCommandV2 = (message) =>
+      JSON.stringify(Object.fromEntries(
+        Object.entries(JSON.parse(canonicalizeDevSignedCommandV2(message)))
+          .filter(([key]) => key !== field),
+      ));
+    expect(() => assertSignatureBound(omitField)).toThrow();
   });
 
   it('detects the mutation that omits computerId', () => {
