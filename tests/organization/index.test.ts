@@ -15,6 +15,7 @@ import * as runReceipt from '../../src/organization/run-receipt.js';
 import * as experience from '../../src/organization/experience.js';
 import * as simulationWorld from '../../src/organization/simulation-world.js';
 import * as simulationExpectation from '../../src/organization/simulation-expectation.js';
+import * as simulationEvaluation from '../../src/organization/simulation-evaluation.js';
 import * as knowledgePublication from '../../src/organization/knowledge-publication.js';
 import * as participantBinding from '../../src/organization/participant-binding.js';
 import * as toolCallCorrelation from '../../src/organization/tool-call-correlation.js';
@@ -37,6 +38,7 @@ const allSymbols = {
   ...experience,
   ...simulationWorld,
   ...simulationExpectation,
+  ...simulationEvaluation,
   ...knowledgePublication,
   ...participantBinding,
   ...toolCallCorrelation,
@@ -66,6 +68,11 @@ describe('organization subpath', () => {
       simulationExpectation.SimulationExpectationSetSchema,
     );
     expect(organization.KnowledgePublicationSchema).toBe(knowledgePublication.KnowledgePublicationSchema);
+    expect(organization.EvaluationVerdictSchema).toBe(simulationEvaluation.EvaluationVerdictSchema);
+    expect(organization.SimulationEvaluationItemSchema).toBe(simulationEvaluation.SimulationEvaluationItemSchema);
+    expect(organization.SimulationBoundarySchema).toBe(simulationEvaluation.SimulationBoundarySchema);
+    expect(organization.SimulationEvaluationSchema).toBe(simulationEvaluation.SimulationEvaluationSchema);
+    expect(organization.summarizeEvaluationItems).toBe(simulationEvaluation.summarizeEvaluationItems);
     expect(organization.ParticipantBindingSchema).toBe(participantBinding.ParticipantBindingSchema);
     expect(organization.OrganizationToolCallContextSchema).toBe(toolCallCorrelation.OrganizationToolCallContextSchema);
     expect(organization.PublishMaterialRequestSchema).toBe(publicationOperations.PublishMaterialRequestSchema);
