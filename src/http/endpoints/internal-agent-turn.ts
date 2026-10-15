@@ -4,6 +4,7 @@ import { InternalMemoryExtractRequestSchema } from './internal-memory-extract.js
 import { AgentTurnSchema, AgentTurnMoveIdSchema, CapabilityLeadInstructionsSchema, CapabilityNoteSchema } from '../../capability/capability-turn-lead.js';
 import { OrganizationRunContextSchema } from '../../organization/run-context.js';
 import { RunAttemptSchema } from '../../organization/run-outcome.js';
+import { ConnectionCardSchema } from './connection-card.js';
 import {
   InternalTurnRequestSchema,
   InternalTurnResponseSchema,
@@ -74,7 +75,9 @@ export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSc
 
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
 export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional(),
-  lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional() });
+  lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional(),
+  /** Connection cards produced by the turn; absent on legacy responses. */
+  connectionCards: z.array(ConnectionCardSchema).max(5).optional() });
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 
 export const InternalAgentTurnErrorResponseSchema = InternalTurnErrorResponseSchema;
