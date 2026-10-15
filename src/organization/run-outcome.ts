@@ -51,6 +51,10 @@ const outcomeBase = {
   recordedAt: z.iso.datetime(),
 };
 
+/** Shared status of a run outcome. */
+export const RunOutcomeStatusSchema = z.enum(['succeeded', 'failed', 'cancelled', 'uncertain']);
+export type RunOutcomeStatus = z.infer<typeof RunOutcomeStatusSchema>;
+
 /** Outcome of an attempt. An uncertain outcome is never reported as succeeded. */
 export const RunOutcomeSchema = z.discriminatedUnion('status', [
   z.strictObject({ ...outcomeBase, status: z.literal('succeeded') }),
