@@ -25,6 +25,7 @@ export * from "./internal-capability-agent.js"; // v1.28.0 — Phase 54 per-agen
 export * from "./internal-capability-elevenlabs.js"; // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 export * from "./internal-capability-coach.js"; // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
 export * from "./internal-capability-dev.js"; // P04-d — cap-dev get/put config and get state
+export * from "./internal-capability-lab.js";
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";

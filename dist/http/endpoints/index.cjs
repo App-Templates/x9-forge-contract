@@ -41,6 +41,7 @@ __exportStar(require("./internal-capability-agent.cjs"), exports); // v1.28.0 �
 __exportStar(require("./internal-capability-elevenlabs.cjs"), exports); // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 __exportStar(require("./internal-capability-coach.cjs"), exports); // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
 __exportStar(require("./internal-capability-dev.cjs"), exports); // P04-d — cap-dev get/put config and get state
+__exportStar(require("./internal-capability-lab.cjs"), exports);
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);

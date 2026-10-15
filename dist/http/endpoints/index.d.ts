@@ -24,6 +24,7 @@ export * from "./internal-capability-agent.js";
 export * from "./internal-capability-elevenlabs.js";
 export * from "./internal-capability-coach.js";
 export * from "./internal-capability-dev.js";
+export * from "./internal-capability-lab.js";
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
 export * from "./vault-resolve.js";
