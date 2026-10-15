@@ -9,6 +9,12 @@ import {
   ConnectStateResponseSchema,
   ConnectToolPermitSchema,
 } from '../../capability/connect/index.js';
+import {
+  PostVaultAccessTokenResponseSchema,
+  VAULT_ACCESS_ERROR_CODES,
+  VaultAccessScopeSchema,
+  VaultConnectionParamsSchema,
+} from './internal-vault-connection.js';
 
 /**
  * /internal/connect/* — internal routes of the Connessioni service (cap-connect).
@@ -51,6 +57,32 @@ export const IssueConnectPermitResponseSchema = z.discriminatedUnion('ok', [
 ]);
 export type IssueConnectPermitResponse = z.infer<typeof IssueConnectPermitResponseSchema>;
 
+/** Capability services (calendar, contacts, email) ask cap-connect for a short-lived access token. */
+export const IssueConnectAccessTokenBodySchema = z.object({
+  agentId: VaultConnectionParamsSchema.shape.agentId,
+  provider: ConnectProviderSchema,
+  scope: VaultAccessScopeSchema,
+  personRef: z.string().min(1),
+}).strict();
+export type IssueConnectAccessTokenBody = z.infer<typeof IssueConnectAccessTokenBodySchema>;
+
+export const CONNECT_ACCESS_ERROR_CODES = [
+  ...VAULT_ACCESS_ERROR_CODES,
+  'person_not_determinable',
+  'unavailable',
+] as const;
+export const ConnectAccessErrorCodeSchema = z.enum(CONNECT_ACCESS_ERROR_CODES);
+export type ConnectAccessErrorCode = z.infer<typeof ConnectAccessErrorCodeSchema>;
+
+export const IssueConnectAccessTokenResponseSchema = z.discriminatedUnion('ok', [
+  PostVaultAccessTokenResponseSchema,
+  z.object({
+    ok: z.literal(false),
+    error: ConnectAccessErrorCodeSchema,
+  }).strict(),
+]);
+export type IssueConnectAccessTokenResponse = z.infer<typeof IssueConnectAccessTokenResponseSchema>;
+
 export const startConnectContract = {
   method: 'POST' as const,
   path: '/internal/connect/start' as const,
@@ -81,4 +113,12 @@ export const issueConnectPermitContract = {
   authType: 'secret' as const,
   bodySchema: IssueConnectPermitBodySchema,
   responseSchema: IssueConnectPermitResponseSchema,
+} as const;
+
+export const issueConnectAccessTokenContract = {
+  method: 'POST' as const,
+  path: '/internal/connect/access-token' as const,
+  authType: 'secret' as const,
+  bodySchema: IssueConnectAccessTokenBodySchema,
+  responseSchema: IssueConnectAccessTokenResponseSchema,
 } as const;

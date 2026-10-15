@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest';
+import { VAULT_ACCESS_ERROR_CODES } from '../../../src/http/endpoints/internal-vault-connection.js';
 import { CONNECT_PERMIT_MAX_TTL_SECONDS } from '../../../src/capability/connect/index.js';
 import {
   ConnectErrorResponseSchema,
   ConnectStateParamsSchema,
+  IssueConnectAccessTokenBodySchema,
+  IssueConnectAccessTokenResponseSchema,
+  issueConnectAccessTokenContract,
   IssueConnectPermitBodySchema,
   IssueConnectPermitResponseSchema,
   getConnectStateContract,
@@ -85,5 +89,44 @@ describe('internal connect contracts', () => {
     expect(getConnectStateContract.responseSchema.safeParse({ ...base, value: 'ya29.x' }).success).toBe(false);
     expect(getConnectStateContract.responseSchema.safeParse({ ...base, token: 'ya29.x' }).success).toBe(false);
     expect(getConnectStateContract.responseSchema.safeParse({ ...base, accessToken: 'ya29.x' }).success).toBe(false);
+  });
+});
+
+describe('internal connect access-token contract', () => {
+  const body = { agentId: '12', provider: 'google', scope: 'calendar_events', personRef: 'p1' };
+  const ok = { ok: true, accessToken: 'ya29.token', expiresAt: 1760000000000, scopes: ['calendar_events'] };
+
+  it('declares the route as a secret-authenticated POST', () => {
+    expect(issueConnectAccessTokenContract.method).toBe('POST');
+    expect(issueConnectAccessTokenContract.path).toBe('/internal/connect/access-token');
+    expect(issueConnectAccessTokenContract.authType).toBe('secret');
+  });
+
+  it('accepts a valid body and a valid success response', () => {
+    expect(IssueConnectAccessTokenBodySchema.safeParse(body).success).toBe(true);
+    expect(IssueConnectAccessTokenResponseSchema.safeParse(ok).success).toBe(true);
+  });
+
+  it('rejects mail_send, empty or missing personRef, non numeric agentId, extra keys', () => {
+    expect(IssueConnectAccessTokenBodySchema.safeParse({ ...body, scope: 'mail_send' }).success).toBe(false);
+    expect(IssueConnectAccessTokenBodySchema.safeParse({ ...body, personRef: '' }).success).toBe(false);
+    const { personRef: _omit, ...noPerson } = body;
+    expect(IssueConnectAccessTokenBodySchema.safeParse(noPerson).success).toBe(false);
+    expect(IssueConnectAccessTokenBodySchema.safeParse({ ...body, agentId: 'x9' }).success).toBe(false);
+    expect(IssueConnectAccessTokenBodySchema.safeParse({ ...body, extra: 1 }).success).toBe(false);
+  });
+
+  it('rejects refreshToken, value and unknown fields in the success response', () => {
+    expect(IssueConnectAccessTokenResponseSchema.safeParse({ ...ok, refreshToken: 'r' }).success).toBe(false);
+    expect(IssueConnectAccessTokenResponseSchema.safeParse({ ...ok, value: 'v' }).success).toBe(false);
+    expect(IssueConnectAccessTokenResponseSchema.safeParse({ ok: true, expiresAt: 1, scopes: [] }).success).toBe(false);
+  });
+
+  it('passes every Vault error code unchanged plus the two connect codes', () => {
+    for (const error of [...VAULT_ACCESS_ERROR_CODES, 'person_not_determinable', 'unavailable']) {
+      expect(IssueConnectAccessTokenResponseSchema.safeParse({ ok: false, error }).success).toBe(true);
+    }
+    expect(IssueConnectAccessTokenResponseSchema.safeParse({ ok: false, error: 'boom' }).success).toBe(false);
+    expect(IssueConnectAccessTokenResponseSchema.safeParse({ ok: false, error: 'expired', extra: 1 }).success).toBe(false);
   });
 });
