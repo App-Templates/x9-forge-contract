@@ -10,7 +10,27 @@ const snapshot = { scope, capability: 'rag', version: 7, values: { 'query.topK':
 const call = { callId: 'call-1', tool: 'rag_query', input: {}, agentId: scope.agentId,
   sessionId: 'session-1', tenantId: scope.tenantId, ownerId: scope.ownerId, ordinaryConfiguration: snapshot };
 
+const organization = {
+  organizationRun: { schemaVersion: 1, runId: 'run-1', organizationId: 'org-1', ownerId: 'owner-1',
+    identity: { managementAgentId: 'x9', runtimeAgentId: 'agent-x9', vaultAgentId: 7 }, issuer: 'x9',
+    issuedAt: '2026-10-14T10:00:00.000Z', expiresAt: '2026-10-14T11:00:00.000Z' },
+  attempt: { runId: 'run-1', attemptId: 'att-1', attemptNumber: 1, startedAt: '2026-10-14T10:01:00.000Z', idempotencyKey: 'idem-1' },
+  tenantId: 'tenant-a',
+};
+
 describe('canonical portable subset for RAG', () => {
+  it('refines the organization run only when the context is present', () => {
+    expect(parsePortableOrdinaryToolCall(call, snapshot)).toEqual(call);
+    expect(parsePortableOrdinaryToolCall({ ...call, organization }, snapshot)).toEqual({ ...call, organization });
+    const mismatched = { ...organization, attempt: { ...organization.attempt, runId: 'run-2' } };
+    expect(() => parsePortableOrdinaryToolCall({ ...call, organization: mismatched }, snapshot)).toThrow();
+    const rule = { op: 'equal_paths_if_present' as const, left: 'organization.attempt.runId', right: 'organization.organizationRun.runId' };
+    expect(() => applyPortableCapabilityRules({ organization: mismatched }, [rule])).toThrow('Portable ordinary scope mismatch');
+    expect(() => applyPortableCapabilityRules({ organization: { attempt: { runId: 'run-1' } } }, [rule])).toThrow();
+    expect(() => applyPortableCapabilityRules({}, [rule])).not.toThrow();
+    const expired = { ...organization, organizationRun: { ...organization.organizationRun, expiresAt: organization.organizationRun.issuedAt } };
+    expect(() => parsePortableOrdinaryToolCall({ ...call, organization: expired }, snapshot)).toThrow();
+  });
   it('binds ordinary calls to authenticated loaded authority, including exact values', () => {
     expect(parsePortableOrdinaryToolCall(call, snapshot)).toEqual(call);
     for (const authority of [undefined, { ...snapshot, version: 8 }, { ...snapshot, values: {} },

@@ -34,6 +34,8 @@ export type PortableCapabilityRule =
   | { op: 'ordinary_empty_state' }
   | { op: 'max_properties'; path: string; max: number }
   | { op: 'equal_paths'; left: string; right: string }
+  | { op: 'equal_paths_if_present'; left: string; right: string }
+  | { op: 'timestamp_after_if_present'; earlier: string; later: string }
   | { op: 'authority_equal'; path: string }
   | { op: 'normalize_integer'; path: string; schema: Record<string, unknown> }
   | { op: 'authority_lookup'; identitySchema: Record<string, unknown>; bindings: Array<{ path: string; authorityPath: string }> }
@@ -75,10 +77,14 @@ function customRefinements(schema: z.ZodType, seen = new Set<object>()): number 
   return count;
 }
 
+const organizationRunRule: PortableCapabilityRule = { op: 'equal_paths_if_present', left: 'organization.attempt.runId', right: 'organization.organizationRun.runId' };
+const organizationExpiryRule: PortableCapabilityRule = { op: 'timestamp_after_if_present', earlier: 'organization.organizationRun.issuedAt', later: 'organization.organizationRun.expiresAt' };
 const callRules: PortableCapabilityRule[] = [
   { op: 'max_properties', path: 'ordinaryConfiguration.values', max: 100 },
   ...['tenantId', 'ownerId', 'agentId'].map(key => ({ op: 'equal_paths' as const, left: `ordinaryConfiguration.scope.${key}`, right: key })),
   { op: 'authority_equal', path: 'ordinaryConfiguration' },
+  organizationRunRule,
+  organizationExpiryRule,
 ];
 const authorityRules: PortableCapabilityRule[] = [
   { op: 'empty_configuration_target' },
@@ -123,8 +129,8 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
     contracts[name] = { supported: gates.length === 0, schema: json, rules, gates, customRefinements: count, limitations: [] };
   };
   add('ordinarySnapshot', snapshot, [{ op: 'max_properties', path: 'values', max: 100 }, { op: 'authority_equal', path: '' }], 1);
-  add('ordinaryToolCall', ordinaryCall, callRules, 2);
-  add('ragToolCall', ragCall, [{ op: 'membership_call', capability: 'rag' }], 2);
+  add('ordinaryToolCall', ordinaryCall, callRules, 4);
+  add('ragToolCall', ragCall, [{ op: 'membership_call', capability: 'rag' }, organizationRunRule, organizationExpiryRule], 4);
   add('ragQueryRequest', RagQueryRequestSchema, [], 0);
   add('ragQueryResponse', RagQueryResponseSchema, [], 0);
   add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
@@ -174,6 +180,14 @@ export function applyPortableCapabilityRules(value: unknown, rules: readonly Por
       case 'equal_paths':
         if (at(value, rule.left) === undefined || !sameOrdinaryData(at(value, rule.left), at(value, rule.right))) throw new Error('Portable ordinary scope mismatch');
         break;
+      case 'equal_paths_if_present':
+        if (at(value, rule.left) !== undefined && (at(value, rule.right) === undefined || !sameOrdinaryData(at(value, rule.left), at(value, rule.right)))) throw new Error('Portable ordinary scope mismatch');
+        break;
+      case 'timestamp_after_if_present': {
+        const earlier = at(value, rule.earlier);
+        if (earlier !== undefined && !(Date.parse(String(at(value, rule.later))) > Date.parse(String(earlier)))) throw new Error('Portable ordinary time window mismatch');
+        break;
+      }
       case 'authority_equal':
         if (authority === undefined || !sameOrdinaryData(at(value, rule.path), snapshot.parse(authority))) throw new Error('Portable ordinary loaded authority mismatch');
         break;
@@ -219,7 +233,7 @@ export function parsePortableAuthorityResponse(response: unknown, lookup: unknow
 
 export function parsePortableRagToolCall(value: unknown, authority: unknown): z.infer<typeof ragCall> {
   const parsed = ragCall.parse(value);
-  applyPortableCapabilityRules(parsed, [{ op: 'membership_call', capability: 'rag' }], authority);
+  applyPortableCapabilityRules(parsed, [{ op: 'membership_call', capability: 'rag' }, organizationRunRule, organizationExpiryRule], authority);
   return parsed;
 }
 

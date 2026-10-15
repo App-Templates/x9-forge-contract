@@ -27,6 +27,26 @@ class GeneratedContractTests(unittest.TestCase):
         actual = self.contracts.validate_contract('ordinaryToolCall', self.call, authority=self.snapshot)
         self.assertEqual(actual, self.call)
 
+    def test_organization_run_must_match_attempt_only_when_present(self):
+        organization = dict(
+            organizationRun=dict(schemaVersion=1, runId='run-1', organizationId='org-1', ownerId='owner-1',
+                                 identity=dict(managementAgentId='x9', runtimeAgentId='agent-x9', vaultAgentId=7),
+                                 issuer='x9', issuedAt='2026-10-14T10:00:00.000Z', expiresAt='2026-10-14T11:00:00.000Z'),
+            attempt=dict(runId='run-1', attemptId='att-1', attemptNumber=1,
+                         startedAt='2026-10-14T10:01:00.000Z', idempotencyKey='idem-1'),
+            tenantId='tenant-a')
+        self.assertEqual(self.contracts.validate_contract('ordinaryToolCall', self.call, authority=self.snapshot), self.call)
+        with_org = dict(self.call, organization=organization)
+        self.assertEqual(self.contracts.validate_contract('ordinaryToolCall', with_org, authority=self.snapshot), with_org)
+        bad = copy.deepcopy(with_org)
+        bad['organization']['attempt']['runId'] = 'run-2'
+        with self.assertRaises(ValueError):
+            self.contracts.validate_contract('ordinaryToolCall', bad, authority=self.snapshot)
+        expired = copy.deepcopy(with_org)
+        expired['organization']['organizationRun']['expiresAt'] = expired['organization']['organizationRun']['issuedAt']
+        with self.assertRaises(ValueError):
+            self.contracts.validate_contract('ordinaryToolCall', expired, authority=self.snapshot)
+
     def test_missing_authority_and_missing_snapshot_fail_closed(self):
         with self.assertRaises(ValueError):
             self.contracts.validate_contract('ordinaryToolCall', self.call)

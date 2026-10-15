@@ -351,6 +351,22 @@ def _rules(value, rules, authority):
             left, right = _at(value, rule['left']), _at(value, rule['right'])
             if left is _MISSING or right is _MISSING or not _equal(left, right):
                 raise ValueError('Ordinary scope mismatch')
+        elif rule['op'] == 'equal_paths_if_present':
+            left = _at(value, rule['left'])
+            if left is not _MISSING:
+                right = _at(value, rule['right'])
+                if right is _MISSING or not _equal(left, right):
+                    raise ValueError('Ordinary scope mismatch')
+        elif rule['op'] == 'timestamp_after_if_present':
+            earlier = _at(value, rule['earlier'])
+            if earlier is not _MISSING:
+                later = _at(value, rule['later'])
+                try:
+                    ok = datetime.fromisoformat(later.replace('Z', '+00:00')) > datetime.fromisoformat(earlier.replace('Z', '+00:00'))
+                except (AttributeError, ValueError, TypeError):
+                    ok = False
+                if not ok:
+                    raise ValueError('Ordinary time window mismatch')
         elif rule['op'] == 'authority_equal':
             if authority is None:
                 raise ValueError('Authenticated loaded authority is required')
@@ -444,7 +460,7 @@ for _contract in CATALOG['contracts'].values():
     if _contract['supported']:
         _schema_supported(_contract['schema'])
         for _rule in _contract['rules']:
-            if _rule['op'] not in {'empty_configuration_target', 'ordinary_empty_state', 'max_properties', 'equal_paths', 'authority_equal', 'normalize_integer', 'authority_lookup', 'membership_call', 'lifecycle_request', 'lifecycle_receipt'}:
+            if _rule['op'] not in {'empty_configuration_target', 'ordinary_empty_state', 'max_properties', 'equal_paths', 'equal_paths_if_present', 'timestamp_after_if_present', 'authority_equal', 'normalize_integer', 'authority_lookup', 'membership_call', 'lifecycle_request', 'lifecycle_receipt'}:
                 raise ValueError('Unsupported portable semantic rule')
             for _schema_key in ('schema', 'identitySchema'):
                 if _schema_key in _rule:
