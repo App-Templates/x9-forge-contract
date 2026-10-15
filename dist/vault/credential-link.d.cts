@@ -10,9 +10,7 @@ import { z } from 'zod';
  *
  * These schemas carry metadata only — the strict entry schema rejects a `value` field.
  */
-/** Vault key name; platform-internal keys are never listed or acted upon for an agent. */
-export declare const CredentialKeySchema: z.ZodString;
-export type CredentialKey = z.infer<typeof CredentialKeySchema>;
+export { CredentialKeySchema, type CredentialKey } from "./credential-key.cjs";
 /** Saved version of one key's value; every save raises it. */
 export declare const CredentialVersionSchema: z.ZodNumber;
 export type CredentialVersion = z.infer<typeof CredentialVersionSchema>;

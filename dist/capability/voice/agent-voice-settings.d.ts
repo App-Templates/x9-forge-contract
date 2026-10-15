@@ -26,11 +26,7 @@ export declare const AgentVoiceTransportSchema: z.ZodEnum<{
     phone: "phone";
 }>;
 export type AgentVoiceTransport = z.infer<typeof AgentVoiceTransportSchema>;
-/** Provider voice id: a menu value for GPT voices, the voice id for ElevenLabs. */
-export declare const AgentVoiceIdSchema: z.ZodString;
-export declare const AgentVoiceModelSchema: z.ZodString;
-/** BCP-47 language tag, e.g. it or it-IT. */
-export declare const AgentVoiceLocaleSchema: z.ZodString;
+export { AgentVoiceIdSchema, AgentVoiceModelSchema, AgentVoiceLocaleSchema } from "./agent-voice-values.js";
 export declare const AgentVoiceSettingsSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     mode: z.ZodLiteral<"text-only">;
 }, z.core.$strict>, z.ZodObject<{

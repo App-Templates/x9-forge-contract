@@ -10,6 +10,20 @@
  * See: agent-x9/docs/adr/ADR-cap-rag.md §20 (tool surface), §14
  * (database schema), §14.10 (query/citation logging).
  */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RagDocumentOpenResponseSchema = exports.RagDocumentOpenRequestSchema = exports.RagDocumentListResponseSchema = exports.RagDocumentListRequestSchema = exports.RagDocumentParseStatusSchema = exports.RagDocumentStatusSchema = exports.RagDocumentRevisionRefSchema = exports.RagDocumentRefSchema = exports.RagSourceStatusResponseSchema = exports.RagSourceStatusRequestSchema = exports.RagSourceSyncResponseSchema = exports.RagSourceSyncRequestSchema = exports.RagSourceSyncStatusSchema = exports.RagSourceStatusSchema = exports.RagSyncJobSummarySchema = exports.RagJobStatusSchema = exports.RagJobTypeSchema = exports.RagSourceConnectionSchema = exports.RagDegradedMarkersSchema = exports.RagToolErrorSchema = exports.RagCostEstimateSchema = exports.RagClaimConflictSchema = exports.RagClaimSchema = exports.RagCorpusRefSchema = exports.RagTopicRefSchema = exports.RagIdentityEnvelopeSchema = exports.RagTopicTypeSchema = exports.RagPrivacyLevelSchema = exports.RagSourceStatusEnumSchema = exports.RagProviderSchema = exports.RagCoherenceIssueSchema = exports.RagTopicCoherenceResponseSchema = exports.RagTopicCoherenceRequestSchema = exports.RagTimelineEventSchema = exports.RagTopicTimelineResponseSchema = exports.RagTopicTimelineRequestSchema = exports.RagChangeEntrySchema = exports.RagTopicChangesResponseSchema = exports.RagTopicChangesRequestSchema = exports.RagTopicStateResponseSchema = exports.RagTopicStateRequestSchema = exports.RagCitationSchema = exports.RagQueryResponseSchema = exports.RagQueryRequestSchema = void 0;
 // -- rag_query -----------------------------------------------------------
@@ -72,4 +86,6 @@ Object.defineProperty(exports, "RagDocumentListRequestSchema", { enumerable: tru
 Object.defineProperty(exports, "RagDocumentListResponseSchema", { enumerable: true, get: function () { return rag_document_js_1.RagDocumentListResponseSchema; } });
 Object.defineProperty(exports, "RagDocumentOpenRequestSchema", { enumerable: true, get: function () { return rag_document_js_1.RagDocumentOpenRequestSchema; } });
 Object.defineProperty(exports, "RagDocumentOpenResponseSchema", { enumerable: true, get: function () { return rag_document_js_1.RagDocumentOpenResponseSchema; } });
+__exportStar(require("./authorized-context.cjs"), exports);
+__exportStar(require("./qualified-citation.cjs"), exports);
 //# sourceMappingURL=index.js.map

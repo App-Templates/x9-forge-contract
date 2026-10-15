@@ -119,8 +119,8 @@ export declare const AgentCreationFirstCheckSchema: z.ZodObject<{
         state: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
             paused: "paused";
         }>;
         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -319,8 +319,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -372,8 +372,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -602,8 +602,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -655,8 +655,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;

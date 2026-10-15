@@ -1,8 +1,7 @@
 import { z } from 'zod';
 import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js";
 /** Shared management values initialize before model authority, preserving public module cycles. */
-/** Caller-chosen idempotency key, unique per intended command (e.g. a UUID). */
-export const AgentManagementRequestIdSchema = z.string().min(8).max(128).regex(/^[A-Za-z0-9][A-Za-z0-9._:-]*$/);
+export { AgentManagementRequestIdSchema } from "./agent-management-request-id.js";
 export const AgentManagementOutcomeSchema = z.enum(['ok', 'error', 'unmanageable']);
 export const AgentManagementOverallOutcomeSchema = z.enum(['ok', 'partial', 'error', 'unmanageable']);
 export const AgentManagementReasonCodeSchema = z.enum([

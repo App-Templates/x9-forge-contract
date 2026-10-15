@@ -25,4 +25,6 @@ export { RagProviderSchema, RagSourceStatusEnumSchema, RagPrivacyLevelSchema, Ra
 export { RagSourceConnectionSchema, RagJobTypeSchema, RagJobStatusSchema, RagSyncJobSummarySchema, RagSourceStatusSchema, RagSourceSyncStatusSchema, RagSourceSyncRequestSchema, RagSourceSyncResponseSchema, RagSourceStatusRequestSchema, RagSourceStatusResponseSchema, } from "./rag-source.js";
 // -- Document tools (rag_document_list + rag_document_open) --------------
 export { RagDocumentRefSchema, RagDocumentRevisionRefSchema, RagDocumentStatusSchema, RagDocumentParseStatusSchema, RagDocumentListRequestSchema, RagDocumentListResponseSchema, RagDocumentOpenRequestSchema, RagDocumentOpenResponseSchema, } from "./rag-document.js";
+export * from "./authorized-context.js";
+export * from "./qualified-citation.js";
 //# sourceMappingURL=index.js.map

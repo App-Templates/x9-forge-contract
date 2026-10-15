@@ -1,5 +1,9 @@
 # Changelog — @x9-forge/contracts
 
+## v1.49.0 — ricomposizione: cuore (1.48.0) + Models/News/Briefing/Native/Coach (bridge-compose-1210), solo additivo
+
+- Merge commit di codex/bridge-compose-1210 in codex/cuore-bridge-148: nessun export di 1.48.0 rimosso.
+
 ## Unreleased — SIM01-b experiment pinned to a scenario corpus, additive
 
 - `ExperimentSchema` gains optional `corpus` (`ScenarioCorpusSchema`); experiments without it stay valid.
@@ -42,6 +46,12 @@
 - Accept per-heir saved configurations alongside legacy IDs and optional canonical command/runtime evidence on root/child jobs; new producers attest terminal completion explicitly.
 - Add catalog-changed, catalog-version-mismatch, model-unavailable, qualification-failed and consumer-rejected management reasons.
 - Consumers tracked in CUORE-MODELLI-LOTTI-1410: X9 delta/queue/consumer jobs and Forge vault/factory/web; no consumer deployment included.
+## Unreleased — approved contract composition (version remains 1.47.0)
+
+- Merge initial read-only models (524b5fad), c.3 News/Briefing (e45f815) and Native/Coach/browser (d98c0c05), retaining their history.
+- Preserve all 18 existing internal actions and TTS_PROVIDER; add the five approved C actions: news_digest, news_digest_topic, calendar_today, calendar_week, lab_execute.
+- Retain positive model CAS, scoped ordinary configuration and authenticated browser/native boundaries; rebuild ESM/CJS and portable Python from the combined source.
+- Local candidate only: consumer pins, adoption and live verification remain separate.
 
 ## v1.47.0 — rilascio unico: Chiavi (1.44.3) + Modelli (27fa07d, 1.45.0) + Paperclip (main 1.45.0)
 
@@ -59,6 +69,15 @@ ESM, contro i tre pacchetti di origine).
 - `.nvmrc` 24 (standard dello stack, R-32).
 
 ---
+
+
+## 1.46.0 — composed local candidate
+
+- Compose Paperclip, Keys, Models, scoped capability configuration, phone/Web channels and Knowledge without removing existing public entrypoints.
+- Retain 35 registered model consumers, roleless InitialSource, positive legacy observation, primary local-source and phone backend observation contracts.
+- Add Coach versioned program/session operations, native ElevenLabs channels, scoped RAG citations and loaded inventory authority; retain the qualified Web admission/readback semantics.
+- Preserve public Web metadata/session and administrative invitation APIs together; carry Knowledge telephone entries into the canonical admission projection.
+- This is a local integration candidate. Consumer pins, final verification and independent review precede publication; no deployed behavior is claimed.
 
 ## Unreleased — positive legacy model observation
 
@@ -81,6 +100,18 @@ ESM, contro i tre pacchetti di origine).
 - Add communication, reply, host-only manual confirmation and decision-view schemas. Manual attestation records provenance and never claims to update Paperclip or exposes an LLM confirmation tool.
 - Preserve every historic public subpath/symbol while allowing additive exports in the compatibility guard; regenerate ESM, CJS and portable declarations. No existing protocol changed.
 - This package supplies contracts only. Per-agent provisioning, credentials, service deployment and real material/email workflow remain consumer/operator integration work.
+
+## 1.46.0-capabilities-c.2 — local development
+
+- Preserve full tenant/owner scope in context and spend requests, with explicit legacy compatibility; share trusted identity with native per-agent turns.
+- Add fixed News/Calendar calls and SQL-lease-only Lab execution; keep internal actions outside model-visible manifests and results free of credentials.
+- Register the actual Lab digest model reader (C35); no inactive read-model slot. Consumers: X9 capability-sdk/Core/News/Briefing/Ricerca/Lab/QA, Forge existing model and capability panels. Local package only.
+
+## 1.46.0-capabilities-c.0 — local development
+
+- Add scoped ordinary configuration, Master provenance, per-key effective observations and remote lifecycle on existing per-agent routes. Preserve B1/legacy formats.
+- Add canonical workspace digests and retained single-capability authority lookup, plus typed structured settings and generated Python admission contracts.
+- Consumers tracked in Capabilities phase35: X9 capability-sdk/agent-core/services and Forge factory/web. Local package only; no release or live claim.
 
 All notable changes to the bridge package. This project adheres to [Semantic Versioning](https://semver.org/) at the milestone level (v1.0, v1.1, etc.); within a milestone, distribution is via SHA-pinned `git+https#<sha>` (no per-feature versioning).
 
@@ -145,6 +176,9 @@ Solo aggiunte: nessun simbolo esistente cambia o viene rimosso.
 ## v1.44.0 — voce, telefono, canale web e identità esplicita del contesto agente
 
 ### Added (additive)
+
+- `./http`: additive Web administrative snapshot, policy preview/apply and read-only catalog descriptors, bound to current Forge owner/SA session evidence.
+- `./agent` / `./http`: bounded plain-text channel transcript DTO and opaque-entry authenticated reads, with explicit unavailable/retention states and full binding correlation. No provider URL or raw envelope is exposed.
 
 - `./capability` / `./http/endpoints`: **descrittore della voce** per capacità vocali (BRIDGE-VOICE-DESCRIPTOR). Autore Codex E, verifica Codex F (APPROVE).
 - `./http/endpoints`: **contratto del canale telefono** (CANALI-C2-BRIDGE B1+B2+B4). Autore Codex F, verifica Codex D (APPROVE).

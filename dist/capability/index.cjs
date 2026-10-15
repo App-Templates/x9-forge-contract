@@ -57,6 +57,14 @@ var health_status_js_1 = require("./health-status.cjs");
 Object.defineProperty(exports, "HealthStatusSchema", { enumerable: true, get: function () { return health_status_js_1.HealthStatusSchema; } });
 __exportStar(require("./capability-turn-lead.cjs"), exports);
 __exportStar(require("./parameters.cjs"), exports);
+__exportStar(require("./ordinary-configuration.cjs"), exports);
+__exportStar(require("./ordinary-declaration.cjs"), exports);
+__exportStar(require("./ordinary-lifecycle.cjs"), exports);
+__exportStar(require("./configuration/feeds.cjs"), exports);
+__exportStar(require("./configuration/briefing.cjs"), exports);
+__exportStar(require("./configuration/conditions.cjs"), exports);
+__exportStar(require("./configuration/rules.cjs"), exports);
+__exportStar(require("./configuration/camera-policy.cjs"), exports);
 __exportStar(require("./presentation.cjs"), exports);
 // Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
 __exportStar(require("./capability-call-context.cjs"), exports);
@@ -81,4 +89,19 @@ __exportStar(require("./capability-credential-requirements.cjs"), exports);
 __exportStar(require("./paperclip/index.cjs"), exports);
 // Connections: start, state and revoke of a person's provider link, plus tool permits (feature connessioni)
 __exportStar(require("./connect/index.cjs"), exports);
+// Canonical portable contracts for the Python capability consumer.
+__exportStar(require("./portable-contracts.cjs"), exports);
+__exportStar(require("./coach/program-version.cjs"), exports);
+__exportStar(require("./coach/execution.cjs"), exports);
+__exportStar(require("./coach/measures.cjs"), exports);
+__exportStar(require("./coach/accounting.cjs"), exports);
+__exportStar(require("./coach/rolling-budget.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/coach-binding.cjs"), exports);
+__exportStar(require("./coach/operational/index.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-session.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-session-grant.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-tools.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-config.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-readback.cjs"), exports);
+__exportStar(require("./configuration/news-briefing.cjs"), exports);
 //# sourceMappingURL=index.js.map

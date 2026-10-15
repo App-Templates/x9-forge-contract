@@ -97,4 +97,10 @@ __exportStar(require("./internal-memory-decisions.cjs"), exports);
 __exportStar(require("./internal-memory-knowledge.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 __exportStar(require("./internal-connection-completed.cjs"), exports);
+__exportStar(require("./internal-agents-ordinary-authority.cjs"), exports);
+__exportStar(require("./forge-elevenlabs-web.cjs"), exports);
+__exportStar(require("./internal-agent-address-book.cjs"), exports);
+__exportStar(require("./native-binding-read.cjs"), exports);
+__exportStar(require("./coach-person-program-read.cjs"), exports);
+__exportStar(require("./coach-browser.cjs"), exports);
 //# sourceMappingURL=index.js.map

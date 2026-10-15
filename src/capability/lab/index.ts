@@ -41,6 +41,8 @@ export {
 
 export {
   LAB_TOOLS,
+  LAB_INTERNAL_TOOLS, LabExecuteInputSchema, LabExecuteOutputSchema,
+  type LabExecuteInput, type LabExecuteOutput,
   LabIngestInputSchema,
   LabIngestOutputSchema,
   LabToolErrorSchema,

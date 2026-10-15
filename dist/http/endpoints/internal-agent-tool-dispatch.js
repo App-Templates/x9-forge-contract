@@ -3,11 +3,13 @@ import { CapabilityCallIdentitySchema } from "../../capability/capability-call-c
 import { ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema } from "../../capability/tool-call.js";
 import { AgentManagementParamsSchema } from "./internal-agents-management.js";
 import { ResearchExecuteInputSchema, RICERCA_INTERNAL_TOOLS } from "../../capability/ricerca/tools.js";
+import { LabExecuteInputSchema, LAB_INTERNAL_TOOLS } from "../../capability/lab/tools.js";
 import { VoiceLiveWebSessionRequestSchema } from "../../capability/voice-live/index.js";
 import { AGENT_CREDENTIAL_SERVICE_KEYS, getAgentCredentialServiceMetadata } from "../../agent/agent-credential-services.js";
 import { PLATFORM_INTERNAL_CREDENTIAL_KEYS } from "../../vault/platform-internal-credentials.js";
 import { capToolCallPath } from "./cap-tool-call.js";
 import { InternalAgentTurnOrganizationRunSchema } from "./internal-agent-turn.js";
+import { BriefingSettingsSchema } from "../../capability/configuration/briefing.js";
 const text = z.string().min(1).max(32_000);
 const telegramInput = z.strictObject({ chatId: z.union([z.number().int(), z.string().min(1).max(64)]), text });
 const sessionInput = z.strictObject({ sessionId: z.string().min(1).max(256) });
@@ -55,6 +57,17 @@ export const INTERNAL_AGENT_EXECUTIONS = Object.freeze({
         credentialKeys: Object.freeze(['TELEGRAM_BOT_TOKEN', 'ELEVENLABS_API_KEY', 'OPENAI_API_KEY']), identifierKeys: Object.freeze(['ELEVENLABS_VOICE_ID']),
         settingKeys: Object.freeze(['TTS_PROVIDER', 'ELEVENLABS_MODEL_ID', 'OPENAI_TTS_MODEL', 'OPENAI_TTS_VOICE']), modelVisible: false }),
     scheduler_briefing_generate: registration('briefing', 'briefing_generate', z.strictObject({}), ['OPENAI_API_KEY', 'ELEVENLABS_API_KEY', 'TELEGRAM_BOT_TOKEN', 'GOOGLE_CALENDAR_CLIENT_ID', 'GOOGLE_CALENDAR_CLIENT_SECRET', 'GOOGLE_CALENDAR_REFRESH_TOKEN'], ['ELEVENLABS_VOICE_ID'], ['TTS_PROVIDER', 'ELEVENLABS_MODEL_ID']),
+    news_digest: registration('news', 'news_digest', z.strictObject({
+        categories: z.array(z.string().min(1).max(200)).max(100).optional(),
+        skipCategories: z.array(z.string().min(1).max(200)).max(100).optional(),
+        feeds: BriefingSettingsSchema.shape.feeds,
+        categoryWeights: BriefingSettingsSchema.shape.categoryWeights.optional(),
+        promptStyle: BriefingSettingsSchema.shape.promptStyle.optional(),
+    }), ['OPENAI_API_KEY']),
+    news_digest_topic: registration('news', 'news_digest_topic', z.strictObject({ topic: z.string().min(1).max(200).optional(), promptStyle: BriefingSettingsSchema.shape.promptStyle.optional() }), ['OPENAI_API_KEY']),
+    calendar_today: registration('calendar', 'calendar_today', z.strictObject({ date: z.iso.date().optional() }), ['GOOGLE_CALENDAR_CLIENT_ID', 'GOOGLE_CALENDAR_CLIENT_SECRET', 'GOOGLE_CALENDAR_REFRESH_TOKEN']),
+    calendar_week: registration('calendar', 'calendar_week', z.strictObject({ targetDate: z.iso.date().optional(), weekOffset: z.number().int().min(-4).max(4).optional() }), ['GOOGLE_CALENDAR_CLIENT_ID', 'GOOGLE_CALENDAR_CLIENT_SECRET', 'GOOGLE_CALENDAR_REFRESH_TOKEN']),
+    lab_execute: registration('lab', LAB_INTERNAL_TOOLS.execute, LabExecuteInputSchema, ['OPENAI_API_KEY']),
     research_execute: registration('ricerca', RICERCA_INTERNAL_TOOLS.execute, ResearchExecuteInputSchema, ['OPENAI_API_KEY']),
     glasses_session_admit: registration('glasses', 'glasses_session_admit', sessionInput, ['ELEVENLABS_API_KEY'], ['ELEVENLABS_VOICE_ID'], ['ELEVENLABS_MODEL_ID']),
     websocket_session_admit: registration('websocket', 'websocket_session_admit', sessionInput, ['ELEVENLABS_API_KEY'], ['ELEVENLABS_VOICE_ID', 'ELEVENLABS_MINDFULNESS_AGENT_ID'], ['ELEVENLABS_MODEL_ID']),

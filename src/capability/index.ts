@@ -71,6 +71,14 @@ export {
 export * from './capability-turn-lead.js';
 
 export * from './parameters.js';
+export * from './ordinary-configuration.js';
+export * from './ordinary-declaration.js';
+export * from './ordinary-lifecycle.js';
+export * from './configuration/feeds.js';
+export * from './configuration/briefing.js';
+export * from './configuration/conditions.js';
+export * from './configuration/rules.js';
+export * from './configuration/camera-policy.js';
 export * from './presentation.js';
 
 // Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
@@ -108,3 +116,26 @@ export * from './paperclip/index.js';
 
 // Connections: start, state and revoke of a person's provider link, plus tool permits (feature connessioni)
 export * from './connect/index.js';
+
+
+// Canonical portable contracts for the Python capability consumer.
+export * from './portable-contracts.js';
+export * from './coach/program-version.js';
+export * from './coach/execution.js';
+
+export * from './coach/measures.js';
+export * from './coach/accounting.js';
+export * from './coach/rolling-budget.js';
+
+export * from './agent-elevenlabs/coach-binding.js';
+
+export * from './coach/operational/index.js';
+
+export * from './agent-elevenlabs/native-session.js';
+export * from './agent-elevenlabs/native-session-grant.js';
+
+export * from './agent-elevenlabs/native-tools.js';
+
+export * from './agent-elevenlabs/native-config.js';
+export * from './agent-elevenlabs/native-readback.js';
+export * from './configuration/news-briefing.js';

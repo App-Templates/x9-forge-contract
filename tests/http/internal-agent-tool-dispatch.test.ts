@@ -101,10 +101,10 @@ describe('bounded internal agent execution', () => {
       expect(api.InternalAgentToolDispatchResponseSchema.safeParse({ ...result, ...patch }).success).toBe(false);
     }
   });
-  it('registers only the eighteen internal fixed actions with native call paths', () => {
+  it('registers only the twenty-three internal fixed actions with native call paths', () => {
     expect(api.INTERNAL_AGENT_EXECUTIONS).toBeDefined();
     const entries = Object.entries(api.INTERNAL_AGENT_EXECUTIONS) as Array<[string, (typeof api.INTERNAL_AGENT_EXECUTIONS)[keyof typeof api.INTERNAL_AGENT_EXECUTIONS]]>;
-    expect(entries).toHaveLength(18);
+    expect(entries).toHaveLength(23);
     expect(entries.every(([, entry]) => entry.modelVisible === false && (entry.target === 'builtin' || entry.path === api.capToolCallPath(entry.tool)))).toBe(true);
     expect(api.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit.credentialKeys).toEqual(['ELEVENLABS_API_KEY']);
     expect(api.INTERNAL_AGENT_EXECUTIONS.glasses_session_admit.identifierKeys).toEqual(['ELEVENLABS_VOICE_ID']);
@@ -218,4 +218,12 @@ describe('service-to-capability executions for the direct callers (cap-voice, ca
       expect(keys.every(key => !key.includes('INTERNAL') && !key.includes('TELEGRAM')), name).toBe(true);
     }
   });
+});
+
+it.each([
+  { execution: 'news_digest', input: { feeds: [{ url: 'https://personal.example/rss', category: 'tech', weight: 4 }], categoryWeights: { tech: 3 }, promptStyle: 'technical' } },
+  { execution: 'news_digest_topic', input: { topic: 'meteo', promptStyle: 'concise' } },
+])('carries actual Briefing News selection through the bounded Core dispatch: $execution', input => {
+  const parsed = api.InternalAgentToolDispatchRequestSchema.safeParse({ requestId: 'briefing-settings-dispatch', identity, ...input });
+  expect(parsed.success).toBe(true);
 });

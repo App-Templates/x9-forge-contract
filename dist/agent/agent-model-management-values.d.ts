@@ -1,8 +1,6 @@
 import { z } from 'zod';
 /** Shared management values initialize before model authority, preserving public module cycles. */
-/** Caller-chosen idempotency key, unique per intended command (e.g. a UUID). */
-export declare const AgentManagementRequestIdSchema: z.ZodString;
-export type AgentManagementRequestId = z.infer<typeof AgentManagementRequestIdSchema>;
+export { AgentManagementRequestIdSchema, type AgentManagementRequestId } from "./agent-management-request-id.js";
 export declare const AgentManagementOutcomeSchema: z.ZodEnum<{
     error: "error";
     ok: "ok";

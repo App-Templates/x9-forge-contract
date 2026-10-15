@@ -89,4 +89,9 @@ __exportStar(require("./agent-deletion.cjs"), exports);
 // C5: exact telephone admission and explicit server-owned outbound correlation.
 __exportStar(require("./agent-phone-admission.cjs"), exports);
 __exportStar(require("./agent-channel-history.cjs"), exports);
+// Canonical descriptor digest shared by the control plane and runtime.
+__exportStar(require("./agent-workspace-digest.cjs"), exports);
+__exportStar(require("./ordinary-authority.cjs"), exports);
+__exportStar(require("./agent-knowledge-address-book.cjs"), exports);
+__exportStar(require("./agent-channel-history-content.cjs"), exports);
 //# sourceMappingURL=index.js.map

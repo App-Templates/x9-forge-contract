@@ -100,3 +100,10 @@ export * from './internal-memory-decisions.js';
 export * from './internal-memory-knowledge.js';
 export * from './connect-public.js';
 export * from './internal-connection-completed.js';
+export * from './internal-agents-ordinary-authority.js';
+export * from './forge-elevenlabs-web.js';
+export * from './internal-agent-address-book.js';
+
+export * from './native-binding-read.js';
+export * from './coach-person-program-read.js';
+export * from './coach-browser.js';

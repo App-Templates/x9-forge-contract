@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { InternalMemoryExtractRequestSchema } from "../http/endpoints/internal-memory-extract.js";
 import { OrganizationToolCallContextSchema, ToolCallReceiptSchema, } from "../organization/tool-call-correlation.js";
+import { CapabilityOrdinaryCallSnapshotSchema } from "./ordinary-configuration.js";
 /**
  * Request sent by X9 agent-core to a capability service.
  *
@@ -49,6 +50,12 @@ export const ToolCallRequestSchema = z.object({
      * injected by the runtime, never by the model and never inside `input`.
      */
     personRef: z.string().min(1).optional(),
+    /** Server-owned next_apply snapshot; never selected from model input. */
+    ordinaryConfiguration: CapabilityOrdinaryCallSnapshotSchema.optional(),
+}).superRefine((call, ctx) => {
+    const scope = call.ordinaryConfiguration?.scope;
+    if (scope && (scope.agentId !== call.agentId || scope.tenantId !== call.tenantId || scope.ownerId !== call.ownerId))
+        ctx.addIssue({ code: 'custom', path: ['ordinaryConfiguration', 'scope'], message: 'Ordinary snapshot belongs to another call scope' });
 });
 // -- Response variants -------------------------------------------------------
 export const ToolCallSuccessResponseSchema = z.object({

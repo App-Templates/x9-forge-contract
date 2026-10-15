@@ -219,8 +219,8 @@ export declare const ExperienceKindSchema: z.ZodEnum<{
 export type ExperienceKind = z.infer<typeof ExperienceKindSchema>;
 export declare const ExperienceRecordStateSchema: z.ZodEnum<{
     revoked: "revoked";
-    superseded: "superseded";
     current: "current";
+    superseded: "superseded";
 }>;
 export type ExperienceRecordState = z.infer<typeof ExperienceRecordStateSchema>;
 /** Provenance filter: the run that produced an outcome or the decision it refers to. */
@@ -247,8 +247,8 @@ export declare const ExperienceRecordViewSchema: z.ZodObject<{
     version: z.ZodNumber;
     state: z.ZodEnum<{
         revoked: "revoked";
-        superseded: "superseded";
         current: "current";
+        superseded: "superseded";
     }>;
     digest: z.ZodString;
     occurredAt: z.ZodISODateTime;
@@ -265,8 +265,8 @@ export declare const InternalMemoryExperienceQueryResponseSchema: z.ZodObject<{
         version: z.ZodNumber;
         state: z.ZodEnum<{
             revoked: "revoked";
-            superseded: "superseded";
             current: "current";
+            superseded: "superseded";
         }>;
         digest: z.ZodString;
         occurredAt: z.ZodISODateTime;
@@ -482,8 +482,8 @@ export declare const internalMemoryExperienceQueryContract: {
             version: z.ZodNumber;
             state: z.ZodEnum<{
                 revoked: "revoked";
-                superseded: "superseded";
                 current: "current";
+                superseded: "superseded";
             }>;
             digest: z.ZodString;
             occurredAt: z.ZodISODateTime;
