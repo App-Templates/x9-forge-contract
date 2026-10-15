@@ -23,11 +23,13 @@
  *   the public key (`approvalKeysContract`), so the key must never be projected into any agent.
  * - `CONNECT_GOOGLE_CLIENT_ID` — Google OAuth client id, solo il servizio Connessioni.
  * - `CONNECT_GOOGLE_CLIENT_SECRET` — Google OAuth client secret, solo il servizio Connessioni.
+ * - `CONNECT_VAULT_SECRET` — segreto del servizio Connessioni verso il Vault; mai proiettato in un agente.
  */
 export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING',
   'APPROVALS_SIGNING_KEY',
   'CONNECT_GOOGLE_CLIENT_ID',
   'CONNECT_GOOGLE_CLIENT_SECRET',
+  'CONNECT_VAULT_SECRET',
 ] as const;
 
 export type PlatformInternalCredentialKey = (typeof PLATFORM_INTERNAL_CREDENTIAL_KEYS)[number];

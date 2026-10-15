@@ -4,6 +4,7 @@ import {
   isPlatformInternalCredentialKey,
   stripPlatformInternalCredentials,
 } from '../../src/vault/index.js';
+import { CONNECT_VAULT_SECRET_ENV } from '../../src/vault/connection-credential-keys.js';
 
 describe('platform-internal credentials', () => {
   it('lists the Telegram user session (BotFather userbot)', () => {
@@ -22,6 +23,15 @@ describe('platform-internal credentials', () => {
       CONNECT_GOOGLE_CLIENT_SECRET: 'secret',
     });
     expect(out).toEqual({ OPENAI_API_KEY: 'sk-x' });
+  });
+
+  it('recognises the Connessioni Vault secret, strips it and keeps name and list aligned', () => {
+    // Mutazione: togliere la chiave dalla lista fa fallire questo test.
+    expect(isPlatformInternalCredentialKey('CONNECT_VAULT_SECRET')).toBe(true);
+    expect(stripPlatformInternalCredentials({ OPENAI_API_KEY: 'sk-x', CONNECT_VAULT_SECRET: 's' })).toEqual({
+      OPENAI_API_KEY: 'sk-x',
+    });
+    expect(PLATFORM_INTERNAL_CREDENTIAL_KEYS as readonly string[]).toContain(CONNECT_VAULT_SECRET_ENV);
   });
 
   it('does not classify inheritable agent credentials as internal', () => {
