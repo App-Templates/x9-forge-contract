@@ -28,6 +28,7 @@ __exportStar(require("./company-memory.cjs"), exports);
 __exportStar(require("./scenario.cjs"), exports);
 __exportStar(require("./simulation-world.cjs"), exports);
 __exportStar(require("./simulation-expectation.cjs"), exports);
+__exportStar(require("./simulation-evaluation.cjs"), exports);
 __exportStar(require("./knowledge-publication.cjs"), exports);
 __exportStar(require("./participant-binding.cjs"), exports);
 __exportStar(require("./tool-call-correlation.cjs"), exports);

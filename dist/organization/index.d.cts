@@ -12,6 +12,7 @@ export * from "./company-memory.cjs";
 export * from "./scenario.cjs";
 export * from "./simulation-world.cjs";
 export * from "./simulation-expectation.cjs";
+export * from "./simulation-evaluation.cjs";
 export * from "./knowledge-publication.cjs";
 export * from "./participant-binding.cjs";
 export * from "./tool-call-correlation.cjs";
