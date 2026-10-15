@@ -30,6 +30,11 @@ export const DeleteVaultConnectionResponseSchema = z.object({
     ok: z.literal(true),
     status: z.literal('revoked'),
 }).strict();
+/** Revoca presso il provider con il refresh custodito dal Vault: il token non esce. */
+export const RevokeVaultConnectionResponseSchema = z.object({
+    ok: z.literal(true),
+    status: z.enum(['revoked', 'not_connected']),
+}).strict();
 export const GetVaultConnectionStateResponseSchema = ConnectStateResponseSchema;
 export const GetVaultConnectionValueResponseSchema = z.object({
     ok: z.literal(true),
@@ -84,6 +89,13 @@ export const deleteVaultConnectionContract = {
     authType: 'secret',
     paramsSchema: VaultConnectionParamsSchema,
     responseSchema: DeleteVaultConnectionResponseSchema,
+};
+export const revokeVaultConnectionContract = {
+    method: 'POST',
+    path: '/internal/vault/connections/:agentId/:provider/revoke',
+    authType: 'secret',
+    paramsSchema: VaultConnectionParamsSchema,
+    responseSchema: RevokeVaultConnectionResponseSchema,
 };
 export const getVaultConnectionStateContract = {
     method: 'GET',

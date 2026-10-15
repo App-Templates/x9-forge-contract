@@ -38,6 +38,15 @@ export declare const DeleteVaultConnectionResponseSchema: z.ZodObject<{
     status: z.ZodLiteral<"revoked">;
 }, z.core.$strict>;
 export type DeleteVaultConnectionResponse = z.infer<typeof DeleteVaultConnectionResponseSchema>;
+/** Revoca presso il provider con il refresh custodito dal Vault: il token non esce. */
+export declare const RevokeVaultConnectionResponseSchema: z.ZodObject<{
+    ok: z.ZodLiteral<true>;
+    status: z.ZodEnum<{
+        not_connected: "not_connected";
+        revoked: "revoked";
+    }>;
+}, z.core.$strict>;
+export type RevokeVaultConnectionResponse = z.infer<typeof RevokeVaultConnectionResponseSchema>;
 export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
@@ -182,6 +191,24 @@ export declare const deleteVaultConnectionContract: {
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
         status: z.ZodLiteral<"revoked">;
+    }, z.core.$strict>;
+};
+export declare const revokeVaultConnectionContract: {
+    readonly method: "POST";
+    readonly path: "/internal/vault/connections/:agentId/:provider/revoke";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+        provider: z.ZodEnum<{
+            google: "google";
+        }>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        status: z.ZodEnum<{
+            not_connected: "not_connected";
+            revoked: "revoked";
+        }>;
     }, z.core.$strict>;
 };
 export declare const getVaultConnectionStateContract: {

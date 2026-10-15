@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listVaultConnectionsContract = exports.postVaultAccessTokenContract = exports.getVaultConnectionValueContract = exports.getVaultConnectionStateContract = exports.deleteVaultConnectionContract = exports.putVaultConnectionContract = exports.ListVaultConnectionsResponseSchema = exports.ListVaultConnectionsParamsSchema = exports.VaultAccessErrorResponseSchema = exports.PostVaultAccessTokenResponseSchema = exports.PostVaultAccessTokenBodySchema = exports.VaultAccessScopeSchema = exports.VaultAccessErrorCodeSchema = exports.VAULT_ACCESS_ERROR_CODES = exports.VAULT_ACCESS_TOKEN_MAX_LENGTH = exports.VaultConnectionErrorResponseSchema = exports.GetVaultConnectionValueResponseSchema = exports.GetVaultConnectionStateResponseSchema = exports.DeleteVaultConnectionResponseSchema = exports.PutVaultConnectionResponseSchema = exports.PutVaultConnectionBodySchema = exports.VaultConnectionParamsSchema = exports.VAULT_CONNECTION_VALUE_MAX_LENGTH = void 0;
+exports.listVaultConnectionsContract = exports.postVaultAccessTokenContract = exports.getVaultConnectionValueContract = exports.getVaultConnectionStateContract = exports.revokeVaultConnectionContract = exports.deleteVaultConnectionContract = exports.putVaultConnectionContract = exports.ListVaultConnectionsResponseSchema = exports.ListVaultConnectionsParamsSchema = exports.VaultAccessErrorResponseSchema = exports.PostVaultAccessTokenResponseSchema = exports.PostVaultAccessTokenBodySchema = exports.VaultAccessScopeSchema = exports.VaultAccessErrorCodeSchema = exports.VAULT_ACCESS_ERROR_CODES = exports.VAULT_ACCESS_TOKEN_MAX_LENGTH = exports.VaultConnectionErrorResponseSchema = exports.GetVaultConnectionValueResponseSchema = exports.GetVaultConnectionStateResponseSchema = exports.RevokeVaultConnectionResponseSchema = exports.DeleteVaultConnectionResponseSchema = exports.PutVaultConnectionResponseSchema = exports.PutVaultConnectionBodySchema = exports.VaultConnectionParamsSchema = exports.VAULT_CONNECTION_VALUE_MAX_LENGTH = void 0;
 const zod_1 = require("zod");
 const index_js_1 = require("../../capability/connect/index.cjs");
 /**
@@ -32,6 +32,11 @@ exports.PutVaultConnectionResponseSchema = zod_1.z.object({
 exports.DeleteVaultConnectionResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(true),
     status: zod_1.z.literal('revoked'),
+}).strict();
+/** Revoca presso il provider con il refresh custodito dal Vault: il token non esce. */
+exports.RevokeVaultConnectionResponseSchema = zod_1.z.object({
+    ok: zod_1.z.literal(true),
+    status: zod_1.z.enum(['revoked', 'not_connected']),
 }).strict();
 exports.GetVaultConnectionStateResponseSchema = index_js_1.ConnectStateResponseSchema;
 exports.GetVaultConnectionValueResponseSchema = zod_1.z.object({
@@ -87,6 +92,13 @@ exports.deleteVaultConnectionContract = {
     authType: 'secret',
     paramsSchema: exports.VaultConnectionParamsSchema,
     responseSchema: exports.DeleteVaultConnectionResponseSchema,
+};
+exports.revokeVaultConnectionContract = {
+    method: 'POST',
+    path: '/internal/vault/connections/:agentId/:provider/revoke',
+    authType: 'secret',
+    paramsSchema: exports.VaultConnectionParamsSchema,
+    responseSchema: exports.RevokeVaultConnectionResponseSchema,
 };
 exports.getVaultConnectionStateContract = {
     method: 'GET',

@@ -23,6 +23,8 @@ import {
   ListVaultConnectionsResponseSchema,
   postVaultAccessTokenContract,
   listVaultConnectionsContract,
+  RevokeVaultConnectionResponseSchema,
+  revokeVaultConnectionContract,
 } from '../../../src/http/endpoints/internal-vault-connection.js';
 
 const body = { value: 'secret-value', scopes: ['calendar_events'] };
@@ -105,6 +107,7 @@ describe('vault connection contract', () => {
       [deleteVaultConnectionContract, 'DELETE'],
       [getVaultConnectionStateContract, 'GET'],
       [getVaultConnectionValueContract, 'GET'],
+      [revokeVaultConnectionContract, 'POST'],
     ] as const;
     for (const [contract, method] of contracts) {
       expect(contract.authType).toBe('secret');
@@ -219,5 +222,19 @@ describe('vault access tokens and connection inventory', () => {
       expect(existing.map((item) => item.path)).not.toContain(contract.path);
     }
     expect(new Set(added.map((contract) => contract.path)).size).toBe(2);
+  });
+
+  it('revoke contract: path, params and strict response with two statuses', () => {
+    // Mutazione: cambiare 'not_connected' o togliere .strict() fa fallire.
+    expect(revokeVaultConnectionContract.method).toBe('POST');
+    expect(revokeVaultConnectionContract.path).toBe('/internal/vault/connections/:agentId/:provider/revoke');
+    expect(revokeVaultConnectionContract.paramsSchema).toBe(VaultConnectionParamsSchema);
+    expect('bodySchema' in revokeVaultConnectionContract).toBe(false);
+    for (const status of ['revoked', 'not_connected']) {
+      expect(RevokeVaultConnectionResponseSchema.safeParse({ ok: true, status }).success).toBe(true);
+    }
+    expect(RevokeVaultConnectionResponseSchema.safeParse({ ok: true, status: 'connected' }).success).toBe(false);
+    expect(RevokeVaultConnectionResponseSchema.safeParse({ ok: false, status: 'revoked' }).success).toBe(false);
+    expect(RevokeVaultConnectionResponseSchema.safeParse({ ok: true, status: 'revoked', value: 'x' }).success).toBe(false);
   });
 });
