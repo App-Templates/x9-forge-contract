@@ -21,7 +21,9 @@ __exportStar(require("./operations.cjs"), exports);
 __exportStar(require("./decision-response.cjs"), exports);
 __exportStar(require("./outcome-intake.cjs"), exports);
 __exportStar(require("./publication-ref.cjs"), exports);
+__exportStar(require("./experience.cjs"), exports);
 __exportStar(require("./experiment.cjs"), exports);
 __exportStar(require("./company-memory.cjs"), exports);
 __exportStar(require("./scenario.cjs"), exports);
+__exportStar(require("./simulation-world.cjs"), exports);
 //# sourceMappingURL=index.js.map

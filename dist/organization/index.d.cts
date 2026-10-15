@@ -5,7 +5,9 @@ export * from "./operations.cjs";
 export * from "./decision-response.cjs";
 export * from "./outcome-intake.cjs";
 export * from "./publication-ref.cjs";
+export * from "./experience.cjs";
 export * from "./experiment.cjs";
 export * from "./company-memory.cjs";
 export * from "./scenario.cjs";
+export * from "./simulation-world.cjs";
 //# sourceMappingURL=index.d.ts.map

@@ -85,5 +85,7 @@ __exportStar(require("./forge-master-model-authority.cjs"), exports);
 __exportStar(require("./internal-models-apply.cjs"), exports);
 __exportStar(require("./internal-vault-connection.cjs"), exports);
 __exportStar(require("./internal-connect.cjs"), exports);
+__exportStar(require("./internal-memory-experience.cjs"), exports);
+__exportStar(require("./internal-memory-decisions.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 //# sourceMappingURL=index.js.map
