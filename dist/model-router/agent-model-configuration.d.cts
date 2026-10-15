@@ -47,6 +47,7 @@ export declare const AgentContextWithModelsSchema: z.ZodObject<{
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -358,6 +359,7 @@ export declare const AgentContextWithModelsWriteSchema: z.ZodObject<{
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -669,6 +671,7 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -993,6 +996,7 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -1319,6 +1323,7 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -1628,6 +1633,7 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -1952,6 +1958,7 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -2278,6 +2285,7 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;

@@ -50,6 +50,7 @@ exports.KNOWN_CREDENTIAL_KEYS = [
     'INTERNAL_SECRET',
     'X9_INTERNAL_SECRET',
     'HOSTINGER_API_TOKEN', // Phase 59 — cap-backup only; full-account token (no scopes): vault, never projected to prompts or devices
+    'PAPERCLIP_API_KEY', // P01 — native Paperclip agent API key; per agent, never platform-wide
 ];
 /**
  * Agent credentials schema.
@@ -99,6 +100,7 @@ exports.AgentCredentialsSchema = zod_1.z
     NETATMO_PASSWORD: zod_1.z.string().optional(),
     INTERNAL_SECRET: zod_1.z.string().optional(),
     X9_INTERNAL_SECRET: zod_1.z.string().optional(),
+    PAPERCLIP_API_KEY: zod_1.z.string().optional(),
 })
     .catchall(zod_1.z.string());
 /**

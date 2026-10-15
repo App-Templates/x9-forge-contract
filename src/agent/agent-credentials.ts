@@ -48,6 +48,7 @@ export const KNOWN_CREDENTIAL_KEYS = [
   'INTERNAL_SECRET',
   'X9_INTERNAL_SECRET',
   'HOSTINGER_API_TOKEN',                      // Phase 59 — cap-backup only; full-account token (no scopes): vault, never projected to prompts or devices
+  'PAPERCLIP_API_KEY',                       // P01 — native Paperclip agent API key; per agent, never platform-wide
 ] as const;
 
 export type KnownCredentialKey = (typeof KNOWN_CREDENTIAL_KEYS)[number];
@@ -100,6 +101,7 @@ export const AgentCredentialsSchema = z
     NETATMO_PASSWORD: z.string().optional(),
     INTERNAL_SECRET: z.string().optional(),
     X9_INTERNAL_SECRET: z.string().optional(),
+    PAPERCLIP_API_KEY: z.string().optional(),
   })
   .catchall(z.string());
 

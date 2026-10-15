@@ -18,6 +18,7 @@ describe('KNOWN_CREDENTIAL_KEYS', () => {
     expect(keys).toContain('GOOGLE_CALENDAR_CLIENT_ID');
     expect(keys).toContain('ELEVENLABS_API_KEY');
     expect(keys).toContain('HOSTINGER_API_TOKEN');
+    expect(keys).toContain('PAPERCLIP_API_KEY');
   });
 
   it('Phase 50: includes voice-note provider-lane keys', () => {
@@ -45,6 +46,18 @@ describe('AgentCredentialsSchema', () => {
     });
     expect(result.OPENAI_API_KEY).toBe('sk-test');
     expect(result.TELEGRAM_BOT_TOKEN).toBe('123:abc');
+  });
+
+  it('declares and preserves the optional Paperclip agent API key', () => {
+    expect(Object.keys(AgentCredentialsSchema.shape)).toContain('PAPERCLIP_API_KEY');
+    const field = AgentCredentialsSchema.shape.PAPERCLIP_API_KEY;
+    expect(field.safeParse(undefined).success).toBe(true);
+    expect(field.safeParse(123).success).toBe(false);
+    expect(AgentCredentialsSchema.parse({ PAPERCLIP_API_KEY: 'x' })).toEqual({
+      PAPERCLIP_API_KEY: 'x',
+    });
+    expect(KNOWN_CREDENTIAL_KEYS).not.toContain('PAPERCLIP_RUN_ID');
+    expect(Object.keys(AgentCredentialsSchema.shape)).not.toContain('PAPERCLIP_RUN_ID');
   });
 
   it('accepts empty credentials object', () => {

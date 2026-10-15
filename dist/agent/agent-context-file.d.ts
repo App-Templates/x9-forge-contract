@@ -79,6 +79,7 @@ export declare const AgentContextFileSchema: z.ZodObject<{
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -164,6 +165,7 @@ export declare const AgentContextFileWriteSchema: z.ZodObject<{
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;

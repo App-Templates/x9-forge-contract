@@ -4,7 +4,7 @@ import { MODEL_PROVIDERS } from "../model-router/model-provider.js";
 /** Metadata only: this module never accepts credential values or resolves the active provider. */
 export const AGENT_CREDENTIAL_SERVICE_KEYS = [...new Set([...KNOWN_CREDENTIAL_KEYS, ...AUTH_GATE_FIELDS])];
 export const AgentCredentialServiceKeySchema = z.enum(AGENT_CREDENTIAL_SERVICE_KEYS);
-export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo'];
+export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo', 'paperclip'];
 export const AgentCredentialCommercialServiceSchema = z.enum(AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS);
 export const AgentCredentialInternalServiceSchema = z.enum(['x9', 'forge']);
 export const AgentCredentialKindSchema = z.enum(['credential', 'setting', 'identifier']);
@@ -84,6 +84,15 @@ const definitions = {
         "service": {
             "type": "commercial",
             "id": "hostinger"
+        },
+        "secret": true
+    },
+    "PAPERCLIP_API_KEY": {
+        "label": "Chiave API Paperclip",
+        "kind": "credential",
+        "service": {
+            "type": "commercial",
+            "id": "paperclip"
         },
         "secret": true
     },
