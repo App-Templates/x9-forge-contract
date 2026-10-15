@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 /**
  * POST /internal/memory/decisions — receipt of one authoritative decision event.
  * Direction: X9 internal (agent-core -> memory-svc)
