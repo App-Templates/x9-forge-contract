@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = void 0;
 const zod_1 = require("zod");
 const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
+const tool_call_correlation_js_1 = require("../organization/tool-call-correlation.cjs");
 /**
  * Request sent by X9 agent-core to a capability service.
  *
@@ -26,6 +27,7 @@ exports.ToolCallRequestSchema = zod_1.z.object({
     /** Authenticated end user, injected by the runtime rather than the model. */
     userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
     credentials: zod_1.z.record(zod_1.z.string(), zod_1.z.string()).optional(),
+    organization: tool_call_correlation_js_1.OrganizationToolCallContextSchema.optional(),
     /**
      * F-2 (v1.13.0) — Optional per-agent memory-scope identity, attached by
      * agent-core's tool-router from the dispatching agent's context.json.
@@ -45,12 +47,14 @@ exports.ToolCallSuccessResponseSchema = zod_1.z.object({
     callId: zod_1.z.string().min(1),
     status: zod_1.z.literal('success'),
     output: zod_1.z.unknown(),
+    receipt: tool_call_correlation_js_1.ToolCallReceiptSchema.optional(),
 });
 exports.ToolCallErrorResponseSchema = zod_1.z.object({
     callId: zod_1.z.string().min(1),
     status: zod_1.z.literal('error'),
     error: zod_1.z.string(),
     code: zod_1.z.enum(['TOOL_NOT_FOUND', 'TOOL_CALL_INVALID', 'TOOL_EXEC_FAILED']),
+    receipt: tool_call_correlation_js_1.ToolCallReceiptSchema.optional(),
 });
 /**
  * Discriminated union on `status`. Use `.parse()` at the X9 tool-router

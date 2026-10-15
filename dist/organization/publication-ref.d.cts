@@ -1,9 +1,9 @@
 import { z } from 'zod';
 /** Scope the published content comes from. */
 export declare const PublicationSourceScopeSchema: z.ZodEnum<{
+    organization: "organization";
     private: "private";
     team: "team";
-    organization: "organization";
 }>;
 export type PublicationSourceScope = z.infer<typeof PublicationSourceScopeSchema>;
 /** Who receives the publication. `department` is reserved: accepted as a type only. */
@@ -45,9 +45,9 @@ export declare const PublicationRefSchema: z.ZodObject<{
         expiresAt: z.ZodISODateTime;
     }, z.core.$strict>;
     sourceScope: z.ZodEnum<{
+        organization: "organization";
         private: "private";
         team: "team";
-        organization: "organization";
     }>;
     slug: z.ZodString;
     version: z.ZodNumber;

@@ -12,4 +12,5 @@ export * from "./scenario.js";
 export * from "./simulation-world.js";
 export * from "./knowledge-publication.js";
 export * from "./participant-binding.js";
+export * from "./tool-call-correlation.js";
 //# sourceMappingURL=index.d.ts.map

@@ -28,4 +28,5 @@ __exportStar(require("./scenario.cjs"), exports);
 __exportStar(require("./simulation-world.cjs"), exports);
 __exportStar(require("./knowledge-publication.cjs"), exports);
 __exportStar(require("./participant-binding.cjs"), exports);
+__exportStar(require("./tool-call-correlation.cjs"), exports);
 //# sourceMappingURL=index.js.map

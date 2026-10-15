@@ -1,9 +1,9 @@
 import { z } from 'zod';
 /** Private memory belongs to one agent and is never company memory. */
 export declare const CompanyMemoryScopeSchema: z.ZodEnum<{
+    organization: "organization";
     private: "private";
     team: "team";
-    organization: "organization";
 }>;
 export type CompanyMemoryScope = z.infer<typeof CompanyMemoryScopeSchema>;
 /** A memory reference; organization-wide entries require a publication reference. */
@@ -27,9 +27,9 @@ export declare const CompanyMemoryEntryRefSchema: z.ZodObject<{
         expiresAt: z.ZodISODateTime;
     }, z.core.$strict>;
     scope: z.ZodEnum<{
+        organization: "organization";
         private: "private";
         team: "team";
-        organization: "organization";
     }>;
     entryId: z.ZodString;
     ownerAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;

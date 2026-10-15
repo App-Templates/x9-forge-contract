@@ -353,6 +353,44 @@ export declare const InternalAgentToolDispatchResponseSchema: z.ZodDiscriminated
     callId: z.ZodString;
     status: z.ZodLiteral<"success">;
     output: z.ZodUnknown;
+    receipt: z.ZodOptional<z.ZodObject<{
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        callId: z.ZodString;
+        status: z.ZodEnum<{
+            succeeded: "succeeded";
+            failed: "failed";
+            uncertain: "uncertain";
+        }>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        failureCode: z.ZodOptional<z.ZodString>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     callId: z.ZodString;
     status: z.ZodLiteral<"error">;
@@ -362,6 +400,44 @@ export declare const InternalAgentToolDispatchResponseSchema: z.ZodDiscriminated
         TOOL_CALL_INVALID: "TOOL_CALL_INVALID";
         TOOL_EXEC_FAILED: "TOOL_EXEC_FAILED";
     }>;
+    receipt: z.ZodOptional<z.ZodObject<{
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        callId: z.ZodString;
+        status: z.ZodEnum<{
+            succeeded: "succeeded";
+            failed: "failed";
+            uncertain: "uncertain";
+        }>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        failureCode: z.ZodOptional<z.ZodString>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
 }, z.core.$strict>], "status">;
 export type InternalAgentToolDispatchResponse = z.infer<typeof InternalAgentToolDispatchResponseSchema>;
 export declare const InternalAgentToolDispatchParamsSchema: z.ZodObject<{
@@ -438,6 +514,44 @@ export declare const internalAgentToolDispatchContract: {
         callId: z.ZodString;
         status: z.ZodLiteral<"success">;
         output: z.ZodUnknown;
+        receipt: z.ZodOptional<z.ZodObject<{
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            callId: z.ZodString;
+            status: z.ZodEnum<{
+                succeeded: "succeeded";
+                failed: "failed";
+                uncertain: "uncertain";
+            }>;
+            consumption: z.ZodArray<z.ZodObject<{
+                unit: z.ZodEnum<{
+                    usd_micros: "usd_micros";
+                    tokens: "tokens";
+                    seconds: "seconds";
+                }>;
+                quantity: z.ZodNumber;
+                state: z.ZodEnum<{
+                    unknown: "unknown";
+                    reserved: "reserved";
+                    settled: "settled";
+                }>;
+                estimated: z.ZodBoolean;
+            }, z.core.$strict>>;
+            evidence: z.ZodArray<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    log: "log";
+                    artifact: "artifact";
+                    commit: "commit";
+                    document: "document";
+                    metric: "metric";
+                }>;
+                ref: z.ZodString;
+                sha256: z.ZodOptional<z.ZodString>;
+                grantsRead: z.ZodLiteral<false>;
+            }, z.core.$strict>>;
+            failureCode: z.ZodOptional<z.ZodString>;
+            recordedAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         callId: z.ZodString;
         status: z.ZodLiteral<"error">;
@@ -447,6 +561,44 @@ export declare const internalAgentToolDispatchContract: {
             TOOL_CALL_INVALID: "TOOL_CALL_INVALID";
             TOOL_EXEC_FAILED: "TOOL_EXEC_FAILED";
         }>;
+        receipt: z.ZodOptional<z.ZodObject<{
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            callId: z.ZodString;
+            status: z.ZodEnum<{
+                succeeded: "succeeded";
+                failed: "failed";
+                uncertain: "uncertain";
+            }>;
+            consumption: z.ZodArray<z.ZodObject<{
+                unit: z.ZodEnum<{
+                    usd_micros: "usd_micros";
+                    tokens: "tokens";
+                    seconds: "seconds";
+                }>;
+                quantity: z.ZodNumber;
+                state: z.ZodEnum<{
+                    unknown: "unknown";
+                    reserved: "reserved";
+                    settled: "settled";
+                }>;
+                estimated: z.ZodBoolean;
+            }, z.core.$strict>>;
+            evidence: z.ZodArray<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    log: "log";
+                    artifact: "artifact";
+                    commit: "commit";
+                    document: "document";
+                    metric: "metric";
+                }>;
+                ref: z.ZodString;
+                sha256: z.ZodOptional<z.ZodString>;
+                grantsRead: z.ZodLiteral<false>;
+            }, z.core.$strict>>;
+            failureCode: z.ZodOptional<z.ZodString>;
+            recordedAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
     }, z.core.$strict>], "status">;
 };
 //# sourceMappingURL=internal-agent-tool-dispatch.d.ts.map

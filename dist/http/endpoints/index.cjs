@@ -25,6 +25,7 @@ __exportStar(require("./internal-agents-list.cjs"), exports);
 __exportStar(require("./internal-agents-reload.cjs"), exports);
 __exportStar(require("./internal-agents-stop.cjs"), exports);
 __exportStar(require("./internal-run-stop.cjs"), exports);
+__exportStar(require("./internal-run-native-stop.cjs"), exports);
 __exportStar(require("./internal-agents-management.cjs"), exports); // v1.31.0 — R1b commands + management state
 __exportStar(require("./internal-turn.cjs"), exports);
 __exportStar(require("./internal-turn-stream.cjs"), exports);

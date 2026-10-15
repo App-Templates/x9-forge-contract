@@ -49,9 +49,9 @@ export declare const KnowledgePublicationSchema: z.ZodObject<{
             expiresAt: z.ZodISODateTime;
         }, z.core.$strict>;
         sourceScope: z.ZodEnum<{
+            organization: "organization";
             private: "private";
             team: "team";
-            organization: "organization";
         }>;
         slug: z.ZodString;
         version: z.ZodNumber;
