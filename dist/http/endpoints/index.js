@@ -45,6 +45,7 @@ export * from "./webhook-inbound-email.js"; // POST /webhook/agentmail/inbound, 
 export * from "./cap-turn-lead.js";
 export * from "./internal-factory-creation.js"; // R2 opt-in replayable deploy, legacy contract unchanged.
 export * from "./internal-channel-attestation.js";
+export * from "./internal-agent-creation-by-email.js";
 export * from "./voice-catalog.js";
 export * from "./internal-agent-model-catalog.js";
 export * from "./internal-models-batch.js";

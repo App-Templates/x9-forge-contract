@@ -61,6 +61,7 @@ __exportStar(require("./webhook-inbound-email.cjs"), exports); // POST /webhook/
 __exportStar(require("./cap-turn-lead.cjs"), exports);
 __exportStar(require("./internal-factory-creation.cjs"), exports); // R2 opt-in replayable deploy, legacy contract unchanged.
 __exportStar(require("./internal-channel-attestation.cjs"), exports);
+__exportStar(require("./internal-agent-creation-by-email.cjs"), exports);
 __exportStar(require("./voice-catalog.cjs"), exports);
 __exportStar(require("./internal-agent-model-catalog.cjs"), exports);
 __exportStar(require("./internal-models-batch.cjs"), exports);

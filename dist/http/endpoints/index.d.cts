@@ -40,6 +40,7 @@ export * from "./webhook-inbound-email.cjs";
 export * from "./cap-turn-lead.cjs";
 export * from "./internal-factory-creation.cjs";
 export * from "./internal-channel-attestation.cjs";
+export * from "./internal-agent-creation-by-email.cjs";
 export * from "./voice-catalog.cjs";
 export * from "./internal-agent-model-catalog.cjs";
 export * from "./internal-models-batch.cjs";
