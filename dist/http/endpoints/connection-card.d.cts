@@ -21,6 +21,8 @@ export declare const ConnectionCardSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
     url: z.ZodString;
     expiresAt: z.ZodNumber;
@@ -47,6 +49,8 @@ export declare const ConnectionCardEnvelopeSchema: z.ZodObject<{
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         url: z.ZodString;
         expiresAt: z.ZodNumber;

@@ -190,6 +190,8 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         url: z.ZodString;
         expiresAt: z.ZodNumber;
@@ -649,6 +651,8 @@ export declare const internalAgentTurnContract: {
                 contacts_read: "contacts_read";
                 mail_send: "mail_send";
                 mail_draft: "mail_draft";
+                mail_read: "mail_read";
+                drive_read: "drive_read";
             }>>;
             url: z.ZodString;
             expiresAt: z.ZodNumber;

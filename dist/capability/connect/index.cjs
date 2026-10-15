@@ -4,8 +4,8 @@ exports.ConnectToolPermitSchema = exports.ConnectRevokeResponseSchema = exports.
 const zod_1 = require("zod");
 /** Providers a person can connect (provider list is configuration; Google first). */
 exports.ConnectProviderSchema = zod_1.z.enum(['google']);
-/** Minimum permissions only: no mailbox reading. `mail_draft` creates drafts, it never reads mail. */
-exports.ConnectScopeSchema = zod_1.z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft']);
+/** Separate permissions for mailbox and Drive reading. `mail_draft` creates drafts, it never reads mail. */
+exports.ConnectScopeSchema = zod_1.z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read']);
 /** One-time link limits: the link expires in 10 minutes. */
 exports.CONNECT_LINK_LIMITS = { ttlSeconds: 600, stateBytes: 32 };
 /** Maximum lifetime of a tool permit, in seconds. */

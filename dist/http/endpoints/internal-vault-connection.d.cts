@@ -25,6 +25,8 @@ export declare const PutVaultConnectionBodySchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>;
 export type PutVaultConnectionBody = z.infer<typeof PutVaultConnectionBodySchema>;
@@ -64,6 +66,8 @@ export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
     connectedAt: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
@@ -93,7 +97,9 @@ export declare const VaultAccessScopeSchema: z.ZodEnum<{
     contacts_read: "contacts_read";
     mail_send: "mail_send";
     mail_draft: "mail_draft";
-}> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+    mail_read: "mail_read";
+    drive_read: "drive_read";
+}> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
 export type VaultAccessScope = z.infer<typeof VaultAccessScopeSchema>;
 export declare const PostVaultAccessTokenBodySchema: z.ZodObject<{
     scope: z.ZodEnum<{
@@ -101,7 +107,9 @@ export declare const PostVaultAccessTokenBodySchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
-    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+        mail_read: "mail_read";
+        drive_read: "drive_read";
+    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
     personRef: z.ZodString;
 }, z.core.$strict>;
 export type PostVaultAccessTokenBody = z.infer<typeof PostVaultAccessTokenBodySchema>;
@@ -114,6 +122,8 @@ export declare const PostVaultAccessTokenResponseSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>;
 export type PostVaultAccessTokenResponse = z.infer<typeof PostVaultAccessTokenResponseSchema>;
@@ -148,6 +158,8 @@ export declare const ListVaultConnectionsResponseSchema: z.ZodObject<{
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         accountLabel: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
@@ -171,6 +183,8 @@ export declare const putVaultConnectionContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -238,6 +252,8 @@ export declare const getVaultConnectionStateContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         connectedAt: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
@@ -273,7 +289,9 @@ export declare const postVaultAccessTokenContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
-        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+            mail_read: "mail_read";
+            drive_read: "drive_read";
+        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
         personRef: z.ZodString;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -285,6 +303,8 @@ export declare const postVaultAccessTokenContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>;
 };
@@ -312,6 +332,8 @@ export declare const listVaultConnectionsContract: {
                 contacts_read: "contacts_read";
                 mail_send: "mail_send";
                 mail_draft: "mail_draft";
+                mail_read: "mail_read";
+                drive_read: "drive_read";
             }>>;
             accountLabel: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;

@@ -30,6 +30,8 @@ export declare const IssueConnectPermitBodySchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>;
 export type IssueConnectPermitBody = z.infer<typeof IssueConnectPermitBodySchema>;
@@ -45,6 +47,8 @@ export declare const IssueConnectPermitResponseSchema: z.ZodDiscriminatedUnion<[
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         issuedAt: z.ZodNumber;
         expiresAt: z.ZodNumber;
@@ -66,7 +70,9 @@ export declare const IssueConnectAccessTokenBodySchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
-    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+        mail_read: "mail_read";
+        drive_read: "drive_read";
+    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
     personRef: z.ZodString;
 }, z.core.$strict>;
 export type IssueConnectAccessTokenBody = z.infer<typeof IssueConnectAccessTokenBodySchema>;
@@ -89,6 +95,8 @@ export declare const IssueConnectAccessTokenResponseSchema: z.ZodDiscriminatedUn
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
@@ -118,6 +126,8 @@ export declare const startConnectContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -156,6 +166,8 @@ export declare const getConnectStateContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         connectedAt: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
@@ -194,6 +206,8 @@ export declare const issueConnectPermitContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -208,6 +222,8 @@ export declare const issueConnectPermitContract: {
                 contacts_read: "contacts_read";
                 mail_send: "mail_send";
                 mail_draft: "mail_draft";
+                mail_read: "mail_read";
+                drive_read: "drive_read";
             }>>;
             issuedAt: z.ZodNumber;
             expiresAt: z.ZodNumber;
@@ -232,7 +248,9 @@ export declare const issueConnectAccessTokenContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
-        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+            mail_read: "mail_read";
+            drive_read: "drive_read";
+        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
         personRef: z.ZodString;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -244,6 +262,8 @@ export declare const issueConnectAccessTokenContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
