@@ -166,8 +166,8 @@ export declare const ElevenLabsChannelStatusSchema: z.ZodObject<{
 export type ElevenLabsChannelStatus = z.infer<typeof ElevenLabsChannelStatusSchema>;
 export declare const ElevenLabsProvisionOutcomeSchema: z.ZodEnum<{
     unchanged: "unchanged";
-    adopted: "adopted";
     created: "created";
+    adopted: "adopted";
     updated: "updated";
 }>;
 export type ElevenLabsProvisionOutcome = z.infer<typeof ElevenLabsProvisionOutcomeSchema>;
@@ -177,8 +177,8 @@ export declare const ElevenLabsProvisionResultSchema: z.ZodObject<{
     replayed: z.ZodBoolean;
     outcome: z.ZodEnum<{
         unchanged: "unchanged";
-        adopted: "adopted";
         created: "created";
+        adopted: "adopted";
         updated: "updated";
     }>;
     mapping: z.ZodObject<{

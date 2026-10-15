@@ -22,6 +22,8 @@ export * from "./agent-scope-policy.cjs";
 export * from "./agent-channel-configuration.cjs";
 export * from "./agent-creation-replay.cjs";
 export * from "./agent-channel-attestation.cjs";
+export * from "./agent-creation-authority.cjs";
+export * from "./agent-creation-by-email.cjs";
 export * from "./agent-workspace.cjs";
 export * from "./agent-inventory-metadata.cjs";
 export * from "./agent-credential-services.cjs";

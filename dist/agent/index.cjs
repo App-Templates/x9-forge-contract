@@ -66,6 +66,8 @@ __exportStar(require("./agent-scope-policy.cjs"), exports);
 __exportStar(require("./agent-channel-configuration.cjs"), exports);
 __exportStar(require("./agent-creation-replay.cjs"), exports);
 __exportStar(require("./agent-channel-attestation.cjs"), exports);
+__exportStar(require("./agent-creation-authority.cjs"), exports);
+__exportStar(require("./agent-creation-by-email.cjs"), exports);
 // R7 / D-A9: versioned human core and generated progressive skills.
 __exportStar(require("./agent-workspace.cjs"), exports);
 // Public, metadata-only observations from the per-agent registry.

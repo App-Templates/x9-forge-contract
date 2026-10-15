@@ -21,8 +21,8 @@ export declare const MemoryEntrySchema: z.ZodObject<{
     status: z.ZodEnum<{
         active: "active";
         rejected: "rejected";
-        archived: "archived";
         draft: "draft";
+        archived: "archived";
         invalidated: "invalidated";
         superseded: "superseded";
         redacted: "redacted";
@@ -84,8 +84,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
-            archived: "archived";
             draft: "draft";
+            archived: "archived";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";
@@ -112,8 +112,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
-            archived: "archived";
             draft: "draft";
+            archived: "archived";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";
@@ -140,8 +140,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
-            archived: "archived";
             draft: "draft";
+            archived: "archived";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";
@@ -168,8 +168,8 @@ export declare const RecallBundleSchema: z.ZodObject<{
         status: z.ZodEnum<{
             active: "active";
             rejected: "rejected";
-            archived: "archived";
             draft: "draft";
+            archived: "archived";
             invalidated: "invalidated";
             superseded: "superseded";
             redacted: "redacted";

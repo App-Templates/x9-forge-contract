@@ -54,8 +54,8 @@ export declare const elevenLabsProvisionContract: {
         replayed: z.ZodBoolean;
         outcome: z.ZodEnum<{
             unchanged: "unchanged";
-            adopted: "adopted";
             created: "created";
+            adopted: "adopted";
             updated: "updated";
         }>;
         mapping: z.ZodObject<{

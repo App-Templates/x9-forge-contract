@@ -30,6 +30,8 @@ export * from "./agent-scope-policy.js";
 export * from "./agent-channel-configuration.js";
 export * from "./agent-creation-replay.js";
 export * from "./agent-channel-attestation.js";
+export * from "./agent-creation-authority.js";
+export * from "./agent-creation-by-email.js";
 // R7 / D-A9: versioned human core and generated progressive skills.
 export * from "./agent-workspace.js";
 // Public, metadata-only observations from the per-agent registry.
