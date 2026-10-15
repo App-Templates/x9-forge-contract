@@ -60,4 +60,6 @@ export * from "./internal-agent-model-source-observation.cjs";
 export * from "./forge-master-model-authority.cjs";
 export * from "./internal-models-apply.cjs";
 export * from "./internal-vault-connection.cjs";
+export * from "./internal-connect.cjs";
+export * from "./connect-public.cjs";
 //# sourceMappingURL=index.d.ts.map

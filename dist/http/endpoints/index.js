@@ -68,4 +68,6 @@ export * from "./internal-agent-model-source-observation.js";
 export * from "./forge-master-model-authority.js";
 export * from "./internal-models-apply.js";
 export * from "./internal-vault-connection.js";
+export * from "./internal-connect.js";
+export * from "./connect-public.js";
 //# sourceMappingURL=index.js.map
