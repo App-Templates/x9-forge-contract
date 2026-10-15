@@ -5,6 +5,63 @@ import { PLATFORM_INTERNAL_CREDENTIAL_KEYS } from '../../src/vault/platform-inte
 const api = http;
 const identity = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'agent-a' };
 const request = { requestId: 'request-1', identity, execution: 'scheduler_telegram_text', input: { chatId: 123, text: 'hello' } };
+describe('tool dispatch organizationRun', () => {
+  const context = {
+    schemaVersion: 1,
+    runId: 'run-1',
+    organizationId: 'org-1',
+    ownerId: 'owner-a',
+    identity: { managementAgentId: 'agent-a', runtimeAgentId: 'agent-a', vaultAgentId: 7 },
+    issuer: 'x9',
+    issuedAt: '2026-10-14T10:00:00.000Z',
+    expiresAt: '2026-10-14T11:00:00.000Z',
+  };
+  const attempt = {
+    runId: 'run-1',
+    attemptId: 'att-1',
+    attemptNumber: 1,
+    startedAt: '2026-10-14T10:01:00.000Z',
+    idempotencyKey: 'idem-1',
+  };
+
+  it('accepts the legacy request unchanged without organizationRun', () => {
+    const parsed = api.InternalAgentToolDispatchRequestSchema.parse(request);
+    expect(parsed).toEqual(request);
+    expect('organizationRun' in parsed).toBe(false);
+  });
+
+  it('preserves a valid organizationRun context and attempt', () => {
+    const body = { ...request, organizationRun: { context, attempt } };
+    expect(api.InternalAgentToolDispatchRequestSchema.parse(body)).toEqual(body);
+  });
+
+  it('rejects organizationRun with mismatching run IDs', () => {
+    // Mutation: removing the shared schema's runId check must fail this test.
+    const result = api.InternalAgentToolDispatchRequestSchema.safeParse({
+      ...request,
+      organizationRun: { context, attempt: { ...attempt, runId: 'run-2' } },
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.map(issue => issue.path.join('.')))
+        .toContain('organizationRun.attempt.runId');
+    }
+  });
+
+  it('rejects an extra field inside organizationRun', () => {
+    const result = api.InternalAgentToolDispatchRequestSchema.safeParse({
+      ...request,
+      organizationRun: { context, attempt, extra: true },
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues).toEqual(expect.arrayContaining([
+        expect.objectContaining({ code: 'unrecognized_keys', path: ['organizationRun'] }),
+      ]));
+    }
+  });
+});
+
 describe('bounded internal agent execution', () => {
   it('exports the authenticated canonical path and strict body', () => {
     expect(api.internalAgentToolDispatchContract?.authType).toBe('secret');
