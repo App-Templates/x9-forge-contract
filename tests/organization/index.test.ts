@@ -18,6 +18,7 @@ import * as participantBinding from '../../src/organization/participant-binding.
 import * as toolCallCorrelation from '../../src/organization/tool-call-correlation.js';
 import * as publicationOperations from '../../src/organization/publication-operations.js';
 import * as publicationLookup from '../../src/organization/publication-lookup.js';
+import * as recall from '../../src/organization/recall.js';
 
 const allSymbols = {
   ...runContext,
@@ -37,6 +38,7 @@ const allSymbols = {
   ...toolCallCorrelation,
   ...publicationOperations,
   ...publicationLookup,
+  ...recall,
 };
 
 describe('organization subpath', () => {
