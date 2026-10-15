@@ -18,6 +18,7 @@ export declare const LabPageListEntrySchema: z.ZodObject<{
 }, z.core.$strict>;
 export type LabPageListEntry = z.infer<typeof LabPageListEntrySchema>;
 export declare const LabPageListOutputSchema: z.ZodObject<{
+    snapshotVersion: z.ZodNumber;
     pages: z.ZodArray<z.ZodObject<{
         version: z.ZodNumber;
         kind: z.ZodString;
@@ -35,9 +36,16 @@ export declare const LabPageDetailInputSchema: z.ZodObject<{
         agentId: z.ZodString;
     }, z.core.$strict>;
     slug: z.ZodString;
+    version: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type LabPageDetailInput = z.infer<typeof LabPageDetailInputSchema>;
 export declare const LabPageDetailOutputSchema: z.ZodObject<{
+    snapshotVersion: z.ZodNumber;
+    truncated: z.ZodObject<{
+        claims: z.ZodBoolean;
+        links: z.ZodBoolean;
+        sources: z.ZodBoolean;
+    }, z.core.$strict>;
     page: z.ZodObject<{
         agentId: z.ZodString;
         slug: z.ZodString;
@@ -104,6 +112,8 @@ export type LabExportRequest = z.infer<typeof LabExportRequestSchema>;
 export declare const LabExportResultSchema: z.ZodObject<{
     filename: z.ZodString;
     bytes: z.ZodNumber;
+    content: z.ZodString;
+    partial: z.ZodBoolean;
     generatedFrom: z.ZodNumber;
 }, z.core.$strict>;
 export type LabExportResult = z.infer<typeof LabExportResultSchema>;

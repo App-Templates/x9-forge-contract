@@ -11,9 +11,65 @@ const page = { agentId: 'samira', slug: 'pasta', kind: 'concept', title: 'Pasta'
 const source = { id: 's1', agentId: 'samira', url: 'https://example.com/a', fetchedAt: '2026-10-14T01:00:00Z', contentSha256: 'a'.repeat(64), origin: 'web' };
 const claim = { id: 'c1', pageSlug: 'pasta', text: 'Boils at 100C', sourceIds: ['s1'], status: 'aperta', origin: 'web' };
 const link = { from: 'pasta', to: 'acqua', kind: 'uses' };
-const result = { filename: 'wiki-samira.md', bytes: 1200, generatedFrom: 3 };
+const result = { filename: 'wiki-samira.md', bytes: 7, content: 'caffè!', partial: false, generatedFrom: 3 };
+const truncated = { claims: false, links: false, sources: false };
+const list = { snapshotVersion: 0, pages: [entry], nextCursor: null };
+const detail = { snapshotVersion: 3, truncated, page, claims: [claim], links: [link], sources: [source] };
 
 describe('lab browse', () => {
+  it('requires a nonnegative integer snapshot version on both outputs', () => {
+    for (const [schema, valid] of [[LabPageListOutputSchema, list], [LabPageDetailOutputSchema, detail]] as const) {
+      for (const snapshotVersion of [0, 3]) {
+        expect(schema.parse({ ...valid, snapshotVersion }).snapshotVersion).toBe(snapshotVersion);
+      }
+      for (const snapshotVersion of [-1, 0.5, '3', undefined]) {
+        expect(schema.safeParse({ ...valid, snapshotVersion }).success).toBe(false);
+      }
+    }
+  });
+
+  it('allows an optional positive integer detail version', () => {
+    expect(LabPageDetailInputSchema.parse({ scope, slug: 'pasta', version: 2 }).version).toBe(2);
+    expect(LabPageDetailInputSchema.safeParse({ scope, slug: 'pasta' }).success).toBe(true);
+    for (const version of [0, -1, 1.5, '2', null]) {
+      expect(LabPageDetailInputSchema.safeParse({ scope, slug: 'pasta', version }).success).toBe(false);
+    }
+  });
+
+  it('requires exactly three boolean truncation flags', () => {
+    for (const value of [false, true]) {
+      const flags = { claims: value, links: value, sources: value };
+      expect(LabPageDetailOutputSchema.parse({ ...detail, truncated: flags }).truncated).toEqual(flags);
+    }
+    expect(LabPageDetailOutputSchema.safeParse({ ...detail, truncated: undefined }).success).toBe(false);
+    expect(LabPageDetailOutputSchema.safeParse({ ...detail, truncated: { ...truncated, extra: true } }).success).toBe(false);
+    for (const key of ['claims', 'links', 'sources'] as const) {
+      for (const value of [undefined, 'false', 0]) {
+        expect(LabPageDetailOutputSchema.safeParse({ ...detail, truncated: { ...truncated, [key]: value } }).success).toBe(false);
+      }
+    }
+  });
+
+  it('requires bounded content, a partial flag and matching UTF-8 bytes', () => {
+    for (const content of ['', 'plain text', 'caffè ☕😀']) {
+      for (const partial of [true, false]) {
+        const valid = { ...result, content, partial, bytes: new TextEncoder().encode(content).length };
+        expect(LabExportResultSchema.parse(valid)).toEqual(valid);
+        expect(LabExportResultSchema.safeParse({ ...valid, bytes: valid.bytes + 1 }).success).toBe(false);
+      }
+    }
+    expect(LabExportResultSchema.safeParse({ ...result, bytes: result.content.length }).success).toBe(false);
+    for (const partial of [undefined, 'false', 0]) {
+      expect(LabExportResultSchema.safeParse({ ...result, partial }).success).toBe(false);
+    }
+    for (const content of [undefined, 123, 'a'.repeat(5_000_001)]) {
+      expect(LabExportResultSchema.safeParse({ ...result, content }).success).toBe(false);
+    }
+    // Isolate the character limit from the independent bytes bound and consistency check.
+    expect(LabExportResultSchema.shape.content.safeParse('a'.repeat(5_000_000)).success).toBe(true);
+    expect(LabExportResultSchema.shape.content.safeParse('a'.repeat(5_000_001)).success).toBe(false);
+  });
+
   it('defaults and bounds the page list', () => {
     expect(LabPageListInputSchema.parse({ scope }).limit).toBe(50);
     expect(LabPageListInputSchema.parse({ scope, limit: 200 }).limit).toBe(200);
@@ -27,15 +83,15 @@ describe('lab browse', () => {
     expect(LabPageDetailInputSchema.safeParse({ scope, slug: 'pasta', extra: 1 }).success).toBe(false);
     expect(LabExportRequestSchema.safeParse({ scope, format: 'json', path: '/tmp/x' }).success).toBe(false);
     expect(LabExportResultSchema.safeParse({ ...result, extra: 1 }).success).toBe(false);
-    expect(LabPageListOutputSchema.safeParse({ pages: [{ ...entry, body: 'x' }], nextCursor: null }).success).toBe(false);
+    expect(LabPageListOutputSchema.safeParse({ ...list, pages: [{ ...entry, body: 'x' }] }).success).toBe(false);
   });
 
   it('accepts a list and a detail', () => {
-    expect(LabPageListOutputSchema.safeParse({ pages: [entry], nextCursor: null }).success).toBe(true);
+    expect(LabPageListOutputSchema.safeParse(list).success).toBe(true);
     expect(LabPageDetailInputSchema.safeParse({ scope, slug: 'pasta' }).success).toBe(true);
     expect(LabPageDetailInputSchema.safeParse({ scope, slug: '../x' }).success).toBe(false);
-    expect(LabPageDetailOutputSchema.safeParse({ page, claims: [claim], links: [link], sources: [source] }).success).toBe(true);
-    expect(LabPageDetailOutputSchema.safeParse({ page, claims: [{ ...claim, sourceIds: [] }], links: [], sources: [] }).success).toBe(false);
+    expect(LabPageDetailOutputSchema.safeParse(detail).success).toBe(true);
+    expect(LabPageDetailOutputSchema.safeParse({ ...detail, claims: [{ ...claim, sourceIds: [] }], links: [], sources: [] }).success).toBe(false);
   });
 
   it('restricts the export format', () => {
@@ -49,7 +105,7 @@ describe('lab browse', () => {
       expect(LabExportResultSchema.safeParse({ ...result, filename }).success).toBe(false);
     }
     expect(LabExportResultSchema.safeParse({ ...result, bytes: 5_000_001 }).success).toBe(false);
-    expect(LabExportResultSchema.safeParse({ ...result, bytes: 5_000_000 }).success).toBe(true);
+    expect(LabExportResultSchema.safeParse({ ...result, bytes: 5_000_000, content: 'a'.repeat(5_000_000) }).success).toBe(true);
   });
 
   it('reuses the canonical tool errors', () => {

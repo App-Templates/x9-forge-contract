@@ -10,9 +10,18 @@ const point = {
   at: '2026-10-14T01:00:00Z', method: 'coverage', methodVersion: '1',
   numerator: 2, denominator: 4, score: 0.5,
 };
-const output = { scope, points: [point], nextCursor: null, state: 'ok' };
+const output = { snapshotVersion: 0, scope, points: [point], nextCursor: null, state: 'ok' };
 
 describe('lab growth history', () => {
+  it('requires a nonnegative integer snapshot version', () => {
+    for (const snapshotVersion of [0, 3]) {
+      expect(LabGrowthHistoryOutputSchema.parse({ ...output, snapshotVersion }).snapshotVersion).toBe(snapshotVersion);
+    }
+    for (const snapshotVersion of [-1, 0.5, '3', undefined]) {
+      expect(LabGrowthHistoryOutputSchema.safeParse({ ...output, snapshotVersion }).success).toBe(false);
+    }
+  });
+
   it('preserves complete scope and keeps notebooks distinct', () => {
     expect(LabScopeSchema.parse(scope)).toEqual(scope);
     for (const changed of [{ ...scope, tenantId: 'tenant-2' }, { ...scope, ownerId: 'owner-2' }]) {
