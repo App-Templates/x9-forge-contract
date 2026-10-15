@@ -67,4 +67,5 @@ export * from "./internal-agent-voice-source.js";
 export * from "./internal-agent-model-source-observation.js";
 export * from "./forge-master-model-authority.js";
 export * from "./internal-models-apply.js";
+export * from "./internal-vault-connection.js";
 //# sourceMappingURL=index.js.map

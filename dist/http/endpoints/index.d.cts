@@ -59,4 +59,5 @@ export * from "./internal-agent-voice-source.cjs";
 export * from "./internal-agent-model-source-observation.cjs";
 export * from "./forge-master-model-authority.cjs";
 export * from "./internal-models-apply.cjs";
+export * from "./internal-vault-connection.cjs";
 //# sourceMappingURL=index.d.ts.map

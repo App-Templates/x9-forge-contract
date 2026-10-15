@@ -83,4 +83,5 @@ __exportStar(require("./internal-agent-voice-source.cjs"), exports);
 __exportStar(require("./internal-agent-model-source-observation.cjs"), exports);
 __exportStar(require("./forge-master-model-authority.cjs"), exports);
 __exportStar(require("./internal-models-apply.cjs"), exports);
+__exportStar(require("./internal-vault-connection.cjs"), exports);
 //# sourceMappingURL=index.js.map
