@@ -1,8 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import {
+  AUTH_GATE_FIELDS,
   KNOWN_CREDENTIAL_KEYS,
   AgentCredentialsSchema,
 } from '../../src/agent/agent-credentials.js';
+
+import { CredentialKeySchema } from '../../src/vault/credential-key.js';
+import { isPlatformInternalCredentialKey } from '../../src/vault/platform-internal-credentials.js';
 
 describe('KNOWN_CREDENTIAL_KEYS', () => {
   it('has at least 16 known keys', () => {
@@ -101,5 +105,32 @@ describe('Netatmo account credential', () => {
     expect(field.isOptional()).toBe(true);
     expect(field.safeParse('synthetic@example.invalid').success).toBe(true);
     expect(field.safeParse(123).success).toBe(false);
+  });
+});
+
+
+describe('Phase 55 cap-dev agent credentials', () => {
+  it('elenco = campi dello schema', () => {
+    expect([...KNOWN_CREDENTIAL_KEYS].sort()).toEqual(Object.keys(AgentCredentialsSchema.shape).sort());
+  });
+
+  // Removing a key from either declaration or marking it platform-internal must fail these assertions.
+  it.each([
+    'GITHUB_TOKEN',
+    'GITHUB_APP_ID',
+    'GITHUB_APP_INSTALLATION_ID',
+    'GITHUB_APP_PRIVATE_KEY',
+    'DEV_SIGNING_PRIVATE_KEY',
+  ] as const)('declares optional agent-owned credential %s', key => {
+    expect(KNOWN_CREDENTIAL_KEYS).toContain(key);
+    expect(Object.hasOwn(AgentCredentialsSchema.shape, key)).toBe(true);
+    const field = AgentCredentialsSchema.shape[key];
+    expect(field.safeParse(undefined).success).toBe(true);
+    expect(field.safeParse('synthetic-value').success).toBe(true);
+    expect(field.safeParse(123).success).toBe(false);
+    expect(isPlatformInternalCredentialKey(key)).toBe(false);
+    expect(CredentialKeySchema.safeParse(key).success).toBe(true);
+    expect(AUTH_GATE_FIELDS).not.toContain(key);
+    expect(AgentCredentialsSchema.parse({ [key]: 'synthetic-value' })).toEqual({ [key]: 'synthetic-value' });
   });
 });
