@@ -11,6 +11,19 @@ describe('platform-internal credentials', () => {
     expect(PLATFORM_INTERNAL_CREDENTIAL_KEYS).toContain('APPROVALS_SIGNING_KEY');
   });
 
+  it('recognises the Connessioni Google OAuth client keys and strips them', () => {
+    // Mutazione: togliere una delle due chiavi dalla lista fa fallire questo test.
+    expect(isPlatformInternalCredentialKey('CONNECT_GOOGLE_CLIENT_ID')).toBe(true);
+    expect(isPlatformInternalCredentialKey('CONNECT_GOOGLE_CLIENT_SECRET')).toBe(true);
+    expect(isPlatformInternalCredentialKey('CONNECT_GOOGLE_CLIENT_IDX')).toBe(false);
+    const out = stripPlatformInternalCredentials({
+      OPENAI_API_KEY: 'sk-x',
+      CONNECT_GOOGLE_CLIENT_ID: 'id',
+      CONNECT_GOOGLE_CLIENT_SECRET: 'secret',
+    });
+    expect(out).toEqual({ OPENAI_API_KEY: 'sk-x' });
+  });
+
   it('does not classify inheritable agent credentials as internal', () => {
     expect(isPlatformInternalCredentialKey('TELEGRAM_SESSION_STRING')).toBe(true);
     for (const k of ['OPENAI_API_KEY', 'TELEGRAM_BOT_TOKEN', 'AGENT_EMAIL']) {
