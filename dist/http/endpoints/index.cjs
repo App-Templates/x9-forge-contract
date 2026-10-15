@@ -27,6 +27,7 @@ __exportStar(require("./internal-agents-stop.cjs"), exports);
 __exportStar(require("./internal-run-stop.cjs"), exports);
 __exportStar(require("./internal-run-native-stop.cjs"), exports);
 __exportStar(require("./internal-publication.cjs"), exports);
+__exportStar(require("./internal-participant-binding.cjs"), exports); // POST /internal/participant-binding/{apply,read,list,withdraw,resolve}, secret auth
 __exportStar(require("./internal-publication-read.cjs"), exports);
 __exportStar(require("./internal-agents-management.cjs"), exports); // v1.31.0 — R1b commands + management state
 __exportStar(require("./internal-turn.cjs"), exports);

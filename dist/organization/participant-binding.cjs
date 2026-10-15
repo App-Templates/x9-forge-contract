@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ParticipantBindingResolutionSchema = exports.ParticipantBindingOutcomeSchema = exports.ParticipantBindingSchema = exports.ParticipantAgentIdentitySchema = exports.ParticipantRoleSchema = void 0;
+exports.ParticipantBindingSelectorSchema = exports.ParticipantBindingReceiptSchema = exports.ParticipantBindingKeySchema = exports.ParticipantBindingResolutionSchema = exports.ParticipantBindingOutcomeSchema = exports.ParticipantBindingSchema = exports.ParticipantAgentIdentitySchema = exports.ParticipantRoleSchema = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const publication_ref_js_1 = require("./publication-ref.cjs");
@@ -21,6 +21,8 @@ exports.ParticipantBindingSchema = zod_1.z.strictObject({
     ownerId: agent_identity_js_1.OwnerIdSchema,
     agentIdentity: exports.ParticipantAgentIdentitySchema,
     participantId: zod_1.z.string().min(1),
+    /** Attested person (never model-provided); required by the apply operation. */
+    personRef: zod_1.z.string().min(1).optional(),
     roles: zod_1.z.array(exports.ParticipantRoleSchema).min(1),
     recipients: zod_1.z.array(publication_ref_js_1.PublicationRecipientSchema),
     appliedVersion: zod_1.z.number().int().min(1),
@@ -37,5 +39,29 @@ exports.ParticipantBindingResolutionSchema = zod_1.z.strictObject({
     outcome: exports.ParticipantBindingOutcomeSchema,
     participantId: zod_1.z.string().min(1),
     reason: zod_1.z.string().min(1),
+});
+/** Binding key: one binding per (organization, person, agent). Person is mandatory. */
+exports.ParticipantBindingKeySchema = zod_1.z.strictObject({
+    tenantId: exports.ParticipantBindingSchema.shape.tenantId,
+    ownerId: exports.ParticipantBindingSchema.shape.ownerId,
+    agentIdentity: exports.ParticipantAgentIdentitySchema,
+    organizationId: zod_1.z.string().min(1),
+    personRef: zod_1.z.string().min(1),
+});
+/** Receipt of an applied (or withdrawn) binding, issued by the owning service. */
+exports.ParticipantBindingReceiptSchema = zod_1.z.strictObject({
+    key: exports.ParticipantBindingKeySchema,
+    appliedVersion: zod_1.z.number().int().positive(),
+    digest: zod_1.z.string().min(1),
+    appliedAt: zod_1.z.iso.datetime(),
+    withdrawnAt: zod_1.z.iso.datetime().optional(),
+});
+/** Selector to resolve the binding of a person for an agent in an organization. */
+exports.ParticipantBindingSelectorSchema = zod_1.z.strictObject({
+    tenantId: exports.ParticipantBindingSchema.shape.tenantId,
+    ownerId: exports.ParticipantBindingSchema.shape.ownerId,
+    agentIdentity: exports.ParticipantAgentIdentitySchema,
+    organizationId: zod_1.z.string().min(1),
+    personRef: zod_1.z.string().min(1),
 });
 //# sourceMappingURL=participant-binding.js.map

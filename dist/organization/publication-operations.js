@@ -32,16 +32,37 @@ export const ReadMaterialRequestSchema = z.strictObject({
     ref: PublicationRefSchema,
 });
 const ReadMaterialRefusalBody = { message: z.string().min(1).optional() };
+const ReadMaterialSuccessSchema = z.strictObject({
+    status: z.literal('ok'),
+    ref: PublicationRefSchema,
+    digest: z.string().regex(/^[0-9a-f]{64}$/),
+});
+const ReadMaterialRevokedSchema = z.strictObject({ status: z.literal('revoked'), ...ReadMaterialRefusalBody });
+const ReadMaterialNotAuthorizedSchema = z.strictObject({ status: z.literal('not_authorized'), ...ReadMaterialRefusalBody });
+const ReadMaterialUnknownReferenceSchema = z.strictObject({ status: z.literal('unknown_reference'), ...ReadMaterialRefusalBody });
+const ReadMaterialVersionSupersededSchema = z.strictObject({ status: z.literal('version_superseded'), ...ReadMaterialRefusalBody });
+const ReadMaterialDigestMismatchSchema = z.strictObject({ status: z.literal('digest_mismatch'), ...ReadMaterialRefusalBody });
+const ReadMaterialRefusalSchemas = [
+    ReadMaterialRevokedSchema,
+    ReadMaterialNotAuthorizedSchema,
+    ReadMaterialUnknownReferenceSchema,
+    ReadMaterialVersionSupersededSchema,
+    ReadMaterialDigestMismatchSchema,
+];
 export const ReadMaterialResponseSchema = z.discriminatedUnion('status', [
-    z.strictObject({
-        status: z.literal('ok'),
-        ref: PublicationRefSchema,
-        digest: z.string().regex(/^[0-9a-f]{64}$/),
+    ReadMaterialSuccessSchema,
+    ...ReadMaterialRefusalSchemas,
+]);
+export const ResolveMaterialRequestSchema = ReadMaterialRequestSchema;
+const ResolveMaterialSuccessSchema = ReadMaterialSuccessSchema.extend({
+    content: z.strictObject({
+        mediaType: z.literal('text/plain'),
+        text: z.string().max(65536),
     }),
-    z.strictObject({ status: z.literal('revoked'), ...ReadMaterialRefusalBody }),
-    z.strictObject({ status: z.literal('not_authorized'), ...ReadMaterialRefusalBody }),
-    z.strictObject({ status: z.literal('unknown_reference'), ...ReadMaterialRefusalBody }),
-    z.strictObject({ status: z.literal('version_superseded'), ...ReadMaterialRefusalBody }),
-    z.strictObject({ status: z.literal('digest_mismatch'), ...ReadMaterialRefusalBody }),
+    contentDigest: z.string().min(1),
+});
+export const ResolveMaterialResponseSchema = z.discriminatedUnion('status', [
+    ResolveMaterialSuccessSchema,
+    ...ReadMaterialRefusalSchemas,
 ]);
 //# sourceMappingURL=publication-operations.js.map

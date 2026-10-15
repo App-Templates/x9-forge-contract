@@ -5,6 +5,7 @@ export * from "./operations.cjs";
 export * from "./decision-response.cjs";
 export * from "./outcome-intake.cjs";
 export * from "./publication-ref.cjs";
+export * from "./publication-record-link.cjs";
 export * from "./experience.cjs";
 export * from "./experiment.cjs";
 export * from "./company-memory.cjs";
@@ -15,4 +16,5 @@ export * from "./participant-binding.cjs";
 export * from "./tool-call-correlation.cjs";
 export * from "./publication-operations.cjs";
 export * from "./publication-lookup.cjs";
+export * from "./recall.cjs";
 //# sourceMappingURL=index.d.ts.map

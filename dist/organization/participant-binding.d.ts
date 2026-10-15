@@ -27,6 +27,8 @@ export declare const ParticipantBindingSchema: z.ZodObject<{
         vaultAgentId: z.ZodNumber;
     }, z.core.$strict>;
     participantId: z.ZodString;
+    /** Attested person (never model-provided); required by the apply operation. */
+    personRef: z.ZodOptional<z.ZodString>;
     roles: z.ZodArray<z.ZodEnum<{
         lead: "lead";
         member: "member";
@@ -69,4 +71,49 @@ export declare const ParticipantBindingResolutionSchema: z.ZodObject<{
     reason: z.ZodString;
 }, z.core.$strict>;
 export type ParticipantBindingResolution = z.infer<typeof ParticipantBindingResolutionSchema>;
+/** Binding key: one binding per (organization, person, agent). Person is mandatory. */
+export declare const ParticipantBindingKeySchema: z.ZodObject<{
+    tenantId: z.ZodString;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    agentIdentity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    organizationId: z.ZodString;
+    personRef: z.ZodString;
+}, z.core.$strict>;
+export type ParticipantBindingKey = z.infer<typeof ParticipantBindingKeySchema>;
+/** Receipt of an applied (or withdrawn) binding, issued by the owning service. */
+export declare const ParticipantBindingReceiptSchema: z.ZodObject<{
+    key: z.ZodObject<{
+        tenantId: z.ZodString;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        agentIdentity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        organizationId: z.ZodString;
+        personRef: z.ZodString;
+    }, z.core.$strict>;
+    appliedVersion: z.ZodNumber;
+    digest: z.ZodString;
+    appliedAt: z.ZodISODateTime;
+    withdrawnAt: z.ZodOptional<z.ZodISODateTime>;
+}, z.core.$strict>;
+export type ParticipantBindingReceipt = z.infer<typeof ParticipantBindingReceiptSchema>;
+/** Selector to resolve the binding of a person for an agent in an organization. */
+export declare const ParticipantBindingSelectorSchema: z.ZodObject<{
+    tenantId: z.ZodString;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    agentIdentity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    organizationId: z.ZodString;
+    personRef: z.ZodString;
+}, z.core.$strict>;
+export type ParticipantBindingSelector = z.infer<typeof ParticipantBindingSelectorSchema>;
 //# sourceMappingURL=participant-binding.d.ts.map

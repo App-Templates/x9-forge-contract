@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReadMaterialResponseSchema = exports.ReadMaterialRequestSchema = exports.PublishMaterialResponseSchema = exports.PublishMaterialErrorCodeSchema = exports.PUBLISH_MATERIAL_ERROR_CODES = exports.PublishMaterialRequestSchema = void 0;
+exports.ResolveMaterialResponseSchema = exports.ResolveMaterialRequestSchema = exports.ReadMaterialResponseSchema = exports.ReadMaterialRequestSchema = exports.PublishMaterialResponseSchema = exports.PublishMaterialErrorCodeSchema = exports.PUBLISH_MATERIAL_ERROR_CODES = exports.PublishMaterialRequestSchema = void 0;
 const zod_1 = require("zod");
 const run_context_js_1 = require("./run-context.cjs");
 const publication_ref_js_1 = require("./publication-ref.cjs");
@@ -35,16 +35,37 @@ exports.ReadMaterialRequestSchema = zod_1.z.strictObject({
     ref: publication_ref_js_1.PublicationRefSchema,
 });
 const ReadMaterialRefusalBody = { message: zod_1.z.string().min(1).optional() };
+const ReadMaterialSuccessSchema = zod_1.z.strictObject({
+    status: zod_1.z.literal('ok'),
+    ref: publication_ref_js_1.PublicationRefSchema,
+    digest: zod_1.z.string().regex(/^[0-9a-f]{64}$/),
+});
+const ReadMaterialRevokedSchema = zod_1.z.strictObject({ status: zod_1.z.literal('revoked'), ...ReadMaterialRefusalBody });
+const ReadMaterialNotAuthorizedSchema = zod_1.z.strictObject({ status: zod_1.z.literal('not_authorized'), ...ReadMaterialRefusalBody });
+const ReadMaterialUnknownReferenceSchema = zod_1.z.strictObject({ status: zod_1.z.literal('unknown_reference'), ...ReadMaterialRefusalBody });
+const ReadMaterialVersionSupersededSchema = zod_1.z.strictObject({ status: zod_1.z.literal('version_superseded'), ...ReadMaterialRefusalBody });
+const ReadMaterialDigestMismatchSchema = zod_1.z.strictObject({ status: zod_1.z.literal('digest_mismatch'), ...ReadMaterialRefusalBody });
+const ReadMaterialRefusalSchemas = [
+    ReadMaterialRevokedSchema,
+    ReadMaterialNotAuthorizedSchema,
+    ReadMaterialUnknownReferenceSchema,
+    ReadMaterialVersionSupersededSchema,
+    ReadMaterialDigestMismatchSchema,
+];
 exports.ReadMaterialResponseSchema = zod_1.z.discriminatedUnion('status', [
-    zod_1.z.strictObject({
-        status: zod_1.z.literal('ok'),
-        ref: publication_ref_js_1.PublicationRefSchema,
-        digest: zod_1.z.string().regex(/^[0-9a-f]{64}$/),
+    ReadMaterialSuccessSchema,
+    ...ReadMaterialRefusalSchemas,
+]);
+exports.ResolveMaterialRequestSchema = exports.ReadMaterialRequestSchema;
+const ResolveMaterialSuccessSchema = ReadMaterialSuccessSchema.extend({
+    content: zod_1.z.strictObject({
+        mediaType: zod_1.z.literal('text/plain'),
+        text: zod_1.z.string().max(65536),
     }),
-    zod_1.z.strictObject({ status: zod_1.z.literal('revoked'), ...ReadMaterialRefusalBody }),
-    zod_1.z.strictObject({ status: zod_1.z.literal('not_authorized'), ...ReadMaterialRefusalBody }),
-    zod_1.z.strictObject({ status: zod_1.z.literal('unknown_reference'), ...ReadMaterialRefusalBody }),
-    zod_1.z.strictObject({ status: zod_1.z.literal('version_superseded'), ...ReadMaterialRefusalBody }),
-    zod_1.z.strictObject({ status: zod_1.z.literal('digest_mismatch'), ...ReadMaterialRefusalBody }),
+    contentDigest: zod_1.z.string().min(1),
+});
+exports.ResolveMaterialResponseSchema = zod_1.z.discriminatedUnion('status', [
+    ResolveMaterialSuccessSchema,
+    ...ReadMaterialRefusalSchemas,
 ]);
 //# sourceMappingURL=publication-operations.js.map

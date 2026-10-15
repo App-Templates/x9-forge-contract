@@ -10,6 +10,7 @@ export * from "./internal-agents-stop.js";
 export * from "./internal-run-stop.js";
 export * from "./internal-run-native-stop.js";
 export * from "./internal-publication.js";
+export * from "./internal-participant-binding.js";
 export * from "./internal-publication-read.js";
 export * from "./internal-agents-management.js";
 export * from "./internal-turn.js";
