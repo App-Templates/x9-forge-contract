@@ -7,6 +7,7 @@ import * as operations from '../../src/organization/operations.js';
 import * as decisionResponse from '../../src/organization/decision-response.js';
 import * as outcomeIntake from '../../src/organization/outcome-intake.js';
 import * as publicationRef from '../../src/organization/publication-ref.js';
+import * as publicationRecordLink from '../../src/organization/publication-record-link.js';
 import * as experiment from '../../src/organization/experiment.js';
 import * as companyMemory from '../../src/organization/company-memory.js';
 import * as scenario from '../../src/organization/scenario.js';
@@ -27,6 +28,7 @@ const allSymbols = {
   ...decisionResponse,
   ...outcomeIntake,
   ...publicationRef,
+  ...publicationRecordLink,
   ...experiment,
   ...companyMemory,
   ...scenario,

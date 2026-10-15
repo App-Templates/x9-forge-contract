@@ -5,6 +5,7 @@ export * from './operations.js';
 export * from './decision-response.js';
 export * from './outcome-intake.js';
 export * from './publication-ref.js';
+export * from './publication-record-link.js';
 export * from './experience.js';
 export * from './experiment.js';
 export * from './company-memory.js';
