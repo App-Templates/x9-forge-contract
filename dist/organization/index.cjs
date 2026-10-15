@@ -26,4 +26,6 @@ __exportStar(require("./experiment.cjs"), exports);
 __exportStar(require("./company-memory.cjs"), exports);
 __exportStar(require("./scenario.cjs"), exports);
 __exportStar(require("./simulation-world.cjs"), exports);
+__exportStar(require("./knowledge-publication.cjs"), exports);
+__exportStar(require("./participant-binding.cjs"), exports);
 //# sourceMappingURL=index.js.map
