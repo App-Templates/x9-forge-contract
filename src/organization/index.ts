@@ -10,3 +10,4 @@ export * from './experiment.js';
 export * from './company-memory.js';
 export * from './scenario.js';
 export * from './simulation-world.js';
+export * from './knowledge-publication.js';
