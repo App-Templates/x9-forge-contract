@@ -21,6 +21,9 @@ export const OrganizationRunContextSchema = z
     organizationId: z.string().min(1),
     ownerId: OwnerIdSchema,
     identity: AgentRuntimeIdentitySchema,
+    /** Attested person this run acts for, set by the context issuer (runtime), never the model.
+     * Absent for group turns and runs without a person. */
+    personRef: z.string().min(1).optional(),
     issuer: OrganizationRunIssuerSchema,
     issuedAt: z.iso.datetime(),
     expiresAt: z.iso.datetime(),
