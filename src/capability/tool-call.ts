@@ -1,5 +1,9 @@
 import { z } from 'zod';
 import { InternalMemoryExtractRequestSchema } from '../http/endpoints/internal-memory-extract.js';
+import {
+  OrganizationToolCallContextSchema,
+  ToolCallReceiptSchema,
+} from '../organization/tool-call-correlation.js';
 
 /**
  * Request sent by X9 agent-core to a capability service.
@@ -24,6 +28,7 @@ export const ToolCallRequestSchema = z.object({
   /** Authenticated end user, injected by the runtime rather than the model. */
   userId: InternalMemoryExtractRequestSchema.shape.userId,
   credentials: z.record(z.string(), z.string()).optional(),
+  organization: OrganizationToolCallContextSchema.optional(),
   /**
    * F-2 (v1.13.0) — Optional per-agent memory-scope identity, attached by
    * agent-core's tool-router from the dispatching agent's context.json.
@@ -47,6 +52,7 @@ export const ToolCallSuccessResponseSchema = z.object({
   callId: z.string().min(1),
   status: z.literal('success'),
   output: z.unknown(),
+  receipt: ToolCallReceiptSchema.optional(),
 });
 
 export const ToolCallErrorResponseSchema = z.object({
@@ -54,6 +60,7 @@ export const ToolCallErrorResponseSchema = z.object({
   status: z.literal('error'),
   error: z.string(),
   code: z.enum(['TOOL_NOT_FOUND', 'TOOL_CALL_INVALID', 'TOOL_EXEC_FAILED']),
+  receipt: ToolCallReceiptSchema.optional(),
 });
 
 /**
