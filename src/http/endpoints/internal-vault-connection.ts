@@ -2,7 +2,9 @@ import { z } from 'zod';
 import {
   ConnectProviderSchema,
   ConnectScopeSchema,
+  ConnectStartRequestSchema,
   ConnectStateResponseSchema,
+  ConnectStatusSchema,
 } from '../../capability/connect/index.js';
 
 /**
@@ -60,6 +62,51 @@ export const VaultConnectionErrorResponseSchema = z.object({
 }).strict();
 export type VaultConnectionErrorResponse = z.infer<typeof VaultConnectionErrorResponseSchema>;
 
+/** Access tokens are issued by Vault; refresh credentials stay in Vault. */
+export const VAULT_ACCESS_TOKEN_MAX_LENGTH = 4096;
+export const VAULT_ACCESS_ERROR_CODES = ['not_connected', 'revoked', 'scope_missing', 'expired'] as const;
+export const VaultAccessErrorCodeSchema = z.enum(VAULT_ACCESS_ERROR_CODES);
+export type VaultAccessErrorCode = z.infer<typeof VaultAccessErrorCodeSchema>;
+
+export const VaultAccessScopeSchema = ConnectScopeSchema.refine((scope) => scope !== 'mail_send', {
+  message: 'Mail sending cannot request an access token through this route',
+});
+export type VaultAccessScope = z.infer<typeof VaultAccessScopeSchema>;
+
+export const PostVaultAccessTokenBodySchema = z.object({
+  scope: VaultAccessScopeSchema,
+  personRef: ConnectStartRequestSchema.shape.personRef,
+}).strict();
+export type PostVaultAccessTokenBody = z.infer<typeof PostVaultAccessTokenBodySchema>;
+
+export const PostVaultAccessTokenResponseSchema = z.object({
+  ok: z.literal(true),
+  accessToken: z.string().min(1).max(VAULT_ACCESS_TOKEN_MAX_LENGTH),
+  expiresAt: z.number().int().positive(),
+  scopes: z.array(ConnectScopeSchema),
+}).strict();
+export type PostVaultAccessTokenResponse = z.infer<typeof PostVaultAccessTokenResponseSchema>;
+
+export const VaultAccessErrorResponseSchema = z.object({
+  ok: z.literal(false),
+  error: VaultAccessErrorCodeSchema,
+}).strict();
+export type VaultAccessErrorResponse = z.infer<typeof VaultAccessErrorResponseSchema>;
+
+export const ListVaultConnectionsParamsSchema = VaultConnectionParamsSchema.pick({ agentId: true });
+export type ListVaultConnectionsParams = z.infer<typeof ListVaultConnectionsParamsSchema>;
+
+export const ListVaultConnectionsResponseSchema = z.object({
+  ok: z.literal(true),
+  connections: z.array(z.object({
+    provider: ConnectProviderSchema,
+    status: ConnectStatusSchema,
+    scopes: z.array(ConnectScopeSchema),
+    accountLabel: z.string().max(200).optional(),
+  }).strict()),
+}).strict();
+export type ListVaultConnectionsResponse = z.infer<typeof ListVaultConnectionsResponseSchema>;
+
 export const putVaultConnectionContract = {
   method: 'PUT' as const,
   path: '/internal/vault/connections/:agentId/:provider' as const,
@@ -91,4 +138,21 @@ export const getVaultConnectionValueContract = {
   authType: 'secret' as const,
   paramsSchema: VaultConnectionParamsSchema,
   responseSchema: GetVaultConnectionValueResponseSchema,
+} as const;
+
+export const postVaultAccessTokenContract = {
+  method: 'POST' as const,
+  path: '/internal/vault/connections/:agentId/:provider/access-token' as const,
+  authType: 'secret' as const,
+  paramsSchema: VaultConnectionParamsSchema,
+  bodySchema: PostVaultAccessTokenBodySchema,
+  responseSchema: PostVaultAccessTokenResponseSchema,
+} as const;
+
+export const listVaultConnectionsContract = {
+  method: 'GET' as const,
+  path: '/internal/vault/connections/:agentId' as const,
+  authType: 'secret' as const,
+  paramsSchema: ListVaultConnectionsParamsSchema,
+  responseSchema: ListVaultConnectionsResponseSchema,
 } as const;
