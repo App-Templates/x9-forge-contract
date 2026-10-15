@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { INTERNAL_SECRET_HEADER } from '../../src/auth/index.js';
 import {
+  INTERNAL_PUBLICATION_RESOLVE_PATH,
+  internalPublicationResolveContract,
   INTERNAL_PUBLICATION_LIST_PATH,
   INTERNAL_PUBLICATION_WITHDRAW_PATH,
   internalPublicationListContract,
@@ -12,6 +14,11 @@ import {
   WithdrawPublicationRequestSchema,
   WithdrawPublicationResponseSchema,
 } from '../../src/organization/publication-lookup.js';
+
+import {
+  ResolveMaterialRequestSchema,
+  ResolveMaterialResponseSchema,
+} from '../../src/organization/index.js';
 
 const context = {
   schemaVersion: 1,
@@ -74,5 +81,27 @@ describe('internal publication withdraw and list contracts', () => {
     expect(internalPublicationListContract.responseSchema.safeParse({
       ...listed, extra: true,
     }).success).toBe(false);
+  });
+});
+
+describe('internal publication resolve contract', () => {
+  it('exports the resolve path and uses secret authentication with canonical schemas', () => {
+    expect(INTERNAL_PUBLICATION_RESOLVE_PATH).toBe('/internal/publication/resolve');
+    expect(internalPublicationResolveContract).toEqual({
+      method: 'POST',
+      path: INTERNAL_PUBLICATION_RESOLVE_PATH,
+      authType: 'secret',
+      authHeader: INTERNAL_SECRET_HEADER,
+      bodySchema: ResolveMaterialRequestSchema,
+      responseSchema: ResolveMaterialResponseSchema,
+    });
+    expect(internalPublicationResolveContract.bodySchema.parse({ context, ref })).toEqual({ context, ref });
+    const response = {
+      status: 'ok', ref, digest,
+      content: { mediaType: 'text/plain', text: 'Published knowledge' },
+      contentDigest: digest,
+    };
+    expect(internalPublicationResolveContract.responseSchema.parse(response)).toEqual(response);
+    expect(internalPublicationResolveContract.responseSchema.safeParse({ status: 'ok', ref, digest }).success).toBe(false);
   });
 });

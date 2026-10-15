@@ -8,6 +8,22 @@ import {
   WithdrawPublicationResponseSchema,
 } from '../../organization/publication-lookup.js';
 
+import {
+  ResolveMaterialRequestSchema,
+  ResolveMaterialResponseSchema,
+} from '../../organization/publication-operations.js';
+
+export const INTERNAL_PUBLICATION_RESOLVE_PATH = '/internal/publication/resolve' as const;
+
+export const internalPublicationResolveContract = {
+  method: 'POST' as const,
+  path: INTERNAL_PUBLICATION_RESOLVE_PATH,
+  authType: 'secret' as const,
+  authHeader: INTERNAL_SECRET_HEADER,
+  bodySchema: ResolveMaterialRequestSchema,
+  responseSchema: ResolveMaterialResponseSchema,
+} as const;
+
 export const INTERNAL_PUBLICATION_WITHDRAW_PATH = '/internal/publications/withdraw' as const;
 export const INTERNAL_PUBLICATION_LIST_PATH = '/internal/publications/list' as const;
 

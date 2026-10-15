@@ -46,16 +46,43 @@ export type ReadMaterialRequest = z.infer<typeof ReadMaterialRequestSchema>;
 
 const ReadMaterialRefusalBody = { message: z.string().min(1).optional() };
 
+const ReadMaterialSuccessSchema = z.strictObject({
+  status: z.literal('ok'),
+  ref: PublicationRefSchema,
+  digest: z.string().regex(/^[0-9a-f]{64}$/),
+});
+const ReadMaterialRevokedSchema = z.strictObject({ status: z.literal('revoked'), ...ReadMaterialRefusalBody });
+const ReadMaterialNotAuthorizedSchema = z.strictObject({ status: z.literal('not_authorized'), ...ReadMaterialRefusalBody });
+const ReadMaterialUnknownReferenceSchema = z.strictObject({ status: z.literal('unknown_reference'), ...ReadMaterialRefusalBody });
+const ReadMaterialVersionSupersededSchema = z.strictObject({ status: z.literal('version_superseded'), ...ReadMaterialRefusalBody });
+const ReadMaterialDigestMismatchSchema = z.strictObject({ status: z.literal('digest_mismatch'), ...ReadMaterialRefusalBody });
+const ReadMaterialRefusalSchemas = [
+  ReadMaterialRevokedSchema,
+  ReadMaterialNotAuthorizedSchema,
+  ReadMaterialUnknownReferenceSchema,
+  ReadMaterialVersionSupersededSchema,
+  ReadMaterialDigestMismatchSchema,
+] as const;
+
 export const ReadMaterialResponseSchema = z.discriminatedUnion('status', [
-  z.strictObject({
-    status: z.literal('ok'),
-    ref: PublicationRefSchema,
-    digest: z.string().regex(/^[0-9a-f]{64}$/),
-  }),
-  z.strictObject({ status: z.literal('revoked'), ...ReadMaterialRefusalBody }),
-  z.strictObject({ status: z.literal('not_authorized'), ...ReadMaterialRefusalBody }),
-  z.strictObject({ status: z.literal('unknown_reference'), ...ReadMaterialRefusalBody }),
-  z.strictObject({ status: z.literal('version_superseded'), ...ReadMaterialRefusalBody }),
-  z.strictObject({ status: z.literal('digest_mismatch'), ...ReadMaterialRefusalBody }),
+  ReadMaterialSuccessSchema,
+  ...ReadMaterialRefusalSchemas,
 ]);
 export type ReadMaterialResponse = z.infer<typeof ReadMaterialResponseSchema>;
+
+export const ResolveMaterialRequestSchema = ReadMaterialRequestSchema;
+export type ResolveMaterialRequest = z.infer<typeof ResolveMaterialRequestSchema>;
+
+const ResolveMaterialSuccessSchema = ReadMaterialSuccessSchema.extend({
+  content: z.strictObject({
+    mediaType: z.literal('text/plain'),
+    text: z.string().max(65536),
+  }),
+  contentDigest: z.string().min(1),
+});
+
+export const ResolveMaterialResponseSchema = z.discriminatedUnion('status', [
+  ResolveMaterialSuccessSchema,
+  ...ReadMaterialRefusalSchemas,
+]);
+export type ResolveMaterialResponse = z.infer<typeof ResolveMaterialResponseSchema>;

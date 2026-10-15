@@ -4,6 +4,8 @@ import {
   PublishMaterialResponseSchema,
   ReadMaterialRequestSchema,
   ReadMaterialResponseSchema,
+  ResolveMaterialRequestSchema,
+  ResolveMaterialResponseSchema,
 } from '../../src/organization/index.js';
 
 const context = {
@@ -60,4 +62,51 @@ describe('read material', () => {
     expect(ReadMaterialResponseSchema.safeParse({ status: 'gone' }).success).toBe(false);
     expect(ReadMaterialRequestSchema.safeParse({ context, ref, tenantId: 't' }).success).toBe(false);
   });
+});
+
+describe('resolve material', () => {
+  const resolved = {
+    status: 'ok', ref, digest,
+    content: { mediaType: 'text/plain', text: 'Published knowledge' },
+    contentDigest: digest,
+  };
+
+  it('reuses the read request and accepts content with a digest', () => {
+    expect(ResolveMaterialRequestSchema).toBe(ReadMaterialRequestSchema);
+    expect(ResolveMaterialRequestSchema.parse({ context, ref })).toEqual({ context, ref });
+    expect(ResolveMaterialResponseSchema.parse(resolved)).toEqual(resolved);
+  });
+
+  it('requires content and a nonempty content digest', () => {
+    const { content: _content, ...withoutContent } = resolved;
+    const { contentDigest: _digest, ...withoutDigest } = resolved;
+    expect(ResolveMaterialResponseSchema.safeParse(withoutContent).success).toBe(false);
+    expect(ResolveMaterialResponseSchema.safeParse(withoutDigest).success).toBe(false);
+    expect(ResolveMaterialResponseSchema.safeParse({ ...resolved, contentDigest: '' }).success).toBe(false);
+  });
+
+  it('requires plain text with at most 65536 characters', () => {
+    const withContent = (content: object) => ({ ...resolved, content });
+    expect(ResolveMaterialResponseSchema.safeParse(withContent({ mediaType: 'text/html', text: 'x' })).success).toBe(false);
+    expect(ResolveMaterialResponseSchema.safeParse(withContent({ mediaType: 'text/plain', text: 'x'.repeat(65536) })).success).toBe(true);
+    expect(ResolveMaterialResponseSchema.safeParse(withContent({ mediaType: 'text/plain', text: 'x'.repeat(65537) })).success).toBe(false);
+    expect(ResolveMaterialResponseSchema.safeParse(withContent({ mediaType: 'text/plain' })).success).toBe(false);
+  });
+
+  it('rejects extra fields on success and nested content', () => {
+    expect(ResolveMaterialResponseSchema.safeParse({ ...resolved, extra: true }).success).toBe(false);
+    expect(ResolveMaterialResponseSchema.safeParse({
+      ...resolved, content: { ...resolved.content, extra: true },
+    }).success).toBe(false);
+  });
+
+  it.each(['revoked', 'not_authorized', 'unknown_reference', 'version_superseded', 'digest_mismatch'])(
+    'preserves read refusal %s',
+    (status) => {
+      for (const refusal of [{ status }, { status, message: 'Material unavailable' }]) {
+        expect(ResolveMaterialResponseSchema.parse(refusal)).toEqual(ReadMaterialResponseSchema.parse(refusal));
+        expect(ResolveMaterialResponseSchema.safeParse({ ...refusal, extra: true }).success).toBe(false);
+      }
+    },
+  );
 });
