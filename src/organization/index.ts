@@ -9,3 +9,4 @@ export * from './experience.js';
 export * from './experiment.js';
 export * from './company-memory.js';
 export * from './scenario.js';
+export * from './simulation-world.js';
