@@ -7,6 +7,7 @@ import {
   ConnectStartRequestSchema,
   ConnectStartResponseSchema,
   ConnectStateResponseSchema,
+  ConnectScopeSchema,
   ConnectToolPermitSchema,
 } from '../../../src/capability/index.js';
 
@@ -71,6 +72,17 @@ describe('connect contracts', () => {
     expect(ConnectToolPermitSchema.safeParse(permit).success).toBe(true);
     expect(ConnectToolPermitSchema.safeParse({ ...permit, extra: 1 }).success).toBe(false);
     expect(ConnectToolPermitSchema.safeParse({ ...permit, scopes: [] }).success).toBe(false);
+  });
+
+  // Mutation: removing 'mail_draft' from the enum fails the draft cases; turning the enum into z.string() fails the mail_read case.
+  it('accepts the mail_draft scope and still rejects mailbox reading', () => {
+    expect(ConnectScopeSchema.safeParse('mail_draft').success).toBe(true);
+    expect(ConnectScopeSchema.safeParse('mail_read').success).toBe(false);
+    expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: ['mail_draft'] }).success).toBe(true);
+    expect(ConnectToolPermitSchema.safeParse({ ...permit, scopes: ['mail_draft'] }).success).toBe(true);
+    for (const scope of ['calendar_events', 'contacts_read', 'mail_send']) {
+      expect(ConnectScopeSchema.safeParse(scope).success).toBe(true);
+    }
   });
 
   // Mutation: removing the TTL refine fails the 3601 s case; removing the expiresAt > issuedAt check fails the past-expiry case.

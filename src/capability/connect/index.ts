@@ -6,8 +6,8 @@ export const ConnectProviderSchema = z.enum(['google']);
 /** A supported connection provider. */
 export type ConnectProvider = z.infer<typeof ConnectProviderSchema>;
 
-/** Minimum permissions only: no mailbox reading. */
-export const ConnectScopeSchema = z.enum(['calendar_events', 'contacts_read', 'mail_send']);
+/** Minimum permissions only: no mailbox reading. `mail_draft` creates drafts, it never reads mail. */
+export const ConnectScopeSchema = z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft']);
 
 /** A supported connection permission. */
 export type ConnectScope = z.infer<typeof ConnectScopeSchema>;
