@@ -92,3 +92,4 @@ export * from './connection-card.js';
 export * from './internal-memory-experience.js';
 export * from './internal-memory-decisions.js';
 export * from './connect-public.js';
+export * from './internal-connection-completed.js';
