@@ -88,3 +88,4 @@ export * from './internal-models-apply.js';
 
 export * from './internal-vault-connection.js';
 export * from './internal-connect.js';
+export * from './connect-public.js';
