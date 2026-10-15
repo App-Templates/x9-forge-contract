@@ -25,6 +25,7 @@ export declare const devConfigGetContract: {
             pathLabel: z.ZodString;
             addedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
+        ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>;
 };
 /** PUT the agent's cap-dev configuration. */
@@ -49,6 +50,7 @@ export declare const devConfigPutContract: {
             pathLabel: z.ZodString;
             addedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
+        ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -78,6 +80,7 @@ export declare const devStateGetContract: {
                 pathLabel: z.ZodString;
                 addedAt: z.ZodISODateTime;
             }, z.core.$strict>>;
+            ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
         }, z.core.$strict>;
         state: z.ZodObject<{
             status: z.ZodEnum<{

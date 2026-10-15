@@ -24,6 +24,13 @@ export declare const DevAgentConfigSchema: z.ZodObject<{
         pathLabel: z.ZodString;
         addedAt: z.ZodISODateTime;
     }, z.core.$strict>>;
+    /**
+     * Private Telegram chats (canonical ids, no sign) the owner chose in Forge
+     * as «theirs»: only these may command cap-dev for this agent. The regex is
+     * repeated here on purpose (importing agent-channel-access would create an
+     * agent → capability cycle).
+     */
+    ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
 }, z.core.$strict>;
 export type DevAgentConfig = z.infer<typeof DevAgentConfigSchema>;
 export declare const DevAgentStatusSchema: z.ZodEnum<{
@@ -63,6 +70,13 @@ export declare const DevAgentConfigStateSchema: z.ZodObject<{
             pathLabel: z.ZodString;
             addedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
+        /**
+         * Private Telegram chats (canonical ids, no sign) the owner chose in Forge
+         * as «theirs»: only these may command cap-dev for this agent. The regex is
+         * repeated here on purpose (importing agent-channel-access would create an
+         * agent → capability cycle).
+         */
+        ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>;
     state: z.ZodObject<{
         status: z.ZodEnum<{

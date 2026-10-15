@@ -60,6 +60,39 @@ describe('DevAgentConfigSchema', () => {
     expect(DevAgentConfigSchema.safeParse({ ...config, token: 'secret' }).success).toBe(false);
   });
 
+  it('defaults ownerChatIds to [] when the field is absent', () => {
+    const parsed = DevAgentConfigSchema.safeParse(config);
+    expect(parsed.success && parsed.data.ownerChatIds).toEqual([]);
+  });
+
+  it('accepts two valid private ownerChatIds', () => {
+    const parsed = DevAgentConfigSchema.safeParse({ ...config, ownerChatIds: ['123456789', '42'] });
+    expect(parsed.success && parsed.data.ownerChatIds).toEqual(['123456789', '42']);
+  });
+
+  it('rejects group, non-numeric, zero and zero-padded ownerChatIds', () => {
+    for (const bad of ['-100123', 'abc', '0', '012', '']) {
+      expect(DevAgentConfigSchema.safeParse({ ...config, ownerChatIds: [bad] }).success).toBe(false);
+    }
+  });
+
+  it('rejects more than 8 ownerChatIds', () => {
+    const nine = Array.from({ length: 9 }, (_, i) => String(i + 1));
+    expect(DevAgentConfigSchema.safeParse({ ...config, ownerChatIds: nine }).success).toBe(false);
+  });
+
+  it('rejects duplicate ownerChatIds on the duplicate index', () => {
+    const r = DevAgentConfigSchema.safeParse({ ...config, ownerChatIds: ['1', '2', '1'] });
+    expect(r.success).toBe(false);
+    expect(!r.success && r.error.issues[0]?.path).toEqual(['ownerChatIds', 2]);
+  });
+
+  it('still rejects token alongside ownerChatIds', () => {
+    expect(
+      DevAgentConfigSchema.safeParse({ ...config, ownerChatIds: ['1'], token: 'secret' }).success,
+    ).toBe(false);
+  });
+
   it('rejects keyVersion 0 and negative configVersion', () => {
     expect(DevAgentConfigSchema.safeParse({ ...config, keyVersion: 0 }).success).toBe(false);
     expect(DevAgentConfigSchema.safeParse({ ...config, configVersion: -1 }).success).toBe(false);
@@ -110,6 +143,14 @@ describe('DevAgentConfigStateSchema', () => {
     expect(
       DevAgentConfigStateSchema.safeParse({ config, state: { ...state, appliedConfigVersion: 4 } }).success,
     ).toBe(false);
+  });
+
+  it('carries ownerChatIds inside config', () => {
+    const parsed = DevAgentConfigStateSchema.safeParse({
+      config: { ...config, ownerChatIds: ['77'] },
+      state,
+    });
+    expect(parsed.success && parsed.data.config.ownerChatIds).toEqual(['77']);
   });
 
   it('rejects duplicate bindings inside the combined schema', () => {

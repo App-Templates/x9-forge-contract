@@ -29,8 +29,29 @@ exports.DevAgentConfigSchema = zod_1.z
     configVersion: zod_1.z.number().int().min(0),
     keyVersion: zod_1.z.number().int().min(1),
     bindings: zod_1.z.array(exports.DevBindingSchema),
+    /**
+     * Private Telegram chats (canonical ids, no sign) the owner chose in Forge
+     * as «theirs»: only these may command cap-dev for this agent. The regex is
+     * repeated here on purpose (importing agent-channel-access would create an
+     * agent → capability cycle).
+     */
+    ownerChatIds: zod_1.z
+        .array(zod_1.z.string().regex(/^[1-9]\d{0,15}$/))
+        .max(8)
+        .default([]),
 })
     .superRefine((cfg, ctx) => {
+    const seenChats = new Set();
+    cfg.ownerChatIds.forEach((c, i) => {
+        if (seenChats.has(c)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['ownerChatIds', i],
+                message: 'duplicate ownerChatId',
+            });
+        }
+        seenChats.add(c);
+    });
     const seen = new Set();
     cfg.bindings.forEach((b, i) => {
         const key = JSON.stringify([b.computerId, b.projectId]);
