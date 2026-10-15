@@ -17,8 +17,8 @@ export declare const KnowledgeEvidenceRefSchema: z.ZodObject<{
     kind: z.ZodEnum<{
         source: "source";
         decision: "decision";
-        experience: "experience";
         run_receipt: "run_receipt";
+        experience: "experience";
     }>;
     id: z.ZodString;
     digest: z.ZodString;
@@ -85,8 +85,8 @@ export declare const KnowledgePublicationSchema: z.ZodObject<{
         kind: z.ZodEnum<{
             source: "source";
             decision: "decision";
-            experience: "experience";
             run_receipt: "run_receipt";
+            experience: "experience";
         }>;
         id: z.ZodString;
         digest: z.ZodString;
