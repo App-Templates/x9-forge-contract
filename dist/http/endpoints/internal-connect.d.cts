@@ -29,6 +29,7 @@ export declare const IssueConnectPermitBodySchema: z.ZodObject<{
         calendar_events: "calendar_events";
         contacts_read: "contacts_read";
         mail_send: "mail_send";
+        mail_draft: "mail_draft";
     }>>;
 }, z.core.$strict>;
 export type IssueConnectPermitBody = z.infer<typeof IssueConnectPermitBodySchema>;
@@ -43,6 +44,7 @@ export declare const IssueConnectPermitResponseSchema: z.ZodDiscriminatedUnion<[
             calendar_events: "calendar_events";
             contacts_read: "contacts_read";
             mail_send: "mail_send";
+            mail_draft: "mail_draft";
         }>>;
         issuedAt: z.ZodNumber;
         expiresAt: z.ZodNumber;
@@ -68,6 +70,7 @@ export declare const startConnectContract: {
             calendar_events: "calendar_events";
             contacts_read: "contacts_read";
             mail_send: "mail_send";
+            mail_draft: "mail_draft";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -105,6 +108,7 @@ export declare const getConnectStateContract: {
             calendar_events: "calendar_events";
             contacts_read: "contacts_read";
             mail_send: "mail_send";
+            mail_draft: "mail_draft";
         }>>;
         connectedAt: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
@@ -142,6 +146,7 @@ export declare const issueConnectPermitContract: {
             calendar_events: "calendar_events";
             contacts_read: "contacts_read";
             mail_send: "mail_send";
+            mail_draft: "mail_draft";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -155,6 +160,7 @@ export declare const issueConnectPermitContract: {
                 calendar_events: "calendar_events";
                 contacts_read: "contacts_read";
                 mail_send: "mail_send";
+                mail_draft: "mail_draft";
             }>>;
             issuedAt: z.ZodNumber;
             expiresAt: z.ZodNumber;

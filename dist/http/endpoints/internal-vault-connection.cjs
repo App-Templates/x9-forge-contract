@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVaultConnectionValueContract = exports.getVaultConnectionStateContract = exports.deleteVaultConnectionContract = exports.putVaultConnectionContract = exports.VaultConnectionErrorResponseSchema = exports.GetVaultConnectionValueResponseSchema = exports.GetVaultConnectionStateResponseSchema = exports.DeleteVaultConnectionResponseSchema = exports.PutVaultConnectionResponseSchema = exports.PutVaultConnectionBodySchema = exports.VaultConnectionParamsSchema = exports.VAULT_CONNECTION_VALUE_MAX_LENGTH = void 0;
+exports.listVaultConnectionsContract = exports.postVaultAccessTokenContract = exports.getVaultConnectionValueContract = exports.getVaultConnectionStateContract = exports.deleteVaultConnectionContract = exports.putVaultConnectionContract = exports.ListVaultConnectionsResponseSchema = exports.ListVaultConnectionsParamsSchema = exports.VaultAccessErrorResponseSchema = exports.PostVaultAccessTokenResponseSchema = exports.PostVaultAccessTokenBodySchema = exports.VaultAccessScopeSchema = exports.VaultAccessErrorCodeSchema = exports.VAULT_ACCESS_ERROR_CODES = exports.VAULT_ACCESS_TOKEN_MAX_LENGTH = exports.VaultConnectionErrorResponseSchema = exports.GetVaultConnectionValueResponseSchema = exports.GetVaultConnectionStateResponseSchema = exports.DeleteVaultConnectionResponseSchema = exports.PutVaultConnectionResponseSchema = exports.PutVaultConnectionBodySchema = exports.VaultConnectionParamsSchema = exports.VAULT_CONNECTION_VALUE_MAX_LENGTH = void 0;
 const zod_1 = require("zod");
 const index_js_1 = require("../../capability/connect/index.cjs");
 /**
@@ -42,6 +42,37 @@ exports.VaultConnectionErrorResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
     error: zod_1.z.string(),
 }).strict();
+/** Access tokens are issued by Vault; refresh credentials stay in Vault. */
+exports.VAULT_ACCESS_TOKEN_MAX_LENGTH = 4096;
+exports.VAULT_ACCESS_ERROR_CODES = ['not_connected', 'revoked', 'scope_missing', 'expired'];
+exports.VaultAccessErrorCodeSchema = zod_1.z.enum(exports.VAULT_ACCESS_ERROR_CODES);
+exports.VaultAccessScopeSchema = index_js_1.ConnectScopeSchema.refine((scope) => scope !== 'mail_send', {
+    message: 'Mail sending cannot request an access token through this route',
+});
+exports.PostVaultAccessTokenBodySchema = zod_1.z.object({
+    scope: exports.VaultAccessScopeSchema,
+    personRef: index_js_1.ConnectStartRequestSchema.shape.personRef,
+}).strict();
+exports.PostVaultAccessTokenResponseSchema = zod_1.z.object({
+    ok: zod_1.z.literal(true),
+    accessToken: zod_1.z.string().min(1).max(exports.VAULT_ACCESS_TOKEN_MAX_LENGTH),
+    expiresAt: zod_1.z.number().int().positive(),
+    scopes: zod_1.z.array(index_js_1.ConnectScopeSchema),
+}).strict();
+exports.VaultAccessErrorResponseSchema = zod_1.z.object({
+    ok: zod_1.z.literal(false),
+    error: exports.VaultAccessErrorCodeSchema,
+}).strict();
+exports.ListVaultConnectionsParamsSchema = exports.VaultConnectionParamsSchema.pick({ agentId: true });
+exports.ListVaultConnectionsResponseSchema = zod_1.z.object({
+    ok: zod_1.z.literal(true),
+    connections: zod_1.z.array(zod_1.z.object({
+        provider: index_js_1.ConnectProviderSchema,
+        status: index_js_1.ConnectStatusSchema,
+        scopes: zod_1.z.array(index_js_1.ConnectScopeSchema),
+        accountLabel: zod_1.z.string().max(200).optional(),
+    }).strict()),
+}).strict();
 exports.putVaultConnectionContract = {
     method: 'PUT',
     path: '/internal/vault/connections/:agentId/:provider',
@@ -70,5 +101,20 @@ exports.getVaultConnectionValueContract = {
     authType: 'secret',
     paramsSchema: exports.VaultConnectionParamsSchema,
     responseSchema: exports.GetVaultConnectionValueResponseSchema,
+};
+exports.postVaultAccessTokenContract = {
+    method: 'POST',
+    path: '/internal/vault/connections/:agentId/:provider/access-token',
+    authType: 'secret',
+    paramsSchema: exports.VaultConnectionParamsSchema,
+    bodySchema: exports.PostVaultAccessTokenBodySchema,
+    responseSchema: exports.PostVaultAccessTokenResponseSchema,
+};
+exports.listVaultConnectionsContract = {
+    method: 'GET',
+    path: '/internal/vault/connections/:agentId',
+    authType: 'secret',
+    paramsSchema: exports.ListVaultConnectionsParamsSchema,
+    responseSchema: exports.ListVaultConnectionsResponseSchema,
 };
 //# sourceMappingURL=internal-vault-connection.js.map

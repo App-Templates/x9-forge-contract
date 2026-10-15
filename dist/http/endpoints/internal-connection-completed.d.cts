@@ -28,6 +28,7 @@ export declare const ConnectionCompletedBodySchema: z.ZodObject<{
         calendar_events: "calendar_events";
         contacts_read: "contacts_read";
         mail_send: "mail_send";
+        mail_draft: "mail_draft";
     }>>;
     outcome: z.ZodEnum<{
         connected: "connected";
@@ -88,6 +89,7 @@ export declare const connectionCompletedContract: {
             calendar_events: "calendar_events";
             contacts_read: "contacts_read";
             mail_send: "mail_send";
+            mail_draft: "mail_draft";
         }>>;
         outcome: z.ZodEnum<{
             connected: "connected";

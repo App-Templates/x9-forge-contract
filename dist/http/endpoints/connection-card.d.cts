@@ -20,6 +20,7 @@ export declare const ConnectionCardSchema: z.ZodObject<{
         calendar_events: "calendar_events";
         contacts_read: "contacts_read";
         mail_send: "mail_send";
+        mail_draft: "mail_draft";
     }>>;
     url: z.ZodString;
     expiresAt: z.ZodNumber;
@@ -45,6 +46,7 @@ export declare const ConnectionCardEnvelopeSchema: z.ZodObject<{
             calendar_events: "calendar_events";
             contacts_read: "contacts_read";
             mail_send: "mail_send";
+            mail_draft: "mail_draft";
         }>>;
         url: z.ZodString;
         expiresAt: z.ZodNumber;

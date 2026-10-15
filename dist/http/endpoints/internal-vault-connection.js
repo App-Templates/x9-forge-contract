@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ConnectProviderSchema, ConnectScopeSchema, ConnectStateResponseSchema, } from "../../capability/connect/index.js";
+import { ConnectProviderSchema, ConnectScopeSchema, ConnectStartRequestSchema, ConnectStateResponseSchema, ConnectStatusSchema, } from "../../capability/connect/index.js";
 /**
  * /internal/vault/connections/:agentId/:provider[/value] — per-agent Vault port
  * for connection credentials (Connessioni service <-> Forge Vault).
@@ -39,6 +39,37 @@ export const VaultConnectionErrorResponseSchema = z.object({
     ok: z.literal(false),
     error: z.string(),
 }).strict();
+/** Access tokens are issued by Vault; refresh credentials stay in Vault. */
+export const VAULT_ACCESS_TOKEN_MAX_LENGTH = 4096;
+export const VAULT_ACCESS_ERROR_CODES = ['not_connected', 'revoked', 'scope_missing', 'expired'];
+export const VaultAccessErrorCodeSchema = z.enum(VAULT_ACCESS_ERROR_CODES);
+export const VaultAccessScopeSchema = ConnectScopeSchema.refine((scope) => scope !== 'mail_send', {
+    message: 'Mail sending cannot request an access token through this route',
+});
+export const PostVaultAccessTokenBodySchema = z.object({
+    scope: VaultAccessScopeSchema,
+    personRef: ConnectStartRequestSchema.shape.personRef,
+}).strict();
+export const PostVaultAccessTokenResponseSchema = z.object({
+    ok: z.literal(true),
+    accessToken: z.string().min(1).max(VAULT_ACCESS_TOKEN_MAX_LENGTH),
+    expiresAt: z.number().int().positive(),
+    scopes: z.array(ConnectScopeSchema),
+}).strict();
+export const VaultAccessErrorResponseSchema = z.object({
+    ok: z.literal(false),
+    error: VaultAccessErrorCodeSchema,
+}).strict();
+export const ListVaultConnectionsParamsSchema = VaultConnectionParamsSchema.pick({ agentId: true });
+export const ListVaultConnectionsResponseSchema = z.object({
+    ok: z.literal(true),
+    connections: z.array(z.object({
+        provider: ConnectProviderSchema,
+        status: ConnectStatusSchema,
+        scopes: z.array(ConnectScopeSchema),
+        accountLabel: z.string().max(200).optional(),
+    }).strict()),
+}).strict();
 export const putVaultConnectionContract = {
     method: 'PUT',
     path: '/internal/vault/connections/:agentId/:provider',
@@ -67,5 +98,20 @@ export const getVaultConnectionValueContract = {
     authType: 'secret',
     paramsSchema: VaultConnectionParamsSchema,
     responseSchema: GetVaultConnectionValueResponseSchema,
+};
+export const postVaultAccessTokenContract = {
+    method: 'POST',
+    path: '/internal/vault/connections/:agentId/:provider/access-token',
+    authType: 'secret',
+    paramsSchema: VaultConnectionParamsSchema,
+    bodySchema: PostVaultAccessTokenBodySchema,
+    responseSchema: PostVaultAccessTokenResponseSchema,
+};
+export const listVaultConnectionsContract = {
+    method: 'GET',
+    path: '/internal/vault/connections/:agentId',
+    authType: 'secret',
+    paramsSchema: ListVaultConnectionsParamsSchema,
+    responseSchema: ListVaultConnectionsResponseSchema,
 };
 //# sourceMappingURL=internal-vault-connection.js.map

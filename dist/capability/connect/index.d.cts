@@ -5,11 +5,12 @@ export declare const ConnectProviderSchema: z.ZodEnum<{
 }>;
 /** A supported connection provider. */
 export type ConnectProvider = z.infer<typeof ConnectProviderSchema>;
-/** Minimum permissions only: no mailbox reading. */
+/** Minimum permissions only: no mailbox reading. `mail_draft` creates drafts, it never reads mail. */
 export declare const ConnectScopeSchema: z.ZodEnum<{
     calendar_events: "calendar_events";
     contacts_read: "contacts_read";
     mail_send: "mail_send";
+    mail_draft: "mail_draft";
 }>;
 /** A supported connection permission. */
 export type ConnectScope = z.infer<typeof ConnectScopeSchema>;
@@ -32,6 +33,7 @@ export declare const ConnectStartRequestSchema: z.ZodObject<{
         calendar_events: "calendar_events";
         contacts_read: "contacts_read";
         mail_send: "mail_send";
+        mail_draft: "mail_draft";
     }>>;
 }, z.core.$strict>;
 /** One-time https link, or an explicit failure reason. */
@@ -67,6 +69,7 @@ export declare const ConnectStateResponseSchema: z.ZodObject<{
         calendar_events: "calendar_events";
         contacts_read: "contacts_read";
         mail_send: "mail_send";
+        mail_draft: "mail_draft";
     }>>;
     connectedAt: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
@@ -97,6 +100,7 @@ export declare const ConnectToolPermitSchema: z.ZodObject<{
         calendar_events: "calendar_events";
         contacts_read: "contacts_read";
         mail_send: "mail_send";
+        mail_draft: "mail_draft";
     }>>;
     issuedAt: z.ZodNumber;
     expiresAt: z.ZodNumber;
