@@ -14,6 +14,7 @@ import * as scenario from '../../src/organization/scenario.js';
 import * as runReceipt from '../../src/organization/run-receipt.js';
 import * as experience from '../../src/organization/experience.js';
 import * as simulationWorld from '../../src/organization/simulation-world.js';
+import * as simulationExpectation from '../../src/organization/simulation-expectation.js';
 import * as knowledgePublication from '../../src/organization/knowledge-publication.js';
 import * as participantBinding from '../../src/organization/participant-binding.js';
 import * as toolCallCorrelation from '../../src/organization/tool-call-correlation.js';
@@ -35,6 +36,7 @@ const allSymbols = {
   ...runReceipt,
   ...experience,
   ...simulationWorld,
+  ...simulationExpectation,
   ...knowledgePublication,
   ...participantBinding,
   ...toolCallCorrelation,
@@ -60,6 +62,9 @@ describe('organization subpath', () => {
     expect(organization.RunReceiptSchema).toBe(runReceipt.RunReceiptSchema);
     expect(organization.OrganizationExperienceEventSchema).toBe(experience.OrganizationExperienceEventSchema);
     expect(organization.SimulationWorldSchema).toBe(simulationWorld.SimulationWorldSchema);
+    expect(organization.SimulationExpectationSetSchema).toBe(
+      simulationExpectation.SimulationExpectationSetSchema,
+    );
     expect(organization.KnowledgePublicationSchema).toBe(knowledgePublication.KnowledgePublicationSchema);
     expect(organization.ParticipantBindingSchema).toBe(participantBinding.ParticipantBindingSchema);
     expect(organization.OrganizationToolCallContextSchema).toBe(toolCallCorrelation.OrganizationToolCallContextSchema);
