@@ -51,6 +51,8 @@ export declare const ToolCallRequestSchema: z.ZodObject<{
     }, z.core.$strict>>;
     tenantId: z.ZodOptional<z.ZodString>;
     ownerId: z.ZodOptional<z.ZodString>;
+    vaultAgentId: z.ZodOptional<z.ZodNumber>;
+    personRef: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
 export declare const ToolCallSuccessResponseSchema: z.ZodObject<{

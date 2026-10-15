@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { ConnectProviderSchema, ConnectRevokeRequestSchema, ConnectRevokeResponseSchema, ConnectScopeSchema, ConnectStartRequestSchema, ConnectStartResponseSchema, ConnectStateResponseSchema, ConnectToolPermitSchema, } from "../../capability/connect/index.js";
+import { PostVaultAccessTokenResponseSchema, VAULT_ACCESS_ERROR_CODES, VaultAccessScopeSchema, VaultConnectionParamsSchema, } from "./internal-vault-connection.js";
 /**
  * /internal/connect/* — internal routes of the Connessioni service (cap-connect).
  * Direction: agent-core / X9 tool -> cap-connect.
@@ -32,6 +33,26 @@ export const IssueConnectPermitResponseSchema = z.discriminatedUnion('ok', [
     }).strict(),
     ConnectErrorResponseSchema,
 ]);
+/** Capability services (calendar, contacts, email) ask cap-connect for a short-lived access token. */
+export const IssueConnectAccessTokenBodySchema = z.object({
+    agentId: VaultConnectionParamsSchema.shape.agentId,
+    provider: ConnectProviderSchema,
+    scope: VaultAccessScopeSchema,
+    personRef: z.string().min(1),
+}).strict();
+export const CONNECT_ACCESS_ERROR_CODES = [
+    ...VAULT_ACCESS_ERROR_CODES,
+    'person_not_determinable',
+    'unavailable',
+];
+export const ConnectAccessErrorCodeSchema = z.enum(CONNECT_ACCESS_ERROR_CODES);
+export const IssueConnectAccessTokenResponseSchema = z.discriminatedUnion('ok', [
+    PostVaultAccessTokenResponseSchema,
+    z.object({
+        ok: z.literal(false),
+        error: ConnectAccessErrorCodeSchema,
+    }).strict(),
+]);
 export const startConnectContract = {
     method: 'POST',
     path: '/internal/connect/start',
@@ -59,5 +80,12 @@ export const issueConnectPermitContract = {
     authType: 'secret',
     bodySchema: IssueConnectPermitBodySchema,
     responseSchema: IssueConnectPermitResponseSchema,
+};
+export const issueConnectAccessTokenContract = {
+    method: 'POST',
+    path: '/internal/connect/access-token',
+    authType: 'secret',
+    bodySchema: IssueConnectAccessTokenBodySchema,
+    responseSchema: IssueConnectAccessTokenResponseSchema,
 };
 //# sourceMappingURL=internal-connect.js.map

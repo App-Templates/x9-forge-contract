@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.issueConnectPermitContract = exports.revokeConnectContract = exports.getConnectStateContract = exports.startConnectContract = exports.IssueConnectPermitResponseSchema = exports.IssueConnectPermitBodySchema = exports.ConnectStateParamsSchema = exports.ConnectErrorResponseSchema = void 0;
+exports.issueConnectAccessTokenContract = exports.issueConnectPermitContract = exports.revokeConnectContract = exports.getConnectStateContract = exports.startConnectContract = exports.IssueConnectAccessTokenResponseSchema = exports.ConnectAccessErrorCodeSchema = exports.CONNECT_ACCESS_ERROR_CODES = exports.IssueConnectAccessTokenBodySchema = exports.IssueConnectPermitResponseSchema = exports.IssueConnectPermitBodySchema = exports.ConnectStateParamsSchema = exports.ConnectErrorResponseSchema = void 0;
 const zod_1 = require("zod");
 const index_js_1 = require("../../capability/connect/index.cjs");
+const internal_vault_connection_js_1 = require("./internal-vault-connection.cjs");
 /**
  * /internal/connect/* — internal routes of the Connessioni service (cap-connect).
  * Direction: agent-core / X9 tool -> cap-connect.
@@ -35,6 +36,26 @@ exports.IssueConnectPermitResponseSchema = zod_1.z.discriminatedUnion('ok', [
     }).strict(),
     exports.ConnectErrorResponseSchema,
 ]);
+/** Capability services (calendar, contacts, email) ask cap-connect for a short-lived access token. */
+exports.IssueConnectAccessTokenBodySchema = zod_1.z.object({
+    agentId: internal_vault_connection_js_1.VaultConnectionParamsSchema.shape.agentId,
+    provider: index_js_1.ConnectProviderSchema,
+    scope: internal_vault_connection_js_1.VaultAccessScopeSchema,
+    personRef: zod_1.z.string().min(1),
+}).strict();
+exports.CONNECT_ACCESS_ERROR_CODES = [
+    ...internal_vault_connection_js_1.VAULT_ACCESS_ERROR_CODES,
+    'person_not_determinable',
+    'unavailable',
+];
+exports.ConnectAccessErrorCodeSchema = zod_1.z.enum(exports.CONNECT_ACCESS_ERROR_CODES);
+exports.IssueConnectAccessTokenResponseSchema = zod_1.z.discriminatedUnion('ok', [
+    internal_vault_connection_js_1.PostVaultAccessTokenResponseSchema,
+    zod_1.z.object({
+        ok: zod_1.z.literal(false),
+        error: exports.ConnectAccessErrorCodeSchema,
+    }).strict(),
+]);
 exports.startConnectContract = {
     method: 'POST',
     path: '/internal/connect/start',
@@ -62,5 +83,12 @@ exports.issueConnectPermitContract = {
     authType: 'secret',
     bodySchema: exports.IssueConnectPermitBodySchema,
     responseSchema: exports.IssueConnectPermitResponseSchema,
+};
+exports.issueConnectAccessTokenContract = {
+    method: 'POST',
+    path: '/internal/connect/access-token',
+    authType: 'secret',
+    bodySchema: exports.IssueConnectAccessTokenBodySchema,
+    responseSchema: exports.IssueConnectAccessTokenResponseSchema,
 };
 //# sourceMappingURL=internal-connect.js.map

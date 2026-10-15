@@ -41,6 +41,17 @@ exports.ToolCallRequestSchema = zod_1.z.object({
      */
     tenantId: zod_1.z.string().min(1).optional(),
     ownerId: zod_1.z.string().min(1).optional(),
+    /**
+     * Numeric Vault id of the dispatching agent (`identity.vaultAgentId`),
+     * injected by the runtime, never by the model. Lets capability services ask
+     * the Vault for an access token on behalf of the right agent.
+     */
+    vaultAgentId: zod_1.z.number().int().positive().optional(),
+    /**
+     * Attested person of the turn (the actor the connection belongs to),
+     * injected by the runtime, never by the model and never inside `input`.
+     */
+    personRef: zod_1.z.string().min(1).optional(),
 });
 // -- Response variants -------------------------------------------------------
 exports.ToolCallSuccessResponseSchema = zod_1.z.object({

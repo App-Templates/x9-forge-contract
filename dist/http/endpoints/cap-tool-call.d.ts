@@ -49,6 +49,8 @@ export declare const capToolCallContract: {
         }, z.core.$strict>>;
         tenantId: z.ZodOptional<z.ZodString>;
         ownerId: z.ZodOptional<z.ZodString>;
+        vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        personRef: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         callId: z.ZodString;

@@ -55,6 +55,53 @@ export declare const IssueConnectPermitResponseSchema: z.ZodDiscriminatedUnion<[
     error: z.ZodString;
 }, z.core.$strict>], "ok">;
 export type IssueConnectPermitResponse = z.infer<typeof IssueConnectPermitResponseSchema>;
+/** Capability services (calendar, contacts, email) ask cap-connect for a short-lived access token. */
+export declare const IssueConnectAccessTokenBodySchema: z.ZodObject<{
+    agentId: z.ZodString;
+    provider: z.ZodEnum<{
+        google: "google";
+    }>;
+    scope: z.ZodEnum<{
+        calendar_events: "calendar_events";
+        contacts_read: "contacts_read";
+        mail_send: "mail_send";
+        mail_draft: "mail_draft";
+    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+    personRef: z.ZodString;
+}, z.core.$strict>;
+export type IssueConnectAccessTokenBody = z.infer<typeof IssueConnectAccessTokenBodySchema>;
+export declare const CONNECT_ACCESS_ERROR_CODES: readonly ["not_connected", "revoked", "scope_missing", "expired", "person_not_determinable", "unavailable"];
+export declare const ConnectAccessErrorCodeSchema: z.ZodEnum<{
+    not_connected: "not_connected";
+    revoked: "revoked";
+    expired: "expired";
+    unavailable: "unavailable";
+    scope_missing: "scope_missing";
+    person_not_determinable: "person_not_determinable";
+}>;
+export type ConnectAccessErrorCode = z.infer<typeof ConnectAccessErrorCodeSchema>;
+export declare const IssueConnectAccessTokenResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    ok: z.ZodLiteral<true>;
+    accessToken: z.ZodString;
+    expiresAt: z.ZodNumber;
+    scopes: z.ZodArray<z.ZodEnum<{
+        calendar_events: "calendar_events";
+        contacts_read: "contacts_read";
+        mail_send: "mail_send";
+        mail_draft: "mail_draft";
+    }>>;
+}, z.core.$strict>, z.ZodObject<{
+    ok: z.ZodLiteral<false>;
+    error: z.ZodEnum<{
+        not_connected: "not_connected";
+        revoked: "revoked";
+        expired: "expired";
+        unavailable: "unavailable";
+        scope_missing: "scope_missing";
+        person_not_determinable: "person_not_determinable";
+    }>;
+}, z.core.$strict>], "ok">;
+export type IssueConnectAccessTokenResponse = z.infer<typeof IssueConnectAccessTokenResponseSchema>;
 export declare const startConnectContract: {
     readonly method: "POST";
     readonly path: "/internal/connect/start";
@@ -169,6 +216,45 @@ export declare const issueConnectPermitContract: {
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodString;
+    }, z.core.$strict>], "ok">;
+};
+export declare const issueConnectAccessTokenContract: {
+    readonly method: "POST";
+    readonly path: "/internal/connect/access-token";
+    readonly authType: "secret";
+    readonly bodySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        provider: z.ZodEnum<{
+            google: "google";
+        }>;
+        scope: z.ZodEnum<{
+            calendar_events: "calendar_events";
+            contacts_read: "contacts_read";
+            mail_send: "mail_send";
+            mail_draft: "mail_draft";
+        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+        personRef: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        accessToken: z.ZodString;
+        expiresAt: z.ZodNumber;
+        scopes: z.ZodArray<z.ZodEnum<{
+            calendar_events: "calendar_events";
+            contacts_read: "contacts_read";
+            mail_send: "mail_send";
+            mail_draft: "mail_draft";
+        }>>;
+    }, z.core.$strict>, z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodEnum<{
+            not_connected: "not_connected";
+            revoked: "revoked";
+            expired: "expired";
+            unavailable: "unavailable";
+            scope_missing: "scope_missing";
+            person_not_determinable: "person_not_determinable";
+        }>;
     }, z.core.$strict>], "ok">;
 };
 //# sourceMappingURL=internal-connect.d.ts.map
