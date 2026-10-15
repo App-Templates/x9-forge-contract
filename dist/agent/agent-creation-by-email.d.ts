@@ -70,18 +70,18 @@ export declare const AgentCreationByEmailResultSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type AgentCreationByEmailResult = z.infer<typeof AgentCreationByEmailResultSchema>;
 export declare const AgentCreationByEmailErrorCodeSchema: z.ZodEnum<{
+    tenant_mismatch: "tenant_mismatch";
     not_platform_owner: "not_platform_owner";
     email_ambiguous: "email_ambiguous";
-    tenant_mismatch: "tenant_mismatch";
     intent_conflict: "intent_conflict";
     authorization_expired: "authorization_expired";
     resolution_failed: "resolution_failed";
 }>;
 export declare const AgentCreationByEmailErrorSchema: z.ZodObject<{
     code: z.ZodEnum<{
+        tenant_mismatch: "tenant_mismatch";
         not_platform_owner: "not_platform_owner";
         email_ambiguous: "email_ambiguous";
-        tenant_mismatch: "tenant_mismatch";
         intent_conflict: "intent_conflict";
         authorization_expired: "authorization_expired";
         resolution_failed: "resolution_failed";

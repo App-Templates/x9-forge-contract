@@ -1608,8 +1608,8 @@ export declare const nativeCallbackContract: {
         }, z.core.$strict>;
         receivedAt: z.ZodISODateTime;
         inboxStatus: z.ZodEnum<{
-            accepted: "accepted";
             duplicate: "duplicate";
+            accepted: "accepted";
         }>;
         effectStatus: z.ZodEnum<{
             applied: "applied";
