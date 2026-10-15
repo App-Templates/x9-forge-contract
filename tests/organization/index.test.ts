@@ -10,6 +10,14 @@ import * as publicationRef from '../../src/organization/publication-ref.js';
 import * as experiment from '../../src/organization/experiment.js';
 import * as companyMemory from '../../src/organization/company-memory.js';
 import * as scenario from '../../src/organization/scenario.js';
+import * as runReceipt from '../../src/organization/run-receipt.js';
+import * as experience from '../../src/organization/experience.js';
+import * as simulationWorld from '../../src/organization/simulation-world.js';
+import * as knowledgePublication from '../../src/organization/knowledge-publication.js';
+import * as participantBinding from '../../src/organization/participant-binding.js';
+import * as toolCallCorrelation from '../../src/organization/tool-call-correlation.js';
+import * as publicationOperations from '../../src/organization/publication-operations.js';
+import * as publicationLookup from '../../src/organization/publication-lookup.js';
 
 const allSymbols = {
   ...runContext,
@@ -21,6 +29,14 @@ const allSymbols = {
   ...experiment,
   ...companyMemory,
   ...scenario,
+  ...runReceipt,
+  ...experience,
+  ...simulationWorld,
+  ...knowledgePublication,
+  ...participantBinding,
+  ...toolCallCorrelation,
+  ...publicationOperations,
+  ...publicationLookup,
 };
 
 describe('organization subpath', () => {
