@@ -53,6 +53,14 @@ describe('organization subpath', () => {
     expect(organization.ScenarioVersionSchema).toBe(scenario.ScenarioVersionSchema);
     expect(organization.ScenarioVersionRefSchema).toBe(scenario.ScenarioVersionRefSchema);
     expect(organization.ScenarioCorpusSchema).toBe(scenario.ScenarioCorpusSchema);
+    expect(organization.RunReceiptSchema).toBe(runReceipt.RunReceiptSchema);
+    expect(organization.OrganizationExperienceEventSchema).toBe(experience.OrganizationExperienceEventSchema);
+    expect(organization.SimulationWorldSchema).toBe(simulationWorld.SimulationWorldSchema);
+    expect(organization.KnowledgePublicationSchema).toBe(knowledgePublication.KnowledgePublicationSchema);
+    expect(organization.ParticipantBindingSchema).toBe(participantBinding.ParticipantBindingSchema);
+    expect(organization.OrganizationToolCallContextSchema).toBe(toolCallCorrelation.OrganizationToolCallContextSchema);
+    expect(organization.PublishMaterialRequestSchema).toBe(publicationOperations.PublishMaterialRequestSchema);
+    expect(organization.ListPublicationsRequestSchema).toBe(publicationLookup.ListPublicationsRequestSchema);
     expect(Object.keys(organization).sort()).toEqual(Object.keys(allSymbols).sort());
   });
 
