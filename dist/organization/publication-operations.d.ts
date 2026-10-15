@@ -11,6 +11,7 @@ export declare const PublishMaterialRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -63,6 +64,7 @@ export declare const PublishMaterialResponseSchema: z.ZodDiscriminatedUnion<[z.Z
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -114,6 +116,7 @@ export declare const ReadMaterialRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -133,6 +136,7 @@ export declare const ReadMaterialRequestSchema: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -179,6 +183,7 @@ export declare const ReadMaterialResponseSchema: z.ZodDiscriminatedUnion<[z.ZodO
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -239,6 +244,7 @@ export declare const ResolveMaterialRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -258,6 +264,7 @@ export declare const ResolveMaterialRequestSchema: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -304,6 +311,7 @@ export declare const ResolveMaterialResponseSchema: z.ZodDiscriminatedUnion<[z.Z
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";

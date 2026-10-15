@@ -42,6 +42,8 @@ const outcomeBase = {
     consumption: z.array(ConsumptionSchema).max(10),
     recordedAt: z.iso.datetime(),
 };
+/** Shared status of a run outcome. */
+export const RunOutcomeStatusSchema = z.enum(['succeeded', 'failed', 'cancelled', 'uncertain']);
 /** Outcome of an attempt. An uncertain outcome is never reported as succeeded. */
 export const RunOutcomeSchema = z.discriminatedUnion('status', [
     z.strictObject({ ...outcomeBase, status: z.literal('succeeded') }),

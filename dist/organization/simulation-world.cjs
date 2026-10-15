@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SimulationResultSchema = exports.SimulationScriptSchema = exports.SimulationActionSchema = exports.SimulationWorldSchema = exports.SimulationInitialStateSchema = void 0;
+exports.canonicalSha256 = canonicalSha256;
 exports.canonicalWorldHash = canonicalWorldHash;
+exports.canonicalScriptHash = canonicalScriptHash;
 const node_crypto_1 = require("node:crypto");
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
@@ -139,8 +141,20 @@ function canonicalize(value) {
     }
     return value;
 }
+/** SHA-256 (lowercase hex) of any JSON value with object keys sorted; array order is kept. */
+function canonicalSha256(value) {
+    return (0, node_crypto_1.createHash)('sha256').update(JSON.stringify(canonicalize(value))).digest('hex');
+}
 /** SHA-256 (lowercase hex) of the world with object keys sorted; array order is kept. */
 function canonicalWorldHash(world) {
-    return (0, node_crypto_1.createHash)('sha256').update(JSON.stringify(canonicalize(world))).digest('hex');
+    return canonicalSha256(world);
+}
+/**
+ * SHA-256 (lowercase hex) of the whole script: world and actions, object keys sorted.
+ * The order of the actions in the array is part of the hash: swapping two actions
+ * changes it.
+ */
+function canonicalScriptHash(script) {
+    return canonicalSha256({ world: script.world, actions: script.actions });
 }
 //# sourceMappingURL=simulation-world.js.map

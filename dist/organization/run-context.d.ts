@@ -23,6 +23,9 @@ export declare const OrganizationRunContextSchema: z.ZodObject<{
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>;
+    /** Attested person this run acts for, set by the context issuer (runtime), never the model.
+     * Absent for group turns and runs without a person. */
+    personRef: z.ZodOptional<z.ZodString>;
     issuer: z.ZodEnum<{
         x9: "x9";
         forge: "forge";

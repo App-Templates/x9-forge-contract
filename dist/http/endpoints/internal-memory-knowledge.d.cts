@@ -12,6 +12,7 @@ export declare const InternalMemoryKnowledgePublishRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -32,6 +33,7 @@ export declare const InternalMemoryKnowledgePublishRequestSchema: z.ZodObject<{
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
@@ -102,6 +104,7 @@ export declare const InternalMemoryKnowledgeWithdrawRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -121,6 +124,7 @@ export declare const InternalMemoryKnowledgeWithdrawRequestSchema: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -191,6 +195,7 @@ export declare const internalMemoryKnowledgePublishContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -211,6 +216,7 @@ export declare const internalMemoryKnowledgePublishContract: {
                         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                         vaultAgentId: z.ZodOptional<z.ZodNumber>;
                     }, z.core.$strip>;
+                    personRef: z.ZodOptional<z.ZodString>;
                     issuer: z.ZodEnum<{
                         x9: "x9";
                         forge: "forge";
@@ -294,6 +300,7 @@ export declare const internalMemoryKnowledgeWithdrawContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -313,6 +320,7 @@ export declare const internalMemoryKnowledgeWithdrawContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
