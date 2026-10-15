@@ -13,3 +13,4 @@ export * from './simulation-world.js';
 export * from './knowledge-publication.js';
 export * from './participant-binding.js';
 export * from './tool-call-correlation.js';
+export * from './publication-operations.js';
