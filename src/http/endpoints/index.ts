@@ -12,6 +12,7 @@ export * from './internal-agents-stop.js';
 export * from './internal-run-stop.js';
 export * from './internal-run-native-stop.js';
 export * from './internal-publication.js';
+export * from './internal-participant-binding.js'; // POST /internal/participant-binding/{apply,read,list,withdraw,resolve}, secret auth
 export * from './internal-publication-read.js';
 export * from './internal-agents-management.js'; // v1.31.0 — R1b commands + management state
 export * from './internal-turn.js';

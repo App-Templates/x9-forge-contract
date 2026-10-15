@@ -23,6 +23,8 @@ export const ParticipantBindingSchema = z.strictObject({
   ownerId: OwnerIdSchema,
   agentIdentity: ParticipantAgentIdentitySchema,
   participantId: z.string().min(1),
+  /** Attested person (never model-provided); required by the apply operation. */
+  personRef: z.string().min(1).optional(),
   roles: z.array(ParticipantRoleSchema).min(1),
   recipients: z.array(PublicationRecipientSchema),
   appliedVersion: z.number().int().min(1),
@@ -45,3 +47,33 @@ export const ParticipantBindingResolutionSchema = z.strictObject({
   reason: z.string().min(1),
 });
 export type ParticipantBindingResolution = z.infer<typeof ParticipantBindingResolutionSchema>;
+
+/** Binding key: one binding per (organization, person, agent). Person is mandatory. */
+export const ParticipantBindingKeySchema = z.strictObject({
+  tenantId: ParticipantBindingSchema.shape.tenantId,
+  ownerId: ParticipantBindingSchema.shape.ownerId,
+  agentIdentity: ParticipantAgentIdentitySchema,
+  organizationId: z.string().min(1),
+  personRef: z.string().min(1),
+});
+export type ParticipantBindingKey = z.infer<typeof ParticipantBindingKeySchema>;
+
+/** Receipt of an applied (or withdrawn) binding, issued by the owning service. */
+export const ParticipantBindingReceiptSchema = z.strictObject({
+  key: ParticipantBindingKeySchema,
+  appliedVersion: z.number().int().positive(),
+  digest: z.string().min(1),
+  appliedAt: z.iso.datetime(),
+  withdrawnAt: z.iso.datetime().optional(),
+});
+export type ParticipantBindingReceipt = z.infer<typeof ParticipantBindingReceiptSchema>;
+
+/** Selector to resolve the binding of a person for an agent in an organization. */
+export const ParticipantBindingSelectorSchema = z.strictObject({
+  tenantId: ParticipantBindingSchema.shape.tenantId,
+  ownerId: ParticipantBindingSchema.shape.ownerId,
+  agentIdentity: ParticipantAgentIdentitySchema,
+  organizationId: z.string().min(1),
+  personRef: z.string().min(1),
+});
+export type ParticipantBindingSelector = z.infer<typeof ParticipantBindingSelectorSchema>;
