@@ -44,4 +44,6 @@ export * from "./agent-elevenlabs/web-browser.js";
 export * from "./agent-elevenlabs/web-invitations.js";
 export * from "./capability-credential-requirements.js";
 export * from "./paperclip/index.js";
+// Connections: start, state and revoke of a person's provider link, plus tool permits (feature connessioni)
+export * from "./connect/index.js";
 //# sourceMappingURL=index.js.map

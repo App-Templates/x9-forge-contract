@@ -37,4 +37,5 @@ export * from "./agent-elevenlabs/web-browser.cjs";
 export * from "./agent-elevenlabs/web-invitations.cjs";
 export * from "./capability-credential-requirements.cjs";
 export * from "./paperclip/index.cjs";
+export * from "./connect/index.cjs";
 //# sourceMappingURL=index.d.ts.map

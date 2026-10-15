@@ -11,6 +11,7 @@ const index_js_1 = require("../../capability/voice-live/index.cjs");
 const agent_credential_services_js_1 = require("../../agent/agent-credential-services.cjs");
 const platform_internal_credentials_js_1 = require("../../vault/platform-internal-credentials.cjs");
 const cap_tool_call_js_1 = require("./cap-tool-call.cjs");
+const internal_agent_turn_js_1 = require("./internal-agent-turn.cjs");
 const text = zod_1.z.string().min(1).max(32_000);
 const telegramInput = zod_1.z.strictObject({ chatId: zod_1.z.union([zod_1.z.number().int(), zod_1.z.string().min(1).max(64)]), text });
 const sessionInput = zod_1.z.strictObject({ sessionId: zod_1.z.string().min(1).max(256) });
@@ -84,6 +85,7 @@ exports.InternalAgentToolDispatchRequestSchema = zod_1.z.strictObject({
     input: zod_1.z.record(zod_1.z.string(), zod_1.z.unknown()),
     /** Total execution deadline; HTTP disconnect cancellation remains transport-owned. */
     timeoutMs: zod_1.z.number().int().min(1).max(300_000).optional(),
+    organizationRun: internal_agent_turn_js_1.InternalAgentTurnOrganizationRunSchema.optional(),
 }).superRefine((request, ctx) => {
     const parsed = exports.INTERNAL_AGENT_EXECUTIONS[request.execution].inputSchema.safeParse(request.input);
     if (!parsed.success)

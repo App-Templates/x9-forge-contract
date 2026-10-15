@@ -319,6 +319,33 @@ export declare const InternalAgentToolDispatchRequestSchema: z.ZodObject<{
     input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
     /** Total execution deadline; HTTP disconnect cancellation remains transport-owned. */
     timeoutMs: z.ZodOptional<z.ZodNumber>;
+    organizationRun: z.ZodOptional<z.ZodObject<{
+        context: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            organizationId: z.ZodString;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            issuer: z.ZodEnum<{
+                x9: "x9";
+                forge: "forge";
+                paperclip: "paperclip";
+            }>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        attempt: z.ZodObject<{
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            attemptNumber: z.ZodNumber;
+            startedAt: z.ZodISODateTime;
+            idempotencyKey: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type InternalAgentToolDispatchRequest = z.infer<typeof InternalAgentToolDispatchRequestSchema>;
 /** Canonical result variants, with a strict boundary and no credential/context material at any depth. */
@@ -379,6 +406,33 @@ export declare const internalAgentToolDispatchContract: {
         input: z.ZodRecord<z.ZodString, z.ZodUnknown>;
         /** Total execution deadline; HTTP disconnect cancellation remains transport-owned. */
         timeoutMs: z.ZodOptional<z.ZodNumber>;
+        organizationRun: z.ZodOptional<z.ZodObject<{
+            context: z.ZodObject<{
+                schemaVersion: z.ZodLiteral<1>;
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                organizationId: z.ZodString;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
+                }, z.core.$strip>;
+                issuer: z.ZodEnum<{
+                    x9: "x9";
+                    forge: "forge";
+                    paperclip: "paperclip";
+                }>;
+                issuedAt: z.ZodISODateTime;
+                expiresAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            attempt: z.ZodObject<{
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                attemptId: z.ZodString;
+                attemptNumber: z.ZodNumber;
+                startedAt: z.ZodISODateTime;
+                idempotencyKey: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         callId: z.ZodString;

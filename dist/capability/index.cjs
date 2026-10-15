@@ -79,4 +79,6 @@ __exportStar(require("./agent-elevenlabs/web-browser.cjs"), exports);
 __exportStar(require("./agent-elevenlabs/web-invitations.cjs"), exports);
 __exportStar(require("./capability-credential-requirements.cjs"), exports);
 __exportStar(require("./paperclip/index.cjs"), exports);
+// Connections: start, state and revoke of a person's provider link, plus tool permits (feature connessioni)
+__exportStar(require("./connect/index.cjs"), exports);
 //# sourceMappingURL=index.js.map
