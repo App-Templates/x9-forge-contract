@@ -14,3 +14,4 @@ export * from './knowledge-publication.js';
 export * from './participant-binding.js';
 export * from './tool-call-correlation.js';
 export * from './publication-operations.js';
+export * from './publication-lookup.js';
