@@ -13,8 +13,8 @@ export declare const InternalMemoryDecisionRequestSchema: z.ZodObject<{
     kind: z.ZodLiteral<"authoritative_decision">;
     decisionRef: z.ZodString;
     status: z.ZodEnum<{
-        approved: "approved";
         revoked: "revoked";
+        approved: "approved";
         superseded: "superseded";
     }>;
     approvedBy: z.ZodOptional<z.ZodObject<{
@@ -53,8 +53,8 @@ export declare const internalMemoryDecisionContract: {
         kind: z.ZodLiteral<"authoritative_decision">;
         decisionRef: z.ZodString;
         status: z.ZodEnum<{
-            approved: "approved";
             revoked: "revoked";
+            approved: "approved";
             superseded: "superseded";
         }>;
         approvedBy: z.ZodOptional<z.ZodObject<{

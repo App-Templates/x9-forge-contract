@@ -45,10 +45,10 @@ export declare const ConnectStartResponseSchema: z.ZodDiscriminatedUnion<[z.ZodO
 }, z.core.$strict>], "ok">;
 /** State of a connection. */
 export declare const ConnectStatusSchema: z.ZodEnum<{
-    revoked: "revoked";
     not_connected: "not_connected";
     connected: "connected";
     needs_reconnect: "needs_reconnect";
+    revoked: "revoked";
 }>;
 /** Connection state; never carries a token, code or value. */
 export declare const ConnectStateResponseSchema: z.ZodObject<{
@@ -57,10 +57,10 @@ export declare const ConnectStateResponseSchema: z.ZodObject<{
         google: "google";
     }>;
     status: z.ZodEnum<{
-        revoked: "revoked";
         not_connected: "not_connected";
         connected: "connected";
         needs_reconnect: "needs_reconnect";
+        revoked: "revoked";
     }>;
     accountLabel: z.ZodOptional<z.ZodString>;
     scopes: z.ZodArray<z.ZodEnum<{
@@ -81,10 +81,10 @@ export declare const ConnectRevokeRequestSchema: z.ZodObject<{
 export declare const ConnectRevokeResponseSchema: z.ZodObject<{
     ok: z.ZodBoolean;
     status: z.ZodEnum<{
-        revoked: "revoked";
         not_connected: "not_connected";
         connected: "connected";
         needs_reconnect: "needs_reconnect";
+        revoked: "revoked";
     }>;
 }, z.core.$strict>;
 /** Time-limited permit for tools to use a connection. */

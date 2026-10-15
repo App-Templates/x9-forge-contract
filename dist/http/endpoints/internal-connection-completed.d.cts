@@ -9,9 +9,9 @@ import { z } from 'zod';
  * Never carries a Google token, permit or secret.
  */
 export declare const ConnectionCompletedOutcomeSchema: z.ZodEnum<{
-    expired: "expired";
-    denied: "denied";
     connected: "connected";
+    denied: "denied";
+    expired: "expired";
 }>;
 export type ConnectionCompletedOutcome = z.infer<typeof ConnectionCompletedOutcomeSchema>;
 export declare const ConnectionCompletedBodySchema: z.ZodObject<{
@@ -30,9 +30,9 @@ export declare const ConnectionCompletedBodySchema: z.ZodObject<{
         mail_send: "mail_send";
     }>>;
     outcome: z.ZodEnum<{
-        expired: "expired";
-        denied: "denied";
         connected: "connected";
+        denied: "denied";
+        expired: "expired";
     }>;
     completedAt: z.ZodNumber;
 }, z.core.$strict>;
@@ -90,9 +90,9 @@ export declare const connectionCompletedContract: {
             mail_send: "mail_send";
         }>>;
         outcome: z.ZodEnum<{
-            expired: "expired";
-            denied: "denied";
             connected: "connected";
+            denied: "denied";
+            expired: "expired";
         }>;
         completedAt: z.ZodNumber;
     }, z.core.$strict>;

@@ -53,8 +53,8 @@ export declare const BackupActionKindSchema: z.ZodEnum<{
 }>;
 export declare const BackupActionStateSchema: z.ZodEnum<{
     failed: "failed";
-    ready: "ready";
     expired: "expired";
+    ready: "ready";
     running: "running";
     "awaiting-approval": "awaiting-approval";
 }>;
@@ -68,8 +68,8 @@ export declare const BackupActionSchema: z.ZodObject<{
     }>;
     state: z.ZodEnum<{
         failed: "failed";
-        ready: "ready";
         expired: "expired";
+        ready: "ready";
         running: "running";
         "awaiting-approval": "awaiting-approval";
     }>;
@@ -107,8 +107,8 @@ export declare const BackupStatusSchema: z.ZodObject<{
         }>;
         state: z.ZodEnum<{
             failed: "failed";
-            ready: "ready";
             expired: "expired";
+            ready: "ready";
             running: "running";
             "awaiting-approval": "awaiting-approval";
         }>;
@@ -207,8 +207,8 @@ export declare const backupDeviceStatusContract: {
             }>;
             state: z.ZodEnum<{
                 failed: "failed";
-                ready: "ready";
                 expired: "expired";
+                ready: "ready";
                 running: "running";
                 "awaiting-approval": "awaiting-approval";
             }>;
@@ -254,8 +254,8 @@ export declare const BackupDeviceRequestResponseSchema: z.ZodDiscriminatedUnion<
         }>;
         state: z.ZodEnum<{
             failed: "failed";
-            ready: "ready";
             expired: "expired";
+            ready: "ready";
             running: "running";
             "awaiting-approval": "awaiting-approval";
         }>;
@@ -292,8 +292,8 @@ export declare const backupDeviceRequestContract: {
             }>;
             state: z.ZodEnum<{
                 failed: "failed";
-                ready: "ready";
                 expired: "expired";
+                ready: "ready";
                 running: "running";
                 "awaiting-approval": "awaiting-approval";
             }>;

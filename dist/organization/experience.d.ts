@@ -146,8 +146,8 @@ export declare const RunOutcomeExperienceEventSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type RunOutcomeExperienceEvent = z.infer<typeof RunOutcomeExperienceEventSchema>;
 export declare const AuthoritativeDecisionStatusSchema: z.ZodEnum<{
-    approved: "approved";
     revoked: "revoked";
+    approved: "approved";
     superseded: "superseded";
 }>;
 export type AuthoritativeDecisionStatus = z.infer<typeof AuthoritativeDecisionStatusSchema>;
@@ -168,8 +168,8 @@ export declare const AuthoritativeDecisionExperienceEventSchema: z.ZodObject<{
     kind: z.ZodLiteral<"authoritative_decision">;
     decisionRef: z.ZodString;
     status: z.ZodEnum<{
-        approved: "approved";
         revoked: "revoked";
+        approved: "approved";
         superseded: "superseded";
     }>;
     approvedBy: z.ZodOptional<z.ZodObject<{
@@ -337,8 +337,8 @@ export declare const OrganizationExperienceEventSchema: z.ZodDiscriminatedUnion<
     kind: z.ZodLiteral<"authoritative_decision">;
     decisionRef: z.ZodString;
     status: z.ZodEnum<{
-        approved: "approved";
         revoked: "revoked";
+        approved: "approved";
         superseded: "superseded";
     }>;
     approvedBy: z.ZodOptional<z.ZodObject<{

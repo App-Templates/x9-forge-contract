@@ -8,6 +8,7 @@ const internal_memory_extract_js_1 = require("./internal-memory-extract.cjs");
 const capability_turn_lead_js_1 = require("../../capability/capability-turn-lead.cjs");
 const run_context_js_1 = require("../../organization/run-context.cjs");
 const run_outcome_js_1 = require("../../organization/run-outcome.cjs");
+const connection_card_js_1 = require("./connection-card.cjs");
 const internal_turn_js_1 = require("./internal-turn.cjs");
 /**
  * POST /internal/agents/:agentId/turn — synchronous turn addressed to ONE
@@ -66,7 +67,9 @@ exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestS
 });
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
 exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema.extend({ moveId: capability_turn_lead_js_1.AgentTurnMoveIdSchema.optional(),
-    lead: capability_turn_lead_js_1.CapabilityLeadInstructionsSchema.optional(), note: capability_turn_lead_js_1.CapabilityNoteSchema.optional() });
+    lead: capability_turn_lead_js_1.CapabilityLeadInstructionsSchema.optional(), note: capability_turn_lead_js_1.CapabilityNoteSchema.optional(),
+    /** Connection cards produced by the turn; absent on legacy responses. */
+    connectionCards: zod_1.z.array(connection_card_js_1.ConnectionCardSchema).max(5).optional() });
 exports.InternalAgentTurnErrorResponseSchema = internal_turn_js_1.InternalTurnErrorResponseSchema;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';

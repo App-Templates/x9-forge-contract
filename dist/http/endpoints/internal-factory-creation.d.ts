@@ -98,8 +98,8 @@ export declare const internalFactoryReplayableDeployContract: {
             agentRecordId: z.ZodNullable<z.ZodNumber>;
             phase: z.ZodEnum<{
                 incomplete: "incomplete";
-                completed: "completed";
                 pending: "pending";
+                completed: "completed";
                 running: "running";
             }>;
             channels: z.ZodArray<z.ZodObject<{

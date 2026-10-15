@@ -4,11 +4,11 @@ import { z } from 'zod';
  * turn response and in web events. It never carries a token, permit or secret.
  */
 export declare const ConnectionCardStateSchema: z.ZodEnum<{
-    pending: "pending";
-    expired: "expired";
-    revoked: "revoked";
-    denied: "denied";
     connected: "connected";
+    revoked: "revoked";
+    pending: "pending";
+    denied: "denied";
+    expired: "expired";
 }>;
 export type ConnectionCardState = z.infer<typeof ConnectionCardStateSchema>;
 export declare const ConnectionCardSchema: z.ZodObject<{
@@ -24,11 +24,11 @@ export declare const ConnectionCardSchema: z.ZodObject<{
     url: z.ZodString;
     expiresAt: z.ZodNumber;
     state: z.ZodEnum<{
-        pending: "pending";
-        expired: "expired";
-        revoked: "revoked";
-        denied: "denied";
         connected: "connected";
+        revoked: "revoked";
+        pending: "pending";
+        denied: "denied";
+        expired: "expired";
     }>;
     reason: z.ZodString;
 }, z.core.$strict>;
@@ -49,11 +49,11 @@ export declare const ConnectionCardEnvelopeSchema: z.ZodObject<{
         url: z.ZodString;
         expiresAt: z.ZodNumber;
         state: z.ZodEnum<{
-            pending: "pending";
-            expired: "expired";
-            revoked: "revoked";
-            denied: "denied";
             connected: "connected";
+            revoked: "revoked";
+            pending: "pending";
+            denied: "denied";
+            expired: "expired";
         }>;
         reason: z.ZodString;
     }, z.core.$strict>;

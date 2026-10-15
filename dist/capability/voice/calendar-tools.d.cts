@@ -57,8 +57,8 @@ export type CalendarConflictResponse = z.infer<typeof CalendarConflictResponseSc
  * state machine, cap-scheduler sweeper) can reference it without duplication.
  */
 export declare const CalendarHoldStatusSchema: z.ZodEnum<{
-    active: "active";
     expired: "expired";
+    active: "active";
     promoted: "promoted";
     released: "released";
     cleanup_required: "cleanup_required";
@@ -89,8 +89,8 @@ export declare const CalendarHoldResponseSchema: z.ZodObject<{
     hold_id: z.ZodString;
     calendar_event_id: z.ZodString;
     status: z.ZodEnum<{
-        active: "active";
         expired: "expired";
+        active: "active";
         promoted: "promoted";
         released: "released";
         cleanup_required: "cleanup_required";

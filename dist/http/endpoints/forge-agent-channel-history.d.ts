@@ -74,16 +74,16 @@ export declare const forgeAgentChannelHistoryContract: {
             durationSeconds: z.ZodNullable<z.ZodNumber>;
             content: z.ZodObject<{
                 audio: z.ZodEnum<{
+                    expired: "expired";
                     available: "available";
                     unavailable: "unavailable";
-                    expired: "expired";
                     "not-applicable": "not-applicable";
                     "not-retained": "not-retained";
                 }>;
                 transcript: z.ZodEnum<{
+                    expired: "expired";
                     available: "available";
                     unavailable: "unavailable";
-                    expired: "expired";
                     "not-applicable": "not-applicable";
                     "not-retained": "not-retained";
                 }>;

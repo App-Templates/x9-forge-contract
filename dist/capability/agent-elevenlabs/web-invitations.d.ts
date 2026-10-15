@@ -129,9 +129,9 @@ export declare const ElevenLabsWebPublicInvitationSchema: z.ZodObject<{
     revokedAt: z.ZodNullable<z.ZodISODateTime>;
     email: z.ZodEmail;
     status: z.ZodEnum<{
-        active: "active";
-        expired: "expired";
         revoked: "revoked";
+        expired: "expired";
+        active: "active";
         "pending-registration": "pending-registration";
     }>;
 }, z.core.$strict>;

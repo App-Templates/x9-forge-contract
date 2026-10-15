@@ -95,10 +95,10 @@ export declare const getConnectStateContract: {
             google: "google";
         }>;
         status: z.ZodEnum<{
-            revoked: "revoked";
             not_connected: "not_connected";
             connected: "connected";
             needs_reconnect: "needs_reconnect";
+            revoked: "revoked";
         }>;
         accountLabel: z.ZodOptional<z.ZodString>;
         scopes: z.ZodArray<z.ZodEnum<{
@@ -122,10 +122,10 @@ export declare const revokeConnectContract: {
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodBoolean;
         status: z.ZodEnum<{
-            revoked: "revoked";
             not_connected: "not_connected";
             connected: "connected";
             needs_reconnect: "needs_reconnect";
+            revoked: "revoked";
         }>;
     }, z.core.$strict>;
 };

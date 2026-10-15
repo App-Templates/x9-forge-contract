@@ -28,18 +28,18 @@ export declare const DevAgentConfigSchema: z.ZodObject<{
 export type DevAgentConfig = z.infer<typeof DevAgentConfigSchema>;
 export declare const DevAgentStatusSchema: z.ZodEnum<{
     applied: "applied";
-    ready: "ready";
-    pending: "pending";
     revoked: "revoked";
+    pending: "pending";
+    ready: "ready";
     offline: "offline";
 }>;
 export type DevAgentStatus = z.infer<typeof DevAgentStatusSchema>;
 export declare const DevAgentStateSchema: z.ZodObject<{
     status: z.ZodEnum<{
         applied: "applied";
-        ready: "ready";
-        pending: "pending";
         revoked: "revoked";
+        pending: "pending";
+        ready: "ready";
         offline: "offline";
     }>;
     appliedConfigVersion: z.ZodNumber;
@@ -67,9 +67,9 @@ export declare const DevAgentConfigStateSchema: z.ZodObject<{
     state: z.ZodObject<{
         status: z.ZodEnum<{
             applied: "applied";
-            ready: "ready";
-            pending: "pending";
             revoked: "revoked";
+            pending: "pending";
+            ready: "ready";
             offline: "offline";
         }>;
         appliedConfigVersion: z.ZodNumber;

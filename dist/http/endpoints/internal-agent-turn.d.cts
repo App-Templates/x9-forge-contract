@@ -178,6 +178,27 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
     moveId: z.ZodOptional<z.ZodString>;
     lead: z.ZodOptional<z.ZodString>;
     note: z.ZodOptional<z.ZodString>;
+    connectionCards: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        cardId: z.ZodString;
+        provider: z.ZodEnum<{
+            google: "google";
+        }>;
+        permissions: z.ZodArray<z.ZodEnum<{
+            calendar_events: "calendar_events";
+            contacts_read: "contacts_read";
+            mail_send: "mail_send";
+        }>>;
+        url: z.ZodString;
+        expiresAt: z.ZodNumber;
+        state: z.ZodEnum<{
+            connected: "connected";
+            revoked: "revoked";
+            pending: "pending";
+            denied: "denied";
+            expired: "expired";
+        }>;
+        reason: z.ZodString;
+    }, z.core.$strict>>>;
 }, z.core.$strip>;
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
@@ -314,6 +335,27 @@ export declare const internalAgentTurnContract: {
         moveId: z.ZodOptional<z.ZodString>;
         lead: z.ZodOptional<z.ZodString>;
         note: z.ZodOptional<z.ZodString>;
+        connectionCards: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            cardId: z.ZodString;
+            provider: z.ZodEnum<{
+                google: "google";
+            }>;
+            permissions: z.ZodArray<z.ZodEnum<{
+                calendar_events: "calendar_events";
+                contacts_read: "contacts_read";
+                mail_send: "mail_send";
+            }>>;
+            url: z.ZodString;
+            expiresAt: z.ZodNumber;
+            state: z.ZodEnum<{
+                connected: "connected";
+                revoked: "revoked";
+                pending: "pending";
+                denied: "denied";
+                expired: "expired";
+            }>;
+            reason: z.ZodString;
+        }, z.core.$strict>>>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agent-turn.d.ts.map

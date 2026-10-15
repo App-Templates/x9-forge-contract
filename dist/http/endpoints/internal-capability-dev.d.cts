@@ -82,9 +82,9 @@ export declare const devStateGetContract: {
         state: z.ZodObject<{
             status: z.ZodEnum<{
                 applied: "applied";
-                ready: "ready";
-                pending: "pending";
                 revoked: "revoked";
+                pending: "pending";
+                ready: "ready";
                 offline: "offline";
             }>;
             appliedConfigVersion: z.ZodNumber;

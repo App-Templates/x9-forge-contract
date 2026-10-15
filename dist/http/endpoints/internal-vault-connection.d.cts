@@ -43,10 +43,10 @@ export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
         google: "google";
     }>;
     status: z.ZodEnum<{
-        revoked: "revoked";
         not_connected: "not_connected";
         connected: "connected";
         needs_reconnect: "needs_reconnect";
+        revoked: "revoked";
     }>;
     accountLabel: z.ZodOptional<z.ZodString>;
     scopes: z.ZodArray<z.ZodEnum<{
@@ -122,10 +122,10 @@ export declare const getVaultConnectionStateContract: {
             google: "google";
         }>;
         status: z.ZodEnum<{
-            revoked: "revoked";
             not_connected: "not_connected";
             connected: "connected";
             needs_reconnect: "needs_reconnect";
+            revoked: "revoked";
         }>;
         accountLabel: z.ZodOptional<z.ZodString>;
         scopes: z.ZodArray<z.ZodEnum<{

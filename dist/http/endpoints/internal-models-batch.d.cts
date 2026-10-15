@@ -971,8 +971,8 @@ export declare const internalModelsOverviewContract: {
             embedding: z.ZodNullable<z.ZodObject<{
                 state: z.ZodEnum<{
                     failed: "failed";
-                    completed: "completed";
                     pending: "pending";
+                    completed: "completed";
                     running: "running";
                 }>;
                 previous: z.ZodObject<{
@@ -2111,8 +2111,8 @@ export declare const internalModelsBatchContract: {
         outcome: z.ZodEnum<{
             applied: "applied";
             failed: "failed";
-            partial: "partial";
             pending: "pending";
+            partial: "partial";
         }>;
         results: z.ZodArray<z.ZodObject<{
             configuration: z.ZodObject<{
@@ -3737,8 +3737,8 @@ export declare const internalModelConsumerStateContract: {
         embedding: z.ZodNullable<z.ZodObject<{
             state: z.ZodEnum<{
                 failed: "failed";
-                completed: "completed";
                 pending: "pending";
+                completed: "completed";
                 running: "running";
             }>;
             previous: z.ZodObject<{
@@ -4292,8 +4292,8 @@ export declare const internalModelConsumerInstallContract: {
             embedding: z.ZodNullable<z.ZodObject<{
                 state: z.ZodEnum<{
                     failed: "failed";
-                    completed: "completed";
                     pending: "pending";
+                    completed: "completed";
                     running: "running";
                 }>;
                 previous: z.ZodObject<{
@@ -4608,8 +4608,8 @@ export declare const internalModelConsumerReportContract: {
         embedding: z.ZodNullable<z.ZodObject<{
             state: z.ZodEnum<{
                 failed: "failed";
-                completed: "completed";
                 pending: "pending";
+                completed: "completed";
                 running: "running";
             }>;
             previous: z.ZodObject<{

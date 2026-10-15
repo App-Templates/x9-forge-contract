@@ -314,8 +314,8 @@ export declare const internalPhoneBackendModelSourceContract: {
         embedding: z.ZodNullable<z.ZodObject<{
             state: z.ZodEnum<{
                 failed: "failed";
-                completed: "completed";
                 pending: "pending";
+                completed: "completed";
                 running: "running";
             }>;
             previous: z.ZodObject<{

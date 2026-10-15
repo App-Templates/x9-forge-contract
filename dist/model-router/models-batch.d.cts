@@ -22,8 +22,8 @@ export declare const ModelCostMetadataSchema: z.ZodDiscriminatedUnion<[z.ZodObje
 export declare const ModelEmbeddingRebuildSchema: z.ZodObject<{
     state: z.ZodEnum<{
         failed: "failed";
-        completed: "completed";
         pending: "pending";
+        completed: "completed";
         running: "running";
     }>;
     previous: z.ZodObject<{
@@ -1043,8 +1043,8 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
     embedding: z.ZodNullable<z.ZodObject<{
         state: z.ZodEnum<{
             failed: "failed";
-            completed: "completed";
             pending: "pending";
+            completed: "completed";
             running: "running";
         }>;
         previous: z.ZodObject<{
@@ -2119,8 +2119,8 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
         embedding: z.ZodNullable<z.ZodObject<{
             state: z.ZodEnum<{
                 failed: "failed";
-                completed: "completed";
                 pending: "pending";
+                completed: "completed";
                 running: "running";
             }>;
             previous: z.ZodObject<{
@@ -3995,8 +3995,8 @@ export declare const AgentModelsBatchStatusSchema: z.ZodEnum<{
 export declare const AgentModelsBatchOutcomeSchema: z.ZodEnum<{
     applied: "applied";
     failed: "failed";
-    partial: "partial";
     pending: "pending";
+    partial: "partial";
 }>;
 export declare function deriveAgentModelsBatchOutcome(statuses: readonly z.infer<typeof AgentModelsBatchStatusSchema>[]): z.infer<typeof AgentModelsBatchOutcomeSchema>;
 export declare const AgentModelsBatchResultSchema: z.ZodObject<{
@@ -4005,8 +4005,8 @@ export declare const AgentModelsBatchResultSchema: z.ZodObject<{
     outcome: z.ZodEnum<{
         applied: "applied";
         failed: "failed";
-        partial: "partial";
         pending: "pending";
+        partial: "partial";
     }>;
     results: z.ZodArray<z.ZodObject<{
         configuration: z.ZodObject<{

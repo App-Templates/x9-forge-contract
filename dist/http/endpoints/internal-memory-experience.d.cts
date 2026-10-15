@@ -157,8 +157,8 @@ export declare const InternalMemoryExperienceRequestSchema: z.ZodDiscriminatedUn
     kind: z.ZodLiteral<"authoritative_decision">;
     decisionRef: z.ZodString;
     status: z.ZodEnum<{
-        approved: "approved";
         revoked: "revoked";
+        approved: "approved";
         superseded: "superseded";
     }>;
     approvedBy: z.ZodOptional<z.ZodObject<{
@@ -424,8 +424,8 @@ export declare const internalMemoryExperienceContract: {
         kind: z.ZodLiteral<"authoritative_decision">;
         decisionRef: z.ZodString;
         status: z.ZodEnum<{
-            approved: "approved";
             revoked: "revoked";
+            approved: "approved";
             superseded: "superseded";
         }>;
         approvedBy: z.ZodOptional<z.ZodObject<{

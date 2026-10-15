@@ -8,9 +8,9 @@ export declare const AgentChannelHistoryKindSchema: z.ZodEnum<{
 }>;
 export type AgentChannelHistoryKind = z.infer<typeof AgentChannelHistoryKindSchema>;
 export declare const AgentChannelHistoryContentStateSchema: z.ZodEnum<{
+    expired: "expired";
     available: "available";
     unavailable: "unavailable";
-    expired: "expired";
     "not-applicable": "not-applicable";
     "not-retained": "not-retained";
 }>;
@@ -50,16 +50,16 @@ export declare const AgentChannelHistoryEntrySchema: z.ZodObject<{
     durationSeconds: z.ZodNullable<z.ZodNumber>;
     content: z.ZodObject<{
         audio: z.ZodEnum<{
+            expired: "expired";
             available: "available";
             unavailable: "unavailable";
-            expired: "expired";
             "not-applicable": "not-applicable";
             "not-retained": "not-retained";
         }>;
         transcript: z.ZodEnum<{
+            expired: "expired";
             available: "available";
             unavailable: "unavailable";
-            expired: "expired";
             "not-applicable": "not-applicable";
             "not-retained": "not-retained";
         }>;
@@ -131,16 +131,16 @@ export declare const AgentChannelHistoryResponseSchema: z.ZodDiscriminatedUnion<
         durationSeconds: z.ZodNullable<z.ZodNumber>;
         content: z.ZodObject<{
             audio: z.ZodEnum<{
+                expired: "expired";
                 available: "available";
                 unavailable: "unavailable";
-                expired: "expired";
                 "not-applicable": "not-applicable";
                 "not-retained": "not-retained";
             }>;
             transcript: z.ZodEnum<{
+                expired: "expired";
                 available: "available";
                 unavailable: "unavailable";
-                expired: "expired";
                 "not-applicable": "not-applicable";
                 "not-retained": "not-retained";
             }>;

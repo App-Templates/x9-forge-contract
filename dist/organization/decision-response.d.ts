@@ -7,8 +7,8 @@ export declare const DecisionAlternativeSchema: z.ZodObject<{
 export type DecisionAlternative = z.infer<typeof DecisionAlternativeSchema>;
 export declare const DecisionCompletenessSchema: z.ZodEnum<{
     incomplete: "incomplete";
-    complete: "complete";
     denied: "denied";
+    complete: "complete";
 }>;
 export type DecisionCompleteness = z.infer<typeof DecisionCompletenessSchema>;
 /**
@@ -56,8 +56,8 @@ export declare const DecisionResponseSchema: z.ZodObject<{
     }, z.core.$strict>>;
     completeness: z.ZodEnum<{
         incomplete: "incomplete";
-        complete: "complete";
         denied: "denied";
+        complete: "complete";
     }>;
     denialReason: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;

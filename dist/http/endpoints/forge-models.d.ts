@@ -17,8 +17,8 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
         outcome: z.ZodEnum<{
             applied: "applied";
             failed: "failed";
-            partial: "partial";
             pending: "pending";
+            partial: "partial";
         }>;
         results: z.ZodArray<z.ZodObject<{
             configuration: z.ZodObject<{
@@ -1405,8 +1405,8 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
             embedding: z.ZodNullable<z.ZodObject<{
                 state: z.ZodEnum<{
                     failed: "failed";
-                    completed: "completed";
                     pending: "pending";
+                    completed: "completed";
                     running: "running";
                 }>;
                 previous: z.ZodObject<{
@@ -2485,8 +2485,8 @@ export declare const forgeModelsOverviewContract: {
             embedding: z.ZodNullable<z.ZodObject<{
                 state: z.ZodEnum<{
                     failed: "failed";
-                    completed: "completed";
                     pending: "pending";
+                    completed: "completed";
                     running: "running";
                 }>;
                 previous: z.ZodObject<{
@@ -3713,8 +3713,8 @@ export declare const forgeModelsBatchContract: {
         outcome: z.ZodEnum<{
             applied: "applied";
             failed: "failed";
-            partial: "partial";
             pending: "pending";
+            partial: "partial";
         }>;
         results: z.ZodArray<z.ZodObject<{
             configuration: z.ZodObject<{
@@ -4154,8 +4154,8 @@ export declare const forgeModelsProgressContract: {
             outcome: z.ZodEnum<{
                 applied: "applied";
                 failed: "failed";
-                partial: "partial";
                 pending: "pending";
+                partial: "partial";
             }>;
             results: z.ZodArray<z.ZodObject<{
                 configuration: z.ZodObject<{
@@ -5542,8 +5542,8 @@ export declare const forgeModelsProgressContract: {
                 embedding: z.ZodNullable<z.ZodObject<{
                     state: z.ZodEnum<{
                         failed: "failed";
-                        completed: "completed";
                         pending: "pending";
+                        completed: "completed";
                         running: "running";
                     }>;
                     previous: z.ZodObject<{
