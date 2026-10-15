@@ -81,7 +81,8 @@ describe('vault connection contract', () => {
     // Mutazione: togliere min(1), il refine sui duplicati o max(200).
     expect(PutVaultConnectionBodySchema.safeParse({ ...body, scopes: [] }).success).toBe(false);
     expect(PutVaultConnectionBodySchema.safeParse({ ...body, scopes: ['mail_send', 'mail_send'] }).success).toBe(false);
-    expect(PutVaultConnectionBodySchema.safeParse({ ...body, scopes: ['mail_read'] }).success).toBe(false);
+    // Mutation: admitting mail_write fails the unknown scope check.
+    expect(PutVaultConnectionBodySchema.safeParse({ ...body, scopes: ['mail_write'] }).success).toBe(false);
     expect(PutVaultConnectionBodySchema.safeParse({ ...body, accountLabel: 'a'.repeat(201) }).success).toBe(false);
     expect(PutVaultConnectionBodySchema.safeParse({ value: 'v' }).success).toBe(false);
   });
@@ -125,18 +126,28 @@ describe('vault access tokens and connection inventory', () => {
   const inventory = { ok: true, connections: [connection] };
 
   it('accepts supported access scopes and rejects sending and unknown scopes', () => {
-    // Removing the scope refinement must allow mail_send and fail this test.
-    for (const scope of ['calendar_events', 'contacts_read', 'mail_draft']) {
+    // Mutation: removing a supported scope fails acceptance; removing the refinement admits mail_send.
+    for (const scope of ['calendar_events', 'contacts_read', 'mail_draft', 'mail_read', 'drive_read']) {
       expect(VaultAccessScopeSchema.safeParse(scope).success).toBe(true);
       expect(PostVaultAccessTokenBodySchema.safeParse({ ...request, scope }).success).toBe(true);
     }
-    for (const scope of ['mail_send', 'mail_read', '']) {
+    for (const scope of ['mail_send', 'mail_write', 'drive_write', 'docs_read', 'gmail.readonly', '']) {
       expect(VaultAccessScopeSchema.safeParse(scope).success).toBe(false);
       expect(PostVaultAccessTokenBodySchema.safeParse({ ...request, scope }).success).toBe(false);
     }
     for (const invalid of [{ scope: request.scope }, { ...request, personRef: '' }, { personRef: 'person-7' }]) {
       expect(PostVaultAccessTokenBodySchema.safeParse(invalid).success).toBe(false);
     }
+  });
+
+  // Mutation: removing either read scope from ConnectScopeSchema fails these derived payloads.
+  it.each(['mail_read', 'drive_read'])('accepts %s in stored connections and access token responses', (scope) => {
+    expect(PutVaultConnectionBodySchema.safeParse({ ...body, scopes: [scope] }).success).toBe(true);
+    expect(GetVaultConnectionStateResponseSchema.safeParse({ ...state, scopes: [scope] }).success).toBe(true);
+    expect(PostVaultAccessTokenResponseSchema.safeParse({ ...response, scopes: [scope] }).success).toBe(true);
+    expect(ListVaultConnectionsResponseSchema.safeParse({
+      ok: true, connections: [{ ...connection, scopes: [scope] }],
+    }).success).toBe(true);
   });
 
   it('enforces access token length and positive integer unix expiration', () => {
@@ -151,7 +162,8 @@ describe('vault access tokens and connection inventory', () => {
     for (const expiresAt of [0, -1, 1800000000.5, '1800000000']) {
       expect(PostVaultAccessTokenResponseSchema.safeParse({ ...response, expiresAt }).success).toBe(false);
     }
-    expect(PostVaultAccessTokenResponseSchema.safeParse({ ...response, scopes: ['mail_read'] }).success).toBe(false);
+    // Mutation: admitting mail_write fails response scope validation.
+    expect(PostVaultAccessTokenResponseSchema.safeParse({ ...response, scopes: ['mail_write'] }).success).toBe(false);
     expect(PostVaultAccessTokenResponseSchema.safeParse({ ...response, ok: false }).success).toBe(false);
   });
 
@@ -184,7 +196,8 @@ describe('vault access tokens and connection inventory', () => {
     for (const invalid of [
       { ...connection, provider: 'dropbox' },
       { ...connection, status: 'unknown' },
-      { ...connection, scopes: ['mail_read'] },
+      // Mutation: admitting mail_write fails inventory scope validation.
+      { ...connection, scopes: ['mail_write'] },
       { ...connection, accountLabel: 'a'.repeat(201) },
     ]) {
       expect(ListVaultConnectionsResponseSchema.safeParse({ ok: true, connections: [invalid] }).success).toBe(false);
