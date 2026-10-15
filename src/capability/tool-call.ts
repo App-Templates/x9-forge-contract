@@ -42,6 +42,17 @@ export const ToolCallRequestSchema = z.object({
    */
   tenantId: z.string().min(1).optional(),
   ownerId: z.string().min(1).optional(),
+  /**
+   * Numeric Vault id of the dispatching agent (`identity.vaultAgentId`),
+   * injected by the runtime, never by the model. Lets capability services ask
+   * the Vault for an access token on behalf of the right agent.
+   */
+  vaultAgentId: z.number().int().positive().optional(),
+  /**
+   * Attested person of the turn (the actor the connection belongs to),
+   * injected by the runtime, never by the model and never inside `input`.
+   */
+  personRef: z.string().min(1).optional(),
 });
 
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
