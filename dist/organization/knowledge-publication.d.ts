@@ -2,8 +2,8 @@ import { z } from 'zod';
 /** Lifecycle of a published piece of knowledge. */
 export declare const KnowledgeStatusSchema: z.ZodEnum<{
     proposed: "proposed";
-    current: "current";
     withdrawn: "withdrawn";
+    current: "current";
 }>;
 export type KnowledgeStatus = z.infer<typeof KnowledgeStatusSchema>;
 export declare const KnowledgeKindSchema: z.ZodEnum<{
@@ -78,8 +78,8 @@ export declare const KnowledgePublicationSchema: z.ZodObject<{
     }>;
     status: z.ZodEnum<{
         proposed: "proposed";
-        current: "current";
         withdrawn: "withdrawn";
+        current: "current";
     }>;
     evidence: z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{

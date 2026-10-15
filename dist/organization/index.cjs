@@ -29,4 +29,6 @@ __exportStar(require("./simulation-world.cjs"), exports);
 __exportStar(require("./knowledge-publication.cjs"), exports);
 __exportStar(require("./participant-binding.cjs"), exports);
 __exportStar(require("./tool-call-correlation.cjs"), exports);
+__exportStar(require("./publication-operations.cjs"), exports);
+__exportStar(require("./publication-lookup.cjs"), exports);
 //# sourceMappingURL=index.js.map

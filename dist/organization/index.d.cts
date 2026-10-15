@@ -13,4 +13,6 @@ export * from "./simulation-world.cjs";
 export * from "./knowledge-publication.cjs";
 export * from "./participant-binding.cjs";
 export * from "./tool-call-correlation.cjs";
+export * from "./publication-operations.cjs";
+export * from "./publication-lookup.cjs";
 //# sourceMappingURL=index.d.ts.map
