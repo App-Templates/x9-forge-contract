@@ -58,10 +58,14 @@ function customRefinements(schema, seen = new Set()) {
         visit(def.getter());
     return count;
 }
+const organizationRunRule = { op: 'equal_paths_if_present', left: 'organization.attempt.runId', right: 'organization.organizationRun.runId' };
+const organizationExpiryRule = { op: 'timestamp_after_if_present', earlier: 'organization.organizationRun.issuedAt', later: 'organization.organizationRun.expiresAt' };
 const callRules = [
     { op: 'max_properties', path: 'ordinaryConfiguration.values', max: 100 },
     ...['tenantId', 'ownerId', 'agentId'].map(key => ({ op: 'equal_paths', left: `ordinaryConfiguration.scope.${key}`, right: key })),
     { op: 'authority_equal', path: 'ordinaryConfiguration' },
+    organizationRunRule,
+    organizationExpiryRule,
 ];
 const authorityRules = [
     { op: 'empty_configuration_target' },
@@ -109,8 +113,8 @@ function getPortableCapabilityContracts() {
         contracts[name] = { supported: gates.length === 0, schema: json, rules, gates, customRefinements: count, limitations: [] };
     };
     add('ordinarySnapshot', snapshot, [{ op: 'max_properties', path: 'values', max: 100 }, { op: 'authority_equal', path: '' }], 1);
-    add('ordinaryToolCall', ordinaryCall, callRules, 2);
-    add('ragToolCall', ragCall, [{ op: 'membership_call', capability: 'rag' }], 2);
+    add('ordinaryToolCall', ordinaryCall, callRules, 4);
+    add('ragToolCall', ragCall, [{ op: 'membership_call', capability: 'rag' }, organizationRunRule, organizationExpiryRule], 4);
     add('ragQueryRequest', rag_query_js_1.RagQueryRequestSchema, [], 0);
     add('ragQueryResponse', rag_query_js_1.RagQueryResponseSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
@@ -160,6 +164,16 @@ function applyPortableCapabilityRules(value, rules, authority) {
                 if (at(value, rule.left) === undefined || !(0, ordinary_configuration_js_1.sameOrdinaryData)(at(value, rule.left), at(value, rule.right)))
                     throw new Error('Portable ordinary scope mismatch');
                 break;
+            case 'equal_paths_if_present':
+                if (at(value, rule.left) !== undefined && (at(value, rule.right) === undefined || !(0, ordinary_configuration_js_1.sameOrdinaryData)(at(value, rule.left), at(value, rule.right))))
+                    throw new Error('Portable ordinary scope mismatch');
+                break;
+            case 'timestamp_after_if_present': {
+                const earlier = at(value, rule.earlier);
+                if (earlier !== undefined && !(Date.parse(String(at(value, rule.later))) > Date.parse(String(earlier))))
+                    throw new Error('Portable ordinary time window mismatch');
+                break;
+            }
             case 'authority_equal':
                 if (authority === undefined || !(0, ordinary_configuration_js_1.sameOrdinaryData)(at(value, rule.path), snapshot.parse(authority)))
                     throw new Error('Portable ordinary loaded authority mismatch');
@@ -210,7 +224,7 @@ function parsePortableAuthorityResponse(response, lookup, expectedIdentity) {
 }
 function parsePortableRagToolCall(value, authority) {
     const parsed = ragCall.parse(value);
-    applyPortableCapabilityRules(parsed, [{ op: 'membership_call', capability: 'rag' }], authority);
+    applyPortableCapabilityRules(parsed, [{ op: 'membership_call', capability: 'rag' }, organizationRunRule, organizationExpiryRule], authority);
     return parsed;
 }
 function parsePortableLifecycleRequest(value, authority) {

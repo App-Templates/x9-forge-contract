@@ -171,6 +171,14 @@ export type PortableCapabilityRule = {
     left: string;
     right: string;
 } | {
+    op: 'equal_paths_if_present';
+    left: string;
+    right: string;
+} | {
+    op: 'timestamp_after_if_present';
+    earlier: string;
+    later: string;
+} | {
     op: 'authority_equal';
     path: string;
 } | {
