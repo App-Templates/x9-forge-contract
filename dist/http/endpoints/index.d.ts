@@ -61,7 +61,9 @@ export * from "./forge-master-model-authority.js";
 export * from "./internal-models-apply.js";
 export * from "./internal-vault-connection.js";
 export * from "./internal-connect.js";
+export * from "./connection-card.js";
 export * from "./internal-memory-experience.js";
 export * from "./internal-memory-decisions.js";
 export * from "./connect-public.js";
+export * from "./internal-connection-completed.js";
 //# sourceMappingURL=index.d.ts.map

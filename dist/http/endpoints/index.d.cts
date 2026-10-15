@@ -61,7 +61,9 @@ export * from "./forge-master-model-authority.cjs";
 export * from "./internal-models-apply.cjs";
 export * from "./internal-vault-connection.cjs";
 export * from "./internal-connect.cjs";
+export * from "./connection-card.cjs";
 export * from "./internal-memory-experience.cjs";
 export * from "./internal-memory-decisions.cjs";
 export * from "./connect-public.cjs";
+export * from "./internal-connection-completed.cjs";
 //# sourceMappingURL=index.d.ts.map
