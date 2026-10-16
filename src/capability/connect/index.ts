@@ -93,3 +93,4 @@ export type ConnectRevokeResponse = z.infer<typeof ConnectRevokeResponseSchema>;
 export type ConnectToolPermit = z.infer<typeof ConnectToolPermitSchema>;
 
 export * from './development-session.js';
+export * from './development-session-pairing.js';
