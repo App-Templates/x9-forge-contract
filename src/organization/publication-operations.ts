@@ -108,3 +108,19 @@ export const ResolveMaterialResponseSchema = z.discriminatedUnion('status', [
   ...ReadMaterialRefusalSchemas,
 ]);
 export type ResolveMaterialResponse = z.infer<typeof ResolveMaterialResponseSchema>;
+
+/**
+ * Correlates resolved text with the requested publication reference.
+ * Consumers must adopt this helper before showing text in memory_resolve_published;
+ * that integration is pending. Access and cryptographic checks remain in the service.
+ * The reader's run context may differ from the published material's context.
+ */
+export function isResolveMaterialResponseForRequest(raw: unknown, expected: unknown): boolean {
+  const response = ResolveMaterialResponseSchema.safeParse(raw);
+  const request = ResolveMaterialRequestSchema.safeParse(expected);
+  if (!response.success || !request.success || response.data.status !== 'ok') return false;
+
+  // Both references are parsed by the same schema, giving stable property order.
+  return JSON.stringify(response.data.ref) === JSON.stringify(request.data.ref)
+    && response.data.digest === request.data.ref.digest;
+}
