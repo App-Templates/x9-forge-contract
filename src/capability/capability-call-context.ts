@@ -18,9 +18,8 @@ import type { ToolCallRequest } from './tool-call.js';
  *   a consumer never falls back to a process-global key.
  */
 
-/** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
-export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
-export type CapabilityAgentScope = z.infer<typeof CapabilityAgentScopeSchema>;
+/** Agent-level scope of capability data (no person), defined beside the identity. */
+export { CapabilityAgentScopeSchema, type CapabilityAgentScope } from './capability-call-identity.js';
 
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
 export const CapabilityPersonScopeSchema = CapabilityCallIdentitySchema.required({ userId: true }); // strict, inherited

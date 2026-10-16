@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
+import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
 import { DeviceIdSchema } from '../../auth/device-signature.js';
 
 /** Engines are independent of the local/cloud session target. */
