@@ -10,6 +10,16 @@ export const DevProductionArtifactSchema = z.strictObject({
   mediaType: z.string().min(1),
   bytes: z.number().int().positive().finite(),
   sha256: JobShape.reportDigest,
+  // Suggested download metadata only; artifactRef remains the storage authority.
+  fileName: z.string().trim().min(1).max(180)
+    .refine((name) => !name.includes('/'), { message: 'File name must not contain slash' })
+    .refine((name) => !name.includes('\\'), { message: 'File name must not contain backslash' })
+    .refine((name) => !name.includes(':'), { message: 'File name must not contain colon' })
+    .refine((name) => !/\p{Cc}/u.test(name), { message: 'File name must not contain controls' })
+    .refine((name) => name !== '.', { message: 'File name must not be dot' })
+    .refine((name) => name !== '..', { message: 'File name must not be dot-dot' })
+    .optional(),
+  displayName: z.string().trim().min(1).max(160).optional(),
 });
 export type DevProductionArtifact = z.infer<typeof DevProductionArtifactSchema>;
 
