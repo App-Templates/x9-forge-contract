@@ -1,0 +1,29 @@
+import { z } from 'zod';
+import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
+import { DeviceIdSchema } from '../../auth/device-signature.js';
+
+/** Engines are independent of the local/cloud session target. */
+export const DevelopmentSessionEngineSchema = z.enum(['claude', 'codex']);
+export type DevelopmentSessionEngine = z.infer<typeof DevelopmentSessionEngineSchema>;
+
+export const DevelopmentSessionEnginesSchema = z.array(DevelopmentSessionEngineSchema).min(1).max(2)
+  .refine((engines) => new Set(engines).size === engines.length, {
+    message: 'Development session engines must be unique',
+  });
+export type DevelopmentSessionEngines = z.infer<typeof DevelopmentSessionEnginesSchema>;
+
+/** Public references only; local connections are initiated outbound by the device. */
+export const DevelopmentSessionTargetSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('local'), deviceId: DeviceIdSchema }).strict(),
+  z.object({ kind: z.literal('cloud'), connectionRef: z.string().min(1) }).strict(),
+]);
+export type DevelopmentSessionTarget = z.infer<typeof DevelopmentSessionTargetSchema>;
+
+/** Configured reference only: neither online presence nor permission to execute. */
+export const DevelopmentSessionBindingSchema = z.object({
+  scope: z.lazy(() => CapabilityAgentScopeSchema),
+  sessionId: z.string().min(1),
+  target: DevelopmentSessionTargetSchema,
+  engines: DevelopmentSessionEnginesSchema,
+}).strict();
+export type DevelopmentSessionBinding = z.infer<typeof DevelopmentSessionBindingSchema>;
