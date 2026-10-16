@@ -53,8 +53,17 @@ export const DevProductionResultSchema = z.discriminatedUnion('status', [
   ResultBaseSchema.extend({
     status: z.literal('succeeded'),
     artifacts: z.array(DevProductionArtifactSchema).min(1),
+    delivery: z.strictObject({
+      summary: z.string().trim().min(1).max(1000),
+      instructions: z.string().min(1).max(8000)
+        .refine((text) => /\S/u.test(text), { message: 'Instructions must contain non-whitespace text' }),
+      primaryArtifactRef: DevProductionArtifactSchema.shape.artifactRef,
+    }).optional(),
     verification: z.discriminatedUnion('kind', [TestsVerificationSchema, VisualVerificationSchema]),
   }).superRefine((result, ctx) => {
+    if (result.delivery && result.artifacts.filter((artifact) => artifact.artifactRef === result.delivery?.primaryArtifactRef).length !== 1) {
+      ctx.addIssue({ code: 'custom', path: ['delivery', 'primaryArtifactRef'], message: 'Primary artifact must identify exactly one artifact' });
+    }
     const expected = result.productKind === 'code' || result.productKind === 'automation' ? 'tests' : 'visual_review';
     if (result.verification.kind !== expected) {
       ctx.addIssue({ code: 'custom', path: ['verification', 'kind'], message: 'Evidence must match product kind' });
