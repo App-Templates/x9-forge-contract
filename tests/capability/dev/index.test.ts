@@ -3,11 +3,12 @@ import * as dev from '../../../src/capability/dev/index.js';
 import * as capability from '../../../src/capability/index.js';
 import * as signedCommand from '../../../src/capability/dev/signed-command.js';
 import * as configState from '../../../src/capability/dev/config-state.js';
+import * as productionJob from '../../../src/capability/dev/production-job.js';
 
-const allSymbols = { ...signedCommand, ...configState };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob };
 
 describe('capability/dev subpath', () => {
-  it('re-exports every symbol of signed-command and config-state', () => {
+  it('re-exports every symbol of signed-command, config-state and production-job', () => {
     expect(dev.DevSignedCommandV2Schema).toBe(signedCommand.DevSignedCommandV2Schema);
     expect(dev.DEV_SIGNED_COMMAND_V2_DOMAIN).toBe(signedCommand.DEV_SIGNED_COMMAND_V2_DOMAIN);
     expect(dev.canonicalizeDevSignedCommandV2).toBe(signedCommand.canonicalizeDevSignedCommandV2);
@@ -16,6 +17,9 @@ describe('capability/dev subpath', () => {
     expect(dev.DevAgentStatusSchema).toBe(configState.DevAgentStatusSchema);
     expect(dev.DevAgentStateSchema).toBe(configState.DevAgentStateSchema);
     expect(dev.DevAgentConfigStateSchema).toBe(configState.DevAgentConfigStateSchema);
+    for (const name of Object.keys(productionJob) as (keyof typeof productionJob)[]) {
+      expect(dev[name]).toBe(productionJob[name]);
+    }
     expect(Object.keys(dev).sort()).toEqual(Object.keys(allSymbols).sort());
   });
 
@@ -29,6 +33,10 @@ describe('capability/dev subpath', () => {
         'DevAgentStatusSchema',
         'DevBindingSchema',
         'DevSignedCommandV2Schema',
+        'DevProductionKindSchema',
+        'DevProductionJobSchema',
+        'devProductionApprovalBindings',
+        'devProductionExecutionMode',
         'canonicalizeDevSignedCommandV2',
       ].sort(),
     );
