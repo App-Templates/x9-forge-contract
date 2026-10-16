@@ -13,6 +13,7 @@ describe('capability/dev subpath', () => {
     expect(dev.DevSignedCommandV2Schema).toBe(signedCommand.DevSignedCommandV2Schema);
     expect(dev.DEV_SIGNED_COMMAND_V2_DOMAIN).toBe(signedCommand.DEV_SIGNED_COMMAND_V2_DOMAIN);
     expect(dev.canonicalizeDevSignedCommandV2).toBe(signedCommand.canonicalizeDevSignedCommandV2);
+    expect(dev.canonicalizeDevProductionReport).toBe(productionJob.canonicalizeDevProductionReport);
     expect(dev.DevBindingSchema).toBe(configState.DevBindingSchema);
     expect(dev.DevAgentConfigSchema).toBe(configState.DevAgentConfigSchema);
     expect(dev.DevAgentStatusSchema).toBe(configState.DevAgentStatusSchema);
@@ -45,6 +46,7 @@ describe('capability/dev subpath', () => {
         'devProductionApprovalBindings',
         'devProductionExecutionMode',
         'canonicalizeDevSignedCommandV2',
+        'canonicalizeDevProductionReport',
       ].sort(),
     );
   });

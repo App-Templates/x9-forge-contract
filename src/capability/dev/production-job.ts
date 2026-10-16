@@ -32,6 +32,27 @@ export const DevProductionJobSchema = z.strictObject({
 export type DevProductionJob = z.infer<typeof DevProductionJobSchema>;
 
 /**
+ * S3 must compute/compare reportDigest as SHA-256 of this string's UTF-8 bytes
+ * before A11 verification and before effects. A supplied digest is not authoritative;
+ * this reversible report format neither signs the job nor replaces the A11 verifier.
+ */
+export function canonicalizeDevProductionReport(rawJob: unknown): string {
+  const parsed = DevProductionJobSchema.parse(rawJob);
+  const job = Object.fromEntries(Object.entries(parsed).filter(([key]) => key !== 'reportDigest'));
+  job.session = { ...parsed.session, engines: [...parsed.session.engines].sort() };
+  function sortKeys(value: unknown): unknown {
+    if (Array.isArray(value)) return value.map(sortKeys);
+    if (value !== null && typeof value === 'object') {
+      return Object.fromEntries(Object.entries(value)
+        .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
+        .map(([key, child]) => [key, sortKeys(child)]));
+    }
+    return value;
+  }
+  return JSON.stringify(sortKeys({ domain: 'x9.cap-dev.production-report', version: 1, job }));
+}
+
+/**
  * The service must compute and verify the report digest over text, limits and destination
  * before every effect. These bindings identify that snapshot; the bridge does not attest it.
  * Scope and requestId are already canonical fields of the A11 permit.
