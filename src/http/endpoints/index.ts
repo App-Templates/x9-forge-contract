@@ -27,6 +27,7 @@ export * from './internal-capability-elevenlabs.js'; // v1.31.0 — R6 cap-agent
 export * from './internal-capability-coach.js'; // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
 export * from './internal-capability-dev.js'; // P04-d — cap-dev get/put config and get state
 export * from './internal-dev-progress.js';
+export * from './internal-dev-jobs.js';
 export * from './internal-dev-cancel.js';
 export * from './internal-capability-lab.js';
 
