@@ -1,5 +1,8 @@
 import { DevAgentConfigStateSchema } from './config-state.js';
+import { DevProductionRoleModelsSchema } from '../../http/endpoints/development-session-models.js';
 import { DevProductionJobSchema } from './production-job.js';
+
+const ROLES = DevProductionRoleModelsSchema.keyof().options;
 
 /**
  * Pure compatibility check for S3's final configuration reread. Only an explicit
@@ -33,5 +36,18 @@ export function isDevProductionJobForConfig(rawJob: unknown, rawConfigState: unk
     && session.target.connectionRef !== job.session.target.connectionRef) return false;
   if (session.engines.length !== job.session.engines.length
     || !session.engines.every(engine => job.session.engines.includes(engine))) return false;
+  // Role models: both absent keeps the historical match; otherwise every role must be identical.
+  const jobRoles = job.roleModels;
+  const configRoles = config.production.roleModels;
+  if (jobRoles === undefined && configRoles !== undefined) return false;
+  if (jobRoles !== undefined && configRoles === undefined) return false;
+  if (jobRoles === undefined || configRoles === undefined) return true;
+  for (const role of ROLES) {
+    const requested = jobRoles[role];
+    const applied = configRoles[role];
+    if (requested.engine !== applied.engine) return false;
+    if (requested.modelId !== applied.modelId) return false;
+    if (requested.reasoningEffort !== applied.reasoningEffort) return false;
+  }
   return true;
 }
