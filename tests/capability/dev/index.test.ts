@@ -5,15 +5,17 @@ import * as signedCommand from '../../../src/capability/dev/signed-command.js';
 import * as configState from '../../../src/capability/dev/config-state.js';
 import * as productionJob from '../../../src/capability/dev/production-job.js';
 import * as productionResult from '../../../src/capability/dev/production-result.js';
+import * as productionConfigMatch from '../../../src/capability/dev/production-config-match.js';
 
-const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionConfigMatch };
 
 describe('capability/dev subpath', () => {
-  it('re-exports every symbol of signed-command, config-state, production-job and production-result', () => {
+  it('re-exports every symbol of signed-command, config-state, production-job, production-result and production-config-match', () => {
     expect(dev.DevSignedCommandV2Schema).toBe(signedCommand.DevSignedCommandV2Schema);
     expect(dev.DEV_SIGNED_COMMAND_V2_DOMAIN).toBe(signedCommand.DEV_SIGNED_COMMAND_V2_DOMAIN);
     expect(dev.canonicalizeDevSignedCommandV2).toBe(signedCommand.canonicalizeDevSignedCommandV2);
     expect(dev.canonicalizeDevProductionReport).toBe(productionJob.canonicalizeDevProductionReport);
+    expect(dev.isDevProductionJobForConfig).toBe(productionConfigMatch.isDevProductionJobForConfig);
     expect(dev.DevBindingSchema).toBe(configState.DevBindingSchema);
     expect(dev.DevAgentConfigSchema).toBe(configState.DevAgentConfigSchema);
     expect(dev.DevAgentStatusSchema).toBe(configState.DevAgentStatusSchema);
@@ -43,6 +45,7 @@ describe('capability/dev subpath', () => {
         'DevProductionArtifactSchema',
         'DevProductionResultSchema',
         'isDevProductionResultForJob',
+        'isDevProductionJobForConfig',
         'devProductionApprovalBindings',
         'devProductionExecutionMode',
         'canonicalizeDevSignedCommandV2',
