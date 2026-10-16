@@ -16,7 +16,7 @@ const scenarios = ['publish', 'withdraw'].flatMap(operation => {
   const common = { operation, helper: `isKnowledge${kind}ReceiptForRequest` };
   return [
     ...['slug', 'version', 'digest'].map(field => ({
-      ...common, id: `${operation}-${field}`, title: `rejects mismatched ${field}`,
+      ...common, id: `${operation}-${field}`, title: `rejects mismatched '${field}'`,
       anchor: `&& receipt.data.${field} === request.data.${ref}.${field}`,
       replacement: '', assertion: 'expect(correlate(mismatched, request)).toBe(false);',
     })),
@@ -93,13 +93,11 @@ function copyPublic(destination) {
 // from the recordId mutant. Unknown matcher/stack formats fail closed.
 const booleanFailure = 'AssertionError: expected true to be false // Object.is equality';
 // Named gates let the self-test remove every guard independently. Production
-// always uses all guards; the selector is private to the synthetic self-test.
+// always uses all guards; the selector is private to the self-test.
 function validateReport(report, exit, expected, red, select = () => true) {
   function gate(id, valid) { if (select(id)) assert.ok(valid, id); }
   gate('exit', exit === (red ? 1 : 0));
   gate('success', report.success === !red);
-  gate('passed', report.numPassedTests === (red ? 0 : 1));
-  gate('failed', report.numFailedTests === (red ? 1 : 0));
   gate('runtime', (report.numRuntimeErrorTestSuites ?? 0) === 0);
   gate('unhandled', Array.isArray(report.unhandledErrors ?? []) && (report.unhandledErrors ?? []).length === 0);
   gate('suites', Array.isArray(report.testResults) && report.testResults.length === 1);
@@ -109,9 +107,16 @@ function validateReport(report, exit, expected, red, select = () => true) {
   gate('suite-message', suite?.message === '');
   const results = suite?.assertionResults;
   gate('results', Array.isArray(results));
-  gate('statuses', Array.isArray(results) && results.every(t => ['passed', 'failed', 'pending', 'skipped', 'todo', 'disabled'].includes(t.status)));
+  gate('statuses', Array.isArray(results) && results.every(t => ['passed', 'failed', 'pending', 'skipped'].includes(t.status)));
   const executed = Array.isArray(results) ? results.filter(t => ['passed', 'failed'].includes(t.status)) : [];
   gate('executed', executed.length === 1);
+  gate('passed', report.numPassedTests === executed.filter(t => t.status === 'passed').length);
+  gate('failed', report.numFailedTests === executed.filter(t => t.status === 'failed').length);
+  gate('total', report.numTotalTests === results?.length);
+  gate('pending', report.numPendingTests === results?.filter(t => ['skipped', 'pending'].includes(t.status)).length);
+  gate('todo', report.numTodoTests === 0);
+  gate('outside-errors', results?.every(t => executed.includes(t)
+    || (Array.isArray(t.failureMessages) && t.failureMessages.length === 0)));
   const test = executed[0];
   gate('full-name', test?.fullName === expected.fullName);
   gate('title', test?.title === expected.title);
@@ -126,26 +131,39 @@ function validateReport(report, exit, expected, red, select = () => true) {
   gate('frame', application === `    at ${expected.file}:${expected.line}:${expected.column}`);
 }
 
+// Captured from the exact publish/slug Vitest run (1 passed, 16 skipped).
+// Only the machine-specific suite path is normalized; no positive results are fabricated.
+const observedBaseline = {"numTotalTestSuites":3,"numPassedTestSuites":3,"numFailedTestSuites":0,"numPendingTestSuites":0,"numTotalTests":17,"numPassedTests":1,"numFailedTests":0,"numPendingTests":16,"numTodoTests":0,"snapshot":{"added":0,"failure":false,"filesAdded":0,"filesRemoved":0,"filesRemovedList":[],"filesUnmatched":0,"filesUpdated":0,"matched":0,"total":0,"unchecked":0,"uncheckedKeysByFile":[],"unmatched":0,"updated":0,"didUpdate":false},"startTime":1792143055865,"success":true,"testResults":[{"assertionResults":[{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation accepts matching stored receipt","status":"skipped","title":"accepts matching stored receipt","failureMessages":[],"meta":{}},{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation accepts matching duplicate receipt","status":"skipped","title":"accepts matching duplicate receipt","failureMessages":[],"meta":{}},{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation rejects mismatched 'slug'","status":"passed","title":"rejects mismatched 'slug'","duration":2.4792919999999867,"failureMessages":[],"meta":{}},{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation rejects mismatched 'version'","status":"skipped","title":"rejects mismatched 'version'","failureMessages":[],"meta":{}},{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation rejects mismatched 'digest'","status":"skipped","title":"rejects mismatched 'digest'","failureMessages":[],"meta":{}},{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation rejects invalid raw and expected without throwing","status":"skipped","title":"rejects invalid raw and expected without throwing","failureMessages":[],"meta":{}},{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation rejects extra field in receipt or expected payload","status":"skipped","title":"rejects extra field in receipt or expected payload","failureMessages":[],"meta":{}},{"ancestorTitles":["'publish' receipt correlation"],"fullName":"'publish' receipt correlation rejects the other operation request","status":"skipped","title":"rejects the other operation request","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation accepts matching stored receipt","status":"skipped","title":"accepts matching stored receipt","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation accepts matching duplicate receipt","status":"skipped","title":"accepts matching duplicate receipt","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation rejects mismatched 'slug'","status":"skipped","title":"rejects mismatched 'slug'","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation rejects mismatched 'version'","status":"skipped","title":"rejects mismatched 'version'","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation rejects mismatched 'digest'","status":"skipped","title":"rejects mismatched 'digest'","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation rejects invalid raw and expected without throwing","status":"skipped","title":"rejects invalid raw and expected without throwing","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation rejects extra field in receipt or expected payload","status":"skipped","title":"rejects extra field in receipt or expected payload","failureMessages":[],"meta":{}},{"ancestorTitles":["'withdraw' receipt correlation"],"fullName":"'withdraw' receipt correlation rejects the other operation request","status":"skipped","title":"rejects the other operation request","failureMessages":[],"meta":{}},{"ancestorTitles":[],"fullName":"rejects invalid publication evidence and withdrawal reason","status":"skipped","title":"rejects invalid publication evidence and withdrawal reason","failureMessages":[],"meta":{}}],"startTime":1792143056088,"endTime":1792143056090.4792,"status":"passed","message":"","name":"REPORT_TEST_FILE"}]};
 function selfTest(directory) {
   const expected = { file: join(directory, testPath), title: scenarios[0].title,
-    heading: 'publish receipt correlation', fullName: 'publish receipt correlation ' + scenarios[0].title, line: 79, column: 65 };
-  const failure = `${booleanFailure}\n    at ${expected.file}:79:65`;
-  const make = (red = true) => ({
-    success: !red, numPassedTests: red ? 0 : 1, numFailedTests: red ? 1 : 0,
-    testResults: [{ name: expected.file, status: red ? 'failed' : 'passed', message: '', assertionResults: [{
-      fullName: expected.fullName, title: expected.title, ancestorTitles: [expected.heading],
-      status: red ? 'failed' : 'passed', failureMessages: red ? [failure] : [],
-    }] }],
-  });
+    heading: "'publish' receipt correlation", fullName: "'publish' receipt correlation " + scenarios[0].title,
+    ...assertionPosition(readFileSync(join(root, testPath), 'utf8'), scenarios[0]) };
+  const failure = `${booleanFailure}\n    at ${expected.file}:${expected.line}:${expected.column}`;
+  const make = (red = true) => {
+    const report = structuredClone(observedBaseline);
+    const suite = report.testResults[0];
+    suite.name = expected.file;
+    if (red) {
+      report.success = false; report.numPassedTests = 0; report.numFailedTests = 1;
+      suite.status = 'failed';
+      const selected = suite.assertionResults.find(t => t.status === 'passed');
+      selected.status = 'failed'; selected.failureMessages = [failure];
+    }
+    return report;
+  };
   const checks = [];
   function check(name, run) { run(); checks.push(name); }
   const suite = r => r.testResults[0];
-  const test = r => suite(r).assertionResults[0];
+  const test = r => suite(r).assertionResults.find(t => t.fullName === expected.fullName);
   const negatives = [
     ['exit', () => {}, 2],
     ['success', r => { r.success = true; }],
     ['passed', r => { r.numPassedTests = 1; }],
     ['failed', r => { r.numFailedTests = 0; }],
+    ['total', r => { r.numTotalTests += 1; }],
+    ['pending', r => { r.numPendingTests -= 1; }],
+    ['todo', r => { r.numTodoTests = 1; }],
+    ['outside-errors', r => { suite(r).assertionResults[0].failureMessages = ['Error: outside selected case']; }],
     ['runtime', r => { r.numRuntimeErrorTestSuites = 1; }],
     ['unhandled', r => { r.unhandledErrors = ['Error: failure']; }],
     ['suites', r => { r.testResults.push(structuredClone(suite(r))); }],
@@ -161,7 +179,7 @@ function selfTest(directory) {
     ['test-status', r => { test(r).status = 'passed'; }],
     ['messages', r => { test(r).failureMessages.push(failure); }],
     ['assertion-error', r => { test(r).failureMessages = [failure.replace('AssertionError:', 'Error:')]; }],
-    ['frame', r => { test(r).failureMessages = [`${booleanFailure}\n    at ${directory}/src/foreign.ts:1:1\n    at ${expected.file}:79:65`]; }],
+    ['frame', r => { test(r).failureMessages = [`${booleanFailure}\n    at ${directory}/src/foreign.ts:1:1\n    at ${expected.file}:${expected.line}:${expected.column}`]; }],
   ];
   const observed = new Set();
   validateReport(make(), 1, expected, true, id => { observed.add(id); return true; });
@@ -176,9 +194,15 @@ function selfTest(directory) {
   check('green and skipped entries', () => {
     for (const red of [false, true]) {
       const report = make(red);
-      suite(report).assertionResults.push({ status: 'skipped', title: 'irrelevant' }, { status: 'pending' });
+      suite(report).assertionResults[0].status = 'pending';
       validateReport(report, red ? 1 : 0, expected, red);
     }
+  });
+  check('archived baseline: zero of seventeen executed', () => {
+    const report = make(false);
+    test(report).status = 'skipped';
+    report.numPassedTests = 0; report.numPendingTests = 17;
+    assert.throws(() => validateReport(report, 0, expected, false), { name: 'AssertionError', message: 'executed' });
   });
   check('green failure messages rejected', () => {
     const report = make(false); test(report).failureMessages = [failure];
@@ -186,10 +210,12 @@ function selfTest(directory) {
     validateReport(report, 0, expected, false, id => id !== 'messages');
   });
   for (const [name, change] of [
+    ['selected skipped', r => { test(r).status = 'skipped'; test(r).failureMessages = [];
+      r.numFailedTests = 0; r.numPendingTests += 1; }],
     ['two executed', r => { suite(r).assertionResults.push(structuredClone(test(r))); }],
     ['TypeError', r => { test(r).failureMessages = ['TypeError: invalid input']; }],
-    ['wrong line', r => { test(r).failureMessages = [failure.replace(':79:65', ':78:65')]; }],
-    ['wrong column', r => { test(r).failureMessages = [failure.replace(':79:65', ':79:64')]; }],
+    ['wrong line', r => { test(r).failureMessages = [failure.replace(`:${expected.line}:${expected.column}`, `:${expected.line + 1}:${expected.column}`)]; }],
+    ['wrong column', r => { test(r).failureMessages = [failure.replace(`:${expected.line}:${expected.column}`, `:${expected.line}:${expected.column + 1}`)]; }],
     ['missing frame', r => { test(r).failureMessages = [booleanFailure]; }],
   ]) check(name, () => {
     const report = make(); change(report);
@@ -236,7 +262,7 @@ function protocol(directory, summary, save) {
   // Validate every anchor before starting any test process.
   for (const scenario of scenarios) { mutate(original, scenario); assertionPosition(test, scenario); }
   for (const scenario of scenarios) {
-    const expected = { ...assertionPosition(test, scenario), file: realpathSync(join(workspace, testPath)), title: scenario.title, heading: `${scenario.operation} receipt correlation`, fullName: `${scenario.operation} receipt correlation ${scenario.title}` };
+    const expected = { ...assertionPosition(test, scenario), file: realpathSync(join(workspace, testPath)), title: scenario.title, heading: `'${scenario.operation}' receipt correlation`, fullName: `'${scenario.operation}' receipt correlation ${scenario.title}` };
     const entry = { id: scenario.id, fullName: expected.fullName, phases: [] };
     summary.scenarios.push(entry);
     function phase(name, red) {
