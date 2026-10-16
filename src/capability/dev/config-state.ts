@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { CapabilityCallIdentitySchema } from '../capability-call-identity.js';
 import { DevelopmentSessionBindingSchema } from '../connect/development-session.js';
+import { DevProductionRoleModelsSchema } from '../../http/endpoints/development-session-models.js';
 
 /** A project path label: relative, never escaping upward. */
 const PathLabelSchema = z
@@ -34,6 +35,7 @@ export const DevAgentConfigSchema = z
     /** A saved choice only; presence, consent and an execution lease are separate facts. */
     production: z.strictObject({
       session: DevelopmentSessionBindingSchema,
+      roleModels: DevProductionRoleModelsSchema.optional(),
       allowedProjectIds: z.array(z.string().min(1)).min(1)
         .refine((ids) => new Set(ids).size === ids.length, {
           message: 'allowedProjectIds must be unique',
@@ -52,6 +54,13 @@ export const DevAgentConfigSchema = z
   })
   .superRefine((cfg, ctx) => {
     if (cfg.production) {
+      if (cfg.production.roleModels) {
+        for (const [role, choice] of Object.entries(cfg.production.roleModels)) {
+          if (!cfg.production.session.engines.includes(choice.engine)) {
+            ctx.addIssue({ code: 'custom', path: ['production', 'roleModels', role, 'engine'], message: 'Role model engine must be selected in the session' });
+          }
+        }
+      }
       const scope = cfg.production.session.scope;
       if (scope.tenantId !== cfg.tenantId) {
         ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'tenantId'], message: 'Session tenantId must match config' });
