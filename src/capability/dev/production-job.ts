@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ApprovalBindingsSchema, ApprovalRequestIdSchema, ApprovalTextSha256Schema, type ApprovalBindings } from '../approvals/index.js';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../capability-call-context.js';
 import { DevelopmentSessionBindingSchema } from '../connect/development-session.js';
+import { DevProductionRoleModelsSchema } from '../../http/endpoints/development-session-models.js';
 import { DevSignedCommandV2Schema } from './signed-command.js';
 
 export const DevProductionKindSchema = z.enum(['code', 'automation', 'presentation', 'design']);
@@ -17,6 +18,8 @@ export const DevProductionJobSchema = z.strictObject({
   session: DevelopmentSessionBindingSchema,
   productKind: DevProductionKindSchema,
   instruction: z.string().min(1).max(16000),
+  // Owner's explicit per-role choices; absent in earlier payloads, so no default.
+  roleModels: DevProductionRoleModelsSchema.optional(),
   reportVersion: z.number().int().min(1),
   reportDigest: ApprovalTextSha256Schema,
   configVersion: DevSignedCommandV2Schema.shape.configVersion,
@@ -28,6 +31,9 @@ export const DevProductionJobSchema = z.strictObject({
   }),
 }).refine((job) => sameCapabilityScope(job.scope, job.session.scope), {
   message: 'Session scope must match job scope', path: ['session', 'scope'],
+}).refine((job) => job.roleModels === undefined
+  || Object.values(job.roleModels).every((choice) => job.session.engines.includes(choice.engine)), {
+  message: 'Role model engines must be selected in the session', path: ['roleModels'],
 });
 export type DevProductionJob = z.infer<typeof DevProductionJobSchema>;
 
