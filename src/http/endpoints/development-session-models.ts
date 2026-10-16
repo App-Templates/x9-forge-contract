@@ -75,3 +75,24 @@ export function isDevelopmentSessionModelSelectionUsable(
   if (model.reasoningEfforts.length === 0) return reasoningEffort === undefined;
   return reasoningEffort !== undefined && model.reasoningEfforts.includes(reasoningEffort);
 }
+
+/** Explicit owner choices for all production roles; no defaults or discovery. */
+export const DevProductionRoleModelsSchema = z.object({
+  coordination: DevelopmentSessionModelSelectionSchema,
+  planning: DevelopmentSessionModelSelectionSchema,
+  unblocking: DevelopmentSessionModelSelectionSchema,
+  code: DevelopmentSessionModelSelectionSchema,
+  design: DevelopmentSessionModelSelectionSchema,
+  presentation: DevelopmentSessionModelSelectionSchema,
+}).strict();
+export type DevProductionRoleModels = z.infer<typeof DevProductionRoleModelsSchema>;
+
+/** Pure metadata check; services must recheck trusted state before execution. */
+export function isDevProductionRoleModelsUsable(
+  rawRoles: unknown, rawCatalog: unknown, expectedBinding: unknown, nowMs: number,
+): boolean {
+  const roles = DevProductionRoleModelsSchema.safeParse(rawRoles);
+  if (!roles.success) return false;
+  return Object.values(roles.data).every((selection) =>
+    isDevelopmentSessionModelSelectionUsable(selection, rawCatalog, expectedBinding, nowMs));
+}
