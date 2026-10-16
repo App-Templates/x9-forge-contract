@@ -5,17 +5,20 @@ import * as signedCommand from '../../../src/capability/dev/signed-command.js';
 import * as configState from '../../../src/capability/dev/config-state.js';
 import * as productionJob from '../../../src/capability/dev/production-job.js';
 import * as productionResult from '../../../src/capability/dev/production-result.js';
+import * as productionProgress from '../../../src/capability/dev/production-progress.js';
 import * as productionConfigMatch from '../../../src/capability/dev/production-config-match.js';
 
-const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionConfigMatch };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionConfigMatch, ...productionProgress };
 
 describe('capability/dev subpath', () => {
-  it('re-exports every symbol of signed-command, config-state, production-job, production-result and production-config-match', () => {
+  it('re-exports every symbol of signed-command, config-state, production-job, production-result and production-config-match and production-progress', () => {
     expect(dev.DevSignedCommandV2Schema).toBe(signedCommand.DevSignedCommandV2Schema);
     expect(dev.DEV_SIGNED_COMMAND_V2_DOMAIN).toBe(signedCommand.DEV_SIGNED_COMMAND_V2_DOMAIN);
     expect(dev.canonicalizeDevSignedCommandV2).toBe(signedCommand.canonicalizeDevSignedCommandV2);
     expect(dev.canonicalizeDevProductionReport).toBe(productionJob.canonicalizeDevProductionReport);
     expect(dev.isDevProductionJobForConfig).toBe(productionConfigMatch.isDevProductionJobForConfig);
+    expect(dev.DevProductionProgressSchema).toBe(productionProgress.DevProductionProgressSchema);
+    expect(dev.isDevProductionProgressForJob).toBe(productionProgress.isDevProductionProgressForJob);
     expect(dev.DevBindingSchema).toBe(configState.DevBindingSchema);
     expect(dev.DevAgentConfigSchema).toBe(configState.DevAgentConfigSchema);
     expect(dev.DevAgentStatusSchema).toBe(configState.DevAgentStatusSchema);
@@ -44,6 +47,8 @@ describe('capability/dev subpath', () => {
         'DevProductionJobSchema',
         'DevProductionArtifactSchema',
         'DevProductionResultSchema',
+        'DevProductionProgressSchema',
+        'isDevProductionProgressForJob',
         'isDevProductionResultForJob',
         'isDevProductionJobForConfig',
         'devProductionApprovalBindings',
