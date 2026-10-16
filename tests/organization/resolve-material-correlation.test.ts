@@ -106,6 +106,18 @@ describe('isResolveMaterialResponseForRequest', () => {
     expect(isResolveMaterialResponseForRequest(refusal, request)).toBe(false);
   });
 
+  it('rejects schema-valid revoked resolution without success fields', () => {
+    const revoked = { status: 'revoked', message: 'Service refused resolution' };
+    expect(ResolveMaterialRequestSchema.safeParse(request).success).toBe(true);
+    expect(ResolveMaterialResponseSchema.parse(revoked)).toEqual(revoked);
+    // A refusal carrying success fields is not an alternative valid response.
+    expect(ResolveMaterialResponseSchema.safeParse({
+      ...response, ...revoked,
+    }).success).toBe(false);
+    expect(isResolveMaterialResponseForRequest(response, request)).toBe(true);
+    expect(isResolveMaterialResponseForRequest(revoked, request)).toBe(false);
+  });
+
   it.each([
     null,
     {},

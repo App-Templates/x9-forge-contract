@@ -39,9 +39,13 @@ const scenarios = [
   },
   {
     id: 'resolve-status', suite: resolveMaterial, testPath: resolveTest,
-    title: 'rejects refusal revoked',
-    anchor: " || response.data.status !== 'ok'", replacement: '',
-    assertion: 'expect(isResolveMaterialResponseForRequest(refusal, request)).toBe(false);',
+    title: 'rejects schema-valid revoked resolution without success fields',
+    // Deleting only the status clause is equivalent: strict refusal schemas have
+    // no ref, so reference equality still rejects them. Model accepting a parsed
+    // refusal as resolved instead; parsing and the ok correlation stay intact.
+    anchor: "if (!response.success || !request.success || response.data.status !== 'ok') return false;",
+    replacement: "if (!response.success || !request.success) return false;\n  if (response.data.status !== 'ok') return true;",
+    assertion: 'expect(isResolveMaterialResponseForRequest(revoked, request)).toBe(false);',
   },
   {
     id: 'resolve-validation', suite: resolveMaterial, testPath: resolveTest,
@@ -200,6 +204,19 @@ function selfTest(directory) {
   check('wrong exit', () => assert.throws(() => validateReport(make(), 2, expected, true)));
   check('missing anchor', () => assert.throws(() => mutate('missing', scenarios[0])));
   check('duplicate anchor', () => assert.throws(() => mutate(scenarios[0].anchor.repeat(2), scenarios[0])));
+  check('resolve status anchor changes only validated refusal acceptance', () => {
+    const scenario = scenarios.find(item => item.id === 'resolve-status');
+    const original = readFileSync(join(root, sourcePath), 'utf8');
+    const changed = mutate(original, scenario);
+    assert.equal(changed.replace(scenario.replacement, scenario.anchor), original);
+    assert.equal(changed.includes(scenario.anchor), false);
+    uniqueIndex(changed, scenario.replacement);
+    // These counterchecks ensure drift or ambiguous guards cannot silently pass.
+    assert.throws(() => mutate(original.replace(scenario.anchor, ''), scenario), { name: 'AssertionError' });
+    assert.throws(() => mutate(original + '\n' + scenario.anchor, scenario), { name: 'AssertionError' });
+    assert.throws(() => mutate(changed, scenario), { name: 'AssertionError' });
+    assert.equal(mutate(original, scenario), changed);
+  });
   check('all eleven unique mutations and restoration', () => {
     const original = readFileSync(join(root, sourcePath), 'utf8');
     const file = join(directory, 'restore.ts');
