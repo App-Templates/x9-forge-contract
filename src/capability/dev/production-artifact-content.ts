@@ -26,3 +26,24 @@ export const DevProductionArtifactChunkSchema = z.strictObject({
   }
 });
 export type DevProductionArtifactChunk = z.infer<typeof DevProductionArtifactChunkSchema>;
+
+/**
+ * True when the chunk belongs to the expected manifest and starts exactly at the
+ * expected offset. Optional labels are ignored: they do not identify the bytes.
+ * The caller still authorizes the manifest and verifies the complete file hash.
+ */
+export function isDevProductionArtifactChunkForArtifact(
+  rawChunk: unknown,
+  expectedArtifact: unknown,
+  expectedOffset: unknown,
+): boolean {
+  const chunk = DevProductionArtifactChunkSchema.safeParse(rawChunk);
+  const expected = DevProductionArtifactSchema.safeParse(expectedArtifact);
+  if (!chunk.success || !expected.success) return false;
+  const actual = chunk.data.artifact;
+  return chunk.data.offset === expectedOffset
+    && actual.artifactRef === expected.data.artifactRef
+    && actual.sha256 === expected.data.sha256
+    && actual.bytes === expected.data.bytes
+    && actual.mediaType === expected.data.mediaType;
+}
