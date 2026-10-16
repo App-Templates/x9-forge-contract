@@ -6,7 +6,7 @@ import {
   isDevelopmentSessionUsable,
 } from '../../capability/connect/development-session-state.js';
 
-const SessionModelSchema = z.object({
+export const SessionModelSchema = z.object({
   engine: DevelopmentSessionEngineSchema,
   modelId: z.string().trim().min(1).max(200),
   label: z.string().trim().min(1).max(120),
@@ -52,4 +52,26 @@ export function selectableDevelopmentSessionModels(
   return parsed.data.models
     .filter(({ engine }) => isDevelopmentSessionUsable(parsed.data.lease, expectedBinding, engine, nowMs))
     .map((model) => ({ ...model, reasoningEfforts: [...model.reasoningEfforts] }));
+}
+
+/** Canonical choice only; validity does not authorize execution. */
+export const DevelopmentSessionModelSelectionSchema = z.object({
+  engine: SessionModelSchema.shape.engine,
+  modelId: SessionModelSchema.shape.modelId,
+  reasoningEffort: SessionModelSchema.shape.reasoningEfforts.element.optional(),
+}).strict();
+export type DevelopmentSessionModelSelection = z.infer<typeof DevelopmentSessionModelSelectionSchema>;
+
+/** Match an explicit choice against usable, trusted adapter metadata. */
+export function isDevelopmentSessionModelSelectionUsable(
+  rawSelection: unknown, rawCatalog: unknown, expectedBinding: unknown, nowMs: number,
+): boolean {
+  const selection = DevelopmentSessionModelSelectionSchema.safeParse(rawSelection);
+  if (!selection.success) return false;
+  const { engine, modelId, reasoningEffort } = selection.data;
+  const model = selectableDevelopmentSessionModels(rawCatalog, expectedBinding, nowMs)
+    .find((candidate) => candidate.engine === engine && candidate.modelId === modelId);
+  if (!model) return false;
+  if (model.reasoningEfforts.length === 0) return reasoningEffort === undefined;
+  return reasoningEffort !== undefined && model.reasoningEfforts.includes(reasoningEffort);
 }
