@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { ApprovalRequestIdSchema, ApprovalTextSha256Schema, SignedApprovalPermitSchema, checkApprovalPermit } from '../../capability/approvals/index.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-context.js';
 import { DevProductionJobSchema, devProductionApprovalBindings } from '../../capability/dev/production-job.js';
-import { DevProductionResultSchema } from '../../capability/dev/production-result.js';
+import { DevProductionResultSchema, isDevProductionResultForJob } from '../../capability/dev/production-result.js';
 import { CapabilityAgentParamsSchema } from './internal-capability-agent.js';
 
 export const DevProductionSubmissionSchema = z.strictObject({
@@ -69,4 +69,22 @@ export function isDevProductionApprovalForJob(
     bindings: devProductionApprovalBindings(job),
   }, nowMs);
   return check.ok;
+}
+
+/**
+ * Correlation only: true means the response belongs to the expected job, never that the work
+ * succeeded. Callers must keep the original status of a finished result (failed, blocked,
+ * cancelled and uncertain stay what they are) and must never retry an uncertain result
+ * automatically. A pending response carries no scope, so this helper cannot attribute it to an
+ * owner or agent: the server must authenticate the owner and the scope/path before answering.
+ */
+export function isDevProductionResultResponseForJob(rawResponse: unknown, expectedJob: unknown): boolean {
+  const response = getDevProductionResultContract.responseSchema.safeParse(rawResponse);
+  const parsedJob = DevProductionJobSchema.safeParse(expectedJob);
+  if (!response.success || !parsedJob.success) return false;
+  const job = parsedJob.data;
+  if (response.data.status === 'pending') {
+    return response.data.jobId === job.jobId && response.data.requestId === job.requestId;
+  }
+  return isDevProductionResultForJob(response.data.result, job);
 }
