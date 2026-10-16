@@ -29,6 +29,7 @@ export * from './internal-capability-dev.js'; // P04-d — cap-dev get/put confi
 export * from './internal-dev-progress.js';
 export * from './internal-dev-jobs.js';
 export * from './internal-dev-cancel.js';
+export * from './internal-dev-production.js';
 export * from './internal-capability-lab.js';
 
 // Token-auth endpoints (cross-repo voice/webhook)
