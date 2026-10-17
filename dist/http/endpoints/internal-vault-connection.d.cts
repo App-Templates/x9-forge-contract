@@ -44,8 +44,8 @@ export type DeleteVaultConnectionResponse = z.infer<typeof DeleteVaultConnection
 export declare const RevokeVaultConnectionResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     status: z.ZodEnum<{
-        not_connected: "not_connected";
         revoked: "revoked";
+        not_connected: "not_connected";
     }>;
 }, z.core.$strict>;
 export type RevokeVaultConnectionResponse = z.infer<typeof RevokeVaultConnectionResponseSchema>;
@@ -55,10 +55,10 @@ export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
         google: "google";
     }>;
     status: z.ZodEnum<{
-        not_connected: "not_connected";
         connected: "connected";
-        needs_reconnect: "needs_reconnect";
         revoked: "revoked";
+        not_connected: "not_connected";
+        needs_reconnect: "needs_reconnect";
     }>;
     accountLabel: z.ZodOptional<z.ZodString>;
     scopes: z.ZodArray<z.ZodEnum<{
@@ -86,8 +86,8 @@ export type VaultConnectionErrorResponse = z.infer<typeof VaultConnectionErrorRe
 export declare const VAULT_ACCESS_TOKEN_MAX_LENGTH = 4096;
 export declare const VAULT_ACCESS_ERROR_CODES: readonly ["not_connected", "revoked", "scope_missing", "expired"];
 export declare const VaultAccessErrorCodeSchema: z.ZodEnum<{
-    not_connected: "not_connected";
     revoked: "revoked";
+    not_connected: "not_connected";
     expired: "expired";
     scope_missing: "scope_missing";
 }>;
@@ -130,8 +130,8 @@ export type PostVaultAccessTokenResponse = z.infer<typeof PostVaultAccessTokenRe
 export declare const VaultAccessErrorResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        not_connected: "not_connected";
         revoked: "revoked";
+        not_connected: "not_connected";
         expired: "expired";
         scope_missing: "scope_missing";
     }>;
@@ -148,10 +148,10 @@ export declare const ListVaultConnectionsResponseSchema: z.ZodObject<{
             google: "google";
         }>;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             connected: "connected";
-            needs_reconnect: "needs_reconnect";
             revoked: "revoked";
+            not_connected: "not_connected";
+            needs_reconnect: "needs_reconnect";
         }>;
         scopes: z.ZodArray<z.ZodEnum<{
             calendar_events: "calendar_events";
@@ -220,8 +220,8 @@ export declare const revokeVaultConnectionContract: {
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             revoked: "revoked";
+            not_connected: "not_connected";
         }>;
     }, z.core.$strict>;
 };
@@ -241,10 +241,10 @@ export declare const getVaultConnectionStateContract: {
             google: "google";
         }>;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             connected: "connected";
-            needs_reconnect: "needs_reconnect";
             revoked: "revoked";
+            not_connected: "not_connected";
+            needs_reconnect: "needs_reconnect";
         }>;
         accountLabel: z.ZodOptional<z.ZodString>;
         scopes: z.ZodArray<z.ZodEnum<{
@@ -322,10 +322,10 @@ export declare const listVaultConnectionsContract: {
                 google: "google";
             }>;
             status: z.ZodEnum<{
-                not_connected: "not_connected";
                 connected: "connected";
-                needs_reconnect: "needs_reconnect";
                 revoked: "revoked";
+                not_connected: "not_connected";
+                needs_reconnect: "needs_reconnect";
             }>;
             scopes: z.ZodArray<z.ZodEnum<{
                 calendar_events: "calendar_events";

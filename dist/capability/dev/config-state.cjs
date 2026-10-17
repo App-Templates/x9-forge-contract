@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DevAgentConfigStateSchema = exports.DevAgentStateSchema = exports.DevAgentStatusSchema = exports.DevAgentConfigSchema = exports.DevBindingSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
+const development_session_js_1 = require("../connect/development-session.cjs");
+const development_session_models_js_1 = require("../../http/endpoints/development-session-models.cjs");
 /** A project path label: relative, never escaping upward. */
 const PathLabelSchema = zod_1.z
     .string()
@@ -29,6 +31,15 @@ exports.DevAgentConfigSchema = zod_1.z
     configVersion: zod_1.z.number().int().min(0),
     keyVersion: zod_1.z.number().int().min(1),
     bindings: zod_1.z.array(exports.DevBindingSchema),
+    /** A saved choice only; presence, consent and an execution lease are separate facts. */
+    production: zod_1.z.strictObject({
+        session: development_session_js_1.DevelopmentSessionBindingSchema,
+        roleModels: development_session_models_js_1.DevProductionRoleModelsSchema.optional(),
+        allowedProjectIds: zod_1.z.array(zod_1.z.string().min(1)).min(1)
+            .refine((ids) => new Set(ids).size === ids.length, {
+            message: 'allowedProjectIds must be unique',
+        }),
+    }).optional(),
     /**
      * Private Telegram chats (canonical ids, no sign) the owner chose in Forge
      * as «theirs»: only these may command cap-dev for this agent. The regex is
@@ -41,6 +52,25 @@ exports.DevAgentConfigSchema = zod_1.z
         .default([]),
 })
     .superRefine((cfg, ctx) => {
+    if (cfg.production) {
+        if (cfg.production.roleModels) {
+            for (const [role, choice] of Object.entries(cfg.production.roleModels)) {
+                if (!cfg.production.session.engines.includes(choice.engine)) {
+                    ctx.addIssue({ code: 'custom', path: ['production', 'roleModels', role, 'engine'], message: 'Role model engine must be selected in the session' });
+                }
+            }
+        }
+        const scope = cfg.production.session.scope;
+        if (scope.tenantId !== cfg.tenantId) {
+            ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'tenantId'], message: 'Session tenantId must match config' });
+        }
+        if (scope.ownerId !== cfg.ownerId) {
+            ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'ownerId'], message: 'Session ownerId must match config' });
+        }
+        if (scope.agentId !== cfg.agentId) {
+            ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'agentId'], message: 'Session agentId must match config' });
+        }
+    }
     const seenChats = new Set();
     cfg.ownerChatIds.forEach((c, i) => {
         if (seenChats.has(c)) {

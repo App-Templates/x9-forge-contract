@@ -105,6 +105,13 @@ export declare const PublishMaterialResponseSchema: z.ZodDiscriminatedUnion<[z.Z
     message: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>], "status">;
 export type PublishMaterialResponse = z.infer<typeof PublishMaterialResponseSchema>;
+/**
+ * Correlates a published receipt with its validated request, not authorization.
+ * Version is assigned by the service; contentRef persistence is not attested here.
+ * Adoption in X9 services/memory/src/organization/publication-service.ts is pending
+ * (consumer task 250), before advancing the requested material's publication.
+ */
+export declare function isPublishMaterialResponseForRequest(raw: unknown, expected: unknown): boolean;
 export declare const ReadMaterialRequestSchema: z.ZodObject<{
     context: z.ZodObject<{
         schemaVersion: z.ZodLiteral<1>;
@@ -366,4 +373,11 @@ export declare const ResolveMaterialResponseSchema: z.ZodDiscriminatedUnion<[z.Z
     status: z.ZodLiteral<"digest_mismatch">;
 }, z.core.$strict>], "status">;
 export type ResolveMaterialResponse = z.infer<typeof ResolveMaterialResponseSchema>;
+/**
+ * Correlates resolved text with the requested publication reference.
+ * Consumers must adopt this helper before showing text in memory_resolve_published;
+ * that integration is pending. Access and cryptographic checks remain in the service.
+ * The reader's run context may differ from the published material's context.
+ */
+export declare function isResolveMaterialResponseForRequest(raw: unknown, expected: unknown): boolean;
 //# sourceMappingURL=publication-operations.d.ts.map

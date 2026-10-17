@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResolveMaterialResponseSchema = exports.ResolveMaterialRequestSchema = exports.ReadMaterialResponseSchema = exports.ReadMaterialRequestSchema = exports.PublishMaterialResponseSchema = exports.PublishMaterialErrorCodeSchema = exports.PUBLISH_MATERIAL_ERROR_CODES = exports.PublishMaterialRequestSchema = void 0;
+exports.isPublishMaterialResponseForRequest = isPublishMaterialResponseForRequest;
+exports.isResolveMaterialResponseForRequest = isResolveMaterialResponseForRequest;
 const zod_1 = require("zod");
 const run_context_js_1 = require("./run-context.cjs");
 const publication_ref_js_1 = require("./publication-ref.cjs");
@@ -30,6 +32,27 @@ exports.PublishMaterialResponseSchema = zod_1.z.discriminatedUnion('status', [
         message: zod_1.z.string().min(1).optional(),
     }),
 ]);
+/**
+ * Correlates a published receipt with its validated request, not authorization.
+ * Version is assigned by the service; contentRef persistence is not attested here.
+ * Adoption in X9 services/memory/src/organization/publication-service.ts is pending
+ * (consumer task 250), before advancing the requested material's publication.
+ */
+function isPublishMaterialResponseForRequest(raw, expected) {
+    const response = exports.PublishMaterialResponseSchema.safeParse(raw);
+    const request = exports.PublishMaterialRequestSchema.safeParse(expected);
+    if (!response.success || !request.success || response.data.status !== 'published')
+        return false;
+    const { ref } = response.data;
+    const material = request.data;
+    return JSON.stringify(ref.context) === JSON.stringify(material.context)
+        && ref.sourceScope === material.sourceScope
+        && ref.slug === material.slug
+        && ref.recipient.kind === material.recipient.kind
+        && ref.recipient.id === material.recipient.id
+        && ref.digest === material.digest
+        && ref.explicit === material.explicit;
+}
 exports.ReadMaterialRequestSchema = zod_1.z.strictObject({
     context: run_context_js_1.OrganizationRunContextSchema,
     ref: publication_ref_js_1.PublicationRefSchema,
@@ -68,4 +91,19 @@ exports.ResolveMaterialResponseSchema = zod_1.z.discriminatedUnion('status', [
     ResolveMaterialSuccessSchema,
     ...ReadMaterialRefusalSchemas,
 ]);
+/**
+ * Correlates resolved text with the requested publication reference.
+ * Consumers must adopt this helper before showing text in memory_resolve_published;
+ * that integration is pending. Access and cryptographic checks remain in the service.
+ * The reader's run context may differ from the published material's context.
+ */
+function isResolveMaterialResponseForRequest(raw, expected) {
+    const response = exports.ResolveMaterialResponseSchema.safeParse(raw);
+    const request = exports.ResolveMaterialRequestSchema.safeParse(expected);
+    if (!response.success || !request.success || response.data.status !== 'ok')
+        return false;
+    // Both references are parsed by the same schema, giving stable property order.
+    return JSON.stringify(response.data.ref) === JSON.stringify(request.data.ref)
+        && response.data.digest === request.data.ref.digest;
+}
 //# sourceMappingURL=publication-operations.js.map

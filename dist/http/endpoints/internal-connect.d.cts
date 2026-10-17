@@ -78,8 +78,8 @@ export declare const IssueConnectAccessTokenBodySchema: z.ZodObject<{
 export type IssueConnectAccessTokenBody = z.infer<typeof IssueConnectAccessTokenBodySchema>;
 export declare const CONNECT_ACCESS_ERROR_CODES: readonly ["not_connected", "revoked", "scope_missing", "expired", "person_not_determinable", "unavailable"];
 export declare const ConnectAccessErrorCodeSchema: z.ZodEnum<{
-    not_connected: "not_connected";
     revoked: "revoked";
+    not_connected: "not_connected";
     expired: "expired";
     unavailable: "unavailable";
     scope_missing: "scope_missing";
@@ -101,8 +101,8 @@ export declare const IssueConnectAccessTokenResponseSchema: z.ZodDiscriminatedUn
 }, z.core.$strict>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        not_connected: "not_connected";
         revoked: "revoked";
+        not_connected: "not_connected";
         expired: "expired";
         unavailable: "unavailable";
         scope_missing: "scope_missing";
@@ -155,10 +155,10 @@ export declare const getConnectStateContract: {
             google: "google";
         }>;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             connected: "connected";
-            needs_reconnect: "needs_reconnect";
             revoked: "revoked";
+            not_connected: "not_connected";
+            needs_reconnect: "needs_reconnect";
         }>;
         accountLabel: z.ZodOptional<z.ZodString>;
         scopes: z.ZodArray<z.ZodEnum<{
@@ -185,10 +185,10 @@ export declare const revokeConnectContract: {
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodBoolean;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             connected: "connected";
-            needs_reconnect: "needs_reconnect";
             revoked: "revoked";
+            not_connected: "not_connected";
+            needs_reconnect: "needs_reconnect";
         }>;
     }, z.core.$strict>;
 };
@@ -268,8 +268,8 @@ export declare const issueConnectAccessTokenContract: {
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
-            not_connected: "not_connected";
             revoked: "revoked";
+            not_connected: "not_connected";
             expired: "expired";
             unavailable: "unavailable";
             scope_missing: "scope_missing";

@@ -25,6 +25,78 @@ export declare const devConfigGetContract: {
             pathLabel: z.ZodString;
             addedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
+        production: z.ZodOptional<z.ZodObject<{
+            session: z.ZodObject<{
+                scope: z.ZodLazy<z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>>;
+                sessionId: z.ZodString;
+                target: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"local">;
+                    deviceId: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"cloud">;
+                    connectionRef: z.ZodString;
+                }, z.core.$strict>], "kind">;
+                engines: z.ZodArray<z.ZodEnum<{
+                    claude: "claude";
+                    codex: "codex";
+                }>>;
+            }, z.core.$strict>;
+            roleModels: z.ZodOptional<z.ZodObject<{
+                coordination: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                planning: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                unblocking: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                code: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                design: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                presentation: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
+            allowedProjectIds: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>>;
         ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>;
 };
@@ -49,6 +121,78 @@ export declare const devConfigPutContract: {
             projectId: z.ZodString;
             pathLabel: z.ZodString;
             addedAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
+        production: z.ZodOptional<z.ZodObject<{
+            session: z.ZodObject<{
+                scope: z.ZodLazy<z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>>;
+                sessionId: z.ZodString;
+                target: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"local">;
+                    deviceId: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"cloud">;
+                    connectionRef: z.ZodString;
+                }, z.core.$strict>], "kind">;
+                engines: z.ZodArray<z.ZodEnum<{
+                    claude: "claude";
+                    codex: "codex";
+                }>>;
+            }, z.core.$strict>;
+            roleModels: z.ZodOptional<z.ZodObject<{
+                coordination: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                planning: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                unblocking: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                code: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                design: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+                presentation: z.ZodObject<{
+                    engine: z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>;
+                    modelId: z.ZodString;
+                    reasoningEffort: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
+            allowedProjectIds: z.ZodArray<z.ZodString>;
         }, z.core.$strict>>;
         ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>;
@@ -80,15 +224,87 @@ export declare const devStateGetContract: {
                 pathLabel: z.ZodString;
                 addedAt: z.ZodISODateTime;
             }, z.core.$strict>>;
+            production: z.ZodOptional<z.ZodObject<{
+                session: z.ZodObject<{
+                    scope: z.ZodLazy<z.ZodObject<{
+                        agentId: z.ZodString;
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                    }, z.core.$strict>>;
+                    sessionId: z.ZodString;
+                    target: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        kind: z.ZodLiteral<"local">;
+                        deviceId: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        kind: z.ZodLiteral<"cloud">;
+                        connectionRef: z.ZodString;
+                    }, z.core.$strict>], "kind">;
+                    engines: z.ZodArray<z.ZodEnum<{
+                        claude: "claude";
+                        codex: "codex";
+                    }>>;
+                }, z.core.$strict>;
+                roleModels: z.ZodOptional<z.ZodObject<{
+                    coordination: z.ZodObject<{
+                        engine: z.ZodEnum<{
+                            claude: "claude";
+                            codex: "codex";
+                        }>;
+                        modelId: z.ZodString;
+                        reasoningEffort: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>;
+                    planning: z.ZodObject<{
+                        engine: z.ZodEnum<{
+                            claude: "claude";
+                            codex: "codex";
+                        }>;
+                        modelId: z.ZodString;
+                        reasoningEffort: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>;
+                    unblocking: z.ZodObject<{
+                        engine: z.ZodEnum<{
+                            claude: "claude";
+                            codex: "codex";
+                        }>;
+                        modelId: z.ZodString;
+                        reasoningEffort: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>;
+                    code: z.ZodObject<{
+                        engine: z.ZodEnum<{
+                            claude: "claude";
+                            codex: "codex";
+                        }>;
+                        modelId: z.ZodString;
+                        reasoningEffort: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>;
+                    design: z.ZodObject<{
+                        engine: z.ZodEnum<{
+                            claude: "claude";
+                            codex: "codex";
+                        }>;
+                        modelId: z.ZodString;
+                        reasoningEffort: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>;
+                    presentation: z.ZodObject<{
+                        engine: z.ZodEnum<{
+                            claude: "claude";
+                            codex: "codex";
+                        }>;
+                        modelId: z.ZodString;
+                        reasoningEffort: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>>;
+                allowedProjectIds: z.ZodArray<z.ZodString>;
+            }, z.core.$strict>>;
             ownerChatIds: z.ZodDefault<z.ZodArray<z.ZodString>>;
         }, z.core.$strict>;
         state: z.ZodObject<{
             status: z.ZodEnum<{
                 applied: "applied";
+                offline: "offline";
                 revoked: "revoked";
                 pending: "pending";
                 ready: "ready";
-                offline: "offline";
             }>;
             appliedConfigVersion: z.ZodNumber;
             lastSeenAt: z.ZodNullable<z.ZodISODateTime>;

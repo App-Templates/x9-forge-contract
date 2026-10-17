@@ -169,6 +169,16 @@ export declare const InternalMemoryKnowledgeReceiptSchema: z.ZodObject<{
     }>;
 }, z.core.$strict>;
 export type InternalMemoryKnowledgeReceipt = z.infer<typeof InternalMemoryKnowledgeReceiptSchema>;
+/**
+ * Check this result before advancing publication reconciliation in the consumer.
+ * Correlation does not authenticate the receipt or prove permission to publish.
+ */
+export declare function isKnowledgePublishReceiptForRequest(raw: unknown, expected: unknown): boolean;
+/**
+ * Check this result before advancing withdrawal reconciliation in the consumer.
+ * Correlation does not authenticate the receipt or prove permission to withdraw.
+ */
+export declare function isKnowledgeWithdrawReceiptForRequest(raw: unknown, expected: unknown): boolean;
 export declare const InternalMemoryKnowledgeErrorResponseSchema: z.ZodObject<{
     status: z.ZodLiteral<"error">;
     code: z.ZodEnum<{
