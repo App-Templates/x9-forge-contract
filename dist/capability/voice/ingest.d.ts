@@ -38,8 +38,8 @@ export declare const CapVoicePostCallIngestRequestSchema: z.ZodObject<{
 export type CapVoicePostCallIngestRequest = z.infer<typeof CapVoicePostCallIngestRequestSchema>;
 /** Ingest outcome discriminator. */
 export declare const CapVoiceIngestStatusSchema: z.ZodEnum<{
-    rejected: "rejected";
     duplicate: "duplicate";
+    rejected: "rejected";
     processed: "processed";
     deferred: "deferred";
 }>;
@@ -48,8 +48,8 @@ export declare const CapVoicePostCallIngestResponseSchema: z.ZodObject<{
     accepted: z.ZodBoolean;
     call_id: z.ZodString;
     status: z.ZodEnum<{
-        rejected: "rejected";
         duplicate: "duplicate";
+        rejected: "rejected";
         processed: "processed";
         deferred: "deferred";
     }>;

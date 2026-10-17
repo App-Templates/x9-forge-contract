@@ -12,6 +12,7 @@ export declare const InternalMemoryKnowledgePublishRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -32,6 +33,7 @@ export declare const InternalMemoryKnowledgePublishRequestSchema: z.ZodObject<{
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
@@ -102,6 +104,7 @@ export declare const InternalMemoryKnowledgeWithdrawRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -121,6 +124,7 @@ export declare const InternalMemoryKnowledgeWithdrawRequestSchema: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -165,6 +169,16 @@ export declare const InternalMemoryKnowledgeReceiptSchema: z.ZodObject<{
     }>;
 }, z.core.$strict>;
 export type InternalMemoryKnowledgeReceipt = z.infer<typeof InternalMemoryKnowledgeReceiptSchema>;
+/**
+ * Check this result before advancing publication reconciliation in the consumer.
+ * Correlation does not authenticate the receipt or prove permission to publish.
+ */
+export declare function isKnowledgePublishReceiptForRequest(raw: unknown, expected: unknown): boolean;
+/**
+ * Check this result before advancing withdrawal reconciliation in the consumer.
+ * Correlation does not authenticate the receipt or prove permission to withdraw.
+ */
+export declare function isKnowledgeWithdrawReceiptForRequest(raw: unknown, expected: unknown): boolean;
 export declare const InternalMemoryKnowledgeErrorResponseSchema: z.ZodObject<{
     status: z.ZodLiteral<"error">;
     code: z.ZodEnum<{
@@ -191,6 +205,7 @@ export declare const internalMemoryKnowledgePublishContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -211,6 +226,7 @@ export declare const internalMemoryKnowledgePublishContract: {
                         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                         vaultAgentId: z.ZodOptional<z.ZodNumber>;
                     }, z.core.$strip>;
+                    personRef: z.ZodOptional<z.ZodString>;
                     issuer: z.ZodEnum<{
                         x9: "x9";
                         forge: "forge";
@@ -294,6 +310,7 @@ export declare const internalMemoryKnowledgeWithdrawContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -313,6 +330,7 @@ export declare const internalMemoryKnowledgeWithdrawContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";

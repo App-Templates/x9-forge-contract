@@ -229,6 +229,13 @@ export declare const AgentContextWithPhoneSchema: z.ZodObject<{
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        HOSTINGER_API_TOKEN: z.ZodOptional<z.ZodString>;
+        GITHUB_TOKEN: z.ZodOptional<z.ZodString>;
+        GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
+        GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
+        GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;
@@ -695,6 +702,13 @@ export declare const AgentContextWithPhoneWriteSchema: z.ZodObject<{
         NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
+        HOSTINGER_API_TOKEN: z.ZodOptional<z.ZodString>;
+        GITHUB_TOKEN: z.ZodOptional<z.ZodString>;
+        GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
+        GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
+        GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
     llmConfig: z.ZodObject<{
         provider: z.ZodString;

@@ -356,6 +356,14 @@ export declare const SimulationResultSchema: z.ZodObject<{
     canonicalHash: z.ZodString;
 }, z.core.$strict>;
 export type SimulationResult = z.infer<typeof SimulationResultSchema>;
+/** SHA-256 (lowercase hex) of any JSON value with object keys sorted; array order is kept. */
+export declare function canonicalSha256(value: unknown): string;
 /** SHA-256 (lowercase hex) of the world with object keys sorted; array order is kept. */
 export declare function canonicalWorldHash(world: SimulationWorld): string;
+/**
+ * SHA-256 (lowercase hex) of the whole script: world and actions, object keys sorted.
+ * The order of the actions in the array is part of the hash: swapping two actions
+ * changes it.
+ */
+export declare function canonicalScriptHash(script: SimulationScript): string;
 //# sourceMappingURL=simulation-world.d.ts.map

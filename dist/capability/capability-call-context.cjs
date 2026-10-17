@@ -22,8 +22,9 @@ const parameters_js_1 = require("./parameters.cjs");
  * - Missing key, unavailable source, disabled / not installed capability and forged identity are distinct errors;
  *   a consumer never falls back to a process-global key.
  */
-/** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
-exports.CapabilityAgentScopeSchema = capability_call_identity_js_1.CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
+/** Agent-level scope of capability data (no person), defined beside the identity. */
+var capability_call_identity_js_3 = require("./capability-call-identity.cjs");
+Object.defineProperty(exports, "CapabilityAgentScopeSchema", { enumerable: true, get: function () { return capability_call_identity_js_3.CapabilityAgentScopeSchema; } });
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
 exports.CapabilityPersonScopeSchema = capability_call_identity_js_1.CapabilityCallIdentitySchema.required({ userId: true }); // strict, inherited
 /** Same tenant, owner and agent (and person when both carry one). */

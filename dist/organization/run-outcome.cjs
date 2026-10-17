@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RunOutcomeSchema = exports.ConsumptionSchema = exports.EvidenceRefSchema = exports.RunAttemptSchema = void 0;
+exports.RunOutcomeSchema = exports.RunOutcomeStatusSchema = exports.ConsumptionSchema = exports.EvidenceRefSchema = exports.RunAttemptSchema = void 0;
 const zod_1 = require("zod");
 const run_context_js_1 = require("./run-context.cjs");
 /** Run id type, reused from the run context (single source of truth). */
@@ -45,6 +45,8 @@ const outcomeBase = {
     consumption: zod_1.z.array(exports.ConsumptionSchema).max(10),
     recordedAt: zod_1.z.iso.datetime(),
 };
+/** Shared status of a run outcome. */
+exports.RunOutcomeStatusSchema = zod_1.z.enum(['succeeded', 'failed', 'cancelled', 'uncertain']);
 /** Outcome of an attempt. An uncertain outcome is never reported as succeeded. */
 exports.RunOutcomeSchema = zod_1.z.discriminatedUnion('status', [
     zod_1.z.strictObject({ ...outcomeBase, status: zod_1.z.literal('succeeded') }),

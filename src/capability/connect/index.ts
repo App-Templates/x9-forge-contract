@@ -6,8 +6,8 @@ export const ConnectProviderSchema = z.enum(['google']);
 /** A supported connection provider. */
 export type ConnectProvider = z.infer<typeof ConnectProviderSchema>;
 
-/** Minimum permissions only: no mailbox reading. `mail_draft` creates drafts, it never reads mail. */
-export const ConnectScopeSchema = z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft']);
+/** Separate permissions for mailbox and Drive reading. `mail_draft` creates drafts, it never reads mail. */
+export const ConnectScopeSchema = z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read']);
 
 /** A supported connection permission. */
 export type ConnectScope = z.infer<typeof ConnectScopeSchema>;
@@ -91,3 +91,7 @@ export type ConnectStateResponse = z.infer<typeof ConnectStateResponseSchema>;
 export type ConnectRevokeRequest = z.infer<typeof ConnectRevokeRequestSchema>;
 export type ConnectRevokeResponse = z.infer<typeof ConnectRevokeResponseSchema>;
 export type ConnectToolPermit = z.infer<typeof ConnectToolPermitSchema>;
+
+export * from './development-session.js';
+export * from './development-session-pairing.js';
+export * from './development-session-state.js';

@@ -27,6 +27,27 @@ export const PublishMaterialResponseSchema = z.discriminatedUnion('status', [
         message: z.string().min(1).optional(),
     }),
 ]);
+/**
+ * Correlates a published receipt with its validated request, not authorization.
+ * Version is assigned by the service; contentRef persistence is not attested here.
+ * Adoption in X9 services/memory/src/organization/publication-service.ts is pending
+ * (consumer task 250), before advancing the requested material's publication.
+ */
+export function isPublishMaterialResponseForRequest(raw, expected) {
+    const response = PublishMaterialResponseSchema.safeParse(raw);
+    const request = PublishMaterialRequestSchema.safeParse(expected);
+    if (!response.success || !request.success || response.data.status !== 'published')
+        return false;
+    const { ref } = response.data;
+    const material = request.data;
+    return JSON.stringify(ref.context) === JSON.stringify(material.context)
+        && ref.sourceScope === material.sourceScope
+        && ref.slug === material.slug
+        && ref.recipient.kind === material.recipient.kind
+        && ref.recipient.id === material.recipient.id
+        && ref.digest === material.digest
+        && ref.explicit === material.explicit;
+}
 export const ReadMaterialRequestSchema = z.strictObject({
     context: OrganizationRunContextSchema,
     ref: PublicationRefSchema,
@@ -65,4 +86,19 @@ export const ResolveMaterialResponseSchema = z.discriminatedUnion('status', [
     ResolveMaterialSuccessSchema,
     ...ReadMaterialRefusalSchemas,
 ]);
+/**
+ * Correlates resolved text with the requested publication reference.
+ * Consumers must adopt this helper before showing text in memory_resolve_published;
+ * that integration is pending. Access and cryptographic checks remain in the service.
+ * The reader's run context may differ from the published material's context.
+ */
+export function isResolveMaterialResponseForRequest(raw, expected) {
+    const response = ResolveMaterialResponseSchema.safeParse(raw);
+    const request = ResolveMaterialRequestSchema.safeParse(expected);
+    if (!response.success || !request.success || response.data.status !== 'ok')
+        return false;
+    // Both references are parsed by the same schema, giving stable property order.
+    return JSON.stringify(response.data.ref) === JSON.stringify(request.data.ref)
+        && response.data.digest === request.data.ref.digest;
+}
 //# sourceMappingURL=publication-operations.js.map

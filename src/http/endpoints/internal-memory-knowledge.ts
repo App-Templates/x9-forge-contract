@@ -27,6 +27,32 @@ export const InternalMemoryKnowledgeReceiptSchema = z.strictObject({
 });
 export type InternalMemoryKnowledgeReceipt = z.infer<typeof InternalMemoryKnowledgeReceiptSchema>;
 
+/**
+ * Check this result before advancing publication reconciliation in the consumer.
+ * Correlation does not authenticate the receipt or prove permission to publish.
+ */
+export function isKnowledgePublishReceiptForRequest(raw: unknown, expected: unknown): boolean {
+  const receipt = InternalMemoryKnowledgeReceiptSchema.safeParse(raw);
+  const request = InternalMemoryKnowledgePublishRequestSchema.safeParse(expected);
+  return receipt.success && request.success
+    && receipt.data.slug === request.data.publication.ref.slug
+    && receipt.data.version === request.data.publication.ref.version
+    && receipt.data.digest === request.data.publication.ref.digest;
+}
+
+/**
+ * Check this result before advancing withdrawal reconciliation in the consumer.
+ * Correlation does not authenticate the receipt or prove permission to withdraw.
+ */
+export function isKnowledgeWithdrawReceiptForRequest(raw: unknown, expected: unknown): boolean {
+  const receipt = InternalMemoryKnowledgeReceiptSchema.safeParse(raw);
+  const request = InternalMemoryKnowledgeWithdrawRequestSchema.safeParse(expected);
+  return receipt.success && request.success
+    && receipt.data.slug === request.data.ref.slug
+    && receipt.data.version === request.data.ref.version
+    && receipt.data.digest === request.data.ref.digest;
+}
+
 export const InternalMemoryKnowledgeErrorResponseSchema = z.strictObject({
   status: z.literal('error'),
   code: z.enum(['invalid_publication', 'identity_uncertain', 'knowledge_conflict', 'supersedes_missing']),

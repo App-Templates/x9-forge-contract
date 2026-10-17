@@ -41,6 +41,11 @@ __exportStar(require("./internal-capability-agent.cjs"), exports); // v1.28.0 �
 __exportStar(require("./internal-capability-elevenlabs.cjs"), exports); // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 __exportStar(require("./internal-capability-coach.cjs"), exports); // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
 __exportStar(require("./internal-capability-dev.cjs"), exports); // P04-d — cap-dev get/put config and get state
+__exportStar(require("./internal-dev-progress.cjs"), exports);
+__exportStar(require("./internal-dev-jobs.cjs"), exports);
+__exportStar(require("./internal-dev-cancel.cjs"), exports);
+__exportStar(require("./internal-dev-production.cjs"), exports);
+__exportStar(require("./internal-capability-lab.cjs"), exports);
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);
@@ -90,6 +95,7 @@ __exportStar(require("./forge-master-model-authority.cjs"), exports);
 __exportStar(require("./internal-models-apply.cjs"), exports);
 __exportStar(require("./internal-vault-connection.cjs"), exports);
 __exportStar(require("./internal-connect.cjs"), exports);
+__exportStar(require("./internal-development-sessions.cjs"), exports);
 __exportStar(require("./connection-card.cjs"), exports);
 __exportStar(require("./web-connection-cards.cjs"), exports);
 __exportStar(require("./internal-memory-experience.cjs"), exports);
@@ -103,4 +109,6 @@ __exportStar(require("./internal-agent-address-book.cjs"), exports);
 __exportStar(require("./native-binding-read.cjs"), exports);
 __exportStar(require("./coach-person-program-read.cjs"), exports);
 __exportStar(require("./coach-browser.cjs"), exports);
+__exportStar(require("./development-session-models.cjs"), exports);
+__exportStar(require("./internal-development-session-list.cjs"), exports);
 //# sourceMappingURL=index.js.map

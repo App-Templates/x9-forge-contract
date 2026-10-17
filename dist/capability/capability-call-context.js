@@ -15,8 +15,8 @@ import { CapabilityAgentParametersSchema, CapabilityParameterKeySchema, Capabili
  * - Missing key, unavailable source, disabled / not installed capability and forged identity are distinct errors;
  *   a consumer never falls back to a process-global key.
  */
-/** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
-export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
+/** Agent-level scope of capability data (no person), defined beside the identity. */
+export { CapabilityAgentScopeSchema } from "./capability-call-identity.js";
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
 export const CapabilityPersonScopeSchema = CapabilityCallIdentitySchema.required({ userId: true }); // strict, inherited
 /** Same tenant, owner and agent (and person when both carry one). */

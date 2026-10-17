@@ -43,6 +43,7 @@ export declare const InternalAgentTurnOrganizationRunSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -137,6 +138,7 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -188,6 +190,8 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         url: z.ZodString;
         expiresAt: z.ZodNumber;
@@ -200,6 +204,139 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
         }>;
         reason: z.ZodString;
     }, z.core.$strict>>>;
+    outcome: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        status: z.ZodLiteral<"succeeded">;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"failed">;
+        failureCode: z.ZodString;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"cancelled">;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"uncertain">;
+        reason: z.ZodEnum<{
+            response_lost: "response_lost";
+            timeout: "timeout";
+            provider_unknown: "provider_unknown";
+            worker_crashed: "worker_crashed";
+        }>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>], "status">>;
+    duplicate: z.ZodOptional<z.ZodLiteral<true>>;
 }, z.core.$strip>;
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
@@ -207,6 +344,173 @@ export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
     error: z.ZodString;
 }, z.core.$strip>;
 export type InternalAgentTurnErrorResponse = z.infer<typeof InternalAgentTurnErrorResponseSchema>;
+/** Typed admission refusals of an organization run (`error` of a refused turn). */
+export declare const ORGANIZATION_ADMISSION_REFUSAL_CODES: readonly ["organization_context_missing", "organization_context_invalid", "organization_attempt_invalid", "run_correlation_mismatch", "issuer_not_authorized", "context_expired", "organization_binding_unavailable", "organization_binding_missing", "tenant_mismatch", "owner_mismatch", "agent_identity_mismatch", "agent_target_mismatch", "organization_admission_unavailable", "organization_tenant_unknown"];
+export declare const OrganizationAdmissionRefusalCodeSchema: z.ZodEnum<{
+    organization_context_missing: "organization_context_missing";
+    organization_context_invalid: "organization_context_invalid";
+    organization_attempt_invalid: "organization_attempt_invalid";
+    run_correlation_mismatch: "run_correlation_mismatch";
+    issuer_not_authorized: "issuer_not_authorized";
+    context_expired: "context_expired";
+    organization_binding_unavailable: "organization_binding_unavailable";
+    organization_binding_missing: "organization_binding_missing";
+    tenant_mismatch: "tenant_mismatch";
+    owner_mismatch: "owner_mismatch";
+    agent_identity_mismatch: "agent_identity_mismatch";
+    agent_target_mismatch: "agent_target_mismatch";
+    organization_admission_unavailable: "organization_admission_unavailable";
+    organization_tenant_unknown: "organization_tenant_unknown";
+}>;
+export type OrganizationAdmissionRefusalCode = z.infer<typeof OrganizationAdmissionRefusalCodeSchema>;
+/** `error` values of an organization run that was admitted but did not succeed. */
+export declare const INTERNAL_AGENT_TURN_RUN_ERRORS: readonly ["run_failed", "run_cancelled", "run_uncertain"];
+export declare const InternalAgentTurnRunErrorSchema: z.ZodEnum<{
+    run_failed: "run_failed";
+    run_cancelled: "run_cancelled";
+    run_uncertain: "run_uncertain";
+}>;
+export type InternalAgentTurnRunError = z.infer<typeof InternalAgentTurnRunErrorSchema>;
+/** Error body of an organization run: refusal message, failure code and outcome are all optional. */
+export declare const InternalAgentTurnRunErrorResponseSchema: z.ZodObject<{
+    ok: z.ZodLiteral<false>;
+    error: z.ZodString;
+    code: z.ZodOptional<z.ZodString>;
+    message: z.ZodOptional<z.ZodString>;
+    outcome: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        status: z.ZodLiteral<"succeeded">;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"failed">;
+        failureCode: z.ZodString;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"cancelled">;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"uncertain">;
+        reason: z.ZodEnum<{
+            response_lost: "response_lost";
+            timeout: "timeout";
+            provider_unknown: "provider_unknown";
+            worker_crashed: "worker_crashed";
+        }>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        evidence: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                log: "log";
+                artifact: "artifact";
+                commit: "commit";
+                document: "document";
+                metric: "metric";
+            }>;
+            ref: z.ZodString;
+            sha256: z.ZodOptional<z.ZodString>;
+            grantsRead: z.ZodLiteral<false>;
+        }, z.core.$strict>>;
+        consumption: z.ZodArray<z.ZodObject<{
+            unit: z.ZodEnum<{
+                usd_micros: "usd_micros";
+                tokens: "tokens";
+                seconds: "seconds";
+            }>;
+            quantity: z.ZodNumber;
+            state: z.ZodEnum<{
+                unknown: "unknown";
+                reserved: "reserved";
+                settled: "settled";
+            }>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>>;
+        recordedAt: z.ZodISODateTime;
+    }, z.core.$strict>], "status">>;
+}, z.core.$strip>;
+export type InternalAgentTurnRunErrorResponse = z.infer<typeof InternalAgentTurnRunErrorResponseSchema>;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 export declare const INTERNAL_AGENT_TURN_UNKNOWN_AGENT: "unknown_agent";
 /** Error code returned with 403 for a primary turn without a scoped admission. */
@@ -297,6 +601,7 @@ export declare const internalAgentTurnContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
@@ -346,6 +651,8 @@ export declare const internalAgentTurnContract: {
                 contacts_read: "contacts_read";
                 mail_send: "mail_send";
                 mail_draft: "mail_draft";
+                mail_read: "mail_read";
+                drive_read: "drive_read";
             }>>;
             url: z.ZodString;
             expiresAt: z.ZodNumber;
@@ -358,6 +665,139 @@ export declare const internalAgentTurnContract: {
             }>;
             reason: z.ZodString;
         }, z.core.$strict>>>;
+        outcome: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            status: z.ZodLiteral<"succeeded">;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            evidence: z.ZodArray<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    log: "log";
+                    artifact: "artifact";
+                    commit: "commit";
+                    document: "document";
+                    metric: "metric";
+                }>;
+                ref: z.ZodString;
+                sha256: z.ZodOptional<z.ZodString>;
+                grantsRead: z.ZodLiteral<false>;
+            }, z.core.$strict>>;
+            consumption: z.ZodArray<z.ZodObject<{
+                unit: z.ZodEnum<{
+                    usd_micros: "usd_micros";
+                    tokens: "tokens";
+                    seconds: "seconds";
+                }>;
+                quantity: z.ZodNumber;
+                state: z.ZodEnum<{
+                    unknown: "unknown";
+                    reserved: "reserved";
+                    settled: "settled";
+                }>;
+                estimated: z.ZodBoolean;
+            }, z.core.$strict>>;
+            recordedAt: z.ZodISODateTime;
+        }, z.core.$strict>, z.ZodObject<{
+            status: z.ZodLiteral<"failed">;
+            failureCode: z.ZodString;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            evidence: z.ZodArray<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    log: "log";
+                    artifact: "artifact";
+                    commit: "commit";
+                    document: "document";
+                    metric: "metric";
+                }>;
+                ref: z.ZodString;
+                sha256: z.ZodOptional<z.ZodString>;
+                grantsRead: z.ZodLiteral<false>;
+            }, z.core.$strict>>;
+            consumption: z.ZodArray<z.ZodObject<{
+                unit: z.ZodEnum<{
+                    usd_micros: "usd_micros";
+                    tokens: "tokens";
+                    seconds: "seconds";
+                }>;
+                quantity: z.ZodNumber;
+                state: z.ZodEnum<{
+                    unknown: "unknown";
+                    reserved: "reserved";
+                    settled: "settled";
+                }>;
+                estimated: z.ZodBoolean;
+            }, z.core.$strict>>;
+            recordedAt: z.ZodISODateTime;
+        }, z.core.$strict>, z.ZodObject<{
+            status: z.ZodLiteral<"cancelled">;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            evidence: z.ZodArray<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    log: "log";
+                    artifact: "artifact";
+                    commit: "commit";
+                    document: "document";
+                    metric: "metric";
+                }>;
+                ref: z.ZodString;
+                sha256: z.ZodOptional<z.ZodString>;
+                grantsRead: z.ZodLiteral<false>;
+            }, z.core.$strict>>;
+            consumption: z.ZodArray<z.ZodObject<{
+                unit: z.ZodEnum<{
+                    usd_micros: "usd_micros";
+                    tokens: "tokens";
+                    seconds: "seconds";
+                }>;
+                quantity: z.ZodNumber;
+                state: z.ZodEnum<{
+                    unknown: "unknown";
+                    reserved: "reserved";
+                    settled: "settled";
+                }>;
+                estimated: z.ZodBoolean;
+            }, z.core.$strict>>;
+            recordedAt: z.ZodISODateTime;
+        }, z.core.$strict>, z.ZodObject<{
+            status: z.ZodLiteral<"uncertain">;
+            reason: z.ZodEnum<{
+                response_lost: "response_lost";
+                timeout: "timeout";
+                provider_unknown: "provider_unknown";
+                worker_crashed: "worker_crashed";
+            }>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            evidence: z.ZodArray<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    log: "log";
+                    artifact: "artifact";
+                    commit: "commit";
+                    document: "document";
+                    metric: "metric";
+                }>;
+                ref: z.ZodString;
+                sha256: z.ZodOptional<z.ZodString>;
+                grantsRead: z.ZodLiteral<false>;
+            }, z.core.$strict>>;
+            consumption: z.ZodArray<z.ZodObject<{
+                unit: z.ZodEnum<{
+                    usd_micros: "usd_micros";
+                    tokens: "tokens";
+                    seconds: "seconds";
+                }>;
+                quantity: z.ZodNumber;
+                state: z.ZodEnum<{
+                    unknown: "unknown";
+                    reserved: "reserved";
+                    settled: "settled";
+                }>;
+                estimated: z.ZodBoolean;
+            }, z.core.$strict>>;
+            recordedAt: z.ZodISODateTime;
+        }, z.core.$strict>], "status">>;
+        duplicate: z.ZodOptional<z.ZodLiteral<true>>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agent-turn.d.ts.map

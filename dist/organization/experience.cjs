@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExperienceConflictSchema = exports.ExperienceReceiptSchema = exports.OrganizationExperienceEventSchema = exports.AuthoritativeDecisionExperienceEventSchema = exports.DecisionApproverSchema = exports.AuthoritativeDecisionStatusSchema = exports.RunOutcomeExperienceEventSchema = void 0;
+exports.isExperienceReceiptForEvent = isExperienceReceiptForEvent;
 const zod_1 = require("zod");
 const run_context_js_1 = require("./run-context.cjs");
 const run_outcome_js_1 = require("./run-outcome.cjs");
@@ -76,6 +77,20 @@ exports.ExperienceReceiptSchema = zod_1.z.strictObject({
     digest: Sha256Hex,
     disposition: zod_1.z.enum(['stored', 'duplicate']),
 });
+/**
+ * Correlates a stored or duplicate receipt with the event actually sent.
+ * This does not authenticate the sender: receipts carry no tenant or organization.
+ * X9 adoption is pending in services/agent-core/src/core/organization-experience-delivery.ts
+ * (task 169); callers must retain their existing authorization checks.
+ */
+function isExperienceReceiptForEvent(raw, expected) {
+    const receipt = exports.ExperienceReceiptSchema.safeParse(raw);
+    const event = exports.OrganizationExperienceEventSchema.safeParse(expected);
+    return receipt.success && event.success
+        && receipt.data.recordId === event.data.recordId
+        && receipt.data.version === event.data.version
+        && receipt.data.digest === event.data.digest;
+}
 exports.ExperienceConflictSchema = zod_1.z.strictObject({
     code: zod_1.z.literal('experience_conflict'),
     recordId: zod_1.z.string().min(1),

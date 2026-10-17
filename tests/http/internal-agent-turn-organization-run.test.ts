@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
+  INTERNAL_AGENT_TURN_RUN_ERRORS,
   InternalAgentTurnOrganizationRunSchema,
+  InternalAgentTurnResponseSchema,
+  InternalAgentTurnRunErrorResponseSchema,
+  ORGANIZATION_ADMISSION_REFUSAL_CODES,
+  OrganizationAdmissionRefusalCodeSchema,
   InternalAgentTurnRequestSchema,
 } from '../../src/http/endpoints/internal-agent-turn.js';
 import { OrganizationRunContextSchema } from '../../src/organization/run-context.js';
@@ -87,5 +92,77 @@ describe('InternalAgentTurnRequestSchema organizationRun', () => {
     });
     expect(required.safeParse(legacy).success).toBe(false);
     expect(InternalAgentTurnRequestSchema.safeParse(legacy).success).toBe(true);
+  });
+});
+
+const outcomeBase = {
+  runId: 'run-1',
+  attemptId: 'att-1',
+  evidence: [],
+  consumption: [],
+  recordedAt: '2026-10-14T10:02:00.000Z',
+};
+const okTurn = { ok: true as const, reply: 'fatto', updatedHistory: [] };
+
+describe('organization run response and refusals', () => {
+  it('conserva outcome in una risposta riuscita', () => {
+    const parsed = InternalAgentTurnResponseSchema.parse({
+      ...okTurn,
+      outcome: { ...outcomeBase, status: 'succeeded' },
+    });
+    expect(parsed.outcome?.status).toBe('succeeded');
+  });
+
+  it('conserva duplicate: true', () => {
+    const parsed = InternalAgentTurnResponseSchema.parse({
+      ...okTurn,
+      duplicate: true,
+      outcome: { ...outcomeBase, status: 'succeeded' },
+    });
+    expect(parsed.duplicate).toBe(true);
+    expect(InternalAgentTurnResponseSchema.safeParse({ ...okTurn, duplicate: false }).success).toBe(false);
+  });
+
+  it('conserva un run_uncertain con motivo timeout', () => {
+    const parsed = InternalAgentTurnRunErrorResponseSchema.parse({
+      ok: false,
+      error: 'run_uncertain',
+      outcome: { ...outcomeBase, status: 'uncertain', reason: 'timeout' },
+    });
+    expect(parsed.outcome).toMatchObject({ status: 'uncertain', reason: 'timeout' });
+    expect(INTERNAL_AGENT_TURN_RUN_ERRORS).toContain(parsed.error);
+  });
+
+  it('rifiuta un outcome con stato sconosciuto', () => {
+    const bad = { ...outcomeBase, status: 'maybe' };
+    expect(InternalAgentTurnResponseSchema.safeParse({ ...okTurn, outcome: bad }).success).toBe(false);
+    expect(
+      InternalAgentTurnRunErrorResponseSchema.safeParse({ ok: false, error: 'run_failed', outcome: bad }).success,
+    ).toBe(false);
+  });
+
+  it('accetta una risposta legacy senza outcome', () => {
+    const parsed = InternalAgentTurnResponseSchema.parse(okTurn);
+    expect('outcome' in parsed).toBe(false);
+    expect(InternalAgentTurnRunErrorResponseSchema.safeParse({ ok: false, error: 'boom' }).success).toBe(true);
+  });
+
+  it('riconosce ogni codice di rifiuto e non uno inventato', () => {
+    expect(ORGANIZATION_ADMISSION_REFUSAL_CODES).toHaveLength(14);
+    for (const code of ORGANIZATION_ADMISSION_REFUSAL_CODES) {
+      expect(OrganizationAdmissionRefusalCodeSchema.safeParse(code).success).toBe(true);
+    }
+    expect(OrganizationAdmissionRefusalCodeSchema.safeParse('made_up').success).toBe(false);
+  });
+
+  it('conserva il codice e il messaggio del rifiuto', () => {
+    const parsed = InternalAgentTurnRunErrorResponseSchema.parse({
+      ok: false,
+      error: 'tenant_mismatch',
+      message: 'tenant diverso',
+      code: 'x',
+    });
+    expect(parsed.message).toBe('tenant diverso');
+    expect(parsed.code).toBe('x');
   });
 });

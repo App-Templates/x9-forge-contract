@@ -154,7 +154,21 @@ function canonicalize(value: unknown): unknown {
   return value;
 }
 
+/** SHA-256 (lowercase hex) of any JSON value with object keys sorted; array order is kept. */
+export function canonicalSha256(value: unknown): string {
+  return createHash('sha256').update(JSON.stringify(canonicalize(value))).digest('hex');
+}
+
 /** SHA-256 (lowercase hex) of the world with object keys sorted; array order is kept. */
 export function canonicalWorldHash(world: SimulationWorld): string {
-  return createHash('sha256').update(JSON.stringify(canonicalize(world))).digest('hex');
+  return canonicalSha256(world);
+}
+
+/**
+ * SHA-256 (lowercase hex) of the whole script: world and actions, object keys sorted.
+ * The order of the actions in the array is part of the hash: swapping two actions
+ * changes it.
+ */
+export function canonicalScriptHash(script: SimulationScript): string {
+  return canonicalSha256({ world: script.world, actions: script.actions });
 }

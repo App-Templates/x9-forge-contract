@@ -369,6 +369,13 @@ export declare const ExperienceReceiptSchema: z.ZodObject<{
     }>;
 }, z.core.$strict>;
 export type ExperienceReceipt = z.infer<typeof ExperienceReceiptSchema>;
+/**
+ * Correlates a stored or duplicate receipt with the event actually sent.
+ * This does not authenticate the sender: receipts carry no tenant or organization.
+ * X9 adoption is pending in services/agent-core/src/core/organization-experience-delivery.ts
+ * (task 169); callers must retain their existing authorization checks.
+ */
+export declare function isExperienceReceiptForEvent(raw: unknown, expected: unknown): boolean;
 export declare const ExperienceConflictSchema: z.ZodObject<{
     code: z.ZodLiteral<"experience_conflict">;
     recordId: z.ZodString;

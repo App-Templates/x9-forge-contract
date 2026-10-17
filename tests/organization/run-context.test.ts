@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { OrganizationRunContextSchema } from '../../src/organization/run-context.js';
+import { ReadMaterialRequestSchema } from '../../src/organization/publication-operations.js';
+import { OrganizationRecallContextSchema } from '../../src/organization/recall.js';
 
 const valid = {
   schemaVersion: 1,
@@ -12,7 +14,48 @@ const valid = {
   expiresAt: '2026-10-14T11:00:00.000Z',
 };
 
+const validWithPerson = { ...valid, personRef: 'person-1' };
+const recipient = { kind: 'organization', id: 'org-1' };
+
 describe('OrganizationRunContextSchema', () => {
+  it('preserves the attested personRef', () => {
+    expect(OrganizationRunContextSchema.parse(validWithPerson).personRef).toBe('person-1');
+  });
+
+  // Mutation probe: removing personRef.min(1) must make this test fail.
+  it('rejects an empty personRef', () => {
+    expect(OrganizationRunContextSchema.safeParse({ ...valid, personRef: '' }).success).toBe(false);
+  });
+
+  it('rejects a non-string personRef', () => {
+    expect(OrganizationRunContextSchema.safeParse({ ...valid, personRef: 42 }).success).toBe(false);
+  });
+
+  it('accepts a context without personRef', () => {
+    expect(OrganizationRunContextSchema.parse(valid)).toEqual(valid);
+  });
+
+  it('preserves personRef in recall context', () => {
+    const parsed = OrganizationRecallContextSchema.parse({ context: validWithPerson, recipient });
+    expect(parsed.context.personRef).toBe('person-1');
+  });
+
+  it('preserves personRef in a read material request', () => {
+    const parsed = ReadMaterialRequestSchema.parse({
+      context: validWithPerson,
+      ref: {
+        context: validWithPerson,
+        sourceScope: 'team',
+        slug: 'note-1',
+        version: 1,
+        digest: 'a'.repeat(64),
+        recipient,
+      },
+    });
+    expect(parsed.context.personRef).toBe('person-1');
+    expect(parsed.ref.context.personRef).toBe('person-1');
+  });
+
   it('accepts a valid context', () => {
     expect(OrganizationRunContextSchema.safeParse(valid).success).toBe(true);
   });

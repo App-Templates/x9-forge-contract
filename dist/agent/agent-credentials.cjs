@@ -50,6 +50,13 @@ exports.KNOWN_CREDENTIAL_KEYS = [
     'INTERNAL_SECRET',
     'X9_INTERNAL_SECRET',
     'HOSTINGER_API_TOKEN', // Phase 59 — cap-backup only; full-account token (no scopes): vault, never projected to prompts or devices
+    // Phase 55 — cap-dev, per agente
+    'GITHUB_TOKEN',
+    'GITHUB_APP_ID',
+    'GITHUB_APP_INSTALLATION_ID',
+    'GITHUB_APP_PRIVATE_KEY',
+    'DEV_SIGNING_PRIVATE_KEY',
+    'PAPERCLIP_API_KEY', // P01 — native Paperclip agent API key; per agent, never platform-wide
 ];
 /**
  * Agent credentials schema.
@@ -99,6 +106,14 @@ exports.AgentCredentialsSchema = zod_1.z
     NETATMO_PASSWORD: zod_1.z.string().optional(),
     INTERNAL_SECRET: zod_1.z.string().optional(),
     X9_INTERNAL_SECRET: zod_1.z.string().optional(),
+    HOSTINGER_API_TOKEN: zod_1.z.string().optional(),
+    // Phase 55 — cap-dev, per agente
+    GITHUB_TOKEN: zod_1.z.string().optional(),
+    GITHUB_APP_ID: zod_1.z.string().optional(),
+    GITHUB_APP_INSTALLATION_ID: zod_1.z.string().optional(),
+    GITHUB_APP_PRIVATE_KEY: zod_1.z.string().optional(),
+    DEV_SIGNING_PRIVATE_KEY: zod_1.z.string().optional(),
+    PAPERCLIP_API_KEY: zod_1.z.string().optional(),
 })
     .catchall(zod_1.z.string());
 /**

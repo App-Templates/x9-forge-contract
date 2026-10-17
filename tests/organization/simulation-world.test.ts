@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
+import type { SimulationAction, SimulationScript } from '../../src/organization/index.js';
 import {
   SimulationActionSchema,
   SimulationResultSchema,
   SimulationScriptSchema,
   SimulationWorldSchema,
+  canonicalScriptHash,
+  canonicalSha256,
   canonicalWorldHash,
 } from '../../src/organization/index.js';
 
@@ -125,5 +128,39 @@ describe('canonicalWorldHash', () => {
   it('changes when a value changes', () => {
     const other = SimulationWorldSchema.parse({ ...world, tenantId: 't2' });
     expect(canonicalWorldHash(other)).not.toBe(canonicalWorldHash(parsed));
+  });
+});
+
+describe('canonicalScriptHash', () => {
+  const second = { type: 'advance_clock', seq: 1, effectId: 'e1', seconds: 60 };
+  const script = SimulationScriptSchema.parse({ world, actions: [turn, second] });
+  const base = canonicalScriptHash(script);
+
+  it('matches canonicalSha256 for the world hash', () => {
+    expect(canonicalWorldHash(script.world)).toBe(canonicalSha256(script.world));
+  });
+  it('is stable with action keys in a different order', () => {
+    const first = script.actions[0] as SimulationAction;
+    const reordered = Object.fromEntries(Object.entries(first).reverse()) as SimulationAction;
+    expect(Object.keys(reordered)).not.toEqual(Object.keys(first));
+    const other = { ...script, actions: [reordered, script.actions[1] as SimulationAction] };
+    expect(canonicalScriptHash(other)).toBe(base);
+  });
+  // Mutazione: togliere `actions` dall'oggetto hashato fa rosso questo caso.
+  it('changes when actions[0].input changes', () => {
+    const first = { ...(script.actions[0] as SimulationAction), input: 'altro' };
+    const other = { ...script, actions: [first, script.actions[1] as SimulationAction] };
+    expect(canonicalScriptHash(other as SimulationScript)).not.toBe(base);
+  });
+  it('changes when two actions are swapped', () => {
+    const other = { ...script, actions: [script.actions[1], script.actions[0]] as SimulationAction[] };
+    expect(canonicalScriptHash(other)).not.toBe(base);
+  });
+  it('changes when world.scenarioRef.version changes', () => {
+    const other = {
+      ...script,
+      world: { ...script.world, scenarioRef: { ...script.world.scenarioRef, version: 2 } },
+    };
+    expect(canonicalScriptHash(other)).not.toBe(base);
   });
 });
