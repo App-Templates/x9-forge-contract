@@ -36,3 +36,20 @@ export const listDevProductionJobsContract = {
   }),
   responseSchema: DevProductionJobsPageSchema,
 } as const;
+
+export type ListDevProductionJobsQueryInput = z.input<typeof listDevProductionJobsContract.querySchema>;
+
+/**
+ * Accept a jobs page only when it is valid, within the requested limit and entirely in the requested
+ * scope. Returns a detached parsed copy (order, cursor and content intact) or null; foreign rows are
+ * never filtered out and errors never become an empty page. The authenticated owner and the cursor stay
+ * the server's responsibility: this check proves neither ownership, freshness nor global ordering.
+ */
+export function selectDevProductionJobsPage(rawPage: unknown, expectedQuery: ListDevProductionJobsQueryInput): DevProductionJobsPage | null {
+  const query = listDevProductionJobsContract.querySchema.safeParse(expectedQuery);
+  const page = DevProductionJobsPageSchema.safeParse(rawPage);
+  if (!query.success || !page.success) return null;
+  if (page.data.items.length > query.data.limit) return null;
+  if (!page.data.items.every(job => sameCapabilityScope(job.scope, query.data.scope))) return null;
+  return page.data;
+}
