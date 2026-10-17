@@ -32,6 +32,7 @@ exports.LabGrowthHistoryInputSchema = zod_1.z.object({
     cursor: CursorSchema.optional(),
 }).strict();
 exports.LabGrowthHistoryOutputSchema = zod_1.z.object({
+    snapshotVersion: zod_1.z.number().int().nonnegative(),
     scope: exports.LabScopeSchema,
     points: zod_1.z.array(exports.LabGrowthPointSchema).max(500),
     /** Null means there is no subsequent page. */

@@ -51,6 +51,8 @@ export declare const ConnectReturnResponseSchema: z.ZodDiscriminatedUnion<[z.Zod
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"error">;
@@ -98,6 +100,8 @@ export declare const connectReturnContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"error">;

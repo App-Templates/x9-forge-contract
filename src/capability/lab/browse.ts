@@ -24,6 +24,7 @@ export const LabPageListEntrySchema = WikiPageSchema.pick({
 export type LabPageListEntry = z.infer<typeof LabPageListEntrySchema>;
 
 export const LabPageListOutputSchema = z.object({
+  snapshotVersion: z.number().int().nonnegative(),
   pages: z.array(LabPageListEntrySchema).max(200),
   /** Null means there is no subsequent page. */
   nextCursor: CursorSchema.nullable(),
@@ -33,10 +34,17 @@ export type LabPageListOutput = z.infer<typeof LabPageListOutputSchema>;
 export const LabPageDetailInputSchema = z.object({
   scope: LabScopeSchema,
   slug: WikiPageSlugSchema,
+  version: z.number().int().positive().optional(),
 }).strict();
 export type LabPageDetailInput = z.infer<typeof LabPageDetailInputSchema>;
 
 export const LabPageDetailOutputSchema = z.object({
+  snapshotVersion: z.number().int().nonnegative(),
+  truncated: z.object({
+    claims: z.boolean(),
+    links: z.boolean(),
+    sources: z.boolean(),
+  }).strict(),
   page: WikiPageSchema,
   claims: z.array(WikiClaimSchema).max(500),
   links: z.array(WikiLinkSchema).max(500),
@@ -59,9 +67,14 @@ export const LabExportResultSchema = z.object({
     message: 'a file name never contains «..»',
   }),
   bytes: z.number().int().nonnegative().max(5_000_000),
+  content: z.string().max(5_000_000),
+  partial: z.boolean(),
   /** Version of the wiki snapshot the export was generated from. */
   generatedFrom: z.number().int().positive(),
-}).strict();
+}).strict().refine(result => result.bytes === new TextEncoder().encode(result.content).length, {
+  message: 'bytes must equal the UTF-8 length of content',
+  path: ['bytes'],
+});
 export type LabExportResult = z.infer<typeof LabExportResultSchema>;
 
 /** Canonical failure for browse/detail/export: reuses the tool error codes. */

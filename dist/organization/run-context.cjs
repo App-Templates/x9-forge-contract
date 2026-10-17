@@ -19,6 +19,9 @@ exports.OrganizationRunContextSchema = zod_1.z
     organizationId: zod_1.z.string().min(1),
     ownerId: agent_identity_js_1.OwnerIdSchema,
     identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema,
+    /** Attested person this run acts for, set by the context issuer (runtime), never the model.
+     * Absent for group turns and runs without a person. */
+    personRef: zod_1.z.string().min(1).optional(),
     issuer: exports.OrganizationRunIssuerSchema,
     issuedAt: zod_1.z.iso.datetime(),
     expiresAt: zod_1.z.iso.datetime(),

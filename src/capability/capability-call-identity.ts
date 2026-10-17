@@ -10,3 +10,9 @@ export const CapabilityCallIdentitySchema = InternalMemoryExtractRequestSchema.p
 }).strict();
 export type CapabilityCallIdentity = z.infer<typeof CapabilityCallIdentitySchema>;
 
+/**
+ * Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent.
+ * Lives beside the identity so leaf contracts can use it without loading the call-context graph.
+ */
+export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
+export type CapabilityAgentScope = z.infer<typeof CapabilityAgentScopeSchema>;

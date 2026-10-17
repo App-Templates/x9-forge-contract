@@ -19,6 +19,7 @@ declare const ordinaryCall: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -126,6 +127,7 @@ declare const ragCall: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";

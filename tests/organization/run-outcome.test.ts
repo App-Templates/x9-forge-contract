@@ -4,6 +4,7 @@ import {
   EvidenceRefSchema,
   ConsumptionSchema,
   RunOutcomeSchema,
+  RunOutcomeStatusSchema,
 } from '../../src/organization/run-outcome.js';
 
 const base = {
@@ -75,6 +76,12 @@ describe('ConsumptionSchema', () => {
 });
 
 describe('RunOutcomeSchema', () => {
+  it('keeps the status enum aligned with the outcome union', () => {
+    // Mutation: adding a fifth status to the union must fail this alignment test.
+    const unionStatuses = RunOutcomeSchema.options.map((option) => option.shape.status.value);
+    expect(new Set(RunOutcomeStatusSchema.options)).toEqual(new Set(unionStatuses));
+  });
+
   it.each(Object.entries(variants))('accepts a valid %s outcome', (_s, v) => {
     expect(RunOutcomeSchema.safeParse(v).success).toBe(true);
   });

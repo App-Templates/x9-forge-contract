@@ -16,6 +16,7 @@ export declare const internalPublicationResolveContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -35,6 +36,7 @@ export declare const internalPublicationResolveContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
@@ -80,6 +82,7 @@ export declare const internalPublicationResolveContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
@@ -152,6 +155,7 @@ export declare const internalPublicationWithdrawContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -171,6 +175,7 @@ export declare const internalPublicationWithdrawContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
@@ -216,6 +221,7 @@ export declare const internalPublicationWithdrawContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";
@@ -272,6 +278,7 @@ export declare const internalPublicationListContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -308,6 +315,7 @@ export declare const internalPublicationListContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodOptional<z.ZodNumber>;
                 }, z.core.$strip>;
+                personRef: z.ZodOptional<z.ZodString>;
                 issuer: z.ZodEnum<{
                     x9: "x9";
                     forge: "forge";

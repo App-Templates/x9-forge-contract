@@ -20,6 +20,7 @@ exports.LabPageListEntrySchema = wiki_js_1.WikiPageSchema.pick({
     slug: true, title: true, kind: true, version: true, updatedAt: true,
 }).strict();
 exports.LabPageListOutputSchema = zod_1.z.object({
+    snapshotVersion: zod_1.z.number().int().nonnegative(),
     pages: zod_1.z.array(exports.LabPageListEntrySchema).max(200),
     /** Null means there is no subsequent page. */
     nextCursor: CursorSchema.nullable(),
@@ -27,8 +28,15 @@ exports.LabPageListOutputSchema = zod_1.z.object({
 exports.LabPageDetailInputSchema = zod_1.z.object({
     scope: growth_js_1.LabScopeSchema,
     slug: wiki_js_1.WikiPageSlugSchema,
+    version: zod_1.z.number().int().positive().optional(),
 }).strict();
 exports.LabPageDetailOutputSchema = zod_1.z.object({
+    snapshotVersion: zod_1.z.number().int().nonnegative(),
+    truncated: zod_1.z.object({
+        claims: zod_1.z.boolean(),
+        links: zod_1.z.boolean(),
+        sources: zod_1.z.boolean(),
+    }).strict(),
     page: wiki_js_1.WikiPageSchema,
     claims: zod_1.z.array(wiki_js_1.WikiClaimSchema).max(500),
     links: zod_1.z.array(wiki_js_1.WikiLinkSchema).max(500),
@@ -45,9 +53,14 @@ exports.LabExportResultSchema = zod_1.z.object({
         message: 'a file name never contains «..»',
     }),
     bytes: zod_1.z.number().int().nonnegative().max(5_000_000),
+    content: zod_1.z.string().max(5_000_000),
+    partial: zod_1.z.boolean(),
     /** Version of the wiki snapshot the export was generated from. */
     generatedFrom: zod_1.z.number().int().positive(),
-}).strict();
+}).strict().refine(result => result.bytes === new TextEncoder().encode(result.content).length, {
+    message: 'bytes must equal the UTF-8 length of content',
+    path: ['bytes'],
+});
 /** Canonical failure for browse/detail/export: reuses the tool error codes. */
 exports.LabBrowseErrorSchema = zod_1.z.object({ error: tools_js_1.LabToolErrorSchema }).strict();
 //# sourceMappingURL=browse.js.map

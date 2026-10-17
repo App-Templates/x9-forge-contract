@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnOrganizationRunSchema = exports.InternalAgentTurnParamsSchema = void 0;
+exports.internalAgentTurnContract = exports.INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = exports.InternalAgentTurnRunErrorResponseSchema = exports.InternalAgentTurnRunErrorSchema = exports.INTERNAL_AGENT_TURN_RUN_ERRORS = exports.OrganizationAdmissionRefusalCodeSchema = exports.ORGANIZATION_ADMISSION_REFUSAL_CODES = exports.InternalAgentTurnErrorResponseSchema = exports.InternalAgentTurnResponseSchema = exports.InternalAgentTurnRequestSchema = exports.InternalAgentTurnOrganizationRunSchema = exports.InternalAgentTurnParamsSchema = void 0;
 exports.internalAgentTurnPath = internalAgentTurnPath;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
@@ -69,8 +69,39 @@ exports.InternalAgentTurnRequestSchema = internal_turn_js_1.InternalTurnRequestS
 exports.InternalAgentTurnResponseSchema = internal_turn_js_1.InternalTurnResponseSchema.extend({ moveId: capability_turn_lead_js_1.AgentTurnMoveIdSchema.optional(),
     lead: capability_turn_lead_js_1.CapabilityLeadInstructionsSchema.optional(), note: capability_turn_lead_js_1.CapabilityNoteSchema.optional(),
     /** Connection cards produced by the turn; absent on legacy responses. */
-    connectionCards: zod_1.z.array(connection_card_js_1.ConnectionCardSchema).max(5).optional() });
+    connectionCards: zod_1.z.array(connection_card_js_1.ConnectionCardSchema).max(5).optional(),
+    /** Outcome of an organization run; absent on legacy responses. */
+    outcome: run_outcome_js_1.RunOutcomeSchema.optional(),
+    /** True when the run was already admitted and this is the stored answer. */
+    duplicate: zod_1.z.literal(true).optional() });
 exports.InternalAgentTurnErrorResponseSchema = internal_turn_js_1.InternalTurnErrorResponseSchema;
+/** Typed admission refusals of an organization run (`error` of a refused turn). */
+exports.ORGANIZATION_ADMISSION_REFUSAL_CODES = [
+    'organization_context_missing',
+    'organization_context_invalid',
+    'organization_attempt_invalid',
+    'run_correlation_mismatch',
+    'issuer_not_authorized',
+    'context_expired',
+    'organization_binding_unavailable',
+    'organization_binding_missing',
+    'tenant_mismatch',
+    'owner_mismatch',
+    'agent_identity_mismatch',
+    'agent_target_mismatch',
+    'organization_admission_unavailable',
+    'organization_tenant_unknown',
+];
+exports.OrganizationAdmissionRefusalCodeSchema = zod_1.z.enum(exports.ORGANIZATION_ADMISSION_REFUSAL_CODES);
+/** `error` values of an organization run that was admitted but did not succeed. */
+exports.INTERNAL_AGENT_TURN_RUN_ERRORS = ['run_failed', 'run_cancelled', 'run_uncertain'];
+exports.InternalAgentTurnRunErrorSchema = zod_1.z.enum(exports.INTERNAL_AGENT_TURN_RUN_ERRORS);
+/** Error body of an organization run: refusal message, failure code and outcome are all optional. */
+exports.InternalAgentTurnRunErrorResponseSchema = exports.InternalAgentTurnErrorResponseSchema.extend({
+    code: zod_1.z.string().min(1).optional(),
+    message: zod_1.z.string().optional(),
+    outcome: run_outcome_js_1.RunOutcomeSchema.optional(),
+});
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';
 /** Error code returned with 403 for a primary turn without a scoped admission. */

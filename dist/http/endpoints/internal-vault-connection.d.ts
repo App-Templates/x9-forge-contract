@@ -25,6 +25,8 @@ export declare const PutVaultConnectionBodySchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>;
 export type PutVaultConnectionBody = z.infer<typeof PutVaultConnectionBodySchema>;
@@ -42,8 +44,8 @@ export type DeleteVaultConnectionResponse = z.infer<typeof DeleteVaultConnection
 export declare const RevokeVaultConnectionResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     status: z.ZodEnum<{
-        not_connected: "not_connected";
         revoked: "revoked";
+        not_connected: "not_connected";
     }>;
 }, z.core.$strict>;
 export type RevokeVaultConnectionResponse = z.infer<typeof RevokeVaultConnectionResponseSchema>;
@@ -53,10 +55,10 @@ export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
         google: "google";
     }>;
     status: z.ZodEnum<{
-        not_connected: "not_connected";
         connected: "connected";
-        needs_reconnect: "needs_reconnect";
         revoked: "revoked";
+        not_connected: "not_connected";
+        needs_reconnect: "needs_reconnect";
     }>;
     accountLabel: z.ZodOptional<z.ZodString>;
     scopes: z.ZodArray<z.ZodEnum<{
@@ -64,6 +66,8 @@ export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
     connectedAt: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
@@ -82,8 +86,8 @@ export type VaultConnectionErrorResponse = z.infer<typeof VaultConnectionErrorRe
 export declare const VAULT_ACCESS_TOKEN_MAX_LENGTH = 4096;
 export declare const VAULT_ACCESS_ERROR_CODES: readonly ["not_connected", "revoked", "scope_missing", "expired"];
 export declare const VaultAccessErrorCodeSchema: z.ZodEnum<{
-    not_connected: "not_connected";
     revoked: "revoked";
+    not_connected: "not_connected";
     expired: "expired";
     scope_missing: "scope_missing";
 }>;
@@ -93,7 +97,9 @@ export declare const VaultAccessScopeSchema: z.ZodEnum<{
     contacts_read: "contacts_read";
     mail_send: "mail_send";
     mail_draft: "mail_draft";
-}> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+    mail_read: "mail_read";
+    drive_read: "drive_read";
+}> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
 export type VaultAccessScope = z.infer<typeof VaultAccessScopeSchema>;
 export declare const PostVaultAccessTokenBodySchema: z.ZodObject<{
     scope: z.ZodEnum<{
@@ -101,7 +107,9 @@ export declare const PostVaultAccessTokenBodySchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
-    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+        mail_read: "mail_read";
+        drive_read: "drive_read";
+    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
     personRef: z.ZodString;
 }, z.core.$strict>;
 export type PostVaultAccessTokenBody = z.infer<typeof PostVaultAccessTokenBodySchema>;
@@ -114,14 +122,16 @@ export declare const PostVaultAccessTokenResponseSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>;
 export type PostVaultAccessTokenResponse = z.infer<typeof PostVaultAccessTokenResponseSchema>;
 export declare const VaultAccessErrorResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        not_connected: "not_connected";
         revoked: "revoked";
+        not_connected: "not_connected";
         expired: "expired";
         scope_missing: "scope_missing";
     }>;
@@ -138,16 +148,18 @@ export declare const ListVaultConnectionsResponseSchema: z.ZodObject<{
             google: "google";
         }>;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             connected: "connected";
-            needs_reconnect: "needs_reconnect";
             revoked: "revoked";
+            not_connected: "not_connected";
+            needs_reconnect: "needs_reconnect";
         }>;
         scopes: z.ZodArray<z.ZodEnum<{
             calendar_events: "calendar_events";
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         accountLabel: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
@@ -171,6 +183,8 @@ export declare const putVaultConnectionContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -206,8 +220,8 @@ export declare const revokeVaultConnectionContract: {
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             revoked: "revoked";
+            not_connected: "not_connected";
         }>;
     }, z.core.$strict>;
 };
@@ -227,10 +241,10 @@ export declare const getVaultConnectionStateContract: {
             google: "google";
         }>;
         status: z.ZodEnum<{
-            not_connected: "not_connected";
             connected: "connected";
-            needs_reconnect: "needs_reconnect";
             revoked: "revoked";
+            not_connected: "not_connected";
+            needs_reconnect: "needs_reconnect";
         }>;
         accountLabel: z.ZodOptional<z.ZodString>;
         scopes: z.ZodArray<z.ZodEnum<{
@@ -238,6 +252,8 @@ export declare const getVaultConnectionStateContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
         connectedAt: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
@@ -273,7 +289,9 @@ export declare const postVaultAccessTokenContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
-        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft">>;
+            mail_read: "mail_read";
+            drive_read: "drive_read";
+        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
         personRef: z.ZodString;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -285,6 +303,8 @@ export declare const postVaultAccessTokenContract: {
             contacts_read: "contacts_read";
             mail_send: "mail_send";
             mail_draft: "mail_draft";
+            mail_read: "mail_read";
+            drive_read: "drive_read";
         }>>;
     }, z.core.$strict>;
 };
@@ -302,16 +322,18 @@ export declare const listVaultConnectionsContract: {
                 google: "google";
             }>;
             status: z.ZodEnum<{
-                not_connected: "not_connected";
                 connected: "connected";
-                needs_reconnect: "needs_reconnect";
                 revoked: "revoked";
+                not_connected: "not_connected";
+                needs_reconnect: "needs_reconnect";
             }>;
             scopes: z.ZodArray<z.ZodEnum<{
                 calendar_events: "calendar_events";
                 contacts_read: "contacts_read";
                 mail_send: "mail_send";
                 mail_draft: "mail_draft";
+                mail_read: "mail_read";
+                drive_read: "drive_read";
             }>>;
             accountLabel: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;

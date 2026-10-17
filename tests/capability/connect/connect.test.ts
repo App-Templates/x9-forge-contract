@@ -32,7 +32,7 @@ describe('connect contracts', () => {
   it('rejects empty, duplicate and unknown scopes', () => {
     expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: [] }).success).toBe(false);
     expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: ['mail_send', 'mail_send'] }).success).toBe(false);
-    expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: ['mail_read'] }).success).toBe(false);
+    expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: ['mail_write'] }).success).toBe(false);
   });
 
   // Mutation: dropping the https refine fails the http case; dropping the discriminated error branch fails the failure case.
@@ -74,14 +74,20 @@ describe('connect contracts', () => {
     expect(ConnectToolPermitSchema.safeParse({ ...permit, scopes: [] }).success).toBe(false);
   });
 
-  // Mutation: removing 'mail_draft' from the enum fails the draft cases; turning the enum into z.string() fails the mail_read case.
-  it('accepts the mail_draft scope and still rejects mailbox reading', () => {
-    expect(ConnectScopeSchema.safeParse('mail_draft').success).toBe(true);
-    expect(ConnectScopeSchema.safeParse('mail_read').success).toBe(false);
-    expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: ['mail_draft'] }).success).toBe(true);
-    expect(ConnectToolPermitSchema.safeParse({ ...permit, scopes: ['mail_draft'] }).success).toBe(true);
-    for (const scope of ['calendar_events', 'contacts_read', 'mail_send']) {
+  // Mutation: removing any supported scope fails its acceptance checks at every boundary.
+  it('accepts draft and read scopes and rejects unsupported permissions', () => {
+    for (const scope of ['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read']) {
       expect(ConnectScopeSchema.safeParse(scope).success).toBe(true);
+      expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: [scope] }).success).toBe(true);
+      expect(ConnectToolPermitSchema.safeParse({ ...permit, scopes: [scope] }).success).toBe(true);
+      expect(ConnectStateResponseSchema.safeParse({ ...state, scopes: [scope] }).success).toBe(true);
+    }
+    // Mutation: widening the enum to admit any unsupported permission fails these rejections.
+    for (const scope of ['mail_write', 'drive_write', 'docs_read', 'gmail.readonly']) {
+      expect(ConnectScopeSchema.safeParse(scope).success).toBe(false);
+      expect(ConnectStartRequestSchema.safeParse({ ...start, scopes: [scope] }).success).toBe(false);
+      expect(ConnectToolPermitSchema.safeParse({ ...permit, scopes: [scope] }).success).toBe(false);
+      expect(ConnectStateResponseSchema.safeParse({ ...state, scopes: [scope] }).success).toBe(false);
     }
   });
 

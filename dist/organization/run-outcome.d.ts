@@ -41,6 +41,14 @@ export declare const ConsumptionSchema: z.ZodObject<{
     estimated: z.ZodBoolean;
 }, z.core.$strict>;
 export type Consumption = z.infer<typeof ConsumptionSchema>;
+/** Shared status of a run outcome. */
+export declare const RunOutcomeStatusSchema: z.ZodEnum<{
+    succeeded: "succeeded";
+    failed: "failed";
+    cancelled: "cancelled";
+    uncertain: "uncertain";
+}>;
+export type RunOutcomeStatus = z.infer<typeof RunOutcomeStatusSchema>;
 /** Outcome of an attempt. An uncertain outcome is never reported as succeeded. */
 export declare const RunOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     status: z.ZodLiteral<"succeeded">;

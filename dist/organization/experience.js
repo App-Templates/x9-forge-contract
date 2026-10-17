@@ -73,6 +73,20 @@ export const ExperienceReceiptSchema = z.strictObject({
     digest: Sha256Hex,
     disposition: z.enum(['stored', 'duplicate']),
 });
+/**
+ * Correlates a stored or duplicate receipt with the event actually sent.
+ * This does not authenticate the sender: receipts carry no tenant or organization.
+ * X9 adoption is pending in services/agent-core/src/core/organization-experience-delivery.ts
+ * (task 169); callers must retain their existing authorization checks.
+ */
+export function isExperienceReceiptForEvent(raw, expected) {
+    const receipt = ExperienceReceiptSchema.safeParse(raw);
+    const event = OrganizationExperienceEventSchema.safeParse(expected);
+    return receipt.success && event.success
+        && receipt.data.recordId === event.data.recordId
+        && receipt.data.version === event.data.version
+        && receipt.data.digest === event.data.digest;
+}
 export const ExperienceConflictSchema = z.strictObject({
     code: z.literal('experience_conflict'),
     recordId: z.string().min(1),

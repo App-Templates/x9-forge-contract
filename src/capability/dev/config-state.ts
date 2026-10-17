@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { CapabilityCallIdentitySchema } from '../capability-call-identity.js';
+import { DevelopmentSessionBindingSchema } from '../connect/development-session.js';
+import { DevProductionRoleModelsSchema } from '../../http/endpoints/development-session-models.js';
 
 /** A project path label: relative, never escaping upward. */
 const PathLabelSchema = z
@@ -30,8 +32,57 @@ export const DevAgentConfigSchema = z
     configVersion: z.number().int().min(0),
     keyVersion: z.number().int().min(1),
     bindings: z.array(DevBindingSchema),
+    /** A saved choice only; presence, consent and an execution lease are separate facts. */
+    production: z.strictObject({
+      session: DevelopmentSessionBindingSchema,
+      roleModels: DevProductionRoleModelsSchema.optional(),
+      allowedProjectIds: z.array(z.string().min(1)).min(1)
+        .refine((ids) => new Set(ids).size === ids.length, {
+          message: 'allowedProjectIds must be unique',
+        }),
+    }).optional(),
+    /**
+     * Private Telegram chats (canonical ids, no sign) the owner chose in Forge
+     * as «theirs»: only these may command cap-dev for this agent. The regex is
+     * repeated here on purpose (importing agent-channel-access would create an
+     * agent → capability cycle).
+     */
+    ownerChatIds: z
+      .array(z.string().regex(/^[1-9]\d{0,15}$/))
+      .max(8)
+      .default([]),
   })
   .superRefine((cfg, ctx) => {
+    if (cfg.production) {
+      if (cfg.production.roleModels) {
+        for (const [role, choice] of Object.entries(cfg.production.roleModels)) {
+          if (!cfg.production.session.engines.includes(choice.engine)) {
+            ctx.addIssue({ code: 'custom', path: ['production', 'roleModels', role, 'engine'], message: 'Role model engine must be selected in the session' });
+          }
+        }
+      }
+      const scope = cfg.production.session.scope;
+      if (scope.tenantId !== cfg.tenantId) {
+        ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'tenantId'], message: 'Session tenantId must match config' });
+      }
+      if (scope.ownerId !== cfg.ownerId) {
+        ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'ownerId'], message: 'Session ownerId must match config' });
+      }
+      if (scope.agentId !== cfg.agentId) {
+        ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'agentId'], message: 'Session agentId must match config' });
+      }
+    }
+    const seenChats = new Set<string>();
+    cfg.ownerChatIds.forEach((c, i) => {
+      if (seenChats.has(c)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['ownerChatIds', i],
+          message: 'duplicate ownerChatId',
+        });
+      }
+      seenChats.add(c);
+    });
     const seen = new Set<string>();
     cfg.bindings.forEach((b, i) => {
       const key = JSON.stringify([b.computerId, b.projectId]);

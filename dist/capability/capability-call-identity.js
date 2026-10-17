@@ -6,4 +6,9 @@ export const CapabilityCallIdentitySchema = InternalMemoryExtractRequestSchema.p
     agentId: true,
     userId: true,
 }).strict();
+/**
+ * Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent.
+ * Lives beside the identity so leaf contracts can use it without loading the call-context graph.
+ */
+export const CapabilityAgentScopeSchema = CapabilityCallIdentitySchema.omit({ userId: true }); // strict, inherited
 //# sourceMappingURL=capability-call-identity.js.map

@@ -25,6 +25,11 @@ export * from "./internal-capability-agent.js"; // v1.28.0 — Phase 54 per-agen
 export * from "./internal-capability-elevenlabs.js"; // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 export * from "./internal-capability-coach.js"; // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
 export * from "./internal-capability-dev.js"; // P04-d — cap-dev get/put config and get state
+export * from "./internal-dev-progress.js";
+export * from "./internal-dev-jobs.js";
+export * from "./internal-dev-cancel.js";
+export * from "./internal-dev-production.js";
+export * from "./internal-capability-lab.js";
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
@@ -74,6 +79,7 @@ export * from "./forge-master-model-authority.js";
 export * from "./internal-models-apply.js";
 export * from "./internal-vault-connection.js";
 export * from "./internal-connect.js";
+export * from "./internal-development-sessions.js";
 export * from "./connection-card.js";
 export * from "./web-connection-cards.js";
 export * from "./internal-memory-experience.js";
@@ -87,4 +93,6 @@ export * from "./internal-agent-address-book.js";
 export * from "./native-binding-read.js";
 export * from "./coach-person-program-read.js";
 export * from "./coach-browser.js";
+export * from "./development-session-models.js";
+export * from "./internal-development-session-list.js";
 //# sourceMappingURL=index.js.map

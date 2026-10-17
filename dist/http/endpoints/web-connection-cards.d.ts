@@ -17,6 +17,8 @@ export declare const WebConnectionCardsResponseSchema: z.ZodObject<{
                 contacts_read: "contacts_read";
                 mail_send: "mail_send";
                 mail_draft: "mail_draft";
+                mail_read: "mail_read";
+                drive_read: "drive_read";
             }>>;
             url: z.ZodString;
             expiresAt: z.ZodNumber;
@@ -55,6 +57,8 @@ export declare const webConnectionCardsContract: {
                     contacts_read: "contacts_read";
                     mail_send: "mail_send";
                     mail_draft: "mail_draft";
+                    mail_read: "mail_read";
+                    drive_read: "drive_read";
                 }>>;
                 url: z.ZodString;
                 expiresAt: z.ZodNumber;

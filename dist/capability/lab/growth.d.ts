@@ -32,6 +32,7 @@ export declare const LabGrowthHistoryInputSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type LabGrowthHistoryInput = z.infer<typeof LabGrowthHistoryInputSchema>;
 export declare const LabGrowthHistoryOutputSchema: z.ZodObject<{
+    snapshotVersion: z.ZodNumber;
     scope: z.ZodObject<{
         tenantId: z.ZodString;
         ownerId: z.ZodString;

@@ -12,13 +12,8 @@ import type { ToolCallRequest } from "./tool-call.js";
  * - Missing key, unavailable source, disabled / not installed capability and forged identity are distinct errors;
  *   a consumer never falls back to a process-global key.
  */
-/** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
-export declare const CapabilityAgentScopeSchema: z.ZodObject<{
-    agentId: z.ZodString;
-    ownerId: z.ZodString;
-    tenantId: z.ZodString;
-}, z.core.$strict>;
-export type CapabilityAgentScope = z.infer<typeof CapabilityAgentScopeSchema>;
+/** Agent-level scope of capability data (no person), defined beside the identity. */
+export { CapabilityAgentScopeSchema, type CapabilityAgentScope } from "./capability-call-identity.js";
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
 export declare const CapabilityPersonScopeSchema: z.ZodObject<{
     agentId: z.ZodString;

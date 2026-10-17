@@ -3,7 +3,7 @@ import { CapabilityCallIdentitySchema } from "../../capability/capability-call-i
 import { InternalMemoryExtractRequestSchema } from "./internal-memory-extract.js";
 import { AgentTurnSchema, AgentTurnMoveIdSchema, CapabilityLeadInstructionsSchema, CapabilityNoteSchema } from "../../capability/capability-turn-lead.js";
 import { OrganizationRunContextSchema } from "../../organization/run-context.js";
-import { RunAttemptSchema } from "../../organization/run-outcome.js";
+import { RunAttemptSchema, RunOutcomeSchema } from "../../organization/run-outcome.js";
 import { ConnectionCardSchema } from "./connection-card.js";
 import { InternalTurnRequestSchema, InternalTurnResponseSchema, InternalTurnErrorResponseSchema, } from "./internal-turn.js";
 /**
@@ -65,8 +65,39 @@ export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema.extend({
 export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional(),
     lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional(),
     /** Connection cards produced by the turn; absent on legacy responses. */
-    connectionCards: z.array(ConnectionCardSchema).max(5).optional() });
+    connectionCards: z.array(ConnectionCardSchema).max(5).optional(),
+    /** Outcome of an organization run; absent on legacy responses. */
+    outcome: RunOutcomeSchema.optional(),
+    /** True when the run was already admitted and this is the stored answer. */
+    duplicate: z.literal(true).optional() });
 export const InternalAgentTurnErrorResponseSchema = InternalTurnErrorResponseSchema;
+/** Typed admission refusals of an organization run (`error` of a refused turn). */
+export const ORGANIZATION_ADMISSION_REFUSAL_CODES = [
+    'organization_context_missing',
+    'organization_context_invalid',
+    'organization_attempt_invalid',
+    'run_correlation_mismatch',
+    'issuer_not_authorized',
+    'context_expired',
+    'organization_binding_unavailable',
+    'organization_binding_missing',
+    'tenant_mismatch',
+    'owner_mismatch',
+    'agent_identity_mismatch',
+    'agent_target_mismatch',
+    'organization_admission_unavailable',
+    'organization_tenant_unknown',
+];
+export const OrganizationAdmissionRefusalCodeSchema = z.enum(ORGANIZATION_ADMISSION_REFUSAL_CODES);
+/** `error` values of an organization run that was admitted but did not succeed. */
+export const INTERNAL_AGENT_TURN_RUN_ERRORS = ['run_failed', 'run_cancelled', 'run_uncertain'];
+export const InternalAgentTurnRunErrorSchema = z.enum(INTERNAL_AGENT_TURN_RUN_ERRORS);
+/** Error body of an organization run: refusal message, failure code and outcome are all optional. */
+export const InternalAgentTurnRunErrorResponseSchema = InternalAgentTurnErrorResponseSchema.extend({
+    code: z.string().min(1).optional(),
+    message: z.string().optional(),
+    outcome: RunOutcomeSchema.optional(),
+});
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 export const INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';
 /** Error code returned with 403 for a primary turn without a scoped admission. */

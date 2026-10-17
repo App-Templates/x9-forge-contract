@@ -29,6 +29,7 @@ export const LabGrowthHistoryInputSchema = z.object({
     cursor: CursorSchema.optional(),
 }).strict();
 export const LabGrowthHistoryOutputSchema = z.object({
+    snapshotVersion: z.number().int().nonnegative(),
     scope: LabScopeSchema,
     points: z.array(LabGrowthPointSchema).max(500),
     /** Null means there is no subsequent page. */

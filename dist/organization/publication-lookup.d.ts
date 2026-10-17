@@ -11,6 +11,7 @@ export declare const WithdrawPublicationRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -30,6 +31,7 @@ export declare const WithdrawPublicationRequestSchema: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -77,6 +79,7 @@ export declare const WithdrawPublicationResponseSchema: z.ZodDiscriminatedUnion<
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";
@@ -129,6 +132,7 @@ export declare const ListPublicationsRequestSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
         issuer: z.ZodEnum<{
             x9: "x9";
             forge: "forge";
@@ -166,6 +170,7 @@ export declare const ListPublicationsResponseSchema: z.ZodObject<{
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
             issuer: z.ZodEnum<{
                 x9: "x9";
                 forge: "forge";

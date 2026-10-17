@@ -5,12 +5,14 @@ export declare const ConnectProviderSchema: z.ZodEnum<{
 }>;
 /** A supported connection provider. */
 export type ConnectProvider = z.infer<typeof ConnectProviderSchema>;
-/** Minimum permissions only: no mailbox reading. `mail_draft` creates drafts, it never reads mail. */
+/** Separate permissions for mailbox and Drive reading. `mail_draft` creates drafts, it never reads mail. */
 export declare const ConnectScopeSchema: z.ZodEnum<{
     calendar_events: "calendar_events";
     contacts_read: "contacts_read";
     mail_send: "mail_send";
     mail_draft: "mail_draft";
+    mail_read: "mail_read";
+    drive_read: "drive_read";
 }>;
 /** A supported connection permission. */
 export type ConnectScope = z.infer<typeof ConnectScopeSchema>;
@@ -34,6 +36,8 @@ export declare const ConnectStartRequestSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
 }, z.core.$strict>;
 /** One-time https link, or an explicit failure reason. */
@@ -47,10 +51,10 @@ export declare const ConnectStartResponseSchema: z.ZodDiscriminatedUnion<[z.ZodO
 }, z.core.$strict>], "ok">;
 /** State of a connection. */
 export declare const ConnectStatusSchema: z.ZodEnum<{
-    not_connected: "not_connected";
     connected: "connected";
-    needs_reconnect: "needs_reconnect";
     revoked: "revoked";
+    not_connected: "not_connected";
+    needs_reconnect: "needs_reconnect";
 }>;
 /** Connection state; never carries a token, code or value. */
 export declare const ConnectStateResponseSchema: z.ZodObject<{
@@ -59,10 +63,10 @@ export declare const ConnectStateResponseSchema: z.ZodObject<{
         google: "google";
     }>;
     status: z.ZodEnum<{
-        not_connected: "not_connected";
         connected: "connected";
-        needs_reconnect: "needs_reconnect";
         revoked: "revoked";
+        not_connected: "not_connected";
+        needs_reconnect: "needs_reconnect";
     }>;
     accountLabel: z.ZodOptional<z.ZodString>;
     scopes: z.ZodArray<z.ZodEnum<{
@@ -70,6 +74,8 @@ export declare const ConnectStateResponseSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
     connectedAt: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
@@ -84,10 +90,10 @@ export declare const ConnectRevokeRequestSchema: z.ZodObject<{
 export declare const ConnectRevokeResponseSchema: z.ZodObject<{
     ok: z.ZodBoolean;
     status: z.ZodEnum<{
-        not_connected: "not_connected";
         connected: "connected";
-        needs_reconnect: "needs_reconnect";
         revoked: "revoked";
+        not_connected: "not_connected";
+        needs_reconnect: "needs_reconnect";
     }>;
 }, z.core.$strict>;
 /** Time-limited permit for tools to use a connection. */
@@ -101,6 +107,8 @@ export declare const ConnectToolPermitSchema: z.ZodObject<{
         contacts_read: "contacts_read";
         mail_send: "mail_send";
         mail_draft: "mail_draft";
+        mail_read: "mail_read";
+        drive_read: "drive_read";
     }>>;
     issuedAt: z.ZodNumber;
     expiresAt: z.ZodNumber;
@@ -112,4 +120,7 @@ export type ConnectStateResponse = z.infer<typeof ConnectStateResponseSchema>;
 export type ConnectRevokeRequest = z.infer<typeof ConnectRevokeRequestSchema>;
 export type ConnectRevokeResponse = z.infer<typeof ConnectRevokeResponseSchema>;
 export type ConnectToolPermit = z.infer<typeof ConnectToolPermitSchema>;
+export * from "./development-session.js";
+export * from "./development-session-pairing.js";
+export * from "./development-session-state.js";
 //# sourceMappingURL=index.d.ts.map
