@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentModelsStateSchema = exports.AgentModelsPendingWorkSchema = exports.AgentModelSourceObservationSchema = exports.AgentModelBootstrapSourceExpectationSchema = exports.AgentModelSavedBootstrapSourceSchema = exports.AgentModelSavedInitialSourceSchema = exports.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON = exports.AgentModelBootstrapSourceSchema = exports.AgentModelInitialSourceSchema = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelProvenanceWriteSchema = exports.AgentContextWithModelProvenanceSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.sameModelAgentIdentity = exports.createAgentModelsConfigurationWithProvenance = exports.AgentModelsConfigurationWithProvenanceSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelsProvenanceSchema = exports.AgentModelBindingSchema = exports.AgentModelSourceSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.AgentModelBootstrapPreconditionSchema = exports.AgentModelBootstrapSourceVersionSchema = exports.ModelSlotIdSchema = exports.AGENT_CHAT_MODEL_SLOT_ID = void 0;
+exports.AgentModelsStateSchema = exports.AgentModelsPendingWorkSchema = exports.AgentModelSourceObservationSchema = exports.AgentModelBootstrapSourceExpectationSchema = exports.AgentModelSavedBootstrapSourceSchema = exports.AgentModelSavedInitialSourceSchema = exports.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON = exports.AgentModelBootstrapSourceSchema = exports.AgentModelInitialSourceSchema = exports.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelProvenanceWriteSchema = exports.AgentContextWithModelProvenanceSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.sameModelAgentIdentity = exports.createAgentModelsConfigurationWithProvenance = exports.AgentModelsConfigurationWithProvenanceSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelsProvenanceSchema = exports.AgentModelBindingSchema = exports.AgentModelSourceSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.AgentModelBootstrapPreconditionSchema = exports.AgentModelBootstrapSourceVersionSchema = exports.ModelSlotIdSchema = exports.AGENT_CHAT_MODEL_SLOT_ID = void 0;
 exports.isAgentModelBootstrapSourceCurrent = isAgentModelBootstrapSourceCurrent;
 exports.isAgentModelInitialSourceCurrent = isAgentModelInitialSourceCurrent;
 exports.isAgentModelSourceObservationCurrent = isAgentModelSourceObservationCurrent;
@@ -109,6 +109,8 @@ const ModelInitialSourceBaseSchema = zod_1.z.object({
     /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
     excludedSlots: zod_1.z.array(zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema, state: zod_1.z.enum(['not-installed', 'not-applicable']), reason: zod_1.z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
 }).strict();
+/** The refusal of a loaded source whose slots do not cover the registry exactly once; consumers match it to report the cause. */
+exports.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE = 'Every registered slot is present or missing exactly once';
 const checkLoadedModelSource = (source, ctx) => {
     if (source.scope.agentId !== source.identity.runtimeAgentId)
         ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
@@ -118,7 +120,7 @@ const checkLoadedModelSource = (source, ctx) => {
     const all = [...present, ...source.missingSlots, ...(source.excludedSlots ?? []).map(slot => slot.slotId)];
     const registered = (0, model_consumers_js_1.registeredModelConsumers)().map(consumer => consumer.slotId);
     if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot)))
-        ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });
+        ctx.addIssue({ code: 'custom', path: ['selections'], message: exports.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE });
     if ((source.coverage === 'complete') !== (source.missingSlots.length === 0) || (source.coverage === 'complete' && source.selections.length === 0))
         ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
     for (const [index, selection] of source.selections.entries()) {

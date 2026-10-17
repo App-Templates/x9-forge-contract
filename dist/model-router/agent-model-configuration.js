@@ -87,6 +87,8 @@ const ModelInitialSourceBaseSchema = z.object({
     /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
     excludedSlots: z.array(z.object({ slotId: ModelSlotIdSchema, state: z.enum(['not-installed', 'not-applicable']), reason: z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
 }).strict();
+/** The refusal of a loaded source whose slots do not cover the registry exactly once; consumers match it to report the cause. */
+export const MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE = 'Every registered slot is present or missing exactly once';
 const checkLoadedModelSource = (source, ctx) => {
     if (source.scope.agentId !== source.identity.runtimeAgentId)
         ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
@@ -96,7 +98,7 @@ const checkLoadedModelSource = (source, ctx) => {
     const all = [...present, ...source.missingSlots, ...(source.excludedSlots ?? []).map(slot => slot.slotId)];
     const registered = registeredModelConsumers().map(consumer => consumer.slotId);
     if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot)))
-        ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });
+        ctx.addIssue({ code: 'custom', path: ['selections'], message: MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE });
     if ((source.coverage === 'complete') !== (source.missingSlots.length === 0) || (source.coverage === 'complete' && source.selections.length === 0))
         ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
     for (const [index, selection] of source.selections.entries()) {

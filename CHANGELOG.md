@@ -4,6 +4,7 @@
 
 - Add `AgentModelSavedInitialSourceSchema`, `AgentModelSavedBootstrapSourceSchema` and `MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON` to `@x9-forge/contracts/model-router`: a source saved by an earlier bridge (34 slots on 13/10) that does not name a slot registered since (`lab_digest`) reads that slot as excluded `not-installed`, reason `Capability has no model receiver yet`.
 - `AgentModelsStateSchema.initialSource` and `.bootstrapSource` use the saved variants, so X9 and Forge read persisted sources the same way.
+- Export `MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE`, the message of that refusal, so consumers can name the cause instead of a generic error.
 - Unchanged: a slot named twice or unknown is still refused; `AgentModelInitialSourceSchema` and `AgentModelBootstrapSourceSchema` stay strict for fresh producers.
 
 ## v1.49.0 — ricomposizione: cuore (1.48.0) + Models/News/Briefing/Native/Coach (bridge-compose-1210), solo additivo

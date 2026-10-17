@@ -186,7 +186,10 @@ describe('a saved source reread after a slot was registered (RIL-MODELLI-SLOT-NU
     return { ...base, selections: (base.selections as Array<{ slotId: string }>).filter(row => row.slotId !== later) };
   }
   it('the strict schema still refuses it, the saved schema reads the later slot as excluded not installed', () => {
-    expect(API.AgentModelInitialSourceSchema.safeParse(saved()).success).toBe(false);
+    const refused = API.AgentModelInitialSourceSchema.safeParse(saved());
+    expect(refused.success).toBe(false);
+    expect(refused.error?.issues.map(issue => issue.message)).toContain(API.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE);
+    expect(API.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE).toBe('Every registered slot is present or missing exactly once');
     const parsed = API.AgentModelSavedInitialSourceSchema.parse(saved());
     expect(parsed.excludedSlots).toEqual([{ slotId: later, state: 'not-installed', reason: API.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON }]);
     expect(parsed.selections).toHaveLength(definitions.length - 1);

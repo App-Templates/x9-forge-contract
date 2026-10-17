@@ -2630,6 +2630,8 @@ export declare const AgentModelRuntimeAttestationSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type AgentModelRuntimeAttestation = z.infer<typeof AgentModelRuntimeAttestationSchema>;
+/** The refusal of a loaded source whose slots do not cover the registry exactly once; consumers match it to report the cause. */
+export declare const MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE = "Every registered slot is present or missing exactly once";
 /** Loaded selections before first Forge apply; an explicit role is strictly rejected. */
 export declare const AgentModelInitialSourceSchema: z.ZodObject<{
     schemaVersion: z.ZodLiteral<1>;
