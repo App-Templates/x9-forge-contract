@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
+import { CapabilityAgentScopeSchema, sameCapabilityScope } from '../../capability/capability-call-context.js';
 import { DevelopmentSessionLeaseSchema } from '../../capability/connect/development-session-state.js';
 
 export const DevelopmentSessionListQuerySchema = z.object({
@@ -42,3 +42,18 @@ export const listDevelopmentSessionsContract = {
   querySchema: DevelopmentSessionListQuerySchema,
   responseSchema: DevelopmentSessionListSchema,
 } as const;
+
+/**
+ * Consumer-side check of a list page against the query the authenticated caller sent. Returns an independent
+ * parsed copy, or null for any malformed input, oversized page or foreign scope. Order, nextCursor, targets,
+ * engines and offline/revoked leases are kept as received: nothing is filtered and an error is never an empty page.
+ * Owner authentication and the cursor stay the server's responsibility.
+ */
+export function selectDevelopmentSessionList(rawPage: unknown, expectedQuery: unknown): DevelopmentSessionList | null {
+  const query = DevelopmentSessionListQuerySchema.safeParse(expectedQuery);
+  const page = DevelopmentSessionListSchema.safeParse(rawPage);
+  if (!query.success || !page.success) return null;
+  if (page.data.items.length > query.data.limit) return null;
+  if (!page.data.items.every(({ binding }) => sameCapabilityScope(binding.scope, query.data.scope))) return null;
+  return page.data;
+}
