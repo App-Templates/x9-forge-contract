@@ -1,5 +1,17 @@
 # Changelog — @x9-forge/contracts
 
+## 1.49.1 + riconciliazione 18/10 (main b9a270e, consumer per SHA) — solo additivo
+
+- La versione resta 1.49.1 (agent-core la fissa nel suo test di adozione); i consumer pinnano per SHA.
+- Quaderno cap-lab: endpoint `src/http/endpoints/internal-capability-lab.ts` (pagine, dettaglio, crescita, competenze, lacune, export) con `LabHttpErrorSchema` derivato da `LabToolErrorSchema`.
+- Lab: `src/capability/lab/browse.ts` e `growth.ts` (navigazione del quaderno e storico della crescita).
+- Organizzazione e simulazione: `src/organization/*` (scenari versionati, corpora, esperimenti, `organizationRun` nel turno per agente).
+- Paperclip: `AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS` include `paperclip` e `github`.
+- Sessioni di sviluppo e produzione cap-dev: `src/capability/dev/production-*`.
+- Connect: `src/capability/connect/*` con i nuovi permessi `mail_read` e `drive_read`.
+- Test: l'elenco del sottopercorso `capability/dev` conosce i due controlli nuovi.
+- Attenzione R-37: `LabPageListOutputSchema`, `LabPageDetailOutputSchema`, `LabGrowthHistoryOutputSchema`, `LabExportResultSchema` hanno campi obbligatori nuovi (`snapshotVersion`, `truncated`, `content`, `partial`): sono risposte di cap-lab, non dati salvati; cap-lab non è ancora in produzione.
+
 ## v1.49.1 — fonte iniziale salvata rilegge gli slot registrati dopo (RIL-MODELLI-SLOT-NUOVI), patch
 
 - Add `AgentModelSavedInitialSourceSchema`, `AgentModelSavedBootstrapSourceSchema` and `MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON` to `@x9-forge/contracts/model-router`: a source saved by an earlier bridge (34 slots on 13/10) that does not name a slot registered since (`lab_digest`) reads that slot as excluded `not-installed`, reason `Capability has no model receiver yet`.
