@@ -87,6 +87,8 @@ const ModelInitialSourceBaseSchema = z.object({
     /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
     excludedSlots: z.array(z.object({ slotId: ModelSlotIdSchema, state: z.enum(['not-installed', 'not-applicable']), reason: z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
 }).strict();
+/** The refusal of a loaded source whose slots do not cover the registry exactly once; consumers match it to report the cause. */
+export const MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE = 'Every registered slot is present or missing exactly once';
 const checkLoadedModelSource = (source, ctx) => {
     if (source.scope.agentId !== source.identity.runtimeAgentId)
         ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
@@ -96,7 +98,7 @@ const checkLoadedModelSource = (source, ctx) => {
     const all = [...present, ...source.missingSlots, ...(source.excludedSlots ?? []).map(slot => slot.slotId)];
     const registered = registeredModelConsumers().map(consumer => consumer.slotId);
     if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot)))
-        ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });
+        ctx.addIssue({ code: 'custom', path: ['selections'], message: MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE });
     if ((source.coverage === 'complete') !== (source.missingSlots.length === 0) || (source.coverage === 'complete' && source.selections.length === 0))
         ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
     for (const [index, selection] of source.selections.entries()) {
@@ -109,6 +111,31 @@ const checkLoadedModelSource = (source, ctx) => {
 /** Loaded selections before first Forge apply; an explicit role is strictly rejected. */
 export const AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.superRefine(checkLoadedModelSource);
 export const AgentModelBootstrapSourceSchema = ModelInitialSourceBaseSchema.extend({ role: z.literal('master') }).superRefine(checkLoadedModelSource);
+/** Reason recorded for a slot registered after a saved source was written: no receiver could hold it at that generation. */
+export const MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON = 'Capability has no model receiver yet';
+/**
+ * Rereading a source saved by an earlier bridge: a slot registered since then and named nowhere in that source was not
+ * installed at that generation, so it is read as excluded `not-installed`. Nothing else changes: a slot named twice, an
+ * unknown slot and any other refusal of the strict schema stay errors. A fresh producer still uses the strict schemas.
+ */
+function withLaterRegisteredSlots(input) {
+    if (typeof input !== 'object' || input === null || Array.isArray(input))
+        return input;
+    const source = input;
+    const { selections, missingSlots, excludedSlots } = source;
+    if (!Array.isArray(selections) || !Array.isArray(missingSlots) || (excludedSlots !== undefined && !Array.isArray(excludedSlots)))
+        return input;
+    const slotOf = (row) => (typeof row === 'object' && row !== null ? row.slotId : undefined);
+    const named = new Set([...selections.map(slotOf), ...missingSlots, ...(excludedSlots ?? []).map(slotOf)]);
+    const later = registeredModelConsumers().map(consumer => consumer.slotId).filter(slotId => !named.has(slotId));
+    if (later.length === 0)
+        return input;
+    return { ...source, excludedSlots: [...(excludedSlots ?? []), ...later.map(slotId => ({ slotId, state: 'not-installed', reason: MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON }))] };
+}
+/** A persisted initial source (intent journal, registry card, models state): later-registered slots read as not installed. */
+export const AgentModelSavedInitialSourceSchema = z.preprocess(withLaterRegisteredSlots, AgentModelInitialSourceSchema);
+/** A persisted bootstrap source, same rule as {@link AgentModelSavedInitialSourceSchema}. */
+export const AgentModelSavedBootstrapSourceSchema = z.preprocess(withLaterRegisteredSlots, AgentModelBootstrapSourceSchema);
 export const AgentModelBootstrapSourceExpectationSchema = z.object({
     identity: CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
     /** Producer content fingerprint by convention; callers must preserve its opaque representation. */
@@ -207,11 +234,11 @@ export const AgentModelsStateSchema = z.object({
     saved: AgentModelsConfigurationSchema.nullable(),
     runtime: AgentModelRuntimeAttestationSchema.nullable(),
     /** Absent on existing consumers; explicit null means no qualified loaded Master source. */
-    bootstrapSource: AgentModelBootstrapSourceSchema.nullable().optional(),
+    bootstrapSource: AgentModelSavedBootstrapSourceSchema.nullable().optional(),
     /** Actual generation of an already saved, scoped runtime configuration; no default for old producers. */
     sourceObservation: AgentModelSourceObservationSchema.nullable().optional(),
     /** Before persisted authority exists; this source does not assign the Master role. */
-    initialSource: AgentModelInitialSourceSchema.nullable().optional(),
+    initialSource: AgentModelSavedInitialSourceSchema.nullable().optional(),
     /** Absent on older producers; null means no pending model work. */
     pending: AgentModelsPendingWorkSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {

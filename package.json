@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.49.0",
+  "version": "1.49.1",
   "private": false,
   "publishConfig": {
     "access": "restricted"

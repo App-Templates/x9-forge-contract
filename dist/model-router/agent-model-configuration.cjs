@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentModelsStateSchema = exports.AgentModelsPendingWorkSchema = exports.AgentModelSourceObservationSchema = exports.AgentModelBootstrapSourceExpectationSchema = exports.AgentModelBootstrapSourceSchema = exports.AgentModelInitialSourceSchema = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelProvenanceWriteSchema = exports.AgentContextWithModelProvenanceSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.sameModelAgentIdentity = exports.createAgentModelsConfigurationWithProvenance = exports.AgentModelsConfigurationWithProvenanceSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelsProvenanceSchema = exports.AgentModelBindingSchema = exports.AgentModelSourceSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.AgentModelBootstrapPreconditionSchema = exports.AgentModelBootstrapSourceVersionSchema = exports.ModelSlotIdSchema = exports.AGENT_CHAT_MODEL_SLOT_ID = void 0;
+exports.AgentModelsStateSchema = exports.AgentModelsPendingWorkSchema = exports.AgentModelSourceObservationSchema = exports.AgentModelBootstrapSourceExpectationSchema = exports.AgentModelSavedBootstrapSourceSchema = exports.AgentModelSavedInitialSourceSchema = exports.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON = exports.AgentModelBootstrapSourceSchema = exports.AgentModelInitialSourceSchema = exports.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE = exports.AgentModelRuntimeAttestationSchema = exports.AgentRuntimeModelSelectionSchema = exports.AgentContextWithModelProvenanceWriteSchema = exports.AgentContextWithModelProvenanceSchema = exports.AgentContextWithModelsWriteSchema = exports.AgentContextWithModelsSchema = exports.sameModelAgentIdentity = exports.createAgentModelsConfigurationWithProvenance = exports.AgentModelsConfigurationWithProvenanceSchema = exports.AgentModelsConfigurationSchema = exports.AgentModelsProvenanceSchema = exports.AgentModelBindingSchema = exports.AgentModelSourceSchema = exports.AgentModelSelectionSchema = exports.ModelSelectionTierSchema = exports.AgentModelBootstrapPreconditionSchema = exports.AgentModelBootstrapSourceVersionSchema = exports.ModelSlotIdSchema = exports.AGENT_CHAT_MODEL_SLOT_ID = void 0;
 exports.isAgentModelBootstrapSourceCurrent = isAgentModelBootstrapSourceCurrent;
 exports.isAgentModelInitialSourceCurrent = isAgentModelInitialSourceCurrent;
 exports.isAgentModelSourceObservationCurrent = isAgentModelSourceObservationCurrent;
@@ -109,6 +109,8 @@ const ModelInitialSourceBaseSchema = zod_1.z.object({
     /** Absence of a service must be observed at the same generation; active unknown models remain missing. */
     excludedSlots: zod_1.z.array(zod_1.z.object({ slotId: model_slot_js_1.ModelSlotIdSchema, state: zod_1.z.enum(['not-installed', 'not-applicable']), reason: zod_1.z.string().trim().min(1).max(500) }).strict()).max(64).optional(),
 }).strict();
+/** The refusal of a loaded source whose slots do not cover the registry exactly once; consumers match it to report the cause. */
+exports.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE = 'Every registered slot is present or missing exactly once';
 const checkLoadedModelSource = (source, ctx) => {
     if (source.scope.agentId !== source.identity.runtimeAgentId)
         ctx.addIssue({ code: 'custom', path: ['scope'], message: 'Source scope names its runtime exactly' });
@@ -118,7 +120,7 @@ const checkLoadedModelSource = (source, ctx) => {
     const all = [...present, ...source.missingSlots, ...(source.excludedSlots ?? []).map(slot => slot.slotId)];
     const registered = (0, model_consumers_js_1.registeredModelConsumers)().map(consumer => consumer.slotId);
     if (new Set(all).size !== all.length || all.length !== registered.length || registered.some(slot => !all.includes(slot)))
-        ctx.addIssue({ code: 'custom', path: ['selections'], message: 'Every registered slot is present or missing exactly once' });
+        ctx.addIssue({ code: 'custom', path: ['selections'], message: exports.MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE });
     if ((source.coverage === 'complete') !== (source.missingSlots.length === 0) || (source.coverage === 'complete' && source.selections.length === 0))
         ctx.addIssue({ code: 'custom', path: ['coverage'], message: 'Complete means no missing consumer' });
     for (const [index, selection] of source.selections.entries()) {
@@ -131,6 +133,31 @@ const checkLoadedModelSource = (source, ctx) => {
 /** Loaded selections before first Forge apply; an explicit role is strictly rejected. */
 exports.AgentModelInitialSourceSchema = ModelInitialSourceBaseSchema.superRefine(checkLoadedModelSource);
 exports.AgentModelBootstrapSourceSchema = ModelInitialSourceBaseSchema.extend({ role: zod_1.z.literal('master') }).superRefine(checkLoadedModelSource);
+/** Reason recorded for a slot registered after a saved source was written: no receiver could hold it at that generation. */
+exports.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON = 'Capability has no model receiver yet';
+/**
+ * Rereading a source saved by an earlier bridge: a slot registered since then and named nowhere in that source was not
+ * installed at that generation, so it is read as excluded `not-installed`. Nothing else changes: a slot named twice, an
+ * unknown slot and any other refusal of the strict schema stay errors. A fresh producer still uses the strict schemas.
+ */
+function withLaterRegisteredSlots(input) {
+    if (typeof input !== 'object' || input === null || Array.isArray(input))
+        return input;
+    const source = input;
+    const { selections, missingSlots, excludedSlots } = source;
+    if (!Array.isArray(selections) || !Array.isArray(missingSlots) || (excludedSlots !== undefined && !Array.isArray(excludedSlots)))
+        return input;
+    const slotOf = (row) => (typeof row === 'object' && row !== null ? row.slotId : undefined);
+    const named = new Set([...selections.map(slotOf), ...missingSlots, ...(excludedSlots ?? []).map(slotOf)]);
+    const later = (0, model_consumers_js_1.registeredModelConsumers)().map(consumer => consumer.slotId).filter(slotId => !named.has(slotId));
+    if (later.length === 0)
+        return input;
+    return { ...source, excludedSlots: [...(excludedSlots ?? []), ...later.map(slotId => ({ slotId, state: 'not-installed', reason: exports.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON }))] };
+}
+/** A persisted initial source (intent journal, registry card, models state): later-registered slots read as not installed. */
+exports.AgentModelSavedInitialSourceSchema = zod_1.z.preprocess(withLaterRegisteredSlots, exports.AgentModelInitialSourceSchema);
+/** A persisted bootstrap source, same rule as {@link AgentModelSavedInitialSourceSchema}. */
+exports.AgentModelSavedBootstrapSourceSchema = zod_1.z.preprocess(withLaterRegisteredSlots, exports.AgentModelBootstrapSourceSchema);
 exports.AgentModelBootstrapSourceExpectationSchema = zod_1.z.object({
     identity: agent_model_configuration_values_js_1.CompleteModelIdentitySchema, scope: ModelSourceScopeSchema,
     /** Producer content fingerprint by convention; callers must preserve its opaque representation. */
@@ -229,11 +256,11 @@ exports.AgentModelsStateSchema = zod_1.z.object({
     saved: agent_model_configuration_values_js_1.AgentModelsConfigurationSchema.nullable(),
     runtime: exports.AgentModelRuntimeAttestationSchema.nullable(),
     /** Absent on existing consumers; explicit null means no qualified loaded Master source. */
-    bootstrapSource: exports.AgentModelBootstrapSourceSchema.nullable().optional(),
+    bootstrapSource: exports.AgentModelSavedBootstrapSourceSchema.nullable().optional(),
     /** Actual generation of an already saved, scoped runtime configuration; no default for old producers. */
     sourceObservation: exports.AgentModelSourceObservationSchema.nullable().optional(),
     /** Before persisted authority exists; this source does not assign the Master role. */
-    initialSource: exports.AgentModelInitialSourceSchema.nullable().optional(),
+    initialSource: exports.AgentModelSavedInitialSourceSchema.nullable().optional(),
     /** Absent on older producers; null means no pending model work. */
     pending: exports.AgentModelsPendingWorkSchema.nullable().optional(),
 }).strict().superRefine((state, ctx) => {
