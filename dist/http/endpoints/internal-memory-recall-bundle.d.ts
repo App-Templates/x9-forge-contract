@@ -40,6 +40,39 @@ export declare const InternalMemoryRecallBundleRequestSchema: z.ZodObject<{
         includeInvalidated: z.ZodOptional<z.ZodBoolean>;
         includeSuperseded: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strip>>;
+    organization: z.ZodOptional<z.ZodObject<{
+        context: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            organizationId: z.ZodString;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            issuer: z.ZodEnum<{
+                x9: "x9";
+                forge: "forge";
+                paperclip: "paperclip";
+            }>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"organization">;
+            id: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"group">;
+            id: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"project">;
+            id: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"department">;
+            id: z.ZodString;
+        }, z.core.$strict>], "kind">;
+    }, z.core.$strict>>;
 }, z.core.$strip>;
 export type InternalMemoryRecallBundleRequest = z.infer<typeof InternalMemoryRecallBundleRequestSchema>;
 export declare const RecallBundleEntrySchema: z.ZodObject<{
@@ -121,6 +154,52 @@ export declare const InternalMemoryRecallBundleResponseSchema: z.ZodObject<{
         embeddingCacheHit: z.ZodBoolean;
         cacheHit: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strip>;
+    organizationReferences: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        ref: z.ZodObject<{
+            context: z.ZodObject<{
+                schemaVersion: z.ZodLiteral<1>;
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                organizationId: z.ZodString;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
+                }, z.core.$strip>;
+                issuer: z.ZodEnum<{
+                    x9: "x9";
+                    forge: "forge";
+                    paperclip: "paperclip";
+                }>;
+                issuedAt: z.ZodISODateTime;
+                expiresAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            sourceScope: z.ZodEnum<{
+                organization: "organization";
+                private: "private";
+                team: "team";
+            }>;
+            slug: z.ZodString;
+            version: z.ZodNumber;
+            digest: z.ZodString;
+            recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"organization">;
+                id: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"group">;
+                id: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"project">;
+                id: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"department">;
+                id: z.ZodString;
+            }, z.core.$strict>], "kind">;
+            explicit: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strict>;
+        authorizedAt: z.ZodISODateTime;
+        bindingVersion: z.ZodNumber;
+    }, z.core.$strict>>>;
 }, z.core.$strip>;
 export type InternalMemoryRecallBundleResponse = z.infer<typeof InternalMemoryRecallBundleResponseSchema>;
 export declare const INTERNAL_MEMORY_RECALL_BUNDLE_PATH: "/internal/memory/recall/bundle";
@@ -169,6 +248,39 @@ export declare const internalMemoryRecallBundleContract: {
             includeInvalidated: z.ZodOptional<z.ZodBoolean>;
             includeSuperseded: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strip>>;
+        organization: z.ZodOptional<z.ZodObject<{
+            context: z.ZodObject<{
+                schemaVersion: z.ZodLiteral<1>;
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                organizationId: z.ZodString;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
+                }, z.core.$strip>;
+                issuer: z.ZodEnum<{
+                    x9: "x9";
+                    forge: "forge";
+                    paperclip: "paperclip";
+                }>;
+                issuedAt: z.ZodISODateTime;
+                expiresAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"organization">;
+                id: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"group">;
+                id: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"project">;
+                id: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"department">;
+                id: z.ZodString;
+            }, z.core.$strict>], "kind">;
+        }, z.core.$strict>>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         entries: z.ZodArray<z.ZodObject<{
@@ -209,6 +321,52 @@ export declare const internalMemoryRecallBundleContract: {
             embeddingCacheHit: z.ZodBoolean;
             cacheHit: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strip>;
+        organizationReferences: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            ref: z.ZodObject<{
+                context: z.ZodObject<{
+                    schemaVersion: z.ZodLiteral<1>;
+                    runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                    organizationId: z.ZodString;
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                    identity: z.ZodObject<{
+                        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                        vaultAgentId: z.ZodOptional<z.ZodNumber>;
+                    }, z.core.$strip>;
+                    issuer: z.ZodEnum<{
+                        x9: "x9";
+                        forge: "forge";
+                        paperclip: "paperclip";
+                    }>;
+                    issuedAt: z.ZodISODateTime;
+                    expiresAt: z.ZodISODateTime;
+                }, z.core.$strict>;
+                sourceScope: z.ZodEnum<{
+                    organization: "organization";
+                    private: "private";
+                    team: "team";
+                }>;
+                slug: z.ZodString;
+                version: z.ZodNumber;
+                digest: z.ZodString;
+                recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"organization">;
+                    id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"group">;
+                    id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"project">;
+                    id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"department">;
+                    id: z.ZodString;
+                }, z.core.$strict>], "kind">;
+                explicit: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>;
+            authorizedAt: z.ZodISODateTime;
+            bindingVersion: z.ZodNumber;
+        }, z.core.$strict>>>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-memory-recall-bundle.d.ts.map

@@ -34,9 +34,9 @@ export declare const ResearchStartOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         completed: "completed";
         queued: "queued";
+        running: "running";
         budget_exhausted: "budget_exhausted";
     }>;
 }, z.core.$strict>;
@@ -47,9 +47,9 @@ export declare const ResearchStatusOutputSchema: z.ZodObject<{
     researchId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         completed: "completed";
         queued: "queued";
+        running: "running";
         budget_exhausted: "budget_exhausted";
     }>;
 }, z.core.$strict>;
@@ -61,9 +61,9 @@ export declare const ResearchResultOutputSchema: z.ZodObject<{
     agentId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         completed: "completed";
         queued: "queued";
+        running: "running";
         budget_exhausted: "budget_exhausted";
     }>;
     question: z.ZodString;
@@ -93,4 +93,15 @@ export type ResearchStatusInput = z.infer<typeof ResearchStatusInputSchema>;
 export type ResearchStatusOutput = z.infer<typeof ResearchStatusOutputSchema>;
 export type ResearchResultInput = z.infer<typeof ResearchResultInputSchema>;
 export type ResearchResultOutput = z.infer<typeof ResearchResultOutputSchema>;
+/** Worker-owned execution only: deliberately excluded from RICERCA_TOOLS and model manifests. */
+export declare const RICERCA_INTERNAL_TOOLS: {
+    readonly execute: "research_execute";
+};
+/** The receiver must compare this opaque token with the current SQL claim and agent ownership. */
+export declare const ResearchExecuteInputSchema: z.ZodObject<{
+    researchId: z.ZodString;
+    leaseToken: z.ZodUUID;
+}, z.core.$strict>;
+export type ResearchExecuteInput = z.infer<typeof ResearchExecuteInputSchema>;
+export declare function researchExecutePath(): string;
 //# sourceMappingURL=tools.d.ts.map

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/Users/admintemp/.nvm/versions/node/v24.14.1/bin:/usr/bin:/bin",
+    "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs",
+    "tests/agent/agent-credentials.test.ts",
+    "tests/agent/agent-credential-services.test.ts",
+    "--maxWorkers=1"
+  ],
+  "cwd": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1",
+  "exit_code": 1
+}

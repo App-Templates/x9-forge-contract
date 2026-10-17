@@ -1,0 +1,4 @@
+$ ["/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/consumer/chiavi-model-composition-smoke.mjs"]
+{"marker":"CHIAVI_MODEL_COMPOSITION","surfaces":14,"assertions":276,"passed":276}
+
+EXIT 0

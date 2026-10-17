@@ -1,0 +1,20 @@
+[
+  {
+    "name": "failover-no-embedding",
+    "file": "src/model-router/capability-model-settings.ts",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null,
+    "red_exit": 1,
+    "semantic_red": true,
+    "restore_sha256": "4a4c8358aaed612ac5c72482662a73d301ae5d6eb42c86f0fa2cb492a6329142",
+    "original_sha256": "4a4c8358aaed612ac5c72482662a73d301ae5d6eb42c86f0fa2cb492a6329142",
+    "fresh_green_exit": 0,
+    "red_summary": [
+      "Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af",
+      "Tests  1 failed | 63 passed (64)"
+    ],
+    "green_summary": [
+      "Tests  64 passed (64)"
+    ]
+  }
+]

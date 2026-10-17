@@ -1,0 +1,26 @@
+{
+  "fault": "observed authority equality only; Initial guard intact",
+  "command": [
+    "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+    "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/fault-source.config.mjs",
+    "tests/model-router/c5-model-source-observation.test.ts",
+    "tests/model-router/agent-model-initial-source.test.ts",
+    "--maxWorkers=1"
+  ],
+  "cwd": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/fault-source",
+  "env": {
+    "PATH": "/Users/admintemp/.nvm/versions/node/v24.14.1/bin:/usr/bin:/bin",
+    "CI": "1",
+    "NO_COLOR": "1",
+    "TMPDIR": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review"
+  },
+  "baseline_exit": 0,
+  "red_exit": 1,
+  "semantic_red": true,
+  "original_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+  "restored_sha256": "dd022c09bec38bec818417add04e8d0c5332fe91af5430cea405fd3dd994acb2",
+  "fresh_green_exit": 0
+}

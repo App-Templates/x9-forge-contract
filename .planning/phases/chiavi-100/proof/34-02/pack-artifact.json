@@ -1,0 +1,16 @@
+{
+  "command": [
+    "env",
+    "-i",
+    "PATH=/Users/admintemp/.nvm/versions/node/v24.14.1/bin:/usr/bin:/bin",
+    "npm_config_cache=/private/tmp/codex-a-chiavi-completamento/proofs/34-02/npm-cache",
+    "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/npm",
+    "pack",
+    "--ignore-scripts",
+    "--pack-destination",
+    "/private/tmp/codex-a-chiavi-completamento/proofs/34-02",
+    "--json"
+  ],
+  "cwd": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1",
+  "exit_code": 0
+}

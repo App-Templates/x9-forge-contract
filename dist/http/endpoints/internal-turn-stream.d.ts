@@ -50,8 +50,8 @@ export declare const internalTurnStreamContract: {
         }, z.core.$strip>>>;
         attachment: z.ZodOptional<z.ZodObject<{
             type: z.ZodEnum<{
-                photo: "photo";
                 document: "document";
+                photo: "photo";
                 video: "video";
             }>;
             fileUrl: z.ZodString;

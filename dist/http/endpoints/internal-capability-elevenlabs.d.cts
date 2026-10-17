@@ -36,8 +36,8 @@ export declare const elevenLabsProvisionContract: {
             tools: z.ZodArray<z.ZodObject<{
                 name: z.ZodString;
                 kind: z.ZodEnum<{
-                    webhook: "webhook";
                     client: "client";
+                    webhook: "webhook";
                 }>;
                 description: z.ZodString;
             }, z.core.$strict>>;
@@ -53,10 +53,10 @@ export declare const elevenLabsProvisionContract: {
         requestId: z.ZodString;
         replayed: z.ZodBoolean;
         outcome: z.ZodEnum<{
-            adopted: "adopted";
-            created: "created";
-            updated: "updated";
             unchanged: "unchanged";
+            created: "created";
+            adopted: "adopted";
+            updated: "updated";
         }>;
         mapping: z.ZodObject<{
             scope: z.ZodObject<{
@@ -107,8 +107,8 @@ export declare const elevenLabsProvisionContract: {
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -166,8 +166,8 @@ export declare const elevenLabsStatusContract: {
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;

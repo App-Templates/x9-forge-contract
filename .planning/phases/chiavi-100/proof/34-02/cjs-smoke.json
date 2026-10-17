@@ -1,0 +1,11 @@
+{
+  "command": [
+    "env",
+    "-i",
+    "PATH=/Users/admintemp/.nvm/versions/node/v24.14.1/bin:/usr/bin:/bin",
+    "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+    "tests/cjs/smoke.cjs"
+  ],
+  "cwd": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1",
+  "exit_code": 0
+}

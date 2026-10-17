@@ -48,6 +48,8 @@ export type CapabilityTurnLeadDeclaration = z.infer<typeof CapabilityTurnLeadDec
 /** Identity comes from the authenticated runtime; the single-company MVP uses the existing context envelope. */
 export declare const CapabilityTurnLeadRequestSchema: z.ZodObject<{
     agentId: z.ZodString;
+    tenantId: z.ZodOptional<z.ZodString>;
+    ownerId: z.ZodOptional<z.ZodString>;
     sessionId: z.ZodString;
     userId: z.ZodOptional<z.ZodString>;
     channelId: z.ZodOptional<z.ZodString>;

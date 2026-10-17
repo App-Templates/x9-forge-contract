@@ -41,6 +41,8 @@ export {
 
 export {
   LAB_TOOLS,
+  LAB_INTERNAL_TOOLS, LabExecuteInputSchema, LabExecuteOutputSchema,
+  type LabExecuteInput, type LabExecuteOutput,
   LabIngestInputSchema,
   LabIngestOutputSchema,
   LabToolErrorSchema,
@@ -67,3 +69,35 @@ export {
   type LabCompetenceInput,
   type LabCompetenceOutput,
 } from './tools.js';
+
+export {
+  LabScopeSchema,
+  LabGrowthPointSchema,
+  LabGrowthHistoryInputSchema,
+  LabGrowthHistoryOutputSchema,
+  type LabScope,
+  type LabGrowthPoint,
+  type LabGrowthHistoryInput,
+  type LabGrowthHistoryOutput,
+} from './growth.js';
+
+export {
+  LabPageListInputSchema,
+  LabPageListEntrySchema,
+  LabPageListOutputSchema,
+  LabPageDetailInputSchema,
+  LabPageDetailOutputSchema,
+  LabExportFormatSchema,
+  LabExportRequestSchema,
+  LabExportResultSchema,
+  LabBrowseErrorSchema,
+  type LabPageListInput,
+  type LabPageListEntry,
+  type LabPageListOutput,
+  type LabPageDetailInput,
+  type LabPageDetailOutput,
+  type LabExportFormat,
+  type LabExportRequest,
+  type LabExportResult,
+  type LabBrowseError,
+} from './browse.js';

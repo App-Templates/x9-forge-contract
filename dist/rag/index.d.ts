@@ -25,4 +25,6 @@ export { RagSourceConnectionSchema, RagJobTypeSchema, RagJobStatusSchema, RagSyn
 export type { RagSourceConnection, RagJobType, RagJobStatus, RagSyncJobSummary, RagSourceStatus, RagSourceSyncStatus, RagSourceSyncRequest, RagSourceSyncResponse, RagSourceStatusRequest, RagSourceStatusResponse, } from "./rag-source.js";
 export { RagDocumentRefSchema, RagDocumentRevisionRefSchema, RagDocumentStatusSchema, RagDocumentParseStatusSchema, RagDocumentListRequestSchema, RagDocumentListResponseSchema, RagDocumentOpenRequestSchema, RagDocumentOpenResponseSchema, } from "./rag-document.js";
 export type { RagDocumentRef, RagDocumentRevisionRef, RagDocumentStatus, RagDocumentParseStatus, RagDocumentListRequest, RagDocumentListResponse, RagDocumentOpenRequest, RagDocumentOpenResponse, } from "./rag-document.js";
+export * from "./authorized-context.js";
+export * from "./qualified-citation.js";
 //# sourceMappingURL=index.d.ts.map

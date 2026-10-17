@@ -16,6 +16,8 @@
  * STRICT (internal X9 boundary, R-14): no `.passthrough()`.
  */
 import { z } from 'zod';
+import { AgentCredentialsSchema } from "../../agent/agent-credentials.js";
+import { CapabilityCallIdentitySchema } from "../capability-call-context.js";
 import { VoiceProviderSchema } from "../voice/provider.js";
 import { InternalAgentTurnParamsSchema } from "../../http/endpoints/internal-agent-turn.js";
 /** Default TCP port of cap-voice-live inside the X9 docker network. */
@@ -59,6 +61,24 @@ export const VoiceLiveCallStartRequestSchema = z.strictObject({
     /** BCP-47 hint for the post-call summary language (e.g. "it"). */
     locale: z.string().min(1).default('it'),
 });
+/** Explicit standalone mode is selected by trusted server configuration, never inferred from missing managed keys. */
+export const StandaloneVoiceLiveCallStartRequestSchema = VoiceLiveCallStartRequestSchema.extend({
+    credentialPolicy: z.literal('standalone'),
+});
+/** Only the OpenAI-Live/Telnyx call lane is admitted here; ElevenLabs uses its native call lane. */
+export const ManagedVoiceLiveCredentialsSchema = AgentCredentialsSchema.pick({
+    OPENAI_API_KEY: true, TELNYX_API_KEY: true, TELNYX_CONNECTION_ID: true,
+    TELNYX_FROM_NUMBER: true, TELNYX_PUBLIC_KEY: true,
+}).strict().required().refine(bundle => Object.values(bundle).every(value => value.trim().length > 0), {
+    message: 'Every admitted call field must be nonempty',
+});
+export const ManagedVoiceLiveCallStartRequestSchema = VoiceLiveCallStartRequestSchema.extend({
+    credentialPolicy: z.literal('managed'),
+    identity: CapabilityCallIdentitySchema,
+    credentials: ManagedVoiceLiveCredentialsSchema,
+}).refine(request => request.agent_id === request.identity.agentId, {
+    path: ['identity', 'agentId'], message: 'Managed call identity must match the addressed agent',
+});
 export const VoiceLiveCallStartResponseSchema = z.object({
     call_id: z.string().min(1),
     provider: VoiceProviderSchema,
@@ -71,6 +91,8 @@ export const VoiceLiveCallStartResponseSchema = z.object({
     conversation_id: z.string().min(1),
     started_at: z.string().datetime({ offset: true }),
 });
+/** Managed boundary returns only the native call result, never admitted credentials. */
+export const ManagedVoiceLiveCallStartResponseSchema = VoiceLiveCallStartResponseSchema.strict();
 /** One transcript turn as reconstructed from GPT-Live transcript deltas. */
 export const VoiceLiveTranscriptTurnSchema = z.object({
     role: z.enum(['agent', 'user']),

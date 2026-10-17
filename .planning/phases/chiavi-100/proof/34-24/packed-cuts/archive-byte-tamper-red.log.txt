@@ -1,0 +1,7 @@
+$ ["/usr/bin/python3", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/hash-probe.py", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/archive-fault-copy.tgz", "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc"]
+Traceback (most recent call last):
+  File "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/hash-probe.py", line 1, in <module>
+    import pathlib,hashlib,sys;actual=hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes()).hexdigest();assert actual==sys.argv[2], 'immutable archive hash mismatch';print('archive hash1/1')
+AssertionError: immutable archive hash mismatch
+
+EXIT_CODE=1

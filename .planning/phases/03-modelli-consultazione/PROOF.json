@@ -1,0 +1,97 @@
+{
+  "source_commit": "028c863",
+  "product_sha": "3c84de6b58652fab5bfe7dd5353b728a9479e1d3",
+  "native_tests": {
+    "passed": 5086,
+    "total": 5086,
+    "files": 169
+  },
+  "new_tests": {
+    "passed": 33,
+    "total": 33
+  },
+  "source_faults": {
+    "detected_restored": 18,
+    "total": 18
+  },
+  "pack_faults": {
+    "detected_restored": 4,
+    "total": 4
+  },
+  "public_assertions": {
+    "passed": 56,
+    "total": 56,
+    "contexts": [
+      "dist-esm",
+      "dist-cjs",
+      "tar-esm",
+      "tar-cjs"
+    ]
+  },
+  "native_commands": [
+    {
+      "name": "source",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "--maxWorkers=1",
+        "--testTimeout=60000"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "build",
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "dts",
+      "command": [
+        "pnpm",
+        "check:dts"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "pack",
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "cjs",
+      "command": [
+        "node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "exit": 0
+    }
+  ],
+  "tar_sha256": "78b1794e2602cce6ffd7abcdf62a110f013f4f28e26e09d2d099751190147c3a",
+  "independent_review": "pending",
+  "integrated_candidate": "not yet",
+  "live": "not verified"
+}

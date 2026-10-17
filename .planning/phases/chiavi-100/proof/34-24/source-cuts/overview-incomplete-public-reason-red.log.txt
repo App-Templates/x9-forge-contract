@@ -1,0 +1,66 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/models-overview-coverage.test.ts", "--maxWorkers=1"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/models-overview-coverage.test.ts (33 tests | 2 failed) 17ms
+   ✓ read overview coverage > keeps old responses valid without inventing coverage 3ms
+   ✓ read overview coverage > accepts complete data and attested zero separately 1ms
+   ✓ read overview coverage > represents partial without claiming zero 0ms
+   ✓ read overview coverage > represents unavailable without claiming zero 0ms
+   ✓ read overview coverage > accepts unknown origin only in the read projection 0ms
+   ✓ read overview coverage > rejects unqualified unknown provenance {"editability":"editable","reason":null} 0ms
+   ✓ read overview coverage > rejects unqualified unknown provenance {"masterAgentId":"master-a"} 0ms
+   ✓ read overview coverage > rejects unqualified unknown provenance {"masterConfigVersion":2} 0ms
+   ✓ read overview coverage > rejects unqualified unknown provenance {"reason":"   "} 0ms
+   ✓ read overview coverage > rejects non-public extra fields in coverage 0ms
+   × read overview coverage > rejects missing reason for partial 4ms
+     → expected true to be false // Object.is equality
+   × read overview coverage > rejects missing reason for unavailable 0ms
+     → expected true to be false // Object.is equality
+   ✓ read overview coverage > requires a meaningful reason for partial 0ms
+   ✓ read overview coverage > requires a meaningful reason for unavailable 0ms
+   ✓ read overview coverage > complete cannot carry incomplete evidence {"missingSlots":["news_digest"]} 0ms
+   ✓ read overview coverage > complete cannot carry incomplete evidence {"reason":"Incomplete"} 0ms
+   ✓ read overview coverage > I01 rejects mismatching runtime in coverage at the same owner 0ms
+   ✓ read overview coverage > I02 rejects absent versus present vault identity 0ms
+   ✓ read overview coverage > rejects mismatching coverage owner and duplicate logical agents 0ms
+   ✓ read overview coverage > I03 rejects cross namespace collision involving coverage-only agents 0ms
+   ✓ read overview coverage > I03 rejects shared vault on distinct coverage-only agents 0ms
+   ✓ read overview coverage > I03 rejects shared vault on distinct row-only agents 0ms
+   ✓ read overview coverage > I04 rejects duplicate missing slots 0ms
+   ✓ read overview coverage > I04 rejects a slot both present and missing 0ms
+   ✓ read overview coverage > checks access for an owner present only in coverage 0ms
+   ✓ writer coverage is scoped to the requested agents > W01/W02 permits A while unrelated B is partial 4ms
+   ✓ writer coverage is scoped to the requested agents > W01/W02 permits A while unrelated B is unavailable 0ms
+   ✓ writer coverage is scoped to the requested agents > W03 permits A while unrelated B is unknown and not installed 0ms
+   ✓ writer coverage is scoped to the requested agents > W04 rejects requested A with partial coverage 0ms
+   ✓ writer coverage is scoped to the requested agents > W04 rejects requested A with unavailable coverage 0ms
+   ✓ writer coverage is scoped to the requested agents > rejects requested unknown origin 0ms
+   ✓ writer coverage is scoped to the requested agents > preserves existing writer validation for old producers 0ms
+   ✓ writer coverage is scoped to the requested agents > rejects globally malformed unrelated identity 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/models-overview-coverage.test.ts > read overview coverage > rejects missing reason for partial
+ FAIL  tests/model-router/models-overview-coverage.test.ts > read overview coverage > rejects missing reason for unavailable
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/model-router/models-overview-coverage.test.ts:26:206
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 31 passed (33)
+   Start at  21:48:50
+   Duration  345ms (transform 112ms, setup 4ms, collect 197ms, tests 17ms, environment 0ms, prepare 29ms)
+
+
+EXIT_CODE=1

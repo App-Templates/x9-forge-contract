@@ -31,3 +31,24 @@ it('rejects an invitation not yet created',()=>expect(valid(invitation,scope,'pe
 it('rejects an invalid current clock',()=>expect(valid(invitation,scope,'person-a',3,new Date('invalid'))).toBe(false));
 it.each([null,{}, {...invitation,scope:{...scope,ownerId:''}}, {...invitation,recipientUserId:''}, {...invitation,expiresAt:'invalid'},{...invitation,createdAt:invitation.expiresAt},{...invitation,createdAt:'2026-10-08T12:00:00Z'},{...invitation,revokedAt:'2026-10-08T09:00:00Z'}])('rejects malformed or contradictory invitation %j',record=>{expect(ElevenLabsWebInvitationSchema.safeParse(record).success).toBe(false);expect(valid(record)).toBe(false);});
 it('rejects malformed expected scope',()=>expect(valid(invitation,{})).toBe(false));
+
+// C5: explicit off is independent of a Web-only pause. Missing enabled keeps the existing active policy.
+it.each([true,false])('C5 preserves explicit enabled=%s in policy and change',enabled=>{
+  expect(ElevenLabsWebPolicySchema.safeParse({...policy,enabled}).success).toBe(true);
+  expect(ElevenLabsWebPolicySchema.parse({...policy,enabled})).toEqual({...policy,enabled});
+  expect(ElevenLabsWebPolicyChangeSchema.safeParse({...change,enabled}).success).toBe(true);
+  expect(isElevenLabsWebPolicyResultCurrent({...change,enabled},{...result,policy:{...policy,enabled}})).toBe(true);
+});
+it.each([null,'true',0,{}])('C5 rejects invalid enabled %j',enabled=>{
+  expect(ElevenLabsWebPolicySchema.safeParse({...policy,enabled}).success).toBe(false);
+  expect(ElevenLabsWebPolicyChangeSchema.safeParse({...change,enabled}).success).toBe(false);
+});
+it('C5 correlates enabled with compatible legacy active and never echoes off as on',()=>{
+  expect(isElevenLabsWebPolicyResultCurrent(change,{...result,policy:{...policy,enabled:true}})).toBe(true);
+  expect(isElevenLabsWebPolicyResultCurrent({...change,enabled:true},result)).toBe(true);
+  expect(isElevenLabsWebPolicyResultCurrent(change,{...result,policy:{...policy,enabled:false}})).toBe(false);
+  expect(isElevenLabsWebPolicyResultCurrent({...change,enabled:false},result)).toBe(false);
+  expect(isElevenLabsWebPolicyResultCurrent({...change,enabled:false},{...result,policy:{...policy,enabled:true}})).toBe(false);
+  expect(isElevenLabsWebPolicyResultCurrent({...change,enabled:true},{...result,policy:{...policy,enabled:false}})).toBe(false);
+  expect(ElevenLabsWebPolicySchema.parse(policy)).toEqual(policy);
+});

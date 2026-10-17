@@ -61,10 +61,12 @@ export type AuthHeaders = AuthInternalSecret | AuthInternalToken | AuthNone;
  *                             `http/endpoints/webhook-post-call.ts:6`).
  *                             Added in Phase 11.A (v1.8.0) for inbound
  *                             webhooks from AgentMail + Telegram.
+ *   - `'forge_session'`     — authenticated Forge browser session, resolved by the mounted server route.
+ *                             No caller-supplied identity or internal service credential grants this authority.
  *   - `'device_signature'`  — Ed25519 signature of a registered computer
  *                             (`./device-signature.ts`); public device APIs
  *                             of capabilities, never an effect without a
  *                             signed approval. Added in phase 59.
  */
-export type EndpointAuthType = 'secret' | 'token' | 'none' | 'external_provider' | 'device_signature';
+export type EndpointAuthType = 'secret' | 'token' | 'none' | 'external_provider' | 'device_signature' | 'forge_session';
 //# sourceMappingURL=auth-headers.d.ts.map

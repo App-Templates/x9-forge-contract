@@ -1,5 +1,105 @@
 # Changelog — @x9-forge/contracts
 
+## v1.49.1 — fonte iniziale salvata rilegge gli slot registrati dopo (RIL-MODELLI-SLOT-NUOVI), patch
+
+- Add `AgentModelSavedInitialSourceSchema`, `AgentModelSavedBootstrapSourceSchema` and `MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON` to `@x9-forge/contracts/model-router`: a source saved by an earlier bridge (34 slots on 13/10) that does not name a slot registered since (`lab_digest`) reads that slot as excluded `not-installed`, reason `Capability has no model receiver yet`.
+- `AgentModelsStateSchema.initialSource` and `.bootstrapSource` use the saved variants, so X9 and Forge read persisted sources the same way.
+- Export `MODEL_SOURCE_SLOTS_EXACTLY_ONCE_MESSAGE`, the message of that refusal, so consumers can name the cause instead of a generic error.
+- Unchanged: a slot named twice or unknown is still refused; `AgentModelInitialSourceSchema` and `AgentModelBootstrapSourceSchema` stay strict for fresh producers.
+
+## v1.49.0 — ricomposizione: cuore (1.48.0) + Models/News/Briefing/Native/Coach (bridge-compose-1210), solo additivo
+
+- Merge commit di codex/bridge-compose-1210 in codex/cuore-bridge-148: nessun export di 1.48.0 rimosso.
+
+## Unreleased — SIM01-b experiment pinned to a scenario corpus, additive
+
+- `ExperimentSchema` gains optional `corpus` (`ScenarioCorpusSchema`); experiments without it stay valid.
+- Add `assertScenarioMatchesCorpus(corpus, scenario)` returning `{ ok: true }` or `{ ok: false, reason: 'unknown_scenario' | 'version_mismatch' | 'hash_mismatch' }`; re-exported from `@x9-forge/contracts/organization`. Version and `dist` untouched.
+
+## Unreleased — SIM01 versioned scenarios and corpora, additive
+
+- Add `ScenarioVersionSchema`, `ScenarioVersionRefSchema`, `ScenarioCorpusSchema` and inferred types to `@x9-forge/contracts/organization`: strict payloads, required lowercase SHA-256, positive integer versions, nonempty items/references and unique item/scenario identities. Reuse the evidence hash schema with stricter casing and presence. Version and `dist` untouched.
+
+## Unreleased — X01 turno per agente, `organizationRun` opzionale, additivo
+
+- `InternalAgentTurnRequestSchema` gains optional `organizationRun` `{ context, attempt }` (reusing `OrganizationRunContextSchema` and `RunAttemptSchema`); `attempt.runId` must equal `context.runId`. Legacy bodies stay valid. Version and `dist` untouched.
+
+## Unreleased — cap-lab browse, dettaglio, export (T2-b), additivo
+
+- Add `capability/lab/browse`: page list (paged), page detail (page, claims, links, sources), export request/result with a server-chosen safe filename, and `LabBrowseErrorSchema` reusing `LabToolErrorSchema`.
+- Re-export growth (T2-a) and browse symbols from `@x9-forge/contracts/capability/lab`. Additive only; version and `dist` untouched.
+
+## Unreleased — cap-dev (P04), additivo
+
+- Add the `@x9-forge/contracts/capability/dev` subpath re-exporting `signed-command` (v2 signed command, canonicalization) and `config-state` (binding, config, state).
+- Additive only: no dev exports at the package root or in `./capability`. Version and `dist` untouched.
+
+## Unreleased — C02 additivo, sub-path ./organization
+
+- Re-export from `@x9-forge/contracts/organization` the C02 contracts: `decision-response`, `outcome-intake`, `publication-ref`, `experiment`, `company-memory`.
+- Additive only: no existing shape changes and no organization exports at the package root. Version is decided by whoever releases; no `package.json` or `dist` change.
+
+## Unreleased — organization (C01)
+
+- Add the `@x9-forge/contracts/organization` subpath with canonical run context, attempt, outcome and operation contracts.
+- Re-export the existing organization schemas and types without changing their shapes. This is additive, with no breaking changes or organization exports at the package root.
+- Package version remains unchanged; compiled artifacts are left to the release process.
+
+## v1.48.0 — models content version and durable per-slot progress
+
+- Add portable synchronous catalog/configuration content fingerprints, the shared modelsVersion and withCatalogVersion stamping helper.
+- Extend pending work with unchanged slots, typed sanitized reasons, state/install call counts and the final modelsVersion; retain previous payloads.
+- Add optional apply/heirs/card fields to existing overview rows and strict stack/agent targets with one additive async apply/job endpoint pair.
+- Accept per-heir saved configurations alongside legacy IDs and optional canonical command/runtime evidence on root/child jobs; new producers attest terminal completion explicitly.
+- Add catalog-changed, catalog-version-mismatch, model-unavailable, qualification-failed and consumer-rejected management reasons.
+- Consumers tracked in CUORE-MODELLI-LOTTI-1410: X9 delta/queue/consumer jobs and Forge vault/factory/web; no consumer deployment included.
+## Unreleased — approved contract composition (version remains 1.47.0)
+
+- Merge initial read-only models (524b5fad), c.3 News/Briefing (e45f815) and Native/Coach/browser (d98c0c05), retaining their history.
+- Preserve all 18 existing internal actions and TTS_PROVIDER; add the five approved C actions: news_digest, news_digest_topic, calendar_today, calendar_week, lab_execute.
+- Retain positive model CAS, scoped ordinary configuration and authenticated browser/native boundaries; rebuild ESM/CJS and portable Python from the combined source.
+- Local candidate only: consumer pins, adoption and live verification remain separate.
+
+## v1.47.0 — rilascio unico: Chiavi (1.44.3) + Modelli (27fa07d, 1.45.0) + Paperclip (main 1.45.0)
+
+Composizione senza nuovi contratti: unisce le tre linee, nessun simbolo rimosso (verificato su ogni sottopercorso,
+ESM, contro i tre pacchetti di origine).
+
+- Linea Chiavi `codex/chiavi-100-bridge` 6dc32d6 (1.44.3): requisiti minimi delle credenziali, esecuzioni fisse dei chiamanti diretti (1.44.1),
+  fonte della voce applicata e `agentVoiceSourceOf` (1.44.2/1.44.3), composizione dei contratti di modello con Chiavi.
+- Linea Modelli `codex/c5-modelli-consumatori-bridge` 27fa07d (1.45.0): registro dei 34 consumatori, autorità del Master, osservazioni locali
+  (agente, primario, backend telefono), InitialSource, fonti legacy con protocollo Live.
+- `main` b22032d (1.45.0): sottopercorso `capability/paperclip`.
+- Conflitti: `internal-agent-model-source-observation.ts` lato Modelli (superset); `endpoints/index.ts`, `capability/index.ts`: unione;
+  `tests/cjs/smoke.cjs` lato Chiavi (superset). La composizione 1.46.0 di F (`codex/modelli-canonical-complete-f`, d6523a5) NON è inclusa.
+- Versione 1.47.0 perché 1.45.0 indicava due contenuti diversi (Modelli e Paperclip) e 1.46.0 è il nome della composizione di F non unita.
+- `.nvmrc` 24 (standard dello stack, R-32).
+
+---
+
+
+## 1.46.0 — composed local candidate
+
+- Compose Paperclip, Keys, Models, scoped capability configuration, phone/Web channels and Knowledge without removing existing public entrypoints.
+- Retain 35 registered model consumers, roleless InitialSource, positive legacy observation, primary local-source and phone backend observation contracts.
+- Add Coach versioned program/session operations, native ElevenLabs channels, scoped RAG citations and loaded inventory authority; retain the qualified Web admission/readback semantics.
+- Preserve public Web metadata/session and administrative invitation APIs together; carry Knowledge telephone entries into the canonical admission projection.
+- This is a local integration candidate. Consumer pins, final verification and independent review precede publication; no deployed behavior is claimed.
+
+## Unreleased — positive legacy model observation
+
+- Add canonical observed consumer readback with actual settings and strictly null configVersion/requestId; preserve installed confirmation, receipt outcomes and unknown semantics.
+- Retain canonical identity/scope/routing/reason/embedding validation. Producers must prove actual legacy authority and fail closed when modern authority is present; consumer wiring and live bootstrap remain separate qualification.
+- Add source, compiled public-format and type probes without changing package version, exports or dependency pins.
+
+## Unreleased — roleless InitialSource contract
+
+- Add strict AgentModelInitialSourceSchema/type and Bootstrap-equivalent current helper through existing root/model-router exports; preserve all34 canonical consumer coverage, routing/settings and Master-only Bootstrap.
+- Add optional nullable state.initialSource with exact identity, null saved/runtime/versions and mutually exclusive source authority. No new maximumage is added to Bootstrap-equivalent freshness.
+- Qualify the additive contract separately from composition; packageversion stays1.45.0. Runtime firstMaster/bootstrap and first-save preservation remain consumer work, with no live claim.
+
+---
+
 ## 1.45.0 — 2026-10-09
 
 - Add the canonical `@x9-forge/contracts/capability/paperclip` subpath and capability barrel exports for material events, configurable role routing, resolved routes, durable handoff envelopes/receipts and manual decision audit records.
@@ -8,19 +108,84 @@
 - Preserve every historic public subpath/symbol while allowing additive exports in the compatibility guard; regenerate ESM, CJS and portable declarations. No existing protocol changed.
 - This package supplies contracts only. Per-agent provisioning, credentials, service deployment and real material/email workflow remain consumer/operator integration work.
 
+## 1.46.0-capabilities-c.2 — local development
+
+- Preserve full tenant/owner scope in context and spend requests, with explicit legacy compatibility; share trusted identity with native per-agent turns.
+- Add fixed News/Calendar calls and SQL-lease-only Lab execution; keep internal actions outside model-visible manifests and results free of credentials.
+- Register the actual Lab digest model reader (C35); no inactive read-model slot. Consumers: X9 capability-sdk/Core/News/Briefing/Ricerca/Lab/QA, Forge existing model and capability panels. Local package only.
+
+## 1.46.0-capabilities-c.0 — local development
+
+- Add scoped ordinary configuration, Master provenance, per-key effective observations and remote lifecycle on existing per-agent routes. Preserve B1/legacy formats.
+- Add canonical workspace digests and retained single-capability authority lookup, plus typed structured settings and generated Python admission contracts.
+- Consumers tracked in Capabilities phase35: X9 capability-sdk/agent-core/services and Forge factory/web. Local package only; no release or live claim.
+
 All notable changes to the bridge package. This project adheres to [Semantic Versioning](https://semver.org/) at the milestone level (v1.0, v1.1, etc.); within a milestone, distribution is via SHA-pinned `git+https#<sha>` (no per-feature versioning).
 
 ## How releases work in this repo
 
-- **No npm registry.** Consumers (agent-x9, forge-v2) depend via `git+https://github.com/App-Templates/x9-forge-contract.git#<sha>` with a `prepare` build script.
+- **No npm registry.** Consumers (agent-x9, forge-v2) depend via `git+https://github.com/App-Templates/x9-forge-contract.git#<sha>` with committed ESM/CJS `dist/`; `prepare` installs hooks only.
 - **Atomic SHA bump.** Breaking contract changes require atomic SHA bump in BOTH consumer repos in the same step (RLSE-02). Never one consumer at a time.
 - **Deprecation workflow** (RLSE-03): When deprecating a public symbol, add `/** @deprecated <reason — removal in v<X.Y>> */` JSDoc with explicit removal milestone. Minimum 1 milestone-cycle grace period before removal.
+
+---
+
+## v1.44.3 — la proiezione è una funzione del contratto
+
+### Added (additive)
+
+- `./http/endpoints`: `agentVoiceSourceOf(context)` — la proiezione whitelist di un contesto caricato verso `AgentVoiceSource`, una sola volta
+  (agent-core la usa per rispondere, i consumatori per le fixture). `null` = nessuna fonte: mai una ricostruzione.
+
+---
+
+## v1.44.2 — fonte della voce applicata di un agente caricato (cap-voice)
+
+### Added (additive)
+
+- `./http/endpoints`: **`internalAgentVoiceSourceContract`** (`GET /internal/agents/:agentId/voice-source`, `:agentId` = id runtime) e `AgentVoiceSourceSchema`:
+  proiezione non segreta del contesto CARICATO in agent-core (scope, identità, nome, `voiceConfiguration` o null, attestazione del workspace).
+  Stessa risposta per un agente da file e per l'agente primario da env: le capacità non leggono più il disco di altri servizi.
+
+Solo aggiunte.
+
+---
+
+## v1.44.1 — esecuzioni fisse per i chiamanti diretti (cap-voice, cap-security)
+
+### Added (additive)
+
+- `./http/endpoints`: dieci esecuzioni fisse in `INTERNAL_AGENT_EXECUTIONS` per i servizi che chiamano una capacità
+  senza passare dal turno di un agente: `voice_calendar_{week,create,update,delete}`, `voice_email_send`,
+  `voice_contacts_search`, `voice_schedule_create`, `security_{light_on_group,light_on,come_home}`. Il chiamante dice COSA fare per l'agente
+  indirizzato; chiavi, identificativi e identità sono sempre quelli dell'agente caricato in agent-core, mai del chiamante.
+  Input stretti, uguali agli schemi nativi dei tool. Inventario delle esecuzioni: da 8 a 18.
+
+Solo aggiunte: nessun simbolo esistente cambia o viene rimosso.
+
+---
+
+## v1.45.0 — approved Models contracts and independent public entrypoint loading
+
+### Added (additive)
+
+- Canonical registry of 34 model consumers, single/failover policy, embedding dimensions, labels, scope and execution boundaries.
+- Explicit Models source observations and generation, Master/agent configuration, compare-and-swap versions, installation transport, rebuild and readback metadata.
+- These contracts were already implemented and independently reviewed before this release; version 1.45.0 makes their distribution explicit. No handler or live runtime behavior is introduced here.
+
+### Fixed
+
+- Public entrypoints initialize independently in ESM and CommonJS after the approved deferred canonical credential-key schema correction. The native CJS smoke includes all 18 entrypoints in fresh processes.
+- Release documentation describes committed distribution files and the actual hooks-only `prepare` step. Consumers must install an approved immutable Git SHA.
 
 ---
 
 ## v1.44.0 — voce, telefono, canale web e identità esplicita del contesto agente
 
 ### Added (additive)
+
+- `./http`: additive Web administrative snapshot, policy preview/apply and read-only catalog descriptors, bound to current Forge owner/SA session evidence.
+- `./agent` / `./http`: bounded plain-text channel transcript DTO and opaque-entry authenticated reads, with explicit unavailable/retention states and full binding correlation. No provider URL or raw envelope is exposed.
 
 - `./capability` / `./http/endpoints`: **descrittore della voce** per capacità vocali (BRIDGE-VOICE-DESCRIPTOR). Autore Codex E, verifica Codex F (APPROVE).
 - `./http/endpoints`: **contratto del canale telefono** (CANALI-C2-BRIDGE B1+B2+B4). Autore Codex F, verifica Codex D (APPROVE).

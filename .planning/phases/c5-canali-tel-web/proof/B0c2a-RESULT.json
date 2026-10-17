@@ -1,0 +1,29 @@
+{
+  "baseline": {
+    "tests": 151,
+    "passed": 143,
+    "functionalFailures": 8
+  },
+  "newTests": 12,
+  "targeted": {
+    "passed": 151,
+    "total": 151,
+    "files": 2
+  },
+  "full": {
+    "passed": 4420,
+    "total": 4420,
+    "files": 157,
+    "skipped": 0
+  },
+  "mutations": {
+    "source": 8,
+    "sourceTotal": 8,
+    "compiled": 2,
+    "compiledTotal": 2
+  },
+  "compiledAssertions": 58,
+  "compiledTotal": 58,
+  "live": 0,
+  "producerHandlers": 0
+}

@@ -1,0 +1,96 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/c5-model-source-observation.test.ts", "--maxWorkers=1"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/c5-model-source-observation.test.ts (31 tests | 5 failed) 13ms
+   ✓ Modern model source generation observation > O01 carries the actual modern runtime generation on the existing state 4ms
+   ✓ Modern model source generation observation > O02 requires identity 0ms
+   ✓ Modern model source generation observation > O02 requires scope 0ms
+   ✓ Modern model source generation observation > O02 requires sourceVersion 0ms
+   ✓ Modern model source generation observation > O02 requires observedAt 0ms
+   ✓ Modern model source generation observation > O02 requires validUntil 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime"}} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"scope":{"agentId":"other","ownerId":"synthetic-owner","tenantId":"synthetic-tenant"}} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"scope":{"agentId":"synthetic-runtime","ownerId":" ","tenantId":"synthetic-tenant"}} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"sourceVersion":" "} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"observedAt":"invalid"} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"validUntil":"2026-10-09T07:07:00Z"} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"validUntil":"2026-10-09T07:06:59Z"} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"privateContext":{}} 0ms
+   ✓ Modern model source generation observation > O03 rejects invalid observation {"extra":true} 0ms
+   ✓ Modern model source generation observation > O04 changed authority is not current {"identity":{"managementAgentId":"other","runtimeAgentId":"synthetic-runtime","vaultAgentId":71}} 0ms
+   ✓ Modern model source generation observation > O04 changed authority is not current {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}} 0ms
+   ✓ Modern model source generation observation > O04 changed authority is not current {"scope":{"agentId":"synthetic-runtime","ownerId":"other","tenantId":"synthetic-tenant"}} 0ms
+   ✓ Modern model source generation observation > O04 changed authority is not current {"scope":{"agentId":"synthetic-runtime","ownerId":"synthetic-owner","tenantId":"other"}} 0ms
+   ✓ Modern model source generation observation > O04 changed authority is not current {"sourceVersion":"changed"} 0ms
+   × Modern model source generation observation > O05 expired/future/invalid clock 2026-10-09T07:07:30Z is not current 3ms
+     → expected true to be false // Object.is equality
+   × Modern model source generation observation > O05 expired/future/invalid clock 2026-10-09T07:06:54Z is not current 0ms
+     → expected true to be false // Object.is equality
+   × Modern model source generation observation > O05 expired/future/invalid clock invalid is not current 0ms
+     → expected true to be false // Object.is equality
+   × Modern model source generation observation > O06 an old observation with a long expiry is still stale 0ms
+     → expected true to be false // Object.is equality
+   ✓ Modern model source generation observation > O07 state does not claim another observed authority {"identity":{"managementAgentId":"other","runtimeAgentId":"synthetic-runtime","vaultAgentId":71}} 0ms
+   ✓ Modern model source generation observation > O07 state does not claim another observed authority {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}} 0ms
+   ✓ Modern model source generation observation > O07 state does not claim another observed authority {"scope":{"agentId":"synthetic-runtime","ownerId":"other","tenantId":"synthetic-tenant"}} 0ms
+   ✓ Modern model source generation observation > O07 state does not claim another observed authority {"scope":{"agentId":"synthetic-runtime","ownerId":"synthetic-owner","tenantId":"other"}} 0ms
+   ✓ Modern model source generation observation > O08 observation requires saved scoped authority {"saved":null,"versions":null} 0ms
+   ✓ Modern model source generation observation > O08 observation requires saved scoped authority {"saved":{"schemaVersion":1,"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":71},"configVersion":2,"selections":[{"slotId":"agent_classifier","settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}]}} 0ms
+   × Modern model source generation observation > O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation 1ms
+     → expected true to be false // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/c5-model-source-observation.test.ts > Modern model source generation observation > O05 expired/future/invalid clock 2026-10-09T07:07:30Z is not current
+ FAIL  tests/model-router/c5-model-source-observation.test.ts > Modern model source generation observation > O05 expired/future/invalid clock 2026-10-09T07:06:54Z is not current
+ FAIL  tests/model-router/c5-model-source-observation.test.ts > Modern model source generation observation > O05 expired/future/invalid clock invalid is not current
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/model-router/c5-model-source-observation.test.ts:20:181
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/model-router/c5-model-source-observation.test.ts > Modern model source generation observation > O06 an old observation with a long expiry is still stale
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/model-router/c5-model-source-observation.test.ts:21:170
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/model-router/c5-model-source-observation.test.ts > Modern model source generation observation > O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/model-router/c5-model-source-observation.test.ts:24:499
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 26 passed (31)
+   Start at  21:47:37
+   Duration  461ms (transform 148ms, setup 6ms, collect 284ms, tests 13ms, environment 0ms, prepare 42ms)
+
+
+EXIT_CODE=1

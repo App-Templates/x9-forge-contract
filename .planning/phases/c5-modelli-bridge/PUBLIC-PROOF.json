@@ -1,0 +1,56 @@
+{
+  "head": "05475816688d5e59fb09d62521193e2e79f08f2c",
+  "public": {
+    "assertions": 34,
+    "modes": [
+      "esm",
+      "cjs"
+    ],
+    "package": "@x9-forge/contracts/model-router"
+  },
+  "compiled": [
+    {
+      "mode": "js",
+      "assertionRed": true,
+      "restored": {
+        "assertions": 34,
+        "modes": [
+          "esm",
+          "cjs"
+        ],
+        "package": "@x9-forge/contracts/model-router"
+      },
+      "restoredSha": "e6a822c61bb09e36594caa002d34c5b4d76c6977e7d495a0fafa35c2ec89c567"
+    },
+    {
+      "mode": "cjs",
+      "assertionRed": true,
+      "restored": {
+        "assertions": 34,
+        "modes": [
+          "esm",
+          "cjs"
+        ],
+        "package": "@x9-forge/contracts/model-router"
+      },
+      "restoredSha": "277437fd0bbefb4bad49635a405200e70c1dd0ec95eaa8a3bada9e59e304b03a"
+    }
+  ],
+  "types": {
+    "guards": 5,
+    "diagnosticsWithoutGuards": [
+      ".planning/phases/c5-modelli-bridge/TYPE-PROBE.ts(4,46): error TS2345: Argument of type '{ schemaVersion: 1; identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; configVersion: number; selections: { slotId: string; settings: { mode: \"automatic\"; ... 5 more ...; fallback: { ...; }; } | { ...; }; }[]; }' is not assignable to parameter of type '{ schemaVersion: 1; configVersion: number; selections: { slotId: string; settings: { mode: \"automatic\"; capability: string; function: \"reasoning\" | \"memory-extraction\" | \"embedding\" | \"tts\" | \"transcription\" | \"voice\"; catalogVersion: string; requirements: { ...; }; tiers: Record<...>; fallback: { ...; }; } | { ...;...'.",
+      ".planning/phases/c5-modelli-bridge/TYPE-PROBE.ts(5,58): error TS2741: Property 'vaultAgentId' is missing in type '{ managementAgentId: string; runtimeAgentId: string; }' but required in type '{ managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }'.",
+      ".planning/phases/c5-modelli-bridge/TYPE-PROBE.ts(6,93): error TS2741: Property 'tenantId' is missing in type '{ agentId: string; ownerId: string; }' but required in type '{ agentId: string; ownerId: string; tenantId: string; }'.",
+      ".planning/phases/c5-modelli-bridge/TYPE-PROBE.ts(7,104): error TS2322: Type '{ slotId: string; origin: \"master\"; }' is not assignable to type '{ slotId: string; origin: \"master\"; source: { identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; sourceVersion: number; }; } | { slotId: string; origin: \"custom\"; source?: undefined; }'.",
+      ".planning/phases/c5-modelli-bridge/TYPE-PROBE.ts(8,104): error TS2322: Type '{ slotId: string; origin: \"custom\"; source: { identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; sourceVersion: number; }; }' is not assignable to type '{ slotId: string; origin: \"master\"; source: { identity: { managementAgentId: string; runtimeAgentId: string; vaultAgentId: number; }; sourceVersion: number; }; } | { slotId: string; origin: \"custom\"; source?: undefined; }'."
+    ],
+    "restoredExit": 0,
+    "harnessInitialFailure": "TS5112 excluded; added --ignoreConfig"
+  },
+  "legacyCjsExit": 0,
+  "source": {
+    "src/model-router/agent-model-configuration.ts": "ece5dae3aad800d195c7ec63fecd8fafb81291906895eef30cd37cd7085394e8",
+    "src/model-router/model-catalog.ts": "1eca8897b27414cad62eb67d633b6bfe452b1ba5133e74d3ed8a08d08d928174"
+  }
+}

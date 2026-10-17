@@ -9,6 +9,11 @@
 export * from './internal-agents-list.js';
 export * from './internal-agents-reload.js';
 export * from './internal-agents-stop.js';
+export * from './internal-run-stop.js';
+export * from './internal-run-native-stop.js';
+export * from './internal-publication.js';
+export * from './internal-participant-binding.js'; // POST /internal/participant-binding/{apply,read,list,withdraw,resolve}, secret auth
+export * from './internal-publication-read.js';
 export * from './internal-agents-management.js'; // v1.31.0 — R1b commands + management state
 export * from './internal-turn.js';
 export * from './internal-turn-stream.js';
@@ -20,6 +25,7 @@ export * from './internal-memory-extract.js'; // Phase 36.9 — async extraction
 export * from './internal-capability-agent.js'; // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
 export * from './internal-capability-elevenlabs.js'; // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 export * from './internal-capability-coach.js'; // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
+export * from './internal-capability-dev.js'; // P04-d — cap-dev get/put config and get state
 
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from './webhook-post-call.js';
@@ -51,6 +57,7 @@ export * from './cap-turn-lead.js';
 export * from './internal-factory-creation.js'; // R2 opt-in replayable deploy, legacy contract unchanged.
 
 export * from './internal-channel-attestation.js';
+export * from './internal-agent-creation-by-email.js';
 
 export * from './voice-catalog.js';
 export * from './internal-agent-model-catalog.js';
@@ -66,3 +73,37 @@ export * from './forge-agent-phone-channel.js';
 export * from './internal-capability-elevenlabs-web.js';
 
 export * from './capability-elevenlabs-web-context.js';
+
+// C5 existing-agent resource operations, browser session only.
+export * from './forge-agent-channel-resource.js';
+
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from './internal-agents-deletion.js';
+export * from './internal-agent-channel-history.js';
+export * from './forge-agent-channel-history.js';
+
+export * from './internal-agent-tool-dispatch.js';
+export * from './internal-agent-voice-source.js';
+
+export * from './internal-agent-model-source-observation.js';
+
+export * from './forge-master-model-authority.js';
+
+export * from './internal-models-apply.js';
+
+export * from './internal-vault-connection.js';
+export * from './internal-connect.js';
+export * from './connection-card.js';
+export * from './web-connection-cards.js';
+export * from './internal-memory-experience.js';
+export * from './internal-memory-decisions.js';
+export * from './internal-memory-knowledge.js';
+export * from './connect-public.js';
+export * from './internal-connection-completed.js';
+export * from './internal-agents-ordinary-authority.js';
+export * from './forge-elevenlabs-web.js';
+export * from './internal-agent-address-book.js';
+
+export * from './native-binding-read.js';
+export * from './coach-person-program-read.js';
+export * from './coach-browser.js';

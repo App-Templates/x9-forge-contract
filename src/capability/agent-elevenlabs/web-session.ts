@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema, CapabilityPersonScopeSchema, sameCapabilityScope } from '../capability-call-context.js';
 import { AgentConfigVersionSchema } from '../ricerca/agent-config.js';
 import { AgentManagementRequestIdSchema } from '../../agent/agent-management.js';
-import { ElevenLabsAgentMappingSchema, ElevenLabsChannelStatusSchema, sameElevenLabsMapping } from './index.js';
+import { ElevenLabsAgentMappingSchema, ElevenLabsChannelStatusSchema, ElevenLabsProviderAgentIdSchema, sameElevenLabsMapping } from './index.js';
 import { ElevenLabsWebPolicySchema, ElevenLabsWebInvitationSchema, isElevenLabsWebInvitationCurrent } from './web-channel.js';
 
 /** Persist once on the server; stable across retries and Web-only pauses. Never a provider share link. */
@@ -65,7 +65,7 @@ export function canAdmitElevenLabsWebViewer(rawSnapshot: unknown, expectedScope:
   if (!snapshot.success || !viewer.success || !Number.isFinite(time)) return false;
   const { policy, link, provider, lifecycle, invitation, invitationRevision } = snapshot.data;
   if (!isElevenLabsWebLinkCurrent(link, expectedScope, configuredOrigin)) return false;
-  if (lifecycle !== 'active' || policy.paused || provider.desiredState !== 'active'
+  if (lifecycle !== 'active' || policy.enabled === false || policy.paused || provider.desiredState !== 'active'
     || provider.mapping === null || provider.channel.state !== 'loaded' || provider.channel.loaded !== true
     || provider.channel.readiness !== 'ready' || provider.observedAt === null
     || Date.parse(provider.observedAt) > time || Date.parse(link.createdAt) > time) return false;
@@ -98,16 +98,23 @@ export const ElevenLabsWebSessionResultSchema = z.object({
   if ((result.invitation === null) !== (result.invitationRevision === null)) ctx.addIssue({ code: 'custom', message: 'Mint invitation and revision are present together' });
   const duration = Date.parse(result.expiresAt) - Date.parse(result.issuedAt);
   if (duration <= 0 || duration > 15 * 60 * 1000) ctx.addIssue({ code: 'custom', path: ['expiresAt'], message: 'Provider connection window must be positive and no longer than fifteen minutes' });
-  if (!URL.canParse(result.signedUrl)) { ctx.addIssue({ code: 'custom', path: ['signedUrl'], message: 'Invalid conversation URL' }); return; }
-  const url = new URL(result.signedUrl);
-  if (url.protocol !== 'wss:' || url.host !== 'api.elevenlabs.io' || url.pathname !== '/v1/convai/conversation'
-    || url.username !== '' || url.password !== '' || url.hash !== ''
-    || url.searchParams.getAll('agent_id').length !== 1 || url.searchParams.get('agent_id') !== result.mapping.providerAgentId
-    || url.searchParams.getAll('conversation_signature').length !== 1 || !url.searchParams.get('conversation_signature')) {
+  if (!isElevenLabsWebSignedConnectionUrl(result.signedUrl, result.mapping.providerAgentId)) {
     ctx.addIssue({ code: 'custom', path: ['signedUrl'], message: 'Expected a signed ElevenLabs conversation connection for the bound resource' });
   }
 });
 export type ElevenLabsWebSessionResult = z.infer<typeof ElevenLabsWebSessionResultSchema>;
+/** Reuses C3 transport validation. A valid URL is a bearer format, never evidence of admission or resource privacy. */
+export function isElevenLabsWebSignedConnectionUrl(rawUrl: unknown, expectedProviderAgentId: unknown): boolean {
+  const parsed = ElevenLabsWebSessionResultSchema.shape.signedUrl.safeParse(rawUrl);
+  const provider = ElevenLabsProviderAgentIdSchema.safeParse(expectedProviderAgentId);
+  if (!parsed.success || !provider.success || !URL.canParse(parsed.data)) return false;
+  const url = new URL(parsed.data);
+  return url.protocol === 'wss:' && url.host === 'api.elevenlabs.io' && url.pathname === '/v1/convai/conversation'
+    && url.username === '' && url.password === '' && url.hash === ''
+    && url.searchParams.getAll('agent_id').length === 1 && url.searchParams.get('agent_id') === provider.data
+    && url.searchParams.getAll('conversation_signature').length === 1 && !!url.searchParams.get('conversation_signature');
+}
+
 
 /**
  * Recheck completion against NEW server evidence/viewer. Pause/revoke blocks new issuance; an already

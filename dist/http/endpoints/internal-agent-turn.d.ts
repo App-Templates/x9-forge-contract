@@ -9,13 +9,14 @@ import { z } from 'zod';
  * This sibling runs the turn with the deps of the agent named in the path
  * (workspace, registry, memory identity from its own context.json), so a voice
  * session bound to a Forge-created agent never touches the personal agent's
- * memory. agent-core refuses the primary agent id here (403): the personal
- * agent stays reachable only through the existing routes.
+ * memory. A primary turn additionally requires the complete trusted identity
+ * to match its current loaded context; legacy primary bodies remain refused.
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
  * caller's `userId` (v1.26.0), and the voice-led `prepare`/`exchange` turns with response
- * `lead`/`note` (v1.27.0); the personal `/internal/turn` schema is unchanged.
+ * `lead`/`note` (v1.27.0), and the optional trusted `organizationRun`
+ * (run context + attempt, additive); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -30,6 +31,35 @@ export declare const InternalAgentTurnParamsSchema: z.ZodObject<{
     agentId: z.ZodString;
 }, z.core.$strip>;
 export type InternalAgentTurnParams = z.infer<typeof InternalAgentTurnParamsSchema>;
+/** Trusted run context and attempt of the calling organization run; both must name the same run. */
+export declare const InternalAgentTurnOrganizationRunSchema: z.ZodObject<{
+    context: z.ZodObject<{
+        schemaVersion: z.ZodLiteral<1>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        organizationId: z.ZodString;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>;
+        issuer: z.ZodEnum<{
+            x9: "x9";
+            forge: "forge";
+            paperclip: "paperclip";
+        }>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    attempt: z.ZodObject<{
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        attemptId: z.ZodString;
+        attemptNumber: z.ZodNumber;
+        startedAt: z.ZodISODateTime;
+        idempotencyKey: z.ZodString;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type InternalAgentTurnOrganizationRun = z.infer<typeof InternalAgentTurnOrganizationRunSchema>;
 export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
     channelId: z.ZodString;
     sessionId: z.ZodString;
@@ -52,8 +82,8 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
     }, z.core.$strip>>>;
     attachment: z.ZodOptional<z.ZodObject<{
         type: z.ZodEnum<{
-            photo: "photo";
             document: "document";
+            photo: "photo";
             video: "video";
         }>;
         fileUrl: z.ZodString;
@@ -89,7 +119,40 @@ export declare const InternalAgentTurnRequestSchema: z.ZodObject<{
         spokenText: z.ZodString;
         ended: z.ZodBoolean;
     }, z.core.$strict>], "kind">>;
+    identity: z.ZodOptional<z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>;
     userId: z.ZodOptional<z.ZodString>;
+    organizationRun: z.ZodOptional<z.ZodObject<{
+        context: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            organizationId: z.ZodString;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            issuer: z.ZodEnum<{
+                x9: "x9";
+                forge: "forge";
+                paperclip: "paperclip";
+            }>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        attempt: z.ZodObject<{
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            attemptId: z.ZodString;
+            attemptNumber: z.ZodNumber;
+            startedAt: z.ZodISODateTime;
+            idempotencyKey: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
 }, z.core.$strip>;
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
@@ -115,6 +178,28 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
     moveId: z.ZodOptional<z.ZodString>;
     lead: z.ZodOptional<z.ZodString>;
     note: z.ZodOptional<z.ZodString>;
+    connectionCards: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        cardId: z.ZodString;
+        provider: z.ZodEnum<{
+            google: "google";
+        }>;
+        permissions: z.ZodArray<z.ZodEnum<{
+            calendar_events: "calendar_events";
+            contacts_read: "contacts_read";
+            mail_send: "mail_send";
+            mail_draft: "mail_draft";
+        }>>;
+        url: z.ZodString;
+        expiresAt: z.ZodNumber;
+        state: z.ZodEnum<{
+            connected: "connected";
+            revoked: "revoked";
+            pending: "pending";
+            denied: "denied";
+            expired: "expired";
+        }>;
+        reason: z.ZodString;
+    }, z.core.$strict>>>;
 }, z.core.$strip>;
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
@@ -124,7 +209,7 @@ export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
 export type InternalAgentTurnErrorResponse = z.infer<typeof InternalAgentTurnErrorResponseSchema>;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 export declare const INTERNAL_AGENT_TURN_UNKNOWN_AGENT: "unknown_agent";
-/** Error code returned with 403 when the path names the env primary agent. */
+/** Error code returned with 403 for a primary turn without a scoped admission. */
 export declare const INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN: "primary_agent_forbidden";
 /** Build the concrete path for an agent id (validated). */
 export declare function internalAgentTurnPath(agentId: string): string;
@@ -157,8 +242,8 @@ export declare const internalAgentTurnContract: {
         }, z.core.$strip>>>;
         attachment: z.ZodOptional<z.ZodObject<{
             type: z.ZodEnum<{
-                photo: "photo";
                 document: "document";
+                photo: "photo";
                 video: "video";
             }>;
             fileUrl: z.ZodString;
@@ -194,7 +279,40 @@ export declare const internalAgentTurnContract: {
             spokenText: z.ZodString;
             ended: z.ZodBoolean;
         }, z.core.$strict>], "kind">>;
+        identity: z.ZodOptional<z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>;
         userId: z.ZodOptional<z.ZodString>;
+        organizationRun: z.ZodOptional<z.ZodObject<{
+            context: z.ZodObject<{
+                schemaVersion: z.ZodLiteral<1>;
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                organizationId: z.ZodString;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodOptional<z.ZodNumber>;
+                }, z.core.$strip>;
+                issuer: z.ZodEnum<{
+                    x9: "x9";
+                    forge: "forge";
+                    paperclip: "paperclip";
+                }>;
+                issuedAt: z.ZodISODateTime;
+                expiresAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            attempt: z.ZodObject<{
+                runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+                attemptId: z.ZodString;
+                attemptNumber: z.ZodNumber;
+                startedAt: z.ZodISODateTime;
+                idempotencyKey: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
     }, z.core.$strip>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -218,6 +336,28 @@ export declare const internalAgentTurnContract: {
         moveId: z.ZodOptional<z.ZodString>;
         lead: z.ZodOptional<z.ZodString>;
         note: z.ZodOptional<z.ZodString>;
+        connectionCards: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            cardId: z.ZodString;
+            provider: z.ZodEnum<{
+                google: "google";
+            }>;
+            permissions: z.ZodArray<z.ZodEnum<{
+                calendar_events: "calendar_events";
+                contacts_read: "contacts_read";
+                mail_send: "mail_send";
+                mail_draft: "mail_draft";
+            }>>;
+            url: z.ZodString;
+            expiresAt: z.ZodNumber;
+            state: z.ZodEnum<{
+                connected: "connected";
+                revoked: "revoked";
+                pending: "pending";
+                denied: "denied";
+                expired: "expired";
+            }>;
+            reason: z.ZodString;
+        }, z.core.$strict>>>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agent-turn.d.ts.map

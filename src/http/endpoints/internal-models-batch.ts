@@ -1,6 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- required for portable declaration emission.
 import { z } from 'zod';
 import { INTERNAL_SECRET_HEADER } from '../../auth/index.js';
+import { ModelSlotIdSchema } from '../../model-router/model-slot.js';
+import { ModelConsumerStateRequestSchema, ModelConsumerRuntimeStateSchema, ModelConsumerInstallRequestSchema, ModelConsumerInstallReceiptSchema } from '../../model-router/model-consumer-execution.js';
 import { AgentModelsStateSchema } from '../../model-router/agent-model-configuration.js';
 import { AgentModelsOverviewSchema, AgentModelsBatchPreviewRequestSchema, AgentModelsBatchPreviewSchema, AgentModelsBatchRequestSchema, AgentModelsBatchResultSchema } from '../../model-router/models-batch.js';
 import { AgentManagementParamsSchema } from './internal-agents-management.js';
@@ -30,4 +31,39 @@ export const internalAgentModelsStateContract = {
 } as const;
 export function agentModelsStatePath(agentId: string): string {
   return internalAgentModelsStateContract.path.replace(':agentId', AgentManagementParamsSchema.parse({ agentId }).agentId);
+}
+
+/** Same metadata contract in each consumer service; registry binding chooses the trusted service URL. */
+export const internalModelConsumerStateContract = {
+  method: 'POST' as const, path: '/internal/models/consumers/:slotId/state' as const,
+  authType: 'secret' as const, authHeader: INTERNAL_SECRET_HEADER,
+  paramsSchema: z.object({ slotId: ModelSlotIdSchema }).strict(),
+  bodySchema: ModelConsumerStateRequestSchema, responseSchema: ModelConsumerRuntimeStateSchema,
+} as const;
+export const internalModelConsumerInstallContract = {
+  method: 'POST' as const, path: '/internal/models/consumers/:slotId/install' as const,
+  authType: 'secret' as const, authHeader: INTERNAL_SECRET_HEADER,
+  paramsSchema: z.object({ slotId: ModelSlotIdSchema }).strict(),
+  bodySchema: ModelConsumerInstallRequestSchema, responseSchema: ModelConsumerInstallReceiptSchema,
+} as const;
+
+/** Consumer-to-core notification, distinct from endpoints hosted by consumer services. */
+export const internalModelConsumerReportContract = {
+  method: 'POST' as const, path: '/internal/models/consumer-reports/:slotId' as const,
+  authType: 'secret' as const, authHeader: INTERNAL_SECRET_HEADER,
+  paramsSchema: z.object({ slotId: ModelSlotIdSchema }).strict(),
+  bodySchema: ModelConsumerRuntimeStateSchema,
+  responseSchema: z.object({ ok: z.literal(true) }).strict(),
+} as const;
+
+export function modelConsumerReportPath(slotId: string): string {
+  const params = internalModelConsumerReportContract.paramsSchema.parse({ slotId });
+  return internalModelConsumerReportContract.path.replace(':slotId', params.slotId);
+}
+
+/** Both boundaries must parse before comparing the reported consumer with the route. */
+export function isModelConsumerReportMatching(params: unknown, body: unknown): boolean {
+  const route = internalModelConsumerReportContract.paramsSchema.safeParse(params);
+  const report = internalModelConsumerReportContract.bodySchema.safeParse(body);
+  return route.success && report.success && route.data.slotId === report.data.slotId;
 }

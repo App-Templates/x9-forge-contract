@@ -1,0 +1,4 @@
+$ ["/usr/bin/python3", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/manifest-probe.py", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/manifest-fault-copy.json"]
+manifest binding1/1
+
+EXIT_CODE=0

@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "tests": 31,
+    "failed": 10,
+    "passed": 21,
+    "qualification": "functional assertions only"
+  },
+  "full": {
+    "tests": 4351,
+    "passed": 4351,
+    "files": 155,
+    "skipped": 0
+  },
+  "mutations": {
+    "source": 14,
+    "sourceTotal": 14,
+    "compiled": 2,
+    "compiledTotal": 2,
+    "sourceRestored": true,
+    "sha256": "7b57a2666918a4d7aba7544985c9439967b271da763a342c109dc24b9344ff09"
+  },
+  "compiledAssertions": 34,
+  "compiledTotal": 34,
+  "live": 0,
+  "consumerHandlersImplemented": 0
+}

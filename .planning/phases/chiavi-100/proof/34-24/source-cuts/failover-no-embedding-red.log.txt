@@ -1,0 +1,13 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/chiavi-model-composition.test.ts", "--maxWorkers=1"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ✓ tests/model-router/chiavi-model-composition.test.ts (64 tests) 33ms
+
+ Test Files  1 passed (1)
+      Tests  64 passed (64)
+   Start at  21:48:34
+   Duration  619ms (transform 259ms, setup 4ms, collect 456ms, tests 33ms, environment 0ms, prepare 30ms)
+
+
+EXIT_CODE=0

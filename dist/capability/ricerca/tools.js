@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { capToolCallPath } from "../../http/endpoints/cap-tool-call.js";
 import { ResearchIdSchema, ResearchRequestSchema, ResearchResultSchema, ResearchStateSchema } from "./research.js";
 /**
  * The tools of cap-ricerca (v1.28.0, Phase 54). The agent is the one of the tool call envelope. Agents and other
@@ -29,4 +30,12 @@ export const ResearchStatusInputSchema = z.object({ researchId: ResearchIdSchema
 export const ResearchStatusOutputSchema = z.object({ researchId: ResearchIdSchema, state: ResearchStateSchema }).strict();
 export const ResearchResultInputSchema = z.object({ researchId: ResearchIdSchema }).strict();
 export const ResearchResultOutputSchema = ResearchResultSchema;
+/** Worker-owned execution only: deliberately excluded from RICERCA_TOOLS and model manifests. */
+export const RICERCA_INTERNAL_TOOLS = { execute: 'research_execute' };
+/** The receiver must compare this opaque token with the current SQL claim and agent ownership. */
+export const ResearchExecuteInputSchema = z.strictObject({
+    researchId: ResearchIdSchema,
+    leaseToken: z.uuid(),
+});
+export function researchExecutePath() { return capToolCallPath(RICERCA_INTERNAL_TOOLS.execute); }
 //# sourceMappingURL=tools.js.map

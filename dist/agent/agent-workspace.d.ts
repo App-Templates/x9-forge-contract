@@ -76,15 +76,20 @@ export declare const AgentWorkspaceHumanFileSchema: z.ZodObject<{
             reason: z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
+                    "catalog-version-mismatch": "catalog-version-mismatch";
+                    "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
                     "not-supported": "not-supported";
                     "in-progress": "in-progress";
+                    "catalog-changed": "catalog-changed";
+                    "qualification-failed": "qualification-failed";
+                    "consumer-rejected": "consumer-rejected";
                 }>;
                 detail: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>;
@@ -167,15 +172,20 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -242,6 +252,10 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
                 }>;
             }, z.core.$strip>>;
             requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                key: z.ZodLazy<z.ZodString>;
+                required: z.ZodBoolean;
+            }, z.core.$strict>>>;
             context: z.ZodOptional<z.ZodObject<{
                 maxChars: z.ZodNumber;
             }, z.core.$strip>>;
@@ -413,6 +427,461 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
                 consumes: z.ZodBoolean;
                 spendLedger: z.ZodBoolean;
             }, z.core.$strict>>;
+            ordinaryParameters: z.ZodOptional<z.ZodObject<{
+                parameters: z.ZodArray<z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"number">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"integer">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string">;
+                    minLength: z.ZodOptional<z.ZodNumber>;
+                    maxLength: z.ZodOptional<z.ZodNumber>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"boolean">;
+                    platformDefault: z.ZodOptional<z.ZodBoolean>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"enum">;
+                    options: z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string_list">;
+                    minItems: z.ZodOptional<z.ZodNumber>;
+                    maxItems: z.ZodOptional<z.ZodNumber>;
+                    options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>], "type">, z.ZodObject<{
+                    optional: z.ZodBoolean;
+                    key: z.ZodString;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                    type: z.ZodLiteral<"structured">;
+                    schemaKey: z.ZodEnum<{
+                        "briefing.feeds": "briefing.feeds";
+                        "briefing.categoryWeights": "briefing.categoryWeights";
+                        "news.feeds": "news.feeds";
+                        "rules.briefing": "rules.briefing";
+                        "rules.news": "rules.news";
+                        "rules.netatmo": "rules.netatmo";
+                        "rules.security": "rules.security";
+                        "security.cameraPolicies": "security.cameraPolicies";
+                        "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                    }>;
+                    schemaVersion: z.ZodLiteral<1>;
+                    platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                        label: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        weight: z.ZodDefault<z.ZodNumber>;
+                    }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"briefing">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_tone">;
+                            tone: z.ZodEnum<{
+                                formal: "formal";
+                                terse: "terse";
+                                friendly: "friendly";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_maxWords">;
+                            maxWords: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_greeting">;
+                            greeting: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"skip_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_closing">;
+                            text: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_cronSchedule">;
+                            cron: z.ZodString;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"news">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_hours_back">;
+                            hours: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_max_per_category">;
+                            category: z.ZodString;
+                            max: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"netatmo">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_on">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_off">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"suppress_automation">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_is_dark_offset">;
+                            offset_minutes: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"security">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"set_pir">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_sleep">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_ir">;
+                            mode: z.ZodEnum<{
+                                on: "on";
+                                off: "off";
+                                auto: "auto";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_floodlight">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_patrol">;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        uid: z.ZodString;
+                        name: z.ZodString;
+                        role: z.ZodEnum<{
+                            primary: "primary";
+                            secondary: "secondary";
+                        }>;
+                        enabled: z.ZodBoolean;
+                        ptz_presets: z.ZodObject<{
+                            left: z.ZodNumber;
+                            center: z.ZodNumber;
+                            right: z.ZodNumber;
+                        }, z.core.$strict>;
+                        siren: z.ZodBoolean;
+                        battery: z.ZodBoolean;
+                    }, z.core.$strict>>, z.ZodObject<{
+                        agent: z.ZodObject<{
+                            first_message: z.ZodString;
+                            language: z.ZodString;
+                            prompt: z.ZodObject<{
+                                llm: z.ZodString;
+                                reasoning_effort: z.ZodString;
+                                temperature: z.ZodNumber;
+                                backup_llm_config: z.ZodObject<{
+                                    preference: z.ZodLiteral<"override">;
+                                    order: z.ZodArray<z.ZodString>;
+                                }, z.core.$strict>;
+                                cascade_timeout_seconds: z.ZodNumber;
+                                tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                    type: z.ZodLiteral<"client">;
+                                    expects_response: z.ZodBoolean;
+                                    response_timeout_secs: z.ZodNumber;
+                                    execution_mode: z.ZodOptional<z.ZodEnum<{
+                                        immediate: "immediate";
+                                        post_tool_speech: "post_tool_speech";
+                                    }>>;
+                                    interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                        allow: "allow";
+                                        block: "block";
+                                    }>>;
+                                    parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"webhook">;
+                                    response_timeout_secs: z.ZodNumber;
+                                    api_schema: z.ZodObject<{
+                                        method: z.ZodLiteral<"POST">;
+                                        path: z.ZodString;
+                                        request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                        request_headers: z.ZodArray<z.ZodObject<{
+                                            name: z.ZodString;
+                                            source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                                kind: z.ZodLiteral<"credential">;
+                                                key: z.ZodString;
+                                            }, z.core.$strict>, z.ZodObject<{
+                                                kind: z.ZodLiteral<"session">;
+                                                bindingId: z.ZodString;
+                                            }, z.core.$strict>], "kind">;
+                                        }, z.core.$strict>>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"system">;
+                                    params: z.ZodObject<{
+                                        system_tool_type: z.ZodEnum<{
+                                            end_call: "end_call";
+                                            skip_turn: "skip_turn";
+                                        }>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>], "type">>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                        tts: z.ZodObject<{
+                            model_id: z.ZodString;
+                            optimize_streaming_latency: z.ZodNumber;
+                            agent_output_audio_format: z.ZodString;
+                            supported_voices: z.ZodArray<z.ZodObject<{
+                                label: z.ZodString;
+                                description: z.ZodString;
+                                voice_id: z.ZodString;
+                                stability: z.ZodNumber;
+                                speed: z.ZodNumber;
+                                similarity_boost: z.ZodNumber;
+                            }, z.core.$strict>>;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>;
+                        turn: z.ZodObject<{
+                            turn_timeout: z.ZodNumber;
+                            interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                            merge_with_default_ignore_terms: z.ZodBoolean;
+                            silence_end_call_timeout: z.ZodNumber;
+                        }, z.core.$strict>;
+                        conversation: z.ZodObject<{
+                            max_duration_seconds: z.ZodNumber;
+                            client_events: z.ZodArray<z.ZodEnum<{
+                                audio: "audio";
+                                interruption: "interruption";
+                                agent_response: "agent_response";
+                                user_transcript: "user_transcript";
+                                agent_response_correction: "agent_response_correction";
+                                agent_tool_response: "agent_tool_response";
+                            }>>;
+                        }, z.core.$strict>;
+                        platform_settings: z.ZodObject<{
+                            auth: z.ZodObject<{
+                                enable_auth: z.ZodLiteral<true>;
+                                allowlist: z.ZodArray<z.ZodURL>;
+                                require_origin_header: z.ZodLiteral<true>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>]>>;
+                }, z.core.$strict>]>>;
+                consumes: z.ZodBoolean;
+                spendLedger: z.ZodBoolean;
+            }, z.core.$strict>>;
             presentation: z.ZodOptional<z.ZodObject<{
                 outputs: z.ZodOptional<z.ZodObject<{
                     label: z.ZodString;
@@ -466,6 +935,737 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
             bytes: z.ZodNumber;
         }, z.core.$strict>;
     }, z.core.$strict>>;
+    ordinaryConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        format: z.ZodLiteral<"ordinary-v2">;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        capability: z.ZodString;
+        version: z.ZodNumber;
+        parameters: z.ZodArray<z.ZodObject<{
+            parameter: z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"number">;
+                min: z.ZodOptional<z.ZodNumber>;
+                max: z.ZodOptional<z.ZodNumber>;
+                platformDefault: z.ZodOptional<z.ZodNumber>;
+                key: z.ZodString;
+                label: z.ZodString;
+                description: z.ZodString;
+                explanation: z.ZodOptional<z.ZodString>;
+                group: z.ZodOptional<z.ZodString>;
+                unit: z.ZodOptional<z.ZodString>;
+                status: z.ZodEnum<{
+                    decided: "decided";
+                    proposed: "proposed";
+                }>;
+                reference: z.ZodString;
+                appliesWhen: z.ZodEnum<{
+                    immediate: "immediate";
+                    next_apply: "next_apply";
+                }>;
+                consumes: z.ZodBoolean;
+                optional: z.ZodBoolean;
+                editableBy: z.ZodArray<z.ZodEnum<{
+                    superadmin: "superadmin";
+                    owner: "owner";
+                }>>;
+            }, z.core.$strict>, z.ZodObject<{
+                type: z.ZodLiteral<"integer">;
+                min: z.ZodOptional<z.ZodNumber>;
+                max: z.ZodOptional<z.ZodNumber>;
+                platformDefault: z.ZodOptional<z.ZodNumber>;
+                key: z.ZodString;
+                label: z.ZodString;
+                description: z.ZodString;
+                explanation: z.ZodOptional<z.ZodString>;
+                group: z.ZodOptional<z.ZodString>;
+                unit: z.ZodOptional<z.ZodString>;
+                status: z.ZodEnum<{
+                    decided: "decided";
+                    proposed: "proposed";
+                }>;
+                reference: z.ZodString;
+                appliesWhen: z.ZodEnum<{
+                    immediate: "immediate";
+                    next_apply: "next_apply";
+                }>;
+                consumes: z.ZodBoolean;
+                optional: z.ZodBoolean;
+                editableBy: z.ZodArray<z.ZodEnum<{
+                    superadmin: "superadmin";
+                    owner: "owner";
+                }>>;
+            }, z.core.$strict>, z.ZodObject<{
+                type: z.ZodLiteral<"string">;
+                minLength: z.ZodOptional<z.ZodNumber>;
+                maxLength: z.ZodOptional<z.ZodNumber>;
+                pattern: z.ZodOptional<z.ZodString>;
+                platformDefault: z.ZodOptional<z.ZodString>;
+                key: z.ZodString;
+                label: z.ZodString;
+                description: z.ZodString;
+                explanation: z.ZodOptional<z.ZodString>;
+                group: z.ZodOptional<z.ZodString>;
+                unit: z.ZodOptional<z.ZodString>;
+                status: z.ZodEnum<{
+                    decided: "decided";
+                    proposed: "proposed";
+                }>;
+                reference: z.ZodString;
+                appliesWhen: z.ZodEnum<{
+                    immediate: "immediate";
+                    next_apply: "next_apply";
+                }>;
+                consumes: z.ZodBoolean;
+                optional: z.ZodBoolean;
+                editableBy: z.ZodArray<z.ZodEnum<{
+                    superadmin: "superadmin";
+                    owner: "owner";
+                }>>;
+            }, z.core.$strict>, z.ZodObject<{
+                type: z.ZodLiteral<"boolean">;
+                platformDefault: z.ZodOptional<z.ZodBoolean>;
+                key: z.ZodString;
+                label: z.ZodString;
+                description: z.ZodString;
+                explanation: z.ZodOptional<z.ZodString>;
+                group: z.ZodOptional<z.ZodString>;
+                unit: z.ZodOptional<z.ZodString>;
+                status: z.ZodEnum<{
+                    decided: "decided";
+                    proposed: "proposed";
+                }>;
+                reference: z.ZodString;
+                appliesWhen: z.ZodEnum<{
+                    immediate: "immediate";
+                    next_apply: "next_apply";
+                }>;
+                consumes: z.ZodBoolean;
+                optional: z.ZodBoolean;
+                editableBy: z.ZodArray<z.ZodEnum<{
+                    superadmin: "superadmin";
+                    owner: "owner";
+                }>>;
+            }, z.core.$strict>, z.ZodObject<{
+                type: z.ZodLiteral<"enum">;
+                options: z.ZodArray<z.ZodObject<{
+                    value: z.ZodString;
+                    label: z.ZodString;
+                }, z.core.$strict>>;
+                platformDefault: z.ZodOptional<z.ZodString>;
+                key: z.ZodString;
+                label: z.ZodString;
+                description: z.ZodString;
+                explanation: z.ZodOptional<z.ZodString>;
+                group: z.ZodOptional<z.ZodString>;
+                unit: z.ZodOptional<z.ZodString>;
+                status: z.ZodEnum<{
+                    decided: "decided";
+                    proposed: "proposed";
+                }>;
+                reference: z.ZodString;
+                appliesWhen: z.ZodEnum<{
+                    immediate: "immediate";
+                    next_apply: "next_apply";
+                }>;
+                consumes: z.ZodBoolean;
+                optional: z.ZodBoolean;
+                editableBy: z.ZodArray<z.ZodEnum<{
+                    superadmin: "superadmin";
+                    owner: "owner";
+                }>>;
+            }, z.core.$strict>, z.ZodObject<{
+                type: z.ZodLiteral<"string_list">;
+                minItems: z.ZodOptional<z.ZodNumber>;
+                maxItems: z.ZodOptional<z.ZodNumber>;
+                options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    value: z.ZodString;
+                    label: z.ZodString;
+                }, z.core.$strict>>>;
+                pattern: z.ZodOptional<z.ZodString>;
+                platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                key: z.ZodString;
+                label: z.ZodString;
+                description: z.ZodString;
+                explanation: z.ZodOptional<z.ZodString>;
+                group: z.ZodOptional<z.ZodString>;
+                unit: z.ZodOptional<z.ZodString>;
+                status: z.ZodEnum<{
+                    decided: "decided";
+                    proposed: "proposed";
+                }>;
+                reference: z.ZodString;
+                appliesWhen: z.ZodEnum<{
+                    immediate: "immediate";
+                    next_apply: "next_apply";
+                }>;
+                consumes: z.ZodBoolean;
+                optional: z.ZodBoolean;
+                editableBy: z.ZodArray<z.ZodEnum<{
+                    superadmin: "superadmin";
+                    owner: "owner";
+                }>>;
+            }, z.core.$strict>], "type">, z.ZodObject<{
+                optional: z.ZodBoolean;
+                key: z.ZodString;
+                status: z.ZodEnum<{
+                    decided: "decided";
+                    proposed: "proposed";
+                }>;
+                unit: z.ZodOptional<z.ZodString>;
+                label: z.ZodString;
+                description: z.ZodString;
+                explanation: z.ZodOptional<z.ZodString>;
+                group: z.ZodOptional<z.ZodString>;
+                reference: z.ZodString;
+                appliesWhen: z.ZodEnum<{
+                    immediate: "immediate";
+                    next_apply: "next_apply";
+                }>;
+                consumes: z.ZodBoolean;
+                editableBy: z.ZodArray<z.ZodEnum<{
+                    superadmin: "superadmin";
+                    owner: "owner";
+                }>>;
+                type: z.ZodLiteral<"structured">;
+                schemaKey: z.ZodEnum<{
+                    "briefing.feeds": "briefing.feeds";
+                    "briefing.categoryWeights": "briefing.categoryWeights";
+                    "news.feeds": "news.feeds";
+                    "rules.briefing": "rules.briefing";
+                    "rules.news": "rules.news";
+                    "rules.netatmo": "rules.netatmo";
+                    "rules.security": "rules.security";
+                    "security.cameraPolicies": "security.cameraPolicies";
+                    "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                }>;
+                schemaVersion: z.ZodLiteral<1>;
+                platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                    label: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    weight: z.ZodDefault<z.ZodNumber>;
+                }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"briefing">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_tone">;
+                        tone: z.ZodEnum<{
+                            formal: "formal";
+                            terse: "terse";
+                            friendly: "friendly";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_maxWords">;
+                        maxWords: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_greeting">;
+                        greeting: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"skip_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_closing">;
+                        text: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_cronSchedule">;
+                        cron: z.ZodString;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"news">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_hours_back">;
+                        hours: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_max_per_category">;
+                        category: z.ZodString;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"netatmo">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_on">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_off">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"suppress_automation">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_is_dark_offset">;
+                        offset_minutes: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"security">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"set_pir">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_sleep">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_ir">;
+                        mode: z.ZodEnum<{
+                            on: "on";
+                            off: "off";
+                            auto: "auto";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_floodlight">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_patrol">;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    uid: z.ZodString;
+                    name: z.ZodString;
+                    role: z.ZodEnum<{
+                        primary: "primary";
+                        secondary: "secondary";
+                    }>;
+                    enabled: z.ZodBoolean;
+                    ptz_presets: z.ZodObject<{
+                        left: z.ZodNumber;
+                        center: z.ZodNumber;
+                        right: z.ZodNumber;
+                    }, z.core.$strict>;
+                    siren: z.ZodBoolean;
+                    battery: z.ZodBoolean;
+                }, z.core.$strict>>, z.ZodObject<{
+                    agent: z.ZodObject<{
+                        first_message: z.ZodString;
+                        language: z.ZodString;
+                        prompt: z.ZodObject<{
+                            llm: z.ZodString;
+                            reasoning_effort: z.ZodString;
+                            temperature: z.ZodNumber;
+                            backup_llm_config: z.ZodObject<{
+                                preference: z.ZodLiteral<"override">;
+                                order: z.ZodArray<z.ZodString>;
+                            }, z.core.$strict>;
+                            cascade_timeout_seconds: z.ZodNumber;
+                            tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"client">;
+                                expects_response: z.ZodBoolean;
+                                response_timeout_secs: z.ZodNumber;
+                                execution_mode: z.ZodOptional<z.ZodEnum<{
+                                    immediate: "immediate";
+                                    post_tool_speech: "post_tool_speech";
+                                }>>;
+                                interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                    allow: "allow";
+                                    block: "block";
+                                }>>;
+                                parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"webhook">;
+                                response_timeout_secs: z.ZodNumber;
+                                api_schema: z.ZodObject<{
+                                    method: z.ZodLiteral<"POST">;
+                                    path: z.ZodString;
+                                    request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    request_headers: z.ZodArray<z.ZodObject<{
+                                        name: z.ZodString;
+                                        source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                            kind: z.ZodLiteral<"credential">;
+                                            key: z.ZodString;
+                                        }, z.core.$strict>, z.ZodObject<{
+                                            kind: z.ZodLiteral<"session">;
+                                            bindingId: z.ZodString;
+                                        }, z.core.$strict>], "kind">;
+                                    }, z.core.$strict>>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"system">;
+                                params: z.ZodObject<{
+                                    system_tool_type: z.ZodEnum<{
+                                        end_call: "end_call";
+                                        skip_turn: "skip_turn";
+                                    }>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>], "type">>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                    tts: z.ZodObject<{
+                        model_id: z.ZodString;
+                        optimize_streaming_latency: z.ZodNumber;
+                        agent_output_audio_format: z.ZodString;
+                        supported_voices: z.ZodArray<z.ZodObject<{
+                            label: z.ZodString;
+                            description: z.ZodString;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>>;
+                        voice_id: z.ZodString;
+                        stability: z.ZodNumber;
+                        speed: z.ZodNumber;
+                        similarity_boost: z.ZodNumber;
+                    }, z.core.$strict>;
+                    turn: z.ZodObject<{
+                        turn_timeout: z.ZodNumber;
+                        interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                        merge_with_default_ignore_terms: z.ZodBoolean;
+                        silence_end_call_timeout: z.ZodNumber;
+                    }, z.core.$strict>;
+                    conversation: z.ZodObject<{
+                        max_duration_seconds: z.ZodNumber;
+                        client_events: z.ZodArray<z.ZodEnum<{
+                            audio: "audio";
+                            interruption: "interruption";
+                            agent_response: "agent_response";
+                            user_transcript: "user_transcript";
+                            agent_response_correction: "agent_response_correction";
+                            agent_tool_response: "agent_tool_response";
+                        }>>;
+                    }, z.core.$strict>;
+                    platform_settings: z.ZodObject<{
+                        auth: z.ZodObject<{
+                            enable_auth: z.ZodLiteral<true>;
+                            allowlist: z.ZodArray<z.ZodURL>;
+                            require_origin_header: z.ZodLiteral<true>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>]>>;
+            }, z.core.$strict>]>;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"platform_default">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"agent_override">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"needs_choice">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"master">;
+                source: z.ZodObject<{
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                    masterId: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">;
+            value: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                url: z.ZodString;
+                category: z.ZodString;
+                maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                label: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                url: z.ZodString;
+                category: z.ZodString;
+                weight: z.ZodDefault<z.ZodNumber>;
+            }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                skill: z.ZodLiteral<"briefing">;
+                condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"skip_section">;
+                    section: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"add_section">;
+                    section: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_tone">;
+                    tone: z.ZodEnum<{
+                        formal: "formal";
+                        terse: "terse";
+                        friendly: "friendly";
+                    }>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_maxWords">;
+                    maxWords: z.ZodNumber;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_greeting">;
+                    greeting: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"add_feed_category">;
+                    category: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"skip_feed_category">;
+                    category: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"add_closing">;
+                    text: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_cronSchedule">;
+                    cron: z.ZodString;
+                }, z.core.$strict>], "type">;
+                priority: z.ZodNumber;
+                created_by: z.ZodEnum<{
+                    user: "user";
+                    operator: "operator";
+                }>;
+                created_at: z.ZodString;
+                description: z.ZodString;
+                locked: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                skill: z.ZodLiteral<"news">;
+                condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"skip_category">;
+                    category: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"add_category">;
+                    category: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_hours_back">;
+                    hours: z.ZodNumber;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_max_per_category">;
+                    category: z.ZodString;
+                    max: z.ZodNumber;
+                }, z.core.$strict>], "type">;
+                priority: z.ZodNumber;
+                created_by: z.ZodEnum<{
+                    user: "user";
+                    operator: "operator";
+                }>;
+                created_at: z.ZodString;
+                description: z.ZodString;
+                locked: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                skill: z.ZodLiteral<"netatmo">;
+                condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"auto_light_on">;
+                    module_id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"auto_light_off">;
+                    module_id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"suppress_automation">;
+                    module_id: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_is_dark_offset">;
+                    offset_minutes: z.ZodNumber;
+                }, z.core.$strict>], "type">;
+                priority: z.ZodNumber;
+                created_by: z.ZodEnum<{
+                    user: "user";
+                    operator: "operator";
+                }>;
+                created_at: z.ZodString;
+                description: z.ZodString;
+                locked: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                skill: z.ZodLiteral<"security">;
+                condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"set_pir">;
+                    enabled: z.ZodBoolean;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_sleep">;
+                    enabled: z.ZodBoolean;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_ir">;
+                    mode: z.ZodEnum<{
+                        on: "on";
+                        off: "off";
+                        auto: "auto";
+                    }>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"set_floodlight">;
+                    enabled: z.ZodBoolean;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"auto_patrol">;
+                }, z.core.$strict>], "type">;
+                priority: z.ZodNumber;
+                created_by: z.ZodEnum<{
+                    user: "user";
+                    operator: "operator";
+                }>;
+                created_at: z.ZodString;
+                description: z.ZodString;
+                locked: z.ZodOptional<z.ZodBoolean>;
+            }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                uid: z.ZodString;
+                name: z.ZodString;
+                role: z.ZodEnum<{
+                    primary: "primary";
+                    secondary: "secondary";
+                }>;
+                enabled: z.ZodBoolean;
+                ptz_presets: z.ZodObject<{
+                    left: z.ZodNumber;
+                    center: z.ZodNumber;
+                    right: z.ZodNumber;
+                }, z.core.$strict>;
+                siren: z.ZodBoolean;
+                battery: z.ZodBoolean;
+            }, z.core.$strict>>, z.ZodObject<{
+                agent: z.ZodObject<{
+                    first_message: z.ZodString;
+                    language: z.ZodString;
+                    prompt: z.ZodObject<{
+                        llm: z.ZodString;
+                        reasoning_effort: z.ZodString;
+                        temperature: z.ZodNumber;
+                        backup_llm_config: z.ZodObject<{
+                            preference: z.ZodLiteral<"override">;
+                            order: z.ZodArray<z.ZodString>;
+                        }, z.core.$strict>;
+                        cascade_timeout_seconds: z.ZodNumber;
+                        tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"client">;
+                            expects_response: z.ZodBoolean;
+                            response_timeout_secs: z.ZodNumber;
+                            execution_mode: z.ZodOptional<z.ZodEnum<{
+                                immediate: "immediate";
+                                post_tool_speech: "post_tool_speech";
+                            }>>;
+                            interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                allow: "allow";
+                                block: "block";
+                            }>>;
+                            parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                            name: z.ZodString;
+                            description: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"webhook">;
+                            response_timeout_secs: z.ZodNumber;
+                            api_schema: z.ZodObject<{
+                                method: z.ZodLiteral<"POST">;
+                                path: z.ZodString;
+                                request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                request_headers: z.ZodArray<z.ZodObject<{
+                                    name: z.ZodString;
+                                    source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                        kind: z.ZodLiteral<"credential">;
+                                        key: z.ZodString;
+                                    }, z.core.$strict>, z.ZodObject<{
+                                        kind: z.ZodLiteral<"session">;
+                                        bindingId: z.ZodString;
+                                    }, z.core.$strict>], "kind">;
+                                }, z.core.$strict>>;
+                            }, z.core.$strict>;
+                            name: z.ZodString;
+                            description: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"system">;
+                            params: z.ZodObject<{
+                                system_tool_type: z.ZodEnum<{
+                                    end_call: "end_call";
+                                    skip_turn: "skip_turn";
+                                }>;
+                            }, z.core.$strict>;
+                            name: z.ZodString;
+                            description: z.ZodString;
+                        }, z.core.$strict>], "type">>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>;
+                tts: z.ZodObject<{
+                    model_id: z.ZodString;
+                    optimize_streaming_latency: z.ZodNumber;
+                    agent_output_audio_format: z.ZodString;
+                    supported_voices: z.ZodArray<z.ZodObject<{
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        voice_id: z.ZodString;
+                        stability: z.ZodNumber;
+                        speed: z.ZodNumber;
+                        similarity_boost: z.ZodNumber;
+                    }, z.core.$strict>>;
+                    voice_id: z.ZodString;
+                    stability: z.ZodNumber;
+                    speed: z.ZodNumber;
+                    similarity_boost: z.ZodNumber;
+                }, z.core.$strict>;
+                turn: z.ZodObject<{
+                    turn_timeout: z.ZodNumber;
+                    interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                    merge_with_default_ignore_terms: z.ZodBoolean;
+                    silence_end_call_timeout: z.ZodNumber;
+                }, z.core.$strict>;
+                conversation: z.ZodObject<{
+                    max_duration_seconds: z.ZodNumber;
+                    client_events: z.ZodArray<z.ZodEnum<{
+                        audio: "audio";
+                        interruption: "interruption";
+                        agent_response: "agent_response";
+                        user_transcript: "user_transcript";
+                        agent_response_correction: "agent_response_correction";
+                        agent_tool_response: "agent_tool_response";
+                    }>>;
+                }, z.core.$strict>;
+                platform_settings: z.ZodObject<{
+                    auth: z.ZodObject<{
+                        enable_auth: z.ZodLiteral<true>;
+                        allowlist: z.ZodArray<z.ZodURL>;
+                        require_origin_header: z.ZodLiteral<true>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>;
+            }, z.core.$strict>]>>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type AgentWorkspaceDescriptor = z.infer<typeof AgentWorkspaceDescriptorSchema>;
 /** Request selects a previous revision as a NEW desired revision; it never directly changes the applied version. */
@@ -503,15 +1703,20 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
+                            "catalog-version-mismatch": "catalog-version-mismatch";
+                            "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
                             "not-supported": "not-supported";
                             "in-progress": "in-progress";
+                            "catalog-changed": "catalog-changed";
+                            "qualification-failed": "qualification-failed";
+                            "consumer-rejected": "consumer-rejected";
                         }>;
                         detail: z.ZodOptional<z.ZodString>;
                     }, z.core.$strict>;
@@ -578,6 +1783,10 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                     }>;
                 }, z.core.$strip>>;
                 requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodLazy<z.ZodString>;
+                    required: z.ZodBoolean;
+                }, z.core.$strict>>>;
                 context: z.ZodOptional<z.ZodObject<{
                     maxChars: z.ZodNumber;
                 }, z.core.$strip>>;
@@ -749,6 +1958,455 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                     consumes: z.ZodBoolean;
                     spendLedger: z.ZodBoolean;
                 }, z.core.$strict>>;
+                ordinaryParameters: z.ZodOptional<z.ZodObject<{
+                    parameters: z.ZodArray<z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"number">;
+                        min: z.ZodOptional<z.ZodNumber>;
+                        max: z.ZodOptional<z.ZodNumber>;
+                        platformDefault: z.ZodOptional<z.ZodNumber>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"integer">;
+                        min: z.ZodOptional<z.ZodNumber>;
+                        max: z.ZodOptional<z.ZodNumber>;
+                        platformDefault: z.ZodOptional<z.ZodNumber>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"string">;
+                        minLength: z.ZodOptional<z.ZodNumber>;
+                        maxLength: z.ZodOptional<z.ZodNumber>;
+                        pattern: z.ZodOptional<z.ZodString>;
+                        platformDefault: z.ZodOptional<z.ZodString>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"boolean">;
+                        platformDefault: z.ZodOptional<z.ZodBoolean>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"enum">;
+                        options: z.ZodArray<z.ZodObject<{
+                            value: z.ZodString;
+                            label: z.ZodString;
+                        }, z.core.$strict>>;
+                        platformDefault: z.ZodOptional<z.ZodString>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"string_list">;
+                        minItems: z.ZodOptional<z.ZodNumber>;
+                        maxItems: z.ZodOptional<z.ZodNumber>;
+                        options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            value: z.ZodString;
+                            label: z.ZodString;
+                        }, z.core.$strict>>>;
+                        pattern: z.ZodOptional<z.ZodString>;
+                        platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>], "type">, z.ZodObject<{
+                        optional: z.ZodBoolean;
+                        key: z.ZodString;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                        type: z.ZodLiteral<"structured">;
+                        schemaKey: z.ZodEnum<{
+                            "briefing.feeds": "briefing.feeds";
+                            "briefing.categoryWeights": "briefing.categoryWeights";
+                            "news.feeds": "news.feeds";
+                            "rules.briefing": "rules.briefing";
+                            "rules.news": "rules.news";
+                            "rules.netatmo": "rules.netatmo";
+                            "rules.security": "rules.security";
+                            "security.cameraPolicies": "security.cameraPolicies";
+                            "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                        }>;
+                        schemaVersion: z.ZodLiteral<1>;
+                        platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                            url: z.ZodString;
+                            category: z.ZodString;
+                            maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                            label: z.ZodOptional<z.ZodString>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            url: z.ZodString;
+                            category: z.ZodString;
+                            weight: z.ZodDefault<z.ZodNumber>;
+                        }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"briefing">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"skip_section">;
+                                section: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_section">;
+                                section: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_tone">;
+                                tone: z.ZodEnum<{
+                                    formal: "formal";
+                                    terse: "terse";
+                                    friendly: "friendly";
+                                }>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_maxWords">;
+                                maxWords: z.ZodNumber;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_greeting">;
+                                greeting: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_feed_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"skip_feed_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_closing">;
+                                text: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_cronSchedule">;
+                                cron: z.ZodString;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"news">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"skip_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_hours_back">;
+                                hours: z.ZodNumber;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_max_per_category">;
+                                category: z.ZodString;
+                                max: z.ZodNumber;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"netatmo">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"auto_light_on">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"auto_light_off">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"suppress_automation">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_is_dark_offset">;
+                                offset_minutes: z.ZodNumber;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"security">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"set_pir">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_sleep">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_ir">;
+                                mode: z.ZodEnum<{
+                                    on: "on";
+                                    off: "off";
+                                    auto: "auto";
+                                }>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_floodlight">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"auto_patrol">;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            uid: z.ZodString;
+                            name: z.ZodString;
+                            role: z.ZodEnum<{
+                                primary: "primary";
+                                secondary: "secondary";
+                            }>;
+                            enabled: z.ZodBoolean;
+                            ptz_presets: z.ZodObject<{
+                                left: z.ZodNumber;
+                                center: z.ZodNumber;
+                                right: z.ZodNumber;
+                            }, z.core.$strict>;
+                            siren: z.ZodBoolean;
+                            battery: z.ZodBoolean;
+                        }, z.core.$strict>>, z.ZodObject<{
+                            agent: z.ZodObject<{
+                                first_message: z.ZodString;
+                                language: z.ZodString;
+                                prompt: z.ZodObject<{
+                                    llm: z.ZodString;
+                                    reasoning_effort: z.ZodString;
+                                    temperature: z.ZodNumber;
+                                    backup_llm_config: z.ZodObject<{
+                                        preference: z.ZodLiteral<"override">;
+                                        order: z.ZodArray<z.ZodString>;
+                                    }, z.core.$strict>;
+                                    cascade_timeout_seconds: z.ZodNumber;
+                                    tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                        type: z.ZodLiteral<"client">;
+                                        expects_response: z.ZodBoolean;
+                                        response_timeout_secs: z.ZodNumber;
+                                        execution_mode: z.ZodOptional<z.ZodEnum<{
+                                            immediate: "immediate";
+                                            post_tool_speech: "post_tool_speech";
+                                        }>>;
+                                        interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                            allow: "allow";
+                                            block: "block";
+                                        }>>;
+                                        parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>, z.ZodObject<{
+                                        type: z.ZodLiteral<"webhook">;
+                                        response_timeout_secs: z.ZodNumber;
+                                        api_schema: z.ZodObject<{
+                                            method: z.ZodLiteral<"POST">;
+                                            path: z.ZodString;
+                                            request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                            request_headers: z.ZodArray<z.ZodObject<{
+                                                name: z.ZodString;
+                                                source: z.ZodDiscriminatedUnion<[z.ZodObject</*elided*/ any, z.core.$strict>, z.ZodObject</*elided*/ any, z.core.$strict>], "kind">;
+                                            }, z.core.$strict>>;
+                                        }, z.core.$strict>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>, z.ZodObject<{
+                                        type: z.ZodLiteral<"system">;
+                                        params: z.ZodObject<{
+                                            system_tool_type: z.ZodEnum<{
+                                                end_call: "end_call";
+                                                skip_turn: "skip_turn";
+                                            }>;
+                                        }, z.core.$strict>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>], "type">>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                            tts: z.ZodObject<{
+                                model_id: z.ZodString;
+                                optimize_streaming_latency: z.ZodNumber;
+                                agent_output_audio_format: z.ZodString;
+                                supported_voices: z.ZodArray<z.ZodObject<{
+                                    label: z.ZodString;
+                                    description: z.ZodString;
+                                    voice_id: z.ZodString;
+                                    stability: z.ZodNumber;
+                                    speed: z.ZodNumber;
+                                    similarity_boost: z.ZodNumber;
+                                }, z.core.$strict>>;
+                                voice_id: z.ZodString;
+                                stability: z.ZodNumber;
+                                speed: z.ZodNumber;
+                                similarity_boost: z.ZodNumber;
+                            }, z.core.$strict>;
+                            turn: z.ZodObject<{
+                                turn_timeout: z.ZodNumber;
+                                interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                                merge_with_default_ignore_terms: z.ZodBoolean;
+                                silence_end_call_timeout: z.ZodNumber;
+                            }, z.core.$strict>;
+                            conversation: z.ZodObject<{
+                                max_duration_seconds: z.ZodNumber;
+                                client_events: z.ZodArray<z.ZodEnum<{
+                                    audio: "audio";
+                                    interruption: "interruption";
+                                    agent_response: "agent_response";
+                                    user_transcript: "user_transcript";
+                                    agent_response_correction: "agent_response_correction";
+                                    agent_tool_response: "agent_tool_response";
+                                }>>;
+                            }, z.core.$strict>;
+                            platform_settings: z.ZodObject<{
+                                auth: z.ZodObject<{
+                                    enable_auth: z.ZodLiteral<true>;
+                                    allowlist: z.ZodArray<z.ZodURL>;
+                                    require_origin_header: z.ZodLiteral<true>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>]>>;
+                    }, z.core.$strict>]>>;
+                    consumes: z.ZodBoolean;
+                    spendLedger: z.ZodBoolean;
+                }, z.core.$strict>>;
                 presentation: z.ZodOptional<z.ZodObject<{
                     outputs: z.ZodOptional<z.ZodObject<{
                         label: z.ZodString;
@@ -802,6 +2460,737 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                 bytes: z.ZodNumber;
             }, z.core.$strict>;
         }, z.core.$strict>>;
+        ordinaryConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            format: z.ZodLiteral<"ordinary-v2">;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            capability: z.ZodString;
+            version: z.ZodNumber;
+            parameters: z.ZodArray<z.ZodObject<{
+                parameter: z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"number">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"integer">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string">;
+                    minLength: z.ZodOptional<z.ZodNumber>;
+                    maxLength: z.ZodOptional<z.ZodNumber>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"boolean">;
+                    platformDefault: z.ZodOptional<z.ZodBoolean>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"enum">;
+                    options: z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string_list">;
+                    minItems: z.ZodOptional<z.ZodNumber>;
+                    maxItems: z.ZodOptional<z.ZodNumber>;
+                    options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>], "type">, z.ZodObject<{
+                    optional: z.ZodBoolean;
+                    key: z.ZodString;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                    type: z.ZodLiteral<"structured">;
+                    schemaKey: z.ZodEnum<{
+                        "briefing.feeds": "briefing.feeds";
+                        "briefing.categoryWeights": "briefing.categoryWeights";
+                        "news.feeds": "news.feeds";
+                        "rules.briefing": "rules.briefing";
+                        "rules.news": "rules.news";
+                        "rules.netatmo": "rules.netatmo";
+                        "rules.security": "rules.security";
+                        "security.cameraPolicies": "security.cameraPolicies";
+                        "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                    }>;
+                    schemaVersion: z.ZodLiteral<1>;
+                    platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                        label: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        weight: z.ZodDefault<z.ZodNumber>;
+                    }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"briefing">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_tone">;
+                            tone: z.ZodEnum<{
+                                formal: "formal";
+                                terse: "terse";
+                                friendly: "friendly";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_maxWords">;
+                            maxWords: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_greeting">;
+                            greeting: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"skip_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_closing">;
+                            text: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_cronSchedule">;
+                            cron: z.ZodString;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"news">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_hours_back">;
+                            hours: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_max_per_category">;
+                            category: z.ZodString;
+                            max: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"netatmo">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_on">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_off">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"suppress_automation">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_is_dark_offset">;
+                            offset_minutes: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"security">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"set_pir">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_sleep">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_ir">;
+                            mode: z.ZodEnum<{
+                                on: "on";
+                                off: "off";
+                                auto: "auto";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_floodlight">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_patrol">;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        uid: z.ZodString;
+                        name: z.ZodString;
+                        role: z.ZodEnum<{
+                            primary: "primary";
+                            secondary: "secondary";
+                        }>;
+                        enabled: z.ZodBoolean;
+                        ptz_presets: z.ZodObject<{
+                            left: z.ZodNumber;
+                            center: z.ZodNumber;
+                            right: z.ZodNumber;
+                        }, z.core.$strict>;
+                        siren: z.ZodBoolean;
+                        battery: z.ZodBoolean;
+                    }, z.core.$strict>>, z.ZodObject<{
+                        agent: z.ZodObject<{
+                            first_message: z.ZodString;
+                            language: z.ZodString;
+                            prompt: z.ZodObject<{
+                                llm: z.ZodString;
+                                reasoning_effort: z.ZodString;
+                                temperature: z.ZodNumber;
+                                backup_llm_config: z.ZodObject<{
+                                    preference: z.ZodLiteral<"override">;
+                                    order: z.ZodArray<z.ZodString>;
+                                }, z.core.$strict>;
+                                cascade_timeout_seconds: z.ZodNumber;
+                                tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                    type: z.ZodLiteral<"client">;
+                                    expects_response: z.ZodBoolean;
+                                    response_timeout_secs: z.ZodNumber;
+                                    execution_mode: z.ZodOptional<z.ZodEnum<{
+                                        immediate: "immediate";
+                                        post_tool_speech: "post_tool_speech";
+                                    }>>;
+                                    interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                        allow: "allow";
+                                        block: "block";
+                                    }>>;
+                                    parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"webhook">;
+                                    response_timeout_secs: z.ZodNumber;
+                                    api_schema: z.ZodObject<{
+                                        method: z.ZodLiteral<"POST">;
+                                        path: z.ZodString;
+                                        request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                        request_headers: z.ZodArray<z.ZodObject<{
+                                            name: z.ZodString;
+                                            source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                                kind: z.ZodLiteral<"credential">;
+                                                key: z.ZodString;
+                                            }, z.core.$strict>, z.ZodObject<{
+                                                kind: z.ZodLiteral<"session">;
+                                                bindingId: z.ZodString;
+                                            }, z.core.$strict>], "kind">;
+                                        }, z.core.$strict>>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"system">;
+                                    params: z.ZodObject<{
+                                        system_tool_type: z.ZodEnum<{
+                                            end_call: "end_call";
+                                            skip_turn: "skip_turn";
+                                        }>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>], "type">>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                        tts: z.ZodObject<{
+                            model_id: z.ZodString;
+                            optimize_streaming_latency: z.ZodNumber;
+                            agent_output_audio_format: z.ZodString;
+                            supported_voices: z.ZodArray<z.ZodObject<{
+                                label: z.ZodString;
+                                description: z.ZodString;
+                                voice_id: z.ZodString;
+                                stability: z.ZodNumber;
+                                speed: z.ZodNumber;
+                                similarity_boost: z.ZodNumber;
+                            }, z.core.$strict>>;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>;
+                        turn: z.ZodObject<{
+                            turn_timeout: z.ZodNumber;
+                            interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                            merge_with_default_ignore_terms: z.ZodBoolean;
+                            silence_end_call_timeout: z.ZodNumber;
+                        }, z.core.$strict>;
+                        conversation: z.ZodObject<{
+                            max_duration_seconds: z.ZodNumber;
+                            client_events: z.ZodArray<z.ZodEnum<{
+                                audio: "audio";
+                                interruption: "interruption";
+                                agent_response: "agent_response";
+                                user_transcript: "user_transcript";
+                                agent_response_correction: "agent_response_correction";
+                                agent_tool_response: "agent_tool_response";
+                            }>>;
+                        }, z.core.$strict>;
+                        platform_settings: z.ZodObject<{
+                            auth: z.ZodObject<{
+                                enable_auth: z.ZodLiteral<true>;
+                                allowlist: z.ZodArray<z.ZodURL>;
+                                require_origin_header: z.ZodLiteral<true>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>]>>;
+                }, z.core.$strict>]>;
+                origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"platform_default">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"agent_override">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"needs_choice">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"master">;
+                    source: z.ZodObject<{
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                        masterId: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">;
+                value: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                    label: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    weight: z.ZodDefault<z.ZodNumber>;
+                }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"briefing">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_tone">;
+                        tone: z.ZodEnum<{
+                            formal: "formal";
+                            terse: "terse";
+                            friendly: "friendly";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_maxWords">;
+                        maxWords: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_greeting">;
+                        greeting: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"skip_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_closing">;
+                        text: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_cronSchedule">;
+                        cron: z.ZodString;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"news">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_hours_back">;
+                        hours: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_max_per_category">;
+                        category: z.ZodString;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"netatmo">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_on">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_off">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"suppress_automation">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_is_dark_offset">;
+                        offset_minutes: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"security">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"set_pir">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_sleep">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_ir">;
+                        mode: z.ZodEnum<{
+                            on: "on";
+                            off: "off";
+                            auto: "auto";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_floodlight">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_patrol">;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    uid: z.ZodString;
+                    name: z.ZodString;
+                    role: z.ZodEnum<{
+                        primary: "primary";
+                        secondary: "secondary";
+                    }>;
+                    enabled: z.ZodBoolean;
+                    ptz_presets: z.ZodObject<{
+                        left: z.ZodNumber;
+                        center: z.ZodNumber;
+                        right: z.ZodNumber;
+                    }, z.core.$strict>;
+                    siren: z.ZodBoolean;
+                    battery: z.ZodBoolean;
+                }, z.core.$strict>>, z.ZodObject<{
+                    agent: z.ZodObject<{
+                        first_message: z.ZodString;
+                        language: z.ZodString;
+                        prompt: z.ZodObject<{
+                            llm: z.ZodString;
+                            reasoning_effort: z.ZodString;
+                            temperature: z.ZodNumber;
+                            backup_llm_config: z.ZodObject<{
+                                preference: z.ZodLiteral<"override">;
+                                order: z.ZodArray<z.ZodString>;
+                            }, z.core.$strict>;
+                            cascade_timeout_seconds: z.ZodNumber;
+                            tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"client">;
+                                expects_response: z.ZodBoolean;
+                                response_timeout_secs: z.ZodNumber;
+                                execution_mode: z.ZodOptional<z.ZodEnum<{
+                                    immediate: "immediate";
+                                    post_tool_speech: "post_tool_speech";
+                                }>>;
+                                interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                    allow: "allow";
+                                    block: "block";
+                                }>>;
+                                parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"webhook">;
+                                response_timeout_secs: z.ZodNumber;
+                                api_schema: z.ZodObject<{
+                                    method: z.ZodLiteral<"POST">;
+                                    path: z.ZodString;
+                                    request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    request_headers: z.ZodArray<z.ZodObject<{
+                                        name: z.ZodString;
+                                        source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                            kind: z.ZodLiteral<"credential">;
+                                            key: z.ZodString;
+                                        }, z.core.$strict>, z.ZodObject<{
+                                            kind: z.ZodLiteral<"session">;
+                                            bindingId: z.ZodString;
+                                        }, z.core.$strict>], "kind">;
+                                    }, z.core.$strict>>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"system">;
+                                params: z.ZodObject<{
+                                    system_tool_type: z.ZodEnum<{
+                                        end_call: "end_call";
+                                        skip_turn: "skip_turn";
+                                    }>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>], "type">>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                    tts: z.ZodObject<{
+                        model_id: z.ZodString;
+                        optimize_streaming_latency: z.ZodNumber;
+                        agent_output_audio_format: z.ZodString;
+                        supported_voices: z.ZodArray<z.ZodObject<{
+                            label: z.ZodString;
+                            description: z.ZodString;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>>;
+                        voice_id: z.ZodString;
+                        stability: z.ZodNumber;
+                        speed: z.ZodNumber;
+                        similarity_boost: z.ZodNumber;
+                    }, z.core.$strict>;
+                    turn: z.ZodObject<{
+                        turn_timeout: z.ZodNumber;
+                        interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                        merge_with_default_ignore_terms: z.ZodBoolean;
+                        silence_end_call_timeout: z.ZodNumber;
+                    }, z.core.$strict>;
+                    conversation: z.ZodObject<{
+                        max_duration_seconds: z.ZodNumber;
+                        client_events: z.ZodArray<z.ZodEnum<{
+                            audio: "audio";
+                            interruption: "interruption";
+                            agent_response: "agent_response";
+                            user_transcript: "user_transcript";
+                            agent_response_correction: "agent_response_correction";
+                            agent_tool_response: "agent_tool_response";
+                        }>>;
+                    }, z.core.$strict>;
+                    platform_settings: z.ZodObject<{
+                        auth: z.ZodObject<{
+                            enable_auth: z.ZodLiteral<true>;
+                            allowlist: z.ZodArray<z.ZodURL>;
+                            require_origin_header: z.ZodLiteral<true>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>]>>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
     request: z.ZodObject<{
         file: z.ZodEnum<{
@@ -850,6 +3239,15 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
         GOOGLE_CALENDAR_CLIENT_ID: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_EMAIL: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        NETATMO_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_ACCESS_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -989,8 +3387,8 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -1039,15 +3437,20 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -1145,15 +3548,20 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
+                            "catalog-version-mismatch": "catalog-version-mismatch";
+                            "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
                             "not-supported": "not-supported";
                             "in-progress": "in-progress";
+                            "catalog-changed": "catalog-changed";
+                            "qualification-failed": "qualification-failed";
+                            "consumer-rejected": "consumer-rejected";
                         }>;
                         detail: z.ZodOptional<z.ZodString>;
                     }, z.core.$strict>;
@@ -1220,6 +3628,10 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                     }>;
                 }, z.core.$strip>>;
                 requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodLazy<z.ZodString>;
+                    required: z.ZodBoolean;
+                }, z.core.$strict>>>;
                 context: z.ZodOptional<z.ZodObject<{
                     maxChars: z.ZodNumber;
                 }, z.core.$strip>>;
@@ -1391,6 +3803,461 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                     consumes: z.ZodBoolean;
                     spendLedger: z.ZodBoolean;
                 }, z.core.$strict>>;
+                ordinaryParameters: z.ZodOptional<z.ZodObject<{
+                    parameters: z.ZodArray<z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"number">;
+                        min: z.ZodOptional<z.ZodNumber>;
+                        max: z.ZodOptional<z.ZodNumber>;
+                        platformDefault: z.ZodOptional<z.ZodNumber>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"integer">;
+                        min: z.ZodOptional<z.ZodNumber>;
+                        max: z.ZodOptional<z.ZodNumber>;
+                        platformDefault: z.ZodOptional<z.ZodNumber>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"string">;
+                        minLength: z.ZodOptional<z.ZodNumber>;
+                        maxLength: z.ZodOptional<z.ZodNumber>;
+                        pattern: z.ZodOptional<z.ZodString>;
+                        platformDefault: z.ZodOptional<z.ZodString>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"boolean">;
+                        platformDefault: z.ZodOptional<z.ZodBoolean>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"enum">;
+                        options: z.ZodArray<z.ZodObject<{
+                            value: z.ZodString;
+                            label: z.ZodString;
+                        }, z.core.$strict>>;
+                        platformDefault: z.ZodOptional<z.ZodString>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"string_list">;
+                        minItems: z.ZodOptional<z.ZodNumber>;
+                        maxItems: z.ZodOptional<z.ZodNumber>;
+                        options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            value: z.ZodString;
+                            label: z.ZodString;
+                        }, z.core.$strict>>>;
+                        pattern: z.ZodOptional<z.ZodString>;
+                        platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>], "type">, z.ZodObject<{
+                        optional: z.ZodBoolean;
+                        key: z.ZodString;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                        type: z.ZodLiteral<"structured">;
+                        schemaKey: z.ZodEnum<{
+                            "briefing.feeds": "briefing.feeds";
+                            "briefing.categoryWeights": "briefing.categoryWeights";
+                            "news.feeds": "news.feeds";
+                            "rules.briefing": "rules.briefing";
+                            "rules.news": "rules.news";
+                            "rules.netatmo": "rules.netatmo";
+                            "rules.security": "rules.security";
+                            "security.cameraPolicies": "security.cameraPolicies";
+                            "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                        }>;
+                        schemaVersion: z.ZodLiteral<1>;
+                        platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                            url: z.ZodString;
+                            category: z.ZodString;
+                            maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                            label: z.ZodOptional<z.ZodString>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            url: z.ZodString;
+                            category: z.ZodString;
+                            weight: z.ZodDefault<z.ZodNumber>;
+                        }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"briefing">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"skip_section">;
+                                section: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_section">;
+                                section: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_tone">;
+                                tone: z.ZodEnum<{
+                                    formal: "formal";
+                                    terse: "terse";
+                                    friendly: "friendly";
+                                }>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_maxWords">;
+                                maxWords: z.ZodNumber;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_greeting">;
+                                greeting: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_feed_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"skip_feed_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_closing">;
+                                text: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_cronSchedule">;
+                                cron: z.ZodString;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"news">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"skip_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_hours_back">;
+                                hours: z.ZodNumber;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_max_per_category">;
+                                category: z.ZodString;
+                                max: z.ZodNumber;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"netatmo">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"auto_light_on">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"auto_light_off">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"suppress_automation">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_is_dark_offset">;
+                                offset_minutes: z.ZodNumber;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"security">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"set_pir">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_sleep">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_ir">;
+                                mode: z.ZodEnum<{
+                                    on: "on";
+                                    off: "off";
+                                    auto: "auto";
+                                }>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_floodlight">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"auto_patrol">;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            uid: z.ZodString;
+                            name: z.ZodString;
+                            role: z.ZodEnum<{
+                                primary: "primary";
+                                secondary: "secondary";
+                            }>;
+                            enabled: z.ZodBoolean;
+                            ptz_presets: z.ZodObject<{
+                                left: z.ZodNumber;
+                                center: z.ZodNumber;
+                                right: z.ZodNumber;
+                            }, z.core.$strict>;
+                            siren: z.ZodBoolean;
+                            battery: z.ZodBoolean;
+                        }, z.core.$strict>>, z.ZodObject<{
+                            agent: z.ZodObject<{
+                                first_message: z.ZodString;
+                                language: z.ZodString;
+                                prompt: z.ZodObject<{
+                                    llm: z.ZodString;
+                                    reasoning_effort: z.ZodString;
+                                    temperature: z.ZodNumber;
+                                    backup_llm_config: z.ZodObject<{
+                                        preference: z.ZodLiteral<"override">;
+                                        order: z.ZodArray<z.ZodString>;
+                                    }, z.core.$strict>;
+                                    cascade_timeout_seconds: z.ZodNumber;
+                                    tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                        type: z.ZodLiteral<"client">;
+                                        expects_response: z.ZodBoolean;
+                                        response_timeout_secs: z.ZodNumber;
+                                        execution_mode: z.ZodOptional<z.ZodEnum<{
+                                            immediate: "immediate";
+                                            post_tool_speech: "post_tool_speech";
+                                        }>>;
+                                        interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                            allow: "allow";
+                                            block: "block";
+                                        }>>;
+                                        parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>, z.ZodObject<{
+                                        type: z.ZodLiteral<"webhook">;
+                                        response_timeout_secs: z.ZodNumber;
+                                        api_schema: z.ZodObject<{
+                                            method: z.ZodLiteral<"POST">;
+                                            path: z.ZodString;
+                                            request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                            request_headers: z.ZodArray<z.ZodObject<{
+                                                name: z.ZodString;
+                                                source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                                    kind: z.ZodLiteral<"credential">;
+                                                    key: z.ZodString;
+                                                }, z.core.$strict>, z.ZodObject<{
+                                                    kind: z.ZodLiteral<"session">;
+                                                    bindingId: z.ZodString;
+                                                }, z.core.$strict>], "kind">;
+                                            }, z.core.$strict>>;
+                                        }, z.core.$strict>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>, z.ZodObject<{
+                                        type: z.ZodLiteral<"system">;
+                                        params: z.ZodObject<{
+                                            system_tool_type: z.ZodEnum<{
+                                                end_call: "end_call";
+                                                skip_turn: "skip_turn";
+                                            }>;
+                                        }, z.core.$strict>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>], "type">>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                            tts: z.ZodObject<{
+                                model_id: z.ZodString;
+                                optimize_streaming_latency: z.ZodNumber;
+                                agent_output_audio_format: z.ZodString;
+                                supported_voices: z.ZodArray<z.ZodObject<{
+                                    label: z.ZodString;
+                                    description: z.ZodString;
+                                    voice_id: z.ZodString;
+                                    stability: z.ZodNumber;
+                                    speed: z.ZodNumber;
+                                    similarity_boost: z.ZodNumber;
+                                }, z.core.$strict>>;
+                                voice_id: z.ZodString;
+                                stability: z.ZodNumber;
+                                speed: z.ZodNumber;
+                                similarity_boost: z.ZodNumber;
+                            }, z.core.$strict>;
+                            turn: z.ZodObject<{
+                                turn_timeout: z.ZodNumber;
+                                interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                                merge_with_default_ignore_terms: z.ZodBoolean;
+                                silence_end_call_timeout: z.ZodNumber;
+                            }, z.core.$strict>;
+                            conversation: z.ZodObject<{
+                                max_duration_seconds: z.ZodNumber;
+                                client_events: z.ZodArray<z.ZodEnum<{
+                                    audio: "audio";
+                                    interruption: "interruption";
+                                    agent_response: "agent_response";
+                                    user_transcript: "user_transcript";
+                                    agent_response_correction: "agent_response_correction";
+                                    agent_tool_response: "agent_tool_response";
+                                }>>;
+                            }, z.core.$strict>;
+                            platform_settings: z.ZodObject<{
+                                auth: z.ZodObject<{
+                                    enable_auth: z.ZodLiteral<true>;
+                                    allowlist: z.ZodArray<z.ZodURL>;
+                                    require_origin_header: z.ZodLiteral<true>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>]>>;
+                    }, z.core.$strict>]>>;
+                    consumes: z.ZodBoolean;
+                    spendLedger: z.ZodBoolean;
+                }, z.core.$strict>>;
                 presentation: z.ZodOptional<z.ZodObject<{
                     outputs: z.ZodOptional<z.ZodObject<{
                         label: z.ZodString;
@@ -1444,6 +4311,737 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                 bytes: z.ZodNumber;
             }, z.core.$strict>;
         }, z.core.$strict>>;
+        ordinaryConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            format: z.ZodLiteral<"ordinary-v2">;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            capability: z.ZodString;
+            version: z.ZodNumber;
+            parameters: z.ZodArray<z.ZodObject<{
+                parameter: z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"number">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"integer">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string">;
+                    minLength: z.ZodOptional<z.ZodNumber>;
+                    maxLength: z.ZodOptional<z.ZodNumber>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"boolean">;
+                    platformDefault: z.ZodOptional<z.ZodBoolean>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"enum">;
+                    options: z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string_list">;
+                    minItems: z.ZodOptional<z.ZodNumber>;
+                    maxItems: z.ZodOptional<z.ZodNumber>;
+                    options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>], "type">, z.ZodObject<{
+                    optional: z.ZodBoolean;
+                    key: z.ZodString;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                    type: z.ZodLiteral<"structured">;
+                    schemaKey: z.ZodEnum<{
+                        "briefing.feeds": "briefing.feeds";
+                        "briefing.categoryWeights": "briefing.categoryWeights";
+                        "news.feeds": "news.feeds";
+                        "rules.briefing": "rules.briefing";
+                        "rules.news": "rules.news";
+                        "rules.netatmo": "rules.netatmo";
+                        "rules.security": "rules.security";
+                        "security.cameraPolicies": "security.cameraPolicies";
+                        "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                    }>;
+                    schemaVersion: z.ZodLiteral<1>;
+                    platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                        label: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        weight: z.ZodDefault<z.ZodNumber>;
+                    }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"briefing">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_tone">;
+                            tone: z.ZodEnum<{
+                                formal: "formal";
+                                terse: "terse";
+                                friendly: "friendly";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_maxWords">;
+                            maxWords: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_greeting">;
+                            greeting: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"skip_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_closing">;
+                            text: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_cronSchedule">;
+                            cron: z.ZodString;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"news">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_hours_back">;
+                            hours: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_max_per_category">;
+                            category: z.ZodString;
+                            max: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"netatmo">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_on">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_off">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"suppress_automation">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_is_dark_offset">;
+                            offset_minutes: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"security">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"set_pir">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_sleep">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_ir">;
+                            mode: z.ZodEnum<{
+                                on: "on";
+                                off: "off";
+                                auto: "auto";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_floodlight">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_patrol">;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        uid: z.ZodString;
+                        name: z.ZodString;
+                        role: z.ZodEnum<{
+                            primary: "primary";
+                            secondary: "secondary";
+                        }>;
+                        enabled: z.ZodBoolean;
+                        ptz_presets: z.ZodObject<{
+                            left: z.ZodNumber;
+                            center: z.ZodNumber;
+                            right: z.ZodNumber;
+                        }, z.core.$strict>;
+                        siren: z.ZodBoolean;
+                        battery: z.ZodBoolean;
+                    }, z.core.$strict>>, z.ZodObject<{
+                        agent: z.ZodObject<{
+                            first_message: z.ZodString;
+                            language: z.ZodString;
+                            prompt: z.ZodObject<{
+                                llm: z.ZodString;
+                                reasoning_effort: z.ZodString;
+                                temperature: z.ZodNumber;
+                                backup_llm_config: z.ZodObject<{
+                                    preference: z.ZodLiteral<"override">;
+                                    order: z.ZodArray<z.ZodString>;
+                                }, z.core.$strict>;
+                                cascade_timeout_seconds: z.ZodNumber;
+                                tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                    type: z.ZodLiteral<"client">;
+                                    expects_response: z.ZodBoolean;
+                                    response_timeout_secs: z.ZodNumber;
+                                    execution_mode: z.ZodOptional<z.ZodEnum<{
+                                        immediate: "immediate";
+                                        post_tool_speech: "post_tool_speech";
+                                    }>>;
+                                    interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                        allow: "allow";
+                                        block: "block";
+                                    }>>;
+                                    parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"webhook">;
+                                    response_timeout_secs: z.ZodNumber;
+                                    api_schema: z.ZodObject<{
+                                        method: z.ZodLiteral<"POST">;
+                                        path: z.ZodString;
+                                        request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                        request_headers: z.ZodArray<z.ZodObject<{
+                                            name: z.ZodString;
+                                            source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                                kind: z.ZodLiteral<"credential">;
+                                                key: z.ZodString;
+                                            }, z.core.$strict>, z.ZodObject<{
+                                                kind: z.ZodLiteral<"session">;
+                                                bindingId: z.ZodString;
+                                            }, z.core.$strict>], "kind">;
+                                        }, z.core.$strict>>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"system">;
+                                    params: z.ZodObject<{
+                                        system_tool_type: z.ZodEnum<{
+                                            end_call: "end_call";
+                                            skip_turn: "skip_turn";
+                                        }>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>], "type">>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                        tts: z.ZodObject<{
+                            model_id: z.ZodString;
+                            optimize_streaming_latency: z.ZodNumber;
+                            agent_output_audio_format: z.ZodString;
+                            supported_voices: z.ZodArray<z.ZodObject<{
+                                label: z.ZodString;
+                                description: z.ZodString;
+                                voice_id: z.ZodString;
+                                stability: z.ZodNumber;
+                                speed: z.ZodNumber;
+                                similarity_boost: z.ZodNumber;
+                            }, z.core.$strict>>;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>;
+                        turn: z.ZodObject<{
+                            turn_timeout: z.ZodNumber;
+                            interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                            merge_with_default_ignore_terms: z.ZodBoolean;
+                            silence_end_call_timeout: z.ZodNumber;
+                        }, z.core.$strict>;
+                        conversation: z.ZodObject<{
+                            max_duration_seconds: z.ZodNumber;
+                            client_events: z.ZodArray<z.ZodEnum<{
+                                audio: "audio";
+                                interruption: "interruption";
+                                agent_response: "agent_response";
+                                user_transcript: "user_transcript";
+                                agent_response_correction: "agent_response_correction";
+                                agent_tool_response: "agent_tool_response";
+                            }>>;
+                        }, z.core.$strict>;
+                        platform_settings: z.ZodObject<{
+                            auth: z.ZodObject<{
+                                enable_auth: z.ZodLiteral<true>;
+                                allowlist: z.ZodArray<z.ZodURL>;
+                                require_origin_header: z.ZodLiteral<true>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>]>>;
+                }, z.core.$strict>]>;
+                origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"platform_default">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"agent_override">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"needs_choice">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"master">;
+                    source: z.ZodObject<{
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                        masterId: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">;
+                value: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                    label: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    weight: z.ZodDefault<z.ZodNumber>;
+                }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"briefing">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_tone">;
+                        tone: z.ZodEnum<{
+                            formal: "formal";
+                            terse: "terse";
+                            friendly: "friendly";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_maxWords">;
+                        maxWords: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_greeting">;
+                        greeting: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"skip_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_closing">;
+                        text: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_cronSchedule">;
+                        cron: z.ZodString;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"news">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_hours_back">;
+                        hours: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_max_per_category">;
+                        category: z.ZodString;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"netatmo">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_on">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_off">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"suppress_automation">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_is_dark_offset">;
+                        offset_minutes: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"security">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"set_pir">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_sleep">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_ir">;
+                        mode: z.ZodEnum<{
+                            on: "on";
+                            off: "off";
+                            auto: "auto";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_floodlight">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_patrol">;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    uid: z.ZodString;
+                    name: z.ZodString;
+                    role: z.ZodEnum<{
+                        primary: "primary";
+                        secondary: "secondary";
+                    }>;
+                    enabled: z.ZodBoolean;
+                    ptz_presets: z.ZodObject<{
+                        left: z.ZodNumber;
+                        center: z.ZodNumber;
+                        right: z.ZodNumber;
+                    }, z.core.$strict>;
+                    siren: z.ZodBoolean;
+                    battery: z.ZodBoolean;
+                }, z.core.$strict>>, z.ZodObject<{
+                    agent: z.ZodObject<{
+                        first_message: z.ZodString;
+                        language: z.ZodString;
+                        prompt: z.ZodObject<{
+                            llm: z.ZodString;
+                            reasoning_effort: z.ZodString;
+                            temperature: z.ZodNumber;
+                            backup_llm_config: z.ZodObject<{
+                                preference: z.ZodLiteral<"override">;
+                                order: z.ZodArray<z.ZodString>;
+                            }, z.core.$strict>;
+                            cascade_timeout_seconds: z.ZodNumber;
+                            tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"client">;
+                                expects_response: z.ZodBoolean;
+                                response_timeout_secs: z.ZodNumber;
+                                execution_mode: z.ZodOptional<z.ZodEnum<{
+                                    immediate: "immediate";
+                                    post_tool_speech: "post_tool_speech";
+                                }>>;
+                                interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                    allow: "allow";
+                                    block: "block";
+                                }>>;
+                                parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"webhook">;
+                                response_timeout_secs: z.ZodNumber;
+                                api_schema: z.ZodObject<{
+                                    method: z.ZodLiteral<"POST">;
+                                    path: z.ZodString;
+                                    request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    request_headers: z.ZodArray<z.ZodObject<{
+                                        name: z.ZodString;
+                                        source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                            kind: z.ZodLiteral<"credential">;
+                                            key: z.ZodString;
+                                        }, z.core.$strict>, z.ZodObject<{
+                                            kind: z.ZodLiteral<"session">;
+                                            bindingId: z.ZodString;
+                                        }, z.core.$strict>], "kind">;
+                                    }, z.core.$strict>>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"system">;
+                                params: z.ZodObject<{
+                                    system_tool_type: z.ZodEnum<{
+                                        end_call: "end_call";
+                                        skip_turn: "skip_turn";
+                                    }>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>], "type">>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                    tts: z.ZodObject<{
+                        model_id: z.ZodString;
+                        optimize_streaming_latency: z.ZodNumber;
+                        agent_output_audio_format: z.ZodString;
+                        supported_voices: z.ZodArray<z.ZodObject<{
+                            label: z.ZodString;
+                            description: z.ZodString;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>>;
+                        voice_id: z.ZodString;
+                        stability: z.ZodNumber;
+                        speed: z.ZodNumber;
+                        similarity_boost: z.ZodNumber;
+                    }, z.core.$strict>;
+                    turn: z.ZodObject<{
+                        turn_timeout: z.ZodNumber;
+                        interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                        merge_with_default_ignore_terms: z.ZodBoolean;
+                        silence_end_call_timeout: z.ZodNumber;
+                    }, z.core.$strict>;
+                    conversation: z.ZodObject<{
+                        max_duration_seconds: z.ZodNumber;
+                        client_events: z.ZodArray<z.ZodEnum<{
+                            audio: "audio";
+                            interruption: "interruption";
+                            agent_response: "agent_response";
+                            user_transcript: "user_transcript";
+                            agent_response_correction: "agent_response_correction";
+                            agent_tool_response: "agent_tool_response";
+                        }>>;
+                    }, z.core.$strict>;
+                    platform_settings: z.ZodObject<{
+                        auth: z.ZodObject<{
+                            enable_auth: z.ZodLiteral<true>;
+                            allowlist: z.ZodArray<z.ZodURL>;
+                            require_origin_header: z.ZodLiteral<true>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>]>>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>>;
 }, z.core.$loose>;
 export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
@@ -1480,6 +5078,15 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
         GOOGLE_CALENDAR_CLIENT_ID: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_EMAIL: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        NETATMO_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_ACCESS_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -1619,8 +5226,8 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -1669,15 +5276,20 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -1775,15 +5387,20 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                     reason: z.ZodObject<{
                         code: z.ZodEnum<{
                             unknown: "unknown";
+                            timeout: "timeout";
+                            "catalog-version-mismatch": "catalog-version-mismatch";
+                            "model-unavailable": "model-unavailable";
                             "not-loaded": "not-loaded";
                             "load-failed": "load-failed";
                             "validation-failed": "validation-failed";
-                            timeout: "timeout";
                             "source-unavailable": "source-unavailable";
                             "shared-runtime": "shared-runtime";
                             "externally-owned": "externally-owned";
                             "not-supported": "not-supported";
                             "in-progress": "in-progress";
+                            "catalog-changed": "catalog-changed";
+                            "qualification-failed": "qualification-failed";
+                            "consumer-rejected": "consumer-rejected";
                         }>;
                         detail: z.ZodOptional<z.ZodString>;
                     }, z.core.$strict>;
@@ -1850,6 +5467,10 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                     }>;
                 }, z.core.$strip>>;
                 requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    key: z.ZodLazy<z.ZodString>;
+                    required: z.ZodBoolean;
+                }, z.core.$strict>>>;
                 context: z.ZodOptional<z.ZodObject<{
                     maxChars: z.ZodNumber;
                 }, z.core.$strip>>;
@@ -2021,6 +5642,461 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                     consumes: z.ZodBoolean;
                     spendLedger: z.ZodBoolean;
                 }, z.core.$strict>>;
+                ordinaryParameters: z.ZodOptional<z.ZodObject<{
+                    parameters: z.ZodArray<z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"number">;
+                        min: z.ZodOptional<z.ZodNumber>;
+                        max: z.ZodOptional<z.ZodNumber>;
+                        platformDefault: z.ZodOptional<z.ZodNumber>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"integer">;
+                        min: z.ZodOptional<z.ZodNumber>;
+                        max: z.ZodOptional<z.ZodNumber>;
+                        platformDefault: z.ZodOptional<z.ZodNumber>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"string">;
+                        minLength: z.ZodOptional<z.ZodNumber>;
+                        maxLength: z.ZodOptional<z.ZodNumber>;
+                        pattern: z.ZodOptional<z.ZodString>;
+                        platformDefault: z.ZodOptional<z.ZodString>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"boolean">;
+                        platformDefault: z.ZodOptional<z.ZodBoolean>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"enum">;
+                        options: z.ZodArray<z.ZodObject<{
+                            value: z.ZodString;
+                            label: z.ZodString;
+                        }, z.core.$strict>>;
+                        platformDefault: z.ZodOptional<z.ZodString>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"string_list">;
+                        minItems: z.ZodOptional<z.ZodNumber>;
+                        maxItems: z.ZodOptional<z.ZodNumber>;
+                        options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            value: z.ZodString;
+                            label: z.ZodString;
+                        }, z.core.$strict>>>;
+                        pattern: z.ZodOptional<z.ZodString>;
+                        platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                        key: z.ZodString;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        optional: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                    }, z.core.$strict>], "type">, z.ZodObject<{
+                        optional: z.ZodBoolean;
+                        key: z.ZodString;
+                        status: z.ZodEnum<{
+                            decided: "decided";
+                            proposed: "proposed";
+                        }>;
+                        unit: z.ZodOptional<z.ZodString>;
+                        label: z.ZodString;
+                        description: z.ZodString;
+                        explanation: z.ZodOptional<z.ZodString>;
+                        group: z.ZodOptional<z.ZodString>;
+                        reference: z.ZodString;
+                        appliesWhen: z.ZodEnum<{
+                            immediate: "immediate";
+                            next_apply: "next_apply";
+                        }>;
+                        consumes: z.ZodBoolean;
+                        editableBy: z.ZodArray<z.ZodEnum<{
+                            superadmin: "superadmin";
+                            owner: "owner";
+                        }>>;
+                        type: z.ZodLiteral<"structured">;
+                        schemaKey: z.ZodEnum<{
+                            "briefing.feeds": "briefing.feeds";
+                            "briefing.categoryWeights": "briefing.categoryWeights";
+                            "news.feeds": "news.feeds";
+                            "rules.briefing": "rules.briefing";
+                            "rules.news": "rules.news";
+                            "rules.netatmo": "rules.netatmo";
+                            "rules.security": "rules.security";
+                            "security.cameraPolicies": "security.cameraPolicies";
+                            "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                        }>;
+                        schemaVersion: z.ZodLiteral<1>;
+                        platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                            url: z.ZodString;
+                            category: z.ZodString;
+                            maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                            label: z.ZodOptional<z.ZodString>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            url: z.ZodString;
+                            category: z.ZodString;
+                            weight: z.ZodDefault<z.ZodNumber>;
+                        }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"briefing">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"skip_section">;
+                                section: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_section">;
+                                section: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_tone">;
+                                tone: z.ZodEnum<{
+                                    formal: "formal";
+                                    terse: "terse";
+                                    friendly: "friendly";
+                                }>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_maxWords">;
+                                maxWords: z.ZodNumber;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_greeting">;
+                                greeting: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_feed_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"skip_feed_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_closing">;
+                                text: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_cronSchedule">;
+                                cron: z.ZodString;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"news">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"skip_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"add_category">;
+                                category: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_hours_back">;
+                                hours: z.ZodNumber;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_max_per_category">;
+                                category: z.ZodString;
+                                max: z.ZodNumber;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"netatmo">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"auto_light_on">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"auto_light_off">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"suppress_automation">;
+                                module_id: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_is_dark_offset">;
+                                offset_minutes: z.ZodNumber;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            skill: z.ZodLiteral<"security">;
+                            condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                            action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"set_pir">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_sleep">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_ir">;
+                                mode: z.ZodEnum<{
+                                    on: "on";
+                                    off: "off";
+                                    auto: "auto";
+                                }>;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"set_floodlight">;
+                                enabled: z.ZodBoolean;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"auto_patrol">;
+                            }, z.core.$strict>], "type">;
+                            priority: z.ZodNumber;
+                            created_by: z.ZodEnum<{
+                                user: "user";
+                                operator: "operator";
+                            }>;
+                            created_at: z.ZodString;
+                            description: z.ZodString;
+                            locked: z.ZodOptional<z.ZodBoolean>;
+                        }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                            uid: z.ZodString;
+                            name: z.ZodString;
+                            role: z.ZodEnum<{
+                                primary: "primary";
+                                secondary: "secondary";
+                            }>;
+                            enabled: z.ZodBoolean;
+                            ptz_presets: z.ZodObject<{
+                                left: z.ZodNumber;
+                                center: z.ZodNumber;
+                                right: z.ZodNumber;
+                            }, z.core.$strict>;
+                            siren: z.ZodBoolean;
+                            battery: z.ZodBoolean;
+                        }, z.core.$strict>>, z.ZodObject<{
+                            agent: z.ZodObject<{
+                                first_message: z.ZodString;
+                                language: z.ZodString;
+                                prompt: z.ZodObject<{
+                                    llm: z.ZodString;
+                                    reasoning_effort: z.ZodString;
+                                    temperature: z.ZodNumber;
+                                    backup_llm_config: z.ZodObject<{
+                                        preference: z.ZodLiteral<"override">;
+                                        order: z.ZodArray<z.ZodString>;
+                                    }, z.core.$strict>;
+                                    cascade_timeout_seconds: z.ZodNumber;
+                                    tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                        type: z.ZodLiteral<"client">;
+                                        expects_response: z.ZodBoolean;
+                                        response_timeout_secs: z.ZodNumber;
+                                        execution_mode: z.ZodOptional<z.ZodEnum<{
+                                            immediate: "immediate";
+                                            post_tool_speech: "post_tool_speech";
+                                        }>>;
+                                        interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                            allow: "allow";
+                                            block: "block";
+                                        }>>;
+                                        parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>, z.ZodObject<{
+                                        type: z.ZodLiteral<"webhook">;
+                                        response_timeout_secs: z.ZodNumber;
+                                        api_schema: z.ZodObject<{
+                                            method: z.ZodLiteral<"POST">;
+                                            path: z.ZodString;
+                                            request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                            request_headers: z.ZodArray<z.ZodObject<{
+                                                name: z.ZodString;
+                                                source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                                    kind: z.ZodLiteral<"credential">;
+                                                    key: z.ZodString;
+                                                }, z.core.$strict>, z.ZodObject<{
+                                                    kind: z.ZodLiteral<"session">;
+                                                    bindingId: z.ZodString;
+                                                }, z.core.$strict>], "kind">;
+                                            }, z.core.$strict>>;
+                                        }, z.core.$strict>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>, z.ZodObject<{
+                                        type: z.ZodLiteral<"system">;
+                                        params: z.ZodObject<{
+                                            system_tool_type: z.ZodEnum<{
+                                                end_call: "end_call";
+                                                skip_turn: "skip_turn";
+                                            }>;
+                                        }, z.core.$strict>;
+                                        name: z.ZodString;
+                                        description: z.ZodString;
+                                    }, z.core.$strict>], "type">>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                            tts: z.ZodObject<{
+                                model_id: z.ZodString;
+                                optimize_streaming_latency: z.ZodNumber;
+                                agent_output_audio_format: z.ZodString;
+                                supported_voices: z.ZodArray<z.ZodObject<{
+                                    label: z.ZodString;
+                                    description: z.ZodString;
+                                    voice_id: z.ZodString;
+                                    stability: z.ZodNumber;
+                                    speed: z.ZodNumber;
+                                    similarity_boost: z.ZodNumber;
+                                }, z.core.$strict>>;
+                                voice_id: z.ZodString;
+                                stability: z.ZodNumber;
+                                speed: z.ZodNumber;
+                                similarity_boost: z.ZodNumber;
+                            }, z.core.$strict>;
+                            turn: z.ZodObject<{
+                                turn_timeout: z.ZodNumber;
+                                interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                                merge_with_default_ignore_terms: z.ZodBoolean;
+                                silence_end_call_timeout: z.ZodNumber;
+                            }, z.core.$strict>;
+                            conversation: z.ZodObject<{
+                                max_duration_seconds: z.ZodNumber;
+                                client_events: z.ZodArray<z.ZodEnum<{
+                                    audio: "audio";
+                                    interruption: "interruption";
+                                    agent_response: "agent_response";
+                                    user_transcript: "user_transcript";
+                                    agent_response_correction: "agent_response_correction";
+                                    agent_tool_response: "agent_tool_response";
+                                }>>;
+                            }, z.core.$strict>;
+                            platform_settings: z.ZodObject<{
+                                auth: z.ZodObject<{
+                                    enable_auth: z.ZodLiteral<true>;
+                                    allowlist: z.ZodArray<z.ZodURL>;
+                                    require_origin_header: z.ZodLiteral<true>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>]>>;
+                    }, z.core.$strict>]>>;
+                    consumes: z.ZodBoolean;
+                    spendLedger: z.ZodBoolean;
+                }, z.core.$strict>>;
                 presentation: z.ZodOptional<z.ZodObject<{
                     outputs: z.ZodOptional<z.ZodObject<{
                         label: z.ZodString;
@@ -2074,6 +6150,737 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                 bytes: z.ZodNumber;
             }, z.core.$strict>;
         }, z.core.$strict>>;
+        ordinaryConfigurations: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            format: z.ZodLiteral<"ordinary-v2">;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            capability: z.ZodString;
+            version: z.ZodNumber;
+            parameters: z.ZodArray<z.ZodObject<{
+                parameter: z.ZodUnion<readonly [z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    type: z.ZodLiteral<"number">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"integer">;
+                    min: z.ZodOptional<z.ZodNumber>;
+                    max: z.ZodOptional<z.ZodNumber>;
+                    platformDefault: z.ZodOptional<z.ZodNumber>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string">;
+                    minLength: z.ZodOptional<z.ZodNumber>;
+                    maxLength: z.ZodOptional<z.ZodNumber>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"boolean">;
+                    platformDefault: z.ZodOptional<z.ZodBoolean>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"enum">;
+                    options: z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>;
+                    platformDefault: z.ZodOptional<z.ZodString>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    type: z.ZodLiteral<"string_list">;
+                    minItems: z.ZodOptional<z.ZodNumber>;
+                    maxItems: z.ZodOptional<z.ZodNumber>;
+                    options: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        value: z.ZodString;
+                        label: z.ZodString;
+                    }, z.core.$strict>>>;
+                    pattern: z.ZodOptional<z.ZodString>;
+                    platformDefault: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    key: z.ZodString;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    optional: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                }, z.core.$strict>], "type">, z.ZodObject<{
+                    optional: z.ZodBoolean;
+                    key: z.ZodString;
+                    status: z.ZodEnum<{
+                        decided: "decided";
+                        proposed: "proposed";
+                    }>;
+                    unit: z.ZodOptional<z.ZodString>;
+                    label: z.ZodString;
+                    description: z.ZodString;
+                    explanation: z.ZodOptional<z.ZodString>;
+                    group: z.ZodOptional<z.ZodString>;
+                    reference: z.ZodString;
+                    appliesWhen: z.ZodEnum<{
+                        immediate: "immediate";
+                        next_apply: "next_apply";
+                    }>;
+                    consumes: z.ZodBoolean;
+                    editableBy: z.ZodArray<z.ZodEnum<{
+                        superadmin: "superadmin";
+                        owner: "owner";
+                    }>>;
+                    type: z.ZodLiteral<"structured">;
+                    schemaKey: z.ZodEnum<{
+                        "briefing.feeds": "briefing.feeds";
+                        "briefing.categoryWeights": "briefing.categoryWeights";
+                        "news.feeds": "news.feeds";
+                        "rules.briefing": "rules.briefing";
+                        "rules.news": "rules.news";
+                        "rules.netatmo": "rules.netatmo";
+                        "rules.security": "rules.security";
+                        "security.cameraPolicies": "security.cameraPolicies";
+                        "agent-elevenlabs.nativeConfig": "agent-elevenlabs.nativeConfig";
+                    }>;
+                    schemaVersion: z.ZodLiteral<1>;
+                    platformDefault: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                        label: z.ZodOptional<z.ZodString>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        url: z.ZodString;
+                        category: z.ZodString;
+                        weight: z.ZodDefault<z.ZodNumber>;
+                    }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"briefing">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_section">;
+                            section: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_tone">;
+                            tone: z.ZodEnum<{
+                                formal: "formal";
+                                terse: "terse";
+                                friendly: "friendly";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_maxWords">;
+                            maxWords: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_greeting">;
+                            greeting: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"skip_feed_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_closing">;
+                            text: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_cronSchedule">;
+                            cron: z.ZodString;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"news">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"skip_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"add_category">;
+                            category: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_hours_back">;
+                            hours: z.ZodNumber;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_max_per_category">;
+                            category: z.ZodString;
+                            max: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"netatmo">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_on">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_light_off">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"suppress_automation">;
+                            module_id: z.ZodString;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_is_dark_offset">;
+                            offset_minutes: z.ZodNumber;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        skill: z.ZodLiteral<"security">;
+                        condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                        action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                            type: z.ZodLiteral<"set_pir">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_sleep">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_ir">;
+                            mode: z.ZodEnum<{
+                                on: "on";
+                                off: "off";
+                                auto: "auto";
+                            }>;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"set_floodlight">;
+                            enabled: z.ZodBoolean;
+                        }, z.core.$strict>, z.ZodObject<{
+                            type: z.ZodLiteral<"auto_patrol">;
+                        }, z.core.$strict>], "type">;
+                        priority: z.ZodNumber;
+                        created_by: z.ZodEnum<{
+                            user: "user";
+                            operator: "operator";
+                        }>;
+                        created_at: z.ZodString;
+                        description: z.ZodString;
+                        locked: z.ZodOptional<z.ZodBoolean>;
+                    }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                        uid: z.ZodString;
+                        name: z.ZodString;
+                        role: z.ZodEnum<{
+                            primary: "primary";
+                            secondary: "secondary";
+                        }>;
+                        enabled: z.ZodBoolean;
+                        ptz_presets: z.ZodObject<{
+                            left: z.ZodNumber;
+                            center: z.ZodNumber;
+                            right: z.ZodNumber;
+                        }, z.core.$strict>;
+                        siren: z.ZodBoolean;
+                        battery: z.ZodBoolean;
+                    }, z.core.$strict>>, z.ZodObject<{
+                        agent: z.ZodObject<{
+                            first_message: z.ZodString;
+                            language: z.ZodString;
+                            prompt: z.ZodObject<{
+                                llm: z.ZodString;
+                                reasoning_effort: z.ZodString;
+                                temperature: z.ZodNumber;
+                                backup_llm_config: z.ZodObject<{
+                                    preference: z.ZodLiteral<"override">;
+                                    order: z.ZodArray<z.ZodString>;
+                                }, z.core.$strict>;
+                                cascade_timeout_seconds: z.ZodNumber;
+                                tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                    type: z.ZodLiteral<"client">;
+                                    expects_response: z.ZodBoolean;
+                                    response_timeout_secs: z.ZodNumber;
+                                    execution_mode: z.ZodOptional<z.ZodEnum<{
+                                        immediate: "immediate";
+                                        post_tool_speech: "post_tool_speech";
+                                    }>>;
+                                    interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                        allow: "allow";
+                                        block: "block";
+                                    }>>;
+                                    parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"webhook">;
+                                    response_timeout_secs: z.ZodNumber;
+                                    api_schema: z.ZodObject<{
+                                        method: z.ZodLiteral<"POST">;
+                                        path: z.ZodString;
+                                        request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                        request_headers: z.ZodArray<z.ZodObject<{
+                                            name: z.ZodString;
+                                            source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                                kind: z.ZodLiteral<"credential">;
+                                                key: z.ZodString;
+                                            }, z.core.$strict>, z.ZodObject<{
+                                                kind: z.ZodLiteral<"session">;
+                                                bindingId: z.ZodString;
+                                            }, z.core.$strict>], "kind">;
+                                        }, z.core.$strict>>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>, z.ZodObject<{
+                                    type: z.ZodLiteral<"system">;
+                                    params: z.ZodObject<{
+                                        system_tool_type: z.ZodEnum<{
+                                            end_call: "end_call";
+                                            skip_turn: "skip_turn";
+                                        }>;
+                                    }, z.core.$strict>;
+                                    name: z.ZodString;
+                                    description: z.ZodString;
+                                }, z.core.$strict>], "type">>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                        tts: z.ZodObject<{
+                            model_id: z.ZodString;
+                            optimize_streaming_latency: z.ZodNumber;
+                            agent_output_audio_format: z.ZodString;
+                            supported_voices: z.ZodArray<z.ZodObject<{
+                                label: z.ZodString;
+                                description: z.ZodString;
+                                voice_id: z.ZodString;
+                                stability: z.ZodNumber;
+                                speed: z.ZodNumber;
+                                similarity_boost: z.ZodNumber;
+                            }, z.core.$strict>>;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>;
+                        turn: z.ZodObject<{
+                            turn_timeout: z.ZodNumber;
+                            interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                            merge_with_default_ignore_terms: z.ZodBoolean;
+                            silence_end_call_timeout: z.ZodNumber;
+                        }, z.core.$strict>;
+                        conversation: z.ZodObject<{
+                            max_duration_seconds: z.ZodNumber;
+                            client_events: z.ZodArray<z.ZodEnum<{
+                                audio: "audio";
+                                interruption: "interruption";
+                                agent_response: "agent_response";
+                                user_transcript: "user_transcript";
+                                agent_response_correction: "agent_response_correction";
+                                agent_tool_response: "agent_tool_response";
+                            }>>;
+                        }, z.core.$strict>;
+                        platform_settings: z.ZodObject<{
+                            auth: z.ZodObject<{
+                                enable_auth: z.ZodLiteral<true>;
+                                allowlist: z.ZodArray<z.ZodURL>;
+                                require_origin_header: z.ZodLiteral<true>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>]>>;
+                }, z.core.$strict>]>;
+                origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"platform_default">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"agent_override">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"needs_choice">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"master">;
+                    source: z.ZodObject<{
+                        ownerId: z.ZodString;
+                        tenantId: z.ZodString;
+                        masterId: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">;
+                value: z.ZodOptional<z.ZodUnion<readonly [z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    maxPerCategory: z.ZodOptional<z.ZodNumber>;
+                    label: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    url: z.ZodString;
+                    category: z.ZodString;
+                    weight: z.ZodDefault<z.ZodNumber>;
+                }, z.core.$strict>>, z.ZodRecord<z.ZodString, z.ZodNumber>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"briefing">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_section">;
+                        section: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_tone">;
+                        tone: z.ZodEnum<{
+                            formal: "formal";
+                            terse: "terse";
+                            friendly: "friendly";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_maxWords">;
+                        maxWords: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_greeting">;
+                        greeting: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"skip_feed_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_closing">;
+                        text: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_cronSchedule">;
+                        cron: z.ZodString;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"news">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"skip_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"add_category">;
+                        category: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_hours_back">;
+                        hours: z.ZodNumber;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_max_per_category">;
+                        category: z.ZodString;
+                        max: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"netatmo">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_on">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_light_off">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"suppress_automation">;
+                        module_id: z.ZodString;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_is_dark_offset">;
+                        offset_minutes: z.ZodNumber;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    skill: z.ZodLiteral<"security">;
+                    condition: z.ZodType<import("../capability/index.js").Condition, unknown, z.core.$ZodTypeInternals<import("../capability/index.js").Condition, unknown>>;
+                    action: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                        type: z.ZodLiteral<"set_pir">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_sleep">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_ir">;
+                        mode: z.ZodEnum<{
+                            on: "on";
+                            off: "off";
+                            auto: "auto";
+                        }>;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"set_floodlight">;
+                        enabled: z.ZodBoolean;
+                    }, z.core.$strict>, z.ZodObject<{
+                        type: z.ZodLiteral<"auto_patrol">;
+                    }, z.core.$strict>], "type">;
+                    priority: z.ZodNumber;
+                    created_by: z.ZodEnum<{
+                        user: "user";
+                        operator: "operator";
+                    }>;
+                    created_at: z.ZodString;
+                    description: z.ZodString;
+                    locked: z.ZodOptional<z.ZodBoolean>;
+                }, z.core.$strict>>, z.ZodArray<z.ZodObject<{
+                    uid: z.ZodString;
+                    name: z.ZodString;
+                    role: z.ZodEnum<{
+                        primary: "primary";
+                        secondary: "secondary";
+                    }>;
+                    enabled: z.ZodBoolean;
+                    ptz_presets: z.ZodObject<{
+                        left: z.ZodNumber;
+                        center: z.ZodNumber;
+                        right: z.ZodNumber;
+                    }, z.core.$strict>;
+                    siren: z.ZodBoolean;
+                    battery: z.ZodBoolean;
+                }, z.core.$strict>>, z.ZodObject<{
+                    agent: z.ZodObject<{
+                        first_message: z.ZodString;
+                        language: z.ZodString;
+                        prompt: z.ZodObject<{
+                            llm: z.ZodString;
+                            reasoning_effort: z.ZodString;
+                            temperature: z.ZodNumber;
+                            backup_llm_config: z.ZodObject<{
+                                preference: z.ZodLiteral<"override">;
+                                order: z.ZodArray<z.ZodString>;
+                            }, z.core.$strict>;
+                            cascade_timeout_seconds: z.ZodNumber;
+                            tools: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                type: z.ZodLiteral<"client">;
+                                expects_response: z.ZodBoolean;
+                                response_timeout_secs: z.ZodNumber;
+                                execution_mode: z.ZodOptional<z.ZodEnum<{
+                                    immediate: "immediate";
+                                    post_tool_speech: "post_tool_speech";
+                                }>>;
+                                interruption_mode: z.ZodOptional<z.ZodEnum<{
+                                    allow: "allow";
+                                    block: "block";
+                                }>>;
+                                parameters: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"webhook">;
+                                response_timeout_secs: z.ZodNumber;
+                                api_schema: z.ZodObject<{
+                                    method: z.ZodLiteral<"POST">;
+                                    path: z.ZodString;
+                                    request_body_schema: z.ZodPipe<z.ZodPipe<z.ZodCustom<Record<string, unknown>, Record<string, unknown>>, z.ZodRecord<z.ZodString, z.ZodUnknown>>, z.ZodTransform<import("../capability/index.js").ElevenLabsNativeInputProperty, Record<string, unknown>>>;
+                                    request_headers: z.ZodArray<z.ZodObject<{
+                                        name: z.ZodString;
+                                        source: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                                            kind: z.ZodLiteral<"credential">;
+                                            key: z.ZodString;
+                                        }, z.core.$strict>, z.ZodObject<{
+                                            kind: z.ZodLiteral<"session">;
+                                            bindingId: z.ZodString;
+                                        }, z.core.$strict>], "kind">;
+                                    }, z.core.$strict>>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>, z.ZodObject<{
+                                type: z.ZodLiteral<"system">;
+                                params: z.ZodObject<{
+                                    system_tool_type: z.ZodEnum<{
+                                        end_call: "end_call";
+                                        skip_turn: "skip_turn";
+                                    }>;
+                                }, z.core.$strict>;
+                                name: z.ZodString;
+                                description: z.ZodString;
+                            }, z.core.$strict>], "type">>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                    tts: z.ZodObject<{
+                        model_id: z.ZodString;
+                        optimize_streaming_latency: z.ZodNumber;
+                        agent_output_audio_format: z.ZodString;
+                        supported_voices: z.ZodArray<z.ZodObject<{
+                            label: z.ZodString;
+                            description: z.ZodString;
+                            voice_id: z.ZodString;
+                            stability: z.ZodNumber;
+                            speed: z.ZodNumber;
+                            similarity_boost: z.ZodNumber;
+                        }, z.core.$strict>>;
+                        voice_id: z.ZodString;
+                        stability: z.ZodNumber;
+                        speed: z.ZodNumber;
+                        similarity_boost: z.ZodNumber;
+                    }, z.core.$strict>;
+                    turn: z.ZodObject<{
+                        turn_timeout: z.ZodNumber;
+                        interruption_ignore_terms: z.ZodArray<z.ZodString>;
+                        merge_with_default_ignore_terms: z.ZodBoolean;
+                        silence_end_call_timeout: z.ZodNumber;
+                    }, z.core.$strict>;
+                    conversation: z.ZodObject<{
+                        max_duration_seconds: z.ZodNumber;
+                        client_events: z.ZodArray<z.ZodEnum<{
+                            audio: "audio";
+                            interruption: "interruption";
+                            agent_response: "agent_response";
+                            user_transcript: "user_transcript";
+                            agent_response_correction: "agent_response_correction";
+                            agent_tool_response: "agent_tool_response";
+                        }>>;
+                    }, z.core.$strict>;
+                    platform_settings: z.ZodObject<{
+                        auth: z.ZodObject<{
+                            enable_auth: z.ZodLiteral<true>;
+                            allowlist: z.ZodArray<z.ZodURL>;
+                            require_origin_header: z.ZodLiteral<true>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>]>>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>>;
 }, z.core.$loose>;
 export type AgentContextWithWorkspace = z.infer<typeof AgentContextWithWorkspaceSchema>;

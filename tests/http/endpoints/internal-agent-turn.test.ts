@@ -134,3 +134,16 @@ describe('VoiceLiveWebSessionRequestSchema.agent_id (v1.22.0)', () => {
     expect(() => VoiceLiveWebSessionRequestSchema.parse({ sdp: 'v=0', agent_id: '' })).toThrow();
   });
 });
+
+
+describe('trusted scoped turn identity', () => {
+  const identity = {agentId:'agent-a',ownerId:'owner-a',tenantId:'tenant-a'};
+  it('preserves canonical identity on the scoped turn body', () => {
+    expect(InternalAgentTurnRequestSchema.parse({...validBody,identity})).toMatchObject({identity});
+  });
+  it.each(['agentId','ownerId','tenantId'])('rejects an incomplete scoped %s', field => {
+    const incomplete: Record<string,string>={...identity};delete incomplete[field];
+    expect(InternalAgentTurnRequestSchema.safeParse({...validBody,identity:incomplete}).success).toBe(false);
+  });
+  it('does not change the legacy turn body',()=>expect(InternalAgentTurnRequestSchema.parse(validBody)).toEqual(InternalTurnRequestSchema.parse(validBody)));
+});

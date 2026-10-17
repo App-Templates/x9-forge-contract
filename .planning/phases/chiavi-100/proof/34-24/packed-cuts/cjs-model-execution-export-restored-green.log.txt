@@ -1,0 +1,4 @@
+$ ["node", "chiavi-model-composition-smoke.mjs"]
+{"marker":"CHIAVI_MODEL_COMPOSITION","surfaces":14,"assertions":276,"passed":276}
+
+EXIT_CODE=0

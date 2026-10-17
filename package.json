@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.45.0",
+  "version": "1.49.1",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -15,6 +15,7 @@
       "./auth": "./src/auth/index.ts",
       "./agent": "./src/agent/index.ts",
       "./capability": "./src/capability/index.ts",
+      "./capability/dev": "./src/capability/dev/index.ts",
       "./voice": "./src/capability/voice/index.ts",
       "./capability/stt": "./src/capability/stt/index.ts",
       "./capability/tts": "./src/capability/tts/index.ts",
@@ -23,6 +24,7 @@
       "./capability/lab": "./src/capability/lab/index.ts",
       "./http": "./src/http/index.ts",
       "./memory": "./src/memory/index.ts",
+      "./organization": "./src/organization/index.ts",
       "./messaging": "./src/messaging/index.ts",
       "./model-router": "./src/model-router/index.ts",
       "./rag": "./src/rag/index.ts",
@@ -52,6 +54,11 @@
       "types": "./dist/capability/index.d.cts",
       "import": "./dist/capability/index.js",
       "require": "./dist/capability/index.cjs"
+    },
+    "./capability/dev": {
+      "types": "./dist/capability/dev/index.d.cts",
+      "import": "./dist/capability/dev/index.js",
+      "require": "./dist/capability/dev/index.cjs"
     },
     "./voice": {
       "types": "./dist/capability/voice/index.d.cts",
@@ -92,6 +99,11 @@
       "types": "./dist/memory/index.d.cts",
       "import": "./dist/memory/index.js",
       "require": "./dist/memory/index.cjs"
+    },
+    "./organization": {
+      "types": "./dist/organization/index.d.cts",
+      "import": "./dist/organization/index.js",
+      "require": "./dist/organization/index.cjs"
     },
     "./messaging": {
       "types": "./dist/messaging/index.d.cts",
@@ -134,7 +146,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "zshy && node scripts/check-portable-dts.mjs",
+    "build": "zshy && node scripts/check-portable-dts.mjs && node scripts/generate-portable-capability-contracts.mjs",
     "check:dts": "node scripts/check-portable-dts.mjs",
     "check:pack": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
     "validate": "pnpm build && pnpm check:pack && pnpm test",

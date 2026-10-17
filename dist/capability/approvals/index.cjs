@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.approvalKeysContract = exports.ApprovalKeysResponseSchema = exports.ApprovalPublicKeySchema = exports.pendingApprovalsContract = exports.PendingApprovalsResponseSchema = exports.PendingApprovalSchema = exports.PendingApprovalsBodySchema = exports.deliverApprovalPermitContract = exports.DeliverApprovalPermitResponseSchema = exports.createApprovalRequestContract = exports.CreateApprovalRequestResponseSchema = exports.CreateApprovalRequestBodySchema = exports.ApprovalPermitRejectionSchema = exports.SignedApprovalPermitSchema = exports.ApprovalPermitSchema = exports.ApprovalSeveritySchema = exports.ApprovalInstantSchema = exports.ApprovalSignatureSchema = exports.ApprovalTextSha256Schema = exports.ApprovalKeyIdSchema = exports.ApprovalNonceSchema = exports.ApprovalRequestIdSchema = exports.ApprovalBindingsSchema = exports.ApprovalActionTypeSchema = exports.ApprovalClientSchema = exports.APPROVAL_TEXT_MAX = exports.APPROVAL_MAX_BINDINGS = exports.APPROVAL_CLOCK_SKEW_SEC = exports.APPROVAL_MAX_TTL_SEC = exports.APPROVAL_MIN_TTL_SEC = exports.APPROVAL_PERMIT_DOMAIN = exports.APPROVAL_PERMIT_VERSION = void 0;
+exports.ApprovalRejectionSchema = exports.ApprovalRejectionCodeSchema = exports.ApprovalOwnerBindingSchema = exports.approvalKeysContract = exports.ApprovalKeysResponseSchema = exports.ApprovalPublicKeySchema = exports.pendingApprovalsContract = exports.PendingApprovalsResponseSchema = exports.PendingApprovalSchema = exports.PendingApprovalsBodySchema = exports.deliverApprovalPermitContract = exports.DeliverApprovalPermitResponseSchema = exports.createApprovalRequestContract = exports.CreateApprovalRequestResponseSchema = exports.CreateApprovalRequestBodySchema = exports.ApprovalPermitRejectionSchema = exports.SignedApprovalPermitSchema = exports.ApprovalPermitSchema = exports.ApprovalSeveritySchema = exports.ApprovalInstantSchema = exports.ApprovalSignatureSchema = exports.ApprovalTextSha256Schema = exports.ApprovalKeyIdSchema = exports.ApprovalNonceSchema = exports.ApprovalRequestIdSchema = exports.ApprovalBindingsSchema = exports.ApprovalActionTypeSchema = exports.ApprovalClientSchema = exports.APPROVAL_TEXT_MAX = exports.APPROVAL_MAX_BINDINGS = exports.APPROVAL_CLOCK_SKEW_SEC = exports.APPROVAL_MAX_TTL_SEC = exports.APPROVAL_MIN_TTL_SEC = exports.APPROVAL_PERMIT_DOMAIN = exports.APPROVAL_PERMIT_VERSION = void 0;
 exports.canonicalApprovalPermit = canonicalApprovalPermit;
 exports.checkApprovalPermit = checkApprovalPermit;
+exports.checkApprovalOwnerBinding = checkApprovalOwnerBinding;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
+const channel_type_js_1 = require("../../messaging/channel-type.cjs");
 /**
  * Signed approvals (phase 59, cap-approvals) — the owner approves a sensitive action from the phone with a passkey.
  *
@@ -249,4 +251,27 @@ exports.approvalKeysContract = {
     authType: 'secret',
     responseSchema: exports.ApprovalKeysResponseSchema,
 };
+/**
+ * Owner <-> channel/session binding: the approval is accepted only from the owner's own chat session.
+ * Pure check, run by the client capability before it asks cap-approvals for a permit.
+ */
+exports.ApprovalOwnerBindingSchema = zod_1.z
+    .object({ ownerId: ScopeShape.ownerId, channel: channel_type_js_1.ChannelTypeSchema, sessionId: zod_1.z.string().min(1).max(256) })
+    .strict();
+exports.ApprovalRejectionCodeSchema = zod_1.z.enum(['owner_mismatch', 'session_foreign', 'provenance_missing']);
+exports.ApprovalRejectionSchema = zod_1.z
+    .object({ ok: zod_1.z.literal(false), code: exports.ApprovalRejectionCodeSchema, message: zod_1.z.string().min(1).max(300) })
+    .strict();
+function checkApprovalOwnerBinding(expected, actual) {
+    const parsed = exports.ApprovalOwnerBindingSchema.safeParse(actual);
+    if (!parsed.success)
+        return { ok: false, code: 'provenance_missing', message: 'owner/channel/session binding missing or malformed' };
+    const a = parsed.data;
+    if (a.ownerId !== expected.ownerId)
+        return { ok: false, code: 'owner_mismatch', message: 'approval comes from a different owner' };
+    if (a.sessionId !== expected.sessionId || a.channel !== expected.channel) {
+        return { ok: false, code: 'session_foreign', message: 'approval comes from a different channel or session' };
+    }
+    return { ok: true };
+}
 //# sourceMappingURL=index.js.map

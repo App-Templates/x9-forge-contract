@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LAB_TOOLS = exports.CompetenceGapSchema = exports.CompetenceGapReasonSchema = exports.CompetenceNodeViewSchema = exports.CompetenceNodeIdSchema = exports.COMPETENCE_MAX_LEVEL = exports.WikiLinkSchema = exports.WikiClaimSchema = exports.WikiClaimStatusSchema = exports.WikiPageSchema = exports.WikiSourceSchema = exports.WikiPageSlugSchema = exports.WikiSourceIdSchema = exports.WikiOriginSchema = exports.LabModelsSchema = exports.LabBudgetSchema = exports.LabAgentConfigSchema = exports.KindSlugSchema = void 0;
+exports.LabBrowseErrorSchema = exports.LabExportResultSchema = exports.LabExportRequestSchema = exports.LabExportFormatSchema = exports.LabPageDetailOutputSchema = exports.LabPageDetailInputSchema = exports.LabPageListOutputSchema = exports.LabPageListEntrySchema = exports.LabPageListInputSchema = exports.LabGrowthHistoryOutputSchema = exports.LabGrowthHistoryInputSchema = exports.LabGrowthPointSchema = exports.LabScopeSchema = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LAB_TOOLS = exports.CompetenceGapSchema = exports.CompetenceGapReasonSchema = exports.CompetenceNodeViewSchema = exports.CompetenceNodeIdSchema = exports.COMPETENCE_MAX_LEVEL = exports.WikiLinkSchema = exports.WikiClaimSchema = exports.WikiClaimStatusSchema = exports.WikiPageSchema = exports.WikiSourceSchema = exports.WikiPageSlugSchema = exports.WikiSourceIdSchema = exports.WikiOriginSchema = exports.LabModelsSchema = exports.LabBudgetSchema = exports.LabAgentConfigSchema = exports.KindSlugSchema = void 0;
 /**
  * cap-lab contracts — sub-path `@x9-forge/contracts/capability/lab` (v1.28.0, Phase 54).
  *
@@ -34,6 +34,9 @@ Object.defineProperty(exports, "CompetenceGapReasonSchema", { enumerable: true, 
 Object.defineProperty(exports, "CompetenceGapSchema", { enumerable: true, get: function () { return competence_js_1.CompetenceGapSchema; } });
 var tools_js_1 = require("./tools.cjs");
 Object.defineProperty(exports, "LAB_TOOLS", { enumerable: true, get: function () { return tools_js_1.LAB_TOOLS; } });
+Object.defineProperty(exports, "LAB_INTERNAL_TOOLS", { enumerable: true, get: function () { return tools_js_1.LAB_INTERNAL_TOOLS; } });
+Object.defineProperty(exports, "LabExecuteInputSchema", { enumerable: true, get: function () { return tools_js_1.LabExecuteInputSchema; } });
+Object.defineProperty(exports, "LabExecuteOutputSchema", { enumerable: true, get: function () { return tools_js_1.LabExecuteOutputSchema; } });
 Object.defineProperty(exports, "LabIngestInputSchema", { enumerable: true, get: function () { return tools_js_1.LabIngestInputSchema; } });
 Object.defineProperty(exports, "LabIngestOutputSchema", { enumerable: true, get: function () { return tools_js_1.LabIngestOutputSchema; } });
 Object.defineProperty(exports, "LabToolErrorSchema", { enumerable: true, get: function () { return tools_js_1.LabToolErrorSchema; } });
@@ -46,4 +49,19 @@ Object.defineProperty(exports, "LabGapsInputSchema", { enumerable: true, get: fu
 Object.defineProperty(exports, "LabGapsOutputSchema", { enumerable: true, get: function () { return tools_js_1.LabGapsOutputSchema; } });
 Object.defineProperty(exports, "LabCompetenceInputSchema", { enumerable: true, get: function () { return tools_js_1.LabCompetenceInputSchema; } });
 Object.defineProperty(exports, "LabCompetenceOutputSchema", { enumerable: true, get: function () { return tools_js_1.LabCompetenceOutputSchema; } });
+var growth_js_1 = require("./growth.cjs");
+Object.defineProperty(exports, "LabScopeSchema", { enumerable: true, get: function () { return growth_js_1.LabScopeSchema; } });
+Object.defineProperty(exports, "LabGrowthPointSchema", { enumerable: true, get: function () { return growth_js_1.LabGrowthPointSchema; } });
+Object.defineProperty(exports, "LabGrowthHistoryInputSchema", { enumerable: true, get: function () { return growth_js_1.LabGrowthHistoryInputSchema; } });
+Object.defineProperty(exports, "LabGrowthHistoryOutputSchema", { enumerable: true, get: function () { return growth_js_1.LabGrowthHistoryOutputSchema; } });
+var browse_js_1 = require("./browse.cjs");
+Object.defineProperty(exports, "LabPageListInputSchema", { enumerable: true, get: function () { return browse_js_1.LabPageListInputSchema; } });
+Object.defineProperty(exports, "LabPageListEntrySchema", { enumerable: true, get: function () { return browse_js_1.LabPageListEntrySchema; } });
+Object.defineProperty(exports, "LabPageListOutputSchema", { enumerable: true, get: function () { return browse_js_1.LabPageListOutputSchema; } });
+Object.defineProperty(exports, "LabPageDetailInputSchema", { enumerable: true, get: function () { return browse_js_1.LabPageDetailInputSchema; } });
+Object.defineProperty(exports, "LabPageDetailOutputSchema", { enumerable: true, get: function () { return browse_js_1.LabPageDetailOutputSchema; } });
+Object.defineProperty(exports, "LabExportFormatSchema", { enumerable: true, get: function () { return browse_js_1.LabExportFormatSchema; } });
+Object.defineProperty(exports, "LabExportRequestSchema", { enumerable: true, get: function () { return browse_js_1.LabExportRequestSchema; } });
+Object.defineProperty(exports, "LabExportResultSchema", { enumerable: true, get: function () { return browse_js_1.LabExportResultSchema; } });
+Object.defineProperty(exports, "LabBrowseErrorSchema", { enumerable: true, get: function () { return browse_js_1.LabBrowseErrorSchema; } });
 //# sourceMappingURL=index.js.map

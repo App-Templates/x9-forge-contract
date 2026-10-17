@@ -1,0 +1,98 @@
+[
+  {
+    "name": "registry-detached-definitions",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "return structuredClone(definitions);",
+    "new": "return definitions;",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "R03"
+  },
+  {
+    "name": "registry-detached-lookup",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "const found = definitions.find(consumer => consumer.slotId === slotId);\n  return found === undefined ? undefined : structuredClone(found);",
+    "new": "const found = definitions.find(consumer => consumer.slotId === slotId);\n  return found;",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "R02"
+  },
+  {
+    "name": "registry-required-metadata",
+    "file": "src/model-router/model-consumers.ts",
+    "old": "}).strict();\nexport type ModelConsumerDefinition",
+    "new": "}).partial().strict();\nexport type ModelConsumerDefinition",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "R06"
+  },
+  {
+    "name": "registry-feature-types",
+    "file": "src/model-router/model-catalog.ts",
+    "old": "vision: z.boolean().optional(), webSearch: z.boolean().optional()",
+    "new": "vision: z.unknown().optional(), webSearch: z.unknown().optional()",
+    "test": "tests/model-router/c5-model-consumers.test.ts",
+    "pattern": "S10"
+  },
+  {
+    "name": "runtime-exact-position-count",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "if (actual.selections.length !== saved.selections.reduce((count, slot) => count + modelSettingsSelections(slot.settings).length, 0)) return false;",
+    "new": "if (false) return false;",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": "M03|M08"
+  },
+  {
+    "name": "runtime-vector-dimension",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "const dimensionMatches = slot.settings.mode !== 'single' || slot.settings.function !== 'embedding' || selection?.embeddingDimensions === slot.settings.embeddingDimensions;",
+    "new": "const dimensionMatches = true;",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": "M04"
+  },
+  {
+    "name": "runtime-exact-selection-metadata",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "return selection !== undefined && dimensionMatches && selection.capability === slot.settings.capability && selection.function === slot.settings.function && sameModelDescriptor(selection.descriptor, descriptor);",
+    "new": "return selection !== undefined && dimensionMatches;",
+    "test": "tests/model-router/c5-model-consumer-execution.test.ts",
+    "pattern": "M02"
+  },
+  {
+    "name": "apply-confirm-explicit-authority",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "if (!authority.success || !sameAgentCommand(request, { ...request, modelConfiguration: authority.data })) return false;",
+    "new": "if (false) return false;",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D16"
+  },
+  {
+    "name": "command-direct-generation-authority",
+    "file": "src/model-router/agent-model-configuration.ts",
+    "old": "return command.data.modelExpectedSourceVersion === source.data.sourceVersion && sameModelAgentIdentity(configuration.identity, source.data.identity) && sameCapabilityScope(configuration.provenance.scope, source.data.scope);",
+    "new": "return true;",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D13"
+  },
+  {
+    "name": "command-registered-consumer-authority",
+    "file": "src/agent/agent-management.ts",
+    "old": "    if (consumer === undefined || selection.settings.capability !== consumer.capability || selection.settings.function !== consumer.function || !sameModelFeatures(selection.settings.requirements, consumer.requirements) || (consumer.routing === 'tiered' ? !['automatic', 'pin'].includes(selection.settings.mode) : selection.settings.mode !== consumer.routing)) {",
+    "new": "    if (false) {",
+    "test": "tests/agent/c5-model-configuration-command.test.ts",
+    "pattern": "D17|D18"
+  },
+  {
+    "name": "local-http-required-auth",
+    "file": "src/http/endpoints/internal-agent-model-source-observation.ts",
+    "old": "authType: 'secret' as const",
+    "new": "authType: 'none' as const",
+    "test": "tests/model-router/agent-model-local-source-http.test.ts",
+    "pattern": null
+  },
+  {
+    "name": "public-model-execution-export",
+    "file": "src/model-router/index.ts",
+    "old": "export * from './model-consumer-execution.js';",
+    "new": "",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": "C01"
+  }
+]

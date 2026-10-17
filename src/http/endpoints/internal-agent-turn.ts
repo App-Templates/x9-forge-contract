@@ -1,6 +1,10 @@
 import { z } from 'zod';
+import { CapabilityCallIdentitySchema } from '../../capability/capability-call-identity.js';
 import { InternalMemoryExtractRequestSchema } from './internal-memory-extract.js';
 import { AgentTurnSchema, AgentTurnMoveIdSchema, CapabilityLeadInstructionsSchema, CapabilityNoteSchema } from '../../capability/capability-turn-lead.js';
+import { OrganizationRunContextSchema } from '../../organization/run-context.js';
+import { RunAttemptSchema } from '../../organization/run-outcome.js';
+import { ConnectionCardSchema } from './connection-card.js';
 import {
   InternalTurnRequestSchema,
   InternalTurnResponseSchema,
@@ -17,13 +21,14 @@ import {
  * This sibling runs the turn with the deps of the agent named in the path
  * (workspace, registry, memory identity from its own context.json), so a voice
  * session bound to a Forge-created agent never touches the personal agent's
- * memory. agent-core refuses the primary agent id here (403): the personal
- * agent stays reachable only through the existing routes.
+ * memory. A primary turn additionally requires the complete trusted identity
+ * to match its current loaded context; legacy primary bodies remain refused.
  *
  * Legacy bodies and responses remain valid. Only this per-agent route adds
  * optional `turn` and response `moveId` (v1.25.0) and an optional authenticated
  * caller's `userId` (v1.26.0), and the voice-led `prepare`/`exchange` turns with response
- * `lead`/`note` (v1.27.0); the personal `/internal/turn` schema is unchanged.
+ * `lead`/`note` (v1.27.0), and the optional trusted `organizationRun`
+ * (run context + attempt, additive); the personal `/internal/turn` schema is unchanged.
  * agentId uses the same regex as `/internal/agents/:agentId/reload|stop`
  * (agent-core agent id; Forge factory slugs are a subset).
  *
@@ -40,16 +45,39 @@ export const InternalAgentTurnParamsSchema = z.object({
 });
 export type InternalAgentTurnParams = z.infer<typeof InternalAgentTurnParamsSchema>;
 
+/** Trusted run context and attempt of the calling organization run; both must name the same run. */
+export const InternalAgentTurnOrganizationRunSchema = z
+  .strictObject({
+    context: OrganizationRunContextSchema,
+    attempt: RunAttemptSchema,
+  })
+  .superRefine((run, ctx) => {
+    if (run.attempt.runId !== run.context.runId) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'attempt.runId must equal context.runId',
+        path: ['attempt', 'runId'],
+      });
+    }
+  });
+export type InternalAgentTurnOrganizationRun = z.infer<typeof InternalAgentTurnOrganizationRunSchema>;
+
 export const InternalAgentTurnRequestSchema = InternalTurnRequestSchema.extend({
   turn: AgentTurnSchema.optional(),
+  /** Server-owned admission identity, matched against the current loaded context. */
+  identity: CapabilityCallIdentitySchema.optional(),
   /** Trusted caller identity, never taken from model text or tool input. */
   userId: InternalMemoryExtractRequestSchema.shape.userId,
+  /** Trusted run context and attempt from the caller; absent on legacy bodies. */
+  organizationRun: InternalAgentTurnOrganizationRunSchema.optional(),
 });
 export type InternalAgentTurnRequest = z.infer<typeof InternalAgentTurnRequestSchema>;
 
 /** v1.27.0: `lead` answers a `prepare` turn, `note` an `exchange` turn; both come with an empty `reply`. */
 export const InternalAgentTurnResponseSchema = InternalTurnResponseSchema.extend({ moveId: AgentTurnMoveIdSchema.optional(),
-  lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional() });
+  lead: CapabilityLeadInstructionsSchema.optional(), note: CapabilityNoteSchema.optional(),
+  /** Connection cards produced by the turn; absent on legacy responses. */
+  connectionCards: z.array(ConnectionCardSchema).max(5).optional() });
 export type InternalAgentTurnResponse = z.infer<typeof InternalAgentTurnResponseSchema>;
 
 export const InternalAgentTurnErrorResponseSchema = InternalTurnErrorResponseSchema;
@@ -57,7 +85,7 @@ export type InternalAgentTurnErrorResponse = z.infer<typeof InternalAgentTurnErr
 
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 export const INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent' as const;
-/** Error code returned with 403 when the path names the env primary agent. */
+/** Error code returned with 403 for a primary turn without a scoped admission. */
 export const INTERNAL_AGENT_TURN_PRIMARY_FORBIDDEN = 'primary_agent_forbidden' as const;
 
 /** Build the concrete path for an agent id (validated). */

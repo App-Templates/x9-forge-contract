@@ -1,0 +1,885 @@
+{
+  "status": "local-source-only-ready-for-independent-review",
+  "base": "ae7c464c458814b26baca17106c8dce80f4c6f84",
+  "packageVersionUnchanged": "1.44.0",
+  "productionVerified": false,
+  "consumersImplemented": false,
+  "nativeConfig": "vitest.config.ts unchanged, env -i, Node24.21.0, maxWorkers1, timeout60s",
+  "newTests": {
+    "total": 85,
+    "initialExportAssertionsRed": 75,
+    "additionalIsolatedPieceAssertionsRed": 2,
+    "additionalAlreadyGreenBeforeQualification": 8,
+    "finalGreen": 85,
+    "files": 2
+  },
+  "fullNative": {
+    "passed": 4300,
+    "total": 4300,
+    "files": 154,
+    "newTests": 85,
+    "previousTests": 4215
+  },
+  "sourceMutations": {
+    "sourceHashes": {
+      "src/agent/agent-deletion.ts": "6316a559b13713c7960c65bb45bea15b006a68c6845b7880a274e50c816a865b",
+      "src/http/endpoints/internal-agents-deletion.ts": "9414d8452032009f4c4f8b4f113eea166723eeb2f56cae17efa5c6cf7ed871d8"
+    },
+    "mutations": [
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects an extra identity path and invalid vault ID"
+        ],
+        "report": "mut-01-identity-extra-field.json",
+        "name": "identity-extra-field",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects unsafe management and runtime identities: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        ],
+        "report": "mut-02-identity-max128.json",
+        "name": "identity-max128",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 4,
+        "assertions": [
+          "rejects unsafe management and runtime identities: ../other",
+          "rejects unsafe management and runtime identities: Other",
+          "rejects unsafe management and runtime identities: bad/name",
+          "rejects unsafe management and runtime identities: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        ],
+        "report": "mut-03-identity-safe-id.json",
+        "name": "identity-safe-id",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 3,
+        "assertions": [
+          "uses the canonical idempotency boundary: short",
+          "uses the canonical idempotency boundary: request/invalid",
+          "uses the canonical idempotency boundary: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        ],
+        "report": "mut-04-request-id-boundary.json",
+        "name": "request-id-boundary",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects invalid confirmation names: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        ],
+        "report": "mut-05-name-max200.json",
+        "name": "name-max200",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects invalid confirmation names:    "
+        ],
+        "report": "mut-06-name-not-blank.json",
+        "name": "name-not-blank",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects invalid confirmation names: bad\nname"
+        ],
+        "report": "mut-07-name-controls.json",
+        "name": "name-controls",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects an impersonating extra body field"
+        ],
+        "report": "mut-08-command-strict.json",
+        "name": "command-strict",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "requires confirmedName"
+        ],
+        "report": "mut-09-command-name-required.json",
+        "name": "command-name-required",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "requires identity"
+        ],
+        "report": "mut-10-command-identity-required.json",
+        "name": "command-identity-required",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects success and absent outcomes carrying error data"
+        ],
+        "report": "mut-11-success-piece-strict.json",
+        "name": "success-piece-strict",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects raw detail in a piece and a forged blocked reason"
+        ],
+        "report": "mut-12-failure-piece-strict.json",
+        "name": "failure-piece-strict",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects unsanitized provider errors and unknown report data"
+        ],
+        "report": "mut-13-failure-code-sanitized.json",
+        "name": "failure-code-sanitized",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "requires reasons for failed and blocked pieces"
+        ],
+        "report": "mut-14-failure-reason-required.json",
+        "name": "failure-reason-required",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects raw detail in a piece and a forged blocked reason"
+        ],
+        "report": "mut-15-blocked-reason.json",
+        "name": "blocked-reason",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 2,
+        "assertions": [
+          "rejects absent for a durable tombstone piece",
+          "rejects blocked for a durable tombstone piece"
+        ],
+        "report": "mut-16-tombstone-piece-durable.json",
+        "name": "tombstone-piece-durable",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 4,
+        "assertions": [
+          "rejects an omitted piece: caches",
+          "rejects an omitted piece: context",
+          "rejects an omitted piece: workspace",
+          "rejects an omitted piece: private-state"
+        ],
+        "report": "mut-17-required-eight-scopes-composite.json",
+        "name": "required-eight-scopes-composite",
+        "qualified": true,
+        "edits": 2
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects duplicate pieces even when the length is eight"
+        ],
+        "report": "mut-18-unique-scopes-composite.json",
+        "name": "unique-scopes-composite",
+        "qualified": true,
+        "edits": 2
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 2,
+        "assertions": [
+          "rejects a failed piece hidden by complete",
+          "rejects partial when all pieces completed"
+        ],
+        "report": "mut-19-overall-derived.json",
+        "name": "overall-derived",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 2,
+        "assertions": [
+          "requires the exact management identity in the report",
+          "rejects a mismatched managementAgentId"
+        ],
+        "report": "mut-20-report-management-bound.json",
+        "name": "report-management-bound",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "binds the tombstoned flag to the persisted piece"
+        ],
+        "report": "mut-21-tombstone-flag-bound.json",
+        "name": "tombstone-flag-bound",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects blocked pieces with no failed dependency"
+        ],
+        "report": "mut-22-blocked-needs-failure.json",
+        "name": "blocked-needs-failure",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "accepts a failed tombstone only when all effects are blocked"
+        ],
+        "report": "mut-23-tombstone-before-effects.json",
+        "name": "tombstone-before-effects",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "blocks every later effect when admission did not drain"
+        ],
+        "report": "mut-24-admission-before-effects.json",
+        "name": "admission-before-effects",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 2,
+        "assertions": [
+          "blocks caches and durable removals after channels failure",
+          "blocks caches and durable removals after runtime failure"
+        ],
+        "report": "mut-25-channels-runtime-before-cleanup.json",
+        "name": "channels-runtime-before-cleanup",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects false success and non-boolean flags"
+        ],
+        "report": "mut-26-report-success-literal.json",
+        "name": "report-success-literal",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "requires report field replayed"
+        ],
+        "report": "mut-27-report-replay-required.json",
+        "name": "report-replay-required",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 3,
+        "assertions": [
+          "rejects invalid report timestamps: yesterday",
+          "rejects invalid report timestamps: 2026-10-08",
+          "rejects invalid report timestamps: 2026-10-08T25:00:00Z"
+        ],
+        "report": "mut-28-report-time-iso.json",
+        "name": "report-time-iso",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects unsanitized provider errors and unknown report data"
+        ],
+        "report": "mut-29-report-strict.json",
+        "name": "report-strict",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "accepts absent runtime resources only after a completed tombstone"
+        ],
+        "report": "mut-30-absent-counts-finished.json",
+        "name": "absent-counts-finished",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects a mismatched requestId"
+        ],
+        "report": "mut-31-correlate-request.json",
+        "name": "correlate-request",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects a valid report coherently bound to the wrong requested namespace"
+        ],
+        "report": "mut-32-correlate-address-namespace.json",
+        "name": "correlate-address-namespace",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects an internally coherent report from another management agent"
+        ],
+        "report": "mut-33-correlate-report-address.json",
+        "name": "correlate-report-address",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects a mismatched runtimeAgentId"
+        ],
+        "report": "mut-34-correlate-runtime.json",
+        "name": "correlate-runtime",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects a mismatched vaultAgentId"
+        ],
+        "report": "mut-35-correlate-vault.json",
+        "name": "correlate-vault",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "exports a separate POST with secret auth and canonical schemas"
+        ],
+        "report": "mut-36-endpoint-secret.json",
+        "name": "endpoint-secret",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "exports a separate POST with secret auth and canonical schemas"
+        ],
+        "report": "mut-37-endpoint-method.json",
+        "name": "endpoint-method",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 2,
+        "assertions": [
+          "exports a separate POST with secret auth and canonical schemas",
+          "builds the management path and accepts legacy long canonical IDs"
+        ],
+        "report": "mut-38-endpoint-path.json",
+        "name": "endpoint-path",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "exports a separate POST with secret auth and canonical schemas"
+        ],
+        "report": "mut-39-endpoint-request-schema.json",
+        "name": "endpoint-request-schema",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "exports a separate POST with secret auth and canonical schemas"
+        ],
+        "report": "mut-40-endpoint-response-schema.json",
+        "name": "endpoint-response-schema",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects forged successful error responses and extra path params"
+        ],
+        "report": "mut-41-endpoint-params-strict.json",
+        "name": "endpoint-params-strict",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects a raw error and additional private diagnostics"
+        ],
+        "report": "mut-42-endpoint-error-codes.json",
+        "name": "endpoint-error-codes",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects a raw error and additional private diagnostics"
+        ],
+        "report": "mut-43-endpoint-error-strict.json",
+        "name": "endpoint-error-strict",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 1,
+        "assertions": [
+          "rejects forged successful error responses and extra path params"
+        ],
+        "report": "mut-44-endpoint-error-false.json",
+        "name": "endpoint-error-false",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 1,
+        "total": 85,
+        "failed": 5,
+        "assertions": [
+          "rejects an unsafe path: ../other",
+          "rejects an unsafe path: Upper",
+          "rejects an unsafe path: bad/name",
+          "rejects an unsafe path: ",
+          "rejects an unsafe path: a?other"
+        ],
+        "report": "mut-45-path-validation.json",
+        "name": "path-validation",
+        "qualified": true,
+        "edits": 1
+      },
+      {
+        "exit": 0,
+        "total": 85,
+        "failed": 0,
+        "assertions": [],
+        "report": "mut-46-redundant-cardinality-alone.json",
+        "name": "redundant-cardinality-alone",
+        "qualified": false,
+        "edits": 1
+      },
+      {
+        "exit": 0,
+        "total": 85,
+        "failed": 0,
+        "assertions": [],
+        "report": "mut-47-redundant-uniqueness-alone.json",
+        "name": "redundant-uniqueness-alone",
+        "qualified": false,
+        "edits": 1
+      },
+      {
+        "exit": 0,
+        "total": 85,
+        "failed": 0,
+        "assertions": [],
+        "report": "mut-48-redundant-completeness-alone.json",
+        "name": "redundant-completeness-alone",
+        "qualified": false,
+        "edits": 1
+      }
+    ],
+    "baseline": {
+      "exit": 0,
+      "total": 85,
+      "failed": 0,
+      "assertions": [],
+      "report": "baseline.json"
+    },
+    "restored": {
+      "exit": 0,
+      "total": 85,
+      "failed": 0,
+      "assertions": [],
+      "report": "restored.json"
+    },
+    "restoredExact": true
+  },
+  "compiledMutations": {
+    "hashes": {
+      "dist/agent/agent-deletion.cjs": "2ec919229b194a840a169823b7ba9404394f25e5bc0e261534afe002d96d0fbc",
+      "dist/agent/agent-deletion.d.cts": "7702f7107a9a9ada806f56e9a74a01e44ebdaaa51b3f0cb17d3fe7e776d5cd83"
+    },
+    "mutations": [
+      {
+        "name": "compiled-request-correlation",
+        "kind": "cjs",
+        "exit": 1,
+        "qualified": true,
+        "log": "compiled-request-correlation.log"
+      },
+      {
+        "name": "compiled-address-correlation",
+        "kind": "cjs",
+        "exit": 1,
+        "qualified": true,
+        "log": "compiled-address-correlation.log"
+      },
+      {
+        "name": "public-outcome-type",
+        "kind": "types",
+        "exit": 2,
+        "qualified": true,
+        "log": "public-outcome-type.log"
+      },
+      {
+        "name": "public-shared-scope-type",
+        "kind": "types",
+        "exit": 2,
+        "qualified": true,
+        "log": "public-shared-scope-type.log"
+      },
+      {
+        "name": "public-failure-reason-type",
+        "kind": "types",
+        "exit": 2,
+        "qualified": true,
+        "log": "public-failure-reason-type.log"
+      }
+    ],
+    "baseline": [
+      {
+        "name": "baseline-cjs",
+        "kind": "cjs",
+        "exit": 0,
+        "qualified": false,
+        "log": "baseline-cjs.log"
+      },
+      {
+        "name": "baseline-types",
+        "kind": "types",
+        "exit": 0,
+        "qualified": false,
+        "log": "baseline-types.log"
+      }
+    ],
+    "restored": [
+      {
+        "name": "restored-cjs",
+        "kind": "cjs",
+        "exit": 0,
+        "qualified": false,
+        "log": "restored-cjs.log"
+      },
+      {
+        "name": "restored-types",
+        "kind": "types",
+        "exit": 0,
+        "qualified": false,
+        "log": "restored-types.log"
+      }
+    ],
+    "restoredExact": true
+  },
+  "quality": [
+    {
+      "name": "typecheck",
+      "exit": 0,
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "log": "b0d-quality-typecheck.log"
+    },
+    {
+      "name": "lint",
+      "exit": 0,
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "log": "b0d-quality-lint.log"
+    },
+    {
+      "name": "check-pack",
+      "exit": 0,
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "log": "b0d-quality-check-pack.log"
+    },
+    {
+      "name": "native-cjs",
+      "exit": 0,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.21.0/bin/node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "log": "b0d-quality-native-cjs.log"
+    },
+    {
+      "name": "b0d-cjs24",
+      "exit": 0,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.21.0/bin/node",
+        "tests/cjs/agent-deletion-smoke.cjs"
+      ],
+      "log": "b0d-quality-b0d-cjs24.log"
+    },
+    {
+      "name": "b0d-cjs20",
+      "exit": 0,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/agent-deletion-smoke.cjs"
+      ],
+      "log": "b0d-quality-b0d-cjs20.log"
+    },
+    {
+      "name": "b0d-cjs-types",
+      "exit": 0,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.21.0/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "--ignoreConfig",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2023",
+        "--strict",
+        "--skipLibCheck",
+        "--ignoreDeprecations",
+        "6.0",
+        "tests/cjs/agent-deletion-types.cts"
+      ],
+      "log": "b0d-quality-b0d-cjs-types.log"
+    }
+  ],
+  "build": {
+    "exit": 0,
+    "portableDeclarations": 362,
+    "distCommitted": false
+  },
+  "compiledCommonJS": {
+    "Node20.20.2": {
+      "passed": 27,
+      "total": 27
+    },
+    "Node24.21.0": {
+      "passed": 27,
+      "total": 27
+    },
+    "nativeSmokeRunnerExit": 0
+  },
+  "reports": [
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-red.json",
+      "sha256": "09ea578098fb41df6bbef0f93ba284aa73e94d698faf8f8c03f290c2b6f1fd25"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-piece-red.json",
+      "sha256": "455ebca14267423cd8d252e34b55d1d85ea975fe28c89a7ccc49f2514965df1e"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-green1.json",
+      "sha256": "b52cb1dbcbbb383460bc503665c3e035eec7779d026e834b1a827b2cc0dc6dd6"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-green2.json",
+      "sha256": "67ddf83109e567b55be2e324cac73c31e20f3b474f82e418e7d7d904df210794"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-full-final.json",
+      "sha256": "3ebed82d5cbd0b02ffd9e3646242e2aeda6a73b2c6c719ec02cb399e15704f1e"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-mutations/mutations.json",
+      "sha256": "2134b03b63d810e677759923fddf818b89a8b4efb77c05dd792921f605a544a3"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-mutations-final/mutations.json",
+      "sha256": "943be3c0e4471d3678447a5b6655509512fe9293c331c86ba79b315f79b5251b"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-compiled-mutations/mutations.json",
+      "sha256": "af9a7756f8df62df2b2cce915f4b49cb20f87da8dfc1e091cb46220554c2ea63"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-quality.json",
+      "sha256": "8b56edd1a0be5715424eae7ff8f40c48edce3d2fa92d95b026d404d20b16ab83"
+    },
+    {
+      "path": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-build-final.log",
+      "sha256": "15d4df17d03e680ef9584fe0bde60182844793d7249693f958749754b68279db"
+    }
+  ],
+  "limits": [
+    "Only canonical source boundary; Forge and X9 deletion consumers, storage, concurrency and live proof pending",
+    "No deletion, migration, publish, push, merge or version bump executed",
+    "Three redundant standalone guards survive; two composite scope mutations explicitly labeled and not counted twice",
+    "New CJS fixture is run explicitly because existing native smoke runner is outside perimeter",
+    "Native pack warning root CJS types and node10 ignored resolutions retained; profile unchanged"
+  ],
+  "problemsCorrected": [
+    "Missing node_modules initial startup excluded from reds; frozen lock install succeeded",
+    "TS6 needs --ignoreConfig for explicit CJS fixture file; initial TS5112 excluded",
+    "First source mutation pass had a coherent wrong-namespace test blind spot; added source/CJS case, full final pass45/48",
+    "Rejected exec input contained a NUL before any command ran; runner written using literal strings"
+  ],
+  "sourceHashes": {
+    "src/agent/agent-deletion.ts": "6316a559b13713c7960c65bb45bea15b006a68c6845b7880a274e50c816a865b",
+    "src/http/endpoints/internal-agents-deletion.ts": "9414d8452032009f4c4f8b4f113eea166723eeb2f56cae17efa5c6cf7ed871d8",
+    "tests/agent/agent-deletion.test.ts": "cc96b579a98da4744640362ffe0cfb30e545d7deb2e71cb204fe304f2719d285",
+    "tests/http/endpoints/internal-agents-deletion.test.ts": "a6ec80ee5038410fc0a41bd7d16625a745ba08b4e40522dc5f87d5c47ef48d53",
+    "tests/cjs/agent-deletion-smoke.cjs": "6cf33451942a5e6d576dc84e8d98721ac66ef37c69dc667e6e509eb3e20fb1b7",
+    "tests/cjs/agent-deletion-types.cts": "9c534dffaeffacbc6714695ddb699c06fed834b21e9d7acb23603dca5ea9e7f1"
+  },
+  "ownershipDecision210744": {
+    "steps": 8,
+    "contextWorkspace": "detach in-memory runtime references only",
+    "filesystemAndExternalDataWriter": "Factory existing pipeline",
+    "stackFlowChanged": false,
+    "onlySourceCommentsChanged": true,
+    "sourceWithoutBlockCommentsIdentical": true,
+    "originalSourceSha256": "6316a559b13713c7960c65bb45bea15b006a68c6845b7880a274e50c816a865b",
+    "commentedSourceSha256": "94ced15d48f946f15b16a41f2ecf7a5d5435939418b5d5ed01074a71c055ef02",
+    "reviewIntegrationOwner": "Codex F; coordinator publishes package and consumer pins",
+    "targetedFresh": {
+      "passed": 85,
+      "total": 85,
+      "report": "/private/tmp/codex-e-c5-gruppi-20261008/b0d-ownership-green.json",
+      "sha256": "e7c04d9b3f299edef4fa18d04984da858107b6142e25ff1530c1b2f076a5b976"
+    }
+  }
+}

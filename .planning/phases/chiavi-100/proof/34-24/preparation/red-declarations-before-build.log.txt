@@ -1,0 +1,21 @@
+$ ["pnpm", "exec", "tsc", "--ignoreConfig", "--noEmit", "--module", "Node16", "--moduleResolution", "Node16", "--target", "ES2022", "--strict", "tests/cjs/model-local-authority-types.mts", "tests/cjs/model-local-authority-types.cts", "tests/cjs/model-legacy-observation-types.mts", "tests/cjs/model-legacy-observation-types.cts"]
+tests/cjs/model-legacy-observation-types.cts(1,46): error TS2305: Module '"@x9-forge/contracts"' has no exported member 'ModelConsumerRuntimeState'.
+tests/cjs/model-legacy-observation-types.cts(2,15): error TS2305: Module '"@x9-forge/contracts/model-router"' has no exported member 'ModelConsumerRuntimeState'.
+tests/cjs/model-legacy-observation-types.mts(1,46): error TS2305: Module '"@x9-forge/contracts"' has no exported member 'ModelConsumerRuntimeState'.
+tests/cjs/model-legacy-observation-types.mts(2,15): error TS2305: Module '"@x9-forge/contracts/model-router"' has no exported member 'ModelConsumerRuntimeState'.
+tests/cjs/model-local-authority-types.cts(1,15): error TS2724: '"@x9-forge/contracts/model-router"' has no exported member named 'AgentModelInitialSource'. Did you mean 'AgentModelSource'?
+tests/cjs/model-local-authority-types.cts(1,40): error TS2305: Module '"@x9-forge/contracts/model-router"' has no exported member 'AgentModelSourceObservation'.
+tests/cjs/model-local-authority-types.cts(2,10): error TS2724: '"@x9-forge/contracts"' has no exported member named 'AgentModelInitialSourceSchema'. Did you mean 'AgentModelSourceSchema'?
+tests/cjs/model-local-authority-types.cts(2,65): error TS2305: Module '"@x9-forge/contracts"' has no exported member 'isAgentModelInitialSourceCurrent'.
+tests/cjs/model-local-authority-types.cts(3,10): error TS2305: Module '"@x9-forge/contracts/http"' has no exported member 'agentModelSourceObservationPath'.
+tests/cjs/model-local-authority-types.cts(3,43): error TS2724: '"@x9-forge/contracts/http"' has no exported member named 'internalAgentModelSourceObservationContract'. Did you mean 'internalAgentModelsStateContract'?
+tests/cjs/model-local-authority-types.cts(15,69): error TS2339: Property 'initialSource' does not exist on type '{ identity: { managementAgentId: string & $brand<"AgentId">; runtimeAgentId: string & $brand<"AgentId">; vaultAgentId?: number | undefined; }; versions: { desired: number; applied: number | null; failed: { ...; } | null; } | null; saved: { ...; } | null; runtime: { ...; } | null; }'.
+tests/cjs/model-local-authority-types.mts(1,15): error TS2724: '"@x9-forge/contracts/model-router"' has no exported member named 'AgentModelInitialSource'. Did you mean 'AgentModelSource'?
+tests/cjs/model-local-authority-types.mts(1,40): error TS2305: Module '"@x9-forge/contracts/model-router"' has no exported member 'AgentModelSourceObservation'.
+tests/cjs/model-local-authority-types.mts(2,10): error TS2724: '"@x9-forge/contracts"' has no exported member named 'AgentModelInitialSourceSchema'. Did you mean 'AgentModelSourceSchema'?
+tests/cjs/model-local-authority-types.mts(2,65): error TS2305: Module '"@x9-forge/contracts"' has no exported member 'isAgentModelInitialSourceCurrent'.
+tests/cjs/model-local-authority-types.mts(3,10): error TS2305: Module '"@x9-forge/contracts/http"' has no exported member 'agentModelSourceObservationPath'.
+tests/cjs/model-local-authority-types.mts(3,43): error TS2724: '"@x9-forge/contracts/http"' has no exported member named 'internalAgentModelSourceObservationContract'. Did you mean 'internalAgentModelsStateContract'?
+tests/cjs/model-local-authority-types.mts(15,69): error TS2339: Property 'initialSource' does not exist on type '{ identity: { managementAgentId: string & $brand<"AgentId">; runtimeAgentId: string & $brand<"AgentId">; vaultAgentId?: number | undefined; }; versions: { desired: number; applied: number | null; failed: { ...; } | null; } | null; saved: { ...; } | null; runtime: { ...; } | null; }'.
+
+EXIT_CODE=2

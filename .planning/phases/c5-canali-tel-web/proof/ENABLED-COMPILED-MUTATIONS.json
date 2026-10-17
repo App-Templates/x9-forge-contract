@@ -1,0 +1,21 @@
+{
+  "mutations": [
+    {
+      "variant": "esm",
+      "exitCode": 1,
+      "qualified": true,
+      "functionalFailure": "explicit off expected denied, got admitted"
+    },
+    {
+      "variant": "cjs",
+      "exitCode": 1,
+      "qualified": true,
+      "functionalFailure": "explicit off expected denied, got admitted"
+    }
+  ],
+  "total": 2,
+  "qualified": 2,
+  "sourceRestored": true,
+  "sha256": "6cc93e0690dcc4990886d254a39e7784c0f9916a74d15ee1cd335bed20fda990",
+  "restoredSmokeExitCode": 0
+}

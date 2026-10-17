@@ -1,5 +1,7 @@
 import { z } from 'zod';
+import { CapabilityCredentialRequirementsSchema } from "./capability-credential-requirements.js";
 import { CapabilityParametersDeclarationSchema } from "./parameters.js";
+import { CapabilityOrdinaryDeclarationSchema, checkOrdinaryDeclarationCompatibility } from "./ordinary-declaration.js";
 import { CapabilityPresentationDeclarationSchema } from "./presentation.js";
 import { CapabilityTurnLeadDeclarationSchema } from "./capability-turn-lead.js";
 import { CapabilityToolSchema } from "./capability-tool.js";
@@ -61,6 +63,8 @@ export const CapabilityRegistryEntrySchema = z.object({
      * @since v1.5.0 (Bug D1 — quick-260422-wrz)
      */
     requires: z.array(z.string().min(1)).optional(),
+    /** Explicit per-call fields from loaded agent context; absence authorizes no new credential projection. */
+    credentialRequirements: CapabilityCredentialRequirementsSchema.optional(),
     /**
      * Copied from the manifest's `context` by the registry writer (Forge deploy.machine), like `tools`: the runtime
      * asks this capability for the agent's context at every turn. Absent: never asked.
@@ -72,9 +76,11 @@ export const CapabilityRegistryEntrySchema = z.object({
     turnLead: CapabilityTurnLeadDeclarationSchema.optional(),
     /** Ordinary parameter metadata (B1); absent preserves every pre-v1.29 payload. */
     parameters: CapabilityParametersDeclarationSchema.optional(),
+    /** Complete ordinary-v2 metadata, including typed structured settings; retains all declared B1 definitions. */
+    ordinaryParameters: CapabilityOrdinaryDeclarationSchema.optional(),
     /** Optional output/feedback/trend sections (B7), never configuration of an external project. */
     presentation: CapabilityPresentationDeclarationSchema.optional(),
-});
+}).superRefine(checkOrdinaryDeclarationCompatibility);
 // -- Helpers ------------------------------------------------------------------
 /**
  * Derive the full endpoint URL from a registry entry.

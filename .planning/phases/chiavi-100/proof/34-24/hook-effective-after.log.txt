@@ -1,0 +1,4 @@
+$ ["git", "config", "--get", "core.hooksPath"]
+/Users/admintemp/.x9-bacheca/versioni/v0.1.0/strumenti/hooks
+
+EXIT_CODE=0

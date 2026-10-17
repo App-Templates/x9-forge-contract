@@ -29,4 +29,7 @@ export * from "./capability-model-settings.js";
 export * from "./agent-model-configuration.js";
 export * from "./models-batch.js";
 export * from "./model-consumers.js";
+export * from "./model-consumer-execution.js";
+export * from "./models-version.js";
+export * from "./models-target.js";
 //# sourceMappingURL=index.d.ts.map

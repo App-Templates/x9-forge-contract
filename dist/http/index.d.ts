@@ -15,4 +15,13 @@ export type { SseTextFrame, SseToolCallStartFrame, SseToolCallEndFrame, SseDoneF
 export { parseSseFrame, parseSseStream } from "./sse-parser.js";
 export type { ParsedSseEvent } from "./sse-parser.js";
 export { capToolCallContract, capToolCallPath, CapToolCallParamsSchema } from "./endpoints/cap-tool-call.js";
+export * from "./endpoints/forge-elevenlabs-web.js";
+export * from "./endpoints/internal-agent-channel-history-content.js";
+export * from "./endpoints/forge-agent-channel-history-content.js";
+export * from "./endpoints/coach-operational-common.js";
+export * from "./endpoints/coach-operational-write.js";
+export * from "./endpoints/coach-operational-read.js";
+export * from "./endpoints/native-channel.js";
+export * from "./endpoints/internal-capability-news-briefing.js";
+export * from "./endpoints/coach-operational-authority.js";
 //# sourceMappingURL=index.d.ts.map

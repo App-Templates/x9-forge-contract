@@ -1,0 +1,166 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-147-1[39m
+
+ [31m❯[39m tests/http/endpoints/c5-channel-resource.test.ts [2m([22m[2m33 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 19[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mdeclares the creation/rotation boundary using the existing session and canonical schemas[32m 2[2mms[22m[39m
+[31m   [31m×[31m C5 browser resource facades[2m > [22mdeclares read-only progress scoped to one management agent, door and request id[39m[32m 9[2mms[22m[39m
+[31m     → expected ZodObject{ _zod: { …(10) }, …(60) } to be ZodObject{ _zod: { …(10) }, …(60) } // Object.is equality[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mbuilds the resource path for telegram and retains exact request identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mbuilds the resource path for email and retains exact request identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: foreign door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path agent injection[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: path request injection[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: short request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: missing request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mrejects invalid progress parameters: client endpoint[32m 0[2mms[22m[39m
+   [32m✓[39m C5 browser resource facades[2m > [22mdoes not build paths from malformed parameters[32m 1[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22maccepts only this server-derived owner/tenant or the trusted SA role[32m 1[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: foreign tenant[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: anonymous[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: role only[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: client SA extra fields[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects untrusted or foreign access: unrecognized role[32m 0[2mms[22m[39m
+   [32m✓[39m C5 trusted Forge authorization[2m > [22mrejects malformed resolved intents even for an SA[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22maccepts only the exact request scoped through its management identity[32m 1[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: runtime id used as management[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign management[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: foreign request[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another route: invalid params[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: tenant[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: management identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: runtime identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: vault identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mrejects a receipt for another trusted binding: missing binding[32m 0[2mms[22m[39m
+   [32m✓[39m C5 progress route correlation[2m > [22mdoes not authorize malformed or over-collected public receipts[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/http/endpoints/c5-channel-resource.test.ts[2m > [22mC5 browser resource facades[2m > [22mdeclares read-only progress scoped to one management agent, door and request id
+[31m[1mAssertionError[22m: expected ZodObject{ _zod: { …(10) }, …(60) } to be ZodObject{ _zod: { …(10) }, …(60) } // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -212,106 +212,10 @@[39m
+[2m          "toJSONSchema": [Function anonymous],[22m
+[2m          "transform": [Function anonymous],[22m
+[2m          "type": "enum",[22m
+[2m          "with": [Function anonymous],[22m
+[2m        },[22m
+[32m-       "requestId": ZodString {[39m
+[32m-         "and": [Function anonymous],[39m
+[32m-         "apply": [Function anonymous],[39m
+[32m-         "array": [Function anonymous],[39m
+[32m-         "base64": [Function anonymous],[39m
+[32m-         "base64url": [Function anonymous],[39m
+[32m-         "brand": [Function anonymous],[39m
+[32m-         "catch": [Function anonymous],[39m
+[32m-         "check": [Function anonymous],[39m
+[32m-         "cidrv4": [Function anonymous],[39m
+[32m-         "cidrv6": [Function anonymous],[39m
+[32m-         "clone": [Function anonymous],[39m
+[32m-         "cuid": [Function anonymous],[39m
+[32m-         "cuid2": [Function anonymous],[39m
+[32m-         "date": [Function anonymous],[39m
+[32m-         "datetime": [Function anonymous],[39m
+[32m-         "decode": [Function anonymous],[39m
+[32m-         "decodeAsync": [Function anonymous],[39m
+[32m-         "def": {[39m
+[32m-           "checks": [[39m
+[32m-             $ZodCheckMinLength {},[39m
+[32m-             $ZodCheckMaxLength {},[39m
+[32m-             $ZodCheckRegex {},[39m
+[32m-           ],[39m
+[32m-           "type": "string",[39m
+[32m-         },[39m
+[32m-         "default": [Function anonymous],[39m
+[32m-         "describe": [Function anonymous],[39m
+[32m-         "duration": [Function anonymous],[39m
+[32m-         "e164": [Function anonymous],[39m
+[32m-         "email": [Function anonymous],[39m
+[32m-         "emoji": [Function anonymous],[39m
+[32m-         "encode": [Function anonymous],[39m
+[32m-         "encodeAsync": [Function anonymous],[39m
+[32m-         "endsWith": [Function anonymous],[39m
+[32m-         "exactOptional": [Function anonymous],[39m
+[32m-         "format": "regex",[39m
+[32m-         "guid": [Function anonymous],[39m
+[32m-         "includes": [Function anonymous],[39m
+[32m-         "ipv4": [Function anonymous],[39m
+[32m-         "ipv6": [Function anonymous],[39m
+[32m-         "isNullable": [Function anonymous],[39m
+[32m-         "isOptional": [Function anonymous],[39m
+[32m-         "jwt": [Function anonymous],[39m
+[32m-         "ksuid": [Function anonymous],[39m
+[32m-         "length": [Function anonymous],[39m
+[32m-         "lowercase": [Function anonymous],[39m
+[32m-         "max": [Function anonymous],[39m
+[32m-         "maxLength": 128,[39m
+[32m-         "meta": [Function anonymous],[39m
+[32m-         "min": [Function anonymous],[39m
+[32m-         "minLength": 8,[39m
+[32m-         "nanoid": [Function anonymous],[39m
+[32m-         "nonempty": [Function anonymous],[39m
+[32m-         "nonoptional": [Function anonymous],[39m
+[32m-         "normalize": [Function anonymous],[39m
+[32m-         "nullable": [Function anonymous],[39m
+[32m-         "nullish": [Function anonymous],[39m
+[32m-         "optional": [Function anonymous],[39m
+[32m-         "or": [Function anonymous],[39m
+[32m-         "overwrite": [Function anonymous],[39m
+[32m-         "parse": [Function anonymous],[39m
+[32m-         "parseAsync": [Function anonymous],[39m
+[32m-         "pipe": [Function anonymous],[39m
+[32m-         "prefault": [Function anonymous],[39m
+[32m-         "readonly": [Function anonymous],[39m
+[32m-         "refine": [Function anonymous],[39m
+[32m-         "regex": [Function anonymous],[39m
+[32m-         "register": [Function anonymous],[39m
+[32m-         "safeDecode": [Function anonymous],[39m
+[32m-         "safeDecodeAsync": [Function anonymous],[39m
+[32m-         "safeEncode": [Function anonymous],[39m
+[32m-         "safeEncodeAsync": [Function anonymous],[39m
+[32m-         "safeParse": [Function anonymous],[39m
+[32m-         "safeParseAsync": [Function anonymous],[39m
+[32m-         "slugify": [Function anonymous],[39m
+[32m-         "spa": [Function anonymous],[39m
+[32m-         "startsWith": [Function anonymous],[39m
+[32m-         "superRefine": [Function anonymous],[39m
+[32m-         "time": [Function anonymous],[39m
+[32m-         "toJSONSchema": [Function anonymous],[39m
+[32m-         "toLowerCase": [Function anonymous],[39m
+[32m-         "toUpperCase": [Function anonymous],[39m
+[32m-         "transform": [Function anonymous],[39m
+[32m-         "trim": [Function anonymous],[39m
+[32m-         "type": "string",[39m
+[32m-         "ulid": [Function anonymous],[39m
+[32m-         "uppercase": [Function anonymous],[39m
+[32m-         "url": [Function anonymous],[39m
+[32m-         "uuid": [Function anonymous],[39m
+[32m-         "uuidv4": [Function anonymous],[39m
+[32m-         "uuidv6": [Function anonymous],[39m
+[32m-         "uuidv7": [Function anonymous],[39m
+[32m-         "with": [Function anonymous],[39m
+[32m-         "xid": [Function anonymous],[39m
+[32m-       },[39m
+[2m      },[22m
+[2m      "type": "object",[22m
+[2m    },[22m
+[2m    "default": [Function anonymous],[22m
+[2m    "describe": [Function anonymous],[22m
+
+[36m [2m❯[22m tests/http/endpoints/c5-channel-resource.test.ts:[2m34:37[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m32 passed[39m[22m[90m (33)[39m
+[2m   Start at [22m 20:53:35
+[2m   Duration [22m 600ms[2m (transform 240ms, setup 5ms, collect 431ms, tests 19ms, environment 0ms, prepare 33ms)[22m
+

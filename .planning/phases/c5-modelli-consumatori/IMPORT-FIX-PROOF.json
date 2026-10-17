@@ -1,0 +1,187 @@
+{
+  "baseProduct": "f364f3b175e082cd755125614a18680830daf5b2",
+  "planCommit": "e0f0872",
+  "sourceFull": {
+    "passed": 5036,
+    "total": 5036,
+    "files": 167,
+    "skipped": 0,
+    "beforeBuild": true
+  },
+  "publicFirstBefore": {
+    "passed": 34,
+    "total": 36,
+    "failures": [
+      "ESM vault TDZ",
+      "CJS vault deferred key invalid"
+    ]
+  },
+  "publicFirstAfter": {
+    "passed": 36,
+    "total": 36,
+    "publicPaths": 18,
+    "processes": "one clean process per subpath and format"
+  },
+  "quality": [
+    {
+      "name": "types",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "seconds": 2.38
+    },
+    {
+      "name": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exit": 0,
+      "seconds": 2.99
+    },
+    {
+      "name": "build",
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "exit": 0,
+      "seconds": 6.17
+    },
+    {
+      "name": "first-green",
+      "command": [
+        "node",
+        "tests/cjs/public-entrypoints-first.mjs",
+        "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-import-fix/FIRST-GREEN.json"
+      ],
+      "exit": 0,
+      "seconds": 4.79
+    },
+    {
+      "name": "public-models",
+      "command": [
+        "node",
+        "tests/cjs/c5-models-consumers-smoke.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.29
+    },
+    {
+      "name": "public-consumers",
+      "command": [
+        "node",
+        "tests/cjs/model-consumers-smoke.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.17
+    },
+    {
+      "name": "native-cjs",
+      "command": [
+        "node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.18
+    },
+    {
+      "name": "pack",
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "exit": 0,
+      "seconds": 3.43
+    }
+  ],
+  "mutations": {
+    "causalFaults": [
+      {
+        "fault": "ESM-eager-cycle",
+        "failed": 1,
+        "restored": true,
+        "freshPassed": 36,
+        "total": 36
+      },
+      {
+        "fault": "CJS-eager-cycle",
+        "failed": 1,
+        "restored": true,
+        "freshPassed": 36,
+        "total": 36
+      }
+    ],
+    "allEntryControls": {
+      "failed": 36,
+      "total": 36,
+      "freshPassed": 36,
+      "restoredFiles": {
+        "dist/index.js": true,
+        "dist/index.cjs": true,
+        "dist/auth/index.js": true,
+        "dist/auth/index.cjs": true,
+        "dist/agent/index.js": true,
+        "dist/agent/index.cjs": true,
+        "dist/capability/index.js": true,
+        "dist/capability/index.cjs": true,
+        "dist/capability/voice/index.js": true,
+        "dist/capability/voice/index.cjs": true,
+        "dist/capability/stt/index.js": true,
+        "dist/capability/stt/index.cjs": true,
+        "dist/capability/tts/index.js": true,
+        "dist/capability/tts/index.cjs": true,
+        "dist/capability/voice-live/index.js": true,
+        "dist/capability/voice-live/index.cjs": true,
+        "dist/capability/ricerca/index.js": true,
+        "dist/capability/ricerca/index.cjs": true,
+        "dist/capability/lab/index.js": true,
+        "dist/capability/lab/index.cjs": true,
+        "dist/http/index.js": true,
+        "dist/http/index.cjs": true,
+        "dist/memory/index.js": true,
+        "dist/memory/index.cjs": true,
+        "dist/messaging/index.js": true,
+        "dist/messaging/index.cjs": true,
+        "dist/model-router/index.js": true,
+        "dist/model-router/index.cjs": true,
+        "dist/rag/index.js": true,
+        "dist/rag/index.cjs": true,
+        "dist/vault/index.js": true,
+        "dist/vault/index.cjs": true,
+        "dist/capability/parameters.js": true,
+        "dist/capability/parameters.cjs": true,
+        "dist/capability/presentation.js": true,
+        "dist/capability/presentation.cjs": true
+      }
+    }
+  },
+  "normalTestWiring": {
+    "normalNativeSmokeFaultExit": 1,
+    "freshGreenExit": 0,
+    "restored": true
+  },
+  "publicModels": {
+    "passed": 158,
+    "total": 158,
+    "surfaces": 8
+  },
+  "publicConsumers": {
+    "passed": 48,
+    "total": 48,
+    "surfaces": 4
+  },
+  "portableDeclarations": {
+    "passed": 386,
+    "total": 386
+  },
+  "sourceFilesChanged": 1,
+  "credentialLinkSourceChanged": false,
+  "live": {
+    "passed": 0,
+    "total": 34
+  },
+  "review": "Codex A required on this corrective delta"
+}

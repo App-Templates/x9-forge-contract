@@ -1,0 +1,4 @@
+$ ["node", "model-legacy-observation-smoke.mjs"]
+{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","passed":4,"total":4,"assertions":112,"results":[{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"esm","suffix":"root","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"esm","suffix":"/model-router","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"cjs","suffix":"root","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"cjs","suffix":"/model-router","assertions":28}]}
+
+EXIT_CODE=0

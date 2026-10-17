@@ -1,0 +1,1221 @@
+[
+  {
+    "id": 1,
+    "name": "known-GOOGLE_CONTACTS_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 2,
+    "name": "shape-GOOGLE_CONTACTS_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 3,
+    "name": "known-GOOGLE_CONTACTS_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 4,
+    "name": "shape-GOOGLE_CONTACTS_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 5,
+    "name": "known-GOOGLE_CONTACTS_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 6,
+    "name": "shape-GOOGLE_CONTACTS_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 7,
+    "name": "known-NETATMO_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 8,
+    "name": "shape-NETATMO_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 9,
+    "name": "known-NETATMO_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 10,
+    "name": "shape-NETATMO_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 11,
+    "name": "known-NETATMO_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 12,
+    "name": "shape-NETATMO_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 13,
+    "name": "known-NETATMO_ACCESS_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 14,
+    "name": "shape-NETATMO_ACCESS_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 15,
+    "name": "known-NETATMO_PASSWORD",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 23,
+      "failed": 2,
+      "assertions": 2,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 16,
+    "name": "shape-NETATMO_PASSWORD",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credentials.ts",
+    "sha256": "b3dcd619fbf6705e9298b92fdfb6ed14e4e9230ff8669fa9e941a21a9ca59ea1",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 17,
+    "name": "kind-GOOGLE_CALENDAR_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 18,
+    "name": "secret-GOOGLE_CALENDAR_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 19,
+    "name": "service-GOOGLE_CALENDAR_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 20,
+    "name": "missing-GOOGLE_CALENDAR_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 21,
+    "name": "kind-GOOGLE_CONTACTS_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 22,
+    "name": "secret-GOOGLE_CONTACTS_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 23,
+    "name": "service-GOOGLE_CONTACTS_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 24,
+    "name": "missing-GOOGLE_CONTACTS_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 25,
+    "name": "kind-GOOGLE_CONTACTS_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 26,
+    "name": "secret-GOOGLE_CONTACTS_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 27,
+    "name": "service-GOOGLE_CONTACTS_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 28,
+    "name": "missing-GOOGLE_CONTACTS_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 29,
+    "name": "kind-GOOGLE_CONTACTS_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 30,
+    "name": "secret-GOOGLE_CONTACTS_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 31,
+    "name": "service-GOOGLE_CONTACTS_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 32,
+    "name": "missing-GOOGLE_CONTACTS_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 33,
+    "name": "kind-NETATMO_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 34,
+    "name": "secret-NETATMO_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 35,
+    "name": "service-NETATMO_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 36,
+    "name": "missing-NETATMO_CLIENT_ID",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 37,
+    "name": "kind-NETATMO_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 38,
+    "name": "secret-NETATMO_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 39,
+    "name": "service-NETATMO_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 40,
+    "name": "missing-NETATMO_CLIENT_SECRET",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 41,
+    "name": "kind-NETATMO_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 42,
+    "name": "secret-NETATMO_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 43,
+    "name": "service-NETATMO_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 44,
+    "name": "missing-NETATMO_REFRESH_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 45,
+    "name": "kind-NETATMO_ACCESS_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 46,
+    "name": "secret-NETATMO_ACCESS_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 47,
+    "name": "service-NETATMO_ACCESS_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 48,
+    "name": "missing-NETATMO_ACCESS_TOKEN",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 49,
+    "name": "kind-NETATMO_PASSWORD",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 50,
+    "name": "secret-NETATMO_PASSWORD",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 51,
+    "name": "service-NETATMO_PASSWORD",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 52,
+    "name": "missing-NETATMO_PASSWORD",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 24,
+      "failed": 1,
+      "assertions": 1,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  },
+  {
+    "id": 53,
+    "name": "netatmo-enum",
+    "file": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-175-1/src/agent/agent-credential-services.ts",
+    "sha256": "178152d0f6cd96032a8c488c0cce1b2ce0cf2d6a04578dbfab70c7369cbfa2b3",
+    "red": {
+      "exitCode": 1,
+      "total": 25,
+      "passed": 20,
+      "failed": 5,
+      "assertions": 5,
+      "success": false
+    },
+    "exactRestore": true,
+    "green": {
+      "exitCode": 0,
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "assertions": 0,
+      "success": true
+    }
+  }
+]

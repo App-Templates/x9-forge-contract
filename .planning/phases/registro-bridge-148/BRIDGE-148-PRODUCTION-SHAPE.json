@@ -1,0 +1,19 @@
+{
+  "checks": 8,
+  "passed": 8,
+  "formats": [
+    "ESM",
+    "CJS"
+  ],
+  "files": {
+    "stato-master.json": "a57567020f35acc2ef5bb237587e69e07d15c6e745bbfa2a0067b0a05da55cc4",
+    "stato-memory-embedding.json": "4d3fac077ba3a45ed1ed0fe43ce30674dfcc59414d473991e7bdd1fdd4a5f4fb"
+  },
+  "selections": 10,
+  "excluded": 24,
+  "progress": {
+    "completed": 490,
+    "total": 490
+  },
+  "note": "Coordinator-captured public production shape with synthetic UUIDs; offline parsing, no live call."
+}

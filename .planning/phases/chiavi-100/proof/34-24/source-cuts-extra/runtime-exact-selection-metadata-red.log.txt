@@ -1,0 +1,126 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/c5-model-consumer-execution.test.ts", "--maxWorkers=1", "-t", "M02"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/c5-model-consumer-execution.test.ts (91 tests | 3 failed | 84 skipped) 9ms
+   ↓ C5 consumer installation transport > E01 strict detached request and observed state round trip
+   ↓ C5 consumer installation transport > E02 install request requires identity
+   ↓ C5 consumer installation transport > E02 install request requires scope
+   ↓ C5 consumer installation transport > E02 install request requires slotId
+   ↓ C5 consumer installation transport > E02 install request requires configVersion
+   ↓ C5 consumer installation transport > E02 install request requires requestId
+   ↓ C5 consumer installation transport > E02 install request requires expectedSourceVersion
+   ↓ C5 consumer installation transport > E02 install request requires settings
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"slotId":"unknown"}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"scope":{"agentId":"other","ownerId":"synthetic-owner","tenantId":"synthetic-tenant"}}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime"}}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"expectedSourceVersion":" "}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"configVersion":0}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"settings":{"capability":"memory","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":true},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"automatic","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"},"tiers":{},"fallback":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"extra":true}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"credentials":{}}
+   ↓ C5 consumer installation transport > E03 rejects unauthorized shape {"context":{}}
+   ↓ C5 consumer installation transport > E04 install CAS uses the fresh observed generation {"sourceVersion":"changed"}
+   ↓ C5 consumer installation transport > E04 install CAS uses the fresh observed generation {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}}
+   ↓ C5 consumer installation transport > E04 install CAS uses the fresh observed generation {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"other","vaultAgentId":71}}
+   ↓ C5 consumer installation transport > E04 install CAS uses the fresh observed generation {"scope":{"agentId":"synthetic-runtime","ownerId":"other","tenantId":"synthetic-tenant"}}
+   ↓ C5 consumer installation transport > E04 install CAS uses the fresh observed generation {"scope":{"agentId":"synthetic-runtime","ownerId":"synthetic-owner","tenantId":"other"}}
+   ↓ C5 consumer installation transport > E04 install CAS uses the fresh observed generation {"scope":{"agentId":"other","ownerId":"synthetic-owner","tenantId":"synthetic-tenant"}}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"configVersion":2}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"requestId":"other-request"}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"identity":{"managementAgentId":"other","runtimeAgentId":"synthetic-runtime","vaultAgentId":71}}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"other","vaultAgentId":71}}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"scope":{"agentId":"synthetic-runtime","ownerId":"other","tenantId":"synthetic-tenant"}}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"scope":{"agentId":"synthetic-runtime","ownerId":"synthetic-owner","tenantId":"other"}}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"slotId":"security_rules"}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"settings":{"capability":"agent-core","function":"reasoning","catalogVersion":"synthetic-catalog","requirements":{"tools":false,"stream":false,"structuredOutput":false},"mode":"single","descriptor":{"provider":"openai","modelId":"synthetic-other","protocol":"chat-completions","adapterId":"synthetic-adapter"}}}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"settings":null}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"status":"unknown"}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"status":"pending"}
+   ↓ C5 consumer installation transport > E05 wrong readback never proves installation {"reason":"unexpected"}
+   ↓ C5 consumer installation transport > E06 pending/failed or mismatched receipt is unconfirmed {"requestId":"other-request"}
+   ↓ C5 consumer installation transport > E06 pending/failed or mismatched receipt is unconfirmed {"outcome":"pending"}
+   ↓ C5 consumer installation transport > E06 pending/failed or mismatched receipt is unconfirmed {"outcome":"failed"}
+   ↓ C5 consumer installation transport > E06 pending/failed or mismatched receipt is unconfirmed {"outcome":"ok"}
+   ↓ C5 consumer installation transport > E06 pending/failed or mismatched receipt is unconfirmed {"extra":true}
+   ↓ C5 consumer installation transport > E07 readback must be fresh 2026-10-09T06:20:30Z
+   ↓ C5 consumer installation transport > E07 readback must be fresh 2026-10-09T06:19:00Z
+   ↓ C5 consumer installation transport > E07 readback must be fresh invalid
+   ↓ C5 consumer installation transport > E08 installed state has complete evidence {"settings":null}
+   ↓ C5 consumer installation transport > E08 installed state has complete evidence {"configVersion":null}
+   ↓ C5 consumer installation transport > E08 installed state has complete evidence {"requestId":null}
+   ↓ C5 consumer installation transport > E08 installed state has complete evidence {"sourceVersion":" "}
+   ↓ C5 consumer installation transport > E08 installed state has complete evidence {"validUntil":"2026-10-09T06:20:00Z"}
+   ↓ C5 consumer installation transport > E08 installed state has complete evidence {"extra":true}
+   ↓ C5 consumer installation transport > E15 observed state requires identity
+   ↓ C5 consumer installation transport > E15 observed state requires scope
+   ↓ C5 consumer installation transport > E15 observed state requires slotId
+   ↓ C5 consumer installation transport > E15 observed state requires sourceVersion
+   ↓ C5 consumer installation transport > E15 observed state requires observedAt
+   ↓ C5 consumer installation transport > E15 observed state requires validUntil
+   ↓ C5 consumer installation transport > E15 observed state requires status
+   ↓ C5 consumer installation transport > E15 observed state requires configVersion
+   ↓ C5 consumer installation transport > E15 observed state requires requestId
+   ↓ C5 consumer installation transport > E15 observed state requires settings
+   ↓ C5 consumer installation transport > E15 observed state requires reason
+   ↓ C5 consumer installation transport > E15 observed state requires embedding
+   ↓ C5 consumer installation transport > E16 receipt schema alone rejects conflicting completion {"requestId":"other-request"}
+   ↓ C5 consumer installation transport > E16 receipt schema alone rejects conflicting completion {"outcome":"pending"}
+   ↓ C5 consumer installation transport > E16 receipt schema alone rejects conflicting completion {"outcome":"failed"}
+   ↓ C5 consumer installation transport > E17 readback schema rejects wrong consumer independently of the request
+   ↓ C5 consumer installation transport > E18 previous embedding active is not target installed while rebuilding
+   ↓ C5 consumer installation transport > E09 unknown state stays unknown with sanitized reason
+   ↓ C5 consumer installation transport > E10 shared scope cannot make another agent installed
+   ↓ C5 consumer installation transport > E11 embedding readback stays previous until rebuild completes
+   ↓ C5 consumer installation transport > E12 canonical transport publishes strict JSON schemas for Python and the same scope paths
+   ↓ C5 consumer installation transport > E14 replay identity includes the bootstrap precondition
+   ↓ C5 consumer installation transport > E13 apply-config carries optional bootstrap absence/generation CAS without breaking old commands
+   ↓ C5 shared runtime comparison > M01 single consumer matches one primary only
+   ✓ C5 shared runtime comparison > M02 runtime mismatch {"configVersion":2} stays unconfirmed 2ms
+   ✓ C5 shared runtime comparison > M02 runtime mismatch {"identity":{"managementAgentId":"synthetic-master","runtimeAgentId":"synthetic-runtime","vaultAgentId":72}} stays unconfirmed 0ms
+   ✓ C5 shared runtime comparison > M02 runtime mismatch {"selections":[]} stays unconfirmed 0ms
+   ✓ C5 shared runtime comparison > M02 runtime mismatch {"selections":[{"slotId":"agent_classifier","capability":"agent-core","function":"reasoning","tier":"standard","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}]} stays unconfirmed 0ms
+   × C5 shared runtime comparison > M02 runtime mismatch {"selections":[{"slotId":"agent_classifier","capability":"agent-core","function":"reasoning","tier":"primary","descriptor":{"provider":"openai","modelId":"other","protocol":"chat-completions","adapterId":"synthetic-adapter"}}]} stays unconfirmed 4ms
+     → expected true to be false // Object.is equality
+   × C5 shared runtime comparison > M02 runtime mismatch {"selections":[{"slotId":"agent_classifier","capability":"other","function":"reasoning","tier":"primary","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}]} stays unconfirmed 1ms
+     → expected true to be false // Object.is equality
+   × C5 shared runtime comparison > M02 runtime mismatch {"selections":[{"slotId":"agent_classifier","capability":"agent-core","function":"tts","tier":"primary","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}]} stays unconfirmed 0ms
+     → expected true to be false // Object.is equality
+   ↓ C5 shared runtime comparison > M08 extra runtime consumer does not prove the requested aggregate
+   ↓ C5 shared runtime comparison > M03 failover requires both ordered descriptors
+   ↓ C5 shared runtime comparison > M04 runtime vector dimension is part of installation evidence
+   ↓ C5 shared runtime comparison > M05 stale runtime 2026-10-09T06:22:00Z remains unconfirmed
+   ↓ C5 shared runtime comparison > M05 stale runtime 2026-10-09T06:19:00Z remains unconfirmed
+   ↓ C5 shared runtime comparison > M05 stale runtime invalid remains unconfirmed
+   ↓ C5 shared runtime comparison > M06 equivalent settings preserve mode/features/dimension/catalog authority
+   ↓ C5 shared runtime comparison > M07 transport route binding rejects a path/body slot mismatch
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/c5-model-consumer-execution.test.ts > C5 shared runtime comparison > M02 runtime mismatch {"selections":[{"slotId":"agent_classifier","capability":"agent-core","function":"reasoning","tier":"primary","descriptor":{"provider":"openai","modelId":"other","protocol":"chat-completions","adapterId":"synthetic-adapter"}}]} stays unconfirmed
+ FAIL  tests/model-router/c5-model-consumer-execution.test.ts > C5 shared runtime comparison > M02 runtime mismatch {"selections":[{"slotId":"agent_classifier","capability":"other","function":"reasoning","tier":"primary","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}]} stays unconfirmed
+ FAIL  tests/model-router/c5-model-consumer-execution.test.ts > C5 shared runtime comparison > M02 runtime mismatch {"selections":[{"slotId":"agent_classifier","capability":"agent-core","function":"tts","tier":"primary","descriptor":{"provider":"openai","modelId":"synthetic-model","protocol":"chat-completions","adapterId":"synthetic-adapter"}}]} stays unconfirmed
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/model-router/c5-model-consumer-execution.test.ts:44:496
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 4 passed | 84 skipped (91)
+   Start at  21:51:17
+   Duration  600ms (transform 265ms, setup 4ms, collect 460ms, tests 9ms, environment 0ms, prepare 31ms)
+
+
+EXIT_CODE=1

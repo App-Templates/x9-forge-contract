@@ -63,6 +63,66 @@ export declare const VoiceLiveCallStartRequestSchema: z.ZodObject<{
     locale: z.ZodDefault<z.ZodString>;
 }, z.core.$strict>;
 export type VoiceLiveCallStartRequest = z.infer<typeof VoiceLiveCallStartRequestSchema>;
+/** Explicit standalone mode is selected by trusted server configuration, never inferred from missing managed keys. */
+export declare const StandaloneVoiceLiveCallStartRequestSchema: z.ZodObject<{
+    call_id: z.ZodString;
+    agent_id: z.ZodString;
+    to_number: z.ZodString;
+    contact_name: z.ZodString;
+    instructions: z.ZodString;
+    backend_instructions: z.ZodString;
+    tools: z.ZodArray<z.ZodObject<{
+        name: z.ZodString;
+        description: z.ZodString;
+        parameters: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+        mutating: z.ZodBoolean;
+    }, z.core.$strip>>;
+    voice: z.ZodString;
+    backend_model: z.ZodString;
+    locale: z.ZodDefault<z.ZodString>;
+    credentialPolicy: z.ZodLiteral<"standalone">;
+}, z.core.$strict>;
+export type StandaloneVoiceLiveCallStartRequest = z.infer<typeof StandaloneVoiceLiveCallStartRequestSchema>;
+/** Only the OpenAI-Live/Telnyx call lane is admitted here; ElevenLabs uses its native call lane. */
+export declare const ManagedVoiceLiveCredentialsSchema: z.ZodObject<{
+    OPENAI_API_KEY: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    TELNYX_API_KEY: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    TELNYX_CONNECTION_ID: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    TELNYX_FROM_NUMBER: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    TELNYX_PUBLIC_KEY: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+}, z.core.$strict>;
+export declare const ManagedVoiceLiveCallStartRequestSchema: z.ZodObject<{
+    call_id: z.ZodString;
+    agent_id: z.ZodString;
+    to_number: z.ZodString;
+    contact_name: z.ZodString;
+    instructions: z.ZodString;
+    backend_instructions: z.ZodString;
+    tools: z.ZodArray<z.ZodObject<{
+        name: z.ZodString;
+        description: z.ZodString;
+        parameters: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+        mutating: z.ZodBoolean;
+    }, z.core.$strip>>;
+    voice: z.ZodString;
+    backend_model: z.ZodString;
+    locale: z.ZodDefault<z.ZodString>;
+    credentialPolicy: z.ZodLiteral<"managed">;
+    identity: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    credentials: z.ZodObject<{
+        OPENAI_API_KEY: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        TELNYX_API_KEY: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        TELNYX_CONNECTION_ID: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        TELNYX_FROM_NUMBER: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        TELNYX_PUBLIC_KEY: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type ManagedVoiceLiveCallStartRequest = z.infer<typeof ManagedVoiceLiveCallStartRequestSchema>;
 export declare const VoiceLiveCallStartResponseSchema: z.ZodObject<{
     call_id: z.ZodString;
     provider: z.ZodEnum<{
@@ -73,6 +133,17 @@ export declare const VoiceLiveCallStartResponseSchema: z.ZodObject<{
     started_at: z.ZodString;
 }, z.core.$strip>;
 export type VoiceLiveCallStartResponse = z.infer<typeof VoiceLiveCallStartResponseSchema>;
+/** Managed boundary returns only the native call result, never admitted credentials. */
+export declare const ManagedVoiceLiveCallStartResponseSchema: z.ZodObject<{
+    call_id: z.ZodString;
+    provider: z.ZodEnum<{
+        elevenlabs: "elevenlabs";
+        openai_live: "openai_live";
+    }>;
+    conversation_id: z.ZodString;
+    started_at: z.ZodString;
+}, z.core.$strict>;
+export type ManagedVoiceLiveCallStartResponse = z.infer<typeof ManagedVoiceLiveCallStartResponseSchema>;
 /** One transcript turn as reconstructed from GPT-Live transcript deltas. */
 export declare const VoiceLiveTranscriptTurnSchema: z.ZodObject<{
     role: z.ZodEnum<{

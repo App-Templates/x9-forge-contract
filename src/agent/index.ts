@@ -63,6 +63,8 @@ export * from './agent-channel-configuration.js';
 export * from './agent-creation-replay.js';
 
 export * from './agent-channel-attestation.js';
+export * from './agent-creation-authority.js';
+export * from './agent-creation-by-email.js';
 
 // R7 / D-A9: versioned human core and generated progressive skills.
 export * from './agent-workspace.js';
@@ -83,3 +85,20 @@ export * from './agent-phone-channel.js';
 export * from './agent-phone-commands.js';
 // Forge-declared context authority, including explicit Master/heir provenance.
 export * from './agent-context-identity.js';
+
+// C5 resource operations for existing agents; no credential material.
+export * from './agent-channel-resource-operation.js';
+
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from './agent-deletion.js';
+// C5: exact telephone admission and explicit server-owned outbound correlation.
+export * from './agent-phone-admission.js';
+
+export * from './agent-channel-history.js';
+
+// Canonical descriptor digest shared by the control plane and runtime.
+export * from './agent-workspace-digest.js';
+
+export * from './ordinary-authority.js';
+export * from './agent-knowledge-address-book.js';
+export * from './agent-channel-history-content.js';

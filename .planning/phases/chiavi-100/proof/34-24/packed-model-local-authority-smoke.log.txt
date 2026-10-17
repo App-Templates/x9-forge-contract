@@ -1,0 +1,4 @@
+$ ["node", "model-local-authority-smoke.mjs"]
+{"status":"passed","surfaces":["esm:root","esm:/model-router","esm:http","cjs:root","cjs:/model-router","cjs:http"],"surfaceCount":6,"assertions":186}
+
+EXIT_CODE=0

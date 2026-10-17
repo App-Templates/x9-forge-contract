@@ -33,9 +33,9 @@ export declare const LabIngestInputSchema: z.ZodObject<{
         agentId: z.ZodString;
         state: z.ZodEnum<{
             failed: "failed";
-            running: "running";
             completed: "completed";
             queued: "queued";
+            running: "running";
             budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
@@ -71,9 +71,9 @@ export declare const LabIngestStatusOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         completed: "completed";
         queued: "queued";
+        running: "running";
         budget_exhausted: "budget_exhausted";
     }>;
     sourcesStored: z.ZodOptional<z.ZodNumber>;
@@ -149,4 +149,25 @@ export type LabCompetenceInput = z.infer<typeof LabCompetenceInputSchema>;
 export type LabCompetenceOutput = z.infer<typeof LabCompetenceOutputSchema>;
 export type LabIngestStatusInput = z.infer<typeof LabIngestStatusInputSchema>;
 export type LabIngestStatusOutput = z.infer<typeof LabIngestStatusOutputSchema>;
+/** Worker-owned paid execution, deliberately excluded from model-visible LAB_TOOLS. */
+export declare const LAB_INTERNAL_TOOLS: {
+    readonly execute: "lab_execute";
+};
+/** Receiver validates the current full-scope SQL claim and its unexpired lease before effects. */
+export declare const LabExecuteInputSchema: z.ZodObject<{
+    jobId: z.ZodUUID;
+    leaseToken: z.ZodUUID;
+}, z.core.$strict>;
+export declare const LabExecuteOutputSchema: z.ZodObject<{
+    jobId: z.ZodUUID;
+    state: z.ZodEnum<{
+        failed: "failed";
+        completed: "completed";
+        queued: "queued";
+        running: "running";
+        budget_exhausted: "budget_exhausted";
+    }>;
+}, z.core.$strict>;
+export type LabExecuteInput = z.infer<typeof LabExecuteInputSchema>;
+export type LabExecuteOutput = z.infer<typeof LabExecuteOutputSchema>;
 //# sourceMappingURL=tools.d.ts.map

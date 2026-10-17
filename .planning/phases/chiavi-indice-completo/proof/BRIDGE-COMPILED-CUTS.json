@@ -1,0 +1,2250 @@
+{
+  "baseline": [
+    {
+      "exitCode": 0,
+      "assertion": false,
+      "result": {
+        "mode": "esm",
+        "passed": 25,
+        "total": 25
+      }
+    },
+    {
+      "exitCode": 0,
+      "assertion": false,
+      "result": {
+        "mode": "cjs",
+        "passed": 25,
+        "total": 25
+      }
+    }
+  ],
+  "cuts": [
+    {
+      "mode": "esm",
+      "id": 1,
+      "name": "known-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 2,
+      "name": "shape-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 3,
+      "name": "known-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 4,
+      "name": "shape-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 5,
+      "name": "known-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 6,
+      "name": "shape-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 7,
+      "name": "known-NETATMO_CLIENT_ID",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 8,
+      "name": "shape-NETATMO_CLIENT_ID",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 9,
+      "name": "known-NETATMO_CLIENT_SECRET",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 10,
+      "name": "shape-NETATMO_CLIENT_SECRET",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 11,
+      "name": "known-NETATMO_REFRESH_TOKEN",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 12,
+      "name": "shape-NETATMO_REFRESH_TOKEN",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 13,
+      "name": "known-NETATMO_ACCESS_TOKEN",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 14,
+      "name": "shape-NETATMO_ACCESS_TOKEN",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 15,
+      "name": "known-NETATMO_PASSWORD",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 16,
+      "name": "shape-NETATMO_PASSWORD",
+      "sha256": "75aca5c9fecf349d7e2cad1c524d0815e287b1cb48b6d19582e42f26f3aa2858",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 17,
+      "name": "kind-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 18,
+      "name": "secret-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 19,
+      "name": "service-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 20,
+      "name": "missing-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 21,
+      "name": "kind-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 22,
+      "name": "secret-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 23,
+      "name": "service-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 24,
+      "name": "missing-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 25,
+      "name": "kind-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 26,
+      "name": "secret-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 27,
+      "name": "service-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 28,
+      "name": "missing-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 29,
+      "name": "kind-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 30,
+      "name": "secret-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 31,
+      "name": "service-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 32,
+      "name": "missing-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 33,
+      "name": "kind-NETATMO_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 34,
+      "name": "secret-NETATMO_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 35,
+      "name": "service-NETATMO_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 36,
+      "name": "missing-NETATMO_CLIENT_ID",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 37,
+      "name": "kind-NETATMO_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 38,
+      "name": "secret-NETATMO_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 39,
+      "name": "service-NETATMO_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 40,
+      "name": "missing-NETATMO_CLIENT_SECRET",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 41,
+      "name": "kind-NETATMO_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 42,
+      "name": "secret-NETATMO_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 43,
+      "name": "service-NETATMO_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 44,
+      "name": "missing-NETATMO_REFRESH_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 45,
+      "name": "kind-NETATMO_ACCESS_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 46,
+      "name": "secret-NETATMO_ACCESS_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 47,
+      "name": "service-NETATMO_ACCESS_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 48,
+      "name": "missing-NETATMO_ACCESS_TOKEN",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 49,
+      "name": "kind-NETATMO_PASSWORD",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 50,
+      "name": "secret-NETATMO_PASSWORD",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 51,
+      "name": "service-NETATMO_PASSWORD",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 52,
+      "name": "missing-NETATMO_PASSWORD",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "esm",
+      "id": 53,
+      "name": "netatmo-enum",
+      "sha256": "b5283109eceed28e26fa075723ecc8aea4d7a323378374aac00d0b534d5fcb97",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "esm",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 1,
+      "name": "known-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 2,
+      "name": "shape-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 3,
+      "name": "known-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 4,
+      "name": "shape-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 5,
+      "name": "known-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 6,
+      "name": "shape-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 7,
+      "name": "known-NETATMO_CLIENT_ID",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 8,
+      "name": "shape-NETATMO_CLIENT_ID",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 9,
+      "name": "known-NETATMO_CLIENT_SECRET",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 10,
+      "name": "shape-NETATMO_CLIENT_SECRET",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 11,
+      "name": "known-NETATMO_REFRESH_TOKEN",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 12,
+      "name": "shape-NETATMO_REFRESH_TOKEN",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 13,
+      "name": "known-NETATMO_ACCESS_TOKEN",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 14,
+      "name": "shape-NETATMO_ACCESS_TOKEN",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 15,
+      "name": "known-NETATMO_PASSWORD",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 16,
+      "name": "shape-NETATMO_PASSWORD",
+      "sha256": "4f6174d5931407ff8cd42569761fcf3088c9973cc4fae6fdb14a0375cff02e1f",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 17,
+      "name": "kind-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 18,
+      "name": "secret-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 19,
+      "name": "service-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 20,
+      "name": "missing-GOOGLE_CALENDAR_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 21,
+      "name": "kind-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 22,
+      "name": "secret-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 23,
+      "name": "service-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 24,
+      "name": "missing-GOOGLE_CONTACTS_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 25,
+      "name": "kind-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 26,
+      "name": "secret-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 27,
+      "name": "service-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 28,
+      "name": "missing-GOOGLE_CONTACTS_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 29,
+      "name": "kind-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 30,
+      "name": "secret-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 31,
+      "name": "service-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 32,
+      "name": "missing-GOOGLE_CONTACTS_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 33,
+      "name": "kind-NETATMO_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 34,
+      "name": "secret-NETATMO_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 35,
+      "name": "service-NETATMO_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 36,
+      "name": "missing-NETATMO_CLIENT_ID",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 37,
+      "name": "kind-NETATMO_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 38,
+      "name": "secret-NETATMO_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 39,
+      "name": "service-NETATMO_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 40,
+      "name": "missing-NETATMO_CLIENT_SECRET",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 41,
+      "name": "kind-NETATMO_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 42,
+      "name": "secret-NETATMO_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 43,
+      "name": "service-NETATMO_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 44,
+      "name": "missing-NETATMO_REFRESH_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 45,
+      "name": "kind-NETATMO_ACCESS_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 46,
+      "name": "secret-NETATMO_ACCESS_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 47,
+      "name": "service-NETATMO_ACCESS_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 48,
+      "name": "missing-NETATMO_ACCESS_TOKEN",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 49,
+      "name": "kind-NETATMO_PASSWORD",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 50,
+      "name": "secret-NETATMO_PASSWORD",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 51,
+      "name": "service-NETATMO_PASSWORD",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 52,
+      "name": "missing-NETATMO_PASSWORD",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    },
+    {
+      "mode": "cjs",
+      "id": 53,
+      "name": "netatmo-enum",
+      "sha256": "8029ddbdd94a9ba4cbdd891b7f4dad808b1281a5522bf4dd172702a0cbee36c1",
+      "red": {
+        "exitCode": 1,
+        "assertion": true,
+        "result": null
+      },
+      "exactRestore": true,
+      "green": {
+        "exitCode": 0,
+        "assertion": false,
+        "result": {
+          "mode": "cjs",
+          "passed": 25,
+          "total": 25
+        }
+      }
+    }
+  ]
+}

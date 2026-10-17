@@ -1,0 +1,27 @@
+{
+  "base": "8b44af1f98c25b40f9bed68305da328f9c5888be",
+  "paths": [
+    ".planning/phases/c5-modelli-bridge/FINAL-PROOF.json",
+    ".planning/phases/c5-modelli-bridge/INVENTORY-MUTATION-PROOF.json",
+    ".planning/phases/c5-modelli-bridge/PLAN.md",
+    ".planning/phases/c5-modelli-bridge/PROVENANCE-MUTATION-PROOF.json",
+    ".planning/phases/c5-modelli-bridge/PUBLIC-PROOF.json",
+    ".planning/phases/c5-modelli-bridge/RAW-MANIFEST.json",
+    ".planning/phases/c5-modelli-bridge/SUMMARY.md",
+    ".planning/phases/c5-modelli-bridge/TYPE-PROBE.ts",
+    ".planning/phases/c5-modelli-bridge/mutate_inventory.py",
+    ".planning/phases/c5-modelli-bridge/mutate_provenance.py",
+    ".planning/phases/c5-modelli-bridge/public-smoke.mjs",
+    "src/model-router/agent-model-configuration.ts",
+    "src/model-router/model-catalog.ts",
+    "tests/model-router/c5-model-inventory.test.ts",
+    "tests/model-router/c5-model-provenance.test.ts",
+    ".planning/phases/c5-modelli-bridge/DIST-RESTORE-PROOF.json",
+    ".planning/phases/c5-modelli-bridge/PERIMETER-PROOF.json"
+  ],
+  "oldTestsModified": 0,
+  "removedFiles": 0,
+  "sourceChanges": 2,
+  "newTestFiles": 2,
+  "distChanges": 0
+}

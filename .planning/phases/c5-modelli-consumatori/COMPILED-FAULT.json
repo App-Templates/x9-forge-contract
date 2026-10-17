@@ -1,0 +1,30 @@
+{
+  "faults": [
+    {
+      "surface": "js",
+      "redExit": 1,
+      "semantic": "AssertionError true !== false",
+      "sha256": "fbfeb6ca12526b278016ecbb6222b07c698c353ab61ffe4070728afede4da075",
+      "restored": true,
+      "fresh": {
+        "passed": 104,
+        "total": 104,
+        "surfaces": 8
+      }
+    },
+    {
+      "surface": "cjs",
+      "redExit": 1,
+      "semantic": "AssertionError true !== false",
+      "sha256": "2d0d0377824cd22bc5687132db7048514c7575ea299bf7c7c706f2e494c09744",
+      "restored": true,
+      "fresh": {
+        "passed": 104,
+        "total": 104,
+        "surfaces": 8
+      }
+    }
+  ],
+  "qualified": 2,
+  "total": 2
+}

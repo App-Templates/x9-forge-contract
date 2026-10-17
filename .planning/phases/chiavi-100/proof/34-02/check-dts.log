@@ -1,0 +1,5 @@
+
+> @x9-forge/contracts@1.44.0 check:dts /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+> node scripts/check-portable-dts.mjs
+
+[check-portable-dts] OK — 378 .d.ts files scanned, all portable.

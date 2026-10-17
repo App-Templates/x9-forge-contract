@@ -1,0 +1,194 @@
+[
+  {
+    "cut": "esm-schema-known",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e8b69991861603ebc6a6373686a74374293f2371ef3266e855beef1cee76d72e",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-schema-schema",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e8b69991861603ebc6a6373686a74374293f2371ef3266e855beef1cee76d72e",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-schema-optional",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e8b69991861603ebc6a6373686a74374293f2371ef3266e855beef1cee76d72e",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-schema-string",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e8b69991861603ebc6a6373686a74374293f2371ef3266e855beef1cee76d72e",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-schema-non-string",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e8b69991861603ebc6a6373686a74374293f2371ef3266e855beef1cee76d72e",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-metadata-metadata",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "83be2d1b2c7b5e8d4847c4d1760c9145f6052e15c25d8ecd3fd5570977e00b5f",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-metadata-secret",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "83be2d1b2c7b5e8d4847c4d1760c9145f6052e15c25d8ecd3fd5570977e00b5f",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-metadata-kind",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "83be2d1b2c7b5e8d4847c4d1760c9145f6052e15c25d8ecd3fd5570977e00b5f",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-metadata-service",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "83be2d1b2c7b5e8d4847c4d1760c9145f6052e15c25d8ecd3fd5570977e00b5f",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-metadata-label",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "83be2d1b2c7b5e8d4847c4d1760c9145f6052e15c25d8ecd3fd5570977e00b5f",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-metadata-unknown",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "83be2d1b2c7b5e8d4847c4d1760c9145f6052e15c25d8ecd3fd5570977e00b5f",
+    "exact_restore": true
+  },
+  {
+    "cut": "esm-preservation-baseline",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "83be2d1b2c7b5e8d4847c4d1760c9145f6052e15c25d8ecd3fd5570977e00b5f",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-schema-known",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "fa9fe76ef1f2e12423e1155651a9c5104ddd7716b516185caec64a6f49f02af5",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-schema-schema",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "fa9fe76ef1f2e12423e1155651a9c5104ddd7716b516185caec64a6f49f02af5",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-schema-optional",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "fa9fe76ef1f2e12423e1155651a9c5104ddd7716b516185caec64a6f49f02af5",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-schema-string",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "fa9fe76ef1f2e12423e1155651a9c5104ddd7716b516185caec64a6f49f02af5",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-schema-non-string",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "fa9fe76ef1f2e12423e1155651a9c5104ddd7716b516185caec64a6f49f02af5",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-metadata-metadata",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e7b18d72be111b68bf81719ee5df89da78cc6ac9b9454083cc62185d038c046f",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-metadata-secret",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e7b18d72be111b68bf81719ee5df89da78cc6ac9b9454083cc62185d038c046f",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-metadata-kind",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e7b18d72be111b68bf81719ee5df89da78cc6ac9b9454083cc62185d038c046f",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-metadata-service",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e7b18d72be111b68bf81719ee5df89da78cc6ac9b9454083cc62185d038c046f",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-metadata-label",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e7b18d72be111b68bf81719ee5df89da78cc6ac9b9454083cc62185d038c046f",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-metadata-unknown",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e7b18d72be111b68bf81719ee5df89da78cc6ac9b9454083cc62185d038c046f",
+    "exact_restore": true
+  },
+  {
+    "cut": "cjs-preservation-baseline",
+    "red_exit": 1,
+    "assertion": true,
+    "restore_exit": 0,
+    "source_or_compiled_sha256": "e7b18d72be111b68bf81719ee5df89da78cc6ac9b9454083cc62185d038c046f",
+    "exact_restore": true
+  }
+]

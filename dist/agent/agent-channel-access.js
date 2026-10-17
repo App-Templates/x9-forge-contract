@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema, sameCapabilityScope } from "../capability/capability-call-context.js";
 import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js";
 import { AgentRuntimeIdentitySchema } from "./agent-runtime-identity.js";
+import { VoiceLiveCallStartRequestSchema } from "../capability/voice-live/index.js";
 /** Explicit ownership for access control; names and credentials never confer authorization. */
 export const AgentChannelAccessBindingSchema = z.object({
     scope: CapabilityAgentScopeSchema.strict(), identity: AgentRuntimeIdentitySchema.strict(),
@@ -49,9 +50,15 @@ export const AgentChannelAddressBookSchema = AgentChannelAccessBindingSchema.saf
     observedAt: z.iso.datetime({ offset: true }).nullable(),
     emails: z.array(AgentChannelEmailAddressSchema).max(2048)
         .refine(emails => new Set(emails).size === emails.length, { message: 'Address-book emails must be unique' }).nullable(),
+    /** Legacy absence/null is not a complete telephone source. Contacts remain producer-owned. */
+    phones: z.array(VoiceLiveCallStartRequestSchema.shape.to_number).max(2048)
+        .refine(phones => new Set(phones).size === phones.length, { message: 'Address-book phones must be unique' }).nullable().optional(),
 }).superRefine((book, ctx) => {
     if (book.status === 'complete' && (book.version === null || book.observedAt === null || book.emails === null)) {
         ctx.addIssue({ code: 'custom', message: 'A complete address-book requires version, time and exact entries' });
+    }
+    if (book.status !== 'complete' && book.phones != null) {
+        ctx.addIssue({ code: 'custom', path: ['phones'], message: 'Incomplete contact sources cannot publish telephone entries' });
     }
     if (book.status !== 'complete' && book.emails !== null) {
         ctx.addIssue({ code: 'custom', path: ['emails'], message: 'Incomplete contact sources cannot publish an admission list' });

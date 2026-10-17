@@ -71,6 +71,14 @@ export {
 export * from './capability-turn-lead.js';
 
 export * from './parameters.js';
+export * from './ordinary-configuration.js';
+export * from './ordinary-declaration.js';
+export * from './ordinary-lifecycle.js';
+export * from './configuration/feeds.js';
+export * from './configuration/briefing.js';
+export * from './configuration/conditions.js';
+export * from './configuration/rules.js';
+export * from './configuration/camera-policy.js';
 export * from './presentation.js';
 
 // Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
@@ -88,6 +96,9 @@ export * from './approvals/index.js';
 // cap-backup: restore points of the owner's servers, first client of the signed approvals (phase 59)
 export * from './backup/index.js';
 
+// Owner notices: a registered device of the owner asks cap-approvals to message the owner's agent chat
+export * from './notice/index.js';
+
 // C3-B1: independent Web admission policy and server-owned invitations.
 export * from './agent-elevenlabs/web-channel.js';
 
@@ -96,4 +107,35 @@ export * from './agent-elevenlabs/web-catalog.js';
 
 export * from './agent-elevenlabs/web-context.js';
 
+export * from './agent-elevenlabs/web-browser.js';
+export * from './agent-elevenlabs/web-invitations.js';
+
+export * from './capability-credential-requirements.js';
+
 export * from './paperclip/index.js';
+
+// Connections: start, state and revoke of a person's provider link, plus tool permits (feature connessioni)
+export * from './connect/index.js';
+
+
+// Canonical portable contracts for the Python capability consumer.
+export * from './portable-contracts.js';
+export * from './coach/program-version.js';
+export * from './coach/execution.js';
+
+export * from './coach/measures.js';
+export * from './coach/accounting.js';
+export * from './coach/rolling-budget.js';
+
+export * from './agent-elevenlabs/coach-binding.js';
+
+export * from './coach/operational/index.js';
+
+export * from './agent-elevenlabs/native-session.js';
+export * from './agent-elevenlabs/native-session-grant.js';
+
+export * from './agent-elevenlabs/native-tools.js';
+
+export * from './agent-elevenlabs/native-config.js';
+export * from './agent-elevenlabs/native-readback.js';
+export * from './configuration/news-briefing.js';

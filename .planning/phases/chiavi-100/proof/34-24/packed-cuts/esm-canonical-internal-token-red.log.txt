@@ -1,0 +1,21 @@
+$ ["node", "result-guard-probe.mjs", "esm"]
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: retained18 rejects canonical INTERNAL_TOKEN at depth
+
+true !== false
+
+    at file:///private/tmp/codex-a-chiavi-completamento/proofs/34-24/installed-consumer/result-guard-probe.mjs:5:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.14.1
+
+EXIT_CODE=1

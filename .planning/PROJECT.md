@@ -206,3 +206,7 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 *Last updated: 2026-04-16 after v1.0 milestone close. Bridge Foundation SHIPPED (PR #1 merged, git tag v1.0). Next: v1.1 Shim Cleanup + Bookkeeping (Phase 7 + tech debt closure) when ready.*
+
+## Validated release preparation — Modelli bridge 145 (2026-10-09)
+
+Version1.45.0 releasea5103c97: nativepackage andactualGitSHAinstallation qualified in3isolatedroots/fourcontexts; seephase01VERIFICATION andFINALPROOF. Canonicalsrc/dist retained;0/34liveuserflows inthisphase. Coordinatorpublishes/tags;independentrelease reviewpending. HistoricalShimCleanup remainsoutofscope.

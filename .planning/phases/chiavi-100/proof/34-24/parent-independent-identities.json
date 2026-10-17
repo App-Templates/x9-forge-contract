@@ -1,0 +1,13 @@
+{
+  "status": "PASS_SOURCE_ARCHIVE_IDENTITIES",
+  "checked": {
+    "source_files": 195,
+    "dist_files": 1560,
+    "test_files": 21,
+    "archive_dist_files": 1560
+  },
+  "archive_sha256": "b644e82dcf5290d5a83b47c69e7f35e9ca0e7f659dafa01d08b454f73d1576cc",
+  "source_commit": null,
+  "scope": "Parent verifies every manifest source/dist/test file and immutable archive; independent semantic review remains pending.",
+  "tracked_diff_sha256": "f8e491e136153105a0365f6a3b644bf890d89ca0662d273430ded682c4ec757a"
+}

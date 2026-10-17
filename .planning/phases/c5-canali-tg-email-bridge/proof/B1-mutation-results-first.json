@@ -1,0 +1,230 @@
+{
+  "sourceSha256": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76",
+  "restoredSha256": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76",
+  "rows": [
+    {
+      "id": 1,
+      "label": "command strict",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-01.txt"
+    },
+    {
+      "id": 2,
+      "label": "command CAS ordering",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-02.txt"
+    },
+    {
+      "id": 3,
+      "label": "intent Vault required",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-03.txt"
+    },
+    {
+      "id": 4,
+      "label": "previous resource binding",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-04.txt"
+    },
+    {
+      "id": 5,
+      "label": "previous resource door",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-05.txt"
+    },
+    {
+      "id": 6,
+      "label": "creation must be absent",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-06.txt"
+    },
+    {
+      "id": 7,
+      "label": "rotation Telegram only",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-07.txt"
+    },
+    {
+      "id": 8,
+      "label": "rotation existing resource",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-08.txt"
+    },
+    {
+      "id": 9,
+      "label": "ready validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-09.txt"
+    },
+    {
+      "id": 10,
+      "label": "ready binding",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-10.txt"
+    },
+    {
+      "id": 11,
+      "label": "ready door",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-11.txt"
+    },
+    {
+      "id": 12,
+      "label": "ready desired CAS",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-12.txt"
+    },
+    {
+      "id": 13,
+      "label": "ready applied CAS",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-13.txt"
+    },
+    {
+      "id": 14,
+      "label": "ready resource identity",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-14.txt"
+    },
+    {
+      "id": 15,
+      "label": "result strict",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-15.txt"
+    },
+    {
+      "id": 16,
+      "label": "result binding",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-16.txt"
+    },
+    {
+      "id": 17,
+      "label": "result door",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-17.txt"
+    },
+    {
+      "id": 18,
+      "label": "result resource binding",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-18.txt"
+    },
+    {
+      "id": 19,
+      "label": "progress time ordering",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-19.txt"
+    },
+    {
+      "id": 20,
+      "label": "observation future bound",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-20.txt"
+    },
+    {
+      "id": 21,
+      "label": "result version lower bound",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-21.txt"
+    },
+    {
+      "id": 22,
+      "label": "result version upper bound",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-22.txt"
+    },
+    {
+      "id": 23,
+      "label": "rotation preserves bot",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-23.txt"
+    },
+    {
+      "id": 24,
+      "label": "failed resource must reconcile",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-24.txt"
+    },
+    {
+      "id": 25,
+      "label": "fixed error presence",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-25.txt"
+    },
+    {
+      "id": 26,
+      "label": "explicit reconciliation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-26.txt"
+    },
+    {
+      "id": 27,
+      "label": "applied advances exactly once",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-27.txt"
+    },
+    {
+      "id": 28,
+      "label": "applied has resource",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-28.txt"
+    },
+    {
+      "id": 29,
+      "label": "applied runtime evidence",
+      "exit": 0,
+      "semanticRed": false,
+      "log": "B1-first-mutant-29.txt"
+    },
+    {
+      "id": 30,
+      "label": "applied observation is new",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-30.txt"
+    },
+    {
+      "id": 31,
+      "label": "receipt full correlation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-31.txt"
+    },
+    {
+      "id": 32,
+      "label": "receipt validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B1-first-mutant-32.txt"
+    }
+  ]
+}

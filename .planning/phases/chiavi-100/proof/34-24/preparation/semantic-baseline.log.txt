@@ -1,0 +1,11 @@
+$ ["node", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/preparation/baseline-composition-probe.cjs"]
+SEMANTIC_RED AgentModelInitialSourceSchema: ERR_ASSERTION
+SEMANTIC_RED isAgentModelInitialSourceCurrent: ERR_ASSERTION
+SEMANTIC_RED ModelConsumerRuntimeStateSchema: ERR_ASSERTION
+SEMANTIC_RED ModelConsumerInstallRequestSchema: ERR_ASSERTION
+SEMANTIC_RED ModelConsumerInstallReceiptSchema: ERR_ASSERTION
+SEMANTIC_RED internalModelConsumerStateContract: ERR_ASSERTION
+SEMANTIC_RED internalAgentModelSourceObservationContract: ERR_ASSERTION
+BASELINE pending-export assertions 7/7 RED; retained result checks 58/58 GREEN; public credentials/catalog 29 names
+
+EXIT_CODE=1

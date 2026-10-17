@@ -24,6 +24,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./internal-agents-list.cjs"), exports);
 __exportStar(require("./internal-agents-reload.cjs"), exports);
 __exportStar(require("./internal-agents-stop.cjs"), exports);
+__exportStar(require("./internal-run-stop.cjs"), exports);
+__exportStar(require("./internal-run-native-stop.cjs"), exports);
+__exportStar(require("./internal-publication.cjs"), exports);
+__exportStar(require("./internal-participant-binding.cjs"), exports); // POST /internal/participant-binding/{apply,read,list,withdraw,resolve}, secret auth
+__exportStar(require("./internal-publication-read.cjs"), exports);
 __exportStar(require("./internal-agents-management.cjs"), exports); // v1.31.0 — R1b commands + management state
 __exportStar(require("./internal-turn.cjs"), exports);
 __exportStar(require("./internal-turn-stream.cjs"), exports);
@@ -35,6 +40,7 @@ __exportStar(require("./internal-memory-extract.cjs"), exports); // Phase 36.9 �
 __exportStar(require("./internal-capability-agent.cjs"), exports); // v1.28.0 — Phase 54 per-agent capability routes (cap-ricerca / cap-lab)
 __exportStar(require("./internal-capability-elevenlabs.cjs"), exports); // v1.31.0 — R6 cap-agent-elevenlabs provisioning + channel state
 __exportStar(require("./internal-capability-coach.cjs"), exports); // v1.31.0 — R6 cap-coach programs, sessions, person snapshot
+__exportStar(require("./internal-capability-dev.cjs"), exports); // P04-d — cap-dev get/put config and get state
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);
@@ -59,6 +65,7 @@ __exportStar(require("./webhook-inbound-email.cjs"), exports); // POST /webhook/
 __exportStar(require("./cap-turn-lead.cjs"), exports);
 __exportStar(require("./internal-factory-creation.cjs"), exports); // R2 opt-in replayable deploy, legacy contract unchanged.
 __exportStar(require("./internal-channel-attestation.cjs"), exports);
+__exportStar(require("./internal-agent-creation-by-email.cjs"), exports);
 __exportStar(require("./voice-catalog.cjs"), exports);
 __exportStar(require("./internal-agent-model-catalog.cjs"), exports);
 __exportStar(require("./internal-models-batch.cjs"), exports);
@@ -70,4 +77,30 @@ __exportStar(require("./internal-agent-phone-channel.cjs"), exports);
 __exportStar(require("./forge-agent-phone-channel.cjs"), exports);
 __exportStar(require("./internal-capability-elevenlabs-web.cjs"), exports);
 __exportStar(require("./capability-elevenlabs-web-context.cjs"), exports);
+// C5 existing-agent resource operations, browser session only.
+__exportStar(require("./forge-agent-channel-resource.cjs"), exports);
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+__exportStar(require("./internal-agents-deletion.cjs"), exports);
+__exportStar(require("./internal-agent-channel-history.cjs"), exports);
+__exportStar(require("./forge-agent-channel-history.cjs"), exports);
+__exportStar(require("./internal-agent-tool-dispatch.cjs"), exports);
+__exportStar(require("./internal-agent-voice-source.cjs"), exports);
+__exportStar(require("./internal-agent-model-source-observation.cjs"), exports);
+__exportStar(require("./forge-master-model-authority.cjs"), exports);
+__exportStar(require("./internal-models-apply.cjs"), exports);
+__exportStar(require("./internal-vault-connection.cjs"), exports);
+__exportStar(require("./internal-connect.cjs"), exports);
+__exportStar(require("./connection-card.cjs"), exports);
+__exportStar(require("./web-connection-cards.cjs"), exports);
+__exportStar(require("./internal-memory-experience.cjs"), exports);
+__exportStar(require("./internal-memory-decisions.cjs"), exports);
+__exportStar(require("./internal-memory-knowledge.cjs"), exports);
+__exportStar(require("./connect-public.cjs"), exports);
+__exportStar(require("./internal-connection-completed.cjs"), exports);
+__exportStar(require("./internal-agents-ordinary-authority.cjs"), exports);
+__exportStar(require("./forge-elevenlabs-web.cjs"), exports);
+__exportStar(require("./internal-agent-address-book.cjs"), exports);
+__exportStar(require("./native-binding-read.cjs"), exports);
+__exportStar(require("./coach-person-program-read.cjs"), exports);
+__exportStar(require("./coach-browser.cjs"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/Users/admintemp/.nvm/versions/node/v24.14.1/bin:/usr/bin:/bin",
+    "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+    "/private/tmp/codex-a-chiavi-completamento/bridge-34-02-smoke.mjs",
+    "/private/tmp/codex-a-chiavi-completamento/proofs/34-02/private-compiled-package",
+    "esm"
+  ],
+  "cwd": "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1",
+  "exit_code": 0
+}

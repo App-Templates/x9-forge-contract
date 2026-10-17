@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/private/tmp/a-chiavi-indice-20261009/qualify-compiled.py", line 27, in <module>
+    assert red['exitCode']!=0 and red['assertion'],(name,red)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('missing-GOOGLE_CONTACTS_CLIENT_ID', {'exitCode': 1, 'assertion': False, 'result': None})

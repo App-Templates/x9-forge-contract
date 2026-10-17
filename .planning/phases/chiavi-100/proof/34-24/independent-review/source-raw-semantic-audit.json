@@ -1,0 +1,443 @@
+{
+  "product_scope_errors": [],
+  "valid_source_rows": [
+    {
+      "name": "initial-runtime-binding",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-runtime-binding-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-validity-window",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-validity-window-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-complete-slot-partition",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-complete-slot-partition-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-no-missing-or-all-excluded",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-no-missing-or-all-excluded-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-canonical-consumer-settings",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-canonical-consumer-settings-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-state-exact-identity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-state-exact-identity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-state-no-saved-version",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-state-no-saved-version-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-state-no-competing-authority",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-state-no-competing-authority-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-roleless-strict",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-roleless-strict-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-complete-vault-identity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-complete-vault-identity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-fresh-time",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-fresh-time-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "initial-generation-identity-scope",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/initial-generation-identity-scope-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "modern-source-runtime-binding",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/modern-source-runtime-binding-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "modern-source-time-order",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/modern-source-time-order-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "modern-source-saved-provenance",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/modern-source-saved-provenance-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "modern-source-state-identity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/modern-source-state-identity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "modern-source-state-scope",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/modern-source-state-scope-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "modern-source-freshness",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/modern-source-freshness-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-install-registered",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-install-registered-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-runtime-scoped",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-runtime-scoped-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-readback-registered-slot",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-readback-registered-slot-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-readback-validity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-readback-validity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-readback-public-reason",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-readback-public-reason-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-readback-registered-settings",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-readback-registered-settings-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-installed-complete-proof",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-installed-complete-proof-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-observed-actual-settings",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-observed-actual-settings-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-observed-no-version",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-observed-no-version-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-observed-no-request",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-observed-no-request-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-active-vector-space",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-active-vector-space-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-rebuild-before-install",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-rebuild-before-install-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-installed-receipt-matches",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-installed-receipt-matches-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-pending-never-installed",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-pending-never-installed-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-read-request-registered",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-read-request-registered-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-current-cas-authority",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-current-cas-authority-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-confirm-freshness",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-confirm-freshness-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-confirm-request-version-slot",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-confirm-request-version-slot-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-confirm-identity-scope-settings",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-confirm-identity-scope-settings-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "consumer-route-slot-binding",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/consumer-route-slot-binding-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "single-embedding-dimension",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/single-embedding-dimension-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "single-selection-position",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/single-selection-position-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "failover-selection-order",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/failover-selection-order-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "catalog-embedding-dimension",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/catalog-embedding-dimension-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "catalog-vision-search-support",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/catalog-vision-search-support-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-unknown-provenance",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-unknown-provenance-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-complete-no-missing",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-complete-no-missing-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-incomplete-public-reason",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-incomplete-public-reason-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-missing-slots-unique",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-missing-slots-unique-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-exact-identity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-exact-identity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-owner-binding",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-owner-binding-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-unique-coverage",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-unique-coverage-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-present-missing-disjoint",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-present-missing-disjoint-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-cross-namespace-identity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-cross-namespace-identity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-vault-identity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-vault-identity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "overview-owner-coverage-access",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/overview-owner-coverage-access-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "writer-coverage-request-scoped",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/writer-coverage-request-scoped-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "writer-unrelated-coverage-does-not-block",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/writer-unrelated-coverage-does-not-block-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "command-version-cas",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/command-version-cas-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "command-observed-generation-required",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/command-observed-generation-required-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "command-bootstrap-generation-matches",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/command-bootstrap-generation-matches-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "command-replay-full-semantic-identity",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/command-replay-full-semantic-identity-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "failover-no-embedding",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts/fixture-repair/failover-no-embedding-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "registry-detached-definitions",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/registry-detached-definitions-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "registry-detached-lookup",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/registry-detached-lookup-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "registry-required-metadata",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/registry-required-metadata-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "registry-feature-types",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/registry-feature-types-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "runtime-exact-position-count",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/runtime-exact-position-count-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "runtime-vector-dimension",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/runtime-vector-dimension-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "runtime-exact-selection-metadata",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/runtime-exact-selection-metadata-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "apply-confirm-explicit-authority",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/apply-confirm-explicit-authority-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "command-direct-generation-authority",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/command-direct-generation-authority-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "command-registered-consumer-authority",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/command-registered-consumer-authority-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "local-http-required-auth",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/local-http-required-auth-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    },
+    {
+      "name": "public-model-execution-export",
+      "log": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/source-cuts-extra/public-model-execution-export-red.log",
+      "semantic_assertion_visible": true,
+      "no_loader_TypeError": true
+    }
+  ]
+}

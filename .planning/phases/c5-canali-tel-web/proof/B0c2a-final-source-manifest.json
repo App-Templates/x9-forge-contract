@@ -1,0 +1,7 @@
+{
+  "src/capability/agent-elevenlabs/web-channel.ts": "ab9cb6104b35b2f37c371fc743c30a1c8d80737b61c5d90865b26b68948ba584",
+  "src/capability/agent-elevenlabs/web-session.ts": "6cc93e0690dcc4990886d254a39e7784c0f9916a74d15ee1cd335bed20fda990",
+  "tests/capability/agent-elevenlabs-web-channel.test.ts": "e5526d8046ba6a0c6b6fa01c8388b31588383b71e0c9dfa00134f6fcda0a3f3f",
+  "tests/capability/agent-elevenlabs-web-session.test.ts": "e31946227e71a7e72b27b4dfd836615ea634b5a6e9138391e41f2c1ca8227889",
+  "tests/cjs/c5-phone-web-smoke.mjs": "6625a9c27cf0e155b3986cdccfc00f28c5237c264ee905da942aa87da3d7b4ec"
+}

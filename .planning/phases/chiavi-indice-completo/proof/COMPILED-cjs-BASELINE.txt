@@ -1,0 +1,1 @@
+{"mode":"cjs","passed":25,"total":25}

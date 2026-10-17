@@ -1,5 +1,10 @@
 import { z } from 'zod';
 import { InternalMemoryExtractRequestSchema } from '../http/endpoints/internal-memory-extract.js';
+import {
+  OrganizationToolCallContextSchema,
+  ToolCallReceiptSchema,
+} from '../organization/tool-call-correlation.js';
+import { CapabilityOrdinaryCallSnapshotSchema } from './ordinary-configuration.js';
 
 /**
  * Request sent by X9 agent-core to a capability service.
@@ -24,6 +29,7 @@ export const ToolCallRequestSchema = z.object({
   /** Authenticated end user, injected by the runtime rather than the model. */
   userId: InternalMemoryExtractRequestSchema.shape.userId,
   credentials: z.record(z.string(), z.string()).optional(),
+  organization: OrganizationToolCallContextSchema.optional(),
   /**
    * F-2 (v1.13.0) — Optional per-agent memory-scope identity, attached by
    * agent-core's tool-router from the dispatching agent's context.json.
@@ -37,6 +43,22 @@ export const ToolCallRequestSchema = z.object({
    */
   tenantId: z.string().min(1).optional(),
   ownerId: z.string().min(1).optional(),
+  /**
+   * Numeric Vault id of the dispatching agent (`identity.vaultAgentId`),
+   * injected by the runtime, never by the model. Lets capability services ask
+   * the Vault for an access token on behalf of the right agent.
+   */
+  vaultAgentId: z.number().int().positive().optional(),
+  /**
+   * Attested person of the turn (the actor the connection belongs to),
+   * injected by the runtime, never by the model and never inside `input`.
+   */
+  personRef: z.string().min(1).optional(),
+  /** Server-owned next_apply snapshot; never selected from model input. */
+  ordinaryConfiguration: CapabilityOrdinaryCallSnapshotSchema.optional(),
+}).superRefine((call, ctx) => {
+  const scope = call.ordinaryConfiguration?.scope;
+  if (scope && (scope.agentId !== call.agentId || scope.tenantId !== call.tenantId || scope.ownerId !== call.ownerId)) ctx.addIssue({ code: 'custom', path: ['ordinaryConfiguration', 'scope'], message: 'Ordinary snapshot belongs to another call scope' });
 });
 
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
@@ -47,6 +69,7 @@ export const ToolCallSuccessResponseSchema = z.object({
   callId: z.string().min(1),
   status: z.literal('success'),
   output: z.unknown(),
+  receipt: ToolCallReceiptSchema.optional(),
 });
 
 export const ToolCallErrorResponseSchema = z.object({
@@ -54,6 +77,7 @@ export const ToolCallErrorResponseSchema = z.object({
   status: z.literal('error'),
   error: z.string(),
   code: z.enum(['TOOL_NOT_FOUND', 'TOOL_CALL_INVALID', 'TOOL_EXEC_FAILED']),
+  receipt: ToolCallReceiptSchema.optional(),
 });
 
 /**

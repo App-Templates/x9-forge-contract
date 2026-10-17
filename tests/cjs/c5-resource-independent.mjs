@@ -1,0 +1,46 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import * as esmAgent from '@x9-forge/contracts/agent';
+import * as esmHttp from '@x9-forge/contracts/http';
+const require = createRequire(import.meta.url);
+const cjsAgent = require('@x9-forge/contracts/agent');
+const cjsHttp = require('@x9-forge/contracts/http');
+const scope = { agentId: 'runtime-review', ownerId: 'owner-review', tenantId: 'tenant-review' };
+const identity = { managementAgentId: 'managed-review', runtimeAgentId: scope.agentId, vaultAgentId: 71 };
+const binding = { scope, identity };
+const command = { action: 'create-resource', requestId: 'resource-review-0001', expectedDesiredVersion: 4, expectedAppliedVersion: null };
+const startedAt = '2026-10-08T19:00:00Z';
+const updatedAt = '2026-10-08T19:00:01Z';
+const resource = { ...binding, kind: 'telegram', resource: { agent_id: scope.agentId, bot_username: 'review_bot', created_at: startedAt } };
+const intent = { ...binding, kind: 'telegram', command, previousResource: null };
+const configuration = { ...binding, kind: 'telegram', desired: { version: 5, state: 'active' }, applied: { version: 5, state: 'active' }, resource,
+  observation: { channelId: 'telegram', kind: 'telegram', state: 'loaded', loaded: true, readiness: 'ready' }, observedAt: updatedAt, error: null };
+const result = { intent, outcome: 'applied', replayed: false, startedAt, updatedAt, configuration, error: null };
+const route = { agentId: identity.managementAgentId, kind: 'telegram', requestId: command.requestId };
+let assertions = 0;
+const equal = (actual, expected, label) => { assert.equal(actual, expected, label); assertions += 1; };
+const variants = [['ESM', esmAgent, esmHttp], ['CJS', cjsAgent, cjsHttp]].filter(([label]) => !process.argv[2] || process.argv[2] === label);
+for (const [label, agent, http] of variants) {
+  equal(typeof agent.AgentChannelResourceResultSchema?.safeParse, 'function', `${label} resource schema export`);
+  equal(typeof agent.isAgentChannelResourceResultForIntent, 'function', `${label} intent helper export`);
+  equal(typeof http.isForgeAgentChannelResourceResultForRoute, 'function', `${label} route helper export`);
+  equal(agent.AgentChannelResourceResultSchema.safeParse(result).success, true, `${label} valid independent receipt`);
+  equal(agent.isAgentChannelResourceResultForIntent(intent, result), true, `${label} exact intent`);
+  equal(http.isForgeAgentChannelResourceResultForRoute(result, route, binding), true, `${label} exact route`);
+  const otherId = { ...identity, vaultAgentId: 72 };
+  const otherBinding = { ...binding, identity: otherId };
+  const otherResource = { ...resource, identity: otherId };
+  const otherResult = { ...result, intent: { ...intent, identity: otherId }, configuration: { ...configuration, identity: otherId, resource: otherResource } };
+  equal(agent.AgentChannelResourceResultSchema.safeParse(otherResult).success, true, `${label} coherent other Vault fixture`);
+  equal(agent.isAgentChannelResourceResultForIntent(intent, otherResult), false, `${label} coherent other Vault intent refused`);
+  equal(http.isForgeAgentChannelResourceResultForRoute(otherResult, route, binding), false, `${label} coherent other Vault route refused`);
+  equal(http.isAgentChannelResourceWithinForgeAuthorization(intent, { role: 'owner', ownerId: scope.ownerId, tenantId: 'other-tenant' }), false, `${label} other tenant refused`);
+  equal(agent.AgentChannelResourceResultSchema.safeParse({ ...result, configuration: { ...configuration, observedAt: '2026-10-08T18:59:59Z' } }).success, false, `${label} observation before operation refused`);
+  const rotationIntent = { ...intent, command: { ...command, action: 'rotate-token', expectedAppliedVersion: 4 }, previousResource: resource };
+  const replacement = { ...resource, resource: { ...resource.resource, bot_username: 'another_review_bot' } };
+  equal(agent.AgentChannelResourceResultSchema.safeParse({ ...result, intent: rotationIntent, configuration: { ...configuration, resource: replacement } }).success, false, `${label} rotation cannot replace bot`);
+  equal(http.forgeAgentChannelResourceProgressContract.responseSchema, agent.AgentChannelResourceResultSchema, `${label} shared schema object`);
+  equal(http.forgeAgentChannelResourceProgressContract.authentication, 'forge-session', `${label} browser session contract`);
+}
+assert.deepEqual(esmAgent.AgentChannelResourceResultSchema.parse(result), cjsAgent.AgentChannelResourceResultSchema.parse(result)); assertions += 1;
+console.log(JSON.stringify({ assertions, passed: assertions, modules: variants.length, proof: 'compiled synthetic boundary only' }));

@@ -16,8 +16,8 @@ import { z } from 'zod';
 /** Call-outcome discriminator. Exported as a named schema (no inline enum). */
 export declare const VoiceCallOutcomeKindSchema: z.ZodEnum<{
     unknown: "unknown";
-    rejected: "rejected";
     no_answer: "no_answer";
+    rejected: "rejected";
     completed_task_done: "completed_task_done";
     completed_partial: "completed_partial";
     voicemail_left: "voicemail_left";
@@ -53,8 +53,8 @@ export declare const VoiceCallOutcomeSchema: z.ZodObject<{
     call_id: z.ZodString;
     outcome: z.ZodEnum<{
         unknown: "unknown";
-        rejected: "rejected";
         no_answer: "no_answer";
+        rejected: "rejected";
         completed_task_done: "completed_task_done";
         completed_partial: "completed_partial";
         voicemail_left: "voicemail_left";

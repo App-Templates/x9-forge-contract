@@ -1,0 +1,74 @@
+{
+  "scope": "Invitation schemas and pure projections only, NOT HTTP handlers/DB/account/authentication/minting",
+  "newTests": 30,
+  "full": {
+    "passed": 4511,
+    "total": 4511,
+    "files": 159,
+    "skipped": 0
+  },
+  "baseline": {
+    "total": 30,
+    "passed": 19,
+    "functionalFailures": 11,
+    "otherFailures": 0,
+    "exitCode": 1,
+    "restored": true,
+    "sha256": "f70a0dafc8061c5bd74566958f027fdebea4a932f5ba133a7cfde9d7d36b44ee"
+  },
+  "sourceQualified": 32,
+  "sourceTotal": 32,
+  "sourceRestored": true,
+  "sourceSha256": "f70a0dafc8061c5bd74566958f027fdebea4a932f5ba133a7cfde9d7d36b44ee",
+  "compiledQualified": 2,
+  "compiledTotal": 2,
+  "compiledGreen": {
+    "checks": 24,
+    "total": 24,
+    "status": "passed"
+  },
+  "browser": {
+    "passed": 88,
+    "total": 88
+  },
+  "history": {
+    "passed": 16,
+    "total": 16
+  },
+  "legacy": {
+    "passed": 36,
+    "total": 36
+  },
+  "quality": [
+    {
+      "check": "full",
+      "exitCode": 0
+    },
+    {
+      "check": "typecheck",
+      "exitCode": 0
+    },
+    {
+      "check": "lint",
+      "exitCode": 0
+    },
+    {
+      "check": "build",
+      "exitCode": 0
+    },
+    {
+      "check": "pack",
+      "exitCode": 0
+    }
+  ],
+  "live": {
+    "passed": 0,
+    "total": 42
+  },
+  "manifestSha256": {
+    "src/capability/agent-elevenlabs/web-invitations.ts": "f70a0dafc8061c5bd74566958f027fdebea4a932f5ba133a7cfde9d7d36b44ee",
+    "src/capability/index.ts": "b1235e6e855a9f3db321e5c172602292d8c5c23b9a4311fc66acb558074b8373",
+    "tests/capability/c5-web-invitations.test.ts": "a01fe2ca45dc36396f8d19655a4273fcb91006f451a3f0d9384c47f09993c6cb",
+    ".planning/phases/c5-canali-tel-web/proof/invitation-smoke.mjs": "92f1dafcc6ff035743898454d316ac5ce4c2113d71b3ee69f37889964e3cfdfc"
+  }
+}

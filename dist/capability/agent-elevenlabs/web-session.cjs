@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ElevenLabsWebSessionResultSchema = exports.ElevenLabsWebSessionRequestSchema = exports.ElevenLabsWebAdmissionSnapshotSchema = exports.ElevenLabsWebViewerSchema = exports.ElevenLabsWebLinkSchema = void 0;
 exports.isElevenLabsWebLinkCurrent = isElevenLabsWebLinkCurrent;
 exports.canAdmitElevenLabsWebViewer = canAdmitElevenLabsWebViewer;
+exports.isElevenLabsWebSignedConnectionUrl = isElevenLabsWebSignedConnectionUrl;
 exports.isElevenLabsWebSessionCurrent = isElevenLabsWebSessionCurrent;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
@@ -74,7 +75,7 @@ function canAdmitElevenLabsWebViewer(rawSnapshot, expectedScope, rawViewer, conf
     const { policy, link, provider, lifecycle, invitation, invitationRevision } = snapshot.data;
     if (!isElevenLabsWebLinkCurrent(link, expectedScope, configuredOrigin))
         return false;
-    if (lifecycle !== 'active' || policy.paused || provider.desiredState !== 'active'
+    if (lifecycle !== 'active' || policy.enabled === false || policy.paused || provider.desiredState !== 'active'
         || provider.mapping === null || provider.channel.state !== 'loaded' || provider.channel.loaded !== true
         || provider.channel.readiness !== 'ready' || provider.observedAt === null
         || Date.parse(provider.observedAt) > time || Date.parse(link.createdAt) > time)
@@ -111,18 +112,22 @@ exports.ElevenLabsWebSessionResultSchema = zod_1.z.object({
     const duration = Date.parse(result.expiresAt) - Date.parse(result.issuedAt);
     if (duration <= 0 || duration > 15 * 60 * 1000)
         ctx.addIssue({ code: 'custom', path: ['expiresAt'], message: 'Provider connection window must be positive and no longer than fifteen minutes' });
-    if (!URL.canParse(result.signedUrl)) {
-        ctx.addIssue({ code: 'custom', path: ['signedUrl'], message: 'Invalid conversation URL' });
-        return;
-    }
-    const url = new URL(result.signedUrl);
-    if (url.protocol !== 'wss:' || url.host !== 'api.elevenlabs.io' || url.pathname !== '/v1/convai/conversation'
-        || url.username !== '' || url.password !== '' || url.hash !== ''
-        || url.searchParams.getAll('agent_id').length !== 1 || url.searchParams.get('agent_id') !== result.mapping.providerAgentId
-        || url.searchParams.getAll('conversation_signature').length !== 1 || !url.searchParams.get('conversation_signature')) {
+    if (!isElevenLabsWebSignedConnectionUrl(result.signedUrl, result.mapping.providerAgentId)) {
         ctx.addIssue({ code: 'custom', path: ['signedUrl'], message: 'Expected a signed ElevenLabs conversation connection for the bound resource' });
     }
 });
+/** Reuses C3 transport validation. A valid URL is a bearer format, never evidence of admission or resource privacy. */
+function isElevenLabsWebSignedConnectionUrl(rawUrl, expectedProviderAgentId) {
+    const parsed = exports.ElevenLabsWebSessionResultSchema.shape.signedUrl.safeParse(rawUrl);
+    const provider = index_js_1.ElevenLabsProviderAgentIdSchema.safeParse(expectedProviderAgentId);
+    if (!parsed.success || !provider.success || !URL.canParse(parsed.data))
+        return false;
+    const url = new URL(parsed.data);
+    return url.protocol === 'wss:' && url.host === 'api.elevenlabs.io' && url.pathname === '/v1/convai/conversation'
+        && url.username === '' && url.password === '' && url.hash === ''
+        && url.searchParams.getAll('agent_id').length === 1 && url.searchParams.get('agent_id') === provider.data
+        && url.searchParams.getAll('conversation_signature').length === 1 && !!url.searchParams.get('conversation_signature');
+}
 /**
  * Recheck completion against NEW server evidence/viewer. Pause/revoke blocks new issuance; an already
  * delivered provider bearer URL or established conversation cannot be revoked by this validation helper.

@@ -1,0 +1,21 @@
+{
+  "path": "/Users/admintemp/.x9-bacheca/versioni/v0.1.0/strumenti/hooks",
+  "files": {
+    "/Users/admintemp/.x9-bacheca/versioni/v0.1.0/strumenti/hooks/pre-commit.mjs": {
+      "sha256": "7dfcac44e111e8f75633dde332c8f8bbfd750cbb1ad2a21cf52a1d8a0d147168",
+      "mode": 292
+    },
+    "/Users/admintemp/.x9-bacheca/versioni/v0.1.0/strumenti/hooks/pre-push.mjs": {
+      "sha256": "616b6e3f88a5986b51dabd419c21652f1f15769d6c7c1e0cacb1f3ccf2853568",
+      "mode": 292
+    },
+    "/Users/admintemp/.x9-bacheca/versioni/v0.1.0/strumenti/hooks/pre-push": {
+      "sha256": "c75f17678128872e7b40ddfd485fde305582fb2cb7459d44cb45647ba742312b",
+      "mode": 365
+    },
+    "/Users/admintemp/.x9-bacheca/versioni/v0.1.0/strumenti/hooks/pre-commit": {
+      "sha256": "e1e6c220bcf8175434d45dab365d85b9960a62c92d72cf32aee3b32c8c2da615",
+      "mode": 365
+    }
+  }
+}

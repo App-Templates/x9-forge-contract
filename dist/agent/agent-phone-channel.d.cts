@@ -123,8 +123,8 @@ export declare const AgentPhoneChannelConfigurationSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -218,6 +218,15 @@ export declare const AgentContextWithPhoneSchema: z.ZodObject<{
         GOOGLE_CALENDAR_CLIENT_ID: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_EMAIL: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        NETATMO_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_ACCESS_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -357,8 +366,8 @@ export declare const AgentContextWithPhoneSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -407,15 +416,20 @@ export declare const AgentContextWithPhoneSchema: z.ZodObject<{
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -575,8 +589,8 @@ export declare const AgentContextWithPhoneSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -670,6 +684,15 @@ export declare const AgentContextWithPhoneWriteSchema: z.ZodObject<{
         GOOGLE_CALENDAR_CLIENT_ID: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
         GOOGLE_CALENDAR_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        GOOGLE_CONTACTS_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_EMAIL: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_ID: z.ZodOptional<z.ZodString>;
+        NETATMO_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+        NETATMO_REFRESH_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_ACCESS_TOKEN: z.ZodOptional<z.ZodString>;
+        NETATMO_PASSWORD: z.ZodOptional<z.ZodString>;
         INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
         X9_INTERNAL_SECRET: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -809,8 +832,8 @@ export declare const AgentContextWithPhoneWriteSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -859,15 +882,20 @@ export declare const AgentContextWithPhoneWriteSchema: z.ZodObject<{
                 reason: z.ZodObject<{
                     code: z.ZodEnum<{
                         unknown: "unknown";
+                        timeout: "timeout";
+                        "catalog-version-mismatch": "catalog-version-mismatch";
+                        "model-unavailable": "model-unavailable";
                         "not-loaded": "not-loaded";
                         "load-failed": "load-failed";
                         "validation-failed": "validation-failed";
-                        timeout: "timeout";
                         "source-unavailable": "source-unavailable";
                         "shared-runtime": "shared-runtime";
                         "externally-owned": "externally-owned";
                         "not-supported": "not-supported";
                         "in-progress": "in-progress";
+                        "catalog-changed": "catalog-changed";
+                        "qualification-failed": "qualification-failed";
+                        "consumer-rejected": "consumer-rejected";
                     }>;
                     detail: z.ZodOptional<z.ZodString>;
                 }, z.core.$strict>;
@@ -1027,8 +1055,8 @@ export declare const AgentContextWithPhoneWriteSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;

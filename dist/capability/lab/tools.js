@@ -49,4 +49,9 @@ export const LabGapsInputSchema = z.object({ limit: z.number().int().min(1).max(
 export const LabGapsOutputSchema = z.object({ gaps: z.array(CompetenceGapSchema).max(50) }).strict();
 export const LabCompetenceInputSchema = z.object({}).strict();
 export const LabCompetenceOutputSchema = z.object({ nodes: z.array(CompetenceNodeViewSchema).max(5000) }).strict();
+/** Worker-owned paid execution, deliberately excluded from model-visible LAB_TOOLS. */
+export const LAB_INTERNAL_TOOLS = { execute: 'lab_execute' };
+/** Receiver validates the current full-scope SQL claim and its unexpired lease before effects. */
+export const LabExecuteInputSchema = z.strictObject({ jobId: LabIngestIdSchema, leaseToken: z.uuid() });
+export const LabExecuteOutputSchema = z.strictObject({ jobId: LabIngestIdSchema, state: ResearchStateSchema });
 //# sourceMappingURL=tools.js.map

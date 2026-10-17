@@ -26,11 +26,7 @@ export declare const AgentVoiceTransportSchema: z.ZodEnum<{
     phone: "phone";
 }>;
 export type AgentVoiceTransport = z.infer<typeof AgentVoiceTransportSchema>;
-/** Provider voice id: a menu value for GPT voices, the voice id for ElevenLabs. */
-export declare const AgentVoiceIdSchema: z.ZodString;
-export declare const AgentVoiceModelSchema: z.ZodString;
-/** BCP-47 language tag, e.g. it or it-IT. */
-export declare const AgentVoiceLocaleSchema: z.ZodString;
+export { AgentVoiceIdSchema, AgentVoiceModelSchema, AgentVoiceLocaleSchema } from "./agent-voice-values.cjs";
 export declare const AgentVoiceSettingsSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     mode: z.ZodLiteral<"text-only">;
 }, z.core.$strict>, z.ZodObject<{
@@ -65,15 +61,20 @@ export declare const AgentVoiceConfigSchema: z.ZodObject<{
             reason: z.ZodObject<{
                 code: z.ZodEnum<{
                     unknown: "unknown";
+                    timeout: "timeout";
+                    "catalog-version-mismatch": "catalog-version-mismatch";
+                    "model-unavailable": "model-unavailable";
                     "not-loaded": "not-loaded";
                     "load-failed": "load-failed";
                     "validation-failed": "validation-failed";
-                    timeout: "timeout";
                     "source-unavailable": "source-unavailable";
                     "shared-runtime": "shared-runtime";
                     "externally-owned": "externally-owned";
                     "not-supported": "not-supported";
                     "in-progress": "in-progress";
+                    "catalog-changed": "catalog-changed";
+                    "qualification-failed": "qualification-failed";
+                    "consumer-rejected": "consumer-rejected";
                 }>;
                 detail: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>;

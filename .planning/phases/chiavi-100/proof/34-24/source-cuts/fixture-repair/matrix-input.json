@@ -1,0 +1,10 @@
+[
+  {
+    "name": "failover-no-embedding",
+    "file": "src/model-router/capability-model-settings.ts",
+    "old": "  if (settings.function === 'embedding') ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });",
+    "new": "  if (false) ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });",
+    "test": "tests/model-router/chiavi-model-composition.test.ts",
+    "pattern": null
+  }
+]

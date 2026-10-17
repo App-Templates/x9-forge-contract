@@ -1,0 +1,90 @@
+$ ["pnpm", "exec", "node", "tests/cjs/smoke.cjs"]
+[cjs-smoke] bounded execution/managed handoff/research lease: 13/13 assertions
+[cjs-smoke] canonical credential result assertions: 87/87
+[cjs-smoke] Netatmo account bundle: 7/7 assertions
+[cjs-smoke] OK   @x9-forge/contracts/capability/parameters  ->  CapabilityParameterSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/parameters  ->  CapabilityAgentParametersSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityOutputSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityFeedbackSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/presentation  ->  CapabilityTrendsSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability  ->  AgentTurnSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability  ->  CapabilityTurnLeadResponseSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  capTurnLeadContract (object)
+[cjs-smoke] OK   @x9-forge/contracts  ->  ModelTierSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/auth  ->  INTERNAL_TOKEN_HEADER (string = "X-Internal-Token")
+[cjs-smoke] OK   @x9-forge/contracts/auth  ->  INTERNAL_SECRET_HEADER (string = "X-Internal-Secret")
+[cjs-smoke] OK   @x9-forge/contracts/agent  ->  AgentIdSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability  ->  CapabilityManifestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/voice  ->  VoiceCallIntentSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/stt  ->  CAP_STT_DEFAULT_PORT (number = 4011)
+[cjs-smoke] OK   @x9-forge/contracts/capability/stt  ->  TranscribeRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/tts  ->  TtsProviderSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/tts  ->  DEFAULT_TTS_PROVIDER (string = "elevenlabs")
+[cjs-smoke] OK   @x9-forge/contracts/capability/voice-live  ->  CAP_VOICE_LIVE_DEFAULT_PORT (number = 3217)
+[cjs-smoke] OK   @x9-forge/contracts/capability/voice-live  ->  VoiceLiveCallStartRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/ricerca  ->  ResearchAgentConfigSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/capability/lab  ->  LabAgentConfigSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  capAgentConfigPath (function)
+[cjs-smoke] OK   @x9-forge/contracts/voice  ->  VoiceProviderSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  CAP_VOICE_LIVE_CALL_START_PATH (string = "/internal/live/call-start")
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  vaultResolveContract (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  internalFactoryTelegramTokenContract (object)
+[cjs-smoke] OK   @x9-forge/contracts/http  ->  InternalFactoryTelegramTokenRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/memory  ->  MEMORY_CORRECT_PATH (string = "/internal/memory/correct")
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  ChannelTypeSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  IncomingMessageEnvelopeSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  AgentEmailInboxSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/messaging  ->  AgentTelegramBotSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/model-router  ->  ModelTierSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/rag  ->  RagQueryRequestSchema (object)
+[cjs-smoke] OK   @x9-forge/contracts/vault  ->  VaultTierSchema (object)
+
+[cjs-smoke] summary: 36 passed, 0 failed (of 36 probes)
+BRIDGE-130 CJS public subpaths: 6/6 assertions passed
+R7 CJS public package: 15/15 probes passed
+[model-catalog-smoke] 16/16 compiled CommonJS assertions passed
+[models-batch-smoke] 39/39 compiled CommonJS assertions passed
+PASS import .
+PASS require .
+PASS import ./auth
+PASS require ./auth
+PASS import ./agent
+PASS require ./agent
+PASS import ./capability
+PASS require ./capability
+PASS import ./voice
+PASS require ./voice
+PASS import ./capability/stt
+PASS require ./capability/stt
+PASS import ./capability/tts
+PASS require ./capability/tts
+PASS import ./capability/voice-live
+PASS require ./capability/voice-live
+PASS import ./capability/ricerca
+PASS require ./capability/ricerca
+PASS import ./capability/lab
+PASS require ./capability/lab
+PASS import ./http
+PASS require ./http
+PASS import ./memory
+PASS require ./memory
+PASS import ./messaging
+PASS require ./messaging
+PASS import ./model-router
+PASS require ./model-router
+PASS import ./rag
+PASS require ./rag
+PASS import ./vault
+PASS require ./vault
+PASS import ./capability/parameters
+PASS require ./capability/parameters
+PASS import ./capability/presentation
+PASS require ./capability/presentation
+36/36 first-entrypoint checks
+{"passed":48,"total":48,"surfaces":4}
+{"passed":158,"total":158,"surfaces":8}
+{"status":"passed","surfaces":["esm:root","esm:/model-router","esm:http","cjs:root","cjs:/model-router","cjs:http"],"surfaceCount":6,"assertions":186}
+{"marker":"CHIAVI_MODEL_COMPOSITION","surfaces":14,"assertions":276,"passed":276}
+{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","passed":4,"total":4,"assertions":112,"results":[{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"esm","suffix":"root","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"esm","suffix":"/model-router","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"cjs","suffix":"root","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"cjs","suffix":"/model-router","assertions":28}]}
+
+EXIT_CODE=0

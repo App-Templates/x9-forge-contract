@@ -78,14 +78,14 @@ export type AgentCreationRequest = z.infer<typeof AgentCreationRequestSchema>;
 export declare const AgentCreationPhaseSchema: z.ZodEnum<{
     incomplete: "incomplete";
     pending: "pending";
-    running: "running";
     completed: "completed";
+    running: "running";
 }>;
 export declare const AgentCreationFailureSchema: z.ZodObject<{
     step: z.ZodEnum<{
+        context: "context";
         runtime: "runtime";
         workspace: "workspace";
-        context: "context";
         resources: "resources";
         "first-check": "first-check";
         save: "save";
@@ -119,8 +119,8 @@ export declare const AgentCreationFirstCheckSchema: z.ZodObject<{
         state: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
             paused: "paused";
         }>;
         loaded: z.ZodNullable<z.ZodBoolean>;
@@ -197,8 +197,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
     phase: z.ZodEnum<{
         incomplete: "incomplete";
         pending: "pending";
-        running: "running";
         completed: "completed";
+        running: "running";
     }>;
     channels: z.ZodArray<z.ZodObject<{
         kind: z.ZodEnum<{
@@ -319,8 +319,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -372,8 +372,8 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -403,9 +403,9 @@ export declare const AgentCreationCheckpointSchema: z.ZodObject<{
     }, z.core.$strict>>;
     failure: z.ZodNullable<z.ZodObject<{
         step: z.ZodEnum<{
+            context: "context";
             runtime: "runtime";
             workspace: "workspace";
-            context: "context";
             resources: "resources";
             "first-check": "first-check";
             save: "save";
@@ -480,8 +480,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
         phase: z.ZodEnum<{
             incomplete: "incomplete";
             pending: "pending";
-            running: "running";
             completed: "completed";
+            running: "running";
         }>;
         channels: z.ZodArray<z.ZodObject<{
             kind: z.ZodEnum<{
@@ -602,8 +602,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -655,8 +655,8 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -686,9 +686,9 @@ export declare const AgentCreationResultSchema: z.ZodObject<{
         }, z.core.$strict>>;
         failure: z.ZodNullable<z.ZodObject<{
             step: z.ZodEnum<{
+                context: "context";
                 runtime: "runtime";
                 workspace: "workspace";
-                context: "context";
                 resources: "resources";
                 "first-check": "first-check";
                 save: "save";
