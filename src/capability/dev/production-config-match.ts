@@ -1,5 +1,5 @@
 import { DevAgentConfigStateSchema } from './config-state.js';
-import { DevProductionRoleModelsSchema } from '../../http/endpoints/development-session-models.js';
+import { DevProductionRoleModelsSchema, isDevProductionRoleModelsUsable } from '../../http/endpoints/development-session-models.js';
 import { DevProductionJobSchema } from './production-job.js';
 
 const ROLES = DevProductionRoleModelsSchema.keyof().options;
@@ -50,4 +50,24 @@ export function isDevProductionJobForConfig(rawJob: unknown, rawConfigState: unk
     if (requested.reasoningEffort !== applied.reasoningEffort) return false;
   }
   return true;
+}
+
+/**
+ * Pure metadata check that the owner's explicit per-role choices are still offered by a
+ * trusted catalog for the job's own session at the injected clock. A job without
+ * roleModels carries no evidence of a choice, so it is never usable here. Callers must
+ * also use isDevProductionJobForConfig, A11 verification and the installation check
+ * before any effect; this proves none of them.
+ */
+export function isDevProductionJobModelsUsable(rawJob: unknown, rawCatalog: unknown, nowMs: number): boolean {
+  const parsed = DevProductionJobSchema.safeParse(rawJob);
+  if (!parsed.success) return false;
+  const job = parsed.data;
+  if (job.roleModels === undefined) return false;
+  return isDevProductionRoleModelsUsable(
+    job.roleModels,
+    rawCatalog,
+    job.session,
+    nowMs,
+  );
 }
