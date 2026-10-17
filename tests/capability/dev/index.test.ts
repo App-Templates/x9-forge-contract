@@ -53,6 +53,8 @@ describe('capability/dev subpath', () => {
         'isDevProductionProgressForJob',
         'isDevProductionResultForJob',
         'isDevProductionJobForConfig',
+        'isDevProductionArtifactChunkForArtifact',
+        'isDevProductionJobModelsUsable',
         'devProductionApprovalBindings',
         'devProductionExecutionMode',
         'canonicalizeDevSignedCommandV2',
