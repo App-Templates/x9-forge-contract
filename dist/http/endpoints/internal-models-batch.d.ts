@@ -2875,7 +2875,7 @@ export declare const internalAgentModelsStateContract: {
                 embeddingDimensions: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strict>>;
         }, z.core.$strict>>;
-        bootstrapSource: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        bootstrapSource: z.ZodOptional<z.ZodNullable<z.ZodPipe<z.ZodTransform<unknown, unknown>, z.ZodObject<{
             schemaVersion: z.ZodLiteral<1>;
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -3125,7 +3125,7 @@ export declare const internalAgentModelsStateContract: {
                 reason: z.ZodString;
             }, z.core.$strict>>>;
             role: z.ZodLiteral<"master">;
-        }, z.core.$strict>>>;
+        }, z.core.$strict>>>>;
         sourceObservation: z.ZodOptional<z.ZodNullable<z.ZodObject<{
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -3141,7 +3141,7 @@ export declare const internalAgentModelsStateContract: {
             observedAt: z.ZodISODateTime;
             validUntil: z.ZodISODateTime;
         }, z.core.$strict>>>;
-        initialSource: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        initialSource: z.ZodOptional<z.ZodNullable<z.ZodPipe<z.ZodTransform<unknown, unknown>, z.ZodObject<{
             schemaVersion: z.ZodLiteral<1>;
             identity: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -3390,7 +3390,7 @@ export declare const internalAgentModelsStateContract: {
                 }>;
                 reason: z.ZodString;
             }, z.core.$strict>>>;
-        }, z.core.$strict>>>;
+        }, z.core.$strict>>>>;
         pending: z.ZodOptional<z.ZodNullable<z.ZodObject<{
             requestId: z.ZodString;
             kind: z.ZodEnum<{

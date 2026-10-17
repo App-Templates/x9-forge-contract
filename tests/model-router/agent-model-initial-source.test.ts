@@ -177,3 +177,51 @@ describe('roleless loaded model source before first Forge apply', () => {
     }
   });
 });
+
+describe('a saved source reread after a slot was registered (RIL-MODELLI-SLOT-NUOVI)', () => {
+  const later = definitions[definitions.length - 1]!.slotId;
+  // The shape the Master saved on 13/10: every slot of that bridge named once, the later one absent.
+  function saved(): Record<string, unknown> {
+    const base = source();
+    return { ...base, selections: (base.selections as Array<{ slotId: string }>).filter(row => row.slotId !== later) };
+  }
+  it('the strict schema still refuses it, the saved schema reads the later slot as excluded not installed', () => {
+    expect(API.AgentModelInitialSourceSchema.safeParse(saved()).success).toBe(false);
+    const parsed = API.AgentModelSavedInitialSourceSchema.parse(saved());
+    expect(parsed.excludedSlots).toEqual([{ slotId: later, state: 'not-installed', reason: API.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON }]);
+    expect(parsed.selections).toHaveLength(definitions.length - 1);
+    expect(parsed.sourceVersion).toBe(expected.sourceVersion);
+    expect(API.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON).toBe('Capability has no model receiver yet');
+    expect(API.AgentModelSavedBootstrapSourceSchema.parse({ ...saved(), role: 'master' }).excludedSlots).toHaveLength(1);
+    expect(Reflect.get(ROOT, 'AgentModelSavedInitialSourceSchema')).toBe(API.AgentModelSavedInitialSourceSchema);
+  });
+  it('appends after the exclusions already saved and keeps them', () => {
+    const base = saved(); const selections = base.selections as Array<{ slotId: string }>;
+    const first = selections[selections.length - 1]!.slotId;
+    const input = { ...base, selections: selections.slice(0, -1), excludedSlots: [{ slotId: first, state: 'not-applicable', reason: 'Disabled in executing complete registry' }] };
+    expect(API.AgentModelSavedInitialSourceSchema.parse(input).excludedSlots).toEqual([
+      { slotId: first, state: 'not-applicable', reason: 'Disabled in executing complete registry' },
+      { slotId: later, state: 'not-installed', reason: API.MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON },
+    ]);
+  });
+  it('a models state carrying the saved source parses, for the producer and for Forge', () => {
+    expect(API.AgentModelsStateSchema.safeParse(state(saved())).success).toBe(true);
+    expect(API.AgentModelsStateSchema.parse(state(saved())).initialSource?.excludedSlots?.[0]?.slotId).toBe(later);
+  });
+  it('a slot named twice stays an error, also in the saved schema', () => {
+    const base = saved(); const selections = base.selections as unknown[];
+    const twice = { ...base, missingSlots: [(selections[0] as { slotId: string }).slotId], coverage: 'partial' };
+    expect(API.AgentModelSavedInitialSourceSchema.safeParse(twice).success).toBe(false);
+    const doubled = { ...base, selections: [...selections, selections[0]] };
+    expect(API.AgentModelSavedInitialSourceSchema.safeParse(doubled).success).toBe(false);
+    expect(API.AgentModelsStateSchema.safeParse(state(doubled)).success).toBe(false);
+  });
+  it('an unknown slot stays an error, also in the saved schema', () => {
+    const unknown = { ...saved(), excludedSlots: [{ slotId: 'slot_never_registered', state: 'not-installed', reason: 'Synthetic' }] };
+    expect(API.AgentModelSavedInitialSourceSchema.safeParse(unknown).success).toBe(false);
+    expect(API.AgentModelsStateSchema.safeParse(state(unknown)).success).toBe(false);
+  });
+  it('a fresh complete source is unchanged by the saved schema', () => {
+    expect(API.AgentModelSavedInitialSourceSchema.parse(source())).toEqual(API.AgentModelInitialSourceSchema.parse(source()));
+  });
+});
