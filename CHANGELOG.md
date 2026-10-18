@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.49.2 — limiti del turno per agente (giro 0 azienda agentica), additivo
+
+- Add `AgentTurnLimitsSchema`, `AgentMaxToolRoundsSchema`, `AgentTurnBudgetSchema`, `AGENT_DEFAULT_MAX_TOOL_ROUNDS` (5), `AGENT_MAX_TOOL_ROUNDS_CEILING` and the lenient reader `readAgentTurnLimits(context)` to `@x9-forge/contracts/agent`.
+- New optional `context.json` field `turnLimits` `{ version, maxToolRounds: 1..200 | 'unlimited', budget?: { maxTokensPerTurn } }`; `'unlimited'` requires a budget. Absent ⇒ 5 rounds, no turn budget (today's behaviour). Invalid ⇒ defaults, never unlimited.
+- Consumers: X9 agent-core `core/turn-processor.ts` and `core/conversation.ts` (reader); Forge factory writer and the agent settings page (follow-up). Context schemas are passthrough, so older consumers ignore the field.
+
 ## 1.49.1 + riconciliazione 18/10 (main b9a270e, consumer per SHA) — solo additivo
 
 - La versione resta 1.49.1 (agent-core la fissa nel suo test di adozione); i consumer pinnano per SHA.
