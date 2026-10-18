@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PAPERCLIP_TOOLS = void 0;
+exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PAPERCLIP_TOOLS = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 exports.PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
+    createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
 };
 exports.PaperclipIssueStatusSchema = zod_1.z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
 const Statuses = zod_1.z.array(exports.PaperclipIssueStatusSchema).min(1).max(7)
@@ -16,6 +17,23 @@ exports.PaperclipQueueInputSchema = zod_1.z.strictObject({
 exports.PaperclipIssueInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid() });
 exports.PaperclipTakeInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(), expectedStatuses: Statuses });
 exports.PaperclipAssignInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(), roleRef: Text });
+exports.PaperclipCreateIssueInputSchema = zod_1.z.strictObject({
+    title: Text, description: zod_1.z.string().max(16384).optional(), assigneeRoleRef: Text.optional(),
+    parentIssueId: zod_1.z.uuid().optional(),
+    blockedByIssueIds: zod_1.z.array(zod_1.z.uuid()).max(20)
+        .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique').optional(),
+});
+exports.PaperclipCommentsInputSchema = zod_1.z.strictObject({
+    issueId: zod_1.z.uuid(), limit: zod_1.z.number().int().min(1).max(50).optional(),
+});
+exports.PaperclipCommentViewSchema = zod_1.z.strictObject({
+    id: zod_1.z.uuid(), issueId: zod_1.z.uuid(), authorAgentId: zod_1.z.uuid().nullable(),
+    body: zod_1.z.string().max(16384), createdAt: zod_1.z.iso.datetime({ offset: true }),
+});
+exports.PaperclipCommentsOutputSchema = zod_1.z.strictObject({ comments: zod_1.z.array(exports.PaperclipCommentViewSchema).max(50) });
+exports.PaperclipReviewInputSchema = zod_1.z.strictObject({
+    issueId: zod_1.z.uuid(), status: zod_1.z.enum(['in_review', 'done', 'blocked']), comment: Text.optional(),
+});
 exports.PaperclipIssueViewSchema = zod_1.z.strictObject({
     id: zod_1.z.uuid(), companyId: zod_1.z.uuid(), identifier: Text, title: Text,
     description: zod_1.z.string().nullable(), status: exports.PaperclipIssueStatusSchema, assigneeAgentId: zod_1.z.uuid().nullable(),
