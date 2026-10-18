@@ -62,6 +62,8 @@ __exportStar(require("./agent-runtime-source.cjs"), exports);
 __exportStar(require("./agent-management.cjs"), exports);
 // Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
 __exportStar(require("./agent-scope-policy.cjs"), exports);
+// Per-agent turn limits: tool rounds per turn and turn token budget (v1.49.2)
+__exportStar(require("./agent-turn-limits.cjs"), exports);
 // R2: scoped birth channels, optional context extension and replayable creation.
 __exportStar(require("./agent-channel-configuration.cjs"), exports);
 __exportStar(require("./agent-creation-replay.cjs"), exports);

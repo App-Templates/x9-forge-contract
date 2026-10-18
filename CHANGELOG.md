@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.49.2 — limiti del turno per agente (giro 0 azienda agentica), additivo
+
+- Add `AgentTurnLimitsSchema`, `AgentMaxToolRoundsSchema`, `AgentTurnBudgetSchema`, `AGENT_DEFAULT_MAX_TOOL_ROUNDS` (5), `AGENT_MAX_TOOL_ROUNDS_CEILING` and the lenient reader `readAgentTurnLimits(context)` to `@x9-forge/contracts/agent`.
+- New optional `context.json` field `turnLimits` `{ version, maxToolRounds: 1..200 | 'unlimited', budget?: { maxTokensPerTurn } }`; `'unlimited'` requires a budget. Absent ⇒ 5 rounds, no turn budget (today's behaviour). Invalid ⇒ defaults, never unlimited.
+- Consumers: X9 agent-core `core/turn-processor.ts` and `core/conversation.ts` (reader); Forge factory writer and the agent settings page (follow-up). Context schemas are passthrough, so older consumers ignore the field.
+
 ## v1.49.1 — fonte iniziale salvata rilegge gli slot registrati dopo (RIL-MODELLI-SLOT-NUOVI), patch
 
 - Add `AgentModelSavedInitialSourceSchema`, `AgentModelSavedBootstrapSourceSchema` and `MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON` to `@x9-forge/contracts/model-router`: a source saved by an earlier bridge (34 slots on 13/10) that does not name a slot registered since (`lab_digest`) reads that slot as excluded `not-installed`, reason `Capability has no model receiver yet`.

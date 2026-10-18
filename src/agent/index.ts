@@ -58,6 +58,9 @@ export * from './agent-management.js';
 // Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
 export * from './agent-scope-policy.js';
 
+// Per-agent turn limits: tool rounds per turn and turn token budget (v1.49.2)
+export * from './agent-turn-limits.js';
+
 // R2: scoped birth channels, optional context extension and replayable creation.
 export * from './agent-channel-configuration.js';
 export * from './agent-creation-replay.js';
