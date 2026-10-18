@@ -29,12 +29,14 @@ exports.stripPlatformInternalCredentials = stripPlatformInternalCredentials;
  * - `CONNECT_GOOGLE_CLIENT_ID` — Google OAuth client id, solo il servizio Connessioni.
  * - `CONNECT_GOOGLE_CLIENT_SECRET` — Google OAuth client secret, solo il servizio Connessioni.
  * - `CONNECT_VAULT_SECRET` — segreto del servizio Connessioni verso il Vault; mai proiettato in un agente.
+ * - `RICERCA_DATABASE_URL` — connessione Postgres di cap-ricerca, solo quel servizio; mai proiettata in un agente.
  */
 exports.PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING',
     'APPROVALS_SIGNING_KEY',
     'CONNECT_GOOGLE_CLIENT_ID',
     'CONNECT_GOOGLE_CLIENT_SECRET',
     'CONNECT_VAULT_SECRET',
+    'RICERCA_DATABASE_URL',
 ];
 function isPlatformInternalCredentialKey(key) {
     return exports.PLATFORM_INTERNAL_CREDENTIAL_KEYS.includes(key);
