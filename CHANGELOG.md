@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — `riassunto` nella richiesta di snapshot (BR-AUT-01), additivo
+
+- `BackupDeviceRequestBodySchema` accetta il campo opzionale `riassunto` (stringa trim, 1..600 caratteri): «cosa potrai fare» con il rilascio, mostrato nella richiesta di snapshot sul telefono. I corpi senza il campo restano validi; il corpo resta `.strict()`.
+- Consumer: night (NM-091) lo compila nella richiesta di snapshot.
+
 ## v1.49.2 — limiti del turno per agente (giro 0 azienda agentica), additivo
 
 - Add `AgentTurnLimitsSchema`, `AgentMaxToolRoundsSchema`, `AgentTurnBudgetSchema`, `AGENT_DEFAULT_MAX_TOOL_ROUNDS` (5), `AGENT_MAX_TOOL_ROUNDS_CEILING` and the lenient reader `readAgentTurnLimits(context)` to `@x9-forge/contracts/agent`.

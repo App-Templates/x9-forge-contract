@@ -141,6 +141,8 @@ exports.BackupDeviceRequestBodySchema = zod_1.z
     resource: exports.BackupResourceRefSchema.optional(),
     kind: zod_1.z.enum(['create', 'restore-snapshot']),
     release: exports.BackupReleaseLabelSchema.optional(),
+    // «Cosa potrai fare» in two lines, shown on the phone in the snapshot request.
+    riassunto: zod_1.z.string().trim().min(1).max(600).optional(),
 })
     .strict()
     .refine((b) => b.kind !== 'create' || b.release !== undefined, { path: ['release'], message: 'create needs a release' });

@@ -166,6 +166,8 @@ export const BackupDeviceRequestBodySchema = z
     resource: BackupResourceRefSchema.optional(),
     kind: z.enum(['create', 'restore-snapshot']),
     release: BackupReleaseLabelSchema.optional(),
+    // «Cosa potrai fare» in two lines, shown on the phone in the snapshot request.
+    riassunto: z.string().trim().min(1).max(600).optional(),
   })
   .strict()
   .refine((b) => b.kind !== 'create' || b.release !== undefined, { path: ['release'], message: 'create needs a release' });

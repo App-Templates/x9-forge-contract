@@ -242,6 +242,7 @@ export declare const BackupDeviceRequestBodySchema: z.ZodObject<{
         "restore-snapshot": "restore-snapshot";
     }>;
     release: z.ZodOptional<z.ZodString>;
+    riassunto: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const BackupDeviceRequestResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     ok: z.ZodLiteral<true>;
@@ -280,6 +281,7 @@ export declare const backupDeviceRequestContract: {
             "restore-snapshot": "restore-snapshot";
         }>;
         release: z.ZodOptional<z.ZodString>;
+        riassunto: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         ok: z.ZodLiteral<true>;
