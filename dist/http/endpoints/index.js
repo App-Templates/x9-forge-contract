@@ -38,6 +38,7 @@ export * from "./capability-call-context.js"; // v1.31.0 — R3 per-call capabil
 export * from "./voice.js"; // Phase 42 — CAP-Voice v2.2 path + method constants
 export * from "./voice-live.js"; // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 export * from "./internal-factory-deploy.js"; // Wave 2 (v1.11.0) — Parallel S2S agent deploy
+export * from "./internal-business-unit-lead.js"; // AZB-04 — Director S2S business unit lead birth
 export * from "./internal-factory-telegram-token.js"; // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 export * from "./cap-manifest.js";

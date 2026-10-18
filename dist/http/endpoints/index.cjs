@@ -54,6 +54,7 @@ __exportStar(require("./capability-call-context.cjs"), exports); // v1.31.0 — 
 __exportStar(require("./voice.cjs"), exports); // Phase 42 — CAP-Voice v2.2 path + method constants
 __exportStar(require("./voice-live.cjs"), exports); // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 __exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.11.0) — Parallel S2S agent deploy
+__exportStar(require("./internal-business-unit-lead.cjs"), exports); // AZB-04 — Director S2S business unit lead birth
 __exportStar(require("./internal-factory-telegram-token.cjs"), exports); // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 __exportStar(require("./cap-manifest.cjs"), exports);

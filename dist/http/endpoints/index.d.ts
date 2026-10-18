@@ -36,6 +36,7 @@ export * from "./capability-call-context.js";
 export * from "./voice.js";
 export * from "./voice-live.js";
 export * from "./internal-factory-deploy.js";
+export * from "./internal-business-unit-lead.js";
 export * from "./internal-factory-telegram-token.js";
 export * from "./cap-manifest.js";
 export * from "./cap-context.js";

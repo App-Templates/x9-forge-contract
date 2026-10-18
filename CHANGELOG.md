@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — business unit lead birth endpoint (AZB-04), additive
+
+- Add `INTERNAL_BUSINESS_UNIT_LEAD_BIRTH_PATH` and `internalBusinessUnitLeadBirthContract` to `@x9-forge/contracts/http`: `POST /api/internal/factory/business-unit-lead`, token authentication via `INTERNAL_TOKEN_HEADER`, reusing `BusinessUnitLeadBirthRequestSchema` and `BusinessUnitLeadBirthResultSchema`.
+- Consumers: forge-v2 factory-svc (AZG-05) and agent-x9 Director tool «crea BU» (AZX-06).
+
 ## Unreleased — feature switches (BR-AUT-02), additive
 
 - Add `FeatureSwitchStateSchema`, strict `FeatureSwitchSchema`, `FeatureSwitchListSchema` and inferred types to `@x9-forge/contracts/capability`. Enabled functions cannot have open links; lists require unique function names.

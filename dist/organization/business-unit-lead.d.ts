@@ -1,0 +1,51 @@
+import { z } from 'zod';
+/** Director request to create the lead of a company business unit. */
+export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
+    requestId: z.ZodString;
+    tenantId: z.ZodString;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    company: z.ZodObject<{
+        companyId: z.ZodString;
+        name: z.ZodString;
+    }, z.core.$strict>;
+    businessUnit: z.ZodObject<{
+        slug: z.ZodString;
+        name: z.ZodString;
+        briefSection: z.ZodString;
+    }, z.core.$strict>;
+    profileTemplate: z.ZodString;
+    model: z.ZodObject<{
+        tier: z.ZodEnum<{
+            standard: "standard";
+            advanced: "advanced";
+            reasoning: "reasoning";
+        }>;
+        llmModel: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    capabilities: z.ZodArray<z.ZodString>;
+    paperclipParticipant: z.ZodObject<{
+        participantId: z.ZodString;
+        roles: z.ZodArray<z.ZodEnum<{
+            lead: "lead";
+            member: "member";
+            reviewer: "reviewer";
+            observer: "observer";
+        }>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type BusinessUnitLeadBirthRequest = z.infer<typeof BusinessUnitLeadBirthRequestSchema>;
+/** Forge receipt containing the complete identity of the created agent. */
+export declare const BusinessUnitLeadBirthResultSchema: z.ZodObject<{
+    ok: z.ZodLiteral<true>;
+    replayed: z.ZodBoolean;
+    tenantId: z.ZodString;
+    companyId: z.ZodString;
+    businessUnitSlug: z.ZodString;
+    agentIdentity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type BusinessUnitLeadBirthResult = z.infer<typeof BusinessUnitLeadBirthResultSchema>;
+//# sourceMappingURL=business-unit-lead.d.ts.map
