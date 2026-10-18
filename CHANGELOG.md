@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — feature switches (BR-AUT-02), additive
+
+- Add `FeatureSwitchStateSchema`, strict `FeatureSwitchSchema`, `FeatureSwitchListSchema` and inferred types to `@x9-forge/contracts/capability`. Enabled functions cannot have open links; lists require unique function names.
+- Consumer adoption follows in X9-AUT-04, FG-AUT-01 and NM-096; this contract alone does not enable functions.
+
 ## Unreleased — `riassunto` nella richiesta di snapshot (BR-AUT-01), additivo
 
 - `BackupDeviceRequestBodySchema` accetta il campo opzionale `riassunto` (stringa trim, 1..600 caratteri): «cosa potrai fare» con il rilascio, mostrato nella richiesta di snapshot sul telefono. I corpi senza il campo restano validi; il corpo resta `.strict()`.
