@@ -3,6 +3,11 @@ import { OwnerIdSchema } from '../agent/agent-identity.js';
 import { ModelTierSchema } from '../model-router/model-tier.js';
 import { ParticipantAgentIdentitySchema, ParticipantRoleSchema } from './participant-binding.js';
 
+/** The only birth profile Forge provisions for a business unit lead. */
+export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu' as const;
+export const BusinessUnitLeadProfileTemplateSchema = z.literal(BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
+export type BusinessUnitLeadProfileTemplate = z.infer<typeof BusinessUnitLeadProfileTemplateSchema>;
+
 /** Director request to create the lead of a company business unit. */
 export const BusinessUnitLeadBirthRequestSchema = z.strictObject({
   requestId: z.string().min(1).max(128),
@@ -17,7 +22,7 @@ export const BusinessUnitLeadBirthRequestSchema = z.strictObject({
     name: z.string().min(1).max(120),
     briefSection: z.string().min(1).max(4000),
   }),
-  profileTemplate: z.string().min(1).max(64).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+  profileTemplate: BusinessUnitLeadProfileTemplateSchema,
   model: z.strictObject({
     tier: ModelTierSchema,
     llmModel: z.string().min(1).optional(),

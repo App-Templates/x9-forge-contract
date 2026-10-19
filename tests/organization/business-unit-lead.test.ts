@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { MODEL_TIERS } from '../../src/model-router/model-tier.js';
 import {
+  BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE,
   BusinessUnitLeadBirthRequestSchema,
   BusinessUnitLeadBirthResultSchema,
+  BusinessUnitLeadProfileTemplateSchema,
 } from '../../src/organization/index.js';
 
 const validRequest = () => ({
@@ -101,11 +103,19 @@ describe('BusinessUnitLeadBirthRequestSchema', () => {
     }).success).toBe(false);
   });
 
-  it('rejects a non-kebab profile template', () => {
-    expect(BusinessUnitLeadBirthRequestSchema.safeParse({
-      ...validRequest(), profileTemplate: 'capo_BU',
-    }).success).toBe(false);
+  it('publishes capo-bu as the only profile template', () => {
+    expect(BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE).toBe('capo-bu');
+    expect(BusinessUnitLeadProfileTemplateSchema.parse('capo-bu')).toBe('capo-bu');
   });
+
+  it.each(['bu-lead', 'capo-bu-dati', 'capo_BU', 'Capo-bu'])(
+    'rejects a profile template other than capo-bu: %s',
+    (profileTemplate) => {
+      expect(BusinessUnitLeadBirthRequestSchema.safeParse({
+        ...validRequest(), profileTemplate,
+      }).success).toBe(false);
+    },
+  );
 
   it.each([
     { requestId: '' },
@@ -122,7 +132,6 @@ describe('BusinessUnitLeadBirthRequestSchema', () => {
     { businessUnit: { ...validRequest().businessUnit, briefSection: '' } },
     { businessUnit: { ...validRequest().businessUnit, briefSection: 'b'.repeat(4001) } },
     { profileTemplate: '' },
-    { profileTemplate: 'p'.repeat(65) },
     { model: { tier: MODEL_TIERS[0], llmModel: '' } },
     { paperclipParticipant: { participantId: '', roles: ['lead'] } },
     { paperclipParticipant: { participantId: 'participant-1', roles: ['unknown'] } },
@@ -138,7 +147,6 @@ describe('BusinessUnitLeadBirthRequestSchema', () => {
       requestId: 'r'.repeat(128),
       company: { companyId: 'c'.repeat(64), name: 'n'.repeat(120) },
       businessUnit: { slug: 's'.repeat(30), name: 'n'.repeat(120), briefSection: 'b'.repeat(4000) },
-      profileTemplate: 'p'.repeat(64),
       capabilities: [],
     }).success).toBe(true);
   });
