@@ -1,12 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PAPERCLIP_TOOLS = void 0;
+exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PAPERCLIP_TOOLS = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
+const business_unit_lead_js_1 = require("../../organization/business-unit-lead.cjs");
 const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 exports.PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
+    createBusinessUnit: 'paperclip_create_business_unit',
 };
 exports.PaperclipIssueStatusSchema = zod_1.z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
 const Statuses = zod_1.z.array(exports.PaperclipIssueStatusSchema).min(1).max(7)
@@ -22,6 +24,11 @@ exports.PaperclipCreateIssueInputSchema = zod_1.z.strictObject({
     parentIssueId: zod_1.z.uuid().optional(),
     blockedByIssueIds: zod_1.z.array(zod_1.z.uuid()).max(20)
         .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique').optional(),
+});
+exports.PaperclipCreateBusinessUnitInputSchema = business_unit_lead_js_1.BusinessUnitLeadBirthRequestSchema.extend({ unitName: Text });
+exports.PaperclipCreateBusinessUnitOutputSchema = zod_1.z.strictObject({
+    unitId: Text, paperclipAgentId: zod_1.z.uuid(),
+    agentIdentity: business_unit_lead_js_1.BusinessUnitLeadBirthResultSchema.shape.agentIdentity, replayed: zod_1.z.boolean(),
 });
 exports.PaperclipCommentsInputSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid(), limit: zod_1.z.number().int().min(1).max(50).optional(),

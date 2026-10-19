@@ -5,6 +5,7 @@ import { PaperclipQueueInputSchema as Queue, PaperclipIssueInputSchema as Issue,
   PAPERCLIP_TOOLS, PaperclipCreateIssueInputSchema as Create,
   PaperclipCommentsInputSchema as Comments, PaperclipCommentViewSchema as Comment,
   PaperclipCommentsOutputSchema as CommentsOutput, PaperclipReviewInputSchema as Review,
+  PaperclipCreateBusinessUnitInputSchema as CreateBu, PaperclipCreateBusinessUnitOutputSchema as CreateBuOutput,
 } from '../src/capability/paperclip/index.js';
 const id = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
 it('validates native operations without accepting caller-chosen identity', () => {
@@ -104,4 +105,37 @@ it('validates a complete queue item and operator binding', () => {
     unitId: 'unit-1', companyId: id, paperclipAgentId: id, enabled: true, roleAgents: { reviewer: id } }).success).toBe(true);
   expect(Binding.safeParse({ scope: { agentId: 'agent-1' }, unitId: 'unit-1', companyId: id,
     paperclipAgentId: id, enabled: true, roleAgents: {} }).success).toBe(false);
+});
+const buInput = () => ({
+  requestId: 'birth-bu-research-1', tenantId: 'tenant-1', ownerId: 'owner-1',
+  company: { companyId: 'company-1', name: 'Company One' },
+  businessUnit: { slug: 'research', name: 'Research', briefSection: 'Research the market.' },
+  profileTemplate: 'capo-bu', model: { tier: 'standard', llmModel: 'provider/model' },
+  capabilities: ['cap-ricerca'], paperclipParticipant: { participantId: 'participant-1', roles: ['lead'] },
+  unitName: 'Research unit',
+});
+const buOutput = () => ({
+  unitId: 'unit-1', paperclipAgentId: id, replayed: false,
+  agentIdentity: { managementAgentId: 'company-1-research', runtimeAgentId: 'runtime-research-1', vaultAgentId: 17 },
+});
+it('names the create-business-unit tool uniquely', () => {
+  expect(PAPERCLIP_TOOLS.createBusinessUnit).toBe('paperclip_create_business_unit');
+  const names = Object.values(PAPERCLIP_TOOLS);
+  expect(new Set(names).size).toBe(names.length);
+});
+it('validates create-business-unit input and rejects extra fields and blank unitName', () => {
+  expect(CreateBu.safeParse(buInput()).success).toBe(true);
+  expect(CreateBu.safeParse({ ...buInput(), extra: true }).success).toBe(false);
+  expect(CreateBu.safeParse({ ...buInput(), unitName: '' }).success).toBe(false);
+  expect(CreateBu.safeParse({ ...buInput(), unitName: ' ' }).success).toBe(false);
+  const { unitName: _unitName, ...missing } = buInput();
+  expect(CreateBu.safeParse(missing).success).toBe(false);
+});
+it('validates create-business-unit output and requires the full agent identity', () => {
+  expect(CreateBuOutput.safeParse(buOutput()).success).toBe(true);
+  const { agentIdentity: _agentIdentity, ...missing } = buOutput();
+  expect(CreateBuOutput.safeParse(missing).success).toBe(false);
+  expect(CreateBuOutput.safeParse({ ...buOutput(), extra: true }).success).toBe(false);
+  expect(CreateBuOutput.safeParse({ ...buOutput(), paperclipAgentId: 'invalid' }).success).toBe(false);
+  expect(CreateBuOutput.safeParse({ ...buOutput(), replayed: 'no' }).success).toBe(false);
 });

@@ -7,6 +7,7 @@ export declare const PAPERCLIP_TOOLS: {
     readonly createIssue: "paperclip_create_issue";
     readonly comments: "paperclip_comments";
     readonly review: "paperclip_review";
+    readonly createBusinessUnit: "paperclip_create_business_unit";
 };
 export declare const PaperclipIssueStatusSchema: z.ZodEnum<{
     cancelled: "cancelled";
@@ -54,6 +55,50 @@ export declare const PaperclipCreateIssueInputSchema: z.ZodObject<{
     assigneeRoleRef: z.ZodOptional<z.ZodString>;
     parentIssueId: z.ZodOptional<z.ZodUUID>;
     blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+}, z.core.$strict>;
+export declare const PaperclipCreateBusinessUnitInputSchema: z.ZodObject<{
+    requestId: z.ZodString;
+    tenantId: z.ZodString;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    company: z.ZodObject<{
+        companyId: z.ZodString;
+        name: z.ZodString;
+    }, z.core.$strict>;
+    businessUnit: z.ZodObject<{
+        slug: z.ZodString;
+        name: z.ZodString;
+        briefSection: z.ZodString;
+    }, z.core.$strict>;
+    profileTemplate: z.ZodString;
+    model: z.ZodObject<{
+        tier: z.ZodEnum<{
+            standard: "standard";
+            advanced: "advanced";
+            reasoning: "reasoning";
+        }>;
+        llmModel: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    capabilities: z.ZodArray<z.ZodString>;
+    paperclipParticipant: z.ZodObject<{
+        participantId: z.ZodString;
+        roles: z.ZodArray<z.ZodEnum<{
+            lead: "lead";
+            member: "member";
+            reviewer: "reviewer";
+            observer: "observer";
+        }>>;
+    }, z.core.$strict>;
+    unitName: z.ZodString;
+}, z.core.$strict>;
+export declare const PaperclipCreateBusinessUnitOutputSchema: z.ZodObject<{
+    unitId: z.ZodString;
+    paperclipAgentId: z.ZodUUID;
+    agentIdentity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    replayed: z.ZodBoolean;
 }, z.core.$strict>;
 export declare const PaperclipCommentsInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
@@ -157,6 +202,8 @@ export type PaperclipIssueInput = z.infer<typeof PaperclipIssueInputSchema>;
 export type PaperclipTakeInput = z.infer<typeof PaperclipTakeInputSchema>;
 export type PaperclipAssignInput = z.infer<typeof PaperclipAssignInputSchema>;
 export type PaperclipCreateIssueInput = z.infer<typeof PaperclipCreateIssueInputSchema>;
+export type PaperclipCreateBusinessUnitInput = z.infer<typeof PaperclipCreateBusinessUnitInputSchema>;
+export type PaperclipCreateBusinessUnitOutput = z.infer<typeof PaperclipCreateBusinessUnitOutputSchema>;
 export type PaperclipCommentsInput = z.infer<typeof PaperclipCommentsInputSchema>;
 export type PaperclipCommentView = z.infer<typeof PaperclipCommentViewSchema>;
 export type PaperclipCommentsOutput = z.infer<typeof PaperclipCommentsOutputSchema>;

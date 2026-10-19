@@ -1,9 +1,11 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
+import { BusinessUnitLeadBirthRequestSchema, BusinessUnitLeadBirthResultSchema } from "../../organization/business-unit-lead.js";
 const Text = z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 export const PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
+    createBusinessUnit: 'paperclip_create_business_unit',
 };
 export const PaperclipIssueStatusSchema = z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
 const Statuses = z.array(PaperclipIssueStatusSchema).min(1).max(7)
@@ -19,6 +21,11 @@ export const PaperclipCreateIssueInputSchema = z.strictObject({
     parentIssueId: z.uuid().optional(),
     blockedByIssueIds: z.array(z.uuid()).max(20)
         .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique').optional(),
+});
+export const PaperclipCreateBusinessUnitInputSchema = BusinessUnitLeadBirthRequestSchema.extend({ unitName: Text });
+export const PaperclipCreateBusinessUnitOutputSchema = z.strictObject({
+    unitId: Text, paperclipAgentId: z.uuid(),
+    agentIdentity: BusinessUnitLeadBirthResultSchema.shape.agentIdentity, replayed: z.boolean(),
 });
 export const PaperclipCommentsInputSchema = z.strictObject({
     issueId: z.uuid(), limit: z.number().int().min(1).max(50).optional(),
