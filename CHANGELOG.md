@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.54.0 — asynchronous per-agent turn jobs (AZ-EMAIL-LUNGHE), additive
+
+- Add submit, read and result acknowledgement contracts, inferred types and validated path helpers to `@x9-forge/contracts/http`. Submission reuses the synchronous turn request with a 1–200 character idempotency key and optional email origin; HTTP 202 returns the durable job receipt, HTTP 409 uses `INTERNAL_AGENT_TURN_JOB_CONFLICT` for different content under the same key.
+- Share job states and read validation: results only accompany completed jobs, errors only failed or uncertain jobs. Delivery acknowledgement echoes the stored result digest and is idempotent.
+- Consumers: X9 agent-core and cap-email in follow-up tasks B–F. Distribution build and consumer pins follow separately; the synchronous endpoint is unchanged. These contracts alone do not implement durable jobs or email delivery.
+
 ## v1.53.0 — company asset reference (AGB-03), additive
 
 - Add `AssetRefSchema`, `AssetOriginSchema` (origin kinds email, archive, session), `AssetSha256Schema` and `ASSET_ORIGIN_KINDS` to `@x9-forge/contracts/organization`.
