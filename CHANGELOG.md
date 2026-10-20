@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## v1.53.0 — company asset reference (AGB-03), additive
+
+- Add `AssetRefSchema`, `AssetOriginSchema` (origin kinds email, archive, session), `AssetSha256Schema` and `ASSET_ORIGIN_KINDS` to `@x9-forge/contracts/organization`.
+- No existing schema changed. Consumers: company memory A (AGM-01), cap-lab (AGL-02), cap-email (AGX-03), cap-dev (AGD-01).
+
 ## v1.52.0 — business unit competencies and referents in the lead birth request (AGB-02), breaking
 
 - `BusinessUnitLeadBirthRequestSchema` now requires `businessUnit.competencies` and `businessUnit.referents`. Add `BusinessUnitLeadReferentSchema` to the business unit lead contracts.

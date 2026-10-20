@@ -21,4 +21,5 @@ export * from "./publication-lookup.cjs";
 export * from "./recall.cjs";
 export * from "./business-unit-lead.cjs";
 export * from "./decision-request.cjs";
+export * from "./asset.cjs";
 //# sourceMappingURL=index.d.ts.map
