@@ -109,7 +109,11 @@ it('validates a complete queue item and operator binding', () => {
 const buInput = () => ({
   requestId: 'birth-bu-research-1', tenantId: 'tenant-1', ownerId: 'owner-1',
   company: { companyId: 'company-1', name: 'Company One' },
-  businessUnit: { slug: 'research', name: 'Research', briefSection: 'Research the market.' },
+  businessUnit: {
+    slug: 'research', name: 'Research', briefSection: 'Research the market.',
+    competencies: ['market research'],
+    referents: [{ referentRef: 'anna-rossi', name: 'Anna Rossi', role: 'Head of Research', email: 'anna@example.com' }],
+  },
   profileTemplate: 'capo-bu', model: { tier: 'standard', llmModel: 'provider/model' },
   capabilities: ['cap-ricerca'], paperclipParticipant: { participantId: 'participant-1', roles: ['lead'] },
   unitName: 'Research unit',
@@ -130,6 +134,8 @@ it('validates create-business-unit input and rejects extra fields and blank unit
   expect(CreateBu.safeParse({ ...buInput(), unitName: ' ' }).success).toBe(false);
   const { unitName: _unitName, ...missing } = buInput();
   expect(CreateBu.safeParse(missing).success).toBe(false);
+  const { referents: _referents, ...unitWithoutReferents } = buInput().businessUnit;
+  expect(CreateBu.safeParse({ ...buInput(), businessUnit: unitWithoutReferents }).success).toBe(false);
 });
 it('validates create-business-unit output and requires the full agent identity', () => {
   expect(CreateBuOutput.safeParse(buOutput()).success).toBe(true);

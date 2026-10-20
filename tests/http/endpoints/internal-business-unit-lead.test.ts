@@ -19,6 +19,10 @@ const request = {
     slug: 'research',
     name: 'Research',
     briefSection: 'Research the market and deliver a report for the company brief.',
+    competencies: ['market research', 'competitor analysis'],
+    referents: [
+      { referentRef: 'anna-rossi', name: 'Anna Rossi', role: 'Head of Research', email: 'anna@example.com' },
+    ],
   },
   profileTemplate: 'capo-bu',
   model: { tier: MODEL_TIERS[0], llmModel: 'provider/model' },

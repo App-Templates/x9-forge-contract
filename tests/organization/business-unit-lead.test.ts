@@ -16,6 +16,11 @@ const validRequest = () => ({
     slug: 'research',
     name: 'Research',
     briefSection: 'Research the market and deliver a report for the company brief.',
+    competencies: ['market research', 'competitor analysis'],
+    referents: [
+      { referentRef: 'anna-rossi', name: 'Anna Rossi', role: 'Head of Research', email: 'anna@example.com' },
+      { referentRef: 'luca-bianchi', name: 'Luca Bianchi', role: 'Analyst', email: 'luca@example.com' },
+    ],
   },
   profileTemplate: 'capo-bu',
   model: { tier: MODEL_TIERS[0], llmModel: 'provider/model' },
@@ -146,9 +151,62 @@ describe('BusinessUnitLeadBirthRequestSchema', () => {
       ...validRequest(),
       requestId: 'r'.repeat(128),
       company: { companyId: 'c'.repeat(64), name: 'n'.repeat(120) },
-      businessUnit: { slug: 's'.repeat(30), name: 'n'.repeat(120), briefSection: 'b'.repeat(4000) },
+      businessUnit: {
+        slug: 's'.repeat(30),
+        name: 'n'.repeat(120),
+        briefSection: 'b'.repeat(4000),
+        competencies: Array.from({ length: 20 }, (_, i) => `${String(i).padStart(2, '0')}${'c'.repeat(198)}`),
+        referents: Array.from({ length: 10 }, (_, i) => ({
+          referentRef: `${'r'.repeat(38)}-${i}`,
+          name: 'n'.repeat(120),
+          role: 'r'.repeat(120),
+          email: `person${i}@example.com`,
+        })),
+      },
       capabilities: [],
     }).success).toBe(true);
+  });
+
+  it('rejects a business unit without referents', () => {
+    const { businessUnit } = validRequest();
+    expect(BusinessUnitLeadBirthRequestSchema.safeParse({
+      ...validRequest(), businessUnit: { ...businessUnit, referents: [] },
+    }).success).toBe(false);
+  });
+
+  it('rejects duplicate referentRef', () => {
+    const { businessUnit } = validRequest();
+    const [first] = businessUnit.referents;
+    const parsed = BusinessUnitLeadBirthRequestSchema.safeParse({
+      ...validRequest(),
+      businessUnit: {
+        ...businessUnit,
+        referents: [first, { ...first, name: 'Other', email: 'other@example.com' }],
+      },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it('rejects duplicate competencies', () => {
+    const { businessUnit } = validRequest();
+    expect(BusinessUnitLeadBirthRequestSchema.safeParse({
+      ...validRequest(), businessUnit: { ...businessUnit, competencies: ['seo', 'seo'] },
+    }).success).toBe(false);
+  });
+
+  it('rejects a business unit without competencies', () => {
+    const { businessUnit } = validRequest();
+    expect(BusinessUnitLeadBirthRequestSchema.safeParse({
+      ...validRequest(), businessUnit: { ...businessUnit, competencies: [] },
+    }).success).toBe(false);
+  });
+
+  it.each(['not-an-email', '', 'anna@'])('rejects a referent without a valid email: %s', (email) => {
+    const { businessUnit } = validRequest();
+    const [first, second] = businessUnit.referents;
+    expect(BusinessUnitLeadBirthRequestSchema.safeParse({
+      ...validRequest(), businessUnit: { ...businessUnit, referents: [{ ...first, email }, second] },
+    }).success).toBe(false);
   });
 });
 
