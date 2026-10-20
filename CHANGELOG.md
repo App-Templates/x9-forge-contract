@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.50.0 — automatic device snapshots (SNAP-AUTO), additive
+
+- Add `backupDeviceAutoCreateInfoContract` (GET) and `backupDeviceAutoCreateContract` (POST) at `/backup/api/auto-create`, authenticated by device signature, and their strict schemas via `@x9-forge/contracts/capability`.
+- Permanent authorization covers snapshot creation only: the body accepts a release and optional resource, never a restore kind. Export `BACKUP_AUTO_CREATE_DAILY_MAX` (6) and closed refusal codes `off`, `needs-passkey`, `daily-cap`, `busy`, `invalid`.
+- Existing status, snapshot origins and passkey approval contracts remain unchanged. Consumers: cap-backup (x9-hotfix-backup/002) and x9-snapshot (mods-avvisi/022); adoption and deployment are separate.
+
 ## v1.49.4 — capo-bu literal and node-free subpath on one branch, additive
 
 - Root cause: il letterale capo-bu e il sottopercorso node-free stavano su due rami diversi. The lane branch now carries both `BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE` / `BusinessUnitLeadProfileTemplateSchema` (`capo-bu`) and the `@x9-forge/contracts/organization/business-unit-lead` subpath (1.49.3), with rebuilt `dist/`.
