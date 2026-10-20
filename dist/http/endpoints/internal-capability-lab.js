@@ -2,12 +2,12 @@ import { z } from 'zod';
 import { CapabilityAgentParamsSchema } from "./internal-capability-agent.js";
 import { LabExportRequestSchema, LabExportResultSchema, LabPageDetailInputSchema, LabPageDetailOutputSchema, LabPageListInputSchema, LabPageListOutputSchema, } from "../../capability/lab/browse.js";
 import { LabGrowthHistoryInputSchema, LabGrowthHistoryOutputSchema, LabGrowthPointSchema, LabScopeSchema, } from "../../capability/lab/growth.js";
-import { LabCompetenceOutputSchema, LabGapsOutputSchema } from "../../capability/lab/tools.js";
+import { LabCompetenceOutputSchema, LabGapsOutputSchema, LabToolErrorSchema } from "../../capability/lab/tools.js";
 import { WikiPageSlugSchema } from "../../capability/lab/wiki.js";
 /** Named failures for notebook HTTP reads and exports. */
 export const LabHttpErrorSchema = z.object({
     ok: z.literal(false),
-    error: z.enum(['invalid_request', 'not_configured', 'not_found', 'not_ready', 'scope_foreign', 'unavailable', 'timeout']),
+    error: z.enum([...LabToolErrorSchema.options, 'scope_foreign', 'unavailable', 'timeout']),
 }).strict();
 /** HTTP scope excludes the agent identity supplied by the route parameters. */
 export const labScopeQuerySchema = LabScopeSchema.pick({ tenantId: true, ownerId: true }).strict();

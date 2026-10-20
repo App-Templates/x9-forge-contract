@@ -4,6 +4,10 @@ export declare const PAPERCLIP_TOOLS: {
     readonly issue: "paperclip_issue";
     readonly take: "paperclip_take";
     readonly assign: "paperclip_assign";
+    readonly createIssue: "paperclip_create_issue";
+    readonly comments: "paperclip_comments";
+    readonly review: "paperclip_review";
+    readonly createBusinessUnit: "paperclip_create_business_unit";
 };
 export declare const PaperclipIssueStatusSchema: z.ZodEnum<{
     cancelled: "cancelled";
@@ -44,6 +48,93 @@ export declare const PaperclipTakeInputSchema: z.ZodObject<{
 export declare const PaperclipAssignInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
     roleRef: z.ZodString;
+}, z.core.$strict>;
+export declare const PaperclipCreateIssueInputSchema: z.ZodObject<{
+    title: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    assigneeRoleRef: z.ZodOptional<z.ZodString>;
+    parentIssueId: z.ZodOptional<z.ZodUUID>;
+    blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+}, z.core.$strict>;
+export declare const PaperclipCreateBusinessUnitInputSchema: z.ZodObject<{
+    requestId: z.ZodString;
+    tenantId: z.ZodString;
+    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    company: z.ZodObject<{
+        companyId: z.ZodString;
+        name: z.ZodString;
+    }, z.core.$strict>;
+    businessUnit: z.ZodObject<{
+        slug: z.ZodString;
+        name: z.ZodString;
+        briefSection: z.ZodString;
+        competencies: z.ZodArray<z.ZodString>;
+        referents: z.ZodArray<z.ZodObject<{
+            referentRef: z.ZodString;
+            name: z.ZodString;
+            role: z.ZodString;
+            email: z.ZodEmail;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    profileTemplate: z.ZodLiteral<"capo-bu">;
+    model: z.ZodObject<{
+        tier: z.ZodEnum<{
+            standard: "standard";
+            advanced: "advanced";
+            reasoning: "reasoning";
+        }>;
+        llmModel: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    capabilities: z.ZodArray<z.ZodString>;
+    paperclipParticipant: z.ZodObject<{
+        participantId: z.ZodString;
+        roles: z.ZodArray<z.ZodEnum<{
+            lead: "lead";
+            member: "member";
+            reviewer: "reviewer";
+            observer: "observer";
+        }>>;
+    }, z.core.$strict>;
+    unitName: z.ZodString;
+}, z.core.$strict>;
+export declare const PaperclipCreateBusinessUnitOutputSchema: z.ZodObject<{
+    unitId: z.ZodString;
+    paperclipAgentId: z.ZodUUID;
+    agentIdentity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    replayed: z.ZodBoolean;
+}, z.core.$strict>;
+export declare const PaperclipCommentsInputSchema: z.ZodObject<{
+    issueId: z.ZodUUID;
+    limit: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export declare const PaperclipCommentViewSchema: z.ZodObject<{
+    id: z.ZodUUID;
+    issueId: z.ZodUUID;
+    authorAgentId: z.ZodNullable<z.ZodUUID>;
+    body: z.ZodString;
+    createdAt: z.ZodISODateTime;
+}, z.core.$strict>;
+export declare const PaperclipCommentsOutputSchema: z.ZodObject<{
+    comments: z.ZodArray<z.ZodObject<{
+        id: z.ZodUUID;
+        issueId: z.ZodUUID;
+        authorAgentId: z.ZodNullable<z.ZodUUID>;
+        body: z.ZodString;
+        createdAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const PaperclipReviewInputSchema: z.ZodObject<{
+    issueId: z.ZodUUID;
+    status: z.ZodEnum<{
+        done: "done";
+        blocked: "blocked";
+        in_review: "in_review";
+    }>;
+    comment: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const PaperclipIssueViewSchema: z.ZodObject<{
     id: z.ZodUUID;
@@ -117,6 +208,13 @@ export type PaperclipQueueInput = z.infer<typeof PaperclipQueueInputSchema>;
 export type PaperclipIssueInput = z.infer<typeof PaperclipIssueInputSchema>;
 export type PaperclipTakeInput = z.infer<typeof PaperclipTakeInputSchema>;
 export type PaperclipAssignInput = z.infer<typeof PaperclipAssignInputSchema>;
+export type PaperclipCreateIssueInput = z.infer<typeof PaperclipCreateIssueInputSchema>;
+export type PaperclipCreateBusinessUnitInput = z.infer<typeof PaperclipCreateBusinessUnitInputSchema>;
+export type PaperclipCreateBusinessUnitOutput = z.infer<typeof PaperclipCreateBusinessUnitOutputSchema>;
+export type PaperclipCommentsInput = z.infer<typeof PaperclipCommentsInputSchema>;
+export type PaperclipCommentView = z.infer<typeof PaperclipCommentViewSchema>;
+export type PaperclipCommentsOutput = z.infer<typeof PaperclipCommentsOutputSchema>;
+export type PaperclipReviewInput = z.infer<typeof PaperclipReviewInputSchema>;
 export type PaperclipIssueView = z.infer<typeof PaperclipIssueViewSchema>;
 export type PaperclipAgentBinding = z.infer<typeof PaperclipAgentBindingSchema>;
 //# sourceMappingURL=tools.d.ts.map

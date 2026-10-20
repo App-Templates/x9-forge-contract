@@ -19,6 +19,7 @@ export * from "./agent-runtime-state.js";
 export * from "./agent-runtime-source.js";
 export * from "./agent-management.js";
 export * from "./agent-scope-policy.js";
+export * from "./agent-turn-limits.js";
 export * from "./agent-channel-configuration.js";
 export * from "./agent-creation-replay.js";
 export * from "./agent-channel-attestation.js";

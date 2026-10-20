@@ -85,6 +85,33 @@ describe('status and tools', () => {
   });
 });
 
+describe('snapshot request riassunto', () => {
+  const base = { kind: 'create', release: 'pre-phase-60-agent-x9' } as const;
+  const parse = (extra: Record<string, unknown>) => BackupDeviceRequestBodySchema.safeParse({ ...base, ...extra });
+
+  it('keeps old bodies without riassunto valid', () => {
+    expect(parse({}).success).toBe(true);
+  });
+
+  it('accepts a valid riassunto', () => {
+    expect(parse({ riassunto: 'Potrai creare incarichi dal telefono.' }).success).toBe(true);
+    expect(parse({ riassunto: 'x'.repeat(600) }).success).toBe(true);
+  });
+
+  it('rejects an empty or whitespace-only riassunto', () => {
+    expect(parse({ riassunto: '' }).success).toBe(false);
+    expect(parse({ riassunto: '   ' }).success).toBe(false);
+  });
+
+  it('rejects a riassunto longer than 600 characters', () => {
+    expect(parse({ riassunto: 'x'.repeat(601) }).success).toBe(false);
+  });
+
+  it('still rejects unknown keys', () => {
+    expect(parse({ riassunto: 'ok', extra: 1 }).success).toBe(false);
+  });
+});
+
 describe('device API', () => {
   it('pins the device endpoints to device signatures', () => {
     expect([backupDeviceStatusContract, backupDeviceRequestContract, backupDeviceVerifiedContract].map((c) => [c.method, c.path, c.authType])).toEqual([

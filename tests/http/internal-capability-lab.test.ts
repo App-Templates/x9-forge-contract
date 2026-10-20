@@ -4,6 +4,7 @@ import {
   labGrowthHistoryContract, labCompetenceContract, labGapsContract, labExportContract,
   labAgentConfigGetContract, labAgentSpendContract, labAgentGrowthContract,
 } from '../../src/http/index.js';
+import { LabToolErrorSchema } from '../../src/capability/lab/tools.js';
 
 const scope = { tenantId: 'tenant-1', ownerId: 'owner-1' };
 const reads = [labPagesContract, labPageDetailContract, labGrowthHistoryContract, labCompetenceContract, labGapsContract];
@@ -108,6 +109,12 @@ describe('lab notebook HTTP contracts', () => {
           snapshotVersion: 1, nodes: [], method: 'coverage', methodVersion: '1', [key]: value,
         }).success).toBe(false);
       }
+    }
+  });
+
+  it('accepts every tool error value as an HTTP error', () => {
+    for (const error of LabToolErrorSchema.options) {
+      expect(LabHttpErrorSchema.parse({ ok: false, error })).toEqual({ ok: false, error });
     }
   });
 

@@ -19,3 +19,7 @@ export * from './tool-call-correlation.js';
 export * from './publication-operations.js';
 export * from './publication-lookup.js';
 export * from './recall.js';
+export * from './business-unit-lead.js';
+export * from './decision-request.js';
+export * from './asset.js';
+export * from './shared-mailbox.js';

@@ -1,0 +1,94 @@
+import { z } from 'zod';
+import { OwnerIdSchema } from "../agent/agent-identity.js";
+import { ParticipantAgentIdentitySchema } from "./participant-binding.js";
+/** Channels through which an agent asks the owner for a decision. */
+export const DECISION_REQUEST_CHANNELS = ['email', 'x9_conversation', 'forge_panel'];
+export const DecisionRequestChannelSchema = z.enum(DECISION_REQUEST_CHANNELS);
+export const DecisionRequestIdSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
+const OptionIdSchema = z
+    .string()
+    .max(40)
+    .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+export const DecisionRequestOptionSchema = z.strictObject({
+    optionId: OptionIdSchema,
+    label: z.string().min(1).max(200),
+    detail: z.string().min(1).max(2000).optional(),
+});
+/** Open question an agent puts to the owner, with the options to choose from. */
+export const DecisionRequestSchema = z.strictObject({
+    requestId: DecisionRequestIdSchema,
+    tenantId: z.string().min(1),
+    organizationId: z.string().min(1).max(64),
+    projectId: z.string().min(1).max(64).optional(),
+    question: z.string().min(1).max(4000),
+    options: z
+        .array(DecisionRequestOptionSchema)
+        .min(1)
+        .max(10)
+        .refine((options) => new Set(options.map((o) => o.optionId)).size === options.length, {
+        message: 'optionId must be unique within a request',
+    }),
+    requestedBy: ParticipantAgentIdentitySchema,
+    addressedTo: z.strictObject({ ownerId: OwnerIdSchema }),
+    channel: DecisionRequestChannelSchema,
+    createdAt: z.iso.datetime({ offset: true }),
+});
+const outcomeBase = {
+    requestId: DecisionRequestIdSchema,
+    decidedBy: z.strictObject({ kind: z.literal('owner'), ownerId: OwnerIdSchema }),
+    decidedAt: z.iso.datetime({ offset: true }),
+    channel: DecisionRequestChannelSchema,
+    sourceRef: z.string().min(1).max(512),
+};
+/** Recorded owner answer to a decision request. */
+export const DecisionOutcomeSchema = z.discriminatedUnion('outcome', [
+    z.strictObject({ ...outcomeBase, outcome: z.literal('approved'), optionId: OptionIdSchema }),
+    z.strictObject({ ...outcomeBase, outcome: z.literal('rejected'), reason: z.string().min(3).max(2000) }),
+]);
+/** Word used in the email subject to tie a reply to its decision request: `[decisione <requestId>]`. */
+export const DECISION_REQUEST_SUBJECT_LABEL = 'decisione';
+export function decisionRequestSubjectLabel(requestId) {
+    return `[${DECISION_REQUEST_SUBJECT_LABEL} ${requestId}]`;
+}
+/** Owner email reply as read by the inbound reader (approve / refuse with reason / unclear). */
+export const DecisionEmailReplySchema = z.discriminatedUnion('kind', [
+    z.strictObject({ kind: z.literal('approve'), requestId: DecisionRequestIdSchema, optionId: OptionIdSchema.optional() }),
+    z.strictObject({ kind: z.literal('refuse'), requestId: DecisionRequestIdSchema, reason: z.string().min(3).max(2000) }),
+    z.strictObject({
+        kind: z.literal('unclear'),
+        requestId: DecisionRequestIdSchema,
+        why: z.enum(['missing_reason', 'no_decision', 'both']),
+    }),
+]);
+/** The single rule that turns an email reply into the recorded outcome of a request. */
+export function decisionOutcomeFromEmailReply(input) {
+    const { request, reply, from, receivedAt, messageId } = input;
+    if (reply.requestId !== request.requestId)
+        return { ok: false, code: 'mismatch' };
+    if (from.ownerId !== request.addressedTo.ownerId)
+        return { ok: false, code: 'not_addressee' };
+    if (Date.parse(receivedAt) < Date.parse(request.createdAt))
+        return { ok: false, code: 'before_request' };
+    if (reply.kind === 'unclear')
+        return { ok: false, code: 'unclear' };
+    const base = {
+        requestId: request.requestId,
+        decidedBy: { kind: 'owner', ownerId: request.addressedTo.ownerId },
+        decidedAt: receivedAt,
+        channel: 'email',
+        sourceRef: messageId,
+    };
+    if (reply.kind === 'refuse') {
+        return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: reply.reason }) };
+    }
+    let optionId = reply.optionId;
+    if (optionId === undefined) {
+        if (request.options.length !== 1)
+            return { ok: false, code: 'option_required' };
+        optionId = request.options[0].optionId;
+    }
+    if (!request.options.some((o) => o.optionId === optionId))
+        return { ok: false, code: 'unknown_option' };
+    return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'approved', optionId }) };
+}
+//# sourceMappingURL=decision-request.js.map

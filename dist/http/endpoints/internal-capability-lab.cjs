@@ -10,7 +10,7 @@ const wiki_js_1 = require("../../capability/lab/wiki.cjs");
 /** Named failures for notebook HTTP reads and exports. */
 exports.LabHttpErrorSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
-    error: zod_1.z.enum(['invalid_request', 'not_configured', 'not_found', 'not_ready', 'scope_foreign', 'unavailable', 'timeout']),
+    error: zod_1.z.enum([...tools_js_1.LabToolErrorSchema.options, 'scope_foreign', 'unavailable', 'timeout']),
 }).strict();
 /** HTTP scope excludes the agent identity supplied by the route parameters. */
 exports.labScopeQuerySchema = growth_js_1.LabScopeSchema.pick({ tenantId: true, ownerId: true }).strict();

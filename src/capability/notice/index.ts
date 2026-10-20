@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /** Supported owner notice kinds. */
-export const OwnerNoticeKindSchema = z.enum(['release_ready', 'decision_needed', 'fault']);
+export const OwnerNoticeKindSchema = z.enum(['release_ready', 'decision_needed', 'fault', 'daily_recap']);
 
 /** A supported owner notice kind. */
 export type OwnerNoticeKind = z.infer<typeof OwnerNoticeKindSchema>;
@@ -11,6 +11,7 @@ export const OWNER_NOTICE_KIND_LABEL: Record<OwnerNoticeKind, string> = {
   release_ready: '🚀 Pronto per il rilascio',
   decision_needed: '🧭 Serve una tua scelta',
   fault: '🛑 Guasto da guardare',
+  daily_recap: '☀️ Recap del mattino',
 };
 
 /** Shared delivery policy and payload limits for owner notices. */

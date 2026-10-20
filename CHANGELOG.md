@@ -1,5 +1,92 @@
 # Changelog — @x9-forge/contracts
 
+## v1.56.0 — company release (AGB-05), additive
+
+- Single release for the agentic company: decision request (1.51.0), business unit competencies and referents (1.52.0), company asset reference (1.53.0), asynchronous per-agent turn jobs (1.54.0), company shared mailbox (1.55.0), automatic device snapshots (1.50.0) and the `daily_recap` owner notice kind (1.49.5, AVV-30) on one commit.
+- No schema changed in this step: it joins `codex/cuore-bridge-148` and `opus/bridge-avvisi-20261020` and rebuilds `dist`. Consumers: agent-x9 (cap-email, cap-paperclip, cap-lab, memory, agent-core, cap-approvals) and forge-v2 (factory, web) pin this commit.
+
+## v1.55.0 — company shared mailbox (AGB-04), additive
+
+- Add `SharedMailboxSchema`, `SharedMailboxHolderSchema`, `SharedMailboxLabelSchema`, `SharedMailboxThreadSchema`, `parseSharedMailboxSubjectLabel`, `routeSharedMailboxMessage` (thread, then label in the subject, then Director) and `SHARED_MAILBOX_ROUTE_VIAS` to `@x9-forge/contracts/organization`.
+- No existing schema changed. Consumers: cap-email (AGX-04), factory-svc agent birth (AGF-05).
+
+## v1.54.0 — asynchronous per-agent turn jobs (AZ-EMAIL-LUNGHE), additive
+
+- Add submit, read and result acknowledgement contracts, inferred types and validated path helpers to `@x9-forge/contracts/http`. Submission reuses the synchronous turn request with a 1–200 character idempotency key and optional email origin; HTTP 202 returns the durable job receipt, HTTP 409 uses `INTERNAL_AGENT_TURN_JOB_CONFLICT` for different content under the same key.
+- Share job states and read validation: results only accompany completed jobs, errors only failed or uncertain jobs. Delivery acknowledgement echoes the stored result digest and is idempotent.
+- Consumers: X9 agent-core and cap-email in follow-up tasks B–F. Distribution build and consumer pins follow separately; the synchronous endpoint is unchanged. These contracts alone do not implement durable jobs or email delivery.
+
+## v1.53.0 — company asset reference (AGB-03), additive
+
+- Add `AssetRefSchema`, `AssetOriginSchema` (origin kinds email, archive, session), `AssetSha256Schema` and `ASSET_ORIGIN_KINDS` to `@x9-forge/contracts/organization`.
+- No existing schema changed. Consumers: company memory A (AGM-01), cap-lab (AGL-02), cap-email (AGX-03), cap-dev (AGD-01).
+
+## v1.52.0 — business unit competencies and referents in the lead birth request (AGB-02), breaking
+
+- `BusinessUnitLeadBirthRequestSchema` now requires `businessUnit.competencies` and `businessUnit.referents`. Add `BusinessUnitLeadReferentSchema` to the business unit lead contracts.
+- R-37: no business unit lead birth requests are saved in production.
+- Consumers: forge-v2 factory-svc `business-unit-lead.routes.ts` (AGF-01), agent-x9 cap-paperclip `runtime.ts` (AGP-01), and their fixtures must adopt the required fields and update the bridge pin.
+
+## v1.51.0 — decision request and email reply outcome (AGB-01), additive
+
+- Add `DecisionRequestSchema`, `DecisionOutcomeSchema`, `DecisionEmailReplySchema`, `decisionOutcomeFromEmailReply` and `decisionRequestSubjectLabel` (plus channel, id and option schemas) to `@x9-forge/contracts/organization`: an email reply «approvo / rifiuto: motivo» becomes the outcome of a decision request.
+- No existing schema changed. Consumers: agent-x9 cap-email (AGX-01) and company memory A (AGM-01).
+
+## v1.50.0 — automatic device snapshots (SNAP-AUTO), additive
+
+- Add `backupDeviceAutoCreateInfoContract` (GET) and `backupDeviceAutoCreateContract` (POST) at `/backup/api/auto-create`, authenticated by device signature, and their strict schemas via `@x9-forge/contracts/capability`.
+- Permanent authorization covers snapshot creation only: the body accepts a release and optional resource, never a restore kind. Export `BACKUP_AUTO_CREATE_DAILY_MAX` (6) and closed refusal codes `off`, `needs-passkey`, `daily-cap`, `busy`, `invalid`.
+- Existing status, snapshot origins and passkey approval contracts remain unchanged. Consumers: cap-backup (x9-hotfix-backup/002) and x9-snapshot (mods-avvisi/022); adoption and deployment are separate.
+
+## v1.49.5 — daily recap owner notice kind (AVV-30), additive
+
+- Add `daily_recap` to `OwnerNoticeKindSchema` and its label «☀️ Recap del mattino» to `OWNER_NOTICE_KIND_LABEL` in `@x9-forge/contracts/capability`. Root cause: the night morning recap had no kind of its own, and reusing `fault` or `release_ready` would show a false label to the owner.
+- Bodies and responses of `ownerNoticeDeviceContract` are unchanged; existing kinds stay valid.
+- Consumers: agent-x9 cap-approvals (AVV-31, label comes from the bridge) and night `brief_cantiere.py mattino` (AVV-32).
+
+## v1.49.4 — capo-bu literal and node-free subpath on one branch, additive
+
+- Root cause: il letterale capo-bu e il sottopercorso node-free stavano su due rami diversi. The lane branch now carries both `BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE` / `BusinessUnitLeadProfileTemplateSchema` (`capo-bu`) and the `@x9-forge/contracts/organization/business-unit-lead` subpath (1.49.3), with rebuilt `dist/`.
+- Consumers: forge-v2 factory-svc `business-unit-lead.routes.ts` imports the literal from the subpath after the pin update.
+
+## Unreleased — capo-bu profile template is a shared literal (R-14), breaking
+
+- `BusinessUnitLeadBirthRequestSchema.profileTemplate` now accepts only `'capo-bu'` instead of any kebab-case string. Add `BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE` and `BusinessUnitLeadProfileTemplateSchema` to `@x9-forge/contracts/organization` so consumers import the value instead of re-declaring it.
+- Consumers: forge-v2 factory-svc `business-unit-lead.routes.ts` and `@forge/types` `FactoryWorkspaceProfileSchema` import the literal; agent-x9 cap-paperclip fixtures and the agent-core registry move from `'bu-lead'` to `'capo-bu'`.
+
+## Unreleased — business unit lead birth endpoint (AZB-04), additive
+
+- Add `INTERNAL_BUSINESS_UNIT_LEAD_BIRTH_PATH` and `internalBusinessUnitLeadBirthContract` to `@x9-forge/contracts/http`: `POST /api/internal/factory/business-unit-lead`, token authentication via `INTERNAL_TOKEN_HEADER`, reusing `BusinessUnitLeadBirthRequestSchema` and `BusinessUnitLeadBirthResultSchema`.
+- Consumers: forge-v2 factory-svc (AZG-05) and agent-x9 Director tool «crea BU» (AZX-06).
+
+## Unreleased — feature switches (BR-AUT-02), additive
+
+- Add `FeatureSwitchStateSchema`, strict `FeatureSwitchSchema`, `FeatureSwitchListSchema` and inferred types to `@x9-forge/contracts/capability`. Enabled functions cannot have open links; lists require unique function names.
+- Consumer adoption follows in X9-AUT-04, FG-AUT-01 and NM-096; this contract alone does not enable functions.
+
+## Unreleased — `riassunto` nella richiesta di snapshot (BR-AUT-01), additivo
+
+- `BackupDeviceRequestBodySchema` accetta il campo opzionale `riassunto` (stringa trim, 1..600 caratteri): «cosa potrai fare» con il rilascio, mostrato nella richiesta di snapshot sul telefono. I corpi senza il campo restano validi; il corpo resta `.strict()`.
+- Consumer: night (NM-091) lo compila nella richiesta di snapshot.
+
+## v1.49.2 — limiti del turno per agente (giro 0 azienda agentica), additivo
+
+- Add `AgentTurnLimitsSchema`, `AgentMaxToolRoundsSchema`, `AgentTurnBudgetSchema`, `AGENT_DEFAULT_MAX_TOOL_ROUNDS` (5), `AGENT_MAX_TOOL_ROUNDS_CEILING` and the lenient reader `readAgentTurnLimits(context)` to `@x9-forge/contracts/agent`.
+- New optional `context.json` field `turnLimits` `{ version, maxToolRounds: 1..200 | 'unlimited', budget?: { maxTokensPerTurn } }`; `'unlimited'` requires a budget. Absent ⇒ 5 rounds, no turn budget (today's behaviour). Invalid ⇒ defaults, never unlimited.
+- Consumers: X9 agent-core `core/turn-processor.ts` and `core/conversation.ts` (reader); Forge factory writer and the agent settings page (follow-up). Context schemas are passthrough, so older consumers ignore the field.
+
+## 1.49.1 + riconciliazione 18/10 (main b9a270e, consumer per SHA) — solo additivo
+
+- La versione resta 1.49.1 (agent-core la fissa nel suo test di adozione); i consumer pinnano per SHA.
+- Quaderno cap-lab: endpoint `src/http/endpoints/internal-capability-lab.ts` (pagine, dettaglio, crescita, competenze, lacune, export) con `LabHttpErrorSchema` derivato da `LabToolErrorSchema`.
+- Lab: `src/capability/lab/browse.ts` e `growth.ts` (navigazione del quaderno e storico della crescita).
+- Organizzazione e simulazione: `src/organization/*` (scenari versionati, corpora, esperimenti, `organizationRun` nel turno per agente).
+- Paperclip: `AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS` include `paperclip` e `github`.
+- Sessioni di sviluppo e produzione cap-dev: `src/capability/dev/production-*`.
+- Connect: `src/capability/connect/*` con i nuovi permessi `mail_read` e `drive_read`.
+- Test: l'elenco del sottopercorso `capability/dev` conosce i due controlli nuovi.
+- Attenzione R-37: `LabPageListOutputSchema`, `LabPageDetailOutputSchema`, `LabGrowthHistoryOutputSchema`, `LabExportResultSchema` hanno campi obbligatori nuovi (`snapshotVersion`, `truncated`, `content`, `partial`): sono risposte di cap-lab, non dati salvati; cap-lab non è ancora in produzione.
+
 ## v1.49.1 — fonte iniziale salvata rilegge gli slot registrati dopo (RIL-MODELLI-SLOT-NUOVI), patch
 
 - Add `AgentModelSavedInitialSourceSchema`, `AgentModelSavedBootstrapSourceSchema` and `MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON` to `@x9-forge/contracts/model-router`: a source saved by an earlier bridge (34 slots on 13/10) that does not name a slot registered since (`lab_digest`) reads that slot as excluded `not-installed`, reason `Capability has no model receiver yet`.

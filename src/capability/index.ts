@@ -139,3 +139,4 @@ export * from './agent-elevenlabs/native-tools.js';
 export * from './agent-elevenlabs/native-config.js';
 export * from './agent-elevenlabs/native-readback.js';
 export * from './configuration/news-briefing.js';
+export * from './feature-switch.js';

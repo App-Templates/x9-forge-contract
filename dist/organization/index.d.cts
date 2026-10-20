@@ -19,4 +19,8 @@ export * from "./tool-call-correlation.cjs";
 export * from "./publication-operations.cjs";
 export * from "./publication-lookup.cjs";
 export * from "./recall.cjs";
+export * from "./business-unit-lead.cjs";
+export * from "./decision-request.cjs";
+export * from "./asset.cjs";
+export * from "./shared-mailbox.cjs";
 //# sourceMappingURL=index.d.ts.map

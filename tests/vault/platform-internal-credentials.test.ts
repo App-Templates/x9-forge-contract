@@ -41,6 +41,18 @@ describe('platform-internal credentials', () => {
     }
   });
 
+  it('recognises the cap-ricerca database URL and strips it without changing the input', () => {
+    expect(PLATFORM_INTERNAL_CREDENTIAL_KEYS).toContain('RICERCA_DATABASE_URL');
+    expect(isPlatformInternalCredentialKey('RICERCA_DATABASE_URL')).toBe(true);
+    expect(isPlatformInternalCredentialKey('RICERCA_DATABASE_URL_EXTRA')).toBe(false);
+    const input = {
+      OPENAI_API_KEY: 'test-api-key',
+      RICERCA_DATABASE_URL: 'postgresql://localhost:5432/ricerca',
+    };
+    expect(stripPlatformInternalCredentials(input)).toEqual({ OPENAI_API_KEY: 'test-api-key' });
+    expect(input.RICERCA_DATABASE_URL).toBe('postgresql://localhost:5432/ricerca');
+  });
+
   it('strips only internal keys and leaves the input untouched', () => {
     const input = { OPENAI_API_KEY: 'sk-x', TELEGRAM_SESSION_STRING: 'session', AGENT_EMAIL: 'a@b.c' };
     const out = stripPlatformInternalCredentials(input);

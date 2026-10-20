@@ -22,6 +22,10 @@ import * as toolCallCorrelation from '../../src/organization/tool-call-correlati
 import * as publicationOperations from '../../src/organization/publication-operations.js';
 import * as publicationLookup from '../../src/organization/publication-lookup.js';
 import * as recall from '../../src/organization/recall.js';
+import * as businessUnitLead from '../../src/organization/business-unit-lead.js';
+import * as decisionRequest from '../../src/organization/decision-request.js';
+import * as asset from '../../src/organization/asset.js';
+import * as sharedMailbox from '../../src/organization/shared-mailbox.js';
 
 const allSymbols = {
   ...runContext,
@@ -45,6 +49,10 @@ const allSymbols = {
   ...publicationOperations,
   ...publicationLookup,
   ...recall,
+  ...businessUnitLead,
+  ...decisionRequest,
+  ...asset,
+  ...sharedMailbox,
 };
 
 describe('organization subpath', () => {
@@ -77,6 +85,7 @@ describe('organization subpath', () => {
     expect(organization.OrganizationToolCallContextSchema).toBe(toolCallCorrelation.OrganizationToolCallContextSchema);
     expect(organization.PublishMaterialRequestSchema).toBe(publicationOperations.PublishMaterialRequestSchema);
     expect(organization.ListPublicationsRequestSchema).toBe(publicationLookup.ListPublicationsRequestSchema);
+    expect(organization.decisionOutcomeFromEmailReply).toBe(decisionRequest.decisionOutcomeFromEmailReply);
     expect(Object.keys(organization).sort()).toEqual(Object.keys(allSymbols).sort());
   });
 

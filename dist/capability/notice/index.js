@@ -1,11 +1,12 @@
 import { z } from 'zod';
 /** Supported owner notice kinds. */
-export const OwnerNoticeKindSchema = z.enum(['release_ready', 'decision_needed', 'fault']);
+export const OwnerNoticeKindSchema = z.enum(['release_ready', 'decision_needed', 'fault', 'daily_recap']);
 /** Display labels for owner notice kinds. */
 export const OWNER_NOTICE_KIND_LABEL = {
     release_ready: '🚀 Pronto per il rilascio',
     decision_needed: '🧭 Serve una tua scelta',
     fault: '🛑 Guasto da guardare',
+    daily_recap: '☀️ Recap del mattino',
 };
 /** Shared delivery policy and payload limits for owner notices. */
 export const OWNER_NOTICE_LIMITS = { perDevicePerDay: 20, dedupeWindowHours: 24, titleMax: 120, textMax: 1500 };

@@ -33,6 +33,7 @@ __exportStar(require("./internal-agents-management.cjs"), exports); // v1.31.0 �
 __exportStar(require("./internal-turn.cjs"), exports);
 __exportStar(require("./internal-turn-stream.cjs"), exports);
 __exportStar(require("./internal-agent-turn.cjs"), exports); // v1.22.0 — EA M0 per-agent turn
+__exportStar(require("./internal-agent-turn-jobs.cjs"), exports);
 __exportStar(require("./internal-query.cjs"), exports);
 __exportStar(require("./internal-model-config.cjs"), exports); // Phase 6 — MDRT-05 / D-15
 __exportStar(require("./internal-model-config-version.cjs"), exports); // Phase 6 — MDRT-07 polling (06-01 decision)
@@ -54,6 +55,7 @@ __exportStar(require("./capability-call-context.cjs"), exports); // v1.31.0 — 
 __exportStar(require("./voice.cjs"), exports); // Phase 42 — CAP-Voice v2.2 path + method constants
 __exportStar(require("./voice-live.cjs"), exports); // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 __exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.11.0) — Parallel S2S agent deploy
+__exportStar(require("./internal-business-unit-lead.cjs"), exports); // AZB-04 — Director S2S business unit lead birth
 __exportStar(require("./internal-factory-telegram-token.cjs"), exports); // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 __exportStar(require("./cap-manifest.cjs"), exports);
@@ -111,4 +113,6 @@ __exportStar(require("./coach-person-program-read.cjs"), exports);
 __exportStar(require("./coach-browser.cjs"), exports);
 __exportStar(require("./development-session-models.cjs"), exports);
 __exportStar(require("./internal-development-session-list.cjs"), exports);
+__exportStar(require("./development-session-heartbeat.cjs"), exports);
+__exportStar(require("./internal-dev-artifact-content.cjs"), exports);
 //# sourceMappingURL=index.js.map
