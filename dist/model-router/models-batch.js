@@ -295,7 +295,7 @@ export function agentModelsResetSelection(row, positions) {
  * The binding of a seat after a change (Stefano 20/10 18:45). A row changed by hand on a Master-bound tiered seat becomes
  * custom and only that row; the other rows keep following the Master. «Risincronizza» of some rows gives back only those
  * (on a seat saved custom as a whole, the other rows stay custom). A single-model seat is one row: a change makes it custom.
- * An explicit choice that changes no model, or one that leaves no row following the Master, makes the whole seat custom.
+ * A choice that changes no model keeps the binding; one that leaves no row following the Master makes the whole seat custom.
  */
 export function agentModelsNextBinding(row, change) {
     const keep = (origin, positions) => origin === 'master' && positions.length > 0 ? { origin, customPositions: canonicalModelPositions(positions) } : { origin };
@@ -311,10 +311,12 @@ export function agentModelsNextBinding(row, change) {
     }
     const before = row.saved ?? row.default;
     const changed = row.origin === 'master' && before !== null ? changedModelPositions(before, change.settings) : null;
-    // An explicit choice that changes no model is still a gesture on the whole seat; every row changed by hand is the
+    // A choice that changes no model (a retry of the saved choice) changes no binding; every row changed by hand is the
     // same state as a custom seat (one representation for one state).
-    if (changed === null || changed.length === 0)
+    if (changed === null)
         return { origin: 'custom' };
+    if (changed.length === 0)
+        return keep('master', row.customPositions ?? []);
     const positions = canonicalModelPositions([...(row.customPositions ?? []), ...changed]);
     return positions.length === MODEL_POSITIONS.length ? { origin: 'custom' } : keep('master', positions);
 }

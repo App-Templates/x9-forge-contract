@@ -135,8 +135,10 @@ describe('binding after a gesture', () => {
     const custom = { ...synced, customPositions: ['reasoning' as const], saved: automatic('sol', 'sol', 'astra', 'sol') };
     expect(agentModelsNextBinding(custom, { action: 'set', slotId: 'agent_chat', settings: automatic('luna', 'sol', 'astra', 'sol') })).toEqual({ origin: 'master', customPositions: ['standard', 'reasoning'] });
   });
-  it('an explicit choice of the same models is still a gesture: the seat becomes custom (as before per-row inheritance)', () => {
-    expect(agentModelsNextBinding(synced, { action: 'set', slotId: 'agent_chat', settings: pinned('sol') })).toEqual({ origin: 'custom' });
+  it('a choice that changes no model (Riprova of the saved choice) keeps the binding row by row', () => {
+    expect(agentModelsNextBinding(synced, { action: 'set', slotId: 'agent_chat', settings: pinned('sol') })).toEqual({ origin: 'master' });
+    const custom = { ...synced, customPositions: ['standard' as const], saved: automatic('terra', 'sol', 'sol', 'sol') };
+    expect(agentModelsNextBinding(custom, { action: 'set', slotId: 'agent_chat', settings: automatic('terra', 'sol', 'sol', 'sol') })).toEqual({ origin: 'master', customPositions: ['standard'] });
   });
   it('when no row follows the Master any more the seat is custom: one representation for one state', () => {
     expect(agentModelsNextBinding(synced, { action: 'set', slotId: 'agent_chat', settings: pinned('astra') })).toEqual({ origin: 'custom' });
