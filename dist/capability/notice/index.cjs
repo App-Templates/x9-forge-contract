@@ -3,12 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ownerNoticeDeviceContract = exports.OwnerNoticeResponseSchema = exports.OwnerNoticeBodySchema = exports.OWNER_NOTICE_LIMITS = exports.OWNER_NOTICE_KIND_LABEL = exports.OwnerNoticeKindSchema = void 0;
 const zod_1 = require("zod");
 /** Supported owner notice kinds. */
-exports.OwnerNoticeKindSchema = zod_1.z.enum(['release_ready', 'decision_needed', 'fault']);
+exports.OwnerNoticeKindSchema = zod_1.z.enum(['release_ready', 'decision_needed', 'fault', 'daily_recap']);
 /** Display labels for owner notice kinds. */
 exports.OWNER_NOTICE_KIND_LABEL = {
     release_ready: '🚀 Pronto per il rilascio',
     decision_needed: '🧭 Serve una tua scelta',
     fault: '🛑 Guasto da guardare',
+    daily_recap: '☀️ Recap del mattino',
 };
 /** Shared delivery policy and payload limits for owner notices. */
 exports.OWNER_NOTICE_LIMITS = { perDevicePerDay: 20, dedupeWindowHours: 24, titleMax: 120, textMax: 1500 };

@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.49.5 — daily recap owner notice kind (AVV-30), additive
+
+- Add `daily_recap` to `OwnerNoticeKindSchema` and its label «☀️ Recap del mattino» to `OWNER_NOTICE_KIND_LABEL` in `@x9-forge/contracts/capability`. Root cause: the night morning recap had no kind of its own, and reusing `fault` or `release_ready` would show a false label to the owner.
+- Bodies and responses of `ownerNoticeDeviceContract` are unchanged; existing kinds stay valid.
+- Consumers: agent-x9 cap-approvals (AVV-31, label comes from the bridge) and night `brief_cantiere.py mattino` (AVV-32).
+
 ## v1.49.4 — capo-bu literal and node-free subpath on one branch, additive
 
 - Root cause: il letterale capo-bu e il sottopercorso node-free stavano su due rami diversi. The lane branch now carries both `BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE` / `BusinessUnitLeadProfileTemplateSchema` (`capo-bu`) and the `@x9-forge/contracts/organization/business-unit-lead` subpath (1.49.3), with rebuilt `dist/`.
