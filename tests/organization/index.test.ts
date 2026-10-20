@@ -81,6 +81,7 @@ describe('organization subpath', () => {
     expect(organization.OrganizationToolCallContextSchema).toBe(toolCallCorrelation.OrganizationToolCallContextSchema);
     expect(organization.PublishMaterialRequestSchema).toBe(publicationOperations.PublishMaterialRequestSchema);
     expect(organization.ListPublicationsRequestSchema).toBe(publicationLookup.ListPublicationsRequestSchema);
+    expect(organization.decisionOutcomeFromEmailReply).toBe(decisionRequest.decisionOutcomeFromEmailReply);
     expect(Object.keys(organization).sort()).toEqual(Object.keys(allSymbols).sort());
   });
 

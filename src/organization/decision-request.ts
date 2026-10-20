@@ -57,3 +57,67 @@ export const DecisionOutcomeSchema = z.discriminatedUnion('outcome', [
   z.strictObject({ ...outcomeBase, outcome: z.literal('rejected'), reason: z.string().min(3).max(2000) }),
 ]);
 export type DecisionOutcome = z.infer<typeof DecisionOutcomeSchema>;
+
+/** Word used in the email subject to tie a reply to its decision request: `[decisione <requestId>]`. */
+export const DECISION_REQUEST_SUBJECT_LABEL = 'decisione' as const;
+
+export function decisionRequestSubjectLabel(requestId: DecisionRequestId): string {
+  return `[${DECISION_REQUEST_SUBJECT_LABEL} ${requestId}]`;
+}
+
+/** Owner email reply as read by the inbound reader (approve / refuse with reason / unclear). */
+export const DecisionEmailReplySchema = z.discriminatedUnion('kind', [
+  z.strictObject({ kind: z.literal('approve'), requestId: DecisionRequestIdSchema, optionId: OptionIdSchema.optional() }),
+  z.strictObject({ kind: z.literal('refuse'), requestId: DecisionRequestIdSchema, reason: z.string().min(3).max(2000) }),
+  z.strictObject({
+    kind: z.literal('unclear'),
+    requestId: DecisionRequestIdSchema,
+    why: z.enum(['missing_reason', 'no_decision', 'both']),
+  }),
+]);
+export type DecisionEmailReply = z.infer<typeof DecisionEmailReplySchema>;
+
+export type DecisionEmailReplyRejection =
+  | 'mismatch'
+  | 'unclear'
+  | 'option_required'
+  | 'unknown_option'
+  | 'not_addressee'
+  | 'before_request';
+
+export type DecisionOutcomeFromEmailReply =
+  | { ok: true; outcome: DecisionOutcome }
+  | { ok: false; code: DecisionEmailReplyRejection };
+
+/** The single rule that turns an email reply into the recorded outcome of a request. */
+export function decisionOutcomeFromEmailReply(input: {
+  request: DecisionRequest;
+  reply: DecisionEmailReply;
+  from: { ownerId: string };
+  receivedAt: string;
+  messageId: string;
+}): DecisionOutcomeFromEmailReply {
+  const { request, reply, from, receivedAt, messageId } = input;
+  if (reply.requestId !== request.requestId) return { ok: false, code: 'mismatch' };
+  if (from.ownerId !== request.addressedTo.ownerId) return { ok: false, code: 'not_addressee' };
+  if (Date.parse(receivedAt) < Date.parse(request.createdAt)) return { ok: false, code: 'before_request' };
+  if (reply.kind === 'unclear') return { ok: false, code: 'unclear' };
+
+  const base = {
+    requestId: request.requestId,
+    decidedBy: { kind: 'owner' as const, ownerId: request.addressedTo.ownerId },
+    decidedAt: receivedAt,
+    channel: 'email' as const,
+    sourceRef: messageId,
+  };
+  if (reply.kind === 'refuse') {
+    return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: reply.reason }) };
+  }
+  let optionId = reply.optionId;
+  if (optionId === undefined) {
+    if (request.options.length !== 1) return { ok: false, code: 'option_required' };
+    optionId = request.options[0]!.optionId;
+  }
+  if (!request.options.some((o) => o.optionId === optionId)) return { ok: false, code: 'unknown_option' };
+  return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'approved', optionId }) };
+}
