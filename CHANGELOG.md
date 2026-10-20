@@ -1,5 +1,15 @@
 # Changelog — @x9-forge/contracts
 
+## v1.49.4 — capo-bu literal and node-free subpath on one branch, additive
+
+- Root cause: il letterale capo-bu e il sottopercorso node-free stavano su due rami diversi. The lane branch now carries both `BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE` / `BusinessUnitLeadProfileTemplateSchema` (`capo-bu`) and the `@x9-forge/contracts/organization/business-unit-lead` subpath (1.49.3), with rebuilt `dist/`.
+- Consumers: forge-v2 factory-svc `business-unit-lead.routes.ts` imports the literal from the subpath after the pin update.
+
+## Unreleased — capo-bu profile template is a shared literal (R-14), breaking
+
+- `BusinessUnitLeadBirthRequestSchema.profileTemplate` now accepts only `'capo-bu'` instead of any kebab-case string. Add `BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE` and `BusinessUnitLeadProfileTemplateSchema` to `@x9-forge/contracts/organization` so consumers import the value instead of re-declaring it.
+- Consumers: forge-v2 factory-svc `business-unit-lead.routes.ts` and `@forge/types` `FactoryWorkspaceProfileSchema` import the literal; agent-x9 cap-paperclip fixtures and the agent-core registry move from `'bu-lead'` to `'capo-bu'`.
+
 ## Unreleased — business unit lead birth endpoint (AZB-04), additive
 
 - Add `INTERNAL_BUSINESS_UNIT_LEAD_BIRTH_PATH` and `internalBusinessUnitLeadBirthContract` to `@x9-forge/contracts/http`: `POST /api/internal/factory/business-unit-lead`, token authentication via `INTERNAL_TOKEN_HEADER`, reusing `BusinessUnitLeadBirthRequestSchema` and `BusinessUnitLeadBirthResultSchema`.

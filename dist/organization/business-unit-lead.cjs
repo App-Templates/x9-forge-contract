@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = void 0;
+exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = exports.BusinessUnitLeadProfileTemplateSchema = exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const model_tier_js_1 = require("../model-router/model-tier.cjs");
 const participant_binding_js_1 = require("./participant-binding.cjs");
+/** The only birth profile Forge provisions for a business unit lead. */
+exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu';
+exports.BusinessUnitLeadProfileTemplateSchema = zod_1.z.literal(exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
 /** Director request to create the lead of a company business unit. */
 exports.BusinessUnitLeadBirthRequestSchema = zod_1.z.strictObject({
     requestId: zod_1.z.string().min(1).max(128),
@@ -19,7 +22,7 @@ exports.BusinessUnitLeadBirthRequestSchema = zod_1.z.strictObject({
         name: zod_1.z.string().min(1).max(120),
         briefSection: zod_1.z.string().min(1).max(4000),
     }),
-    profileTemplate: zod_1.z.string().min(1).max(64).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+    profileTemplate: exports.BusinessUnitLeadProfileTemplateSchema,
     model: zod_1.z.strictObject({
         tier: model_tier_js_1.ModelTierSchema,
         llmModel: zod_1.z.string().min(1).optional(),

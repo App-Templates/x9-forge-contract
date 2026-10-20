@@ -69,7 +69,7 @@ export declare const PaperclipCreateBusinessUnitInputSchema: z.ZodObject<{
         name: z.ZodString;
         briefSection: z.ZodString;
     }, z.core.$strict>;
-    profileTemplate: z.ZodString;
+    profileTemplate: z.ZodLiteral<"capo-bu">;
     model: z.ZodObject<{
         tier: z.ZodEnum<{
             standard: "standard";

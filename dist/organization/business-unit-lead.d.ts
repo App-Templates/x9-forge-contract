@@ -1,4 +1,8 @@
 import { z } from 'zod';
+/** The only birth profile Forge provisions for a business unit lead. */
+export declare const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE: "capo-bu";
+export declare const BusinessUnitLeadProfileTemplateSchema: z.ZodLiteral<"capo-bu">;
+export type BusinessUnitLeadProfileTemplate = z.infer<typeof BusinessUnitLeadProfileTemplateSchema>;
 /** Director request to create the lead of a company business unit. */
 export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
     requestId: z.ZodString;
@@ -13,7 +17,7 @@ export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
         name: z.ZodString;
         briefSection: z.ZodString;
     }, z.core.$strict>;
-    profileTemplate: z.ZodString;
+    profileTemplate: z.ZodLiteral<"capo-bu">;
     model: z.ZodObject<{
         tier: z.ZodEnum<{
             standard: "standard";
