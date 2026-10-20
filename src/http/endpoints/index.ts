@@ -118,3 +118,5 @@ export * from './coach-browser.js';
 export * from './development-session-models.js';
 
 export * from './internal-development-session-list.js';
+
+export * from './development-session-heartbeat.js';
