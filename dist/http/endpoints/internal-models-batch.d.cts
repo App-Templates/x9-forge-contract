@@ -46,6 +46,12 @@ export declare const internalModelsOverviewContract: {
             }>;
             masterAgentId: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
             masterConfigVersion: z.ZodNullable<z.ZodNumber>;
+            customPositions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                standard: "standard";
+                advanced: "advanced";
+                reasoning: "reasoning";
+                fallback: "fallback";
+            }>>>;
             requirements: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
@@ -1321,6 +1327,12 @@ export declare const internalModelsPreviewContract: {
             }, z.core.$strict>, z.ZodObject<{
                 action: z.ZodLiteral<"reset-master">;
                 slotId: z.ZodString;
+                positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    standard: "standard";
+                    advanced: "advanced";
+                    reasoning: "reasoning";
+                    fallback: "fallback";
+                }>>>;
             }, z.core.$strict>], "action">>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
@@ -1559,6 +1571,12 @@ export declare const internalModelsPreviewContract: {
                 }, z.core.$strict>, z.ZodObject<{
                     action: z.ZodLiteral<"reset-master">;
                     slotId: z.ZodString;
+                    positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        standard: "standard";
+                        advanced: "advanced";
+                        reasoning: "reasoning";
+                        fallback: "fallback";
+                    }>>>;
                 }, z.core.$strict>], "action">>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
@@ -2101,6 +2119,12 @@ export declare const internalModelsBatchContract: {
             }, z.core.$strict>, z.ZodObject<{
                 action: z.ZodLiteral<"reset-master">;
                 slotId: z.ZodString;
+                positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    standard: "standard";
+                    advanced: "advanced";
+                    reasoning: "reasoning";
+                    fallback: "fallback";
+                }>>>;
             }, z.core.$strict>], "action">>;
         }, z.core.$strict>>;
         previewId: z.ZodString;

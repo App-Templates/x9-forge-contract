@@ -29,6 +29,8 @@ export * from "./model-catalog.js";
 export * from "./capability-model-settings.js";
 export * from "./agent-model-configuration.js";
 export * from "./models-batch.js";
+// Inheritance from the Master row by row (tier or fallback of a tiered seat).
+export * from "./model-positions.js";
 // Canonical server-owned model consumer bindings; no runtime installation is inferred.
 export * from "./model-consumers.js";
 export * from "./model-consumer-execution.js";

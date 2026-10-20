@@ -28,6 +28,7 @@ export * from "./model-catalog.js";
 export * from "./capability-model-settings.js";
 export * from "./agent-model-configuration.js";
 export * from "./models-batch.js";
+export * from "./model-positions.js";
 export * from "./model-consumers.js";
 export * from "./model-consumer-execution.js";
 export * from "./models-version.js";

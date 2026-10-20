@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentModelsBatchResultSchema = exports.AgentModelsBatchOutcomeSchema = exports.AgentModelsBatchStatusSchema = exports.AgentModelsBatchPreviewSchema = exports.AgentModelsMasterImpactSchema = exports.AgentModelsBatchIntentSchema = exports.AgentModelsBatchRequestSchema = exports.AgentModelsBatchPreviewRequestSchema = exports.AgentModelSlotChangeSchema = exports.AgentModelsOverviewSchema = exports.AgentModelsOverviewCoverageSchema = exports.AgentModelOverviewRowSchema = exports.ModelEmbeddingRebuildSchema = exports.ModelCostMetadataSchema = void 0;
 exports.isAgentModelsMasterImpactCurrent = isAgentModelsMasterImpactCurrent;
 exports.validateAgentModelsBatch = validateAgentModelsBatch;
+exports.agentModelsResetSelection = agentModelsResetSelection;
+exports.agentModelsNextBinding = agentModelsNextBinding;
 exports.isAgentModelsBatchPreviewCurrent = isAgentModelsBatchPreviewCurrent;
 exports.deriveAgentModelsBatchOutcome = deriveAgentModelsBatchOutcome;
 exports.isAgentModelsBatchResultConsistent = isAgentModelsBatchResultConsistent;
@@ -19,6 +21,7 @@ const model_catalog_js_1 = require("./model-catalog.cjs");
 const agent_model_configuration_js_1 = require("./agent-model-configuration.cjs");
 const agent_model_configuration_values_js_1 = require("./agent-model-configuration-values.cjs");
 const model_slot_js_1 = require("./model-slot.cjs");
+const model_positions_js_1 = require("./model-positions.cjs");
 exports.ModelCostMetadataSchema = zod_1.z.discriminatedUnion('state', [
     zod_1.z.object({ state: zod_1.z.literal('unknown'), reason: zod_1.z.string().min(1).max(500) }).strict(),
     zod_1.z.object({
@@ -51,6 +54,8 @@ exports.AgentModelOverviewRowSchema = zod_1.z.object({
     installation: zod_1.z.enum(['installed', 'absent', 'unknown']),
     editability: zod_1.z.enum(['editable', 'readonly']), reason: zod_1.z.string().min(1).max(500).nullable(),
     origin: zod_1.z.enum(['master', 'custom', 'unknown', 'initial']), masterAgentId: agent_identity_js_1.AgentIdSchema.nullable(), masterConfigVersion: agent_config_js_1.AgentConfigVersionSchema.nullable(),
+    /** Rows of a Master-bound seat changed by hand on this agent; absent = every row follows the Master. */
+    customPositions: model_positions_js_1.AgentModelCustomPositionsSchema.optional(),
     requirements: model_catalog_js_1.ModelFeaturesSchema,
     initial: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable().optional(),
     default: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(), saved: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(), applied: capability_model_settings_js_1.CapabilityModelSettingsSchema.nullable(),
@@ -65,6 +70,8 @@ exports.AgentModelOverviewRowSchema = zod_1.z.object({
         ctx.addIssue({ code: 'custom', path: ['reason'], message: 'Readonly rows require a reason' });
     if (row.origin === 'master' && (row.masterAgentId === null || row.masterConfigVersion === null))
         ctx.addIssue({ code: 'custom', path: ['masterAgentId'], message: 'Master inheritance requires an explicit source agent' });
+    if (row.customPositions !== undefined && row.origin !== 'master')
+        ctx.addIssue({ code: 'custom', path: ['customPositions'], message: 'Custom rows belong only to a seat that follows the Master' });
     if (row.origin === 'unknown' && (row.masterAgentId !== null || row.masterConfigVersion !== null || row.editability !== 'readonly' || row.reason === null || row.reason.trim().length === 0))
         ctx.addIssue({ code: 'custom', path: ['origin'], message: 'Unknown provenance is readonly without a claimed Master' });
     if (row.origin === 'initial') {
@@ -150,7 +157,8 @@ exports.AgentModelsOverviewSchema = zod_1.z.object({
 });
 exports.AgentModelSlotChangeSchema = zod_1.z.discriminatedUnion('action', [
     zod_1.z.object({ action: zod_1.z.literal('set'), slotId: agent_model_configuration_js_1.ModelSlotIdSchema, settings: capability_model_settings_js_1.CapabilityModelSettingsSchema }).strict(),
-    zod_1.z.object({ action: zod_1.z.literal('reset-master'), slotId: agent_model_configuration_js_1.ModelSlotIdSchema }).strict(),
+    /** Without positions the whole seat follows the Master again; with positions only those rows do. */
+    zod_1.z.object({ action: zod_1.z.literal('reset-master'), slotId: agent_model_configuration_js_1.ModelSlotIdSchema, positions: model_positions_js_1.AgentModelCustomPositionsSchema.optional() }).strict(),
 ]);
 const BatchAgentChangeSchema = zod_1.z.object({ identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.strict(), expectedVersion: agent_config_js_1.AgentConfigVersionSchema, changes: zod_1.z.array(exports.AgentModelSlotChangeSchema).min(1).max(64) }).strict().superRefine((agent, ctx) => {
     if (new Set(agent.changes.map(change => change.slotId)).size !== agent.changes.length)
@@ -284,6 +292,37 @@ function validateAgentModelsBatch(input, serverOverview, serverCatalogs, now = n
     }
     return [...issues];
 }
+/**
+ * The selection a «Risincronizza» produces: the Master's on the reset rows, the agent's own on the rows that stay custom
+ * (a custom seat has every row custom). Null when the whole seat follows the Master again.
+ */
+function agentModelsResetSelection(row, positions) {
+    if (row.default === null)
+        return null;
+    const remaining = (0, model_positions_js_1.remainingCustomPositions)(row.origin === 'custom' ? null : row.customPositions ?? [], positions);
+    return remaining.length === 0 || row.saved === null ? row.default : (0, model_positions_js_1.mergeMasterModelPositions)(row.default, row.saved, remaining);
+}
+/**
+ * The binding of a seat after a change (Stefano 20/10 18:45). A row changed by hand on a Master-bound tiered seat becomes
+ * custom and only that row; the other rows keep following the Master. «Risincronizza» of some rows gives back only those
+ * (on a seat saved custom as a whole, the other rows stay custom). A single-model seat is one row: a change makes it custom.
+ */
+function agentModelsNextBinding(row, change) {
+    const keep = (origin, positions) => origin === 'master' && positions.length > 0 ? { origin, customPositions: (0, model_positions_js_1.canonicalModelPositions)(positions) } : { origin };
+    if (change === undefined) {
+        if (row.origin !== 'master' && row.origin !== 'custom')
+            throw new Error('A seat without a durable binding has no next binding');
+        return keep(row.origin, row.customPositions ?? []);
+    }
+    if (change.action === 'reset-master') {
+        if (change.positions === undefined || row.default === null || !(0, model_positions_js_1.isTieredModelSettings)(row.default))
+            return { origin: 'master' };
+        return keep('master', (0, model_positions_js_1.remainingCustomPositions)(row.origin === 'custom' ? null : row.customPositions ?? [], change.positions));
+    }
+    const before = row.saved ?? row.default;
+    const changed = row.origin === 'master' && before !== null ? (0, model_positions_js_1.changedModelPositions)(before, change.settings) : null;
+    return changed === null ? { origin: 'custom' } : keep('master', [...(row.customPositions ?? []), ...changed]);
+}
 /** Submit rechecks CAS/catalog separately with validateAgentModelsBatch; a preview is neither a write nor apply evidence. */
 function isAgentModelsBatchPreviewCurrent(input, serverPreview, serverOverview, now = new Date()) {
     const request = exports.AgentModelsBatchRequestSchema.safeParse(input);
@@ -304,7 +343,7 @@ function isAgentModelsBatchPreviewCurrent(input, serverPreview, serverOverview, 
             if (change.action === 'reset-master') {
                 const row = overview.data.rows.find(entry => (0, agent_model_configuration_js_1.sameModelAgentIdentity)(entry.identity, agent.identity) && entry.slotId === change.slotId);
                 const selection = agent.next.selections.find(entry => entry.slotId === change.slotId);
-                if (row?.default == null || selection === undefined || !sameSettings(selection.settings, row.default))
+                if (row?.default == null || selection === undefined || !sameSettings(selection.settings, agentModelsResetSelection(row, change.positions) ?? row.default))
                     return false;
             }
     }

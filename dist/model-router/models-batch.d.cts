@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { CapabilityModelSettingsSchema } from "./capability-model-settings.cjs";
+import { MODEL_POSITIONS, type ModelPosition } from "./model-positions.cjs";
 export declare const ModelCostMetadataSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     state: z.ZodLiteral<"unknown">;
     reason: z.ZodString;
@@ -118,6 +120,12 @@ export declare const AgentModelOverviewRowSchema: z.ZodObject<{
     }>;
     masterAgentId: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
     masterConfigVersion: z.ZodNullable<z.ZodNumber>;
+    customPositions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+        standard: "standard";
+        advanced: "advanced";
+        reasoning: "reasoning";
+        fallback: "fallback";
+    }>>>;
     requirements: z.ZodObject<{
         tools: z.ZodBoolean;
         stream: z.ZodBoolean;
@@ -1194,6 +1202,12 @@ export declare const AgentModelsOverviewSchema: z.ZodObject<{
         }>;
         masterAgentId: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
         masterConfigVersion: z.ZodNullable<z.ZodNumber>;
+        customPositions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+            standard: "standard";
+            advanced: "advanced";
+            reasoning: "reasoning";
+            fallback: "fallback";
+        }>>>;
         requirements: z.ZodObject<{
             tools: z.ZodBoolean;
             stream: z.ZodBoolean;
@@ -2454,6 +2468,12 @@ export declare const AgentModelSlotChangeSchema: z.ZodDiscriminatedUnion<[z.ZodO
 }, z.core.$strict>, z.ZodObject<{
     action: z.ZodLiteral<"reset-master">;
     slotId: z.ZodString;
+    positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+        standard: "standard";
+        advanced: "advanced";
+        reasoning: "reasoning";
+        fallback: "fallback";
+    }>>>;
 }, z.core.$strict>], "action">;
 export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
     requestId: z.ZodString;
@@ -2688,6 +2708,12 @@ export declare const AgentModelsBatchPreviewRequestSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             action: z.ZodLiteral<"reset-master">;
             slotId: z.ZodString;
+            positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                standard: "standard";
+                advanced: "advanced";
+                reasoning: "reasoning";
+                fallback: "fallback";
+            }>>>;
         }, z.core.$strict>], "action">>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
@@ -2924,6 +2950,12 @@ export declare const AgentModelsBatchRequestSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             action: z.ZodLiteral<"reset-master">;
             slotId: z.ZodString;
+            positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                standard: "standard";
+                advanced: "advanced";
+                reasoning: "reasoning";
+                fallback: "fallback";
+            }>>>;
         }, z.core.$strict>], "action">>;
     }, z.core.$strict>>;
     previewId: z.ZodString;
@@ -3161,6 +3193,12 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
         }, z.core.$strict>, z.ZodObject<{
             action: z.ZodLiteral<"reset-master">;
             slotId: z.ZodString;
+            positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                standard: "standard";
+                advanced: "advanced";
+                reasoning: "reasoning";
+                fallback: "fallback";
+            }>>>;
         }, z.core.$strict>], "action">>;
     }, z.core.$strict>>;
     previewId: z.ZodString;
@@ -3397,6 +3435,12 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
         }, z.core.$strict>, z.ZodObject<{
             action: z.ZodLiteral<"reset-master">;
             slotId: z.ZodString;
+            positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                standard: "standard";
+                advanced: "advanced";
+                reasoning: "reasoning";
+                fallback: "fallback";
+            }>>>;
         }, z.core.$strict>], "action">>;
     }, z.core.$strict>>;
 }, z.core.$strict>]>;
@@ -3677,6 +3721,12 @@ export declare const AgentModelsBatchPreviewSchema: z.ZodObject<{
             }, z.core.$strict>, z.ZodObject<{
                 action: z.ZodLiteral<"reset-master">;
                 slotId: z.ZodString;
+                positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    standard: "standard";
+                    advanced: "advanced";
+                    reasoning: "reasoning";
+                    fallback: "fallback";
+                }>>>;
             }, z.core.$strict>], "action">>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
@@ -3984,6 +4034,20 @@ export type AgentModelsBatchPreview = z.infer<typeof AgentModelsBatchPreviewSche
 export type AgentModelsBatchValidationIssue = 'invalid-request' | 'invalid-overview' | 'overview-version-mismatch' | 'slot-not-found' | 'identity-mismatch' | 'version-unknown' | 'version-conflict' | 'slot-unavailable' | 'slot-readonly' | 'slot-function-mismatch' | 'requirements-mismatch' | 'master-default-unavailable' | 'catalog-unavailable' | 'model-selection-invalid';
 /** Producer-only validation against its own authenticated overview/catalogs; no writes and no permission inferred from the request. */
 export declare function validateAgentModelsBatch(input: unknown, serverOverview: unknown, serverCatalogs: readonly unknown[], now?: Date): AgentModelsBatchValidationIssue[];
+/**
+ * The selection a «Risincronizza» produces: the Master's on the reset rows, the agent's own on the rows that stay custom
+ * (a custom seat has every row custom). Null when the whole seat follows the Master again.
+ */
+export declare function agentModelsResetSelection(row: Pick<z.infer<typeof AgentModelOverviewRowSchema>, 'origin' | 'customPositions' | 'default' | 'saved'>, positions?: readonly (typeof MODEL_POSITIONS)[number][]): z.infer<typeof CapabilityModelSettingsSchema> | null;
+/**
+ * The binding of a seat after a change (Stefano 20/10 18:45). A row changed by hand on a Master-bound tiered seat becomes
+ * custom and only that row; the other rows keep following the Master. «Risincronizza» of some rows gives back only those
+ * (on a seat saved custom as a whole, the other rows stay custom). A single-model seat is one row: a change makes it custom.
+ */
+export declare function agentModelsNextBinding(row: Pick<z.infer<typeof AgentModelOverviewRowSchema>, 'origin' | 'customPositions' | 'default' | 'saved'>, change: z.infer<typeof AgentModelSlotChangeSchema> | undefined): {
+    origin: 'master' | 'custom';
+    customPositions?: ModelPosition[];
+};
 /** Submit rechecks CAS/catalog separately with validateAgentModelsBatch; a preview is neither a write nor apply evidence. */
 export declare function isAgentModelsBatchPreviewCurrent(input: unknown, serverPreview: unknown, serverOverview: unknown, now?: Date): boolean;
 export declare const AgentModelsBatchStatusSchema: z.ZodEnum<{

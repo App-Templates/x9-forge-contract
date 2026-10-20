@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## Unreleased — eredità dal Master riga per riga (Modelli, Stefano 20/10 18:45), solo additivo
+
+- Add `model-positions` to `@x9-forge/contracts/model-router`: `MODEL_POSITIONS` / `ModelPositionSchema` (the tiers of a tiered seat plus its fallback), `AgentModelCustomPositionsSchema`, `AgentModelSlotPositionsSchema` (durable seat → rows changed by hand; `{}` for everything saved before), `changedModelPositions`, `mergeMasterModelPositions`, `followsMasterModelPositions`, `remainingCustomPositions`.
+- `AgentModelOverviewRowSchema` gains optional `customPositions` (only on a seat that follows the Master); `reset-master` changes gain optional `positions` (only those rows go back to the Master).
+- Add `agentModelsNextBinding` (binding after a gesture: a row changed by hand becomes custom and only that row; a Master change never makes a row custom) and `agentModelsResetSelection`; `isAgentModelsBatchPreviewCurrent` checks a row reset against it.
+- Unchanged: `AgentModelBindingSchema` and the provenance sent to X9 (per seat); a seat saved custom stays custom on every row until a gesture. Version and registry entry to be assigned at release.
+
 ## v1.49.1 — fonte iniziale salvata rilegge gli slot registrati dopo (RIL-MODELLI-SLOT-NUOVI), patch
 
 - Add `AgentModelSavedInitialSourceSchema`, `AgentModelSavedBootstrapSourceSchema` and `MODEL_SLOT_REGISTERED_AFTER_SOURCE_REASON` to `@x9-forge/contracts/model-router`: a source saved by an earlier bridge (34 slots on 13/10) that does not name a slot registered since (`lab_digest`) reads that slot as excluded `not-installed`, reason `Capability has no model receiver yet`.

@@ -480,6 +480,12 @@ export declare const ForgeModelsProgressSchema: z.ZodObject<{
             }>;
             masterAgentId: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
             masterConfigVersion: z.ZodNullable<z.ZodNumber>;
+            customPositions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                standard: "standard";
+                advanced: "advanced";
+                reasoning: "reasoning";
+                fallback: "fallback";
+            }>>>;
             requirements: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
@@ -1560,6 +1566,12 @@ export declare const forgeModelsOverviewContract: {
             }>;
             masterAgentId: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
             masterConfigVersion: z.ZodNullable<z.ZodNumber>;
+            customPositions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                standard: "standard";
+                advanced: "advanced";
+                reasoning: "reasoning";
+                fallback: "fallback";
+            }>>>;
             requirements: z.ZodObject<{
                 tools: z.ZodBoolean;
                 stream: z.ZodBoolean;
@@ -2923,6 +2935,12 @@ export declare const forgeModelsPreviewContract: {
             }, z.core.$strict>, z.ZodObject<{
                 action: z.ZodLiteral<"reset-master">;
                 slotId: z.ZodString;
+                positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    standard: "standard";
+                    advanced: "advanced";
+                    reasoning: "reasoning";
+                    fallback: "fallback";
+                }>>>;
             }, z.core.$strict>], "action">>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
@@ -3161,6 +3179,12 @@ export declare const forgeModelsPreviewContract: {
                 }, z.core.$strict>, z.ZodObject<{
                     action: z.ZodLiteral<"reset-master">;
                     slotId: z.ZodString;
+                    positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        standard: "standard";
+                        advanced: "advanced";
+                        reasoning: "reasoning";
+                        fallback: "fallback";
+                    }>>>;
                 }, z.core.$strict>], "action">>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
@@ -3703,6 +3727,12 @@ export declare const forgeModelsBatchContract: {
             }, z.core.$strict>, z.ZodObject<{
                 action: z.ZodLiteral<"reset-master">;
                 slotId: z.ZodString;
+                positions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    standard: "standard";
+                    advanced: "advanced";
+                    reasoning: "reasoning";
+                    fallback: "fallback";
+                }>>>;
             }, z.core.$strict>], "action">>;
         }, z.core.$strict>>;
         previewId: z.ZodString;
@@ -4617,6 +4647,12 @@ export declare const forgeModelsProgressContract: {
                 }>;
                 masterAgentId: z.ZodNullable<z.core.$ZodBranded<z.ZodString, "AgentId", "out">>;
                 masterConfigVersion: z.ZodNullable<z.ZodNumber>;
+                customPositions: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    standard: "standard";
+                    advanced: "advanced";
+                    reasoning: "reasoning";
+                    fallback: "fallback";
+                }>>>;
                 requirements: z.ZodObject<{
                     tools: z.ZodBoolean;
                     stream: z.ZodBoolean;
