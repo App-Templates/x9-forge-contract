@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.backupDeviceVerifiedContract = exports.BackupDeviceVerifiedResponseSchema = exports.BackupDeviceVerifiedBodySchema = exports.backupDeviceRequestContract = exports.BackupDeviceRequestResponseSchema = exports.BackupDeviceRequestBodySchema = exports.backupDeviceStatusContract = exports.BackupStatusQuerySchema = exports.BackupRestoreInputSchema = exports.BackupCreateInputSchema = exports.BackupStatusInputSchema = exports.BACKUP_TOOL_NAMES = exports.BackupRestoreBackupBindingsSchema = exports.BackupRestoreSnapshotBindingsSchema = exports.BackupCreateBindingsSchema = exports.BACKUP_APPROVAL_TYPES = exports.BackupStatusSchema = exports.BackupHealthSchema = exports.BackupActionSchema = exports.BackupActionStateSchema = exports.BackupActionKindSchema = exports.ProviderBackupSchema = exports.BackupSnapshotSchema = exports.BackupReleaseLabelSchema = exports.BackupResourceSchema = exports.BackupResourceRefSchema = exports.BackupProviderSchema = void 0;
+exports.backupDeviceAutoCreateContract = exports.BackupAutoCreateResponseSchema = exports.BackupAutoCreateBodySchema = exports.backupDeviceAutoCreateInfoContract = exports.BackupAutoCreateInfoResponseSchema = exports.BackupAutoCreateRefusalCodeSchema = exports.BACKUP_AUTO_CREATE_DAILY_MAX = exports.backupDeviceVerifiedContract = exports.BackupDeviceVerifiedResponseSchema = exports.BackupDeviceVerifiedBodySchema = exports.backupDeviceRequestContract = exports.BackupDeviceRequestResponseSchema = exports.BackupDeviceRequestBodySchema = exports.backupDeviceStatusContract = exports.BackupStatusQuerySchema = exports.BackupRestoreInputSchema = exports.BackupCreateInputSchema = exports.BackupStatusInputSchema = exports.BACKUP_TOOL_NAMES = exports.BackupRestoreBackupBindingsSchema = exports.BackupRestoreSnapshotBindingsSchema = exports.BackupCreateBindingsSchema = exports.BACKUP_APPROVAL_TYPES = exports.BackupStatusSchema = exports.BackupHealthSchema = exports.BackupActionSchema = exports.BackupActionStateSchema = exports.BackupActionKindSchema = exports.ProviderBackupSchema = exports.BackupSnapshotSchema = exports.BackupReleaseLabelSchema = exports.BackupResourceSchema = exports.BackupResourceRefSchema = exports.BackupProviderSchema = void 0;
 const zod_1 = require("zod");
 const index_js_1 = require("../approvals/index.cjs");
 /**
@@ -171,5 +171,36 @@ exports.backupDeviceVerifiedContract = {
     authType: 'device_signature',
     bodySchema: exports.BackupDeviceVerifiedBodySchema,
     responseSchema: exports.BackupDeviceVerifiedResponseSchema,
+};
+// Automatic snapshots use the owner's permanent authorization; restores still require a passkey approval.
+exports.BACKUP_AUTO_CREATE_DAILY_MAX = 6;
+exports.BackupAutoCreateRefusalCodeSchema = zod_1.z.enum(['off', 'needs-passkey', 'daily-cap', 'busy', 'invalid']);
+exports.BackupAutoCreateInfoResponseSchema = zod_1.z
+    .object({
+    enabled: zod_1.z.boolean(),
+    dailyMax: zod_1.z.number().int().positive(),
+    usedToday: zod_1.z.number().int().min(0),
+})
+    .strict();
+exports.backupDeviceAutoCreateInfoContract = {
+    method: 'GET',
+    path: '/backup/api/auto-create',
+    authType: 'device_signature',
+    querySchema: exports.BackupStatusQuerySchema,
+    responseSchema: exports.BackupAutoCreateInfoResponseSchema,
+};
+exports.BackupAutoCreateBodySchema = zod_1.z
+    .object({ release: exports.BackupReleaseLabelSchema, resource: exports.BackupResourceRefSchema.optional() })
+    .strict();
+exports.BackupAutoCreateResponseSchema = zod_1.z.discriminatedUnion('ok', [
+    zod_1.z.object({ ok: zod_1.z.literal(true), action: exports.BackupActionSchema, attachedToExisting: zod_1.z.boolean() }).strict(),
+    zod_1.z.object({ ok: zod_1.z.literal(false), code: exports.BackupAutoCreateRefusalCodeSchema, error: zod_1.z.string().min(1).max(500) }).strict(),
+]);
+exports.backupDeviceAutoCreateContract = {
+    method: 'POST',
+    path: '/backup/api/auto-create',
+    authType: 'device_signature',
+    bodySchema: exports.BackupAutoCreateBodySchema,
+    responseSchema: exports.BackupAutoCreateResponseSchema,
 };
 //# sourceMappingURL=index.js.map

@@ -88,4 +88,6 @@ export * from "./coach-person-program-read.cjs";
 export * from "./coach-browser.cjs";
 export * from "./development-session-models.cjs";
 export * from "./internal-development-session-list.cjs";
+export * from "./development-session-heartbeat.cjs";
+export * from "./internal-dev-artifact-content.cjs";
 //# sourceMappingURL=index.d.ts.map

@@ -169,4 +169,35 @@ export const backupDeviceVerifiedContract = {
     bodySchema: BackupDeviceVerifiedBodySchema,
     responseSchema: BackupDeviceVerifiedResponseSchema,
 };
+// Automatic snapshots use the owner's permanent authorization; restores still require a passkey approval.
+export const BACKUP_AUTO_CREATE_DAILY_MAX = 6;
+export const BackupAutoCreateRefusalCodeSchema = z.enum(['off', 'needs-passkey', 'daily-cap', 'busy', 'invalid']);
+export const BackupAutoCreateInfoResponseSchema = z
+    .object({
+    enabled: z.boolean(),
+    dailyMax: z.number().int().positive(),
+    usedToday: z.number().int().min(0),
+})
+    .strict();
+export const backupDeviceAutoCreateInfoContract = {
+    method: 'GET',
+    path: '/backup/api/auto-create',
+    authType: 'device_signature',
+    querySchema: BackupStatusQuerySchema,
+    responseSchema: BackupAutoCreateInfoResponseSchema,
+};
+export const BackupAutoCreateBodySchema = z
+    .object({ release: BackupReleaseLabelSchema, resource: BackupResourceRefSchema.optional() })
+    .strict();
+export const BackupAutoCreateResponseSchema = z.discriminatedUnion('ok', [
+    z.object({ ok: z.literal(true), action: BackupActionSchema, attachedToExisting: z.boolean() }).strict(),
+    z.object({ ok: z.literal(false), code: BackupAutoCreateRefusalCodeSchema, error: z.string().min(1).max(500) }).strict(),
+]);
+export const backupDeviceAutoCreateContract = {
+    method: 'POST',
+    path: '/backup/api/auto-create',
+    authType: 'device_signature',
+    bodySchema: BackupAutoCreateBodySchema,
+    responseSchema: BackupAutoCreateResponseSchema,
+};
 //# sourceMappingURL=index.js.map

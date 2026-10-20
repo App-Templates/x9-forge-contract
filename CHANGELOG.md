@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## v1.51.0 — decision request and email reply outcome (AGB-01), additive
+
+- Add `DecisionRequestSchema`, `DecisionOutcomeSchema`, `DecisionEmailReplySchema`, `decisionOutcomeFromEmailReply` and `decisionRequestSubjectLabel` (plus channel, id and option schemas) to `@x9-forge/contracts/organization`: an email reply «approvo / rifiuto: motivo» becomes the outcome of a decision request.
+- No existing schema changed. Consumers: agent-x9 cap-email (AGX-01) and company memory A (AGM-01).
+
 ## v1.50.0 — automatic device snapshots (SNAP-AUTO), additive
 
 - Add `backupDeviceAutoCreateInfoContract` (GET) and `backupDeviceAutoCreateContract` (POST) at `/backup/api/auto-create`, authenticated by device signature, and their strict schemas via `@x9-forge/contracts/capability`.

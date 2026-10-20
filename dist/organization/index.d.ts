@@ -20,4 +20,5 @@ export * from "./publication-operations.js";
 export * from "./publication-lookup.js";
 export * from "./recall.js";
 export * from "./business-unit-lead.js";
+export * from "./decision-request.js";
 //# sourceMappingURL=index.d.ts.map
