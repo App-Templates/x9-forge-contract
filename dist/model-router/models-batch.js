@@ -10,7 +10,7 @@ import { ModelCatalogSchema, ModelCatalogVersionSchema, ModelDescriptorSchema, M
 import { AgentModelsConfigurationSchema, AgentModelRuntimeAttestationSchema, ModelSlotIdSchema, isAgentModelApplyConfirmed, sameModelAgentIdentity } from "./agent-model-configuration.js";
 import { CompleteModelIdentitySchema } from "./agent-model-configuration-values.js";
 import { AgentModelBootstrapSourceVersionSchema } from "./model-slot.js";
-import { AgentModelCustomPositionsSchema, canonicalModelPositions, changedModelPositions, isTieredModelSettings, mergeMasterModelPositions, remainingCustomPositions } from "./model-positions.js";
+import { AgentModelCustomPositionsSchema, MODEL_POSITIONS, canonicalModelPositions, changedModelPositions, isTieredModelSettings, mergeMasterModelPositions, remainingCustomPositions } from "./model-positions.js";
 export const ModelCostMetadataSchema = z.discriminatedUnion('state', [
     z.object({ state: z.literal('unknown'), reason: z.string().min(1).max(500) }).strict(),
     z.object({
@@ -295,6 +295,7 @@ export function agentModelsResetSelection(row, positions) {
  * The binding of a seat after a change (Stefano 20/10 18:45). A row changed by hand on a Master-bound tiered seat becomes
  * custom and only that row; the other rows keep following the Master. «Risincronizza» of some rows gives back only those
  * (on a seat saved custom as a whole, the other rows stay custom). A single-model seat is one row: a change makes it custom.
+ * An explicit choice that changes no model, or one that leaves no row following the Master, makes the whole seat custom.
  */
 export function agentModelsNextBinding(row, change) {
     const keep = (origin, positions) => origin === 'master' && positions.length > 0 ? { origin, customPositions: canonicalModelPositions(positions) } : { origin };
@@ -310,7 +311,12 @@ export function agentModelsNextBinding(row, change) {
     }
     const before = row.saved ?? row.default;
     const changed = row.origin === 'master' && before !== null ? changedModelPositions(before, change.settings) : null;
-    return changed === null ? { origin: 'custom' } : keep('master', [...(row.customPositions ?? []), ...changed]);
+    // An explicit choice that changes no model is still a gesture on the whole seat; every row changed by hand is the
+    // same state as a custom seat (one representation for one state).
+    if (changed === null || changed.length === 0)
+        return { origin: 'custom' };
+    const positions = canonicalModelPositions([...(row.customPositions ?? []), ...changed]);
+    return positions.length === MODEL_POSITIONS.length ? { origin: 'custom' } : keep('master', positions);
 }
 /** Submit rechecks CAS/catalog separately with validateAgentModelsBatch; a preview is neither a write nor apply evidence. */
 export function isAgentModelsBatchPreviewCurrent(input, serverPreview, serverOverview, now = new Date()) {

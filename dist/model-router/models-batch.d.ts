@@ -4043,6 +4043,7 @@ export declare function agentModelsResetSelection(row: Pick<z.infer<typeof Agent
  * The binding of a seat after a change (Stefano 20/10 18:45). A row changed by hand on a Master-bound tiered seat becomes
  * custom and only that row; the other rows keep following the Master. «Risincronizza» of some rows gives back only those
  * (on a seat saved custom as a whole, the other rows stay custom). A single-model seat is one row: a change makes it custom.
+ * An explicit choice that changes no model, or one that leaves no row following the Master, makes the whole seat custom.
  */
 export declare function agentModelsNextBinding(row: Pick<z.infer<typeof AgentModelOverviewRowSchema>, 'origin' | 'customPositions' | 'default' | 'saved'>, change: z.infer<typeof AgentModelSlotChangeSchema> | undefined): {
     origin: 'master' | 'custom';

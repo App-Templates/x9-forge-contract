@@ -248,6 +248,7 @@ export function agentModelsResetSelection(row: Pick<z.infer<typeof AgentModelOve
  * The binding of a seat after a change (Stefano 20/10 18:45). A row changed by hand on a Master-bound tiered seat becomes
  * custom and only that row; the other rows keep following the Master. «Risincronizza» of some rows gives back only those
  * (on a seat saved custom as a whole, the other rows stay custom). A single-model seat is one row: a change makes it custom.
+ * An explicit choice that changes no model, or one that leaves no row following the Master, makes the whole seat custom.
  */
 export function agentModelsNextBinding(row: Pick<z.infer<typeof AgentModelOverviewRowSchema>, 'origin' | 'customPositions' | 'default' | 'saved'>, change: z.infer<typeof AgentModelSlotChangeSchema> | undefined): { origin: 'master' | 'custom'; customPositions?: ModelPosition[] } {
   const keep = (origin: 'master' | 'custom', positions: readonly ModelPosition[]) => origin === 'master' && positions.length > 0 ? { origin, customPositions: canonicalModelPositions(positions) } : { origin };
@@ -261,7 +262,11 @@ export function agentModelsNextBinding(row: Pick<z.infer<typeof AgentModelOvervi
   }
   const before = row.saved ?? row.default;
   const changed = row.origin === 'master' && before !== null ? changedModelPositions(before, change.settings) : null;
-  return changed === null ? { origin: 'custom' } : keep('master', [...(row.customPositions ?? []), ...changed]);
+  // An explicit choice that changes no model is still a gesture on the whole seat; every row changed by hand is the
+  // same state as a custom seat (one representation for one state).
+  if (changed === null || changed.length === 0) return { origin: 'custom' };
+  const positions = canonicalModelPositions([...(row.customPositions ?? []), ...changed]);
+  return positions.length === MODEL_POSITIONS.length ? { origin: 'custom' } : keep('master', positions);
 }
 
 /** Submit rechecks CAS/catalog separately with validateAgentModelsBatch; a preview is neither a write nor apply evidence. */

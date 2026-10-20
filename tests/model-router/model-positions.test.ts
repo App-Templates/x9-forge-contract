@@ -131,10 +131,17 @@ describe('binding after a gesture', () => {
   it('changing one row by hand makes only that row custom', () => {
     expect(agentModelsNextBinding(synced, { action: 'set', slotId: 'agent_chat', settings: automatic('sol', 'sol', 'astra', 'sol') })).toEqual({ origin: 'master', customPositions: ['reasoning'] });
   });
-  it('a second row adds to the first; the same model again changes nothing', () => {
+  it('a second row adds to the first', () => {
     const custom = { ...synced, customPositions: ['reasoning' as const], saved: automatic('sol', 'sol', 'astra', 'sol') };
     expect(agentModelsNextBinding(custom, { action: 'set', slotId: 'agent_chat', settings: automatic('luna', 'sol', 'astra', 'sol') })).toEqual({ origin: 'master', customPositions: ['standard', 'reasoning'] });
-    expect(agentModelsNextBinding(custom, { action: 'set', slotId: 'agent_chat', settings: automatic('sol', 'sol', 'astra', 'sol') })).toEqual({ origin: 'master', customPositions: ['reasoning'] });
+  });
+  it('an explicit choice of the same models is still a gesture: the seat becomes custom (as before per-row inheritance)', () => {
+    expect(agentModelsNextBinding(synced, { action: 'set', slotId: 'agent_chat', settings: pinned('sol') })).toEqual({ origin: 'custom' });
+  });
+  it('when no row follows the Master any more the seat is custom: one representation for one state', () => {
+    expect(agentModelsNextBinding(synced, { action: 'set', slotId: 'agent_chat', settings: pinned('astra') })).toEqual({ origin: 'custom' });
+    const three = { ...synced, customPositions: ['standard' as const, 'advanced' as const, 'reasoning' as const], saved: automatic('a', 'b', 'c', 'sol') };
+    expect(agentModelsNextBinding(three, { action: 'set', slotId: 'agent_chat', settings: automatic('a', 'b', 'c', 'd') })).toEqual({ origin: 'custom' });
   });
   it('Risincronizza a row gives back only that row', () => {
     const custom = { ...synced, customPositions: ['standard' as const, 'reasoning' as const], saved: automatic('luna', 'sol', 'astra', 'sol') };
