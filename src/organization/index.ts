@@ -22,3 +22,4 @@ export * from './recall.js';
 export * from './business-unit-lead.js';
 export * from './decision-request.js';
 export * from './asset.js';
+export * from './shared-mailbox.js';

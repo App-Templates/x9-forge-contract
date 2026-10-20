@@ -25,6 +25,7 @@ import * as recall from '../../src/organization/recall.js';
 import * as businessUnitLead from '../../src/organization/business-unit-lead.js';
 import * as decisionRequest from '../../src/organization/decision-request.js';
 import * as asset from '../../src/organization/asset.js';
+import * as sharedMailbox from '../../src/organization/shared-mailbox.js';
 
 const allSymbols = {
   ...runContext,
@@ -51,6 +52,7 @@ const allSymbols = {
   ...businessUnitLead,
   ...decisionRequest,
   ...asset,
+  ...sharedMailbox,
 };
 
 describe('organization subpath', () => {
