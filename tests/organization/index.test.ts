@@ -23,6 +23,7 @@ import * as publicationOperations from '../../src/organization/publication-opera
 import * as publicationLookup from '../../src/organization/publication-lookup.js';
 import * as recall from '../../src/organization/recall.js';
 import * as businessUnitLead from '../../src/organization/business-unit-lead.js';
+import * as decisionRequest from '../../src/organization/decision-request.js';
 
 const allSymbols = {
   ...runContext,
@@ -47,6 +48,7 @@ const allSymbols = {
   ...publicationLookup,
   ...recall,
   ...businessUnitLead,
+  ...decisionRequest,
 };
 
 describe('organization subpath', () => {
