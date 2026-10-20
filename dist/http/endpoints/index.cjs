@@ -33,6 +33,7 @@ __exportStar(require("./internal-agents-management.cjs"), exports); // v1.31.0 �
 __exportStar(require("./internal-turn.cjs"), exports);
 __exportStar(require("./internal-turn-stream.cjs"), exports);
 __exportStar(require("./internal-agent-turn.cjs"), exports); // v1.22.0 — EA M0 per-agent turn
+__exportStar(require("./internal-agent-turn-jobs.cjs"), exports);
 __exportStar(require("./internal-query.cjs"), exports);
 __exportStar(require("./internal-model-config.cjs"), exports); // Phase 6 — MDRT-05 / D-15
 __exportStar(require("./internal-model-config-version.cjs"), exports); // Phase 6 — MDRT-07 polling (06-01 decision)

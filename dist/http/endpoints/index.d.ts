@@ -16,6 +16,7 @@ export * from "./internal-agents-management.js";
 export * from "./internal-turn.js";
 export * from "./internal-turn-stream.js";
 export * from "./internal-agent-turn.js";
+export * from "./internal-agent-turn-jobs.js";
 export * from "./internal-query.js";
 export * from "./internal-model-config.js";
 export * from "./internal-model-config-version.js";

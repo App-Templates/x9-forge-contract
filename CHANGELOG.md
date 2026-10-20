@@ -1,5 +1,10 @@
 # Changelog — @x9-forge/contracts
 
+## v1.55.0 — company shared mailbox (AGB-04), additive
+
+- Add `SharedMailboxSchema`, `SharedMailboxHolderSchema`, `SharedMailboxLabelSchema`, `SharedMailboxThreadSchema`, `parseSharedMailboxSubjectLabel`, `routeSharedMailboxMessage` (thread, then label in the subject, then Director) and `SHARED_MAILBOX_ROUTE_VIAS` to `@x9-forge/contracts/organization`.
+- No existing schema changed. Consumers: cap-email (AGX-04), factory-svc agent birth (AGF-05).
+
 ## v1.54.0 — asynchronous per-agent turn jobs (AZ-EMAIL-LUNGHE), additive
 
 - Add submit, read and result acknowledgement contracts, inferred types and validated path helpers to `@x9-forge/contracts/http`. Submission reuses the synchronous turn request with a 1–200 character idempotency key and optional email origin; HTTP 202 returns the durable job receipt, HTTP 409 uses `INTERNAL_AGENT_TURN_JOB_CONFLICT` for different content under the same key.

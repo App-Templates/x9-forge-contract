@@ -16,6 +16,7 @@ export * from "./internal-agents-management.cjs";
 export * from "./internal-turn.cjs";
 export * from "./internal-turn-stream.cjs";
 export * from "./internal-agent-turn.cjs";
+export * from "./internal-agent-turn-jobs.cjs";
 export * from "./internal-query.cjs";
 export * from "./internal-model-config.cjs";
 export * from "./internal-model-config-version.cjs";

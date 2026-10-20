@@ -22,4 +22,5 @@ export * from "./recall.cjs";
 export * from "./business-unit-lead.cjs";
 export * from "./decision-request.cjs";
 export * from "./asset.cjs";
+export * from "./shared-mailbox.cjs";
 //# sourceMappingURL=index.d.ts.map
