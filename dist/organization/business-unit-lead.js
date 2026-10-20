@@ -5,6 +5,13 @@ import { ParticipantAgentIdentitySchema, ParticipantRoleSchema } from "./partici
 /** The only birth profile Forge provisions for a business unit lead. */
 export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu';
 export const BusinessUnitLeadProfileTemplateSchema = z.literal(BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
+/** A person the business unit writes to by email (the unit's referent). */
+export const BusinessUnitLeadReferentSchema = z.strictObject({
+    referentRef: z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+    name: z.string().min(1).max(120),
+    role: z.string().min(1).max(120),
+    email: z.email(),
+});
 /** Director request to create the lead of a company business unit. */
 export const BusinessUnitLeadBirthRequestSchema = z.strictObject({
     requestId: z.string().min(1).max(128),
@@ -18,6 +25,8 @@ export const BusinessUnitLeadBirthRequestSchema = z.strictObject({
         slug: z.string().min(1).max(30).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
         name: z.string().min(1).max(120),
         briefSection: z.string().min(1).max(4000),
+        competencies: z.array(z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' }),
+        referents: z.array(BusinessUnitLeadReferentSchema).min(1).max(10).refine((referents) => new Set(referents.map((referent) => referent.referentRef)).size === referents.length, { message: 'Referent references must be unique' }),
     }),
     profileTemplate: BusinessUnitLeadProfileTemplateSchema,
     model: z.strictObject({

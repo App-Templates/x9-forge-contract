@@ -68,6 +68,13 @@ export declare const PaperclipCreateBusinessUnitInputSchema: z.ZodObject<{
         slug: z.ZodString;
         name: z.ZodString;
         briefSection: z.ZodString;
+        competencies: z.ZodArray<z.ZodString>;
+        referents: z.ZodArray<z.ZodObject<{
+            referentRef: z.ZodString;
+            name: z.ZodString;
+            role: z.ZodString;
+            email: z.ZodEmail;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     profileTemplate: z.ZodLiteral<"capo-bu">;
     model: z.ZodObject<{

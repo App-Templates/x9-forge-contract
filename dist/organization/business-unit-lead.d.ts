@@ -3,6 +3,14 @@ import { z } from 'zod';
 export declare const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE: "capo-bu";
 export declare const BusinessUnitLeadProfileTemplateSchema: z.ZodLiteral<"capo-bu">;
 export type BusinessUnitLeadProfileTemplate = z.infer<typeof BusinessUnitLeadProfileTemplateSchema>;
+/** A person the business unit writes to by email (the unit's referent). */
+export declare const BusinessUnitLeadReferentSchema: z.ZodObject<{
+    referentRef: z.ZodString;
+    name: z.ZodString;
+    role: z.ZodString;
+    email: z.ZodEmail;
+}, z.core.$strict>;
+export type BusinessUnitLeadReferent = z.infer<typeof BusinessUnitLeadReferentSchema>;
 /** Director request to create the lead of a company business unit. */
 export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
     requestId: z.ZodString;
@@ -16,6 +24,13 @@ export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
         slug: z.ZodString;
         name: z.ZodString;
         briefSection: z.ZodString;
+        competencies: z.ZodArray<z.ZodString>;
+        referents: z.ZodArray<z.ZodObject<{
+            referentRef: z.ZodString;
+            name: z.ZodString;
+            role: z.ZodString;
+            email: z.ZodEmail;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     profileTemplate: z.ZodLiteral<"capo-bu">;
     model: z.ZodObject<{

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = exports.BusinessUnitLeadProfileTemplateSchema = exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = void 0;
+exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = exports.BusinessUnitLeadReferentSchema = exports.BusinessUnitLeadProfileTemplateSchema = exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const model_tier_js_1 = require("../model-router/model-tier.cjs");
@@ -8,6 +8,13 @@ const participant_binding_js_1 = require("./participant-binding.cjs");
 /** The only birth profile Forge provisions for a business unit lead. */
 exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu';
 exports.BusinessUnitLeadProfileTemplateSchema = zod_1.z.literal(exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
+/** A person the business unit writes to by email (the unit's referent). */
+exports.BusinessUnitLeadReferentSchema = zod_1.z.strictObject({
+    referentRef: zod_1.z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+    name: zod_1.z.string().min(1).max(120),
+    role: zod_1.z.string().min(1).max(120),
+    email: zod_1.z.email(),
+});
 /** Director request to create the lead of a company business unit. */
 exports.BusinessUnitLeadBirthRequestSchema = zod_1.z.strictObject({
     requestId: zod_1.z.string().min(1).max(128),
@@ -21,6 +28,8 @@ exports.BusinessUnitLeadBirthRequestSchema = zod_1.z.strictObject({
         slug: zod_1.z.string().min(1).max(30).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
         name: zod_1.z.string().min(1).max(120),
         briefSection: zod_1.z.string().min(1).max(4000),
+        competencies: zod_1.z.array(zod_1.z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' }),
+        referents: zod_1.z.array(exports.BusinessUnitLeadReferentSchema).min(1).max(10).refine((referents) => new Set(referents.map((referent) => referent.referentRef)).size === referents.length, { message: 'Referent references must be unique' }),
     }),
     profileTemplate: exports.BusinessUnitLeadProfileTemplateSchema,
     model: zod_1.z.strictObject({

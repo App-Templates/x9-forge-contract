@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.52.0 — business unit competencies and referents in the lead birth request (AGB-02), breaking
+
+- `BusinessUnitLeadBirthRequestSchema` now requires `businessUnit.competencies` and `businessUnit.referents`. Add `BusinessUnitLeadReferentSchema` to the business unit lead contracts.
+- R-37: no business unit lead birth requests are saved in production.
+- Consumers: forge-v2 factory-svc `business-unit-lead.routes.ts` (AGF-01), agent-x9 cap-paperclip `runtime.ts` (AGP-01), and their fixtures must adopt the required fields and update the bridge pin.
+
 ## v1.51.0 — decision request and email reply outcome (AGB-01), additive
 
 - Add `DecisionRequestSchema`, `DecisionOutcomeSchema`, `DecisionEmailReplySchema`, `decisionOutcomeFromEmailReply` and `decisionRequestSubjectLabel` (plus channel, id and option schemas) to `@x9-forge/contracts/organization`: an email reply «approvo / rifiuto: motivo» becomes the outcome of a decision request.
