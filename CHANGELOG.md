@@ -5,6 +5,12 @@
 - AGL-02: lab_ingest accetta un documento con AssetRef e brani.
 - AGX-01: rotte interne delle richieste di decisione (apri, leggi, esito).
 - Export the document ingestion schema through `@x9-forge/contracts/capability/lab` and the decision request contracts through `@x9-forge/contracts/http`; regenerate the distribution for X9 consumers.
+- Built on v1.56.0 (main 716b5c3): keeps AVV-30 `daily_recap` and every 1.56.0 contract.
+
+## v1.56.0 — company release (AGB-05), additive
+
+- Single release for the agentic company: decision request (1.51.0), business unit competencies and referents (1.52.0), company asset reference (1.53.0), asynchronous per-agent turn jobs (1.54.0), company shared mailbox (1.55.0), automatic device snapshots (1.50.0) and the `daily_recap` owner notice kind (1.49.5, AVV-30) on one commit.
+- No schema changed in this step: it joins `codex/cuore-bridge-148` and `opus/bridge-avvisi-20261020` and rebuilds `dist`. Consumers: agent-x9 (cap-email, cap-paperclip, cap-lab, memory, agent-core, cap-approvals) and forge-v2 (factory, web) pin this commit.
 
 ## v1.55.0 — company shared mailbox (AGB-04), additive
 
@@ -38,6 +44,12 @@
 - Add `backupDeviceAutoCreateInfoContract` (GET) and `backupDeviceAutoCreateContract` (POST) at `/backup/api/auto-create`, authenticated by device signature, and their strict schemas via `@x9-forge/contracts/capability`.
 - Permanent authorization covers snapshot creation only: the body accepts a release and optional resource, never a restore kind. Export `BACKUP_AUTO_CREATE_DAILY_MAX` (6) and closed refusal codes `off`, `needs-passkey`, `daily-cap`, `busy`, `invalid`.
 - Existing status, snapshot origins and passkey approval contracts remain unchanged. Consumers: cap-backup (x9-hotfix-backup/002) and x9-snapshot (mods-avvisi/022); adoption and deployment are separate.
+
+## v1.49.5 — daily recap owner notice kind (AVV-30), additive
+
+- Add `daily_recap` to `OwnerNoticeKindSchema` and its label «☀️ Recap del mattino» to `OWNER_NOTICE_KIND_LABEL` in `@x9-forge/contracts/capability`. Root cause: the night morning recap had no kind of its own, and reusing `fault` or `release_ready` would show a false label to the owner.
+- Bodies and responses of `ownerNoticeDeviceContract` are unchanged; existing kinds stay valid.
+- Consumers: agent-x9 cap-approvals (AVV-31, label comes from the bridge) and night `brief_cantiere.py mattino` (AVV-32).
 
 ## v1.49.4 — capo-bu literal and node-free subpath on one branch, additive
 

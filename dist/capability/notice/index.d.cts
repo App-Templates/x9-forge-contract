@@ -4,6 +4,7 @@ export declare const OwnerNoticeKindSchema: z.ZodEnum<{
     release_ready: "release_ready";
     decision_needed: "decision_needed";
     fault: "fault";
+    daily_recap: "daily_recap";
 }>;
 /** A supported owner notice kind. */
 export type OwnerNoticeKind = z.infer<typeof OwnerNoticeKindSchema>;
@@ -22,6 +23,7 @@ export declare const OwnerNoticeBodySchema: z.ZodObject<{
         release_ready: "release_ready";
         decision_needed: "decision_needed";
         fault: "fault";
+        daily_recap: "daily_recap";
     }>;
     title: z.ZodString;
     text: z.ZodString;
@@ -46,6 +48,7 @@ export declare const ownerNoticeDeviceContract: {
             release_ready: "release_ready";
             decision_needed: "decision_needed";
             fault: "fault";
+            daily_recap: "daily_recap";
         }>;
         title: z.ZodString;
         text: z.ZodString;
