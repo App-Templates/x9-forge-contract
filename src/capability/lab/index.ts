@@ -43,6 +43,7 @@ export {
   LAB_TOOLS,
   LAB_INTERNAL_TOOLS, LabExecuteInputSchema, LabExecuteOutputSchema,
   type LabExecuteInput, type LabExecuteOutput,
+  LabIngestDocumentSchema,
   LabIngestInputSchema,
   LabIngestOutputSchema,
   LabToolErrorSchema,
