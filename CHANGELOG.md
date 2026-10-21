@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.57.0 — lab document ingestion and decision request routes, additive
+
+- AGL-02: lab_ingest accetta un documento con AssetRef e brani.
+- AGX-01: rotte interne delle richieste di decisione (apri, leggi, esito).
+- Export the document ingestion schema through `@x9-forge/contracts/capability/lab` and the decision request contracts through `@x9-forge/contracts/http`; regenerate the distribution for X9 consumers.
+
 ## v1.55.0 — company shared mailbox (AGB-04), additive
 
 - Add `SharedMailboxSchema`, `SharedMailboxHolderSchema`, `SharedMailboxLabelSchema`, `SharedMailboxThreadSchema`, `parseSharedMailboxSubjectLabel`, `routeSharedMailboxMessage` (thread, then label in the subject, then Director) and `SHARED_MAILBOX_ROUTE_VIAS` to `@x9-forge/contracts/organization`.

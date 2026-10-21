@@ -1,14 +1,15 @@
 import { z } from 'zod';
+import { AssetRefSchema } from "../../organization/asset.js";
 import { ResearchResultSchema, ResearchStateSchema } from "../ricerca/research.js";
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from "./competence.js";
 import { WikiClaimSchema, WikiPageSchema } from "./wiki.js";
 /**
  * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
- * `lab_ingest` takes a cap-ricerca result as cap-ricerca defines it (imported, never copied).
+ * `lab_ingest` takes a cap-ricerca result or an asset reference with already-read text excerpts.
  */
 export const LAB_TOOLS = {
-    /** Queue a research result for digestion into raw sources, pages and claims. */
+    /** Queue a research result or document for digestion into raw sources, pages and claims. */
     ingest: 'lab_ingest',
     /** State of a queued ingest, with final counts when completed. */
     ingestStatus: 'lab_ingest_status',
@@ -22,7 +23,16 @@ export const LAB_TOOLS = {
 /** Why a lab tool call failed, as the bridge tool-call error text. */
 export const LabToolErrorSchema = z.enum(['invalid_request', 'not_configured', 'not_found', 'not_ready']);
 export const LabIngestIdSchema = z.uuid();
-export const LabIngestInputSchema = z.object({ result: ResearchResultSchema }).strict();
+/** Document provenance and excerpts supplied by the caller; the lab does not read asset bytes. */
+export const LabIngestDocumentSchema = z.strictObject({
+    asset: AssetRefSchema,
+    title: z.string().min(1).max(200),
+    excerpts: z.array(z.string().min(1).max(4000)).min(1).max(50),
+});
+export const LabIngestInputSchema = z.union([
+    z.object({ result: ResearchResultSchema }).strict(),
+    z.object({ document: LabIngestDocumentSchema }).strict(),
+]);
 export const LabIngestOutputSchema = z.object({
     ingestId: LabIngestIdSchema,
     state: z.literal('queued'),

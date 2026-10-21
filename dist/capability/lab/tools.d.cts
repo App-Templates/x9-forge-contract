@@ -2,10 +2,10 @@ import { z } from 'zod';
 /**
  * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
- * `lab_ingest` takes a cap-ricerca result as cap-ricerca defines it (imported, never copied).
+ * `lab_ingest` takes a cap-ricerca result or an asset reference with already-read text excerpts.
  */
 export declare const LAB_TOOLS: {
-    /** Queue a research result for digestion into raw sources, pages and claims. */
+    /** Queue a research result or document for digestion into raw sources, pages and claims. */
     readonly ingest: "lab_ingest";
     /** State of a queued ingest, with final counts when completed. */
     readonly ingestStatus: "lab_ingest_status";
@@ -27,7 +27,35 @@ export declare const LabToolErrorSchema: z.ZodEnum<{
 export type LabToolError = z.infer<typeof LabToolErrorSchema>;
 export declare const LabIngestIdSchema: z.ZodUUID;
 export type LabIngestId = z.infer<typeof LabIngestIdSchema>;
-export declare const LabIngestInputSchema: z.ZodObject<{
+/** Document provenance and excerpts supplied by the caller; the lab does not read asset bytes. */
+export declare const LabIngestDocumentSchema: z.ZodObject<{
+    asset: z.ZodObject<{
+        assetId: z.ZodString;
+        sha256: z.ZodString;
+        name: z.ZodString;
+        mediaType: z.ZodString;
+        sizeBytes: z.ZodNumber;
+        origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"email">;
+            messageId: z.ZodString;
+            attachmentName: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"archive">;
+            archiveSha256: z.ZodString;
+            entryPath: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"session">;
+            sessionId: z.ZodString;
+        }, z.core.$strict>], "kind">;
+        tenantId: z.ZodString;
+        companyId: z.ZodString;
+        projectId: z.ZodString;
+        createdAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    title: z.ZodString;
+    excerpts: z.ZodArray<z.ZodString>;
+}, z.core.$strict>;
+export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
     result: z.ZodObject<{
         researchId: z.ZodString;
         agentId: z.ZodString;
@@ -59,7 +87,35 @@ export declare const LabIngestInputSchema: z.ZodObject<{
             uncertain: z.ZodBoolean;
         }, z.core.$strict>;
     }, z.core.$strict>;
-}, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    document: z.ZodObject<{
+        asset: z.ZodObject<{
+            assetId: z.ZodString;
+            sha256: z.ZodString;
+            name: z.ZodString;
+            mediaType: z.ZodString;
+            sizeBytes: z.ZodNumber;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                messageId: z.ZodString;
+                attachmentName: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"archive">;
+                archiveSha256: z.ZodString;
+                entryPath: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"session">;
+                sessionId: z.ZodString;
+            }, z.core.$strict>], "kind">;
+            tenantId: z.ZodString;
+            companyId: z.ZodString;
+            projectId: z.ZodString;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        title: z.ZodString;
+        excerpts: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>;
+}, z.core.$strict>]>;
 export declare const LabIngestOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodLiteral<"queued">;
