@@ -1,17 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
+exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabIngestDocumentSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
 const zod_1 = require("zod");
+const asset_js_1 = require("../../organization/asset.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
 const competence_js_1 = require("./competence.cjs");
 const wiki_js_1 = require("./wiki.cjs");
 /**
  * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
- * `lab_ingest` takes a cap-ricerca result as cap-ricerca defines it (imported, never copied).
+ * `lab_ingest` takes a cap-ricerca result or an asset reference with already-read text excerpts.
  */
 exports.LAB_TOOLS = {
-    /** Queue a research result for digestion into raw sources, pages and claims. */
+    /** Queue a research result or document for digestion into raw sources, pages and claims. */
     ingest: 'lab_ingest',
     /** State of a queued ingest, with final counts when completed. */
     ingestStatus: 'lab_ingest_status',
@@ -25,7 +26,16 @@ exports.LAB_TOOLS = {
 /** Why a lab tool call failed, as the bridge tool-call error text. */
 exports.LabToolErrorSchema = zod_1.z.enum(['invalid_request', 'not_configured', 'not_found', 'not_ready']);
 exports.LabIngestIdSchema = zod_1.z.uuid();
-exports.LabIngestInputSchema = zod_1.z.object({ result: research_js_1.ResearchResultSchema }).strict();
+/** Document provenance and excerpts supplied by the caller; the lab does not read asset bytes. */
+exports.LabIngestDocumentSchema = zod_1.z.strictObject({
+    asset: asset_js_1.AssetRefSchema,
+    title: zod_1.z.string().min(1).max(200),
+    excerpts: zod_1.z.array(zod_1.z.string().min(1).max(4000)).min(1).max(50),
+});
+exports.LabIngestInputSchema = zod_1.z.union([
+    zod_1.z.object({ result: research_js_1.ResearchResultSchema }).strict(),
+    zod_1.z.object({ document: exports.LabIngestDocumentSchema }).strict(),
+]);
 exports.LabIngestOutputSchema = zod_1.z.object({
     ingestId: exports.LabIngestIdSchema,
     state: zod_1.z.literal('queued'),

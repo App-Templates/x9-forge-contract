@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## v1.57.0 — lab document ingestion and decision request routes, additive
+
+- AGL-02: lab_ingest accetta un documento con AssetRef e brani.
+- AGX-01: rotte interne delle richieste di decisione (apri, leggi, esito).
+- Export the document ingestion schema through `@x9-forge/contracts/capability/lab` and the decision request contracts through `@x9-forge/contracts/http`; regenerate the distribution for X9 consumers.
+- Built on v1.56.0 (main 716b5c3): keeps AVV-30 `daily_recap` and every 1.56.0 contract.
+
 ## v1.56.0 — company release (AGB-05), additive
 
 - Single release for the agentic company: decision request (1.51.0), business unit competencies and referents (1.52.0), company asset reference (1.53.0), asynchronous per-agent turn jobs (1.54.0), company shared mailbox (1.55.0), automatic device snapshots (1.50.0) and the `daily_recap` owner notice kind (1.49.5, AVV-30) on one commit.

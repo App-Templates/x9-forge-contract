@@ -105,6 +105,7 @@ export * from './connection-card.js';
 export * from './web-connection-cards.js';
 export * from './internal-memory-experience.js';
 export * from './internal-memory-decisions.js';
+export * from './internal-memory-decision-requests.js';
 export * from './internal-memory-knowledge.js';
 export * from './connect-public.js';
 export * from './internal-connection-completed.js';
