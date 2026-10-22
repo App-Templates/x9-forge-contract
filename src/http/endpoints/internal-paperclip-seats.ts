@@ -32,3 +32,31 @@ export const internalPaperclipSeatsReadContract = {
   querySchema: InternalPaperclipSeatsQuerySchema,
   responseSchema: InternalPaperclipSeatsResponseSchema,
 } as const;
+
+export const INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = '/internal/paperclip/seats/:paperclipAgentId/issues' as const;
+
+export const InternalPaperclipSeatIssuesParamsSchema = z.strictObject({
+  paperclipAgentId: z.uuid(),
+});
+
+export const InternalPaperclipSeatIssueSchema = z.strictObject({
+  issueId: z.string().min(1).max(64),
+  title: z.string().min(1).max(300),
+  status: z.string().min(1).max(32),
+  projectId: z.uuid().nullable(),
+  goalId: z.uuid().nullable(),
+  assigneeComments: z.int().min(0),
+});
+
+export const InternalPaperclipSeatIssuesResponseSchema = z.strictObject({
+  paperclipAgentId: z.uuid(),
+  issues: z.array(InternalPaperclipSeatIssueSchema).max(100),
+});
+
+export const internalPaperclipSeatIssuesReadContract = {
+  method: 'GET' as const,
+  path: INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH,
+  authType: 'secret' as const,
+  paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
+  responseSchema: InternalPaperclipSeatIssuesResponseSchema,
+} as const;

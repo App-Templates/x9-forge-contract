@@ -27,4 +27,27 @@ export const internalPaperclipSeatsReadContract = {
     querySchema: InternalPaperclipSeatsQuerySchema,
     responseSchema: InternalPaperclipSeatsResponseSchema,
 };
+export const INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = '/internal/paperclip/seats/:paperclipAgentId/issues';
+export const InternalPaperclipSeatIssuesParamsSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+});
+export const InternalPaperclipSeatIssueSchema = z.strictObject({
+    issueId: z.string().min(1).max(64),
+    title: z.string().min(1).max(300),
+    status: z.string().min(1).max(32),
+    projectId: z.uuid().nullable(),
+    goalId: z.uuid().nullable(),
+    assigneeComments: z.int().min(0),
+});
+export const InternalPaperclipSeatIssuesResponseSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+    issues: z.array(InternalPaperclipSeatIssueSchema).max(100),
+});
+export const internalPaperclipSeatIssuesReadContract = {
+    method: 'GET',
+    path: INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH,
+    authType: 'secret',
+    paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
+    responseSchema: InternalPaperclipSeatIssuesResponseSchema,
+};
 //# sourceMappingURL=internal-paperclip-seats.js.map
