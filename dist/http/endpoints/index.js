@@ -88,6 +88,7 @@ export * from "./web-connection-cards.js";
 export * from "./internal-memory-experience.js";
 export * from "./internal-memory-decisions.js";
 export * from "./internal-memory-decision-requests.js";
+export * from "./internal-paperclip-seats.js";
 export * from "./internal-memory-assets.js";
 export * from "./internal-memory-knowledge.js";
 export * from "./connect-public.js";
