@@ -1,5 +1,27 @@
 # STATO
 
+## 22/10/2026 — ponte unico 1.59.0 (F0B-01)
+
+REF = `e3b3cf9c3465097e8478294f9bd8ac51c143c10c` (compito 283, punta del ramo, `package.json` 1.59.0).
+Antenati verificati con `git merge-base --is-ancestor`: 7220faa (276 accesso per strumento), 4657857 (278),
+a95021c (279 rotte asset), 353cf95 (282 nascita Ricerca e Lab), 4102a90 (280 posti Paperclip),
+73ad05d (281 incarichi del posto), e3b3cf9 (283 versione 1.59.0 e CHANGELOG).
+Compiti contenuti: 276-283. Il 284 (dist ESM) non produce commit perché `dist/` non è versionato: si rifà con `pnpm build` da REF.
+
+| Consumatore | File | Valore attuale (letto in sola lettura) | Valore da mettere |
+|---|---|---|---|
+| X9 (agent-x9, main) | `package.json:32` | `link:../x9-forge-contract-bridge` | REF (`git+…#e3b3cf9c3465097e8478294f9bd8ac51c143c10c`, modello 70102c641) |
+| X9 (agent-x9, main) | `pnpm-workspace.yaml` | nessun riferimento al ponte | voce del ponte su REF, come nel modello 0d6ea575d |
+| X9 (agent-x9, main) | `vendor/x9-forge-contract-bridge/.synced-from-sha` | `5034eef5e54698b16e97466b0f2ac416cf861e66` (`package.json` 1.41.0) | REF, con `scripts/sync-bridge.sh` |
+| Forge forge-backend (`night/forge-completo-backend`) | `package.json:26` (`pnpm.overrides`) | `716b5c3a4eefe47e262683e87bffca9045a3ac5c` | REF |
+| Forge forge-azienda (`integ/azienda-forge`) | `package.json:26` (`pnpm.overrides`) | `539e225724a325a62d53568b96d6e3ddb72d9944` | REF |
+| Forge `azienda/forge-tipi-bu-20261022` | `package.json:26` (`pnpm.overrides`) | `353cf955e1245b7fb12f7e2a7bb2cc940fe8905c` (282) | REF |
+| Forge main | `package.json:26` (`pnpm.overrides`) | `b64c6051f42a0910c11a6b10a5beb76125891b62` | REF quando i rami Azienda entrano in main |
+
+I pacchetti interni di Forge (`web`, `packages/types`, `services/*`) usano `workspace:*` e seguono l'override della radice.
+Il pin `git+https` richiede che REF sia su GitHub: push di backup del ramo a cura della coordinatrice (R-21).
+Tag v1.59.0: da mettere dalla coordinatrice su REF
+
 ## 06/10/2026 — bridge 1.29 corretta, PRONTO PER REVISIONE (Codex B, BRIDGE-129)
 
 R1–R7 chiuse: parametri generici con liste/pattern/optional/editableBy e limiti pubblici; feedback
