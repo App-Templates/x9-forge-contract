@@ -100,6 +100,8 @@ export * from './forge-master-model-authority.js';
 export * from './internal-models-apply.js';
 
 export * from './internal-vault-connection.js';
+// F1B-04 — porta Vault delle chiavi agente
+export * from './internal-vault-agent-credentials.js';
 export * from './internal-connect.js';
 export * from './internal-development-sessions.js';
 export * from './connection-card.js';
