@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
   AGENT_ROLES,
+  AGENT_ROLE_BASE_CAPABILITIES,
   AgentRoleSchema,
   BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE,
   BUSINESS_UNIT_LEAD_ROLE,
   DIRECTOR_ROLE,
+  roleCapabilities,
 } from '../../src/organization/index.js';
 
 describe('AgentRoleSchema', () => {
@@ -29,5 +31,27 @@ describe('AgentRoleSchema', () => {
   it('publishes exactly the two company agent roles', () => {
     expect(AGENT_ROLES).toEqual(['director', 'capo-bu']);
     expect(AGENT_ROLES).toHaveLength(2);
+  });
+});
+
+describe('roleCapabilities', () => {
+  it('capo-bu contains exactly the 6 base capabilities', () => {
+    expect(AGENT_ROLE_BASE_CAPABILITIES['capo-bu']).toEqual(['email', 'memory', 'lab', 'qa', 'ricerca', 'paperclip']);
+    expect(roleCapabilities('capo-bu')).toHaveLength(6);
+  });
+
+  it('director contains lab and not qa', () => {
+    expect(roleCapabilities('director')).toContain('lab');
+    expect(roleCapabilities('director')).not.toContain('qa');
+  });
+
+  it('appends extras after the base without duplicates', () => {
+    const caps = roleCapabilities('capo-bu', ['dev', 'email']);
+    expect(caps).toHaveLength(7);
+    expect(caps[6]).toBe('dev');
+  });
+
+  it('rejects an empty extra capability', () => {
+    expect(() => roleCapabilities('capo-bu', ['  '])).toThrow();
   });
 });
