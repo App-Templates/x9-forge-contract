@@ -62,6 +62,7 @@ export const PaperclipTakeInputSchema = z.strictObject({ issueId: z.uuid(), expe
 export const PaperclipAssignInputSchema = z.strictObject({ issueId: z.uuid(), roleRef: Text });
 export const PaperclipCreateIssueInputSchema = z.strictObject({
     title: Text, description: z.string().max(16384).optional(), assigneeRoleRef: Text.optional(),
+    projectId: z.uuid().optional(), goalId: z.uuid().optional(),
     parentIssueId: z.uuid().optional(),
     blockedByIssueIds: z.array(z.uuid()).max(20)
         .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique').optional(),
@@ -85,6 +86,7 @@ export const PaperclipReviewInputSchema = z.strictObject({
 export const PaperclipIssueViewSchema = z.strictObject({
     id: z.uuid(), companyId: z.uuid(), identifier: Text, title: Text,
     description: z.string().nullable(), status: PaperclipIssueStatusSchema, assigneeAgentId: z.uuid().nullable(),
+    projectId: z.uuid().nullable().optional(), goalId: z.uuid().nullable().optional(),
 });
 export const PaperclipQueueOutputSchema = z.strictObject({ issues: z.array(PaperclipIssueViewSchema).max(100) });
 export const PaperclipMutationOutputSchema = z.strictObject({ issue: PaperclipIssueViewSchema });

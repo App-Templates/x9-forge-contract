@@ -14,6 +14,33 @@ import { PaperclipQueueInputSchema as Queue, PaperclipIssueInputSchema as Issue,
   PaperclipCreateGoalOutputSchema as CreateGoalOutput,
 } from '../src/capability/paperclip/index.js';
 const id = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
+it('preserves project and goal IDs when creating an issue', () => {
+  const projectId = 'f13dd515-1bad-4e0d-a697-7d19bfac6101';
+  const goalId = 'f13dd515-1bad-4e0d-a697-7d19bfac6102';
+  const issue = { title: 'Prepare the data delivery', projectId, goalId };
+  expect(Create.parse(issue)).toEqual(issue);
+  expect(Create.parse({ title: issue.title, projectId })).toEqual({ title: issue.title, projectId });
+  expect(Create.parse({ title: issue.title, goalId })).toEqual({ title: issue.title, goalId });
+});
+it('rejects invalid project and goal IDs when creating an issue', () => {
+  for (const field of ['projectId', 'goalId']) {
+    for (const value of ['obiettivo-1', null]) {
+      expect(Create.safeParse({ title: 'Prepare the data delivery', [field]: value }).success).toBe(false);
+    }
+  }
+});
+it('preserves optional nullable project and goal IDs in issue views', () => {
+  const issue = { id, companyId: id, identifier: 'TASK-1', title: 'Prepare the data delivery',
+    description: null, status: 'todo', assigneeAgentId: null };
+  expect(View.parse(issue)).toEqual(issue);
+  for (const links of [{ projectId: null }, { goalId: null }, { projectId: null, goalId: null },
+    { projectId: id, goalId: id }]) {
+    expect(View.parse({ ...issue, ...links })).toEqual({ ...issue, ...links });
+  }
+  for (const field of ['projectId', 'goalId']) {
+    expect(View.safeParse({ ...issue, [field]: 'obiettivo-1' }).success).toBe(false);
+  }
+});
 it('names the project and goal creation tools', () => {
   expect(PAPERCLIP_TOOLS.createProject).toBe('paperclip_create_project');
   expect(PAPERCLIP_TOOLS.createGoal).toBe('paperclip_create_goal');

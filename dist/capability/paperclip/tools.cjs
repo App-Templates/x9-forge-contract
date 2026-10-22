@@ -65,6 +65,7 @@ exports.PaperclipTakeInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(
 exports.PaperclipAssignInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(), roleRef: Text });
 exports.PaperclipCreateIssueInputSchema = zod_1.z.strictObject({
     title: Text, description: zod_1.z.string().max(16384).optional(), assigneeRoleRef: Text.optional(),
+    projectId: zod_1.z.uuid().optional(), goalId: zod_1.z.uuid().optional(),
     parentIssueId: zod_1.z.uuid().optional(),
     blockedByIssueIds: zod_1.z.array(zod_1.z.uuid()).max(20)
         .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique').optional(),
@@ -88,6 +89,7 @@ exports.PaperclipReviewInputSchema = zod_1.z.strictObject({
 exports.PaperclipIssueViewSchema = zod_1.z.strictObject({
     id: zod_1.z.uuid(), companyId: zod_1.z.uuid(), identifier: Text, title: Text,
     description: zod_1.z.string().nullable(), status: exports.PaperclipIssueStatusSchema, assigneeAgentId: zod_1.z.uuid().nullable(),
+    projectId: zod_1.z.uuid().nullable().optional(), goalId: zod_1.z.uuid().nullable().optional(),
 });
 exports.PaperclipQueueOutputSchema = zod_1.z.strictObject({ issues: zod_1.z.array(exports.PaperclipIssueViewSchema).max(100) });
 exports.PaperclipMutationOutputSchema = zod_1.z.strictObject({ issue: exports.PaperclipIssueViewSchema });

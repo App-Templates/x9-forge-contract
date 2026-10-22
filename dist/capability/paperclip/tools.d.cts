@@ -178,6 +178,8 @@ export declare const PaperclipCreateIssueInputSchema: z.ZodObject<{
     title: z.ZodString;
     description: z.ZodOptional<z.ZodString>;
     assigneeRoleRef: z.ZodOptional<z.ZodString>;
+    projectId: z.ZodOptional<z.ZodUUID>;
+    goalId: z.ZodOptional<z.ZodUUID>;
     parentIssueId: z.ZodOptional<z.ZodUUID>;
     blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
 }, z.core.$strict>;
@@ -277,6 +279,8 @@ export declare const PaperclipIssueViewSchema: z.ZodObject<{
         in_review: "in_review";
     }>;
     assigneeAgentId: z.ZodNullable<z.ZodUUID>;
+    projectId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
+    goalId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
 }, z.core.$strict>;
 export declare const PaperclipQueueOutputSchema: z.ZodObject<{
     issues: z.ZodArray<z.ZodObject<{
@@ -295,6 +299,8 @@ export declare const PaperclipQueueOutputSchema: z.ZodObject<{
             in_review: "in_review";
         }>;
         assigneeAgentId: z.ZodNullable<z.ZodUUID>;
+        projectId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
+        goalId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export declare const PaperclipMutationOutputSchema: z.ZodObject<{
@@ -314,6 +320,8 @@ export declare const PaperclipMutationOutputSchema: z.ZodObject<{
             in_review: "in_review";
         }>;
         assigneeAgentId: z.ZodNullable<z.ZodUUID>;
+        projectId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
+        goalId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 /** Server-owned mapping. Credentials and an active native run never come from tool parameters. */
