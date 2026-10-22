@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { OwnerIdSchema } from '../agent/agent-identity.js';
+import { AssetSha256Schema } from './asset.js';
 import { ParticipantAgentIdentitySchema } from './participant-binding.js';
 
 /** Channels through which an agent asks the owner for a decision. */
@@ -22,12 +23,26 @@ export const DecisionRequestOptionSchema = z.strictObject({
 });
 export type DecisionRequestOption = z.infer<typeof DecisionRequestOptionSchema>;
 
+/** What a decision is about: a plan, tied to the exact version and digest the owner read. */
+export const DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation'] as const;
+export const DecisionSubjectKindSchema = z.enum(DECISION_SUBJECT_KINDS);
+export type DecisionSubjectKind = z.infer<typeof DecisionSubjectKindSchema>;
+
+export const DecisionSubjectSchema = z.strictObject({
+  kind: DecisionSubjectKindSchema,
+  planId: DecisionRequestIdSchema,
+  planVersion: z.number().int().min(1),
+  digest: AssetSha256Schema,
+});
+export type DecisionSubject = z.infer<typeof DecisionSubjectSchema>;
+
 /** Open question an agent puts to the owner, with the options to choose from. */
 export const DecisionRequestSchema = z.strictObject({
   requestId: DecisionRequestIdSchema,
   tenantId: z.string().min(1),
   organizationId: z.string().min(1).max(64),
   projectId: z.string().min(1).max(64).optional(),
+  subject: DecisionSubjectSchema.optional(),
   question: z.string().min(1).max(4000),
   options: z
     .array(DecisionRequestOptionSchema)
@@ -49,6 +64,7 @@ const outcomeBase = {
   decidedAt: z.iso.datetime({ offset: true }),
   channel: DecisionRequestChannelSchema,
   sourceRef: z.string().min(1).max(512),
+  subject: DecisionSubjectSchema.optional(),
 };
 
 /** Recorded owner answer to a decision request. */
@@ -57,6 +73,18 @@ export const DecisionOutcomeSchema = z.discriminatedUnion('outcome', [
   z.strictObject({ ...outcomeBase, outcome: z.literal('rejected'), reason: z.string().min(3).max(2000) }),
 ]);
 export type DecisionOutcome = z.infer<typeof DecisionOutcomeSchema>;
+
+/** True when the outcome decides the same plan version the request asked about (or neither names a subject). */
+export function decisionOutcomeMatchesSubject(
+  request: Pick<DecisionRequest, 'subject'>,
+  outcome: Pick<DecisionOutcome, 'subject'>,
+): boolean {
+  const a = request.subject;
+  const b = outcome.subject;
+  if (a === undefined && b === undefined) return true;
+  if (a === undefined || b === undefined) return false;
+  return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
+}
 
 /** Word used in the email subject to tie a reply to its decision request: `[decisione <requestId>]`. */
 export const DECISION_REQUEST_SUBJECT_LABEL = 'decisione' as const;
