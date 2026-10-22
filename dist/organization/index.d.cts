@@ -20,6 +20,7 @@ export * from "./publication-operations.cjs";
 export * from "./publication-lookup.cjs";
 export * from "./recall.cjs";
 export * from "./business-unit-lead.cjs";
+export * from "./agent-role.cjs";
 export * from "./decision-request.cjs";
 export * from "./asset.cjs";
 export * from "./shared-mailbox.cjs";

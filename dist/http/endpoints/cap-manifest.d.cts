@@ -23,6 +23,14 @@ export declare const capManifestContract: {
             name: z.ZodString;
             description: z.ZodString;
             inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+            access: z.ZodOptional<z.ZodEnum<{
+                read: "read";
+                write: "write";
+            }>>;
+            roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                director: "director";
+                "capo-bu": "capo-bu";
+            }>>>;
         }, z.core.$strip>>;
         requires: z.ZodOptional<z.ZodArray<z.ZodString>>;
         credentialRequirements: z.ZodOptional<z.ZodArray<z.ZodObject<{
@@ -679,8 +687,8 @@ export declare const capManifestContract: {
             feedback: z.ZodOptional<z.ZodObject<{
                 label: z.ZodString;
                 kind: z.ZodEnum<{
-                    rating: "rating";
                     approval: "approval";
+                    rating: "rating";
                 }>;
                 attachments: z.ZodBoolean;
                 sources: z.ZodArray<z.ZodEnum<{

@@ -36,6 +36,7 @@ __exportStar(require("./publication-operations.cjs"), exports);
 __exportStar(require("./publication-lookup.cjs"), exports);
 __exportStar(require("./recall.cjs"), exports);
 __exportStar(require("./business-unit-lead.cjs"), exports);
+__exportStar(require("./agent-role.cjs"), exports);
 __exportStar(require("./decision-request.cjs"), exports);
 __exportStar(require("./asset.cjs"), exports);
 __exportStar(require("./shared-mailbox.cjs"), exports);

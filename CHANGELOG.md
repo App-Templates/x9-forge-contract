@@ -1,7 +1,14 @@
 # Changelog — @x9-forge/contracts
 
-## v1.58.0 — ricerca e attività Paperclip, tipo di BU, codici d'errore delle capacità, byte dei file di sessione, additive
+## v1.58.0 — permessi per ruolo, strumenti solo-Director, iscrizione in Paperclip, additive
 
+- 265 (E2B-02): accesso read/write per strumento (consumatori: agent-core, cap-paperclip).
+- 266-267 (E2B-02): ruoli e `roleScopePolicy` (consumatori: agent-core, factory di Forge).
+- 268 (E2B-02): richiesta di approvazione umana di una scrittura e risposta che la decide (consumatori: agent-core, adapter Paperclip).
+- 269 (E2B-03): `roles` negli strumenti e `toolsForRole` (consumatori: agent-core, cap-paperclip).
+- 270 (E2B-03): capacità di base per ruolo, il Director può solo aggiungere (consumatori: factory di Forge, agent-core).
+- 271 (E2B-04): iscrizione in Paperclip (`PaperclipEnrollmentSchema`) e rotta `/internal/paperclip/enrollments/resolve` (consumatori: cap-paperclip, adapter Paperclip, factory di Forge).
+- 261-264 (AGD-02, PA-1.4, PA-1.6, AZE-01): vedi sotto.
 - 262: `paperclip_search` e `paperclip_activity` (consumatore: cap-paperclip).
 - 263: `BusinessUnitTypeCardSchema`, scheda del tipo di BU (consumatore: factory di Forge).
 - 264: codici `business_unit_pending|refused|unavailable|register_failed|failed` (consumatori: agent-core e cap-paperclip).
