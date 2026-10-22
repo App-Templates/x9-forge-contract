@@ -46,3 +46,19 @@ export const InternalMemoryAssetListResponseSchema = z.strictObject({
   ),
 });
 export type InternalMemoryAssetListResponse = z.infer<typeof InternalMemoryAssetListResponseSchema>;
+
+export const internalMemoryAssetIngestContract = {
+  method: 'POST' as const,
+  path: INTERNAL_MEMORY_ASSETS_PATH,
+  authType: 'secret' as const,
+  bodySchema: InternalMemoryAssetIngestRequestSchema,
+  responseSchema: InternalMemoryAssetIngestResponseSchema,
+} as const;
+
+export const internalMemoryAssetListContract = {
+  method: 'GET' as const,
+  path: INTERNAL_MEMORY_ASSETS_PATH,
+  authType: 'secret' as const,
+  querySchema: InternalMemoryAssetListQuerySchema,
+  responseSchema: InternalMemoryAssetListResponseSchema,
+} as const;

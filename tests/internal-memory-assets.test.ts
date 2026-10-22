@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
 import {
   INTERNAL_MEMORY_ASSETS_PATH,
@@ -5,6 +6,8 @@ import {
   InternalMemoryAssetIngestResponseSchema,
   InternalMemoryAssetListQuerySchema,
   InternalMemoryAssetListResponseSchema,
+  internalMemoryAssetIngestContract,
+  internalMemoryAssetListContract,
 } from '../src/http/endpoints/index.js';
 
 const asset = {
@@ -22,6 +25,31 @@ const asset = {
 const query = { tenantId: 'tenant-1', agentId: 'agent-1', projectId: 'project-1' };
 
 describe('internal memory assets contract', () => {
+  it('exports ingest and list contracts from source and the built CommonJS index', () => {
+    expect(internalMemoryAssetIngestContract).toEqual({
+      method: 'POST',
+      path: INTERNAL_MEMORY_ASSETS_PATH,
+      authType: 'secret',
+      bodySchema: InternalMemoryAssetIngestRequestSchema,
+      responseSchema: InternalMemoryAssetIngestResponseSchema,
+    });
+    expect(internalMemoryAssetListContract).toEqual({
+      method: 'GET',
+      path: INTERNAL_MEMORY_ASSETS_PATH,
+      authType: 'secret',
+      querySchema: InternalMemoryAssetListQuerySchema,
+      responseSchema: InternalMemoryAssetListResponseSchema,
+    });
+
+    const built = createRequire(import.meta.url)('../dist/http/endpoints/index.cjs') as Record<string, unknown>;
+    expect(built.internalMemoryAssetIngestContract).toMatchObject({
+      method: 'POST', path: INTERNAL_MEMORY_ASSETS_PATH, authType: 'secret',
+    });
+    expect(built.internalMemoryAssetListContract).toMatchObject({
+      method: 'GET', path: INTERNAL_MEMORY_ASSETS_PATH, authType: 'secret',
+    });
+  }, 30_000);
+
   it('exports the path from the endpoints index', () => {
     expect(INTERNAL_MEMORY_ASSETS_PATH).toBe('/internal/memory/assets');
   });

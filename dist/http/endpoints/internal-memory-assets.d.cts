@@ -81,4 +81,89 @@ export declare const InternalMemoryAssetListResponseSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type InternalMemoryAssetListResponse = z.infer<typeof InternalMemoryAssetListResponseSchema>;
+export declare const internalMemoryAssetIngestContract: {
+    readonly method: "POST";
+    readonly path: "/internal/memory/assets";
+    readonly authType: "secret";
+    readonly bodySchema: z.ZodObject<{
+        asset: z.ZodObject<{
+            assetId: z.ZodString;
+            sha256: z.ZodString;
+            name: z.ZodString;
+            mediaType: z.ZodString;
+            sizeBytes: z.ZodNumber;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                messageId: z.ZodString;
+                attachmentName: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"archive">;
+                archiveSha256: z.ZodString;
+                entryPath: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"session">;
+                sessionId: z.ZodString;
+            }, z.core.$strict>], "kind">;
+            tenantId: z.ZodString;
+            companyId: z.ZodString;
+            projectId: z.ZodString;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        contentBase64: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"file">;
+        assetId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"archive">;
+        archiveAssetId: z.ZodString;
+        entries: z.ZodArray<z.ZodObject<{
+            assetId: z.ZodString;
+            path: z.ZodString;
+            mediaType: z.ZodString;
+            preview: z.ZodBoolean;
+        }, z.core.$strict>>;
+        previewAssetId: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>], "kind">;
+};
+export declare const internalMemoryAssetListContract: {
+    readonly method: "GET";
+    readonly path: "/internal/memory/assets";
+    readonly authType: "secret";
+    readonly querySchema: z.ZodObject<{
+        tenantId: z.ZodString;
+        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        projectId: z.ZodString;
+        limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        assets: z.ZodArray<z.ZodObject<{
+            assetId: z.ZodString;
+            sha256: z.ZodString;
+            name: z.ZodString;
+            mediaType: z.ZodString;
+            sizeBytes: z.ZodNumber;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                messageId: z.ZodString;
+                attachmentName: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"archive">;
+                archiveSha256: z.ZodString;
+                entryPath: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"session">;
+                sessionId: z.ZodString;
+            }, z.core.$strict>], "kind">;
+            tenantId: z.ZodString;
+            companyId: z.ZodString;
+            projectId: z.ZodString;
+            createdAt: z.ZodISODateTime;
+            links: z.ZodArray<z.ZodObject<{
+                recordId: z.ZodString;
+                recordKind: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+};
 //# sourceMappingURL=internal-memory-assets.d.ts.map

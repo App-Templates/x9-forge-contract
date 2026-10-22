@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
+exports.internalMemoryAssetListContract = exports.internalMemoryAssetIngestContract = exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
@@ -36,4 +36,18 @@ exports.InternalMemoryAssetListResponseSchema = zod_1.z.strictObject({
         links: zod_1.z.array(zod_1.z.strictObject({ recordId: zod_1.z.string().min(1), recordKind: zod_1.z.string().min(1) })),
     })),
 });
+exports.internalMemoryAssetIngestContract = {
+    method: 'POST',
+    path: exports.INTERNAL_MEMORY_ASSETS_PATH,
+    authType: 'secret',
+    bodySchema: exports.InternalMemoryAssetIngestRequestSchema,
+    responseSchema: exports.InternalMemoryAssetIngestResponseSchema,
+};
+exports.internalMemoryAssetListContract = {
+    method: 'GET',
+    path: exports.INTERNAL_MEMORY_ASSETS_PATH,
+    authType: 'secret',
+    querySchema: exports.InternalMemoryAssetListQuerySchema,
+    responseSchema: exports.InternalMemoryAssetListResponseSchema,
+};
 //# sourceMappingURL=internal-memory-assets.js.map
