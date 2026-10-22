@@ -56,6 +56,20 @@ export {
   LabGapsOutputSchema,
   LabCompetenceInputSchema,
   LabCompetenceOutputSchema,
+  LabPublicationRecipientSchema,
+  LabPublishInputSchema,
+  LabPublishOutputSchema,
+  LabReadPublishedInputSchema,
+  LabReadPublishedOutputSchema,
+  LabBriefGapsInputSchema,
+  LabBriefGapsOutputSchema,
+  type LabPublicationRecipient,
+  type LabPublishInput,
+  type LabPublishOutput,
+  type LabReadPublishedInput,
+  type LabReadPublishedOutput,
+  type LabBriefGapsInput,
+  type LabBriefGapsOutput,
   type LabToolName,
   type LabIngestInput,
   type LabIngestOutput,
@@ -70,6 +84,8 @@ export {
   type LabCompetenceInput,
   type LabCompetenceOutput,
 } from './tools.js';
+
+export { LabGapsRefSchema, type LabGapsRef } from '../ricerca/research.js';
 
 export {
   LabScopeSchema,
