@@ -28,6 +28,7 @@ import * as asset from '../../src/organization/asset.js';
 import * as sharedMailbox from '../../src/organization/shared-mailbox.js';
 import * as businessUnitType from '../../src/organization/business-unit-type.js';
 import * as agentRole from '../../src/organization/agent-role.js';
+import * as actionPlan from '../../src/organization/action-plan.js';
 
 const allSymbols = {
   ...runContext,
@@ -57,6 +58,7 @@ const allSymbols = {
   ...asset,
   ...sharedMailbox,
   ...agentRole,
+  ...actionPlan,
 };
 
 describe('organization subpath', () => {
