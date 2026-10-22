@@ -111,6 +111,8 @@ export * from './internal-memory-decisions.js';
 export * from './internal-memory-decision-requests.js';
 export * from './internal-paperclip-seats.js';
 export * from './internal-memory-assets.js';
+// F1B-03 — mappa dell'azienda cliente nella memoria A
+export * from './internal-memory-company-map.js';
 export * from './internal-memory-knowledge.js';
 export * from './connect-public.js';
 export * from './internal-connection-completed.js';
