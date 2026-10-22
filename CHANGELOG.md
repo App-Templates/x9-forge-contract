@@ -1,5 +1,15 @@
 # Changelog — @x9-forge/contracts
 
+## v1.59.0 — accesso per strumento esportato, rotte asset, posti e incarichi Paperclip, nascita R&D, additive
+
+- 276 (P1X-01): `@x9-forge/contracts/capability` esporta `CAPABILITY_TOOL_ACCESS`, `CapabilityToolAccessSchema`, `capabilityToolAccess`, `toolsForRole` e il tipo `CapabilityToolAccess` (consumatori: agent-core, cap-paperclip).
+- 278 (P1L-06): rotte asset della memoria aziendale, `INTERNAL_MEMORY_ASSETS_PATH`, `InternalMemoryAssetIngestRequestSchema`, `InternalMemoryAssetIngestResponseSchema`, `InternalMemoryAssetListQuerySchema`, `InternalMemoryAssetListResponseSchema` e i tipi `InternalMemoryAssetIngestRequest`, `InternalMemoryAssetIngestResponse`, `InternalMemoryAssetListQuery`, `InternalMemoryAssetListResponse` (consumatori: memory, cap-lab).
+- 279 (P1L-06): `internalMemoryAssetIngestContract` (POST) e `internalMemoryAssetListContract` (GET), oggetti di contratto `{method, path}` delle rotte asset, importabili da X9 e dalla prova.
+- 280 (P1P-02): `internalPaperclipSeatsReadContract`, lettura dei posti Paperclip, con `INTERNAL_PAPERCLIP_SEATS_PATH`, `InternalPaperclipSeatsQuerySchema`, `InternalPaperclipSeatSchema` e `InternalPaperclipSeatsResponseSchema` (consumatori: cap-paperclip, factory di Forge).
+- 281 (P1P-02): `internalPaperclipSeatIssuesReadContract`, lettura degli incarichi del posto, con `INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH`, `InternalPaperclipSeatIssuesParamsSchema`, `InternalPaperclipSeatIssueSchema` e `InternalPaperclipSeatIssuesResponseSchema`.
+- 282 (P1L-05): `internalCompanyRdBirthContract`, nascita di Ricerca e Lab all'avvio della società, con `INTERNAL_COMPANY_RD_BIRTH_PATH`, `COMPANY_RD_PARTS`, `CompanyRdPartSchema`, `CompanyRdBirthRequestSchema`, `CompanyRdBirthResultSchema` e i tipi `CompanyRdPart`, `CompanyRdBirthRequest`, `CompanyRdBirthResult` (consumatore: factory di Forge).
+- `dist` ricostruita; conservati tutti i 587/587 export di `dist/http/endpoints/index.cjs` nel confronto prima/dopo.
+
 ## v1.58.0 — permessi per ruolo, strumenti solo-Director, iscrizione in Paperclip, additive
 
 - 265 (E2B-02): accesso read/write per strumento (consumatori: agent-core, cap-paperclip).

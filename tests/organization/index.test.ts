@@ -27,6 +27,7 @@ import * as decisionRequest from '../../src/organization/decision-request.js';
 import * as asset from '../../src/organization/asset.js';
 import * as sharedMailbox from '../../src/organization/shared-mailbox.js';
 import * as businessUnitType from '../../src/organization/business-unit-type.js';
+import * as agentRole from '../../src/organization/agent-role.js';
 
 const allSymbols = {
   ...runContext,
@@ -55,6 +56,7 @@ const allSymbols = {
   ...decisionRequest,
   ...asset,
   ...sharedMailbox,
+  ...agentRole,
 };
 
 describe('organization subpath', () => {
