@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { CapabilityManifestSchema, type CapabilityManifest } from '../../src/capability/index';
-import { capabilityToolAccess } from '../../src/capability/capability-tool';
+import { capabilityToolAccess, toolsForRole } from '../../src/capability/capability-tool';
 
 // Real fixture captured from agent-x9/services/agent-core/registry.json (2026-04-15)
 const REAL_MANIFEST_FIXTURE: CapabilityManifest = {
@@ -51,6 +51,15 @@ describe('CapabilityManifestSchema', () => {
     if (result.success) {
       expect(result.data.serviceName).toBe('memory');
     }
+  });
+
+  it('accepts the required Paperclip API key declaration', () => {
+    const credentialRequirements = [{ key: 'PAPERCLIP_API_KEY', required: true }];
+    const manifest = CapabilityManifestSchema.parse({
+      ...REAL_MANIFEST_FIXTURE,
+      credentialRequirements,
+    });
+    expect(manifest.credentialRequirements).toEqual(credentialRequirements);
   });
 
   it('rejects manifest with missing name (fail-loud contract)', () => {
@@ -126,6 +135,41 @@ describe('CapabilityManifestSchema', () => {
       expect(result.data.tools).toHaveLength(5);
       expect(result.data.serviceName).toBeUndefined();
     }
+  });
+});
+
+describe('CapabilityTool roles', () => {
+  const manifestWithRoles = (roles: readonly string[]) => ({
+    ...REAL_MANIFEST_FIXTURE,
+    tools: [
+      {
+        name: 'paperclip_create_business_unit',
+        description: 'Create a business unit',
+        inputSchema: { type: 'object', properties: {} },
+        roles,
+      },
+      {
+        name: 'paperclip_list_business_units',
+        description: 'List business units',
+        inputSchema: { type: 'object', properties: {} },
+      },
+    ],
+  });
+
+  it('filters tools by role: capo-bu receives one and director receives both', () => {
+    const manifest = CapabilityManifestSchema.parse(manifestWithRoles(['director']));
+    expect(manifest.tools[0].roles).toEqual(['director']);
+    expect(toolsForRole(manifest.tools, 'capo-bu')).toEqual([manifest.tools[1]]);
+    expect(toolsForRole(manifest.tools, 'director')).toEqual(manifest.tools);
+    expect(manifest.tools).toHaveLength(2);
+  });
+
+  it.each([
+    { label: 'empty', roles: [] },
+    { label: 'duplicate', roles: ['director', 'director'] },
+    { label: 'unknown', roles: ['ospite'] },
+  ])('rejects $label tool roles', ({ roles }) => {
+    expect(CapabilityManifestSchema.safeParse(manifestWithRoles(roles)).success).toBe(false);
   });
 });
 
