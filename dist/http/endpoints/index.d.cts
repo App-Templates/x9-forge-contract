@@ -79,6 +79,7 @@ export * from "./web-connection-cards.cjs";
 export * from "./internal-memory-experience.cjs";
 export * from "./internal-memory-decisions.cjs";
 export * from "./internal-memory-decision-requests.cjs";
+export * from "./internal-memory-assets.cjs";
 export * from "./internal-memory-knowledge.cjs";
 export * from "./connect-public.cjs";
 export * from "./internal-connection-completed.cjs";

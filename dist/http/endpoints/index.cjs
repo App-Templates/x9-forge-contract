@@ -103,6 +103,7 @@ __exportStar(require("./web-connection-cards.cjs"), exports);
 __exportStar(require("./internal-memory-experience.cjs"), exports);
 __exportStar(require("./internal-memory-decisions.cjs"), exports);
 __exportStar(require("./internal-memory-decision-requests.cjs"), exports);
+__exportStar(require("./internal-memory-assets.cjs"), exports);
 __exportStar(require("./internal-memory-knowledge.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 __exportStar(require("./internal-connection-completed.cjs"), exports);
