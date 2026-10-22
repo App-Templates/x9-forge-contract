@@ -1,0 +1,1 @@
+{"version":3,"file":"platform-bootstrap-env.d.ts","sourceRoot":"","sources":["../../src/vault/platform-bootstrap-env.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;GAcG;AACH,MAAM,MAAM,oBAAoB,GAAG;IACjC,wEAAwE;IACxE,SAAS,EAAE,MAAM,CAAC;IAClB,0CAA0C;IAC1C,YAAY,EAAE,MAAM,CAAC;IACrB,oCAAoC;IACpC,gBAAgB,EAAE,MAAM,CAAC;IACzB,wEAAwE;IACxE,mBAAmB,EAAE,MAAM,CAAC;CAC7B,CAAC"}

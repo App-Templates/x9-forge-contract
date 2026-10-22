@@ -1,0 +1,406 @@
+import { z } from 'zod';
+/** Opaque server-owned evidence reference; never a transport token or an implicit latest grant. */
+export declare const CoachOperationalAuthorityProofRefSchema: z.ZodObject<{
+    kind: z.ZodEnum<{
+        session: "session";
+        admission: "admission";
+    }>;
+    proofId: z.ZodString;
+}, z.core.$strict>;
+export type CoachOperationalAuthorityProofRef = z.infer<typeof CoachOperationalAuthorityProofRefSchema>;
+export declare const CoachOperationalAuthorityOperationSchema: z.ZodEnum<{
+    opening: "opening";
+    read: "read";
+    start: "start";
+    conversation: "conversation";
+    event: "event";
+    program: "program";
+    usage: "usage";
+    "end-guide": "end-guide";
+    close: "close";
+}>;
+export declare const CoachOperationalAuthorityRequestSchema: z.ZodUnion<readonly [z.ZodObject<{
+    operation: z.ZodLiteral<"program">;
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    opening: z.ZodNull;
+    requestId: z.ZodString;
+    program: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        programId: z.ZodString;
+        programVersion: z.ZodNumber;
+        strategy: z.ZodObject<{
+            strategyId: z.ZodString;
+            strategyVersion: z.ZodString;
+        }, z.core.$strict>;
+        catalogRevision: z.ZodString;
+        policyRevision: z.ZodString;
+        progressionRevision: z.ZodString;
+        measureDefinitionRevision: z.ZodString;
+    }, z.core.$strict>;
+    phase: z.ZodEnum<{
+        before: "before";
+        after: "after";
+    }>;
+    proofRef: z.ZodObject<{
+        kind: z.ZodEnum<{
+            session: "session";
+            admission: "admission";
+        }>;
+        proofId: z.ZodString;
+    }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    operation: z.ZodEnum<{
+        opening: "opening";
+        read: "read";
+        start: "start";
+        conversation: "conversation";
+        event: "event";
+        usage: "usage";
+        "end-guide": "end-guide";
+        close: "close";
+    }>;
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>;
+    opening: z.ZodNullable<z.ZodObject<{
+        openingId: z.ZodString;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        sessionId: z.ZodString;
+        program: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            programId: z.ZodString;
+            programVersion: z.ZodNumber;
+            strategy: z.ZodObject<{
+                strategyId: z.ZodString;
+                strategyVersion: z.ZodString;
+            }, z.core.$strict>;
+            catalogRevision: z.ZodString;
+            policyRevision: z.ZodString;
+            progressionRevision: z.ZodString;
+            measureDefinitionRevision: z.ZodString;
+        }, z.core.$strict>;
+        appliedConfigVersion: z.ZodNumber;
+        openedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+    requestId: z.ZodString;
+    program: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        programId: z.ZodString;
+        programVersion: z.ZodNumber;
+        strategy: z.ZodObject<{
+            strategyId: z.ZodString;
+            strategyVersion: z.ZodString;
+        }, z.core.$strict>;
+        catalogRevision: z.ZodString;
+        policyRevision: z.ZodString;
+        progressionRevision: z.ZodString;
+        measureDefinitionRevision: z.ZodString;
+    }, z.core.$strict>;
+    phase: z.ZodEnum<{
+        before: "before";
+        after: "after";
+    }>;
+    proofRef: z.ZodObject<{
+        kind: z.ZodEnum<{
+            session: "session";
+            admission: "admission";
+        }>;
+        proofId: z.ZodString;
+    }, z.core.$strict>;
+}, z.core.$strict>]>;
+export type CoachOperationalAuthorityRequest = z.infer<typeof CoachOperationalAuthorityRequestSchema>;
+/** Canonical neutral projection of durable authority; adapters own provider-specific evidence. */
+export declare const CoachOperationalAuthorityProofSchema: z.ZodObject<{
+    proofRef: z.ZodObject<{
+        kind: z.ZodEnum<{
+            session: "session";
+            admission: "admission";
+        }>;
+        proofId: z.ZodString;
+    }, z.core.$strict>;
+    scope: z.ZodUnion<readonly [z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>, z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>]>;
+    program: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        programId: z.ZodString;
+        programVersion: z.ZodNumber;
+        strategy: z.ZodObject<{
+            strategyId: z.ZodString;
+            strategyVersion: z.ZodString;
+        }, z.core.$strict>;
+        catalogRevision: z.ZodString;
+        policyRevision: z.ZodString;
+        progressionRevision: z.ZodString;
+        measureDefinitionRevision: z.ZodString;
+    }, z.core.$strict>;
+    opening: z.ZodNullable<z.ZodObject<{
+        openingId: z.ZodString;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        sessionId: z.ZodString;
+        program: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            programId: z.ZodString;
+            programVersion: z.ZodNumber;
+            strategy: z.ZodObject<{
+                strategyId: z.ZodString;
+                strategyVersion: z.ZodString;
+            }, z.core.$strict>;
+            catalogRevision: z.ZodString;
+            policyRevision: z.ZodString;
+            progressionRevision: z.ZodString;
+            measureDefinitionRevision: z.ZodString;
+        }, z.core.$strict>;
+        appliedConfigVersion: z.ZodNumber;
+        openedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+    issuedAt: z.ZodISODateTime;
+    expiresAt: z.ZodISODateTime;
+    status: z.ZodEnum<{
+        revoked: "revoked";
+        active: "active";
+        closed: "closed";
+        draining: "draining";
+    }>;
+}, z.core.$strict>;
+export type CoachOperationalAuthorityProof = z.infer<typeof CoachOperationalAuthorityProofSchema>;
+export declare const CoachOperationalAuthorityResultSchema: z.ZodObject<{
+    ok: z.ZodLiteral<true>;
+    request: z.ZodUnion<readonly [z.ZodObject<{
+        operation: z.ZodLiteral<"program">;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        opening: z.ZodNull;
+        requestId: z.ZodString;
+        program: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            programId: z.ZodString;
+            programVersion: z.ZodNumber;
+            strategy: z.ZodObject<{
+                strategyId: z.ZodString;
+                strategyVersion: z.ZodString;
+            }, z.core.$strict>;
+            catalogRevision: z.ZodString;
+            policyRevision: z.ZodString;
+            progressionRevision: z.ZodString;
+            measureDefinitionRevision: z.ZodString;
+        }, z.core.$strict>;
+        phase: z.ZodEnum<{
+            before: "before";
+            after: "after";
+        }>;
+        proofRef: z.ZodObject<{
+            kind: z.ZodEnum<{
+                session: "session";
+                admission: "admission";
+            }>;
+            proofId: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        operation: z.ZodEnum<{
+            opening: "opening";
+            read: "read";
+            start: "start";
+            conversation: "conversation";
+            event: "event";
+            usage: "usage";
+            "end-guide": "end-guide";
+            close: "close";
+        }>;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        opening: z.ZodNullable<z.ZodObject<{
+            openingId: z.ZodString;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+            }, z.core.$strict>;
+            sessionId: z.ZodString;
+            program: z.ZodObject<{
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>;
+                programId: z.ZodString;
+                programVersion: z.ZodNumber;
+                strategy: z.ZodObject<{
+                    strategyId: z.ZodString;
+                    strategyVersion: z.ZodString;
+                }, z.core.$strict>;
+                catalogRevision: z.ZodString;
+                policyRevision: z.ZodString;
+                progressionRevision: z.ZodString;
+                measureDefinitionRevision: z.ZodString;
+            }, z.core.$strict>;
+            appliedConfigVersion: z.ZodNumber;
+            openedAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
+        requestId: z.ZodString;
+        program: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            programId: z.ZodString;
+            programVersion: z.ZodNumber;
+            strategy: z.ZodObject<{
+                strategyId: z.ZodString;
+                strategyVersion: z.ZodString;
+            }, z.core.$strict>;
+            catalogRevision: z.ZodString;
+            policyRevision: z.ZodString;
+            progressionRevision: z.ZodString;
+            measureDefinitionRevision: z.ZodString;
+        }, z.core.$strict>;
+        phase: z.ZodEnum<{
+            before: "before";
+            after: "after";
+        }>;
+        proofRef: z.ZodObject<{
+            kind: z.ZodEnum<{
+                session: "session";
+                admission: "admission";
+            }>;
+            proofId: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>]>;
+    proof: z.ZodObject<{
+        proofRef: z.ZodObject<{
+            kind: z.ZodEnum<{
+                session: "session";
+                admission: "admission";
+            }>;
+            proofId: z.ZodString;
+        }, z.core.$strict>;
+        scope: z.ZodUnion<readonly [z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>, z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>]>;
+        program: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            programId: z.ZodString;
+            programVersion: z.ZodNumber;
+            strategy: z.ZodObject<{
+                strategyId: z.ZodString;
+                strategyVersion: z.ZodString;
+            }, z.core.$strict>;
+            catalogRevision: z.ZodString;
+            policyRevision: z.ZodString;
+            progressionRevision: z.ZodString;
+            measureDefinitionRevision: z.ZodString;
+        }, z.core.$strict>;
+        opening: z.ZodNullable<z.ZodObject<{
+            openingId: z.ZodString;
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+            }, z.core.$strict>;
+            sessionId: z.ZodString;
+            program: z.ZodObject<{
+                scope: z.ZodObject<{
+                    agentId: z.ZodString;
+                    ownerId: z.ZodString;
+                    tenantId: z.ZodString;
+                }, z.core.$strict>;
+                programId: z.ZodString;
+                programVersion: z.ZodNumber;
+                strategy: z.ZodObject<{
+                    strategyId: z.ZodString;
+                    strategyVersion: z.ZodString;
+                }, z.core.$strict>;
+                catalogRevision: z.ZodString;
+                policyRevision: z.ZodString;
+                progressionRevision: z.ZodString;
+                measureDefinitionRevision: z.ZodString;
+            }, z.core.$strict>;
+            appliedConfigVersion: z.ZodNumber;
+            openedAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+        status: z.ZodEnum<{
+            revoked: "revoked";
+            active: "active";
+            closed: "closed";
+            draining: "draining";
+        }>;
+    }, z.core.$strict>;
+    observedAt: z.ZodISODateTime;
+    expiresAt: z.ZodISODateTime;
+}, z.core.$strict>;
+export type CoachOperationalAuthorityResult = z.infer<typeof CoachOperationalAuthorityResultSchema>;
+/** expectedProof is reloaded from authenticated server authority after every await, never from the caller body.
+ * Schema validation/correlation is not authorization: the producer must recheck current policy and revocation. */
+export declare function isCoachOperationalAuthorityCurrent(rawRequest: unknown, rawResult: unknown, rawExpectedProof: unknown, now: Date): boolean;
+//# sourceMappingURL=authority.d.ts.map
