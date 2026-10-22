@@ -92,4 +92,5 @@ export * from "./development-session-models.js";
 export * from "./internal-development-session-list.js";
 export * from "./development-session-heartbeat.js";
 export * from "./internal-dev-artifact-content.js";
+export * from "./internal-dev-session-asset-content.js";
 //# sourceMappingURL=index.d.ts.map

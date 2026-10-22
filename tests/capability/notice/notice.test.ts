@@ -18,7 +18,7 @@ const validBody = {
 describe('owner notice device contract', () => {
   it('accepts valid bodies and pins the signed endpoint', () => {
     expect(OwnerNoticeBodySchema.safeParse(validBody).success).toBe(true);
-    for (const kind of ['release_ready', 'decision_needed', 'fault']) {
+    for (const kind of ['release_ready', 'decision_needed', 'fault', 'daily_recap']) {
       expect(OwnerNoticeKindSchema.safeParse(kind).success).toBe(true);
       expect(OwnerNoticeBodySchema.safeParse({ ...validBody, kind }).success).toBe(true);
     }
@@ -32,7 +32,9 @@ describe('owner notice device contract', () => {
       release_ready: '🚀 Pronto per il rilascio',
       decision_needed: '🧭 Serve una tua scelta',
       fault: '🛑 Guasto da guardare',
+      daily_recap: '☀️ Recap del mattino',
     });
+    expect(OwnerNoticeKindSchema.options).toEqual(['release_ready', 'decision_needed', 'fault', 'daily_recap']);
   });
 
   it.each([
@@ -50,6 +52,12 @@ describe('owner notice device contract', () => {
     ['invalid key prefix', { dedupeKey: ':ab' }],
   ])('rejects body mutation: %s', (_name, mutation) => {
     expect(OwnerNoticeBodySchema.safeParse({ ...validBody, ...mutation }).success).toBe(false);
+  });
+
+  it('accepts the daily recap with its own label (AVV-30)', () => {
+    const recap = { kind: 'daily_recap', title: 'Recap del mattino 20/10', text: 'Chiusi 3, falliti 1.', dedupeKey: 'mattino:20261020' };
+    expect(OwnerNoticeBodySchema.parse(recap)).toEqual(recap);
+    expect(OWNER_NOTICE_KIND_LABEL[OwnerNoticeKindSchema.parse('daily_recap')]).toBe('☀️ Recap del mattino');
   });
 
   it('accepts payload length boundaries', () => {
