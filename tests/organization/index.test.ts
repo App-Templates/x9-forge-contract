@@ -26,9 +26,11 @@ import * as businessUnitLead from '../../src/organization/business-unit-lead.js'
 import * as decisionRequest from '../../src/organization/decision-request.js';
 import * as asset from '../../src/organization/asset.js';
 import * as sharedMailbox from '../../src/organization/shared-mailbox.js';
+import * as businessUnitType from '../../src/organization/business-unit-type.js';
 
 const allSymbols = {
   ...runContext,
+  ...businessUnitType,
   ...runOutcome,
   ...operations,
   ...decisionResponse,
