@@ -1,10 +1,11 @@
 import { z } from 'zod';
 import { OwnerIdSchema } from '../agent/agent-identity.js';
 import { ModelTierSchema } from '../model-router/model-tier.js';
+import { BUSINESS_UNIT_LEAD_ROLE } from './agent-role.js';
 import { ParticipantAgentIdentitySchema, ParticipantRoleSchema } from './participant-binding.js';
 
 /** The only birth profile Forge provisions for a business unit lead. */
-export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu' as const;
+export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = BUSINESS_UNIT_LEAD_ROLE;
 export const BusinessUnitLeadProfileTemplateSchema = z.literal(BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
 export type BusinessUnitLeadProfileTemplate = z.infer<typeof BusinessUnitLeadProfileTemplateSchema>;
 
