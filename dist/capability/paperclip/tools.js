@@ -5,13 +5,36 @@ const Text = z.string().min(1).max(4096).refine(value => value.trim().length > 0
 export const PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
-    createBusinessUnit: 'paperclip_create_business_unit',
+    createBusinessUnit: 'paperclip_create_business_unit', search: 'paperclip_search', activity: 'paperclip_activity',
 };
 export const PaperclipIssueStatusSchema = z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
 const Statuses = z.array(PaperclipIssueStatusSchema).min(1).max(7)
     .refine(values => new Set(values).size === values.length, 'Statuses must be unique');
 export const PaperclipQueueInputSchema = z.strictObject({
     statuses: Statuses.optional(), limit: z.number().int().min(1).max(100).optional(),
+});
+export const PaperclipSearchKindSchema = z.enum(['issue', 'comment', 'document', 'artifact', 'agent', 'project']);
+export const PaperclipSearchInputSchema = z.strictObject({
+    query: Text.max(256),
+    kinds: z.array(PaperclipSearchKindSchema).min(1)
+        .refine(values => new Set(values).size === values.length, 'Search kinds must be unique').optional(),
+    limit: z.number().int().min(1).max(50).optional(),
+});
+export const PaperclipSearchOutputSchema = z.strictObject({
+    results: z.array(z.strictObject({
+        kind: PaperclipSearchKindSchema, id: Text, title: Text, snippet: z.string().max(1024),
+        issueId: z.uuid().optional(), updatedAt: z.iso.datetime({ offset: true }),
+    })).max(50),
+});
+export const PaperclipActivityInputSchema = z.strictObject({
+    issueId: z.uuid().optional(), since: z.iso.datetime({ offset: true }).optional(),
+    limit: z.number().int().min(1).max(100).optional(),
+});
+export const PaperclipActivityOutputSchema = z.strictObject({
+    events: z.array(z.strictObject({
+        id: Text, type: Text, actorAgentId: z.uuid().nullable(), issueId: z.uuid().nullable(),
+        summary: z.string().max(1024), createdAt: z.iso.datetime({ offset: true }),
+    })).max(100),
 });
 export const PaperclipIssueInputSchema = z.strictObject({ issueId: z.uuid() });
 export const PaperclipTakeInputSchema = z.strictObject({ issueId: z.uuid(), expectedStatuses: Statuses });

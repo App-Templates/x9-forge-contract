@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PAPERCLIP_TOOLS = void 0;
+exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipActivityOutputSchema = exports.PaperclipActivityInputSchema = exports.PaperclipSearchOutputSchema = exports.PaperclipSearchInputSchema = exports.PaperclipSearchKindSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PAPERCLIP_TOOLS = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const business_unit_lead_js_1 = require("../../organization/business-unit-lead.cjs");
@@ -8,13 +8,36 @@ const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().leng
 exports.PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
-    createBusinessUnit: 'paperclip_create_business_unit',
+    createBusinessUnit: 'paperclip_create_business_unit', search: 'paperclip_search', activity: 'paperclip_activity',
 };
 exports.PaperclipIssueStatusSchema = zod_1.z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
 const Statuses = zod_1.z.array(exports.PaperclipIssueStatusSchema).min(1).max(7)
     .refine(values => new Set(values).size === values.length, 'Statuses must be unique');
 exports.PaperclipQueueInputSchema = zod_1.z.strictObject({
     statuses: Statuses.optional(), limit: zod_1.z.number().int().min(1).max(100).optional(),
+});
+exports.PaperclipSearchKindSchema = zod_1.z.enum(['issue', 'comment', 'document', 'artifact', 'agent', 'project']);
+exports.PaperclipSearchInputSchema = zod_1.z.strictObject({
+    query: Text.max(256),
+    kinds: zod_1.z.array(exports.PaperclipSearchKindSchema).min(1)
+        .refine(values => new Set(values).size === values.length, 'Search kinds must be unique').optional(),
+    limit: zod_1.z.number().int().min(1).max(50).optional(),
+});
+exports.PaperclipSearchOutputSchema = zod_1.z.strictObject({
+    results: zod_1.z.array(zod_1.z.strictObject({
+        kind: exports.PaperclipSearchKindSchema, id: Text, title: Text, snippet: zod_1.z.string().max(1024),
+        issueId: zod_1.z.uuid().optional(), updatedAt: zod_1.z.iso.datetime({ offset: true }),
+    })).max(50),
+});
+exports.PaperclipActivityInputSchema = zod_1.z.strictObject({
+    issueId: zod_1.z.uuid().optional(), since: zod_1.z.iso.datetime({ offset: true }).optional(),
+    limit: zod_1.z.number().int().min(1).max(100).optional(),
+});
+exports.PaperclipActivityOutputSchema = zod_1.z.strictObject({
+    events: zod_1.z.array(zod_1.z.strictObject({
+        id: Text, type: Text, actorAgentId: zod_1.z.uuid().nullable(), issueId: zod_1.z.uuid().nullable(),
+        summary: zod_1.z.string().max(1024), createdAt: zod_1.z.iso.datetime({ offset: true }),
+    })).max(100),
 });
 exports.PaperclipIssueInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid() });
 exports.PaperclipTakeInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(), expectedStatuses: Statuses });

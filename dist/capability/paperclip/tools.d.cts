@@ -8,6 +8,8 @@ export declare const PAPERCLIP_TOOLS: {
     readonly comments: "paperclip_comments";
     readonly review: "paperclip_review";
     readonly createBusinessUnit: "paperclip_create_business_unit";
+    readonly search: "paperclip_search";
+    readonly activity: "paperclip_activity";
 };
 export declare const PaperclipIssueStatusSchema: z.ZodEnum<{
     cancelled: "cancelled";
@@ -29,6 +31,58 @@ export declare const PaperclipQueueInputSchema: z.ZodObject<{
         in_review: "in_review";
     }>>>;
     limit: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export declare const PaperclipSearchKindSchema: z.ZodEnum<{
+    artifact: "artifact";
+    document: "document";
+    agent: "agent";
+    comment: "comment";
+    project: "project";
+    issue: "issue";
+}>;
+export declare const PaperclipSearchInputSchema: z.ZodObject<{
+    query: z.ZodString;
+    kinds: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+        artifact: "artifact";
+        document: "document";
+        agent: "agent";
+        comment: "comment";
+        project: "project";
+        issue: "issue";
+    }>>>;
+    limit: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export declare const PaperclipSearchOutputSchema: z.ZodObject<{
+    results: z.ZodArray<z.ZodObject<{
+        kind: z.ZodEnum<{
+            artifact: "artifact";
+            document: "document";
+            agent: "agent";
+            comment: "comment";
+            project: "project";
+            issue: "issue";
+        }>;
+        id: z.ZodString;
+        title: z.ZodString;
+        snippet: z.ZodString;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        updatedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const PaperclipActivityInputSchema: z.ZodObject<{
+    issueId: z.ZodOptional<z.ZodUUID>;
+    since: z.ZodOptional<z.ZodISODateTime>;
+    limit: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export declare const PaperclipActivityOutputSchema: z.ZodObject<{
+    events: z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        type: z.ZodString;
+        actorAgentId: z.ZodNullable<z.ZodUUID>;
+        issueId: z.ZodNullable<z.ZodUUID>;
+        summary: z.ZodString;
+        createdAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export declare const PaperclipIssueInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
@@ -205,6 +259,11 @@ export declare const PaperclipAgentBindingSchema: z.ZodObject<{
     roleAgents: z.ZodRecord<z.ZodString, z.ZodUUID>;
 }, z.core.$strict>;
 export type PaperclipQueueInput = z.infer<typeof PaperclipQueueInputSchema>;
+export type PaperclipSearchKind = z.infer<typeof PaperclipSearchKindSchema>;
+export type PaperclipSearchInput = z.infer<typeof PaperclipSearchInputSchema>;
+export type PaperclipSearchOutput = z.infer<typeof PaperclipSearchOutputSchema>;
+export type PaperclipActivityInput = z.infer<typeof PaperclipActivityInputSchema>;
+export type PaperclipActivityOutput = z.infer<typeof PaperclipActivityOutputSchema>;
 export type PaperclipIssueInput = z.infer<typeof PaperclipIssueInputSchema>;
 export type PaperclipTakeInput = z.infer<typeof PaperclipTakeInputSchema>;
 export type PaperclipAssignInput = z.infer<typeof PaperclipAssignInputSchema>;

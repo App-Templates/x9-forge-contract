@@ -6,8 +6,76 @@ import { PaperclipQueueInputSchema as Queue, PaperclipIssueInputSchema as Issue,
   PaperclipCommentsInputSchema as Comments, PaperclipCommentViewSchema as Comment,
   PaperclipCommentsOutputSchema as CommentsOutput, PaperclipReviewInputSchema as Review,
   PaperclipCreateBusinessUnitInputSchema as CreateBu, PaperclipCreateBusinessUnitOutputSchema as CreateBuOutput,
+  PaperclipSearchInputSchema as Search, PaperclipSearchOutputSchema as SearchOutput,
+  PaperclipActivityInputSchema as Activity, PaperclipActivityOutputSchema as ActivityOutput,
 } from '../src/capability/paperclip/index.js';
 const id = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
+it('validates read-only search and activity contracts', () => {
+  expect(PAPERCLIP_TOOLS.search).toBe('paperclip_search');
+  expect(PAPERCLIP_TOOLS.activity).toBe('paperclip_activity');
+  const kinds = ['issue', 'comment', 'document', 'artifact', 'agent', 'project'];
+  expect(Search.parse({ query: 'delivery', kinds, limit: 50 })).toEqual({ query: 'delivery', kinds, limit: 50 });
+  expect(Search.parse({ query: 'x'.repeat(256), limit: 1 })).toEqual({ query: 'x'.repeat(256), limit: 1 });
+  expect(Search.parse({ query: 'delivery' })).toEqual({ query: 'delivery' });
+  for (const input of [
+    {}, { query: '' }, { query: ' ' }, { query: 'x'.repeat(257) },
+    { query: 'delivery', kinds: [] }, { query: 'delivery', kinds: ['unknown'] },
+    ...[0, 51, 1.5].map(limit => ({ query: 'delivery', limit })),
+  ]) {
+    expect(Search.safeParse(input).success, JSON.stringify(input)).toBe(false);
+  }
+  const updatedAt = '2026-10-21T18:00:00+02:00';
+  const result = { kind: 'issue', id: 'TASK-1', title: 'Dataset delivery', snippet: 'Ready', issueId: id, updatedAt };
+  expect(SearchOutput.parse({ results: [result] })).toEqual({ results: [result] });
+  expect(SearchOutput.parse({ results: [] })).toEqual({ results: [] });
+  for (const kind of kinds) {
+    expect(SearchOutput.safeParse({ results: [{ kind, id: 'result-1', title: 'Result', snippet: '', updatedAt: '2026-10-21T16:00:00Z' }] }).success).toBe(true);
+  }
+  for (const patch of [
+    { kind: 'unknown' }, { id: '' }, { id: ' ' }, { title: '' }, { title: ' ' },
+    { snippet: 'x'.repeat(1025) }, { issueId: 'invalid' },
+    { updatedAt: '2026-10-21T18:00:00' }, { updatedAt: '2026-02-30T18:00:00Z' }, { extra: true },
+  ]) {
+    expect(SearchOutput.safeParse({ results: [{ ...result, ...patch }] }).success).toBe(false);
+  }
+  expect(SearchOutput.safeParse({ results: [{ ...result, snippet: 'x'.repeat(1024) }] }).success).toBe(true);
+  expect(SearchOutput.safeParse({ results: Array.from({ length: 50 }, () => result) }).success).toBe(true);
+  expect(SearchOutput.safeParse({ results: Array.from({ length: 51 }, () => result) }).success).toBe(false);
+  expect(SearchOutput.safeParse({ results: [], extra: true }).success).toBe(false);
+
+  expect(Activity.parse({})).toEqual({});
+  const activity = { issueId: id, since: updatedAt, limit: 100 };
+  expect(Activity.parse(activity)).toEqual(activity);
+  expect(Activity.safeParse({ since: '2026-10-21T16:00:00Z', limit: 1 }).success).toBe(true);
+  for (const input of [
+    { issueId: 'invalid' }, { since: '2026-10-21T18:00:00' }, { since: '2026-02-30T18:00:00Z' },
+    { limit: 0 }, { limit: 101 }, { limit: 1.5 },
+  ]) {
+    expect(Activity.safeParse(input).success).toBe(false);
+  }
+  const event = { id: 'event-1', type: 'issue.updated', actorAgentId: id, issueId: id, summary: 'Ready', createdAt: updatedAt };
+  expect(ActivityOutput.parse({ events: [event] })).toEqual({ events: [event] });
+  expect(ActivityOutput.parse({ events: [] })).toEqual({ events: [] });
+  expect(ActivityOutput.safeParse({ events: [{ ...event, actorAgentId: null, issueId: null, summary: '', createdAt: '2026-10-21T16:00:00Z' }] }).success).toBe(true);
+  expect(ActivityOutput.safeParse({ events: [{ ...event, summary: 'x'.repeat(1024) }] }).success).toBe(true);
+  for (const patch of [
+    { id: '' }, { type: ' ' }, { actorAgentId: 'invalid' }, { actorAgentId: undefined },
+    { issueId: 'invalid' }, { issueId: undefined }, { summary: 'x'.repeat(1025) },
+    { createdAt: '2026-10-21T18:00:00' }, { createdAt: '2026-02-30T18:00:00Z' }, { extra: true },
+  ]) {
+    expect(ActivityOutput.safeParse({ events: [{ ...event, ...patch }] }).success).toBe(false);
+  }
+  expect(ActivityOutput.safeParse({ events: Array.from({ length: 100 }, () => event) }).success).toBe(true);
+  expect(ActivityOutput.safeParse({ events: Array.from({ length: 101 }, () => event) }).success).toBe(false);
+  expect(ActivityOutput.safeParse({ events: [], extra: true }).success).toBe(false);
+});
+it('rejects extra fields in read-only tool inputs', () => {
+  expect(Search.safeParse({ query: 'delivery', companyId: id }).success).toBe(false);
+  expect(Activity.safeParse({ companyId: id }).success).toBe(false);
+});
+it('rejects duplicate search kinds', () => {
+  expect(Search.safeParse({ query: 'delivery', kinds: ['issue', 'issue'] }).success).toBe(false);
+});
 it('validates native operations without accepting caller-chosen identity', () => {
   for (const [schema, value] of [[Queue, { statuses: ['todo'], limit: 10 }], [Issue, { issueId: id }],
     [Take, { issueId: id, expectedStatuses: ['todo'] }], [Assign, { issueId: id, roleRef: 'reviewer' }]] as const) {
