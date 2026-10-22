@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { CapabilityManifestSchema, type CapabilityManifest } from '../../src/capability/index';
+import { capabilityToolAccess } from '../../src/capability/capability-tool';
 
 // Real fixture captured from agent-x9/services/agent-core/registry.json (2026-04-15)
 const REAL_MANIFEST_FIXTURE: CapabilityManifest = {
@@ -124,6 +125,34 @@ describe('CapabilityManifestSchema', () => {
       expect(result.data.name).toBe('calendar');
       expect(result.data.tools).toHaveLength(5);
       expect(result.data.serviceName).toBeUndefined();
+    }
+  });
+});
+
+describe('CapabilityTool access', () => {
+  const manifestWith = (access?: string) => ({
+    ...REAL_MANIFEST_FIXTURE,
+    tools: [{ ...REAL_MANIFEST_FIXTURE.tools[0], ...(access ? { access } : {}) }],
+  });
+
+  it('keeps access "read" after parse', () => {
+    const result = CapabilityManifestSchema.safeParse(manifestWith('read'));
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.tools[0].access).toBe('read');
+      expect(capabilityToolAccess(result.data.tools[0])).toBe('read');
+    }
+  });
+
+  it('rejects an unknown access value', () => {
+    expect(CapabilityManifestSchema.safeParse(manifestWith('execute')).success).toBe(false);
+  });
+
+  it('treats a tool without access as write', () => {
+    const result = CapabilityManifestSchema.safeParse(manifestWith());
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(capabilityToolAccess(result.data.tools[0])).toBe('write');
     }
   });
 });

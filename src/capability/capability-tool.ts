@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+export const CAPABILITY_TOOL_ACCESS = ['read', 'write'] as const;
+export const CapabilityToolAccessSchema = z.enum(CAPABILITY_TOOL_ACCESS);
+export type CapabilityToolAccess = z.infer<typeof CapabilityToolAccessSchema>;
+
 /**
  * A single tool exposed by a capability service.
  *
@@ -13,6 +17,13 @@ export const CapabilityToolSchema = z.object({
   name: z.string().min(1),
   description: z.string(),
   inputSchema: z.record(z.string(), z.unknown()),
+  // assente = write, come prima della 1.58
+  access: CapabilityToolAccessSchema.optional(),
 });
 
 export type CapabilityTool = z.infer<typeof CapabilityToolSchema>;
+
+/** Effective access of a tool: an undeclared `access` counts as `write`. */
+export function capabilityToolAccess(tool: CapabilityTool): CapabilityToolAccess {
+  return tool.access ?? 'write';
+}
