@@ -10,7 +10,78 @@ export declare const PAPERCLIP_TOOLS: {
     readonly createBusinessUnit: "paperclip_create_business_unit";
     readonly search: "paperclip_search";
     readonly activity: "paperclip_activity";
+    readonly createProject: "paperclip_create_project";
+    readonly createGoal: "paperclip_create_goal";
 };
+export declare const PaperclipGoalLevelSchema: z.ZodEnum<{
+    agent: "agent";
+    team: "team";
+    company: "company";
+    task: "task";
+}>;
+export declare const PaperclipCreateProjectInputSchema: z.ZodObject<{
+    name: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    goalIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
+}, z.core.$strict>;
+export declare const PaperclipProjectViewSchema: z.ZodObject<{
+    id: z.ZodUUID;
+    companyId: z.ZodUUID;
+    name: z.ZodString;
+    description: z.ZodNullable<z.ZodString>;
+    leadAgentId: z.ZodNullable<z.ZodUUID>;
+    goalIds: z.ZodArray<z.ZodUUID>;
+}, z.core.$strict>;
+export declare const PaperclipCreateProjectOutputSchema: z.ZodObject<{
+    project: z.ZodObject<{
+        id: z.ZodUUID;
+        companyId: z.ZodUUID;
+        name: z.ZodString;
+        description: z.ZodNullable<z.ZodString>;
+        leadAgentId: z.ZodNullable<z.ZodUUID>;
+        goalIds: z.ZodArray<z.ZodUUID>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const PaperclipCreateGoalInputSchema: z.ZodObject<{
+    title: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    level: z.ZodEnum<{
+        agent: "agent";
+        team: "team";
+        company: "company";
+        task: "task";
+    }>;
+    parentId: z.ZodOptional<z.ZodUUID>;
+    ownerRoleRef: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export declare const PaperclipGoalViewSchema: z.ZodObject<{
+    id: z.ZodUUID;
+    companyId: z.ZodUUID;
+    title: z.ZodString;
+    level: z.ZodEnum<{
+        agent: "agent";
+        team: "team";
+        company: "company";
+        task: "task";
+    }>;
+    parentId: z.ZodNullable<z.ZodUUID>;
+    ownerAgentId: z.ZodNullable<z.ZodUUID>;
+}, z.core.$strict>;
+export declare const PaperclipCreateGoalOutputSchema: z.ZodObject<{
+    goal: z.ZodObject<{
+        id: z.ZodUUID;
+        companyId: z.ZodUUID;
+        title: z.ZodString;
+        level: z.ZodEnum<{
+            agent: "agent";
+            team: "team";
+            company: "company";
+            task: "task";
+        }>;
+        parentId: z.ZodNullable<z.ZodUUID>;
+        ownerAgentId: z.ZodNullable<z.ZodUUID>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
 export declare const PaperclipIssueStatusSchema: z.ZodEnum<{
     cancelled: "cancelled";
     done: "done";
@@ -259,6 +330,13 @@ export declare const PaperclipAgentBindingSchema: z.ZodObject<{
     roleAgents: z.ZodRecord<z.ZodString, z.ZodUUID>;
 }, z.core.$strict>;
 export type PaperclipQueueInput = z.infer<typeof PaperclipQueueInputSchema>;
+export type PaperclipGoalLevel = z.infer<typeof PaperclipGoalLevelSchema>;
+export type PaperclipCreateProjectInput = z.infer<typeof PaperclipCreateProjectInputSchema>;
+export type PaperclipProjectView = z.infer<typeof PaperclipProjectViewSchema>;
+export type PaperclipCreateProjectOutput = z.infer<typeof PaperclipCreateProjectOutputSchema>;
+export type PaperclipCreateGoalInput = z.infer<typeof PaperclipCreateGoalInputSchema>;
+export type PaperclipGoalView = z.infer<typeof PaperclipGoalViewSchema>;
+export type PaperclipCreateGoalOutput = z.infer<typeof PaperclipCreateGoalOutputSchema>;
 export type PaperclipSearchKind = z.infer<typeof PaperclipSearchKindSchema>;
 export type PaperclipSearchInput = z.infer<typeof PaperclipSearchInputSchema>;
 export type PaperclipSearchOutput = z.infer<typeof PaperclipSearchOutputSchema>;

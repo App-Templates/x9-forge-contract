@@ -6,7 +6,28 @@ export const PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
     createBusinessUnit: 'paperclip_create_business_unit', search: 'paperclip_search', activity: 'paperclip_activity',
+    createProject: 'paperclip_create_project', createGoal: 'paperclip_create_goal',
 };
+export const PaperclipGoalLevelSchema = z.enum(['company', 'team', 'agent', 'task']);
+export const PaperclipCreateProjectInputSchema = z.strictObject({
+    name: Text.max(200), description: z.string().max(16384).optional(),
+    goalIds: z.array(z.uuid()).max(20)
+        .refine(values => new Set(values).size === values.length, 'Goal IDs must be unique').optional(),
+});
+export const PaperclipProjectViewSchema = z.strictObject({
+    id: z.uuid(), companyId: z.uuid(), name: Text, description: z.string().nullable(),
+    leadAgentId: z.uuid().nullable(), goalIds: z.array(z.uuid()).max(50),
+});
+export const PaperclipCreateProjectOutputSchema = z.strictObject({ project: PaperclipProjectViewSchema });
+export const PaperclipCreateGoalInputSchema = z.strictObject({
+    title: Text.max(200), description: z.string().max(16384).optional(), level: PaperclipGoalLevelSchema,
+    parentId: z.uuid().optional(), ownerRoleRef: Text.optional(),
+});
+export const PaperclipGoalViewSchema = z.strictObject({
+    id: z.uuid(), companyId: z.uuid(), title: Text, level: PaperclipGoalLevelSchema,
+    parentId: z.uuid().nullable(), ownerAgentId: z.uuid().nullable(),
+});
+export const PaperclipCreateGoalOutputSchema = z.strictObject({ goal: PaperclipGoalViewSchema });
 export const PaperclipIssueStatusSchema = z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
 const Statuses = z.array(PaperclipIssueStatusSchema).min(1).max(7)
     .refine(values => new Set(values).size === values.length, 'Statuses must be unique');

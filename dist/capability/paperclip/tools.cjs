@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipActivityOutputSchema = exports.PaperclipActivityInputSchema = exports.PaperclipSearchOutputSchema = exports.PaperclipSearchInputSchema = exports.PaperclipSearchKindSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PAPERCLIP_TOOLS = void 0;
+exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipActivityOutputSchema = exports.PaperclipActivityInputSchema = exports.PaperclipSearchOutputSchema = exports.PaperclipSearchInputSchema = exports.PaperclipSearchKindSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PaperclipCreateGoalOutputSchema = exports.PaperclipGoalViewSchema = exports.PaperclipCreateGoalInputSchema = exports.PaperclipCreateProjectOutputSchema = exports.PaperclipProjectViewSchema = exports.PaperclipCreateProjectInputSchema = exports.PaperclipGoalLevelSchema = exports.PAPERCLIP_TOOLS = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const business_unit_lead_js_1 = require("../../organization/business-unit-lead.cjs");
@@ -9,7 +9,28 @@ exports.PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
     createBusinessUnit: 'paperclip_create_business_unit', search: 'paperclip_search', activity: 'paperclip_activity',
+    createProject: 'paperclip_create_project', createGoal: 'paperclip_create_goal',
 };
+exports.PaperclipGoalLevelSchema = zod_1.z.enum(['company', 'team', 'agent', 'task']);
+exports.PaperclipCreateProjectInputSchema = zod_1.z.strictObject({
+    name: Text.max(200), description: zod_1.z.string().max(16384).optional(),
+    goalIds: zod_1.z.array(zod_1.z.uuid()).max(20)
+        .refine(values => new Set(values).size === values.length, 'Goal IDs must be unique').optional(),
+});
+exports.PaperclipProjectViewSchema = zod_1.z.strictObject({
+    id: zod_1.z.uuid(), companyId: zod_1.z.uuid(), name: Text, description: zod_1.z.string().nullable(),
+    leadAgentId: zod_1.z.uuid().nullable(), goalIds: zod_1.z.array(zod_1.z.uuid()).max(50),
+});
+exports.PaperclipCreateProjectOutputSchema = zod_1.z.strictObject({ project: exports.PaperclipProjectViewSchema });
+exports.PaperclipCreateGoalInputSchema = zod_1.z.strictObject({
+    title: Text.max(200), description: zod_1.z.string().max(16384).optional(), level: exports.PaperclipGoalLevelSchema,
+    parentId: zod_1.z.uuid().optional(), ownerRoleRef: Text.optional(),
+});
+exports.PaperclipGoalViewSchema = zod_1.z.strictObject({
+    id: zod_1.z.uuid(), companyId: zod_1.z.uuid(), title: Text, level: exports.PaperclipGoalLevelSchema,
+    parentId: zod_1.z.uuid().nullable(), ownerAgentId: zod_1.z.uuid().nullable(),
+});
+exports.PaperclipCreateGoalOutputSchema = zod_1.z.strictObject({ goal: exports.PaperclipGoalViewSchema });
 exports.PaperclipIssueStatusSchema = zod_1.z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done', 'blocked', 'cancelled']);
 const Statuses = zod_1.z.array(exports.PaperclipIssueStatusSchema).min(1).max(7)
     .refine(values => new Set(values).size === values.length, 'Statuses must be unique');

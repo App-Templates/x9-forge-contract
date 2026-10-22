@@ -8,8 +8,87 @@ import { PaperclipQueueInputSchema as Queue, PaperclipIssueInputSchema as Issue,
   PaperclipCreateBusinessUnitInputSchema as CreateBu, PaperclipCreateBusinessUnitOutputSchema as CreateBuOutput,
   PaperclipSearchInputSchema as Search, PaperclipSearchOutputSchema as SearchOutput,
   PaperclipActivityInputSchema as Activity, PaperclipActivityOutputSchema as ActivityOutput,
+  PaperclipGoalLevelSchema as GoalLevel, PaperclipCreateProjectInputSchema as CreateProject,
+  PaperclipProjectViewSchema as ProjectView, PaperclipCreateProjectOutputSchema as CreateProjectOutput,
+  PaperclipCreateGoalInputSchema as CreateGoal, PaperclipGoalViewSchema as GoalView,
+  PaperclipCreateGoalOutputSchema as CreateGoalOutput,
 } from '../src/capability/paperclip/index.js';
 const id = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
+it('names the project and goal creation tools', () => {
+  expect(PAPERCLIP_TOOLS.createProject).toBe('paperclip_create_project');
+  expect(PAPERCLIP_TOOLS.createGoal).toBe('paperclip_create_goal');
+});
+it('accepts minimal and complete project creation', () => {
+  expect(CreateProject.parse({ name: 'Brief project' })).toEqual({ name: 'Brief project' });
+  const project = { name: 'Brief project', description: 'Deliver the approved brief', goalIds: [id] };
+  expect(CreateProject.parse(project)).toEqual(project);
+  expect(CreateProject.parse({ name: 'Brief project', description: '', goalIds: [] }))
+    .toEqual({ name: 'Brief project', description: '', goalIds: [] });
+});
+it('rejects caller-chosen project leadAgentId', () => {
+  expect(CreateProject.safeParse({ name: 'Brief project', leadAgentId: id }).success).toBe(false);
+});
+it('rejects duplicate project goalIds', () => {
+  expect(CreateProject.safeParse({ name: 'Brief project', goalIds: [id, id] }).success).toBe(false);
+});
+it('validates project and goal creation boundaries', () => {
+  const goalIds = Array.from({ length: 21 }, (_, index) =>
+    `f13dd515-1bad-4e0d-a697-${index.toString(16).padStart(12, '0')}`);
+  expect(CreateProject.safeParse({ name: 'x'.repeat(200), description: 'x'.repeat(16384), goalIds: goalIds.slice(0, 20) }).success).toBe(true);
+  for (const patch of [
+    { name: '' }, { name: ' ' }, { name: 'x'.repeat(201) }, { description: 'x'.repeat(16385) },
+    { goalIds }, { goalIds: ['invalid'] }, { companyId: id }, { leadAgentId: id }, { goalIds: [id, id] },
+  ]) {
+    expect(CreateProject.safeParse({ name: 'Brief project', ...patch }).success).toBe(false);
+  }
+  expect(CreateGoal.safeParse({ title: 'x'.repeat(200), level: 'company', description: 'x'.repeat(16384), ownerRoleRef: 'x'.repeat(4096) }).success).toBe(true);
+  for (const level of ['company', 'team', 'agent', 'task']) {
+    expect(GoalLevel.parse(level)).toBe(level);
+    expect(CreateGoal.parse({ title: 'Deliver the brief', level })).toEqual({ title: 'Deliver the brief', level });
+  }
+  for (const patch of [
+    { title: '' }, { title: ' ' }, { title: 'x'.repeat(201) }, { description: 'x'.repeat(16385) },
+    { level: 'department' }, { parentId: 'invalid' }, { ownerRoleRef: ' ' },
+    { ownerRoleRef: 'x'.repeat(4097) }, { companyId: id }, { ownerAgentId: id },
+  ]) {
+    expect(CreateGoal.safeParse({ title: 'Deliver the brief', level: 'team', ...patch }).success).toBe(false);
+  }
+});
+it('accepts a team goal with a parent and owner role', () => {
+  const goal = { title: 'Research delivery', description: 'Research the market', level: 'team', parentId: id, ownerRoleRef: 'research-head' };
+  expect(CreateGoal.parse(goal)).toEqual(goal);
+});
+it('rejects department goal level', () => {
+  expect(CreateGoal.safeParse({ title: 'Research delivery', level: 'department' }).success).toBe(false);
+});
+it('rejects caller-chosen goal ownerAgentId', () => {
+  expect(CreateGoal.safeParse({ title: 'Research delivery', level: 'team', ownerAgentId: id }).success).toBe(false);
+});
+it('rejects empty goal titles', () => {
+  expect(CreateGoal.safeParse({ title: '', level: 'company' }).success).toBe(false);
+});
+it('validates project and goal views and creation outputs', () => {
+  const project = { id, companyId: id, name: 'Brief project', description: null, leadAgentId: null, goalIds: [] };
+  const goal = { id, companyId: id, title: 'Deliver the brief', level: 'company', parentId: null, ownerAgentId: null };
+  expect(ProjectView.parse(project)).toEqual(project);
+  expect(CreateProjectOutput.parse({ project })).toEqual({ project });
+  expect(ProjectView.safeParse({ ...project, description: 'Approved brief', leadAgentId: id, goalIds: Array.from({ length: 50 }, () => id) }).success).toBe(true);
+  expect(ProjectView.safeParse({ ...project, goalIds: Array.from({ length: 51 }, () => id) }).success).toBe(false);
+  expect(GoalView.parse(goal)).toEqual(goal);
+  expect(CreateGoalOutput.parse({ goal })).toEqual({ goal });
+  expect(GoalView.safeParse({ ...goal, level: 'team', parentId: id, ownerAgentId: id }).success).toBe(true);
+  for (const patch of [{ id: 'invalid' }, { companyId: 'invalid' }, { title: ' ' }, { parentId: 'invalid' }, { ownerAgentId: 'invalid' }, { extra: true }]) {
+    expect(GoalView.safeParse({ ...goal, ...patch }).success).toBe(false);
+  }
+  for (const patch of [{ id: 'invalid' }, { companyId: 'invalid' }, { name: ' ' }, { description: undefined }, { leadAgentId: 'invalid' }, { goalIds: ['invalid'] }, { extra: true }]) {
+    expect(ProjectView.safeParse({ ...project, ...patch }).success).toBe(false);
+  }
+  expect(CreateProjectOutput.safeParse({ project, extra: true }).success).toBe(false);
+  expect(CreateGoalOutput.safeParse({ goal, extra: true }).success).toBe(false);
+});
+it('rejects unknown goal levels in views', () => {
+  expect(GoalView.safeParse({ id, companyId: id, title: 'Deliver the brief', level: 'department', parentId: null, ownerAgentId: null }).success).toBe(false);
+});
 it('validates read-only search and activity contracts', () => {
   expect(PAPERCLIP_TOOLS.search).toBe('paperclip_search');
   expect(PAPERCLIP_TOOLS.activity).toBe('paperclip_activity');
