@@ -17,6 +17,7 @@ const request = {
   company: { companyId: 'company-1', name: 'Company One' },
   businessUnit: {
     slug: 'research',
+    typeId: 'ricerca-mercato',
     name: 'Research',
     briefSection: 'Research the market and deliver a report for the company brief.',
     competencies: ['market research', 'competitor analysis'],
@@ -56,6 +57,17 @@ describe('internalBusinessUnitLeadBirthContract', () => {
 
   it('accepts a valid birth request', () => {
     expect(internalBusinessUnitLeadBirthContract.bodySchema.parse(request)).toEqual(request);
+  });
+
+  it('rejects a request without businessUnit.typeId', () => {
+    const { typeId: _typeId, ...withoutType } = request.businessUnit;
+    const parsed = internalBusinessUnitLeadBirthContract.bodySchema.safeParse({ ...request, businessUnit: withoutType });
+    expect(parsed.success).toBe(false);
+    if (!parsed.success) {
+      expect(parsed.error.issues).toEqual(expect.arrayContaining([
+        expect.objectContaining({ path: ['businessUnit', 'typeId'] }),
+      ]));
+    }
   });
 
   it('rejects a request without paperclipParticipant', () => {
