@@ -1,5 +1,16 @@
 # Changelog — @x9-forge/contracts
 
+## v1.60.0 — piano d'azione, decisione legata alla versione, mappa dell'azienda cliente, porta Vault della chiave agente, contratti R&D, mandato riconciliato, additive
+
+- 286-287: `ActionPlanSchema`, `ActionPlanBusinessUnitSchema`, `ActionPlanReferentRefSchema`, `ACTION_PLAN_BU_EXECUTORS` in `src/organization/action-plan.ts` (consumatori: agent-core, factory di Forge).
+- 288: `DECISION_SUBJECT_KINDS`, `DecisionSubjectSchema` e il campo `subject` della richiesta di decisione (consumatori: agent-core, factory di Forge).
+- 289: `CompanyMapEntrySchema`, `COMPANY_MAP_LEVELS`, `CompanyMapSourceSchema` in `src/organization/company-map.ts` (consumatori: memory, agent-core).
+- 290: `INTERNAL_MEMORY_COMPANY_MAP_ENTRIES_PATH`, `internalMemoryCompanyMapWriteContract`, `internalMemoryCompanyMapListContract` (consumatori: memory, agent-core).
+- 291: `putAgentCredentialContract`, `AGENT_CREDENTIAL_PORT_KEYS`, `PutAgentCredentialBodySchema`, porta Vault della chiave Paperclip dell'agente (consumatori: vault di Forge, cap-paperclip, cap-email).
+- 292: `LAB_TOOLS.publish`/`readPublished`/`briefGaps`, `LabPublishInputSchema`, `LabReadPublishedOutputSchema`, `LabBriefGapsOutputSchema`, `LabGapsRefSchema` e il campo `labGapsRef` della ricerca (consumatori: cap-lab, cap-ricerca, agent-core).
+- 293: `ReconciledMandateSchema`, `MandateReconciliationSchema` in `src/organization/business-unit-mandate.ts` (consumatori: agent-core, factory di Forge).
+- `dist` ricostruita; conservati 587/587 export di `dist/http/endpoints/index.cjs` (ora 601) e 128/128 di `dist/organization/index.cjs` (ora 152).
+
 ## v1.59.0 — accesso per strumento esportato, rotte asset, posti e incarichi Paperclip, nascita R&D, additive
 
 - 276 (P1X-01): `@x9-forge/contracts/capability` esporta `CAPABILITY_TOOL_ACCESS`, `CapabilityToolAccessSchema`, `capabilityToolAccess`, `toolsForRole` e il tipo `CapabilityToolAccess` (consumatori: agent-core, cap-paperclip).

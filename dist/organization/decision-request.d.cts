@@ -15,12 +15,41 @@ export declare const DecisionRequestOptionSchema: z.ZodObject<{
     detail: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type DecisionRequestOption = z.infer<typeof DecisionRequestOptionSchema>;
+/** What a decision is about: a plan, tied to the exact version and digest the owner read. */
+export declare const DECISION_SUBJECT_KINDS: readonly ["action_plan", "vertical_plan", "confirmation"];
+export declare const DecisionSubjectKindSchema: z.ZodEnum<{
+    action_plan: "action_plan";
+    vertical_plan: "vertical_plan";
+    confirmation: "confirmation";
+}>;
+export type DecisionSubjectKind = z.infer<typeof DecisionSubjectKindSchema>;
+export declare const DecisionSubjectSchema: z.ZodObject<{
+    kind: z.ZodEnum<{
+        action_plan: "action_plan";
+        vertical_plan: "vertical_plan";
+        confirmation: "confirmation";
+    }>;
+    planId: z.ZodString;
+    planVersion: z.ZodNumber;
+    digest: z.ZodString;
+}, z.core.$strict>;
+export type DecisionSubject = z.infer<typeof DecisionSubjectSchema>;
 /** Open question an agent puts to the owner, with the options to choose from. */
 export declare const DecisionRequestSchema: z.ZodObject<{
     requestId: z.ZodString;
     tenantId: z.ZodString;
     organizationId: z.ZodString;
     projectId: z.ZodOptional<z.ZodString>;
+    subject: z.ZodOptional<z.ZodObject<{
+        kind: z.ZodEnum<{
+            action_plan: "action_plan";
+            vertical_plan: "vertical_plan";
+            confirmation: "confirmation";
+        }>;
+        planId: z.ZodString;
+        planVersion: z.ZodNumber;
+        digest: z.ZodString;
+    }, z.core.$strict>>;
     question: z.ZodString;
     options: z.ZodArray<z.ZodObject<{
         optionId: z.ZodString;
@@ -59,6 +88,16 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         forge_panel: "forge_panel";
     }>;
     sourceRef: z.ZodString;
+    subject: z.ZodOptional<z.ZodObject<{
+        kind: z.ZodEnum<{
+            action_plan: "action_plan";
+            vertical_plan: "vertical_plan";
+            confirmation: "confirmation";
+        }>;
+        planId: z.ZodString;
+        planVersion: z.ZodNumber;
+        digest: z.ZodString;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     outcome: z.ZodLiteral<"rejected">;
     reason: z.ZodString;
@@ -74,8 +113,20 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         forge_panel: "forge_panel";
     }>;
     sourceRef: z.ZodString;
+    subject: z.ZodOptional<z.ZodObject<{
+        kind: z.ZodEnum<{
+            action_plan: "action_plan";
+            vertical_plan: "vertical_plan";
+            confirmation: "confirmation";
+        }>;
+        planId: z.ZodString;
+        planVersion: z.ZodNumber;
+        digest: z.ZodString;
+    }, z.core.$strict>>;
 }, z.core.$strict>], "outcome">;
 export type DecisionOutcome = z.infer<typeof DecisionOutcomeSchema>;
+/** True when the outcome decides the same plan version the request asked about (or neither names a subject). */
+export declare function decisionOutcomeMatchesSubject(request: Pick<DecisionRequest, 'subject'>, outcome: Pick<DecisionOutcome, 'subject'>): boolean;
 /** Word used in the email subject to tie a reply to its decision request: `[decisione <requestId>]`. */
 export declare const DECISION_REQUEST_SUBJECT_LABEL: "decisione";
 export declare function decisionRequestSubjectLabel(requestId: DecisionRequestId): string;
