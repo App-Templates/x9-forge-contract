@@ -110,6 +110,7 @@ __exportStar(require("./internal-paperclip-seats.cjs"), exports);
 __exportStar(require("./internal-memory-assets.cjs"), exports);
 // F1B-03 — mappa dell'azienda cliente nella memoria A
 __exportStar(require("./internal-memory-company-map.cjs"), exports);
+__exportStar(require("./internal-memory-company-content.cjs"), exports);
 __exportStar(require("./internal-memory-knowledge.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 __exportStar(require("./internal-connection-completed.cjs"), exports);

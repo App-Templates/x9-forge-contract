@@ -1,6 +1,9 @@
 import { z } from 'zod';
 export declare const INTERNAL_MEMORY_ASSETS_PATH: "/internal/memory/assets";
-/** POST: a file or archive handed to the company memory. Size is limited by the service, not the contract. */
+/**
+ * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
+ * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ */
 export declare const InternalMemoryAssetIngestRequestSchema: z.ZodObject<{
     asset: z.ZodObject<{
         assetId: z.ZodString;
@@ -19,13 +22,22 @@ export declare const InternalMemoryAssetIngestRequestSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"session">;
             sessionId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"link">;
+            url: z.ZodURL;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"generated">;
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
         }, z.core.$strict>], "kind">;
         tenantId: z.ZodString;
         companyId: z.ZodString;
         projectId: z.ZodString;
+        assetType: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>;
-    contentBase64: z.ZodString;
+    contentBase64: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type InternalMemoryAssetIngestRequest = z.infer<typeof InternalMemoryAssetIngestRequestSchema>;
 export declare const InternalMemoryAssetIngestResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -48,6 +60,8 @@ export declare const InternalMemoryAssetListQuerySchema: z.ZodObject<{
     tenantId: z.ZodString;
     agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
     projectId: z.ZodString;
+    companyId: z.ZodOptional<z.ZodString>;
+    buSlug: z.ZodOptional<z.ZodString>;
     limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
 }, z.core.$strict>;
 export type InternalMemoryAssetListQuery = z.infer<typeof InternalMemoryAssetListQuerySchema>;
@@ -69,10 +83,19 @@ export declare const InternalMemoryAssetListResponseSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"session">;
             sessionId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"link">;
+            url: z.ZodURL;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"generated">;
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
         }, z.core.$strict>], "kind">;
         tenantId: z.ZodString;
         companyId: z.ZodString;
         projectId: z.ZodString;
+        assetType: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
         createdAt: z.ZodISODateTime;
         links: z.ZodArray<z.ZodObject<{
             recordId: z.ZodString;
@@ -103,13 +126,22 @@ export declare const internalMemoryAssetIngestContract: {
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"session">;
                 sessionId: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"link">;
+                url: z.ZodURL;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"generated">;
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
             }, z.core.$strict>], "kind">;
             tenantId: z.ZodString;
             companyId: z.ZodString;
             projectId: z.ZodString;
+            assetType: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
             createdAt: z.ZodISODateTime;
         }, z.core.$strict>;
-        contentBase64: z.ZodString;
+        contentBase64: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"file">;
@@ -134,6 +166,8 @@ export declare const internalMemoryAssetListContract: {
         tenantId: z.ZodString;
         agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         projectId: z.ZodString;
+        companyId: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
         limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -154,10 +188,19 @@ export declare const internalMemoryAssetListContract: {
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"session">;
                 sessionId: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"link">;
+                url: z.ZodURL;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"generated">;
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
             }, z.core.$strict>], "kind">;
             tenantId: z.ZodString;
             companyId: z.ZodString;
             projectId: z.ZodString;
+            assetType: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
             createdAt: z.ZodISODateTime;
             links: z.ZodArray<z.ZodObject<{
                 recordId: z.ZodString;

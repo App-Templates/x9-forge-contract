@@ -193,6 +193,7 @@ export declare const PaperclipCreateBusinessUnitInputSchema: z.ZodObject<{
     }, z.core.$strict>;
     businessUnit: z.ZodObject<{
         slug: z.ZodString;
+        typeId: z.ZodString;
         name: z.ZodString;
         briefSection: z.ZodString;
         competencies: z.ZodArray<z.ZodString>;

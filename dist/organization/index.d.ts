@@ -28,4 +28,5 @@ export * from "./business-unit-type.js";
 export * from "./action-plan.js";
 export * from "./company-map.js";
 export * from "./business-unit-mandate.js";
+export * from "./vertical-plan.js";
 //# sourceMappingURL=index.d.ts.map

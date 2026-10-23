@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.61.0 — tipo di BU nella richiesta di nascita del capo, non compatibile
+
+- 320 (F2B-02): `BusinessUnitLeadBirthRequestSchema.businessUnit.typeId` è obbligatorio (`BusinessUnitTypeCardSchema.shape.typeId`); lo eredita `PaperclipCreateBusinessUnitInputSchema` e il `bodySchema` di `internalBusinessUnitLeadBirthContract`. Una richiesta senza `typeId` ora è rifiutata.
+- Consumatori da aggiornare: Forge `services/factory/src/routes/business-unit-lead.routes.ts` (F2F-01); X9 cap-paperclip `create-approved-business-units.ts`, chi costruisce la richiesta (F1P-01/F2P-01).
+- `dist` ricostruita; `dist/organization/index.cjs` 174 export (prima 152)
+
 ## v1.60.0 — piano d'azione, decisione legata alla versione, mappa dell'azienda cliente, porta Vault della chiave agente, contratti R&D, mandato riconciliato, additive
 
 - 286-287: `ActionPlanSchema`, `ActionPlanBusinessUnitSchema`, `ActionPlanReferentRefSchema`, `ACTION_PLAN_BU_EXECUTORS` in `src/organization/action-plan.ts` (consumatori: agent-core, factory di Forge).

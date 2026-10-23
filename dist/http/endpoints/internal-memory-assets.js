@@ -2,10 +2,23 @@ import { z } from 'zod';
 import { AgentIdSchema } from "../../agent/agent-identity.js";
 import { AssetRefSchema } from "../../organization/asset.js";
 export const INTERNAL_MEMORY_ASSETS_PATH = '/internal/memory/assets';
-/** POST: a file or archive handed to the company memory. Size is limited by the service, not the contract. */
-export const InternalMemoryAssetIngestRequestSchema = z.strictObject({
+/**
+ * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
+ * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ */
+export const InternalMemoryAssetIngestRequestSchema = z
+    .strictObject({
     asset: AssetRefSchema,
-    contentBase64: z.string().min(1),
+    contentBase64: z.string().min(1).optional(),
+})
+    .superRefine((value, ctx) => {
+    const isLink = value.asset.origin.kind === 'link';
+    if (isLink && value.contentBase64 !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'link_has_no_content' });
+    }
+    if (!isLink && value.contentBase64 === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'content_required' });
+    }
 });
 export const InternalMemoryAssetIngestResponseSchema = z.discriminatedUnion('kind', [
     z.strictObject({ kind: z.literal('file'), assetId: AssetRefSchema.shape.assetId }),
@@ -26,6 +39,8 @@ export const InternalMemoryAssetListQuerySchema = z.strictObject({
     tenantId: AssetRefSchema.shape.tenantId,
     agentId: AgentIdSchema,
     projectId: AssetRefSchema.shape.projectId,
+    companyId: AssetRefSchema.shape.companyId.optional(),
+    buSlug: AssetRefSchema.shape.buSlug,
     limit: z.coerce.number().int().min(1).max(200).optional(),
 });
 export const InternalMemoryAssetListResponseSchema = z.strictObject({
