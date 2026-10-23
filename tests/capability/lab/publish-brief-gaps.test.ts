@@ -57,6 +57,14 @@ describe('lab publication and brief gaps', () => {
     expect(ResearchRequestSchema.parse({ question: 'Legacy research' })).toEqual({ question: 'Legacy research' });
   });
 
+  it('a research may name the project it serves (F1L-03), bounded like the asset project', () => {
+    expect(ResearchRequestSchema.parse({ question: 'Gap', projectId: 'p1', labGapsRef: 'gaps_Ab12-x' }))
+      .toEqual({ question: 'Gap', projectId: 'p1', labGapsRef: 'gaps_Ab12-x' });
+    for (const projectId of ['', 'p'.repeat(65)]) {
+      expect(ResearchRequestSchema.safeParse({ question: 'Gap', projectId }).success).toBe(false);
+    }
+  });
+
   it('enforces bounds, explicit identities and strict nested payloads', () => {
     expect(LabPublicationRecipientSchema.safeParse({ kind: 'client', clientId: '' }).success).toBe(false);
     expect(LabPublicationRecipientSchema.safeParse({ ...project, projectId: '' }).success).toBe(false);
