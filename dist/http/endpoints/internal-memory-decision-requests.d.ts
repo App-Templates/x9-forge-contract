@@ -22,6 +22,16 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
         tenantId: z.ZodString;
         organizationId: z.ZodString;
         projectId: z.ZodOptional<z.ZodString>;
+        subject: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                action_plan: "action_plan";
+                vertical_plan: "vertical_plan";
+                confirmation: "confirmation";
+            }>;
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
         question: z.ZodString;
         options: z.ZodArray<z.ZodObject<{
             optionId: z.ZodString;
@@ -51,6 +61,16 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
         tenantId: z.ZodString;
         organizationId: z.ZodString;
         projectId: z.ZodOptional<z.ZodString>;
+        subject: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                action_plan: "action_plan";
+                vertical_plan: "vertical_plan";
+                confirmation: "confirmation";
+            }>;
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
         question: z.ZodString;
         options: z.ZodArray<z.ZodObject<{
             optionId: z.ZodString;
@@ -88,6 +108,16 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
+        subject: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                action_plan: "action_plan";
+                vertical_plan: "vertical_plan";
+                confirmation: "confirmation";
+            }>;
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
         reason: z.ZodString;
@@ -103,6 +133,16 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
+        subject: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                action_plan: "action_plan";
+                vertical_plan: "vertical_plan";
+                confirmation: "confirmation";
+            }>;
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>], "outcome">;
 }, z.core.$strict>], "state">;
 export type InternalMemoryDecisionRequestReadResponse = z.infer<typeof InternalMemoryDecisionRequestReadResponseSchema>;
@@ -141,6 +181,16 @@ export declare const internalMemoryDecisionRequestCreateContract: {
         tenantId: z.ZodString;
         organizationId: z.ZodString;
         projectId: z.ZodOptional<z.ZodString>;
+        subject: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                action_plan: "action_plan";
+                vertical_plan: "vertical_plan";
+                confirmation: "confirmation";
+            }>;
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
         question: z.ZodString;
         options: z.ZodArray<z.ZodObject<{
             optionId: z.ZodString;
@@ -189,6 +239,16 @@ export declare const internalMemoryDecisionRequestReadContract: {
             tenantId: z.ZodString;
             organizationId: z.ZodString;
             projectId: z.ZodOptional<z.ZodString>;
+            subject: z.ZodOptional<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>>;
             question: z.ZodString;
             options: z.ZodArray<z.ZodObject<{
                 optionId: z.ZodString;
@@ -218,6 +278,16 @@ export declare const internalMemoryDecisionRequestReadContract: {
             tenantId: z.ZodString;
             organizationId: z.ZodString;
             projectId: z.ZodOptional<z.ZodString>;
+            subject: z.ZodOptional<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>>;
             question: z.ZodString;
             options: z.ZodArray<z.ZodObject<{
                 optionId: z.ZodString;
@@ -255,6 +325,16 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
+            subject: z.ZodOptional<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
@@ -270,6 +350,16 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
+            subject: z.ZodOptional<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>>;
         }, z.core.$strict>], "outcome">;
     }, z.core.$strict>], "state">;
 };
@@ -301,6 +391,16 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
+        subject: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                action_plan: "action_plan";
+                vertical_plan: "vertical_plan";
+                confirmation: "confirmation";
+            }>;
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
         reason: z.ZodString;
@@ -316,6 +416,16 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
+        subject: z.ZodOptional<z.ZodObject<{
+            kind: z.ZodEnum<{
+                action_plan: "action_plan";
+                vertical_plan: "vertical_plan";
+                confirmation: "confirmation";
+            }>;
+            planId: z.ZodString;
+            planVersion: z.ZodNumber;
+            digest: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>], "outcome">;
     readonly responseSchema: z.ZodObject<{
         result: z.ZodEnum<{

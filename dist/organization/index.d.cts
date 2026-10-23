@@ -25,4 +25,7 @@ export * from "./decision-request.cjs";
 export * from "./asset.cjs";
 export * from "./shared-mailbox.cjs";
 export * from "./business-unit-type.cjs";
+export * from "./action-plan.cjs";
+export * from "./company-map.cjs";
+export * from "./business-unit-mandate.cjs";
 //# sourceMappingURL=index.d.ts.map

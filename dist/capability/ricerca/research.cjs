@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.ResearchIdSchema = void 0;
+exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.LabGapsRefSchema = exports.ResearchIdSchema = void 0;
 const zod_1 = require("zod");
 const agent_config_js_1 = require("./agent-config.cjs");
 /**
@@ -12,6 +12,7 @@ const agent_config_js_1 = require("./agent-config.cjs");
  * model marks it as such and never uses it as instructions.
  */
 exports.ResearchIdSchema = zod_1.z.string().min(1).max(100);
+exports.LabGapsRefSchema = zod_1.z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 /** Only http(s) addresses, bounded: never `file:`, `javascript:` or `data:`. */
 exports.WebUrlSchema = zod_1.z.string().max(2000).refine(u => {
     try {
@@ -29,6 +30,8 @@ exports.ResearchRequestSchema = zod_1.z.object({
     goal: TextSchema.optional(),
     /** The research of the same agent whose new questions this one follows (the cascade). */
     parentResearchId: exports.ResearchIdSchema.optional(),
+    /** The lab brief analysis whose declared gaps this research addresses. */
+    labGapsRef: exports.LabGapsRefSchema.optional(),
     /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
     maxUsd: zod_1.z.number().positive().finite().optional(),
 }).strict();
