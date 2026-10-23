@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## Non rilasciato — R&D riusa prima di ricercare (F1L-03), additive
+
+- `ResearchRequestSchema.projectId` (facoltativo, come `AssetRefSchema.shape.projectId`) e `RicercaToolErrorSchema` con
+  `consulta_prima_il_quaderno` in `src/capability/ricerca/` (consumatore: cap-ricerca `research_start`). Da rilasciare
+  come 1.62.0 (bridge-c01/323) con la `dist` ricostruita: la 1.61.0 è già pubblicata senza questo cambio.
+
 ## v1.61.0 — tipo di BU nella richiesta di nascita del capo, non compatibile
 
 - 320 (F2B-02): `BusinessUnitLeadBirthRequestSchema.businessUnit.typeId` è obbligatorio (`BusinessUnitTypeCardSchema.shape.typeId`); lo eredita `PaperclipCreateBusinessUnitInputSchema` e il `bodySchema` di `internalBusinessUnitLeadBirthContract`. Una richiesta senza `typeId` ora è rifiutata.
