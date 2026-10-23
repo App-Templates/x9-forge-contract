@@ -1,57 +1,47 @@
 import { z } from 'zod';
-import { CompanyMapEntrySchema } from '../../organization/company-map.js';
+import {
+  CompanyMapAccessFieldsSchema,
+  CompanyMapAnyEntrySchema,
+  CompanyMapAssetFieldsSchema,
+  CompanyMapEntryKindSchema,
+  CompanyMapEntrySchema,
+  CompanyMapPersonFieldsSchema,
+  CompanyMapReferentFieldsSchema,
+  CompanyMapResponsibilityFieldsSchema,
+  CompanyMapScopeFieldsSchema,
+  checkCompanyMapLevelScope,
+} from '../../organization/company-map.js';
 
 export const INTERNAL_MEMORY_COMPANY_MAP_ENTRIES_PATH = '/internal/memory/company-map/entries' as const;
 
 const entryShape = CompanyMapEntrySchema.shape;
 
-/** Same level rules as the entry: project/BU ids are required exactly where the level asks for them. */
-function checkLevelScope(
-  value: { level: string; projectId?: string | undefined; buSlug?: string | undefined },
-  ctx: z.RefinementCtx,
-): void {
-  const wantsProject = value.level !== 'client';
-  const wantsBu = value.level === 'business_unit';
-  if (wantsProject !== (value.projectId !== undefined)) {
-    ctx.addIssue({
-      code: 'custom',
-      message: wantsProject ? 'projectId is required for this level' : 'projectId is not allowed at client level',
-      path: ['projectId'],
-    });
-  }
-  if (wantsBu !== (value.buSlug !== undefined)) {
-    ctx.addIssue({
-      code: 'custom',
-      message: wantsBu ? 'buSlug is required at business_unit level' : 'buSlug is only allowed at business_unit level',
-      path: ['buSlug'],
-    });
-  }
-}
+/** Fields every write body carries: scope, source and confirmation date. Version, digest and supersedes come from the server. */
+const writeCommonShape = {
+  ...CompanyMapScopeFieldsSchema.shape,
+  source: entryShape.source,
+  confirmedAt: entryShape.confirmedAt,
+};
 
-/** POST body: version, digest and supersedes are assigned by the server. */
-export const CompanyMapEntryWriteRequestSchema = z
-  .strictObject({
-    tenantId: entryShape.tenantId,
-    organizationId: entryShape.organizationId,
-    clientId: entryShape.clientId,
-    projectId: entryShape.projectId,
-    buSlug: entryShape.buSlug,
-    level: entryShape.level,
-    kind: entryShape.kind,
-    personRef: entryShape.personRef,
-    name: entryShape.name,
-    role: entryShape.role,
-    email: entryShape.email,
-    source: entryShape.source,
-    confirmedAt: entryShape.confirmedAt,
-  })
-  .superRefine(checkLevelScope);
+/** POST body of a «referent» entry (F1B-03, unchanged). */
+export const CompanyMapReferentWriteRequestSchema = z
+  .strictObject({ ...writeCommonShape, ...CompanyMapReferentFieldsSchema.shape })
+  .superRefine(checkCompanyMapLevelScope);
+
+/** POST body: one of the five entry kinds; version, digest and supersedes are assigned by the server. */
+export const CompanyMapEntryWriteRequestSchema = z.discriminatedUnion('kind', [
+  CompanyMapReferentWriteRequestSchema,
+  z.strictObject({ ...writeCommonShape, ...CompanyMapPersonFieldsSchema.shape }).superRefine(checkCompanyMapLevelScope),
+  z.strictObject({ ...writeCommonShape, ...CompanyMapResponsibilityFieldsSchema.shape }).superRefine(checkCompanyMapLevelScope),
+  z.strictObject({ ...writeCommonShape, ...CompanyMapAssetFieldsSchema.shape }).superRefine(checkCompanyMapLevelScope),
+  z.strictObject({ ...writeCommonShape, ...CompanyMapAccessFieldsSchema.shape }).superRefine(checkCompanyMapLevelScope),
+]);
 export type CompanyMapEntryWriteRequest = z.infer<typeof CompanyMapEntryWriteRequestSchema>;
 
-export const CompanyMapEntryWriteResponseSchema = z.strictObject({ entry: CompanyMapEntrySchema });
+export const CompanyMapEntryWriteResponseSchema = z.strictObject({ entry: CompanyMapAnyEntrySchema });
 export type CompanyMapEntryWriteResponse = z.infer<typeof CompanyMapEntryWriteResponseSchema>;
 
-/** GET: entries of one level of the map. */
+/** GET: current entries of one level of the map, optionally of one kind. */
 export const CompanyMapEntriesQuerySchema = z
   .strictObject({
     tenantId: entryShape.tenantId,
@@ -60,12 +50,13 @@ export const CompanyMapEntriesQuerySchema = z
     level: entryShape.level,
     projectId: entryShape.projectId,
     buSlug: entryShape.buSlug,
+    kind: CompanyMapEntryKindSchema.optional(),
   })
-  .superRefine(checkLevelScope);
+  .superRefine(checkCompanyMapLevelScope);
 export type CompanyMapEntriesQuery = z.infer<typeof CompanyMapEntriesQuerySchema>;
 
 export const CompanyMapEntriesResponseSchema = z.strictObject({
-  entries: z.array(CompanyMapEntrySchema).max(200),
+  entries: z.array(CompanyMapAnyEntrySchema).max(200),
 });
 export type CompanyMapEntriesResponse = z.infer<typeof CompanyMapEntriesResponseSchema>;
 
