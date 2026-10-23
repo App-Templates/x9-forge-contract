@@ -98,4 +98,56 @@ describe('company map contracts', () => {
     expect(CompanyMapEntriesResponseSchema.safeParse({ entries: [stored] }).success).toBe(true);
     expect(CompanyMapEntriesResponseSchema.safeParse({ entries: Array(201).fill(stored) }).success).toBe(false);
   });
+
+  describe('entry kinds of F3B-01', () => {
+    const common = {
+      tenantId: 'tenant-1',
+      organizationId: 'org-1',
+      clientId: 'good-choice',
+      level: 'client',
+      source: { kind: 'seed' },
+      confirmedAt: '2026-10-23T10:00:00+02:00',
+    };
+    const person = { ...common, kind: 'person', personRef: 'giulia', name: 'Giulia' };
+    const responsibility = { ...common, kind: 'responsibility', personRef: 'giulia', responsibility: 'Testi del sito' };
+    const asset = {
+      ...common,
+      level: 'project',
+      projectId: 'sito',
+      kind: 'asset',
+      asset: { assetId: 'logo-good-choice', assetType: 'logo', version: 1, sha256: 'b'.repeat(64) },
+    };
+    const access = {
+      ...common,
+      kind: 'access',
+      accessRef: 'shopify-admin',
+      provider: 'shopify',
+      resource: 'negozio',
+      holderAgentId: 'agent-director-1',
+    };
+
+    it('accepts a write body of every new kind and the referent body of today', () => {
+      for (const body of [person, responsibility, asset, access, write]) {
+        expect(CompanyMapEntryWriteRequestSchema.safeParse(body).success).toBe(true);
+      }
+    });
+
+    it('lists entries of different kinds', () => {
+      const entries = [stored, ...[person, responsibility, asset, access].map((e) => ({ ...e, version: 1, digest: 'c'.repeat(64) }))];
+      expect(CompanyMapEntriesResponseSchema.safeParse({ entries }).success).toBe(true);
+    });
+
+    it('accepts a query by kind', () => {
+      const q = { tenantId: 'tenant-1', organizationId: 'org-1', clientId: 'good-choice', level: 'client' };
+      expect(CompanyMapEntriesQuerySchema.safeParse({ ...q, kind: 'asset' }).success).toBe(true);
+      expect(CompanyMapEntriesQuerySchema.safeParse({ ...q, kind: 'other' }).success).toBe(false);
+    });
+
+    it('rejects a new-kind body with version, an access body with a value, a project asset without projectId', () => {
+      expect(CompanyMapEntryWriteRequestSchema.safeParse({ ...person, version: 1 }).success).toBe(false);
+      expect(CompanyMapEntryWriteRequestSchema.safeParse({ ...access, value: 'segreto' }).success).toBe(false);
+      const { projectId: _p, ...noProject } = asset;
+      expect(CompanyMapEntryWriteRequestSchema.safeParse(noProject).success).toBe(false);
+    });
+  });
 });
