@@ -6,6 +6,10 @@ export const ASSET_ORIGIN_KINDS = ['email', 'archive', 'session'] as const;
 export const AssetSha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
 export type AssetSha256 = z.infer<typeof AssetSha256Schema>;
 
+/** Kind of a company asset (logo, brand-book, price-list...), lowercase slug. */
+export const AssetTypeSchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+export type AssetType = z.infer<typeof AssetTypeSchema>;
+
 /** Provenance of a company file, without embedding its contents. */
 export const AssetOriginSchema = z.discriminatedUnion('kind', [
   z.strictObject({
