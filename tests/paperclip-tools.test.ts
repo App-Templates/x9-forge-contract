@@ -284,7 +284,7 @@ const buInput = () => ({
   requestId: 'birth-bu-research-1', tenantId: 'tenant-1', ownerId: 'owner-1',
   company: { companyId: 'company-1', name: 'Company One' },
   businessUnit: {
-    slug: 'research', name: 'Research', briefSection: 'Research the market.',
+    slug: 'research', typeId: 'ricerca-mercato', name: 'Research', briefSection: 'Research the market.',
     competencies: ['market research'],
     referents: [{ referentRef: 'anna-rossi', name: 'Anna Rossi', role: 'Head of Research', email: 'anna@example.com' }],
   },
@@ -308,6 +308,8 @@ it('validates create-business-unit input and rejects extra fields and blank unit
   expect(CreateBu.safeParse({ ...buInput(), unitName: ' ' }).success).toBe(false);
   const { unitName: _unitName, ...missing } = buInput();
   expect(CreateBu.safeParse(missing).success).toBe(false);
+  const { typeId: _typeId, ...unitWithoutType } = buInput().businessUnit;
+  expect(CreateBu.safeParse({ ...buInput(), businessUnit: unitWithoutType }).success).toBe(false);
   const { referents: _referents, ...unitWithoutReferents } = buInput().businessUnit;
   expect(CreateBu.safeParse({ ...buInput(), businessUnit: unitWithoutReferents }).success).toBe(false);
 });
