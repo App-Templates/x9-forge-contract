@@ -31,6 +31,7 @@ import * as agentRole from '../../src/organization/agent-role.js';
 import * as actionPlan from '../../src/organization/action-plan.js';
 import * as companyMap from '../../src/organization/company-map.js';
 import * as businessUnitMandate from '../../src/organization/business-unit-mandate.js';
+import * as verticalPlan from '../../src/organization/vertical-plan.js';
 
 const allSymbols = {
   ...runContext,
@@ -63,6 +64,7 @@ const allSymbols = {
   ...actionPlan,
   ...companyMap,
   ...businessUnitMandate,
+  ...verticalPlan,
 };
 
 describe('organization subpath', () => {
