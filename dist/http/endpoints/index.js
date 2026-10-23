@@ -81,6 +81,8 @@ export * from "./internal-agent-model-source-observation.js";
 export * from "./forge-master-model-authority.js";
 export * from "./internal-models-apply.js";
 export * from "./internal-vault-connection.js";
+// F1B-04 — porta Vault delle chiavi agente
+export * from "./internal-vault-agent-credentials.js";
 export * from "./internal-connect.js";
 export * from "./internal-development-sessions.js";
 export * from "./connection-card.js";
@@ -90,6 +92,8 @@ export * from "./internal-memory-decisions.js";
 export * from "./internal-memory-decision-requests.js";
 export * from "./internal-paperclip-seats.js";
 export * from "./internal-memory-assets.js";
+// F1B-03 — mappa dell'azienda cliente nella memoria A
+export * from "./internal-memory-company-map.js";
 export * from "./internal-memory-knowledge.js";
 export * from "./connect-public.js";
 export * from "./internal-connection-completed.js";

@@ -97,6 +97,8 @@ __exportStar(require("./internal-agent-model-source-observation.cjs"), exports);
 __exportStar(require("./forge-master-model-authority.cjs"), exports);
 __exportStar(require("./internal-models-apply.cjs"), exports);
 __exportStar(require("./internal-vault-connection.cjs"), exports);
+// F1B-04 — porta Vault delle chiavi agente
+__exportStar(require("./internal-vault-agent-credentials.cjs"), exports);
 __exportStar(require("./internal-connect.cjs"), exports);
 __exportStar(require("./internal-development-sessions.cjs"), exports);
 __exportStar(require("./connection-card.cjs"), exports);
@@ -106,6 +108,8 @@ __exportStar(require("./internal-memory-decisions.cjs"), exports);
 __exportStar(require("./internal-memory-decision-requests.cjs"), exports);
 __exportStar(require("./internal-paperclip-seats.cjs"), exports);
 __exportStar(require("./internal-memory-assets.cjs"), exports);
+// F1B-03 — mappa dell'azienda cliente nella memoria A
+__exportStar(require("./internal-memory-company-map.cjs"), exports);
 __exportStar(require("./internal-memory-knowledge.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 __exportStar(require("./internal-connection-completed.cjs"), exports);

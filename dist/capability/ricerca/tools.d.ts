@@ -28,6 +28,7 @@ export declare const ResearchStartInputSchema: z.ZodObject<{
     question: z.ZodString;
     goal: z.ZodOptional<z.ZodString>;
     parentResearchId: z.ZodOptional<z.ZodString>;
+    labGapsRef: z.ZodOptional<z.ZodString>;
     maxUsd: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export declare const ResearchStartOutputSchema: z.ZodObject<{
