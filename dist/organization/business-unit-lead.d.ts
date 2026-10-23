@@ -22,6 +22,8 @@ export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
     }, z.core.$strict>;
     businessUnit: z.ZodObject<{
         slug: z.ZodString;
+        /** The business unit type from which Forge takes capabilities, model level and profile. */
+        typeId: z.ZodString;
         name: z.ZodString;
         briefSection: z.ZodString;
         competencies: z.ZodArray<z.ZodString>;

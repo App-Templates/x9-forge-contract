@@ -5,6 +5,7 @@ const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const model_tier_js_1 = require("../model-router/model-tier.cjs");
 const agent_role_js_1 = require("./agent-role.cjs");
+const business_unit_type_js_1 = require("./business-unit-type.cjs");
 const participant_binding_js_1 = require("./participant-binding.cjs");
 /** The only birth profile Forge provisions for a business unit lead. */
 exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = agent_role_js_1.BUSINESS_UNIT_LEAD_ROLE;
@@ -27,6 +28,8 @@ exports.BusinessUnitLeadBirthRequestSchema = zod_1.z.strictObject({
     }),
     businessUnit: zod_1.z.strictObject({
         slug: zod_1.z.string().min(1).max(30).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+        /** The business unit type from which Forge takes capabilities, model level and profile. */
+        typeId: business_unit_type_js_1.BusinessUnitTypeCardSchema.shape.typeId,
         name: zod_1.z.string().min(1).max(120),
         briefSection: zod_1.z.string().min(1).max(4000),
         competencies: zod_1.z.array(zod_1.z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' }),

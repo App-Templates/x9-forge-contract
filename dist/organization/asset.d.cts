@@ -1,7 +1,10 @@
 import { z } from 'zod';
-export declare const ASSET_ORIGIN_KINDS: readonly ["email", "archive", "session"];
+export declare const ASSET_ORIGIN_KINDS: readonly ["email", "archive", "session", "link", "generated"];
 export declare const AssetSha256Schema: z.ZodString;
 export type AssetSha256 = z.infer<typeof AssetSha256Schema>;
+/** Kind of a company asset (logo, brand-book, price-list...), lowercase slug. */
+export declare const AssetTypeSchema: z.ZodString;
+export type AssetType = z.infer<typeof AssetTypeSchema>;
 /** Provenance of a company file, without embedding its contents. */
 export declare const AssetOriginSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"email">;
@@ -14,9 +17,20 @@ export declare const AssetOriginSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"session">;
     sessionId: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"link">;
+    url: z.ZodURL;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"generated">;
+    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
 }, z.core.$strict>], "kind">;
 export type AssetOrigin = z.infer<typeof AssetOriginSchema>;
-/** Shared reference scoped to a tenant, company and project. */
+/**
+ * Shared reference scoped to a tenant, company and project.
+ * `companyId` is the client company, `projectId` the project.
+ * For a `link` origin `sha256` is the fingerprint of the URL and `sizeBytes` is 0.
+ */
 export declare const AssetRefSchema: z.ZodObject<{
     assetId: z.ZodString;
     sha256: z.ZodString;
@@ -34,10 +48,19 @@ export declare const AssetRefSchema: z.ZodObject<{
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"session">;
         sessionId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"link">;
+        url: z.ZodURL;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"generated">;
+        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
     }, z.core.$strict>], "kind">;
     tenantId: z.ZodString;
     companyId: z.ZodString;
     projectId: z.ZodString;
+    assetType: z.ZodOptional<z.ZodString>;
+    buSlug: z.ZodOptional<z.ZodString>;
     createdAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type AssetRef = z.infer<typeof AssetRefSchema>;

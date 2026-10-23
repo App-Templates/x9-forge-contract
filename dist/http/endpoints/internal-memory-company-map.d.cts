@@ -29,21 +29,6 @@ export declare const CompanyMapEntryWriteRequestSchema: z.ZodObject<{
 export type CompanyMapEntryWriteRequest = z.infer<typeof CompanyMapEntryWriteRequestSchema>;
 export declare const CompanyMapEntryWriteResponseSchema: z.ZodObject<{
     entry: z.ZodObject<{
-        tenantId: z.ZodString;
-        organizationId: z.ZodString;
-        clientId: z.ZodString;
-        projectId: z.ZodOptional<z.ZodString>;
-        buSlug: z.ZodOptional<z.ZodString>;
-        level: z.ZodEnum<{
-            client: "client";
-            project: "project";
-            business_unit: "business_unit";
-        }>;
-        kind: z.ZodLiteral<"referent">;
-        personRef: z.ZodString;
-        name: z.ZodString;
-        role: z.ZodString;
-        email: z.ZodEmail;
         source: z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
@@ -55,6 +40,21 @@ export declare const CompanyMapEntryWriteResponseSchema: z.ZodObject<{
         supersedes: z.ZodOptional<z.ZodNumber>;
         version: z.ZodNumber;
         digest: z.ZodString;
+        kind: z.ZodLiteral<"referent">;
+        personRef: z.ZodString;
+        name: z.ZodString;
+        role: z.ZodString;
+        email: z.ZodEmail;
+        tenantId: z.ZodString;
+        organizationId: z.ZodString;
+        clientId: z.ZodString;
+        projectId: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type CompanyMapEntryWriteResponse = z.infer<typeof CompanyMapEntryWriteResponseSchema>;
@@ -74,21 +74,6 @@ export declare const CompanyMapEntriesQuerySchema: z.ZodObject<{
 export type CompanyMapEntriesQuery = z.infer<typeof CompanyMapEntriesQuerySchema>;
 export declare const CompanyMapEntriesResponseSchema: z.ZodObject<{
     entries: z.ZodArray<z.ZodObject<{
-        tenantId: z.ZodString;
-        organizationId: z.ZodString;
-        clientId: z.ZodString;
-        projectId: z.ZodOptional<z.ZodString>;
-        buSlug: z.ZodOptional<z.ZodString>;
-        level: z.ZodEnum<{
-            client: "client";
-            project: "project";
-            business_unit: "business_unit";
-        }>;
-        kind: z.ZodLiteral<"referent">;
-        personRef: z.ZodString;
-        name: z.ZodString;
-        role: z.ZodString;
-        email: z.ZodEmail;
         source: z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
@@ -100,6 +85,21 @@ export declare const CompanyMapEntriesResponseSchema: z.ZodObject<{
         supersedes: z.ZodOptional<z.ZodNumber>;
         version: z.ZodNumber;
         digest: z.ZodString;
+        kind: z.ZodLiteral<"referent">;
+        personRef: z.ZodString;
+        name: z.ZodString;
+        role: z.ZodString;
+        email: z.ZodEmail;
+        tenantId: z.ZodString;
+        organizationId: z.ZodString;
+        clientId: z.ZodString;
+        projectId: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type CompanyMapEntriesResponse = z.infer<typeof CompanyMapEntriesResponseSchema>;
@@ -134,21 +134,6 @@ export declare const internalMemoryCompanyMapWriteContract: {
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         entry: z.ZodObject<{
-            tenantId: z.ZodString;
-            organizationId: z.ZodString;
-            clientId: z.ZodString;
-            projectId: z.ZodOptional<z.ZodString>;
-            buSlug: z.ZodOptional<z.ZodString>;
-            level: z.ZodEnum<{
-                client: "client";
-                project: "project";
-                business_unit: "business_unit";
-            }>;
-            kind: z.ZodLiteral<"referent">;
-            personRef: z.ZodString;
-            name: z.ZodString;
-            role: z.ZodString;
-            email: z.ZodEmail;
             source: z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
@@ -160,6 +145,21 @@ export declare const internalMemoryCompanyMapWriteContract: {
             supersedes: z.ZodOptional<z.ZodNumber>;
             version: z.ZodNumber;
             digest: z.ZodString;
+            kind: z.ZodLiteral<"referent">;
+            personRef: z.ZodString;
+            name: z.ZodString;
+            role: z.ZodString;
+            email: z.ZodEmail;
+            tenantId: z.ZodString;
+            organizationId: z.ZodString;
+            clientId: z.ZodString;
+            projectId: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
         }, z.core.$strict>;
     }, z.core.$strict>;
 };
@@ -181,21 +181,6 @@ export declare const internalMemoryCompanyMapListContract: {
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         entries: z.ZodArray<z.ZodObject<{
-            tenantId: z.ZodString;
-            organizationId: z.ZodString;
-            clientId: z.ZodString;
-            projectId: z.ZodOptional<z.ZodString>;
-            buSlug: z.ZodOptional<z.ZodString>;
-            level: z.ZodEnum<{
-                client: "client";
-                project: "project";
-                business_unit: "business_unit";
-            }>;
-            kind: z.ZodLiteral<"referent">;
-            personRef: z.ZodString;
-            name: z.ZodString;
-            role: z.ZodString;
-            email: z.ZodEmail;
             source: z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
@@ -207,6 +192,21 @@ export declare const internalMemoryCompanyMapListContract: {
             supersedes: z.ZodOptional<z.ZodNumber>;
             version: z.ZodNumber;
             digest: z.ZodString;
+            kind: z.ZodLiteral<"referent">;
+            personRef: z.ZodString;
+            name: z.ZodString;
+            role: z.ZodString;
+            email: z.ZodEmail;
+            tenantId: z.ZodString;
+            organizationId: z.ZodString;
+            clientId: z.ZodString;
+            projectId: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };

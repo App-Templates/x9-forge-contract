@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActionPlanSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
 const agent_role_js_1 = require("./agent-role.cjs");
@@ -126,6 +127,93 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
         updates: zod_1.z.strictObject({ how: TextSchema, every: TextSchema }),
     }),
     opportunities: zod_1.z.array(TextSchema).optional(),
+});
+/** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
+exports.CompleteActionPlanSchema = exports.ActionPlanSchema.extend({
+    marketingPlan: zod_1.z.strictObject({
+        audience: TextSchema,
+        channels: zod_1.z.array(TextSchema).min(1).max(20),
+        messages: zod_1.z.array(TextSchema).min(1).max(20),
+    }),
+    launchPlan: zod_1.z.strictObject({
+        launchDate: zod_1.z.iso.date(),
+        steps: zod_1.z.array(TextSchema).min(1).max(30),
+    }),
+    financialPlan: zod_1.z.strictObject({
+        revenueModel: TextSchema,
+        costs: zod_1.z.array(zod_1.z.strictObject({ item: TextSchema, amount: zod_1.z.number().min(0) })).min(1).max(50),
+        breakEven: TextSchema,
+    }),
+}).superRefine((plan, ctx) => {
+    const treeUnits = new Map(plan.objectiveTree.businessUnits.map((unit) => [unit.buSlug, unit]));
+    plan.businessUnits.forEach((unit, index) => {
+        if ((treeUnits.get(unit.buSlug)?.indicators.length ?? 0) === 0) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['objectiveTree', 'businessUnits'],
+                message: `Business unit ${unit.buSlug} needs an objective tree entry with at least one indicator`,
+            });
+        }
+        if (unit.reviewer === undefined) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['businessUnits', index, 'reviewer'],
+                message: `Business unit ${unit.buSlug} needs a reviewer`,
+            });
+        }
+        const caps = plan.budget.perBu.filter((entry) => entry.buSlug === unit.buSlug).length;
+        if (caps !== 1) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['budget', 'perBu'],
+                message: `Business unit ${unit.buSlug} needs exactly one budget cap, found ${caps}`,
+            });
+        }
+    });
+    const numbers = plan.milestones.map((milestone) => milestone.number);
+    const known = new Set(numbers);
+    if (known.size !== numbers.length) {
+        ctx.addIssue({ code: 'custom', path: ['milestones'], message: 'Milestone numbers must be unique' });
+    }
+    plan.milestones.forEach((milestone, index) => {
+        milestone.blockedBy.forEach((blocker, position) => {
+            if (!known.has(blocker) || blocker === milestone.number) {
+                ctx.addIssue({
+                    code: 'custom',
+                    path: ['milestones', index, 'blockedBy', position],
+                    message: `Milestone ${milestone.number} is blocked by ${blocker}, which is not another existing milestone`,
+                });
+            }
+        });
+    });
+    plan.criticalPath.forEach((number, index) => {
+        if (!known.has(number)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['criticalPath', index],
+                message: `Critical path milestone ${number} does not exist`,
+            });
+        }
+    });
+    const capSum = plan.budget.perBu.reduce((sum, entry) => sum + entry.cap, 0);
+    if (capSum > plan.budget.total) {
+        ctx.addIssue({
+            code: 'custom',
+            path: ['budget', 'total'],
+            message: `Business unit caps add up to ${capSum}, above the total ${plan.budget.total}`,
+        });
+    }
+    plan.missingMaterials.forEach((material, index) => {
+        for (const field of ['owner', 'neededBy']) {
+            if (material[field] === undefined) {
+                ctx.addIssue({
+                    code: 'custom',
+                    path: ['missingMaterials', index, field],
+                    message: `Missing material needs ${field}`,
+                });
+            }
+        }
+    });
 });
 function canonicalJson(value) {
     if (Array.isArray(value))

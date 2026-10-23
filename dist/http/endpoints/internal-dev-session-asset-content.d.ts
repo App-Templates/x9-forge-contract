@@ -23,10 +23,19 @@ export declare const DevSessionAssetReadSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"session">;
             sessionId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"link">;
+            url: z.ZodURL;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"generated">;
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
         }, z.core.$strict>], "kind">;
         tenantId: z.ZodString;
         companyId: z.ZodString;
         projectId: z.ZodString;
+        assetType: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>;
     offset: z.ZodNumber;
@@ -71,10 +80,19 @@ export declare const readDevSessionAssetContract: {
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"session">;
                 sessionId: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"link">;
+                url: z.ZodURL;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"generated">;
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
             }, z.core.$strict>], "kind">;
             tenantId: z.ZodString;
             companyId: z.ZodString;
             projectId: z.ZodString;
+            assetType: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
             createdAt: z.ZodISODateTime;
         }, z.core.$strict>;
         offset: z.ZodNumber;
