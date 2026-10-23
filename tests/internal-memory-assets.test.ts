@@ -96,3 +96,47 @@ describe('internal memory assets contract', () => {
     ).toBe(true);
   });
 });
+
+describe('internal memory assets: links and company/BU filter', () => {
+  const linkAsset = {
+    ...asset,
+    name: 'brief',
+    mediaType: 'text/uri-list',
+    sizeBytes: 0,
+    origin: { kind: 'link', url: 'https://example.com/brief' },
+  };
+
+  it('accepts a link ingest without content', () => {
+    expect(InternalMemoryAssetIngestRequestSchema.safeParse({ asset: linkAsset }).success).toBe(true);
+  });
+
+  it('rejects a link ingest with content (link_has_no_content)', () => {
+    const r = InternalMemoryAssetIngestRequestSchema.safeParse({ asset: linkAsset, contentBase64: 'AAEC' });
+    expect(r.success).toBe(false);
+    expect(JSON.stringify(r.error?.issues)).toContain('link_has_no_content');
+  });
+
+  it('rejects an email ingest without content (content_required)', () => {
+    const r = InternalMemoryAssetIngestRequestSchema.safeParse({ asset });
+    expect(r.success).toBe(false);
+    expect(JSON.stringify(r.error?.issues)).toContain('content_required');
+  });
+
+  it('accepts a list query with companyId and buSlug', () => {
+    expect(
+      InternalMemoryAssetListQuerySchema.safeParse({ ...query, companyId: 'company-1', buSlug: 'design' }).success,
+    ).toBe(true);
+  });
+
+  it('rejects a list query with an invalid buSlug', () => {
+    expect(InternalMemoryAssetListQuerySchema.safeParse({ ...query, buSlug: 'Design' }).success).toBe(false);
+  });
+
+  it('accepts a list response asset with assetType and buSlug', () => {
+    expect(
+      InternalMemoryAssetListResponseSchema.safeParse({
+        assets: [{ ...asset, assetType: 'image', buSlug: 'design', links: [] }],
+      }).success,
+    ).toBe(true);
+  });
+});
