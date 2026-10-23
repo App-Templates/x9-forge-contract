@@ -25,4 +25,7 @@ export * from "./decision-request.js";
 export * from "./asset.js";
 export * from "./shared-mailbox.js";
 export * from "./business-unit-type.js";
+export * from "./action-plan.js";
+export * from "./company-map.js";
+export * from "./business-unit-mandate.js";
 //# sourceMappingURL=index.d.ts.map

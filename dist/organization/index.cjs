@@ -41,4 +41,7 @@ __exportStar(require("./decision-request.cjs"), exports);
 __exportStar(require("./asset.cjs"), exports);
 __exportStar(require("./shared-mailbox.cjs"), exports);
 __exportStar(require("./business-unit-type.cjs"), exports);
+__exportStar(require("./action-plan.cjs"), exports);
+__exportStar(require("./company-map.cjs"), exports);
+__exportStar(require("./business-unit-mandate.cjs"), exports);
 //# sourceMappingURL=index.js.map

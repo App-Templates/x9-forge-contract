@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionRequestOptionSchema = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
+exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
+exports.decisionOutcomeMatchesSubject = decisionOutcomeMatchesSubject;
 exports.decisionRequestSubjectLabel = decisionRequestSubjectLabel;
 exports.decisionOutcomeFromEmailReply = decisionOutcomeFromEmailReply;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
+const asset_js_1 = require("./asset.cjs");
 const participant_binding_js_1 = require("./participant-binding.cjs");
 /** Channels through which an agent asks the owner for a decision. */
 exports.DECISION_REQUEST_CHANNELS = ['email', 'x9_conversation', 'forge_panel'];
@@ -19,12 +21,22 @@ exports.DecisionRequestOptionSchema = zod_1.z.strictObject({
     label: zod_1.z.string().min(1).max(200),
     detail: zod_1.z.string().min(1).max(2000).optional(),
 });
+/** What a decision is about: a plan, tied to the exact version and digest the owner read. */
+exports.DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation'];
+exports.DecisionSubjectKindSchema = zod_1.z.enum(exports.DECISION_SUBJECT_KINDS);
+exports.DecisionSubjectSchema = zod_1.z.strictObject({
+    kind: exports.DecisionSubjectKindSchema,
+    planId: exports.DecisionRequestIdSchema,
+    planVersion: zod_1.z.number().int().min(1),
+    digest: asset_js_1.AssetSha256Schema,
+});
 /** Open question an agent puts to the owner, with the options to choose from. */
 exports.DecisionRequestSchema = zod_1.z.strictObject({
     requestId: exports.DecisionRequestIdSchema,
     tenantId: zod_1.z.string().min(1),
     organizationId: zod_1.z.string().min(1).max(64),
     projectId: zod_1.z.string().min(1).max(64).optional(),
+    subject: exports.DecisionSubjectSchema.optional(),
     question: zod_1.z.string().min(1).max(4000),
     options: zod_1.z
         .array(exports.DecisionRequestOptionSchema)
@@ -44,12 +56,23 @@ const outcomeBase = {
     decidedAt: zod_1.z.iso.datetime({ offset: true }),
     channel: exports.DecisionRequestChannelSchema,
     sourceRef: zod_1.z.string().min(1).max(512),
+    subject: exports.DecisionSubjectSchema.optional(),
 };
 /** Recorded owner answer to a decision request. */
 exports.DecisionOutcomeSchema = zod_1.z.discriminatedUnion('outcome', [
     zod_1.z.strictObject({ ...outcomeBase, outcome: zod_1.z.literal('approved'), optionId: OptionIdSchema }),
     zod_1.z.strictObject({ ...outcomeBase, outcome: zod_1.z.literal('rejected'), reason: zod_1.z.string().min(3).max(2000) }),
 ]);
+/** True when the outcome decides the same plan version the request asked about (or neither names a subject). */
+function decisionOutcomeMatchesSubject(request, outcome) {
+    const a = request.subject;
+    const b = outcome.subject;
+    if (a === undefined && b === undefined)
+        return true;
+    if (a === undefined || b === undefined)
+        return false;
+    return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
+}
 /** Word used in the email subject to tie a reply to its decision request: `[decisione <requestId>]`. */
 exports.DECISION_REQUEST_SUBJECT_LABEL = 'decisione';
 function decisionRequestSubjectLabel(requestId) {
