@@ -4,9 +4,10 @@ exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequest
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const model_tier_js_1 = require("../model-router/model-tier.cjs");
+const agent_role_js_1 = require("./agent-role.cjs");
 const participant_binding_js_1 = require("./participant-binding.cjs");
 /** The only birth profile Forge provisions for a business unit lead. */
-exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu';
+exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = agent_role_js_1.BUSINESS_UNIT_LEAD_ROLE;
 exports.BusinessUnitLeadProfileTemplateSchema = zod_1.z.literal(exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
 /** A person the business unit writes to by email (the unit's referent). */
 exports.BusinessUnitLeadReferentSchema = zod_1.z.strictObject({

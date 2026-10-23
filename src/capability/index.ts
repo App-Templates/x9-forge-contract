@@ -13,8 +13,13 @@
  * - HealthStatus / HealthStatusSchema
  */
 export {
+  CAPABILITY_TOOL_ACCESS,
+  CapabilityToolAccessSchema,
   CapabilityToolSchema,
+  capabilityToolAccess,
+  toolsForRole,
   type CapabilityTool,
+  type CapabilityToolAccess,
 } from './capability-tool.js';
 
 export {

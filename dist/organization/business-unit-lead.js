@@ -1,9 +1,10 @@
 import { z } from 'zod';
 import { OwnerIdSchema } from "../agent/agent-identity.js";
 import { ModelTierSchema } from "../model-router/model-tier.js";
+import { BUSINESS_UNIT_LEAD_ROLE } from "./agent-role.js";
 import { ParticipantAgentIdentitySchema, ParticipantRoleSchema } from "./participant-binding.js";
 /** The only birth profile Forge provisions for a business unit lead. */
-export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu';
+export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = BUSINESS_UNIT_LEAD_ROLE;
 export const BusinessUnitLeadProfileTemplateSchema = z.literal(BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
 /** A person the business unit writes to by email (the unit's referent). */
 export const BusinessUnitLeadReferentSchema = z.strictObject({

@@ -238,6 +238,14 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
                 name: z.ZodString;
                 description: z.ZodString;
                 inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+                access: z.ZodOptional<z.ZodEnum<{
+                    read: "read";
+                    write: "write";
+                }>>;
+                roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    director: "director";
+                    "capo-bu": "capo-bu";
+                }>>>;
             }, z.core.$strip>>>;
             modelPolicy: z.ZodOptional<z.ZodObject<{
                 min: z.ZodEnum<{
@@ -906,8 +914,8 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
                 feedback: z.ZodOptional<z.ZodObject<{
                     label: z.ZodString;
                     kind: z.ZodEnum<{
-                        rating: "rating";
                         approval: "approval";
+                        rating: "rating";
                     }>;
                     attachments: z.ZodBoolean;
                     sources: z.ZodArray<z.ZodEnum<{
@@ -1769,6 +1777,14 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                     name: z.ZodString;
                     description: z.ZodString;
                     inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+                    access: z.ZodOptional<z.ZodEnum<{
+                        read: "read";
+                        write: "write";
+                    }>>;
+                    roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        director: "director";
+                        "capo-bu": "capo-bu";
+                    }>>>;
                 }, z.core.$strip>>>;
                 modelPolicy: z.ZodOptional<z.ZodObject<{
                     min: z.ZodEnum<{
@@ -2431,8 +2447,8 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                     feedback: z.ZodOptional<z.ZodObject<{
                         label: z.ZodString;
                         kind: z.ZodEnum<{
-                            rating: "rating";
                             approval: "approval";
+                            rating: "rating";
                         }>;
                         attachments: z.ZodBoolean;
                         sources: z.ZodArray<z.ZodEnum<{
@@ -3621,6 +3637,14 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                     name: z.ZodString;
                     description: z.ZodString;
                     inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+                    access: z.ZodOptional<z.ZodEnum<{
+                        read: "read";
+                        write: "write";
+                    }>>;
+                    roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        director: "director";
+                        "capo-bu": "capo-bu";
+                    }>>>;
                 }, z.core.$strip>>>;
                 modelPolicy: z.ZodOptional<z.ZodObject<{
                     min: z.ZodEnum<{
@@ -4289,8 +4313,8 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                     feedback: z.ZodOptional<z.ZodObject<{
                         label: z.ZodString;
                         kind: z.ZodEnum<{
-                            rating: "rating";
                             approval: "approval";
+                            rating: "rating";
                         }>;
                         attachments: z.ZodBoolean;
                         sources: z.ZodArray<z.ZodEnum<{
@@ -5467,6 +5491,14 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                     name: z.ZodString;
                     description: z.ZodString;
                     inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+                    access: z.ZodOptional<z.ZodEnum<{
+                        read: "read";
+                        write: "write";
+                    }>>;
+                    roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        director: "director";
+                        "capo-bu": "capo-bu";
+                    }>>>;
                 }, z.core.$strip>>>;
                 modelPolicy: z.ZodOptional<z.ZodObject<{
                     min: z.ZodEnum<{
@@ -6135,8 +6167,8 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                     feedback: z.ZodOptional<z.ZodObject<{
                         label: z.ZodString;
                         kind: z.ZodEnum<{
-                            rating: "rating";
                             approval: "approval";
+                            rating: "rating";
                         }>;
                         attachments: z.ZodBoolean;
                         sources: z.ZodArray<z.ZodEnum<{

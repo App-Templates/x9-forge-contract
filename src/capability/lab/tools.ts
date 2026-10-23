@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { AssetRefSchema } from '../../organization/asset.js';
-import { ResearchResultSchema, ResearchStateSchema } from '../ricerca/research.js';
+import { AssetRefSchema, AssetSha256Schema } from '../../organization/asset.js';
+import { LabGapsRefSchema, ResearchResultSchema, ResearchStateSchema } from '../ricerca/research.js';
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from './competence.js';
 import { WikiClaimSchema, WikiPageSchema } from './wiki.js';
 
@@ -20,6 +20,12 @@ export const LAB_TOOLS = {
   gaps: 'lab_gaps',
   /** The competence graph with levels and scores. */
   competence: 'lab_competence',
+  /** Publish a versioned page for a client or project. */
+  publish: 'lab_publish',
+  /** Read pages published for a client or project. */
+  readPublished: 'lab_read_published',
+  /** Compare brief topics with published knowledge before researching. */
+  briefGaps: 'lab_brief_gaps',
 } as const;
 export type LabToolName = (typeof LAB_TOOLS)[keyof typeof LAB_TOOLS];
 
@@ -72,6 +78,70 @@ export const LabGapsOutputSchema = z.object({ gaps: z.array(CompetenceGapSchema)
 
 export const LabCompetenceInputSchema = z.object({}).strict();
 export const LabCompetenceOutputSchema = z.object({ nodes: z.array(CompetenceNodeViewSchema).max(5000) }).strict();
+
+/** Publication recipients always identify the client company explicitly. */
+export const LabPublicationRecipientSchema = z.discriminatedUnion('kind', [
+  z.strictObject({ kind: z.literal('client'), clientId: AssetRefSchema.shape.companyId }),
+  z.strictObject({
+    kind: z.literal('project'),
+    clientId: AssetRefSchema.shape.companyId,
+    projectId: AssetRefSchema.shape.projectId,
+  }),
+]);
+
+export const LabPublishInputSchema = z.strictObject({
+  slug: WikiPageSchema.shape.slug,
+  version: WikiPageSchema.shape.version.optional(),
+  recipient: LabPublicationRecipientSchema,
+});
+export const LabPublishOutputSchema = z.strictObject({
+  slug: WikiPageSchema.shape.slug,
+  version: WikiPageSchema.shape.version,
+  digest: AssetSha256Schema,
+  recipient: LabPublicationRecipientSchema,
+  publishedAt: z.iso.datetime({ offset: true }),
+});
+
+export const LabReadPublishedInputSchema = z.strictObject({
+  recipient: LabPublicationRecipientSchema,
+  query: LabQueryInputSchema.shape.question.optional(),
+  limit: LabQueryInputSchema.shape.limit,
+});
+export const LabReadPublishedOutputSchema = z.strictObject({
+  pages: z.array(z.strictObject({
+    slug: WikiPageSchema.shape.slug,
+    version: WikiPageSchema.shape.version,
+    digest: AssetSha256Schema,
+    title: WikiPageSchema.shape.title,
+    content: WikiPageSchema.shape.body,
+  })).max(50),
+});
+
+export const LabBriefGapsInputSchema = z.strictObject({
+  topics: z.array(LabQueryInputSchema.shape.question).min(1).max(20).refine(
+    topics => new Set(topics).size === topics.length,
+    { message: 'Brief topics must be unique' },
+  ),
+  clientId: AssetRefSchema.shape.companyId,
+  projectId: AssetRefSchema.shape.projectId.optional(),
+});
+export const LabBriefGapsOutputSchema = z.strictObject({
+  gapsRef: LabGapsRefSchema,
+  hasContext: z.boolean(),
+  covered: z.array(z.strictObject({
+    slug: WikiPageSchema.shape.slug,
+    version: WikiPageSchema.shape.version,
+  })).max(100),
+  gaps: z.array(z.strictObject({ topic: LabQueryInputSchema.shape.question })).max(50),
+});
+
+export type LabPublicationRecipient = z.infer<typeof LabPublicationRecipientSchema>;
+export type LabPublishInput = z.infer<typeof LabPublishInputSchema>;
+export type LabPublishOutput = z.infer<typeof LabPublishOutputSchema>;
+export type LabReadPublishedInput = z.infer<typeof LabReadPublishedInputSchema>;
+export type LabReadPublishedOutput = z.infer<typeof LabReadPublishedOutputSchema>;
+export type LabBriefGapsInput = z.infer<typeof LabBriefGapsInputSchema>;
+export type LabBriefGapsOutput = z.infer<typeof LabBriefGapsOutputSchema>;
 
 export type LabIngestInput = z.infer<typeof LabIngestInputSchema>;
 export type LabIngestOutput = z.infer<typeof LabIngestOutputSchema>;

@@ -12,7 +12,7 @@
  * - EnvSchemaField / EnvSchemaDoc with Zod schemas
  * - HealthStatus / HealthStatusSchema
  */
-export { CapabilityToolSchema, type CapabilityTool, } from "./capability-tool.js";
+export { CAPABILITY_TOOL_ACCESS, CapabilityToolAccessSchema, CapabilityToolSchema, capabilityToolAccess, toolsForRole, type CapabilityTool, type CapabilityToolAccess, } from "./capability-tool.js";
 export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, type ToolCallRequest, type ToolCallSuccessResponse, type ToolCallErrorResponse, type ToolCallResponse, } from "./tool-call.js";
 export { CAPABILITY_CONTEXT_MAX_CHARS, CAPABILITY_CONTEXT_TIMEOUT_MS, CapabilityContextDeclarationSchema, CapabilityContextRequestSchema, CapabilityContextResponseSchema, type CapabilityContextDeclaration, type CapabilityContextRequest, type CapabilityContextResponse, } from "./capability-context.js";
 export { CapabilityManifestSchema, type CapabilityManifest, } from "./capability-manifest.js";

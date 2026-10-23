@@ -19,6 +19,8 @@ export * from "./agent-runtime-state.cjs";
 export * from "./agent-runtime-source.cjs";
 export * from "./agent-management.cjs";
 export * from "./agent-scope-policy.cjs";
+export * from "./policy-approval-request.cjs";
+export * from "./agent-role-scope-policy.cjs";
 export * from "./agent-turn-limits.cjs";
 export * from "./agent-channel-configuration.cjs";
 export * from "./agent-creation-replay.cjs";

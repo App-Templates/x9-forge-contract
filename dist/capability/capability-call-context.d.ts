@@ -44,6 +44,11 @@ export declare const CapabilityCallContextErrorCodeSchema: z.ZodEnum<{
     capability_disabled: "capability_disabled";
     capability_not_installed: "capability_not_installed";
     identity_mismatch: "identity_mismatch";
+    business_unit_pending: "business_unit_pending";
+    business_unit_refused: "business_unit_refused";
+    business_unit_unavailable: "business_unit_unavailable";
+    business_unit_register_failed: "business_unit_register_failed";
+    business_unit_failed: "business_unit_failed";
 }>;
 export type CapabilityCallContextErrorCode = z.infer<typeof CapabilityCallContextErrorCodeSchema>;
 /** Forge validates `keys` against what this capability declares; it never returns undeclared keys. */
@@ -66,6 +71,11 @@ export declare const CapabilityCallContextErrorSchema: z.ZodObject<{
         capability_disabled: "capability_disabled";
         capability_not_installed: "capability_not_installed";
         identity_mismatch: "identity_mismatch";
+        business_unit_pending: "business_unit_pending";
+        business_unit_refused: "business_unit_refused";
+        business_unit_unavailable: "business_unit_unavailable";
+        business_unit_register_failed: "business_unit_register_failed";
+        business_unit_failed: "business_unit_failed";
     }>;
     keys: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodString>>>;
 }, z.core.$strip>;
@@ -93,6 +103,11 @@ export declare const CapabilityCallContextResponseSchema: z.ZodUnion<readonly [z
         capability_disabled: "capability_disabled";
         capability_not_installed: "capability_not_installed";
         identity_mismatch: "identity_mismatch";
+        business_unit_pending: "business_unit_pending";
+        business_unit_refused: "business_unit_refused";
+        business_unit_unavailable: "business_unit_unavailable";
+        business_unit_register_failed: "business_unit_register_failed";
+        business_unit_failed: "business_unit_failed";
     }>;
     keys: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodString>>>;
 }, z.core.$strip>]>;

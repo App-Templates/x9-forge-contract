@@ -119,6 +119,7 @@ export type PaperclipHandoff = z.infer<typeof PaperclipHandoffSchema>;
 export type PaperclipHandoffReceipt = z.infer<typeof PaperclipHandoffReceiptSchema>;
 export type PaperclipDecisionRecord = z.infer<typeof PaperclipDecisionRecordSchema>;
 export * from "./tools.js";
+export * from "./enrollment.js";
 export declare const PaperclipCommunicationRecordSchema: z.ZodObject<{
     schemaVersion: z.ZodLiteral<1>;
     communicationId: z.ZodString;

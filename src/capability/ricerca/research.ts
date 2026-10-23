@@ -11,6 +11,8 @@ import { CapabilityAgentIdSchema } from './agent-config.js';
  */
 
 export const ResearchIdSchema = z.string().min(1).max(100);
+export const LabGapsRefSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
+export type LabGapsRef = z.infer<typeof LabGapsRefSchema>;
 
 /** Only http(s) addresses, bounded: never `file:`, `javascript:` or `data:`. */
 export const WebUrlSchema = z.string().max(2000).refine(u => {
@@ -30,6 +32,8 @@ export const ResearchRequestSchema = z.object({
   goal: TextSchema.optional(),
   /** The research of the same agent whose new questions this one follows (the cascade). */
   parentResearchId: ResearchIdSchema.optional(),
+  /** The lab brief analysis whose declared gaps this research addresses. */
+  labGapsRef: LabGapsRefSchema.optional(),
   /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
   maxUsd: z.number().positive().finite().optional(),
 }).strict();

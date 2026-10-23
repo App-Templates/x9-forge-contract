@@ -56,6 +56,7 @@ __exportStar(require("./voice.cjs"), exports); // Phase 42 — CAP-Voice v2.2 pa
 __exportStar(require("./voice-live.cjs"), exports); // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 __exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.11.0) — Parallel S2S agent deploy
 __exportStar(require("./internal-business-unit-lead.cjs"), exports); // AZB-04 — Director S2S business unit lead birth
+__exportStar(require("./internal-company-rd.cjs"), exports); // P1L-05 — Director S2S company R&D (Ricerca + Lab) birth
 __exportStar(require("./internal-factory-telegram-token.cjs"), exports); // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 __exportStar(require("./cap-manifest.cjs"), exports);
@@ -103,6 +104,8 @@ __exportStar(require("./web-connection-cards.cjs"), exports);
 __exportStar(require("./internal-memory-experience.cjs"), exports);
 __exportStar(require("./internal-memory-decisions.cjs"), exports);
 __exportStar(require("./internal-memory-decision-requests.cjs"), exports);
+__exportStar(require("./internal-paperclip-seats.cjs"), exports);
+__exportStar(require("./internal-memory-assets.cjs"), exports);
 __exportStar(require("./internal-memory-knowledge.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 __exportStar(require("./internal-connection-completed.cjs"), exports);
@@ -116,4 +119,5 @@ __exportStar(require("./development-session-models.cjs"), exports);
 __exportStar(require("./internal-development-session-list.cjs"), exports);
 __exportStar(require("./development-session-heartbeat.cjs"), exports);
 __exportStar(require("./internal-dev-artifact-content.cjs"), exports);
+__exportStar(require("./internal-dev-session-asset-content.cjs"), exports);
 //# sourceMappingURL=index.js.map

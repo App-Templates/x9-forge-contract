@@ -31,6 +31,8 @@ export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING',
   'CONNECT_GOOGLE_CLIENT_ID',
   'CONNECT_GOOGLE_CLIENT_SECRET',
   'CONNECT_VAULT_SECRET',
+  // segreto della porta Vault delle chiavi agente; mai proiettato in un agente
+  'AGENT_CREDENTIAL_VAULT_SECRET',
   'RICERCA_DATABASE_URL',
 ] as const;
 

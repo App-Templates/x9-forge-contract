@@ -40,6 +40,7 @@ export * from "./voice.js"; // Phase 42 — CAP-Voice v2.2 path + method constan
 export * from "./voice-live.js"; // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 export * from "./internal-factory-deploy.js"; // Wave 2 (v1.11.0) — Parallel S2S agent deploy
 export * from "./internal-business-unit-lead.js"; // AZB-04 — Director S2S business unit lead birth
+export * from "./internal-company-rd.js"; // P1L-05 — Director S2S company R&D (Ricerca + Lab) birth
 export * from "./internal-factory-telegram-token.js"; // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 export * from "./cap-manifest.js";
@@ -87,6 +88,8 @@ export * from "./web-connection-cards.js";
 export * from "./internal-memory-experience.js";
 export * from "./internal-memory-decisions.js";
 export * from "./internal-memory-decision-requests.js";
+export * from "./internal-paperclip-seats.js";
+export * from "./internal-memory-assets.js";
 export * from "./internal-memory-knowledge.js";
 export * from "./connect-public.js";
 export * from "./internal-connection-completed.js";
@@ -100,4 +103,5 @@ export * from "./development-session-models.js";
 export * from "./internal-development-session-list.js";
 export * from "./development-session-heartbeat.js";
 export * from "./internal-dev-artifact-content.js";
+export * from "./internal-dev-session-asset-content.js";
 //# sourceMappingURL=index.js.map
