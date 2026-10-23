@@ -35,7 +35,7 @@ describe('AssetRefSchema', () => {
   });
 
   it('exports the canonical origins and reuses the company identifier schema', () => {
-    expect(ASSET_ORIGIN_KINDS).toEqual(['email', 'archive', 'session']);
+    expect(ASSET_ORIGIN_KINDS).toEqual(['email', 'archive', 'session', 'link', 'generated']);
     expect(AssetRefSchema.shape.companyId).toBe(
       BusinessUnitLeadBirthRequestSchema.shape.company.shape.companyId,
     );
