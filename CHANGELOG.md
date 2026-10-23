@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## v1.62.0 — voci della mappa scritte e lette di ogni tipo, contraddizioni verso decisione o voce, riconciliazione del mandato, additive
+
+- 316 (F3B-01): le rotte interne della mappa (`internalMemoryCompanyMapWriteContract`, `internalMemoryCompanyMapListContract`) scrivono e leggono tutti i tipi di voce (referente, persona, responsabilità, asset, accesso); nuovo `CompanyMapReferentWriteRequestSchema` (consumatori: memory, agent-core).
+- 317 (F3B-01): `contradicts` di una pagina del quaderno punta anche a una decisione approvata o a una voce della mappa: `KnowledgeContradictionSchema`, `KnowledgeContradictionTargetSchema` in `src/organization/knowledge-publication.ts` (consumatori: memory, cap-lab).
+- 317 (F3B-01, contratto per F3X-03 e F3P-01): `internalMemoryMandateReconcileContract`, `INTERNAL_MEMORY_MANDATE_RECONCILE_PATH`, `MandateReconcileRequestSchema`, `MandateReconcileResponseSchema` (consumatori: memory, cap-paperclip).
+- `dist` ricostruita; conservati 606/606 export di `dist/http/endpoints/index.cjs` (ora 611), 174/174 di `dist/organization/index.cjs` (ora 176), 113/113 della radice.
+
 ## v1.61.0 — tipo di BU nella richiesta di nascita del capo, non compatibile
 
 - 320 (F2B-02): `BusinessUnitLeadBirthRequestSchema.businessUnit.typeId` è obbligatorio (`BusinessUnitTypeCardSchema.shape.typeId`); lo eredita `PaperclipCreateBusinessUnitInputSchema` e il `bodySchema` di `internalBusinessUnitLeadBirthContract`. Una richiesta senza `typeId` ora è rifiutata.

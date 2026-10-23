@@ -239,6 +239,22 @@ export declare const LabPublishInputSchema: z.ZodObject<{
         clientId: z.ZodString;
         projectId: z.ZodString;
     }, z.core.$strict>], "kind">;
+    contradicts: z.ZodOptional<z.ZodArray<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+        target: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+        planVersion: z.ZodNumber;
+    }, z.core.$strict>, z.ZodObject<{
+        target: z.ZodLiteral<"map_entry">;
+        kind: z.ZodEnum<{
+            access: "access";
+            referent: "referent";
+            person: "person";
+            responsibility: "responsibility";
+            asset: "asset";
+        }>;
+        key: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>], "target">]>>>;
 }, z.core.$strict>;
 export declare const LabPublishOutputSchema: z.ZodObject<{
     slug: z.ZodString;
@@ -273,6 +289,22 @@ export declare const LabReadPublishedOutputSchema: z.ZodObject<{
         digest: z.ZodString;
         title: z.ZodString;
         content: z.ZodString;
+        contradicts: z.ZodOptional<z.ZodArray<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+            target: z.ZodLiteral<"decision">;
+            requestId: z.ZodString;
+            planVersion: z.ZodNumber;
+        }, z.core.$strict>, z.ZodObject<{
+            target: z.ZodLiteral<"map_entry">;
+            kind: z.ZodEnum<{
+                access: "access";
+                referent: "referent";
+                person: "person";
+                responsibility: "responsibility";
+                asset: "asset";
+            }>;
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>], "target">]>>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export declare const LabBriefGapsInputSchema: z.ZodObject<{

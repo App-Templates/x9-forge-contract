@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AssetRefSchema, AssetSha256Schema } from "../../organization/asset.js";
+import { KnowledgePublicationSchema } from "../../organization/knowledge-publication.js";
 import { LabGapsRefSchema, ResearchResultSchema, ResearchStateSchema } from "../ricerca/research.js";
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from "./competence.js";
 import { WikiClaimSchema, WikiPageSchema } from "./wiki.js";
@@ -78,6 +79,7 @@ export const LabPublishInputSchema = z.strictObject({
     slug: WikiPageSchema.shape.slug,
     version: WikiPageSchema.shape.version.optional(),
     recipient: LabPublicationRecipientSchema,
+    contradicts: KnowledgePublicationSchema.shape.contradicts,
 });
 export const LabPublishOutputSchema = z.strictObject({
     slug: WikiPageSchema.shape.slug,
@@ -98,6 +100,7 @@ export const LabReadPublishedOutputSchema = z.strictObject({
         digest: AssetSha256Schema,
         title: WikiPageSchema.shape.title,
         content: WikiPageSchema.shape.body,
+        contradicts: KnowledgePublicationSchema.shape.contradicts,
     })).max(50),
 });
 export const LabBriefGapsInputSchema = z.strictObject({
