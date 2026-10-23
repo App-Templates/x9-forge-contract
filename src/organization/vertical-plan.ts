@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import { canonicalJson } from './action-plan.js';
 import { AssetRefSchema, AssetSha256Schema } from './asset.js';
-import { DecisionRequestIdSchema } from './decision-request.js';
+import { DecisionRequestIdSchema, type DecisionSubject } from './decision-request.js';
 
 const BuSlugSchema = z.string().min(1).max(30).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const MilestoneNumberSchema = z.number().int().min(1);
@@ -92,3 +93,14 @@ export const VerticalPlanSchema = z.strictObject({
   }
 });
 export type VerticalPlan = z.infer<typeof VerticalPlanSchema>;
+
+/** Portable UTF-8 input for the writer's SHA-256; the digest itself is excluded. */
+export function verticalPlanCanonicalJson(plan: VerticalPlan): string {
+  const { digest: _digest, ...content } = plan;
+  return canonicalJson(content);
+}
+
+/** Bind the decision to the exact vertical plan version the referent read. */
+export function verticalPlanDecisionSubject(plan: VerticalPlan): DecisionSubject {
+  return { kind: 'vertical_plan', planId: plan.planId, planVersion: plan.version, digest: plan.digest };
+}

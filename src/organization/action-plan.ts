@@ -234,7 +234,7 @@ export const CompleteActionPlanSchema = ActionPlanSchema.extend({
 });
 export type CompleteActionPlan = z.infer<typeof CompleteActionPlanSchema>;
 
-function canonicalJson(value: unknown): string {
+export function canonicalJson(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
   if (value !== null && typeof value === 'object') {
     const entries = Object.keys(value as Record<string, unknown>)

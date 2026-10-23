@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest';
 import {
   VERTICAL_PLAN_ATTACHMENT_ROLES,
   VerticalPlanSchema,
+  verticalPlanCanonicalJson,
+  verticalPlanDecisionSubject,
 } from '../../src/organization/vertical-plan.js';
+import {
+  DecisionSubjectSchema,
+  decisionOutcomeMatchesSubject,
+} from '../../src/organization/decision-request.js';
 
 const asset = (assetId: string, extra: Record<string, unknown> = {}) => ({
   assetId,
@@ -92,5 +98,68 @@ describe('VerticalPlanSchema', () => {
 
   it('rejects an extra key', () => {
     expect(parse((p) => ({ ...p, extra: true }))).toBe(false);
+  });
+});
+
+describe('vertical plan decision binding', () => {
+  it('sorts keys recursively and excludes digest from canonical content', () => {
+    const original = VerticalPlanSchema.parse(plan());
+    const { planId, ...rest } = original;
+    const reordered = {
+      ...rest,
+      actionPlan: { version: original.actionPlan.version, planId: original.actionPlan.planId },
+      milestones: original.milestones.map(({ number, expectedGoal, dueDate, blockedBy }) => ({
+        blockedBy, dueDate, expectedGoal, number,
+      })),
+      planId,
+    };
+    const canonical = verticalPlanCanonicalJson(original);
+    expect(verticalPlanCanonicalJson(reordered)).toBe(canonical);
+    expect(verticalPlanCanonicalJson({ ...original, digest: 'c'.repeat(64) })).toBe(canonical);
+    expect(JSON.parse(canonical)).not.toHaveProperty('digest');
+    expect(canonical).not.toContain(original.digest);
+    expect(canonical.startsWith('{"actionPlan":{"planId":"action-0001","version":2}')).toBe(true);
+    expect(canonical).toContain('"milestones":[{"blockedBy":[],"dueDate":"2026-11-01","expectedGoal":"Primi dieci contatti","number":1}');
+  });
+
+  it('includes the plan version and content in canonical text and preserves array order', () => {
+    const original = VerticalPlanSchema.parse(plan());
+    const canonical = verticalPlanCanonicalJson(original);
+    expect(verticalPlanCanonicalJson({ ...original, version: 2 })).not.toBe(canonical);
+    expect(verticalPlanCanonicalJson({ ...original, analysis: 'Updated analysis.' })).not.toBe(canonical);
+    expect(verticalPlanCanonicalJson({ ...original, milestones: [...original.milestones].reverse() })).not.toBe(canonical);
+  });
+
+  it('creates a valid vertical_plan subject with the exact plan identity, version and digest', () => {
+    const original = VerticalPlanSchema.parse(plan());
+    const subject = verticalPlanDecisionSubject(original);
+    expect(subject).toEqual({
+      kind: 'vertical_plan', planId: original.planId, planVersion: 1, digest: original.digest,
+    });
+    expect(DecisionSubjectSchema.parse(subject)).toEqual(subject);
+  });
+
+  it('matches an outcome only to the same vertical plan version and digest', () => {
+    const original = VerticalPlanSchema.parse(plan());
+    const subject = verticalPlanDecisionSubject(original);
+    const outcome = { subject };
+    expect(decisionOutcomeMatchesSubject({ subject }, outcome)).toBe(true);
+    const nextVersion = verticalPlanDecisionSubject({ ...original, version: 2 });
+    expect(nextVersion.planVersion).toBe(2);
+    expect(decisionOutcomeMatchesSubject({ subject: nextVersion }, outcome)).toBe(false);
+    const nextDigest = verticalPlanDecisionSubject({ ...original, digest: 'c'.repeat(64) });
+    expect(nextDigest.digest).toBe('c'.repeat(64));
+    expect(decisionOutcomeMatchesSubject({ subject: nextDigest }, outcome)).toBe(false);
+    const otherPlan = verticalPlanDecisionSubject({ ...original, planId: 'plan-0002' });
+    expect(otherPlan.planId).toBe('plan-0002');
+    expect(decisionOutcomeMatchesSubject({ subject: otherPlan }, outcome)).toBe(false);
+  });
+
+  it('rejects an action_plan subject for a vertical_plan outcome', () => {
+    const subject = verticalPlanDecisionSubject(VerticalPlanSchema.parse(plan()));
+    expect(decisionOutcomeMatchesSubject(
+      { subject: { ...subject, kind: 'action_plan' } },
+      { subject },
+    )).toBe(false);
   });
 });
