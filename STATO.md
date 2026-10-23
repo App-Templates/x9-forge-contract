@@ -1,5 +1,26 @@
 # STATO
 
+## 22/10/2026 — ponte unico 1.60.0 (F1B-07)
+
+REF = `19a9142177df3eb786487becc7ca3952a65f300a` (compito 312 pubblicato dal night nuovo su `integ/azienda-bridge` il 23/10 alle 10:47, `package.json` 1.60.0, su GitHub).
+Lo stesso albero di `opus/cancello-20261023` 757e3c0 (lavoro di opus-cancello, consegnato con `tools/consegna_esterna.py`).
+Antenati verificati con `git merge-base --is-ancestor`: 9534310 (286), d74d24a (287), afb7c78 (288), 717cba2 (289),
+c7bd971 (290), edf5e56 (291), e949553 (292), f22876e (293), 19a9142 (312 versione 1.60.0, CHANGELOG e `dist`).
+Compiti contenuti: 286-293 e 312. `dist/` è versionato e ricostruito con `pnpm run build` (601 export in `http/endpoints`, 152 in `organization`, nessuno perso).
+
+| Consumatore | File | Valore attuale (letto in sola lettura, 23/10) | Valore da mettere |
+|---|---|---|---|
+| X9 (agent-x9, `integ/azienda-x9`) | `package.json:30,34,38` | `e3b3cf9c3465097e8478294f9bd8ac51c143c10c` (1.59.0) | REF (modello 70102c641) |
+| X9 (agent-x9, `integ/azienda-x9`) | `pnpm-workspace.yaml:8`, `pnpm-lock.yaml` | `e3b3cf9c3465097e8478294f9bd8ac51c143c10c` | REF, voce del lockfile `version: 1.60.0` |
+| X9 (agent-x9, `integ/azienda-x9`) | `packages/capability-sdk`, `packages/company-memory-engine`, `services/cap-dev`, `services/cap-lab` (`package.json`) | `e3b3cf9c3465097e8478294f9bd8ac51c143c10c` | REF |
+| X9 (agent-x9, `integ/azienda-x9`) | `vendor/x9-forge-contract-bridge/.synced-from-sha` | `d72fe5b53e6222af52f332bb5decfe19221a5b5b` (1.58.0) | REF, con `scripts/sync-bridge.sh` (modello 0d6ea575d) |
+| Forge forge-backend e forge-azienda (`integ/azienda-forge`, un solo lockfile) | `package.json:26` (`pnpm.overrides`), `pnpm-workspace.yaml:26`, `pnpm-lock.yaml` | `e3b3cf9c3465097e8478294f9bd8ac51c143c10c` (1.59.0, compito 1111) | REF |
+| Forge main | `package.json:26` (`pnpm.overrides`) | `c99f570342a2661a87459362b129eb2858676c96` | REF quando i rami Azienda entrano in main |
+
+I pacchetti interni di Forge (`web`, `packages/types`, `services/*`) usano `workspace:*` e seguono l'override della radice.
+Ripinnare: corsie di X9 e Forge, come F0X-01 e F0F-01 (x9-consumer/1169, forge-backend/1122).
+Tag v1.60.0: da mettere dalla coordinatrice su REF
+
 ## 22/10/2026 — ponte unico 1.59.0 (F0B-01)
 
 REF = `e3b3cf9c3465097e8478294f9bd8ac51c143c10c` (compito 283, punta del ramo, `package.json` 1.59.0).
