@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AssetRefSchema } from '../../organization/asset.js';
 import { CapabilityAgentIdSchema } from './agent-config.js';
 
 /**
@@ -34,6 +35,11 @@ export const ResearchRequestSchema = z.object({
   parentResearchId: ResearchIdSchema.optional(),
   /** The lab brief analysis whose declared gaps this research addresses. */
   labGapsRef: LabGapsRefSchema.optional(),
+  /**
+   * The project of the client company this research serves (F1L-03). A project research answers a gap of the lab
+   * brief analysis: with `projectId` and without `labGapsRef` cap-ricerca refuses with `consulta_prima_il_quaderno`.
+   */
+  projectId: AssetRefSchema.shape.projectId.optional(),
   /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
   maxUsd: z.number().positive().finite().optional(),
 }).strict();

@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## Non rilasciato — R&D riusa prima di ricercare (F1L-03), additive
+
+- `ResearchRequestSchema.projectId` (facoltativo, come `AssetRefSchema.shape.projectId`) e `RicercaToolErrorSchema` con
+  `consulta_prima_il_quaderno` in `src/capability/ricerca/` (consumatore: cap-ricerca `research_start`). Da rilasciare
+  come 1.61.0 con la `dist` ricostruita, dopo che la 1.60.0 è nel ramo comune.
+
 ## v1.60.0 — piano d'azione, decisione legata alla versione, mappa dell'azienda cliente, porta Vault della chiave agente, contratti R&D, mandato riconciliato, additive
 
 - 286-287: `ActionPlanSchema`, `ActionPlanBusinessUnitSchema`, `ActionPlanReferentRefSchema`, `ACTION_PLAN_BU_EXECUTORS` in `src/organization/action-plan.ts` (consumatori: agent-core, factory di Forge).
