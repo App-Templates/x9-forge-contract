@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.LabGapsRefSchema = exports.ResearchIdSchema = void 0;
 const zod_1 = require("zod");
+const asset_js_1 = require("../../organization/asset.cjs");
 const agent_config_js_1 = require("./agent-config.cjs");
 /**
  * One research of cap-ricerca (v1.28.0, Phase 54): a question of one agent, researched on the web within the agent's
@@ -32,6 +33,11 @@ exports.ResearchRequestSchema = zod_1.z.object({
     parentResearchId: exports.ResearchIdSchema.optional(),
     /** The lab brief analysis whose declared gaps this research addresses. */
     labGapsRef: exports.LabGapsRefSchema.optional(),
+    /**
+     * The project of the client company this research serves (F1L-03). A project research answers a gap of the lab
+     * brief analysis: with `projectId` and without `labGapsRef` cap-ricerca refuses with `consulta_prima_il_quaderno`.
+     */
+    projectId: asset_js_1.AssetRefSchema.shape.projectId.optional(),
     /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
     maxUsd: zod_1.z.number().positive().finite().optional(),
 }).strict();

@@ -53,18 +53,18 @@ export declare const ParticipantBindingSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type ParticipantBinding = z.infer<typeof ParticipantBindingSchema>;
 export declare const ParticipantBindingOutcomeSchema: z.ZodEnum<{
-    ambiguous: "ambiguous";
     bound: "bound";
     unknown_participant: "unknown_participant";
+    ambiguous: "ambiguous";
     foreign_scope: "foreign_scope";
 }>;
 export type ParticipantBindingOutcome = z.infer<typeof ParticipantBindingOutcomeSchema>;
 /** Result of resolving an external participant ID to a bound agent. */
 export declare const ParticipantBindingResolutionSchema: z.ZodObject<{
     outcome: z.ZodEnum<{
-        ambiguous: "ambiguous";
         bound: "bound";
         unknown_participant: "unknown_participant";
+        ambiguous: "ambiguous";
         foreign_scope: "foreign_scope";
     }>;
     participantId: z.ZodString;

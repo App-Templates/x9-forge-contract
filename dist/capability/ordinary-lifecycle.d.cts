@@ -4195,11 +4195,11 @@ export declare const CapabilityOrdinaryLifecycleTransactionSchema: z.ZodObject<{
     }, z.core.$strict>;
     state: z.ZodEnum<{
         pending: "pending";
+        ambiguous: "ambiguous";
         prepared: "prepared";
         suspended: "suspended";
         activated: "activated";
         rolled_back: "rolled_back";
-        ambiguous: "ambiguous";
     }>;
     operationId: z.ZodString;
     fence: z.ZodNumber;

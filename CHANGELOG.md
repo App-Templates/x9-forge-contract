@@ -1,10 +1,10 @@
 # Changelog — @x9-forge/contracts
 
-## Non rilasciato — R&D riusa prima di ricercare (F1L-03), additive
+## v1.62.0 — projectId della ricerca e consulta_prima_il_quaderno, additive
 
-- `ResearchRequestSchema.projectId` (facoltativo, come `AssetRefSchema.shape.projectId`) e `RicercaToolErrorSchema` con
-  `consulta_prima_il_quaderno` in `src/capability/ricerca/` (consumatore: cap-ricerca `research_start`). Da rilasciare
-  come 1.62.0 (bridge-c01/323) con la `dist` ricostruita: la 1.61.0 è già pubblicata senza questo cambio.
+- 322 (F1L-03): `ResearchRequestSchema.projectId` (facoltativo, come `AssetRefSchema.shape.projectId`) e `RicercaToolErrorSchema` con `consulta_prima_il_quaderno` in `src/capability/ricerca/` (consumatore: cap-ricerca di X9 `research_start`; poi cap-lab).
+- Compatibile con la 1.61.0: solo aggiunte. La `dist` è ricostruita dalla punta di `integ/azienda-bridge`, quindi contiene anche quanto pubblicato dopo la 1.61.0 (tra cui 317, contratti della mappa aziendale, di Lab e del quaderno): i consumatori vedono questi export dalla `dist`.
+- `dist` ricostruita; conservati 606/606 export di `dist/http/endpoints/index.cjs` (ora 611) e 174/174 di `dist/organization/index.cjs` (ora 176).
 
 ## v1.61.0 — tipo di BU nella richiesta di nascita del capo, non compatibile
 

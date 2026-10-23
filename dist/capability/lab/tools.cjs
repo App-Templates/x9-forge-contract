@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabBriefGapsOutputSchema = exports.LabBriefGapsInputSchema = exports.LabReadPublishedOutputSchema = exports.LabReadPublishedInputSchema = exports.LabPublishOutputSchema = exports.LabPublishInputSchema = exports.LabPublicationRecipientSchema = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabIngestDocumentSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
 const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
+const knowledge_publication_js_1 = require("../../organization/knowledge-publication.cjs");
 const research_js_1 = require("../ricerca/research.cjs");
 const competence_js_1 = require("./competence.cjs");
 const wiki_js_1 = require("./wiki.cjs");
@@ -81,6 +82,7 @@ exports.LabPublishInputSchema = zod_1.z.strictObject({
     slug: wiki_js_1.WikiPageSchema.shape.slug,
     version: wiki_js_1.WikiPageSchema.shape.version.optional(),
     recipient: exports.LabPublicationRecipientSchema,
+    contradicts: knowledge_publication_js_1.KnowledgePublicationSchema.shape.contradicts,
 });
 exports.LabPublishOutputSchema = zod_1.z.strictObject({
     slug: wiki_js_1.WikiPageSchema.shape.slug,
@@ -101,6 +103,7 @@ exports.LabReadPublishedOutputSchema = zod_1.z.strictObject({
         digest: asset_js_1.AssetSha256Schema,
         title: wiki_js_1.WikiPageSchema.shape.title,
         content: wiki_js_1.WikiPageSchema.shape.body,
+        contradicts: knowledge_publication_js_1.KnowledgePublicationSchema.shape.contradicts,
     })).max(50),
 });
 exports.LabBriefGapsInputSchema = zod_1.z.strictObject({

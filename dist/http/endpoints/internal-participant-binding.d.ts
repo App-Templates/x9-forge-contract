@@ -6,9 +6,9 @@ export declare const INTERNAL_PARTICIPANT_BINDING_WITHDRAW_PATH: "/internal/part
 export declare const INTERNAL_PARTICIPANT_BINDING_RESOLVE_PATH: "/internal/participant-binding/resolve";
 /** Outcome codes of the binding resolution plus the operation-specific ones. */
 export declare const ParticipantBindingErrorCodeSchema: z.ZodEnum<{
-    ambiguous: "ambiguous";
     bound: "bound";
     unknown_participant: "unknown_participant";
+    ambiguous: "ambiguous";
     foreign_scope: "foreign_scope";
     version_conflict: "version_conflict";
     person_required: "person_required";
@@ -83,9 +83,9 @@ export declare const InternalParticipantBindingApplyResponseSchema: z.ZodUnion<r
 }, z.core.$strict>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        ambiguous: "ambiguous";
         bound: "bound";
         unknown_participant: "unknown_participant";
+        ambiguous: "ambiguous";
         foreign_scope: "foreign_scope";
         version_conflict: "version_conflict";
         person_required: "person_required";
@@ -270,9 +270,9 @@ export declare const InternalParticipantBindingWithdrawResponseSchema: z.ZodUnio
 }, z.core.$strict>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        ambiguous: "ambiguous";
         bound: "bound";
         unknown_participant: "unknown_participant";
+        ambiguous: "ambiguous";
         foreign_scope: "foreign_scope";
         version_conflict: "version_conflict";
         person_required: "person_required";
@@ -421,9 +421,9 @@ export declare const internalParticipantBindingApplyContract: {
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
-            ambiguous: "ambiguous";
             bound: "bound";
             unknown_participant: "unknown_participant";
+            ambiguous: "ambiguous";
             foreign_scope: "foreign_scope";
             version_conflict: "version_conflict";
             person_required: "person_required";
@@ -620,9 +620,9 @@ export declare const internalParticipantBindingWithdrawContract: {
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
-            ambiguous: "ambiguous";
             bound: "bound";
             unknown_participant: "unknown_participant";
+            ambiguous: "ambiguous";
             foreign_scope: "foreign_scope";
             version_conflict: "version_conflict";
             person_required: "person_required";
