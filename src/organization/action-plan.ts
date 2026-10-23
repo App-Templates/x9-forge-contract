@@ -142,6 +142,98 @@ export const ActionPlanSchema = z.strictObject({
 });
 export type ActionPlan = z.infer<typeof ActionPlanSchema>;
 
+/** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
+export const CompleteActionPlanSchema = ActionPlanSchema.extend({
+  marketingPlan: z.strictObject({
+    audience: TextSchema,
+    channels: z.array(TextSchema).min(1).max(20),
+    messages: z.array(TextSchema).min(1).max(20),
+  }),
+  launchPlan: z.strictObject({
+    launchDate: z.iso.date(),
+    steps: z.array(TextSchema).min(1).max(30),
+  }),
+  financialPlan: z.strictObject({
+    revenueModel: TextSchema,
+    costs: z.array(z.strictObject({ item: TextSchema, amount: z.number().min(0) })).min(1).max(50),
+    breakEven: TextSchema,
+  }),
+}).superRefine((plan, ctx) => {
+  const treeUnits = new Map(plan.objectiveTree.businessUnits.map((unit) => [unit.buSlug, unit]));
+  plan.businessUnits.forEach((unit, index) => {
+    if ((treeUnits.get(unit.buSlug)?.indicators.length ?? 0) === 0) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['objectiveTree', 'businessUnits'],
+        message: `Business unit ${unit.buSlug} needs an objective tree entry with at least one indicator`,
+      });
+    }
+    if (unit.reviewer === undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['businessUnits', index, 'reviewer'],
+        message: `Business unit ${unit.buSlug} needs a reviewer`,
+      });
+    }
+    const caps = plan.budget.perBu.filter((entry) => entry.buSlug === unit.buSlug).length;
+    if (caps !== 1) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['budget', 'perBu'],
+        message: `Business unit ${unit.buSlug} needs exactly one budget cap, found ${caps}`,
+      });
+    }
+  });
+
+  const numbers = plan.milestones.map((milestone) => milestone.number);
+  const known = new Set(numbers);
+  if (known.size !== numbers.length) {
+    ctx.addIssue({ code: 'custom', path: ['milestones'], message: 'Milestone numbers must be unique' });
+  }
+  plan.milestones.forEach((milestone, index) => {
+    milestone.blockedBy.forEach((blocker, position) => {
+      if (!known.has(blocker) || blocker === milestone.number) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['milestones', index, 'blockedBy', position],
+          message: `Milestone ${milestone.number} is blocked by ${blocker}, which is not another existing milestone`,
+        });
+      }
+    });
+  });
+  plan.criticalPath.forEach((number, index) => {
+    if (!known.has(number)) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['criticalPath', index],
+        message: `Critical path milestone ${number} does not exist`,
+      });
+    }
+  });
+
+  const capSum = plan.budget.perBu.reduce((sum, entry) => sum + entry.cap, 0);
+  if (capSum > plan.budget.total) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['budget', 'total'],
+      message: `Business unit caps add up to ${capSum}, above the total ${plan.budget.total}`,
+    });
+  }
+
+  plan.missingMaterials.forEach((material, index) => {
+    for (const field of ['owner', 'neededBy'] as const) {
+      if (material[field] === undefined) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['missingMaterials', index, field],
+          message: `Missing material needs ${field}`,
+        });
+      }
+    }
+  });
+});
+export type CompleteActionPlan = z.infer<typeof CompleteActionPlanSchema>;
+
 function canonicalJson(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
   if (value !== null && typeof value === 'object') {
