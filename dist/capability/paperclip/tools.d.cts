@@ -107,8 +107,8 @@ export declare const PaperclipSearchKindSchema: z.ZodEnum<{
     artifact: "artifact";
     document: "document";
     agent: "agent";
-    comment: "comment";
     project: "project";
+    comment: "comment";
     issue: "issue";
 }>;
 export declare const PaperclipSearchInputSchema: z.ZodObject<{
@@ -117,8 +117,8 @@ export declare const PaperclipSearchInputSchema: z.ZodObject<{
         artifact: "artifact";
         document: "document";
         agent: "agent";
-        comment: "comment";
         project: "project";
+        comment: "comment";
         issue: "issue";
     }>>>;
     limit: z.ZodOptional<z.ZodNumber>;
@@ -129,8 +129,8 @@ export declare const PaperclipSearchOutputSchema: z.ZodObject<{
             artifact: "artifact";
             document: "document";
             agent: "agent";
-            comment: "comment";
             project: "project";
+            comment: "comment";
             issue: "issue";
         }>;
         id: z.ZodString;

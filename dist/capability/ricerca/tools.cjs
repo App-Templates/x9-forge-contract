@@ -27,6 +27,8 @@ exports.RicercaToolErrorSchema = zod_1.z.enum([
     'unknown_parent',
     'unknown_research',
     'not_ready',
+    /** A project research without the lab brief analysis it answers (F1L-03): R&D reuses before researching. */
+    'consulta_prima_il_quaderno',
 ]);
 exports.ResearchStartInputSchema = research_js_1.ResearchRequestSchema;
 exports.ResearchStartOutputSchema = zod_1.z.object({ researchId: research_js_1.ResearchIdSchema, state: research_js_1.ResearchStateSchema }).strict();

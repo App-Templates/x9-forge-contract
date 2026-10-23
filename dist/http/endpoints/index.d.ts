@@ -85,6 +85,7 @@ export * from "./internal-paperclip-seats.js";
 export * from "./internal-memory-assets.js";
 export * from "./internal-memory-company-map.js";
 export * from "./internal-memory-company-content.js";
+export * from "./internal-memory-mandate-reconcile.js";
 export * from "./internal-memory-knowledge.js";
 export * from "./connect-public.js";
 export * from "./internal-connection-completed.js";

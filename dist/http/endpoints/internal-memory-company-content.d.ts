@@ -34,8 +34,8 @@ export declare const CompanyContentReadResponseSchema: z.ZodDiscriminatedUnion<[
     items: z.ZodArray<z.ZodObject<{
         source: z.ZodEnum<{
             decision: "decision";
-            publication: "publication";
             map_entry: "map_entry";
+            publication: "publication";
         }>;
         ref: z.ZodString;
         version: z.ZodNumber;
@@ -87,8 +87,8 @@ export declare const internalMemoryCompanyContentReadContract: {
         items: z.ZodArray<z.ZodObject<{
             source: z.ZodEnum<{
                 decision: "decision";
-                publication: "publication";
                 map_entry: "map_entry";
+                publication: "publication";
             }>;
             ref: z.ZodString;
             version: z.ZodNumber;

@@ -200,8 +200,8 @@ export declare const PaperclipDecisionViewSchema: z.ZodObject<{
     communicationId: z.ZodNullable<z.ZodString>;
     status: z.ZodEnum<{
         approved: "approved";
-        changes_requested: "changes_requested";
         ambiguous: "ambiguous";
+        changes_requested: "changes_requested";
         empty_reply: "empty_reply";
         obsolete: "obsolete";
         pending_manual_confirmation: "pending_manual_confirmation";

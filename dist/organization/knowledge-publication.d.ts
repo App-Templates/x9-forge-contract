@@ -24,6 +24,42 @@ export declare const KnowledgeEvidenceRefSchema: z.ZodObject<{
     digest: z.ZodString;
 }, z.core.$strict>;
 export type KnowledgeEvidenceRef = z.infer<typeof KnowledgeEvidenceRefSchema>;
+/** Typed target a page can contradict: an approved decision (with its plan version) or a map entry version. */
+export declare const KnowledgeContradictionTargetSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    target: z.ZodLiteral<"decision">;
+    requestId: z.ZodString;
+    planVersion: z.ZodNumber;
+}, z.core.$strict>, z.ZodObject<{
+    target: z.ZodLiteral<"map_entry">;
+    kind: z.ZodEnum<{
+        access: "access";
+        referent: "referent";
+        person: "person";
+        responsibility: "responsibility";
+        asset: "asset";
+    }>;
+    key: z.ZodString;
+    version: z.ZodNumber;
+}, z.core.$strict>], "target">;
+export type KnowledgeContradictionTarget = z.infer<typeof KnowledgeContradictionTargetSchema>;
+/** What a publication contradicts: another page slug (as before) or a typed target. */
+export declare const KnowledgeContradictionSchema: z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+    target: z.ZodLiteral<"decision">;
+    requestId: z.ZodString;
+    planVersion: z.ZodNumber;
+}, z.core.$strict>, z.ZodObject<{
+    target: z.ZodLiteral<"map_entry">;
+    kind: z.ZodEnum<{
+        access: "access";
+        referent: "referent";
+        person: "person";
+        responsibility: "responsibility";
+        asset: "asset";
+    }>;
+    key: z.ZodString;
+    version: z.ZodNumber;
+}, z.core.$strict>], "target">]>;
+export type KnowledgeContradiction = z.infer<typeof KnowledgeContradictionSchema>;
 /**
  * Publication of knowledge with provenance and version chain. Strict: no field
  * can enable tools or permissions.
@@ -95,7 +131,22 @@ export declare const KnowledgePublicationSchema: z.ZodObject<{
     supersedes: z.ZodOptional<z.ZodNumber>;
     validFrom: z.ZodISODateTime;
     validUntil: z.ZodOptional<z.ZodISODateTime>;
-    contradicts: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    contradicts: z.ZodOptional<z.ZodArray<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+        target: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+        planVersion: z.ZodNumber;
+    }, z.core.$strict>, z.ZodObject<{
+        target: z.ZodLiteral<"map_entry">;
+        kind: z.ZodEnum<{
+            access: "access";
+            referent: "referent";
+            person: "person";
+            responsibility: "responsibility";
+            asset: "asset";
+        }>;
+        key: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>], "target">]>>>;
     reason: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type KnowledgePublication = z.infer<typeof KnowledgePublicationSchema>;

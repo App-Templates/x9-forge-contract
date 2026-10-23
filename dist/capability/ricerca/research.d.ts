@@ -17,6 +17,7 @@ export declare const ResearchRequestSchema: z.ZodObject<{
     goal: z.ZodOptional<z.ZodString>;
     parentResearchId: z.ZodOptional<z.ZodString>;
     labGapsRef: z.ZodOptional<z.ZodString>;
+    projectId: z.ZodOptional<z.ZodString>;
     maxUsd: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type ResearchRequest = z.infer<typeof ResearchRequestSchema>;
