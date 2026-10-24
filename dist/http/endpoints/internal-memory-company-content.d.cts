@@ -22,7 +22,11 @@ export declare const CompanyContentReadRequestSchema: z.ZodObject<{
         issuedAt: z.ZodISODateTime;
         expiresAt: z.ZodISODateTime;
     }, z.core.$strict>;
-    clientId: z.ZodString;
+    /**
+     * Optional since 1.65.0 (MVP, decision «Da dove il turno del Director e di Lab sa la sua azienda cliente e il suo
+     * ruolo»): absent, the service uses the client company the map attests for the verified organization.
+     */
+    clientId: z.ZodOptional<z.ZodString>;
     projectId: z.ZodOptional<z.ZodString>;
     query: z.ZodOptional<z.ZodString>;
     limit: z.ZodOptional<z.ZodNumber>;
@@ -76,7 +80,11 @@ export declare const internalMemoryCompanyContentReadContract: {
             issuedAt: z.ZodISODateTime;
             expiresAt: z.ZodISODateTime;
         }, z.core.$strict>;
-        clientId: z.ZodString;
+        /**
+         * Optional since 1.65.0 (MVP, decision «Da dove il turno del Director e di Lab sa la sua azienda cliente e il suo
+         * ruolo»): absent, the service uses the client company the map attests for the verified organization.
+         */
+        clientId: z.ZodOptional<z.ZodString>;
         projectId: z.ZodOptional<z.ZodString>;
         query: z.ZodOptional<z.ZodString>;
         limit: z.ZodOptional<z.ZodNumber>;

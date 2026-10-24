@@ -22,8 +22,8 @@ export declare const DevProductionResultSchema: z.ZodDiscriminatedUnion<[z.ZodOb
     sessionId: z.ZodString;
     productKind: z.ZodEnum<{
         code: "code";
-        presentation: "presentation";
         design: "design";
+        presentation: "presentation";
         automation: "automation";
     }>;
     reportVersion: z.ZodNumber;
@@ -65,8 +65,8 @@ export declare const DevProductionResultSchema: z.ZodDiscriminatedUnion<[z.ZodOb
     sessionId: z.ZodString;
     productKind: z.ZodEnum<{
         code: "code";
-        presentation: "presentation";
         design: "design";
+        presentation: "presentation";
         automation: "automation";
     }>;
     reportVersion: z.ZodNumber;

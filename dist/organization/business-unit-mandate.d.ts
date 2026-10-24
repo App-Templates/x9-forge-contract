@@ -54,7 +54,13 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
         planDigest: z.ZodString;
         businessUnit: z.ZodObject<{
             buSlug: z.ZodString;
-            typeId: z.ZodString;
+            typeId: z.ZodEnum<{
+                dati: "dati";
+                design: "design";
+                sviluppo: "sviluppo";
+                finanza: "finanza";
+                marketing: "marketing";
+            }>;
             mandate: z.ZodString;
             competencies: z.ZodArray<z.ZodString>;
             lead: z.ZodObject<{

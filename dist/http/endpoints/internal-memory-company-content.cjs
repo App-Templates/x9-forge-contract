@@ -9,7 +9,11 @@ exports.COMPANY_CONTENT_SOURCES = ['publication', 'decision', 'map_entry'];
 /** The service checks the requested client against the reader's attested identity. */
 exports.CompanyContentReadRequestSchema = zod_1.z.strictObject({
     context: run_context_js_1.OrganizationRunContextSchema,
-    clientId: asset_js_1.AssetRefSchema.shape.companyId,
+    /**
+     * Optional since 1.65.0 (MVP, decision «Da dove il turno del Director e di Lab sa la sua azienda cliente e il suo
+     * ruolo»): absent, the service uses the client company the map attests for the verified organization.
+     */
+    clientId: asset_js_1.AssetRefSchema.shape.companyId.optional(),
     projectId: zod_1.z.string().min(1).max(64).optional(),
     query: zod_1.z.string().min(1).max(2000).optional(),
     limit: zod_1.z.number().int().min(1).max(50).optional(),

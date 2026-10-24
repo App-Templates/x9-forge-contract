@@ -28,9 +28,13 @@ describe('AgentRoleSchema', () => {
     expect(BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE).toBe(BUSINESS_UNIT_LEAD_ROLE);
   });
 
-  it('publishes exactly the two company agent roles', () => {
-    expect(AGENT_ROLES).toEqual(['director', 'capo-bu']);
-    expect(AGENT_ROLES).toHaveLength(2);
+  it('publishes exactly the four company agent roles (lab and ricerca since 1.65.0)', () => {
+    expect(AGENT_ROLES).toEqual(['director', 'capo-bu', 'lab', 'ricerca']);
+    expect(AGENT_ROLES).toHaveLength(4);
+    expect(AgentRoleSchema.parse('lab')).toBe('lab');
+    expect(AgentRoleSchema.parse('ricerca')).toBe('ricerca');
+    expect(AGENT_ROLE_BASE_CAPABILITIES.lab).toEqual(['ricerca', 'lab', 'email', 'memory']);
+    expect(AGENT_ROLE_BASE_CAPABILITIES.ricerca).toEqual(['ricerca', 'lab', 'email', 'memory']);
   });
 });
 

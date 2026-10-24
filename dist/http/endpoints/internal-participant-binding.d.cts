@@ -42,6 +42,12 @@ export declare const InternalParticipantBindingApplyRequestSchema: z.ZodObject<{
             reviewer: "reviewer";
             observer: "observer";
         }>>;
+        agentRole: z.ZodOptional<z.ZodEnum<{
+            ricerca: "ricerca";
+            lab: "lab";
+            director: "director";
+            "capo-bu": "capo-bu";
+        }>>;
         recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"organization">;
             id: z.ZodString;
@@ -124,6 +130,12 @@ export declare const InternalParticipantBindingReadResponseSchema: z.ZodUnion<re
             reviewer: "reviewer";
             observer: "observer";
         }>>;
+        agentRole: z.ZodOptional<z.ZodEnum<{
+            ricerca: "ricerca";
+            lab: "lab";
+            director: "director";
+            "capo-bu": "capo-bu";
+        }>>;
         recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"organization">;
             id: z.ZodString;
@@ -194,6 +206,12 @@ export declare const InternalParticipantBindingListResponseSchema: z.ZodObject<{
                 member: "member";
                 reviewer: "reviewer";
                 observer: "observer";
+            }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
             }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;
@@ -309,6 +327,12 @@ export declare const InternalParticipantBindingResolveResponseSchema: z.ZodDiscr
             reviewer: "reviewer";
             observer: "observer";
         }>>;
+        agentRole: z.ZodOptional<z.ZodEnum<{
+            ricerca: "ricerca";
+            lab: "lab";
+            director: "director";
+            "capo-bu": "capo-bu";
+        }>>;
         recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"organization">;
             id: z.ZodString;
@@ -380,6 +404,12 @@ export declare const internalParticipantBindingApplyContract: {
                 member: "member";
                 reviewer: "reviewer";
                 observer: "observer";
+            }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
             }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;
@@ -466,6 +496,12 @@ export declare const internalParticipantBindingReadContract: {
                 reviewer: "reviewer";
                 observer: "observer";
             }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
+            }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;
                 id: z.ZodString;
@@ -540,6 +576,12 @@ export declare const internalParticipantBindingListContract: {
                     member: "member";
                     reviewer: "reviewer";
                     observer: "observer";
+                }>>;
+                agentRole: z.ZodOptional<z.ZodEnum<{
+                    ricerca: "ricerca";
+                    lab: "lab";
+                    director: "director";
+                    "capo-bu": "capo-bu";
                 }>>;
                 recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     kind: z.ZodLiteral<"organization">;
@@ -662,6 +704,12 @@ export declare const internalParticipantBindingResolveContract: {
                 member: "member";
                 reviewer: "reviewer";
                 observer: "observer";
+            }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
             }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;

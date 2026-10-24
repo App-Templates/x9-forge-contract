@@ -6,6 +6,7 @@ exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
 const agent_role_js_1 = require("./agent-role.cjs");
 const asset_js_1 = require("./asset.cjs");
+const business_unit_type_js_1 = require("./business-unit-type.cjs");
 const decision_request_js_1 = require("./decision-request.cjs");
 const SlugSchema = (min, max) => zod_1.z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const UniqueCompetenciesSchema = zod_1.z.array(zod_1.z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' });
@@ -35,7 +36,8 @@ exports.ActionPlanBuStartSchema = zod_1.z.discriminatedUnion('kind', [
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 exports.ActionPlanBusinessUnitSchema = zod_1.z.strictObject({
     buSlug: SlugSchema(1, 30),
-    typeId: SlugSchema(2, 40),
+    /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
+    typeId: business_unit_type_js_1.BusinessUnitLeadTypeIdSchema,
     mandate: zod_1.z.string().min(1).max(2000),
     competencies: UniqueCompetenciesSchema,
     lead: zod_1.z.strictObject({ role: zod_1.z.literal(agent_role_js_1.BUSINESS_UNIT_LEAD_ROLE) }),
