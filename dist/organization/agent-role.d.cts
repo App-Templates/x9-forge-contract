@@ -3,8 +3,14 @@ import { z } from 'zod';
 export declare const DIRECTOR_ROLE: "director";
 /** Agent role responsible for leading a business unit. */
 export declare const BUSINESS_UNIT_LEAD_ROLE: "capo-bu";
-export declare const AGENT_ROLES: readonly ["director", "capo-bu"];
+/** R&D agent that keeps the company notebook (Lab, 1.65.0). */
+export declare const LAB_ROLE: "lab";
+/** R&D agent that researches outside the company (Ricerca, 1.65.0). */
+export declare const RICERCA_ROLE: "ricerca";
+export declare const AGENT_ROLES: readonly ["director", "capo-bu", "lab", "ricerca"];
 export declare const AgentRoleSchema: z.ZodEnum<{
+    ricerca: "ricerca";
+    lab: "lab";
     director: "director";
     "capo-bu": "capo-bu";
 }>;

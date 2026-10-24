@@ -83,7 +83,13 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
         criticalPath: z.ZodArray<z.ZodNumber>;
         businessUnits: z.ZodArray<z.ZodObject<{
             buSlug: z.ZodString;
-            typeId: z.ZodString;
+            typeId: z.ZodEnum<{
+                dati: "dati";
+                design: "design";
+                sviluppo: "sviluppo";
+                finanza: "finanza";
+                marketing: "marketing";
+            }>;
             mandate: z.ZodString;
             competencies: z.ZodArray<z.ZodString>;
             lead: z.ZodObject<{
@@ -260,7 +266,13 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
         criticalPath: z.ZodArray<z.ZodNumber>;
         businessUnits: z.ZodArray<z.ZodObject<{
             buSlug: z.ZodString;
-            typeId: z.ZodString;
+            typeId: z.ZodEnum<{
+                dati: "dati";
+                design: "design";
+                sviluppo: "sviluppo";
+                finanza: "finanza";
+                marketing: "marketing";
+            }>;
             mandate: z.ZodString;
             competencies: z.ZodArray<z.ZodString>;
             lead: z.ZodObject<{
@@ -453,7 +465,13 @@ export declare const internalMemoryActionPlanSaveContract: {
             criticalPath: z.ZodArray<z.ZodNumber>;
             businessUnits: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
-                typeId: z.ZodString;
+                typeId: z.ZodEnum<{
+                    dati: "dati";
+                    design: "design";
+                    sviluppo: "sviluppo";
+                    finanza: "finanza";
+                    marketing: "marketing";
+                }>;
                 mandate: z.ZodString;
                 competencies: z.ZodArray<z.ZodString>;
                 lead: z.ZodObject<{
@@ -633,7 +651,13 @@ export declare const internalMemoryActionPlanReadContract: {
             criticalPath: z.ZodArray<z.ZodNumber>;
             businessUnits: z.ZodArray<z.ZodObject<{
                 buSlug: z.ZodString;
-                typeId: z.ZodString;
+                typeId: z.ZodEnum<{
+                    dati: "dati";
+                    design: "design";
+                    sviluppo: "sviluppo";
+                    finanza: "finanza";
+                    marketing: "marketing";
+                }>;
                 mandate: z.ZodString;
                 competencies: z.ZodArray<z.ZodString>;
                 lead: z.ZodObject<{

@@ -32,7 +32,14 @@ export type ActionPlanBuStart = z.infer<typeof ActionPlanBuStartSchema>;
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
     buSlug: z.ZodString;
-    typeId: z.ZodString;
+    /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
+    typeId: z.ZodEnum<{
+        dati: "dati";
+        design: "design";
+        sviluppo: "sviluppo";
+        finanza: "finanza";
+        marketing: "marketing";
+    }>;
     mandate: z.ZodString;
     competencies: z.ZodArray<z.ZodString>;
     lead: z.ZodObject<{
@@ -124,7 +131,14 @@ export declare const ActionPlanSchema: z.ZodObject<{
     criticalPath: z.ZodArray<z.ZodNumber>;
     businessUnits: z.ZodArray<z.ZodObject<{
         buSlug: z.ZodString;
-        typeId: z.ZodString;
+        /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
+        typeId: z.ZodEnum<{
+            dati: "dati";
+            design: "design";
+            sviluppo: "sviluppo";
+            finanza: "finanza";
+            marketing: "marketing";
+        }>;
         mandate: z.ZodString;
         competencies: z.ZodArray<z.ZodString>;
         lead: z.ZodObject<{
@@ -267,7 +281,14 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
     criticalPath: z.ZodArray<z.ZodNumber>;
     businessUnits: z.ZodArray<z.ZodObject<{
         buSlug: z.ZodString;
-        typeId: z.ZodString;
+        /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
+        typeId: z.ZodEnum<{
+            dati: "dati";
+            design: "design";
+            sviluppo: "sviluppo";
+            finanza: "finanza";
+            marketing: "marketing";
+        }>;
         mandate: z.ZodString;
         competencies: z.ZodArray<z.ZodString>;
         lead: z.ZodObject<{

@@ -28,6 +28,8 @@ export declare const capManifestContract: {
                 write: "write";
             }>>;
             roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
                 director: "director";
                 "capo-bu": "capo-bu";
             }>>>;

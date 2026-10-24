@@ -3730,6 +3730,10 @@ export declare const AgentModelSourceObservationSchema: z.ZodObject<{
     sourceVersion: z.ZodString;
     observedAt: z.ZodISODateTime;
     validUntil: z.ZodISODateTime;
+    effectiveModel: z.ZodOptional<z.ZodObject<{
+        provider: z.ZodString;
+        model: z.ZodString;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type AgentModelSourceObservation = z.infer<typeof AgentModelSourceObservationSchema>;
 /** A fresh HTTP generation is necessary for a command; producers still recheck after every await. */
@@ -4407,6 +4411,10 @@ export declare const AgentModelsStateSchema: z.ZodObject<{
         sourceVersion: z.ZodString;
         observedAt: z.ZodISODateTime;
         validUntil: z.ZodISODateTime;
+        effectiveModel: z.ZodOptional<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>>>;
     initialSource: z.ZodOptional<z.ZodNullable<z.ZodPipe<z.ZodTransform<unknown, unknown>, z.ZodObject<{
         schemaVersion: z.ZodLiteral<1>;

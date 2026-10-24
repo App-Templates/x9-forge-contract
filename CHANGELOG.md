@@ -1,5 +1,14 @@
 # Changelog — @x9-forge/contracts
 
+## v1.65.0 — tipi da capo BU, ruoli lab e ricerca, modello effettivo, azienda cliente facoltativa nella lettura
+
+- Tipi da capo BU (percorso MVP): `BUSINESS_UNIT_LEAD_TYPE_IDS` (dati, design, sviluppo, finanza, marketing), `BusinessUnitLeadTypeIdSchema`. Fonte unica (R-14): il catalogo di Forge (`packages/shared/src/business-unit-types.ts`) importa questi id e tiene solo capacità, livello e profilo. **Non compatibile:** `ActionPlanBusinessUnitSchema.typeId` accetta solo questi tipi (un piano non può più nominare un tipo che Forge non conosce). I piani salvati nella memoria A esistono solo da oggi e non sono in produzione.
+- Ruoli (Stefano 24/10: «Si aggiungilo»): `LAB_ROLE`, `RICERCA_ROLE` in `AGENT_ROLES` con le loro capacità di base; `ParticipantBindingSchema.agentRole` facoltativo, scritto dal server alla creazione del posto. Additivo.
+- Modello effettivo (decisione #21, «Ok»): `AgentModelSourceObservationSchema.effectiveModel` facoltativo (fornitore e modello), per la sonda T4. Additivo.
+- Lettura del contenuto aziendale (decisione #18, «si strada minima per mvp»): `CompanyContentReadRequestSchema.clientId` facoltativo; se manca, la memoria A usa l'azienda attestata dalla mappa. Additivo per chi chiama.
+- Consumatori: X9 (cap-email, memoria A, cap-paperclip, agent-core), Forge (catalogo dei tipi, compito dell'Opus di Forge).
+- `dist` ricostruita; conservati 624/624 export di `dist/http/endpoints/index.cjs` e 176/176 di `dist/organization/index.cjs` (ora 180).
+
 ## v1.64.0 — versioni del piano d'azione nella memoria aziendale, additive
 
 - F1P-01 (buco della riga: il contenuto del piano non era salvato da nessuna parte, la richiesta di decisione F1X-03 porta solo il soggetto): `INTERNAL_MEMORY_ACTION_PLANS_PATH` e `INTERNAL_MEMORY_ACTION_PLAN_READ_PATH`, `ActionPlanSaveRequestSchema`/`ActionPlanSaveResponseSchema`, `ActionPlanReadRequestSchema`/`ActionPlanReadResponseSchema`, `ACTION_PLAN_ERROR_CODES`, `ActionPlanErrorResponseSchema`, `internalMemoryActionPlanSaveContract` e `internalMemoryActionPlanReadContract` (POST, `authType: 'secret'`, contesto firmato come le altre rotte della memoria aziendale).

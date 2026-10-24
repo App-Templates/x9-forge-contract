@@ -20,6 +20,15 @@ const observation = {
   sourceVersion: 'synthetic-loaded-generation', observedAt: '2026-10-09T06:20:00Z', validUntil: '2026-10-09T06:20:30Z',
 };
 
+describe('effective model of the observation (1.65.0)', () => {
+  it('carries provider and model when the producer knows them, and stays valid without them', () => {
+    expect(API.AgentModelSourceObservationSchema.safeParse({ ...observation, effectiveModel: { provider: 'openai', model: 'gpt-5' } }).success).toBe(true);
+    expect(API.AgentModelSourceObservationSchema.safeParse(observation).success).toBe(true);
+    expect(API.AgentModelSourceObservationSchema.safeParse({ ...observation, effectiveModel: { provider: 'openai' } }).success).toBe(false);
+    expect(API.AgentModelSourceObservationSchema.safeParse({ ...observation, effectiveModel: { provider: 'openai', model: 'gpt-5', key: 'x' } }).success).toBe(false);
+  });
+});
+
 describe('local model source observation HTTP contract', () => {
   it('L01 exposes a local-only GET before priming using the exact canonical response', () => {
     const value = contract();
