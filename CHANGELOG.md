@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.64.0 — versioni del piano d'azione nella memoria aziendale, additive
+
+- F1P-01 (buco della riga: il contenuto del piano non era salvato da nessuna parte, la richiesta di decisione F1X-03 porta solo il soggetto): `INTERNAL_MEMORY_ACTION_PLANS_PATH` e `INTERNAL_MEMORY_ACTION_PLAN_READ_PATH`, `ActionPlanSaveRequestSchema`/`ActionPlanSaveResponseSchema`, `ActionPlanReadRequestSchema`/`ActionPlanReadResponseSchema`, `ACTION_PLAN_ERROR_CODES`, `ActionPlanErrorResponseSchema`, `internalMemoryActionPlanSaveContract` e `internalMemoryActionPlanReadContract` (POST, `authType: 'secret'`, contesto firmato come le altre rotte della memoria aziendale).
+- Consumatori: memoria A di X9 (salva e legge), cap-email `email_request_decision` (salva la versione che manda), cap-paperclip `paperclip_create_approved_business_units` (legge la versione approvata).
+- Compatibile con la 1.63.0: solo aggiunte. `dist` ricostruita; conservati 613/613 export di `dist/http/endpoints/index.cjs` (ora 624).
+
 ## v1.63.0 — contesto firmato nelle rotte asset della memoria aziendale, non compatibile
 
 - F5B-01, seconda parte (compito del ponte per cap-lab/190 F5L-01, scelta di Stefano del 24/10: «Sì, va bene»): `InternalMemoryAssetIngestRequestSchema.context` (`OrganizationRunContextSchema`) obbligatorio: chi carica un documento dice per quale azienda agentica lo fa, con il contesto firmato del run; un allegato email che arriva da solo porta il contesto che il connettore emette per l'organizzazione della conversazione. La memoria A prende tenant e organizzazione dal contesto verificato, mai dall'asset (R-33).
