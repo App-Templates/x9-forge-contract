@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.67.0 — letture R&D per agente (lacune del brief di Lab, ricerche di Ricerca), additivo
+
+- TV2B-01 (328), sonda T2: `labBriefGapsListContract` (GET `/internal/capability/agents/:agentId/lab/brief-gaps`), `LabBriefGapsListQuerySchema` e `LabBriefGapsListResponseSchema`; `ricercaResearchListContract` (GET `/internal/capability/agents/:agentId/ricerca/researches`), `RicercaResearchListQuerySchema` e `RicercaResearchListResponseSchema`. Entrambe le letture richiedono il segreto interno e lo scope esplicito del tenant e del proprietario.
+- Consumatori: cap-lab e cap-ricerca di X9, sonde T2 di night; ripin TV2X-01, rotte TV2L-01/02 e sonda TV2N-04 necessari per il rilascio completo.
+- TV2B-02 (329): versione e `dist` ricostruita con `pnpm build`; conservati 627/627 export di `dist/http/endpoints/index.cjs`, più 6 nuovi (totale 633).
+
 ## v1.66.0 — elenco delle richieste di decisione di un agente, additivo
 
 - Sonde T3 e T7 dell'MVP (F1N-01) e ogni lettore che non conosce il requestId: `internalMemoryDecisionRequestListContract` (GET sullo stesso percorso della creazione), `InternalMemoryDecisionRequestListQuerySchema` (tenantId, agentId, planId e limit facoltativi), `InternalMemoryDecisionRequestListResponseSchema`.

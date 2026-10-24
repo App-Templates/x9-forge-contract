@@ -47,6 +47,7 @@ __exportStar(require("./internal-dev-jobs.cjs"), exports);
 __exportStar(require("./internal-dev-cancel.cjs"), exports);
 __exportStar(require("./internal-dev-production.cjs"), exports);
 __exportStar(require("./internal-capability-lab.cjs"), exports);
+__exportStar(require("./internal-rd-observations.cjs"), exports);
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);
