@@ -1,5 +1,22 @@
 # STATO
 
+## 24/10/2026 — ponte unico 1.67.0 (TV2B-02)
+
+REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.67.0, dopo il commit e l'integrazione di TV2B-02 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin; pubblicazione del riferimento a cura della coordinatrice.
+Base verificata in lettura: `33e212ed273c4f46ab81e4ab768aae1c042433d4`, punta comune con i sorgenti di TV2B-01 e `package.json` ancora 1.66.0, discendente di `d3ba734`.
+Compiti contenuti nel riferimento da pubblicare: 328 (TV2B-01, contratti delle due letture R&D) e 329 (TV2B-02, versione 1.67.0, CHANGELOG e `dist`).
+`dist/` è versionato e ricostruito con `pnpm build` (esito 0); verificati 627/627 export conservati in `http/endpoints`, più 6 nuovi (totale 633). Accettazione completa, suite e controllo dei tipi restano allo script.
+
+| Consumatore | File | Valore attuale | Valore da mettere |
+|---|---|---|---|
+| X9 (agent-x9, `integ/azienda-x9`) | `package.json` (dipendenze e override), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | Da rilevare in TV2X-01 nel repo X9 | REF, voce del lockfile `version: 1.67.0` |
+| X9 (agent-x9, `integ/azienda-x9`) | `packages/capability-sdk`, `packages/company-memory-engine`, `services/cap-dev`, `services/cap-lab` (`package.json`) e altri pin del ponte rilevati da TV2X-01 | Da rilevare in TV2X-01 nel repo X9 | REF |
+| X9 (agent-x9, `integ/azienda-x9`) | `vendor/x9-forge-contract-bridge/.synced-from-sha` | Da rilevare in TV2X-01 nel repo X9 | REF, con `scripts/sync-bridge.sh` |
+| Forge (`integ/azienda-forge`) | `package.json` (`pnpm.overrides`), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | Da rilevare nel repo Forge quando necessario | REF solo quando serve a Forge |
+
+I pacchetti interni di Forge usano `workspace:*` e seguono l'override della radice.
+Ripin X9: TV2X-01; fruibilità T2 dopo TV2L-01, TV2L-02 e TV2N-04. Tag v1.67.0 a cura della coordinatrice su REF.
+
 ## 22/10/2026 — ponte unico 1.60.0 (F1B-07)
 
 REF = `19a9142177df3eb786487becc7ca3952a65f300a` (compito 312 pubblicato dal night nuovo su `integ/azienda-bridge` il 23/10 alle 10:47, `package.json` 1.60.0, su GitHub).

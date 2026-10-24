@@ -30,6 +30,7 @@ export * from "./internal-dev-jobs.cjs";
 export * from "./internal-dev-cancel.cjs";
 export * from "./internal-dev-production.cjs";
 export * from "./internal-capability-lab.cjs";
+export * from "./internal-rd-observations.cjs";
 export * from "./webhook-post-call.cjs";
 export * from "./voice-register.cjs";
 export * from "./vault-resolve.cjs";
