@@ -1,8 +1,10 @@
 import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
 import {
+  INTERNAL_MEMORY_ASSETS_LIST_PATH,
   INTERNAL_MEMORY_ASSETS_PATH,
   InternalMemoryAssetIngestRequestSchema,
+  InternalMemoryAssetListRequestSchema,
   InternalMemoryAssetIngestResponseSchema,
   InternalMemoryAssetListQuerySchema,
   InternalMemoryAssetListResponseSchema,
@@ -23,6 +25,12 @@ const asset = {
   createdAt: '2026-10-22T10:00:00Z',
 };
 const query = { tenantId: 'tenant-1', agentId: 'agent-1', projectId: 'project-1' };
+const context = {
+  schemaVersion: 1, runId: 'run-1', organizationId: 'org-1', ownerId: 'owner-1',
+  identity: { managementAgentId: 'director', runtimeAgentId: 'director' }, issuer: 'x9',
+  issuedAt: '2026-10-24T07:00:00.000Z', expiresAt: '2026-10-24T09:00:00.000Z',
+};
+const list = { context, projectId: 'project-1' };
 
 describe('internal memory assets contract', () => {
   it('exports ingest and list contracts from source and the built CommonJS index', () => {
@@ -34,10 +42,10 @@ describe('internal memory assets contract', () => {
       responseSchema: InternalMemoryAssetIngestResponseSchema,
     });
     expect(internalMemoryAssetListContract).toEqual({
-      method: 'GET',
-      path: INTERNAL_MEMORY_ASSETS_PATH,
+      method: 'POST',
+      path: INTERNAL_MEMORY_ASSETS_LIST_PATH,
       authType: 'secret',
-      querySchema: InternalMemoryAssetListQuerySchema,
+      bodySchema: InternalMemoryAssetListRequestSchema,
       responseSchema: InternalMemoryAssetListResponseSchema,
     });
 
@@ -46,31 +54,32 @@ describe('internal memory assets contract', () => {
       method: 'POST', path: INTERNAL_MEMORY_ASSETS_PATH, authType: 'secret',
     });
     expect(built.internalMemoryAssetListContract).toMatchObject({
-      method: 'GET', path: INTERNAL_MEMORY_ASSETS_PATH, authType: 'secret',
+      method: 'POST', path: INTERNAL_MEMORY_ASSETS_LIST_PATH, authType: 'secret',
     });
   }, 30_000);
 
   it('exports the path from the endpoints index', () => {
     expect(INTERNAL_MEMORY_ASSETS_PATH).toBe('/internal/memory/assets');
+    expect(INTERNAL_MEMORY_ASSETS_LIST_PATH).toBe('/internal/memory/assets/list');
   });
 
   it('accepts a valid ingest request', () => {
-    expect(InternalMemoryAssetIngestRequestSchema.safeParse({ asset, contentBase64: 'AAEC' }).success).toBe(true);
+    expect(InternalMemoryAssetIngestRequestSchema.safeParse({ context, asset, contentBase64: 'AAEC' }).success).toBe(true);
   });
 
   it('rejects an asset without sha256', () => {
     const { sha256: _sha, ...noSha } = asset;
-    expect(InternalMemoryAssetIngestRequestSchema.safeParse({ asset: noSha, contentBase64: 'AAEC' }).success).toBe(false);
+    expect(InternalMemoryAssetIngestRequestSchema.safeParse({ context, asset: noSha, contentBase64: 'AAEC' }).success).toBe(false);
   });
 
   it('rejects an extra key (strict)', () => {
     expect(
-      InternalMemoryAssetIngestRequestSchema.safeParse({ asset, contentBase64: 'AAEC', extra: 1 }).success,
+      InternalMemoryAssetIngestRequestSchema.safeParse({ context, asset, contentBase64: 'AAEC', extra: 1 }).success,
     ).toBe(false);
   });
 
   it('accepts file and archive responses, archive with null preview', () => {
-    expect(InternalMemoryAssetIngestResponseSchema.safeParse({ kind: 'file', assetId: 'asset_000001' }).success).toBe(true);
+    expect(InternalMemoryAssetIngestResponseSchema.safeParse({ kind: 'file', assetId: 'asset_000001', sha256: 'a'.repeat(64) }).success).toBe(true);
     expect(
       InternalMemoryAssetIngestResponseSchema.safeParse({
         kind: 'archive',
@@ -82,10 +91,12 @@ describe('internal memory assets contract', () => {
   });
 
   it('bounds the list limit to 1..200', () => {
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, limit: 1 }).success).toBe(true);
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, limit: 200 }).success).toBe(true);
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, limit: 0 }).success).toBe(false);
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, limit: 201 }).success).toBe(false);
+    // The deprecated query keeps parsing for anyone still importing it.
     expect(InternalMemoryAssetListQuerySchema.safeParse({ ...query, limit: 1 }).success).toBe(true);
-    expect(InternalMemoryAssetListQuerySchema.safeParse({ ...query, limit: 200 }).success).toBe(true);
-    expect(InternalMemoryAssetListQuerySchema.safeParse({ ...query, limit: 0 }).success).toBe(false);
-    expect(InternalMemoryAssetListQuerySchema.safeParse({ ...query, limit: 201 }).success).toBe(false);
   });
 
   it('accepts a list response with links', () => {
@@ -107,29 +118,29 @@ describe('internal memory assets: links and company/BU filter', () => {
   };
 
   it('accepts a link ingest without content', () => {
-    expect(InternalMemoryAssetIngestRequestSchema.safeParse({ asset: linkAsset }).success).toBe(true);
+    expect(InternalMemoryAssetIngestRequestSchema.safeParse({ context, asset: linkAsset }).success).toBe(true);
   });
 
   it('rejects a link ingest with content (link_has_no_content)', () => {
-    const r = InternalMemoryAssetIngestRequestSchema.safeParse({ asset: linkAsset, contentBase64: 'AAEC' });
+    const r = InternalMemoryAssetIngestRequestSchema.safeParse({ context, asset: linkAsset, contentBase64: 'AAEC' });
     expect(r.success).toBe(false);
     expect(JSON.stringify(r.error?.issues)).toContain('link_has_no_content');
   });
 
   it('rejects an email ingest without content (content_required)', () => {
-    const r = InternalMemoryAssetIngestRequestSchema.safeParse({ asset });
+    const r = InternalMemoryAssetIngestRequestSchema.safeParse({ context, asset });
     expect(r.success).toBe(false);
     expect(JSON.stringify(r.error?.issues)).toContain('content_required');
   });
 
   it('accepts a list query with companyId and buSlug', () => {
     expect(
-      InternalMemoryAssetListQuerySchema.safeParse({ ...query, companyId: 'company-1', buSlug: 'design' }).success,
+      InternalMemoryAssetListRequestSchema.safeParse({ ...list, companyId: 'company-1', buSlug: 'design' }).success,
     ).toBe(true);
   });
 
   it('rejects a list query with an invalid buSlug', () => {
-    expect(InternalMemoryAssetListQuerySchema.safeParse({ ...query, buSlug: 'Design' }).success).toBe(false);
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, buSlug: 'Design' }).success).toBe(false);
   });
 
   it('accepts a list response asset with assetType and buSlug', () => {
@@ -138,5 +149,33 @@ describe('internal memory assets: links and company/BU filter', () => {
         assets: [{ ...asset, assetType: 'image', buSlug: 'design', links: [] }],
       }).success,
     ).toBe(true);
+  });
+});
+
+describe('internal memory assets: signed context (1.63.0)', () => {
+  it('rejects an ingest without the signed context of the run or of the connector', () => {
+    const r = InternalMemoryAssetIngestRequestSchema.safeParse({ asset, contentBase64: 'AAEC' });
+    expect(r.success).toBe(false);
+    expect(JSON.stringify(r.error?.issues)).toContain('context');
+  });
+
+  it('rejects a context with free-form fields or expired before issued', () => {
+    expect(InternalMemoryAssetIngestRequestSchema.safeParse({
+      context: { ...context, secret: 'x' }, asset, contentBase64: 'AAEC',
+    }).success).toBe(false);
+    expect(InternalMemoryAssetIngestRequestSchema.safeParse({
+      context: { ...context, expiresAt: '2026-10-24T06:00:00.000Z' }, asset, contentBase64: 'AAEC',
+    }).success).toBe(false);
+  });
+
+  it('rejects a list without context, and tenant or agent given in the body', () => {
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ projectId: 'project-1' }).success).toBe(false);
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, tenantId: 'tenant-1' }).success).toBe(false);
+    expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, agentId: 'agent-1' }).success).toBe(false);
+  });
+
+  it('answers a file ingest with its sha256 fingerprint', () => {
+    expect(InternalMemoryAssetIngestResponseSchema.safeParse({ kind: 'file', assetId: 'asset_000001' }).success).toBe(false);
+    expect(InternalMemoryAssetIngestResponseSchema.safeParse({ kind: 'file', assetId: 'asset_000001', sha256: 'z'.repeat(64) }).success).toBe(false);
   });
 });

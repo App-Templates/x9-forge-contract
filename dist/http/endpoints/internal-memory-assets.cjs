@@ -1,16 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryAssetListContract = exports.internalMemoryAssetIngestContract = exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
+exports.internalMemoryAssetListContract = exports.internalMemoryAssetIngestContract = exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetListRequestSchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
+const run_context_js_1 = require("../../organization/run-context.cjs");
 exports.INTERNAL_MEMORY_ASSETS_PATH = '/internal/memory/assets';
+/** List of the assets of a project: POST, because the signed run context does not fit a query string. */
+exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = '/internal/memory/assets/list';
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
  * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ * `context` says for which agentic company (organization) the asset is stored: the signed context of the run,
+ * as for the other company memory routes. An attachment that arrives on its own (email) carries the context the
+ * connector issues for the organization of the conversation. The service takes tenant and organization from the
+ * verified context, never from `asset`.
  */
 exports.InternalMemoryAssetIngestRequestSchema = zod_1.z
     .strictObject({
+    context: run_context_js_1.OrganizationRunContextSchema,
     asset: asset_js_1.AssetRefSchema,
     contentBase64: zod_1.z.string().min(1).optional(),
 })
@@ -24,7 +32,7 @@ exports.InternalMemoryAssetIngestRequestSchema = zod_1.z
     }
 });
 exports.InternalMemoryAssetIngestResponseSchema = zod_1.z.discriminatedUnion('kind', [
-    zod_1.z.strictObject({ kind: zod_1.z.literal('file'), assetId: asset_js_1.AssetRefSchema.shape.assetId }),
+    zod_1.z.strictObject({ kind: zod_1.z.literal('file'), assetId: asset_js_1.AssetRefSchema.shape.assetId, sha256: asset_js_1.AssetSha256Schema }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal('archive'),
         archiveAssetId: asset_js_1.AssetRefSchema.shape.assetId,
@@ -37,7 +45,15 @@ exports.InternalMemoryAssetIngestResponseSchema = zod_1.z.discriminatedUnion('ki
         previewAssetId: asset_js_1.AssetRefSchema.shape.assetId.nullable(),
     }),
 ]);
-/** GET: assets of a project. */
+/** POST INTERNAL_MEMORY_ASSETS_LIST_PATH: assets of a project, for the organization of the signed context. */
+exports.InternalMemoryAssetListRequestSchema = zod_1.z.strictObject({
+    context: run_context_js_1.OrganizationRunContextSchema,
+    projectId: asset_js_1.AssetRefSchema.shape.projectId,
+    companyId: asset_js_1.AssetRefSchema.shape.companyId.optional(),
+    buSlug: asset_js_1.AssetRefSchema.shape.buSlug,
+    limit: zod_1.z.number().int().min(1).max(200).optional(),
+});
+/** @deprecated 1.63.0: the list carries the signed context, use `InternalMemoryAssetListRequestSchema`. */
 exports.InternalMemoryAssetListQuerySchema = zod_1.z.strictObject({
     tenantId: asset_js_1.AssetRefSchema.shape.tenantId,
     agentId: agent_identity_js_1.AgentIdSchema,
@@ -59,10 +75,10 @@ exports.internalMemoryAssetIngestContract = {
     responseSchema: exports.InternalMemoryAssetIngestResponseSchema,
 };
 exports.internalMemoryAssetListContract = {
-    method: 'GET',
-    path: exports.INTERNAL_MEMORY_ASSETS_PATH,
+    method: 'POST',
+    path: exports.INTERNAL_MEMORY_ASSETS_LIST_PATH,
     authType: 'secret',
-    querySchema: exports.InternalMemoryAssetListQuerySchema,
+    bodySchema: exports.InternalMemoryAssetListRequestSchema,
     responseSchema: exports.InternalMemoryAssetListResponseSchema,
 };
 //# sourceMappingURL=internal-memory-assets.js.map

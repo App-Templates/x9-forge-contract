@@ -1,10 +1,35 @@
 import { z } from 'zod';
 export declare const INTERNAL_MEMORY_ASSETS_PATH: "/internal/memory/assets";
+/** List of the assets of a project: POST, because the signed run context does not fit a query string. */
+export declare const INTERNAL_MEMORY_ASSETS_LIST_PATH: "/internal/memory/assets/list";
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
  * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ * `context` says for which agentic company (organization) the asset is stored: the signed context of the run,
+ * as for the other company memory routes. An attachment that arrives on its own (email) carries the context the
+ * connector issues for the organization of the conversation. The service takes tenant and organization from the
+ * verified context, never from `asset`.
  */
 export declare const InternalMemoryAssetIngestRequestSchema: z.ZodObject<{
+    context: z.ZodObject<{
+        schemaVersion: z.ZodLiteral<1>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        organizationId: z.ZodString;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
+        issuer: z.ZodEnum<{
+            x9: "x9";
+            forge: "forge";
+            paperclip: "paperclip";
+        }>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
     asset: z.ZodObject<{
         assetId: z.ZodString;
         sha256: z.ZodString;
@@ -43,6 +68,7 @@ export type InternalMemoryAssetIngestRequest = z.infer<typeof InternalMemoryAsse
 export declare const InternalMemoryAssetIngestResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"file">;
     assetId: z.ZodString;
+    sha256: z.ZodString;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"archive">;
     archiveAssetId: z.ZodString;
@@ -55,7 +81,34 @@ export declare const InternalMemoryAssetIngestResponseSchema: z.ZodDiscriminated
     previewAssetId: z.ZodNullable<z.ZodString>;
 }, z.core.$strict>], "kind">;
 export type InternalMemoryAssetIngestResponse = z.infer<typeof InternalMemoryAssetIngestResponseSchema>;
-/** GET: assets of a project. */
+/** POST INTERNAL_MEMORY_ASSETS_LIST_PATH: assets of a project, for the organization of the signed context. */
+export declare const InternalMemoryAssetListRequestSchema: z.ZodObject<{
+    context: z.ZodObject<{
+        schemaVersion: z.ZodLiteral<1>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        organizationId: z.ZodString;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
+        issuer: z.ZodEnum<{
+            x9: "x9";
+            forge: "forge";
+            paperclip: "paperclip";
+        }>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    projectId: z.ZodString;
+    companyId: z.ZodOptional<z.ZodString>;
+    buSlug: z.ZodOptional<z.ZodString>;
+    limit: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export type InternalMemoryAssetListRequest = z.infer<typeof InternalMemoryAssetListRequestSchema>;
+/** @deprecated 1.63.0: the list carries the signed context, use `InternalMemoryAssetListRequestSchema`. */
 export declare const InternalMemoryAssetListQuerySchema: z.ZodObject<{
     tenantId: z.ZodString;
     agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -109,6 +162,25 @@ export declare const internalMemoryAssetIngestContract: {
     readonly path: "/internal/memory/assets";
     readonly authType: "secret";
     readonly bodySchema: z.ZodObject<{
+        context: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            organizationId: z.ZodString;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
+            issuer: z.ZodEnum<{
+                x9: "x9";
+                forge: "forge";
+                paperclip: "paperclip";
+            }>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
         asset: z.ZodObject<{
             assetId: z.ZodString;
             sha256: z.ZodString;
@@ -146,6 +218,7 @@ export declare const internalMemoryAssetIngestContract: {
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"file">;
         assetId: z.ZodString;
+        sha256: z.ZodString;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"archive">;
         archiveAssetId: z.ZodString;
@@ -159,16 +232,33 @@ export declare const internalMemoryAssetIngestContract: {
     }, z.core.$strict>], "kind">;
 };
 export declare const internalMemoryAssetListContract: {
-    readonly method: "GET";
-    readonly path: "/internal/memory/assets";
+    readonly method: "POST";
+    readonly path: "/internal/memory/assets/list";
     readonly authType: "secret";
-    readonly querySchema: z.ZodObject<{
-        tenantId: z.ZodString;
-        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    readonly bodySchema: z.ZodObject<{
+        context: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            organizationId: z.ZodString;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
+            issuer: z.ZodEnum<{
+                x9: "x9";
+                forge: "forge";
+                paperclip: "paperclip";
+            }>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
         projectId: z.ZodString;
         companyId: z.ZodOptional<z.ZodString>;
         buSlug: z.ZodOptional<z.ZodString>;
-        limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+        limit: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         assets: z.ZodArray<z.ZodObject<{
