@@ -1,15 +1,23 @@
 import { z } from 'zod';
 import { AgentIdSchema } from '../../agent/agent-identity.js';
-import { AssetRefSchema } from '../../organization/asset.js';
+import { AssetRefSchema, AssetSha256Schema } from '../../organization/asset.js';
+import { OrganizationRunContextSchema } from '../../organization/run-context.js';
 
 export const INTERNAL_MEMORY_ASSETS_PATH = '/internal/memory/assets' as const;
+/** List of the assets of a project: POST, because the signed run context does not fit a query string. */
+export const INTERNAL_MEMORY_ASSETS_LIST_PATH = '/internal/memory/assets/list' as const;
 
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
  * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ * `context` says for which agentic company (organization) the asset is stored: the signed context of the run,
+ * as for the other company memory routes. An attachment that arrives on its own (email) carries the context the
+ * connector issues for the organization of the conversation. The service takes tenant and organization from the
+ * verified context, never from `asset`.
  */
 export const InternalMemoryAssetIngestRequestSchema = z
   .strictObject({
+    context: OrganizationRunContextSchema,
     asset: AssetRefSchema,
     contentBase64: z.string().min(1).optional(),
   })
@@ -25,7 +33,7 @@ export const InternalMemoryAssetIngestRequestSchema = z
 export type InternalMemoryAssetIngestRequest = z.infer<typeof InternalMemoryAssetIngestRequestSchema>;
 
 export const InternalMemoryAssetIngestResponseSchema = z.discriminatedUnion('kind', [
-  z.strictObject({ kind: z.literal('file'), assetId: AssetRefSchema.shape.assetId }),
+  z.strictObject({ kind: z.literal('file'), assetId: AssetRefSchema.shape.assetId, sha256: AssetSha256Schema }),
   z.strictObject({
     kind: z.literal('archive'),
     archiveAssetId: AssetRefSchema.shape.assetId,
@@ -42,7 +50,17 @@ export const InternalMemoryAssetIngestResponseSchema = z.discriminatedUnion('kin
 ]);
 export type InternalMemoryAssetIngestResponse = z.infer<typeof InternalMemoryAssetIngestResponseSchema>;
 
-/** GET: assets of a project. */
+/** POST INTERNAL_MEMORY_ASSETS_LIST_PATH: assets of a project, for the organization of the signed context. */
+export const InternalMemoryAssetListRequestSchema = z.strictObject({
+  context: OrganizationRunContextSchema,
+  projectId: AssetRefSchema.shape.projectId,
+  companyId: AssetRefSchema.shape.companyId.optional(),
+  buSlug: AssetRefSchema.shape.buSlug,
+  limit: z.number().int().min(1).max(200).optional(),
+});
+export type InternalMemoryAssetListRequest = z.infer<typeof InternalMemoryAssetListRequestSchema>;
+
+/** @deprecated 1.63.0: the list carries the signed context, use `InternalMemoryAssetListRequestSchema`. */
 export const InternalMemoryAssetListQuerySchema = z.strictObject({
   tenantId: AssetRefSchema.shape.tenantId,
   agentId: AgentIdSchema,
@@ -71,9 +89,9 @@ export const internalMemoryAssetIngestContract = {
 } as const;
 
 export const internalMemoryAssetListContract = {
-  method: 'GET' as const,
-  path: INTERNAL_MEMORY_ASSETS_PATH,
+  method: 'POST' as const,
+  path: INTERNAL_MEMORY_ASSETS_LIST_PATH,
   authType: 'secret' as const,
-  querySchema: InternalMemoryAssetListQuerySchema,
+  bodySchema: InternalMemoryAssetListRequestSchema,
   responseSchema: InternalMemoryAssetListResponseSchema,
 } as const;

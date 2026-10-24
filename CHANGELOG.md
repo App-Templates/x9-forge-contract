@@ -1,5 +1,13 @@
 # Changelog — @x9-forge/contracts
 
+## v1.63.0 — contesto firmato nelle rotte asset della memoria aziendale, non compatibile
+
+- F5B-01, seconda parte (compito del ponte per cap-lab/190 F5L-01, scelta di Stefano del 24/10: «Sì, va bene»): `InternalMemoryAssetIngestRequestSchema.context` (`OrganizationRunContextSchema`) obbligatorio: chi carica un documento dice per quale azienda agentica lo fa, con il contesto firmato del run; un allegato email che arriva da solo porta il contesto che il connettore emette per l'organizzazione della conversazione. La memoria A prende tenant e organizzazione dal contesto verificato, mai dall'asset (R-33).
+- La risposta `file` dell'ingest porta `sha256` (impronta del contenuto).
+- Elenco: `INTERNAL_MEMORY_ASSETS_LIST_PATH` (`/internal/memory/assets/list`), `InternalMemoryAssetListRequestSchema` (contesto, `projectId`, `companyId`/`buSlug`/`limit` facoltativi; niente `tenantId`/`agentId` nel corpo) e `internalMemoryAssetListContract` diventa POST con `bodySchema`. `InternalMemoryAssetListQuerySchema` resta esportato, deprecato.
+- Consumatori da aggiornare: memoria A di X9 (cap-lab/190, primo consumatore: nessuno usava ancora queste rotte), poi F5L-02 e F5C-01.
+- `dist` ricostruita; conservati 611/611 export di `dist/http/endpoints/index.cjs` (ora 613).
+
 ## v1.62.0 — projectId della ricerca e consulta_prima_il_quaderno, additive
 
 - 322 (F1L-03): `ResearchRequestSchema.projectId` (facoltativo, come `AssetRefSchema.shape.projectId`) e `RicercaToolErrorSchema` con `consulta_prima_il_quaderno` in `src/capability/ricerca/` (consumatore: cap-ricerca di X9 `research_start`; poi cap-lab).
