@@ -114,6 +114,7 @@ export * from './internal-memory-assets.js';
 // F1B-03 — mappa dell'azienda cliente nella memoria A
 export * from './internal-memory-company-map.js';
 export * from './internal-memory-company-content.js';
+export * from './internal-memory-action-plans.js';
 // F3X-03 — riconciliazione minima delle fonti del mandato nella memoria A
 export * from './internal-memory-mandate-reconcile.js';
 export * from './internal-memory-knowledge.js';
