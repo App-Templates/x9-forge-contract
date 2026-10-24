@@ -35,6 +35,12 @@ describe('company content read contract', () => {
     }).success).toBe(true);
   });
 
+  it('accepts a request without clientId (1.65.0): the service uses the client the map attests', () => {
+    const { clientId: _clientId, ...withoutClient } = request;
+    expect(CompanyContentReadRequestSchema.safeParse(withoutClient).success).toBe(true);
+    expect(CompanyContentReadRequestSchema.safeParse({ ...withoutClient, clientId: '' }).success).toBe(false);
+  });
+
   it('accepts every allowed source and permits the same reference across sources', () => {
     expect(COMPANY_CONTENT_SOURCES).toEqual(['publication', 'decision', 'map_entry']);
     expect(CompanyContentReadResponseSchema.safeParse({
@@ -60,8 +66,8 @@ describe('company content read contract', () => {
     });
   });
 
-  it('rejects a request without clientId', () => {
-    expect(CompanyContentReadRequestSchema.safeParse({ context }).success).toBe(false);
+  it('rejects a request without the signed context (clientId is optional since 1.65.0)', () => {
+    expect(CompanyContentReadRequestSchema.safeParse({ clientId: 'good-choice' }).success).toBe(false);
   });
 
   it.each([0, 51, 1.5])('rejects an invalid limit of %s', (limit) => {

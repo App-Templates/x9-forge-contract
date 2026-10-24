@@ -16,6 +16,8 @@ export declare const PaperclipEnrollmentSchema: z.ZodObject<{
     }, z.core.$strict>;
     organizationId: z.ZodString;
     role: z.ZodEnum<{
+        ricerca: "ricerca";
+        lab: "lab";
         director: "director";
         "capo-bu": "capo-bu";
     }>;
@@ -64,6 +66,8 @@ export declare const InternalPaperclipEnrollmentResolveResponseSchema: z.ZodDisc
         }, z.core.$strict>;
         organizationId: z.ZodString;
         role: z.ZodEnum<{
+            ricerca: "ricerca";
+            lab: "lab";
             director: "director";
             "capo-bu": "capo-bu";
         }>;
@@ -117,6 +121,8 @@ export declare const internalPaperclipEnrollmentResolveContract: {
             }, z.core.$strict>;
             organizationId: z.ZodString;
             role: z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
                 director: "director";
                 "capo-bu": "capo-bu";
             }>;

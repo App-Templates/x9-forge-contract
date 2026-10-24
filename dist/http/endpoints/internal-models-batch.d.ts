@@ -3140,6 +3140,10 @@ export declare const internalAgentModelsStateContract: {
             sourceVersion: z.ZodString;
             observedAt: z.ZodISODateTime;
             validUntil: z.ZodISODateTime;
+            effectiveModel: z.ZodOptional<z.ZodObject<{
+                provider: z.ZodString;
+                model: z.ZodString;
+            }, z.core.$strict>>;
         }, z.core.$strict>>>;
         initialSource: z.ZodOptional<z.ZodNullable<z.ZodPipe<z.ZodTransform<unknown, unknown>, z.ZodObject<{
             schemaVersion: z.ZodLiteral<1>;

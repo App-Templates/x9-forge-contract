@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { BUSINESS_UNIT_LEAD_ROLE, DIRECTOR_ROLE } from "./agent-role.js";
 import { AssetRefSchema, AssetSha256Schema } from "./asset.js";
+import { BusinessUnitLeadTypeIdSchema } from "./business-unit-type.js";
 import { DecisionRequestIdSchema } from "./decision-request.js";
 const SlugSchema = (min, max) => z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const UniqueCompetenciesSchema = z.array(z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' });
@@ -30,7 +31,8 @@ export const ActionPlanBuStartSchema = z.discriminatedUnion('kind', [
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 export const ActionPlanBusinessUnitSchema = z.strictObject({
     buSlug: SlugSchema(1, 30),
-    typeId: SlugSchema(2, 40),
+    /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
+    typeId: BusinessUnitLeadTypeIdSchema,
     mandate: z.string().min(1).max(2000),
     competencies: UniqueCompetenciesSchema,
     lead: z.strictObject({ role: z.literal(BUSINESS_UNIT_LEAD_ROLE) }),

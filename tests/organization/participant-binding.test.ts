@@ -47,6 +47,19 @@ describe('ParticipantBindingSchema', () => {
   });
 });
 
+describe('ParticipantBindingSchema agentRole (1.65.0)', () => {
+  it('accepts a server-written agent role and a binding saved before without it', () => {
+    expect(ParticipantBindingSchema.safeParse({ ...valid(), agentRole: 'lab' }).success).toBe(true);
+    expect(ParticipantBindingSchema.safeParse({ ...valid(), agentRole: 'director' }).success).toBe(true);
+    expect(ParticipantBindingSchema.safeParse(valid()).success).toBe(true);
+  });
+
+  it('rejects a role outside the agent roles', () => {
+    expect(ParticipantBindingSchema.safeParse({ ...valid(), agentRole: 'Lab' }).success).toBe(false);
+    expect(ParticipantBindingSchema.safeParse({ ...valid(), agentRole: 'lead' }).success).toBe(false);
+  });
+});
+
 describe('ParticipantBindingResolutionSchema', () => {
   it.each(['bound', 'unknown_participant', 'ambiguous', 'foreign_scope'])('accepts %s', (outcome) => {
     expect(

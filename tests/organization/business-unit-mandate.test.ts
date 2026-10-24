@@ -22,7 +22,7 @@ function mandate(reconciliation: MandateReconciliation = { outcome: 'agrees' }):
       planDigest: 'a'.repeat(64),
       businessUnit: {
         buSlug: 'sales',
-        typeId: 'sales-b2b',
+        typeId: 'marketing',
         mandate: 'Acquire the first client and report questions to the referent.',
         competencies: ['outreach'],
         lead: { role: 'capo-bu' },

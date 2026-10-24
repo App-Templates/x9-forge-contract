@@ -4,8 +4,12 @@ import { z } from 'zod';
 export const DIRECTOR_ROLE = 'director' as const;
 /** Agent role responsible for leading a business unit. */
 export const BUSINESS_UNIT_LEAD_ROLE = 'capo-bu' as const;
+/** R&D agent that keeps the company notebook (Lab, 1.65.0). */
+export const LAB_ROLE = 'lab' as const;
+/** R&D agent that researches outside the company (Ricerca, 1.65.0). */
+export const RICERCA_ROLE = 'ricerca' as const;
 
-export const AGENT_ROLES = [DIRECTOR_ROLE, BUSINESS_UNIT_LEAD_ROLE] as const;
+export const AGENT_ROLES = [DIRECTOR_ROLE, BUSINESS_UNIT_LEAD_ROLE, LAB_ROLE, RICERCA_ROLE] as const;
 export const AgentRoleSchema = z.enum(AGENT_ROLES);
 export type AgentRole = z.infer<typeof AgentRoleSchema>;
 
@@ -13,6 +17,8 @@ export type AgentRole = z.infer<typeof AgentRoleSchema>;
 export const AGENT_ROLE_BASE_CAPABILITIES: Readonly<Record<AgentRole, readonly string[]>> = {
   [DIRECTOR_ROLE]: ['email', 'memory', 'lab', 'ricerca', 'paperclip'],
   [BUSINESS_UNIT_LEAD_ROLE]: ['email', 'memory', 'lab', 'qa', 'ricerca', 'paperclip'],
+  [LAB_ROLE]: ['ricerca', 'lab', 'email', 'memory'],
+  [RICERCA_ROLE]: ['ricerca', 'lab', 'email', 'memory'],
 };
 
 /** Base capabilities of the role followed by the extras, without duplicates. */

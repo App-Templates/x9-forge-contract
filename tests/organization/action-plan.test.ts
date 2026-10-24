@@ -7,7 +7,7 @@ import {
 
 const nowUnit = {
   buSlug: 'vendite',
-  typeId: 'vendite-b2b',
+  typeId: 'marketing',
   mandate: 'Portare i primi clienti.',
   competencies: ['outreach', 'trattativa'],
   lead: { role: 'capo-bu' },
@@ -53,6 +53,16 @@ describe('ActionPlanBusinessUnitSchema', () => {
 
   it('rejects a lead with the director role', () => {
     expect(ActionPlanBusinessUnitSchema.safeParse({ ...nowUnit, lead: { role: 'director' } }).success).toBe(false);
+  });
+
+  it('accepts only a lead type of the catalog (1.65.0)', () => {
+    for (const typeId of ['dati', 'design', 'sviluppo', 'finanza', 'marketing']) {
+      expect(ActionPlanBusinessUnitSchema.safeParse({ ...nowUnit, typeId }).success).toBe(true);
+    }
+    // A type Forge does not know, the Director and Ricerca/Lab are not units of a plan.
+    for (const typeId of ['vendite-b2b', 'director', 'ricerca-lab', 'Dati']) {
+      expect(ActionPlanBusinessUnitSchema.safeParse({ ...nowUnit, typeId }).success).toBe(false);
+    }
   });
 
   it('rejects an executor outside the list', () => {

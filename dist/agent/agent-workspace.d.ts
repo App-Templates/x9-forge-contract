@@ -243,6 +243,8 @@ export declare const AgentWorkspaceDescriptorSchema: z.ZodObject<{
                     write: "write";
                 }>>;
                 roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                    ricerca: "ricerca";
+                    lab: "lab";
                     director: "director";
                     "capo-bu": "capo-bu";
                 }>>>;
@@ -1782,6 +1784,8 @@ export declare const AgentWorkspaceRollbackValidationSchema: z.ZodObject<{
                         write: "write";
                     }>>;
                     roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        ricerca: "ricerca";
+                        lab: "lab";
                         director: "director";
                         "capo-bu": "capo-bu";
                     }>>>;
@@ -3642,6 +3646,8 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
                         write: "write";
                     }>>;
                     roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        ricerca: "ricerca";
+                        lab: "lab";
                         director: "director";
                         "capo-bu": "capo-bu";
                     }>>>;
@@ -5496,6 +5502,8 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
                         write: "write";
                     }>>;
                     roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        ricerca: "ricerca";
+                        lab: "lab";
                         director: "director";
                         "capo-bu": "capo-bu";
                     }>>>;

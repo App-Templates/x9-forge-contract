@@ -3,7 +3,7 @@ import { ActionPlanSchema, CompleteActionPlanSchema } from '../../src/organizati
 
 const nowUnit = {
   buSlug: 'vendite',
-  typeId: 'vendite-b2b',
+  typeId: 'marketing',
   mandate: 'Portare i primi clienti.',
   competencies: ['outreach', 'trattativa'],
   lead: { role: 'capo-bu' },
