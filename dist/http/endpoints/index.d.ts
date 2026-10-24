@@ -30,6 +30,7 @@ export * from "./internal-dev-jobs.js";
 export * from "./internal-dev-cancel.js";
 export * from "./internal-dev-production.js";
 export * from "./internal-capability-lab.js";
+export * from "./internal-rd-observations.js";
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
 export * from "./vault-resolve.js";
