@@ -19,6 +19,19 @@ export const InternalMemoryDecisionRequestReadResponseSchema = z.discriminatedUn
     z.strictObject({ request: DecisionRequestSchema, state: z.literal('open'), outcome: z.null() }),
     z.strictObject({ request: DecisionRequestSchema, state: z.literal('decided'), outcome: DecisionOutcomeSchema }),
 ]);
+/**
+ * List (1.66.0, stage probes T3/T7 and readers that do not know the request id): the requests opened by one agent,
+ * optionally only those whose subject is one plan, newest first. Same scope rule as the read: tenant and agent.
+ */
+export const InternalMemoryDecisionRequestListQuerySchema = z.strictObject({
+    tenantId: DecisionRequestSchema.shape.tenantId,
+    agentId: AgentIdSchema,
+    planId: DecisionRequestIdSchema.optional(),
+    limit: z.coerce.number().int().min(1).max(100).optional(),
+});
+export const InternalMemoryDecisionRequestListResponseSchema = z.strictObject({
+    requests: z.array(InternalMemoryDecisionRequestReadResponseSchema).max(100),
+});
 export const InternalMemoryDecisionRequestOutcomeResponseSchema = z.strictObject({
     result: z.enum(['recorded', 'duplicate']),
 });
@@ -68,5 +81,13 @@ export const internalMemoryDecisionRequestOutcomeContract = {
     paramsSchema: InternalMemoryDecisionRequestParamsSchema,
     bodySchema: DecisionOutcomeSchema,
     responseSchema: InternalMemoryDecisionRequestOutcomeResponseSchema,
+};
+/** List: 200 with the agent's requests (newest first); an unknown agent answers an empty list, never another's. */
+export const internalMemoryDecisionRequestListContract = {
+    method: 'GET',
+    path: INTERNAL_MEMORY_DECISION_REQUESTS_PATH,
+    authType: 'secret',
+    querySchema: InternalMemoryDecisionRequestListQuerySchema,
+    responseSchema: InternalMemoryDecisionRequestListResponseSchema,
 };
 //# sourceMappingURL=internal-memory-decision-requests.js.map

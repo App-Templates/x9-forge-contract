@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryDecisionRequestOutcomeContract = exports.internalMemoryDecisionRequestReadContract = exports.internalMemoryDecisionRequestCreateContract = exports.DecisionRequestErrorResponseSchema = exports.DecisionRequestErrorCodeSchema = exports.InternalMemoryDecisionRequestOutcomeResponseSchema = exports.InternalMemoryDecisionRequestReadResponseSchema = exports.InternalMemoryDecisionRequestCreateResponseSchema = exports.InternalMemoryDecisionRequestQuerySchema = exports.InternalMemoryDecisionRequestParamsSchema = exports.INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH = void 0;
+exports.internalMemoryDecisionRequestListContract = exports.internalMemoryDecisionRequestOutcomeContract = exports.internalMemoryDecisionRequestReadContract = exports.internalMemoryDecisionRequestCreateContract = exports.DecisionRequestErrorResponseSchema = exports.DecisionRequestErrorCodeSchema = exports.InternalMemoryDecisionRequestOutcomeResponseSchema = exports.InternalMemoryDecisionRequestListResponseSchema = exports.InternalMemoryDecisionRequestListQuerySchema = exports.InternalMemoryDecisionRequestReadResponseSchema = exports.InternalMemoryDecisionRequestCreateResponseSchema = exports.InternalMemoryDecisionRequestQuerySchema = exports.InternalMemoryDecisionRequestParamsSchema = exports.INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH = exports.INTERNAL_MEMORY_DECISION_REQUEST_PATH = exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
 const decision_request_js_1 = require("../../organization/decision-request.cjs");
@@ -22,6 +22,19 @@ exports.InternalMemoryDecisionRequestReadResponseSchema = zod_1.z.discriminatedU
     zod_1.z.strictObject({ request: decision_request_js_1.DecisionRequestSchema, state: zod_1.z.literal('open'), outcome: zod_1.z.null() }),
     zod_1.z.strictObject({ request: decision_request_js_1.DecisionRequestSchema, state: zod_1.z.literal('decided'), outcome: decision_request_js_1.DecisionOutcomeSchema }),
 ]);
+/**
+ * List (1.66.0, stage probes T3/T7 and readers that do not know the request id): the requests opened by one agent,
+ * optionally only those whose subject is one plan, newest first. Same scope rule as the read: tenant and agent.
+ */
+exports.InternalMemoryDecisionRequestListQuerySchema = zod_1.z.strictObject({
+    tenantId: decision_request_js_1.DecisionRequestSchema.shape.tenantId,
+    agentId: agent_identity_js_1.AgentIdSchema,
+    planId: decision_request_js_1.DecisionRequestIdSchema.optional(),
+    limit: zod_1.z.coerce.number().int().min(1).max(100).optional(),
+});
+exports.InternalMemoryDecisionRequestListResponseSchema = zod_1.z.strictObject({
+    requests: zod_1.z.array(exports.InternalMemoryDecisionRequestReadResponseSchema).max(100),
+});
 exports.InternalMemoryDecisionRequestOutcomeResponseSchema = zod_1.z.strictObject({
     result: zod_1.z.enum(['recorded', 'duplicate']),
 });
@@ -71,5 +84,13 @@ exports.internalMemoryDecisionRequestOutcomeContract = {
     paramsSchema: exports.InternalMemoryDecisionRequestParamsSchema,
     bodySchema: decision_request_js_1.DecisionOutcomeSchema,
     responseSchema: exports.InternalMemoryDecisionRequestOutcomeResponseSchema,
+};
+/** List: 200 with the agent's requests (newest first); an unknown agent answers an empty list, never another's. */
+exports.internalMemoryDecisionRequestListContract = {
+    method: 'GET',
+    path: exports.INTERNAL_MEMORY_DECISION_REQUESTS_PATH,
+    authType: 'secret',
+    querySchema: exports.InternalMemoryDecisionRequestListQuerySchema,
+    responseSchema: exports.InternalMemoryDecisionRequestListResponseSchema,
 };
 //# sourceMappingURL=internal-memory-decision-requests.js.map

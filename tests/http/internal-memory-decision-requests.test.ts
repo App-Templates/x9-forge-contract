@@ -7,6 +7,7 @@ import {
   internalMemoryDecisionRequestCreateContract as create,
   internalMemoryDecisionRequestReadContract as read,
   internalMemoryDecisionRequestOutcomeContract as outcome,
+  internalMemoryDecisionRequestListContract as list,
 } from '../../src/http/endpoints/index.js';
 
 const request = {
@@ -93,5 +94,26 @@ describe('internal memory decision requests', () => {
       expect(DecisionRequestErrorResponseSchema.parse({ code, message: 'Decision request failed' }).code).toBe(code);
     }
     expect(DecisionRequestErrorResponseSchema.safeParse({ code: 'unknown', message: 'Failure' }).success).toBe(false);
+  });
+});
+
+describe('internal memory decision requests list (1.66.0)', () => {
+  it('lists the requests of one agent, optionally of one plan, on the same path with GET', () => {
+    expect(list).toMatchObject({ method: 'GET', path: INTERNAL_MEMORY_DECISION_REQUESTS_PATH, authType: 'secret' });
+    expect(list.querySchema.parse({ tenantId: 'tenant-acme', agentId: 'director-runtime' })).toEqual({ tenantId: 'tenant-acme', agentId: 'director-runtime' });
+    expect(list.querySchema.parse({ tenantId: 'tenant-acme', agentId: 'director-runtime', planId: 'plan_good01', limit: '20' }))
+      .toEqual({ tenantId: 'tenant-acme', agentId: 'director-runtime', planId: 'plan_good01', limit: 20 });
+    expect(list.querySchema.safeParse({ agentId: 'director-runtime' }).success).toBe(false);
+    expect(list.querySchema.safeParse({ tenantId: 'tenant-acme', agentId: 'director-runtime', limit: 101 }).success).toBe(false);
+    expect(list.querySchema.safeParse({ tenantId: 'tenant-acme', agentId: 'director-runtime', extra: 1 }).success).toBe(false);
+  });
+
+  it('answers open and decided requests', () => {
+    const body = { requests: [
+      { request, state: 'open', outcome: null },
+      { request: { ...request, requestId: 'decision_260' }, state: 'decided', outcome: { ...approved, requestId: 'decision_260' } },
+    ] };
+    expect(list.responseSchema.parse(body)).toEqual(body);
+    expect(list.responseSchema.safeParse({ requests: [{ request, state: 'decided', outcome: null }] }).success).toBe(false);
   });
 });

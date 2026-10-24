@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.66.0 — elenco delle richieste di decisione di un agente, additivo
+
+- Sonde T3 e T7 dell'MVP (F1N-01) e ogni lettore che non conosce il requestId: `internalMemoryDecisionRequestListContract` (GET sullo stesso percorso della creazione), `InternalMemoryDecisionRequestListQuerySchema` (tenantId, agentId, planId e limit facoltativi), `InternalMemoryDecisionRequestListResponseSchema`.
+- Consumatori: memoria A di X9 (rotta), sonde di night.
+- `dist` ricostruita; conservati 624/624 export di `dist/http/endpoints/index.cjs` (ora 627).
+
 ## v1.65.0 — tipi da capo BU, ruoli lab e ricerca, modello effettivo, azienda cliente facoltativa nella lettura
 
 - Tipi da capo BU (percorso MVP): `BUSINESS_UNIT_LEAD_TYPE_IDS` (dati, design, sviluppo, finanza, marketing), `BusinessUnitLeadTypeIdSchema`. Fonte unica (R-14): il catalogo di Forge (`packages/shared/src/business-unit-types.ts`) importa questi id e tiene solo capacità, livello e profilo. **Non compatibile:** `ActionPlanBusinessUnitSchema.typeId` accetta solo questi tipi (un piano non può più nominare un tipo che Forge non conosce). I piani salvati nella memoria A esistono solo da oggi e non sono in produzione.
