@@ -1,5 +1,21 @@
 # STATO
 
+## 25/10/2026 — ponte unico 1.69.0 (W26B-02)
+
+REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.69.0, dopo il commit e l'integrazione di W26B-02 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin; pubblicazione del riferimento a cura della coordinatrice.
+Base verificata in lettura: `79b3a50b4a5213afeb34b195e3bc78aaed1687d6`, punta comune con `package.json` 1.68.0 (W26B-01, 332) e il sorgente della spesa (333, `a85438c`).
+Compiti contenuti nel riferimento da pubblicare: 333 (W26B-02, lettura della spesa di una BU rispetto al tetto) e questo (versione 1.69.0, CHANGELOG e `dist`); più quanto già nella 1.68.0 (330, 331, 332).
+
+| Consumatore | File | Valore attuale | Valore da mettere |
+|---|---|---|---|
+| X9 (agent-x9, `integ/azienda-x9`) | `package.json` (dipendenze e override), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | REF della 1.67.0 (63adb31) o della 1.68.0 se già ripinnato | REF, voce del lockfile `version: 1.69.0` |
+| X9 (agent-x9, `integ/azienda-x9`) | `packages/capability-sdk`, `packages/company-memory-engine`, `services/cap-dev`, `services/cap-lab` (`package.json`) e altri pin del ponte | REF precedente | REF |
+| X9 (agent-x9, `integ/azienda-x9`) | `vendor/x9-forge-contract-bridge/.synced-from-sha` | REF precedente | REF, con `scripts/sync-bridge.sh` |
+| Forge (`integ/azienda-forge`) | `package.json` (`pnpm.overrides`), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | Da rilevare nel repo Forge | REF solo quando serve a Forge (pannello della spesa della BU) |
+
+I pacchetti interni di Forge usano `workspace:*` e seguono l'override della radice.
+Ripin X9: compito dedicato; fruibilità T12 dopo la rotta del servizio che misura la spesa, il pannello Forge e la sonda T12. Tag v1.69.0 a cura della coordinatrice su REF.
+
 ## 25/10/2026 — ponte unico 1.68.0 (W26B-01)
 
 REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.68.0, dopo il commit e l'integrazione di W26B-01 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin; pubblicazione del riferimento a cura della coordinatrice.
