@@ -45,4 +45,5 @@ __exportStar(require("./action-plan.cjs"), exports);
 __exportStar(require("./company-map.cjs"), exports);
 __exportStar(require("./business-unit-mandate.cjs"), exports);
 __exportStar(require("./vertical-plan.cjs"), exports);
+__exportStar(require("./vertical-plan-observation.cjs"), exports);
 //# sourceMappingURL=index.js.map

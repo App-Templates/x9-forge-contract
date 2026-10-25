@@ -1,5 +1,19 @@
 # STATO
 
+## 26/10/2026 — ponte unico 1.70.0 (W25B-01)
+
+REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.70.0, dopo il commit e l'integrazione di W25B-01 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin.
+Compiti contenuti nel riferimento da pubblicare: 335 e 336 (contratti dell'osservazione), 337 e 338 (sorgente) e questo (versione 1.70.0, CHANGELOG e `dist`); più quanto già nella 1.69.0.
+
+| Consumatore | File | Valore attuale | Valore da mettere |
+|---|---|---|---|
+| X9 (agent-x9, `integ/azienda-x9`) | `package.json` (dipendenze e override), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | REF della 1.69.0 o precedente | REF, voce del lockfile `version: 1.70.0` |
+| X9 (agent-x9, `integ/azienda-x9`) | `packages/capability-sdk`, `packages/company-memory-engine`, `services/cap-dev`, `services/cap-lab` (`package.json`) e altri pin del ponte | REF precedente | REF |
+| X9 (agent-x9, `integ/azienda-x9`) | `vendor/x9-forge-contract-bridge/.synced-from-sha` | REF precedente | REF, con `scripts/sync-bridge.sh` |
+| Forge (`integ/azienda-forge`) | `package.json` (`pnpm.overrides`), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | Da rilevare nel repo Forge | REF solo se gli serve (non richiesto da T10) |
+
+Ripin X9: compito dedicato; fruibilità T10 dopo W25L-02 (rotte e persistenza in memoria X9) e la sonda `piano_verticale_versione`. Tag v1.70.0 a cura della coordinatrice su REF.
+
 ## 25/10/2026 — ponte unico 1.69.0 (W26B-02)
 
 REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.69.0, dopo il commit e l'integrazione di W26B-02 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin; pubblicazione del riferimento a cura della coordinatrice.

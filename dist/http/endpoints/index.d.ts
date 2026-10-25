@@ -90,6 +90,7 @@ export * from "./internal-memory-action-plans.js";
 export * from "./internal-company-spend.js";
 export * from "./internal-memory-mandate-reconcile.js";
 export * from "./internal-memory-mandate-observations.js";
+export * from "./internal-memory-vertical-plan-observations.js";
 export * from "./internal-memory-knowledge.js";
 export * from "./connect-public.js";
 export * from "./internal-connection-completed.js";

@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentContextWithIdentityWriteSchema = exports.AgentContextWithIdentitySchema = exports.AgentContextIdentitySchema = void 0;
+exports.AgentContextWithIdentityWriteSchema = exports.AgentContextWithIdentitySchema = exports.AgentContextIdentitySchema = exports.AgentTenantIdSchema = void 0;
 exports.createAgentContextIdentity = createAgentContextIdentity;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("./agent-identity.cjs");
 const agent_runtime_identity_js_1 = require("./agent-runtime-identity.cjs");
 const agent_channel_configuration_js_1 = require("./agent-channel-configuration.cjs");
+exports.AgentTenantIdSchema = zod_1.z.string().min(1).refine(value => value.trim().length > 0, 'Tenant identity must not be blank');
 const NonblankAgentId = agent_identity_js_1.AgentIdSchema.refine(value => value.trim().length > 0, 'Agent identity must not be blank');
 const ContextRuntimeIdentity = agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.extend({
     managementAgentId: NonblankAgentId,
@@ -15,7 +16,7 @@ const ContextRuntimeIdentity = agent_runtime_identity_js_1.AgentRuntimeIdentityS
 const CommonIdentityFields = zod_1.z.object({
     agentId: NonblankAgentId,
     ownerId: agent_identity_js_1.OwnerIdSchema.refine(value => value.trim().length > 0, 'Owner identity must not be blank'),
-    tenantId: zod_1.z.string().min(1).refine(value => value.trim().length > 0, 'Tenant identity must not be blank'),
+    tenantId: exports.AgentTenantIdSchema,
     identity: ContextRuntimeIdentity,
 });
 const MasterIdentity = CommonIdentityFields.extend({ role: zod_1.z.literal('master'), masterAgentId: zod_1.z.never().optional() }).strict();
