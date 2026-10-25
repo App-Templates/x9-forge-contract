@@ -1,5 +1,20 @@
 # STATO
 
+## 26/10/2026 — ponte unico 1.71.0 (W22B-01)
+
+REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.71.0, dopo il commit e l'integrazione di W22B-01 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin.
+Base verificata in lettura: `93efa29687dffc9d79e06567a8265c99ef2cd63a`, punta del ramo comune con `package.json` 1.70.0 (W25B-01), che contiene già il sorgente del compito 335.
+Compiti contenuti nel riferimento da pubblicare: 335 (W22B-01, tenant nell'inventario) e questo (versione 1.71.0, CHANGELOG e `dist`); più quanto già nella 1.70.0.
+
+| Consumatore | File | Valore attuale | Valore da mettere |
+|---|---|---|---|
+| X9 (agent-x9, `integ/azienda-x9`) | `package.json` (dipendenze e override), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | REF della 1.70.0 o precedente | REF, voce del lockfile `version: 1.71.0` |
+| X9 (agent-x9, `integ/azienda-x9`) | `packages/capability-sdk`, `packages/company-memory-engine`, `services/cap-dev`, `services/cap-lab` (`package.json`) e altri pin del ponte | REF precedente | REF |
+| X9 (agent-x9, `integ/azienda-x9`) | `vendor/x9-forge-contract-bridge/.synced-from-sha` | REF precedente | REF, con `scripts/sync-bridge.sh` |
+| Forge (`integ/azienda-forge`) | `package.json` (`pnpm.overrides`), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | Da rilevare nel repo Forge | REF, perché la factory legge l'inventario con `X9Client.listAgents()` |
+
+Ripin X9 e Forge: compiti dedicati; fruibilità T1 dopo W22X-02 (agent-core scrive `tenantId` nell'inventario) e la sonda T1 (Ricerca e Lab con la loro società). Tag v1.71.0 a cura della coordinatrice su REF.
+
 ## 26/10/2026 — ponte unico 1.70.0 (W25B-01)
 
 REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.70.0, dopo il commit e l'integrazione di W25B-01 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin.
