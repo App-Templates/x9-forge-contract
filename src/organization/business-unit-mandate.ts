@@ -2,7 +2,9 @@ import { z } from 'zod';
 import { WikiPageSchema } from '../capability/lab/wiki.js';
 import { ActionPlanBusinessUnitSchema, ActionPlanReferentRefSchema } from './action-plan.js';
 import { AssetRefSchema, AssetSha256Schema } from './asset.js';
+import { CompanyMapScopeFieldsSchema } from './company-map.js';
 import { DecisionRequestIdSchema } from './decision-request.js';
+import { ParticipantAgentIdentitySchema } from './participant-binding.js';
 
 export const MANDATE_RECONCILIATION_OUTCOMES = ['agrees', 'conflict', 'missing'] as const;
 export const MandateReconciliationOutcomeSchema = z.enum(MANDATE_RECONCILIATION_OUTCOMES);
@@ -80,3 +82,100 @@ export const ReconciledMandateSchema = z.strictObject({
   }
 });
 export type ReconciledMandate = z.infer<typeof ReconciledMandateSchema>;
+
+export const MandateAttemptObservationIdSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
+export type MandateAttemptObservationId = z.infer<typeof MandateAttemptObservationIdSchema>;
+
+export const MandateAttemptScopeSchema = z.strictObject({
+  tenantId: ReconciledMandateSchema.shape.tenantId,
+  organizationId: ReconciledMandateSchema.shape.organizationId,
+  clientId: ReconciledMandateSchema.shape.clientId,
+  projectId: ReconciledMandateSchema.shape.projectId,
+  buSlug: CompanyMapScopeFieldsSchema.shape.buSlug.unwrap(),
+  agent: ParticipantAgentIdentitySchema,
+});
+export type MandateAttemptScope = z.infer<typeof MandateAttemptScopeSchema>;
+
+export const MANDATE_ATTEMPT_EVENT_KINDS = [
+  'reconciled', 'blocked', 'question_opened', 'email_sent', 'email_failed', 'issue_opened',
+] as const;
+
+const attemptEventShape = {
+  eventId: MandateAttemptObservationIdSchema,
+  at: z.iso.datetime({ offset: true }),
+};
+const attemptEmailShape = { requestId: DecisionRequestIdSchema, to: z.email() };
+
+export const MandateAttemptEventSchema = z.discriminatedUnion('kind', [
+  z.strictObject({
+    ...attemptEventShape,
+    kind: z.literal(MANDATE_ATTEMPT_EVENT_KINDS[0]),
+    mandate: ReconciledMandateSchema,
+  }),
+  z.strictObject({
+    ...attemptEventShape,
+    kind: z.literal(MANDATE_ATTEMPT_EVENT_KINDS[1]),
+    reason: z.enum(['conflict', 'missing', 'referent_superseded']),
+  }),
+  z.strictObject({
+    ...attemptEventShape,
+    ...attemptEmailShape,
+    kind: z.literal(MANDATE_ATTEMPT_EVENT_KINDS[2]),
+    referent: ActionPlanReferentRefSchema,
+  }),
+  z.strictObject({
+    ...attemptEventShape,
+    ...attemptEmailShape,
+    kind: z.literal(MANDATE_ATTEMPT_EVENT_KINDS[3]),
+    providerMessageId: z.string().min(1).max(512),
+  }),
+  z.strictObject({
+    ...attemptEventShape,
+    ...attemptEmailShape,
+    kind: z.literal(MANDATE_ATTEMPT_EVENT_KINDS[4]),
+    error: z.string().min(1).max(500),
+  }),
+  z.strictObject({
+    ...attemptEventShape,
+    kind: z.literal(MANDATE_ATTEMPT_EVENT_KINDS[5]),
+    issueRef: z.string().min(1).max(200),
+  }),
+]);
+export type MandateAttemptEvent = z.infer<typeof MandateAttemptEventSchema>;
+
+/** Ordered events of one scoped attempt; persistence owns event replay detection. */
+export const MandateAttemptObservationSchema = z.strictObject({
+  observationId: MandateAttemptObservationIdSchema,
+  scope: MandateAttemptScopeSchema,
+  events: z.array(MandateAttemptEventSchema).min(1).max(50),
+}).superRefine((value, ctx) => {
+  const eventIds = new Set<string>();
+  const questions = new Map<string, Set<string>>();
+  let blocked = false;
+  let issueOpened = false;
+  for (const [index, event] of value.events.entries()) {
+    if (eventIds.has(event.eventId)) {
+      ctx.addIssue({ code: 'custom', message: 'Event IDs must be unique', path: ['events', index, 'eventId'] });
+    }
+    eventIds.add(event.eventId);
+    if (event.kind === 'question_opened') {
+      const recipients = questions.get(event.requestId) ?? new Set<string>();
+      recipients.add(event.to);
+      questions.set(event.requestId, recipients);
+    }
+    if ((event.kind === 'email_sent' || event.kind === 'email_failed') &&
+        !questions.get(event.requestId)?.has(event.to)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Email outcomes require a preceding question with the same requestId and recipient',
+        path: ['events', index],
+      });
+    }
+    blocked ||= event.kind === 'blocked';
+    issueOpened ||= event.kind === 'issue_opened';
+  }
+  if (blocked && issueOpened) {
+    ctx.addIssue({ code: 'custom', message: 'Blocked attempts cannot open an issue', path: ['events'] });
+  }
+});
+export type MandateAttemptObservation = z.infer<typeof MandateAttemptObservationSchema>;
