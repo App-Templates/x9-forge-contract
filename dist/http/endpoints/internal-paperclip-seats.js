@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { ParticipantAgentIdentitySchema } from "../../organization/participant-binding.js";
+import { PaperclipActivityInputSchema, PaperclipActivityOutputSchema, PaperclipSearchInputSchema, PaperclipSearchKindSchema, PaperclipSearchOutputSchema, } from "../../capability/paperclip/tools.js";
 export const INTERNAL_PAPERCLIP_SEATS_PATH = '/internal/paperclip/seats';
 export const InternalPaperclipSeatsQuerySchema = z.strictObject({
     organizationId: z.string().min(1).max(64),
@@ -49,5 +50,45 @@ export const internalPaperclipSeatIssuesReadContract = {
     authType: 'secret',
     paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
     responseSchema: InternalPaperclipSeatIssuesResponseSchema,
+};
+export const INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = '/internal/paperclip/seats/:paperclipAgentId/search';
+const SEARCH_KIND_ALTERNATION = PaperclipSearchKindSchema.options.join('|');
+const SEARCH_KINDS_PATTERN = new RegExp(`^(?:${SEARCH_KIND_ALTERNATION})(?:,(?:${SEARCH_KIND_ALTERNATION}))*$`);
+export const InternalPaperclipSeatSearchQuerySchema = z.strictObject({
+    q: PaperclipSearchInputSchema.shape.query,
+    kinds: z.string().regex(SEARCH_KINDS_PATTERN)
+        .refine(value => new Set(value.split(',')).size === value.split(',').length, 'Search kinds must be unique')
+        .optional(),
+    limit: z.coerce.number().int().min(1).max(50).optional(),
+});
+export const InternalPaperclipSeatSearchResponseSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+    ...PaperclipSearchOutputSchema.shape,
+});
+export const internalPaperclipSeatSearchReadContract = {
+    method: 'GET',
+    path: INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH,
+    authType: 'secret',
+    paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
+    querySchema: InternalPaperclipSeatSearchQuerySchema,
+    responseSchema: InternalPaperclipSeatSearchResponseSchema,
+};
+export const INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = '/internal/paperclip/seats/:paperclipAgentId/activity';
+export const InternalPaperclipSeatActivityQuerySchema = z.strictObject({
+    since: PaperclipActivityInputSchema.shape.since,
+    issueId: PaperclipActivityInputSchema.shape.issueId,
+    limit: z.coerce.number().int().min(1).max(100).optional(),
+});
+export const InternalPaperclipSeatActivityResponseSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+    ...PaperclipActivityOutputSchema.shape,
+});
+export const internalPaperclipSeatActivityReadContract = {
+    method: 'GET',
+    path: INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH,
+    authType: 'secret',
+    paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
+    querySchema: InternalPaperclipSeatActivityQuerySchema,
+    responseSchema: InternalPaperclipSeatActivityResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map

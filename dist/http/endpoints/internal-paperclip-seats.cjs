@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
+exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
 const zod_1 = require("zod");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
+const tools_js_1 = require("../../capability/paperclip/tools.cjs");
 exports.INTERNAL_PAPERCLIP_SEATS_PATH = '/internal/paperclip/seats';
 exports.InternalPaperclipSeatsQuerySchema = zod_1.z.strictObject({
     organizationId: zod_1.z.string().min(1).max(64),
@@ -52,5 +53,45 @@ exports.internalPaperclipSeatIssuesReadContract = {
     authType: 'secret',
     paramsSchema: exports.InternalPaperclipSeatIssuesParamsSchema,
     responseSchema: exports.InternalPaperclipSeatIssuesResponseSchema,
+};
+exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = '/internal/paperclip/seats/:paperclipAgentId/search';
+const SEARCH_KIND_ALTERNATION = tools_js_1.PaperclipSearchKindSchema.options.join('|');
+const SEARCH_KINDS_PATTERN = new RegExp(`^(?:${SEARCH_KIND_ALTERNATION})(?:,(?:${SEARCH_KIND_ALTERNATION}))*$`);
+exports.InternalPaperclipSeatSearchQuerySchema = zod_1.z.strictObject({
+    q: tools_js_1.PaperclipSearchInputSchema.shape.query,
+    kinds: zod_1.z.string().regex(SEARCH_KINDS_PATTERN)
+        .refine(value => new Set(value.split(',')).size === value.split(',').length, 'Search kinds must be unique')
+        .optional(),
+    limit: zod_1.z.coerce.number().int().min(1).max(50).optional(),
+});
+exports.InternalPaperclipSeatSearchResponseSchema = zod_1.z.strictObject({
+    paperclipAgentId: zod_1.z.uuid(),
+    ...tools_js_1.PaperclipSearchOutputSchema.shape,
+});
+exports.internalPaperclipSeatSearchReadContract = {
+    method: 'GET',
+    path: exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH,
+    authType: 'secret',
+    paramsSchema: exports.InternalPaperclipSeatIssuesParamsSchema,
+    querySchema: exports.InternalPaperclipSeatSearchQuerySchema,
+    responseSchema: exports.InternalPaperclipSeatSearchResponseSchema,
+};
+exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = '/internal/paperclip/seats/:paperclipAgentId/activity';
+exports.InternalPaperclipSeatActivityQuerySchema = zod_1.z.strictObject({
+    since: tools_js_1.PaperclipActivityInputSchema.shape.since,
+    issueId: tools_js_1.PaperclipActivityInputSchema.shape.issueId,
+    limit: zod_1.z.coerce.number().int().min(1).max(100).optional(),
+});
+exports.InternalPaperclipSeatActivityResponseSchema = zod_1.z.strictObject({
+    paperclipAgentId: zod_1.z.uuid(),
+    ...tools_js_1.PaperclipActivityOutputSchema.shape,
+});
+exports.internalPaperclipSeatActivityReadContract = {
+    method: 'GET',
+    path: exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH,
+    authType: 'secret',
+    paramsSchema: exports.InternalPaperclipSeatIssuesParamsSchema,
+    querySchema: exports.InternalPaperclipSeatActivityQuerySchema,
+    responseSchema: exports.InternalPaperclipSeatActivityResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map
