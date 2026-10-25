@@ -29,4 +29,5 @@ export * from "./action-plan.js";
 export * from "./company-map.js";
 export * from "./business-unit-mandate.js";
 export * from "./vertical-plan.js";
+export * from "./vertical-plan-observation.js";
 //# sourceMappingURL=index.js.map

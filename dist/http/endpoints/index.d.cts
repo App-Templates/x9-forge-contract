@@ -90,6 +90,7 @@ export * from "./internal-memory-action-plans.cjs";
 export * from "./internal-company-spend.cjs";
 export * from "./internal-memory-mandate-reconcile.cjs";
 export * from "./internal-memory-mandate-observations.cjs";
+export * from "./internal-memory-vertical-plan-observations.cjs";
 export * from "./internal-memory-knowledge.cjs";
 export * from "./connect-public.cjs";
 export * from "./internal-connection-completed.cjs";
