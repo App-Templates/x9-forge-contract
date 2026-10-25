@@ -1,5 +1,21 @@
 # STATO
 
+## 25/10/2026 — ponte unico 1.68.0 (W26B-01)
+
+REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.68.0, dopo il commit e l'integrazione di W26B-01 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin; pubblicazione del riferimento a cura della coordinatrice.
+Base verificata in lettura: `7a0530d837496de57ade55387989b1b2a2544757`, punta comune con i sorgenti di W26B-01 e `package.json` ancora 1.67.0, discendente di `63adb31`.
+Compiti contenuti nel riferimento da pubblicare: 330 (W24B-01, storico della mappa e osservazioni del mandato), 331 (W26B-01, letture search e activity del posto Paperclip) e questo (versione 1.68.0, CHANGELOG e `dist`).
+
+| Consumatore | File | Valore attuale | Valore da mettere |
+|---|---|---|---|
+| X9 (agent-x9, `integ/azienda-x9`) | `package.json` (dipendenze e override), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | REF della 1.67.0 (63adb31) | REF, voce del lockfile `version: 1.68.0` |
+| X9 (agent-x9, `integ/azienda-x9`) | `packages/capability-sdk`, `packages/company-memory-engine`, `services/cap-dev`, `services/cap-lab` (`package.json`) e altri pin del ponte | REF della 1.67.0 | REF |
+| X9 (agent-x9, `integ/azienda-x9`) | `vendor/x9-forge-contract-bridge/.synced-from-sha` | REF della 1.67.0 | REF, con `scripts/sync-bridge.sh` |
+| Forge (`integ/azienda-forge`) | `package.json` (`pnpm.overrides`), `pnpm-workspace.yaml`, `pnpm-lock.yaml` | Da rilevare nel repo Forge | REF solo quando serve a Forge (rotte Paperclip) |
+
+I pacchetti interni di Forge usano `workspace:*` e seguono l'override della radice.
+Ripin X9: compito dedicato; fruibilità T12 dopo le rotte del servizio Paperclip e la sonda T12. Tag v1.68.0 a cura della coordinatrice su REF.
+
 ## 24/10/2026 — ponte unico 1.67.0 (TV2B-02)
 
 REF = SHA completo della punta di `integ/azienda-bridge` con `package.json` 1.67.0, dopo il commit e l'integrazione di TV2B-02 a cura dello script. Ricavarlo con `git rev-parse integ/azienda-bridge` e verificare la versione su quel commit prima del ripin; pubblicazione del riferimento a cura della coordinatrice.

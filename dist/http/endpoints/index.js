@@ -97,8 +97,10 @@ export * from "./internal-memory-assets.js";
 export * from "./internal-memory-company-map.js";
 export * from "./internal-memory-company-content.js";
 export * from "./internal-memory-action-plans.js";
+export * from "./internal-company-spend.js";
 // F3X-03 — riconciliazione minima delle fonti del mandato nella memoria A
 export * from "./internal-memory-mandate-reconcile.js";
+export * from "./internal-memory-mandate-observations.js";
 export * from "./internal-memory-knowledge.js";
 export * from "./connect-public.js";
 export * from "./internal-connection-completed.js";

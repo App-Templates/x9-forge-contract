@@ -115,4 +115,104 @@ export declare const internalPaperclipSeatIssuesReadContract: {
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };
+export declare const INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH: "/internal/paperclip/seats/:paperclipAgentId/search";
+export declare const InternalPaperclipSeatSearchQuerySchema: z.ZodObject<{
+    q: z.ZodString;
+    kinds: z.ZodOptional<z.ZodString>;
+    limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+}, z.core.$strict>;
+export declare const InternalPaperclipSeatSearchResponseSchema: z.ZodObject<{
+    results: z.ZodArray<z.ZodObject<{
+        kind: z.ZodEnum<{
+            artifact: "artifact";
+            document: "document";
+            agent: "agent";
+            project: "project";
+            comment: "comment";
+            issue: "issue";
+        }>;
+        id: z.ZodString;
+        title: z.ZodString;
+        snippet: z.ZodString;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        updatedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+    paperclipAgentId: z.ZodUUID;
+}, z.core.$strict>;
+export declare const internalPaperclipSeatSearchReadContract: {
+    readonly method: "GET";
+    readonly path: "/internal/paperclip/seats/:paperclipAgentId/search";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        paperclipAgentId: z.ZodUUID;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        q: z.ZodString;
+        kinds: z.ZodOptional<z.ZodString>;
+        limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        results: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                artifact: "artifact";
+                document: "document";
+                agent: "agent";
+                project: "project";
+                comment: "comment";
+                issue: "issue";
+            }>;
+            id: z.ZodString;
+            title: z.ZodString;
+            snippet: z.ZodString;
+            issueId: z.ZodOptional<z.ZodUUID>;
+            updatedAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
+        paperclipAgentId: z.ZodUUID;
+    }, z.core.$strict>;
+};
+export type InternalPaperclipSeatSearchQuery = z.infer<typeof InternalPaperclipSeatSearchQuerySchema>;
+export type InternalPaperclipSeatSearchResponse = z.infer<typeof InternalPaperclipSeatSearchResponseSchema>;
+export declare const INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH: "/internal/paperclip/seats/:paperclipAgentId/activity";
+export declare const InternalPaperclipSeatActivityQuerySchema: z.ZodObject<{
+    since: z.ZodOptional<z.ZodISODateTime>;
+    issueId: z.ZodOptional<z.ZodUUID>;
+    limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+}, z.core.$strict>;
+export declare const InternalPaperclipSeatActivityResponseSchema: z.ZodObject<{
+    events: z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        type: z.ZodString;
+        actorAgentId: z.ZodNullable<z.ZodUUID>;
+        issueId: z.ZodNullable<z.ZodUUID>;
+        summary: z.ZodString;
+        createdAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
+    paperclipAgentId: z.ZodUUID;
+}, z.core.$strict>;
+export declare const internalPaperclipSeatActivityReadContract: {
+    readonly method: "GET";
+    readonly path: "/internal/paperclip/seats/:paperclipAgentId/activity";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        paperclipAgentId: z.ZodUUID;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        since: z.ZodOptional<z.ZodISODateTime>;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        events: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            type: z.ZodString;
+            actorAgentId: z.ZodNullable<z.ZodUUID>;
+            issueId: z.ZodNullable<z.ZodUUID>;
+            summary: z.ZodString;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
+        paperclipAgentId: z.ZodUUID;
+    }, z.core.$strict>;
+};
+export type InternalPaperclipSeatActivityQuery = z.infer<typeof InternalPaperclipSeatActivityQuerySchema>;
+export type InternalPaperclipSeatActivityResponse = z.infer<typeof InternalPaperclipSeatActivityResponseSchema>;
 //# sourceMappingURL=internal-paperclip-seats.d.ts.map

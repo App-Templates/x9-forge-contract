@@ -113,8 +113,10 @@ __exportStar(require("./internal-memory-assets.cjs"), exports);
 __exportStar(require("./internal-memory-company-map.cjs"), exports);
 __exportStar(require("./internal-memory-company-content.cjs"), exports);
 __exportStar(require("./internal-memory-action-plans.cjs"), exports);
+__exportStar(require("./internal-company-spend.cjs"), exports);
 // F3X-03 — riconciliazione minima delle fonti del mandato nella memoria A
 __exportStar(require("./internal-memory-mandate-reconcile.cjs"), exports);
+__exportStar(require("./internal-memory-mandate-observations.cjs"), exports);
 __exportStar(require("./internal-memory-knowledge.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 __exportStar(require("./internal-connection-completed.cjs"), exports);
