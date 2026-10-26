@@ -73,3 +73,57 @@ describe('retained capability authority', () => {
     expect(AgentOrdinaryAuthoritySchema.safeParse({ ...result, membership: 'enabled', configuration: { format: 'ordinary-v2', scope: result.scope, capability: 'other', version: 1, parameters: [] } }).success).toBe(false);
   });
 });
+
+
+describe('ROPB-01 bundle con configurazione Lab', () => {
+  async function labInput() {
+    const descriptor = workspace();
+    const configuration = { format: 'ordinary-v2', scope: { tenantId: descriptor.tenantId, ownerId: descriptor.ownerId, agentId: descriptor.agentId }, capability: 'cap-lab', version: 7,
+      parameters: [{ parameter: { key: 'limit', type: 'integer', label: 'Limit', description: 'Limit', status: 'decided', reference: 'consumer', appliesWhen: 'next_apply', consumes: true, optional: false, editableBy: ['owner'] }, origin: { kind: 'agent_override' }, value: 7 }] };
+    Object.assign(descriptor.registry, { capabilities: [{ name: 'cap-lab', enabled: true, host: 'cap-lab', port: 3001, version: '1' }] });
+    Object.assign(descriptor, { ordinaryConfigurations: [configuration], skills: [{ capability: 'cap-lab', description: 'Lab operations', procedure: { path: 'skills/cap-lab/SKILL.md', load: 'on-demand', editable: false, version: 7, hash: 'a'.repeat(64), bytes: 100 } }] });
+    const bundle = await digestAgentWorkspace(descriptor);
+    return { descriptor, identity: { ...identity }, retainedRequestId: 'apply-request-1', configuration,
+      query: { view: 'ordinary-authority', tenantId: descriptor.tenantId, ownerId: descriptor.ownerId, runtimeAgentId: descriptor.agentId, capability: 'cap-lab', requestId: 'apply-request-1', bundleVersion: bundle.appliedVersion, bundleSha256: bundle.sha256 },
+      command: { action: 'apply-config', requestId: 'apply-request-1', desiredVersion: bundle.appliedVersion }, execution: 'running' };
+  }
+
+  it('projects the configured enabled Lab and its running apply operation', async () => {
+    const data = await labInput();
+    const result = await projectAgentOrdinaryAuthority(data);
+    expect(result.membership).toBe('enabled');
+    expect(result.configuration).toEqual(data.configuration);
+    expect(result.operation).toEqual({ action: 'apply-config', execution: 'running' });
+    expect(parseAgentOrdinaryAuthorityResponse(result, data.query, data.identity)).toEqual(result);
+  });
+
+  it.each(['tenantId', 'ownerId', 'agentId', 'runtimeAgentId', 'requestId', 'desiredVersion'] as const)('rejects foreign Lab authority %s', async field => {
+    const data = await labInput();
+    if (field === 'requestId') data.command.requestId = 'foreign-request-1';
+    else if (field === 'desiredVersion') data.command.desiredVersion++;
+    else {
+      // Remove configuration binding and refresh the digest to isolate the identity guard.
+      Object.assign(data.descriptor, { ordinaryConfigurations: [] });
+      if (field === 'runtimeAgentId') {
+        data.identity.runtimeAgentId = 'foreign-agent';
+        data.query.runtimeAgentId = 'foreign-agent';
+      } else data.descriptor[field] += '-foreign';
+      data.query.bundleSha256 = (await digestAgentWorkspace(data.descriptor)).sha256;
+    }
+    await expect(projectAgentOrdinaryAuthority(data)).rejects.toThrow();
+  });
+
+  it.each(['version', 'sha256', 'managementAgentId'] as const)('rejects discordant Lab response %s', async field => {
+    const data = await labInput();
+    const result = await projectAgentOrdinaryAuthority(data);
+    const response = field === 'managementAgentId'
+      ? { ...result, identity: { ...result.identity, managementAgentId: 'foreign-management' } }
+      : { ...result, bundle: { ...result.bundle, ...(field === 'version' ? { appliedVersion: result.bundle.appliedVersion + 1 } : { sha256: 'b'.repeat(64) }) } };
+    expect(() => parseAgentOrdinaryAuthorityResponse(response, data.query, data.identity)).toThrow();
+  });
+});
+
+// SUMMARY ROPB-01: 19 added cases (10 authority, 8 lifecycle, 1 HTTP).
+// The single targeted mutation probe was blocked before Vitest by qrun log permissions
+// (exit 75): 0/19 cases executed; 0/3 mutation groups verified. Both source files were
+// restored byte for byte. Baseline tests, mutation reruns and typecheck remain with the script.

@@ -114,3 +114,32 @@ it.each(['news', 'briefing'])('allows %s rollback to retain a newer fully observ
   const other = { ...result, request: otherRequest, ordinaryState: { ...result.ordinaryState, capability: 'backup', desired: { ...desired, capability: 'backup' }, applied: { configuration: { ...desired, capability: 'backup' }, loadedAt: observedAt }, effectiveParameters: result.ordinaryState.effectiveParameters.map(entry => ({ ...entry, capability: 'backup' })) } };
   expect(() => parseCapabilityOrdinaryLifecycleReceipt(other, otherRequest, { ...retained, previousState: { ...emptyState, capability: 'backup' } })).toThrow();
 });
+
+
+describe('ROPB-01 ricevuta activate con esecuzione effettiva', () => {
+  const capability = 'cap-lab', observedAt = '2026-10-26T12:00:00Z';
+  const configuration = { format: 'ordinary-v2', scope, capability, version: 7,
+    parameters: [{ parameter: { key: 'limit', type: 'integer', label: 'Limit', description: 'Limit', status: 'decided', reference: 'consumer', appliesWhen: 'next_apply', consumes: true, optional: false, editableBy: ['owner'] }, origin: { kind: 'agent_override' }, value: 7 }] };
+  const activated = CapabilityOrdinaryLifecycleRequestSchema.parse({ ...request, capability, phase: 'activate', operation: { action: 'apply-config', execution: 'running' }, targetMembership: 'enabled', configuration });
+  const retained = { ...transaction, state: 'suspended', request: { ...activated, phase: 'prepare' }, previousState: { ...emptyState, capability } };
+  const result = { ...receipt, request: activated, membershipEffective: 'enabled', executionEffective: 'running', observedAt,
+    ordinaryState: { ...emptyState, capability, desired: configuration, runtimeState: 'loaded', applied: { configuration, loadedAt: observedAt },
+      effectiveParameters: [{ scope, capability, key: 'limit', value: 7, mode: 'next_apply', sourceConfigVersion: configuration.version, observedAt }] } };
+
+  it('accepts observed running Lab activation with its source configuration version', () => {
+    expect(parseCapabilityOrdinaryLifecycle(activated, { ...authority, capability, configuration, operation: activated.operation, transaction: retained }).request).toEqual(activated);
+    expect(parseCapabilityOrdinaryLifecycleReceipt(result, activated, retained)).toEqual(result);
+  });
+
+  it.each([
+    ['stopped execution', { executionEffective: 'stopped' }],
+    ['unknown execution', { executionEffective: 'unknown' }],
+    ['missing observation', { observedAt: null }],
+    ['foreign fence', { fence: retained.fence + 1 }],
+    ['foreign operation', { operationId: 'foreign-operation-1' }],
+    ['foreign version', { request: { ...activated, transition: { ...activated.transition, to: { ...to, appliedVersion: to.appliedVersion + 1 } } } }],
+    ['foreign digest', { request: { ...activated, transition: { ...activated.transition, to: { ...to, sha256: 'c'.repeat(64) } } } }],
+  ] as const)('rejects discordant Lab activation: %s', (_name, changes) => {
+    expect(() => parseCapabilityOrdinaryLifecycleReceipt({ ...result, ...changes }, activated, retained)).toThrow();
+  });
+});
