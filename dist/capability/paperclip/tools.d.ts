@@ -10,6 +10,7 @@ export declare const PAPERCLIP_TOOLS: {
     readonly createBusinessUnit: "paperclip_create_business_unit";
     readonly search: "paperclip_search";
     readonly activity: "paperclip_activity";
+    readonly createApprovedBusinessUnits: "paperclip_create_approved_business_units";
     readonly createProject: "paperclip_create_project";
     readonly createGoal: "paperclip_create_goal";
 };
@@ -235,6 +236,9 @@ export declare const PaperclipCreateBusinessUnitOutputSchema: z.ZodObject<{
     }, z.core.$strict>;
     replayed: z.ZodBoolean;
 }, z.core.$strict>;
+export declare const PaperclipCreateApprovedBusinessUnitsInputSchema: z.ZodObject<{
+    decisionRequestId: z.ZodString;
+}, z.core.$strict>;
 export declare const PaperclipCommentsInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
     limit: z.ZodOptional<z.ZodNumber>;
@@ -357,6 +361,7 @@ export type PaperclipAssignInput = z.infer<typeof PaperclipAssignInputSchema>;
 export type PaperclipCreateIssueInput = z.infer<typeof PaperclipCreateIssueInputSchema>;
 export type PaperclipCreateBusinessUnitInput = z.infer<typeof PaperclipCreateBusinessUnitInputSchema>;
 export type PaperclipCreateBusinessUnitOutput = z.infer<typeof PaperclipCreateBusinessUnitOutputSchema>;
+export type PaperclipCreateApprovedBusinessUnitsInput = z.infer<typeof PaperclipCreateApprovedBusinessUnitsInputSchema>;
 export type PaperclipCommentsInput = z.infer<typeof PaperclipCommentsInputSchema>;
 export type PaperclipCommentView = z.infer<typeof PaperclipCommentViewSchema>;
 export type PaperclipCommentsOutput = z.infer<typeof PaperclipCommentsOutputSchema>;

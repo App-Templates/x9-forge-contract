@@ -1,11 +1,13 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
 import { BusinessUnitLeadBirthRequestSchema, BusinessUnitLeadBirthResultSchema } from "../../organization/business-unit-lead.js";
+import { DecisionRequestIdSchema } from "../../organization/decision-request.js";
 const Text = z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 export const PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
     createBusinessUnit: 'paperclip_create_business_unit', search: 'paperclip_search', activity: 'paperclip_activity',
+    createApprovedBusinessUnits: 'paperclip_create_approved_business_units',
     createProject: 'paperclip_create_project', createGoal: 'paperclip_create_goal',
 };
 export const PaperclipGoalLevelSchema = z.enum(['company', 'team', 'agent', 'task']);
@@ -71,6 +73,9 @@ export const PaperclipCreateBusinessUnitInputSchema = BusinessUnitLeadBirthReque
 export const PaperclipCreateBusinessUnitOutputSchema = z.strictObject({
     unitId: Text, paperclipAgentId: z.uuid(),
     agentIdentity: BusinessUnitLeadBirthResultSchema.shape.agentIdentity, replayed: z.boolean(),
+});
+export const PaperclipCreateApprovedBusinessUnitsInputSchema = z.strictObject({
+    decisionRequestId: DecisionRequestIdSchema,
 });
 export const PaperclipCommentsInputSchema = z.strictObject({
     issueId: z.uuid(), limit: z.number().int().min(1).max(50).optional(),

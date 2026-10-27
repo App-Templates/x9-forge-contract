@@ -39,6 +39,7 @@ export * from "./voice.cjs";
 export * from "./voice-live.cjs";
 export * from "./internal-factory-deploy.cjs";
 export * from "./internal-business-unit-lead.cjs";
+export * from "./internal-business-unit-membership.cjs";
 export * from "./internal-company-rd.cjs";
 export * from "./internal-factory-telegram-token.cjs";
 export * from "./cap-manifest.cjs";
