@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## v1.78.0 — conferma di una voce della mappa condivisa, additivo
+
+- Scheda 363, RM-02: `COMPANY_MAP_CONFIRM_OPTIONS` conserva le opzioni `confermo` / `e-cambiato` e il loro ordine; `companyMapConfirmationSubject(entry: CompanyMapAnyEntry): DecisionSubject` lega la conferma al digest e alla versione della voce, validando il soggetto con `DecisionSubjectSchema`.
+- `CompanyMapConfirmTargetSchema` e il tipo `CompanyMapConfirmTarget` identificano la voce tramite livello, progetto e BU quando richiesti, tipo e riferimento; oggetto rigoroso, con il controllo di ambito già condiviso dalle voci. Esportazioni disponibili da `@x9-forge/contracts/organization`. Nessun contratto precedente cambia; adozione in memoria e cap-email prevista dalla scheda 1300.
+- SUMMARY prove: aggiunti 22 casi in `tests/organization/company-map.test.ts`. Unico test mirato eseguito prima dell'implementazione: rosso 1/1 per funzione assente. `dist` ricostruita con `pnpm build` (esito 0). Accettazione completa e controllo dei tipi riservati allo script; nessuna verifica dal vivo.
+- SUMMARY mutazioni richieste, eseguite 0/4: (1) `slice(0, 40)` → `slice(0, 39)`; (2) rimozione di `kind: 'confirmation'`; (3) rimozione del `superRefine` del bersaglio; (4) scambio dell'ordine delle opzioni. I casi aggiunti ne controllano rispettivamente identificativo, soggetto, ambito e ordine; esecuzione allo script.
+
 ## v1.77.0 — referenti proposti dal piano, mittente dell'asset, fonte `asset` del blocco aziendale, additivo
 
 - Scheda 360: `ActionPlanReferentProposalSchema` e `referentProposals` facoltativo nel piano d'azione permettono di proporre referenti dell'organizzazione o della business unit, con controllo della BU nel piano completo.

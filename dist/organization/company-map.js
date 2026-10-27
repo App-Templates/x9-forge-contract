@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { AgentIdSchema } from "../agent/agent-identity.js";
 import { AssetRefSchema, AssetSha256Schema, AssetTypeSchema } from "./asset.js";
-import { DecisionRequestIdSchema } from "./decision-request.js";
+import { DecisionRequestIdSchema, DecisionSubjectSchema, } from "./decision-request.js";
 const SlugSchema = (min, max) => z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 /** Levels of the client company map: client company → project → business unit. */
 export const COMPANY_MAP_LEVELS = ['client', 'project', 'business_unit'];
@@ -54,6 +54,14 @@ export function checkCompanyMapLevelScope(scope, ctx) {
         });
     }
 }
+/** Entry selected for a confirmation request, within its level and kind. */
+export const CompanyMapConfirmTargetSchema = z.strictObject({
+    level: CompanyMapLevelSchema,
+    projectId: CompanyMapScopeFieldsSchema.shape.projectId,
+    buSlug: CompanyMapScopeFieldsSchema.shape.buSlug,
+    kind: CompanyMapEntryKindSchema,
+    entryRef: z.string().min(1).max(200),
+}).superRefine(checkCompanyMapLevelScope);
 function checkEntry(entry, ctx) {
     checkCompanyMapLevelScope(entry, ctx);
     if (entry.supersedes !== undefined && entry.supersedes >= entry.version) {
@@ -144,6 +152,20 @@ export const CompanyMapAnyEntrySchema = z.discriminatedUnion('kind', [
     CompanyMapAssetEntrySchema,
     CompanyMapAccessEntrySchema,
 ]);
+/** Owner choices when confirming an existing company map entry. */
+export const COMPANY_MAP_CONFIRM_OPTIONS = [
+    { optionId: 'confermo', label: 'Confermo' },
+    { optionId: 'e-cambiato', label: 'È cambiato' },
+];
+/** Bind a confirmation to the exact entry version and digest the owner read. */
+export function companyMapConfirmationSubject(entry) {
+    return DecisionSubjectSchema.parse({
+        kind: 'confirmation',
+        planId: 'map-' + entry.digest.slice(0, 40),
+        planVersion: entry.version,
+        digest: entry.digest,
+    });
+}
 /** Key of an entry inside its level and kind: the person, the asset or the access. */
 export function companyMapEntryKey(entry) {
     switch (entry.kind) {

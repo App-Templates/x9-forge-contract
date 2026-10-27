@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { CompanyMapEntrySchema } from '../../src/organization/company-map.js';
+import {
+  COMPANY_MAP_CONFIRM_OPTIONS,
+  CompanyMapConfirmTargetSchema,
+  CompanyMapEntrySchema,
+  companyMapConfirmationSubject,
+} from '../../src/organization/company-map.js';
+import { DecisionRequestOptionSchema, DecisionSubjectSchema } from '../../src/organization/decision-request.js';
 
 const base = {
   tenantId: 'tenant-1',
@@ -77,5 +83,81 @@ describe('CompanyMapEntrySchema', () => {
 
   it('rejects a non-referent kind', () => {
     expect(CompanyMapEntrySchema.safeParse({ ...base, kind: 'other' }).success).toBe(false);
+  });
+});
+
+describe('company map confirmation', () => {
+  it('creates a stable confirmation subject from the exact digest and entry version', () => {
+    const digest = '0123456789abcdef'.repeat(4);
+    const entry = CompanyMapEntrySchema.parse({ ...base, digest });
+    const subject = companyMapConfirmationSubject(entry);
+    expect(subject).toEqual({
+      kind: 'confirmation',
+      planId: `map-${digest.slice(0, 40)}`,
+      planVersion: entry.version,
+      digest,
+    });
+    expect(subject.planId).toHaveLength(44);
+    expect(DecisionSubjectSchema.parse(subject)).toEqual(subject);
+    const next = companyMapConfirmationSubject({ ...entry, version: 3 });
+    expect(next.planId).toBe(subject.planId);
+    expect(next.planVersion).toBe(3);
+  });
+
+  it('validates the generated subject instead of returning invalid version fields', () => {
+    const entry = CompanyMapEntrySchema.parse(base);
+    expect(() => companyMapConfirmationSubject({ ...entry, version: 0 })).toThrow();
+    expect(() => companyMapConfirmationSubject({ ...entry, digest: 'invalid' })).toThrow();
+  });
+
+  it('offers confermo before e-cambiato with the existing labels', () => {
+    expect(COMPANY_MAP_CONFIRM_OPTIONS).toEqual([
+      { optionId: 'confermo', label: 'Confermo' },
+      { optionId: 'e-cambiato', label: 'È cambiato' },
+    ]);
+    for (const option of COMPANY_MAP_CONFIRM_OPTIONS) {
+      expect(DecisionRequestOptionSchema.parse(option)).toEqual(option);
+    }
+  });
+});
+
+describe('CompanyMapConfirmTargetSchema', () => {
+  const target = { level: 'client', kind: 'referent', entryRef: 'stefano' };
+
+  it.each([
+    target,
+    { ...target, level: 'project', projectId: 'sito' },
+    { ...target, level: 'business_unit', projectId: 'sito', buSlug: 'marketing' },
+  ])('accepts a target at $level level', (value) => {
+    expect(CompanyMapConfirmTargetSchema.parse(value)).toEqual(value);
+  });
+
+  it.each([
+    { ...target, level: 'business_unit', projectId: 'sito' },
+    { ...target, level: 'business_unit', buSlug: 'marketing' },
+    { ...target, projectId: 'sito' },
+    { ...target, buSlug: 'marketing' },
+    { ...target, level: 'project' },
+    { ...target, level: 'project', projectId: 'sito', buSlug: 'marketing' },
+  ])('rejects inconsistent level scope: %j', (value) => {
+    expect(CompanyMapConfirmTargetSchema.safeParse(value).success).toBe(false);
+  });
+
+  it('rejects an extra key', () => {
+    expect(CompanyMapConfirmTargetSchema.safeParse({ ...target, extra: true }).success).toBe(false);
+  });
+
+  it.each([
+    { ...target, entryRef: '' },
+    { ...target, entryRef: 'a'.repeat(201) },
+    { ...target, level: 'other' },
+    { ...target, kind: 'other' },
+    { ...target, level: 'project', projectId: '' },
+    { ...target, level: 'project', projectId: 'a'.repeat(65) },
+    { ...target, level: 'business_unit', projectId: 'sito', buSlug: '' },
+    { ...target, level: 'business_unit', projectId: 'sito', buSlug: 'a'.repeat(31) },
+    { ...target, level: 'business_unit', projectId: 'sito', buSlug: 'Not a slug' },
+  ])('rejects invalid target fields: %j', (value) => {
+    expect(CompanyMapConfirmTargetSchema.safeParse(value).success).toBe(false);
   });
 });

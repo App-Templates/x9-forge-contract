@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompanyMapAnyEntrySchema = exports.CompanyMapAccessEntrySchema = exports.CompanyMapAssetEntrySchema = exports.CompanyMapResponsibilityEntrySchema = exports.CompanyMapPersonEntrySchema = exports.CompanyMapEntrySchema = exports.CompanyMapAccessFieldsSchema = exports.CompanyMapAssetFieldsSchema = exports.CompanyMapResponsibilityFieldsSchema = exports.CompanyMapPersonFieldsSchema = exports.CompanyMapReferentFieldsSchema = exports.CompanyMapVersionFieldsSchema = exports.CompanyMapScopeFieldsSchema = exports.CompanyMapSourceSchema = exports.CompanyMapEntryKindSchema = exports.COMPANY_MAP_ENTRY_KINDS = exports.CompanyMapLevelSchema = exports.COMPANY_MAP_LEVELS = void 0;
+exports.COMPANY_MAP_CONFIRM_OPTIONS = exports.CompanyMapAnyEntrySchema = exports.CompanyMapAccessEntrySchema = exports.CompanyMapAssetEntrySchema = exports.CompanyMapResponsibilityEntrySchema = exports.CompanyMapPersonEntrySchema = exports.CompanyMapEntrySchema = exports.CompanyMapAccessFieldsSchema = exports.CompanyMapAssetFieldsSchema = exports.CompanyMapResponsibilityFieldsSchema = exports.CompanyMapPersonFieldsSchema = exports.CompanyMapReferentFieldsSchema = exports.CompanyMapConfirmTargetSchema = exports.CompanyMapVersionFieldsSchema = exports.CompanyMapScopeFieldsSchema = exports.CompanyMapSourceSchema = exports.CompanyMapEntryKindSchema = exports.COMPANY_MAP_ENTRY_KINDS = exports.CompanyMapLevelSchema = exports.COMPANY_MAP_LEVELS = void 0;
 exports.checkCompanyMapLevelScope = checkCompanyMapLevelScope;
+exports.companyMapConfirmationSubject = companyMapConfirmationSubject;
 exports.companyMapEntryKey = companyMapEntryKey;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
@@ -59,6 +60,14 @@ function checkCompanyMapLevelScope(scope, ctx) {
         });
     }
 }
+/** Entry selected for a confirmation request, within its level and kind. */
+exports.CompanyMapConfirmTargetSchema = zod_1.z.strictObject({
+    level: exports.CompanyMapLevelSchema,
+    projectId: exports.CompanyMapScopeFieldsSchema.shape.projectId,
+    buSlug: exports.CompanyMapScopeFieldsSchema.shape.buSlug,
+    kind: exports.CompanyMapEntryKindSchema,
+    entryRef: zod_1.z.string().min(1).max(200),
+}).superRefine(checkCompanyMapLevelScope);
 function checkEntry(entry, ctx) {
     checkCompanyMapLevelScope(entry, ctx);
     if (entry.supersedes !== undefined && entry.supersedes >= entry.version) {
@@ -149,6 +158,20 @@ exports.CompanyMapAnyEntrySchema = zod_1.z.discriminatedUnion('kind', [
     exports.CompanyMapAssetEntrySchema,
     exports.CompanyMapAccessEntrySchema,
 ]);
+/** Owner choices when confirming an existing company map entry. */
+exports.COMPANY_MAP_CONFIRM_OPTIONS = [
+    { optionId: 'confermo', label: 'Confermo' },
+    { optionId: 'e-cambiato', label: 'È cambiato' },
+];
+/** Bind a confirmation to the exact entry version and digest the owner read. */
+function companyMapConfirmationSubject(entry) {
+    return decision_request_js_1.DecisionSubjectSchema.parse({
+        kind: 'confirmation',
+        planId: 'map-' + entry.digest.slice(0, 40),
+        planVersion: entry.version,
+        digest: entry.digest,
+    });
+}
 /** Key of an entry inside its level and kind: the person, the asset or the access. */
 function companyMapEntryKey(entry) {
     switch (entry.kind) {
