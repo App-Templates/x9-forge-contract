@@ -1,14 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipActivityOutputSchema = exports.PaperclipActivityInputSchema = exports.PaperclipSearchOutputSchema = exports.PaperclipSearchInputSchema = exports.PaperclipSearchKindSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PaperclipCreateGoalOutputSchema = exports.PaperclipGoalViewSchema = exports.PaperclipCreateGoalInputSchema = exports.PaperclipCreateProjectOutputSchema = exports.PaperclipProjectViewSchema = exports.PaperclipCreateProjectInputSchema = exports.PaperclipGoalLevelSchema = exports.PAPERCLIP_TOOLS = void 0;
+exports.PaperclipAgentBindingSchema = exports.PaperclipMutationOutputSchema = exports.PaperclipQueueOutputSchema = exports.PaperclipIssueViewSchema = exports.PaperclipReviewInputSchema = exports.PaperclipCommentsOutputSchema = exports.PaperclipCommentViewSchema = exports.PaperclipCommentsInputSchema = exports.PaperclipCreateApprovedBusinessUnitsInputSchema = exports.PaperclipCreateBusinessUnitOutputSchema = exports.PaperclipCreateBusinessUnitInputSchema = exports.PaperclipCreateIssueInputSchema = exports.PaperclipAssignInputSchema = exports.PaperclipTakeInputSchema = exports.PaperclipIssueInputSchema = exports.PaperclipActivityOutputSchema = exports.PaperclipActivityInputSchema = exports.PaperclipSearchOutputSchema = exports.PaperclipSearchInputSchema = exports.PaperclipSearchKindSchema = exports.PaperclipQueueInputSchema = exports.PaperclipIssueStatusSchema = exports.PaperclipCreateGoalOutputSchema = exports.PaperclipGoalViewSchema = exports.PaperclipCreateGoalInputSchema = exports.PaperclipCreateProjectOutputSchema = exports.PaperclipProjectViewSchema = exports.PaperclipCreateProjectInputSchema = exports.PaperclipGoalLevelSchema = exports.PAPERCLIP_TOOLS = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const business_unit_lead_js_1 = require("../../organization/business-unit-lead.cjs");
+const decision_request_js_1 = require("../../organization/decision-request.cjs");
 const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 exports.PAPERCLIP_TOOLS = {
     queue: 'paperclip_queue', issue: 'paperclip_issue', take: 'paperclip_take', assign: 'paperclip_assign',
     createIssue: 'paperclip_create_issue', comments: 'paperclip_comments', review: 'paperclip_review',
     createBusinessUnit: 'paperclip_create_business_unit', search: 'paperclip_search', activity: 'paperclip_activity',
+    createApprovedBusinessUnits: 'paperclip_create_approved_business_units',
     createProject: 'paperclip_create_project', createGoal: 'paperclip_create_goal',
 };
 exports.PaperclipGoalLevelSchema = zod_1.z.enum(['company', 'team', 'agent', 'task']);
@@ -74,6 +76,9 @@ exports.PaperclipCreateBusinessUnitInputSchema = business_unit_lead_js_1.Busines
 exports.PaperclipCreateBusinessUnitOutputSchema = zod_1.z.strictObject({
     unitId: Text, paperclipAgentId: zod_1.z.uuid(),
     agentIdentity: business_unit_lead_js_1.BusinessUnitLeadBirthResultSchema.shape.agentIdentity, replayed: zod_1.z.boolean(),
+});
+exports.PaperclipCreateApprovedBusinessUnitsInputSchema = zod_1.z.strictObject({
+    decisionRequestId: decision_request_js_1.DecisionRequestIdSchema,
 });
 exports.PaperclipCommentsInputSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid(), limit: zod_1.z.number().int().min(1).max(50).optional(),

@@ -41,6 +41,7 @@ export * from "./voice.js"; // Phase 42 — CAP-Voice v2.2 path + method constan
 export * from "./voice-live.js"; // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 export * from "./internal-factory-deploy.js"; // Wave 2 (v1.11.0) — Parallel S2S agent deploy
 export * from "./internal-business-unit-lead.js"; // AZB-04 — Director S2S business unit lead birth
+export * from "./internal-business-unit-membership.js"; // PBB-01 — lettura dell'appartenenza capo/BU
 export * from "./internal-company-rd.js"; // P1L-05 — Director S2S company R&D (Ricerca + Lab) birth
 export * from "./internal-factory-telegram-token.js"; // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
@@ -92,6 +93,7 @@ export * from "./internal-memory-experience.js";
 export * from "./internal-memory-decisions.js";
 export * from "./internal-memory-decision-requests.js";
 export * from "./internal-paperclip-seats.js";
+export * from "./internal-paperclip-rd-enrollment.js"; // ROPB-02 — iscrizione Paperclip di Ricerca e Lab
 export * from "./internal-memory-assets.js";
 // F1B-03 — mappa dell'azienda cliente nella memoria A
 export * from "./internal-memory-company-map.js";
