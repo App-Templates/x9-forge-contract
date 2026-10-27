@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = exports.BusinessUnitLeadReferentSchema = exports.BusinessUnitLeadProfileTemplateSchema = exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = void 0;
+exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = exports.BusinessUnitLeadReferentSchema = exports.BusinessUnitLeadProfileTemplateSchema = exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = void 0;
+exports.businessUnitLeadAgentId = businessUnitLeadAgentId;
+exports.businessUnitSlugOfLeadAgentId = businessUnitSlugOfLeadAgentId;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const model_tier_js_1 = require("../model-router/model-tier.cjs");
@@ -55,4 +57,22 @@ exports.BusinessUnitLeadBirthResultSchema = zod_1.z.strictObject({
     businessUnitSlug: exports.BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug,
     agentIdentity: participant_binding_js_1.ParticipantAgentIdentitySchema,
 });
+/** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
+exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = 'capo-';
+const LEAD_SLUG = exports.BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug;
+/** Agent id Forge gives to the lead of the business unit `slug`. */
+function businessUnitLeadAgentId(slug) {
+    return `${exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX}${LEAD_SLUG.parse(slug)}`;
+}
+/**
+ * The business unit slug of a lead agent id, or `null` when the id is not the id of a business unit lead. The id is
+ * assigned by Forge at birth, so a consumer that has verified the agent identity can read the slug from it instead of
+ * trusting a slug written by the model.
+ */
+function businessUnitSlugOfLeadAgentId(agentId) {
+    if (!agentId.startsWith(exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX))
+        return null;
+    const parsed = LEAD_SLUG.safeParse(agentId.slice(exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX.length));
+    return parsed.success ? parsed.data : null;
+}
 //# sourceMappingURL=business-unit-lead.js.map

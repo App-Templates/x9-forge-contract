@@ -8,8 +8,9 @@ import * as productionResult from '../../../src/capability/dev/production-result
 import * as productionArtifactContent from '../../../src/capability/dev/production-artifact-content.js';
 import * as productionProgress from '../../../src/capability/dev/production-progress.js';
 import * as productionConfigMatch from '../../../src/capability/dev/production-config-match.js';
+import * as sessionAssignment from '../../../src/capability/dev/session-assignment.js';
 
-const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment };
 
 describe('capability/dev subpath', () => {
   it('re-exports every symbol of signed-command, config-state, production-job, production-result, production-artifact-content, production-config-match and production-progress', () => {
@@ -30,6 +31,9 @@ describe('capability/dev subpath', () => {
     }
     for (const name of Object.keys(productionResult) as (keyof typeof productionResult)[]) {
       expect(dev[name]).toBe(productionResult[name]);
+    }
+    for (const name of Object.keys(sessionAssignment) as (keyof typeof sessionAssignment)[]) {
+      expect(dev[name]).toBe(sessionAssignment[name]);
     }
     expect(Object.keys(dev).sort()).toEqual(Object.keys(allSymbols).sort());
   });
@@ -59,6 +63,30 @@ describe('capability/dev subpath', () => {
         'devProductionExecutionMode',
         'canonicalizeDevSignedCommandV2',
         'canonicalizeDevProductionReport',
+        'DEV_SESSION_AUTONOMOUS_LABEL',
+        'DEV_SESSION_BRANCH_PREFIX',
+        'DEV_SESSION_DELIVERED_FILES_LABEL',
+        'DEV_SESSION_COMMIT_LABEL',
+        'DEV_SESSION_MAX_FILES',
+        'DEV_SESSION_MAX_MATERIALS',
+        'DEV_SESSION_BLOCK_MARKER',
+        'DevSessionKindSchema',
+        'DevSessionRepoSchema',
+        'DevSessionGitHubLinkSchema',
+        'DevSessionMaterialSchema',
+        'DevSessionAssignmentSchema',
+        'DevSessionCommitSchema',
+        'DevSessionDeliveredFileSchema',
+        'DevSessionDeliverySchema',
+        'DevSessionResultFileSchema',
+        'DevSessionResultSchema',
+        'devSessionBranch',
+        'devSessionId',
+        'devSessionAssignmentCanonicalJson',
+        'renderDevSessionBlock',
+        'parseDevSessionBlock',
+        'renderDevSessionDelivery',
+        'parseDevSessionDelivery',
       ].sort(),
     );
   });

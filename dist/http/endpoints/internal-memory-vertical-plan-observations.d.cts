@@ -89,6 +89,9 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"session">;
                         sessionId: z.ZodString;
+                        repo: z.ZodOptional<z.ZodString>;
+                        commit: z.ZodOptional<z.ZodString>;
+                        path: z.ZodOptional<z.ZodString>;
                     }, z.core.$strict>, z.ZodObject<{
                         kind: z.ZodLiteral<"link">;
                         url: z.ZodURL;
@@ -279,6 +282,9 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                         }, z.core.$strict>, z.ZodObject<{
                             kind: z.ZodLiteral<"session">;
                             sessionId: z.ZodString;
+                            repo: z.ZodOptional<z.ZodString>;
+                            commit: z.ZodOptional<z.ZodString>;
+                            path: z.ZodOptional<z.ZodString>;
                         }, z.core.$strict>, z.ZodObject<{
                             kind: z.ZodLiteral<"link">;
                             url: z.ZodURL;
@@ -470,6 +476,9 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                         }, z.core.$strict>, z.ZodObject<{
                             kind: z.ZodLiteral<"session">;
                             sessionId: z.ZodString;
+                            repo: z.ZodOptional<z.ZodString>;
+                            commit: z.ZodOptional<z.ZodString>;
+                            path: z.ZodOptional<z.ZodString>;
                         }, z.core.$strict>, z.ZodObject<{
                             kind: z.ZodLiteral<"link">;
                             url: z.ZodURL;
@@ -696,6 +705,9 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                             }, z.core.$strict>, z.ZodObject<{
                                 kind: z.ZodLiteral<"session">;
                                 sessionId: z.ZodString;
+                                repo: z.ZodOptional<z.ZodString>;
+                                commit: z.ZodOptional<z.ZodString>;
+                                path: z.ZodOptional<z.ZodString>;
                             }, z.core.$strict>, z.ZodObject<{
                                 kind: z.ZodLiteral<"link">;
                                 url: z.ZodURL;
@@ -901,6 +913,9 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         }, z.core.$strict>, z.ZodObject<{
                             kind: z.ZodLiteral<"session">;
                             sessionId: z.ZodString;
+                            repo: z.ZodOptional<z.ZodString>;
+                            commit: z.ZodOptional<z.ZodString>;
+                            path: z.ZodOptional<z.ZodString>;
                         }, z.core.$strict>, z.ZodObject<{
                             kind: z.ZodLiteral<"link">;
                             url: z.ZodURL;
@@ -1090,6 +1105,9 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                             }, z.core.$strict>, z.ZodObject<{
                                 kind: z.ZodLiteral<"session">;
                                 sessionId: z.ZodString;
+                                repo: z.ZodOptional<z.ZodString>;
+                                commit: z.ZodOptional<z.ZodString>;
+                                path: z.ZodOptional<z.ZodString>;
                             }, z.core.$strict>, z.ZodObject<{
                                 kind: z.ZodLiteral<"link">;
                                 url: z.ZodURL;

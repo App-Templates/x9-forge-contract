@@ -24,6 +24,16 @@ exports.AssetOriginSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({
         kind: zod_1.z.literal(exports.ASSET_ORIGIN_KINDS[2]),
         sessionId: zod_1.z.string().min(1).max(128),
+        /**
+         * Where a verified delivery of the session lives (1.74.0, optional: older refs carry only the session). The
+         * three fields go together: `repo` and `commit` name the delivery, `path` the file inside it. A ref with
+         * only some of them is not a delivery pointer and is rejected.
+         */
+        repo: zod_1.z.string().regex(/^[A-Za-z0-9-]{1,39}\/(?!\.{1,2}$)[A-Za-z0-9_.-]{1,100}$/).optional(),
+        commit: zod_1.z.string().regex(/^[0-9a-f]{40}$/).optional(),
+        path: zod_1.z.string().min(1).max(1024).refine((path) => !path.startsWith('/') && !path.includes('\\') && !path.split('/').some((segment) => segment === '' || segment === '..' || segment === '.'), { message: 'Delivery path must be relative and contain no empty or parent segments' }).optional(),
+    }).refine((origin) => (origin.repo === undefined) === (origin.commit === undefined) && (origin.repo === undefined) === (origin.path === undefined), {
+        message: 'Session delivery pointer needs repo, commit and path together',
     }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal(exports.ASSET_ORIGIN_KINDS[3]),

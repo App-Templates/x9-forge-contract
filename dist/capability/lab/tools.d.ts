@@ -52,6 +52,9 @@ export declare const LabIngestDocumentSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"session">;
             sessionId: z.ZodString;
+            repo: z.ZodOptional<z.ZodString>;
+            commit: z.ZodOptional<z.ZodString>;
+            path: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"link">;
             url: z.ZodURL;
@@ -121,6 +124,9 @@ export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"session">;
                 sessionId: z.ZodString;
+                repo: z.ZodOptional<z.ZodString>;
+                commit: z.ZodOptional<z.ZodString>;
+                path: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"link">;
                 url: z.ZodURL;
@@ -247,10 +253,10 @@ export declare const LabPublishInputSchema: z.ZodObject<{
         target: z.ZodLiteral<"map_entry">;
         kind: z.ZodEnum<{
             access: "access";
+            asset: "asset";
             referent: "referent";
             person: "person";
             responsibility: "responsibility";
-            asset: "asset";
         }>;
         key: z.ZodString;
         version: z.ZodNumber;
@@ -297,10 +303,10 @@ export declare const LabReadPublishedOutputSchema: z.ZodObject<{
             target: z.ZodLiteral<"map_entry">;
             kind: z.ZodEnum<{
                 access: "access";
+                asset: "asset";
                 referent: "referent";
                 person: "person";
                 responsibility: "responsibility";
-                asset: "asset";
             }>;
             key: z.ZodString;
             version: z.ZodNumber;

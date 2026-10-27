@@ -17,6 +17,14 @@ export declare const AssetOriginSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"session">;
     sessionId: z.ZodString;
+    /**
+     * Where a verified delivery of the session lives (1.74.0, optional: older refs carry only the session). The
+     * three fields go together: `repo` and `commit` name the delivery, `path` the file inside it. A ref with
+     * only some of them is not a delivery pointer and is rejected.
+     */
+    repo: z.ZodOptional<z.ZodString>;
+    commit: z.ZodOptional<z.ZodString>;
+    path: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"link">;
     url: z.ZodURL;
@@ -48,6 +56,14 @@ export declare const AssetRefSchema: z.ZodObject<{
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"session">;
         sessionId: z.ZodString;
+        /**
+         * Where a verified delivery of the session lives (1.74.0, optional: older refs carry only the session). The
+         * three fields go together: `repo` and `commit` name the delivery, `path` the file inside it. A ref with
+         * only some of them is not a delivery pointer and is rejected.
+         */
+        repo: z.ZodOptional<z.ZodString>;
+        commit: z.ZodOptional<z.ZodString>;
+        path: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"link">;
         url: z.ZodURL;

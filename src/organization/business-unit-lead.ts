@@ -69,3 +69,24 @@ export const BusinessUnitLeadBirthResultSchema = z.strictObject({
   agentIdentity: ParticipantAgentIdentitySchema,
 });
 export type BusinessUnitLeadBirthResult = z.infer<typeof BusinessUnitLeadBirthResultSchema>;
+
+/** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
+export const BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = 'capo-' as const;
+
+const LEAD_SLUG = BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug;
+
+/** Agent id Forge gives to the lead of the business unit `slug`. */
+export function businessUnitLeadAgentId(slug: string): string {
+  return `${BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX}${LEAD_SLUG.parse(slug)}`;
+}
+
+/**
+ * The business unit slug of a lead agent id, or `null` when the id is not the id of a business unit lead. The id is
+ * assigned by Forge at birth, so a consumer that has verified the agent identity can read the slug from it instead of
+ * trusting a slug written by the model.
+ */
+export function businessUnitSlugOfLeadAgentId(agentId: string): string | null {
+  if (!agentId.startsWith(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX)) return null;
+  const parsed = LEAD_SLUG.safeParse(agentId.slice(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX.length));
+  return parsed.success ? parsed.data : null;
+}

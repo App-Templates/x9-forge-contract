@@ -144,8 +144,8 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
             what: z.ZodString;
             kind: z.ZodEnum<{
                 access: "access";
-                data: "data";
                 asset: "asset";
+                data: "data";
             }>;
             owner: z.ZodOptional<z.ZodString>;
             blocks: z.ZodOptional<z.ZodObject<{
@@ -327,8 +327,8 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
             what: z.ZodString;
             kind: z.ZodEnum<{
                 access: "access";
-                data: "data";
                 asset: "asset";
+                data: "data";
             }>;
             owner: z.ZodOptional<z.ZodString>;
             blocks: z.ZodOptional<z.ZodObject<{
@@ -526,8 +526,8 @@ export declare const internalMemoryActionPlanSaveContract: {
                 what: z.ZodString;
                 kind: z.ZodEnum<{
                     access: "access";
-                    data: "data";
                     asset: "asset";
+                    data: "data";
                 }>;
                 owner: z.ZodOptional<z.ZodString>;
                 blocks: z.ZodOptional<z.ZodObject<{
@@ -712,8 +712,8 @@ export declare const internalMemoryActionPlanReadContract: {
                 what: z.ZodString;
                 kind: z.ZodEnum<{
                     access: "access";
-                    data: "data";
                     asset: "asset";
+                    data: "data";
                 }>;
                 owner: z.ZodOptional<z.ZodString>;
                 blocks: z.ZodOptional<z.ZodObject<{

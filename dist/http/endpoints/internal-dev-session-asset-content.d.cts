@@ -23,6 +23,9 @@ export declare const DevSessionAssetReadSchema: z.ZodObject<{
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"session">;
             sessionId: z.ZodString;
+            repo: z.ZodOptional<z.ZodString>;
+            commit: z.ZodOptional<z.ZodString>;
+            path: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"link">;
             url: z.ZodURL;
@@ -80,6 +83,9 @@ export declare const readDevSessionAssetContract: {
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"session">;
                 sessionId: z.ZodString;
+                repo: z.ZodOptional<z.ZodString>;
+                commit: z.ZodOptional<z.ZodString>;
+                path: z.ZodOptional<z.ZodString>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"link">;
                 url: z.ZodURL;

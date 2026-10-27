@@ -193,8 +193,8 @@ export declare const ActionPlanSchema: z.ZodObject<{
         what: z.ZodString;
         kind: z.ZodEnum<{
             access: "access";
-            data: "data";
             asset: "asset";
+            data: "data";
         }>;
         owner: z.ZodOptional<z.ZodString>;
         blocks: z.ZodOptional<z.ZodObject<{
@@ -343,8 +343,8 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         what: z.ZodString;
         kind: z.ZodEnum<{
             access: "access";
-            data: "data";
             asset: "asset";
+            data: "data";
         }>;
         owner: z.ZodOptional<z.ZodString>;
         blocks: z.ZodOptional<z.ZodObject<{
