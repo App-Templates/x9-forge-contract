@@ -27,6 +27,7 @@ const request = {
 
 const ID_A = '11111111-1111-4111-8111-111111111111';
 const ID_B = '22222222-2222-4222-8222-222222222222';
+const ID_C = '33333333-3333-4333-8333-333333333333';
 
 const seat = (part: string, paperclipAgentId: string, status: string) => ({ part, paperclipAgentId, status });
 
@@ -60,6 +61,18 @@ describe('internalCompanyRdEnrollmentContract', () => {
 
   it('accepts an enrolled response with two enrolled seats', () => {
     expect(CompanyRdEnrollmentResponseSchema.safeParse(response).success).toBe(true);
+  });
+
+  it('accepts an in_corso response for a queued request with no seat yet', () => {
+    expect(CompanyRdEnrollmentResponseSchema.safeParse({ state: 'in_corso', seats: [] }).success).toBe(true);
+  });
+
+  it('accepts an in_corso response with the lab and ricerca seats both key_pending', () => {
+    const pending = {
+      state: 'in_corso',
+      seats: [seat('lab', ID_A, 'key_pending'), seat('ricerca', ID_B, 'key_pending')],
+    };
+    expect(CompanyRdEnrollmentResponseSchema.safeParse(pending).success).toBe(true);
   });
 
   it.each(CompanyRdEnrollmentErrorCodeSchema.options)('accepts the error code %s', (error) => {
@@ -109,8 +122,44 @@ describe('internalCompanyRdEnrollmentContract', () => {
     ['a non-uuid paperclipAgentId', { ...response, seats: [seat('lab', 'not-a-uuid', 'enrolled'), seat('ricerca', ID_B, 'enrolled')] }],
     ['an unknown status', { ...response, seats: [seat('lab', ID_A, 'unknown'), seat('ricerca', ID_B, 'enrolled')] }],
     ['an extra field', { ...response, extra: 1 }],
+    ['in_corso with a single seat', { state: 'in_corso', seats: [seat('lab', ID_A, 'key_pending')] }],
+    ['enrolled with no seat', { state: 'enrolled', seats: [] }],
+    ['enrolled with a single enrolled seat', { state: 'enrolled', seats: [seat('lab', ID_A, 'enrolled')] }],
+    [
+      'in_corso with three seats',
+      {
+        state: 'in_corso',
+        seats: [seat('lab', ID_A, 'key_pending'), seat('ricerca', ID_B, 'key_pending'), seat('lab', ID_C, 'key_pending')],
+      },
+    ],
+    [
+      'in_corso with two lab seats',
+      { state: 'in_corso', seats: [seat('lab', ID_A, 'key_pending'), seat('lab', ID_B, 'key_pending')] },
+    ],
+    [
+      'in_corso with equal paperclipAgentId',
+      { state: 'in_corso', seats: [seat('lab', ID_A, 'key_pending'), seat('ricerca', ID_A, 'key_pending')] },
+    ],
   ])('rejects a response with %s', (_name, body) => {
     expect(CompanyRdEnrollmentResponseSchema.safeParse(body).success).toBe(false);
+  });
+
+  it.each([
+    [
+      'in_corso with a single seat',
+      { state: 'in_corso', seats: [seat('lab', ID_A, 'key_pending')] },
+      { path: ['seats'], message: 'Seats must be none or one per R&D part' },
+    ],
+    [
+      'enrolled with no seat',
+      { state: 'enrolled', seats: [] },
+      { path: ['state'], message: 'Enrolled state requires one seat per R&D part' },
+    ],
+  ])('reports the reason of the rejection of a response with %s', (_name, body, expected) => {
+    const result = CompanyRdEnrollmentResponseSchema.safeParse(body);
+    expect(result.success).toBe(false);
+    if (result.success) return;
+    expect(result.error.issues.map(({ path, message }) => ({ path, message }))).toEqual([expected]);
   });
 
   it.each([

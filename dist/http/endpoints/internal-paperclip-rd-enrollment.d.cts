@@ -35,6 +35,10 @@ export declare const CompanyRdEnrollmentSeatSchema: z.ZodObject<{
     }>;
 }, z.core.$strict>;
 export type CompanyRdEnrollmentSeat = z.infer<typeof CompanyRdEnrollmentSeatSchema>;
+/**
+ * `in_corso` may answer a queued request whose seats are not created yet (no seat) or a request with both seats
+ * created (one per R&D part); `enrolled` always has one seat per R&D part.
+ */
 export declare const CompanyRdEnrollmentResponseSchema: z.ZodObject<{
     state: z.ZodEnum<{
         enrolled: "enrolled";

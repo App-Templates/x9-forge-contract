@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.73.0 — risposta di iscrizione R&D anche per la richiesta accodata, additivo
+
+- ROPB-03 (346), sonda T1R: `CompanyRdEnrollmentResponseSchema` (`src/http/endpoints/internal-paperclip-rd-enrollment.ts`) accetta anche la risposta a una richiesta accodata e non ancora lavorata. La rotta registra soltanto la richiesta e i posti li crea dopo il processo a timer `cap-paperclip-enroll`: con `state: 'in_corso'`, `seats` ha 0 posti oppure esattamente un `lab` e una `ricerca` con `paperclipAgentId` distinti (altrimenti problema su `seats`: «Seats must be none or one per R&D part»); con `state: 'enrolled'` ha esattamente due posti, entrambi `enrolled` (altrimenti problema su `state`: «Enrolled state requires one seat per R&D part»). Con la 1.72.0 `seats` aveva sempre esattamente due posti. Restano i tre controlli di prima (parti distinte, `paperclipAgentId` distinti, `enrolled` solo con posti `enrolled`). La richiesta, i codici d'errore e il contratto non cambiano; nessun enum o regex nuovo. Additivo: ogni risposta valida con la 1.72.0 lo è anche con la 1.73.0.
+- Consumatori: rotta di cap-paperclip di X9 (ramo `mvp/ropp-01`), factory Forge (chiamante della rotta), sonda T1R di night.
+- `dist` ricostruita con `pnpm build`; export di `dist/http/endpoints/index.cjs`: 686 con la 1.72.0, 686 con la 1.73.0 (nessun export nuovo: cambia il corpo di uno schema già esportato).
+
 ## v1.72.0 — iscrizione Paperclip di Ricerca e Lab della società, additivo
 
 - ROPB-02 (344), sonda T1R: `internalCompanyRdEnrollmentContract` (POST `/internal/paperclip/rd-enrollment`, costante `INTERNAL_COMPANY_RD_ENROLLMENT_PATH`, segreto interno), con gli schemi `CompanyRdEnrollmentRequestSchema`, `CompanyRdEnrollmentSeatStatusSchema`, `CompanyRdEnrollmentSeatSchema`, `CompanyRdEnrollmentResponseSchema`, `CompanyRdEnrollmentErrorCodeSchema`, `CompanyRdEnrollmentErrorResponseSchema` e i tipi `z.infer` `CompanyRdEnrollmentRequest`, `CompanyRdEnrollmentSeat`, `CompanyRdEnrollmentResponse`, `CompanyRdEnrollmentErrorCode`, `CompanyRdEnrollmentErrorResponse`. La factory di Forge chiede l'iscrizione dei due agenti di R&D della società (con l'identità completa) e Paperclip risponde con i loro posti.

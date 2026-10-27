@@ -27,12 +27,22 @@ exports.CompanyRdEnrollmentSeatSchema = zod_1.z.strictObject({
     paperclipAgentId: zod_1.z.uuid(),
     status: exports.CompanyRdEnrollmentSeatStatusSchema,
 });
+/**
+ * `in_corso` may answer a queued request whose seats are not created yet (no seat) or a request with both seats
+ * created (one per R&D part); `enrolled` always has one seat per R&D part.
+ */
 exports.CompanyRdEnrollmentResponseSchema = zod_1.z
     .strictObject({
     state: zod_1.z.enum(['enrolled', 'in_corso']),
-    seats: zod_1.z.array(exports.CompanyRdEnrollmentSeatSchema).length(internal_company_rd_js_1.COMPANY_RD_PARTS.length),
+    seats: zod_1.z.array(exports.CompanyRdEnrollmentSeatSchema).max(internal_company_rd_js_1.COMPANY_RD_PARTS.length),
 })
     .superRefine((response, ctx) => {
+    if (response.seats.length !== 0 && response.seats.length !== internal_company_rd_js_1.COMPANY_RD_PARTS.length) {
+        ctx.addIssue({ code: 'custom', path: ['seats'], message: 'Seats must be none or one per R&D part' });
+    }
+    if (response.state === 'enrolled' && response.seats.length !== internal_company_rd_js_1.COMPANY_RD_PARTS.length) {
+        ctx.addIssue({ code: 'custom', path: ['state'], message: 'Enrolled state requires one seat per R&D part' });
+    }
     if (new Set(response.seats.map((seat) => seat.part)).size !== response.seats.length) {
         ctx.addIssue({ code: 'custom', path: ['seats'], message: 'R&D parts must be different' });
     }

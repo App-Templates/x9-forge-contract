@@ -32,12 +32,22 @@ export const CompanyRdEnrollmentSeatSchema = z.strictObject({
 });
 export type CompanyRdEnrollmentSeat = z.infer<typeof CompanyRdEnrollmentSeatSchema>;
 
+/**
+ * `in_corso` may answer a queued request whose seats are not created yet (no seat) or a request with both seats
+ * created (one per R&D part); `enrolled` always has one seat per R&D part.
+ */
 export const CompanyRdEnrollmentResponseSchema = z
   .strictObject({
     state: z.enum(['enrolled', 'in_corso']),
-    seats: z.array(CompanyRdEnrollmentSeatSchema).length(COMPANY_RD_PARTS.length),
+    seats: z.array(CompanyRdEnrollmentSeatSchema).max(COMPANY_RD_PARTS.length),
   })
   .superRefine((response, ctx) => {
+    if (response.seats.length !== 0 && response.seats.length !== COMPANY_RD_PARTS.length) {
+      ctx.addIssue({ code: 'custom', path: ['seats'], message: 'Seats must be none or one per R&D part' });
+    }
+    if (response.state === 'enrolled' && response.seats.length !== COMPANY_RD_PARTS.length) {
+      ctx.addIssue({ code: 'custom', path: ['state'], message: 'Enrolled state requires one seat per R&D part' });
+    }
     if (new Set(response.seats.map((seat) => seat.part)).size !== response.seats.length) {
       ctx.addIssue({ code: 'custom', path: ['seats'], message: 'R&D parts must be different' });
     }
