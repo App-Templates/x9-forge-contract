@@ -112,6 +112,7 @@ export * from './internal-memory-experience.js';
 export * from './internal-memory-decisions.js';
 export * from './internal-memory-decision-requests.js';
 export * from './internal-paperclip-seats.js';
+export * from './internal-paperclip-rd-enrollment.js'; // ROPB-02 — iscrizione Paperclip di Ricerca e Lab
 export * from './internal-memory-assets.js';
 // F1B-03 — mappa dell'azienda cliente nella memoria A
 export * from './internal-memory-company-map.js';
