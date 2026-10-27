@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { BUSINESS_UNIT_LEAD_ROLE, DIRECTOR_ROLE } from "./agent-role.js";
 import { AssetRefSchema, AssetSha256Schema } from "./asset.js";
 import { BusinessUnitLeadTypeIdSchema } from "./business-unit-type.js";
+import { CompanyMapLevelSchema } from "./company-map.js";
 import { DecisionRequestIdSchema } from "./decision-request.js";
 const SlugSchema = (min, max) => z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const UniqueCompetenciesSchema = z.array(z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' });
@@ -50,6 +51,17 @@ const TextSchema = z.string().min(1).max(2000);
 const BuSlugSchema = SlugSchema(1, 30);
 const MilestoneNumberSchema = z.number().int().min(1);
 const DeliveryCriteriaSchema = z.array(TextSchema).min(1).max(20);
+/** A person the plan proposes for the client company map; written only when the owner approves this plan version. */
+export const ActionPlanReferentProposalSchema = z.strictObject({
+    personRef: SlugSchema(1, 40),
+    name: z.string().min(1).max(120),
+    role: z.string().min(1).max(120),
+    email: z.email(),
+    level: CompanyMapLevelSchema,
+    buSlug: SlugSchema(1, 30).optional(),
+}).refine((p) => (p.level === 'business_unit') === (p.buSlug !== undefined), {
+    message: 'buSlug is required at business_unit level and only allowed there', path: ['buSlug'],
+});
 /** The eleven required parts of the versioned plan submitted for owner approval. */
 export const ActionPlanSchema = z.strictObject({
     planId: DecisionRequestIdSchema,
@@ -124,6 +136,7 @@ export const ActionPlanSchema = z.strictObject({
         updates: z.strictObject({ how: TextSchema, every: TextSchema }),
     }),
     opportunities: z.array(TextSchema).optional(),
+    referentProposals: z.array(ActionPlanReferentProposalSchema).max(20).refine((proposals) => new Set(proposals.map((p) => JSON.stringify([p.level, p.buSlug ?? '', p.personRef]))).size === proposals.length, { message: 'Referent proposals must be unique per level, business unit and person' }).optional(),
 });
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 export const CompleteActionPlanSchema = ActionPlanSchema.extend({
@@ -142,6 +155,16 @@ export const CompleteActionPlanSchema = ActionPlanSchema.extend({
         breakEven: TextSchema,
     }),
 }).superRefine((plan, ctx) => {
+    const businessUnitSlugs = new Set(plan.businessUnits.map((unit) => unit.buSlug));
+    plan.referentProposals?.forEach((proposal, index) => {
+        if (proposal.level === 'business_unit' && !businessUnitSlugs.has(proposal.buSlug)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['referentProposals', index, 'buSlug'],
+                message: `Referent proposal business unit ${proposal.buSlug} does not exist in the plan`,
+            });
+        }
+    });
     const treeUnits = new Map(plan.objectiveTree.businessUnits.map((unit) => [unit.buSlug, unit]));
     plan.businessUnits.forEach((unit, index) => {
         if ((treeUnits.get(unit.buSlug)?.indicators.length ?? 0) === 0) {

@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompleteActionPlanSchema = exports.ActionPlanSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
 exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
 const agent_role_js_1 = require("./agent-role.cjs");
 const asset_js_1 = require("./asset.cjs");
 const business_unit_type_js_1 = require("./business-unit-type.cjs");
+const company_map_js_1 = require("./company-map.cjs");
 const decision_request_js_1 = require("./decision-request.cjs");
 const SlugSchema = (min, max) => zod_1.z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const UniqueCompetenciesSchema = zod_1.z.array(zod_1.z.string().min(1).max(200)).min(1).max(20).refine((competencies) => new Set(competencies).size === competencies.length, { message: 'Competencies must be unique' });
@@ -55,6 +56,17 @@ const TextSchema = zod_1.z.string().min(1).max(2000);
 const BuSlugSchema = SlugSchema(1, 30);
 const MilestoneNumberSchema = zod_1.z.number().int().min(1);
 const DeliveryCriteriaSchema = zod_1.z.array(TextSchema).min(1).max(20);
+/** A person the plan proposes for the client company map; written only when the owner approves this plan version. */
+exports.ActionPlanReferentProposalSchema = zod_1.z.strictObject({
+    personRef: SlugSchema(1, 40),
+    name: zod_1.z.string().min(1).max(120),
+    role: zod_1.z.string().min(1).max(120),
+    email: zod_1.z.email(),
+    level: company_map_js_1.CompanyMapLevelSchema,
+    buSlug: SlugSchema(1, 30).optional(),
+}).refine((p) => (p.level === 'business_unit') === (p.buSlug !== undefined), {
+    message: 'buSlug is required at business_unit level and only allowed there', path: ['buSlug'],
+});
 /** The eleven required parts of the versioned plan submitted for owner approval. */
 exports.ActionPlanSchema = zod_1.z.strictObject({
     planId: decision_request_js_1.DecisionRequestIdSchema,
@@ -129,6 +141,7 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
         updates: zod_1.z.strictObject({ how: TextSchema, every: TextSchema }),
     }),
     opportunities: zod_1.z.array(TextSchema).optional(),
+    referentProposals: zod_1.z.array(exports.ActionPlanReferentProposalSchema).max(20).refine((proposals) => new Set(proposals.map((p) => JSON.stringify([p.level, p.buSlug ?? '', p.personRef]))).size === proposals.length, { message: 'Referent proposals must be unique per level, business unit and person' }).optional(),
 });
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 exports.CompleteActionPlanSchema = exports.ActionPlanSchema.extend({
@@ -147,6 +160,16 @@ exports.CompleteActionPlanSchema = exports.ActionPlanSchema.extend({
         breakEven: TextSchema,
     }),
 }).superRefine((plan, ctx) => {
+    const businessUnitSlugs = new Set(plan.businessUnits.map((unit) => unit.buSlug));
+    plan.referentProposals?.forEach((proposal, index) => {
+        if (proposal.level === 'business_unit' && !businessUnitSlugs.has(proposal.buSlug)) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['referentProposals', index, 'buSlug'],
+                message: `Referent proposal business unit ${proposal.buSlug} does not exist in the plan`,
+            });
+        }
+    });
     const treeUnits = new Map(plan.objectiveTree.businessUnits.map((unit) => [unit.buSlug, unit]));
     plan.businessUnits.forEach((unit, index) => {
         if ((treeUnits.get(unit.buSlug)?.indicators.length ?? 0) === 0) {

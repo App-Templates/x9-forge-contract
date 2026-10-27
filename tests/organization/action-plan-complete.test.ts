@@ -83,6 +83,27 @@ function issuePaths(input: unknown): string[] {
 }
 
 describe('CompleteActionPlanSchema', () => {
+  it('accepts referent proposals at client, project and existing business unit levels', () => {
+    const proposal = {
+      personRef: 'mario-rossi', name: 'Mario Rossi', role: 'Sales manager', email: 'mario.rossi@example.org',
+    };
+    const referentProposals = [
+      { ...proposal, level: 'client' },
+      { ...proposal, level: 'project' },
+      { ...proposal, level: 'business_unit', buSlug: 'vendite' },
+    ];
+    expect(CompleteActionPlanSchema.parse({ ...completePlan(), referentProposals }).referentProposals).toEqual(referentProposals);
+  });
+
+  it('rejects a referent proposal for a business unit absent from the plan', () => {
+    const referentProposals = [{
+      personRef: 'mario-rossi', name: 'Mario Rossi', role: 'Sales manager', email: 'mario.rossi@example.org',
+      level: 'business_unit', buSlug: 'supporto',
+    }];
+    expect(ActionPlanSchema.safeParse({ ...basePlan(), referentProposals }).success).toBe(true);
+    expect(issuePaths({ ...completePlan(), referentProposals })).toEqual(['referentProposals.0.buSlug']);
+  });
+
   it('accepts a complete valid plan', () => {
     expect(CompleteActionPlanSchema.safeParse(completePlan()).success).toBe(true);
   });
