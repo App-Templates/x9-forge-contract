@@ -42,11 +42,38 @@ describe('company content read contract', () => {
   });
 
   it('accepts every allowed source and permits the same reference across sources', () => {
-    expect(COMPANY_CONTENT_SOURCES).toEqual(['publication', 'decision', 'map_entry']);
+    expect(COMPANY_CONTENT_SOURCES).toEqual(['publication', 'decision', 'map_entry', 'asset']);
     expect(CompanyContentReadResponseSchema.safeParse({
       ...response,
       items: COMPANY_CONTENT_SOURCES.map((source) => ({ ...item, source, projectId: 'website', title: 'Overview' })),
     }).success).toBe(true);
+  });
+
+  it('accepts an ok response with an asset source', () => {
+    const assetResponse = {
+      ...response,
+      items: [{ ...item, source: 'asset', ref: 'brand-book', title: 'Giallo Zafferano brand book' }],
+    };
+    expect(CompanyContentReadResponseSchema.parse(assetResponse)).toEqual(assetResponse);
+  });
+
+  it('rejects duplicate asset references even across versions', () => {
+    const assetItem = { ...item, source: 'asset', ref: 'brand-book' };
+    const result = CompanyContentReadResponseSchema.safeParse({
+      ...response, items: [assetItem, { ...assetItem, version: 2 }],
+    });
+    expect(result.success).toBe(false);
+    expect(result.error?.issues).toContainEqual({
+      code: 'custom',
+      message: 'Duplicate reference for the same source',
+      path: ['items', 1, 'ref'],
+    });
+  });
+
+  it('rejects an unknown file source', () => {
+    expect(CompanyContentReadResponseSchema.safeParse({
+      ...response, items: [{ ...item, source: 'file' }],
+    }).success).toBe(false);
   });
 
   it.each(['not_authorized', 'other_client'])('accepts the %s refusal without content', (status) => {

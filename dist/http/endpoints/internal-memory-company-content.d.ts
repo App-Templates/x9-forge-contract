@@ -1,6 +1,6 @@
 import { z } from 'zod';
 export declare const INTERNAL_MEMORY_COMPANY_CONTENT_READ_PATH: "/internal/memory/company-content/read";
-export declare const COMPANY_CONTENT_SOURCES: readonly ["publication", "decision", "map_entry"];
+export declare const COMPANY_CONTENT_SOURCES: readonly ["publication", "decision", "map_entry", "asset"];
 /** The service checks the requested client against the reader's attested identity. */
 export declare const CompanyContentReadRequestSchema: z.ZodObject<{
     context: z.ZodObject<{
@@ -38,6 +38,7 @@ export declare const CompanyContentReadResponseSchema: z.ZodDiscriminatedUnion<[
     items: z.ZodArray<z.ZodObject<{
         source: z.ZodEnum<{
             decision: "decision";
+            asset: "asset";
             map_entry: "map_entry";
             publication: "publication";
         }>;
@@ -95,6 +96,7 @@ export declare const internalMemoryCompanyContentReadContract: {
         items: z.ZodArray<z.ZodObject<{
             source: z.ZodEnum<{
                 decision: "decision";
+                asset: "asset";
                 map_entry: "map_entry";
                 publication: "publication";
             }>;

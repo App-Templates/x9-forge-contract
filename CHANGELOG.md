@@ -1,5 +1,11 @@
 # Changelog — @x9-forge/contracts
 
+## v1.77.0 — referenti proposti dal piano, mittente dell'asset, fonte `asset` del blocco aziendale, additivo
+
+- Scheda 360: `ActionPlanReferentProposalSchema` e `referentProposals` facoltativo nel piano d'azione permettono di proporre referenti dell'organizzazione o della business unit, con controllo della BU nel piano completo.
+- Scheda 361: `AssetRef.providedBy` facoltativo identifica il referente che ha fornito il materiale; `providedByEmail` facoltativo nell'ingresso della memoria permette al servizio di risolverlo dal mittente, rifiutando la compresenza con `asset.providedBy`. Consumatori: memoria e cap-email di X9.
+- Scheda 362: fonte `asset` aggiunta a `COMPANY_CONTENT_SOURCES` e alla risposta del blocco aziendale; nessun'altra forma cambia e resta il controllo dei duplicati `[source, ref]`. Ogni piano, asset e richiesta valida con la 1.76.0 lo è con la 1.77.0. Prove: `tests/internal-memory-company-content.test.ts` copre la risposta `ok` con un asset, il duplicato asset e la fonte sconosciuta `file`, insieme al controllo duplicati preesistente; `tests/organization/index.test.ts` e `tests/internal-memory-assets.test.ts` coprono i contratti raccolti nel rilascio. Test mirato della risposta asset osservato rosso prima dell'aggiunta della fonte; accettazione, tipi e mutazioni a cura dello script. `dist` ricostruita con `pnpm build` (esito 0).
+
 ## v1.75.0 — segnale di nascita con i modelli e ricevuta della pubblicazione, additivo
 
 - Gli agenti che nascono già con i modelli (eredi R&D: Lab, Ricerca, business unit del profilo `ricerca-lab`) non pubblicavano mai i modelli se non avevano una capability da installare: agent-core riconosceva la prima pubblicazione solo dalle configurazioni ordinarie. Il segnale di nascita lo dà chi possiede la nascita, cioè la factory di Forge.
