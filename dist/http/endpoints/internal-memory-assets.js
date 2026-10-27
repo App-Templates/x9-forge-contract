@@ -18,8 +18,12 @@ export const InternalMemoryAssetIngestRequestSchema = z
     context: OrganizationRunContextSchema,
     asset: AssetRefSchema,
     contentBase64: z.string().min(1).optional(),
+    providedByEmail: z.email().optional(),
 })
     .superRefine((value, ctx) => {
+    if (value.providedByEmail !== undefined && value.asset.providedBy !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['asset', 'providedBy'], message: 'provided_by_is_resolved_by_the_service' });
+    }
     const isLink = value.asset.origin.kind === 'link';
     if (isLink && value.contentBase64 !== undefined) {
         ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'link_has_no_content' });

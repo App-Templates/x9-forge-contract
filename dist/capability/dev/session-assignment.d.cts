@@ -69,6 +69,9 @@ export declare const DevSessionMaterialSchema: z.ZodDiscriminatedUnion<[z.ZodObj
         projectId: z.ZodString;
         assetType: z.ZodOptional<z.ZodString>;
         buSlug: z.ZodOptional<z.ZodString>;
+        providedBy: z.ZodOptional<z.ZodObject<{
+            personRef: z.ZodString;
+        }, z.core.$strict>>;
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>;
     note: z.ZodOptional<z.ZodString>;
@@ -143,6 +146,9 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
             projectId: z.ZodString;
             assetType: z.ZodOptional<z.ZodString>;
             buSlug: z.ZodOptional<z.ZodString>;
+            providedBy: z.ZodOptional<z.ZodObject<{
+                personRef: z.ZodString;
+            }, z.core.$strict>>;
             createdAt: z.ZodISODateTime;
         }, z.core.$strict>;
         note: z.ZodOptional<z.ZodString>;
@@ -283,6 +289,9 @@ export declare const DevSessionResultSchema: z.ZodObject<{
         projectId: z.ZodString;
         assetType: z.ZodOptional<z.ZodString>;
         buSlug: z.ZodOptional<z.ZodString>;
+        providedBy: z.ZodOptional<z.ZodObject<{
+            personRef: z.ZodString;
+        }, z.core.$strict>>;
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>>;
 }, z.core.$strict>;

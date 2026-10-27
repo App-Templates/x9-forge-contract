@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { type DecisionSubject } from "./decision-request.cjs";
 /** Levels of the client company map: client company → project → business unit. */
 export declare const COMPANY_MAP_LEVELS: readonly ["client", "project", "business_unit"];
 export declare const CompanyMapLevelSchema: z.ZodEnum<{
@@ -59,6 +60,25 @@ export declare function checkCompanyMapLevelScope(scope: {
     projectId?: string | undefined;
     buSlug?: string | undefined;
 }, ctx: z.RefinementCtx): void;
+/** Entry selected for a confirmation request, within its level and kind. */
+export declare const CompanyMapConfirmTargetSchema: z.ZodObject<{
+    level: z.ZodEnum<{
+        client: "client";
+        project: "project";
+        business_unit: "business_unit";
+    }>;
+    projectId: z.ZodOptional<z.ZodString>;
+    buSlug: z.ZodOptional<z.ZodString>;
+    kind: z.ZodEnum<{
+        access: "access";
+        asset: "asset";
+        referent: "referent";
+        person: "person";
+        responsibility: "responsibility";
+    }>;
+    entryRef: z.ZodString;
+}, z.core.$strict>;
+export type CompanyMapConfirmTarget = z.infer<typeof CompanyMapConfirmTargetSchema>;
 /** Fields of the «referent» entry (F1B-03). */
 export declare const CompanyMapReferentFieldsSchema: z.ZodObject<{
     kind: z.ZodLiteral<"referent">;
@@ -383,6 +403,16 @@ export declare const CompanyMapAnyEntrySchema: z.ZodDiscriminatedUnion<[z.ZodObj
     }>;
 }, z.core.$strict>], "kind">;
 export type CompanyMapAnyEntry = z.infer<typeof CompanyMapAnyEntrySchema>;
+/** Owner choices when confirming an existing company map entry. */
+export declare const COMPANY_MAP_CONFIRM_OPTIONS: [{
+    readonly optionId: "confermo";
+    readonly label: "Confermo";
+}, {
+    readonly optionId: "e-cambiato";
+    readonly label: "È cambiato";
+}];
+/** Bind a confirmation to the exact entry version and digest the owner read. */
+export declare function companyMapConfirmationSubject(entry: CompanyMapAnyEntry): DecisionSubject;
 /** Key of an entry inside its level and kind: the person, the asset or the access. */
 export declare function companyMapEntryKey(entry: {
     kind: 'referent' | 'person' | 'responsibility';

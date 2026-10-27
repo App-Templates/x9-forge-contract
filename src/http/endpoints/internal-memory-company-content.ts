@@ -4,7 +4,7 @@ import { OrganizationRunContextSchema } from '../../organization/run-context.js'
 
 export const INTERNAL_MEMORY_COMPANY_CONTENT_READ_PATH = '/internal/memory/company-content/read' as const;
 
-export const COMPANY_CONTENT_SOURCES = ['publication', 'decision', 'map_entry'] as const;
+export const COMPANY_CONTENT_SOURCES = ['publication', 'decision', 'map_entry', 'asset'] as const;
 
 /** The service checks the requested client against the reader's attested identity. */
 export const CompanyContentReadRequestSchema = z.strictObject({

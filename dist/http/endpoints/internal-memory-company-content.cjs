@@ -5,7 +5,7 @@ const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
 const run_context_js_1 = require("../../organization/run-context.cjs");
 exports.INTERNAL_MEMORY_COMPANY_CONTENT_READ_PATH = '/internal/memory/company-content/read';
-exports.COMPANY_CONTENT_SOURCES = ['publication', 'decision', 'map_entry'];
+exports.COMPANY_CONTENT_SOURCES = ['publication', 'decision', 'map_entry', 'asset'];
 /** The service checks the requested client against the reader's attested identity. */
 exports.CompanyContentReadRequestSchema = zod_1.z.strictObject({
     context: run_context_js_1.OrganizationRunContextSchema,

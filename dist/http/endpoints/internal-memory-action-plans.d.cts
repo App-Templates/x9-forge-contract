@@ -174,6 +174,18 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
             }, z.core.$strict>;
         }, z.core.$strict>;
         opportunities: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        referentProposals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            personRef: z.ZodString;
+            name: z.ZodString;
+            role: z.ZodString;
+            email: z.ZodEmail;
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
+            buSlug: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type ActionPlanSaveRequest = z.infer<typeof ActionPlanSaveRequestSchema>;
@@ -357,6 +369,18 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
             }, z.core.$strict>;
         }, z.core.$strict>;
         opportunities: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        referentProposals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            personRef: z.ZodString;
+            name: z.ZodString;
+            role: z.ZodString;
+            email: z.ZodEmail;
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
+            buSlug: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
     latestVersion: z.ZodNumber;
 }, z.core.$strict>, z.ZodObject<{
@@ -556,6 +580,18 @@ export declare const internalMemoryActionPlanSaveContract: {
                 }, z.core.$strict>;
             }, z.core.$strict>;
             opportunities: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            referentProposals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                personRef: z.ZodString;
+                name: z.ZodString;
+                role: z.ZodString;
+                email: z.ZodEmail;
+                level: z.ZodEnum<{
+                    client: "client";
+                    project: "project";
+                    business_unit: "business_unit";
+                }>;
+                buSlug: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>>;
         }, z.core.$strict>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -742,6 +778,18 @@ export declare const internalMemoryActionPlanReadContract: {
                 }, z.core.$strict>;
             }, z.core.$strict>;
             opportunities: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            referentProposals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                personRef: z.ZodString;
+                name: z.ZodString;
+                role: z.ZodString;
+                email: z.ZodEmail;
+                level: z.ZodEnum<{
+                    client: "client";
+                    project: "project";
+                    business_unit: "business_unit";
+                }>;
+                buSlug: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>>;
         }, z.core.$strict>;
         latestVersion: z.ZodNumber;
     }, z.core.$strict>, z.ZodObject<{

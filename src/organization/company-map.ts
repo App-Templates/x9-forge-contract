@@ -1,7 +1,12 @@
 import { z } from 'zod';
 import { AgentIdSchema } from '../agent/agent-identity.js';
 import { AssetRefSchema, AssetSha256Schema, AssetTypeSchema } from './asset.js';
-import { DecisionRequestIdSchema } from './decision-request.js';
+import {
+  DecisionRequestIdSchema,
+  DecisionSubjectSchema,
+  type DecisionRequestOption,
+  type DecisionSubject,
+} from './decision-request.js';
 
 const SlugSchema = (min: number, max: number) => z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 
@@ -67,6 +72,16 @@ export function checkCompanyMapLevelScope(
     });
   }
 }
+
+/** Entry selected for a confirmation request, within its level and kind. */
+export const CompanyMapConfirmTargetSchema = z.strictObject({
+  level: CompanyMapLevelSchema,
+  projectId: CompanyMapScopeFieldsSchema.shape.projectId,
+  buSlug: CompanyMapScopeFieldsSchema.shape.buSlug,
+  kind: CompanyMapEntryKindSchema,
+  entryRef: z.string().min(1).max(200),
+}).superRefine(checkCompanyMapLevelScope);
+export type CompanyMapConfirmTarget = z.infer<typeof CompanyMapConfirmTargetSchema>;
 
 function checkEntry(
   entry: { level: string; projectId?: string | undefined; buSlug?: string | undefined; supersedes?: number | undefined; version: number },
@@ -178,6 +193,22 @@ export const CompanyMapAnyEntrySchema = z.discriminatedUnion('kind', [
   CompanyMapAccessEntrySchema,
 ]);
 export type CompanyMapAnyEntry = z.infer<typeof CompanyMapAnyEntrySchema>;
+
+/** Owner choices when confirming an existing company map entry. */
+export const COMPANY_MAP_CONFIRM_OPTIONS = [
+  { optionId: 'confermo', label: 'Confermo' },
+  { optionId: 'e-cambiato', label: 'È cambiato' },
+] as const satisfies DecisionRequestOption[];
+
+/** Bind a confirmation to the exact entry version and digest the owner read. */
+export function companyMapConfirmationSubject(entry: CompanyMapAnyEntry): DecisionSubject {
+  return DecisionSubjectSchema.parse({
+    kind: 'confirmation',
+    planId: 'map-' + entry.digest.slice(0, 40),
+    planVersion: entry.version,
+    digest: entry.digest,
+  });
+}
 
 /** Key of an entry inside its level and kind: the person, the asset or the access. */
 export function companyMapEntryKey(

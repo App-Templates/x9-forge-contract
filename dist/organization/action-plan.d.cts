@@ -75,6 +75,20 @@ export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
 export type ActionPlanBusinessUnit = z.infer<typeof ActionPlanBusinessUnitSchema>;
+/** A person the plan proposes for the client company map; written only when the owner approves this plan version. */
+export declare const ActionPlanReferentProposalSchema: z.ZodObject<{
+    personRef: z.ZodString;
+    name: z.ZodString;
+    role: z.ZodString;
+    email: z.ZodEmail;
+    level: z.ZodEnum<{
+        client: "client";
+        project: "project";
+        business_unit: "business_unit";
+    }>;
+    buSlug: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type ActionPlanReferentProposal = z.infer<typeof ActionPlanReferentProposalSchema>;
 /** The eleven required parts of the versioned plan submitted for owner approval. */
 export declare const ActionPlanSchema: z.ZodObject<{
     planId: z.ZodString;
@@ -223,6 +237,18 @@ export declare const ActionPlanSchema: z.ZodObject<{
         }, z.core.$strict>;
     }, z.core.$strict>;
     opportunities: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    referentProposals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        personRef: z.ZodString;
+        name: z.ZodString;
+        role: z.ZodString;
+        email: z.ZodEmail;
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
+        buSlug: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type ActionPlan = z.infer<typeof ActionPlanSchema>;
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
@@ -373,6 +399,18 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         }, z.core.$strict>;
     }, z.core.$strict>;
     opportunities: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    referentProposals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        personRef: z.ZodString;
+        name: z.ZodString;
+        role: z.ZodString;
+        email: z.ZodEmail;
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
+        buSlug: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>>;
     marketingPlan: z.ZodObject<{
         audience: z.ZodString;
         channels: z.ZodArray<z.ZodString>;

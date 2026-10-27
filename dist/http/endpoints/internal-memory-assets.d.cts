@@ -63,9 +63,13 @@ export declare const InternalMemoryAssetIngestRequestSchema: z.ZodObject<{
         projectId: z.ZodString;
         assetType: z.ZodOptional<z.ZodString>;
         buSlug: z.ZodOptional<z.ZodString>;
+        providedBy: z.ZodOptional<z.ZodObject<{
+            personRef: z.ZodString;
+        }, z.core.$strict>>;
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>;
     contentBase64: z.ZodOptional<z.ZodString>;
+    providedByEmail: z.ZodOptional<z.ZodEmail>;
 }, z.core.$strict>;
 export type InternalMemoryAssetIngestRequest = z.infer<typeof InternalMemoryAssetIngestRequestSchema>;
 export declare const InternalMemoryAssetIngestResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -155,6 +159,9 @@ export declare const InternalMemoryAssetListResponseSchema: z.ZodObject<{
         projectId: z.ZodString;
         assetType: z.ZodOptional<z.ZodString>;
         buSlug: z.ZodOptional<z.ZodString>;
+        providedBy: z.ZodOptional<z.ZodObject<{
+            personRef: z.ZodString;
+        }, z.core.$strict>>;
         createdAt: z.ZodISODateTime;
         links: z.ZodArray<z.ZodObject<{
             recordId: z.ZodString;
@@ -220,9 +227,13 @@ export declare const internalMemoryAssetIngestContract: {
             projectId: z.ZodString;
             assetType: z.ZodOptional<z.ZodString>;
             buSlug: z.ZodOptional<z.ZodString>;
+            providedBy: z.ZodOptional<z.ZodObject<{
+                personRef: z.ZodString;
+            }, z.core.$strict>>;
             createdAt: z.ZodISODateTime;
         }, z.core.$strict>;
         contentBase64: z.ZodOptional<z.ZodString>;
+        providedByEmail: z.ZodOptional<z.ZodEmail>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"file">;
@@ -303,6 +314,9 @@ export declare const internalMemoryAssetListContract: {
             projectId: z.ZodString;
             assetType: z.ZodOptional<z.ZodString>;
             buSlug: z.ZodOptional<z.ZodString>;
+            providedBy: z.ZodOptional<z.ZodObject<{
+                personRef: z.ZodString;
+            }, z.core.$strict>>;
             createdAt: z.ZodISODateTime;
             links: z.ZodArray<z.ZodObject<{
                 recordId: z.ZodString;

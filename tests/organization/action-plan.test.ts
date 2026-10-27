@@ -1,6 +1,8 @@
+import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import {
   ActionPlanBusinessUnitSchema,
+  ActionPlanReferentProposalSchema,
   ActionPlanSchema,
   actionPlanCanonicalJson,
 } from '../../src/organization/action-plan.js';
@@ -114,6 +116,57 @@ function completePlan() {
 }
 
 describe('ActionPlanSchema', () => {
+  const proposal = {
+    personRef: 'mario-rossi', name: 'Mario Rossi', role: 'Sales manager',
+    email: 'mario.rossi@example.org', level: 'client',
+  };
+
+  it('accepts two valid referent proposals and preserves their data', () => {
+    const referentProposals = [proposal, { ...proposal, level: 'business_unit', buSlug: 'vendite' }];
+    const plan = { ...completePlan(), referentProposals };
+    expect(ActionPlanSchema.parse(plan)).toEqual(plan);
+    expect(ActionPlanReferentProposalSchema.parse(proposal)).toEqual(proposal);
+  });
+
+  it('enforces referent proposal uniqueness, scope and count', () => {
+    const plan = completePlan();
+    for (const referentProposals of [
+      [proposal, { ...proposal, email: 'other@example.org' }],
+      [{ ...proposal, level: 'business_unit', buSlug: 'vendite' }, { ...proposal, level: 'business_unit', buSlug: 'vendite' }],
+      [{ ...proposal, buSlug: 'vendite' }],
+      [{ ...proposal, level: 'business_unit' }],
+      [{ ...proposal, level: 'project', buSlug: 'vendite' }],
+      Array.from({ length: 21 }, (_, index) => ({ ...proposal, personRef: `person-${index}` })),
+    ]) {
+      expect(ActionPlanSchema.safeParse({ ...plan, referentProposals }).success, JSON.stringify(referentProposals)).toBe(false);
+    }
+    expect(ActionPlanSchema.safeParse({
+      ...plan, referentProposals: Array.from({ length: 20 }, (_, index) => ({ ...proposal, personRef: `person-${index}` })),
+    }).success).toBe(true);
+  });
+
+  it('accepts the same person at different levels and business units', () => {
+    const referentProposals = [
+      proposal,
+      { ...proposal, level: 'project' },
+      { ...proposal, level: 'business_unit', buSlug: 'vendite' },
+      { ...proposal, level: 'business_unit', buSlug: 'supporto' },
+      { ...proposal, personRef: 'anna-verdi' },
+    ];
+    expect(ActionPlanSchema.parse({ ...completePlan(), referentProposals }).referentProposals).toEqual(referentProposals);
+    expect(ActionPlanSchema.safeParse({ ...completePlan(), referentProposals: [] }).success).toBe(true);
+  });
+
+  it.each([
+    { email: 'invalid-email' }, { extra: true }, { projectId: 'project-1' },
+    { level: 'unknown' }, { personRef: 'Bad_Slug' }, { personRef: '' }, { personRef: 'x'.repeat(41) },
+    { name: '' }, { name: 'x'.repeat(121) }, { role: '' }, { role: 'x'.repeat(121) },
+    { level: 'business_unit', buSlug: 'Bad_Slug' },
+    { level: 'business_unit', buSlug: 'x'.repeat(31) },
+  ])('rejects invalid referent proposal fields %j', (change) => {
+    expect(ActionPlanSchema.safeParse({ ...completePlan(), referentProposals: [{ ...proposal, ...change }] }).success).toBe(false);
+  });
+
   it('accepts a complete plan with one immediately starting unit', () => {
     const plan = completePlan();
     expect(ActionPlanSchema.parse(plan)).toEqual(plan);
@@ -214,6 +267,37 @@ describe('ActionPlanSchema', () => {
 });
 
 describe('actionPlanCanonicalJson', () => {
+  it('preserves the saved canonical JSON and SHA-256 when referent proposals are absent', () => {
+    // Frozen before referent proposals were added; independent of the current schema.
+    const savedCanonical = [
+      '{"analysis":{"marketAndAlternatives":{"sources":["https://example.org/research"],"text":"Direct outreach"},"re',
+      'commendedMethod":{"method":"Interview buyers","why":"Validate demand"},"startingPoint":"New service"},"assumpt',
+      'ions":[],"budget":{"currency":"EUR","perBu":[{"buSlug":"vendite","cap":0}],"total":0},"businessUnits":[{"buSlu',
+      'g":"vendite","competencies":["outreach","trattativa"],"executor":"agent","firstActivities":["Elenco dei contat',
+      'ti"],"lead":{"role":"capo-bu"},"mandate":"Portare i primi clienti.","referent":{"entryVersion":3,"personRef":"',
+      'mario-rossi"},"reviewer":{"role":"director"},"start":{"kind":"now"},"typeId":"marketing"}],"clientId":"client-',
+      '1","criticalPath":[1],"exchanges":[{"format":"Document","fromBu":"vendite","toBu":"supporto","what":"Lead prof',
+      'ile"}],"ifApproved":{"startLater":[{"after":"First contract","buSlug":"supporto"}],"startNow":["vendite"],"upd',
+      'ates":{"every":"Friday","how":"Weekly report"},"verticalPlanDueBy":[{"buSlug":"vendite","dueDate":"2026-10-25"',
+      '}]},"milestones":[{"blockedBy":[],"buSlug":"vendite","closeCriterion":"Report accepted","delivery":"Interview ',
+      'report","dueDate":"2026-11-01","number":1}],"missingMaterials":[{"kind":"asset","what":"Product overview"}],"o',
+      'bjective":{"expectedResult":"One contract","measure":"Signed contracts","request":"Find clients"},"objectiveTr',
+      'ee":{"businessUnits":[{"buSlug":"vendite","deliveryCriteria":["Ten interviews"],"expectedResult":"Qualified le',
+      'ads","indicators":[{"name":"Interviews","source":"CRM"}]}],"project":{"deliveryCriteria":["Signed agreement"],',
+      '"expectedResult":"One client"}},"organizationId":"organization-1","planId":"plan_001","projectId":"project-1",',
+      '"questions":[{"question":"Which segment?","unlocks":"Buyer interviews"}],"risks":[],"strategy":{"approach":"St',
+      'art small","choices":["Direct sales"],"discardedAlternatives":[]},"tenantId":"tenant-1","version":1}',
+    ].join('');
+    const savedDigest = '0e8afb37b9eddb02e052caddff1fa6593ff7dc46410f7e671fbf051a1fd6eca5';
+    const savedPlan = { ...JSON.parse(savedCanonical), digest: savedDigest };
+    const plan = ActionPlanSchema.parse(savedPlan);
+    expect(plan).not.toHaveProperty('referentProposals');
+    expect(plan.digest).toBe(savedDigest);
+    const canonical = actionPlanCanonicalJson(plan);
+    expect(canonical).toBe(savedCanonical);
+    expect(createHash('sha256').update(canonical).digest('hex')).toBe(savedDigest);
+  });
+
   it('sorts keys recursively including objects inside arrays and excludes digest', () => {
     const plan = completePlan();
     const { planId, ...rest } = plan;

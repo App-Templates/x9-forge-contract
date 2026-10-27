@@ -32,6 +32,49 @@ const context = {
 };
 const list = { context, projectId: 'project-1' };
 
+describe('internal memory assets: provider attribution', () => {
+  it('accepts a sender email for service resolution without changing the request', () => {
+    const input = { context, asset, contentBase64: 'AAEC', providedByEmail: 'massimo@example.com' };
+    expect(InternalMemoryAssetIngestRequestSchema.parse(input)).toEqual(input);
+  });
+
+  it('rejects a sender email combined with an asserted provider', () => {
+    const result = InternalMemoryAssetIngestRequestSchema.safeParse({
+      context,
+      asset: { ...asset, providedBy: { personRef: 'massimo' } },
+      contentBase64: 'AAEC',
+      providedByEmail: 'massimo@example.com',
+    });
+    expect(result.success).toBe(false);
+    expect(result.error?.issues).toContainEqual({
+      code: 'custom', path: ['asset', 'providedBy'], message: 'provided_by_is_resolved_by_the_service',
+    });
+  });
+
+  it.each(['', 'massimo', 'massimo@', 'massimo@example.com ', 'massimo@example.com\n'])(
+    'rejects an invalid sender email %j', (providedByEmail) => {
+      expect(InternalMemoryAssetIngestRequestSchema.safeParse({
+        context, asset, contentBase64: 'AAEC', providedByEmail,
+      }).success).toBe(false);
+    },
+  );
+
+  it('preserves an ingest request without either provider field', () => {
+    const input = { context, asset, contentBase64: 'AAEC' };
+    expect(InternalMemoryAssetIngestRequestSchema.parse(input)).toEqual(input);
+  });
+
+  it('accepts an already resolved provider without a sender email', () => {
+    const input = { context, asset: { ...asset, providedBy: { personRef: 'massimo' } }, contentBase64: 'AAEC' };
+    expect(InternalMemoryAssetIngestRequestSchema.parse(input)).toEqual(input);
+  });
+
+  it('inherits provider attribution in list responses', () => {
+    const input = { assets: [{ ...asset, providedBy: { personRef: 'massimo' }, links: [] }] };
+    expect(InternalMemoryAssetListResponseSchema.parse(input)).toEqual(input);
+  });
+});
+
 describe('internal memory assets contract', () => {
   it('exports ingest and list contracts from source and the built CommonJS index', () => {
     expect(internalMemoryAssetIngestContract).toEqual({
