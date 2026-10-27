@@ -1,4 +1,4 @@
-import { ReloadAgentParamsSchema, ReloadAgentResponseSchema } from "./endpoints/internal-agents-reload.js";
+import { ReloadAgentBodySchema, ReloadAgentParamsSchema, ReloadAgentResponseSchema } from "./endpoints/internal-agents-reload.js";
 import { StopAgentParamsSchema, StopAgentResponseSchema } from "./endpoints/internal-agents-stop.js";
 import { InternalTurnRequestSchema, InternalTurnResponseSchema } from "./endpoints/internal-turn.js";
 import { InternalAgentTurnRequestSchema, InternalAgentTurnResponseSchema, internalAgentTurnPath } from "./endpoints/internal-agent-turn.js";
@@ -108,11 +108,13 @@ export function createBridgeClient(config) {
             async listAgents() {
                 return request({ method: 'GET', path: '/internal/agents' });
             },
-            async reloadAgent(agentId) {
+            async reloadAgent(agentId, body) {
                 const { agentId: safe } = ReloadAgentParamsSchema.parse({ agentId });
+                const safeBody = body === undefined ? undefined : ReloadAgentBodySchema.parse(body);
                 const raw = await request({
                     method: 'POST',
                     path: `/internal/agents/${safe}/reload`,
+                    ...(safeBody === undefined ? {} : { body: safeBody }),
                 });
                 return ReloadAgentResponseSchema.parse(raw);
             },

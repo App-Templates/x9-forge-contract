@@ -18,6 +18,7 @@ export * from "./agent-runtime-identity.cjs";
 export * from "./agent-runtime-state.cjs";
 export * from "./agent-runtime-source.cjs";
 export * from "./agent-management.cjs";
+export * from "./agent-birth.cjs";
 export * from "./agent-scope-policy.cjs";
 export * from "./policy-approval-request.cjs";
 export * from "./agent-role-scope-policy.cjs";

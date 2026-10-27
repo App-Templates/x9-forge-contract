@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModelConsumerDefinitionSchema = exports.AGENT_CORE_MODEL_CONSUMER = exports.AGENT_CORE_MODEL_CAPABILITY_ID = exports.ModelConsumerRegistrySchema = exports.ModelConsumerSchema = void 0;
+exports.MODEL_CONSUMER_ADAPTER_IDS = exports.ModelConsumerDefinitionSchema = exports.AGENT_CORE_MODEL_CONSUMER = exports.AGENT_CORE_MODEL_CAPABILITY_ID = exports.ModelConsumerRegistrySchema = exports.ModelConsumerSchema = void 0;
 exports.registeredModelConsumers = registeredModelConsumers;
 exports.registeredModelConsumerDefinitions = registeredModelConsumerDefinitions;
 exports.findModelConsumer = findModelConsumer;
 exports.findModelConsumerDefinition = findModelConsumerDefinition;
+exports.modelConsumerAcceptsAdapter = modelConsumerAcceptsAdapter;
 const zod_1 = require("zod");
 const parameters_js_1 = require("../capability/parameters.cjs");
 const model_slot_js_1 = require("./model-slot.cjs");
@@ -85,5 +86,19 @@ function findModelConsumer(slotId) {
 function findModelConsumerDefinition(slotId) {
     const found = definitions.find(consumer => consumer.slotId === slotId);
     return found === undefined ? undefined : structuredClone(found);
+}
+/**
+ * The only adapters a consumer installs through, when it is not "any supported adapter" (v1.75.0). The Lab digest runs on
+ * its dedicated Responses adapter: a descriptor with the right provider and model but another adapter is refused by
+ * cap-lab after the birth, so the producer of a birth checks it before (one rule for X9 and Forge).
+ */
+exports.MODEL_CONSUMER_ADAPTER_IDS = Object.freeze({
+    lab_digest: Object.freeze(['lab-openai-responses']),
+});
+/** true when the slot has no adapter restriction, or the adapter is one of its allowed ones. */
+function modelConsumerAcceptsAdapter(slotId, adapterId) {
+    if (typeof slotId !== 'string' || !Object.hasOwn(exports.MODEL_CONSUMER_ADAPTER_IDS, slotId))
+        return true;
+    return typeof adapterId === 'string' && exports.MODEL_CONSUMER_ADAPTER_IDS[slotId].includes(adapterId);
 }
 //# sourceMappingURL=model-consumers.js.map

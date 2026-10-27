@@ -1,5 +1,16 @@
 # Changelog — @x9-forge/contracts
 
+## v1.75.0 — segnale di nascita con i modelli e ricevuta della pubblicazione, additivo
+
+- Gli agenti che nascono già con i modelli (eredi R&D: Lab, Ricerca, business unit del profilo `ricerca-lab`) non pubblicavano mai i modelli se non avevano una capability da installare: agent-core riconosceva la prima pubblicazione solo dalle configurazioni ordinarie. Il segnale di nascita lo dà chi possiede la nascita, cioè la factory di Forge.
+- Nuovo file `src/agent/agent-birth.ts`, esportato da `@x9-forge/contracts/agent`: `AgentBirthDeployJobIdSchema`, `AgentBirthSignalSchema` (`deployJobId`, `configVersion`: la versione della `modelConfiguration` di nascita del contesto) e `AgentBirthModelsReceiptSchema` (`requestId`, `configVersion`: cosa risponde agent-core quando i modelli sono pubblicati e confermati), con i tipi `AgentBirthSignal` e `AgentBirthModelsReceipt`.
+- `LifecycleCommandSchema` (`src/agent/agent-management.ts`): campo facoltativo `birth`, valido solo con `reload` (altre azioni: problema su `birth`, «A birth signal is only valid for a reload»). `sameAgentCommand` confronta anche `birth`: la stessa `requestId` con e senza segnale è un conflitto di idempotenza.
+- `POST /internal/agents/:agentId/reload` (`src/http/endpoints/internal-agents-reload.ts`): corpo facoltativo `ReloadAgentBodySchema` (`{ birth? }`, `.strict()`) e risposta con `birthModels` facoltativo. Il contratto dichiara `bodySchema`; una richiesta senza corpo resta valida e `ReloadAgentResponseSchema` accetta la risposta di prima. `SecretBridgeClient.reloadAgent(agentId, body?)` manda il corpo solo se c'è e lo valida prima.
+- `src/model-router/model-consumers.ts`: `MODEL_CONSUMER_ADAPTER_IDS` e `modelConsumerAcceptsAdapter(slotId, adapterId)`: gli adapter con cui un consumatore si installa quando non vale «qualunque adapter supportato». Oggi una sola voce: `lab_digest` solo con `lab-openai-responses` (cap-lab rifiuta dopo la nascita un descrittore con provider e modello giusti ma altro adapter); il produttore di una nascita lo controlla prima. Nessun cambiamento a `ModelConsumerDefinitionSchema`.
+- Additivo: ogni comando, richiesta e risposta valido con la 1.74.0 lo è anche con la 1.75.0.
+- Consumatori: agent-core di X9 (rotta reload e criterio di prima pubblicazione), factory Forge (passo `reload-agent-core` della nascita e controllo «ruolo completo»).
+- Prove: `tests/agent/agent-birth.test.ts` (8 test), `tests/model-router/model-consumer-adapters.test.ts` (3 test); `tests/agent/agent-birth.mutation.mjs` toglie un controllo alla volta (14 mutanti, tutti uccisi). `dist` ricostruita con `pnpm build`.
+
 ## v1.74.0 — incarico di sessione della business unit e consegna verificata, additivo
 
 - F4 (filiera MVP, cap-dev per le BU): nuovo file `src/capability/dev/session-assignment.ts`, esportato dal sottopercorso `@x9-forge/contracts/capability/dev`. È il contratto fra chi apre un incarico di sessione (cap-dev di X9, per conto del capo BU) e chi lo esegue (l'esecutore sul laptop del proprietario): l'incarico vive nel corpo di una issue della bacheca di sessione, il risultato nel ramo `consegna/<n>` e nel commento finale della stessa issue.

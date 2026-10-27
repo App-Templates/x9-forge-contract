@@ -1,7 +1,7 @@
 import type { AuthInternalSecret, AuthInternalToken, AuthNone, EndpointAuthType } from "../auth/auth-headers.js";
 import type { BridgeErrorResponse } from "./response.js";
 import type { ListAgentsResponse } from "./endpoints/internal-agents-list.js";
-import { type ReloadAgentResponse } from "./endpoints/internal-agents-reload.js";
+import { type ReloadAgentBody, type ReloadAgentResponse } from "./endpoints/internal-agents-reload.js";
 import { type StopAgentResponse } from "./endpoints/internal-agents-stop.js";
 import { type InternalTurnRequest, type InternalTurnResponse } from "./endpoints/internal-turn.js";
 import { type InternalAgentTurnRequest, type InternalAgentTurnResponse } from "./endpoints/internal-agent-turn.js";
@@ -73,7 +73,8 @@ export interface BaseBridgeClient<A extends 'secret' | 'token' | 'none'> {
  */
 export interface SecretBridgeClient extends BaseBridgeClient<'secret'> {
     listAgents(): Promise<ListAgentsResponse>;
-    reloadAgent(agentId: string): Promise<ReloadAgentResponse>;
+    /** `body.birth` (v1.75.0): first publication of the models of an agent born with them. */
+    reloadAgent(agentId: string, body?: ReloadAgentBody): Promise<ReloadAgentResponse>;
     stopAgent(agentId: string): Promise<StopAgentResponse>;
     internalTurn(body: InternalTurnRequest): Promise<InternalTurnResponse>;
     /** v1.22.0 — turn addressed to one specific (non-primary) agent. */

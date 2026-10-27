@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.reloadAgentContract = exports.ReloadAgentErrorResponseSchema = exports.ReloadAgentResponseSchema = exports.ReloadAgentParamsSchema = void 0;
+exports.reloadAgentContract = exports.ReloadAgentErrorResponseSchema = exports.ReloadAgentResponseSchema = exports.ReloadAgentBodySchema = exports.ReloadAgentParamsSchema = void 0;
 const zod_1 = require("zod");
+const agent_birth_js_1 = require("../../agent/agent-birth.cjs");
 /**
  * POST /internal/agents/:agentId/reload — reload a running agent.
  * Direction: Forge factory-svc -> X9 agent-core
@@ -17,6 +18,13 @@ const zod_1 = require("zod");
 exports.ReloadAgentParamsSchema = zod_1.z.object({
     agentId: zod_1.z.string().regex(/^[a-z0-9-]+$/),
 });
+/**
+ * v1.75.0 — optional body. A deploy job that is at its `reload-agent-core` step for an agent born WITH models sends
+ * `birth`; every other caller (Applica, restore, token rotation, enable/disable) sends no body, as before.
+ */
+exports.ReloadAgentBodySchema = zod_1.z.object({
+    birth: agent_birth_js_1.AgentBirthSignalSchema.optional(),
+}).strict();
 exports.ReloadAgentResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(true),
     agentId: zod_1.z.string().min(1),
@@ -29,6 +37,11 @@ exports.ReloadAgentResponseSchema = zod_1.z.object({
      * the real wire shape rather than fixing a runtime failure.
      */
     telegram: zod_1.z.literal('skipped').optional(),
+    /**
+     * v1.75.0 — present when the request carried `birth` and the models of the agent are published and confirmed.
+     * Absent: the reload happened, but nothing confirms that the birth models were published.
+     */
+    birthModels: agent_birth_js_1.AgentBirthModelsReceiptSchema.optional(),
 });
 exports.ReloadAgentErrorResponseSchema = zod_1.z.object({
     ok: zod_1.z.literal(false),
@@ -39,6 +52,8 @@ exports.reloadAgentContract = {
     path: '/internal/agents/:agentId/reload',
     authType: 'secret',
     paramsSchema: exports.ReloadAgentParamsSchema,
+    /** Optional body (v1.75.0); a request without body stays valid. */
+    bodySchema: exports.ReloadAgentBodySchema,
     responseSchema: exports.ReloadAgentResponseSchema,
 };
 //# sourceMappingURL=internal-agents-reload.js.map
