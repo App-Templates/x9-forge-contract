@@ -68,6 +68,9 @@ export declare const LabIngestDocumentSchema: z.ZodObject<{
         projectId: z.ZodString;
         assetType: z.ZodOptional<z.ZodString>;
         buSlug: z.ZodOptional<z.ZodString>;
+        providedBy: z.ZodOptional<z.ZodObject<{
+            personRef: z.ZodString;
+        }, z.core.$strict>>;
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>;
     title: z.ZodString;
@@ -140,6 +143,9 @@ export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
             projectId: z.ZodString;
             assetType: z.ZodOptional<z.ZodString>;
             buSlug: z.ZodOptional<z.ZodString>;
+            providedBy: z.ZodOptional<z.ZodObject<{
+                personRef: z.ZodString;
+            }, z.core.$strict>>;
             createdAt: z.ZodISODateTime;
         }, z.core.$strict>;
         title: z.ZodString;

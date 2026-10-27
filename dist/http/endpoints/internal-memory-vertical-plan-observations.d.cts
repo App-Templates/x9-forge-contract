@@ -105,6 +105,9 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
                     projectId: z.ZodString;
                     assetType: z.ZodOptional<z.ZodString>;
                     buSlug: z.ZodOptional<z.ZodString>;
+                    providedBy: z.ZodOptional<z.ZodObject<{
+                        personRef: z.ZodString;
+                    }, z.core.$strict>>;
                     createdAt: z.ZodISODateTime;
                 }, z.core.$strict>;
             }, z.core.$strict>>;
@@ -298,6 +301,9 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                         projectId: z.ZodString;
                         assetType: z.ZodOptional<z.ZodString>;
                         buSlug: z.ZodOptional<z.ZodString>;
+                        providedBy: z.ZodOptional<z.ZodObject<{
+                            personRef: z.ZodString;
+                        }, z.core.$strict>>;
                         createdAt: z.ZodISODateTime;
                     }, z.core.$strict>;
                 }, z.core.$strict>>;
@@ -492,6 +498,9 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                         projectId: z.ZodString;
                         assetType: z.ZodOptional<z.ZodString>;
                         buSlug: z.ZodOptional<z.ZodString>;
+                        providedBy: z.ZodOptional<z.ZodObject<{
+                            personRef: z.ZodString;
+                        }, z.core.$strict>>;
                         createdAt: z.ZodISODateTime;
                     }, z.core.$strict>;
                 }, z.core.$strict>>;
@@ -721,6 +730,9 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                             projectId: z.ZodString;
                             assetType: z.ZodOptional<z.ZodString>;
                             buSlug: z.ZodOptional<z.ZodString>;
+                            providedBy: z.ZodOptional<z.ZodObject<{
+                                personRef: z.ZodString;
+                            }, z.core.$strict>>;
                             createdAt: z.ZodISODateTime;
                         }, z.core.$strict>;
                     }, z.core.$strict>>;
@@ -929,6 +941,9 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                         projectId: z.ZodString;
                         assetType: z.ZodOptional<z.ZodString>;
                         buSlug: z.ZodOptional<z.ZodString>;
+                        providedBy: z.ZodOptional<z.ZodObject<{
+                            personRef: z.ZodString;
+                        }, z.core.$strict>>;
                         createdAt: z.ZodISODateTime;
                     }, z.core.$strict>;
                 }, z.core.$strict>>;
@@ -1121,6 +1136,9 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                             projectId: z.ZodString;
                             assetType: z.ZodOptional<z.ZodString>;
                             buSlug: z.ZodOptional<z.ZodString>;
+                            providedBy: z.ZodOptional<z.ZodObject<{
+                                personRef: z.ZodString;
+                            }, z.core.$strict>>;
                             createdAt: z.ZodISODateTime;
                         }, z.core.$strict>;
                     }, z.core.$strict>>;

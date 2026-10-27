@@ -21,8 +21,12 @@ exports.InternalMemoryAssetIngestRequestSchema = zod_1.z
     context: run_context_js_1.OrganizationRunContextSchema,
     asset: asset_js_1.AssetRefSchema,
     contentBase64: zod_1.z.string().min(1).optional(),
+    providedByEmail: zod_1.z.email().optional(),
 })
     .superRefine((value, ctx) => {
+    if (value.providedByEmail !== undefined && value.asset.providedBy !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['asset', 'providedBy'], message: 'provided_by_is_resolved_by_the_service' });
+    }
     const isLink = value.asset.origin.kind === 'link';
     if (isLink && value.contentBase64 !== undefined) {
         ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'link_has_no_content' });

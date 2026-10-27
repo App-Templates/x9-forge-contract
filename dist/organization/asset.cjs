@@ -62,6 +62,8 @@ exports.AssetRefSchema = zod_1.z.strictObject({
     projectId: zod_1.z.string().min(1).max(64),
     assetType: exports.AssetTypeSchema.optional(),
     buSlug: zod_1.z.string().min(1).max(30).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/).optional(),
+    // Person references in the company map use the same 1–40 character slug as asset types.
+    providedBy: zod_1.z.strictObject({ personRef: exports.AssetTypeSchema }).optional(),
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 });
 //# sourceMappingURL=asset.js.map
