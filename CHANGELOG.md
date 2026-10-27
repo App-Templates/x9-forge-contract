@@ -1,5 +1,9 @@
 # Changelog — @x9-forge/contracts
 
+## v1.79.0 - busta della corsa di organizzazione per i capability, additivo
+
+- Scheda 351 (seconda parte della 350, R-14): `OrganizationRunEnvelopeSchema` (oggetto rigoroso con `context: OrganizationRunContextSchema` e `tenantId` non vuoto) e il tipo `OrganizationRunEnvelope`, esportati da `@x9-forge/contracts/organization`. Solo versione, changelog e `dist`; nessun cambio di codice sorgente. Consumatore previsto: cap-paperclip, in una scheda successiva.
+
 ## v1.78.0 — conferma di una voce della mappa condivisa, additivo
 
 - Scheda 363, RM-02: `COMPANY_MAP_CONFIRM_OPTIONS` conserva le opzioni `confermo` / `e-cambiato` e il loro ordine; `companyMapConfirmationSubject(entry: CompanyMapAnyEntry): DecisionSubject` lega la conferma al digest e alla versione della voce, validando il soggetto con `DecisionSubjectSchema`.
