@@ -109,6 +109,7 @@ __exportStar(require("./internal-memory-experience.cjs"), exports);
 __exportStar(require("./internal-memory-decisions.cjs"), exports);
 __exportStar(require("./internal-memory-decision-requests.cjs"), exports);
 __exportStar(require("./internal-paperclip-seats.cjs"), exports);
+__exportStar(require("./internal-paperclip-rd-enrollment.cjs"), exports); // ROPB-02 — iscrizione di Lab e Ricerca nell'organizzazione dell'azienda
 __exportStar(require("./internal-memory-assets.cjs"), exports);
 // F1B-03 — mappa dell'azienda cliente nella memoria A
 __exportStar(require("./internal-memory-company-map.cjs"), exports);

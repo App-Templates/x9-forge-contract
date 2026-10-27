@@ -93,6 +93,7 @@ export * from "./internal-memory-experience.js";
 export * from "./internal-memory-decisions.js";
 export * from "./internal-memory-decision-requests.js";
 export * from "./internal-paperclip-seats.js";
+export * from "./internal-paperclip-rd-enrollment.js"; // ROPB-02 — iscrizione di Lab e Ricerca nell'organizzazione dell'azienda
 export * from "./internal-memory-assets.js";
 // F1B-03 — mappa dell'azienda cliente nella memoria A
 export * from "./internal-memory-company-map.js";
