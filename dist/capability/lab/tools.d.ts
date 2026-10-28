@@ -259,8 +259,8 @@ export declare const LabPublishInputSchema: z.ZodObject<{
         target: z.ZodLiteral<"map_entry">;
         kind: z.ZodEnum<{
             access: "access";
-            asset: "asset";
             referent: "referent";
+            asset: "asset";
             person: "person";
             responsibility: "responsibility";
         }>;
@@ -309,8 +309,8 @@ export declare const LabReadPublishedOutputSchema: z.ZodObject<{
             target: z.ZodLiteral<"map_entry">;
             kind: z.ZodEnum<{
                 access: "access";
-                asset: "asset";
                 referent: "referent";
+                asset: "asset";
                 person: "person";
                 responsibility: "responsibility";
             }>;

@@ -127,10 +127,13 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
         outcome: z.ZodLiteral<"approved">;
         optionId: z.ZodString;
         requestId: z.ZodString;
-        decidedBy: z.ZodObject<{
+        decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         decidedAt: z.ZodISODateTime;
         channel: z.ZodEnum<{
             email: "email";
@@ -138,7 +141,7 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -147,15 +150,27 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
         reason: z.ZodString;
         requestId: z.ZodString;
-        decidedBy: z.ZodObject<{
+        decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         decidedAt: z.ZodISODateTime;
         channel: z.ZodEnum<{
             email: "email";
@@ -163,7 +178,7 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -172,7 +187,16 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>], "outcome">;
     eventId: z.ZodString;
     at: z.ZodISODateTime;
@@ -196,7 +220,7 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
             vaultAgentId: z.ZodNumber;
         }, z.core.$strict>;
     }, z.core.$strict>;
-    subject: z.ZodObject<{
+    subject: z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodEnum<{
             action_plan: "action_plan";
             vertical_plan: "vertical_plan";
@@ -205,7 +229,16 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
         planId: z.ZodString;
         planVersion: z.ZodNumber;
         digest: z.ZodString;
-    }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"delivery">;
+        organizationId: z.ZodString;
+        projectId: z.ZodString;
+        buSlug: z.ZodString;
+        deliveryRef: z.ZodObject<{
+            assetId: z.ZodString;
+            sha256: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>], "kind">;
     events: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"sent">;
         plan: z.ZodObject<{
@@ -324,10 +357,13 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
             outcome: z.ZodLiteral<"approved">;
             optionId: z.ZodString;
             requestId: z.ZodString;
-            decidedBy: z.ZodObject<{
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             decidedAt: z.ZodISODateTime;
             channel: z.ZodEnum<{
                 email: "email";
@@ -335,7 +371,7 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -344,15 +380,27 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
             requestId: z.ZodString;
-            decidedBy: z.ZodObject<{
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             decidedAt: z.ZodISODateTime;
             channel: z.ZodEnum<{
                 email: "email";
@@ -360,7 +408,7 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -369,7 +417,16 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>], "outcome">;
         eventId: z.ZodString;
         at: z.ZodISODateTime;

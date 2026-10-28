@@ -27,8 +27,8 @@ export declare const MandateReconcileRequestSchema: z.ZodObject<{
             target: z.ZodLiteral<"map_entry">;
             kind: z.ZodEnum<{
                 access: "access";
-                asset: "asset";
                 referent: "referent";
+                asset: "asset";
                 person: "person";
                 responsibility: "responsibility";
             }>;
@@ -97,8 +97,8 @@ export declare const internalMemoryMandateReconcileContract: {
                 target: z.ZodLiteral<"map_entry">;
                 kind: z.ZodEnum<{
                     access: "access";
-                    asset: "asset";
                     referent: "referent";
+                    asset: "asset";
                     person: "person";
                     responsibility: "responsibility";
                 }>;

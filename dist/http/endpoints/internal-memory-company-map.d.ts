@@ -303,8 +303,8 @@ export declare const CompanyMapEntriesQuerySchema: z.ZodObject<{
     buSlug: z.ZodOptional<z.ZodString>;
     kind: z.ZodOptional<z.ZodEnum<{
         access: "access";
-        asset: "asset";
         referent: "referent";
+        asset: "asset";
         person: "person";
         responsibility: "responsibility";
     }>>;
@@ -453,8 +453,8 @@ export type CompanyMapEntriesResponse = z.infer<typeof CompanyMapEntriesResponse
 export declare const CompanyMapHistoryQuerySchema: z.ZodObject<{
     kind: z.ZodEnum<{
         access: "access";
-        asset: "asset";
         referent: "referent";
+        asset: "asset";
         person: "person";
         responsibility: "responsibility";
     }>;
@@ -621,8 +621,8 @@ export declare const internalMemoryCompanyMapHistoryContract: {
     readonly querySchema: z.ZodObject<{
         kind: z.ZodEnum<{
             access: "access";
-            asset: "asset";
             referent: "referent";
+            asset: "asset";
             person: "person";
             responsibility: "responsibility";
         }>;
@@ -1062,8 +1062,8 @@ export declare const internalMemoryCompanyMapListContract: {
         buSlug: z.ZodOptional<z.ZodString>;
         kind: z.ZodOptional<z.ZodEnum<{
             access: "access";
-            asset: "asset";
             referent: "referent";
+            asset: "asset";
             person: "person";
             responsibility: "responsibility";
         }>>;
