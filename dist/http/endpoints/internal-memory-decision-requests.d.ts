@@ -2,6 +2,7 @@ import { z } from 'zod';
 export declare const INTERNAL_MEMORY_DECISION_REQUESTS_PATH: "/internal/memory/decision-requests";
 export declare const INTERNAL_MEMORY_DECISION_REQUEST_PATH: "/internal/memory/decision-requests/:requestId";
 export declare const INTERNAL_MEMORY_DECISION_REQUEST_OUTCOME_PATH: "/internal/memory/decision-requests/:requestId/outcome";
+export declare const INTERNAL_MEMORY_DECISION_REQUEST_PROJECT_LIST_PATH: "/internal/memory/decision-requests/by-project";
 export declare const InternalMemoryDecisionRequestParamsSchema: z.ZodObject<{
     requestId: z.ZodString;
 }, z.core.$strict>;
@@ -22,7 +23,7 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
         tenantId: z.ZodString;
         organizationId: z.ZodString;
         projectId: z.ZodOptional<z.ZodString>;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -31,7 +32,16 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
         question: z.ZodString;
         options: z.ZodArray<z.ZodObject<{
             optionId: z.ZodString;
@@ -43,9 +53,12 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodNumber;
         }, z.core.$strict>;
-        addressedTo: z.ZodObject<{
+        addressedTo: z.ZodUnion<readonly [z.ZodObject<{
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         channel: z.ZodEnum<{
             email: "email";
             x9_conversation: "x9_conversation";
@@ -61,7 +74,7 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
         tenantId: z.ZodString;
         organizationId: z.ZodString;
         projectId: z.ZodOptional<z.ZodString>;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -70,7 +83,16 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
         question: z.ZodString;
         options: z.ZodArray<z.ZodObject<{
             optionId: z.ZodString;
@@ -82,9 +104,12 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodNumber;
         }, z.core.$strict>;
-        addressedTo: z.ZodObject<{
+        addressedTo: z.ZodUnion<readonly [z.ZodObject<{
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         channel: z.ZodEnum<{
             email: "email";
             x9_conversation: "x9_conversation";
@@ -97,10 +122,13 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
         outcome: z.ZodLiteral<"approved">;
         optionId: z.ZodString;
         requestId: z.ZodString;
-        decidedBy: z.ZodObject<{
+        decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         decidedAt: z.ZodISODateTime;
         channel: z.ZodEnum<{
             email: "email";
@@ -108,7 +136,7 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -117,15 +145,27 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
         reason: z.ZodString;
         requestId: z.ZodString;
-        decidedBy: z.ZodObject<{
+        decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         decidedAt: z.ZodISODateTime;
         channel: z.ZodEnum<{
             email: "email";
@@ -133,7 +173,7 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -142,7 +182,16 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>], "outcome">;
 }, z.core.$strict>], "state">;
 export type InternalMemoryDecisionRequestReadResponse = z.infer<typeof InternalMemoryDecisionRequestReadResponseSchema>;
@@ -164,7 +213,7 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
             tenantId: z.ZodString;
             organizationId: z.ZodString;
             projectId: z.ZodOptional<z.ZodString>;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -173,7 +222,16 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
             question: z.ZodString;
             options: z.ZodArray<z.ZodObject<{
                 optionId: z.ZodString;
@@ -185,9 +243,12 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodNumber;
             }, z.core.$strict>;
-            addressedTo: z.ZodObject<{
+            addressedTo: z.ZodUnion<readonly [z.ZodObject<{
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             channel: z.ZodEnum<{
                 email: "email";
                 x9_conversation: "x9_conversation";
@@ -203,7 +264,7 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
             tenantId: z.ZodString;
             organizationId: z.ZodString;
             projectId: z.ZodOptional<z.ZodString>;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -212,7 +273,16 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
             question: z.ZodString;
             options: z.ZodArray<z.ZodObject<{
                 optionId: z.ZodString;
@@ -224,9 +294,12 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodNumber;
             }, z.core.$strict>;
-            addressedTo: z.ZodObject<{
+            addressedTo: z.ZodUnion<readonly [z.ZodObject<{
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             channel: z.ZodEnum<{
                 email: "email";
                 x9_conversation: "x9_conversation";
@@ -239,10 +312,13 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
             outcome: z.ZodLiteral<"approved">;
             optionId: z.ZodString;
             requestId: z.ZodString;
-            decidedBy: z.ZodObject<{
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             decidedAt: z.ZodISODateTime;
             channel: z.ZodEnum<{
                 email: "email";
@@ -250,7 +326,7 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -259,15 +335,27 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
             requestId: z.ZodString;
-            decidedBy: z.ZodObject<{
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             decidedAt: z.ZodISODateTime;
             channel: z.ZodEnum<{
                 email: "email";
@@ -275,7 +363,7 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -284,11 +372,225 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>], "outcome">;
     }, z.core.$strict>], "state">>;
 }, z.core.$strict>;
 export type InternalMemoryDecisionRequestListResponse = z.infer<typeof InternalMemoryDecisionRequestListResponseSchema>;
+/** agentId identifies the Director reader to authorize, never the requests' producers. */
+export declare const InternalMemoryDecisionRequestProjectListQuerySchema: z.ZodObject<{
+    tenantId: z.ZodString;
+    agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    organizationId: z.ZodString;
+    projectId: z.ZodString;
+    limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+    cursor: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type InternalMemoryDecisionRequestProjectListQuery = z.infer<typeof InternalMemoryDecisionRequestProjectListQuerySchema>;
+/**
+ * Decoded cursor: transported as opaque base64url-encoded JSON. The service must
+ * validate the decoded value and match its tenant/organization/project against
+ * the query and authenticated scope on every page; a cursor grants no access.
+ * Both ordering keys are mandatory, including when several rows share a timestamp.
+ */
+export declare const InternalMemoryDecisionRequestProjectCursorSchema: z.ZodObject<{
+    tenantId: z.ZodString;
+    organizationId: z.ZodString;
+    projectId: z.ZodString;
+    createdAt: z.ZodISODateTime;
+    requestId: z.ZodString;
+}, z.core.$strict>;
+export type InternalMemoryDecisionRequestProjectCursor = z.infer<typeof InternalMemoryDecisionRequestProjectCursorSchema>;
+export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.ZodObject<{
+    requests: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        request: z.ZodObject<{
+            requestId: z.ZodString;
+            tenantId: z.ZodString;
+            organizationId: z.ZodString;
+            projectId: z.ZodOptional<z.ZodString>;
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
+            question: z.ZodString;
+            options: z.ZodArray<z.ZodObject<{
+                optionId: z.ZodString;
+                label: z.ZodString;
+                detail: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>;
+            requestedBy: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodNumber;
+            }, z.core.$strict>;
+            addressedTo: z.ZodUnion<readonly [z.ZodObject<{
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
+            channel: z.ZodEnum<{
+                email: "email";
+                x9_conversation: "x9_conversation";
+                forge_panel: "forge_panel";
+            }>;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        state: z.ZodLiteral<"open">;
+        outcome: z.ZodNull;
+    }, z.core.$strict>, z.ZodObject<{
+        request: z.ZodObject<{
+            requestId: z.ZodString;
+            tenantId: z.ZodString;
+            organizationId: z.ZodString;
+            projectId: z.ZodOptional<z.ZodString>;
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
+            question: z.ZodString;
+            options: z.ZodArray<z.ZodObject<{
+                optionId: z.ZodString;
+                label: z.ZodString;
+                detail: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>>;
+            requestedBy: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodNumber;
+            }, z.core.$strict>;
+            addressedTo: z.ZodUnion<readonly [z.ZodObject<{
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
+            channel: z.ZodEnum<{
+                email: "email";
+                x9_conversation: "x9_conversation";
+                forge_panel: "forge_panel";
+            }>;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        state: z.ZodLiteral<"decided">;
+        outcome: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            outcome: z.ZodLiteral<"approved">;
+            optionId: z.ZodString;
+            requestId: z.ZodString;
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
+                kind: z.ZodLiteral<"owner">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
+            decidedAt: z.ZodISODateTime;
+            channel: z.ZodEnum<{
+                email: "email";
+                x9_conversation: "x9_conversation";
+                forge_panel: "forge_panel";
+            }>;
+            sourceRef: z.ZodString;
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
+        }, z.core.$strict>, z.ZodObject<{
+            outcome: z.ZodLiteral<"rejected">;
+            reason: z.ZodString;
+            requestId: z.ZodString;
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
+                kind: z.ZodLiteral<"owner">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
+            decidedAt: z.ZodISODateTime;
+            channel: z.ZodEnum<{
+                email: "email";
+                x9_conversation: "x9_conversation";
+                forge_panel: "forge_panel";
+            }>;
+            sourceRef: z.ZodString;
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodEnum<{
+                    action_plan: "action_plan";
+                    vertical_plan: "vertical_plan";
+                    confirmation: "confirmation";
+                }>;
+                planId: z.ZodString;
+                planVersion: z.ZodNumber;
+                digest: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
+        }, z.core.$strict>], "outcome">;
+    }, z.core.$strict>], "state">>;
+    nextCursor: z.ZodNullable<z.ZodString>;
+}, z.core.$strict>;
+export type InternalMemoryDecisionRequestProjectListResponse = z.infer<typeof InternalMemoryDecisionRequestProjectListResponseSchema>;
 export declare const InternalMemoryDecisionRequestOutcomeResponseSchema: z.ZodObject<{
     result: z.ZodEnum<{
         duplicate: "duplicate";
@@ -324,7 +626,7 @@ export declare const internalMemoryDecisionRequestCreateContract: {
         tenantId: z.ZodString;
         organizationId: z.ZodString;
         projectId: z.ZodOptional<z.ZodString>;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -333,7 +635,16 @@ export declare const internalMemoryDecisionRequestCreateContract: {
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
         question: z.ZodString;
         options: z.ZodArray<z.ZodObject<{
             optionId: z.ZodString;
@@ -345,9 +656,12 @@ export declare const internalMemoryDecisionRequestCreateContract: {
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodNumber;
         }, z.core.$strict>;
-        addressedTo: z.ZodObject<{
+        addressedTo: z.ZodUnion<readonly [z.ZodObject<{
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         channel: z.ZodEnum<{
             email: "email";
             x9_conversation: "x9_conversation";
@@ -382,7 +696,7 @@ export declare const internalMemoryDecisionRequestReadContract: {
             tenantId: z.ZodString;
             organizationId: z.ZodString;
             projectId: z.ZodOptional<z.ZodString>;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -391,7 +705,16 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
             question: z.ZodString;
             options: z.ZodArray<z.ZodObject<{
                 optionId: z.ZodString;
@@ -403,9 +726,12 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodNumber;
             }, z.core.$strict>;
-            addressedTo: z.ZodObject<{
+            addressedTo: z.ZodUnion<readonly [z.ZodObject<{
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             channel: z.ZodEnum<{
                 email: "email";
                 x9_conversation: "x9_conversation";
@@ -421,7 +747,7 @@ export declare const internalMemoryDecisionRequestReadContract: {
             tenantId: z.ZodString;
             organizationId: z.ZodString;
             projectId: z.ZodOptional<z.ZodString>;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -430,7 +756,16 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
             question: z.ZodString;
             options: z.ZodArray<z.ZodObject<{
                 optionId: z.ZodString;
@@ -442,9 +777,12 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodNumber;
             }, z.core.$strict>;
-            addressedTo: z.ZodObject<{
+            addressedTo: z.ZodUnion<readonly [z.ZodObject<{
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             channel: z.ZodEnum<{
                 email: "email";
                 x9_conversation: "x9_conversation";
@@ -457,10 +795,13 @@ export declare const internalMemoryDecisionRequestReadContract: {
             outcome: z.ZodLiteral<"approved">;
             optionId: z.ZodString;
             requestId: z.ZodString;
-            decidedBy: z.ZodObject<{
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             decidedAt: z.ZodISODateTime;
             channel: z.ZodEnum<{
                 email: "email";
@@ -468,7 +809,7 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -477,15 +818,27 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
             reason: z.ZodString;
             requestId: z.ZodString;
-            decidedBy: z.ZodObject<{
+            decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
                 ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-            }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"referent">;
+                email: z.ZodEmail;
+            }, z.core.$strict>]>;
             decidedAt: z.ZodISODateTime;
             channel: z.ZodEnum<{
                 email: "email";
@@ -493,7 +846,7 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 forge_panel: "forge_panel";
             }>;
             sourceRef: z.ZodString;
-            subject: z.ZodOptional<z.ZodObject<{
+            subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodEnum<{
                     action_plan: "action_plan";
                     vertical_plan: "vertical_plan";
@@ -502,7 +855,16 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 planId: z.ZodString;
                 planVersion: z.ZodNumber;
                 digest: z.ZodString;
-            }, z.core.$strict>>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"delivery">;
+                organizationId: z.ZodString;
+                projectId: z.ZodString;
+                buSlug: z.ZodString;
+                deliveryRef: z.ZodObject<{
+                    assetId: z.ZodString;
+                    sha256: z.ZodString;
+                }, z.core.$strict>;
+            }, z.core.$strict>], "kind">>;
         }, z.core.$strict>], "outcome">;
     }, z.core.$strict>], "state">;
 };
@@ -523,10 +885,13 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
         outcome: z.ZodLiteral<"approved">;
         optionId: z.ZodString;
         requestId: z.ZodString;
-        decidedBy: z.ZodObject<{
+        decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         decidedAt: z.ZodISODateTime;
         channel: z.ZodEnum<{
             email: "email";
@@ -534,7 +899,7 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -543,15 +908,27 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
         reason: z.ZodString;
         requestId: z.ZodString;
-        decidedBy: z.ZodObject<{
+        decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
             ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"referent">;
+            email: z.ZodEmail;
+        }, z.core.$strict>]>;
         decidedAt: z.ZodISODateTime;
         channel: z.ZodEnum<{
             email: "email";
@@ -559,7 +936,7 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
             forge_panel: "forge_panel";
         }>;
         sourceRef: z.ZodString;
-        subject: z.ZodOptional<z.ZodObject<{
+        subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodEnum<{
                 action_plan: "action_plan";
                 vertical_plan: "vertical_plan";
@@ -568,7 +945,16 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
             planId: z.ZodString;
             planVersion: z.ZodNumber;
             digest: z.ZodString;
-        }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"delivery">;
+            organizationId: z.ZodString;
+            projectId: z.ZodString;
+            buSlug: z.ZodString;
+            deliveryRef: z.ZodObject<{
+                assetId: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">>;
     }, z.core.$strict>], "outcome">;
     readonly responseSchema: z.ZodObject<{
         result: z.ZodEnum<{
@@ -595,7 +981,7 @@ export declare const internalMemoryDecisionRequestListContract: {
                 tenantId: z.ZodString;
                 organizationId: z.ZodString;
                 projectId: z.ZodOptional<z.ZodString>;
-                subject: z.ZodOptional<z.ZodObject<{
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     kind: z.ZodEnum<{
                         action_plan: "action_plan";
                         vertical_plan: "vertical_plan";
@@ -604,7 +990,16 @@ export declare const internalMemoryDecisionRequestListContract: {
                     planId: z.ZodString;
                     planVersion: z.ZodNumber;
                     digest: z.ZodString;
-                }, z.core.$strict>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
                 question: z.ZodString;
                 options: z.ZodArray<z.ZodObject<{
                     optionId: z.ZodString;
@@ -616,9 +1011,12 @@ export declare const internalMemoryDecisionRequestListContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodNumber;
                 }, z.core.$strict>;
-                addressedTo: z.ZodObject<{
+                addressedTo: z.ZodUnion<readonly [z.ZodObject<{
                     ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-                }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
                 channel: z.ZodEnum<{
                     email: "email";
                     x9_conversation: "x9_conversation";
@@ -634,7 +1032,7 @@ export declare const internalMemoryDecisionRequestListContract: {
                 tenantId: z.ZodString;
                 organizationId: z.ZodString;
                 projectId: z.ZodOptional<z.ZodString>;
-                subject: z.ZodOptional<z.ZodObject<{
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     kind: z.ZodEnum<{
                         action_plan: "action_plan";
                         vertical_plan: "vertical_plan";
@@ -643,7 +1041,16 @@ export declare const internalMemoryDecisionRequestListContract: {
                     planId: z.ZodString;
                     planVersion: z.ZodNumber;
                     digest: z.ZodString;
-                }, z.core.$strict>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
                 question: z.ZodString;
                 options: z.ZodArray<z.ZodObject<{
                     optionId: z.ZodString;
@@ -655,9 +1062,12 @@ export declare const internalMemoryDecisionRequestListContract: {
                     runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                     vaultAgentId: z.ZodNumber;
                 }, z.core.$strict>;
-                addressedTo: z.ZodObject<{
+                addressedTo: z.ZodUnion<readonly [z.ZodObject<{
                     ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-                }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
                 channel: z.ZodEnum<{
                     email: "email";
                     x9_conversation: "x9_conversation";
@@ -670,10 +1080,13 @@ export declare const internalMemoryDecisionRequestListContract: {
                 outcome: z.ZodLiteral<"approved">;
                 optionId: z.ZodString;
                 requestId: z.ZodString;
-                decidedBy: z.ZodObject<{
+                decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
                     ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-                }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
                 decidedAt: z.ZodISODateTime;
                 channel: z.ZodEnum<{
                     email: "email";
@@ -681,7 +1094,7 @@ export declare const internalMemoryDecisionRequestListContract: {
                     forge_panel: "forge_panel";
                 }>;
                 sourceRef: z.ZodString;
-                subject: z.ZodOptional<z.ZodObject<{
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     kind: z.ZodEnum<{
                         action_plan: "action_plan";
                         vertical_plan: "vertical_plan";
@@ -690,15 +1103,27 @@ export declare const internalMemoryDecisionRequestListContract: {
                     planId: z.ZodString;
                     planVersion: z.ZodNumber;
                     digest: z.ZodString;
-                }, z.core.$strict>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
                 reason: z.ZodString;
                 requestId: z.ZodString;
-                decidedBy: z.ZodObject<{
+                decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
                     ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
-                }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
                 decidedAt: z.ZodISODateTime;
                 channel: z.ZodEnum<{
                     email: "email";
@@ -706,7 +1131,7 @@ export declare const internalMemoryDecisionRequestListContract: {
                     forge_panel: "forge_panel";
                 }>;
                 sourceRef: z.ZodString;
-                subject: z.ZodOptional<z.ZodObject<{
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     kind: z.ZodEnum<{
                         action_plan: "action_plan";
                         vertical_plan: "vertical_plan";
@@ -715,9 +1140,231 @@ export declare const internalMemoryDecisionRequestListContract: {
                     planId: z.ZodString;
                     planVersion: z.ZodNumber;
                     digest: z.ZodString;
-                }, z.core.$strict>>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
             }, z.core.$strict>], "outcome">;
         }, z.core.$strict>], "state">>;
+    }, z.core.$strict>;
+};
+/**
+ * Project list: authorize agentId as a Director for this tenant, organization
+ * and project before returning data, on every page. Return no data from other
+ * scopes; query parameters and decoded cursors alone authorize nobody.
+ * Include every lead's requests and every state, preserving full requests,
+ * referents, outcomes and email receipts. No producer, plan or state filter.
+ *
+ * Stable order: createdAt DESC, requestId ASC. Continue strictly after BOTH keys:
+ * createdAt < cursor.createdAt OR (createdAt = cursor.createdAt AND requestId >
+ * cursor.requestId). Never use an offset. Decode and validate cursors with
+ * InternalMemoryDecisionRequestProjectCursorSchema and verify their scope as
+ * documented above on every page.
+ *
+ * The service reads limit + 1 rows (default limit: 50), returns at most limit
+ * rows, and emits a cursor for the last returned row only if more rows remain.
+ * Only the mandatory nextCursor: null marks completion; clients must read all
+ * pages. State changes do not move rows. New requests require a new complete
+ * read before assembly; an empty or partial list does not authorize assembly.
+ * Authorization, database pagination and assembly checks belong to consumers.
+ */
+export declare const internalMemoryDecisionRequestProjectListContract: {
+    readonly method: "GET";
+    readonly path: "/internal/memory/decision-requests/by-project";
+    readonly authType: "secret";
+    readonly querySchema: z.ZodObject<{
+        tenantId: z.ZodString;
+        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        organizationId: z.ZodString;
+        projectId: z.ZodString;
+        limit: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
+        cursor: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        requests: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            request: z.ZodObject<{
+                requestId: z.ZodString;
+                tenantId: z.ZodString;
+                organizationId: z.ZodString;
+                projectId: z.ZodOptional<z.ZodString>;
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodEnum<{
+                        action_plan: "action_plan";
+                        vertical_plan: "vertical_plan";
+                        confirmation: "confirmation";
+                    }>;
+                    planId: z.ZodString;
+                    planVersion: z.ZodNumber;
+                    digest: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
+                question: z.ZodString;
+                options: z.ZodArray<z.ZodObject<{
+                    optionId: z.ZodString;
+                    label: z.ZodString;
+                    detail: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>;
+                requestedBy: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                addressedTo: z.ZodUnion<readonly [z.ZodObject<{
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
+                channel: z.ZodEnum<{
+                    email: "email";
+                    x9_conversation: "x9_conversation";
+                    forge_panel: "forge_panel";
+                }>;
+                createdAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            state: z.ZodLiteral<"open">;
+            outcome: z.ZodNull;
+        }, z.core.$strict>, z.ZodObject<{
+            request: z.ZodObject<{
+                requestId: z.ZodString;
+                tenantId: z.ZodString;
+                organizationId: z.ZodString;
+                projectId: z.ZodOptional<z.ZodString>;
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodEnum<{
+                        action_plan: "action_plan";
+                        vertical_plan: "vertical_plan";
+                        confirmation: "confirmation";
+                    }>;
+                    planId: z.ZodString;
+                    planVersion: z.ZodNumber;
+                    digest: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
+                question: z.ZodString;
+                options: z.ZodArray<z.ZodObject<{
+                    optionId: z.ZodString;
+                    label: z.ZodString;
+                    detail: z.ZodOptional<z.ZodString>;
+                }, z.core.$strict>>;
+                requestedBy: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                addressedTo: z.ZodUnion<readonly [z.ZodObject<{
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
+                channel: z.ZodEnum<{
+                    email: "email";
+                    x9_conversation: "x9_conversation";
+                    forge_panel: "forge_panel";
+                }>;
+                createdAt: z.ZodISODateTime;
+            }, z.core.$strict>;
+            state: z.ZodLiteral<"decided">;
+            outcome: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                outcome: z.ZodLiteral<"approved">;
+                optionId: z.ZodString;
+                requestId: z.ZodString;
+                decidedBy: z.ZodUnion<readonly [z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
+                decidedAt: z.ZodISODateTime;
+                channel: z.ZodEnum<{
+                    email: "email";
+                    x9_conversation: "x9_conversation";
+                    forge_panel: "forge_panel";
+                }>;
+                sourceRef: z.ZodString;
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodEnum<{
+                        action_plan: "action_plan";
+                        vertical_plan: "vertical_plan";
+                        confirmation: "confirmation";
+                    }>;
+                    planId: z.ZodString;
+                    planVersion: z.ZodNumber;
+                    digest: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
+            }, z.core.$strict>, z.ZodObject<{
+                outcome: z.ZodLiteral<"rejected">;
+                reason: z.ZodString;
+                requestId: z.ZodString;
+                decidedBy: z.ZodUnion<readonly [z.ZodObject<{
+                    kind: z.ZodLiteral<"owner">;
+                    ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"referent">;
+                    email: z.ZodEmail;
+                }, z.core.$strict>]>;
+                decidedAt: z.ZodISODateTime;
+                channel: z.ZodEnum<{
+                    email: "email";
+                    x9_conversation: "x9_conversation";
+                    forge_panel: "forge_panel";
+                }>;
+                sourceRef: z.ZodString;
+                subject: z.ZodOptional<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodEnum<{
+                        action_plan: "action_plan";
+                        vertical_plan: "vertical_plan";
+                        confirmation: "confirmation";
+                    }>;
+                    planId: z.ZodString;
+                    planVersion: z.ZodNumber;
+                    digest: z.ZodString;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"delivery">;
+                    organizationId: z.ZodString;
+                    projectId: z.ZodString;
+                    buSlug: z.ZodString;
+                    deliveryRef: z.ZodObject<{
+                        assetId: z.ZodString;
+                        sha256: z.ZodString;
+                    }, z.core.$strict>;
+                }, z.core.$strict>], "kind">>;
+            }, z.core.$strict>], "outcome">;
+        }, z.core.$strict>], "state">>;
+        nextCursor: z.ZodNullable<z.ZodString>;
     }, z.core.$strict>;
 };
 //# sourceMappingURL=internal-memory-decision-requests.d.ts.map

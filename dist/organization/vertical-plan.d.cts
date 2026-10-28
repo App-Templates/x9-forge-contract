@@ -91,5 +91,7 @@ export type VerticalPlan = z.infer<typeof VerticalPlanSchema>;
 /** Portable UTF-8 input for the writer's SHA-256; the digest itself is excluded. */
 export declare function verticalPlanCanonicalJson(plan: VerticalPlan): string;
 /** Bind the decision to the exact vertical plan version the referent read. */
-export declare function verticalPlanDecisionSubject(plan: VerticalPlan): DecisionSubject;
+export declare function verticalPlanDecisionSubject(plan: VerticalPlan): Exclude<DecisionSubject, {
+    kind: 'delivery';
+}>;
 //# sourceMappingURL=vertical-plan.d.ts.map

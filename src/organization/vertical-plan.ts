@@ -101,6 +101,6 @@ export function verticalPlanCanonicalJson(plan: VerticalPlan): string {
 }
 
 /** Bind the decision to the exact vertical plan version the referent read. */
-export function verticalPlanDecisionSubject(plan: VerticalPlan): DecisionSubject {
+export function verticalPlanDecisionSubject(plan: VerticalPlan): Exclude<DecisionSubject, { kind: 'delivery' }> {
   return { kind: 'vertical_plan', planId: plan.planId, planVersion: plan.version, digest: plan.digest };
 }
