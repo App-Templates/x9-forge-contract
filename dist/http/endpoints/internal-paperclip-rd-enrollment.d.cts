@@ -41,8 +41,8 @@ export type CompanyRdEnrollmentSeat = z.infer<typeof CompanyRdEnrollmentSeatSche
  */
 export declare const CompanyRdEnrollmentResponseSchema: z.ZodObject<{
     state: z.ZodEnum<{
-        enrolled: "enrolled";
         in_corso: "in_corso";
+        enrolled: "enrolled";
     }>;
     seats: z.ZodArray<z.ZodObject<{
         part: z.ZodEnum<{
@@ -100,8 +100,8 @@ export declare const internalCompanyRdEnrollmentContract: {
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         state: z.ZodEnum<{
-            enrolled: "enrolled";
             in_corso: "in_corso";
+            enrolled: "enrolled";
         }>;
         seats: z.ZodArray<z.ZodObject<{
             part: z.ZodEnum<{

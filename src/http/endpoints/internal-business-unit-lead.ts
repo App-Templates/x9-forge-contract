@@ -1,5 +1,6 @@
 import { INTERNAL_TOKEN_HEADER } from '../../auth/index.js';
 import {
+  BusinessUnitLeadBirthPendingSchema,
   BusinessUnitLeadBirthRequestSchema,
   BusinessUnitLeadBirthResultSchema,
 } from '../../organization/business-unit-lead.js';
@@ -14,4 +15,5 @@ export const internalBusinessUnitLeadBirthContract = {
   authHeader: INTERNAL_TOKEN_HEADER,
   bodySchema: BusinessUnitLeadBirthRequestSchema as typeof BusinessUnitLeadBirthRequestSchema,
   responseSchema: BusinessUnitLeadBirthResultSchema as typeof BusinessUnitLeadBirthResultSchema,
+  pendingResponseSchema: BusinessUnitLeadBirthPendingSchema as typeof BusinessUnitLeadBirthPendingSchema,
 } as const;

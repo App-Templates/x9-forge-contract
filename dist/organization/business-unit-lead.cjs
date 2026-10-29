@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = exports.BusinessUnitLeadReferentSchema = exports.BusinessUnitLeadProfileTemplateSchema = exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = void 0;
+exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = exports.BusinessUnitLeadBirthPendingSchema = exports.BusinessUnitLeadBirthResultSchema = exports.BusinessUnitLeadBirthRequestSchema = exports.BusinessUnitLeadReferentSchema = exports.BusinessUnitLeadProfileTemplateSchema = exports.BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = void 0;
 exports.businessUnitLeadAgentId = businessUnitLeadAgentId;
 exports.businessUnitSlugOfLeadAgentId = businessUnitSlugOfLeadAgentId;
 const zod_1 = require("zod");
@@ -56,6 +56,17 @@ exports.BusinessUnitLeadBirthResultSchema = zod_1.z.strictObject({
     companyId: exports.BusinessUnitLeadBirthRequestSchema.shape.company.shape.companyId,
     businessUnitSlug: exports.BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug,
     agentIdentity: participant_binding_js_1.ParticipantAgentIdentitySchema,
+});
+/** Forge HTTP 202 receipt: birth is pending, with the public reason preserved verbatim. */
+exports.BusinessUnitLeadBirthPendingSchema = zod_1.z.strictObject({
+    ok: zod_1.z.literal(false),
+    error: zod_1.z.literal('in_corso'),
+    reason: zod_1.z.string().min(1).max(500).regex(/\S/),
+    /**
+     * Absent for historical producers that do not expose a step; null when an updated producer cannot identify one;
+     * otherwise the public key of the actual step. No default or inference from the reason, and no local step catalog.
+     */
+    step: zod_1.z.string().min(1).max(128).regex(/\S/).nullable().optional(),
 });
 /** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
 exports.BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = 'capo-';

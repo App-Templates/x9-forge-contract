@@ -70,6 +70,19 @@ export const BusinessUnitLeadBirthResultSchema = z.strictObject({
 });
 export type BusinessUnitLeadBirthResult = z.infer<typeof BusinessUnitLeadBirthResultSchema>;
 
+/** Forge HTTP 202 receipt: birth is pending, with the public reason preserved verbatim. */
+export const BusinessUnitLeadBirthPendingSchema = z.strictObject({
+  ok: z.literal(false),
+  error: z.literal('in_corso'),
+  reason: z.string().min(1).max(500).regex(/\S/),
+  /**
+   * Absent for historical producers that do not expose a step; null when an updated producer cannot identify one;
+   * otherwise the public key of the actual step. No default or inference from the reason, and no local step catalog.
+   */
+  step: z.string().min(1).max(128).regex(/\S/).nullable().optional(),
+});
+export type BusinessUnitLeadBirthPending = z.infer<typeof BusinessUnitLeadBirthPendingSchema>;
+
 /** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
 export const BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = 'capo-' as const;
 
