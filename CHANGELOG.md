@@ -1,5 +1,12 @@
 # Changelog — @x9-forge/contracts
 
+## Non rilasciato
+
+- P5, scheda 366: `BusinessUnitLeadBirthPendingSchema` e tipo inferito `BusinessUnitLeadBirthPending`, esportati da `@x9-forge/contracts/organization`, descrivono il corpo HTTP 202 rigoroso `{ ok: false, error: 'in_corso', reason, step? }`. Il motivo non bianco (1–500 caratteri) è conservato senza trasformazioni; il passo pubblico non bianco (1–128 caratteri) è facoltativo e può essere `null`. Nessun campo tecnico o identità dell'agente ammesso.
+- Compatibilità storica: `step` assente resta assente dopo il parse e indica un produttore storico; `null` indica un produttore aggiornato che non individua il passo; una stringa ne contiene la chiave pubblica. Nessun default, deduzione dal motivo o catalogo locale di passi. `internalBusinessUnitLeadBirthContract.pendingResponseSchema` espone lo schema 202 da `@x9-forge/contracts/http`; richiesta, metodo, percorso, autenticazione e `responseSchema` del solo 200/replay restano invariati.
+- Adozioni mancanti: Forge deve inviare il passo pubblico nel 202; cap-paperclip (630) deve validare e conservare motivo e passo e usarli nel messaggio. Rilascio, tag, ripin dei due repo e prova al banco sono consegne distinte della coordinatrice; questa aggiunta non completa la 630.
+- SUMMARY: base `c202b824346742885ce79320cfbd53bd9c3309b6` (1.80.0). Scritti 60 casi, inclusi import ESM e require CJS dei pacchetti compilati tramite Node: casi passati/totali 0/60 (non eseguiti dal worker). Mutazioni rilevate/richieste 0/4 (eseguite 0/4): motivo bianco ammesso, motivo scartato, passo perso, campo `technical` accettato; coperte dai casi nominati su motivo bianco, corpi storici, passo pubblico e campi tecnici. Build/rigenerazione `dist`, accettazione, tipi, lint e controprove isolate riservati al cancello secondo le regole worker del 28/10; la build deve precedere i test dei pacchetti compilati. Non verificato dal vivo.
+
 ## v1.80.0 — decisioni sulle consegne e lettura completa per progetto, additivo
 
 - S10, scheda 364: `DeliveryDecisionSubjectSchema` e tipo `DeliveryDecisionSubject` legano la decisione all'asset già salvato (`assetId` e `sha256`), con organizzazione, progetto e BU espliciti, riusando gli schemi degli asset. Richieste ed esiti delivery conservano il referente e la ricevuta email; `decisionOutcomeMatchesSubject` confronta la consegna immutabile e `decisionOutcomeFromEmailReply` accetta il mittente `{ email }` oltre a `{ ownerId }`. `verticalPlanDecisionSubject` continua a restituire il solo soggetto di piano.
