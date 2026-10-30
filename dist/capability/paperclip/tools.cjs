@@ -95,6 +95,7 @@ exports.PaperclipIssueViewSchema = zod_1.z.strictObject({
     id: zod_1.z.uuid(), companyId: zod_1.z.uuid(), identifier: Text, title: Text,
     description: zod_1.z.string().nullable(), status: exports.PaperclipIssueStatusSchema, assigneeAgentId: zod_1.z.uuid().nullable(),
     projectId: zod_1.z.uuid().nullable().optional(), goalId: zod_1.z.uuid().nullable().optional(),
+    parentId: zod_1.z.uuid().nullable().optional(),
 });
 exports.PaperclipQueueOutputSchema = zod_1.z.strictObject({ issues: zod_1.z.array(exports.PaperclipIssueViewSchema).max(100) });
 exports.PaperclipMutationOutputSchema = zod_1.z.strictObject({ issue: exports.PaperclipIssueViewSchema });

@@ -286,6 +286,7 @@ export declare const PaperclipIssueViewSchema: z.ZodObject<{
     assigneeAgentId: z.ZodNullable<z.ZodUUID>;
     projectId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
     goalId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
+    parentId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
 }, z.core.$strict>;
 export declare const PaperclipQueueOutputSchema: z.ZodObject<{
     issues: z.ZodArray<z.ZodObject<{
@@ -306,6 +307,7 @@ export declare const PaperclipQueueOutputSchema: z.ZodObject<{
         assigneeAgentId: z.ZodNullable<z.ZodUUID>;
         projectId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
         goalId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
+        parentId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export declare const PaperclipMutationOutputSchema: z.ZodObject<{
@@ -327,6 +329,7 @@ export declare const PaperclipMutationOutputSchema: z.ZodObject<{
         assigneeAgentId: z.ZodNullable<z.ZodUUID>;
         projectId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
         goalId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
+        parentId: z.ZodOptional<z.ZodNullable<z.ZodUUID>>;
     }, z.core.$strict>;
 }, z.core.$strict>;
 /** Server-owned mapping. Credentials and an active native run never come from tool parameters. */

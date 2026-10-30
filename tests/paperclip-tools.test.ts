@@ -10,6 +10,7 @@ import { PaperclipQueueInputSchema as Queue, PaperclipIssueInputSchema as Issue,
   PaperclipActivityInputSchema as Activity, PaperclipActivityOutputSchema as ActivityOutput,
   PaperclipGoalLevelSchema as GoalLevel, PaperclipCreateProjectInputSchema as CreateProject,
   PaperclipProjectViewSchema as ProjectView, PaperclipCreateProjectOutputSchema as CreateProjectOutput,
+  PaperclipQueueOutputSchema as QueueOutput, PaperclipMutationOutputSchema as MutationOutput,
   PaperclipCreateGoalInputSchema as CreateGoal, PaperclipGoalViewSchema as GoalView,
   PaperclipCreateGoalOutputSchema as CreateGoalOutput,
 } from '../src/capability/paperclip/index.js';
@@ -40,6 +41,17 @@ it('preserves optional nullable project and goal IDs in issue views', () => {
   for (const field of ['projectId', 'goalId']) {
     expect(View.safeParse({ ...issue, [field]: 'obiettivo-1' }).success).toBe(false);
   }
+});
+it('issue view keeps parentId', () => {
+  const parentId = 'f13dd515-1bad-4e0d-a697-7d19bfac6103';
+  const issue = { id, companyId: id, identifier: 'TASK-2', title: 'Child task',
+    description: null, status: 'todo', assigneeAgentId: null };
+  expect(View.parse({ ...issue, parentId })).toEqual({ ...issue, parentId });
+  expect(QueueOutput.parse({ issues: [{ ...issue, parentId }] })).toEqual({ issues: [{ ...issue, parentId }] });
+  expect(MutationOutput.parse({ issue: { ...issue, parentId } })).toEqual({ issue: { ...issue, parentId } });
+  expect(View.parse({ ...issue, parentId: null })).toEqual({ ...issue, parentId: null });
+  expect(View.parse(issue)).toEqual(issue);
+  expect(View.safeParse({ ...issue, parentId: 'TASK-1' }).success).toBe(false);
 });
 it('names the project and goal creation tools', () => {
   expect(PAPERCLIP_TOOLS.createProject).toBe('paperclip_create_project');
