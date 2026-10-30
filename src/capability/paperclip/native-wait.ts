@@ -23,13 +23,30 @@ const IssueIds = z.array(z.uuid()).min(1).max(20)
 /** The concrete action that unblocks the task, owned by the calling agent itself (Paperclip: agents name only themselves). */
 export const PaperclipWaitingForSchema = z.strictObject({ action: Text.max(2000) });
 
-/** `paperclip_review` with the reason of a `blocked`: the tasks waited for, or the external action the agent owns. */
+/** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
+export const PaperclipCheckLaterSchema = z.strictObject({
+  afterSeconds: z.number().int().min(30).max(3600),
+  notes: Text.max(500),
+  serviceName: Text.max(120).optional(),
+});
+
+/**
+ * `paperclip_review` with every durable disposition Paperclip accepts: `blocked` with what it waits for (tasks, or the
+ * external action the agent owns), or the task kept `in_progress` with a scheduled check of an async job (P-15). The
+ * check lives in review, not in a tool of its own, because a new write tool needs a policy decision of the agent
+ * (agent-core asks a human for unknown writes) while review is already granted to every Paperclip agent.
+ */
 export const PaperclipNativeReviewInputSchema = PaperclipReviewInputSchema.extend({
+  status: z.enum(['in_review', 'done', 'blocked', 'in_progress']),
   blockedByIssueIds: IssueIds.optional(),
   waitingFor: PaperclipWaitingForSchema.optional(),
+  checkLater: PaperclipCheckLaterSchema.optional(),
 }).superRefine((value, ctx) => {
   if ((value.blockedByIssueIds !== undefined || value.waitingFor !== undefined) && value.status !== 'blocked') {
     ctx.addIssue({ code: 'custom', path: ['status'], message: 'A wait reason requires status blocked' });
+  }
+  if ((value.checkLater !== undefined) !== (value.status === 'in_progress')) {
+    ctx.addIssue({ code: 'custom', path: ['checkLater'], message: 'Status in_progress is kept only with checkLater, and checkLater only with in_progress' });
   }
   if (value.blockedByIssueIds?.includes(value.issueId) === true) {
     ctx.addIssue({ code: 'custom', path: ['blockedByIssueIds'], message: 'A task cannot wait for itself' });
@@ -58,6 +75,7 @@ export const PaperclipCheckLaterOutputSchema = z.strictObject({
 });
 
 export type PaperclipWaitingFor = z.infer<typeof PaperclipWaitingForSchema>;
+export type PaperclipCheckLater = z.infer<typeof PaperclipCheckLaterSchema>;
 export type PaperclipNativeReviewInput = z.infer<typeof PaperclipNativeReviewInputSchema>;
 export type PaperclipNativeCreateIssueInput = z.infer<typeof PaperclipNativeCreateIssueInputSchema>;
 export type PaperclipCheckLaterInput = z.infer<typeof PaperclipCheckLaterInputSchema>;

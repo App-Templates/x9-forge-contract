@@ -47,6 +47,25 @@ describe('native review: blocked says what it waits for (P-04)', () => {
   });
 });
 
+describe('native review: keep working with a scheduled check (P-15)', () => {
+  const checkLater = { afterSeconds: 120, notes: 'Stato della ricerca', serviceName: 'cap-ricerca' };
+  it('accepts in_progress only with checkLater', () => {
+    expect(NativeReview.parse({ issueId, status: 'in_progress', checkLater })).toEqual({ issueId, status: 'in_progress', checkLater });
+    expect(NativeReview.safeParse({ issueId, status: 'in_progress' }).success).toBe(false);
+  });
+  it('refuses checkLater with any other status, and out-of-bounds checks', () => {
+    for (const status of ['done', 'blocked', 'in_review']) {
+      expect(NativeReview.safeParse({ issueId, status, checkLater }).success).toBe(false);
+    }
+    for (const bad of [{ ...checkLater, afterSeconds: 10 }, { ...checkLater, notes: ' ' }, { ...checkLater, externalRef: 'x' }]) {
+      expect(NativeReview.safeParse({ issueId, status: 'in_progress', checkLater: bad }).success).toBe(false);
+    }
+  });
+  it('the existing review never keeps in_progress', () => {
+    expect(Review.safeParse({ issueId, status: 'in_progress' }).success).toBe(false);
+  });
+});
+
 describe('native create: delegate and declare the wait in one call (P-03, P-04)', () => {
   const base = { title: 'Verifica le lacune', assigneeRoleRef: 'rd-lab', parentIssueId: issueId };
   it('accepts waitForChild with a parent and an assignee, and every existing create input', () => {

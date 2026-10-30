@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipWaitingForSchema = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipCheckLaterSchema = exports.PaperclipWaitingForSchema = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
 const zod_1 = require("zod");
 const tools_js_1 = require("./tools.cjs");
 /**
@@ -22,13 +22,29 @@ const IssueIds = zod_1.z.array(zod_1.z.uuid()).min(1).max(20)
     .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique');
 /** The concrete action that unblocks the task, owned by the calling agent itself (Paperclip: agents name only themselves). */
 exports.PaperclipWaitingForSchema = zod_1.z.strictObject({ action: Text.max(2000) });
-/** `paperclip_review` with the reason of a `blocked`: the tasks waited for, or the external action the agent owns. */
+/** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
+exports.PaperclipCheckLaterSchema = zod_1.z.strictObject({
+    afterSeconds: zod_1.z.number().int().min(30).max(3600),
+    notes: Text.max(500),
+    serviceName: Text.max(120).optional(),
+});
+/**
+ * `paperclip_review` with every durable disposition Paperclip accepts: `blocked` with what it waits for (tasks, or the
+ * external action the agent owns), or the task kept `in_progress` with a scheduled check of an async job (P-15). The
+ * check lives in review, not in a tool of its own, because a new write tool needs a policy decision of the agent
+ * (agent-core asks a human for unknown writes) while review is already granted to every Paperclip agent.
+ */
 exports.PaperclipNativeReviewInputSchema = tools_js_1.PaperclipReviewInputSchema.extend({
+    status: zod_1.z.enum(['in_review', 'done', 'blocked', 'in_progress']),
     blockedByIssueIds: IssueIds.optional(),
     waitingFor: exports.PaperclipWaitingForSchema.optional(),
+    checkLater: exports.PaperclipCheckLaterSchema.optional(),
 }).superRefine((value, ctx) => {
     if ((value.blockedByIssueIds !== undefined || value.waitingFor !== undefined) && value.status !== 'blocked') {
         ctx.addIssue({ code: 'custom', path: ['status'], message: 'A wait reason requires status blocked' });
+    }
+    if ((value.checkLater !== undefined) !== (value.status === 'in_progress')) {
+        ctx.addIssue({ code: 'custom', path: ['checkLater'], message: 'Status in_progress is kept only with checkLater, and checkLater only with in_progress' });
     }
     if (value.blockedByIssueIds?.includes(value.issueId) === true) {
         ctx.addIssue({ code: 'custom', path: ['blockedByIssueIds'], message: 'A task cannot wait for itself' });

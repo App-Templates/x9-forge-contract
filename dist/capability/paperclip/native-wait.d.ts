@@ -19,18 +19,35 @@ export declare const PAPERCLIP_NATIVE_WAIT_TOOLS: {
 export declare const PaperclipWaitingForSchema: z.ZodObject<{
     action: z.ZodString;
 }, z.core.$strict>;
-/** `paperclip_review` with the reason of a `blocked`: the tasks waited for, or the external action the agent owns. */
+/** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
+export declare const PaperclipCheckLaterSchema: z.ZodObject<{
+    afterSeconds: z.ZodNumber;
+    notes: z.ZodString;
+    serviceName: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+/**
+ * `paperclip_review` with every durable disposition Paperclip accepts: `blocked` with what it waits for (tasks, or the
+ * external action the agent owns), or the task kept `in_progress` with a scheduled check of an async job (P-15). The
+ * check lives in review, not in a tool of its own, because a new write tool needs a policy decision of the agent
+ * (agent-core asks a human for unknown writes) while review is already granted to every Paperclip agent.
+ */
 export declare const PaperclipNativeReviewInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
+    comment: z.ZodOptional<z.ZodString>;
     status: z.ZodEnum<{
         done: "done";
         blocked: "blocked";
+        in_progress: "in_progress";
         in_review: "in_review";
     }>;
-    comment: z.ZodOptional<z.ZodString>;
     blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodUUID>>;
     waitingFor: z.ZodOptional<z.ZodObject<{
         action: z.ZodString;
+    }, z.core.$strict>>;
+    checkLater: z.ZodOptional<z.ZodObject<{
+        afterSeconds: z.ZodNumber;
+        notes: z.ZodString;
+        serviceName: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 /** `paperclip_create_issue` that also declares the wait: the parent stays blocked until this child is done. */
@@ -74,6 +91,7 @@ export declare const PaperclipCheckLaterOutputSchema: z.ZodObject<{
     nextCheckAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type PaperclipWaitingFor = z.infer<typeof PaperclipWaitingForSchema>;
+export type PaperclipCheckLater = z.infer<typeof PaperclipCheckLaterSchema>;
 export type PaperclipNativeReviewInput = z.infer<typeof PaperclipNativeReviewInputSchema>;
 export type PaperclipNativeCreateIssueInput = z.infer<typeof PaperclipNativeCreateIssueInputSchema>;
 export type PaperclipCheckLaterInput = z.infer<typeof PaperclipCheckLaterInputSchema>;
