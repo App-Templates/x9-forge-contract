@@ -134,4 +134,5 @@ __exportStar(require("./internal-development-session-list.cjs"), exports);
 __exportStar(require("./development-session-heartbeat.cjs"), exports);
 __exportStar(require("./internal-dev-artifact-content.cjs"), exports);
 __exportStar(require("./internal-dev-session-asset-content.cjs"), exports);
+__exportStar(require("./paperclip-protocollo-turno.cjs"), exports);
 //# sourceMappingURL=index.js.map

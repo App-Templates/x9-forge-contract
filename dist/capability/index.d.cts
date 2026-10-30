@@ -61,4 +61,5 @@ export * from "./agent-elevenlabs/native-config.cjs";
 export * from "./agent-elevenlabs/native-readback.cjs";
 export * from "./configuration/news-briefing.cjs";
 export * from "./feature-switch.cjs";
+export * from "./paperclip-protocollo/index.cjs";
 //# sourceMappingURL=index.d.ts.map
