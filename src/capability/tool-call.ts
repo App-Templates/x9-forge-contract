@@ -65,6 +65,34 @@ export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
 
 // -- Response variants -------------------------------------------------------
 
+export const TOOL_ERROR_MODEL_REASON_MAX_CHARS = 400;
+
+// Il solo testo di un errore di capacità che il runtime può mostrare al modello: codice e spiegazione scritti dal servizio, mai dati dell'upstream.
+export const ToolErrorModelReasonSchema = z.string()
+  .min(1)
+  .max(TOOL_ERROR_MODEL_REASON_MAX_CHARS)
+  .regex(/^[a-z][a-z0-9_]{2,63}(: [^\u0000-\u001f\u007f]+)?$/)
+  .refine((reason) => !/[\u0000-\u001f\u007f]/.test(reason)
+    && !reason.includes('://')
+    && !/Bearer /i.test(reason)
+    && !/[A-Za-z0-9+/=]{32,}/.test(reason));
+
+export type ToolErrorModelReason = z.infer<typeof ToolErrorModelReasonSchema>;
+
+export function toolErrorModelReasonOf(body: unknown): string | undefined {
+  try {
+    if (typeof body !== 'object' || body === null
+      || !('status' in body) || body.status !== 'error'
+      || !('modelReason' in body)) return undefined;
+
+    const parsed = ToolErrorModelReasonSchema.safeParse(body.modelReason);
+    return parsed.success ? parsed.data : undefined;
+  } catch {
+    // Untrusted objects may throw when their properties are read.
+    return undefined;
+  }
+}
+
 export const ToolCallSuccessResponseSchema = z.object({
   callId: z.string().min(1),
   status: z.literal('success'),
@@ -77,6 +105,7 @@ export const ToolCallErrorResponseSchema = z.object({
   status: z.literal('error'),
   error: z.string(),
   code: z.enum(['TOOL_NOT_FOUND', 'TOOL_CALL_INVALID', 'TOOL_EXEC_FAILED']),
+  modelReason: ToolErrorModelReasonSchema.optional(),
   receipt: ToolCallReceiptSchema.optional(),
 });
 

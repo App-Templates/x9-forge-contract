@@ -23,6 +23,10 @@ export {
 } from './capability-tool.js';
 
 export {
+  TOOL_ERROR_MODEL_REASON_MAX_CHARS,
+  ToolErrorModelReasonSchema,
+  toolErrorModelReasonOf,
+  type ToolErrorModelReason,
   ToolCallRequestSchema,
   ToolCallSuccessResponseSchema,
   ToolCallErrorResponseSchema,
