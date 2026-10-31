@@ -113,11 +113,13 @@ function createBridgeClient(config) {
             async listAgents() {
                 return request({ method: 'GET', path: '/internal/agents' });
             },
-            async reloadAgent(agentId) {
+            async reloadAgent(agentId, body) {
                 const { agentId: safe } = internal_agents_reload_js_1.ReloadAgentParamsSchema.parse({ agentId });
+                const safeBody = body === undefined ? undefined : internal_agents_reload_js_1.ReloadAgentBodySchema.parse(body);
                 const raw = await request({
                     method: 'POST',
                     path: `/internal/agents/${safe}/reload`,
+                    ...(safeBody === undefined ? {} : { body: safeBody }),
                 });
                 return internal_agents_reload_js_1.ReloadAgentResponseSchema.parse(raw);
             },

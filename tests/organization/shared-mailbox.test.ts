@@ -3,11 +3,15 @@ import { AgentIdSchema } from '../../src/agent/agent-identity.js';
 import { AgentEmailInboxSchema } from '../../src/messaging/agent-email-inbox.js';
 import { BusinessUnitLeadBirthRequestSchema } from '../../src/organization/business-unit-lead.js';
 import {
+  SHARED_MAILBOXES_FILE,
   SHARED_MAILBOX_ROUTE_VIAS,
+  SharedMailboxFileEntrySchema,
   SharedMailboxHolderSchema,
   SharedMailboxLabelSchema,
   SharedMailboxSchema,
   SharedMailboxThreadSchema,
+  SharedMailboxesFileSchema,
+  parseSharedMailboxesFile,
   parseSharedMailboxSubjectLabel,
   routeSharedMailboxMessage,
 } from '../../src/organization/shared-mailbox.js';
@@ -29,6 +33,111 @@ const thread = SharedMailboxThreadSchema.parse({
   providerThreadId: 'thread-1',
   agentId: 'director',
   openedAt: '2026-10-20T21:00:00+02:00',
+});
+
+describe('SharedMailboxesFileSchema', () => {
+  const secondMailbox = SharedMailboxSchema.parse({
+    ...mailbox,
+    mailboxId: 'mailbox-2',
+    companyId: 'company-2',
+    providerInboxId: 'inbox-2',
+    address: 'second@example.com',
+    holders: [
+      { agentId: 'second-director', label: 'Director', displayName: 'Second Director' },
+      { agentId: 'second-lead', label: 'Design', displayName: 'Second Design Lead' },
+    ],
+    defaultAgentId: 'second-director',
+  });
+  const entries = [
+    { companyName: 'First Company', mailbox },
+    { companyName: 'Second Company', mailbox: secondMailbox },
+  ];
+
+  it('accepts two companies and extracts their mailboxes in file order', () => {
+    expect(SharedMailboxesFileSchema.parse(entries)).toEqual(entries);
+    expect(parseSharedMailboxesFile(entries)).toEqual([mailbox, secondMailbox]);
+    expect(SharedMailboxFileEntrySchema.shape.mailbox).toBe(SharedMailboxSchema);
+  });
+
+  it('extracts an empty list from an empty file', () => {
+    expect(parseSharedMailboxesFile([])).toEqual([]);
+  });
+
+  it('rejects the legacy list of bare mailboxes and throws when parsing it', () => {
+    expect(SharedMailboxesFileSchema.safeParse([mailbox]).success).toBe(false);
+    expect(() => parseSharedMailboxesFile([mailbox])).toThrow();
+  });
+
+  it('rejects duplicate mailbox IDs across companies', () => {
+    expect(SharedMailboxesFileSchema.safeParse([
+      entries[0], { ...entries[1], mailbox: { ...secondMailbox, mailboxId: mailbox.mailboxId } },
+    ]).success).toBe(false);
+  });
+
+  it('rejects duplicate providerInboxId across companies', () => {
+    expect(SharedMailboxesFileSchema.safeParse([
+      entries[0], { ...entries[1], mailbox: { ...secondMailbox, providerInboxId: mailbox.providerInboxId } },
+    ]).success).toBe(false);
+  });
+
+  it('rejects the same holder agent in two mailboxes', () => {
+    const result = SharedMailboxesFileSchema.safeParse([
+      entries[0],
+      {
+        ...entries[1],
+        mailbox: {
+          ...secondMailbox,
+          holders: [secondMailbox.holders[0], { ...secondMailbox.holders[1], agentId: mailbox.holders[1].agentId }],
+        },
+      },
+    ]);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues).toContainEqual(expect.objectContaining({
+        path: [1, 'mailbox', 'holders', 1, 'agentId'],
+        message: 'Agent holds more than one shared mailbox',
+      }));
+    }
+  });
+
+  it('rejects an extra key in a file entry', () => {
+    expect(SharedMailboxesFileSchema.safeParse([{ ...entries[0], extra: true }]).success).toBe(false);
+  });
+
+  it('rejects missing and invalid company names', () => {
+    expect(SharedMailboxFileEntrySchema.safeParse({ mailbox }).success).toBe(false);
+    expect(SharedMailboxFileEntrySchema.safeParse({ companyName: '', mailbox }).success).toBe(false);
+    expect(SharedMailboxFileEntrySchema.safeParse({ companyName: 'x'.repeat(121), mailbox }).success).toBe(false);
+    expect(SharedMailboxFileEntrySchema.parse({ companyName: 'x'.repeat(120), mailbox }).companyName).toHaveLength(120);
+  });
+
+  it('accepts 500 entries and rejects a file with 501 entries', () => {
+    const manyEntries = Array.from({ length: 501 }, (_, index) => ({
+      companyName: `Company ${index}`,
+      mailbox: {
+        ...mailbox,
+        mailboxId: `mailbox-${index}`,
+        providerInboxId: `inbox-${index}`,
+        holders: [
+          { agentId: `director-${index}`, label: 'Director', displayName: 'Director' },
+          { agentId: `lead-${index}`, label: 'Design', displayName: 'Lead' },
+        ],
+        defaultAgentId: `director-${index}`,
+      },
+    }));
+    expect(SharedMailboxesFileSchema.safeParse(manyEntries.slice(0, 500)).success).toBe(true);
+    expect(SharedMailboxesFileSchema.safeParse(manyEntries).success).toBe(false);
+  });
+
+  it('throws for malformed files instead of returning an empty list', () => {
+    expect(() => parseSharedMailboxesFile(null)).toThrow();
+    expect(() => parseSharedMailboxesFile({})).toThrow();
+    expect(() => parseSharedMailboxesFile([entries[0], { companyName: 'Broken', mailbox: {} }])).toThrow();
+  });
+
+  it('uses the canonical contexts-relative file path', () => {
+    expect(SHARED_MAILBOXES_FILE).toBe('companies/shared-mailboxes.json');
+  });
 });
 
 describe('SharedMailboxSchema', () => {

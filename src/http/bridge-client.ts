@@ -1,7 +1,7 @@
 import type { AuthInternalSecret, AuthInternalToken, AuthNone, EndpointAuthType } from '../auth/auth-headers.js';
 import type { BridgeErrorResponse } from './response.js';
 import type { ListAgentsResponse } from './endpoints/internal-agents-list.js';
-import { ReloadAgentParamsSchema, ReloadAgentResponseSchema, type ReloadAgentResponse } from './endpoints/internal-agents-reload.js';
+import { ReloadAgentBodySchema, ReloadAgentParamsSchema, ReloadAgentResponseSchema, type ReloadAgentBody, type ReloadAgentResponse } from './endpoints/internal-agents-reload.js';
 import { StopAgentParamsSchema, StopAgentResponseSchema, type StopAgentResponse } from './endpoints/internal-agents-stop.js';
 import { InternalTurnRequestSchema, InternalTurnResponseSchema, type InternalTurnRequest, type InternalTurnResponse } from './endpoints/internal-turn.js';
 import { InternalAgentTurnRequestSchema, InternalAgentTurnResponseSchema, internalAgentTurnPath, type InternalAgentTurnRequest, type InternalAgentTurnResponse } from './endpoints/internal-agent-turn.js';
@@ -92,7 +92,8 @@ export interface BaseBridgeClient<A extends 'secret' | 'token' | 'none'> {
  */
 export interface SecretBridgeClient extends BaseBridgeClient<'secret'> {
   listAgents(): Promise<ListAgentsResponse>;
-  reloadAgent(agentId: string): Promise<ReloadAgentResponse>;
+  /** `body.birth` (v1.75.0): first publication of the models of an agent born with them. */
+  reloadAgent(agentId: string, body?: ReloadAgentBody): Promise<ReloadAgentResponse>;
   stopAgent(agentId: string): Promise<StopAgentResponse>;
   internalTurn(body: InternalTurnRequest): Promise<InternalTurnResponse>;
   /** v1.22.0 — turn addressed to one specific (non-primary) agent. */
@@ -239,11 +240,13 @@ export function createBridgeClient<A extends 'secret' | 'token' | 'none'>(
       async listAgents(): Promise<ListAgentsResponse> {
         return request<ListAgentsResponse>({ method: 'GET', path: '/internal/agents' });
       },
-      async reloadAgent(agentId: string): Promise<ReloadAgentResponse> {
+      async reloadAgent(agentId: string, body?: ReloadAgentBody): Promise<ReloadAgentResponse> {
         const { agentId: safe } = ReloadAgentParamsSchema.parse({ agentId });
+        const safeBody = body === undefined ? undefined : ReloadAgentBodySchema.parse(body);
         const raw = await request<unknown>({
           method: 'POST',
           path: `/internal/agents/${safe}/reload`,
+          ...(safeBody === undefined ? {} : { body: safeBody }),
         });
         return ReloadAgentResponseSchema.parse(raw);
       },

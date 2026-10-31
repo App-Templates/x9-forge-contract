@@ -117,11 +117,30 @@ describe('R3 resolve endpoint', () => {
   });
 
   it('keeps missing key, unavailable source and disabled capability distinct', () => {
-    expect(CapabilityCallContextErrorCodeSchema.options).toEqual(expect.arrayContaining(['credential_missing', 'source_unavailable', 'capability_disabled', 'capability_not_installed', 'identity_mismatch']));
+    expect(CapabilityCallContextErrorCodeSchema.options).toEqual(expect.arrayContaining([
+      'credential_missing', 'source_unavailable', 'capability_disabled', 'capability_not_installed', 'identity_mismatch',
+      'business_unit_pending', 'business_unit_refused', 'business_unit_unavailable', 'business_unit_register_failed', 'business_unit_failed',
+    ]));
     expect(CapabilityCallContextResponseSchema.safeParse({ ok: true, context }).success).toBe(true);
     expect(CapabilityCallContextResponseSchema.safeParse({ ok: false, error: 'credential_missing', keys: ['GOOGLE_API_KEY'] }).success).toBe(true);
     expect(CapabilityCallContextResponseSchema.safeParse({ ok: false, error: 'source_unavailable' }).success).toBe(true);
     expect(CapabilityCallContextResponseSchema.safeParse({ ok: false, error: 'capability_disabled' }).success).toBe(true);
+  });
+
+  it.each([
+    'business_unit_pending',
+    'business_unit_refused',
+    'business_unit_unavailable',
+    'business_unit_register_failed',
+    'business_unit_failed',
+  ])('accepts model-safe business-unit code %s', (error) => {
+    expect(CapabilityCallContextErrorCodeSchema.safeParse(error).success).toBe(true);
+    expect(CapabilityCallContextResponseSchema.safeParse({ ok: false, error }).success).toBe(true);
+  });
+
+  it.each(['segreto_xyz', 'business unit pending'])('rejects unsafe error code %s', (error) => {
+    expect(CapabilityCallContextErrorCodeSchema.safeParse(error).success).toBe(false);
+    expect(CapabilityCallContextResponseSchema.safeParse({ ok: false, error }).success).toBe(false);
   });
 
   it.each([

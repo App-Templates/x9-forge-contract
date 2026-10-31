@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { AgentConfigVersionSchema } from '../capability/ricerca/agent-config.js';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
+import { CapabilityToolAccessSchema } from '../capability/capability-tool.js';
 import { CapabilityCallIdentitySchema } from '../capability/capability-call-context.js';
 import { CapToolCallParamsSchema } from '../http/endpoints/cap-tool-call.js';
 import { AgentManagementRequestIdSchema } from './agent-management.js';
@@ -21,7 +22,7 @@ import { AgentRuntimeChannelKindSchema } from './agent-runtime-state.js';
 export const PolicyDecisionSchema = z.enum(['allow', 'ask', 'deny']);
 export type PolicyDecision = z.infer<typeof PolicyDecisionSchema>;
 
-export const PolicyAccessSchema = z.enum(['read', 'write']);
+export const PolicyAccessSchema = CapabilityToolAccessSchema;
 export type PolicyAccess = z.infer<typeof PolicyAccessSchema>;
 
 export const PolicyAccessDecisionsSchema = z.object({ read: PolicyDecisionSchema, write: PolicyDecisionSchema }).strict();

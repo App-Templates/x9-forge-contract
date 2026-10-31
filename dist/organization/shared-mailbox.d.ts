@@ -23,6 +23,44 @@ export declare const SharedMailboxSchema: z.ZodObject<{
     defaultAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
 }, z.core.$strict>;
 export type SharedMailbox = z.infer<typeof SharedMailboxSchema>;
+/** Relative to the contexts directory shared by Forge and cap-email. */
+export declare const SHARED_MAILBOXES_FILE = "companies/shared-mailboxes.json";
+export declare const SharedMailboxFileEntrySchema: z.ZodObject<{
+    companyName: z.ZodString;
+    mailbox: z.ZodObject<{
+        mailboxId: z.ZodString;
+        tenantId: z.ZodString;
+        companyId: z.ZodString;
+        providerInboxId: z.ZodString;
+        address: z.ZodEmail;
+        holders: z.ZodArray<z.ZodObject<{
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            label: z.ZodString;
+            displayName: z.ZodString;
+        }, z.core.$strict>>;
+        defaultAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type SharedMailboxFileEntry = z.infer<typeof SharedMailboxFileEntrySchema>;
+export declare const SharedMailboxesFileSchema: z.ZodArray<z.ZodObject<{
+    companyName: z.ZodString;
+    mailbox: z.ZodObject<{
+        mailboxId: z.ZodString;
+        tenantId: z.ZodString;
+        companyId: z.ZodString;
+        providerInboxId: z.ZodString;
+        address: z.ZodEmail;
+        holders: z.ZodArray<z.ZodObject<{
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            label: z.ZodString;
+            displayName: z.ZodString;
+        }, z.core.$strict>>;
+        defaultAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strict>;
+}, z.core.$strict>>;
+export type SharedMailboxesFile = z.infer<typeof SharedMailboxesFileSchema>;
+/** Reject malformed files before exposing any mailbox to consumers. */
+export declare function parseSharedMailboxesFile(json: unknown): SharedMailbox[];
 /** Provider conversation ownership, scoped to one mailbox. */
 export declare const SharedMailboxThreadSchema: z.ZodObject<{
     mailboxId: z.ZodString;

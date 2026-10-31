@@ -29,13 +29,39 @@ const asset: AssetRef = {
 };
 
 describe('AssetRefSchema', () => {
+  it('preserves an asset without provider attribution', () => {
+    expect(AssetRefSchema.parse(asset)).toEqual(asset);
+  });
+
+  it.each(['massimo', 'massimo-rossi', 'a', 'a'.repeat(40)])('accepts provider personRef %s', (personRef) => {
+    const input = { ...asset, providedBy: { personRef } };
+    expect(AssetRefSchema.parse(input)).toEqual(input);
+  });
+
+  it.each(['', 'Massimo', 'massimo rossi', 'massimo@example.com', '-massimo', 'massimo-', 'massimo--rossi', 'a'.repeat(41)])(
+    'rejects an invalid provider personRef %s', (personRef) => {
+      expect(AssetRefSchema.safeParse({ ...asset, providedBy: { personRef } }).success).toBe(false);
+    },
+  );
+
+  it('rejects extra keys inside provider attribution', () => {
+    expect(AssetRefSchema.safeParse({
+      ...asset, providedBy: { personRef: 'massimo', email: 'massimo@example.com' },
+    }).success).toBe(false);
+  });
+
+  it('requires personRef when provider attribution is present', () => {
+    expect(AssetRefSchema.safeParse({ ...asset, providedBy: {} }).success).toBe(false);
+    expect(AssetRefSchema.safeParse({ ...asset, providedBy: null }).success).toBe(false);
+  });
+
   it.each(origins)('accepts an asset with $kind origin', (origin) => {
     const input = { ...asset, origin };
     expect(AssetRefSchema.parse(input)).toEqual(input);
   });
 
   it('exports the canonical origins and reuses the company identifier schema', () => {
-    expect(ASSET_ORIGIN_KINDS).toEqual(['email', 'archive', 'session']);
+    expect(ASSET_ORIGIN_KINDS).toEqual(['email', 'archive', 'session', 'link', 'generated']);
     expect(AssetRefSchema.shape.companyId).toBe(
       BusinessUnitLeadBirthRequestSchema.shape.company.shape.companyId,
     );

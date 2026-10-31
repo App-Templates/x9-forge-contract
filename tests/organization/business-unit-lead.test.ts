@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { MODEL_TIERS } from '../../src/model-router/model-tier.js';
+import { BusinessUnitTypeCardSchema } from '../../src/organization/business-unit-type.js';
 import {
   BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE,
   BusinessUnitLeadBirthRequestSchema,
@@ -14,6 +15,7 @@ const validRequest = () => ({
   company: { companyId: 'company-1', name: 'Company One' },
   businessUnit: {
     slug: 'research',
+    typeId: 'ricerca-mercato',
     name: 'Research',
     briefSection: 'Research the market and deliver a report for the company brief.',
     competencies: ['market research', 'competitor analysis'],
@@ -44,6 +46,31 @@ const validResult = () => ({
 describe('BusinessUnitLeadBirthRequestSchema', () => {
   it('accepts a valid request', () => {
     expect(BusinessUnitLeadBirthRequestSchema.parse(validRequest())).toEqual(validRequest());
+  });
+
+  it('rejects a request without typeId', () => {
+    const { typeId: _typeId, ...withoutType } = validRequest().businessUnit;
+    const parsed = BusinessUnitLeadBirthRequestSchema.safeParse({ ...validRequest(), businessUnit: withoutType });
+    expect(parsed.success).toBe(false);
+    if (!parsed.success) {
+      expect(parsed.error.issues).toEqual(expect.arrayContaining([
+        expect.objectContaining({ path: ['businessUnit', 'typeId'] }),
+      ]));
+    }
+  });
+
+  it.each(['a', 'Ricerca Mercato'])('rejects typeId %j', (typeId) => {
+    const parsed = BusinessUnitLeadBirthRequestSchema.safeParse({
+      ...validRequest(),
+      businessUnit: { ...validRequest().businessUnit, typeId },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it('uses the same typeId schema as the business unit type card', () => {
+    expect(BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.typeId).toBe(
+      BusinessUnitTypeCardSchema.shape.typeId,
+    );
   });
 
   it('rejects duplicate capabilities', () => {
@@ -153,6 +180,7 @@ describe('BusinessUnitLeadBirthRequestSchema', () => {
       company: { companyId: 'c'.repeat(64), name: 'n'.repeat(120) },
       businessUnit: {
         slug: 's'.repeat(30),
+        typeId: 'ricerca-mercato',
         name: 'n'.repeat(120),
         briefSection: 'b'.repeat(4000),
         competencies: Array.from({ length: 20 }, (_, i) => `${String(i).padStart(2, '0')}${'c'.repeat(198)}`),

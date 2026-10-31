@@ -69,6 +69,8 @@ export type PaperclipHandoffReceipt = z.infer<typeof PaperclipHandoffReceiptSche
 export type PaperclipDecisionRecord = z.infer<typeof PaperclipDecisionRecordSchema>;
 
 export * from './tools.js';
+export * from './enrollment.js';
+export * from './native-wait.js';
 
 /** Provider communication references correlate an exact material version with a human reply. */
 const Reference = Text.nullable().optional();

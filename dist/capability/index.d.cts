@@ -12,8 +12,8 @@
  * - EnvSchemaField / EnvSchemaDoc with Zod schemas
  * - HealthStatus / HealthStatusSchema
  */
-export { CapabilityToolSchema, type CapabilityTool, } from "./capability-tool.cjs";
-export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, type ToolCallRequest, type ToolCallSuccessResponse, type ToolCallErrorResponse, type ToolCallResponse, } from "./tool-call.cjs";
+export { CAPABILITY_TOOL_ACCESS, CapabilityToolAccessSchema, CapabilityToolSchema, capabilityToolAccess, toolsForRole, type CapabilityTool, type CapabilityToolAccess, } from "./capability-tool.cjs";
+export { TOOL_ERROR_MODEL_REASON_MAX_CHARS, ToolErrorModelReasonSchema, toolErrorModelReasonOf, type ToolErrorModelReason, ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, type ToolCallRequest, type ToolCallSuccessResponse, type ToolCallErrorResponse, type ToolCallResponse, } from "./tool-call.cjs";
 export { CAPABILITY_CONTEXT_MAX_CHARS, CAPABILITY_CONTEXT_TIMEOUT_MS, CapabilityContextDeclarationSchema, CapabilityContextRequestSchema, CapabilityContextResponseSchema, type CapabilityContextDeclaration, type CapabilityContextRequest, type CapabilityContextResponse, } from "./capability-context.cjs";
 export { CapabilityManifestSchema, type CapabilityManifest, } from "./capability-manifest.cjs";
 export { CapabilityRegistryEntrySchema, type CapabilityRegistryEntry, toEndpoint, fromEndpoint, } from "./capability-registry-entry.cjs";
@@ -61,4 +61,5 @@ export * from "./agent-elevenlabs/native-config.cjs";
 export * from "./agent-elevenlabs/native-readback.cjs";
 export * from "./configuration/news-briefing.cjs";
 export * from "./feature-switch.cjs";
+export * from "./paperclip-protocollo/index.cjs";
 //# sourceMappingURL=index.d.ts.map

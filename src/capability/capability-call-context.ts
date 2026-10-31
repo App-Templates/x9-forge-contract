@@ -62,6 +62,16 @@ export const CapabilityCallContextErrorCodeSchema = z.enum([
   'capability_not_installed',
   /** tenant/owner/agent/person do not belong together: forged or stale identity. */
   'identity_mismatch',
+  /** Business unit creation is in progress; retry later. */
+  'business_unit_pending',
+  /** Business unit creation was refused by the service. */
+  'business_unit_refused',
+  /** The business unit service could not be reached. */
+  'business_unit_unavailable',
+  /** Business unit seat assignment or registration failed. */
+  'business_unit_register_failed',
+  /** Business unit creation failed for another reason. */
+  'business_unit_failed',
 ]);
 export type CapabilityCallContextErrorCode = z.infer<typeof CapabilityCallContextErrorCodeSchema>;
 

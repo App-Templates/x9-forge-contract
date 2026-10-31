@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.57.0",
+  "version": "1.85.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -26,6 +26,7 @@
       "./memory": "./src/memory/index.ts",
       "./organization": "./src/organization/index.ts",
       "./organization/business-unit-lead": "./src/organization/business-unit-lead.ts",
+      "./organization/business-unit-type": "./src/organization/business-unit-type.ts",
       "./messaging": "./src/messaging/index.ts",
       "./model-router": "./src/model-router/index.ts",
       "./rag": "./src/rag/index.ts",
@@ -110,6 +111,11 @@
       "types": "./dist/organization/business-unit-lead.d.cts",
       "import": "./dist/organization/business-unit-lead.js",
       "require": "./dist/organization/business-unit-lead.cjs"
+    },
+    "./organization/business-unit-type": {
+      "types": "./dist/organization/business-unit-type.d.cts",
+      "import": "./dist/organization/business-unit-type.js",
+      "require": "./dist/organization/business-unit-type.cjs"
     },
     "./messaging": {
       "types": "./dist/messaging/index.d.cts",

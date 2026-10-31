@@ -54,9 +54,12 @@ export * from './agent-runtime-source.js';
 
 // R1b logical management: lifecycle/apply-config commands, versions, per-target outcomes (v1.31.0)
 export * from './agent-management.js';
+export * from './agent-birth.js';
 
 // Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
 export * from './agent-scope-policy.js';
+export * from './policy-approval-request.js';
+export * from './agent-role-scope-policy.js';
 
 // Per-agent turn limits: tool rounds per turn and turn token budget (v1.49.2)
 export * from './agent-turn-limits.js';

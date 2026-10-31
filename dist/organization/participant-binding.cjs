@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParticipantBindingSelectorSchema = exports.ParticipantBindingReceiptSchema = exports.ParticipantBindingKeySchema = exports.ParticipantBindingResolutionSchema = exports.ParticipantBindingOutcomeSchema = exports.ParticipantBindingSchema = exports.ParticipantAgentIdentitySchema = exports.ParticipantRoleSchema = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
+const agent_role_js_1 = require("./agent-role.cjs");
 const publication_ref_js_1 = require("./publication-ref.cjs");
 /** Roles an organization participant may be authorized to hold. */
 exports.ParticipantRoleSchema = zod_1.z.enum(['lead', 'member', 'reviewer', 'observer']);
@@ -24,6 +25,12 @@ exports.ParticipantBindingSchema = zod_1.z.strictObject({
     /** Attested person (never model-provided); required by the apply operation. */
     personRef: zod_1.z.string().min(1).optional(),
     roles: zod_1.z.array(exports.ParticipantRoleSchema).min(1),
+    /**
+     * Role of the agent in the company (1.65.0), written by the server when the seat is created, never by a model:
+     * rd-seats for lab and ricerca, the birth for capo-bu, the configuration for director. Absent on bindings saved
+     * before: a reader that needs the role refuses them with a message (R-37).
+     */
+    agentRole: agent_role_js_1.AgentRoleSchema.optional(),
     recipients: zod_1.z.array(publication_ref_js_1.PublicationRecipientSchema),
     appliedVersion: zod_1.z.number().int().min(1),
     appliedAt: zod_1.z.iso.datetime(),

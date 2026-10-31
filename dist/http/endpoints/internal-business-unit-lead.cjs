@@ -12,5 +12,6 @@ exports.internalBusinessUnitLeadBirthContract = {
     authHeader: index_js_1.INTERNAL_TOKEN_HEADER,
     bodySchema: business_unit_lead_js_1.BusinessUnitLeadBirthRequestSchema,
     responseSchema: business_unit_lead_js_1.BusinessUnitLeadBirthResultSchema,
+    pendingResponseSchema: business_unit_lead_js_1.BusinessUnitLeadBirthPendingSchema,
 };
 //# sourceMappingURL=internal-business-unit-lead.js.map

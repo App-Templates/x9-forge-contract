@@ -179,6 +179,16 @@ export declare const AgentVoiceSourceSchema: z.ZodObject<{
                     name: z.ZodString;
                     description: z.ZodString;
                     inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+                    access: z.ZodOptional<z.ZodEnum<{
+                        read: "read";
+                        write: "write";
+                    }>>;
+                    roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                        ricerca: "ricerca";
+                        lab: "lab";
+                        director: "director";
+                        "capo-bu": "capo-bu";
+                    }>>>;
                 }, z.core.$strip>>>;
                 modelPolicy: z.ZodOptional<z.ZodObject<{
                     min: z.ZodEnum<{
@@ -847,8 +857,8 @@ export declare const AgentVoiceSourceSchema: z.ZodObject<{
                     feedback: z.ZodOptional<z.ZodObject<{
                         label: z.ZodString;
                         kind: z.ZodEnum<{
-                            rating: "rating";
                             approval: "approval";
+                            rating: "rating";
                         }>;
                         attachments: z.ZodBoolean;
                         sources: z.ZodArray<z.ZodEnum<{
@@ -1793,6 +1803,16 @@ export declare const internalAgentVoiceSourceContract: {
                         name: z.ZodString;
                         description: z.ZodString;
                         inputSchema: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+                        access: z.ZodOptional<z.ZodEnum<{
+                            read: "read";
+                            write: "write";
+                        }>>;
+                        roles: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                            ricerca: "ricerca";
+                            lab: "lab";
+                            director: "director";
+                            "capo-bu": "capo-bu";
+                        }>>>;
                     }, z.core.$strip>>>;
                     modelPolicy: z.ZodOptional<z.ZodObject<{
                         min: z.ZodEnum<{
@@ -2461,8 +2481,8 @@ export declare const internalAgentVoiceSourceContract: {
                         feedback: z.ZodOptional<z.ZodObject<{
                             label: z.ZodString;
                             kind: z.ZodEnum<{
-                                rating: "rating";
                                 approval: "approval";
+                                rating: "rating";
                             }>;
                             attachments: z.ZodBoolean;
                             sources: z.ZodArray<z.ZodEnum<{

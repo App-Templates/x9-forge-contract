@@ -15,6 +15,11 @@ export const OrganizationToolCallContextSchema = z
     message: 'attempt.runId must match organizationRun.runId',
     path: ['attempt', 'runId'],
 });
+/** Run admitted for a capability tool call, as agent-core forwards it beside the strict call body: the trusted context plus the admitting tenant. */
+export const OrganizationRunEnvelopeSchema = z.strictObject({
+    context: OrganizationRunContextSchema,
+    tenantId: z.string().min(1),
+});
 /**
  * Receipt of a single tool call (callId is distinct from attemptId). An uncertain
  * call is never reported as succeeded; a failed call carries its failureCode.

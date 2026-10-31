@@ -2,8 +2,8 @@ import { z } from 'zod';
 import { type ApprovalBindings } from "../approvals/index.cjs";
 export declare const DevProductionKindSchema: z.ZodEnum<{
     code: "code";
-    presentation: "presentation";
     design: "design";
+    presentation: "presentation";
     automation: "automation";
 }>;
 export type DevProductionKind = z.infer<typeof DevProductionKindSchema>;
@@ -39,8 +39,8 @@ export declare const DevProductionJobSchema: z.ZodObject<{
     }, z.core.$strict>;
     productKind: z.ZodEnum<{
         code: "code";
-        presentation: "presentation";
         design: "design";
+        presentation: "presentation";
         automation: "automation";
     }>;
     instruction: z.ZodString;

@@ -12,8 +12,8 @@
  * - EnvSchemaField / EnvSchemaDoc with Zod schemas
  * - HealthStatus / HealthStatusSchema
  */
-export { CapabilityToolSchema, } from "./capability-tool.js";
-export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, } from "./tool-call.js";
+export { CAPABILITY_TOOL_ACCESS, CapabilityToolAccessSchema, CapabilityToolSchema, capabilityToolAccess, toolsForRole, } from "./capability-tool.js";
+export { TOOL_ERROR_MODEL_REASON_MAX_CHARS, ToolErrorModelReasonSchema, toolErrorModelReasonOf, ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, } from "./tool-call.js";
 export { CAPABILITY_CONTEXT_MAX_CHARS, CAPABILITY_CONTEXT_TIMEOUT_MS, CapabilityContextDeclarationSchema, CapabilityContextRequestSchema, CapabilityContextResponseSchema, } from "./capability-context.js";
 export { CapabilityManifestSchema, } from "./capability-manifest.js";
 export { CapabilityRegistryEntrySchema, toEndpoint, fromEndpoint, } from "./capability-registry-entry.js";
@@ -70,4 +70,5 @@ export * from "./agent-elevenlabs/native-config.js";
 export * from "./agent-elevenlabs/native-readback.js";
 export * from "./configuration/news-briefing.js";
 export * from "./feature-switch.js";
+export * from "./paperclip-protocollo/index.js";
 //# sourceMappingURL=index.js.map

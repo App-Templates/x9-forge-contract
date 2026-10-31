@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+  OrganizationRunEnvelopeSchema,
   OrganizationToolCallContextSchema,
   ToolCallReceiptSchema,
 } from '../../src/organization/tool-call-correlation.js';
@@ -45,6 +46,35 @@ describe('OrganizationToolCallContextSchema', () => {
   });
   it('rejects an extra field', () => {
     expect(OrganizationToolCallContextSchema.safeParse({ ...ctx, token: 'x' }).success).toBe(false);
+  });
+});
+
+describe('OrganizationRunEnvelopeSchema', () => {
+  const envelope = { context: run, tenantId: 'tenant-1' };
+
+  it('accepts a valid envelope', () => {
+    expect(OrganizationRunEnvelopeSchema.safeParse(envelope).success).toBe(true);
+  });
+  it('rejects a missing tenantId', () => {
+    expect(OrganizationRunEnvelopeSchema.safeParse({ context: run }).success).toBe(false);
+  });
+  it('rejects an empty tenantId', () => {
+    expect(OrganizationRunEnvelopeSchema.safeParse({ ...envelope, tenantId: '' }).success).toBe(false);
+  });
+  it('rejects an extra key', () => {
+    expect(OrganizationRunEnvelopeSchema.safeParse({ ...envelope, token: 'x' }).success).toBe(false);
+  });
+  it('rejects a context without ownerId', () => {
+    const { ownerId: _o, ...noOwner } = run;
+    expect(OrganizationRunEnvelopeSchema.safeParse({ ...envelope, context: noOwner }).success).toBe(false);
+  });
+  it('rejects a context whose expiresAt is not after issuedAt', () => {
+    const context = { ...run, expiresAt: run.issuedAt };
+    expect(OrganizationRunEnvelopeSchema.safeParse({ ...envelope, context }).success).toBe(false);
+  });
+  it('is not the shape of OrganizationToolCallContextSchema', () => {
+    expect(OrganizationRunEnvelopeSchema.safeParse(ctx).success).toBe(false);
+    expect(OrganizationToolCallContextSchema.safeParse(envelope).success).toBe(false);
   });
 });
 

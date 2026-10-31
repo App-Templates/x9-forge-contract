@@ -18,6 +18,13 @@ export const OrganizationToolCallContextSchema = z
   });
 export type OrganizationToolCallContext = z.infer<typeof OrganizationToolCallContextSchema>;
 
+/** Run admitted for a capability tool call, as agent-core forwards it beside the strict call body: the trusted context plus the admitting tenant. */
+export const OrganizationRunEnvelopeSchema = z.strictObject({
+  context: OrganizationRunContextSchema,
+  tenantId: z.string().min(1),
+});
+export type OrganizationRunEnvelope = z.infer<typeof OrganizationRunEnvelopeSchema>;
+
 /**
  * Receipt of a single tool call (callId is distinct from attemptId). An uncertain
  * call is never reported as succeeded; a failed call carries its failureCode.

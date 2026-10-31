@@ -86,10 +86,10 @@ export declare const coachOperationalAuthorityResolveContract: {
             read: "read";
             start: "start";
             conversation: "conversation";
+            close: "close";
             event: "event";
             usage: "usage";
             "end-guide": "end-guide";
-            close: "close";
         }>;
         scope: z.ZodObject<{
             agentId: z.ZodString;
@@ -201,10 +201,10 @@ export declare const coachOperationalAuthorityResolveContract: {
                 read: "read";
                 start: "start";
                 conversation: "conversation";
+                close: "close";
                 event: "event";
                 usage: "usage";
                 "end-guide": "end-guide";
-                close: "close";
             }>;
             scope: z.ZodObject<{
                 agentId: z.ZodString;
@@ -433,10 +433,10 @@ export declare const coachOperationalAuthorityRecheckContract: {
             read: "read";
             start: "start";
             conversation: "conversation";
+            close: "close";
             event: "event";
             usage: "usage";
             "end-guide": "end-guide";
-            close: "close";
         }>;
         scope: z.ZodObject<{
             agentId: z.ZodString;
@@ -548,10 +548,10 @@ export declare const coachOperationalAuthorityRecheckContract: {
                 read: "read";
                 start: "start";
                 conversation: "conversation";
+                close: "close";
                 event: "event";
                 usage: "usage";
                 "end-guide": "end-guide";
-                close: "close";
             }>;
             scope: z.ZodObject<{
                 agentId: z.ZodString;

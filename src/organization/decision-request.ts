@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { OwnerIdSchema } from '../agent/agent-identity.js';
+import { AssetRefSchema, AssetSha256Schema } from './asset.js';
 import { ParticipantAgentIdentitySchema } from './participant-binding.js';
 
 /** Channels through which an agent asks the owner for a decision. */
@@ -22,12 +23,46 @@ export const DecisionRequestOptionSchema = z.strictObject({
 });
 export type DecisionRequestOption = z.infer<typeof DecisionRequestOptionSchema>;
 
-/** Open question an agent puts to the owner, with the options to choose from. */
+/** What a decision is about: an exact plan version or an immutable delivery. */
+export const DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation', 'delivery'] as const;
+export const DecisionSubjectKindSchema = z.enum(DECISION_SUBJECT_KINDS);
+export type DecisionSubjectKind = z.infer<typeof DecisionSubjectKindSchema>;
+
+const PlanDecisionSubjectSchema = z.strictObject({
+  kind: DecisionSubjectKindSchema.exclude(['delivery']),
+  planId: DecisionRequestIdSchema,
+  planVersion: z.number().int().min(1),
+  digest: AssetSha256Schema,
+});
+
+/** The consumer must resolve this saved asset to immutable content, never a moving branch or generic URL. */
+export const DeliveryDecisionSubjectSchema = z.strictObject({
+  kind: z.literal('delivery'),
+  organizationId: z.string().min(1).max(64),
+  projectId: AssetRefSchema.shape.projectId,
+  buSlug: AssetRefSchema.shape.buSlug.unwrap(),
+  deliveryRef: z.strictObject({
+    assetId: AssetRefSchema.shape.assetId,
+    sha256: AssetSha256Schema,
+  }),
+});
+export type DeliveryDecisionSubject = z.infer<typeof DeliveryDecisionSubjectSchema>;
+
+export const DecisionSubjectSchema = z.discriminatedUnion('kind', [
+  PlanDecisionSubjectSchema,
+  DeliveryDecisionSubjectSchema,
+]);
+export type DecisionSubject = z.infer<typeof DecisionSubjectSchema>;
+
+const ReferentSchema = z.strictObject({ kind: z.literal('referent'), email: z.email() });
+
+/** Open question an agent puts to the owner or delivery referent, with the options to choose from. */
 export const DecisionRequestSchema = z.strictObject({
   requestId: DecisionRequestIdSchema,
   tenantId: z.string().min(1),
   organizationId: z.string().min(1).max(64),
   projectId: z.string().min(1).max(64).optional(),
+  subject: DecisionSubjectSchema.optional(),
   question: z.string().min(1).max(4000),
   options: z
     .array(DecisionRequestOptionSchema)
@@ -37,26 +72,75 @@ export const DecisionRequestSchema = z.strictObject({
       message: 'optionId must be unique within a request',
     }),
   requestedBy: ParticipantAgentIdentitySchema,
-  addressedTo: z.strictObject({ ownerId: OwnerIdSchema }),
+  addressedTo: z.union([z.strictObject({ ownerId: OwnerIdSchema }), ReferentSchema]),
   channel: DecisionRequestChannelSchema,
   createdAt: z.iso.datetime({ offset: true }),
+}).superRefine((request, ctx) => {
+  if (request.subject?.kind === 'delivery') {
+    if (!('kind' in request.addressedTo)) {
+      ctx.addIssue({ code: 'custom', path: ['addressedTo'], message: 'Delivery requires a referent' });
+    }
+    if (request.channel !== 'email') {
+      ctx.addIssue({ code: 'custom', path: ['channel'], message: 'Delivery requires email' });
+    }
+    if (request.organizationId !== request.subject.organizationId) {
+      ctx.addIssue({ code: 'custom', path: ['subject', 'organizationId'], message: 'Delivery organization must match the request' });
+    }
+    if (request.projectId !== request.subject.projectId) {
+      ctx.addIssue({ code: 'custom', path: ['subject', 'projectId'], message: 'Delivery project must match the request' });
+    }
+  } else if (!('ownerId' in request.addressedTo)) {
+    ctx.addIssue({ code: 'custom', path: ['addressedTo'], message: 'A plan or unbound request requires the owner' });
+  }
 });
 export type DecisionRequest = z.infer<typeof DecisionRequestSchema>;
 
 const outcomeBase = {
   requestId: DecisionRequestIdSchema,
-  decidedBy: z.strictObject({ kind: z.literal('owner'), ownerId: OwnerIdSchema }),
+  decidedBy: z.union([z.strictObject({ kind: z.literal('owner'), ownerId: OwnerIdSchema }), ReferentSchema]),
   decidedAt: z.iso.datetime({ offset: true }),
   channel: DecisionRequestChannelSchema,
   sourceRef: z.string().min(1).max(512),
+  subject: DecisionSubjectSchema.optional(),
 };
 
-/** Recorded owner answer to a decision request. */
+/** Recorded human answer to a decision request. */
 export const DecisionOutcomeSchema = z.discriminatedUnion('outcome', [
   z.strictObject({ ...outcomeBase, outcome: z.literal('approved'), optionId: OptionIdSchema }),
   z.strictObject({ ...outcomeBase, outcome: z.literal('rejected'), reason: z.string().min(3).max(2000) }),
-]);
+]).superRefine((outcome, ctx) => {
+  if (outcome.subject?.kind === 'delivery') {
+    if (outcome.decidedBy.kind !== 'referent') {
+      ctx.addIssue({ code: 'custom', path: ['decidedBy'], message: 'Delivery requires a referent decision' });
+    }
+    if (outcome.channel !== 'email') {
+      ctx.addIssue({ code: 'custom', path: ['channel'], message: 'Delivery requires email' });
+    }
+    if (outcome.sourceRef.trim().length === 0) {
+      ctx.addIssue({ code: 'custom', path: ['sourceRef'], message: 'Delivery requires a nonblank message receipt' });
+    }
+  } else if (outcome.decidedBy.kind !== 'owner') {
+    ctx.addIssue({ code: 'custom', path: ['decidedBy'], message: 'A plan or unbound outcome requires the owner' });
+  }
+});
 export type DecisionOutcome = z.infer<typeof DecisionOutcomeSchema>;
+
+/** True when the outcome decides the same exact subject (or neither names one). */
+export function decisionOutcomeMatchesSubject(
+  request: Pick<DecisionRequest, 'subject'>,
+  outcome: Pick<DecisionOutcome, 'subject'>,
+): boolean {
+  const a = request.subject;
+  const b = outcome.subject;
+  if (a === undefined && b === undefined) return true;
+  if (a === undefined || b === undefined) return false;
+  if (a.kind === 'delivery' || b.kind === 'delivery') {
+    return a.kind === 'delivery' && b.kind === 'delivery'
+      && a.organizationId === b.organizationId && a.projectId === b.projectId && a.buSlug === b.buSlug
+      && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
+  }
+  return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
+}
 
 /** Word used in the email subject to tie a reply to its decision request: `[decisione <requestId>]`. */
 export const DECISION_REQUEST_SUBJECT_LABEL = 'decisione' as const;
@@ -65,7 +149,7 @@ export function decisionRequestSubjectLabel(requestId: DecisionRequestId): strin
   return `[${DECISION_REQUEST_SUBJECT_LABEL} ${requestId}]`;
 }
 
-/** Owner email reply as read by the inbound reader (approve / refuse with reason / unclear). */
+/** Human email reply already interpreted by the lead (approve / refuse with reason / unclear). */
 export const DecisionEmailReplySchema = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('approve'), requestId: DecisionRequestIdSchema, optionId: OptionIdSchema.optional() }),
   z.strictObject({ kind: z.literal('refuse'), requestId: DecisionRequestIdSchema, reason: z.string().min(3).max(2000) }),
@@ -89,26 +173,38 @@ export type DecisionOutcomeFromEmailReply =
   | { ok: true; outcome: DecisionOutcome }
   | { ok: false; code: DecisionEmailReplyRejection };
 
-/** The single rule that turns an email reply into the recorded outcome of a request. */
+/** Records an already interpreted reply; the consumer verifies the BU's authorized referent. */
 export function decisionOutcomeFromEmailReply(input: {
   request: DecisionRequest;
   reply: DecisionEmailReply;
-  from: { ownerId: string };
+  from: { ownerId: string } | { email: string };
   receivedAt: string;
   messageId: string;
 }): DecisionOutcomeFromEmailReply {
   const { request, reply, from, receivedAt, messageId } = input;
   if (reply.requestId !== request.requestId) return { ok: false, code: 'mismatch' };
-  if (from.ownerId !== request.addressedTo.ownerId) return { ok: false, code: 'not_addressee' };
+  const delivery = request.subject?.kind === 'delivery';
+  if (delivery) {
+    if (!('email' in from) || !('email' in request.addressedTo)
+      || from.email.trim().toLowerCase() !== request.addressedTo.email.trim().toLowerCase()) {
+      return { ok: false, code: 'not_addressee' };
+    }
+  } else if (!('ownerId' in from) || !('ownerId' in request.addressedTo)
+    || from.ownerId !== request.addressedTo.ownerId) {
+    return { ok: false, code: 'not_addressee' };
+  }
   if (Date.parse(receivedAt) < Date.parse(request.createdAt)) return { ok: false, code: 'before_request' };
   if (reply.kind === 'unclear') return { ok: false, code: 'unclear' };
 
   const base = {
     requestId: request.requestId,
-    decidedBy: { kind: 'owner' as const, ownerId: request.addressedTo.ownerId },
+    decidedBy: 'email' in request.addressedTo
+      ? { kind: 'referent' as const, email: request.addressedTo.email }
+      : { kind: 'owner' as const, ownerId: request.addressedTo.ownerId },
     decidedAt: receivedAt,
     channel: 'email' as const,
     sourceRef: messageId,
+    ...(delivery ? { subject: request.subject } : {}),
   };
   if (reply.kind === 'refuse') {
     return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: reply.reason }) };

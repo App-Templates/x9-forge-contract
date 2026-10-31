@@ -59,6 +59,10 @@ export declare const AgentManagementCommandSchema: z.ZodUnion<readonly [z.ZodObj
         }>;
         targetId: z.ZodString;
     }, z.core.$strict>>>;
+    birth: z.ZodOptional<z.ZodObject<{
+        deployJobId: z.ZodString;
+        configVersion: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     action: z.ZodLiteral<"apply-config">;
     requestId: z.ZodString;

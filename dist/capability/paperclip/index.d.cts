@@ -119,6 +119,8 @@ export type PaperclipHandoff = z.infer<typeof PaperclipHandoffSchema>;
 export type PaperclipHandoffReceipt = z.infer<typeof PaperclipHandoffReceiptSchema>;
 export type PaperclipDecisionRecord = z.infer<typeof PaperclipDecisionRecordSchema>;
 export * from "./tools.cjs";
+export * from "./enrollment.cjs";
+export * from "./native-wait.cjs";
 export declare const PaperclipCommunicationRecordSchema: z.ZodObject<{
     schemaVersion: z.ZodLiteral<1>;
     communicationId: z.ZodString;
@@ -199,8 +201,8 @@ export declare const PaperclipDecisionViewSchema: z.ZodObject<{
     communicationId: z.ZodNullable<z.ZodString>;
     status: z.ZodEnum<{
         approved: "approved";
-        changes_requested: "changes_requested";
         ambiguous: "ambiguous";
+        changes_requested: "changes_requested";
         empty_reply: "empty_reply";
         obsolete: "obsolete";
         pending_manual_confirmation: "pending_manual_confirmation";

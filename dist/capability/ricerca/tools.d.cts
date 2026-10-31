@@ -22,12 +22,15 @@ export declare const RicercaToolErrorSchema: z.ZodEnum<{
     unknown_parent: "unknown_parent";
     unknown_research: "unknown_research";
     not_ready: "not_ready";
+    consulta_prima_il_quaderno: "consulta_prima_il_quaderno";
 }>;
 export type RicercaToolError = z.infer<typeof RicercaToolErrorSchema>;
 export declare const ResearchStartInputSchema: z.ZodObject<{
     question: z.ZodString;
     goal: z.ZodOptional<z.ZodString>;
     parentResearchId: z.ZodOptional<z.ZodString>;
+    labGapsRef: z.ZodOptional<z.ZodString>;
+    projectId: z.ZodOptional<z.ZodString>;
     maxUsd: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export declare const ResearchStartOutputSchema: z.ZodObject<{

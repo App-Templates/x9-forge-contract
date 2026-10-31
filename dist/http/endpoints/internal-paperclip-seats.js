@@ -1,0 +1,129 @@
+import { z } from 'zod';
+import { ParticipantAgentIdentitySchema } from "../../organization/participant-binding.js";
+import { PaperclipActivityInputSchema, PaperclipActivityOutputSchema, PaperclipSearchInputSchema, PaperclipSearchKindSchema, PaperclipSearchOutputSchema, } from "../../capability/paperclip/tools.js";
+export const INTERNAL_PAPERCLIP_SEATS_PATH = '/internal/paperclip/seats';
+export const InternalPaperclipSeatsQuerySchema = z.strictObject({
+    organizationId: z.string().min(1).max(64),
+});
+/** Read-only seat status. Credential values must never cross this boundary. */
+export const InternalPaperclipSeatSchema = z.strictObject({
+    identity: ParticipantAgentIdentitySchema,
+    paperclipAgentId: z.uuid(),
+    companyId: z.uuid(),
+    reportsToPaperclipAgentId: z.uuid(),
+    enrollment: z.strictObject({
+        state: z.enum(['key_pending', 'enrolled']),
+        attempts: z.int().min(0),
+        lastReason: z.string().min(1).max(64).optional(),
+        updatedAt: z.iso.datetime(),
+    }),
+});
+export const InternalPaperclipSeatsResponseSchema = z.strictObject({
+    seats: z.array(InternalPaperclipSeatSchema).max(200),
+});
+export const internalPaperclipSeatsReadContract = {
+    method: 'GET',
+    path: INTERNAL_PAPERCLIP_SEATS_PATH,
+    authType: 'secret',
+    querySchema: InternalPaperclipSeatsQuerySchema,
+    responseSchema: InternalPaperclipSeatsResponseSchema,
+};
+export const INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = '/internal/paperclip/seats/:paperclipAgentId/issues';
+export const InternalPaperclipSeatIssuesParamsSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+});
+export const InternalPaperclipSeatIssueSchema = z.strictObject({
+    issueId: z.string().min(1).max(64),
+    title: z.string().min(1).max(300),
+    status: z.string().min(1).max(32),
+    projectId: z.uuid().nullable(),
+    goalId: z.uuid().nullable(),
+    assigneeComments: z.int().min(0),
+});
+export const InternalPaperclipSeatIssuesResponseSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+    issues: z.array(InternalPaperclipSeatIssueSchema).max(100),
+});
+export const internalPaperclipSeatIssuesReadContract = {
+    method: 'GET',
+    path: INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH,
+    authType: 'secret',
+    paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
+    responseSchema: InternalPaperclipSeatIssuesResponseSchema,
+};
+export const INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = '/internal/paperclip/seats/:paperclipAgentId/search';
+const SEARCH_KIND_ALTERNATION = PaperclipSearchKindSchema.options.join('|');
+const SEARCH_KINDS_PATTERN = new RegExp(`^(?:${SEARCH_KIND_ALTERNATION})(?:,(?:${SEARCH_KIND_ALTERNATION}))*$`);
+export const InternalPaperclipSeatSearchQuerySchema = z.strictObject({
+    q: PaperclipSearchInputSchema.shape.query,
+    kinds: z.string().regex(SEARCH_KINDS_PATTERN)
+        .refine(value => new Set(value.split(',')).size === value.split(',').length, 'Search kinds must be unique')
+        .optional(),
+    limit: z.coerce.number().int().min(1).max(50).optional(),
+});
+export const InternalPaperclipSeatSearchResponseSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+    ...PaperclipSearchOutputSchema.shape,
+});
+export const internalPaperclipSeatSearchReadContract = {
+    method: 'GET',
+    path: INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH,
+    authType: 'secret',
+    paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
+    querySchema: InternalPaperclipSeatSearchQuerySchema,
+    responseSchema: InternalPaperclipSeatSearchResponseSchema,
+};
+export const INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = '/internal/paperclip/seats/:paperclipAgentId/activity';
+export const InternalPaperclipSeatActivityQuerySchema = z.strictObject({
+    since: PaperclipActivityInputSchema.shape.since,
+    issueId: PaperclipActivityInputSchema.shape.issueId,
+    limit: z.coerce.number().int().min(1).max(100).optional(),
+});
+export const InternalPaperclipSeatActivityResponseSchema = z.strictObject({
+    paperclipAgentId: z.uuid(),
+    ...PaperclipActivityOutputSchema.shape,
+});
+export const internalPaperclipSeatActivityReadContract = {
+    method: 'GET',
+    path: INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH,
+    authType: 'secret',
+    paramsSchema: InternalPaperclipSeatIssuesParamsSchema,
+    querySchema: InternalPaperclipSeatActivityQuerySchema,
+    responseSchema: InternalPaperclipSeatActivityResponseSchema,
+};
+export const INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = '/internal/paperclip/seats/reply-wake';
+// Una risposta email esterna è arrivata a un agente dell'organizzazione: cap-paperclip lo sveglia sul Mandato
+// che ha messo `blocked` con la propria attesa, e su nient'altro. `messageId` è la chiave di idempotenza.
+export const InternalPaperclipSeatReplyWakeRequestSchema = z.strictObject({
+    organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
+    identity: ParticipantAgentIdentitySchema,
+    messageId: z.string().min(1).max(998).refine(v => v.trim().length > 0, 'Non-blank message id required'),
+});
+export const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = ['woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous'];
+export const PaperclipSeatReplyWakeResultSchema = z.enum(PAPERCLIP_SEAT_REPLY_WAKE_RESULTS);
+export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
+    result: PaperclipSeatReplyWakeResultSchema,
+    issueId: z.uuid().optional(),
+    runId: z.uuid().optional(),
+}).superRefine((value, ctx) => {
+    if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
+        ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
+    }
+    if (value.result !== 'woken' && value.runId !== undefined) {
+        ctx.addIssue({ code: 'custom', message: 'runId is only allowed with woken', path: ['runId'] });
+    }
+    if ((value.result === 'skipped' || value.result === 'not_waiting') && value.issueId === undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
+    }
+    if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+    }
+});
+export const internalPaperclipSeatReplyWakeContract = {
+    method: 'POST',
+    path: INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH,
+    authType: 'secret',
+    bodySchema: InternalPaperclipSeatReplyWakeRequestSchema,
+    responseSchema: InternalPaperclipSeatReplyWakeResponseSchema,
+};
+//# sourceMappingURL=internal-paperclip-seats.js.map

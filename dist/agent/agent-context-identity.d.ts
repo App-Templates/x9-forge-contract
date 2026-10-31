@@ -1,4 +1,5 @@
 import { z } from 'zod';
+export declare const AgentTenantIdSchema: z.ZodString;
 /** Forge-declared, complete context authority. masterAgentId is a runtime ID, never a Vault number. */
 export declare const AgentContextIdentitySchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AgentIdSchema, OwnerIdSchema } from '../agent/agent-identity.js';
+import { AgentRoleSchema } from './agent-role.js';
 import { PublicationRecipientSchema } from './publication-ref.js';
 
 /** Roles an organization participant may be authorized to hold. */
@@ -26,6 +27,12 @@ export const ParticipantBindingSchema = z.strictObject({
   /** Attested person (never model-provided); required by the apply operation. */
   personRef: z.string().min(1).optional(),
   roles: z.array(ParticipantRoleSchema).min(1),
+  /**
+   * Role of the agent in the company (1.65.0), written by the server when the seat is created, never by a model:
+   * rd-seats for lab and ricerca, the birth for capo-bu, the configuration for director. Absent on bindings saved
+   * before: a reader that needs the role refuses them with a message (R-37).
+   */
+  agentRole: AgentRoleSchema.optional(),
   recipients: z.array(PublicationRecipientSchema),
   appliedVersion: z.number().int().min(1),
   appliedAt: z.iso.datetime(),

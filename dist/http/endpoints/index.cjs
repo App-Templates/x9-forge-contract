@@ -47,6 +47,7 @@ __exportStar(require("./internal-dev-jobs.cjs"), exports);
 __exportStar(require("./internal-dev-cancel.cjs"), exports);
 __exportStar(require("./internal-dev-production.cjs"), exports);
 __exportStar(require("./internal-capability-lab.cjs"), exports);
+__exportStar(require("./internal-rd-observations.cjs"), exports);
 // Token-auth endpoints (cross-repo voice/webhook)
 __exportStar(require("./webhook-post-call.cjs"), exports);
 __exportStar(require("./voice-register.cjs"), exports);
@@ -56,6 +57,8 @@ __exportStar(require("./voice.cjs"), exports); // Phase 42 — CAP-Voice v2.2 pa
 __exportStar(require("./voice-live.cjs"), exports); // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 __exportStar(require("./internal-factory-deploy.cjs"), exports); // Wave 2 (v1.11.0) — Parallel S2S agent deploy
 __exportStar(require("./internal-business-unit-lead.cjs"), exports); // AZB-04 — Director S2S business unit lead birth
+__exportStar(require("./internal-business-unit-membership.cjs"), exports); // PBB-01 — lettura dell'appartenenza capo/BU
+__exportStar(require("./internal-company-rd.cjs"), exports); // P1L-05 — Director S2S company R&D (Ricerca + Lab) birth
 __exportStar(require("./internal-factory-telegram-token.cjs"), exports); // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 __exportStar(require("./cap-manifest.cjs"), exports);
@@ -96,6 +99,8 @@ __exportStar(require("./internal-agent-model-source-observation.cjs"), exports);
 __exportStar(require("./forge-master-model-authority.cjs"), exports);
 __exportStar(require("./internal-models-apply.cjs"), exports);
 __exportStar(require("./internal-vault-connection.cjs"), exports);
+// F1B-04 — porta Vault delle chiavi agente
+__exportStar(require("./internal-vault-agent-credentials.cjs"), exports);
 __exportStar(require("./internal-connect.cjs"), exports);
 __exportStar(require("./internal-development-sessions.cjs"), exports);
 __exportStar(require("./connection-card.cjs"), exports);
@@ -103,6 +108,18 @@ __exportStar(require("./web-connection-cards.cjs"), exports);
 __exportStar(require("./internal-memory-experience.cjs"), exports);
 __exportStar(require("./internal-memory-decisions.cjs"), exports);
 __exportStar(require("./internal-memory-decision-requests.cjs"), exports);
+__exportStar(require("./internal-paperclip-seats.cjs"), exports);
+__exportStar(require("./internal-paperclip-rd-enrollment.cjs"), exports); // ROPB-02 — iscrizione Paperclip di Ricerca e Lab
+__exportStar(require("./internal-memory-assets.cjs"), exports);
+// F1B-03 — mappa dell'azienda cliente nella memoria A
+__exportStar(require("./internal-memory-company-map.cjs"), exports);
+__exportStar(require("./internal-memory-company-content.cjs"), exports);
+__exportStar(require("./internal-memory-action-plans.cjs"), exports);
+__exportStar(require("./internal-company-spend.cjs"), exports);
+// F3X-03 — riconciliazione minima delle fonti del mandato nella memoria A
+__exportStar(require("./internal-memory-mandate-reconcile.cjs"), exports);
+__exportStar(require("./internal-memory-mandate-observations.cjs"), exports);
+__exportStar(require("./internal-memory-vertical-plan-observations.cjs"), exports);
 __exportStar(require("./internal-memory-knowledge.cjs"), exports);
 __exportStar(require("./connect-public.cjs"), exports);
 __exportStar(require("./internal-connection-completed.cjs"), exports);
@@ -116,4 +133,6 @@ __exportStar(require("./development-session-models.cjs"), exports);
 __exportStar(require("./internal-development-session-list.cjs"), exports);
 __exportStar(require("./development-session-heartbeat.cjs"), exports);
 __exportStar(require("./internal-dev-artifact-content.cjs"), exports);
+__exportStar(require("./internal-dev-session-asset-content.cjs"), exports);
+__exportStar(require("./paperclip-protocollo-turno.cjs"), exports);
 //# sourceMappingURL=index.js.map
