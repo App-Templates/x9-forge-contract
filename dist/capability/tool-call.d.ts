@@ -318,6 +318,10 @@ export declare const ToolCallRequestSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strip>;
 export type ToolCallRequest = z.infer<typeof ToolCallRequestSchema>;
+export declare const TOOL_ERROR_MODEL_REASON_MAX_CHARS = 400;
+export declare const ToolErrorModelReasonSchema: z.ZodString;
+export type ToolErrorModelReason = z.infer<typeof ToolErrorModelReasonSchema>;
+export declare function toolErrorModelReasonOf(body: unknown): string | undefined;
 export declare const ToolCallSuccessResponseSchema: z.ZodObject<{
     callId: z.ZodString;
     status: z.ZodLiteral<"success">;
@@ -370,6 +374,7 @@ export declare const ToolCallErrorResponseSchema: z.ZodObject<{
         TOOL_CALL_INVALID: "TOOL_CALL_INVALID";
         TOOL_EXEC_FAILED: "TOOL_EXEC_FAILED";
     }>;
+    modelReason: z.ZodOptional<z.ZodString>;
     receipt: z.ZodOptional<z.ZodObject<{
         runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
         attemptId: z.ZodString;
@@ -467,6 +472,7 @@ export declare const ToolCallResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObjec
         TOOL_CALL_INVALID: "TOOL_CALL_INVALID";
         TOOL_EXEC_FAILED: "TOOL_EXEC_FAILED";
     }>;
+    modelReason: z.ZodOptional<z.ZodString>;
     receipt: z.ZodOptional<z.ZodObject<{
         runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
         attemptId: z.ZodString;

@@ -2,6 +2,10 @@
 
 ## Non rilasciato
 
+## v1.84.0 — motivo leggibile dal modello negli errori di capacità, additivo
+
+- `@x9-forge/contracts/capability` esporta in più `ToolErrorModelReasonSchema` (codice snake_case e spiegazione su una riga, al massimo `TOOL_ERROR_MODEL_REASON_MAX_CHARS` = 400 caratteri, nessun indirizzo, `Bearer` o sequenza da chiave), `TOOL_ERROR_MODEL_REASON_MAX_CHARS`, `toolErrorModelReasonOf` e il tipo `ToolErrorModelReason`; `ToolCallErrorResponseSchema` ha il campo facoltativo `modelReason`; i corpi senza il campo restano validi; primi consumer: X9 agent-core (lo lascia passare al modello con l'agente legato) e cap-paperclip (ci scrive i suoi motivi).
+
 ## v1.83.0 — catena di modelli a staffetta, additivo
 
 - `@x9-forge/contracts/model-router` esporta in più `ModelChainSchema`, `ModelChainStepSchema`, `MODEL_CHAIN_STEP_ROLES` (`draft`, `critique`, `close`), `MODEL_CHAIN_EFFORTS`, `LAB_DIGEST_RELAY_CHAIN_ID`, `LAB_ANTHROPIC_MESSAGES_ADAPTER_ID`, `MODEL_CHAIN_ADAPTER_IDS`, `modelChainAcceptsAdapter`; nessuno schema esistente cambia; primo consumer: cap-lab dietro l'interruttore `LAB_RELAY` spento.

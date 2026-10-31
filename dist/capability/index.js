@@ -13,7 +13,7 @@
  * - HealthStatus / HealthStatusSchema
  */
 export { CAPABILITY_TOOL_ACCESS, CapabilityToolAccessSchema, CapabilityToolSchema, capabilityToolAccess, toolsForRole, } from "./capability-tool.js";
-export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, } from "./tool-call.js";
+export { TOOL_ERROR_MODEL_REASON_MAX_CHARS, ToolErrorModelReasonSchema, toolErrorModelReasonOf, ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, } from "./tool-call.js";
 export { CAPABILITY_CONTEXT_MAX_CHARS, CAPABILITY_CONTEXT_TIMEOUT_MS, CapabilityContextDeclarationSchema, CapabilityContextRequestSchema, CapabilityContextResponseSchema, } from "./capability-context.js";
 export { CapabilityManifestSchema, } from "./capability-manifest.js";
 export { CapabilityRegistryEntrySchema, toEndpoint, fromEndpoint, } from "./capability-registry-entry.js";

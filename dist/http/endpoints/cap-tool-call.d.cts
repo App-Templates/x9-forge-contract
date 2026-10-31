@@ -366,6 +366,7 @@ export declare const capToolCallContract: {
             TOOL_CALL_INVALID: "TOOL_CALL_INVALID";
             TOOL_EXEC_FAILED: "TOOL_EXEC_FAILED";
         }>;
+        modelReason: z.ZodOptional<z.ZodString>;
         receipt: z.ZodOptional<z.ZodObject<{
             runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
             attemptId: z.ZodString;

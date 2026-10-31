@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.CapabilityContextResponseSchema = exports.CapabilityContextRequestSchema = exports.CapabilityContextDeclarationSchema = exports.CAPABILITY_CONTEXT_TIMEOUT_MS = exports.CAPABILITY_CONTEXT_MAX_CHARS = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.toolsForRole = exports.capabilityToolAccess = exports.CapabilityToolSchema = exports.CapabilityToolAccessSchema = exports.CAPABILITY_TOOL_ACCESS = void 0;
+exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.CapabilityContextResponseSchema = exports.CapabilityContextRequestSchema = exports.CapabilityContextDeclarationSchema = exports.CAPABILITY_CONTEXT_TIMEOUT_MS = exports.CAPABILITY_CONTEXT_MAX_CHARS = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.toolErrorModelReasonOf = exports.ToolErrorModelReasonSchema = exports.TOOL_ERROR_MODEL_REASON_MAX_CHARS = exports.toolsForRole = exports.capabilityToolAccess = exports.CapabilityToolSchema = exports.CapabilityToolAccessSchema = exports.CAPABILITY_TOOL_ACCESS = void 0;
 /**
  * Capability contracts — sub-path `@x9-forge/contracts/capability`.
  *
@@ -36,6 +36,9 @@ Object.defineProperty(exports, "CapabilityToolSchema", { enumerable: true, get: 
 Object.defineProperty(exports, "capabilityToolAccess", { enumerable: true, get: function () { return capability_tool_js_1.capabilityToolAccess; } });
 Object.defineProperty(exports, "toolsForRole", { enumerable: true, get: function () { return capability_tool_js_1.toolsForRole; } });
 var tool_call_js_1 = require("./tool-call.cjs");
+Object.defineProperty(exports, "TOOL_ERROR_MODEL_REASON_MAX_CHARS", { enumerable: true, get: function () { return tool_call_js_1.TOOL_ERROR_MODEL_REASON_MAX_CHARS; } });
+Object.defineProperty(exports, "ToolErrorModelReasonSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolErrorModelReasonSchema; } });
+Object.defineProperty(exports, "toolErrorModelReasonOf", { enumerable: true, get: function () { return tool_call_js_1.toolErrorModelReasonOf; } });
 Object.defineProperty(exports, "ToolCallRequestSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallRequestSchema; } });
 Object.defineProperty(exports, "ToolCallSuccessResponseSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallSuccessResponseSchema; } });
 Object.defineProperty(exports, "ToolCallErrorResponseSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallErrorResponseSchema; } });
