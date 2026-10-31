@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { AssetOriginSchema, AssetRefSchema, type AssetRef } from '../../src/organization/asset.js';
+import type * as AssetModule from '../../src/organization/asset.js';
 
 const base = {
   assetId: 'asset-123',
@@ -51,7 +52,7 @@ describe('AssetRefSchema additive fields', () => {
   it('fails the link case when ASSET_ORIGIN_KINDS lacks link', async () => {
     vi.resetModules();
     vi.doMock('../../src/organization/asset.js', async (importOriginal) => {
-      const mod = await importOriginal<typeof import('../../src/organization/asset.js')>();
+      const mod = await importOriginal<typeof AssetModule>();
       return { ...mod, ASSET_ORIGIN_KINDS: mod.ASSET_ORIGIN_KINDS.filter((k) => k !== 'link') };
     });
     const mod = await import('../../src/organization/asset.js');
