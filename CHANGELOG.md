@@ -2,6 +2,10 @@
 
 ## Non rilasciato
 
+## v1.83.0 — catena di modelli a staffetta, additivo
+
+- `@x9-forge/contracts/model-router` esporta in più `ModelChainSchema`, `ModelChainStepSchema`, `MODEL_CHAIN_STEP_ROLES` (`draft`, `critique`, `close`), `MODEL_CHAIN_EFFORTS`, `LAB_DIGEST_RELAY_CHAIN_ID`, `LAB_ANTHROPIC_MESSAGES_ADAPTER_ID`, `MODEL_CHAIN_ADAPTER_IDS`, `modelChainAcceptsAdapter`; nessuno schema esistente cambia; primo consumer: cap-lab dietro l'interruttore `LAB_RELAY` spento.
+
 ## v1.82.0 — attese native di Paperclip per P6 variante C, additivo
 
 - `@x9-forge/contracts/capability/paperclip` esporta in aggiunta `PAPERCLIP_NATIVE_WAIT_TOOLS` (`paperclip_check_later`, fuori da `PAPERCLIP_TOOLS`), `PaperclipNativeReviewInputSchema` (review con `blockedByIssueIds` o `waitingFor.action`, solo con `blocked`, mai l'incarico stesso; `status: 'in_progress'` solo con `checkLater`), `PaperclipNativeCreateIssueInputSchema` (create con `waitForChild`, che richiede padre e ruolo), `PaperclipCheckLaterInputSchema`/`PaperclipCheckLaterOutputSchema` (monitor una tantum di Paperclip, 30..3600 s) e i tipi inferiti. Additivo: gli schemi e la lista degli strumenti esistenti non cambiano; il consumer li espone solo dietro `P6_LEAN_NATIVE_TURNS`. Origine `cbdd06c`, portata sopra `74fa40b`.
