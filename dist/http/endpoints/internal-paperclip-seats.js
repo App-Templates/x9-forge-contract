@@ -91,4 +91,39 @@ export const internalPaperclipSeatActivityReadContract = {
     querySchema: InternalPaperclipSeatActivityQuerySchema,
     responseSchema: InternalPaperclipSeatActivityResponseSchema,
 };
+export const INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = '/internal/paperclip/seats/reply-wake';
+// Una risposta email esterna è arrivata a un agente dell'organizzazione: cap-paperclip lo sveglia sul Mandato
+// che ha messo `blocked` con la propria attesa, e su nient'altro. `messageId` è la chiave di idempotenza.
+export const InternalPaperclipSeatReplyWakeRequestSchema = z.strictObject({
+    organizationId: InternalPaperclipSeatsQuerySchema.shape.organizationId,
+    identity: ParticipantAgentIdentitySchema,
+    messageId: z.string().min(1).max(998).refine(v => v.trim().length > 0, 'Non-blank message id required'),
+});
+export const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = ['woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous'];
+export const PaperclipSeatReplyWakeResultSchema = z.enum(PAPERCLIP_SEAT_REPLY_WAKE_RESULTS);
+export const InternalPaperclipSeatReplyWakeResponseSchema = z.strictObject({
+    result: PaperclipSeatReplyWakeResultSchema,
+    issueId: z.uuid().optional(),
+    runId: z.uuid().optional(),
+}).superRefine((value, ctx) => {
+    if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
+        ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
+    }
+    if (value.result !== 'woken' && value.runId !== undefined) {
+        ctx.addIssue({ code: 'custom', message: 'runId is only allowed with woken', path: ['runId'] });
+    }
+    if ((value.result === 'skipped' || value.result === 'not_waiting') && value.issueId === undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
+    }
+    if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+    }
+});
+export const internalPaperclipSeatReplyWakeContract = {
+    method: 'POST',
+    path: INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH,
+    authType: 'secret',
+    bodySchema: InternalPaperclipSeatReplyWakeRequestSchema,
+    responseSchema: InternalPaperclipSeatReplyWakeResponseSchema,
+};
 //# sourceMappingURL=internal-paperclip-seats.js.map

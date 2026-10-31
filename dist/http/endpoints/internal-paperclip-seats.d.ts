@@ -215,4 +215,64 @@ export declare const internalPaperclipSeatActivityReadContract: {
 };
 export type InternalPaperclipSeatActivityQuery = z.infer<typeof InternalPaperclipSeatActivityQuerySchema>;
 export type InternalPaperclipSeatActivityResponse = z.infer<typeof InternalPaperclipSeatActivityResponseSchema>;
+export declare const INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH: "/internal/paperclip/seats/reply-wake";
+export declare const InternalPaperclipSeatReplyWakeRequestSchema: z.ZodObject<{
+    organizationId: z.ZodString;
+    identity: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    messageId: z.ZodString;
+}, z.core.$strict>;
+export declare const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS: readonly ["woken", "skipped", "duplicate", "not_waiting", "no_mandate", "ambiguous"];
+export declare const PaperclipSeatReplyWakeResultSchema: z.ZodEnum<{
+    duplicate: "duplicate";
+    ambiguous: "ambiguous";
+    skipped: "skipped";
+    woken: "woken";
+    not_waiting: "not_waiting";
+    no_mandate: "no_mandate";
+}>;
+export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
+    result: z.ZodEnum<{
+        duplicate: "duplicate";
+        ambiguous: "ambiguous";
+        skipped: "skipped";
+        woken: "woken";
+        not_waiting: "not_waiting";
+        no_mandate: "no_mandate";
+    }>;
+    issueId: z.ZodOptional<z.ZodUUID>;
+    runId: z.ZodOptional<z.ZodUUID>;
+}, z.core.$strict>;
+export declare const internalPaperclipSeatReplyWakeContract: {
+    readonly method: "POST";
+    readonly path: "/internal/paperclip/seats/reply-wake";
+    readonly authType: "secret";
+    readonly bodySchema: z.ZodObject<{
+        organizationId: z.ZodString;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        messageId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        result: z.ZodEnum<{
+            duplicate: "duplicate";
+            ambiguous: "ambiguous";
+            skipped: "skipped";
+            woken: "woken";
+            not_waiting: "not_waiting";
+            no_mandate: "no_mandate";
+        }>;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        runId: z.ZodOptional<z.ZodUUID>;
+    }, z.core.$strict>;
+};
+export type InternalPaperclipSeatReplyWakeRequest = z.infer<typeof InternalPaperclipSeatReplyWakeRequestSchema>;
+export type InternalPaperclipSeatReplyWakeResponse = z.infer<typeof InternalPaperclipSeatReplyWakeResponseSchema>;
+export type PaperclipSeatReplyWakeResult = z.infer<typeof PaperclipSeatReplyWakeResultSchema>;
 //# sourceMappingURL=internal-paperclip-seats.d.ts.map

@@ -2,6 +2,10 @@
 
 ## Non rilasciato
 
+## v1.85.0 — sveglia del capo sul Mandato quando arriva una risposta email, additivo
+
+- `@x9-forge/contracts/http` esporta in più `INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH` (`POST /internal/paperclip/seats/reply-wake`, segreto interno), `InternalPaperclipSeatReplyWakeRequestSchema` (organizzazione, identità del posto, `messageId` come chiave di idempotenza), `InternalPaperclipSeatReplyWakeResponseSchema` (esiti `PAPERCLIP_SEAT_REPLY_WAKE_RESULTS`: `woken`, `skipped`, `duplicate`, `not_waiting`, `no_mandate`, `ambiguous`), `internalPaperclipSeatReplyWakeContract` e i tipi; nessuno schema esistente cambia; consumer: X9 cap-email (chiama dopo il turno email del capo) e cap-paperclip (sveglia con `POST /api/agents/{id}/heartbeat/invoke` di Paperclip).
+
 ## v1.84.0 — motivo leggibile dal modello negli errori di capacità, additivo
 
 - `@x9-forge/contracts/capability` esporta in più `ToolErrorModelReasonSchema` (codice snake_case e spiegazione su una riga, al massimo `TOOL_ERROR_MODEL_REASON_MAX_CHARS` = 400 caratteri, nessun indirizzo, `Bearer` o sequenza da chiave), `TOOL_ERROR_MODEL_REASON_MAX_CHARS`, `toolErrorModelReasonOf` e il tipo `ToolErrorModelReason`; `ToolCallErrorResponseSchema` ha il campo facoltativo `modelReason`; i corpi senza il campo restano validi; primi consumer: X9 agent-core (lo lascia passare al modello con l'agente legato) e cap-paperclip (ci scrive i suoi motivi).

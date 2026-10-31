@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
+exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
 const zod_1 = require("zod");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
 const tools_js_1 = require("../../capability/paperclip/tools.cjs");
@@ -93,5 +93,40 @@ exports.internalPaperclipSeatActivityReadContract = {
     paramsSchema: exports.InternalPaperclipSeatIssuesParamsSchema,
     querySchema: exports.InternalPaperclipSeatActivityQuerySchema,
     responseSchema: exports.InternalPaperclipSeatActivityResponseSchema,
+};
+exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = '/internal/paperclip/seats/reply-wake';
+// Una risposta email esterna è arrivata a un agente dell'organizzazione: cap-paperclip lo sveglia sul Mandato
+// che ha messo `blocked` con la propria attesa, e su nient'altro. `messageId` è la chiave di idempotenza.
+exports.InternalPaperclipSeatReplyWakeRequestSchema = zod_1.z.strictObject({
+    organizationId: exports.InternalPaperclipSeatsQuerySchema.shape.organizationId,
+    identity: participant_binding_js_1.ParticipantAgentIdentitySchema,
+    messageId: zod_1.z.string().min(1).max(998).refine(v => v.trim().length > 0, 'Non-blank message id required'),
+});
+exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = ['woken', 'skipped', 'duplicate', 'not_waiting', 'no_mandate', 'ambiguous'];
+exports.PaperclipSeatReplyWakeResultSchema = zod_1.z.enum(exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS);
+exports.InternalPaperclipSeatReplyWakeResponseSchema = zod_1.z.strictObject({
+    result: exports.PaperclipSeatReplyWakeResultSchema,
+    issueId: zod_1.z.uuid().optional(),
+    runId: zod_1.z.uuid().optional(),
+}).superRefine((value, ctx) => {
+    if (value.result === 'woken' && (value.issueId === undefined || value.runId === undefined)) {
+        ctx.addIssue({ code: 'custom', message: 'woken requires issueId and runId', path: ['runId'] });
+    }
+    if (value.result !== 'woken' && value.runId !== undefined) {
+        ctx.addIssue({ code: 'custom', message: 'runId is only allowed with woken', path: ['runId'] });
+    }
+    if ((value.result === 'skipped' || value.result === 'not_waiting') && value.issueId === undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
+    }
+    if ((value.result === 'no_mandate' || value.result === 'ambiguous') && value.issueId !== undefined) {
+        ctx.addIssue({ code: 'custom', message: `${value.result} must not carry issueId`, path: ['issueId'] });
+    }
+});
+exports.internalPaperclipSeatReplyWakeContract = {
+    method: 'POST',
+    path: exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH,
+    authType: 'secret',
+    bodySchema: exports.InternalPaperclipSeatReplyWakeRequestSchema,
+    responseSchema: exports.InternalPaperclipSeatReplyWakeResponseSchema,
 };
 //# sourceMappingURL=internal-paperclip-seats.js.map
