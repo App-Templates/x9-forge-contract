@@ -87,3 +87,17 @@ export function findModelConsumerDefinition(slotId: unknown): ModelConsumerDefin
   const found = definitions.find(consumer => consumer.slotId === slotId);
   return found === undefined ? undefined : structuredClone(found);
 }
+
+/**
+ * The only adapters a consumer installs through, when it is not "any supported adapter" (v1.75.0). The Lab digest runs on
+ * its dedicated Responses adapter: a descriptor with the right provider and model but another adapter is refused by
+ * cap-lab after the birth, so the producer of a birth checks it before (one rule for X9 and Forge).
+ */
+export const MODEL_CONSUMER_ADAPTER_IDS: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  lab_digest: Object.freeze(['lab-openai-responses']),
+});
+/** true when the slot has no adapter restriction, or the adapter is one of its allowed ones. */
+export function modelConsumerAcceptsAdapter(slotId: unknown, adapterId: unknown): boolean {
+  if (typeof slotId !== 'string' || !Object.hasOwn(MODEL_CONSUMER_ADAPTER_IDS, slotId)) return true;
+  return typeof adapterId === 'string' && MODEL_CONSUMER_ADAPTER_IDS[slotId]!.includes(adapterId);
+}

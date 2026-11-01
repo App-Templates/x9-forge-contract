@@ -33,6 +33,30 @@ export declare const OrganizationToolCallContextSchema: z.ZodObject<{
     tenantId: z.ZodString;
 }, z.core.$strict>;
 export type OrganizationToolCallContext = z.infer<typeof OrganizationToolCallContextSchema>;
+/** Run admitted for a capability tool call, as agent-core forwards it beside the strict call body: the trusted context plus the admitting tenant. */
+export declare const OrganizationRunEnvelopeSchema: z.ZodObject<{
+    context: z.ZodObject<{
+        schemaVersion: z.ZodLiteral<1>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        organizationId: z.ZodString;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
+        issuer: z.ZodEnum<{
+            x9: "x9";
+            forge: "forge";
+            paperclip: "paperclip";
+        }>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    tenantId: z.ZodString;
+}, z.core.$strict>;
+export type OrganizationRunEnvelope = z.infer<typeof OrganizationRunEnvelopeSchema>;
 /**
  * Receipt of a single tool call (callId is distinct from attemptId). An uncertain
  * call is never reported as succeeded; a failed call carries its failureCode.

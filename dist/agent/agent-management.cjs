@@ -20,6 +20,7 @@ const capability_model_settings_js_1 = require("../model-router/capability-model
 const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const agent_workspace_attestation_js_1 = require("./agent-workspace-attestation.cjs");
 const agent_runtime_identity_js_1 = require("./agent-runtime-identity.cjs");
+const agent_birth_js_1 = require("./agent-birth.cjs");
 /**
  * Logical agent management (R1b, v1.31.0) — Forge asks X9 to act on ONE agent, never on the shared process.
  *
@@ -67,9 +68,14 @@ const LifecycleCommandSchema = zod_1.z.object({
     requestId: agent_model_management_values_js_1.AgentManagementRequestIdSchema,
     /** Absent: every manageable target of the agent. */
     targets: zod_1.z.array(exports.AgentManagementTargetSchema).min(1).max(32).optional(),
+    /** Reload only: Forge's signal that this is the first publication of the models of an agent born with them. */
+    birth: agent_birth_js_1.AgentBirthSignalSchema.optional(),
 }).strict().superRefine((command, ctx) => {
     if (command.targets)
         addDuplicateTargetIssues(command.targets, ctx, 'targets');
+    if (command.birth !== undefined && command.action !== 'reload') {
+        ctx.addIssue({ code: 'custom', path: ['birth'], message: 'A birth signal is only valid for a reload' });
+    }
 });
 const ApplyConfigCommandSchema = zod_1.z.object({
     action: zod_1.z.literal('apply-config'),
@@ -117,6 +123,9 @@ function sameAgentCommand(a, b) {
     if (a.action === 'apply-config' || b.action === 'apply-config') {
         return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion && a.modelBootstrap?.expectedSourceVersion === b.modelBootstrap?.expectedSourceVersion && a.modelBootstrap?.expectedAbsent === b.modelBootstrap?.expectedAbsent && a.modelExpectedSourceVersion === b.modelExpectedSourceVersion && JSON.stringify(canonicalCommandValue(a.modelConfiguration)) === JSON.stringify(canonicalCommandValue(b.modelConfiguration));
     }
+    // The same request cannot carry a birth signal once and not the other time.
+    if (JSON.stringify(canonicalCommandValue(a.birth)) !== JSON.stringify(canonicalCommandValue(b.birth)))
+        return false;
     const keys = (command) => ('targets' in command && command.targets ? command.targets.map(targetKey).sort() : null);
     const left = keys(a);
     const right = keys(b);

@@ -8,6 +8,7 @@ import { sameModelFeatures } from "../model-router/capability-model-settings.js"
 import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js";
 import { AgentWorkspaceAttestationSchema } from "./agent-workspace-attestation.js";
 import { AgentRuntimeIdentitySchema } from "./agent-runtime-identity.js";
+import { AgentBirthSignalSchema } from "./agent-birth.js";
 /**
  * Logical agent management (R1b, v1.31.0) — Forge asks X9 to act on ONE agent, never on the shared process.
  *
@@ -55,9 +56,14 @@ const LifecycleCommandSchema = z.object({
     requestId: AgentManagementRequestIdSchema,
     /** Absent: every manageable target of the agent. */
     targets: z.array(AgentManagementTargetSchema).min(1).max(32).optional(),
+    /** Reload only: Forge's signal that this is the first publication of the models of an agent born with them. */
+    birth: AgentBirthSignalSchema.optional(),
 }).strict().superRefine((command, ctx) => {
     if (command.targets)
         addDuplicateTargetIssues(command.targets, ctx, 'targets');
+    if (command.birth !== undefined && command.action !== 'reload') {
+        ctx.addIssue({ code: 'custom', path: ['birth'], message: 'A birth signal is only valid for a reload' });
+    }
 });
 const ApplyConfigCommandSchema = z.object({
     action: z.literal('apply-config'),
@@ -105,6 +111,9 @@ export function sameAgentCommand(a, b) {
     if (a.action === 'apply-config' || b.action === 'apply-config') {
         return a.action === 'apply-config' && b.action === 'apply-config' && a.desiredVersion === b.desiredVersion && a.modelBootstrap?.expectedSourceVersion === b.modelBootstrap?.expectedSourceVersion && a.modelBootstrap?.expectedAbsent === b.modelBootstrap?.expectedAbsent && a.modelExpectedSourceVersion === b.modelExpectedSourceVersion && JSON.stringify(canonicalCommandValue(a.modelConfiguration)) === JSON.stringify(canonicalCommandValue(b.modelConfiguration));
     }
+    // The same request cannot carry a birth signal once and not the other time.
+    if (JSON.stringify(canonicalCommandValue(a.birth)) !== JSON.stringify(canonicalCommandValue(b.birth)))
+        return false;
     const keys = (command) => ('targets' in command && command.targets ? command.targets.map(targetKey).sort() : null);
     const left = keys(a);
     const right = keys(b);

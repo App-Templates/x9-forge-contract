@@ -3,6 +3,8 @@ import { AgentIdSchema, OwnerIdSchema } from './agent-identity.js';
 import { AgentRuntimeIdentitySchema } from './agent-runtime-identity.js';
 import { AgentContextWithChannelsSchema, AgentContextWithChannelsWriteSchema } from './agent-channel-configuration.js';
 
+export const AgentTenantIdSchema = z.string().min(1).refine(value => value.trim().length > 0, 'Tenant identity must not be blank');
+
 const NonblankAgentId = AgentIdSchema.refine(value => value.trim().length > 0, 'Agent identity must not be blank');
 const ContextRuntimeIdentity = AgentRuntimeIdentitySchema.extend({
   managementAgentId: NonblankAgentId,
@@ -12,7 +14,7 @@ const ContextRuntimeIdentity = AgentRuntimeIdentitySchema.extend({
 const CommonIdentityFields = z.object({
   agentId: NonblankAgentId,
   ownerId: OwnerIdSchema.refine(value => value.trim().length > 0, 'Owner identity must not be blank'),
-  tenantId: z.string().min(1).refine(value => value.trim().length > 0, 'Tenant identity must not be blank'),
+  tenantId: AgentTenantIdSchema,
   identity: ContextRuntimeIdentity,
 });
 const MasterIdentity = CommonIdentityFields.extend({ role: z.literal('master'), masterAgentId: z.never().optional() }).strict();

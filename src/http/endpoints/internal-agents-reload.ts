@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AgentBirthModelsReceiptSchema, AgentBirthSignalSchema } from '../../agent/agent-birth.js';
 
 /**
  * POST /internal/agents/:agentId/reload — reload a running agent.
@@ -18,6 +19,15 @@ export const ReloadAgentParamsSchema = z.object({
 });
 export type ReloadAgentParams = z.infer<typeof ReloadAgentParamsSchema>;
 
+/**
+ * v1.75.0 — optional body. A deploy job that is at its `reload-agent-core` step for an agent born WITH models sends
+ * `birth`; every other caller (Applica, restore, token rotation, enable/disable) sends no body, as before.
+ */
+export const ReloadAgentBodySchema = z.object({
+  birth: AgentBirthSignalSchema.optional(),
+}).strict();
+export type ReloadAgentBody = z.infer<typeof ReloadAgentBodySchema>;
+
 export const ReloadAgentResponseSchema = z.object({
   ok: z.literal(true),
   agentId: z.string().min(1),
@@ -30,6 +40,11 @@ export const ReloadAgentResponseSchema = z.object({
    * the real wire shape rather than fixing a runtime failure.
    */
   telegram: z.literal('skipped').optional(),
+  /**
+   * v1.75.0 — present when the request carried `birth` and the models of the agent are published and confirmed.
+   * Absent: the reload happened, but nothing confirms that the birth models were published.
+   */
+  birthModels: AgentBirthModelsReceiptSchema.optional(),
 });
 export type ReloadAgentResponse = z.infer<typeof ReloadAgentResponseSchema>;
 
@@ -44,5 +59,7 @@ export const reloadAgentContract = {
   path: '/internal/agents/:agentId/reload' as const,
   authType: 'secret' as const,
   paramsSchema: ReloadAgentParamsSchema,
+  /** Optional body (v1.75.0); a request without body stays valid. */
+  bodySchema: ReloadAgentBodySchema,
   responseSchema: ReloadAgentResponseSchema,
 } as const;

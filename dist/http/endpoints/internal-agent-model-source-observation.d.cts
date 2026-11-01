@@ -24,6 +24,10 @@ export declare const internalAgentModelSourceObservationContract: {
         sourceVersion: z.ZodString;
         observedAt: z.ZodISODateTime;
         validUntil: z.ZodISODateTime;
+        effectiveModel: z.ZodOptional<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
 };
 export declare function agentModelSourceObservationPath(agentId: string): string;
@@ -47,6 +51,10 @@ export declare const internalPrimaryModelSourceObservationContract: {
         sourceVersion: z.ZodString;
         observedAt: z.ZodISODateTime;
         validUntil: z.ZodISODateTime;
+        effectiveModel: z.ZodOptional<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
 };
 /** cap-voice observes the server value used by its outgoing GPT-Live phone dispatcher. */

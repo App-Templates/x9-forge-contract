@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { DecisionOutcomeSchema, DecisionRequestSchema } from '../../src/organization/decision-request.js';
+import {
+  DecisionOutcomeSchema,
+  DecisionRequestSchema,
+  decisionOutcomeMatchesSubject,
+} from '../../src/organization/decision-request.js';
 
 const request = {
   requestId: 'req-0001',
@@ -83,5 +87,41 @@ describe('DecisionOutcomeSchema', () => {
 
   it('rejects an unknown key', () => {
     expect(DecisionOutcomeSchema.safeParse({ ...approved, approved: true }).success).toBe(false);
+  });
+});
+
+describe('decision subject (plan version binding)', () => {
+  const subject = { kind: 'action_plan', planId: 'plan-0001', planVersion: 1, digest: 'a'.repeat(64) };
+
+  it('a request saved without subject (today shape) is still valid', () => {
+    expect(DecisionRequestSchema.safeParse(request).success).toBe(true);
+    expect(DecisionOutcomeSchema.safeParse(approved).success).toBe(true);
+    expect(DecisionOutcomeSchema.safeParse(rejected).success).toBe(true);
+  });
+
+  it('accepts a request and both outcomes carrying a subject', () => {
+    expect(DecisionRequestSchema.parse({ ...request, subject })).toEqual({ ...request, subject });
+    expect(DecisionOutcomeSchema.parse({ ...approved, subject })).toEqual({ ...approved, subject });
+    expect(DecisionOutcomeSchema.parse({ ...rejected, subject })).toEqual({ ...rejected, subject });
+  });
+
+  it('rejects a kind outside the list, planVersion 0 and an extra key', () => {
+    expect(DecisionRequestSchema.safeParse({ ...request, subject: { ...subject, kind: 'other' } }).success).toBe(false);
+    expect(DecisionRequestSchema.safeParse({ ...request, subject: { ...subject, planVersion: 0 } }).success).toBe(false);
+    expect(DecisionRequestSchema.safeParse({ ...request, subject: { ...subject, extra: 1 } }).success).toBe(false);
+    expect(DecisionOutcomeSchema.safeParse({ ...approved, subject: { ...subject, digest: 'xyz' } }).success).toBe(false);
+  });
+
+  it('decisionOutcomeMatchesSubject', () => {
+    const req = DecisionRequestSchema.parse({ ...request, subject });
+    const out = DecisionOutcomeSchema.parse({ ...approved, subject });
+    expect(decisionOutcomeMatchesSubject(req, out)).toBe(true);
+    expect(decisionOutcomeMatchesSubject(DecisionRequestSchema.parse(request), DecisionOutcomeSchema.parse(approved))).toBe(true);
+    const v2 = DecisionOutcomeSchema.parse({ ...approved, subject: { ...subject, planVersion: 2 } });
+    expect(decisionOutcomeMatchesSubject(req, v2)).toBe(false);
+    const other = DecisionOutcomeSchema.parse({ ...approved, subject: { ...subject, digest: 'b'.repeat(64) } });
+    expect(decisionOutcomeMatchesSubject(req, other)).toBe(false);
+    expect(decisionOutcomeMatchesSubject(req, DecisionOutcomeSchema.parse(approved))).toBe(false);
+    expect(decisionOutcomeMatchesSubject(DecisionRequestSchema.parse(request), out)).toBe(false);
   });
 });

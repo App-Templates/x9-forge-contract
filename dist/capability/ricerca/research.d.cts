@@ -8,12 +8,16 @@ import { z } from 'zod';
  * model marks it as such and never uses it as instructions.
  */
 export declare const ResearchIdSchema: z.ZodString;
+export declare const LabGapsRefSchema: z.ZodString;
+export type LabGapsRef = z.infer<typeof LabGapsRefSchema>;
 /** Only http(s) addresses, bounded: never `file:`, `javascript:` or `data:`. */
 export declare const WebUrlSchema: z.ZodString;
 export declare const ResearchRequestSchema: z.ZodObject<{
     question: z.ZodString;
     goal: z.ZodOptional<z.ZodString>;
     parentResearchId: z.ZodOptional<z.ZodString>;
+    labGapsRef: z.ZodOptional<z.ZodString>;
+    projectId: z.ZodOptional<z.ZodString>;
     maxUsd: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type ResearchRequest = z.infer<typeof ResearchRequestSchema>;

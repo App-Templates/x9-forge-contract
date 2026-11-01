@@ -22,6 +22,8 @@ export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
     }, z.core.$strict>;
     businessUnit: z.ZodObject<{
         slug: z.ZodString;
+        /** The business unit type from which Forge takes capabilities, model level and profile. */
+        typeId: z.ZodString;
         name: z.ZodString;
         briefSection: z.ZodString;
         competencies: z.ZodArray<z.ZodString>;
@@ -67,4 +69,26 @@ export declare const BusinessUnitLeadBirthResultSchema: z.ZodObject<{
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type BusinessUnitLeadBirthResult = z.infer<typeof BusinessUnitLeadBirthResultSchema>;
+/** Forge HTTP 202 receipt: birth is pending, with the public reason preserved verbatim. */
+export declare const BusinessUnitLeadBirthPendingSchema: z.ZodObject<{
+    ok: z.ZodLiteral<false>;
+    error: z.ZodLiteral<"in_corso">;
+    reason: z.ZodString;
+    /**
+     * Absent for historical producers that do not expose a step; null when an updated producer cannot identify one;
+     * otherwise the public key of the actual step. No default or inference from the reason, and no local step catalog.
+     */
+    step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+}, z.core.$strict>;
+export type BusinessUnitLeadBirthPending = z.infer<typeof BusinessUnitLeadBirthPendingSchema>;
+/** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
+export declare const BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX: "capo-";
+/** Agent id Forge gives to the lead of the business unit `slug`. */
+export declare function businessUnitLeadAgentId(slug: string): string;
+/**
+ * The business unit slug of a lead agent id, or `null` when the id is not the id of a business unit lead. The id is
+ * assigned by Forge at birth, so a consumer that has verified the agent identity can read the slug from it instead of
+ * trusting a slug written by the model.
+ */
+export declare function businessUnitSlugOfLeadAgentId(agentId: string): string | null;
 //# sourceMappingURL=business-unit-lead.d.ts.map

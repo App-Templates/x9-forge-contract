@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxSchema = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.parseSharedMailboxesFile = parseSharedMailboxesFile;
 exports.parseSharedMailboxSubjectLabel = parseSharedMailboxSubjectLabel;
 exports.routeSharedMailboxMessage = routeSharedMailboxMessage;
 const zod_1 = require("zod");
@@ -41,6 +42,41 @@ exports.SharedMailboxSchema = zod_1.z.strictObject({
         ctx.addIssue({ code: 'custom', path: ['defaultAgentId'], message: 'Default agent must be a mailbox holder' });
     }
 });
+/** Relative to the contexts directory shared by Forge and cap-email. */
+exports.SHARED_MAILBOXES_FILE = 'companies/shared-mailboxes.json';
+exports.SharedMailboxFileEntrySchema = zod_1.z.strictObject({
+    companyName: zod_1.z.string().min(1).max(120),
+    mailbox: exports.SharedMailboxSchema,
+});
+exports.SharedMailboxesFileSchema = zod_1.z.array(exports.SharedMailboxFileEntrySchema).max(500)
+    .superRefine((entries, ctx) => {
+    const mailboxIds = new Set();
+    const providerInboxIds = new Set();
+    const holderAgentIds = new Set();
+    entries.forEach(({ mailbox }, index) => {
+        if (mailboxIds.has(mailbox.mailboxId)) {
+            ctx.addIssue({ code: 'custom', path: [index, 'mailbox', 'mailboxId'], message: 'Mailbox IDs must be unique' });
+        }
+        mailboxIds.add(mailbox.mailboxId);
+        if (providerInboxIds.has(mailbox.providerInboxId)) {
+            ctx.addIssue({ code: 'custom', path: [index, 'mailbox', 'providerInboxId'], message: 'Provider inbox IDs must be unique' });
+        }
+        providerInboxIds.add(mailbox.providerInboxId);
+        mailbox.holders.forEach((holder, holderIndex) => {
+            if (holderAgentIds.has(holder.agentId)) {
+                ctx.addIssue({
+                    code: 'custom', path: [index, 'mailbox', 'holders', holderIndex, 'agentId'],
+                    message: 'Agent holds more than one shared mailbox',
+                });
+            }
+            holderAgentIds.add(holder.agentId);
+        });
+    });
+});
+/** Reject malformed files before exposing any mailbox to consumers. */
+function parseSharedMailboxesFile(json) {
+    return exports.SharedMailboxesFileSchema.parse(json).map((entry) => entry.mailbox);
+}
 /** Provider conversation ownership, scoped to one mailbox. */
 exports.SharedMailboxThreadSchema = zod_1.z.strictObject({
     mailboxId: exports.SharedMailboxSchema.shape.mailboxId,

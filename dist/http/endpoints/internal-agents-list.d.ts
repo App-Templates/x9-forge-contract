@@ -73,6 +73,7 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
     agentId: z.ZodString;
     displayName: z.ZodString;
     ownerId: z.ZodString;
+    tenantId: z.ZodOptional<z.ZodString>;
     runtimeStatus: z.ZodOptional<z.ZodEnum<{
         stopped: "stopped";
         running: "running";
@@ -171,6 +172,7 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
         agentId: z.ZodString;
         displayName: z.ZodString;
         ownerId: z.ZodString;
+        tenantId: z.ZodOptional<z.ZodString>;
         runtimeStatus: z.ZodOptional<z.ZodEnum<{
             stopped: "stopped";
             running: "running";
@@ -302,6 +304,7 @@ export declare const listAgentsContract: {
             agentId: z.ZodString;
             displayName: z.ZodString;
             ownerId: z.ZodString;
+            tenantId: z.ZodOptional<z.ZodString>;
             runtimeStatus: z.ZodOptional<z.ZodEnum<{
                 stopped: "stopped";
                 running: "running";

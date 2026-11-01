@@ -13,11 +13,11 @@ export declare const CoachOperationalAuthorityOperationSchema: z.ZodEnum<{
     read: "read";
     start: "start";
     conversation: "conversation";
+    close: "close";
     event: "event";
     program: "program";
     usage: "usage";
     "end-guide": "end-guide";
-    close: "close";
 }>;
 export declare const CoachOperationalAuthorityRequestSchema: z.ZodUnion<readonly [z.ZodObject<{
     operation: z.ZodLiteral<"program">;
@@ -62,10 +62,10 @@ export declare const CoachOperationalAuthorityRequestSchema: z.ZodUnion<readonly
         read: "read";
         start: "start";
         conversation: "conversation";
+        close: "close";
         event: "event";
         usage: "usage";
         "end-guide": "end-guide";
-        close: "close";
     }>;
     scope: z.ZodObject<{
         agentId: z.ZodString;
@@ -253,10 +253,10 @@ export declare const CoachOperationalAuthorityResultSchema: z.ZodObject<{
             read: "read";
             start: "start";
             conversation: "conversation";
+            close: "close";
             event: "event";
             usage: "usage";
             "end-guide": "end-guide";
-            close: "close";
         }>;
         scope: z.ZodObject<{
             agentId: z.ZodString;

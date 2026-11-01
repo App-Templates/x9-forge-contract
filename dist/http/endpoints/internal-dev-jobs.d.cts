@@ -31,8 +31,8 @@ export declare const DevProductionJobsPageSchema: z.ZodObject<{
         }, z.core.$strict>;
         productKind: z.ZodEnum<{
             code: "code";
-            presentation: "presentation";
             design: "design";
+            presentation: "presentation";
             automation: "automation";
         }>;
         instruction: z.ZodString;
@@ -155,8 +155,8 @@ export declare const listDevProductionJobsContract: {
             }, z.core.$strict>;
             productKind: z.ZodEnum<{
                 code: "code";
-                presentation: "presentation";
                 design: "design";
+                presentation: "presentation";
                 automation: "automation";
             }>;
             instruction: z.ZodString;

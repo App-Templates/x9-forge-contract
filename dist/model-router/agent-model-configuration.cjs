@@ -187,6 +187,11 @@ function isLoadedModelSourceCurrent(input, expected, sourceSchema, now) {
 exports.AgentModelSourceObservationSchema = exports.AgentModelBootstrapSourceExpectationSchema.safeExtend({
     /** Interval during which the producer attests the observed public content. */
     observedAt: zod_1.z.iso.datetime({ offset: true }), validUntil: zod_1.z.iso.datetime({ offset: true }),
+    /**
+     * Provider and model the agent actually runs with (1.65.0, read-only, additive): lets the stage probe T4 check
+     * that a business-unit lead was born with the Master's model. Absent from producers before 1.65.0.
+     */
+    effectiveModel: zod_1.z.strictObject({ provider: zod_1.z.string().min(1).max(100), model: zod_1.z.string().min(1).max(200) }).optional(),
 }).superRefine((source, ctx) => {
     if (source.scope.agentId !== source.identity.runtimeAgentId)
         ctx.addIssue({ code: 'custom', path: ['scope', 'agentId'], message: 'Observed model source scope must name its runtime identity' });

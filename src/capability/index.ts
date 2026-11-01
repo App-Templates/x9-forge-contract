@@ -13,11 +13,20 @@
  * - HealthStatus / HealthStatusSchema
  */
 export {
+  CAPABILITY_TOOL_ACCESS,
+  CapabilityToolAccessSchema,
   CapabilityToolSchema,
+  capabilityToolAccess,
+  toolsForRole,
   type CapabilityTool,
+  type CapabilityToolAccess,
 } from './capability-tool.js';
 
 export {
+  TOOL_ERROR_MODEL_REASON_MAX_CHARS,
+  ToolErrorModelReasonSchema,
+  toolErrorModelReasonOf,
+  type ToolErrorModelReason,
   ToolCallRequestSchema,
   ToolCallSuccessResponseSchema,
   ToolCallErrorResponseSchema,
@@ -140,3 +149,4 @@ export * from './agent-elevenlabs/native-config.js';
 export * from './agent-elevenlabs/native-readback.js';
 export * from './configuration/news-briefing.js';
 export * from './feature-switch.js';
+export * from './paperclip-protocollo/index.js';

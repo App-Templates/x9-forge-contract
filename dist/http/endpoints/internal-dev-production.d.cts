@@ -31,8 +31,8 @@ export declare const DevProductionSubmissionSchema: z.ZodObject<{
         }, z.core.$strict>;
         productKind: z.ZodEnum<{
             code: "code";
-            presentation: "presentation";
             design: "design";
+            presentation: "presentation";
             automation: "automation";
         }>;
         instruction: z.ZodString;
@@ -156,8 +156,8 @@ export declare const submitDevProductionContract: {
             }, z.core.$strict>;
             productKind: z.ZodEnum<{
                 code: "code";
-                presentation: "presentation";
                 design: "design";
+                presentation: "presentation";
                 automation: "automation";
             }>;
             instruction: z.ZodString;
@@ -280,8 +280,8 @@ export declare const getDevProductionResultContract: {
             sessionId: z.ZodString;
             productKind: z.ZodEnum<{
                 code: "code";
-                presentation: "presentation";
                 design: "design";
+                presentation: "presentation";
                 automation: "automation";
             }>;
             reportVersion: z.ZodNumber;
@@ -323,8 +323,8 @@ export declare const getDevProductionResultContract: {
             sessionId: z.ZodString;
             productKind: z.ZodEnum<{
                 code: "code";
-                presentation: "presentation";
                 design: "design";
+                presentation: "presentation";
                 automation: "automation";
             }>;
             reportVersion: z.ZodNumber;

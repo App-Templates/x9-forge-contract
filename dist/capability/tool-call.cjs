@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = void 0;
+exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolErrorModelReasonSchema = exports.TOOL_ERROR_MODEL_REASON_MAX_CHARS = exports.ToolCallRequestSchema = void 0;
+exports.toolErrorModelReasonOf = toolErrorModelReasonOf;
 const zod_1 = require("zod");
 const internal_memory_extract_js_1 = require("../http/endpoints/internal-memory-extract.cjs");
 const tool_call_correlation_js_1 = require("../organization/tool-call-correlation.cjs");
@@ -61,6 +62,30 @@ exports.ToolCallRequestSchema = zod_1.z.object({
         ctx.addIssue({ code: 'custom', path: ['ordinaryConfiguration', 'scope'], message: 'Ordinary snapshot belongs to another call scope' });
 });
 // -- Response variants -------------------------------------------------------
+exports.TOOL_ERROR_MODEL_REASON_MAX_CHARS = 400;
+// Il solo testo di un errore di capacità che il runtime può mostrare al modello: codice e spiegazione scritti dal servizio, mai dati dell'upstream.
+exports.ToolErrorModelReasonSchema = zod_1.z.string()
+    .min(1)
+    .max(exports.TOOL_ERROR_MODEL_REASON_MAX_CHARS)
+    .regex(/^[a-z][a-z0-9_]{2,63}(: [^\u0000-\u001f\u007f]+)?$/)
+    .refine((reason) => !/[\u0000-\u001f\u007f]/.test(reason)
+    && !reason.includes('://')
+    && !/Bearer /i.test(reason)
+    && !/[A-Za-z0-9+/=]{32,}/.test(reason));
+function toolErrorModelReasonOf(body) {
+    try {
+        if (typeof body !== 'object' || body === null
+            || !('status' in body) || body.status !== 'error'
+            || !('modelReason' in body))
+            return undefined;
+        const parsed = exports.ToolErrorModelReasonSchema.safeParse(body.modelReason);
+        return parsed.success ? parsed.data : undefined;
+    }
+    catch {
+        // Untrusted objects may throw when their properties are read.
+        return undefined;
+    }
+}
 exports.ToolCallSuccessResponseSchema = zod_1.z.object({
     callId: zod_1.z.string().min(1),
     status: zod_1.z.literal('success'),
@@ -72,6 +97,7 @@ exports.ToolCallErrorResponseSchema = zod_1.z.object({
     status: zod_1.z.literal('error'),
     error: zod_1.z.string(),
     code: zod_1.z.enum(['TOOL_NOT_FOUND', 'TOOL_CALL_INVALID', 'TOOL_EXEC_FAILED']),
+    modelReason: exports.ToolErrorModelReasonSchema.optional(),
     receipt: tool_call_correlation_js_1.ToolCallReceiptSchema.optional(),
 });
 /**

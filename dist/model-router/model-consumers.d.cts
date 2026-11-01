@@ -101,4 +101,12 @@ export declare function registeredModelConsumerDefinitions(): ModelConsumerDefin
 /** Exact server registration only. Unknown or malformed input never selects a default consumer. */
 export declare function findModelConsumer(slotId: unknown): ModelConsumer | undefined;
 export declare function findModelConsumerDefinition(slotId: unknown): ModelConsumerDefinition | undefined;
+/**
+ * The only adapters a consumer installs through, when it is not "any supported adapter" (v1.75.0). The Lab digest runs on
+ * its dedicated Responses adapter: a descriptor with the right provider and model but another adapter is refused by
+ * cap-lab after the birth, so the producer of a birth checks it before (one rule for X9 and Forge).
+ */
+export declare const MODEL_CONSUMER_ADAPTER_IDS: Readonly<Record<string, readonly string[]>>;
+/** true when the slot has no adapter restriction, or the adapter is one of its allowed ones. */
+export declare function modelConsumerAcceptsAdapter(slotId: unknown, adapterId: unknown): boolean;
 //# sourceMappingURL=model-consumers.d.ts.map

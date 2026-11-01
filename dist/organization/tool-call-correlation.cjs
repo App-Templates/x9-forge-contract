@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ToolCallReceiptSchema = exports.OrganizationToolCallContextSchema = void 0;
+exports.ToolCallReceiptSchema = exports.OrganizationRunEnvelopeSchema = exports.OrganizationToolCallContextSchema = void 0;
 const zod_1 = require("zod");
 const run_context_js_1 = require("./run-context.cjs");
 const run_outcome_js_1 = require("./run-outcome.cjs");
@@ -17,6 +17,11 @@ exports.OrganizationToolCallContextSchema = zod_1.z
     .refine((ctx) => ctx.attempt.runId === ctx.organizationRun.runId, {
     message: 'attempt.runId must match organizationRun.runId',
     path: ['attempt', 'runId'],
+});
+/** Run admitted for a capability tool call, as agent-core forwards it beside the strict call body: the trusted context plus the admitting tenant. */
+exports.OrganizationRunEnvelopeSchema = zod_1.z.strictObject({
+    context: run_context_js_1.OrganizationRunContextSchema,
+    tenantId: zod_1.z.string().min(1),
 });
 /**
  * Receipt of a single tool call (callId is distinct from attemptId). An uncertain

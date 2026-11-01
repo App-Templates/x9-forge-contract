@@ -36,6 +36,41 @@ export const SharedMailboxSchema = z.strictObject({
         ctx.addIssue({ code: 'custom', path: ['defaultAgentId'], message: 'Default agent must be a mailbox holder' });
     }
 });
+/** Relative to the contexts directory shared by Forge and cap-email. */
+export const SHARED_MAILBOXES_FILE = 'companies/shared-mailboxes.json';
+export const SharedMailboxFileEntrySchema = z.strictObject({
+    companyName: z.string().min(1).max(120),
+    mailbox: SharedMailboxSchema,
+});
+export const SharedMailboxesFileSchema = z.array(SharedMailboxFileEntrySchema).max(500)
+    .superRefine((entries, ctx) => {
+    const mailboxIds = new Set();
+    const providerInboxIds = new Set();
+    const holderAgentIds = new Set();
+    entries.forEach(({ mailbox }, index) => {
+        if (mailboxIds.has(mailbox.mailboxId)) {
+            ctx.addIssue({ code: 'custom', path: [index, 'mailbox', 'mailboxId'], message: 'Mailbox IDs must be unique' });
+        }
+        mailboxIds.add(mailbox.mailboxId);
+        if (providerInboxIds.has(mailbox.providerInboxId)) {
+            ctx.addIssue({ code: 'custom', path: [index, 'mailbox', 'providerInboxId'], message: 'Provider inbox IDs must be unique' });
+        }
+        providerInboxIds.add(mailbox.providerInboxId);
+        mailbox.holders.forEach((holder, holderIndex) => {
+            if (holderAgentIds.has(holder.agentId)) {
+                ctx.addIssue({
+                    code: 'custom', path: [index, 'mailbox', 'holders', holderIndex, 'agentId'],
+                    message: 'Agent holds more than one shared mailbox',
+                });
+            }
+            holderAgentIds.add(holder.agentId);
+        });
+    });
+});
+/** Reject malformed files before exposing any mailbox to consumers. */
+export function parseSharedMailboxesFile(json) {
+    return SharedMailboxesFileSchema.parse(json).map((entry) => entry.mailbox);
+}
 /** Provider conversation ownership, scoped to one mailbox. */
 export const SharedMailboxThreadSchema = z.strictObject({
     mailboxId: SharedMailboxSchema.shape.mailboxId,

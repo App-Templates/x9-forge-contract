@@ -77,6 +77,8 @@ exports.ListAgentsAgentSchema = zod_1.z.object({
     agentId: zod_1.z.string().min(1),
     displayName: zod_1.z.string(),
     ownerId: zod_1.z.string(),
+    /** Explicit tenant of the agent; absent = legacy row or agent without company membership, never derived. */
+    tenantId: agent_context_identity_js_1.AgentTenantIdSchema.optional(),
     // Phase 22 — additive-optional runtime status (agent-core enriched).
     runtimeStatus: exports.RuntimeAgentStatusSchema.optional(),
     loaded: zod_1.z.boolean().optional(),
@@ -94,6 +96,9 @@ exports.ListAgentsAgentSchema = zod_1.z.object({
 }).superRefine((agent, ctx) => {
     if (agent.authority) {
         const declared = agent.authority;
+        if (agent.tenantId !== undefined && agent.tenantId !== declared.tenantId) {
+            ctx.addIssue({ code: 'custom', path: ['tenantId'], message: 'Explicit tenant must match the declared authority' });
+        }
         if (declared.agentId !== agent.agentId || declared.ownerId !== agent.ownerId) {
             ctx.addIssue({ code: 'custom', path: ['authority'], message: 'Declared authority must match the inventory owner and runtime agent' });
         }

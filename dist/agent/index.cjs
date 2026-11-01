@@ -60,8 +60,11 @@ __exportStar(require("./agent-runtime-state.cjs"), exports);
 __exportStar(require("./agent-runtime-source.cjs"), exports);
 // R1b logical management: lifecycle/apply-config commands, versions, per-target outcomes (v1.31.0)
 __exportStar(require("./agent-management.cjs"), exports);
+__exportStar(require("./agent-birth.cjs"), exports);
 // Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
 __exportStar(require("./agent-scope-policy.cjs"), exports);
+__exportStar(require("./policy-approval-request.cjs"), exports);
+__exportStar(require("./agent-role-scope-policy.cjs"), exports);
 // Per-agent turn limits: tool rounds per turn and turn token budget (v1.49.2)
 __exportStar(require("./agent-turn-limits.cjs"), exports);
 // R2: scoped birth channels, optional context extension and replayable creation.

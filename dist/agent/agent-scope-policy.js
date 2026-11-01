@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { AgentConfigVersionSchema } from "../capability/ricerca/agent-config.js";
 import { CapabilityAgentParametersSchema } from "../capability/parameters.js";
+import { CapabilityToolAccessSchema } from "../capability/capability-tool.js";
 import { CapabilityCallIdentitySchema } from "../capability/capability-call-context.js";
 import { CapToolCallParamsSchema } from "../http/endpoints/cap-tool-call.js";
 import { AgentManagementRequestIdSchema } from "./agent-management.js";
@@ -17,7 +18,7 @@ import { AgentRuntimeChannelKindSchema } from "./agent-runtime-state.js";
  * - Every action leaves a log event without payloads or secrets (`AgentActionLogEventSchema`).
  */
 export const PolicyDecisionSchema = z.enum(['allow', 'ask', 'deny']);
-export const PolicyAccessSchema = z.enum(['read', 'write']);
+export const PolicyAccessSchema = CapabilityToolAccessSchema;
 export const PolicyAccessDecisionsSchema = z.object({ read: PolicyDecisionSchema, write: PolicyDecisionSchema }).strict();
 const CapabilityNameSchema = CapabilityAgentParametersSchema.shape.capability;
 const ToolNameSchema = CapToolCallParamsSchema.shape.tool;

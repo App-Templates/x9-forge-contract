@@ -53,6 +53,7 @@ export * from './models-batch.js';
 
 // Canonical server-owned model consumer bindings; no runtime installation is inferred.
 export * from './model-consumers.js';
+export * from './model-chain.js';
 
 export * from './model-consumer-execution.js';
 

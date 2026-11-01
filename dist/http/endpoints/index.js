@@ -31,6 +31,7 @@ export * from "./internal-dev-jobs.js";
 export * from "./internal-dev-cancel.js";
 export * from "./internal-dev-production.js";
 export * from "./internal-capability-lab.js";
+export * from "./internal-rd-observations.js";
 // Token-auth endpoints (cross-repo voice/webhook)
 export * from "./webhook-post-call.js";
 export * from "./voice-register.js";
@@ -40,6 +41,8 @@ export * from "./voice.js"; // Phase 42 — CAP-Voice v2.2 path + method constan
 export * from "./voice-live.js"; // Phase 50 — cap-voice-live (Telnyx ⇄ GPT-Live) paths
 export * from "./internal-factory-deploy.js"; // Wave 2 (v1.11.0) — Parallel S2S agent deploy
 export * from "./internal-business-unit-lead.js"; // AZB-04 — Director S2S business unit lead birth
+export * from "./internal-business-unit-membership.js"; // PBB-01 — lettura dell'appartenenza capo/BU
+export * from "./internal-company-rd.js"; // P1L-05 — Director S2S company R&D (Ricerca + Lab) birth
 export * from "./internal-factory-telegram-token.js"; // Phase 21 (v1.16.0) — TOKROT-01 token rotate S2S
 // No-auth endpoints (capability discovery)
 export * from "./cap-manifest.js";
@@ -80,6 +83,8 @@ export * from "./internal-agent-model-source-observation.js";
 export * from "./forge-master-model-authority.js";
 export * from "./internal-models-apply.js";
 export * from "./internal-vault-connection.js";
+// F1B-04 — porta Vault delle chiavi agente
+export * from "./internal-vault-agent-credentials.js";
 export * from "./internal-connect.js";
 export * from "./internal-development-sessions.js";
 export * from "./connection-card.js";
@@ -87,6 +92,18 @@ export * from "./web-connection-cards.js";
 export * from "./internal-memory-experience.js";
 export * from "./internal-memory-decisions.js";
 export * from "./internal-memory-decision-requests.js";
+export * from "./internal-paperclip-seats.js";
+export * from "./internal-paperclip-rd-enrollment.js"; // ROPB-02 — iscrizione Paperclip di Ricerca e Lab
+export * from "./internal-memory-assets.js";
+// F1B-03 — mappa dell'azienda cliente nella memoria A
+export * from "./internal-memory-company-map.js";
+export * from "./internal-memory-company-content.js";
+export * from "./internal-memory-action-plans.js";
+export * from "./internal-company-spend.js";
+// F3X-03 — riconciliazione minima delle fonti del mandato nella memoria A
+export * from "./internal-memory-mandate-reconcile.js";
+export * from "./internal-memory-mandate-observations.js";
+export * from "./internal-memory-vertical-plan-observations.js";
 export * from "./internal-memory-knowledge.js";
 export * from "./connect-public.js";
 export * from "./internal-connection-completed.js";
@@ -100,4 +117,6 @@ export * from "./development-session-models.js";
 export * from "./internal-development-session-list.js";
 export * from "./development-session-heartbeat.js";
 export * from "./internal-dev-artifact-content.js";
+export * from "./internal-dev-session-asset-content.js";
+export * from "./paperclip-protocollo-turno.js";
 //# sourceMappingURL=index.js.map

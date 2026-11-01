@@ -136,5 +136,6 @@ describe('cap-ricerca spend, tools and errors (v1.28.0)', () => {
       expect(ToolCallErrorResponseSchema.safeParse({ callId: 'c', status: 'error', code: 'TOOL_EXEC_FAILED', error: reason }).success).toBe(true);
     }
     fails(RicercaToolErrorSchema.safeParse('RESEARCH_REFUSED'), 'old code');
+    expect(RicercaToolErrorSchema.safeParse('consulta_prima_il_quaderno').success).toBe(true);
   });
 });

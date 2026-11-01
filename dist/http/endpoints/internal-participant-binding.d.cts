@@ -6,9 +6,9 @@ export declare const INTERNAL_PARTICIPANT_BINDING_WITHDRAW_PATH: "/internal/part
 export declare const INTERNAL_PARTICIPANT_BINDING_RESOLVE_PATH: "/internal/participant-binding/resolve";
 /** Outcome codes of the binding resolution plus the operation-specific ones. */
 export declare const ParticipantBindingErrorCodeSchema: z.ZodEnum<{
-    ambiguous: "ambiguous";
     bound: "bound";
     unknown_participant: "unknown_participant";
+    ambiguous: "ambiguous";
     foreign_scope: "foreign_scope";
     version_conflict: "version_conflict";
     person_required: "person_required";
@@ -41,6 +41,12 @@ export declare const InternalParticipantBindingApplyRequestSchema: z.ZodObject<{
             member: "member";
             reviewer: "reviewer";
             observer: "observer";
+        }>>;
+        agentRole: z.ZodOptional<z.ZodEnum<{
+            ricerca: "ricerca";
+            lab: "lab";
+            director: "director";
+            "capo-bu": "capo-bu";
         }>>;
         recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"organization">;
@@ -83,9 +89,9 @@ export declare const InternalParticipantBindingApplyResponseSchema: z.ZodUnion<r
 }, z.core.$strict>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        ambiguous: "ambiguous";
         bound: "bound";
         unknown_participant: "unknown_participant";
+        ambiguous: "ambiguous";
         foreign_scope: "foreign_scope";
         version_conflict: "version_conflict";
         person_required: "person_required";
@@ -123,6 +129,12 @@ export declare const InternalParticipantBindingReadResponseSchema: z.ZodUnion<re
             member: "member";
             reviewer: "reviewer";
             observer: "observer";
+        }>>;
+        agentRole: z.ZodOptional<z.ZodEnum<{
+            ricerca: "ricerca";
+            lab: "lab";
+            director: "director";
+            "capo-bu": "capo-bu";
         }>>;
         recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"organization">;
@@ -194,6 +206,12 @@ export declare const InternalParticipantBindingListResponseSchema: z.ZodObject<{
                 member: "member";
                 reviewer: "reviewer";
                 observer: "observer";
+            }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
             }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;
@@ -270,9 +288,9 @@ export declare const InternalParticipantBindingWithdrawResponseSchema: z.ZodUnio
 }, z.core.$strict>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
-        ambiguous: "ambiguous";
         bound: "bound";
         unknown_participant: "unknown_participant";
+        ambiguous: "ambiguous";
         foreign_scope: "foreign_scope";
         version_conflict: "version_conflict";
         person_required: "person_required";
@@ -308,6 +326,12 @@ export declare const InternalParticipantBindingResolveResponseSchema: z.ZodDiscr
             member: "member";
             reviewer: "reviewer";
             observer: "observer";
+        }>>;
+        agentRole: z.ZodOptional<z.ZodEnum<{
+            ricerca: "ricerca";
+            lab: "lab";
+            director: "director";
+            "capo-bu": "capo-bu";
         }>>;
         recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
             kind: z.ZodLiteral<"organization">;
@@ -381,6 +405,12 @@ export declare const internalParticipantBindingApplyContract: {
                 reviewer: "reviewer";
                 observer: "observer";
             }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
+            }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;
                 id: z.ZodString;
@@ -421,9 +451,9 @@ export declare const internalParticipantBindingApplyContract: {
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
-            ambiguous: "ambiguous";
             bound: "bound";
             unknown_participant: "unknown_participant";
+            ambiguous: "ambiguous";
             foreign_scope: "foreign_scope";
             version_conflict: "version_conflict";
             person_required: "person_required";
@@ -465,6 +495,12 @@ export declare const internalParticipantBindingReadContract: {
                 member: "member";
                 reviewer: "reviewer";
                 observer: "observer";
+            }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
             }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;
@@ -540,6 +576,12 @@ export declare const internalParticipantBindingListContract: {
                     member: "member";
                     reviewer: "reviewer";
                     observer: "observer";
+                }>>;
+                agentRole: z.ZodOptional<z.ZodEnum<{
+                    ricerca: "ricerca";
+                    lab: "lab";
+                    director: "director";
+                    "capo-bu": "capo-bu";
                 }>>;
                 recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                     kind: z.ZodLiteral<"organization">;
@@ -620,9 +662,9 @@ export declare const internalParticipantBindingWithdrawContract: {
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
-            ambiguous: "ambiguous";
             bound: "bound";
             unknown_participant: "unknown_participant";
+            ambiguous: "ambiguous";
             foreign_scope: "foreign_scope";
             version_conflict: "version_conflict";
             person_required: "person_required";
@@ -662,6 +704,12 @@ export declare const internalParticipantBindingResolveContract: {
                 member: "member";
                 reviewer: "reviewer";
                 observer: "observer";
+            }>>;
+            agentRole: z.ZodOptional<z.ZodEnum<{
+                ricerca: "ricerca";
+                lab: "lab";
+                director: "director";
+                "capo-bu": "capo-bu";
             }>>;
             recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 kind: z.ZodLiteral<"organization">;

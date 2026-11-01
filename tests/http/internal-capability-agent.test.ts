@@ -65,6 +65,23 @@ describe('per-agent capability routes (v1.28.0)', () => {
 });
 
 describe('ordinary explicit config transport', () => {
+  it('ROPB-01 transports observed running Lab activation and rejects absent observation', () => {
+    const scope = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'runtime-a' }, capability = 'cap-lab';
+    const observedAt = '2026-10-26T12:00:00Z';
+    const configuration = { format: 'ordinary-v2', scope, capability, version: 7,
+      parameters: [{ parameter: { key: 'limit', type: 'integer', label: 'Limit', description: 'Limit', status: 'decided', reference: 'consumer', appliesWhen: 'next_apply', consumes: true, optional: false, editableBy: ['owner'] }, origin: { kind: 'agent_override' }, value: 7 }] };
+    const request = { format: 'ordinary-lifecycle-v1', requestId: 'lifecycle-request-a', scope,
+      identity: { managementAgentId: 'management-a', runtimeAgentId: scope.agentId }, capability, phase: 'activate',
+      operation: { action: 'apply-config', execution: 'running' }, targetMembership: 'enabled', configuration,
+      transition: { from: { appliedVersion: 6, sha256: 'a'.repeat(64) }, to: { appliedVersion: 7, sha256: 'b'.repeat(64) } } };
+    const receipt = { request, operationId: 'operation-test-a', fence: 1, status: 'complete', outcome: 'ok', replayed: false,
+      membershipEffective: 'enabled', executionEffective: 'running', observedAt,
+      ordinaryState: { scope, capability, desired: configuration, runtimeState: 'loaded', applied: { configuration, loadedAt: observedAt }, failed: null,
+        effectiveParameters: [{ scope, capability, key: 'limit', value: 7, mode: 'next_apply', sourceConfigVersion: configuration.version, observedAt }] } };
+    expect(ordinaryCapabilityLifecyclePutContract.bodySchema.parse(request)).toEqual(request);
+    expect(ordinaryCapabilityLifecyclePutContract.responseSchema.parse(receipt)).toEqual(receipt);
+    expect(ordinaryCapabilityLifecyclePutContract.responseSchema.safeParse({ ...receipt, observedAt: null }).success).toBe(false);
+  });
   const scope = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'runtime-a' }, capability = 'cap-news';
   const configuration = { format: 'ordinary-v2', scope, capability, version: 1, parameters: [] };
   const body = { requestId: 'ordinary-request-a', expectedVersion: null, configuration };

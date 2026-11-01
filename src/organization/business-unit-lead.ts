@@ -1,10 +1,12 @@
 import { z } from 'zod';
 import { OwnerIdSchema } from '../agent/agent-identity.js';
 import { ModelTierSchema } from '../model-router/model-tier.js';
+import { BUSINESS_UNIT_LEAD_ROLE } from './agent-role.js';
+import { BusinessUnitTypeCardSchema } from './business-unit-type.js';
 import { ParticipantAgentIdentitySchema, ParticipantRoleSchema } from './participant-binding.js';
 
 /** The only birth profile Forge provisions for a business unit lead. */
-export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = 'capo-bu' as const;
+export const BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE = BUSINESS_UNIT_LEAD_ROLE;
 export const BusinessUnitLeadProfileTemplateSchema = z.literal(BUSINESS_UNIT_LEAD_PROFILE_TEMPLATE);
 export type BusinessUnitLeadProfileTemplate = z.infer<typeof BusinessUnitLeadProfileTemplateSchema>;
 
@@ -28,6 +30,8 @@ export const BusinessUnitLeadBirthRequestSchema = z.strictObject({
   }),
   businessUnit: z.strictObject({
     slug: z.string().min(1).max(30).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+    /** The business unit type from which Forge takes capabilities, model level and profile. */
+    typeId: BusinessUnitTypeCardSchema.shape.typeId,
     name: z.string().min(1).max(120),
     briefSection: z.string().min(1).max(4000),
     competencies: z.array(z.string().min(1).max(200)).min(1).max(20).refine(
@@ -65,3 +69,37 @@ export const BusinessUnitLeadBirthResultSchema = z.strictObject({
   agentIdentity: ParticipantAgentIdentitySchema,
 });
 export type BusinessUnitLeadBirthResult = z.infer<typeof BusinessUnitLeadBirthResultSchema>;
+
+/** Forge HTTP 202 receipt: birth is pending, with the public reason preserved verbatim. */
+export const BusinessUnitLeadBirthPendingSchema = z.strictObject({
+  ok: z.literal(false),
+  error: z.literal('in_corso'),
+  reason: z.string().min(1).max(500).regex(/\S/),
+  /**
+   * Absent for historical producers that do not expose a step; null when an updated producer cannot identify one;
+   * otherwise the public key of the actual step. No default or inference from the reason, and no local step catalog.
+   */
+  step: z.string().min(1).max(128).regex(/\S/).nullable().optional(),
+});
+export type BusinessUnitLeadBirthPending = z.infer<typeof BusinessUnitLeadBirthPendingSchema>;
+
+/** Forge names the agent of a business unit lead `capo-<slug>` (management and runtime id alike). */
+export const BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX = 'capo-' as const;
+
+const LEAD_SLUG = BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug;
+
+/** Agent id Forge gives to the lead of the business unit `slug`. */
+export function businessUnitLeadAgentId(slug: string): string {
+  return `${BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX}${LEAD_SLUG.parse(slug)}`;
+}
+
+/**
+ * The business unit slug of a lead agent id, or `null` when the id is not the id of a business unit lead. The id is
+ * assigned by Forge at birth, so a consumer that has verified the agent identity can read the slug from it instead of
+ * trusting a slug written by the model.
+ */
+export function businessUnitSlugOfLeadAgentId(agentId: string): string | null {
+  if (!agentId.startsWith(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX)) return null;
+  const parsed = LEAD_SLUG.safeParse(agentId.slice(BUSINESS_UNIT_LEAD_AGENT_ID_PREFIX.length));
+  return parsed.success ? parsed.data : null;
+}

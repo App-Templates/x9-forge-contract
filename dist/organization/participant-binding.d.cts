@@ -35,6 +35,17 @@ export declare const ParticipantBindingSchema: z.ZodObject<{
         reviewer: "reviewer";
         observer: "observer";
     }>>;
+    /**
+     * Role of the agent in the company (1.65.0), written by the server when the seat is created, never by a model:
+     * rd-seats for lab and ricerca, the birth for capo-bu, the configuration for director. Absent on bindings saved
+     * before: a reader that needs the role refuses them with a message (R-37).
+     */
+    agentRole: z.ZodOptional<z.ZodEnum<{
+        ricerca: "ricerca";
+        lab: "lab";
+        director: "director";
+        "capo-bu": "capo-bu";
+    }>>;
     recipients: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"organization">;
         id: z.ZodString;
@@ -53,18 +64,18 @@ export declare const ParticipantBindingSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type ParticipantBinding = z.infer<typeof ParticipantBindingSchema>;
 export declare const ParticipantBindingOutcomeSchema: z.ZodEnum<{
-    ambiguous: "ambiguous";
     bound: "bound";
     unknown_participant: "unknown_participant";
+    ambiguous: "ambiguous";
     foreign_scope: "foreign_scope";
 }>;
 export type ParticipantBindingOutcome = z.infer<typeof ParticipantBindingOutcomeSchema>;
 /** Result of resolving an external participant ID to a bound agent. */
 export declare const ParticipantBindingResolutionSchema: z.ZodObject<{
     outcome: z.ZodEnum<{
-        ambiguous: "ambiguous";
         bound: "bound";
         unknown_participant: "unknown_participant";
+        ambiguous: "ambiguous";
         foreign_scope: "foreign_scope";
     }>;
     participantId: z.ZodString;

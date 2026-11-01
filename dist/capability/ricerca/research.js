@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AssetRefSchema } from "../../organization/asset.js";
 import { CapabilityAgentIdSchema } from "./agent-config.js";
 /**
  * One research of cap-ricerca (v1.28.0, Phase 54): a question of one agent, researched on the web within the agent's
@@ -9,6 +10,7 @@ import { CapabilityAgentIdSchema } from "./agent-config.js";
  * model marks it as such and never uses it as instructions.
  */
 export const ResearchIdSchema = z.string().min(1).max(100);
+export const LabGapsRefSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 /** Only http(s) addresses, bounded: never `file:`, `javascript:` or `data:`. */
 export const WebUrlSchema = z.string().max(2000).refine(u => {
     try {
@@ -26,6 +28,13 @@ export const ResearchRequestSchema = z.object({
     goal: TextSchema.optional(),
     /** The research of the same agent whose new questions this one follows (the cascade). */
     parentResearchId: ResearchIdSchema.optional(),
+    /** The lab brief analysis whose declared gaps this research addresses. */
+    labGapsRef: LabGapsRefSchema.optional(),
+    /**
+     * The project of the client company this research serves (F1L-03). A project research answers a gap of the lab
+     * brief analysis: with `projectId` and without `labGapsRef` cap-ricerca refuses with `consulta_prima_il_quaderno`.
+     */
+    projectId: AssetRefSchema.shape.projectId.optional(),
     /** A lower ceiling for this research, USD; the service checks it against the agent's per-research maximum. */
     maxUsd: z.number().positive().finite().optional(),
 }).strict();

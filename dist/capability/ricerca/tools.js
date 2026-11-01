@@ -23,6 +23,8 @@ export const RicercaToolErrorSchema = z.enum([
     'unknown_parent',
     'unknown_research',
     'not_ready',
+    /** A project research without the lab brief analysis it answers (F1L-03): R&D reuses before researching. */
+    'consulta_prima_il_quaderno',
 ]);
 export const ResearchStartInputSchema = ResearchRequestSchema;
 export const ResearchStartOutputSchema = z.object({ researchId: ResearchIdSchema, state: ResearchStateSchema }).strict();

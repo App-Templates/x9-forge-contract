@@ -6,8 +6,182 @@ import { PaperclipQueueInputSchema as Queue, PaperclipIssueInputSchema as Issue,
   PaperclipCommentsInputSchema as Comments, PaperclipCommentViewSchema as Comment,
   PaperclipCommentsOutputSchema as CommentsOutput, PaperclipReviewInputSchema as Review,
   PaperclipCreateBusinessUnitInputSchema as CreateBu, PaperclipCreateBusinessUnitOutputSchema as CreateBuOutput,
+  PaperclipSearchInputSchema as Search, PaperclipSearchOutputSchema as SearchOutput,
+  PaperclipActivityInputSchema as Activity, PaperclipActivityOutputSchema as ActivityOutput,
+  PaperclipGoalLevelSchema as GoalLevel, PaperclipCreateProjectInputSchema as CreateProject,
+  PaperclipProjectViewSchema as ProjectView, PaperclipCreateProjectOutputSchema as CreateProjectOutput,
+  PaperclipCreateGoalInputSchema as CreateGoal, PaperclipGoalViewSchema as GoalView,
+  PaperclipCreateGoalOutputSchema as CreateGoalOutput,
 } from '../src/capability/paperclip/index.js';
 const id = 'f13dd515-1bad-4e0d-a697-7d19bfac6100';
+it('preserves project and goal IDs when creating an issue', () => {
+  const projectId = 'f13dd515-1bad-4e0d-a697-7d19bfac6101';
+  const goalId = 'f13dd515-1bad-4e0d-a697-7d19bfac6102';
+  const issue = { title: 'Prepare the data delivery', projectId, goalId };
+  expect(Create.parse(issue)).toEqual(issue);
+  expect(Create.parse({ title: issue.title, projectId })).toEqual({ title: issue.title, projectId });
+  expect(Create.parse({ title: issue.title, goalId })).toEqual({ title: issue.title, goalId });
+});
+it('rejects invalid project and goal IDs when creating an issue', () => {
+  for (const field of ['projectId', 'goalId']) {
+    for (const value of ['obiettivo-1', null]) {
+      expect(Create.safeParse({ title: 'Prepare the data delivery', [field]: value }).success).toBe(false);
+    }
+  }
+});
+it('preserves optional nullable project and goal IDs in issue views', () => {
+  const issue = { id, companyId: id, identifier: 'TASK-1', title: 'Prepare the data delivery',
+    description: null, status: 'todo', assigneeAgentId: null };
+  expect(View.parse(issue)).toEqual(issue);
+  for (const links of [{ projectId: null }, { goalId: null }, { projectId: null, goalId: null },
+    { projectId: id, goalId: id }]) {
+    expect(View.parse({ ...issue, ...links })).toEqual({ ...issue, ...links });
+  }
+  for (const field of ['projectId', 'goalId']) {
+    expect(View.safeParse({ ...issue, [field]: 'obiettivo-1' }).success).toBe(false);
+  }
+});
+it('names the project and goal creation tools', () => {
+  expect(PAPERCLIP_TOOLS.createProject).toBe('paperclip_create_project');
+  expect(PAPERCLIP_TOOLS.createGoal).toBe('paperclip_create_goal');
+});
+it('accepts minimal and complete project creation', () => {
+  expect(CreateProject.parse({ name: 'Brief project' })).toEqual({ name: 'Brief project' });
+  const project = { name: 'Brief project', description: 'Deliver the approved brief', goalIds: [id] };
+  expect(CreateProject.parse(project)).toEqual(project);
+  expect(CreateProject.parse({ name: 'Brief project', description: '', goalIds: [] }))
+    .toEqual({ name: 'Brief project', description: '', goalIds: [] });
+});
+it('rejects caller-chosen project leadAgentId', () => {
+  expect(CreateProject.safeParse({ name: 'Brief project', leadAgentId: id }).success).toBe(false);
+});
+it('rejects duplicate project goalIds', () => {
+  expect(CreateProject.safeParse({ name: 'Brief project', goalIds: [id, id] }).success).toBe(false);
+});
+it('validates project and goal creation boundaries', () => {
+  const goalIds = Array.from({ length: 21 }, (_, index) =>
+    `f13dd515-1bad-4e0d-a697-${index.toString(16).padStart(12, '0')}`);
+  expect(CreateProject.safeParse({ name: 'x'.repeat(200), description: 'x'.repeat(16384), goalIds: goalIds.slice(0, 20) }).success).toBe(true);
+  for (const patch of [
+    { name: '' }, { name: ' ' }, { name: 'x'.repeat(201) }, { description: 'x'.repeat(16385) },
+    { goalIds }, { goalIds: ['invalid'] }, { companyId: id }, { leadAgentId: id }, { goalIds: [id, id] },
+  ]) {
+    expect(CreateProject.safeParse({ name: 'Brief project', ...patch }).success).toBe(false);
+  }
+  expect(CreateGoal.safeParse({ title: 'x'.repeat(200), level: 'company', description: 'x'.repeat(16384), ownerRoleRef: 'x'.repeat(4096) }).success).toBe(true);
+  for (const level of ['company', 'team', 'agent', 'task']) {
+    expect(GoalLevel.parse(level)).toBe(level);
+    expect(CreateGoal.parse({ title: 'Deliver the brief', level })).toEqual({ title: 'Deliver the brief', level });
+  }
+  for (const patch of [
+    { title: '' }, { title: ' ' }, { title: 'x'.repeat(201) }, { description: 'x'.repeat(16385) },
+    { level: 'department' }, { parentId: 'invalid' }, { ownerRoleRef: ' ' },
+    { ownerRoleRef: 'x'.repeat(4097) }, { companyId: id }, { ownerAgentId: id },
+  ]) {
+    expect(CreateGoal.safeParse({ title: 'Deliver the brief', level: 'team', ...patch }).success).toBe(false);
+  }
+});
+it('accepts a team goal with a parent and owner role', () => {
+  const goal = { title: 'Research delivery', description: 'Research the market', level: 'team', parentId: id, ownerRoleRef: 'research-head' };
+  expect(CreateGoal.parse(goal)).toEqual(goal);
+});
+it('rejects department goal level', () => {
+  expect(CreateGoal.safeParse({ title: 'Research delivery', level: 'department' }).success).toBe(false);
+});
+it('rejects caller-chosen goal ownerAgentId', () => {
+  expect(CreateGoal.safeParse({ title: 'Research delivery', level: 'team', ownerAgentId: id }).success).toBe(false);
+});
+it('rejects empty goal titles', () => {
+  expect(CreateGoal.safeParse({ title: '', level: 'company' }).success).toBe(false);
+});
+it('validates project and goal views and creation outputs', () => {
+  const project = { id, companyId: id, name: 'Brief project', description: null, leadAgentId: null, goalIds: [] };
+  const goal = { id, companyId: id, title: 'Deliver the brief', level: 'company', parentId: null, ownerAgentId: null };
+  expect(ProjectView.parse(project)).toEqual(project);
+  expect(CreateProjectOutput.parse({ project })).toEqual({ project });
+  expect(ProjectView.safeParse({ ...project, description: 'Approved brief', leadAgentId: id, goalIds: Array.from({ length: 50 }, () => id) }).success).toBe(true);
+  expect(ProjectView.safeParse({ ...project, goalIds: Array.from({ length: 51 }, () => id) }).success).toBe(false);
+  expect(GoalView.parse(goal)).toEqual(goal);
+  expect(CreateGoalOutput.parse({ goal })).toEqual({ goal });
+  expect(GoalView.safeParse({ ...goal, level: 'team', parentId: id, ownerAgentId: id }).success).toBe(true);
+  for (const patch of [{ id: 'invalid' }, { companyId: 'invalid' }, { title: ' ' }, { parentId: 'invalid' }, { ownerAgentId: 'invalid' }, { extra: true }]) {
+    expect(GoalView.safeParse({ ...goal, ...patch }).success).toBe(false);
+  }
+  for (const patch of [{ id: 'invalid' }, { companyId: 'invalid' }, { name: ' ' }, { description: undefined }, { leadAgentId: 'invalid' }, { goalIds: ['invalid'] }, { extra: true }]) {
+    expect(ProjectView.safeParse({ ...project, ...patch }).success).toBe(false);
+  }
+  expect(CreateProjectOutput.safeParse({ project, extra: true }).success).toBe(false);
+  expect(CreateGoalOutput.safeParse({ goal, extra: true }).success).toBe(false);
+});
+it('rejects unknown goal levels in views', () => {
+  expect(GoalView.safeParse({ id, companyId: id, title: 'Deliver the brief', level: 'department', parentId: null, ownerAgentId: null }).success).toBe(false);
+});
+it('validates read-only search and activity contracts', () => {
+  expect(PAPERCLIP_TOOLS.search).toBe('paperclip_search');
+  expect(PAPERCLIP_TOOLS.activity).toBe('paperclip_activity');
+  const kinds = ['issue', 'comment', 'document', 'artifact', 'agent', 'project'];
+  expect(Search.parse({ query: 'delivery', kinds, limit: 50 })).toEqual({ query: 'delivery', kinds, limit: 50 });
+  expect(Search.parse({ query: 'x'.repeat(256), limit: 1 })).toEqual({ query: 'x'.repeat(256), limit: 1 });
+  expect(Search.parse({ query: 'delivery' })).toEqual({ query: 'delivery' });
+  for (const input of [
+    {}, { query: '' }, { query: ' ' }, { query: 'x'.repeat(257) },
+    { query: 'delivery', kinds: [] }, { query: 'delivery', kinds: ['unknown'] },
+    ...[0, 51, 1.5].map(limit => ({ query: 'delivery', limit })),
+  ]) {
+    expect(Search.safeParse(input).success, JSON.stringify(input)).toBe(false);
+  }
+  const updatedAt = '2026-10-21T18:00:00+02:00';
+  const result = { kind: 'issue', id: 'TASK-1', title: 'Dataset delivery', snippet: 'Ready', issueId: id, updatedAt };
+  expect(SearchOutput.parse({ results: [result] })).toEqual({ results: [result] });
+  expect(SearchOutput.parse({ results: [] })).toEqual({ results: [] });
+  for (const kind of kinds) {
+    expect(SearchOutput.safeParse({ results: [{ kind, id: 'result-1', title: 'Result', snippet: '', updatedAt: '2026-10-21T16:00:00Z' }] }).success).toBe(true);
+  }
+  for (const patch of [
+    { kind: 'unknown' }, { id: '' }, { id: ' ' }, { title: '' }, { title: ' ' },
+    { snippet: 'x'.repeat(1025) }, { issueId: 'invalid' },
+    { updatedAt: '2026-10-21T18:00:00' }, { updatedAt: '2026-02-30T18:00:00Z' }, { extra: true },
+  ]) {
+    expect(SearchOutput.safeParse({ results: [{ ...result, ...patch }] }).success).toBe(false);
+  }
+  expect(SearchOutput.safeParse({ results: [{ ...result, snippet: 'x'.repeat(1024) }] }).success).toBe(true);
+  expect(SearchOutput.safeParse({ results: Array.from({ length: 50 }, () => result) }).success).toBe(true);
+  expect(SearchOutput.safeParse({ results: Array.from({ length: 51 }, () => result) }).success).toBe(false);
+  expect(SearchOutput.safeParse({ results: [], extra: true }).success).toBe(false);
+
+  expect(Activity.parse({})).toEqual({});
+  const activity = { issueId: id, since: updatedAt, limit: 100 };
+  expect(Activity.parse(activity)).toEqual(activity);
+  expect(Activity.safeParse({ since: '2026-10-21T16:00:00Z', limit: 1 }).success).toBe(true);
+  for (const input of [
+    { issueId: 'invalid' }, { since: '2026-10-21T18:00:00' }, { since: '2026-02-30T18:00:00Z' },
+    { limit: 0 }, { limit: 101 }, { limit: 1.5 },
+  ]) {
+    expect(Activity.safeParse(input).success).toBe(false);
+  }
+  const event = { id: 'event-1', type: 'issue.updated', actorAgentId: id, issueId: id, summary: 'Ready', createdAt: updatedAt };
+  expect(ActivityOutput.parse({ events: [event] })).toEqual({ events: [event] });
+  expect(ActivityOutput.parse({ events: [] })).toEqual({ events: [] });
+  expect(ActivityOutput.safeParse({ events: [{ ...event, actorAgentId: null, issueId: null, summary: '', createdAt: '2026-10-21T16:00:00Z' }] }).success).toBe(true);
+  expect(ActivityOutput.safeParse({ events: [{ ...event, summary: 'x'.repeat(1024) }] }).success).toBe(true);
+  for (const patch of [
+    { id: '' }, { type: ' ' }, { actorAgentId: 'invalid' }, { actorAgentId: undefined },
+    { issueId: 'invalid' }, { issueId: undefined }, { summary: 'x'.repeat(1025) },
+    { createdAt: '2026-10-21T18:00:00' }, { createdAt: '2026-02-30T18:00:00Z' }, { extra: true },
+  ]) {
+    expect(ActivityOutput.safeParse({ events: [{ ...event, ...patch }] }).success).toBe(false);
+  }
+  expect(ActivityOutput.safeParse({ events: Array.from({ length: 100 }, () => event) }).success).toBe(true);
+  expect(ActivityOutput.safeParse({ events: Array.from({ length: 101 }, () => event) }).success).toBe(false);
+  expect(ActivityOutput.safeParse({ events: [], extra: true }).success).toBe(false);
+});
+it('rejects extra fields in read-only tool inputs', () => {
+  expect(Search.safeParse({ query: 'delivery', companyId: id }).success).toBe(false);
+  expect(Activity.safeParse({ companyId: id }).success).toBe(false);
+});
+it('rejects duplicate search kinds', () => {
+  expect(Search.safeParse({ query: 'delivery', kinds: ['issue', 'issue'] }).success).toBe(false);
+});
 it('validates native operations without accepting caller-chosen identity', () => {
   for (const [schema, value] of [[Queue, { statuses: ['todo'], limit: 10 }], [Issue, { issueId: id }],
     [Take, { issueId: id, expectedStatuses: ['todo'] }], [Assign, { issueId: id, roleRef: 'reviewer' }]] as const) {
@@ -110,7 +284,7 @@ const buInput = () => ({
   requestId: 'birth-bu-research-1', tenantId: 'tenant-1', ownerId: 'owner-1',
   company: { companyId: 'company-1', name: 'Company One' },
   businessUnit: {
-    slug: 'research', name: 'Research', briefSection: 'Research the market.',
+    slug: 'research', typeId: 'ricerca-mercato', name: 'Research', briefSection: 'Research the market.',
     competencies: ['market research'],
     referents: [{ referentRef: 'anna-rossi', name: 'Anna Rossi', role: 'Head of Research', email: 'anna@example.com' }],
   },
@@ -134,6 +308,8 @@ it('validates create-business-unit input and rejects extra fields and blank unit
   expect(CreateBu.safeParse({ ...buInput(), unitName: ' ' }).success).toBe(false);
   const { unitName: _unitName, ...missing } = buInput();
   expect(CreateBu.safeParse(missing).success).toBe(false);
+  const { typeId: _typeId, ...unitWithoutType } = buInput().businessUnit;
+  expect(CreateBu.safeParse({ ...buInput(), businessUnit: unitWithoutType }).success).toBe(false);
   const { referents: _referents, ...unitWithoutReferents } = buInput().businessUnit;
   expect(CreateBu.safeParse({ ...buInput(), businessUnit: unitWithoutReferents }).success).toBe(false);
 });

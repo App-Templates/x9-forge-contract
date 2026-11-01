@@ -21,6 +21,10 @@ export declare const forgeMasterModelAuthorityContract: {
         sourceVersion: z.ZodString;
         observedAt: z.ZodISODateTime;
         validUntil: z.ZodISODateTime;
+        effectiveModel: z.ZodOptional<z.ZodObject<{
+            provider: z.ZodString;
+            model: z.ZodString;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;

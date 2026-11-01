@@ -5,7 +5,7 @@ import { AgentWorkspaceAttestationSchema } from '../../agent/agent-workspace-att
 import { AgentRuntimeIdentitySchema, AgentRuntimeIdentitiesSchema } from '../../agent/agent-runtime-identity.js';
 import { AgentRuntimeSnapshotSchema } from '../../agent/agent-runtime-state.js';
 import type { AgentRuntimeState } from '../../agent/agent-runtime-state.js';
-import { AgentContextIdentitySchema } from '../../agent/agent-context-identity.js';
+import { AgentContextIdentitySchema, AgentTenantIdSchema } from '../../agent/agent-context-identity.js';
 import type { AgentContextIdentity } from '../../agent/agent-context-identity.js';
 import { AgentRuntimeSourceSchema } from '../../agent/agent-runtime-source.js';
 
@@ -82,6 +82,8 @@ export const ListAgentsAgentSchema = z.object({
   agentId: z.string().min(1),
   displayName: z.string(),
   ownerId: z.string(),
+  /** Explicit tenant of the agent; absent = legacy row or agent without company membership, never derived. */
+  tenantId: AgentTenantIdSchema.optional(),
   // Phase 22 — additive-optional runtime status (agent-core enriched).
   runtimeStatus: RuntimeAgentStatusSchema.optional(),
   loaded: z.boolean().optional(),
@@ -99,6 +101,9 @@ export const ListAgentsAgentSchema = z.object({
 }).superRefine((agent, ctx) => {
   if (agent.authority) {
     const declared = agent.authority;
+    if (agent.tenantId !== undefined && agent.tenantId !== declared.tenantId) {
+      ctx.addIssue({ code: 'custom', path: ['tenantId'], message: 'Explicit tenant must match the declared authority' });
+    }
     if (declared.agentId !== agent.agentId || declared.ownerId !== agent.ownerId) {
       ctx.addIssue({ code: 'custom', path: ['authority'], message: 'Declared authority must match the inventory owner and runtime agent' });
     }
