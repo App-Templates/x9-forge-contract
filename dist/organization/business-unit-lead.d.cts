@@ -16,6 +16,8 @@ export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
     requestId: z.ZodString;
     tenantId: z.ZodString;
     ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+    /** Organization of the Director whose company map holds the referents; absent = the client company (as before). */
+    organizationId: z.ZodOptional<z.ZodString>;
     company: z.ZodObject<{
         companyId: z.ZodString;
         name: z.ZodString;

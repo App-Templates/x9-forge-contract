@@ -19,6 +19,8 @@ export const BusinessUnitLeadBirthRequestSchema = z.strictObject({
     requestId: z.string().min(1).max(128),
     tenantId: z.string().min(1),
     ownerId: OwnerIdSchema,
+    /** Organization of the Director whose company map holds the referents; absent = the client company (as before). */
+    organizationId: z.string().min(1).max(64).optional(),
     company: z.strictObject({
         companyId: z.string().min(1).max(64),
         name: z.string().min(1).max(120),

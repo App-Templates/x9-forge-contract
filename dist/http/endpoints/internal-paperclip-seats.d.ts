@@ -275,4 +275,207 @@ export declare const internalPaperclipSeatReplyWakeContract: {
 export type InternalPaperclipSeatReplyWakeRequest = z.infer<typeof InternalPaperclipSeatReplyWakeRequestSchema>;
 export type InternalPaperclipSeatReplyWakeResponse = z.infer<typeof InternalPaperclipSeatReplyWakeResponseSchema>;
 export type PaperclipSeatReplyWakeResult = z.infer<typeof PaperclipSeatReplyWakeResultSchema>;
+export declare const INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH: "/internal/paperclip/seats/native-wake";
+export declare const PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES: readonly ["request", "reply", "decision"];
+export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"email">;
+    messageId: z.ZodString;
+    threadKey: z.ZodString;
+    mode: z.ZodEnum<{
+        reply: "reply";
+        decision: "decision";
+        request: "request";
+    }>;
+    from: z.ZodString;
+    subject: z.ZodString;
+    receivedAt: z.ZodISODateTime;
+    excerpt: z.ZodString;
+    attachments: z.ZodArray<z.ZodObject<{
+        name: z.ZodString;
+        contentType: z.ZodString;
+        size: z.ZodInt;
+    }, z.core.$strict>>;
+    decision: z.ZodOptional<z.ZodObject<{
+        requestId: z.ZodString;
+        outcome: z.ZodUnion<[z.ZodLiteral<"approved">, z.ZodLiteral<"rejected">]>;
+    }, z.core.$strict>>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"research_done">;
+    researchId: z.ZodString;
+    state: z.ZodEnum<{
+        failed: "failed";
+        completed: "completed";
+        queued: "queued";
+        running: "running";
+        budget_exhausted: "budget_exhausted";
+    }>;
+    question: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"dev_delivered">;
+    sessionIssue: z.ZodNumber;
+    commit: z.ZodString;
+    projectId: z.ZodString;
+}, z.core.$strict>], "kind">;
+export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    eventId: z.ZodString;
+    organizationId: z.ZodOptional<z.ZodString>;
+    identity: z.ZodOptional<z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>>;
+    event: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"email">;
+        messageId: z.ZodString;
+        threadKey: z.ZodString;
+        mode: z.ZodEnum<{
+            reply: "reply";
+            decision: "decision";
+            request: "request";
+        }>;
+        from: z.ZodString;
+        subject: z.ZodString;
+        receivedAt: z.ZodISODateTime;
+        excerpt: z.ZodString;
+        attachments: z.ZodArray<z.ZodObject<{
+            name: z.ZodString;
+            contentType: z.ZodString;
+            size: z.ZodInt;
+        }, z.core.$strict>>;
+        decision: z.ZodOptional<z.ZodObject<{
+            requestId: z.ZodString;
+            outcome: z.ZodUnion<[z.ZodLiteral<"approved">, z.ZodLiteral<"rejected">]>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"research_done">;
+        researchId: z.ZodString;
+        state: z.ZodEnum<{
+            failed: "failed";
+            completed: "completed";
+            queued: "queued";
+            running: "running";
+            budget_exhausted: "budget_exhausted";
+        }>;
+        question: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"dev_delivered">;
+        sessionIssue: z.ZodNumber;
+        commit: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>], "kind">;
+}, z.core.$strict>;
+export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited"];
+export declare const PaperclipSeatNativeWakeResultSchema: z.ZodEnum<{
+    duplicate: "duplicate";
+    ambiguous: "ambiguous";
+    opened: "opened";
+    deferred: "deferred";
+    woken: "woken";
+    not_waiting: "not_waiting";
+    already_open: "already_open";
+    no_task: "no_task";
+    not_enabled: "not_enabled";
+    rate_limited: "rate_limited";
+}>;
+export declare const InternalPaperclipSeatNativeWakeResponseSchema: z.ZodObject<{
+    result: z.ZodEnum<{
+        duplicate: "duplicate";
+        ambiguous: "ambiguous";
+        opened: "opened";
+        deferred: "deferred";
+        woken: "woken";
+        not_waiting: "not_waiting";
+        already_open: "already_open";
+        no_task: "no_task";
+        not_enabled: "not_enabled";
+        rate_limited: "rate_limited";
+    }>;
+    issueId: z.ZodOptional<z.ZodUUID>;
+    commentId: z.ZodOptional<z.ZodUUID>;
+    runId: z.ZodOptional<z.ZodUUID>;
+}, z.core.$strict>;
+export declare const internalPaperclipSeatNativeWakeContract: {
+    readonly method: "POST";
+    readonly path: "/internal/paperclip/seats/native-wake";
+    readonly authType: "secret";
+    readonly bodySchema: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        eventId: z.ZodString;
+        organizationId: z.ZodOptional<z.ZodString>;
+        identity: z.ZodOptional<z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>>;
+        event: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"email">;
+            messageId: z.ZodString;
+            threadKey: z.ZodString;
+            mode: z.ZodEnum<{
+                reply: "reply";
+                decision: "decision";
+                request: "request";
+            }>;
+            from: z.ZodString;
+            subject: z.ZodString;
+            receivedAt: z.ZodISODateTime;
+            excerpt: z.ZodString;
+            attachments: z.ZodArray<z.ZodObject<{
+                name: z.ZodString;
+                contentType: z.ZodString;
+                size: z.ZodInt;
+            }, z.core.$strict>>;
+            decision: z.ZodOptional<z.ZodObject<{
+                requestId: z.ZodString;
+                outcome: z.ZodUnion<[z.ZodLiteral<"approved">, z.ZodLiteral<"rejected">]>;
+            }, z.core.$strict>>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"research_done">;
+            researchId: z.ZodString;
+            state: z.ZodEnum<{
+                failed: "failed";
+                completed: "completed";
+                queued: "queued";
+                running: "running";
+                budget_exhausted: "budget_exhausted";
+            }>;
+            question: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"dev_delivered">;
+            sessionIssue: z.ZodNumber;
+            commit: z.ZodString;
+            projectId: z.ZodString;
+        }, z.core.$strict>], "kind">;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        result: z.ZodEnum<{
+            duplicate: "duplicate";
+            ambiguous: "ambiguous";
+            opened: "opened";
+            deferred: "deferred";
+            woken: "woken";
+            not_waiting: "not_waiting";
+            already_open: "already_open";
+            no_task: "no_task";
+            not_enabled: "not_enabled";
+            rate_limited: "rate_limited";
+        }>;
+        issueId: z.ZodOptional<z.ZodUUID>;
+        commentId: z.ZodOptional<z.ZodUUID>;
+        runId: z.ZodOptional<z.ZodUUID>;
+    }, z.core.$strict>;
+};
+export type InternalPaperclipSeatNativeWakeRequest = z.infer<typeof InternalPaperclipSeatNativeWakeRequestSchema>;
+export type InternalPaperclipSeatNativeWakeResponse = z.infer<typeof InternalPaperclipSeatNativeWakeResponseSchema>;
+export type PaperclipSeatNativeWakeEvent = z.infer<typeof PaperclipSeatNativeWakeEventSchema>;
+export type PaperclipSeatNativeWakeResult = z.infer<typeof PaperclipSeatNativeWakeResultSchema>;
 //# sourceMappingURL=internal-paperclip-seats.d.ts.map

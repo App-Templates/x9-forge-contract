@@ -24,6 +24,8 @@ exports.BusinessUnitLeadBirthRequestSchema = zod_1.z.strictObject({
     requestId: zod_1.z.string().min(1).max(128),
     tenantId: zod_1.z.string().min(1),
     ownerId: agent_identity_js_1.OwnerIdSchema,
+    /** Organization of the Director whose company map holds the referents; absent = the client company (as before). */
+    organizationId: zod_1.z.string().min(1).max(64).optional(),
     company: zod_1.z.strictObject({
         companyId: zod_1.z.string().min(1).max(64),
         name: zod_1.z.string().min(1).max(120),
