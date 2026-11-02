@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.86.0 — sveglia nativa da evento, lab_ingest per researchId, organizzazione nella nascita della BU, bozza del piano; additivo
+
+- `@x9-forge/contracts/http`: `INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH` (`POST /internal/paperclip/seats/native-wake`, segreto interno), `InternalPaperclipSeatNativeWakeRequestSchema` (scope, `eventId` di idempotenza, organizzazione e identità, evento `email` | `research_done` | `dev_delivered`), `PaperclipSeatNativeWakeEventSchema`, `InternalPaperclipSeatNativeWakeResponseSchema` (esiti `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS`), `internalPaperclipSeatNativeWakeContract` e i tipi; consumer: X9 cap-paperclip (apre l'incarico o commenta e sveglia con `POST /api/agents/{id}/wakeup` `automation`/`callback` di Paperclip), cap-email, cap-ricerca, cap-dev.
+- `@x9-forge/contracts/http`: `INTERNAL_RICERCA_RESULT_PATH` (`POST /internal/capability/ricerca/result`), richiesta, risposta solo `completed`, errori, `internalRicercaResultContract`; `@x9-forge/contracts/capability/lab`: `LabIngestInputSchema` accetta anche `{ researchId }`; consumer: X9 cap-ricerca e cap-lab.
+- `@x9-forge/contracts/organization`: `BusinessUnitLeadBirthRequestSchema.organizationId` facoltativo (organizzazione della mappa aziendale); consumer: X9 cap-paperclip, Forge factory.
+- `@x9-forge/contracts/organization`: `ActionPlanDraftSchema` e `ActionPlanDraft` (piano senza `digest`, tenant e organizzazione, `planId`/`version` facoltativi); consumer: X9 cap-email.
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
 ## v1.85.0 — sveglia del capo sul Mandato quando arriva una risposta email, additivo
 
 - `@x9-forge/contracts/http` esporta in più `INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH` (`POST /internal/paperclip/seats/reply-wake`, segreto interno), `InternalPaperclipSeatReplyWakeRequestSchema` (organizzazione, identità del posto, `messageId` come chiave di idempotenza), `InternalPaperclipSeatReplyWakeResponseSchema` (esiti `PAPERCLIP_SEAT_REPLY_WAKE_RESULTS`: `woken`, `skipped`, `duplicate`, `not_waiting`, `no_mandate`, `ambiguous`), `internalPaperclipSeatReplyWakeContract` e i tipi; nessuno schema esistente cambia; consumer: X9 cap-email (chiama dopo il turno email del capo) e cap-paperclip (sveglia con `POST /api/agents/{id}/heartbeat/invoke` di Paperclip).

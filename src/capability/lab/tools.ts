@@ -1,17 +1,17 @@
 import { z } from 'zod';
 import { AssetRefSchema, AssetSha256Schema } from '../../organization/asset.js';
 import { KnowledgePublicationSchema } from '../../organization/knowledge-publication.js';
-import { LabGapsRefSchema, ResearchResultSchema, ResearchStateSchema } from '../ricerca/research.js';
+import { LabGapsRefSchema, ResearchIdSchema, ResearchResultSchema, ResearchStateSchema } from '../ricerca/research.js';
 import { CompetenceGapSchema, CompetenceNodeViewSchema } from './competence.js';
 import { WikiClaimSchema, WikiPageSchema } from './wiki.js';
 
 /**
  * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
- * `lab_ingest` takes a cap-ricerca result or an asset reference with already-read text excerpts.
+ * `lab_ingest` takes a cap-ricerca result, its `researchId` (the service reads it from cap-ricerca), or a document.
  */
 export const LAB_TOOLS = {
-  /** Queue a research result or document for digestion into raw sources, pages and claims. */
+  /** Queue a cap-ricerca result, its `researchId` (read by the service), or a document for digestion. */
   ingest: 'lab_ingest',
   /** State of a queued ingest, with final counts when completed. */
   ingestStatus: 'lab_ingest_status',
@@ -46,6 +46,7 @@ export const LabIngestDocumentSchema = z.strictObject({
 export const LabIngestInputSchema = z.union([
   z.object({ result: ResearchResultSchema }).strict(),
   z.object({ document: LabIngestDocumentSchema }).strict(),
+  z.object({ researchId: ResearchIdSchema }).strict(),
 ]);
 export const LabIngestOutputSchema = z.object({
   ingestId: LabIngestIdSchema,

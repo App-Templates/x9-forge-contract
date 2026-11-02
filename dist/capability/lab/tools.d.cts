@@ -2,10 +2,10 @@ import { z } from 'zod';
 /**
  * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
- * `lab_ingest` takes a cap-ricerca result or an asset reference with already-read text excerpts.
+ * `lab_ingest` takes a cap-ricerca result, its `researchId` (the service reads it from cap-ricerca), or a document.
  */
 export declare const LAB_TOOLS: {
-    /** Queue a research result or document for digestion into raw sources, pages and claims. */
+    /** Queue a cap-ricerca result, its `researchId` (read by the service), or a document for digestion. */
     readonly ingest: "lab_ingest";
     /** State of a queued ingest, with final counts when completed. */
     readonly ingestStatus: "lab_ingest_status";
@@ -151,6 +151,8 @@ export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
         title: z.ZodString;
         excerpts: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    researchId: z.ZodString;
 }, z.core.$strict>]>;
 export declare const LabIngestOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;

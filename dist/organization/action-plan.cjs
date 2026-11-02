@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompleteActionPlanSchema = exports.ActionPlanSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
 exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
@@ -142,6 +142,11 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
     }),
     opportunities: zod_1.z.array(TextSchema).optional(),
     referentProposals: zod_1.z.array(exports.ActionPlanReferentProposalSchema).max(20).refine((proposals) => new Set(proposals.map((p) => JSON.stringify([p.level, p.buSlug ?? '', p.personRef]))).size === proposals.length, { message: 'Referent proposals must be unique per level, business unit and person' }).optional(),
+});
+/** The plan as the Director writes it: the service adds digest, tenant and organization (and planId/version when absent). */
+exports.ActionPlanDraftSchema = exports.ActionPlanSchema.omit({ digest: true, tenantId: true, organizationId: true }).extend({
+    planId: exports.ActionPlanSchema.shape.planId.optional(),
+    version: exports.ActionPlanSchema.shape.version.optional(),
 });
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 exports.CompleteActionPlanSchema = exports.ActionPlanSchema.extend({

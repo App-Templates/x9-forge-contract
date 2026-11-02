@@ -162,6 +162,13 @@ export const ActionPlanSchema = z.strictObject({
 });
 export type ActionPlan = z.infer<typeof ActionPlanSchema>;
 
+/** The plan as the Director writes it: the service adds digest, tenant and organization (and planId/version when absent). */
+export const ActionPlanDraftSchema = ActionPlanSchema.omit({ digest: true, tenantId: true, organizationId: true }).extend({
+  planId: ActionPlanSchema.shape.planId.optional(),
+  version: ActionPlanSchema.shape.version.optional(),
+});
+export type ActionPlanDraft = z.infer<typeof ActionPlanDraftSchema>;
+
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 export const CompleteActionPlanSchema = ActionPlanSchema.extend({
   marketingPlan: z.strictObject({

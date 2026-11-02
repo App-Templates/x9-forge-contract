@@ -138,6 +138,11 @@ export const ActionPlanSchema = z.strictObject({
     opportunities: z.array(TextSchema).optional(),
     referentProposals: z.array(ActionPlanReferentProposalSchema).max(20).refine((proposals) => new Set(proposals.map((p) => JSON.stringify([p.level, p.buSlug ?? '', p.personRef]))).size === proposals.length, { message: 'Referent proposals must be unique per level, business unit and person' }).optional(),
 });
+/** The plan as the Director writes it: the service adds digest, tenant and organization (and planId/version when absent). */
+export const ActionPlanDraftSchema = ActionPlanSchema.omit({ digest: true, tenantId: true, organizationId: true }).extend({
+    planId: ActionPlanSchema.shape.planId.optional(),
+    version: ActionPlanSchema.shape.version.optional(),
+});
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 export const CompleteActionPlanSchema = ActionPlanSchema.extend({
     marketingPlan: z.strictObject({

@@ -10,10 +10,10 @@ const wiki_js_1 = require("./wiki.cjs");
 /**
  * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
- * `lab_ingest` takes a cap-ricerca result or an asset reference with already-read text excerpts.
+ * `lab_ingest` takes a cap-ricerca result, its `researchId` (the service reads it from cap-ricerca), or a document.
  */
 exports.LAB_TOOLS = {
-    /** Queue a research result or document for digestion into raw sources, pages and claims. */
+    /** Queue a cap-ricerca result, its `researchId` (read by the service), or a document for digestion. */
     ingest: 'lab_ingest',
     /** State of a queued ingest, with final counts when completed. */
     ingestStatus: 'lab_ingest_status',
@@ -42,6 +42,7 @@ exports.LabIngestDocumentSchema = zod_1.z.strictObject({
 exports.LabIngestInputSchema = zod_1.z.union([
     zod_1.z.object({ result: research_js_1.ResearchResultSchema }).strict(),
     zod_1.z.object({ document: exports.LabIngestDocumentSchema }).strict(),
+    zod_1.z.object({ researchId: research_js_1.ResearchIdSchema }).strict(),
 ]);
 exports.LabIngestOutputSchema = zod_1.z.object({
     ingestId: exports.LabIngestIdSchema,
