@@ -133,6 +133,25 @@ describe('internal memory assets contract', () => {
     ).toBe(true);
   });
 
+  it('accepts contentNotStored on file and archive responses and keeps it strict', () => {
+    const contentNotStored = { reason: 'company_quota', quotaBytes: 2147483648, usedBytes: 2147483000 };
+    const file = { kind: 'file', assetId: 'asset_000001', sha256: 'a'.repeat(64) };
+    const archive = {
+      kind: 'archive',
+      archiveAssetId: 'asset_000002',
+      entries: [{ assetId: 'asset_000003', path: 'a/logo.png', mediaType: 'image/png', preview: false }],
+      previewAssetId: null,
+    };
+    for (const body of [file, archive]) {
+      expect(InternalMemoryAssetIngestResponseSchema.safeParse(body).success).toBe(true);
+      expect(InternalMemoryAssetIngestResponseSchema.safeParse({ ...body, contentNotStored }).success).toBe(true);
+      expect(InternalMemoryAssetIngestResponseSchema.safeParse({ ...body, contentNotStored: { ...contentNotStored, reason: 'disk_full' } }).success).toBe(false);
+      expect(InternalMemoryAssetIngestResponseSchema.safeParse({ ...body, contentNotStored: { ...contentNotStored, usedBytes: -1 } }).success).toBe(false);
+      expect(InternalMemoryAssetIngestResponseSchema.safeParse({ ...body, contentNotStored: { ...contentNotStored, extra: 1 } }).success).toBe(false);
+      expect(InternalMemoryAssetIngestResponseSchema.safeParse({ ...body, unknown: 1 }).success).toBe(false);
+    }
+  });
+
   it('bounds the list limit to 1..200', () => {
     expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, limit: 1 }).success).toBe(true);
     expect(InternalMemoryAssetListRequestSchema.safeParse({ ...list, limit: 200 }).success).toBe(true);
