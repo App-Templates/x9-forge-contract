@@ -14,7 +14,7 @@ export const VideoBriefRequestSchema = z.object({
   presetId: VideoPresetIdSchema,
   mode: VideoModeSchema,
   budgetUsd: z.number().positive().finite(),
-  brief: z.string().min(1).max(20000),
+  brief: z.string().min(1).max(6000),
   externalRef: z.string().max(256).optional(),
 }).strict();
 export type VideoBriefRequest = z.infer<typeof VideoBriefRequestSchema>;

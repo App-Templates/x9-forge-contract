@@ -110,13 +110,13 @@ describe('video brief request', () => {
   it('accepts string lengths at their limits', () => {
     expect(VideoBriefRequestSchema.safeParse({ ...request, requestedBy: 'x', brief: 'x' }).success).toBe(true);
     expect(VideoBriefRequestSchema.safeParse({
-      ...request, requestedBy: 'x'.repeat(256), brief: 'x'.repeat(20000), externalRef: 'x'.repeat(256),
+      ...request, requestedBy: 'x'.repeat(256), brief: 'x'.repeat(6000), externalRef: 'x'.repeat(256),
     }).success).toBe(true);
   });
 
   it.each([
     { requestedBy: '' }, { requestedBy: 'x'.repeat(257) },
-    { brief: '' }, { brief: 'x'.repeat(20001) }, { externalRef: 'x'.repeat(257) },
+    { brief: '' }, { brief: 'x'.repeat(6001) }, { externalRef: 'x'.repeat(257) },
   ])('rejects string lengths outside their limits (%#)', (invalidFields) => {
     expect(VideoBriefRequestSchema.safeParse({ ...request, ...invalidFields }).success).toBe(false);
   });

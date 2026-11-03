@@ -1,8 +1,8 @@
 /**
  * cap-video contracts — sub-path `@x9-forge/contracts/capability/video`.
  *
- * Approved video briefs and project creation responses scoped to one tenant, owner and agent.
- * Presets, providers and business units remain consumer choices.
+ * Approved briefs, decided engine jobs and project reads scoped to one tenant, owner and agent.
+ * The TypeScript facade resolves presets, budgets and production settings before calling the engine.
  *
  * Consumers (planned): agent-x9 services/cap-video (facade), Officina video engine (project creation).
  *
@@ -22,3 +22,13 @@ export {
   type VideoProjectState,
   type VideoBriefResponse,
 } from './brief.js';
+export {
+  VideoEngineSettingsSchema,
+  VideoEngineJobSchema,
+  VideoEngineJobResponseSchema,
+  VideoProjectGetRequestSchema,
+  type VideoEngineSettings,
+  type VideoEngineJob,
+  type VideoEngineJobResponse,
+  type VideoProjectGetRequest,
+} from './engine.js';

@@ -12,7 +12,7 @@ exports.VideoBriefRequestSchema = zod_1.z.object({
     presetId: exports.VideoPresetIdSchema,
     mode: exports.VideoModeSchema,
     budgetUsd: zod_1.z.number().positive().finite(),
-    brief: zod_1.z.string().min(1).max(20000),
+    brief: zod_1.z.string().min(1).max(6000),
     externalRef: zod_1.z.string().max(256).optional(),
 }).strict();
 exports.VideoProjectIdSchema = zod_1.z.string().min(1).max(100);
