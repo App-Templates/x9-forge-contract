@@ -7,6 +7,8 @@
 - `@x9-forge/contracts/http`: `devBusinessUnitProjectEnableContract` (piattaforma → cap-dev, abilita un capo BU alle sessioni per un progetto); `@x9-forge/contracts/capability/dev`: `production.session` facoltativa in `DevAgentConfigSchema`. Consumer: X9 cap-dev e cap-paperclip; Forge solo in lettura (pannello).
 - `@x9-forge/contracts/capability/dev`: `session-material-link` (percorso `/dev/materiali/:chiave`, link firmato per materiale, sezione dell'incarico). Consumer: X9 cap-dev ed esecutore del portatile.
 
+Contiene anche la v1.87.0 dell'Officina (capacità video, `@x9-forge/contracts/capability/video` e contratti del motore), unita da `main` nel rilascio 053: le due righe di sviluppo, entrambe additive, sono ora una sola.
+
 Nessuno schema esistente si stringe; i corpi di oggi restano validi.
 
 ## v1.89.0 — chiave FIGMA_TOKEN per agente; additivo
@@ -29,6 +31,13 @@ Nessuno schema esistente si stringe; i corpi di oggi restano validi.
 - `@x9-forge/contracts/vault`: `PLATFORM_INTERNAL_CREDENTIAL_KEYS` elenca anche `CONNECT_BITBUCKET_CLIENT_ID/SECRET` e `CONNECT_FIGMA_CLIENT_ID/SECRET` (solo il servizio Connessioni; mai proiettate in un agente).
 
 Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.87.0 (Officina) — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
+
+- `@x9-forge/contracts/capability/video`: subpath nuovo con `VideoBriefRequestSchema`, `VideoBriefResponseSchema`, `VideoProviderSchema`, `VideoEngineSettingsSchema`, `VideoEngineJobSchema`, `VideoEngineJobResponseSchema`, `VideoProjectGetRequestSchema` e i tipi; consumer: agent-x9 `services/cap-video`, motore Officina.
+- `@x9-forge/contracts/http` (`./http`): `officinaVideoJobContract` (POST `/api/jobs`) e `officinaVideoHealthContract` (GET `/api/health`) per il motore Officina.
+- Catalogo dei contratti portabili: voci `videoEngineJob` e `videoEngineJobResponse`, validate dal modulo Python generato da `pnpm build` (`validate_contract`); nessuno schema JSON a parte.
+- Catalogo portabile: trasporti `videoEngineJob` e `videoEngineHealth` con metodo, indirizzo e intestazione di autenticazione `INTERNAL_SECRET_HEADER` per il motore Python.
 
 ## v1.86.0 — sveglia nativa da evento, lab_ingest per researchId, organizzazione nella nascita della BU, bozza del piano; additivo
 
