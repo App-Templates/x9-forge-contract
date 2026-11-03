@@ -6,3 +6,4 @@ export * from './production-config-match.js';
 export * from './production-progress.js';
 export * from './production-artifact-content.js';
 export * from './session-assignment.js';
+export * from './session-material-link.js';
