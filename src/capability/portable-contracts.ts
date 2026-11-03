@@ -9,6 +9,7 @@ import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleReq
 import { agentOrdinaryAuthorityContract } from '../http/endpoints/internal-agents-ordinary-authority.js';
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from '../http/endpoints/internal-capability-agent.js';
 import { capToolCallContract } from '../http/endpoints/cap-tool-call.js';
+import { officinaVideoJobContract, officinaVideoHealthContract } from '../http/endpoints/officina-video.js';
 import { INTERNAL_SECRET_HEADER } from '../auth/auth-headers.js';
 
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
@@ -151,13 +152,14 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   for (const name of ['lifecycleRequest', 'lifecycleReceipt', 'lifecycleTransaction', 'lifecycleAuthority']) {
     contracts[name]!.limitations = ['Only null or frozen configurations with zero parameters; durable effects and reconciliation are consumer-owned'];
   }
-  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract) => ({
+  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract) => ({
     method: contract.method, path: contract.path, authHeader: INTERNAL_SECRET_HEADER, paramsSchema: z.toJSONSchema(contract.paramsSchema),
   });
   return { format: 'x9-capability-portable-v1', contracts, transports: {
     authority: { ...transport(agentOrdinaryAuthorityContract), queryContract: 'authorityQuery' },
     ordinaryGet: { ...transport(ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
     lifecycle: transport(ordinaryCapabilityLifecyclePutContract), call: transport(capToolCallContract),
+    videoEngineJob: transport(officinaVideoJobContract), videoEngineHealth: transport(officinaVideoHealthContract),
   } };
 }
 

@@ -17,6 +17,7 @@ const ordinary_lifecycle_js_1 = require("./ordinary-lifecycle.cjs");
 const internal_agents_ordinary_authority_js_1 = require("../http/endpoints/internal-agents-ordinary-authority.cjs");
 const internal_capability_agent_js_1 = require("../http/endpoints/internal-capability-agent.cjs");
 const cap_tool_call_js_1 = require("../http/endpoints/cap-tool-call.cjs");
+const officina_video_js_1 = require("../http/endpoints/officina-video.cjs");
 const auth_headers_js_1 = require("../auth/auth-headers.cjs");
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
 const snapshot = ordinary_configuration_js_1.CapabilityOrdinaryCallSnapshotSchema.safeExtend({ values: zod_1.z.record(parameters_js_1.CapabilityParameterKeySchema, parameters_js_1.CapabilityParameterValueSchema) });
@@ -142,6 +143,7 @@ function getPortableCapabilityContracts() {
             authority: { ...transport(internal_agents_ordinary_authority_js_1.agentOrdinaryAuthorityContract), queryContract: 'authorityQuery' },
             ordinaryGet: { ...transport(internal_capability_agent_js_1.ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
             lifecycle: transport(internal_capability_agent_js_1.ordinaryCapabilityLifecyclePutContract), call: transport(cap_tool_call_js_1.capToolCallContract),
+            videoEngineJob: transport(officina_video_js_1.officinaVideoJobContract), videoEngineHealth: transport(officina_video_js_1.officinaVideoHealthContract),
         } };
 }
 function at(value, path) {

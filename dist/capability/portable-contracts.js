@@ -9,6 +9,7 @@ import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleReq
 import { agentOrdinaryAuthorityContract } from "../http/endpoints/internal-agents-ordinary-authority.js";
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from "../http/endpoints/internal-capability-agent.js";
 import { capToolCallContract } from "../http/endpoints/cap-tool-call.js";
+import { officinaVideoJobContract, officinaVideoHealthContract } from "../http/endpoints/officina-video.js";
 import { INTERNAL_SECRET_HEADER } from "../auth/auth-headers.js";
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
 const snapshot = CapabilityOrdinaryCallSnapshotSchema.safeExtend({ values: z.record(CapabilityParameterKeySchema, CapabilityParameterValueSchema) });
@@ -134,6 +135,7 @@ export function getPortableCapabilityContracts() {
             authority: { ...transport(agentOrdinaryAuthorityContract), queryContract: 'authorityQuery' },
             ordinaryGet: { ...transport(ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
             lifecycle: transport(ordinaryCapabilityLifecyclePutContract), call: transport(capToolCallContract),
+            videoEngineJob: transport(officinaVideoJobContract), videoEngineHealth: transport(officinaVideoHealthContract),
         } };
 }
 function at(value, path) {
