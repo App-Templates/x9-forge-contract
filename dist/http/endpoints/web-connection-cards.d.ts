@@ -11,6 +11,8 @@ export declare const WebConnectionCardsResponseSchema: z.ZodObject<{
             cardId: z.ZodString;
             provider: z.ZodEnum<{
                 google: "google";
+                bitbucket: "bitbucket";
+                figma: "figma";
             }>;
             permissions: z.ZodArray<z.ZodEnum<{
                 calendar_events: "calendar_events";
@@ -19,6 +21,8 @@ export declare const WebConnectionCardsResponseSchema: z.ZodObject<{
                 mail_draft: "mail_draft";
                 mail_read: "mail_read";
                 drive_read: "drive_read";
+                code_read: "code_read";
+                design_read: "design_read";
             }>>;
             url: z.ZodString;
             expiresAt: z.ZodNumber;
@@ -51,6 +55,8 @@ export declare const webConnectionCardsContract: {
                 cardId: z.ZodString;
                 provider: z.ZodEnum<{
                     google: "google";
+                    bitbucket: "bitbucket";
+                    figma: "figma";
                 }>;
                 permissions: z.ZodArray<z.ZodEnum<{
                     calendar_events: "calendar_events";
@@ -59,6 +65,8 @@ export declare const webConnectionCardsContract: {
                     mail_draft: "mail_draft";
                     mail_read: "mail_read";
                     drive_read: "drive_read";
+                    code_read: "code_read";
+                    design_read: "design_read";
                 }>>;
                 url: z.ZodString;
                 expiresAt: z.ZodNumber;

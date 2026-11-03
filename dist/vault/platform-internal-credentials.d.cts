@@ -23,10 +23,14 @@
  *   the public key (`approvalKeysContract`), so the key must never be projected into any agent.
  * - `CONNECT_GOOGLE_CLIENT_ID` — Google OAuth client id, solo il servizio Connessioni.
  * - `CONNECT_GOOGLE_CLIENT_SECRET` — Google OAuth client secret, solo il servizio Connessioni.
+ * - `CONNECT_BITBUCKET_CLIENT_ID` — Bitbucket OAuth client id, only Connessioni; never projected into an agent.
+ * - `CONNECT_BITBUCKET_CLIENT_SECRET` — Bitbucket OAuth client secret, only Connessioni; never projected into an agent.
+ * - `CONNECT_FIGMA_CLIENT_ID` — Figma OAuth client id, only Connessioni; never projected into an agent.
+ * - `CONNECT_FIGMA_CLIENT_SECRET` — Figma OAuth client secret, only Connessioni; never projected into an agent.
  * - `CONNECT_VAULT_SECRET` — segreto del servizio Connessioni verso il Vault; mai proiettato in un agente.
  * - `RICERCA_DATABASE_URL` — connessione Postgres di cap-ricerca, solo quel servizio; mai proiettata in un agente.
  */
-export declare const PLATFORM_INTERNAL_CREDENTIAL_KEYS: readonly ["TELEGRAM_SESSION_STRING", "APPROVALS_SIGNING_KEY", "CONNECT_GOOGLE_CLIENT_ID", "CONNECT_GOOGLE_CLIENT_SECRET", "CONNECT_VAULT_SECRET", "AGENT_CREDENTIAL_VAULT_SECRET", "RICERCA_DATABASE_URL"];
+export declare const PLATFORM_INTERNAL_CREDENTIAL_KEYS: readonly ["TELEGRAM_SESSION_STRING", "APPROVALS_SIGNING_KEY", "CONNECT_GOOGLE_CLIENT_ID", "CONNECT_GOOGLE_CLIENT_SECRET", "CONNECT_BITBUCKET_CLIENT_ID", "CONNECT_BITBUCKET_CLIENT_SECRET", "CONNECT_FIGMA_CLIENT_ID", "CONNECT_FIGMA_CLIENT_SECRET", "CONNECT_VAULT_SECRET", "AGENT_CREDENTIAL_VAULT_SECRET", "RICERCA_DATABASE_URL"];
 export type PlatformInternalCredentialKey = (typeof PLATFORM_INTERNAL_CREDENTIAL_KEYS)[number];
 export declare function isPlatformInternalCredentialKey(key: string): key is PlatformInternalCredentialKey;
 /** Copy of `credentials` without platform-internal keys (input untouched). */

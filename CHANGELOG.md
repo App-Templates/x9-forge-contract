@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.87.0 — chiave BITBUCKET_TOKEN, fornitori Bitbucket e Figma per le Connessioni; additivo
+
+- `@x9-forge/contracts/agent`: `BITBUCKET_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `bitbucket` con etichetta «Token Bitbucket (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».
+- `@x9-forge/contracts/capability`: `ConnectProviderSchema` accetta anche `bitbucket` e `figma`; `ConnectScopeSchema` accetta anche `code_read` e `design_read`; `CONNECT_PROVIDER_SCOPES` (permessi di ogni fornitore) e `ConnectStartRequestSchema` rifiuta permessi che non sono del fornitore; `CONNECT_INVITE_LIMITS` (invito per email valido 7 giorni); consumer: X9 cap-connect e cap-dev, Forge Vault e pannello «Connessioni».
+- `@x9-forge/contracts/vault`: `PLATFORM_INTERNAL_CREDENTIAL_KEYS` elenca anche `CONNECT_BITBUCKET_CLIENT_ID/SECRET` e `CONNECT_FIGMA_CLIENT_ID/SECRET` (solo il servizio Connessioni; mai proiettate in un agente).
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
 ## v1.86.0 — sveglia nativa da evento, lab_ingest per researchId, organizzazione nella nascita della BU, bozza del piano; additivo
 
 - `@x9-forge/contracts/http`: `INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH` (`POST /internal/paperclip/seats/native-wake`, segreto interno), `InternalPaperclipSeatNativeWakeRequestSchema` (scope, `eventId` di idempotenza, organizzazione e identità, evento `email` | `research_done` | `dev_delivered`), `PaperclipSeatNativeWakeEventSchema`, `InternalPaperclipSeatNativeWakeResponseSchema` (esiti `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS`), `internalPaperclipSeatNativeWakeContract` e i tipi; consumer: X9 cap-paperclip (apre l'incarico o commenta e sveglia con `POST /api/agents/{id}/wakeup` `automation`/`callback` di Paperclip), cap-email, cap-ricerca, cap-dev.

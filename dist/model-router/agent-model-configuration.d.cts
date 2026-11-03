@@ -52,6 +52,7 @@ export declare const AgentContextWithModelsSchema: z.ZodObject<{
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -370,6 +371,7 @@ export declare const AgentContextWithModelsWriteSchema: z.ZodObject<{
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -688,6 +690,7 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -1019,6 +1022,7 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -1352,6 +1356,7 @@ export declare const AgentContextWithModelProvenanceSchema: z.ZodIntersection<z.
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -1668,6 +1673,7 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -1999,6 +2005,7 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -2332,6 +2339,7 @@ export declare const AgentContextWithModelProvenanceWriteSchema: z.ZodIntersecti
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;

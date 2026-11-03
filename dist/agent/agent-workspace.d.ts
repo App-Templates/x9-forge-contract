@@ -3275,6 +3275,7 @@ export declare const AgentContextWithWorkspaceSchema: z.ZodObject<{
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;
@@ -5131,6 +5132,7 @@ export declare const AgentContextWithWorkspaceWriteSchema: z.ZodObject<{
         GITHUB_APP_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_INSTALLATION_ID: z.ZodOptional<z.ZodString>;
         GITHUB_APP_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
+        BITBUCKET_TOKEN: z.ZodOptional<z.ZodString>;
         DEV_SIGNING_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
         PAPERCLIP_API_KEY: z.ZodOptional<z.ZodString>;
     }, z.core.$catchall<z.ZodString>>;

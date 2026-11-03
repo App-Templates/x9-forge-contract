@@ -2,6 +2,8 @@ import { z } from 'zod';
 /** Providers a person can connect (provider list is configuration; Google first). */
 export declare const ConnectProviderSchema: z.ZodEnum<{
     google: "google";
+    bitbucket: "bitbucket";
+    figma: "figma";
 }>;
 /** A supported connection provider. */
 export type ConnectProvider = z.infer<typeof ConnectProviderSchema>;
@@ -13,13 +15,25 @@ export declare const ConnectScopeSchema: z.ZodEnum<{
     mail_draft: "mail_draft";
     mail_read: "mail_read";
     drive_read: "drive_read";
+    code_read: "code_read";
+    design_read: "design_read";
 }>;
 /** A supported connection permission. */
 export type ConnectScope = z.infer<typeof ConnectScopeSchema>;
+/** Permissions available from each connection provider. */
+export declare const CONNECT_PROVIDER_SCOPES: {
+    readonly google: readonly ["calendar_events", "contacts_read", "mail_send", "mail_draft", "mail_read", "drive_read"];
+    readonly bitbucket: readonly ["code_read"];
+    readonly figma: readonly ["design_read"];
+};
 /** One-time link limits: the link expires in 10 minutes. */
 export declare const CONNECT_LINK_LIMITS: {
     readonly ttlSeconds: 600;
     readonly stateBytes: 32;
+};
+/** Email invitation lifetime: seven days until the connection succeeds. */
+export declare const CONNECT_INVITE_LIMITS: {
+    readonly ttlSeconds: 604800;
 };
 /** Maximum lifetime of a tool permit, in seconds. */
 export declare const CONNECT_PERMIT_MAX_TTL_SECONDS = 3600;
@@ -30,6 +44,8 @@ export declare const ConnectStartRequestSchema: z.ZodObject<{
     conversationId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
     scopes: z.ZodArray<z.ZodEnum<{
         calendar_events: "calendar_events";
@@ -38,6 +54,8 @@ export declare const ConnectStartRequestSchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
 }, z.core.$strict>;
 /** One-time https link, or an explicit failure reason. */
@@ -61,6 +79,8 @@ export declare const ConnectStateResponseSchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
     status: z.ZodEnum<{
         connected: "connected";
@@ -76,6 +96,8 @@ export declare const ConnectStateResponseSchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
     connectedAt: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
@@ -84,6 +106,8 @@ export declare const ConnectRevokeRequestSchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
 }, z.core.$strict>;
 /** Revocation result. */
@@ -101,6 +125,8 @@ export declare const ConnectToolPermitSchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
     scopes: z.ZodArray<z.ZodEnum<{
         calendar_events: "calendar_events";
@@ -109,6 +135,8 @@ export declare const ConnectToolPermitSchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
     issuedAt: z.ZodNumber;
     expiresAt: z.ZodNumber;
