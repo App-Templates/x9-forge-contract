@@ -131,10 +131,11 @@
   },
   "files": [
     "dist",
+    "schemas",
     "README.md"
   ],
   "scripts": {
-    "build": "zshy && node scripts/check-portable-dts.mjs",
+    "build": "zshy && node scripts/check-portable-dts.mjs && node scripts/export-json-schemas.mjs",
     "check:dts": "node scripts/check-portable-dts.mjs",
     "check:pack": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
     "validate": "pnpm build && pnpm check:pack && pnpm test",

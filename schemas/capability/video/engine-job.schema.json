@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "videoProjectId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "agentId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "tenantId",
+        "ownerId",
+        "agentId"
+      ],
+      "additionalProperties": false
+    },
+    "requestedBy": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "presetId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "aspectRatio": {
+          "type": "string",
+          "enum": [
+            "9:16",
+            "16:9",
+            "1:1"
+          ]
+        },
+        "provider": {
+          "type": "string",
+          "enum": [
+            "demo",
+            "minimax",
+            "fal",
+            "byteplus"
+          ]
+        },
+        "durationSeconds": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sceneCount": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "planner": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "renderer": {
+          "type": "string",
+          "enum": [
+            "ffmpeg",
+            "remotion"
+          ]
+        },
+        "frameProvider": {
+          "type": "string",
+          "enum": [
+            "demo",
+            "minimax",
+            "fal",
+            "byteplus"
+          ]
+        },
+        "audioSource": {
+          "type": "string",
+          "enum": [
+            "none",
+            "track",
+            "native",
+            "mix"
+          ]
+        }
+      },
+      "required": [
+        "aspectRatio",
+        "provider",
+        "durationSeconds",
+        "sceneCount"
+      ],
+      "additionalProperties": false
+    },
+    "budgetUsd": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "approval",
+        "autonomous"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "brief": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 6000
+    },
+    "externalRef": {
+      "type": "string",
+      "maxLength": 256
+    }
+  },
+  "required": [
+    "videoProjectId",
+    "identity",
+    "requestedBy",
+    "presetId",
+    "settings",
+    "budgetUsd",
+    "mode",
+    "name",
+    "brief"
+  ],
+  "additionalProperties": false,
+  "$id": "x9-forge/contracts/capability/video/engine-job",
+  "x-contracts-version": "1.43.0"
+}
