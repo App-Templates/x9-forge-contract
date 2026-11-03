@@ -21,6 +21,7 @@
       "./capability/voice-live": "./src/capability/voice-live/index.ts",
       "./capability/ricerca": "./src/capability/ricerca/index.ts",
       "./capability/lab": "./src/capability/lab/index.ts",
+      "./capability/video": "./src/capability/video/index.ts",
       "./http": "./src/http/index.ts",
       "./memory": "./src/memory/index.ts",
       "./messaging": "./src/messaging/index.ts",
@@ -81,6 +82,11 @@
       "types": "./dist/capability/lab/index.d.cts",
       "import": "./dist/capability/lab/index.js",
       "require": "./dist/capability/lab/index.cjs"
+    },
+    "./capability/video": {
+      "types": "./dist/capability/video/index.d.cts",
+      "import": "./dist/capability/video/index.js",
+      "require": "./dist/capability/video/index.cjs"
     },
     "./http": {
       "types": "./dist/http/index.d.cts",
