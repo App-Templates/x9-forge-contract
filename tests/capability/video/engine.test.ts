@@ -5,6 +5,8 @@ import {
   VideoEngineJobSchema,
   VideoEngineJobResponseSchema,
   VideoProjectGetRequestSchema,
+  VideoProviderSchema,
+  type VideoProvider,
   type VideoBriefRequest,
   type VideoEngineSettings,
   type VideoEngineJob,
@@ -106,6 +108,17 @@ describe('video engine settings', () => {
 
   it.each(['', 'x'.repeat(65)])('rejects planner outside its string limits (%#)', (planner) => {
     expect(VideoEngineSettingsSchema.safeParse({ ...settings, planner }).success).toBe(false);
+  });
+});
+
+describe('video provider list', () => {
+  it('is the single list used by provider and frameProvider', () => {
+    expect(VideoProviderSchema.options).toEqual(['demo', 'minimax', 'fal', 'byteplus']);
+    const provider: VideoProvider = 'byteplus';
+    expect(VideoProviderSchema.parse(provider)).toBe('byteplus');
+    expect(VideoProviderSchema.safeParse('unknown').success).toBe(false);
+    expect(VideoEngineSettingsSchema.safeParse({ ...settings, provider: 'unknown' }).success).toBe(false);
+    expect(VideoEngineSettingsSchema.safeParse({ ...settings, frameProvider: 'unknown' }).success).toBe(false);
   });
 });
 

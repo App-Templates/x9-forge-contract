@@ -23,10 +23,12 @@ export {
   type VideoBriefResponse,
 } from './brief.js';
 export {
+  VideoProviderSchema,
   VideoEngineSettingsSchema,
   VideoEngineJobSchema,
   VideoEngineJobResponseSchema,
   VideoProjectGetRequestSchema,
+  type VideoProvider,
   type VideoEngineSettings,
   type VideoEngineJob,
   type VideoEngineJobResponse,

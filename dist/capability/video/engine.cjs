@@ -1,17 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = void 0;
+exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = exports.VideoProviderSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const brief_js_1 = require("./brief.cjs");
+exports.VideoProviderSchema = zod_1.z.enum(['demo', 'minimax', 'fal', 'byteplus']);
 exports.VideoEngineSettingsSchema = zod_1.z.object({
     aspectRatio: zod_1.z.enum(['9:16', '16:9', '1:1']),
-    provider: zod_1.z.enum(['demo', 'minimax', 'fal', 'byteplus']),
+    provider: exports.VideoProviderSchema,
     durationSeconds: zod_1.z.number().int().positive(),
     sceneCount: zod_1.z.number().int().positive(),
     planner: zod_1.z.string().min(1).max(64).optional(),
     renderer: zod_1.z.enum(['ffmpeg', 'remotion']).optional(),
-    frameProvider: zod_1.z.enum(['demo', 'minimax', 'fal', 'byteplus']).optional(),
+    frameProvider: exports.VideoProviderSchema.optional(),
     audioSource: zod_1.z.enum(['none', 'track', 'native', 'mix']).optional(),
 }).strict();
 /** One decided production job: the TypeScript facade owns identity, preset, budget and mode. */

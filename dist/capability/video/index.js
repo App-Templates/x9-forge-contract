@@ -9,5 +9,5 @@
  * Strict internal boundary (R-14): unknown fields are rejected.
  */
 export { VideoModeSchema, VideoPresetIdSchema, VideoBriefRequestSchema, VideoProjectIdSchema, VideoProjectStateSchema, VideoBriefResponseSchema, } from "./brief.js";
-export { VideoEngineSettingsSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoProjectGetRequestSchema, } from "./engine.js";
+export { VideoProviderSchema, VideoEngineSettingsSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoProjectGetRequestSchema, } from "./engine.js";
 //# sourceMappingURL=index.js.map

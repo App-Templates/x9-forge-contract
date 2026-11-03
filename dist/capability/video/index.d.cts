@@ -9,5 +9,5 @@
  * Strict internal boundary (R-14): unknown fields are rejected.
  */
 export { VideoModeSchema, VideoPresetIdSchema, VideoBriefRequestSchema, VideoProjectIdSchema, VideoProjectStateSchema, VideoBriefResponseSchema, type VideoMode, type VideoPresetId, type VideoBriefRequest, type VideoProjectId, type VideoProjectState, type VideoBriefResponse, } from "./brief.cjs";
-export { VideoEngineSettingsSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoProjectGetRequestSchema, type VideoEngineSettings, type VideoEngineJob, type VideoEngineJobResponse, type VideoProjectGetRequest, } from "./engine.cjs";
+export { VideoProviderSchema, VideoEngineSettingsSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoProjectGetRequestSchema, type VideoProvider, type VideoEngineSettings, type VideoEngineJob, type VideoEngineJobResponse, type VideoProjectGetRequest, } from "./engine.cjs";
 //# sourceMappingURL=index.d.ts.map

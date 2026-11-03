@@ -2,14 +2,17 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
 import { VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from './brief.js';
 
+export const VideoProviderSchema = z.enum(['demo', 'minimax', 'fal', 'byteplus']);
+export type VideoProvider = z.infer<typeof VideoProviderSchema>;
+
 export const VideoEngineSettingsSchema = z.object({
   aspectRatio: z.enum(['9:16', '16:9', '1:1']),
-  provider: z.enum(['demo', 'minimax', 'fal', 'byteplus']),
+  provider: VideoProviderSchema,
   durationSeconds: z.number().int().positive(),
   sceneCount: z.number().int().positive(),
   planner: z.string().min(1).max(64).optional(),
   renderer: z.enum(['ffmpeg', 'remotion']).optional(),
-  frameProvider: z.enum(['demo', 'minimax', 'fal', 'byteplus']).optional(),
+  frameProvider: VideoProviderSchema.optional(),
   audioSource: z.enum(['none', 'track', 'native', 'mix']).optional(),
 }).strict();
 export type VideoEngineSettings = z.infer<typeof VideoEngineSettingsSchema>;

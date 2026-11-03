@@ -1,4 +1,11 @@
 import { z } from 'zod';
+export declare const VideoProviderSchema: z.ZodEnum<{
+    demo: "demo";
+    minimax: "minimax";
+    fal: "fal";
+    byteplus: "byteplus";
+}>;
+export type VideoProvider = z.infer<typeof VideoProviderSchema>;
 export declare const VideoEngineSettingsSchema: z.ZodObject<{
     aspectRatio: z.ZodEnum<{
         "9:16": "9:16";
