@@ -6,4 +6,5 @@ export * from "./production-config-match.cjs";
 export * from "./production-progress.cjs";
 export * from "./production-artifact-content.cjs";
 export * from "./session-assignment.cjs";
+export * from "./session-material-link.cjs";
 //# sourceMappingURL=index.d.ts.map

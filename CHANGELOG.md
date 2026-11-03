@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.90.0 — capi BU abilitati per progetto e materiali dalla Memoria; additivo
+
+- `@x9-forge/contracts/http`: `devBusinessUnitProjectEnableContract` (piattaforma → cap-dev, abilita un capo BU alle sessioni per un progetto); `@x9-forge/contracts/capability/dev`: `production.session` facoltativa in `DevAgentConfigSchema`. Consumer: X9 cap-dev e cap-paperclip; Forge solo in lettura (pannello).
+- `@x9-forge/contracts/capability/dev`: `session-material-link` (percorso `/dev/materiali/:chiave`, link firmato per materiale, sezione dell'incarico). Consumer: X9 cap-dev ed esecutore del portatile.
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
 ## v1.89.0 — chiave FIGMA_TOKEN per agente; additivo
 
 - `@x9-forge/contracts/agent`: `FIGMA_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `figma` con etichetta «Token Figma (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».

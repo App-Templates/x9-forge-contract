@@ -41,6 +41,8 @@ function isDevProductionJobForConfig(rawJob, rawConfigState) {
     if (!config.production.allowedProjectIds.includes(job.projectId))
         return false;
     const session = config.production.session;
+    if (!session)
+        return false;
     if (session.sessionId !== job.session.sessionId)
         return false;
     if (session.target.kind !== job.session.target.kind)

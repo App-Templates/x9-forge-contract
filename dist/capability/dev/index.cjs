@@ -22,4 +22,5 @@ __exportStar(require("./production-config-match.cjs"), exports);
 __exportStar(require("./production-progress.cjs"), exports);
 __exportStar(require("./production-artifact-content.cjs"), exports);
 __exportStar(require("./session-assignment.cjs"), exports);
+__exportStar(require("./session-material-link.cjs"), exports);
 //# sourceMappingURL=index.js.map
