@@ -50,7 +50,7 @@ export type VideoEngineRunStage = z.infer<typeof VideoEngineRunStageSchema>;
 export const VideoEngineApproveStageSchema = z.enum(['plan', 'frames', 'final']);
 export type VideoEngineApproveStage = z.infer<typeof VideoEngineApproveStageSchema>;
 
-export const VideoEngineRevisionSchema = z.number().int().nonnegative();
+export const VideoEngineRevisionSchema = z.number().int().min(1);
 
 export const VideoEnginePlanRequestSchema = z.object({}).strict();
 export const VideoEngineApproveRequestSchema = z.object({

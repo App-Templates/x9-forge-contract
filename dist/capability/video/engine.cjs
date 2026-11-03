@@ -39,7 +39,7 @@ exports.VideoProjectGetRequestSchema = zod_1.z.object({
 /** Stages the facade drives on the engine, in production order. */
 exports.VideoEngineRunStageSchema = zod_1.z.enum(['frames', 'clips', 'assemble']);
 exports.VideoEngineApproveStageSchema = zod_1.z.enum(['plan', 'frames', 'final']);
-exports.VideoEngineRevisionSchema = zod_1.z.number().int().nonnegative();
+exports.VideoEngineRevisionSchema = zod_1.z.number().int().min(1);
 exports.VideoEnginePlanRequestSchema = zod_1.z.object({}).strict();
 exports.VideoEngineApproveRequestSchema = zod_1.z.object({
     stage: exports.VideoEngineApproveStageSchema,

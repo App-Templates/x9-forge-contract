@@ -36,6 +36,7 @@ describe('engine driving contracts', () => {
   it('approve needs the stage and the revision that was shown', () => {
     expect(VideoEngineApproveRequestSchema.safeParse({ stage: 'frames', revision: 3 }).success).toBe(true);
     expect(VideoEngineApproveRequestSchema.safeParse({ stage: 'frames' }).success).toBe(false);
+    expect(VideoEngineApproveRequestSchema.safeParse({ stage: 'frames', revision: 0 }).success).toBe(false);
     expect(VideoEngineApproveRequestSchema.safeParse({ stage: 'voice', revision: 3 }).success).toBe(false);
   });
   it('run accepts only the stages the facade drives', () => {

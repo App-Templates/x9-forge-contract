@@ -36,7 +36,7 @@ export const VideoProjectGetRequestSchema = z.object({
 /** Stages the facade drives on the engine, in production order. */
 export const VideoEngineRunStageSchema = z.enum(['frames', 'clips', 'assemble']);
 export const VideoEngineApproveStageSchema = z.enum(['plan', 'frames', 'final']);
-export const VideoEngineRevisionSchema = z.number().int().nonnegative();
+export const VideoEngineRevisionSchema = z.number().int().min(1);
 export const VideoEnginePlanRequestSchema = z.object({}).strict();
 export const VideoEngineApproveRequestSchema = z.object({
     stage: VideoEngineApproveStageSchema,
