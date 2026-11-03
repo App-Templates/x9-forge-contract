@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.87.0 — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
+
+- `@x9-forge/contracts/capability/video`: subpath nuovo con `VideoBriefRequestSchema`, `VideoBriefResponseSchema`, `VideoEngineSettingsSchema`, `VideoEngineJobSchema`, `VideoEngineJobResponseSchema`, `VideoProjectGetRequestSchema` e i tipi; consumer: agent-x9 `services/cap-video`, motore Officina.
+- Catalogo dei contratti portabili: voci `videoEngineJob` e `videoEngineJobResponse`, validate dal modulo Python generato da `pnpm build` (`validate_contract`); nessuno schema JSON a parte.
+
 ## v1.86.0 — sveglia nativa da evento, lab_ingest per researchId, organizzazione nella nascita della BU, bozza del piano; additivo
 
 - `@x9-forge/contracts/http`: `INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH` (`POST /internal/paperclip/seats/native-wake`, segreto interno), `InternalPaperclipSeatNativeWakeRequestSchema` (scope, `eventId` di idempotenza, organizzazione e identità, evento `email` | `research_done` | `dev_delivered`), `PaperclipSeatNativeWakeEventSchema`, `InternalPaperclipSeatNativeWakeResponseSchema` (esiti `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS`), `internalPaperclipSeatNativeWakeContract` e i tipi; consumer: X9 cap-paperclip (apre l'incarico o commenta e sveglia con `POST /api/agents/{id}/wakeup` `automation`/`callback` di Paperclip), cap-email, cap-ricerca, cap-dev.
