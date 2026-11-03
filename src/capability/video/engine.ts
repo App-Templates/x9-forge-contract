@@ -43,3 +43,52 @@ export const VideoProjectGetRequestSchema = z.object({
   projectId: VideoProjectIdSchema,
 }).strict();
 export type VideoProjectGetRequest = z.infer<typeof VideoProjectGetRequestSchema>;
+
+/** Stages the facade drives on the engine, in production order. */
+export const VideoEngineRunStageSchema = z.enum(['frames', 'clips', 'assemble']);
+export type VideoEngineRunStage = z.infer<typeof VideoEngineRunStageSchema>;
+export const VideoEngineApproveStageSchema = z.enum(['plan', 'frames', 'final']);
+export type VideoEngineApproveStage = z.infer<typeof VideoEngineApproveStageSchema>;
+
+export const VideoEngineRevisionSchema = z.number().int().min(1);
+
+export const VideoEnginePlanRequestSchema = z.object({}).strict();
+export const VideoEngineApproveRequestSchema = z.object({
+  stage: VideoEngineApproveStageSchema,
+  revision: VideoEngineRevisionSchema,
+}).strict();
+export type VideoEngineApproveRequest = z.infer<typeof VideoEngineApproveRequestSchema>;
+export const VideoEngineRunRequestSchema = z.object({
+  stage: VideoEngineRunStageSchema,
+  revision: VideoEngineRevisionSchema.optional(),
+}).strict();
+export type VideoEngineRunRequest = z.infer<typeof VideoEngineRunRequestSchema>;
+
+/** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
+export const VideoEngineMediaPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);
+
+/**
+ * The part of an engine project the facade reads. The engine answers with more fields: they pass
+ * through untouched (the engine owns its full project document).
+ */
+export const VideoEngineProjectSchema = z.object({
+  id: z.string().regex(/^[a-f0-9]{32}$/),
+  status: z.string().min(1).max(64),
+  revision: VideoEngineRevisionSchema,
+  scenes: z.array(z.object({
+    id: z.string().min(1).max(100),
+    title: z.string().max(500).optional(),
+    narration: z.string().max(6000).optional(),
+    frame_prompt: z.string().max(6000).optional(),
+    frame_url: VideoEngineMediaPathSchema.nullish(),
+    clip_url: VideoEngineMediaPathSchema.nullish(),
+  }).passthrough()),
+  jobs: z.array(z.object({
+    stage: z.string().max(64).optional(),
+    status: z.string().max(64).optional(),
+    error: z.string().nullish(),
+  }).passthrough()),
+  output_url: VideoEngineMediaPathSchema.nullish(),
+  spent_usd: z.number().nonnegative().optional(),
+}).passthrough();
+export type VideoEngineProject = z.infer<typeof VideoEngineProjectSchema>;
