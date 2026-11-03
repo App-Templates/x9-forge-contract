@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.88.0 — contenuto di email e archivio leggibile dalla Memoria; risposta «contenuto non conservato»; additivo
+
+- `@x9-forge/contracts/http`: `InternalMemoryAssetContentRequestSchema` ammette anche asset di origine `email` e `archive` (prima solo `generated`; `link` e `session` restano rifiutate); consumer: X9 memory (conserva e serve i byte), X9 cap-qa e `@x9/capability-sdk` (leggono i byte di un asset).
+- `@x9-forge/contracts/http`: `InternalMemoryAssetIngestResponseSchema` ha il campo facoltativo `contentNotStored { reason:'company_quota', quotaBytes, usedBytes }`, presente solo quando i byte non sono stati conservati perché l'azienda ha raggiunto la quota; consumer: X9 memory (lo scrive) e cap-email (lo riferisce all'agente).
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
 ## v1.87.0 — chiave BITBUCKET_TOKEN, fornitori Bitbucket e Figma per le Connessioni; additivo
 
 - `@x9-forge/contracts/agent`: `BITBUCKET_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `bitbucket` con etichetta «Token Bitbucket (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».

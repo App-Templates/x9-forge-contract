@@ -77,8 +77,18 @@ export declare const InternalMemoryAssetIngestResponseSchema: z.ZodDiscriminated
     kind: z.ZodLiteral<"file">;
     assetId: z.ZodString;
     sha256: z.ZodString;
+    contentNotStored: z.ZodOptional<z.ZodObject<{
+        reason: z.ZodLiteral<"company_quota">;
+        quotaBytes: z.ZodNumber;
+        usedBytes: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"archive">;
+    contentNotStored: z.ZodOptional<z.ZodObject<{
+        reason: z.ZodLiteral<"company_quota">;
+        quotaBytes: z.ZodNumber;
+        usedBytes: z.ZodNumber;
+    }, z.core.$strict>>;
     archiveAssetId: z.ZodString;
     entries: z.ZodArray<z.ZodObject<{
         assetId: z.ZodString;
@@ -171,7 +181,11 @@ export declare const InternalMemoryAssetListResponseSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type InternalMemoryAssetListResponse = z.infer<typeof InternalMemoryAssetListResponseSchema>;
-/** Transport request only: the service verifies the signed context, its expiry and the asset's ownership. */
+/**
+ * Transport request only: the service verifies the signed context, its expiry and the asset's ownership.
+ * Readable origins are `generated`, `email` (a file received by email) and `archive` (a file extracted from an
+ * archive). A `link` has no bytes and a `session` has its own route, so both are refused.
+ */
 export declare const InternalMemoryAssetContentRequestSchema: z.ZodObject<{
     context: z.ZodObject<{
         schemaVersion: z.ZodLiteral<1>;
@@ -318,8 +332,18 @@ export declare const internalMemoryAssetIngestContract: {
         kind: z.ZodLiteral<"file">;
         assetId: z.ZodString;
         sha256: z.ZodString;
+        contentNotStored: z.ZodOptional<z.ZodObject<{
+            reason: z.ZodLiteral<"company_quota">;
+            quotaBytes: z.ZodNumber;
+            usedBytes: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"archive">;
+        contentNotStored: z.ZodOptional<z.ZodObject<{
+            reason: z.ZodLiteral<"company_quota">;
+            quotaBytes: z.ZodNumber;
+            usedBytes: z.ZodNumber;
+        }, z.core.$strict>>;
         archiveAssetId: z.ZodString;
         entries: z.ZodArray<z.ZodObject<{
             assetId: z.ZodString;
