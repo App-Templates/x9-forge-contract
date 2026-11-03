@@ -87,9 +87,12 @@ describe('production config', () => {
     }
   });
   it('requires the complete production shape when present', () => {
-    for (const value of [null, {}, { session: production.session }, { allowedProjectIds: ['project-1'] }]) {
+    for (const value of [null, {}, { session: production.session }]) {
       expect(DevAgentConfigSchema.safeParse({ ...config, production: value }).success).toBe(false);
     }
+  });
+  it('accepts a board-driven production choice without a device session', () => {
+    expect(DevAgentConfigSchema.safeParse({ ...config, production: { allowedProjectIds: ['project-1'] } }).success).toBe(true);
   });
   it('keeps saved configuration separate from reported application state', () => {
     const state = { status: 'pending', appliedConfigVersion: 0, lastSeenAt: null, reason: null };
