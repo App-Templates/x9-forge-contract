@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.89.0 — chiave FIGMA_TOKEN per agente; additivo
+
+- `@x9-forge/contracts/agent`: `FIGMA_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `figma` con etichetta «Token Figma (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
 ## v1.88.0 — contenuto di email e archivio leggibile dalla Memoria; risposta «contenuto non conservato»; additivo
 
 - `@x9-forge/contracts/http`: `InternalMemoryAssetContentRequestSchema` ammette anche asset di origine `email` e `archive` (prima solo `generated`; `link` e `session` restano rifiutate); consumer: X9 memory (conserva e serve i byte), X9 cap-qa e `@x9/capability-sdk` (leggono i byte di un asset).
