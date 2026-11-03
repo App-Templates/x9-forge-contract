@@ -3,6 +3,7 @@ import { CapabilityOrdinaryCallSnapshotSchema, CapabilityOrdinaryConfigurationSc
 import { CapabilityParameterKeySchema, CapabilityParameterValueSchema } from './parameters.js';
 import { ToolCallRequestSchema } from './tool-call.js';
 import { RagQueryRequestSchema, RagQueryResponseSchema } from '../rag/rag-query.js';
+import { VideoEngineJobSchema, VideoEngineJobResponseSchema } from './video/engine.js';
 import { AgentOrdinaryAuthorityQuerySchema, AgentOrdinaryAuthoritySchema, parseAgentOrdinaryAuthorityResponse } from '../agent/ordinary-authority.js';
 import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, CapabilityOrdinaryLifecycleTransactionSchema, parseCapabilityOrdinaryLifecycle, parseCapabilityOrdinaryLifecycleReceipt } from './ordinary-lifecycle.js';
 import { agentOrdinaryAuthorityContract } from '../http/endpoints/internal-agents-ordinary-authority.js';
@@ -133,6 +134,8 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   add('ragToolCall', ragCall, [{ op: 'membership_call', capability: 'rag' }, organizationRunRule, organizationExpiryRule], 4);
   add('ragQueryRequest', RagQueryRequestSchema, [], 0);
   add('ragQueryResponse', RagQueryResponseSchema, [], 0);
+  add('videoEngineJob', VideoEngineJobSchema, [], 0);
+  add('videoEngineJobResponse', VideoEngineJobResponseSchema, [], 0);
   add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
   add('authorityResponse', authorityResponse, authorityRules, 2);
   contracts.authorityResponse!.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];

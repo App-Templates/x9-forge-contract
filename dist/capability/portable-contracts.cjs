@@ -11,6 +11,7 @@ const ordinary_configuration_js_1 = require("./ordinary-configuration.cjs");
 const parameters_js_1 = require("./parameters.cjs");
 const tool_call_js_1 = require("./tool-call.cjs");
 const rag_query_js_1 = require("../rag/rag-query.cjs");
+const engine_js_1 = require("./video/engine.cjs");
 const ordinary_authority_js_1 = require("../agent/ordinary-authority.cjs");
 const ordinary_lifecycle_js_1 = require("./ordinary-lifecycle.cjs");
 const internal_agents_ordinary_authority_js_1 = require("../http/endpoints/internal-agents-ordinary-authority.cjs");
@@ -117,6 +118,8 @@ function getPortableCapabilityContracts() {
     add('ragToolCall', ragCall, [{ op: 'membership_call', capability: 'rag' }, organizationRunRule, organizationExpiryRule], 4);
     add('ragQueryRequest', rag_query_js_1.RagQueryRequestSchema, [], 0);
     add('ragQueryResponse', rag_query_js_1.RagQueryResponseSchema, [], 0);
+    add('videoEngineJob', engine_js_1.VideoEngineJobSchema, [], 0);
+    add('videoEngineJobResponse', engine_js_1.VideoEngineJobResponseSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
