@@ -6,6 +6,7 @@ import {TranscribeProviderSchema} from '../../src/capability/stt/index.js';
 import {VoiceProviderSchema} from '../../src/capability/voice/provider.js';
 const {AGENT_CREDENTIAL_SERVICE_METADATA:map,AgentCredentialServiceMetadataSchema:metadata,AgentCredentialServiceSchema:service,getAgentCredentialServiceMetadata:get}=agent;
 const brands:Record<string,string[]>={
+ bitbucket:['BITBUCKET_TOKEN'],
  github:['GITHUB_TOKEN','GITHUB_APP_ID','GITHUB_APP_INSTALLATION_ID','GITHUB_APP_PRIVATE_KEY'],
  openai:['OPENAI_API_KEY','OPENAI_TTS_MODEL','OPENAI_TTS_VOICE','OPENAI_STT_MODEL','OPENAI_LIVE_VOICE','OPENAI_LIVE_BACKEND_MODEL'],
  anthropic:['ANTHROPIC_API_KEY'],google:['GOOGLE_API_KEY','GOOGLE_CALENDAR_CLIENT_ID','GOOGLE_CALENDAR_CLIENT_SECRET','GOOGLE_CALENDAR_REFRESH_TOKEN','GOOGLE_CONTACTS_CLIENT_ID','GOOGLE_CONTACTS_CLIENT_SECRET','GOOGLE_CONTACTS_REFRESH_TOKEN'],
