@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.88.0 — Officina video dal brief al video (strumenti con busta, lettura del progetto, guida del motore), additivo
+
+- `@x9-forge/contracts/capability/video`: `VideoBriefToolInputSchema` (il brief senza identità: tenant, owner e agente arrivano solo dalla busta di agent-core, R-33), `VideoProjectGetToolInputSchema`, `VideoProjectStepSchema`, `VideoProjectViewSchema` (stato, passo, link di revisione e del video); motore: `VideoEngineRunStageSchema`, `VideoEngineApproveStageSchema`, `VideoEngineRevisionSchema`, `VideoEnginePlanRequestSchema`, `VideoEngineApproveRequestSchema`, `VideoEngineRunRequestSchema`, `VideoEngineMediaPathSchema`, `VideoEngineProjectSchema` (campi letti dalla facciata, il resto passa); consumer: agent-x9 `services/cap-video`.
+- `@x9-forge/contracts/http`: `officinaVideoProjectGetContract`, `officinaVideoPlanContract`, `officinaVideoApproveContract`, `officinaVideoRunContract`, `officinaVideoMediaContract` (cap-video → motore, segreto interno).
+
+Nessuno schema esistente si stringe.
+
 ## v1.87.0 — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
 
 - `@x9-forge/contracts/capability/video`: subpath nuovo con `VideoBriefRequestSchema`, `VideoBriefResponseSchema`, `VideoProviderSchema`, `VideoEngineSettingsSchema`, `VideoEngineJobSchema`, `VideoEngineJobResponseSchema`, `VideoProjectGetRequestSchema` e i tipi; consumer: agent-x9 `services/cap-video`, motore Officina.
