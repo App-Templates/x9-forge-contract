@@ -4,8 +4,10 @@
 
 ## v1.87.0 — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
 
-- `@x9-forge/contracts/capability/video`: subpath nuovo con `VideoBriefRequestSchema`, `VideoBriefResponseSchema`, `VideoEngineSettingsSchema`, `VideoEngineJobSchema`, `VideoEngineJobResponseSchema`, `VideoProjectGetRequestSchema` e i tipi; consumer: agent-x9 `services/cap-video`, motore Officina.
+- `@x9-forge/contracts/capability/video`: subpath nuovo con `VideoBriefRequestSchema`, `VideoBriefResponseSchema`, `VideoProviderSchema`, `VideoEngineSettingsSchema`, `VideoEngineJobSchema`, `VideoEngineJobResponseSchema`, `VideoProjectGetRequestSchema` e i tipi; consumer: agent-x9 `services/cap-video`, motore Officina.
+- `@x9-forge/contracts/http` (`./http`): `officinaVideoJobContract` (POST `/api/jobs`) e `officinaVideoHealthContract` (GET `/api/health`) per il motore Officina.
 - Catalogo dei contratti portabili: voci `videoEngineJob` e `videoEngineJobResponse`, validate dal modulo Python generato da `pnpm build` (`validate_contract`); nessuno schema JSON a parte.
+- Catalogo portabile: trasporti `videoEngineJob` e `videoEngineHealth` con metodo, indirizzo e intestazione di autenticazione `INTERNAL_SECRET_HEADER` per il motore Python.
 
 ## v1.86.0 — sveglia nativa da evento, lab_ingest per researchId, organizzazione nella nascita della BU, bozza del piano; additivo
 
