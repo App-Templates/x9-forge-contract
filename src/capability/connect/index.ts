@@ -1,19 +1,35 @@
 import { z } from 'zod';
 
 /** Providers a person can connect (provider list is configuration; Google first). */
-export const ConnectProviderSchema = z.enum(['google']);
+export const ConnectProviderSchema = z.enum(['google', 'bitbucket', 'figma']);
 
 /** A supported connection provider. */
 export type ConnectProvider = z.infer<typeof ConnectProviderSchema>;
 
 /** Separate permissions for mailbox and Drive reading. `mail_draft` creates drafts, it never reads mail. */
-export const ConnectScopeSchema = z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read']);
+export const ConnectScopeSchema = z.enum([
+  'calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read',
+  // Read repository code through Bitbucket.
+  'code_read',
+  // Read design files through Figma.
+  'design_read',
+]);
 
 /** A supported connection permission. */
 export type ConnectScope = z.infer<typeof ConnectScopeSchema>;
 
+/** Permissions available from each connection provider. */
+export const CONNECT_PROVIDER_SCOPES = {
+  google: ['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read'],
+  bitbucket: ['code_read'],
+  figma: ['design_read'],
+} as const satisfies Record<ConnectProvider, readonly ConnectScope[]>;
+
 /** One-time link limits: the link expires in 10 minutes. */
 export const CONNECT_LINK_LIMITS = { ttlSeconds: 600, stateBytes: 32 } as const;
+
+/** Email invitation lifetime: seven days until the connection succeeds. */
+export const CONNECT_INVITE_LIMITS = { ttlSeconds: 604800 } as const;
 
 /** Maximum lifetime of a tool permit, in seconds. */
 export const CONNECT_PERMIT_MAX_TTL_SECONDS = 3600;
@@ -35,7 +51,16 @@ export const ConnectStartRequestSchema = z.object({
   conversationId: z.string().min(1),
   provider: ConnectProviderSchema,
   scopes: ScopesSchema,
-}).strict();
+}).strict().superRefine((request, ctx) => {
+  const allowedScopes: readonly ConnectScope[] = CONNECT_PROVIDER_SCOPES[request.provider];
+  if (request.scopes.some((scope) => !allowedScopes.includes(scope))) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Scopes must belong to the selected provider',
+      path: ['scopes'],
+    });
+  }
+});
 
 /** One-time https link, or an explicit failure reason. */
 export const ConnectStartResponseSchema = z.discriminatedUnion('ok', [
