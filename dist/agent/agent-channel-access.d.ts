@@ -157,6 +157,7 @@ export declare const AgentChannelAddressBookSchema: z.ZodObject<{
     version: z.ZodNullable<z.ZodNumber>;
     observedAt: z.ZodNullable<z.ZodISODateTime>;
     emails: z.ZodNullable<z.ZodArray<z.ZodEmail>>;
+    phones: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodString>>>;
 }, z.core.$strict>;
 export type AgentChannelAddressBook = z.infer<typeof AgentChannelAddressBookSchema>;
 /** Metadata contract for the future scoped Conoscenza producer; no provider or notes file is an implicit source. */

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "source",
+    "command": [
+      "pnpm",
+      "exec",
+      "vitest",
+      "run",
+      "--maxWorkers=1",
+      "--testTimeout=60000"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "pnpm",
+      "typecheck"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "lint",
+    "command": [
+      "pnpm",
+      "lint"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "build",
+    "command": [
+      "pnpm",
+      "build"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "dts",
+    "command": [
+      "pnpm",
+      "check:dts"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "pack",
+    "command": [
+      "pnpm",
+      "check:pack"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "cjs",
+    "command": [
+      "node",
+      "tests/cjs/smoke.cjs"
+    ],
+    "exit": 0
+  }
+]

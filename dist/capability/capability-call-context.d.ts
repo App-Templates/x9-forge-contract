@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { type CapabilityCallIdentity } from "./capability-call-identity.js";
+export { CapabilityCallIdentitySchema, type CapabilityCallIdentity } from "./capability-call-identity.js";
 import type { ToolCallRequest } from "./tool-call.js";
 /**
  * Per-call capability context (R3, v1.31.0) — what ONE capability receives for ONE call of ONE agent.
@@ -10,20 +12,8 @@ import type { ToolCallRequest } from "./tool-call.js";
  * - Missing key, unavailable source, disabled / not installed capability and forged identity are distinct errors;
  *   a consumer never falls back to a process-global key.
  */
-export declare const CapabilityCallIdentitySchema: z.ZodObject<{
-    agentId: z.ZodString;
-    ownerId: z.ZodString;
-    tenantId: z.ZodString;
-    userId: z.ZodOptional<z.ZodString>;
-}, z.core.$strict>;
-export type CapabilityCallIdentity = z.infer<typeof CapabilityCallIdentitySchema>;
-/** Agent-level scope of capability data (no person): e.g. one provider resource or one program per agent. */
-export declare const CapabilityAgentScopeSchema: z.ZodObject<{
-    agentId: z.ZodString;
-    ownerId: z.ZodString;
-    tenantId: z.ZodString;
-}, z.core.$strict>;
-export type CapabilityAgentScope = z.infer<typeof CapabilityAgentScopeSchema>;
+/** Agent-level scope of capability data (no person), defined beside the identity. */
+export { CapabilityAgentScopeSchema, type CapabilityAgentScope } from "./capability-call-identity.js";
 /** Person-level scope: the end person's data is isolated by tenant/owner/agent/person. */
 export declare const CapabilityPersonScopeSchema: z.ZodObject<{
     agentId: z.ZodString;
@@ -44,8 +34,8 @@ export declare const CapabilityCallContextSchema: z.ZodObject<{
     capability: z.ZodString;
     configVersion: z.ZodNullable<z.ZodNumber>;
     settings: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
-    credentials: z.ZodRecord<z.ZodString, z.ZodString>;
-    credentialVersions: z.ZodRecord<z.ZodString, z.ZodNumber>;
+    credentials: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodString>;
+    credentialVersions: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodLazy<z.ZodNumber>>;
 }, z.core.$strict>;
 export type CapabilityCallContext = z.infer<typeof CapabilityCallContextSchema>;
 export declare const CapabilityCallContextErrorCodeSchema: z.ZodEnum<{
@@ -54,6 +44,11 @@ export declare const CapabilityCallContextErrorCodeSchema: z.ZodEnum<{
     capability_disabled: "capability_disabled";
     capability_not_installed: "capability_not_installed";
     identity_mismatch: "identity_mismatch";
+    business_unit_pending: "business_unit_pending";
+    business_unit_refused: "business_unit_refused";
+    business_unit_unavailable: "business_unit_unavailable";
+    business_unit_register_failed: "business_unit_register_failed";
+    business_unit_failed: "business_unit_failed";
 }>;
 export type CapabilityCallContextErrorCode = z.infer<typeof CapabilityCallContextErrorCodeSchema>;
 /** Forge validates `keys` against what this capability declares; it never returns undeclared keys. */
@@ -65,7 +60,7 @@ export declare const CapabilityCallContextRequestSchema: z.ZodObject<{
         userId: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
     capability: z.ZodString;
-    keys: z.ZodArray<z.ZodString>;
+    keys: z.ZodArray<z.ZodLazy<z.ZodString>>;
 }, z.core.$strict>;
 export type CapabilityCallContextRequest = z.infer<typeof CapabilityCallContextRequestSchema>;
 export declare const CapabilityCallContextErrorSchema: z.ZodObject<{
@@ -76,8 +71,13 @@ export declare const CapabilityCallContextErrorSchema: z.ZodObject<{
         capability_disabled: "capability_disabled";
         capability_not_installed: "capability_not_installed";
         identity_mismatch: "identity_mismatch";
+        business_unit_pending: "business_unit_pending";
+        business_unit_refused: "business_unit_refused";
+        business_unit_unavailable: "business_unit_unavailable";
+        business_unit_register_failed: "business_unit_register_failed";
+        business_unit_failed: "business_unit_failed";
     }>;
-    keys: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    keys: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodString>>>;
 }, z.core.$strip>;
 export type CapabilityCallContextError = z.infer<typeof CapabilityCallContextErrorSchema>;
 export declare const CapabilityCallContextResponseSchema: z.ZodUnion<readonly [z.ZodObject<{
@@ -92,8 +92,8 @@ export declare const CapabilityCallContextResponseSchema: z.ZodUnion<readonly [z
         capability: z.ZodString;
         configVersion: z.ZodNullable<z.ZodNumber>;
         settings: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
-        credentials: z.ZodRecord<z.ZodString, z.ZodString>;
-        credentialVersions: z.ZodRecord<z.ZodString, z.ZodNumber>;
+        credentials: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodString>;
+        credentialVersions: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodLazy<z.ZodNumber>>;
     }, z.core.$strict>;
 }, z.core.$strip>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
@@ -103,8 +103,13 @@ export declare const CapabilityCallContextResponseSchema: z.ZodUnion<readonly [z
         capability_disabled: "capability_disabled";
         capability_not_installed: "capability_not_installed";
         identity_mismatch: "identity_mismatch";
+        business_unit_pending: "business_unit_pending";
+        business_unit_refused: "business_unit_refused";
+        business_unit_unavailable: "business_unit_unavailable";
+        business_unit_register_failed: "business_unit_register_failed";
+        business_unit_failed: "business_unit_failed";
     }>;
-    keys: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    keys: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodString>>>;
 }, z.core.$strip>]>;
 export type CapabilityCallContextResponse = z.infer<typeof CapabilityCallContextResponseSchema>;
 export type PickCapabilityCredentialsResult = {

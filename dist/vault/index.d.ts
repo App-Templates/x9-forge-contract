@@ -19,6 +19,7 @@ export type { WorkspaceFile } from "./workspace-file.js";
 export type { PlatformBootstrapEnv } from "./platform-bootstrap-env.js";
 export { PLATFORM_INTERNAL_CREDENTIAL_KEYS, isPlatformInternalCredentialKey, stripPlatformInternalCredentials, } from "./platform-internal-credentials.js";
 export type { PlatformInternalCredentialKey } from "./platform-internal-credentials.js";
+export { CONNECTION_CREDENTIAL_KEY_PREFIX, CONNECT_VAULT_SECRET_ENV, connectionCredentialKey, isConnectionCredentialKey, } from "./connection-credential-keys.js";
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.js";
 export type { AgentVaultedCredentials } from "./agent-vaulted-credentials.js";
 export * from "./credential-link.js";

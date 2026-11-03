@@ -1,0 +1,7 @@
+$ ["/usr/bin/python3", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/manifest-probe.py", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/manifest-fault-copy.json"]
+Traceback (most recent call last):
+  File "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/packed-cuts/manifest-probe.py", line 1, in <module>
+    import pathlib,hashlib,json,sys;x=json.loads(pathlib.Path(sys.argv[1]).read_text());assert hashlib.sha256(pathlib.Path(x['archive']).read_bytes()).hexdigest()==x['archive_sha256'],'manifest archive binding mismatch';print('manifest binding1/1')
+AssertionError: manifest archive binding mismatch
+
+EXIT_CODE=1

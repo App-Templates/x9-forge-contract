@@ -1,0 +1,144 @@
+{
+  "total": 17,
+  "qualified": 17,
+  "results": [
+    {
+      "name": "trip-history",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-parse",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 4,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-kind",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-binding",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-owner",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-participant",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-operation",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-inbound",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-stages",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-applied",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-loaded",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-fresh",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-generation",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-strict",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-required-receivedAt",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-required-turnCompletedAt",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "trip-required-replyDeliveredAt",
+      "exitCode": 1,
+      "tests": 64,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    }
+  ],
+  "restored": true,
+  "sha256": "829443aff6822697c421e7568389a3a84fe3dae6e2d20da3d17dd569d2248044"
+}

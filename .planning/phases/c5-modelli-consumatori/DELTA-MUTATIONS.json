@@ -1,0 +1,237 @@
+{
+  "mutations": [
+    {
+      "name": "configuration-generation-pair",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D07 rejects missing or inconsistent generation {}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Private Master configuration command D07 rejects missing or inconsistent generation {}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "configuration-version",
+      "exit": 1,
+      "assertions": 2,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D06 configuration version 1 must equal desiredVersion",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Private Master configuration command D06 configuration version 3 must equal desiredVersion",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "bootstrap-generation-agreement",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D07 rejects missing or inconsistent generation {\"modelBootstrap\":{\"expectedSourceVersion\":\"different\",\"expectedAbsent\":true}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "complete-provenance-authority",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D09 canonical authority rejects invalid config {}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "registered-consumer",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "D17 an unregistered slot is rejected with otherwise coherent provenance",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "consumer-capability",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D09 canonical authority rejects invalid config {\"selections\":[{\"slotId\":\"agent_classifier\",\"settings\":{\"capability\":\"other\",\"function\":\"reasoning\",\"catalogVersion\":\"synthetic-catalog\",\"requirements\":{\"tools\":false,\"stream\":false,\"structuredOutput\":false},\"mode\":\"single\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}}]}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "consumer-function",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "D14 rejects registered slot with wrong settings {\"function\":\"tts\"}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "consumer-requirements",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "D14 rejects registered slot with wrong settings {\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "consumer-routing",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "D18 a registered single slot rejects a valid automatic shape",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "generation-replay",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D04 changed observed generation is not a replay",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "configuration-replay",
+      "exit": 1,
+      "assertions": 4,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D02 changed model selection is not a replay even with equal version/key",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Private Master configuration command D11 binding origin remains part of command identity",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "Private Master configuration command D12 different tenant does not replay another authority",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        },
+        {
+          "name": "D16 apply confirmation requires the actual configuration carried by the command",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "selection-order",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "D15 selection/binding and object property order do not change command identity",
+          "message": "AssertionError: expected false to be true // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "object-order",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "D15 selection/binding and object property order do not change command identity",
+          "message": "AssertionError: expected false to be true // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "apply-explicit-authority",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "D16 apply confirmation requires the actual configuration carried by the command",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-generation",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D13 exact producer request can be checked against fresh source and route",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-identity",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D13 exact producer request can be checked against fresh source and route",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    },
+    {
+      "name": "source-scope",
+      "exit": 1,
+      "assertions": 1,
+      "technical": 0,
+      "witnesses": [
+        {
+          "name": "Private Master configuration command D13 exact producer request can be checked against fresh source and route",
+          "message": "AssertionError: expected true to be false // Object.is equality"
+        }
+      ]
+    }
+  ],
+  "fresh": {
+    "passed": 34,
+    "total": 34,
+    "exit": 0
+  },
+  "hashesRestored": {
+    "src/agent/agent-management.ts": true,
+    "src/model-router/agent-model-configuration.ts": true
+  }
+}

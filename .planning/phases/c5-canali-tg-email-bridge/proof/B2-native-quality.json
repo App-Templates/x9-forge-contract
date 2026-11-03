@@ -1,0 +1,16 @@
+{
+  "types": {
+    "chunk_id": "672ee8",
+    "wall_time_seconds": 1.8292e-05,
+    "exit_code": 0,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "lint": {
+    "chunk_id": "a9b5de",
+    "wall_time_seconds": 1.1666e-05,
+    "exit_code": 0,
+    "original_token_count": 0,
+    "output": "\n> @x9-forge/contracts@1.44.0 lint /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-147-1\n> eslint src tests\n\n"
+  }
+}

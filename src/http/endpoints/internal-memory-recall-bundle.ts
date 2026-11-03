@@ -1,5 +1,9 @@
 import { z } from 'zod';
 import { RecallTemporalFilterSchema } from '../../memory/temporal.js';
+import {
+  OrganizationRecallContextSchema,
+  OrganizationRecallReferenceSchema,
+} from '../../organization/recall.js';
 
 /**
  * POST /internal/memory/recall/bundle — v2 recall endpoint.
@@ -43,6 +47,7 @@ export const InternalMemoryRecallBundleRequestSchema = z.object({
     })
     .optional(),
   temporal: RecallTemporalFilterSchema.optional(),
+  organization: OrganizationRecallContextSchema.optional(),
 });
 export type InternalMemoryRecallBundleRequest = z.infer<
   typeof InternalMemoryRecallBundleRequestSchema
@@ -92,6 +97,7 @@ export type RecallBundleAuditContract = z.infer<typeof RecallBundleAuditSchema>;
 export const InternalMemoryRecallBundleResponseSchema = z.object({
   entries: z.array(RecallBundleEntrySchema),
   audit: RecallBundleAuditSchema,
+  organizationReferences: z.array(OrganizationRecallReferenceSchema).max(50).optional(),
 });
 export type InternalMemoryRecallBundleResponse = z.infer<
   typeof InternalMemoryRecallBundleResponseSchema

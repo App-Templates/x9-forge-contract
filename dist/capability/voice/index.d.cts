@@ -30,4 +30,5 @@ export { CapVoicePostCallIngestRequestSchema, CapVoicePostCallIngestResponseSche
 export { VoiceCallMemoryIngestPayloadSchema, type VoiceCallMemoryIngestPayload, } from "./memory-payload.cjs";
 export { VoiceCallToolLogSchema, VoiceToolCallSourceSchema, type VoiceCallToolLog, type VoiceToolCallSource, } from "./tool-log.cjs";
 export * from "./agent-voice-settings.cjs";
+export * from "./model-descriptor-voice.cjs";
 //# sourceMappingURL=index.d.ts.map

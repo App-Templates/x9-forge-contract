@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { capToolCallPath } from '../../http/endpoints/cap-tool-call.js';
 import { ResearchIdSchema, ResearchRequestSchema, ResearchResultSchema, ResearchStateSchema } from './research.js';
 
 /**
@@ -25,6 +26,8 @@ export const RicercaToolErrorSchema = z.enum([
   'unknown_parent',
   'unknown_research',
   'not_ready',
+  /** A project research without the lab brief analysis it answers (F1L-03): R&D reuses before researching. */
+  'consulta_prima_il_quaderno',
 ]);
 export type RicercaToolError = z.infer<typeof RicercaToolErrorSchema>;
 
@@ -43,3 +46,13 @@ export type ResearchStatusInput = z.infer<typeof ResearchStatusInputSchema>;
 export type ResearchStatusOutput = z.infer<typeof ResearchStatusOutputSchema>;
 export type ResearchResultInput = z.infer<typeof ResearchResultInputSchema>;
 export type ResearchResultOutput = z.infer<typeof ResearchResultOutputSchema>;
+
+/** Worker-owned execution only: deliberately excluded from RICERCA_TOOLS and model manifests. */
+export const RICERCA_INTERNAL_TOOLS = { execute: 'research_execute' } as const;
+/** The receiver must compare this opaque token with the current SQL claim and agent ownership. */
+export const ResearchExecuteInputSchema = z.strictObject({
+  researchId: ResearchIdSchema,
+  leaseToken: z.uuid(),
+});
+export type ResearchExecuteInput = z.infer<typeof ResearchExecuteInputSchema>;
+export function researchExecutePath(): string { return capToolCallPath(RICERCA_INTERNAL_TOOLS.execute); }

@@ -1,0 +1,307 @@
+[
+  {
+    "name": "required-context-agent",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "agentId: NonblankAgentId,",
+        "after": "agentId: NonblankAgentId.optional(),",
+        "count": 1
+      },
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "value.agentId !== value.identity.runtimeAgentId",
+        "after": "value.agentId !== undefined && value.agentId !== value.identity.runtimeAgentId",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "required-owner",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "OwnerIdSchema.refine(value => value.trim().length > 0, 'Owner identity must not be blank')",
+        "after": "OwnerIdSchema.refine(value => value.trim().length > 0, 'Owner identity must not be blank').optional()",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "required-tenant",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "'Tenant identity must not be blank'),",
+        "after": "'Tenant identity must not be blank').optional(),",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "required-root-identity",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "identity: ContextRuntimeIdentity,",
+        "after": "identity: ContextRuntimeIdentity.default({managementAgentId:'forge-a',runtimeAgentId:'runtime-a',vaultAgentId:17}),",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "required-management",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "managementAgentId: NonblankAgentId,",
+        "after": "managementAgentId: NonblankAgentId.optional(),",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "required-runtime",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "runtimeAgentId: NonblankAgentId,",
+        "after": "runtimeAgentId: NonblankAgentId.optional(),",
+        "count": 1
+      },
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "value.agentId !== value.identity.runtimeAgentId",
+        "after": "value.identity.runtimeAgentId !== undefined && value.agentId !== value.identity.runtimeAgentId",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "required-vault",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "vaultAgentId: z.number().int().positive(),",
+        "after": "vaultAgentId: z.number().int().positive().optional(),",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "nonblank-agent-identifiers",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "AgentIdSchema.refine(value => value.trim().length > 0, 'Agent identity must not be blank')",
+        "after": "AgentIdSchema",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "nonblank-owner",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "OwnerIdSchema.refine(value => value.trim().length > 0, 'Owner identity must not be blank')",
+        "after": "OwnerIdSchema",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "nonblank-tenant",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "z.string().min(1).refine(value => value.trim().length > 0, 'Tenant identity must not be blank')",
+        "after": "z.string().min(1)",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "positive-vault",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "vaultAgentId: z.number().int().positive(),",
+        "after": "vaultAgentId: z.number().int(),",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "integer-vault",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "vaultAgentId: z.number().int().positive(),",
+        "after": "vaultAgentId: z.number().positive(),",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "strict-runtime-identity",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "vaultAgentId: z.number().int().positive(),\n}).strict();",
+        "after": "vaultAgentId: z.number().int().positive(),\n}).passthrough();",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "strict-authority-root",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "masterAgentId: z.never().optional() }).strict();",
+        "after": "masterAgentId: z.never().optional() }).passthrough();",
+        "count": 1
+      },
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "masterAgentId: NonblankAgentId }).strict();",
+        "after": "masterAgentId: NonblankAgentId }).passthrough();",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "declared-role",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "role: z.literal('master')",
+        "after": "role: z.enum(['master','child'])",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "master-without-parent",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "masterAgentId: z.never().optional()",
+        "after": "masterAgentId: NonblankAgentId.optional()",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "heir-explicit-parent",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "masterAgentId: NonblankAgentId }).strict();",
+        "after": "masterAgentId: NonblankAgentId.optional() }).strict();",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "runtime-correlation",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "if (value.agentId !== value.identity.runtimeAgentId)",
+        "after": "if (false)",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "heir-self-runtime",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "if (value.role === 'erede' && value.masterAgentId === value.identity.runtimeAgentId)",
+        "after": "if (false)",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "heir-self-management",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "if (value.role === 'erede' && value.masterAgentId === value.identity.managementAgentId)",
+        "after": "if (false)",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "constructor-validation-and-clone",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "return AgentContextIdentitySchema.parse(input);",
+        "after": "return input;",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "modern-reader-authority",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "export const AgentContextWithIdentitySchema = z.discriminatedUnion('role', [",
+        "after": "export const AgentContextWithIdentitySchema = AgentContextWithChannelsSchema; const ReaderMutation = z.discriminatedUnion('role', [",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "modern-writer-platform-guard",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "export const AgentContextWithIdentityWriteSchema = z.discriminatedUnion('role', [",
+        "after": "export const AgentContextWithIdentityWriteSchema = AgentContextWithIdentitySchema; const WriterMutation = z.discriminatedUnion('role', [",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "modern-inherited-channel-guards",
+    "edits": [
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "import { z } from 'zod';",
+        "after": "import { z } from 'zod';\nimport { AgentContextFileSchema, AgentContextFileWriteSchema } from './agent-context-file.js';",
+        "count": 1
+      },
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "AgentContextWithChannelsSchema.safeExtend",
+        "after": "AgentContextFileSchema.safeExtend",
+        "count": 2
+      },
+      {
+        "path": "src/agent/agent-context-identity.ts",
+        "before": "AgentContextWithChannelsWriteSchema.safeExtend",
+        "after": "AgentContextFileWriteSchema.safeExtend",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "name": "public-agent-exports",
+    "edits": [
+      {
+        "path": "src/agent/index.ts",
+        "before": "export * from './agent-context-identity.js';",
+        "after": "// mutation: omitted context identity exports",
+        "count": 1
+      }
+    ]
+  }
+]

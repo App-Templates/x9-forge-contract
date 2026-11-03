@@ -21,8 +21,20 @@
  * - `TELEGRAM_SESSION_STRING` — Forge factory-svc @BotFather userbot session.
  * - `APPROVALS_SIGNING_KEY` — Ed25519 private key cap-approvals signs permits with (phase 59); clients only ever see
  *   the public key (`approvalKeysContract`), so the key must never be projected into any agent.
+ * - `CONNECT_GOOGLE_CLIENT_ID` — Google OAuth client id, solo il servizio Connessioni.
+ * - `CONNECT_GOOGLE_CLIENT_SECRET` — Google OAuth client secret, solo il servizio Connessioni.
+ * - `CONNECT_VAULT_SECRET` — segreto del servizio Connessioni verso il Vault; mai proiettato in un agente.
+ * - `RICERCA_DATABASE_URL` — connessione Postgres di cap-ricerca, solo quel servizio; mai proiettata in un agente.
  */
-export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING', 'APPROVALS_SIGNING_KEY'];
+export const PLATFORM_INTERNAL_CREDENTIAL_KEYS = ['TELEGRAM_SESSION_STRING',
+    'APPROVALS_SIGNING_KEY',
+    'CONNECT_GOOGLE_CLIENT_ID',
+    'CONNECT_GOOGLE_CLIENT_SECRET',
+    'CONNECT_VAULT_SECRET',
+    // segreto della porta Vault delle chiavi agente; mai proiettato in un agente
+    'AGENT_CREDENTIAL_VAULT_SECRET',
+    'RICERCA_DATABASE_URL',
+];
 export function isPlatformInternalCredentialKey(key) {
     return PLATFORM_INTERNAL_CREDENTIAL_KEYS.includes(key);
 }

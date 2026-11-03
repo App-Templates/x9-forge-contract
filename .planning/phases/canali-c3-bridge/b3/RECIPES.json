@@ -1,0 +1,464 @@
+[
+  {
+    "name": "phase-values",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "z.enum(['before', 'after'])",
+    "new": "z.string()",
+    "filter": null
+  },
+  {
+    "name": "request-id-validation",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "requestId: AgentManagementRequestIdSchema,",
+    "new": "requestId: z.string(),",
+    "filter": null
+  },
+  {
+    "name": "request-scope-validation",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "scope: CapabilityAgentScopeSchema,",
+    "new": "scope: z.unknown(),",
+    "filter": null
+  },
+  {
+    "name": "link-id-validation",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "linkId: AgentManagementRequestIdSchema,",
+    "new": "linkId: z.string(),",
+    "filter": null
+  },
+  {
+    "name": "request-strict",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "}).strict();",
+    "new": "}).passthrough();",
+    "filter": null
+  },
+  {
+    "name": "required-requestId",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "requestId: AgentManagementRequestIdSchema,",
+    "new": "requestId: AgentManagementRequestIdSchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-scope",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "scope: CapabilityAgentScopeSchema,",
+    "new": "scope: CapabilityAgentScopeSchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-linkId",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "linkId: AgentManagementRequestIdSchema,",
+    "new": "linkId: AgentManagementRequestIdSchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-phase",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "phase: ElevenLabsWebAdmissionPhaseSchema,",
+    "new": "phase: ElevenLabsWebAdmissionPhaseSchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "origin-format",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "z.url().refine((value) => {",
+    "new": "z.string().transform(value => URL.canParse(value) ? value : 'https://forge.example').refine((value) => {",
+    "filter": null
+  },
+  {
+    "name": "origin-no-throw",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "  if (!URL.canParse(value)) return false;\n",
+    "new": "",
+    "filter": "malformed configured origin returns"
+  },
+  {
+    "name": "origin-https",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "url.protocol === 'https:'",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "origin-username",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "url.username === ''",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "origin-password",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "url.password === ''",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "origin-root-path",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "url.pathname === '/'",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "origin-query",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "url.search === ''",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "origin-fragment",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "url.hash === ''",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "snapshot-viewer",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "viewer: ElevenLabsWebViewerSchema,",
+    "new": "viewer: z.unknown(),",
+    "filter": null
+  },
+  {
+    "name": "snapshot-lifecycle",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "lifecycle: ElevenLabsWebAdmissionSnapshotSchema.shape.lifecycle,",
+    "new": "lifecycle: z.string(),",
+    "filter": null
+  },
+  {
+    "name": "snapshot-version",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "authorityVersion: AgentConfigVersionSchema,",
+    "new": "authorityVersion: z.number(),",
+    "filter": null
+  },
+  {
+    "name": "snapshot-observation",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "observedAt: z.iso.datetime({ offset: true }),",
+    "new": "observedAt: z.string(),",
+    "filter": null
+  },
+  {
+    "name": "snapshot-expiry",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "expiresAt: z.iso.datetime({ offset: true }),",
+    "new": "expiresAt: z.string(),",
+    "filter": null
+  },
+  {
+    "name": "snapshot-identity-unresolved",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "const AgentContextIdentitySchema = z.null();",
+    "new": "const AgentContextIdentitySchema = z.unknown();",
+    "filter": null
+  },
+  {
+    "name": "snapshot-strict",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "  agentIdentity: AgentContextIdentitySchema,\n}).superRefine",
+    "new": "  agentIdentity: AgentContextIdentitySchema,\n}).passthrough().superRefine",
+    "filter": null
+  },
+  {
+    "name": "required-viewer",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "viewer: ElevenLabsWebViewerSchema,",
+    "new": "viewer: ElevenLabsWebViewerSchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-lifecycle",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "lifecycle: ElevenLabsWebAdmissionSnapshotSchema.shape.lifecycle,",
+    "new": "lifecycle: ElevenLabsWebAdmissionSnapshotSchema.shape.lifecycle.optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-configuredOrigin",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "configuredOrigin: ConfiguredOriginSchema,",
+    "new": "configuredOrigin: ConfiguredOriginSchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-authorityVersion",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "authorityVersion: AgentConfigVersionSchema,",
+    "new": "authorityVersion: AgentConfigVersionSchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-observedAt",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "observedAt: z.iso.datetime({ offset: true }),",
+    "new": "observedAt: z.iso.datetime({ offset: true }).optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-expiresAt",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "expiresAt: z.iso.datetime({ offset: true }),",
+    "new": "expiresAt: z.iso.datetime({ offset: true }).optional(),",
+    "filter": null
+  },
+  {
+    "name": "required-agentIdentity",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "agentIdentity: AgentContextIdentitySchema,",
+    "new": "agentIdentity: AgentContextIdentitySchema.optional(),",
+    "filter": null
+  },
+  {
+    "name": "positive-window",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "if (duration <= 0)",
+    "new": "if (false)",
+    "filter": null
+  },
+  {
+    "name": "bounded-window",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "if (duration > 60000)",
+    "new": "if (false)",
+    "filter": null
+  },
+  {
+    "name": "current-request",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "evidence.requestId === command.requestId",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-scope",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "sameCapabilityScope(evidence.scope, command.scope)",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-link",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "evidence.linkId === command.linkId",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-phase",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "evidence.phase === command.phase",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-version",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "evidence.authorityVersion === version.data",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-viewer",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "JSON.stringify(evidence.viewer) === JSON.stringify(viewer.data)",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-origin",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "new URL(evidence.configuredOrigin).origin === new URL(origin.data).origin",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-future",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "Date.parse(evidence.observedAt) <= time",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-expired",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "Date.parse(evidence.expiresAt) > time",
+    "new": "true",
+    "filter": null
+  },
+  {
+    "name": "current-expected-version",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "AgentConfigVersionSchema.safeParse(expectedVersion)",
+    "new": "AgentConfigVersionSchema.safeParse(3)",
+    "filter": null
+  },
+  {
+    "name": "current-validates-request",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "ElevenLabsWebAuthorityRequestSchema.safeParse(rawRequest)",
+    "new": "ElevenLabsWebAuthorityRequestSchema.safeParse({\"requestId\": \"attempt-0001\", \"scope\": {\"tenantId\": \"tenant-a\", \"ownerId\": \"owner-a\", \"agentId\": \"runtime-heir\"}, \"linkId\": \"link-0000001\", \"phase\": \"before\"})",
+    "filter": null
+  },
+  {
+    "name": "current-validates-snapshot",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "ElevenLabsWebAuthoritySnapshotSchema.safeParse(rawSnapshot)",
+    "new": "ElevenLabsWebAuthoritySnapshotSchema.safeParse({\"requestId\": \"attempt-0001\", \"scope\": {\"tenantId\": \"tenant-a\", \"ownerId\": \"owner-a\", \"agentId\": \"runtime-heir\"}, \"linkId\": \"link-0000001\", \"phase\": \"before\", \"viewer\": {\"kind\": \"authenticated\", \"userId\": \"person-a\", \"owner\": {\"tenantId\": \"tenant-a\", \"ownerId\": \"owner-a\"}}, \"lifecycle\": \"active\", \"configuredOrigin\": \"https://forge.example\", \"authorityVersion\": 3, \"observedAt\": \"2026-10-08T12:00:00Z\", \"expiresAt\": \"2026-10-08T12:01:00Z\", \"agentIdentity\": null})",
+    "filter": null
+  },
+  {
+    "name": "current-validates-viewer",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "ElevenLabsWebViewerSchema.safeParse(expectedViewer)",
+    "new": "ElevenLabsWebViewerSchema.safeParse({\"kind\": \"authenticated\", \"userId\": \"person-a\", \"owner\": {\"tenantId\": \"tenant-a\", \"ownerId\": \"owner-a\"}})",
+    "filter": null
+  },
+  {
+    "name": "current-validates-origin",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "ConfiguredOriginSchema.safeParse(configuredOrigin)",
+    "new": "ConfiguredOriginSchema.safeParse('https://forge.example')",
+    "filter": null
+  },
+  {
+    "name": "current-finite-clock",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "const time = now.getTime();\n  if (!request.success || !snapshot.success || !viewer.success || !origin.success || !version.success || !Number.isFinite(time))",
+    "new": "const time = Number.isFinite(now.getTime()) ? now.getTime() : Date.parse('2026-10-08T12:00:30Z');\n  if (!request.success || !snapshot.success || !viewer.success || !origin.success || !version.success)",
+    "filter": null
+  },
+  {
+    "name": "response-denial-only",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "ok: z.literal(false),",
+    "new": "ok: z.boolean(),",
+    "filter": null
+  },
+  {
+    "name": "response-error-codes",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "z.enum(['identity_unavailable', 'source_unavailable', 'admission_expired', 'identity_mismatch', 'viewer_unavailable'])",
+    "new": "z.string()",
+    "filter": null
+  },
+  {
+    "name": "response-strict",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "}).strict().superRefine",
+    "new": "}).passthrough().superRefine",
+    "filter": null
+  },
+  {
+    "name": "response-snapshot-pair",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "if ((response.error === 'identity_unavailable') !== (response.snapshot !== undefined))",
+    "new": "if (false)",
+    "filter": null
+  },
+  {
+    "name": "response-correlates-request",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "snapshot.requestId !== request.requestId",
+    "new": "false",
+    "filter": null
+  },
+  {
+    "name": "response-correlates-scope",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "!sameCapabilityScope(snapshot.scope, request.scope)",
+    "new": "false",
+    "filter": null
+  },
+  {
+    "name": "response-correlates-link",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "snapshot.linkId !== request.linkId",
+    "new": "false",
+    "filter": null
+  },
+  {
+    "name": "response-correlates-phase",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "old": "snapshot.phase !== request.phase",
+    "new": "false",
+    "filter": null
+  },
+  {
+    "name": "http-path",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "'/resolve/elevenlabs-web-admission' as const",
+    "new": "'/resolve/other' as const",
+    "filter": null
+  },
+  {
+    "name": "http-method",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "method: 'POST' as const",
+    "new": "method: 'GET' as const",
+    "filter": null
+  },
+  {
+    "name": "http-bound-path",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "path: ELEVENLABS_WEB_AUTHORITY_PATH,",
+    "new": "path: '/different',",
+    "filter": null
+  },
+  {
+    "name": "http-auth",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "authType: 'token' as const",
+    "new": "authType: 'none' as const",
+    "filter": null
+  },
+  {
+    "name": "http-header",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "authHeader: INTERNAL_TOKEN_HEADER,",
+    "new": "authHeader: 'untrusted',",
+    "filter": null
+  },
+  {
+    "name": "http-auth-schema",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "authSchema: AuthInternalTokenSchema,",
+    "new": "authSchema: z.unknown(),",
+    "filter": null
+  },
+  {
+    "name": "http-body",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "bodySchema: ElevenLabsWebAuthorityRequestSchema,",
+    "new": "bodySchema: z.unknown(),",
+    "filter": null
+  },
+  {
+    "name": "http-response",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "old": "responseSchema: ElevenLabsWebAuthorityResponseSchema,",
+    "new": "responseSchema: z.unknown(),",
+    "filter": null
+  },
+  {
+    "name": "capability-export",
+    "file": "src/capability/index.ts",
+    "old": "export * from './agent-elevenlabs/web-context.js';",
+    "new": "",
+    "filter": null
+  },
+  {
+    "name": "http-export",
+    "file": "src/http/endpoints/index.ts",
+    "old": "export * from './capability-elevenlabs-web-context.js';",
+    "new": "",
+    "filter": null
+  }
+]

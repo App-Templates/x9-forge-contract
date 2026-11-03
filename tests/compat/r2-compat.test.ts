@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
@@ -23,7 +24,7 @@ describe('R2 preserves 1.30 contracts and publishes opt-in contracts', () => {
     it(`publishes ${symbols.length} new symbols from ${path} in ESM and CJS`, async () => {
       const target = pkg.exports[path]!;
       const esm = await import(new URL(target.import, root).href) as Record<string, unknown>;
-      const cjs = createRequire(import.meta.url)(new URL(target.require, root).pathname) as Record<string, unknown>;
+      const cjs = createRequire(import.meta.url)(fileURLToPath(new URL(target.require, root))) as Record<string, unknown>;
       expect(symbols.filter((name) => !(name in esm))).toEqual([]);
       expect(symbols.filter((name) => !(name in cjs))).toEqual([]);
     });

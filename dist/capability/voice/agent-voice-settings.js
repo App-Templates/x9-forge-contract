@@ -1,3 +1,4 @@
+import { AgentVoiceIdSchema, AgentVoiceModelSchema, AgentVoiceLocaleSchema } from "./agent-voice-values.js";
 import { z } from 'zod';
 import { VoiceProviderSchema } from "./provider.js";
 import { VoiceLiveCallStartRequestSchema } from "../voice-live/index.js";
@@ -23,11 +24,7 @@ export const AgentVoiceProviderIdSchema = z.string().regex(/^[a-z][a-z0-9_]{1,63
 export const AgentVoiceProtocolSchema = z.enum(['websocket', 'webrtc', 'sip']);
 /** phone: calls over the outbound Telnyx number · web: browser/app sessions. */
 export const AgentVoiceTransportSchema = z.enum(['phone', 'web']);
-/** Provider voice id: a menu value for GPT voices, the voice id for ElevenLabs. */
-export const AgentVoiceIdSchema = z.string().min(1).max(128);
-export const AgentVoiceModelSchema = z.string().min(1).max(128);
-/** BCP-47 language tag, e.g. it or it-IT. */
-export const AgentVoiceLocaleSchema = z.string().regex(/^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$/);
+export { AgentVoiceIdSchema, AgentVoiceModelSchema, AgentVoiceLocaleSchema } from "./agent-voice-values.js";
 const TransportsSchema = z.array(AgentVoiceTransportSchema).min(1).max(2)
     .refine((transports) => new Set(transports).size === transports.length, { message: 'Duplicate transport' });
 export const AgentVoiceSettingsSchema = z.discriminatedUnion('mode', [

@@ -1,7 +1,4 @@
-import { describe, expect, it } from 'vitest';
-import { createServer } from 'node:http';
-import { once } from 'node:events';
-import type { AddressInfo } from 'node:net';
+import { describe, expect, it, vi } from 'vitest';
 import {
   AgentTurnSchema, CapabilityTurnLeadDeclarationSchema, CapabilityTurnLeadRequestSchema,
   CapabilityTurnLeadResponseSchema, AGENT_TURN_MAX_TEXT_CHARS, CAPABILITY_TURN_LEAD_MAX_CHARS,
@@ -99,19 +96,19 @@ describe('MVP guided turns (synthetic)', () => {
   });
   it('carries source and move ID through the real bridge HTTP client without losing fields', async () => {
     const received: { path?: string; auth?: string | string[]; body?: unknown } = {};
-    const server = createServer(async (req, res) => {
-      const chunks: Buffer[] = []; for await (const chunk of req) chunks.push(Buffer.from(chunk));
-      received.path = req.url; received.auth = req.headers[INTERNAL_SECRET_HEADER.toLowerCase()];
-      received.body = JSON.parse(Buffer.concat(chunks).toString());
-      res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify({ ...reply, moveId: delivery.moveId }));
+    const transport = vi.fn<typeof fetch>(async (input, init) => {
+      received.path = new URL(String(input)).pathname; received.auth = new Headers(init?.headers).get(INTERNAL_SECRET_HEADER) ?? undefined;
+      received.body = JSON.parse(String(init?.body));
+      return Response.json({ ...reply, moveId: delivery.moveId });
     });
-    server.listen(0, '127.0.0.1'); await once(server, 'listening');
+    vi.stubGlobal('fetch', transport);
     try {
-      const client = createBridgeClient({ baseUrl: `http://127.0.0.1:${(server.address() as AddressInfo).port}`,
+      const client = createBridgeClient({ baseUrl: 'http://bridge.invalid',
         auth: { [INTERNAL_SECRET_HEADER]: 'synthetic-test-only' } });
       const result = await client.internalAgentTurn('synthetic-agent', { ...body, turn: AgentTurnSchema.parse(answer) });
       expect(received).toEqual({ path: internalAgentTurnPath('synthetic-agent'), auth: 'synthetic-test-only', body: { ...body, turn: answer } });
       expect(result).toEqual({ ...reply, moveId: delivery.moveId });
-    } finally { await new Promise<void>((resolve, reject) => server.close((e) => e ? reject(e) : resolve())); }
+      expect(transport).toHaveBeenCalledTimes(1);
+    } finally { vi.unstubAllGlobals(); }
   });
 });

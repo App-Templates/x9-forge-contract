@@ -1,0 +1,36 @@
+{
+  "productCommit": "f5fef32",
+  "sourceSha256": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76",
+  "initialRed": {
+    "failed": 70,
+    "total": 70,
+    "reason": "Missing exports asserted through an existing barrel; suite collected successfully. Behavioral controls additionally qualified by mutations."
+  },
+  "firstGreen": {
+    "passed": 70,
+    "total": 70
+  },
+  "finalTests": {
+    "passed": 79,
+    "total": 79,
+    "includedInFull": true
+  },
+  "fullSource": {
+    "passed": 4294,
+    "total": 4294,
+    "files": 153,
+    "failed": 0,
+    "skipped": 0
+  },
+  "targetedSourceMutations": {
+    "semanticRed": 34,
+    "total": 34,
+    "restoredSha256": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76"
+  },
+  "typecheckExit": 0,
+  "lintExit": 0,
+  "compiledCjsVerified": false,
+  "distBuilt": false,
+  "liveOperations": 0,
+  "userFeatureComplete": false
+}

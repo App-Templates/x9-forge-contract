@@ -1,0 +1,4 @@
+$ ["/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/consumer/model-local-authority-smoke.mjs"]
+{"status":"passed","surfaces":["esm:root","esm:/model-router","esm:http","cjs:root","cjs:/model-router","cjs:http"],"surfaceCount":6,"assertions":186}
+
+EXIT 0

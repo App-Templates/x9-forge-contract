@@ -5,6 +5,7 @@ exports.resolvePolicyDecision = resolvePolicyDecision;
 const zod_1 = require("zod");
 const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const parameters_js_1 = require("../capability/parameters.cjs");
+const capability_tool_js_1 = require("../capability/capability-tool.cjs");
 const capability_call_context_js_1 = require("../capability/capability-call-context.cjs");
 const cap_tool_call_js_1 = require("../http/endpoints/cap-tool-call.cjs");
 const agent_management_js_1 = require("./agent-management.cjs");
@@ -21,7 +22,7 @@ const agent_runtime_state_js_1 = require("./agent-runtime-state.cjs");
  * - Every action leaves a log event without payloads or secrets (`AgentActionLogEventSchema`).
  */
 exports.PolicyDecisionSchema = zod_1.z.enum(['allow', 'ask', 'deny']);
-exports.PolicyAccessSchema = zod_1.z.enum(['read', 'write']);
+exports.PolicyAccessSchema = capability_tool_js_1.CapabilityToolAccessSchema;
 exports.PolicyAccessDecisionsSchema = zod_1.z.object({ read: exports.PolicyDecisionSchema, write: exports.PolicyDecisionSchema }).strict();
 const CapabilityNameSchema = parameters_js_1.CapabilityAgentParametersSchema.shape.capability;
 const ToolNameSchema = cap_tool_call_js_1.CapToolCallParamsSchema.shape.tool;

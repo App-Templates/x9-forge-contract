@@ -99,8 +99,8 @@ export declare const internalFactoryReplayableDeployContract: {
             phase: z.ZodEnum<{
                 incomplete: "incomplete";
                 pending: "pending";
-                running: "running";
                 completed: "completed";
+                running: "running";
             }>;
             channels: z.ZodArray<z.ZodObject<{
                 kind: z.ZodEnum<{
@@ -221,8 +221,8 @@ export declare const internalFactoryReplayableDeployContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -274,8 +274,8 @@ export declare const internalFactoryReplayableDeployContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;
@@ -305,9 +305,9 @@ export declare const internalFactoryReplayableDeployContract: {
             }, z.core.$strict>>;
             failure: z.ZodNullable<z.ZodObject<{
                 step: z.ZodEnum<{
+                    context: "context";
                     runtime: "runtime";
                     workspace: "workspace";
-                    context: "context";
                     resources: "resources";
                     "first-check": "first-check";
                     save: "save";

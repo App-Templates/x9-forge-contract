@@ -34,11 +34,14 @@ exports.CapabilityContextDeclarationSchema = zod_1.z.object({
 });
 exports.CapabilityContextRequestSchema = zod_1.z.object({
     agentId: zod_1.z.string().min(1),
+    /** Full agent scope for managed consumers; both fields are present or absent. */
+    tenantId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.tenantId.optional(),
+    ownerId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.ownerId.optional(),
     sessionId: zod_1.z.string().min(1),
     /** Scope of the authenticated end user's context; absent preserves agent scope. */
     userId: internal_memory_extract_js_1.InternalMemoryExtractRequestSchema.shape.userId,
     channelId: zod_1.z.string().min(1).optional(),
-});
+}).refine(value => (value.tenantId === undefined) === (value.ownerId === undefined), { message: 'Incomplete managed context scope' });
 exports.CapabilityContextResponseSchema = zod_1.z.object({
     /** null: nothing to add for this agent. */
     text: zod_1.z.string().min(1).max(exports.CAPABILITY_CONTEXT_MAX_CHARS).nullable(),

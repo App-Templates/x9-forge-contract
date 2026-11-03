@@ -15,7 +15,7 @@ const pkg = JSON.parse(readFileSync(new URL('package.json', root), 'utf8')) as {
 
 describe('1.30 public exports are preserved', () => {
   it('covers every 1.30 subpath', () => {
-    expect(Object.keys(baseline).sort()).toEqual(Object.keys(pkg.zshy.exports).sort());
+    expect(Object.keys(pkg.zshy.exports)).toEqual(expect.arrayContaining(Object.keys(baseline)));
   });
   for (const [subpath, symbols] of Object.entries(baseline)) {
     it('keeps all ' + symbols.length + ' symbols of ' + subpath, async () => {

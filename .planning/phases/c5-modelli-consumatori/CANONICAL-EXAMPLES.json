@@ -1,0 +1,3483 @@
+{
+  "note": "Synthetic documentation fixtures only. No observed provider, installed runtime, credentials or default model. Timestamps require a real fresh producer observation in use.",
+  "configuration": {
+    "schemaVersion": 1,
+    "identity": {
+      "managementAgentId": "synthetic-master",
+      "runtimeAgentId": "synthetic-runtime",
+      "vaultAgentId": 71
+    },
+    "configVersion": 2,
+    "selections": [
+      {
+        "slotId": "agent_classifier",
+        "settings": {
+          "capability": "agent-core",
+          "function": "reasoning",
+          "catalogVersion": "synthetic-catalog",
+          "requirements": {
+            "tools": false,
+            "stream": false,
+            "structuredOutput": false
+          },
+          "mode": "single",
+          "descriptor": {
+            "provider": "openai",
+            "modelId": "synthetic-model",
+            "protocol": "chat-completions",
+            "adapterId": "synthetic-adapter"
+          }
+        }
+      }
+    ],
+    "provenance": {
+      "scope": {
+        "tenantId": "synthetic-tenant",
+        "ownerId": "synthetic-owner",
+        "agentId": "synthetic-runtime"
+      },
+      "bindings": [
+        {
+          "slotId": "agent_classifier",
+          "origin": "custom"
+        }
+      ]
+    }
+  },
+  "state": {
+    "identity": {
+      "managementAgentId": "synthetic-master",
+      "runtimeAgentId": "synthetic-runtime",
+      "vaultAgentId": 71
+    },
+    "versions": {
+      "desired": 2,
+      "applied": null,
+      "failed": null
+    },
+    "saved": {
+      "schemaVersion": 1,
+      "identity": {
+        "managementAgentId": "synthetic-master",
+        "runtimeAgentId": "synthetic-runtime",
+        "vaultAgentId": 71
+      },
+      "configVersion": 2,
+      "selections": [
+        {
+          "slotId": "agent_classifier",
+          "settings": {
+            "capability": "agent-core",
+            "function": "reasoning",
+            "catalogVersion": "synthetic-catalog",
+            "requirements": {
+              "tools": false,
+              "stream": false,
+              "structuredOutput": false
+            },
+            "mode": "single",
+            "descriptor": {
+              "provider": "openai",
+              "modelId": "synthetic-model",
+              "protocol": "chat-completions",
+              "adapterId": "synthetic-adapter"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "ownerId": "synthetic-owner",
+          "agentId": "synthetic-runtime"
+        },
+        "bindings": [
+          {
+            "slotId": "agent_classifier",
+            "origin": "custom"
+          }
+        ]
+      }
+    },
+    "runtime": null,
+    "sourceObservation": {
+      "identity": {
+        "managementAgentId": "synthetic-master",
+        "runtimeAgentId": "synthetic-runtime",
+        "vaultAgentId": 71
+      },
+      "scope": {
+        "tenantId": "synthetic-tenant",
+        "ownerId": "synthetic-owner",
+        "agentId": "synthetic-runtime"
+      },
+      "sourceVersion": "synthetic-observed-generation",
+      "observedAt": "2026-10-09T07:07:00Z",
+      "validUntil": "2026-10-09T07:07:30Z"
+    }
+  },
+  "command": {
+    "action": "apply-config",
+    "requestId": "synthetic-request-0001",
+    "desiredVersion": 2,
+    "modelConfiguration": {
+      "schemaVersion": 1,
+      "identity": {
+        "managementAgentId": "synthetic-master",
+        "runtimeAgentId": "synthetic-runtime",
+        "vaultAgentId": 71
+      },
+      "configVersion": 2,
+      "selections": [
+        {
+          "slotId": "agent_classifier",
+          "settings": {
+            "capability": "agent-core",
+            "function": "reasoning",
+            "catalogVersion": "synthetic-catalog",
+            "requirements": {
+              "tools": false,
+              "stream": false,
+              "structuredOutput": false
+            },
+            "mode": "single",
+            "descriptor": {
+              "provider": "openai",
+              "modelId": "synthetic-model",
+              "protocol": "chat-completions",
+              "adapterId": "synthetic-adapter"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "ownerId": "synthetic-owner",
+          "agentId": "synthetic-runtime"
+        },
+        "bindings": [
+          {
+            "slotId": "agent_classifier",
+            "origin": "custom"
+          }
+        ]
+      }
+    },
+    "modelExpectedSourceVersion": "synthetic-observed-generation"
+  },
+  "install": {
+    "schemaVersion": 1,
+    "identity": {
+      "managementAgentId": "synthetic-master",
+      "runtimeAgentId": "synthetic-runtime",
+      "vaultAgentId": 71
+    },
+    "scope": {
+      "tenantId": "synthetic-tenant",
+      "ownerId": "synthetic-owner",
+      "agentId": "synthetic-runtime"
+    },
+    "slotId": "agent_classifier",
+    "configVersion": 2,
+    "requestId": "synthetic-request-0001",
+    "expectedSourceVersion": "synthetic-service-generation",
+    "settings": {
+      "capability": "agent-core",
+      "function": "reasoning",
+      "catalogVersion": "synthetic-catalog",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "mode": "single",
+      "descriptor": {
+        "provider": "openai",
+        "modelId": "synthetic-model",
+        "protocol": "chat-completions",
+        "adapterId": "synthetic-adapter"
+      }
+    }
+  },
+  "inventory": [
+    {
+      "slotId": "agent_chat",
+      "capability": "agent-core",
+      "function": "reasoning",
+      "requirements": {
+        "tools": true,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Agent Chat",
+      "inventoryIds": [
+        "C01"
+      ],
+      "scope": "agent",
+      "changeBoundary": "next-turn",
+      "routing": "tiered"
+    },
+    {
+      "slotId": "agent_classifier",
+      "capability": "agent-core",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Agent Classifier",
+      "inventoryIds": [
+        "C02"
+      ],
+      "scope": "agent",
+      "changeBoundary": "next-turn",
+      "routing": "single"
+    },
+    {
+      "slotId": "memory_extraction",
+      "capability": "memory",
+      "function": "memory-extraction",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Memory Extraction",
+      "inventoryIds": [
+        "C03"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "memory_embedding",
+      "capability": "memory",
+      "function": "embedding",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Memory Embedding",
+      "inventoryIds": [
+        "C04"
+      ],
+      "scope": "service",
+      "changeBoundary": "rebuild",
+      "routing": "single"
+    },
+    {
+      "slotId": "rag_embedding",
+      "capability": "rag",
+      "function": "embedding",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Rag Embedding",
+      "inventoryIds": [
+        "C05"
+      ],
+      "scope": "service",
+      "changeBoundary": "rebuild",
+      "routing": "single"
+    },
+    {
+      "slotId": "rag_claim_extraction",
+      "capability": "rag",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Rag Claim Extraction",
+      "inventoryIds": [
+        "C06"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single",
+      "linkedSelectionGroup": "rag_llm_standard"
+    },
+    {
+      "slotId": "rag_claim_validation",
+      "capability": "rag",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Rag Claim Validation",
+      "inventoryIds": [
+        "C07"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single",
+      "linkedSelectionGroup": "rag_llm_standard"
+    },
+    {
+      "slotId": "rag_topic_synthesis",
+      "capability": "rag",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Rag Topic Synthesis",
+      "inventoryIds": [
+        "C08"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single",
+      "linkedSelectionGroup": "rag_llm_standard"
+    },
+    {
+      "slotId": "voice_phone_live",
+      "capability": "voice-live",
+      "function": "voice",
+      "requirements": {
+        "tools": false,
+        "stream": true,
+        "structuredOutput": false
+      },
+      "label": "Voice Phone Live",
+      "inventoryIds": [
+        "C09"
+      ],
+      "scope": "session",
+      "changeBoundary": "next-session",
+      "routing": "single",
+      "linkedSelectionGroup": "voice_live_audio"
+    },
+    {
+      "slotId": "voice_phone_delegation",
+      "capability": "voice-live",
+      "function": "reasoning",
+      "requirements": {
+        "tools": true,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Voice Phone Delegation",
+      "inventoryIds": [
+        "C10"
+      ],
+      "scope": "session",
+      "changeBoundary": "next-session",
+      "routing": "single",
+      "linkedSelectionGroup": "voice_live_backend"
+    },
+    {
+      "slotId": "voice_web_live",
+      "capability": "voice-live",
+      "function": "voice",
+      "requirements": {
+        "tools": false,
+        "stream": true,
+        "structuredOutput": false
+      },
+      "label": "Voice Web Live",
+      "inventoryIds": [
+        "C11"
+      ],
+      "scope": "session",
+      "changeBoundary": "next-session",
+      "routing": "single",
+      "linkedSelectionGroup": "voice_live_audio"
+    },
+    {
+      "slotId": "voice_web_delegation",
+      "capability": "voice-live",
+      "function": "reasoning",
+      "requirements": {
+        "tools": true,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Voice Web Delegation",
+      "inventoryIds": [
+        "C12"
+      ],
+      "scope": "session",
+      "changeBoundary": "next-session",
+      "routing": "single",
+      "linkedSelectionGroup": "voice_live_backend"
+    },
+    {
+      "slotId": "voice_call_recap",
+      "capability": "voice",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Voice Call Recap",
+      "inventoryIds": [
+        "C13"
+      ],
+      "scope": "agent",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "elevenlabs_agent_llm",
+      "capability": "agent-elevenlabs",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Elevenlabs Agent Llm",
+      "inventoryIds": [
+        "C14"
+      ],
+      "scope": "remote-agent",
+      "changeBoundary": "remote-update",
+      "routing": "single"
+    },
+    {
+      "slotId": "elevenlabs_agent_tts",
+      "capability": "agent-elevenlabs",
+      "function": "tts",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Elevenlabs Agent Tts",
+      "inventoryIds": [
+        "C15"
+      ],
+      "scope": "remote-agent",
+      "changeBoundary": "remote-update",
+      "routing": "single"
+    },
+    {
+      "slotId": "agent_telegram_tts",
+      "capability": "agent-core",
+      "function": "tts",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Agent Telegram Tts",
+      "inventoryIds": [
+        "C16"
+      ],
+      "scope": "agent",
+      "changeBoundary": "next-turn",
+      "routing": "single"
+    },
+    {
+      "slotId": "scheduler_tts",
+      "capability": "scheduler",
+      "function": "tts",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Scheduler Tts",
+      "inventoryIds": [
+        "C17"
+      ],
+      "scope": "agent",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "briefing_tts",
+      "capability": "briefing",
+      "function": "tts",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Briefing Tts",
+      "inventoryIds": [
+        "C18"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "stt_file",
+      "capability": "stt",
+      "function": "transcription",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Stt File",
+      "inventoryIds": [
+        "C19"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "failover"
+    },
+    {
+      "slotId": "glasses_stt",
+      "capability": "glasses",
+      "function": "transcription",
+      "requirements": {
+        "tools": false,
+        "stream": true,
+        "structuredOutput": false
+      },
+      "label": "Glasses Stt",
+      "inventoryIds": [
+        "C20"
+      ],
+      "scope": "session",
+      "changeBoundary": "next-session",
+      "routing": "single"
+    },
+    {
+      "slotId": "glasses_tts",
+      "capability": "glasses",
+      "function": "tts",
+      "requirements": {
+        "tools": false,
+        "stream": true,
+        "structuredOutput": false
+      },
+      "label": "Glasses Tts",
+      "inventoryIds": [
+        "C21"
+      ],
+      "scope": "session",
+      "changeBoundary": "next-session",
+      "routing": "single"
+    },
+    {
+      "slotId": "qa_text",
+      "capability": "qa",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Qa Text",
+      "inventoryIds": [
+        "C22"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single",
+      "linkedSelectionGroup": "qa_llm"
+    },
+    {
+      "slotId": "qa_vision",
+      "capability": "qa",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false,
+        "vision": true
+      },
+      "label": "Qa Vision",
+      "inventoryIds": [
+        "C23"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single",
+      "linkedSelectionGroup": "qa_llm"
+    },
+    {
+      "slotId": "security_vision",
+      "capability": "security",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true,
+        "vision": true
+      },
+      "label": "Security Vision",
+      "inventoryIds": [
+        "C24"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "security_rules",
+      "capability": "security",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Security Rules",
+      "inventoryIds": [
+        "C25"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "news_digest",
+      "capability": "news",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "News Digest",
+      "inventoryIds": [
+        "C26"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "news_rules",
+      "capability": "news",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "News Rules",
+      "inventoryIds": [
+        "C27"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "netatmo_rules",
+      "capability": "netatmo",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Netatmo Rules",
+      "inventoryIds": [
+        "C28"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "briefing_rules",
+      "capability": "briefing",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Briefing Rules",
+      "inventoryIds": [
+        "C29"
+      ],
+      "scope": "service",
+      "changeBoundary": "next-call",
+      "routing": "single"
+    },
+    {
+      "slotId": "research_search",
+      "capability": "ricerca",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false,
+        "webSearch": true
+      },
+      "label": "Research Search",
+      "inventoryIds": [
+        "C30"
+      ],
+      "scope": "agent",
+      "changeBoundary": "next-call",
+      "routing": "single",
+      "linkedSelectionGroup": "research_model"
+    },
+    {
+      "slotId": "research_structure",
+      "capability": "ricerca",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": true
+      },
+      "label": "Research Structure",
+      "inventoryIds": [
+        "C31"
+      ],
+      "scope": "agent",
+      "changeBoundary": "next-call",
+      "routing": "single",
+      "linkedSelectionGroup": "research_model"
+    },
+    {
+      "slotId": "mindfulness_chat",
+      "capability": "mindfulness",
+      "function": "reasoning",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Mindfulness Chat",
+      "inventoryIds": [
+        "C32"
+      ],
+      "scope": "pipeline",
+      "changeBoundary": "next-session",
+      "routing": "single"
+    },
+    {
+      "slotId": "mindfulness_tts",
+      "capability": "mindfulness",
+      "function": "tts",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Mindfulness Tts",
+      "inventoryIds": [
+        "C33"
+      ],
+      "scope": "pipeline",
+      "changeBoundary": "next-session",
+      "routing": "single"
+    },
+    {
+      "slotId": "mindfulness_stt",
+      "capability": "mindfulness",
+      "function": "transcription",
+      "requirements": {
+        "tools": false,
+        "stream": false,
+        "structuredOutput": false
+      },
+      "label": "Mindfulness Stt",
+      "inventoryIds": [
+        "C34"
+      ],
+      "scope": "pipeline",
+      "changeBoundary": "next-session",
+      "routing": "single"
+    }
+  ],
+  "transportJsonSchemas": {
+    "install": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "number",
+          "const": 1
+        },
+        "identity": {
+          "type": "object",
+          "properties": {
+            "managementAgentId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "runtimeAgentId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "vaultAgentId": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "managementAgentId",
+            "runtimeAgentId",
+            "vaultAgentId"
+          ],
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "tenantId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "ownerId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "agentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          },
+          "required": [
+            "tenantId",
+            "ownerId",
+            "agentId"
+          ],
+          "additionalProperties": false
+        },
+        "slotId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+        },
+        "configVersion": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "requestId": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "expectedSourceVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "settings": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "capability": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "function": {
+                  "type": "string",
+                  "enum": [
+                    "reasoning",
+                    "memory-extraction",
+                    "embedding",
+                    "tts",
+                    "transcription",
+                    "voice"
+                  ]
+                },
+                "catalogVersion": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "requirements": {
+                  "type": "object",
+                  "properties": {
+                    "tools": {
+                      "type": "boolean"
+                    },
+                    "stream": {
+                      "type": "boolean"
+                    },
+                    "structuredOutput": {
+                      "type": "boolean"
+                    },
+                    "vision": {
+                      "type": "boolean"
+                    },
+                    "webSearch": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "tools",
+                    "stream",
+                    "structuredOutput"
+                  ],
+                  "additionalProperties": false
+                },
+                "tiers": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "enum": [
+                      "standard",
+                      "advanced",
+                      "reasoning"
+                    ]
+                  },
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "provider": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                      },
+                      "modelId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "protocol": {
+                        "type": "string",
+                        "enum": [
+                          "responses",
+                          "chat-completions",
+                          "messages",
+                          "generate-content",
+                          "embeddings",
+                          "speech",
+                          "transcriptions",
+                          "realtime"
+                        ]
+                      },
+                      "adapterId": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                      }
+                    },
+                    "required": [
+                      "provider",
+                      "modelId",
+                      "protocol",
+                      "adapterId"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "required": [
+                    "standard",
+                    "advanced",
+                    "reasoning"
+                  ]
+                },
+                "fallback": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                },
+                "mode": {
+                  "type": "string",
+                  "const": "automatic"
+                }
+              },
+              "required": [
+                "capability",
+                "function",
+                "catalogVersion",
+                "requirements",
+                "tiers",
+                "fallback",
+                "mode"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "capability": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "function": {
+                  "type": "string",
+                  "enum": [
+                    "reasoning",
+                    "memory-extraction",
+                    "embedding",
+                    "tts",
+                    "transcription",
+                    "voice"
+                  ]
+                },
+                "catalogVersion": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "requirements": {
+                  "type": "object",
+                  "properties": {
+                    "tools": {
+                      "type": "boolean"
+                    },
+                    "stream": {
+                      "type": "boolean"
+                    },
+                    "structuredOutput": {
+                      "type": "boolean"
+                    },
+                    "vision": {
+                      "type": "boolean"
+                    },
+                    "webSearch": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "tools",
+                    "stream",
+                    "structuredOutput"
+                  ],
+                  "additionalProperties": false
+                },
+                "tiers": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "enum": [
+                      "standard",
+                      "advanced",
+                      "reasoning"
+                    ]
+                  },
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "provider": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                      },
+                      "modelId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "protocol": {
+                        "type": "string",
+                        "enum": [
+                          "responses",
+                          "chat-completions",
+                          "messages",
+                          "generate-content",
+                          "embeddings",
+                          "speech",
+                          "transcriptions",
+                          "realtime"
+                        ]
+                      },
+                      "adapterId": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                      }
+                    },
+                    "required": [
+                      "provider",
+                      "modelId",
+                      "protocol",
+                      "adapterId"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "required": [
+                    "standard",
+                    "advanced",
+                    "reasoning"
+                  ]
+                },
+                "fallback": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                },
+                "mode": {
+                  "type": "string",
+                  "const": "pin"
+                },
+                "pin": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "capability",
+                "function",
+                "catalogVersion",
+                "requirements",
+                "tiers",
+                "fallback",
+                "mode",
+                "pin"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "capability": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "function": {
+                  "type": "string",
+                  "enum": [
+                    "reasoning",
+                    "memory-extraction",
+                    "embedding",
+                    "tts",
+                    "transcription",
+                    "voice"
+                  ]
+                },
+                "catalogVersion": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "requirements": {
+                  "type": "object",
+                  "properties": {
+                    "tools": {
+                      "type": "boolean"
+                    },
+                    "stream": {
+                      "type": "boolean"
+                    },
+                    "structuredOutput": {
+                      "type": "boolean"
+                    },
+                    "vision": {
+                      "type": "boolean"
+                    },
+                    "webSearch": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "tools",
+                    "stream",
+                    "structuredOutput"
+                  ],
+                  "additionalProperties": false
+                },
+                "tiers": {
+                  "not": {}
+                },
+                "fallback": {
+                  "not": {}
+                },
+                "mode": {
+                  "type": "string",
+                  "const": "single"
+                },
+                "descriptor": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                },
+                "embeddingDimensions": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "capability",
+                "function",
+                "catalogVersion",
+                "requirements",
+                "mode",
+                "descriptor"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "capability": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "function": {
+                  "type": "string",
+                  "enum": [
+                    "reasoning",
+                    "memory-extraction",
+                    "embedding",
+                    "tts",
+                    "transcription",
+                    "voice"
+                  ]
+                },
+                "catalogVersion": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "requirements": {
+                  "type": "object",
+                  "properties": {
+                    "tools": {
+                      "type": "boolean"
+                    },
+                    "stream": {
+                      "type": "boolean"
+                    },
+                    "structuredOutput": {
+                      "type": "boolean"
+                    },
+                    "vision": {
+                      "type": "boolean"
+                    },
+                    "webSearch": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "tools",
+                    "stream",
+                    "structuredOutput"
+                  ],
+                  "additionalProperties": false
+                },
+                "tiers": {
+                  "not": {}
+                },
+                "fallback": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                },
+                "mode": {
+                  "type": "string",
+                  "const": "failover"
+                },
+                "primary": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "capability",
+                "function",
+                "catalogVersion",
+                "requirements",
+                "fallback",
+                "mode",
+                "primary"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "identity",
+        "scope",
+        "slotId",
+        "configVersion",
+        "requestId",
+        "expectedSourceVersion",
+        "settings"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "number",
+          "const": 1
+        },
+        "identity": {
+          "type": "object",
+          "properties": {
+            "managementAgentId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "runtimeAgentId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "vaultAgentId": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "managementAgentId",
+            "runtimeAgentId",
+            "vaultAgentId"
+          ],
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "tenantId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "ownerId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "agentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          },
+          "required": [
+            "tenantId",
+            "ownerId",
+            "agentId"
+          ],
+          "additionalProperties": false
+        },
+        "slotId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+        },
+        "sourceVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "installed",
+            "pending",
+            "failed",
+            "unknown"
+          ]
+        },
+        "configVersion": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requestId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "settings": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "capability": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "function": {
+                      "type": "string",
+                      "enum": [
+                        "reasoning",
+                        "memory-extraction",
+                        "embedding",
+                        "tts",
+                        "transcription",
+                        "voice"
+                      ]
+                    },
+                    "catalogVersion": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "requirements": {
+                      "type": "object",
+                      "properties": {
+                        "tools": {
+                          "type": "boolean"
+                        },
+                        "stream": {
+                          "type": "boolean"
+                        },
+                        "structuredOutput": {
+                          "type": "boolean"
+                        },
+                        "vision": {
+                          "type": "boolean"
+                        },
+                        "webSearch": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "tools",
+                        "stream",
+                        "structuredOutput"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "tiers": {
+                      "type": "object",
+                      "propertyNames": {
+                        "type": "string",
+                        "enum": [
+                          "standard",
+                          "advanced",
+                          "reasoning"
+                        ]
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "provider": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                          },
+                          "modelId": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 100
+                          },
+                          "protocol": {
+                            "type": "string",
+                            "enum": [
+                              "responses",
+                              "chat-completions",
+                              "messages",
+                              "generate-content",
+                              "embeddings",
+                              "speech",
+                              "transcriptions",
+                              "realtime"
+                            ]
+                          },
+                          "adapterId": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                          }
+                        },
+                        "required": [
+                          "provider",
+                          "modelId",
+                          "protocol",
+                          "adapterId"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "required": [
+                        "standard",
+                        "advanced",
+                        "reasoning"
+                      ]
+                    },
+                    "fallback": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "mode": {
+                      "type": "string",
+                      "const": "automatic"
+                    }
+                  },
+                  "required": [
+                    "capability",
+                    "function",
+                    "catalogVersion",
+                    "requirements",
+                    "tiers",
+                    "fallback",
+                    "mode"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "capability": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "function": {
+                      "type": "string",
+                      "enum": [
+                        "reasoning",
+                        "memory-extraction",
+                        "embedding",
+                        "tts",
+                        "transcription",
+                        "voice"
+                      ]
+                    },
+                    "catalogVersion": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "requirements": {
+                      "type": "object",
+                      "properties": {
+                        "tools": {
+                          "type": "boolean"
+                        },
+                        "stream": {
+                          "type": "boolean"
+                        },
+                        "structuredOutput": {
+                          "type": "boolean"
+                        },
+                        "vision": {
+                          "type": "boolean"
+                        },
+                        "webSearch": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "tools",
+                        "stream",
+                        "structuredOutput"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "tiers": {
+                      "type": "object",
+                      "propertyNames": {
+                        "type": "string",
+                        "enum": [
+                          "standard",
+                          "advanced",
+                          "reasoning"
+                        ]
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "provider": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                          },
+                          "modelId": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 100
+                          },
+                          "protocol": {
+                            "type": "string",
+                            "enum": [
+                              "responses",
+                              "chat-completions",
+                              "messages",
+                              "generate-content",
+                              "embeddings",
+                              "speech",
+                              "transcriptions",
+                              "realtime"
+                            ]
+                          },
+                          "adapterId": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                          }
+                        },
+                        "required": [
+                          "provider",
+                          "modelId",
+                          "protocol",
+                          "adapterId"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "required": [
+                        "standard",
+                        "advanced",
+                        "reasoning"
+                      ]
+                    },
+                    "fallback": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "mode": {
+                      "type": "string",
+                      "const": "pin"
+                    },
+                    "pin": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "capability",
+                    "function",
+                    "catalogVersion",
+                    "requirements",
+                    "tiers",
+                    "fallback",
+                    "mode",
+                    "pin"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "capability": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "function": {
+                      "type": "string",
+                      "enum": [
+                        "reasoning",
+                        "memory-extraction",
+                        "embedding",
+                        "tts",
+                        "transcription",
+                        "voice"
+                      ]
+                    },
+                    "catalogVersion": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "requirements": {
+                      "type": "object",
+                      "properties": {
+                        "tools": {
+                          "type": "boolean"
+                        },
+                        "stream": {
+                          "type": "boolean"
+                        },
+                        "structuredOutput": {
+                          "type": "boolean"
+                        },
+                        "vision": {
+                          "type": "boolean"
+                        },
+                        "webSearch": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "tools",
+                        "stream",
+                        "structuredOutput"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "tiers": {
+                      "not": {}
+                    },
+                    "fallback": {
+                      "not": {}
+                    },
+                    "mode": {
+                      "type": "string",
+                      "const": "single"
+                    },
+                    "descriptor": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "embeddingDimensions": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "capability",
+                    "function",
+                    "catalogVersion",
+                    "requirements",
+                    "mode",
+                    "descriptor"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "capability": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "function": {
+                      "type": "string",
+                      "enum": [
+                        "reasoning",
+                        "memory-extraction",
+                        "embedding",
+                        "tts",
+                        "transcription",
+                        "voice"
+                      ]
+                    },
+                    "catalogVersion": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "requirements": {
+                      "type": "object",
+                      "properties": {
+                        "tools": {
+                          "type": "boolean"
+                        },
+                        "stream": {
+                          "type": "boolean"
+                        },
+                        "structuredOutput": {
+                          "type": "boolean"
+                        },
+                        "vision": {
+                          "type": "boolean"
+                        },
+                        "webSearch": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "tools",
+                        "stream",
+                        "structuredOutput"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "tiers": {
+                      "not": {}
+                    },
+                    "fallback": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "mode": {
+                      "type": "string",
+                      "const": "failover"
+                    },
+                    "primary": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "capability",
+                    "function",
+                    "catalogVersion",
+                    "requirements",
+                    "fallback",
+                    "mode",
+                    "primary"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "embedding": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "pending",
+                    "running",
+                    "failed",
+                    "completed"
+                  ]
+                },
+                "previous": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                },
+                "active": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                },
+                "target": {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "enum": [
+                        "responses",
+                        "chat-completions",
+                        "messages",
+                        "generate-content",
+                        "embeddings",
+                        "speech",
+                        "transcriptions",
+                        "realtime"
+                      ]
+                    },
+                    "adapterId": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "modelId",
+                    "protocol",
+                    "adapterId"
+                  ],
+                  "additionalProperties": false
+                },
+                "progress": {
+                  "type": "object",
+                  "properties": {
+                    "completed": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "total": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "completed",
+                    "total"
+                  ],
+                  "additionalProperties": false
+                },
+                "reason": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "state",
+                "previous",
+                "active",
+                "target",
+                "progress",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "identity",
+        "scope",
+        "slotId",
+        "sourceVersion",
+        "observedAt",
+        "validUntil",
+        "status",
+        "configVersion",
+        "requestId",
+        "settings",
+        "reason",
+        "embedding"
+      ],
+      "additionalProperties": false
+    },
+    "receipt": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "installed",
+            "pending",
+            "failed"
+          ]
+        },
+        "state": {
+          "type": "object",
+          "properties": {
+            "schemaVersion": {
+              "type": "number",
+              "const": 1
+            },
+            "identity": {
+              "type": "object",
+              "properties": {
+                "managementAgentId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "runtimeAgentId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "vaultAgentId": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "managementAgentId",
+                "runtimeAgentId",
+                "vaultAgentId"
+              ],
+              "additionalProperties": false
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "tenantId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                },
+                "ownerId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                },
+                "agentId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                }
+              },
+              "required": [
+                "tenantId",
+                "ownerId",
+                "agentId"
+              ],
+              "additionalProperties": false
+            },
+            "slotId": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+            },
+            "sourceVersion": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "observedAt": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+            },
+            "validUntil": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "installed",
+                "pending",
+                "failed",
+                "unknown"
+              ]
+            },
+            "configVersion": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "requestId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 8,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "settings": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "capability": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "function": {
+                          "type": "string",
+                          "enum": [
+                            "reasoning",
+                            "memory-extraction",
+                            "embedding",
+                            "tts",
+                            "transcription",
+                            "voice"
+                          ]
+                        },
+                        "catalogVersion": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        },
+                        "requirements": {
+                          "type": "object",
+                          "properties": {
+                            "tools": {
+                              "type": "boolean"
+                            },
+                            "stream": {
+                              "type": "boolean"
+                            },
+                            "structuredOutput": {
+                              "type": "boolean"
+                            },
+                            "vision": {
+                              "type": "boolean"
+                            },
+                            "webSearch": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "tools",
+                            "stream",
+                            "structuredOutput"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "tiers": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string",
+                            "enum": [
+                              "standard",
+                              "advanced",
+                              "reasoning"
+                            ]
+                          },
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "provider": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                              },
+                              "modelId": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 100
+                              },
+                              "protocol": {
+                                "type": "string",
+                                "enum": [
+                                  "responses",
+                                  "chat-completions",
+                                  "messages",
+                                  "generate-content",
+                                  "embeddings",
+                                  "speech",
+                                  "transcriptions",
+                                  "realtime"
+                                ]
+                              },
+                              "adapterId": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                              }
+                            },
+                            "required": [
+                              "provider",
+                              "modelId",
+                              "protocol",
+                              "adapterId"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "required": [
+                            "standard",
+                            "advanced",
+                            "reasoning"
+                          ]
+                        },
+                        "fallback": {
+                          "type": "object",
+                          "properties": {
+                            "provider": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            },
+                            "modelId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 100
+                            },
+                            "protocol": {
+                              "type": "string",
+                              "enum": [
+                                "responses",
+                                "chat-completions",
+                                "messages",
+                                "generate-content",
+                                "embeddings",
+                                "speech",
+                                "transcriptions",
+                                "realtime"
+                              ]
+                            },
+                            "adapterId": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            }
+                          },
+                          "required": [
+                            "provider",
+                            "modelId",
+                            "protocol",
+                            "adapterId"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "mode": {
+                          "type": "string",
+                          "const": "automatic"
+                        }
+                      },
+                      "required": [
+                        "capability",
+                        "function",
+                        "catalogVersion",
+                        "requirements",
+                        "tiers",
+                        "fallback",
+                        "mode"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "capability": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "function": {
+                          "type": "string",
+                          "enum": [
+                            "reasoning",
+                            "memory-extraction",
+                            "embedding",
+                            "tts",
+                            "transcription",
+                            "voice"
+                          ]
+                        },
+                        "catalogVersion": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        },
+                        "requirements": {
+                          "type": "object",
+                          "properties": {
+                            "tools": {
+                              "type": "boolean"
+                            },
+                            "stream": {
+                              "type": "boolean"
+                            },
+                            "structuredOutput": {
+                              "type": "boolean"
+                            },
+                            "vision": {
+                              "type": "boolean"
+                            },
+                            "webSearch": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "tools",
+                            "stream",
+                            "structuredOutput"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "tiers": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string",
+                            "enum": [
+                              "standard",
+                              "advanced",
+                              "reasoning"
+                            ]
+                          },
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "provider": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                              },
+                              "modelId": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 100
+                              },
+                              "protocol": {
+                                "type": "string",
+                                "enum": [
+                                  "responses",
+                                  "chat-completions",
+                                  "messages",
+                                  "generate-content",
+                                  "embeddings",
+                                  "speech",
+                                  "transcriptions",
+                                  "realtime"
+                                ]
+                              },
+                              "adapterId": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                              }
+                            },
+                            "required": [
+                              "provider",
+                              "modelId",
+                              "protocol",
+                              "adapterId"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "required": [
+                            "standard",
+                            "advanced",
+                            "reasoning"
+                          ]
+                        },
+                        "fallback": {
+                          "type": "object",
+                          "properties": {
+                            "provider": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            },
+                            "modelId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 100
+                            },
+                            "protocol": {
+                              "type": "string",
+                              "enum": [
+                                "responses",
+                                "chat-completions",
+                                "messages",
+                                "generate-content",
+                                "embeddings",
+                                "speech",
+                                "transcriptions",
+                                "realtime"
+                              ]
+                            },
+                            "adapterId": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            }
+                          },
+                          "required": [
+                            "provider",
+                            "modelId",
+                            "protocol",
+                            "adapterId"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "mode": {
+                          "type": "string",
+                          "const": "pin"
+                        },
+                        "pin": {
+                          "type": "object",
+                          "properties": {
+                            "provider": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            },
+                            "modelId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 100
+                            },
+                            "protocol": {
+                              "type": "string",
+                              "enum": [
+                                "responses",
+                                "chat-completions",
+                                "messages",
+                                "generate-content",
+                                "embeddings",
+                                "speech",
+                                "transcriptions",
+                                "realtime"
+                              ]
+                            },
+                            "adapterId": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            }
+                          },
+                          "required": [
+                            "provider",
+                            "modelId",
+                            "protocol",
+                            "adapterId"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "capability",
+                        "function",
+                        "catalogVersion",
+                        "requirements",
+                        "tiers",
+                        "fallback",
+                        "mode",
+                        "pin"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "capability": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "function": {
+                          "type": "string",
+                          "enum": [
+                            "reasoning",
+                            "memory-extraction",
+                            "embedding",
+                            "tts",
+                            "transcription",
+                            "voice"
+                          ]
+                        },
+                        "catalogVersion": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        },
+                        "requirements": {
+                          "type": "object",
+                          "properties": {
+                            "tools": {
+                              "type": "boolean"
+                            },
+                            "stream": {
+                              "type": "boolean"
+                            },
+                            "structuredOutput": {
+                              "type": "boolean"
+                            },
+                            "vision": {
+                              "type": "boolean"
+                            },
+                            "webSearch": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "tools",
+                            "stream",
+                            "structuredOutput"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "tiers": {
+                          "not": {}
+                        },
+                        "fallback": {
+                          "not": {}
+                        },
+                        "mode": {
+                          "type": "string",
+                          "const": "single"
+                        },
+                        "descriptor": {
+                          "type": "object",
+                          "properties": {
+                            "provider": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            },
+                            "modelId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 100
+                            },
+                            "protocol": {
+                              "type": "string",
+                              "enum": [
+                                "responses",
+                                "chat-completions",
+                                "messages",
+                                "generate-content",
+                                "embeddings",
+                                "speech",
+                                "transcriptions",
+                                "realtime"
+                              ]
+                            },
+                            "adapterId": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            }
+                          },
+                          "required": [
+                            "provider",
+                            "modelId",
+                            "protocol",
+                            "adapterId"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "embeddingDimensions": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "capability",
+                        "function",
+                        "catalogVersion",
+                        "requirements",
+                        "mode",
+                        "descriptor"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "capability": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "function": {
+                          "type": "string",
+                          "enum": [
+                            "reasoning",
+                            "memory-extraction",
+                            "embedding",
+                            "tts",
+                            "transcription",
+                            "voice"
+                          ]
+                        },
+                        "catalogVersion": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        },
+                        "requirements": {
+                          "type": "object",
+                          "properties": {
+                            "tools": {
+                              "type": "boolean"
+                            },
+                            "stream": {
+                              "type": "boolean"
+                            },
+                            "structuredOutput": {
+                              "type": "boolean"
+                            },
+                            "vision": {
+                              "type": "boolean"
+                            },
+                            "webSearch": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "tools",
+                            "stream",
+                            "structuredOutput"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "tiers": {
+                          "not": {}
+                        },
+                        "fallback": {
+                          "type": "object",
+                          "properties": {
+                            "provider": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            },
+                            "modelId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 100
+                            },
+                            "protocol": {
+                              "type": "string",
+                              "enum": [
+                                "responses",
+                                "chat-completions",
+                                "messages",
+                                "generate-content",
+                                "embeddings",
+                                "speech",
+                                "transcriptions",
+                                "realtime"
+                              ]
+                            },
+                            "adapterId": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            }
+                          },
+                          "required": [
+                            "provider",
+                            "modelId",
+                            "protocol",
+                            "adapterId"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "mode": {
+                          "type": "string",
+                          "const": "failover"
+                        },
+                        "primary": {
+                          "type": "object",
+                          "properties": {
+                            "provider": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            },
+                            "modelId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 100
+                            },
+                            "protocol": {
+                              "type": "string",
+                              "enum": [
+                                "responses",
+                                "chat-completions",
+                                "messages",
+                                "generate-content",
+                                "embeddings",
+                                "speech",
+                                "transcriptions",
+                                "realtime"
+                              ]
+                            },
+                            "adapterId": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                            }
+                          },
+                          "required": [
+                            "provider",
+                            "modelId",
+                            "protocol",
+                            "adapterId"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "capability",
+                        "function",
+                        "catalogVersion",
+                        "requirements",
+                        "fallback",
+                        "mode",
+                        "primary"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "reason": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "embedding": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "type": "string",
+                      "enum": [
+                        "pending",
+                        "running",
+                        "failed",
+                        "completed"
+                      ]
+                    },
+                    "previous": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "active": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "target": {
+                      "type": "object",
+                      "properties": {
+                        "provider": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        },
+                        "modelId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "responses",
+                            "chat-completions",
+                            "messages",
+                            "generate-content",
+                            "embeddings",
+                            "speech",
+                            "transcriptions",
+                            "realtime"
+                          ]
+                        },
+                        "adapterId": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+                        }
+                      },
+                      "required": [
+                        "provider",
+                        "modelId",
+                        "protocol",
+                        "adapterId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "progress": {
+                      "type": "object",
+                      "properties": {
+                        "completed": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "total": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "completed",
+                        "total"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "reason": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 500
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "state",
+                    "previous",
+                    "active",
+                    "target",
+                    "progress",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "schemaVersion",
+            "identity",
+            "scope",
+            "slotId",
+            "sourceVersion",
+            "observedAt",
+            "validUntil",
+            "status",
+            "configVersion",
+            "requestId",
+            "settings",
+            "reason",
+            "embedding"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "requestId",
+        "outcome",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    "read": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "identity": {
+          "type": "object",
+          "properties": {
+            "managementAgentId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "runtimeAgentId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "vaultAgentId": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "managementAgentId",
+            "runtimeAgentId",
+            "vaultAgentId"
+          ],
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "tenantId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "ownerId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "agentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          },
+          "required": [
+            "tenantId",
+            "ownerId",
+            "agentId"
+          ],
+          "additionalProperties": false
+        },
+        "slotId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+        }
+      },
+      "required": [
+        "identity",
+        "scope",
+        "slotId"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

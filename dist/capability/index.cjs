@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.CapabilityContextResponseSchema = exports.CapabilityContextRequestSchema = exports.CapabilityContextDeclarationSchema = exports.CAPABILITY_CONTEXT_TIMEOUT_MS = exports.CAPABILITY_CONTEXT_MAX_CHARS = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.CapabilityToolSchema = void 0;
+exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaFieldSchema = exports.AgentRegistryFileSchema = exports.fromEndpoint = exports.toEndpoint = exports.CapabilityRegistryEntrySchema = exports.CapabilityManifestSchema = exports.CapabilityContextResponseSchema = exports.CapabilityContextRequestSchema = exports.CapabilityContextDeclarationSchema = exports.CAPABILITY_CONTEXT_TIMEOUT_MS = exports.CAPABILITY_CONTEXT_MAX_CHARS = exports.ToolCallResponseSchema = exports.ToolCallErrorResponseSchema = exports.ToolCallSuccessResponseSchema = exports.ToolCallRequestSchema = exports.toolErrorModelReasonOf = exports.ToolErrorModelReasonSchema = exports.TOOL_ERROR_MODEL_REASON_MAX_CHARS = exports.toolsForRole = exports.capabilityToolAccess = exports.CapabilityToolSchema = exports.CapabilityToolAccessSchema = exports.CAPABILITY_TOOL_ACCESS = void 0;
 /**
  * Capability contracts — sub-path `@x9-forge/contracts/capability`.
  *
@@ -30,8 +30,15 @@ exports.HealthStatusSchema = exports.EnvSchemaDocSchema = exports.EnvSchemaField
  * - HealthStatus / HealthStatusSchema
  */
 var capability_tool_js_1 = require("./capability-tool.cjs");
+Object.defineProperty(exports, "CAPABILITY_TOOL_ACCESS", { enumerable: true, get: function () { return capability_tool_js_1.CAPABILITY_TOOL_ACCESS; } });
+Object.defineProperty(exports, "CapabilityToolAccessSchema", { enumerable: true, get: function () { return capability_tool_js_1.CapabilityToolAccessSchema; } });
 Object.defineProperty(exports, "CapabilityToolSchema", { enumerable: true, get: function () { return capability_tool_js_1.CapabilityToolSchema; } });
+Object.defineProperty(exports, "capabilityToolAccess", { enumerable: true, get: function () { return capability_tool_js_1.capabilityToolAccess; } });
+Object.defineProperty(exports, "toolsForRole", { enumerable: true, get: function () { return capability_tool_js_1.toolsForRole; } });
 var tool_call_js_1 = require("./tool-call.cjs");
+Object.defineProperty(exports, "TOOL_ERROR_MODEL_REASON_MAX_CHARS", { enumerable: true, get: function () { return tool_call_js_1.TOOL_ERROR_MODEL_REASON_MAX_CHARS; } });
+Object.defineProperty(exports, "ToolErrorModelReasonSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolErrorModelReasonSchema; } });
+Object.defineProperty(exports, "toolErrorModelReasonOf", { enumerable: true, get: function () { return tool_call_js_1.toolErrorModelReasonOf; } });
 Object.defineProperty(exports, "ToolCallRequestSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallRequestSchema; } });
 Object.defineProperty(exports, "ToolCallSuccessResponseSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallSuccessResponseSchema; } });
 Object.defineProperty(exports, "ToolCallErrorResponseSchema", { enumerable: true, get: function () { return tool_call_js_1.ToolCallErrorResponseSchema; } });
@@ -57,6 +64,14 @@ var health_status_js_1 = require("./health-status.cjs");
 Object.defineProperty(exports, "HealthStatusSchema", { enumerable: true, get: function () { return health_status_js_1.HealthStatusSchema; } });
 __exportStar(require("./capability-turn-lead.cjs"), exports);
 __exportStar(require("./parameters.cjs"), exports);
+__exportStar(require("./ordinary-configuration.cjs"), exports);
+__exportStar(require("./ordinary-declaration.cjs"), exports);
+__exportStar(require("./ordinary-lifecycle.cjs"), exports);
+__exportStar(require("./configuration/feeds.cjs"), exports);
+__exportStar(require("./configuration/briefing.cjs"), exports);
+__exportStar(require("./configuration/conditions.cjs"), exports);
+__exportStar(require("./configuration/rules.cjs"), exports);
+__exportStar(require("./configuration/camera-policy.cjs"), exports);
 __exportStar(require("./presentation.cjs"), exports);
 // Per-call capability context: trusted identity + minimal versioned credentials (R3, v1.31.0)
 __exportStar(require("./capability-call-context.cjs"), exports);
@@ -68,4 +83,34 @@ __exportStar(require("./coach/index.cjs"), exports);
 __exportStar(require("./approvals/index.cjs"), exports);
 // cap-backup: restore points of the owner's servers, first client of the signed approvals (phase 59)
 __exportStar(require("./backup/index.cjs"), exports);
+// Owner notices: a registered device of the owner asks cap-approvals to message the owner's agent chat
+__exportStar(require("./notice/index.cjs"), exports);
+// C3-B1: independent Web admission policy and server-owned invitations.
+__exportStar(require("./agent-elevenlabs/web-channel.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-session.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-catalog.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-context.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-browser.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/web-invitations.cjs"), exports);
+__exportStar(require("./capability-credential-requirements.cjs"), exports);
+__exportStar(require("./paperclip/index.cjs"), exports);
+// Connections: start, state and revoke of a person's provider link, plus tool permits (feature connessioni)
+__exportStar(require("./connect/index.cjs"), exports);
+// Canonical portable contracts for the Python capability consumer.
+__exportStar(require("./portable-contracts.cjs"), exports);
+__exportStar(require("./coach/program-version.cjs"), exports);
+__exportStar(require("./coach/execution.cjs"), exports);
+__exportStar(require("./coach/measures.cjs"), exports);
+__exportStar(require("./coach/accounting.cjs"), exports);
+__exportStar(require("./coach/rolling-budget.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/coach-binding.cjs"), exports);
+__exportStar(require("./coach/operational/index.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-session.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-session-grant.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-tools.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-config.cjs"), exports);
+__exportStar(require("./agent-elevenlabs/native-readback.cjs"), exports);
+__exportStar(require("./configuration/news-briefing.cjs"), exports);
+__exportStar(require("./feature-switch.cjs"), exports);
+__exportStar(require("./paperclip-protocollo/index.cjs"), exports);
 //# sourceMappingURL=index.js.map

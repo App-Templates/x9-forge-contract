@@ -1,0 +1,29 @@
+{
+  "planCommit": "c9da0f3",
+  "timer": {
+    "start": "2026-10-08T14:42:44.052778+02:00",
+    "deadline": "2026-10-08T15:27:44.052778+02:00",
+    "authorization": "20261008-143238-coordinatrice-a-codex-d-risposta",
+    "base": "a251bbc9451381a67afa10f330fa5a3b501e8ba4",
+    "lot": "BRIDGE-IDENTITA-AGENTE contract"
+  },
+  "drafts": {
+    "drafts/bridge-identita-agente.test.ts": "4055eeb6df0cf4b39cfa61cfc45c3887c42f54b36486b34ce03fe5214739fd6d",
+    "drafts/consumer-types.ts": "898ac4b82441b75af138b285062dee27f4833154d1c4ad1e29b458a13c4d3bab",
+    "drafts/consumer.mjs": "1e86455c0e6e3abcdfee46b3938620df4383fd807e0661f5f3f2c57b5d6ee08b"
+  },
+  "sourceChanges": 0,
+  "newTestsExecuted": 0,
+  "requiredApprovals": [
+    "20261008-144334-codex-d-a-coordinatrice-richiesta-perimetro"
+  ],
+  "semaphore": "3/3 occupied, not swap refusal",
+  "coordinationBlock": "20261008-144925-codex-d-a-coordinatrice-blocco",
+  "m3Checkpoint": "d1d016d3",
+  "auditPreparation": {
+    "protectedInputsChecked": 3093,
+    "oldTestsChecked": 253,
+    "syntheticAuditFaults": 4,
+    "productQualification": false
+  }
+}

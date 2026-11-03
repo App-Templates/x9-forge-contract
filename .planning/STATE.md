@@ -1,19 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: null
-milestone_name: null
-status: between_milestones
-last_completed_milestone: v1.0
-last_completed_milestone_name: Bridge Foundation
-last_completed_milestone_date: 2026-04-16
-last_updated: "2026-04-16T15:35:00.000Z"
-last_activity: 2026-04-16 -- v1.0 Bridge Foundation milestone closed (PR #1 merged, git tag v1.0)
+milestone: v1.1
+milestone_name: Shim Cleanup + Bookkeeping
+status: awaiting_coordinator_publication
+stopped_at: v1.0 milestone closed via `/gsd-complete-milestone` (Path B).
+last_updated: "2026-10-09T15:16:35.274Z"
 progress:
-  total_phases: 0
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 1
+  completed_plans: 1
+  percent: 100
 ---
 
 # Project State
@@ -23,11 +20,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-16 after v1.0 close)
 
 **Core value:** Un cambio di contratto cross-repo che rompe la compatibilità DEVE generare errore di compilazione in entrambi i repo.
-**Current focus:** Between milestones — ready to plan v1.1 (Shim Cleanup + Bookkeeping) when user is ready.
+**Current focus:** Phase 55 — cap-paperclip-release
 
 ## Current Position
 
-**Status:** Between milestones
+Phase: 55 (cap-paperclip-release) — LOCAL PREPARATION COMPLETE
+Plan: 1 of 1
+**Status:** Independently approved local candidate (C4fe25f2); awaiting coordinator publication/consumer integration; historical cleanup parked
 **Last completed:** v1.0 Bridge Foundation (2026-04-16, PR #1 merged, git tag `v1.0`)
 
 To start the next milestone: `/clear` then `/gsd-new-milestone`.
@@ -49,6 +48,7 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 **Trigger:** Phase 18.1 v1.7.0 ship-broken on Node 20. Forge-v2 pin bump `986634b` pushed to main 2026-05-05 → CI run `25377004134` FAILED with TS2307 across every bridge subpath consumer (`Cannot find module './<sub>/index.cjs'`). 3-auditor consensus 2026-05-05 (x9-verifier + x9-contract-bridge-auditor + x9-release-auditor): fix-forward as v1.7.1; preserve v1.7.0 on origin as historical record.
 
 **Scope (8 atomic commits ahead of `2520403` post-Phase-18.1 STATE update; equivalently 14 commits ahead of `4f2da00` v1.6.3 baseline):**
+
 1. `chore(engines): lower bridge engines.node from >=22 to >=20` (Plan 00 Task 1) — `c589655`
 2. `build(bridge): commit dist/ to git, narrow prepare to husky-only` (Plan 00 Task 2) — `493b88d`
 3. `build(bridge): commit dist/ tree (zshy v1.7.1 build output)` (Plan 00 Task 3) — `62c39ac`
@@ -59,11 +59,13 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 8. `chore(ci,lint): trigger CI on phase/** + silence intentional z import` (Plan 02 Task 3 pre-push tech-debt closure) — `c7dd8ef`
 
 **Tags:**
+
 - `v1.7.1` → `c7dd8ef` (annotated, release pointer = HEAD with all 8 commits) — local pending Stefano R-05 GATE 2
 - `v1.7.0` → `8fa71b0` (annotated, existing on origin, preserved as historical per D-18.1.1-4)
 - `pre-phase-18.1.1-2026-05-05` → `2520403` (LOCAL only, R-04 rollback anchor — NOT to be pushed)
 
 **Validation:** All 5 layers green on Node 20.20.2 + pnpm 10.33.0:
+
 - vitest 711/711 pass (54 files)
 - `[cjs-smoke] summary: 13 passed, 0 failed`
 - publint clean
@@ -85,6 +87,7 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 **Trigger:** forge-v2 Phase 19 Plan 02 deploy attempt 2026-05-04 — vault-svc crashed with `ERR_PACKAGE_PATH_NOT_EXPORTED` on `@x9-forge/contracts/auth` because bridge was full-ESM and forge-v2 services compile to CJS. Phase 19 PAUSED; Phase 18.1 opened to fix the structural bug in the bridge.
 
 **Scope (6 atomic commits ahead of `4f2da00` v1.6.3 baseline):**
+
 1. `build(bridge)`: dual ESM+CJS via zshy + back-fill `./capability/stt` source (Plan 00 Task 1) — `5b7e9c7`
 2. `chore(scripts)`: extend `check-portable-dts.mjs` walker to `.d.cts` + `.d.mts` (Plan 00 Task 2) — `60a0598`
 3. `test(bridge)`: add CJS + ESM smoke tests for every public subpath (Plan 01 Task 1) — `2aeafb8`
@@ -93,6 +96,7 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 6. `release: 1.6.3 → 1.7.0` (Plan 02 Task 2) — `8fa71b0`
 
 **Tags:**
+
 - `v1.7.0` → `8fa71b0` (release commit)
 - `pre-phase-18.1-2026-05-05` → `4f2da00` (rollback anchor)
 
@@ -109,14 +113,17 @@ To start the next milestone: `/clear` then `/gsd-new-milestone`.
 ## v1.1 Carry-Forward (when ready)
 
 **Active scope:**
+
 - Phase 7 "Shim Removal + Final Consolidation" (opzionale — was original v1.0 stretch, deferred): MGRT-06, OBS-04, OBS-05
 - Optional bookkeeping cleanup: back-fill VERIFICATION.md for Phases 0/2/6/M, fix stale VALIDATION frontmatter, add CHANGELOG.md (RLSE-04), document RLSE-02/03
 
 **External cross-repo follow-ups:**
+
 - MDRT-07 SC#7 — agent-x9 Phase 35 ROADMAP cross-repo cite (operator action in agent-x9 repo)
 - agent-x9 vendor re-sync via `scripts/sync-bridge.sh` on `fix/docker-bridge-build-context` branch
 
 **Operator-deferred staging tasks (carried from v1.0):**
+
 - 04-03-09 X9 staging deploy
 - 04-04-09 staging fixture capture
 - 04-04-10 e2e staging smoke

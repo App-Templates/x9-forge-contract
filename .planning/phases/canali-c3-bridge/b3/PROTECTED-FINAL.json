@@ -1,0 +1,19 @@
+{
+  "src/agent/agent-identity.ts": true,
+  "src/agent/agent-runtime-identity.ts": true,
+  "src/capability/capability-call-context.ts": true,
+  "src/http/endpoints/capability-call-context.ts": true,
+  "src/capability/agent-elevenlabs/web-channel.ts": true,
+  "src/capability/agent-elevenlabs/web-session.ts": true,
+  "src/capability/agent-elevenlabs/web-catalog.ts": true,
+  "src/http/endpoints/internal-capability-elevenlabs-web.ts": true,
+  "tests/capability/agent-elevenlabs-web-channel.test.ts": true,
+  "tests/capability/agent-elevenlabs-web-session.test.ts": true,
+  "tests/capability/agent-elevenlabs-web-catalog.test.ts": true,
+  "tests/http/elevenlabs-web.test.ts": true,
+  "package.json": true,
+  "pnpm-lock.yaml": true,
+  "src/capability/index.ts additive": true,
+  "src/http/endpoints/index.ts additive": true,
+  "tests/cjs/smoke.cjs additive": true
+}

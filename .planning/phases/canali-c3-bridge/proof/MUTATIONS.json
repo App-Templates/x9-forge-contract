@@ -1,0 +1,163 @@
+[
+  {
+    "name": "access-modes",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "policy-strict",
+    "semanticFailures": 4,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "change-strict",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "result-strict",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "invitation-strict",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "policy-parse",
+    "semanticFailures": 3,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "request-correlation",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "policy-scope",
+    "semanticFailures": 3,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "next-revision",
+    "semanticFailures": 3,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "requested-access",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "requested-pause",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "expiry-chronology",
+    "semanticFailures": 2,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "revocation-chronology",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "invitation-inputs",
+    "semanticFailures": 15,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "invitation-scope",
+    "semanticFailures": 3,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "recipient",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "invitation-revision",
+    "semanticFailures": 3,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "revoked",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "not-yet-created",
+    "semanticFailures": 1,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "expired",
+    "semanticFailures": 2,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "clock-and-window",
+    "semanticFailures": 4,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "positive-policy",
+    "semanticFailures": 2,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  },
+  {
+    "name": "positive-invitation",
+    "semanticFailures": 5,
+    "tests": 59,
+    "exit": 1,
+    "restoredSha256": "f17d3912e633516c293584095720ebbf7772abbd424d626be06b6a8fcb074dff"
+  }
+]

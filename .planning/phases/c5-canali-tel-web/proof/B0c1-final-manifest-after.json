@@ -1,0 +1,10 @@
+{
+  "src/agent/agent-channel-history.ts": "b7ef565712d1f91db677a8775b74184077c2d36ce42bb7d830e7181ebaf4e51c",
+  "src/http/endpoints/forge-agent-channel-history.ts": "9a21ab8142edd7ef47d40e3ae6bba915429e5c8eae8b252d67d4e1f07b54397c",
+  "src/http/endpoints/internal-agent-channel-history.ts": "49ea17f67bd92aa12bb1e09701cd15b92d0c2ee83aedcbb5b5fbf01f8e2f5396",
+  "src/agent/index.ts": "e7df23ceee40565cf9a28177b4311a1a824ba65cf7604b58819b7ca51cb3606d",
+  "src/http/endpoints/index.ts": "36571599d1f95409936ae6df80cab4f4cae535c716dac8ce03f9946da8cc59de",
+  "tests/agent/c5-channel-history.test.ts": "e8bcd8d9e06dc4ffd79d27ffdfab4ebf00bfe63f0e0fd1b671ef688b53486950",
+  "tests/http/endpoints/c5-channel-history.test.ts": "c8e71d02470bb22619c63ec37997ea50405bb1afe07118ee85cea5497705e780",
+  "tests/cjs/c5-phone-web-smoke.mjs": "0bb4feaec858371f03d5954539d87507b87d542df13d763d954b128cc350b6ec"
+}

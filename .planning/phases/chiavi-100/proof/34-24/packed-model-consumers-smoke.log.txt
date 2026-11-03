@@ -1,0 +1,4 @@
+$ ["node", "model-consumers-smoke.mjs"]
+{"passed":48,"total":48,"surfaces":4}
+
+EXIT_CODE=0

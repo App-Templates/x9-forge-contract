@@ -1,0 +1,50 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/agent-model-local-source-http.test.ts", "--maxWorkers=1"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/agent-model-local-source-http.test.ts (17 tests | 1 failed) 8ms
+   ✓ local model source observation HTTP contract > L01 exposes a local-only GET before priming using the exact canonical response 2ms
+   × local model source observation HTTP contract > L02 reuses canonical internal authentication and agent parameters 3ms
+     → expected 'none' to be 'secret' // Object.is equality
+   ✓ local model source observation HTTP contract > L03 refuses non-observation field role 0ms
+   ✓ local model source observation HTTP contract > L03 refuses non-observation field selections 0ms
+   ✓ local model source observation HTTP contract > L03 refuses non-observation field credentials 0ms
+   ✓ local model source observation HTTP contract > L03 refuses non-observation field context 0ms
+   ✓ local model source observation HTTP contract > L03 refuses non-observation field configVersion 0ms
+   ✓ local model source observation HTTP contract > L04 validates and replaces the management agent path parameter 0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID  0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID ../other 0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID agent/child 0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID agent?x=1 0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID agent#frag 0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID Agent 0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID  agent 0ms
+   ✓ local model source observation HTTP contract > L05 rejects unsafe agent ID agent%2fchild 0ms
+   ✓ local model source observation HTTP contract > L06 exposes identical endpoint and HTTP barrel contract/helper objects 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/agent-model-local-source-http.test.ts > local model source observation HTTP contract > L02 reuses canonical internal authentication and agent parameters
+AssertionError: expected 'none' to be 'secret' // Object.is equality
+
+Expected: "secret"
+Received: "none"
+
+ ❯ tests/model-router/agent-model-local-source-http.test.ts:32:33
+     30|   });
+     31|   it('L02 reuses canonical internal authentication and agent parameter…
+     32|     expect(contract().authType).toBe('secret');
+       |                                 ^
+     33|     expect(contract().authHeader).toBe(INTERNAL_SECRET_HEADER);
+     34|     expect(contract().paramsSchema).toBe(AgentManagementParamsSchema);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 passed (17)
+   Start at  21:51:27
+   Duration  626ms (transform 273ms, setup 4ms, collect 480ms, tests 8ms, environment 0ms, prepare 34ms)
+
+
+EXIT_CODE=1

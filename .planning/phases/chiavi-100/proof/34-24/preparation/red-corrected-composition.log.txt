@@ -1,0 +1,413 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/chiavi-model-composition.test.ts", "--maxWorkers=1"]
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1[39m
+
+ [31m❯[39m tests/model-router/chiavi-model-composition.test.ts [2m([22m[2m62 tests[22m[2m | [22m[31m31 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical AgentModelInitialSourceSchema from the real root and router[39m[32m 3[2mms[22m[39m
+[31m     → composed public export AgentModelInitialSourceSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical AgentModelBootstrapSourceSchema from the real root and router[39m[32m 0[2mms[22m[39m
+[31m     → composed public export AgentModelBootstrapSourceSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical AgentModelSourceObservationSchema from the real root and router[39m[32m 0[2mms[22m[39m
+[31m     → composed public export AgentModelSourceObservationSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerRuntimeStateSchema from the real root and router[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerStateRequestSchema from the real root and router[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerStateRequestSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerInstallRequestSchema from the real root and router[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerInstallRequestSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerInstallReceiptSchema from the real root and router[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerInstallReceiptSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC02 retains actual HTTP internalAgentModelSourceObservationContract with canonical response[39m[32m 0[2mms[22m[39m
+[31m     → composed public export internalAgentModelSourceObservationContract: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC02 retains actual HTTP internalModelConsumerStateContract with canonical response[39m[32m 0[2mms[22m[39m
+[31m     → composed public export internalModelConsumerStateContract: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC02 retains actual HTTP internalModelConsumerInstallContract with canonical response[39m[32m 0[2mms[22m[39m
+[31m     → composed public export internalModelConsumerInstallContract: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC03 accepts complete roleless Initial while bootstrap retains its explicit Master role[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC04 Initial never assigns role master[39m[32m 0[2mms[22m[39m
+[31m     → composed public export AgentModelInitialSourceSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC04 Initial never assigns role erede[39m[32m 0[2mms[22m[39m
+[31m     → composed public export AgentModelInitialSourceSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with saved authority[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with runtime authority[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with versions authority[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with bootstrapSource authority[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with sourceObservation authority[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC06 Initial requires complete managementAgentId and exact identity[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC06 Initial requires complete runtimeAgentId and exact identity[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC06 Initial requires complete vaultAgentId and exact identity[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC07 Initial binds exact nonblank scope agentId[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC07 Initial binds exact nonblank scope ownerId[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC07 Initial binds exact nonblank scope tenantId[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC08 source generation, expiry and coverage are actual authority[39m[32m 0[2mms[22m[39m
+[31m     → composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC09 observed settings are positive evidence with no installation claim[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC10 observed forbids fabricated install fields {"configVersion":1}[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC10 observed forbids fabricated install fields {"requestId":"synthetic-install-0001"}[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC11 observed cannot manufacture installed receipt confirmation[39m[32m 0[2mms[22m[39m
+[31m     → composed public export ModelConsumerInstallRequestSchema: expected undefined to be defined[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC12 single embedding requires its actual dimension; failover cannot change vector space[39m[32m 2[2mms[22m[39m
+[31m     → expected false to be true // Object.is equality[39m
+[31m   [31m×[31m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC13 coverage-only owner data remains authorized through the real facade guard[39m[32m 1[2mms[22m[39m
+[31m     → expected false to be true // Object.is equality[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical OPENAI_API_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical ANTHROPIC_API_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical GOOGLE_API_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical TELEGRAM_BOT_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical ELEVENLABS_API_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical TELNYX_API_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical TELNYX_PUBLIC_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical LIVE_WEB_AUTH_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical QDRANT_API_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical FORGE_VOICE_REGISTER_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical AGENTMAIL_API_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical GOOGLE_CALENDAR_CLIENT_ID[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical GOOGLE_CALENDAR_CLIENT_SECRET[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical GOOGLE_CALENDAR_REFRESH_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical GOOGLE_CONTACTS_CLIENT_ID[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical GOOGLE_CONTACTS_CLIENT_SECRET[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical GOOGLE_CONTACTS_REFRESH_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical NETATMO_EMAIL[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical NETATMO_CLIENT_ID[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical NETATMO_CLIENT_SECRET[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical NETATMO_REFRESH_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical NETATMO_ACCESS_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical NETATMO_PASSWORD[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical INTERNAL_SECRET[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical X9_INTERNAL_SECRET[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical HOSTINGER_API_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical INTERNAL_TOKEN[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical TELEGRAM_SESSION_STRING[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC14 retained18 response excludes root and nested canonical APPROVALS_SIGNING_KEY[32m 0[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC15 retained18 immutable internal targets preserve credential/identifier/setting separation[32m 1[2mms[22m[39m
+   [32m✓[39m qualified Initial/observed composed with retained Chiavi contracts[2m > [22mC16 retained18 managed/standalone voice and internal lease exports survive public composition[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 31 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical AgentModelInitialSourceSchema from the real root and router
+[31m[1mAssertionError[22m: composed public export AgentModelInitialSourceSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m44:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical AgentModelBootstrapSourceSchema from the real root and router
+[31m[1mAssertionError[22m: composed public export AgentModelBootstrapSourceSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m44:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical AgentModelSourceObservationSchema from the real root and router
+[31m[1mAssertionError[22m: composed public export AgentModelSourceObservationSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m44:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerRuntimeStateSchema from the real root and router
+[31m[1mAssertionError[22m: composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m44:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerStateRequestSchema from the real root and router
+[31m[1mAssertionError[22m: composed public export ModelConsumerStateRequestSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m44:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerInstallRequestSchema from the real root and router
+[31m[1mAssertionError[22m: composed public export ModelConsumerInstallRequestSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m44:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC01 publishes canonical ModelConsumerInstallReceiptSchema from the real root and router
+[31m[1mAssertionError[22m: composed public export ModelConsumerInstallReceiptSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m44:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC02 retains actual HTTP internalAgentModelSourceObservationContract with canonical response
+[31m[1mAssertionError[22m: composed public export internalAgentModelSourceObservationContract: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m47:22[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC02 retains actual HTTP internalModelConsumerStateContract with canonical response
+[31m[1mAssertionError[22m: composed public export internalModelConsumerStateContract: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m47:22[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC02 retains actual HTTP internalModelConsumerInstallContract with canonical response
+[31m[1mAssertionError[22m: composed public export internalModelConsumerInstallContract: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m47:22[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC03 accepts complete roleless Initial while bootstrap retains its explicit Master role
+[31m[1mAssertionError[22m: composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m call tests/model-router/chiavi-model-composition.test.ts:[2m18:17[22m[39m
+[90m [2m❯[22m initial tests/model-router/chiavi-model-composition.test.ts:[2m31:23[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m53:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC04 Initial never assigns role master
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC04 Initial never assigns role erede
+[31m[1mAssertionError[22m: composed public export AgentModelInitialSourceSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m schema tests/model-router/chiavi-model-composition.test.ts:[2m16:51[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m60:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with saved authority
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with runtime authority
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with versions authority
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with bootstrapSource authority
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC05 Initial cannot coexist with sourceObservation authority
+[31m[1mAssertionError[22m: composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m call tests/model-router/chiavi-model-composition.test.ts:[2m18:17[22m[39m
+[90m [2m❯[22m initial tests/model-router/chiavi-model-composition.test.ts:[2m31:23[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m63:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC06 Initial requires complete managementAgentId and exact identity
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC06 Initial requires complete runtimeAgentId and exact identity
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC06 Initial requires complete vaultAgentId and exact identity
+[31m[1mAssertionError[22m: composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m call tests/model-router/chiavi-model-composition.test.ts:[2m18:17[22m[39m
+[90m [2m❯[22m initial tests/model-router/chiavi-model-composition.test.ts:[2m31:23[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m70:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC07 Initial binds exact nonblank scope agentId
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC07 Initial binds exact nonblank scope ownerId
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC07 Initial binds exact nonblank scope tenantId
+[31m[1mAssertionError[22m: composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m call tests/model-router/chiavi-model-composition.test.ts:[2m18:17[22m[39m
+[90m [2m❯[22m initial tests/model-router/chiavi-model-composition.test.ts:[2m31:23[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m77:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC08 source generation, expiry and coverage are actual authority
+[31m[1mAssertionError[22m: composed public export registeredModelConsumerDefinitions: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m call tests/model-router/chiavi-model-composition.test.ts:[2m18:17[22m[39m
+[90m [2m❯[22m initial tests/model-router/chiavi-model-composition.test.ts:[2m31:23[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m82:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC09 observed settings are positive evidence with no installation claim
+[31m[1mAssertionError[22m: composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m schema tests/model-router/chiavi-model-composition.test.ts:[2m16:51[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m89:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC10 observed forbids fabricated install fields {"configVersion":1}
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC10 observed forbids fabricated install fields {"requestId":"synthetic-install-0001"}
+[31m[1mAssertionError[22m: composed public export ModelConsumerRuntimeStateSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m schema tests/model-router/chiavi-model-composition.test.ts:[2m16:51[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m93:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC11 observed cannot manufacture installed receipt confirmation
+[31m[1mAssertionError[22m: composed public export ModelConsumerInstallRequestSchema: expected undefined to be defined[39m
+[36m [2m❯[22m exported tests/model-router/chiavi-model-composition.test.ts:[2m13:51[22m[39m
+    [90m 11| [39m[35mfunction[39m [34mexported[39m(namespace[33m:[39m object[33m,[39m name[33m:[39m string)[33m:[39m unknown {
+    [90m 12| [39m  [35mconst[39m value[33m:[39m unknown [33m=[39m [33mReflect[39m[33m.[39m[35mget[39m(namespace[33m,[39m name)[33m;[39m
+    [90m 13| [39m  [34mexpect[39m(value[33m,[39m [32m`composed public export [39m[36m${[39mname[36m}[39m[32m`[39m)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                                                  [31m^[39m
+    [90m 14| [39m  [35mreturn[39m value[33m;[39m
+    [90m 15| [39m}
+[90m [2m❯[22m schema tests/model-router/chiavi-model-composition.test.ts:[2m16:51[22m[39m
+[90m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m97:12[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC12 single embedding requires its actual dimension; failover cannot change vector space
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m102:76[22m[39m
+    [90m100| [39m  it('C12 single embedding requires its actual dimension; failover can…
+    [90m101| [39m    const embedding = { ...settings, capability: 'memory', function: '…
+    [90m102| [39m    expect(API.CapabilityModelSettingsSchema.safeParse(embedding).succ…
+    [90m   | [39m                                                                           [31m^[39m
+    [90m103| [39m    const missing = { ...embedding }; Reflect.deleteProperty(missing, …
+    [90m104| [39m    expect(API.CapabilityModelSettingsSchema.safeParse(missing).succes…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/31]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/model-router/chiavi-model-composition.test.ts[2m > [22mqualified Initial/observed composed with retained Chiavi contracts[2m > [22mC13 coverage-only owner data remains authorized through the real facade guard
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m tests/model-router/chiavi-model-composition.test.ts:[2m109:105[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/31]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m31 failed[39m[22m[2m | [22m[1m[32m31 passed[39m[22m[90m (62)[39m
+[2m   Start at [22m 21:27:05
+[2m   Duration [22m 655ms[2m (transform 289ms, setup 5ms, collect 501ms, tests 13ms, environment 0ms, prepare 39ms)[22m
+
+
+EXIT_CODE=1

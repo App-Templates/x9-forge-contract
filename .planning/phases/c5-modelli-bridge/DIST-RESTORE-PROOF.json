@@ -1,0 +1,367 @@
+{
+  "authority": "20261008-185400-coordinatrice-a-codex-f-risposta",
+  "compiledPreserved": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-modelli-bridge/compiled-0547581",
+  "changedCount": 72,
+  "files": [
+    {
+      "path": "dist/agent/agent-creation-replay.d.cts",
+      "compiledSha256": "cae595b27fb14575074214e472862b47adfed786debd4aa6445e56ad2eff019f",
+      "restoredSha256": "568737d7e7a492454e63a0db3aef1b7ebc76a92bbb02a68940c72a92257871b1"
+    },
+    {
+      "path": "dist/agent/agent-creation-replay.d.ts",
+      "compiledSha256": "cae595b27fb14575074214e472862b47adfed786debd4aa6445e56ad2eff019f",
+      "restoredSha256": "568737d7e7a492454e63a0db3aef1b7ebc76a92bbb02a68940c72a92257871b1"
+    },
+    {
+      "path": "dist/capability/agent-elevenlabs/web-catalog.d.cts",
+      "compiledSha256": "5c9a0d38e5dd966284c9b59d93caecbfa19f99559269402b9b7885739c38364a",
+      "restoredSha256": "440e6e1055ecbefd2f9a158ed41550279d7f452fde45eafe40ab8b2c533a1193"
+    },
+    {
+      "path": "dist/capability/agent-elevenlabs/web-catalog.d.cts.map",
+      "compiledSha256": "8331013d57b8a3c37d9c387d001a2e5d17ebb9849d994599c67a5828d41f97dc",
+      "restoredSha256": "f93962766d4f8d4a48a99db96bb3213f674881bcc31346fad5f08ba360cd79fc"
+    },
+    {
+      "path": "dist/capability/agent-elevenlabs/web-catalog.d.ts",
+      "compiledSha256": "5c9a0d38e5dd966284c9b59d93caecbfa19f99559269402b9b7885739c38364a",
+      "restoredSha256": "440e6e1055ecbefd2f9a158ed41550279d7f452fde45eafe40ab8b2c533a1193"
+    },
+    {
+      "path": "dist/capability/agent-elevenlabs/web-catalog.d.ts.map",
+      "compiledSha256": "8331013d57b8a3c37d9c387d001a2e5d17ebb9849d994599c67a5828d41f97dc",
+      "restoredSha256": "f93962766d4f8d4a48a99db96bb3213f674881bcc31346fad5f08ba360cd79fc"
+    },
+    {
+      "path": "dist/capability/backup/index.d.cts",
+      "compiledSha256": "57f12190b42a3bdc77f285803fe4af1d91f157401df5b92123978a0b3bf6eadc",
+      "restoredSha256": "eb1b46d210ed2bbcccf76f3d9e79eac45a3028aa3000c87fc1c755bd7e38b9cb"
+    },
+    {
+      "path": "dist/capability/backup/index.d.ts",
+      "compiledSha256": "57f12190b42a3bdc77f285803fe4af1d91f157401df5b92123978a0b3bf6eadc",
+      "restoredSha256": "eb1b46d210ed2bbcccf76f3d9e79eac45a3028aa3000c87fc1c755bd7e38b9cb"
+    },
+    {
+      "path": "dist/capability/lab/tools.d.cts",
+      "compiledSha256": "180f302565f5f2eca0c40824f279fb9e06a4a6209beb9ff1d550abde18db0137",
+      "restoredSha256": "dd5798b60a1be57efd94468f171cf2b06a638d55f402f554b525326a63762abd"
+    },
+    {
+      "path": "dist/capability/lab/tools.d.ts",
+      "compiledSha256": "180f302565f5f2eca0c40824f279fb9e06a4a6209beb9ff1d550abde18db0137",
+      "restoredSha256": "dd5798b60a1be57efd94468f171cf2b06a638d55f402f554b525326a63762abd"
+    },
+    {
+      "path": "dist/capability/ricerca/research.d.cts",
+      "compiledSha256": "db0f565d097f557e2bd3ca0158c5970527bf62e288481329f83541896b7a5988",
+      "restoredSha256": "27a325bc573c54301eb582b78d67913bcc4dea2c286ffdd8da9b989842f3fffe"
+    },
+    {
+      "path": "dist/capability/ricerca/research.d.ts",
+      "compiledSha256": "db0f565d097f557e2bd3ca0158c5970527bf62e288481329f83541896b7a5988",
+      "restoredSha256": "27a325bc573c54301eb582b78d67913bcc4dea2c286ffdd8da9b989842f3fffe"
+    },
+    {
+      "path": "dist/capability/ricerca/tools.d.cts",
+      "compiledSha256": "4daf20c796c7f1f707f14a7502d29a6163ef0eb0a6f7105dbb4b80e8f8f8e685",
+      "restoredSha256": "5ecdc93ee82c3aa7ec3635585eb019a77453b575261935ee8c9fabfac0e96f52"
+    },
+    {
+      "path": "dist/capability/ricerca/tools.d.ts",
+      "compiledSha256": "4daf20c796c7f1f707f14a7502d29a6163ef0eb0a6f7105dbb4b80e8f8f8e685",
+      "restoredSha256": "5ecdc93ee82c3aa7ec3635585eb019a77453b575261935ee8c9fabfac0e96f52"
+    },
+    {
+      "path": "dist/capability/voice/memory-payload.d.cts",
+      "compiledSha256": "27930913021387937c4278fd7a827981b3ea86aca33ab8dd43a8a6532a21a44f",
+      "restoredSha256": "07f5eba2c83cc25f4895ed84e09474a65f0ecadd8120afee7f3f36ff4fb7045f"
+    },
+    {
+      "path": "dist/capability/voice/memory-payload.d.ts",
+      "compiledSha256": "27930913021387937c4278fd7a827981b3ea86aca33ab8dd43a8a6532a21a44f",
+      "restoredSha256": "07f5eba2c83cc25f4895ed84e09474a65f0ecadd8120afee7f3f36ff4fb7045f"
+    },
+    {
+      "path": "dist/capability/voice/outcome.d.cts",
+      "compiledSha256": "5e5fcafd6b0da2ec338ea6e39b6fe4050990f14de7e4428c2bb2f29e03699ce2",
+      "restoredSha256": "578f1934c6af5922982f688f94f82b57de4f112fa34efba9928938cd61c1307d"
+    },
+    {
+      "path": "dist/capability/voice/outcome.d.ts",
+      "compiledSha256": "5e5fcafd6b0da2ec338ea6e39b6fe4050990f14de7e4428c2bb2f29e03699ce2",
+      "restoredSha256": "578f1934c6af5922982f688f94f82b57de4f112fa34efba9928938cd61c1307d"
+    },
+    {
+      "path": "dist/http/endpoints/forge-models.d.cts",
+      "compiledSha256": "be5be81b3ae32d3d50131ea1d1eccc4c8457cda21512417af45a95cda9b194c4",
+      "restoredSha256": "c490a791dec7bfcc37f9837fd54911970dfe11661c0f075454bf67bd98151568"
+    },
+    {
+      "path": "dist/http/endpoints/forge-models.d.cts.map",
+      "compiledSha256": "8dfb7a391174710829aa523c5bfde6eb20d629da7a5f33e53b5fc6d525925fef",
+      "restoredSha256": "14f70718d6cbe5f0b0558b0df4a5a5d12c7f5679f4beaf2d6bca4851d4a1d7f1"
+    },
+    {
+      "path": "dist/http/endpoints/forge-models.d.ts",
+      "compiledSha256": "be5be81b3ae32d3d50131ea1d1eccc4c8457cda21512417af45a95cda9b194c4",
+      "restoredSha256": "c490a791dec7bfcc37f9837fd54911970dfe11661c0f075454bf67bd98151568"
+    },
+    {
+      "path": "dist/http/endpoints/forge-models.d.ts.map",
+      "compiledSha256": "8dfb7a391174710829aa523c5bfde6eb20d629da7a5f33e53b5fc6d525925fef",
+      "restoredSha256": "14f70718d6cbe5f0b0558b0df4a5a5d12c7f5679f4beaf2d6bca4851d4a1d7f1"
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-model-catalog.d.cts",
+      "compiledSha256": "c8078b6ece8502c522d40a32f968832771cc496546954a49a5a81f3bc05a144f",
+      "restoredSha256": "2f0c60e22d9f4dfe38e23183f854e716cf3a15fdebd68fa1cc3fede2b86518d0"
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-model-catalog.d.cts.map",
+      "compiledSha256": "47ab990183d0ae3c0580ea1b93974713f83799883f813703e0c2267fac19fe30",
+      "restoredSha256": "7549a6b4d2d017a8c9f2532a972ef253abb4351595e61377507eccc9176b971b"
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-model-catalog.d.ts",
+      "compiledSha256": "c8078b6ece8502c522d40a32f968832771cc496546954a49a5a81f3bc05a144f",
+      "restoredSha256": "2f0c60e22d9f4dfe38e23183f854e716cf3a15fdebd68fa1cc3fede2b86518d0"
+    },
+    {
+      "path": "dist/http/endpoints/internal-agent-model-catalog.d.ts.map",
+      "compiledSha256": "47ab990183d0ae3c0580ea1b93974713f83799883f813703e0c2267fac19fe30",
+      "restoredSha256": "7549a6b4d2d017a8c9f2532a972ef253abb4351595e61377507eccc9176b971b"
+    },
+    {
+      "path": "dist/http/endpoints/internal-agents-list.d.cts",
+      "compiledSha256": "a432aeba71bd0b57500ef1af84cd66d368b60c1ce507c2e894e3b181cb83eb8e",
+      "restoredSha256": "d2dbae43ab555e0198393f15d9956f557ea6351e8ffac0502cf0d2a5440a5078"
+    },
+    {
+      "path": "dist/http/endpoints/internal-agents-list.d.ts",
+      "compiledSha256": "3de005b9f6ec3c4dee1bff4f31742467eb5a659d1abea8b806917f9a4758a6cb",
+      "restoredSha256": "fd7407d13dc7d2bfe6f1e771fbfbfa5641e7b7406e658bee93b7d0a7ad5b4d96"
+    },
+    {
+      "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.cts",
+      "compiledSha256": "582642f50753f7a39a3ddc1f41ce964473bc9917216d68ac283988d7d538b452",
+      "restoredSha256": "8cc7c536f76303d1a8130a3b708f0974fee746e385cc5bb58a86509edd1ccc5d"
+    },
+    {
+      "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.cts.map",
+      "compiledSha256": "8a9eb020be6e11993e4990121fe879bf2080e5bea860ee2ded69721498759a51",
+      "restoredSha256": "a5af87cb85e49249d776a7ef92563ab84a2d7a3915563107142934805935752d"
+    },
+    {
+      "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.ts",
+      "compiledSha256": "582642f50753f7a39a3ddc1f41ce964473bc9917216d68ac283988d7d538b452",
+      "restoredSha256": "8cc7c536f76303d1a8130a3b708f0974fee746e385cc5bb58a86509edd1ccc5d"
+    },
+    {
+      "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.ts.map",
+      "compiledSha256": "8a9eb020be6e11993e4990121fe879bf2080e5bea860ee2ded69721498759a51",
+      "restoredSha256": "a5af87cb85e49249d776a7ef92563ab84a2d7a3915563107142934805935752d"
+    },
+    {
+      "path": "dist/http/endpoints/internal-factory-creation.d.cts",
+      "compiledSha256": "8ce030837399ca2719a582bdb059153fef9329fc151b90578166857d7bd93245",
+      "restoredSha256": "154465cba23d4b80d89685580bee2ca8e616b3e642b04202a37601e94d31ba63"
+    },
+    {
+      "path": "dist/http/endpoints/internal-factory-creation.d.ts",
+      "compiledSha256": "8ce030837399ca2719a582bdb059153fef9329fc151b90578166857d7bd93245",
+      "restoredSha256": "154465cba23d4b80d89685580bee2ca8e616b3e642b04202a37601e94d31ba63"
+    },
+    {
+      "path": "dist/http/endpoints/internal-models-batch.d.cts",
+      "compiledSha256": "6c7bc45d51f2d2612d5cf97fb6826bf8d530b2bcb1029aa1050a4b261187d47f",
+      "restoredSha256": "c955ca9e481a291e43e1e80b857c6b5d05621a76ca418d925d13752581cdf818"
+    },
+    {
+      "path": "dist/http/endpoints/internal-models-batch.d.cts.map",
+      "compiledSha256": "a9e439993eae3a197af0d55187a7f4fa6fb30179e514e6c4c858fc8338e8d171",
+      "restoredSha256": "6c0080c114c1d0a04e6b87603a740e7df778aeac1c4d527d88739ba935d6db6a"
+    },
+    {
+      "path": "dist/http/endpoints/internal-models-batch.d.ts",
+      "compiledSha256": "6c7bc45d51f2d2612d5cf97fb6826bf8d530b2bcb1029aa1050a4b261187d47f",
+      "restoredSha256": "c955ca9e481a291e43e1e80b857c6b5d05621a76ca418d925d13752581cdf818"
+    },
+    {
+      "path": "dist/http/endpoints/internal-models-batch.d.ts.map",
+      "compiledSha256": "a9e439993eae3a197af0d55187a7f4fa6fb30179e514e6c4c858fc8338e8d171",
+      "restoredSha256": "6c0080c114c1d0a04e6b87603a740e7df778aeac1c4d527d88739ba935d6db6a"
+    },
+    {
+      "path": "dist/http/endpoints/vault-resolve.d.cts",
+      "compiledSha256": "030bf69e5d2a8cf94eb13786b074d129a1be896a7d6b0053eee06ca462b7287e",
+      "restoredSha256": "dbb2d78ae890a84de9e7b6278f4974ec2d393d99a43c51abeafdfc4d420f7d4f"
+    },
+    {
+      "path": "dist/http/endpoints/vault-resolve.d.ts",
+      "compiledSha256": "030bf69e5d2a8cf94eb13786b074d129a1be896a7d6b0053eee06ca462b7287e",
+      "restoredSha256": "dbb2d78ae890a84de9e7b6278f4974ec2d393d99a43c51abeafdfc4d420f7d4f"
+    },
+    {
+      "path": "dist/memory/enums.d.cts",
+      "compiledSha256": "475330353ede914a28abaa90647747a30a9562025a27918c11dbc6d5937e5fef",
+      "restoredSha256": "05ca94637adfb9f2901747d30393a3ae11a72a07bdc13350a60ee0640713fefb"
+    },
+    {
+      "path": "dist/memory/enums.d.ts",
+      "compiledSha256": "475330353ede914a28abaa90647747a30a9562025a27918c11dbc6d5937e5fef",
+      "restoredSha256": "05ca94637adfb9f2901747d30393a3ae11a72a07bdc13350a60ee0640713fefb"
+    },
+    {
+      "path": "dist/memory/write-candidate.d.cts",
+      "compiledSha256": "72e0f93e2ab3f6f7a1c86a415954a543a4f9059b48b995cbfe9f81c0b9630842",
+      "restoredSha256": "8767a2ac699f1382d3283a9c8ae62cf4863d02b25b63ebf3ddbe7b157b95ee98"
+    },
+    {
+      "path": "dist/memory/write-candidate.d.ts",
+      "compiledSha256": "72e0f93e2ab3f6f7a1c86a415954a543a4f9059b48b995cbfe9f81c0b9630842",
+      "restoredSha256": "8767a2ac699f1382d3283a9c8ae62cf4863d02b25b63ebf3ddbe7b157b95ee98"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.cjs",
+      "compiledSha256": "277437fd0bbefb4bad49635a405200e70c1dd0ec95eaa8a3bada9e59e304b03a",
+      "restoredSha256": "2b06d639180767b2e338e9335fb4a46c8a5d12bf5da1a5aa4ffd724b92ed563f"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.cjs.map",
+      "compiledSha256": "ef85b5cd85b2b058adba454b32fe323214b8564515a5c3b9e2ddcf343a1557e6",
+      "restoredSha256": "ae7853f564f18a2f9aa58c606cff68abdd19c4a60ec3bf0c9ba05ccdeab5e8d4"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.cts",
+      "compiledSha256": "6ff780668ae22517bf5efa995aea05dfaee9ed348cda57152b5bebb7820c8a3d",
+      "restoredSha256": "301e8c7fa7379a130041703db2cd72fc5eaa2fe85f1bbdb06140eb1585d53ad1"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.cts.map",
+      "compiledSha256": "ccee26bca44210f3c075933f5dff693612adcc70f90022430608d1a93a9ec9ab",
+      "restoredSha256": "b70b2c4b20a45bf206a0a9ff0fbaa31f8f3e6ac3ac39cb49616827f60b229e1a"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.ts",
+      "compiledSha256": "51af9bd2f41afb39301d77e6ae0e7368ba86119b4dcfb4d99303cca5ec30260c",
+      "restoredSha256": "8d70b4ec7b53bffdb76a44ce9929bd591a7ab5f93b04e4d432b0dec37dddaab8"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.d.ts.map",
+      "compiledSha256": "8e2c97317d6be2bb90fb12ba78b582c0c2fd2e943afbe5b59e85d987768008fd",
+      "restoredSha256": "7fb519930775bdcb4ad70586c2ef6acd0dd85a5b67c2537f6e1eec7de4147a5c"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.js",
+      "compiledSha256": "e6a822c61bb09e36594caa002d34c5b4d76c6977e7d495a0fafa35c2ec89c567",
+      "restoredSha256": "a6db160a23907010cba34e2a4a6361336218926959d9d9d12e77e866837ab5bf"
+    },
+    {
+      "path": "dist/model-router/agent-model-configuration.js.map",
+      "compiledSha256": "5f16d77a4dc07c045a42164df660fcfa212e973a9b79748aa5284b35484d2c78",
+      "restoredSha256": "630b5a81453fafb7b8409b12d7cca37405bb31c6bb486b93e7ca14e651e0263c"
+    },
+    {
+      "path": "dist/model-router/model-catalog.cjs",
+      "compiledSha256": "404efe87f029841cc39abd0eea7df6ca6e3571cd0f6222fca923397f5512dcc7",
+      "restoredSha256": "0b36d872ec1c597e25790200f6c18414a5f5c63aa15475b41bd6cc0610afa249"
+    },
+    {
+      "path": "dist/model-router/model-catalog.cjs.map",
+      "compiledSha256": "05a985db1d082693dbdc2a1dc2b23fd6c8247178dbc0c91c3aeed3c110c9d120",
+      "restoredSha256": "1a8cc6b376457713d598369652caadfeb1271180d25af86345c84db9bdfd6871"
+    },
+    {
+      "path": "dist/model-router/model-catalog.d.cts",
+      "compiledSha256": "ba6e2525870707ac622f51f615a151463cf95ac6ea0832ab99fc756cabeac487",
+      "restoredSha256": "1c2792f52c669accc68fbae9ad029e57991cddfbaffb32a617003cecbaded628"
+    },
+    {
+      "path": "dist/model-router/model-catalog.d.cts.map",
+      "compiledSha256": "d94c13d1e11e4214d16b08b6849de87abd4332977c689798b4755ea90929e64f",
+      "restoredSha256": "1199ae2433077112b4bd4b0e310c558723a3bd0952162a522f746f9ad2342915"
+    },
+    {
+      "path": "dist/model-router/model-catalog.d.ts",
+      "compiledSha256": "ba6e2525870707ac622f51f615a151463cf95ac6ea0832ab99fc756cabeac487",
+      "restoredSha256": "1c2792f52c669accc68fbae9ad029e57991cddfbaffb32a617003cecbaded628"
+    },
+    {
+      "path": "dist/model-router/model-catalog.d.ts.map",
+      "compiledSha256": "d94c13d1e11e4214d16b08b6849de87abd4332977c689798b4755ea90929e64f",
+      "restoredSha256": "1199ae2433077112b4bd4b0e310c558723a3bd0952162a522f746f9ad2342915"
+    },
+    {
+      "path": "dist/model-router/model-catalog.js",
+      "compiledSha256": "c51019a06b50598ce9accbe0bac28382ab36ed7a6f13b75a9f79af6b752151ae",
+      "restoredSha256": "34ba7727cd71fd8a5c7fc4b9daca84da3eb7e2f28115ea8af2e9f1d9ede8c5e5"
+    },
+    {
+      "path": "dist/model-router/model-catalog.js.map",
+      "compiledSha256": "132fca5dce8859d72c29c5d2efd85aeb2e34509286009dc19694a49d05de2d5b",
+      "restoredSha256": "21a7c3668ca7f7790657d9cc6b56d389c92df85e68502432d6b40118f0d83acd"
+    },
+    {
+      "path": "dist/model-router/models-batch.d.cts",
+      "compiledSha256": "7f69c97d73a022ef3ad58ce376af94eb4cc61b1439a94fd6d2f59b1654d0bfcd",
+      "restoredSha256": "7e06df147f26f5b6fd7cb05010945bb94e37d590c92eeb24f618d7b9347ba703"
+    },
+    {
+      "path": "dist/model-router/models-batch.d.cts.map",
+      "compiledSha256": "8bbb687c3f1ae2f053c80b3e18faf8b34884b0c7b68961837e5ff199cf4f14d9",
+      "restoredSha256": "6a78784f6d033c51f4a5a3621579864f3193b502616d7780c2ae8d066c254281"
+    },
+    {
+      "path": "dist/model-router/models-batch.d.ts",
+      "compiledSha256": "7f69c97d73a022ef3ad58ce376af94eb4cc61b1439a94fd6d2f59b1654d0bfcd",
+      "restoredSha256": "7e06df147f26f5b6fd7cb05010945bb94e37d590c92eeb24f618d7b9347ba703"
+    },
+    {
+      "path": "dist/model-router/models-batch.d.ts.map",
+      "compiledSha256": "8bbb687c3f1ae2f053c80b3e18faf8b34884b0c7b68961837e5ff199cf4f14d9",
+      "restoredSha256": "6a78784f6d033c51f4a5a3621579864f3193b502616d7780c2ae8d066c254281"
+    },
+    {
+      "path": "dist/rag/rag-source.d.cts",
+      "compiledSha256": "90f36ae567d3f491acd77beb72d313c4c9fecd105010820523a22bbed320a125",
+      "restoredSha256": "73922ab17a58afd45179f6e344eadd4be49d7d61d76b4e4f493c88c2381e7c60"
+    },
+    {
+      "path": "dist/rag/rag-source.d.ts",
+      "compiledSha256": "90f36ae567d3f491acd77beb72d313c4c9fecd105010820523a22bbed320a125",
+      "restoredSha256": "73922ab17a58afd45179f6e344eadd4be49d7d61d76b4e4f493c88c2381e7c60"
+    },
+    {
+      "path": "dist/vault/vault-entry.d.cts",
+      "compiledSha256": "65dd25d85e1884c618b34278c4283cf7b08b17627cf6046f941e2e297611104d",
+      "restoredSha256": "6ed7a61446107f0e9c3db1a6bce9e9d689750f44bca8da309ceacd11ec8fae2d"
+    },
+    {
+      "path": "dist/vault/vault-entry.d.ts",
+      "compiledSha256": "65dd25d85e1884c618b34278c4283cf7b08b17627cf6046f941e2e297611104d",
+      "restoredSha256": "6ed7a61446107f0e9c3db1a6bce9e9d689750f44bca8da309ceacd11ec8fae2d"
+    },
+    {
+      "path": "dist/vault/vault-tier.d.cts",
+      "compiledSha256": "0ef11f94a68a304410797ccc04932e93a2a98e3d7b06d86c0c10419247375e64",
+      "restoredSha256": "60c7270b83b21a1334eef412e3304182e9d3b8c1c1ab1103c2c0893930d69592"
+    },
+    {
+      "path": "dist/vault/vault-tier.d.ts",
+      "compiledSha256": "0ef11f94a68a304410797ccc04932e93a2a98e3d7b06d86c0c10419247375e64",
+      "restoredSha256": "60c7270b83b21a1334eef412e3304182e9d3b8c1c1ab1103c2c0893930d69592"
+    },
+    {
+      "path": "dist/vault/workspace-file.d.cts",
+      "compiledSha256": "d8d20edb0cbfc5d2a756d170af5f0a330baab55d50f99f364194dcce8fb19166",
+      "restoredSha256": "3b101b42c8dec2335b1006e8225bdb70f5309ce92f8caec2f60d10eb3be41da9"
+    },
+    {
+      "path": "dist/vault/workspace-file.d.ts",
+      "compiledSha256": "d8d20edb0cbfc5d2a756d170af5f0a330baab55d50f99f364194dcce8fb19166",
+      "restoredSha256": "3b101b42c8dec2335b1006e8225bdb70f5309ce92f8caec2f60d10eb3be41da9"
+    }
+  ]
+}

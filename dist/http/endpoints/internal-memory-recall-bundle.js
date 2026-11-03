@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { RecallTemporalFilterSchema } from "../../memory/temporal.js";
+import { OrganizationRecallContextSchema, OrganizationRecallReferenceSchema, } from "../../organization/recall.js";
 /**
  * POST /internal/memory/recall/bundle — v2 recall endpoint.
  * Direction: X9 internal (agent-core / cap-voice -> memory-svc) + Forge console.
@@ -40,6 +41,7 @@ export const InternalMemoryRecallBundleRequestSchema = z.object({
     })
         .optional(),
     temporal: RecallTemporalFilterSchema.optional(),
+    organization: OrganizationRecallContextSchema.optional(),
 });
 export const RecallBundleEntrySchema = z.object({
     id: z.string(),
@@ -81,6 +83,7 @@ export const RecallBundleAuditSchema = z.object({
 export const InternalMemoryRecallBundleResponseSchema = z.object({
     entries: z.array(RecallBundleEntrySchema),
     audit: RecallBundleAuditSchema,
+    organizationReferences: z.array(OrganizationRecallReferenceSchema).max(50).optional(),
 });
 export const INTERNAL_MEMORY_RECALL_BUNDLE_PATH = '/internal/memory/recall/bundle';
 export const internalMemoryRecallBundleContract = {

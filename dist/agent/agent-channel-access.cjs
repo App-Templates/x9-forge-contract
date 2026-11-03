@@ -8,6 +8,7 @@ const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability/capability-call-context.cjs");
 const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const agent_runtime_identity_js_1 = require("./agent-runtime-identity.cjs");
+const index_js_1 = require("../capability/voice-live/index.cjs");
 /** Explicit ownership for access control; names and credentials never confer authorization. */
 exports.AgentChannelAccessBindingSchema = zod_1.z.object({
     scope: capability_call_context_js_1.CapabilityAgentScopeSchema.strict(), identity: agent_runtime_identity_js_1.AgentRuntimeIdentitySchema.strict(),
@@ -55,9 +56,15 @@ exports.AgentChannelAddressBookSchema = exports.AgentChannelAccessBindingSchema.
     observedAt: zod_1.z.iso.datetime({ offset: true }).nullable(),
     emails: zod_1.z.array(exports.AgentChannelEmailAddressSchema).max(2048)
         .refine(emails => new Set(emails).size === emails.length, { message: 'Address-book emails must be unique' }).nullable(),
+    /** Legacy absence/null is not a complete telephone source. Contacts remain producer-owned. */
+    phones: zod_1.z.array(index_js_1.VoiceLiveCallStartRequestSchema.shape.to_number).max(2048)
+        .refine(phones => new Set(phones).size === phones.length, { message: 'Address-book phones must be unique' }).nullable().optional(),
 }).superRefine((book, ctx) => {
     if (book.status === 'complete' && (book.version === null || book.observedAt === null || book.emails === null)) {
         ctx.addIssue({ code: 'custom', message: 'A complete address-book requires version, time and exact entries' });
+    }
+    if (book.status !== 'complete' && book.phones != null) {
+        ctx.addIssue({ code: 'custom', path: ['phones'], message: 'Incomplete contact sources cannot publish telephone entries' });
     }
     if (book.status !== 'complete' && book.emails !== null) {
         ctx.addIssue({ code: 'custom', path: ['emails'], message: 'Incomplete contact sources cannot publish an admission list' });

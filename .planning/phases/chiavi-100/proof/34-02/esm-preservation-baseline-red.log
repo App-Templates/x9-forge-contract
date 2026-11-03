@@ -1,0 +1,647 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: all previous metadata unchanged
++ actual - expected
+... Skipped lines
+
+  {
+    AGENTMAIL_API_KEY: {
+      key: 'AGENTMAIL_API_KEY',
+      kind: 'credential',
+      label: 'Chiave API AgentMail',
+...
+      kind: 'credential',
++     label: 'Chiave API OpenAI changed',
+-     label: 'Chiave API OpenAI',
+      secret: true,
+      service: {
+        id: 'openai',
+        type: 'commercial'
+      }
+
+    at file:///private/tmp/codex-a-chiavi-completamento/bridge-34-02-smoke.mjs:20:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    OPENAI_API_KEY: {
+      key: 'OPENAI_API_KEY',
+      label: 'Chiave API OpenAI changed',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'openai' },
+      secret: true
+    },
+    ANTHROPIC_API_KEY: {
+      key: 'ANTHROPIC_API_KEY',
+      label: 'Chiave API Anthropic',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'anthropic' },
+      secret: true
+    },
+    GOOGLE_API_KEY: {
+      key: 'GOOGLE_API_KEY',
+      label: 'Chiave API Google',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    TELEGRAM_BOT_TOKEN: {
+      key: 'TELEGRAM_BOT_TOKEN',
+      label: 'Token del bot Telegram',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'telegram' },
+      secret: true
+    },
+    ELEVENLABS_API_KEY: {
+      key: 'ELEVENLABS_API_KEY',
+      label: 'Chiave API ElevenLabs',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: true
+    },
+    TELNYX_API_KEY: {
+      key: 'TELNYX_API_KEY',
+      label: 'Chiave API Telnyx',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: true
+    },
+    QDRANT_API_KEY: {
+      key: 'QDRANT_API_KEY',
+      label: 'Chiave API Qdrant',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'qdrant' },
+      secret: true
+    },
+    HOSTINGER_API_TOKEN: {
+      key: 'HOSTINGER_API_TOKEN',
+      label: 'Token API Hostinger',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'hostinger' },
+      secret: true
+    },
+    AGENTMAIL_API_KEY: {
+      key: 'AGENTMAIL_API_KEY',
+      label: 'Chiave API AgentMail',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'agentmail' },
+      secret: true
+    },
+    GOOGLE_CALENDAR_CLIENT_SECRET: {
+      key: 'GOOGLE_CALENDAR_CLIENT_SECRET',
+      label: 'Segreto del client Google Calendar',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    GOOGLE_CALENDAR_REFRESH_TOKEN: {
+      key: 'GOOGLE_CALENDAR_REFRESH_TOKEN',
+      label: 'Token di rinnovo Google Calendar',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    TELNYX_PUBLIC_KEY: {
+      key: 'TELNYX_PUBLIC_KEY',
+      label: 'Chiave pubblica di verifica Telnyx',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: false
+    },
+    INTERNAL_SECRET: {
+      key: 'INTERNAL_SECRET',
+      label: 'Segreto dei servizi interni X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    INTERNAL_TOKEN: {
+      key: 'INTERNAL_TOKEN',
+      label: 'Token dei servizi interni X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    X9_INTERNAL_SECRET: {
+      key: 'X9_INTERNAL_SECRET',
+      label: 'Segreto del collegamento con X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    LIVE_WEB_AUTH_TOKEN: {
+      key: 'LIVE_WEB_AUTH_TOKEN',
+      label: 'Token della voce web X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    FORGE_VOICE_REGISTER_TOKEN: {
+      key: 'FORGE_VOICE_REGISTER_TOKEN',
+      label: 'Token di registrazione voce in Forge',
+      kind: 'credential',
+      service: { type: 'internal', id: 'forge' },
+      secret: true
+    },
+    AGENT_CHAT_MODEL: {
+      key: 'AGENT_CHAT_MODEL',
+      label: 'Modello di conversazione e ragionamento',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'openai', 'anthropic', 'google' ]
+      },
+      secret: false
+    },
+    TTS_PROVIDER: {
+      key: 'TTS_PROVIDER',
+      label: 'Fornitore della sintesi vocale',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'elevenlabs', 'openai' ]
+      },
+      secret: false
+    },
+    STT_PRIMARY_PROVIDER: {
+      key: 'STT_PRIMARY_PROVIDER',
+      label: 'Fornitore primario della trascrizione',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'elevenlabs', 'openai' ]
+      },
+      secret: false
+    },
+    VOICE_CALL_PROVIDER: {
+      key: 'VOICE_CALL_PROVIDER',
+      label: 'Fornitore della voce in chiamata',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'elevenlabs', 'openai' ]
+      },
+      secret: false
+    },
+    ELEVENLABS_MODEL_ID: {
+      key: 'ELEVENLABS_MODEL_ID',
+      label: 'Modello vocale ElevenLabs',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: false
+    },
+    OPENAI_TTS_MODEL: {
+      key: 'OPENAI_TTS_MODEL',
+      label: 'Modello di sintesi vocale OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_TTS_VOICE: {
+      key: 'OPENAI_TTS_VOICE',
+      label: 'Voce di sintesi OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_STT_MODEL: {
+      key: 'OPENAI_STT_MODEL',
+      label: 'Modello di trascrizione OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_LIVE_VOICE: {
+      key: 'OPENAI_LIVE_VOICE',
+      label: 'Voce in tempo reale OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_LIVE_BACKEND_MODEL: {
+      key: 'OPENAI_LIVE_BACKEND_MODEL',
+      label: 'Modello di supporto della voce OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    ELEVENLABS_VOICE_ID: {
+      key: 'ELEVENLABS_VOICE_ID',
+      label: 'Identificativo della voce ElevenLabs',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: false
+    },
+    ELEVENLABS_MINDFULNESS_AGENT_ID: {
+      key: 'ELEVENLABS_MINDFULNESS_AGENT_ID',
+      label: 'Identificativo dell’agente ElevenLabs',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: false
+    },
+    TELNYX_CONNECTION_ID: {
+      key: 'TELNYX_CONNECTION_ID',
+      label: 'Identificativo della connessione Telnyx',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: false
+    },
+    TELNYX_FROM_NUMBER: {
+      key: 'TELNYX_FROM_NUMBER',
+      label: 'Numero chiamante Telnyx',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: false
+    },
+    AGENTMAIL_INBOX_ID: {
+      key: 'AGENTMAIL_INBOX_ID',
+      label: 'Identificativo della casella AgentMail',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'agentmail' },
+      secret: false
+    },
+    AGENT_EMAIL: {
+      key: 'AGENT_EMAIL',
+      label: 'Indirizzo email AgentMail',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'agentmail' },
+      secret: false
+    },
+    GOOGLE_CONTACTS_CLIENT_ID: {
+      key: 'GOOGLE_CONTACTS_CLIENT_ID',
+      label: 'Identificativo del client Google Contacts',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: false
+    },
+    GOOGLE_CONTACTS_CLIENT_SECRET: {
+      key: 'GOOGLE_CONTACTS_CLIENT_SECRET',
+      label: 'Segreto del client Google Contacts',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    GOOGLE_CONTACTS_REFRESH_TOKEN: {
+      key: 'GOOGLE_CONTACTS_REFRESH_TOKEN',
+      label: 'Token di rinnovo Google Contacts',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    NETATMO_CLIENT_ID: {
+      key: 'NETATMO_CLIENT_ID',
+      label: 'Identificativo del client Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: false
+    },
+    NETATMO_CLIENT_SECRET: {
+      key: 'NETATMO_CLIENT_SECRET',
+      label: 'Segreto del client Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    NETATMO_REFRESH_TOKEN: {
+      key: 'NETATMO_REFRESH_TOKEN',
+      label: 'Token di rinnovo Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    NETATMO_ACCESS_TOKEN: {
+      key: 'NETATMO_ACCESS_TOKEN',
+      label: 'Token di accesso Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    NETATMO_PASSWORD: {
+      key: 'NETATMO_PASSWORD',
+      label: 'Segreto di accesso Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    GOOGLE_CALENDAR_CLIENT_ID: {
+      key: 'GOOGLE_CALENDAR_CLIENT_ID',
+      label: 'Identificativo del client Google Calendar',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: false
+    }
+  },
+  expected: {
+    OPENAI_API_KEY: {
+      key: 'OPENAI_API_KEY',
+      label: 'Chiave API OpenAI',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'openai' },
+      secret: true
+    },
+    ANTHROPIC_API_KEY: {
+      key: 'ANTHROPIC_API_KEY',
+      label: 'Chiave API Anthropic',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'anthropic' },
+      secret: true
+    },
+    GOOGLE_API_KEY: {
+      key: 'GOOGLE_API_KEY',
+      label: 'Chiave API Google',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    TELEGRAM_BOT_TOKEN: {
+      key: 'TELEGRAM_BOT_TOKEN',
+      label: 'Token del bot Telegram',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'telegram' },
+      secret: true
+    },
+    ELEVENLABS_API_KEY: {
+      key: 'ELEVENLABS_API_KEY',
+      label: 'Chiave API ElevenLabs',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: true
+    },
+    TELNYX_API_KEY: {
+      key: 'TELNYX_API_KEY',
+      label: 'Chiave API Telnyx',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: true
+    },
+    QDRANT_API_KEY: {
+      key: 'QDRANT_API_KEY',
+      label: 'Chiave API Qdrant',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'qdrant' },
+      secret: true
+    },
+    HOSTINGER_API_TOKEN: {
+      key: 'HOSTINGER_API_TOKEN',
+      label: 'Token API Hostinger',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'hostinger' },
+      secret: true
+    },
+    AGENTMAIL_API_KEY: {
+      key: 'AGENTMAIL_API_KEY',
+      label: 'Chiave API AgentMail',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'agentmail' },
+      secret: true
+    },
+    GOOGLE_CALENDAR_CLIENT_SECRET: {
+      key: 'GOOGLE_CALENDAR_CLIENT_SECRET',
+      label: 'Segreto del client Google Calendar',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    GOOGLE_CALENDAR_REFRESH_TOKEN: {
+      key: 'GOOGLE_CALENDAR_REFRESH_TOKEN',
+      label: 'Token di rinnovo Google Calendar',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    TELNYX_PUBLIC_KEY: {
+      key: 'TELNYX_PUBLIC_KEY',
+      label: 'Chiave pubblica di verifica Telnyx',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: false
+    },
+    INTERNAL_SECRET: {
+      key: 'INTERNAL_SECRET',
+      label: 'Segreto dei servizi interni X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    INTERNAL_TOKEN: {
+      key: 'INTERNAL_TOKEN',
+      label: 'Token dei servizi interni X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    X9_INTERNAL_SECRET: {
+      key: 'X9_INTERNAL_SECRET',
+      label: 'Segreto del collegamento con X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    LIVE_WEB_AUTH_TOKEN: {
+      key: 'LIVE_WEB_AUTH_TOKEN',
+      label: 'Token della voce web X9',
+      kind: 'credential',
+      service: { type: 'internal', id: 'x9' },
+      secret: true
+    },
+    FORGE_VOICE_REGISTER_TOKEN: {
+      key: 'FORGE_VOICE_REGISTER_TOKEN',
+      label: 'Token di registrazione voce in Forge',
+      kind: 'credential',
+      service: { type: 'internal', id: 'forge' },
+      secret: true
+    },
+    AGENT_CHAT_MODEL: {
+      key: 'AGENT_CHAT_MODEL',
+      label: 'Modello di conversazione e ragionamento',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'openai', 'anthropic', 'google' ]
+      },
+      secret: false
+    },
+    TTS_PROVIDER: {
+      key: 'TTS_PROVIDER',
+      label: 'Fornitore della sintesi vocale',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'elevenlabs', 'openai' ]
+      },
+      secret: false
+    },
+    STT_PRIMARY_PROVIDER: {
+      key: 'STT_PRIMARY_PROVIDER',
+      label: 'Fornitore primario della trascrizione',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'elevenlabs', 'openai' ]
+      },
+      secret: false
+    },
+    VOICE_CALL_PROVIDER: {
+      key: 'VOICE_CALL_PROVIDER',
+      label: 'Fornitore della voce in chiamata',
+      kind: 'setting',
+      service: {
+        type: 'multi-provider',
+        candidates: [ 'elevenlabs', 'openai' ]
+      },
+      secret: false
+    },
+    ELEVENLABS_MODEL_ID: {
+      key: 'ELEVENLABS_MODEL_ID',
+      label: 'Modello vocale ElevenLabs',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: false
+    },
+    OPENAI_TTS_MODEL: {
+      key: 'OPENAI_TTS_MODEL',
+      label: 'Modello di sintesi vocale OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_TTS_VOICE: {
+      key: 'OPENAI_TTS_VOICE',
+      label: 'Voce di sintesi OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_STT_MODEL: {
+      key: 'OPENAI_STT_MODEL',
+      label: 'Modello di trascrizione OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_LIVE_VOICE: {
+      key: 'OPENAI_LIVE_VOICE',
+      label: 'Voce in tempo reale OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    OPENAI_LIVE_BACKEND_MODEL: {
+      key: 'OPENAI_LIVE_BACKEND_MODEL',
+      label: 'Modello di supporto della voce OpenAI',
+      kind: 'setting',
+      service: { type: 'commercial', id: 'openai' },
+      secret: false
+    },
+    ELEVENLABS_VOICE_ID: {
+      key: 'ELEVENLABS_VOICE_ID',
+      label: 'Identificativo della voce ElevenLabs',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: false
+    },
+    ELEVENLABS_MINDFULNESS_AGENT_ID: {
+      key: 'ELEVENLABS_MINDFULNESS_AGENT_ID',
+      label: 'Identificativo dell’agente ElevenLabs',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'elevenlabs' },
+      secret: false
+    },
+    TELNYX_CONNECTION_ID: {
+      key: 'TELNYX_CONNECTION_ID',
+      label: 'Identificativo della connessione Telnyx',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: false
+    },
+    TELNYX_FROM_NUMBER: {
+      key: 'TELNYX_FROM_NUMBER',
+      label: 'Numero chiamante Telnyx',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'telnyx' },
+      secret: false
+    },
+    AGENTMAIL_INBOX_ID: {
+      key: 'AGENTMAIL_INBOX_ID',
+      label: 'Identificativo della casella AgentMail',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'agentmail' },
+      secret: false
+    },
+    AGENT_EMAIL: {
+      key: 'AGENT_EMAIL',
+      label: 'Indirizzo email AgentMail',
+      kind: 'identifier',
+      service: { type: 'commercial', id: 'agentmail' },
+      secret: false
+    },
+    GOOGLE_CONTACTS_CLIENT_ID: {
+      key: 'GOOGLE_CONTACTS_CLIENT_ID',
+      label: 'Identificativo del client Google Contacts',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: false
+    },
+    GOOGLE_CONTACTS_CLIENT_SECRET: {
+      key: 'GOOGLE_CONTACTS_CLIENT_SECRET',
+      label: 'Segreto del client Google Contacts',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    GOOGLE_CONTACTS_REFRESH_TOKEN: {
+      key: 'GOOGLE_CONTACTS_REFRESH_TOKEN',
+      label: 'Token di rinnovo Google Contacts',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: true
+    },
+    NETATMO_CLIENT_ID: {
+      key: 'NETATMO_CLIENT_ID',
+      label: 'Identificativo del client Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: false
+    },
+    NETATMO_CLIENT_SECRET: {
+      key: 'NETATMO_CLIENT_SECRET',
+      label: 'Segreto del client Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    NETATMO_REFRESH_TOKEN: {
+      key: 'NETATMO_REFRESH_TOKEN',
+      label: 'Token di rinnovo Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    NETATMO_ACCESS_TOKEN: {
+      key: 'NETATMO_ACCESS_TOKEN',
+      label: 'Token di accesso Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    NETATMO_PASSWORD: {
+      key: 'NETATMO_PASSWORD',
+      label: 'Segreto di accesso Netatmo',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'netatmo' },
+      secret: true
+    },
+    GOOGLE_CALENDAR_CLIENT_ID: {
+      key: 'GOOGLE_CALENDAR_CLIENT_ID',
+      label: 'Identificativo del client Google Calendar',
+      kind: 'credential',
+      service: { type: 'commercial', id: 'google' },
+      secret: false
+    }
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.14.1

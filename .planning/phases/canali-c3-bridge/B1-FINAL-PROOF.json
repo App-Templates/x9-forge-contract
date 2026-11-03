@@ -1,0 +1,97 @@
+{
+  "updatedAt": "08/10/2026 12:41 Europe/Rome",
+  "base": "a251bbc",
+  "version": "1.43.0 unchanged, no release",
+  "targeted": {
+    "passed": 59,
+    "total": 59,
+    "initialSemanticFailures": 52
+  },
+  "mutations": {
+    "sourceRecipes": 23,
+    "semanticAssertionFailures": 60,
+    "sourceExactRestoresFresh59": 23,
+    "compiledCjsRecipes": 3,
+    "compiledCjsSemanticReds": 3,
+    "compiledCjsExactSourceRestoresAndRebuilds": 3
+  },
+  "full": {
+    "numTotalTests": 3286,
+    "numPassedTests": 3286,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numFailedTestSuites": 0,
+    "success": true
+  },
+  "fullFiles": 139,
+  "quality": [
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "exec",
+        "tsc",
+        "--noEmit"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "lint",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "exec",
+        "eslint",
+        "src/capability/agent-elevenlabs/web-channel.ts",
+        "src/capability/index.ts",
+        "tests/capability/agent-elevenlabs-web-channel.test.ts"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "build",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "build"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "pack",
+      "command": [
+        "pnpm",
+        "-C",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1",
+        "check:pack"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "cjs",
+      "command": [
+        "node",
+        "/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-123-1/tests/cjs/smoke.cjs"
+      ],
+      "exit": 0
+    }
+  ],
+  "packageUnchangedSha256": "009e8871330aafc29d10863845417800c1626aca06f1c5105077e1d82000e573",
+  "existingProviderSourceUnchangedSha256": "1481d2bf40dac460307693319e0bfe22f40b064a59369cf0e676d27c5dde66fa",
+  "CJSnewAssertions": 3,
+  "existingCJSGroups": [
+    36,
+    6,
+    15,
+    16,
+    39
+  ],
+  "completeC3": false,
+  "producerImplemented": false,
+  "consumerUpdated": false,
+  "privateRaw": "/private/tmp/codex-a-canali-c3-bridge-20261008"
+}

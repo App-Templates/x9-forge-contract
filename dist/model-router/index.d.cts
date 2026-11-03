@@ -29,4 +29,8 @@ export * from "./capability-model-settings.cjs";
 export * from "./agent-model-configuration.cjs";
 export * from "./models-batch.cjs";
 export * from "./model-consumers.cjs";
+export * from "./model-chain.cjs";
+export * from "./model-consumer-execution.cjs";
+export * from "./models-version.cjs";
+export * from "./models-target.cjs";
 //# sourceMappingURL=index.d.ts.map

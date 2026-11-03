@@ -20,7 +20,7 @@ function isAgentModelsOverviewWithinAccess(input, trustedAccess) {
     const access = exports.ForgeModelsAccessSchema.safeParse(trustedAccess);
     if (!overview.success || !access.success)
         return false;
-    return access.data.role === 'sa' || overview.data.rows.every(row => access.data.role === 'owner' && row.ownerId === access.data.ownerId);
+    return access.data.role === 'sa' || [...overview.data.rows, ...(overview.data.coverage ?? [])].every(row => access.data.role === 'owner' && row.ownerId === access.data.ownerId);
 }
 function isAgentModelsBatchWithinAccess(input, serverOverview, trustedAccess) {
     const request = models_batch_js_1.AgentModelsBatchIntentSchema.safeParse(input);

@@ -36,8 +36,8 @@ export declare const BackupSnapshotSchema: z.ZodObject<{
     restoreSec: z.ZodNumber;
     release: z.ZodNullable<z.ZodString>;
     origin: z.ZodEnum<{
-        approved: "approved";
         external: "external";
+        approved: "approved";
     }>;
 }, z.core.$strict>;
 export type BackupSnapshot = z.infer<typeof BackupSnapshotSchema>;
@@ -53,9 +53,9 @@ export declare const BackupActionKindSchema: z.ZodEnum<{
 }>;
 export declare const BackupActionStateSchema: z.ZodEnum<{
     failed: "failed";
-    running: "running";
-    ready: "ready";
     expired: "expired";
+    ready: "ready";
+    running: "running";
     "awaiting-approval": "awaiting-approval";
 }>;
 export type BackupActionState = z.infer<typeof BackupActionStateSchema>;
@@ -68,9 +68,9 @@ export declare const BackupActionSchema: z.ZodObject<{
     }>;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
-        ready: "ready";
         expired: "expired";
+        ready: "ready";
+        running: "running";
         "awaiting-approval": "awaiting-approval";
     }>;
     release: z.ZodNullable<z.ZodString>;
@@ -94,8 +94,8 @@ export declare const BackupStatusSchema: z.ZodObject<{
         restoreSec: z.ZodNumber;
         release: z.ZodNullable<z.ZodString>;
         origin: z.ZodEnum<{
-            approved: "approved";
             external: "external";
+            approved: "approved";
         }>;
     }, z.core.$strict>>;
     action: z.ZodNullable<z.ZodObject<{
@@ -107,9 +107,9 @@ export declare const BackupStatusSchema: z.ZodObject<{
         }>;
         state: z.ZodEnum<{
             failed: "failed";
-            running: "running";
-            ready: "ready";
             expired: "expired";
+            ready: "ready";
+            running: "running";
             "awaiting-approval": "awaiting-approval";
         }>;
         release: z.ZodNullable<z.ZodString>;
@@ -194,8 +194,8 @@ export declare const backupDeviceStatusContract: {
             restoreSec: z.ZodNumber;
             release: z.ZodNullable<z.ZodString>;
             origin: z.ZodEnum<{
-                approved: "approved";
                 external: "external";
+                approved: "approved";
             }>;
         }, z.core.$strict>>;
         action: z.ZodNullable<z.ZodObject<{
@@ -207,9 +207,9 @@ export declare const backupDeviceStatusContract: {
             }>;
             state: z.ZodEnum<{
                 failed: "failed";
-                running: "running";
-                ready: "ready";
                 expired: "expired";
+                ready: "ready";
+                running: "running";
                 "awaiting-approval": "awaiting-approval";
             }>;
             release: z.ZodNullable<z.ZodString>;
@@ -242,6 +242,7 @@ export declare const BackupDeviceRequestBodySchema: z.ZodObject<{
         "restore-snapshot": "restore-snapshot";
     }>;
     release: z.ZodOptional<z.ZodString>;
+    riassunto: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const BackupDeviceRequestResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     ok: z.ZodLiteral<true>;
@@ -254,9 +255,9 @@ export declare const BackupDeviceRequestResponseSchema: z.ZodDiscriminatedUnion<
         }>;
         state: z.ZodEnum<{
             failed: "failed";
-            running: "running";
-            ready: "ready";
             expired: "expired";
+            ready: "ready";
+            running: "running";
             "awaiting-approval": "awaiting-approval";
         }>;
         release: z.ZodNullable<z.ZodString>;
@@ -280,6 +281,7 @@ export declare const backupDeviceRequestContract: {
             "restore-snapshot": "restore-snapshot";
         }>;
         release: z.ZodOptional<z.ZodString>;
+        riassunto: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -292,9 +294,9 @@ export declare const backupDeviceRequestContract: {
             }>;
             state: z.ZodEnum<{
                 failed: "failed";
-                running: "running";
-                ready: "ready";
                 expired: "expired";
+                ready: "ready";
+                running: "running";
                 "awaiting-approval": "awaiting-approval";
             }>;
             release: z.ZodNullable<z.ZodString>;
@@ -331,6 +333,111 @@ export declare const backupDeviceVerifiedContract: {
         ok: z.ZodLiteral<true>;
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
+        error: z.ZodString;
+    }, z.core.$strict>], "ok">;
+};
+export declare const BACKUP_AUTO_CREATE_DAILY_MAX = 6;
+export declare const BackupAutoCreateRefusalCodeSchema: z.ZodEnum<{
+    off: "off";
+    busy: "busy";
+    invalid: "invalid";
+    "needs-passkey": "needs-passkey";
+    "daily-cap": "daily-cap";
+}>;
+export declare const BackupAutoCreateInfoResponseSchema: z.ZodObject<{
+    enabled: z.ZodBoolean;
+    dailyMax: z.ZodNumber;
+    usedToday: z.ZodNumber;
+}, z.core.$strict>;
+export declare const backupDeviceAutoCreateInfoContract: {
+    readonly method: "GET";
+    readonly path: "/backup/api/auto-create";
+    readonly authType: "device_signature";
+    readonly querySchema: z.ZodObject<{
+        resource: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        enabled: z.ZodBoolean;
+        dailyMax: z.ZodNumber;
+        usedToday: z.ZodNumber;
+    }, z.core.$strict>;
+};
+export declare const BackupAutoCreateBodySchema: z.ZodObject<{
+    release: z.ZodString;
+    resource: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export declare const BackupAutoCreateResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    ok: z.ZodLiteral<true>;
+    action: z.ZodObject<{
+        actionId: z.ZodString;
+        kind: z.ZodEnum<{
+            create: "create";
+            "restore-snapshot": "restore-snapshot";
+            "restore-backup": "restore-backup";
+        }>;
+        state: z.ZodEnum<{
+            failed: "failed";
+            expired: "expired";
+            ready: "ready";
+            running: "running";
+            "awaiting-approval": "awaiting-approval";
+        }>;
+        release: z.ZodNullable<z.ZodString>;
+        requestedAt: z.ZodISODateTime;
+        updatedAt: z.ZodISODateTime;
+        error: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>;
+    attachedToExisting: z.ZodBoolean;
+}, z.core.$strict>, z.ZodObject<{
+    ok: z.ZodLiteral<false>;
+    code: z.ZodEnum<{
+        off: "off";
+        busy: "busy";
+        invalid: "invalid";
+        "needs-passkey": "needs-passkey";
+        "daily-cap": "daily-cap";
+    }>;
+    error: z.ZodString;
+}, z.core.$strict>], "ok">;
+export declare const backupDeviceAutoCreateContract: {
+    readonly method: "POST";
+    readonly path: "/backup/api/auto-create";
+    readonly authType: "device_signature";
+    readonly bodySchema: z.ZodObject<{
+        release: z.ZodString;
+        resource: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        action: z.ZodObject<{
+            actionId: z.ZodString;
+            kind: z.ZodEnum<{
+                create: "create";
+                "restore-snapshot": "restore-snapshot";
+                "restore-backup": "restore-backup";
+            }>;
+            state: z.ZodEnum<{
+                failed: "failed";
+                expired: "expired";
+                ready: "ready";
+                running: "running";
+                "awaiting-approval": "awaiting-approval";
+            }>;
+            release: z.ZodNullable<z.ZodString>;
+            requestedAt: z.ZodISODateTime;
+            updatedAt: z.ZodISODateTime;
+            error: z.ZodNullable<z.ZodString>;
+        }, z.core.$strict>;
+        attachedToExisting: z.ZodBoolean;
+    }, z.core.$strict>, z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        code: z.ZodEnum<{
+            off: "off";
+            busy: "busy";
+            invalid: "invalid";
+            "needs-passkey": "needs-passkey";
+            "daily-cap": "daily-cap";
+        }>;
         error: z.ZodString;
     }, z.core.$strict>], "ok">;
 };

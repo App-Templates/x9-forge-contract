@@ -1,0 +1,15 @@
+[codex/chiavi-100-bridge 23fc0e1] feat(34-02): add public Netatmo account email to canonical credentials
+ Committer: Stefano Argiolas <admintemp@Air-di-Stefano.homenet.telecomitalia.it>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 49 files changed, 149 insertions(+), 29 deletions(-)

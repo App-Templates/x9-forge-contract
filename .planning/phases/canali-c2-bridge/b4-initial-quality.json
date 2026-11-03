@@ -1,0 +1,38 @@
+[
+  {
+    "check": "typecheck",
+    "command": [
+      "pnpm",
+      "typecheck"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "lint",
+    "command": [
+      "pnpm",
+      "exec",
+      "eslint",
+      "src/agent/agent-phone-channel.ts",
+      "src/agent/agent-phone-commands.ts",
+      "src/agent/index.ts",
+      "src/http/endpoints/internal-agent-phone-channel.ts",
+      "src/http/endpoints/forge-agent-phone-channel.ts",
+      "src/http/endpoints/index.ts",
+      "tests/agent/agent-phone-channel.test.ts",
+      "tests/agent/agent-phone-commands.test.ts",
+      "tests/http/endpoints/agent-phone-http-internal.test.ts",
+      "tests/http/endpoints/agent-phone-http-forge.test.ts",
+      "tests/cjs/agent-phone-channel-smoke.mjs"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "build",
+    "command": [
+      "pnpm",
+      "build"
+    ],
+    "exit": 1
+  }
+]

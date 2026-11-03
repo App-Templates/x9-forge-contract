@@ -1,0 +1,14 @@
+[
+  {
+    "format": "esm",
+    "exitCode": 1,
+    "functionalRed": true,
+    "qualifiedMutation": false
+  },
+  {
+    "format": "cjs",
+    "exitCode": 1,
+    "functionalRed": true,
+    "qualifiedMutation": false
+  }
+]

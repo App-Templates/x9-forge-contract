@@ -2,10 +2,10 @@ import { z } from 'zod';
 /**
  * The tools of cap-lab (v1.29.0, Phase 54), called at `capToolCallPath(LAB_TOOLS.<tool>)`. The wiki is the one of
  * the agent of the tool call envelope.
- * `lab_ingest` takes a cap-ricerca result as cap-ricerca defines it (imported, never copied).
+ * `lab_ingest` takes a cap-ricerca result, its `researchId` (the service reads it from cap-ricerca), or a document.
  */
 export declare const LAB_TOOLS: {
-    /** Queue a research result for digestion into raw sources, pages and claims. */
+    /** Queue a cap-ricerca result, its `researchId` (read by the service), or a document for digestion. */
     readonly ingest: "lab_ingest";
     /** State of a queued ingest, with final counts when completed. */
     readonly ingestStatus: "lab_ingest_status";
@@ -15,6 +15,12 @@ export declare const LAB_TOOLS: {
     readonly gaps: "lab_gaps";
     /** The competence graph with levels and scores. */
     readonly competence: "lab_competence";
+    /** Publish a versioned page for a client or project. */
+    readonly publish: "lab_publish";
+    /** Read pages published for a client or project. */
+    readonly readPublished: "lab_read_published";
+    /** Compare brief topics with published knowledge before researching. */
+    readonly briefGaps: "lab_brief_gaps";
 };
 export type LabToolName = (typeof LAB_TOOLS)[keyof typeof LAB_TOOLS];
 /** Why a lab tool call failed, as the bridge tool-call error text. */
@@ -27,15 +33,58 @@ export declare const LabToolErrorSchema: z.ZodEnum<{
 export type LabToolError = z.infer<typeof LabToolErrorSchema>;
 export declare const LabIngestIdSchema: z.ZodUUID;
 export type LabIngestId = z.infer<typeof LabIngestIdSchema>;
-export declare const LabIngestInputSchema: z.ZodObject<{
+/** Document provenance and excerpts supplied by the caller; the lab does not read asset bytes. */
+export declare const LabIngestDocumentSchema: z.ZodObject<{
+    asset: z.ZodObject<{
+        assetId: z.ZodString;
+        sha256: z.ZodString;
+        name: z.ZodString;
+        mediaType: z.ZodString;
+        sizeBytes: z.ZodNumber;
+        origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"email">;
+            messageId: z.ZodString;
+            attachmentName: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"archive">;
+            archiveSha256: z.ZodString;
+            entryPath: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"session">;
+            sessionId: z.ZodString;
+            repo: z.ZodOptional<z.ZodString>;
+            commit: z.ZodOptional<z.ZodString>;
+            path: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"link">;
+            url: z.ZodURL;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"generated">;
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>], "kind">;
+        tenantId: z.ZodString;
+        companyId: z.ZodString;
+        projectId: z.ZodString;
+        assetType: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        providedBy: z.ZodOptional<z.ZodObject<{
+            personRef: z.ZodString;
+        }, z.core.$strict>>;
+        createdAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    title: z.ZodString;
+    excerpts: z.ZodArray<z.ZodString>;
+}, z.core.$strict>;
+export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
     result: z.ZodObject<{
         researchId: z.ZodString;
         agentId: z.ZodString;
         state: z.ZodEnum<{
             failed: "failed";
-            running: "running";
             completed: "completed";
             queued: "queued";
+            running: "running";
             budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
@@ -59,7 +108,52 @@ export declare const LabIngestInputSchema: z.ZodObject<{
             uncertain: z.ZodBoolean;
         }, z.core.$strict>;
     }, z.core.$strict>;
-}, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    document: z.ZodObject<{
+        asset: z.ZodObject<{
+            assetId: z.ZodString;
+            sha256: z.ZodString;
+            name: z.ZodString;
+            mediaType: z.ZodString;
+            sizeBytes: z.ZodNumber;
+            origin: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"email">;
+                messageId: z.ZodString;
+                attachmentName: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"archive">;
+                archiveSha256: z.ZodString;
+                entryPath: z.ZodString;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"session">;
+                sessionId: z.ZodString;
+                repo: z.ZodOptional<z.ZodString>;
+                commit: z.ZodOptional<z.ZodString>;
+                path: z.ZodOptional<z.ZodString>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"link">;
+                url: z.ZodURL;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"generated">;
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                sourceAssetIds: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>], "kind">;
+            tenantId: z.ZodString;
+            companyId: z.ZodString;
+            projectId: z.ZodString;
+            assetType: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            providedBy: z.ZodOptional<z.ZodObject<{
+                personRef: z.ZodString;
+            }, z.core.$strict>>;
+            createdAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        title: z.ZodString;
+        excerpts: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    researchId: z.ZodString;
+}, z.core.$strict>]>;
 export declare const LabIngestOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodLiteral<"queued">;
@@ -71,9 +165,9 @@ export declare const LabIngestStatusOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodEnum<{
         failed: "failed";
-        running: "running";
         completed: "completed";
         queued: "queued";
+        running: "running";
         budget_exhausted: "budget_exhausted";
     }>;
     sourcesStored: z.ZodOptional<z.ZodNumber>;
@@ -139,6 +233,117 @@ export declare const LabCompetenceOutputSchema: z.ZodObject<{
         score: z.ZodNumber;
     }, z.core.$strict>>;
 }, z.core.$strict>;
+/** Publication recipients always identify the client company explicitly. */
+export declare const LabPublicationRecipientSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    kind: z.ZodLiteral<"client">;
+    clientId: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"project">;
+    clientId: z.ZodString;
+    projectId: z.ZodString;
+}, z.core.$strict>], "kind">;
+export declare const LabPublishInputSchema: z.ZodObject<{
+    slug: z.ZodString;
+    version: z.ZodOptional<z.ZodNumber>;
+    recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"client">;
+        clientId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"project">;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>], "kind">;
+    contradicts: z.ZodOptional<z.ZodArray<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+        target: z.ZodLiteral<"decision">;
+        requestId: z.ZodString;
+        planVersion: z.ZodNumber;
+    }, z.core.$strict>, z.ZodObject<{
+        target: z.ZodLiteral<"map_entry">;
+        kind: z.ZodEnum<{
+            access: "access";
+            referent: "referent";
+            asset: "asset";
+            person: "person";
+            responsibility: "responsibility";
+        }>;
+        key: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>], "target">]>>>;
+}, z.core.$strict>;
+export declare const LabPublishOutputSchema: z.ZodObject<{
+    slug: z.ZodString;
+    version: z.ZodNumber;
+    digest: z.ZodString;
+    recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"client">;
+        clientId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"project">;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>], "kind">;
+    publishedAt: z.ZodISODateTime;
+}, z.core.$strict>;
+export declare const LabReadPublishedInputSchema: z.ZodObject<{
+    recipient: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        kind: z.ZodLiteral<"client">;
+        clientId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"project">;
+        clientId: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>], "kind">;
+    query: z.ZodOptional<z.ZodString>;
+    limit: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export declare const LabReadPublishedOutputSchema: z.ZodObject<{
+    pages: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+        digest: z.ZodString;
+        title: z.ZodString;
+        content: z.ZodString;
+        contradicts: z.ZodOptional<z.ZodArray<z.ZodUnion<readonly [z.ZodString, z.ZodDiscriminatedUnion<[z.ZodObject<{
+            target: z.ZodLiteral<"decision">;
+            requestId: z.ZodString;
+            planVersion: z.ZodNumber;
+        }, z.core.$strict>, z.ZodObject<{
+            target: z.ZodLiteral<"map_entry">;
+            kind: z.ZodEnum<{
+                access: "access";
+                referent: "referent";
+                asset: "asset";
+                person: "person";
+                responsibility: "responsibility";
+            }>;
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>], "target">]>>>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const LabBriefGapsInputSchema: z.ZodObject<{
+    topics: z.ZodArray<z.ZodString>;
+    clientId: z.ZodString;
+    projectId: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export declare const LabBriefGapsOutputSchema: z.ZodObject<{
+    gapsRef: z.ZodString;
+    hasContext: z.ZodBoolean;
+    covered: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>;
+    gaps: z.ZodArray<z.ZodObject<{
+        topic: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type LabPublicationRecipient = z.infer<typeof LabPublicationRecipientSchema>;
+export type LabPublishInput = z.infer<typeof LabPublishInputSchema>;
+export type LabPublishOutput = z.infer<typeof LabPublishOutputSchema>;
+export type LabReadPublishedInput = z.infer<typeof LabReadPublishedInputSchema>;
+export type LabReadPublishedOutput = z.infer<typeof LabReadPublishedOutputSchema>;
+export type LabBriefGapsInput = z.infer<typeof LabBriefGapsInputSchema>;
+export type LabBriefGapsOutput = z.infer<typeof LabBriefGapsOutputSchema>;
 export type LabIngestInput = z.infer<typeof LabIngestInputSchema>;
 export type LabIngestOutput = z.infer<typeof LabIngestOutputSchema>;
 export type LabQueryInput = z.infer<typeof LabQueryInputSchema>;
@@ -149,4 +354,25 @@ export type LabCompetenceInput = z.infer<typeof LabCompetenceInputSchema>;
 export type LabCompetenceOutput = z.infer<typeof LabCompetenceOutputSchema>;
 export type LabIngestStatusInput = z.infer<typeof LabIngestStatusInputSchema>;
 export type LabIngestStatusOutput = z.infer<typeof LabIngestStatusOutputSchema>;
+/** Worker-owned paid execution, deliberately excluded from model-visible LAB_TOOLS. */
+export declare const LAB_INTERNAL_TOOLS: {
+    readonly execute: "lab_execute";
+};
+/** Receiver validates the current full-scope SQL claim and its unexpired lease before effects. */
+export declare const LabExecuteInputSchema: z.ZodObject<{
+    jobId: z.ZodUUID;
+    leaseToken: z.ZodUUID;
+}, z.core.$strict>;
+export declare const LabExecuteOutputSchema: z.ZodObject<{
+    jobId: z.ZodUUID;
+    state: z.ZodEnum<{
+        failed: "failed";
+        completed: "completed";
+        queued: "queued";
+        running: "running";
+        budget_exhausted: "budget_exhausted";
+    }>;
+}, z.core.$strict>;
+export type LabExecuteInput = z.infer<typeof LabExecuteInputSchema>;
+export type LabExecuteOutput = z.infer<typeof LabExecuteOutputSchema>;
 //# sourceMappingURL=tools.d.ts.map

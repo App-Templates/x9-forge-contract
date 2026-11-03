@@ -1,0 +1,59 @@
+{
+  "sourceSha256": "b2a09f94af7729e7acd00da0e3c6c15980ac7297d3a36a4a014cdf04ccf35ed9",
+  "snapshot": "/private/tmp/d-paperclip-contracts-v0qg9nlj",
+  "killed": 10,
+  "total": 10,
+  "restored": true,
+  "mutations": [
+    {
+      "name": "strict-boundary",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "sent-evidence",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "recipient-email",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "communication-status",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "reply-source",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "reply-sender",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "manual-evidence",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "manual-changes",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "positive-golden",
+      "assertionRed": true,
+      "exitCode": 1
+    },
+    {
+      "name": "positive-default",
+      "assertionRed": true,
+      "exitCode": 1
+    }
+  ]
+}

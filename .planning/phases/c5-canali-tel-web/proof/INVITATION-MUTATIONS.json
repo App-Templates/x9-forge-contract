@@ -1,0 +1,264 @@
+{
+  "total": 32,
+  "qualified": 32,
+  "results": [
+    {
+      "name": "invite-expiry",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-revocation",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-list-scope",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-list-id",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-list-email",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-list-version",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-list-events",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-public-state",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-current-parse",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-recipient-parse",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-recipient-target",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-recipient-time",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-list-bound",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-current-binding",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-current-future",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-current-age",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-project-unavailable",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-recipient-c3",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 4,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-project-expiry",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-project-pending",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-project-private-fields",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-project-revocation",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-7",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-8",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-9",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-16",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 7,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-20",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 7,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-28",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-30",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-31",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-37",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    },
+    {
+      "name": "invite-strict-50",
+      "exitCode": 1,
+      "tests": 30,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true
+    }
+  ],
+  "restored": true,
+  "sha256": "f70a0dafc8061c5bd74566958f027fdebea4a932f5ba133a7cfde9d7d36b44ee"
+}

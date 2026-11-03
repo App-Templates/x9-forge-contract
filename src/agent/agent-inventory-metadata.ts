@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { CapabilityRegistryEntrySchema } from '../capability/capability-registry-entry.js';
 
 /** Registry observation for one agent; never includes locations, credentials or tool configuration. */
-export const AgentInventoryCapabilitySchema = CapabilityRegistryEntrySchema.pick({ name: true, enabled: true }).strict();
+export const AgentInventoryCapabilitySchema = z.object({ name: CapabilityRegistryEntrySchema.shape.name, enabled: CapabilityRegistryEntrySchema.shape.enabled }).strict();
 export type AgentInventoryCapability = z.infer<typeof AgentInventoryCapabilitySchema>;
 export const AgentInventoryCapabilitiesSchema = z.array(AgentInventoryCapabilitySchema);
 

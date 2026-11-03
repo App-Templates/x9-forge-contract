@@ -1,0 +1,15 @@
+import { expect, it } from 'vitest';
+import * as H from '../../src/http/index.js';
+import * as C from '../../src/capability/index.js';
+import { AuthInternalTokenSchema, INTERNAL_TOKEN_HEADER } from '../../src/auth/index.js';
+import { elevenLabsWebAuthorityContract, ELEVENLABS_WEB_AUTHORITY_PATH } from '../../src/http/endpoints/capability-elevenlabs-web-context.js';
+it('exports the actual canonical callback contract', () => { expect(Reflect.get(H, 'elevenLabsWebAuthorityContract')).toBeDefined(); expect(Reflect.get(H, 'elevenLabsWebAuthorityContract')).toBe(elevenLabsWebAuthorityContract); });
+it('exports the actual callback path', () => { expect(Reflect.get(H, 'ELEVENLABS_WEB_AUTHORITY_PATH')).toBeDefined(); expect(Reflect.get(H, 'ELEVENLABS_WEB_AUTHORITY_PATH')).toBe(ELEVENLABS_WEB_AUTHORITY_PATH); });
+it('uses the approved canonical callback path', () => expect(ELEVENLABS_WEB_AUTHORITY_PATH).toBe('/resolve/elevenlabs-web-admission'));
+it('uses POST callback', () => expect(elevenLabsWebAuthorityContract.method).toBe('POST'));
+it('requires internal token authentication', () => expect(elevenLabsWebAuthorityContract.authType).toBe('token'));
+it('imports the canonical internal token header', () => expect(elevenLabsWebAuthorityContract.authHeader).toBe(INTERNAL_TOKEN_HEADER));
+it('imports the canonical internal token schema', () => expect(elevenLabsWebAuthorityContract.authSchema).toBe(AuthInternalTokenSchema));
+it('binds the contract path to its exported constant', () => expect(elevenLabsWebAuthorityContract.path).toBe(ELEVENLABS_WEB_AUTHORITY_PATH));
+it('uses the canonical authority request', () => { expect(C.ElevenLabsWebAuthorityRequestSchema).toBeDefined(); expect(elevenLabsWebAuthorityContract.bodySchema).toBe(C.ElevenLabsWebAuthorityRequestSchema); });
+it('uses the canonical fail-closed authority response', () => { expect(C.ElevenLabsWebAuthorityResponseSchema).toBeDefined(); expect(elevenLabsWebAuthorityContract.responseSchema).toBe(C.ElevenLabsWebAuthorityResponseSchema); });

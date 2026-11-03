@@ -1,0 +1,40 @@
+{
+  "runtime": "Node24.11.1",
+  "candidateSourceSha256": "a8d4997aa00619474b9d6c233dff7722520acbb002fa04eb208fe28cb5294907",
+  "targetedTests": {
+    "passed": 32,
+    "total": 32
+  },
+  "faults": {
+    "killed": 25,
+    "total": 25
+  },
+  "testsSeenAssertionRed": {
+    "seen": 32,
+    "total": 32
+  },
+  "compatFault": {
+    "killed": 1,
+    "total": 1
+  },
+  "fullRegression": {
+    "passed": 4031,
+    "total": 4031,
+    "files": 151,
+    "log": "/private/tmp/d-paperclip-bridge-full-final.log",
+    "sha256": "4cdcd5564f4232ee351543232779c431b73e738ea21a2b431396ffcf8574e55d"
+  },
+  "portableDeclarations": {
+    "passed": 360,
+    "total": 360
+  },
+  "consumerExports": {
+    "esm": 6,
+    "cjs": 6,
+    "barrel": 6
+  },
+  "typecheck": "passed",
+  "lint": "passed",
+  "realEmails": 0,
+  "serverEventsVerified": 0
+}

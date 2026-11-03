@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
+import { ChannelTypeSchema } from "../../messaging/channel-type.js";
 /**
  * Signed approvals (phase 59, cap-approvals) — the owner approves a sensitive action from the phone with a passkey.
  *
@@ -244,4 +245,27 @@ export const approvalKeysContract = {
     authType: 'secret',
     responseSchema: ApprovalKeysResponseSchema,
 };
+/**
+ * Owner <-> channel/session binding: the approval is accepted only from the owner's own chat session.
+ * Pure check, run by the client capability before it asks cap-approvals for a permit.
+ */
+export const ApprovalOwnerBindingSchema = z
+    .object({ ownerId: ScopeShape.ownerId, channel: ChannelTypeSchema, sessionId: z.string().min(1).max(256) })
+    .strict();
+export const ApprovalRejectionCodeSchema = z.enum(['owner_mismatch', 'session_foreign', 'provenance_missing']);
+export const ApprovalRejectionSchema = z
+    .object({ ok: z.literal(false), code: ApprovalRejectionCodeSchema, message: z.string().min(1).max(300) })
+    .strict();
+export function checkApprovalOwnerBinding(expected, actual) {
+    const parsed = ApprovalOwnerBindingSchema.safeParse(actual);
+    if (!parsed.success)
+        return { ok: false, code: 'provenance_missing', message: 'owner/channel/session binding missing or malformed' };
+    const a = parsed.data;
+    if (a.ownerId !== expected.ownerId)
+        return { ok: false, code: 'owner_mismatch', message: 'approval comes from a different owner' };
+    if (a.sessionId !== expected.sessionId || a.channel !== expected.channel) {
+        return { ok: false, code: 'session_foreign', message: 'approval comes from a different channel or session' };
+    }
+    return { ok: true };
+}
 //# sourceMappingURL=index.js.map

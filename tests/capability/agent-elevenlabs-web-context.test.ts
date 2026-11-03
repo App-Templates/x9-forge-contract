@@ -1,0 +1,58 @@
+import { expect, it } from 'vitest';
+import * as W from '../../src/capability/agent-elevenlabs/web-context.js';
+import * as C from '../../src/capability/index.js';
+import { ElevenLabsWebViewerSchema, ElevenLabsWebAdmissionSnapshotSchema } from '../../src/capability/agent-elevenlabs/web-session.js';
+const scope = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: 'runtime-heir' };
+const request = { requestId: 'attempt-0001', scope, linkId: 'link-0000001', phase: 'before' as const };
+const viewer = { kind: 'authenticated' as const, userId: 'person-a', owner: { tenantId: 'tenant-a', ownerId: 'owner-a' } };
+const snapshot = { ...request, viewer, lifecycle: 'active', configuredOrigin: 'https://forge.example', authorityVersion: 3, observedAt: '2026-10-08T12:00:00Z', expiresAt: '2026-10-08T12:01:00Z', agentIdentity: null };
+const now = new Date('2026-10-08T12:00:30Z');
+const response = { ok: false, request, error: 'identity_unavailable', snapshot };
+const copy = <T>(value: T): T => structuredClone(value);
+function current(r: unknown = request, s: unknown = snapshot, v: unknown = viewer, origin: unknown = 'https://forge.example', revision: unknown = 3, time: Date = now): boolean {
+  return W.isElevenLabsWebAuthorityCurrent(r, s, v, origin, revision, time);
+}
+it.each(['ElevenLabsWebAdmissionPhaseSchema', 'ElevenLabsWebAuthorityRequestSchema', 'ElevenLabsWebAuthoritySnapshotSchema', 'ElevenLabsWebAuthorityResponseSchema', 'isElevenLabsWebAuthorityCurrent'])('exports actual capability symbol %s', name => {
+  expect(Reflect.get(C, name)).toBeDefined(); expect(Reflect.get(C, name)).toBe(Reflect.get(W, name));
+});
+it.each(['before', 'after'])('accepts explicit callback phase %s', phase => expect(W.ElevenLabsWebAuthorityRequestSchema.safeParse({ ...request, phase }).success).toBe(true));
+it.each(['mint', '', null, 1])('rejects arbitrary callback phase %s', phase => expect(W.ElevenLabsWebAuthorityRequestSchema.safeParse({ ...request, phase }).success).toBe(false));
+it.each(['viewer', 'lifecycle', 'configuredOrigin', 'agentIdentity', 'credentials'])('request rejects caller-owned authority %s', key => expect(W.ElevenLabsWebAuthorityRequestSchema.safeParse({ ...request, [key]: {} }).success).toBe(false));
+it.each(['requestId', 'scope', 'linkId', 'phase'])('request requires %s', key => { const input: Record<string, unknown> = copy(request); delete input[key]; expect(W.ElevenLabsWebAuthorityRequestSchema.safeParse(input).success).toBe(false); });
+it.each(['tenantId', 'ownerId', 'agentId'])('request requires full scope %s', key => { const input = copy(request); delete Reflect.get(input, 'scope')[key]; expect(W.ElevenLabsWebAuthorityRequestSchema.safeParse(input).success).toBe(false); });
+it.each(['requestId', 'linkId'])('rejects invalid opaque id %s', key => expect(W.ElevenLabsWebAuthorityRequestSchema.safeParse({ ...request, [key]: '../other' }).success).toBe(false));
+it.each(['primary-agent', 'runtime-heir', 'sibling-agent'])('correlates arbitrary canonical runtime %s', agentId => { const r = { ...request, scope: { ...scope, agentId } }; expect(current(r, { ...snapshot, scope: r.scope })).toBe(true); });
+it.each(['anonymous', 'owner', 'guest'])('reuses canonical server viewer %s', kind => { const person = kind === 'anonymous' ? { kind: 'anonymous' } : { ...viewer, owner: kind === 'guest' ? null : viewer.owner }; expect(ElevenLabsWebViewerSchema.safeParse(person).success).toBe(true); expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, viewer: person }).success).toBe(true); expect(current(request, { ...snapshot, viewer: person }, person)).toBe(true); });
+it.each(['active', 'archived', 'removed', 'unavailable'])('carries canonical lifecycle %s without granting admission', lifecycle => { expect(ElevenLabsWebAdmissionSnapshotSchema.shape.lifecycle.safeParse(lifecycle).success).toBe(true); expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, lifecycle }).success).toBe(true); expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ...response, ok: true, snapshot: { ...snapshot, lifecycle } }).success).toBe(false); });
+it('rejects unknown lifecycle', () => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, lifecycle: 'enabled' }).success).toBe(false));
+it.each(['requestId', 'scope', 'linkId', 'phase', 'viewer', 'lifecycle', 'configuredOrigin', 'authorityVersion', 'observedAt', 'expiresAt', 'agentIdentity'])('snapshot requires %s', key => { const input: Record<string, unknown> = copy(snapshot); delete input[key]; expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse(input).success).toBe(false); });
+it.each(['credentials', 'provider', 'mapping', 'signedUrl'])('snapshot rejects unrelated evidence %s', key => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, [key]: {} }).success).toBe(false));
+it.each(['http://forge.example', 'https://person@forge.example', 'https://forge.example/path', 'https://forge.example?x=1', 'https://forge.example#x', 'file:///forge.example', 'invalid'])('rejects configured origin %s', configuredOrigin => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, configuredOrigin }).success).toBe(false));
+it('normalizes optional root slash when correlating origins', () => expect(current(request, { ...snapshot, configuredOrigin: 'https://forge.example/' }, viewer, 'https://forge.example/')).toBe(true));
+it.each([0, -1, 60001])('rejects authority window %s milliseconds', duration => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, expiresAt: new Date(Date.parse(snapshot.observedAt) + duration).toISOString() }).success).toBe(false));
+it('accepts one millisecond authority window', () => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, expiresAt: '2026-10-08T12:00:00.001Z' }).success).toBe(true));
+it.each(['observedAt', 'expiresAt'])('rejects invalid timestamp %s', key => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, [key]: 'invalid' }).success).toBe(false));
+it.each([0, -1, 1.5, null, '3'])('rejects invalid authority version %s', authorityVersion => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, authorityVersion }).success).toBe(false));
+it.each([{}, { managementAgentId: 'agent' }, undefined, 'guessed'])('identity remains unresolved until canonical integration %s', agentIdentity => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, agentIdentity }).success).toBe(false));
+it.each(['tenantId', 'ownerId', 'agentId'])('current rejects cross scope %s', key => expect(current(request, { ...snapshot, scope: { ...scope, [key]: 'other' } })).toBe(false));
+it.each([['requestId', 'other-attempt'], ['linkId', 'other-link'], ['phase', 'after']])('current rejects changed binding %s', (key, value) => expect(current(request, { ...snapshot, [key]: value })).toBe(false));
+it('current rejects changed authority version', () => expect(current(request, { ...snapshot, authorityVersion: 4 })).toBe(false));
+it.each([null, 0, -1, 1.5, '3'])('current rejects invalid expected version %s', version => expect(current(request, snapshot, viewer, 'https://forge.example', version)).toBe(false));
+it.each([{ ...viewer, userId: 'other-person' }, { ...viewer, owner: null }, { ...viewer, owner: { tenantId: 'other-tenant', ownerId: 'owner-a' } }, { ...viewer, owner: { tenantId: 'tenant-a', ownerId: 'other-owner' } }, { kind: 'anonymous' }])('current rejects changed authenticated viewer %#', person => expect(current(request, snapshot, person)).toBe(false));
+it('current compares parsed viewer independent of input property order', () => expect(current(request, snapshot, { owner: viewer.owner, userId: viewer.userId, kind: viewer.kind })).toBe(true));
+it.each(['https://other.example', 'http://forge.example', 'https://forge.example/path', null])('current rejects changed configured origin %s', origin => expect(current(request, snapshot, viewer, origin)).toBe(false));
+it.each(['2026-10-08T11:59:59.999Z', '2026-10-08T12:01:00Z', '2026-10-08T12:01:00.001Z', 'invalid'])('current rejects stale/future/invalid clock %s', value => expect(current(request, snapshot, viewer, 'https://forge.example', 3, new Date(value))).toBe(false));
+it('current accepts observation time at equality', () => expect(current(request, snapshot, viewer, 'https://forge.example', 3, new Date(snapshot.observedAt))).toBe(true));
+it.each(['request', 'snapshot', 'viewer'])('current rejects malformed %s', kind => expect(current(kind === 'request' ? {} : request, kind === 'snapshot' ? {} : snapshot, kind === 'viewer' ? {} : viewer)).toBe(false));
+it('accepts unresolved identity evidence as a denial only', () => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse(response).success).toBe(true));
+it.each(['source_unavailable', 'admission_expired', 'identity_mismatch', 'viewer_unavailable'])('accepts explicit error without snapshot %s', error => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ok: false, request, error }).success).toBe(true));
+it.each(['source_unavailable', 'admission_expired', 'identity_mismatch', 'viewer_unavailable'])('denial rejects snapshot for error %s', error => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ...response, error }).success).toBe(false));
+it('requires snapshot exactly for unresolved identity', () => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ok: false, request, error: 'identity_unavailable' }).success).toBe(false));
+it.each(['tenantId', 'ownerId', 'agentId'])('response rejects cross-scope snapshot %s', key => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ...response, snapshot: { ...snapshot, scope: { ...scope, [key]: 'other' } } }).success).toBe(false));
+it.each([['requestId', 'other-attempt'], ['linkId', 'other-link'], ['phase', 'after']])('response rejects mismatched %s', (key, value) => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ...response, snapshot: { ...snapshot, [key]: value } }).success).toBe(false));
+it.each([{ ...response, ok: true }, { ...response, error: 'allow' }, { ...response, credentials: {} }, { ...response, signedUrl: 'synthetic' }])('response rejects issuance or undeclared fields %#', input => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse(input).success).toBe(false));
+
+it('malformed configured origin returns a validation failure without throwing', () => { expect(() => W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, configuredOrigin: 'invalid' })).not.toThrow(); });
+it('rejects password-only origin user info', () => expect(W.ElevenLabsWebAuthoritySnapshotSchema.safeParse({ ...snapshot, configuredOrigin: 'https://:synthetic@forge.example' }).success).toBe(false));
+
+it('rejects an unsupported error without diagnostic snapshot', () => expect(W.ElevenLabsWebAuthorityResponseSchema.safeParse({ ok: false, request, error: 'allow' }).success).toBe(false));

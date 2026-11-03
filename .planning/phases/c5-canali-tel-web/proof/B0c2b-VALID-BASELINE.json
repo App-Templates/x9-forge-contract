@@ -1,0 +1,8 @@
+{
+  "tests": 35,
+  "passed": 15,
+  "functionalFailures": 20,
+  "otherFailures": 0,
+  "sourceRestored": true,
+  "sha256": "7497d5fad97320a043f3ae785e69d687e781e562e840cd3210348f3ee31b5970"
+}

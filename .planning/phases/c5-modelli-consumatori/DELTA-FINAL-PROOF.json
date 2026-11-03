@@ -1,0 +1,632 @@
+{
+  "base": "27107045e253ce68b5a791b472c1604c5cce5651",
+  "planCommit": "5eb96cf",
+  "scope": "Private Master apply-config payload and modern source observation",
+  "fullNative": {
+    "passed": 5036,
+    "total": 5036,
+    "files": 167,
+    "skip": 0,
+    "exit": 0,
+    "beforeBuild": true
+  },
+  "newTests": {
+    "command": 34,
+    "observation": 31,
+    "total": 65
+  },
+  "quality": [
+    {
+      "step": "types",
+      "exit": 0,
+      "seconds": 1.67
+    },
+    {
+      "step": "lint",
+      "exit": 0,
+      "seconds": 3.04
+    },
+    {
+      "step": "build",
+      "exit": 0,
+      "seconds": 5.23
+    },
+    {
+      "step": "pack-check",
+      "exit": 0,
+      "seconds": 3.37
+    },
+    {
+      "step": "cjs-native",
+      "exit": 0,
+      "seconds": 0.2
+    },
+    {
+      "step": "cjs-consumers",
+      "exit": 0,
+      "seconds": 0.2
+    },
+    {
+      "step": "public",
+      "exit": 0,
+      "seconds": 0.31
+    },
+    {
+      "step": "archive",
+      "exit": 0,
+      "seconds": 0.76
+    }
+  ],
+  "sourceFaults": {
+    "qualified": 32,
+    "total": 32,
+    "command": {
+      "mutations": [
+        {
+          "name": "configuration-generation-pair",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D07 rejects missing or inconsistent generation {}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Private Master configuration command D07 rejects missing or inconsistent generation {}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "configuration-version",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D06 configuration version 1 must equal desiredVersion",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Private Master configuration command D06 configuration version 3 must equal desiredVersion",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "bootstrap-generation-agreement",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D07 rejects missing or inconsistent generation {\"modelBootstrap\":{\"expectedSourceVersion\":\"different\",\"expectedAbsent\":true}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "complete-provenance-authority",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D09 canonical authority rejects invalid config {}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "registered-consumer",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "D17 an unregistered slot is rejected with otherwise coherent provenance",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "consumer-capability",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D09 canonical authority rejects invalid config {\"selections\":[{\"slotId\":\"agent_classifier\",\"settings\":{\"capability\":\"other\",\"function\":\"reasoning\",\"catalogVersion\":\"synthetic-catalog\",\"requirements\":{\"tools\":false,\"stream\":false,\"structuredOutput\":false},\"mode\":\"single\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}}]}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "consumer-function",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "D14 rejects registered slot with wrong settings {\"function\":\"tts\"}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "consumer-requirements",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "D14 rejects registered slot with wrong settings {\"requirements\":{\"tools\":true,\"stream\":false,\"structuredOutput\":false}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "consumer-routing",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "D18 a registered single slot rejects a valid automatic shape",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "generation-replay",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D04 changed observed generation is not a replay",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "configuration-replay",
+          "exit": 1,
+          "assertions": 4,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D02 changed model selection is not a replay even with equal version/key",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Private Master configuration command D11 binding origin remains part of command identity",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Private Master configuration command D12 different tenant does not replay another authority",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "D16 apply confirmation requires the actual configuration carried by the command",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "selection-order",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "D15 selection/binding and object property order do not change command identity",
+              "message": "AssertionError: expected false to be true // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "object-order",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "D15 selection/binding and object property order do not change command identity",
+              "message": "AssertionError: expected false to be true // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "apply-explicit-authority",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "D16 apply confirmation requires the actual configuration carried by the command",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "source-generation",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D13 exact producer request can be checked against fresh source and route",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "source-identity",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D13 exact producer request can be checked against fresh source and route",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "source-scope",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Private Master configuration command D13 exact producer request can be checked against fresh source and route",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        }
+      ],
+      "fresh": {
+        "passed": 34,
+        "total": 34,
+        "exit": 0
+      },
+      "hashesRestored": {
+        "src/agent/agent-management.ts": true,
+        "src/model-router/agent-model-configuration.ts": true
+      }
+    },
+    "observation": {
+      "mutations": [
+        {
+          "name": "observed-time-required",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O02 requires observedAt",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "valid-until-required",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O02 requires validUntil",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "observed-scope-runtime",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O03 rejects invalid observation {\"scope\":{\"agentId\":\"other\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"synthetic-tenant\"}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "observed-interval",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O03 rejects invalid observation {\"validUntil\":\"2026-10-09T07:07:00Z\"}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O03 rejects invalid observation {\"validUntil\":\"2026-10-09T07:06:59Z\"}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "finite-clock",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O05 expired/future/invalid clock invalid is not current",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "future-clock",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O05 expired/future/invalid clock 2026-10-09T07:06:54Z is not current",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "maximum-age",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O06 an old observation with a long expiry is still stale",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "expired-clock",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O05 expired/future/invalid clock 2026-10-09T07:07:30Z is not current",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "observed-generation",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O04 changed authority is not current {\"sourceVersion\":\"changed\"}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "observed-identity",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O04 changed authority is not current {\"identity\":{\"managementAgentId\":\"other\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O04 changed authority is not current {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "observed-scope",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O04 changed authority is not current {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"other\",\"tenantId\":\"synthetic-tenant\"}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O04 changed authority is not current {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"other\"}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "saved-observed-authority",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O08 observation requires saved scoped authority {\"saved\":null,\"versions\":null}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O08 observation requires saved scoped authority {\"saved\":{\"schemaVersion\":1,\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71},\"configVersion\":2,\"selections\":[{\"slotId\":\"agent_classifier\",\"settings\":{\"capability\":\"agent-core\",\"function\":\"reasoning\",\"catalogVersion\":\"synthetic-catalog\",\"requirements\":{\"tools\":false,\"stream\":false,\"structuredOutput\":false},\"mode\":\"single\",\"descriptor\":{\"provider\":\"openai\",\"modelId\":\"synthetic-model\",\"protocol\":\"chat-completions\",\"adapterId\":\"synthetic-adapter\"}}}]}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "state-observed-identity",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O07 state does not claim another observed authority {\"identity\":{\"managementAgentId\":\"other\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":71}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O07 state does not claim another observed authority {\"identity\":{\"managementAgentId\":\"synthetic-master\",\"runtimeAgentId\":\"synthetic-runtime\",\"vaultAgentId\":72}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "state-observed-scope",
+          "exit": 1,
+          "assertions": 2,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O07 state does not claim another observed authority {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"other\",\"tenantId\":\"synthetic-tenant\"}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            },
+            {
+              "name": "Modern model source generation observation O07 state does not claim another observed authority {\"scope\":{\"agentId\":\"synthetic-runtime\",\"ownerId\":\"synthetic-owner\",\"tenantId\":\"other\"}}",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        },
+        {
+          "name": "command-http-freshness",
+          "exit": 1,
+          "assertions": 1,
+          "technical": 0,
+          "witnesses": [
+            {
+              "name": "Modern model source generation observation O09 explicit command consumes a fresh HTTP observation as well as a trusted direct generation",
+              "message": "AssertionError: expected true to be false // Object.is equality"
+            }
+          ]
+        }
+      ],
+      "fresh": {
+        "passed": 31,
+        "total": 31,
+        "exit": 0
+      },
+      "hashRestored": true
+    }
+  },
+  "compiledFaults": {
+    "qualified": 6,
+    "total": 6,
+    "faults": [
+      {
+        "surface": "js",
+        "guard": "replay",
+        "semantic": "AssertionError true !== false",
+        "redExit": 1,
+        "hashRestored": true,
+        "sha256": "478a8549ba9cf9f44510d28238ee5a96826267a4937fe8554240a9513c087aaf",
+        "fresh": {
+          "passed": 158,
+          "total": 158,
+          "surfaces": 8
+        }
+      },
+      {
+        "surface": "js",
+        "guard": "source",
+        "semantic": "AssertionError true !== false",
+        "redExit": 1,
+        "hashRestored": true,
+        "sha256": "3674bec93f99e3d4277c3403eaea56d129eeb03516a35ea5b211fdb27a57840d",
+        "fresh": {
+          "passed": 158,
+          "total": 158,
+          "surfaces": 8
+        }
+      },
+      {
+        "surface": "cjs",
+        "guard": "replay",
+        "semantic": "AssertionError true !== false",
+        "redExit": 1,
+        "hashRestored": true,
+        "sha256": "edd1e62e20ab853eb48ae48c11ddb347254ea6d2f12784b6dbd8a5de5323b73d",
+        "fresh": {
+          "passed": 158,
+          "total": 158,
+          "surfaces": 8
+        }
+      },
+      {
+        "surface": "cjs",
+        "guard": "source",
+        "semantic": "AssertionError true !== false",
+        "redExit": 1,
+        "hashRestored": true,
+        "sha256": "77cdc5a6327bdc9ee8e00fd3dbfdff2a2bc456741ec0e90c4c9c0043c890274b",
+        "fresh": {
+          "passed": 158,
+          "total": 158,
+          "surfaces": 8
+        }
+      },
+      {
+        "surface": "js",
+        "guard": "expiry",
+        "semantic": "AssertionError true !== false",
+        "redExit": 1,
+        "hashRestored": true,
+        "sha256": "3674bec93f99e3d4277c3403eaea56d129eeb03516a35ea5b211fdb27a57840d",
+        "fresh": {
+          "passed": 158,
+          "total": 158,
+          "surfaces": 8
+        }
+      },
+      {
+        "surface": "cjs",
+        "guard": "expiry",
+        "semantic": "AssertionError true !== false",
+        "redExit": 1,
+        "hashRestored": true,
+        "sha256": "77cdc5a6327bdc9ee8e00fd3dbfdff2a2bc456741ec0e90c4c9c0043c890274b",
+        "fresh": {
+          "passed": 158,
+          "total": 158,
+          "surfaces": 8
+        }
+      }
+    ]
+  },
+  "protectedEqual": {
+    "package.json": true,
+    "pnpm-lock.yaml": true,
+    "vitest.config.ts": true,
+    "src/vault/credential-link.ts": true,
+    "src/capability/backup/index.ts": true,
+    "src/memory/enums.ts": true,
+    "src/memory/write-candidate.ts": true,
+    "src/vault/vault-entry.ts": true,
+    "src/vault/vault-tier.ts": true,
+    "src/vault/workspace-file.ts": true
+  },
+  "perimeter": {
+    "files": 68,
+    "outside": [],
+    "deleted": 0
+  },
+  "live": {
+    "verified": 0,
+    "inventory": 34
+  },
+  "independentReview": {
+    "base": "APPROVE by Codex A 20261009-085928",
+    "delta": "pending dedicated review"
+  }
+}

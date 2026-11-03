@@ -1,0 +1,13 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/c5-model-source-observation.test.ts", "--maxWorkers=1"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ✓ tests/model-router/c5-model-source-observation.test.ts (31 tests) 34ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  21:47:22
+   Duration  1.20s (transform 489ms, setup 79ms, collect 838ms, tests 34ms, environment 0ms, prepare 64ms)
+
+
+EXIT_CODE=0

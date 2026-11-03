@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-08T19:58:55.735391+02:00",
+  "scope": "B0a bridge only, no consumers/live",
+  "nativeFullTests": {
+    "passed": 4320,
+    "total": 4320,
+    "pending": 0,
+    "filesPassed": 154,
+    "filesTotal": 154
+  },
+  "quality": {
+    "typecheckExitCode": 0,
+    "lintExitCode": 0,
+    "buildExitCode": 0,
+    "packExitCode": 0
+  },
+  "finalMutationReport": "B0a-FINAL-MUTATIONS.json",
+  "sourceHashes": {
+    "src/agent/agent-channel-access.ts": "c4df9f46924a8744363a1693d566b47869d10d1bbfa85157062738c75dd50e7c",
+    "src/agent/agent-phone-admission.ts": "68b9bbcbdffce5f5b424f01b227c0596ead731da29b4c239e81d0c908c908a6e",
+    "src/agent/index.ts": "e1f149b07e0ed3bb0499045bd3f2dc44371b28eebe45ac817ccf24379cbbae4a",
+    "tests/agent/c5-phone-address-book.test.ts": "a020222dff149063721fda43d05ff19d535905e3e2be100e4c05d71165e868d2",
+    "tests/agent/c5-phone-admission.test.ts": "5f4d5ac35767cfbcb16388536515fd14b51789c02984dd2e3b8a596aa6f6130a",
+    "tests/cjs/c5-phone-web-smoke.mjs": "bf5e40e9436c7b4ab19ad36919b8176b3d30c50449bd0eb9372d219d910a56d9"
+  },
+  "compiledNewChecks": {
+    "passed": 20,
+    "total": 20
+  },
+  "liveChecks": {
+    "passed": 0,
+    "total": 42
+  },
+  "pending": [
+    "B0b identity web",
+    "B0c facade/invitations/history4kind",
+    "X9 producers",
+    "Forge consumers",
+    "mount B",
+    "live acceptance"
+  ]
+}

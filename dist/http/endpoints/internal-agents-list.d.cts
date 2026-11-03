@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { AgentInventoryCapability } from "../../agent/agent-inventory-metadata.cjs";
 import type { AgentRuntimeState } from "../../agent/agent-runtime-state.cjs";
+import type { AgentContextIdentity } from "../../agent/agent-context-identity.cjs";
 /**
  * GET /internal/agents — list all loaded agents.
  * Direction: Forge factory-svc -> X9 agent-core
@@ -37,8 +38,8 @@ import type { AgentRuntimeState } from "../../agent/agent-runtime-state.cjs";
  * (empty token). Mirrors agent-core BotState + the bot-less discriminator.
  */
 export declare const RuntimeAgentStatusSchema: z.ZodEnum<{
-    running: "running";
     stopped: "stopped";
+    running: "running";
     degraded: "degraded";
     starting: "starting";
     "bot-less": "bot-less";
@@ -51,8 +52,8 @@ export type RuntimeAgentStatus = z.infer<typeof RuntimeAgentStatusSchema>;
  */
 export declare const ForgeRuntimeStatusSchema: z.ZodEnum<{
     unknown: "unknown";
-    running: "running";
     stopped: "stopped";
+    running: "running";
     degraded: "degraded";
     starting: "starting";
     "bot-less": "bot-less";
@@ -72,9 +73,10 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
     agentId: z.ZodString;
     displayName: z.ZodString;
     ownerId: z.ZodString;
+    tenantId: z.ZodOptional<z.ZodString>;
     runtimeStatus: z.ZodOptional<z.ZodEnum<{
-        running: "running";
         stopped: "stopped";
+        running: "running";
         degraded: "degraded";
         starting: "starting";
         "bot-less": "bot-less";
@@ -91,12 +93,35 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         vaultAgentId: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strip>>;
+    authority: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        tenantId: z.ZodString;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        role: z.ZodLiteral<"master">;
+        masterAgentId: z.ZodOptional<z.ZodNever>;
+    }, z.core.$strict>, z.ZodObject<{
+        agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        tenantId: z.ZodString;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        role: z.ZodLiteral<"erede">;
+        masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+    }, z.core.$strict>], "role">>>;
     runtime: z.ZodOptional<z.ZodObject<{
         loadState: z.ZodEnum<{
             error: "error";
             unknown: "unknown";
-            stopped: "stopped";
             loaded: "loaded";
+            stopped: "stopped";
         }>;
         channelsComplete: z.ZodBoolean;
         channels: z.ZodArray<z.ZodObject<{
@@ -110,8 +135,8 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
             state: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
                 paused: "paused";
             }>;
             loaded: z.ZodNullable<z.ZodBoolean>;
@@ -147,9 +172,10 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
         agentId: z.ZodString;
         displayName: z.ZodString;
         ownerId: z.ZodString;
+        tenantId: z.ZodOptional<z.ZodString>;
         runtimeStatus: z.ZodOptional<z.ZodEnum<{
-            running: "running";
             stopped: "stopped";
+            running: "running";
             degraded: "degraded";
             starting: "starting";
             "bot-less": "bot-less";
@@ -166,12 +192,35 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
             runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
             vaultAgentId: z.ZodOptional<z.ZodNumber>;
         }, z.core.$strip>>;
+        authority: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            tenantId: z.ZodString;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodNumber;
+            }, z.core.$strict>;
+            role: z.ZodLiteral<"master">;
+            masterAgentId: z.ZodOptional<z.ZodNever>;
+        }, z.core.$strict>, z.ZodObject<{
+            agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            tenantId: z.ZodString;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodNumber;
+            }, z.core.$strict>;
+            role: z.ZodLiteral<"erede">;
+            masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        }, z.core.$strict>], "role">>>;
         runtime: z.ZodOptional<z.ZodObject<{
             loadState: z.ZodEnum<{
                 error: "error";
                 unknown: "unknown";
-                stopped: "stopped";
                 loaded: "loaded";
+                stopped: "stopped";
             }>;
             channelsComplete: z.ZodBoolean;
             channels: z.ZodArray<z.ZodObject<{
@@ -185,8 +234,8 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
                 state: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                     paused: "paused";
                 }>;
                 loaded: z.ZodNullable<z.ZodBoolean>;
@@ -244,6 +293,8 @@ export declare function getListAgentsRuntimeState(input: unknown, agentId: strin
  * policy using source.observedAt; this helper does not invent a maximum age or readiness.
  */
 export declare function getListAgentsCapabilities(input: unknown, agentId: string): AgentInventoryCapability[] | null;
+/** Fresh declared context metadata, never inferred from legacy inventory or bot status. */
+export declare function getListAgentsAuthority(input: unknown, agentId: string, now: Date, maxAgeSeconds?: number): AgentContextIdentity | null;
 export declare const listAgentsContract: {
     readonly method: "GET";
     readonly path: "/internal/agents";
@@ -253,9 +304,10 @@ export declare const listAgentsContract: {
             agentId: z.ZodString;
             displayName: z.ZodString;
             ownerId: z.ZodString;
+            tenantId: z.ZodOptional<z.ZodString>;
             runtimeStatus: z.ZodOptional<z.ZodEnum<{
-                running: "running";
                 stopped: "stopped";
+                running: "running";
                 degraded: "degraded";
                 starting: "starting";
                 "bot-less": "bot-less";
@@ -272,12 +324,35 @@ export declare const listAgentsContract: {
                 runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
                 vaultAgentId: z.ZodOptional<z.ZodNumber>;
             }, z.core.$strip>>;
+            authority: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"master">;
+                masterAgentId: z.ZodOptional<z.ZodNever>;
+            }, z.core.$strict>, z.ZodObject<{
+                agentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+                tenantId: z.ZodString;
+                identity: z.ZodObject<{
+                    managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                    vaultAgentId: z.ZodNumber;
+                }, z.core.$strict>;
+                role: z.ZodLiteral<"erede">;
+                masterAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            }, z.core.$strict>], "role">>>;
             runtime: z.ZodOptional<z.ZodObject<{
                 loadState: z.ZodEnum<{
                     error: "error";
                     unknown: "unknown";
-                    stopped: "stopped";
                     loaded: "loaded";
+                    stopped: "stopped";
                 }>;
                 channelsComplete: z.ZodBoolean;
                 channels: z.ZodArray<z.ZodObject<{
@@ -291,8 +366,8 @@ export declare const listAgentsContract: {
                     state: z.ZodEnum<{
                         error: "error";
                         unknown: "unknown";
-                        stopped: "stopped";
                         loaded: "loaded";
+                        stopped: "stopped";
                         paused: "paused";
                     }>;
                     loaded: z.ZodNullable<z.ZodBoolean>;

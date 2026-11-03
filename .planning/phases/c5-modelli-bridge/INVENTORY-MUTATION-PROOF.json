@@ -1,0 +1,168 @@
+{
+  "sourceBefore": "1eca8897b27414cad62eb67d633b6bfe452b1ba5133e74d3ed8a08d08d928174",
+  "results": [
+    {
+      "control": "inventory-export",
+      "exit": 1,
+      "passed": 18,
+      "failed": 27,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI01 exposes the separate public inventory entry schema",
+        "C5 canonical unqualified model inventory MI03 requires provider",
+        "C5 canonical unqualified model inventory MI04 rejects null provider",
+        "C5 canonical unqualified model inventory MI03 requires modelId",
+        "C5 canonical unqualified model inventory MI04 rejects null modelId",
+        "C5 canonical unqualified model inventory MI03 requires access",
+        "C5 canonical unqualified model inventory MI04 rejects null access",
+        "C5 canonical unqualified model inventory MI03 requires compatibility",
+        "C5 canonical unqualified model inventory MI04 rejects null compatibility",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider claude",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider gemini",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider OpenAI",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider https://synthetic.invalid",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider ",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility supported",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility unsupported",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility qualified",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility unknown",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility ",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra function",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra protocol",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra adapterId",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra embeddingDimensions",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra token",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra reason",
+        "C5 canonical unqualified model inventory MI21 validates model IDs through the existing canonical ID schema",
+        "C5 canonical unqualified model inventory MI22 validates access through the existing canonical access enum"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "canonical-provider",
+      "exit": 1,
+      "passed": 40,
+      "failed": 5,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider claude",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider gemini",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider OpenAI",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider https://synthetic.invalid",
+        "C5 canonical unqualified model inventory MI06 rejects noncanonical provider "
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "canonical-model-id",
+      "exit": 1,
+      "passed": 44,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI21 validates model IDs through the existing canonical ID schema"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "canonical-access",
+      "exit": 1,
+      "passed": 44,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI22 validates access through the existing canonical access enum"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "compatibility-unqualified",
+      "exit": 1,
+      "passed": 40,
+      "failed": 5,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility supported",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility unsupported",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility qualified",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility unknown",
+        "C5 canonical unqualified model inventory MI07 cannot guess compatibility "
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "inventory-strict-fields",
+      "exit": 1,
+      "passed": 39,
+      "failed": 6,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra function",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra protocol",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra adapterId",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra embeddingDimensions",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra token",
+        "C5 canonical unqualified model inventory MI08 rejects invented or extra reason"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "inventory-null-rejected",
+      "exit": 1,
+      "passed": 44,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI20 rejects null inventory instead of dropping it"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "observation-required",
+      "exit": 1,
+      "passed": 44,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI15 empty inventory without observation cannot claim unknown IDs were checked"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "partial-state",
+      "exit": 1,
+      "passed": 42,
+      "failed": 3,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI12 inventory with unresolved IDs cannot call the catalog fully available",
+        "C5 canonical unqualified model inventory MI13 nonempty inventory requires partial, not unavailable",
+        "C5 canonical unqualified model inventory MI13 nonempty inventory requires partial, not not-configured"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "exact-deduplication",
+      "exit": 1,
+      "passed": 44,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI09 rejects duplicate exact provider/model pairs"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    },
+    {
+      "control": "qualified-overlap",
+      "exit": 1,
+      "passed": 44,
+      "failed": 1,
+      "assertionWitnesses": [
+        "C5 canonical unqualified model inventory MI11 qualified entries and inventory cannot duplicate an ID"
+      ],
+      "technicalErrors": [],
+      "restored": 45
+    }
+  ],
+  "sourceAfter": "1eca8897b27414cad62eb67d633b6bfe452b1ba5133e74d3ed8a08d08d928174"
+}

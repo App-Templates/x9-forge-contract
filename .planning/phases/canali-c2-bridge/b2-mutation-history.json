@@ -1,0 +1,18 @@
+{
+  "initialSurvivor": {
+    "name": "route-result-event-time",
+    "total": 100,
+    "failed": 0,
+    "restored": 100,
+    "qualified": false
+  },
+  "correction": "Added independent unresolved result predating its event; previous populated snapshot also failed the active evidence guard.",
+  "finalCampaign": {
+    "mutations": 48,
+    "qualified": 48,
+    "assertionsPerRun": 101,
+    "semanticFailures": 103,
+    "mutatedAssertions": 4848,
+    "restoredAssertions": 4848
+  }
+}

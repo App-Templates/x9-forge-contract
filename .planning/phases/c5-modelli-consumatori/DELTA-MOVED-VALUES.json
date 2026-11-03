@@ -1,0 +1,22 @@
+[
+  {
+    "block": "/** Caller-chosen idempotency key",
+    "identical": true,
+    "sha256": "33835460713d195a9168cc8a38fda8e8ce8587fd7030dafd11f7dde0afa5f040"
+  },
+  {
+    "block": "export const AgentManagementOutcomeSchema",
+    "identical": true,
+    "sha256": "032ed80d2c30ff7e55d9b3ef088d4918c19a0e4722ebe50105d475d0e8d26255"
+  },
+  {
+    "block": "/** Desired (saved) vs applied",
+    "identical": true,
+    "sha256": "8def1db5a1ae1ce3e8a342b202de2144b5cd8464eec90008a0f1389bddfe1c84"
+  },
+  {
+    "block": "/** ok: all ok",
+    "identical": true,
+    "sha256": "c068915fb7420c8ec3cd24dcf4e4e4ae952ad28eadf273c70f459ce0937904b9"
+  }
+]

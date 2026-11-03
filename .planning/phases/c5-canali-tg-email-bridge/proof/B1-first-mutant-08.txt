@@ -1,0 +1,103 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-147-1[39m
+
+ [31m❯[39m tests/agent/c5-channel-resource.test.ts [2m([22m[2m70 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 18[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22maccepts creation and selective token rotation with compare-and-swap versions[32m 2[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: action[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: requestId[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: desired version[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: applied version[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: client resource[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: client scope[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: client identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: provider URL[32m 0[2mms[22m[39m
+   [32m✓[39m C5 resource commands[2m > [22mrejects unsafe command: credential field[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mkeeps absent resources distinct from rotation of this existing bot[32m 1[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: create over existing[32m 0[2mms[22m[39m
+[31m   [31m×[31m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: rotation without bot[39m[32m 4[2mms[22m[39m
+[31m     → expected true to be false // Object.is equality[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: email rotation[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: wrong door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: foreign owner[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: foreign tenant[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: foreign management identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: foreign vault identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: missing vault identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: runtime identity mismatch[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: legacy credential reference[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: provider details[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mchecks both versions, resource and full server binding before effects[32m 1[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: desired CAS[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: applied CAS[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: known resource appeared[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: door changed[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: owner changed[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: tenant changed[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: vault changed[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses a stale or foreign current snapshot: invalid configuration[32m 0[2mms[22m[39m
+   [32m✓[39m C5 server-resolved resource intents[2m > [22mrefuses an invalid intent before effects[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22maccepts dated applied evidence for telegram without claiming an LLM reply[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22maccepts dated applied evidence for email without claiming an LLM reply[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22maccepts applied selective rotation of the same bot[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mallows an applied pause while preserving the provisioned resource[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mdistinguishes pending, definite failure and ambiguity without dropping a known resource[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: receipt privacy[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: configuration privacy[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: error privacy[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: owner mismatch[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: vault mismatch[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: door mismatch[32m 3[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: backward time[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: future observation[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: stale observation[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: non-advanced version[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: pending saved version[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: failed load[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: applied error[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: failed without error[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: pending with error[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: ambiguity without reconciliation code[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: hidden reconciliation[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: rotation changes bot[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: rotation changes birth date[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: rotation loses bot[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: failed creation acquired a resource[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrejects dishonest or mismatched receipt: unrelated later version[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mcorrelates the complete intent and accepts an identical replay[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: request id[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: desired version[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: applied version[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: scope[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: vault identity[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: door[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: action and original resource[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses a receipt for a different intent: invalid intent[32m 0[2mms[22m[39m
+   [32m✓[39m C5 metadata-only resource receipts[2m > [22mrefuses malformed results and preserves original resource correlation[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/agent/c5-channel-resource.test.ts[2m > [22mC5 server-resolved resource intents[2m > [22mrejects invalid resolved intent: rotation without bot
+[31m[1mAssertionError[22m: expected true to be false // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- false[39m
+[31m+ true[39m
+
+[36m [2m❯[22m tests/agent/c5-channel-resource.test.ts:[2m79:114[22m[39m
+    [90m 77| [39m    ['legacy credential reference', { ...intent('telegram', 'rotate-to…
+    [90m 78| [39m    [[32m'provider details'[39m[33m,[39m { [33m...[39m[34mintent[39m()[33m,[39m providerResponse[33m:[39m {} }][33m,[39m
+    [90m 79| [39m  ])('rejects invalid resolved intent: %s', (_label, raw) => expect(sc…
+    [90m   | [39m                                                                                                                 [31m^[39m
+    [90m 80| [39m  it('checks both versions, resource and full server binding before ef…
+    [90m 81| [39m    expect(call('isAgentChannelResourceIntentReady', intent(), configu…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m69 passed[39m[22m[90m (70)[39m
+[2m   Start at [22m 20:40:21
+[2m   Duration [22m 386ms[2m (transform 133ms, setup 5ms, collect 226ms, tests 18ms, environment 0ms, prepare 31ms)[22m
+

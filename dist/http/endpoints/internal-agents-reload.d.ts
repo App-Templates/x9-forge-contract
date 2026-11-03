@@ -15,10 +15,25 @@ export declare const ReloadAgentParamsSchema: z.ZodObject<{
     agentId: z.ZodString;
 }, z.core.$strip>;
 export type ReloadAgentParams = z.infer<typeof ReloadAgentParamsSchema>;
+/**
+ * v1.75.0 — optional body. A deploy job that is at its `reload-agent-core` step for an agent born WITH models sends
+ * `birth`; every other caller (Applica, restore, token rotation, enable/disable) sends no body, as before.
+ */
+export declare const ReloadAgentBodySchema: z.ZodObject<{
+    birth: z.ZodOptional<z.ZodObject<{
+        deployJobId: z.ZodString;
+        configVersion: z.ZodNumber;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type ReloadAgentBody = z.infer<typeof ReloadAgentBodySchema>;
 export declare const ReloadAgentResponseSchema: z.ZodObject<{
     ok: z.ZodLiteral<true>;
     agentId: z.ZodString;
     telegram: z.ZodOptional<z.ZodLiteral<"skipped">>;
+    birthModels: z.ZodOptional<z.ZodObject<{
+        requestId: z.ZodString;
+        configVersion: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strip>;
 export type ReloadAgentResponse = z.infer<typeof ReloadAgentResponseSchema>;
 export declare const ReloadAgentErrorResponseSchema: z.ZodObject<{
@@ -33,10 +48,21 @@ export declare const reloadAgentContract: {
     readonly paramsSchema: z.ZodObject<{
         agentId: z.ZodString;
     }, z.core.$strip>;
+    /** Optional body (v1.75.0); a request without body stays valid. */
+    readonly bodySchema: z.ZodObject<{
+        birth: z.ZodOptional<z.ZodObject<{
+            deployJobId: z.ZodString;
+            configVersion: z.ZodNumber;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
         agentId: z.ZodString;
         telegram: z.ZodOptional<z.ZodLiteral<"skipped">>;
+        birthModels: z.ZodOptional<z.ZodObject<{
+            requestId: z.ZodString;
+            configVersion: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strip>;
 };
 //# sourceMappingURL=internal-agents-reload.d.ts.map

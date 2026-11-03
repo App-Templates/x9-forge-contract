@@ -1,0 +1,7591 @@
+[
+  {
+    "id": "@x9-forge/contracts@1.44.0",
+    "name": "@x9-forge/contracts",
+    "version": "1.44.0",
+    "size": 904370,
+    "unpackedSize": 6330327,
+    "shasum": "d342bf948aba29f40fcf5bfe555502b67c580cd5",
+    "integrity": "sha512-BuiMjJICDON17TQ50qTcQ/bfjzI8T4y/ouOyJoOv0cyCQonjwKstRCx7P2/BQ/zB1P/rmo7/53zyFhwQPWENkQ==",
+    "filename": "x9-forge-contracts-1.44.0.tgz",
+    "files": [
+      {
+        "path": "README.md",
+        "size": 25020,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.cjs",
+        "size": 15681,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.cjs.map",
+        "size": 12054,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.d.cts",
+        "size": 33774,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.d.cts.map",
+        "size": 2514,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.d.ts",
+        "size": 33774,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.d.ts.map",
+        "size": 2514,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.js",
+        "size": 14015,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access-requests.js.map",
+        "size": 12288,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.cjs",
+        "size": 7326,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.cjs.map",
+        "size": 5666,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.d.cts",
+        "size": 6756,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.d.cts.map",
+        "size": 1627,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.d.ts",
+        "size": 6756,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.d.ts.map",
+        "size": 1627,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.js",
+        "size": 6335,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-access.js.map",
+        "size": 5872,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.cjs",
+        "size": 3905,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.cjs.map",
+        "size": 2542,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.d.cts",
+        "size": 3538,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.d.cts.map",
+        "size": 655,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.d.ts",
+        "size": 3538,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.d.ts.map",
+        "size": 655,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.js",
+        "size": 3415,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-attestation.js.map",
+        "size": 2739,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.cjs",
+        "size": 13276,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.cjs.map",
+        "size": 9610,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.d.cts",
+        "size": 38856,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.d.cts.map",
+        "size": 2678,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.d.ts",
+        "size": 38853,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.d.ts.map",
+        "size": 2678,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.js",
+        "size": 11947,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-configuration.js.map",
+        "size": 9934,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.cjs",
+        "size": 13854,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.cjs.map",
+        "size": 10694,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.d.cts",
+        "size": 16052,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.d.cts.map",
+        "size": 1783,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.d.ts",
+        "size": 16052,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.d.ts.map",
+        "size": 1783,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.js",
+        "size": 12505,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-history.js.map",
+        "size": 10881,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.cjs",
+        "size": 7781,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.cjs.map",
+        "size": 5378,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.d.cts",
+        "size": 14656,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.d.cts.map",
+        "size": 1053,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.d.ts",
+        "size": 14656,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.d.ts.map",
+        "size": 1053,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.js",
+        "size": 7095,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-channel-resource-operation.js.map",
+        "size": 5542,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.cjs",
+        "size": 3486,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.cjs.map",
+        "size": 828,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.d.cts",
+        "size": 3751,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.d.cts.map",
+        "size": 468,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.d.ts",
+        "size": 3751,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.d.ts.map",
+        "size": 468,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.js",
+        "size": 3233,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-core.js.map",
+        "size": 922,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.cjs",
+        "size": 5632,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.cjs.map",
+        "size": 1619,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.d.cts",
+        "size": 9526,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.d.cts.map",
+        "size": 940,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.d.ts",
+        "size": 9526,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.d.ts.map",
+        "size": 940,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.js",
+        "size": 5089,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-file.js.map",
+        "size": 1704,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.cjs",
+        "size": 3757,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.cjs.map",
+        "size": 2597,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.d.cts",
+        "size": 56588,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.d.cts.map",
+        "size": 1976,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.d.ts",
+        "size": 56588,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.d.ts.map",
+        "size": 1976,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.js",
+        "size": 3275,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-context-identity.js.map",
+        "size": 2727,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.cjs",
+        "size": 6725,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.cjs.map",
+        "size": 4785,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.d.cts",
+        "size": 30570,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.d.cts.map",
+        "size": 1748,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.d.ts",
+        "size": 30570,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.d.ts.map",
+        "size": 1748,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.js",
+        "size": 5916,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-creation-replay.js.map",
+        "size": 5068,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.cjs",
+        "size": 14084,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.cjs.map",
+        "size": 9339,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.d.cts",
+        "size": 10306,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.d.cts.map",
+        "size": 1648,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.d.ts",
+        "size": 10305,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.d.ts.map",
+        "size": 1648,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.js",
+        "size": 13338,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credential-services.js.map",
+        "size": 9499,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.cjs",
+        "size": 6134,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.cjs.map",
+        "size": 3502,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.d.cts",
+        "size": 4596,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.d.cts.map",
+        "size": 576,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.d.ts",
+        "size": 4596,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.d.ts.map",
+        "size": 576,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.js",
+        "size": 5709,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-credentials.js.map",
+        "size": 3557,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.cjs",
+        "size": 7384,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.cjs.map",
+        "size": 5908,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.d.cts",
+        "size": 7628,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.d.cts.map",
+        "size": 1045,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.d.ts",
+        "size": 7628,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.d.ts.map",
+        "size": 1045,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.js",
+        "size": 6740,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-deletion.js.map",
+        "size": 6050,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.cjs",
+        "size": 704,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.cjs.map",
+        "size": 457,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.d.cts",
+        "size": 849,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.d.cts.map",
+        "size": 511,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.d.ts",
+        "size": 849,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.d.ts.map",
+        "size": 511,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.js",
+        "size": 517,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-identity.js.map",
+        "size": 510,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.cjs",
+        "size": 1097,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.cjs.map",
+        "size": 649,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.d.cts",
+        "size": 751,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.d.cts.map",
+        "size": 433,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.d.ts",
+        "size": 751,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.d.ts.map",
+        "size": 433,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.js",
+        "size": 833,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-inventory-metadata.js.map",
+        "size": 709,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.cjs",
+        "size": 13126,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.cjs.map",
+        "size": 9466,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.d.cts",
+        "size": 14810,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.d.cts.map",
+        "size": 2341,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.d.ts",
+        "size": 14810,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.d.ts.map",
+        "size": 2341,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.js",
+        "size": 11836,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-management.js.map",
+        "size": 9692,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.cjs",
+        "size": 2523,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.cjs.map",
+        "size": 652,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.d.cts",
+        "size": 2073,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.d.cts.map",
+        "size": 421,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.d.ts",
+        "size": 2073,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.d.ts.map",
+        "size": 421,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.js",
+        "size": 2318,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-paths.js.map",
+        "size": 628,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.cjs",
+        "size": 8742,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.cjs.map",
+        "size": 6443,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.d.cts",
+        "size": 3323,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.d.cts.map",
+        "size": 983,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.d.ts",
+        "size": 3323,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.d.ts.map",
+        "size": 983,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.js",
+        "size": 8140,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-admission.js.map",
+        "size": 6651,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.cjs",
+        "size": 9048,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.cjs.map",
+        "size": 7048,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.d.cts",
+        "size": 46842,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.d.cts.map",
+        "size": 1981,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.d.ts",
+        "size": 46842,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.d.ts.map",
+        "size": 1981,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.js",
+        "size": 8348,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-channel.js.map",
+        "size": 7298,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.cjs",
+        "size": 13638,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.cjs.map",
+        "size": 10178,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.d.cts",
+        "size": 32307,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.d.cts.map",
+        "size": 2213,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.d.ts",
+        "size": 32307,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.d.ts.map",
+        "size": 2213,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.js",
+        "size": 12562,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-phone-commands.js.map",
+        "size": 10401,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.cjs",
+        "size": 1738,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.cjs.map",
+        "size": 1019,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.d.cts",
+        "size": 991,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.d.cts.map",
+        "size": 427,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.d.ts",
+        "size": 991,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.d.ts.map",
+        "size": 427,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.js",
+        "size": 1508,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-identity.js.map",
+        "size": 1082,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.cjs",
+        "size": 1293,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.cjs.map",
+        "size": 1014,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.d.cts",
+        "size": 1124,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.d.cts.map",
+        "size": 525,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.d.ts",
+        "size": 1124,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.d.ts.map",
+        "size": 525,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.js",
+        "size": 1055,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-source.js.map",
+        "size": 1070,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.cjs",
+        "size": 4960,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.cjs.map",
+        "size": 4158,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.d.cts",
+        "size": 5161,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.d.cts.map",
+        "size": 1381,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.d.ts",
+        "size": 5161,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.d.ts.map",
+        "size": 1381,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.js",
+        "size": 4339,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-runtime-state.js.map",
+        "size": 4268,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.cjs",
+        "size": 8224,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.cjs.map",
+        "size": 5760,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.d.cts",
+        "size": 6498,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.d.cts.map",
+        "size": 1639,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.d.ts",
+        "size": 6498,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.d.ts.map",
+        "size": 1639,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.js",
+        "size": 7396,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-scope-policy.js.map",
+        "size": 6008,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.cjs",
+        "size": 1249,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.cjs.map",
+        "size": 459,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.d.cts",
+        "size": 873,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.d.cts.map",
+        "size": 318,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.d.ts",
+        "size": 873,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.d.ts.map",
+        "size": 318,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.js",
+        "size": 1091,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace-attestation.js.map",
+        "size": 516,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.cjs",
+        "size": 13869,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.cjs.map",
+        "size": 10276,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.d.cts",
+        "size": 96166,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.d.cts.map",
+        "size": 3847,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.d.ts",
+        "size": 96164,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.d.ts.map",
+        "size": 3847,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.js",
+        "size": 12125,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/agent-workspace.js.map",
+        "size": 10591,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.cjs",
+        "size": 7497,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.cjs.map",
+        "size": 1195,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.d.cts",
+        "size": 2167,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.d.cts.map",
+        "size": 957,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.d.ts",
+        "size": 2137,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.d.ts.map",
+        "size": 957,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.js",
+        "size": 3169,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/index.js.map",
+        "size": 1026,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.cjs",
+        "size": 978,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.cjs.map",
+        "size": 277,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.d.cts",
+        "size": 821,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.d.cts.map",
+        "size": 262,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.d.ts",
+        "size": 820,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.d.ts.map",
+        "size": 262,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.js",
+        "size": 834,
+        "mode": 420
+      },
+      {
+        "path": "dist/agent/parse-agent-context.js.map",
+        "size": 289,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.cjs",
+        "size": 1608,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.cjs.map",
+        "size": 496,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.d.cts",
+        "size": 3699,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.d.cts.map",
+        "size": 762,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.d.ts",
+        "size": 3699,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.d.ts.map",
+        "size": 762,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.js",
+        "size": 1380,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/auth-headers.js.map",
+        "size": 561,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.cjs",
+        "size": 3587,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.cjs.map",
+        "size": 1881,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.d.cts",
+        "size": 2556,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.d.cts.map",
+        "size": 938,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.d.ts",
+        "size": 2556,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.d.ts.map",
+        "size": 938,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.js",
+        "size": 2912,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/device-signature.js.map",
+        "size": 2009,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.cjs",
+        "size": 3834,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.cjs.map",
+        "size": 606,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.d.cts",
+        "size": 944,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.d.cts.map",
+        "size": 530,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.d.ts",
+        "size": 940,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.d.ts.map",
+        "size": 530,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.js",
+        "size": 805,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth/index.js.map",
+        "size": 425,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.cjs",
+        "size": 9169,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.cjs.map",
+        "size": 5845,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.d.cts",
+        "size": 10630,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.d.cts.map",
+        "size": 1989,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.d.ts",
+        "size": 10630,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.d.ts.map",
+        "size": 1989,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.js",
+        "size": 8005,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/index.js.map",
+        "size": 6159,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.cjs",
+        "size": 3657,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.cjs.map",
+        "size": 2786,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.d.cts",
+        "size": 1448,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.d.cts.map",
+        "size": 800,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.d.ts",
+        "size": 1448,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.d.ts.map",
+        "size": 800,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.js",
+        "size": 3304,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-browser.js.map",
+        "size": 2899,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.cjs",
+        "size": 5128,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.cjs.map",
+        "size": 4522,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.d.cts",
+        "size": 4821,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.d.cts.map",
+        "size": 732,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.d.ts",
+        "size": 4821,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.d.ts.map",
+        "size": 732,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.js",
+        "size": 4558,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-catalog.js.map",
+        "size": 4664,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.cjs",
+        "size": 5364,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.cjs.map",
+        "size": 3667,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.d.cts",
+        "size": 3466,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.d.cts.map",
+        "size": 1045,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.d.ts",
+        "size": 3466,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.d.ts.map",
+        "size": 1045,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.js",
+        "size": 4505,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-channel.js.map",
+        "size": 3805,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.cjs",
+        "size": 8657,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.cjs.map",
+        "size": 6245,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.d.cts",
+        "size": 10409,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.d.cts.map",
+        "size": 1212,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.d.ts",
+        "size": 10409,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.d.ts.map",
+        "size": 1212,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.js",
+        "size": 7822,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-context.js.map",
+        "size": 6406,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.cjs",
+        "size": 9107,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.cjs.map",
+        "size": 7026,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.d.cts",
+        "size": 6446,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.d.cts.map",
+        "size": 1401,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.d.ts",
+        "size": 6446,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.d.ts.map",
+        "size": 1401,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.js",
+        "size": 7893,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-invitations.js.map",
+        "size": 7197,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.cjs",
+        "size": 11303,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.cjs.map",
+        "size": 8782,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.d.cts",
+        "size": 9045,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.d.cts.map",
+        "size": 1482,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.d.ts",
+        "size": 9045,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.d.ts.map",
+        "size": 1482,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.js",
+        "size": 10109,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-elevenlabs/web-session.js.map",
+        "size": 8969,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.cjs",
+        "size": 1958,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.cjs.map",
+        "size": 317,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.d.cts",
+        "size": 11508,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.d.cts.map",
+        "size": 567,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.d.ts",
+        "size": 11508,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.d.ts.map",
+        "size": 567,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.js",
+        "size": 1793,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/agent-registry-file.js.map",
+        "size": 374,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.cjs",
+        "size": 14239,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.cjs.map",
+        "size": 8546,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.d.cts",
+        "size": 13940,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.d.cts.map",
+        "size": 3109,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.d.ts",
+        "size": 13940,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.d.ts.map",
+        "size": 3109,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.js",
+        "size": 12373,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/approvals/index.js.map",
+        "size": 8896,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.cjs",
+        "size": 10447,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.cjs.map",
+        "size": 7173,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.d.cts",
+        "size": 13070,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.d.cts.map",
+        "size": 1941,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.d.ts",
+        "size": 13070,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.d.ts.map",
+        "size": 1941,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.js",
+        "size": 8918,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/backup/index.js.map",
+        "size": 7490,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.cjs",
+        "size": 6764,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.cjs.map",
+        "size": 4239,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.d.cts",
+        "size": 6467,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.d.cts.map",
+        "size": 1886,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.d.ts",
+        "size": 6466,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.d.ts.map",
+        "size": 1886,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.js",
+        "size": 5967,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-call-context.js.map",
+        "size": 4460,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.cjs",
+        "size": 3317,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.cjs.map",
+        "size": 1041,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.d.cts",
+        "size": 2759,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.d.cts.map",
+        "size": 624,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.d.ts",
+        "size": 2759,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.d.ts.map",
+        "size": 624,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.js",
+        "size": 2950,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-context.js.map",
+        "size": 1138,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.cjs",
+        "size": 2816,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.cjs.map",
+        "size": 931,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.d.cts",
+        "size": 9130,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.d.cts.map",
+        "size": 528,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.d.ts",
+        "size": 9130,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.d.ts.map",
+        "size": 528,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.js",
+        "size": 2598,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-manifest.js.map",
+        "size": 1076,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.cjs",
+        "size": 5462,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.cjs.map",
+        "size": 1904,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.d.cts",
+        "size": 11046,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.d.cts.map",
+        "size": 862,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.d.ts",
+        "size": 11046,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.d.ts.map",
+        "size": 862,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.js",
+        "size": 5151,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-registry-entry.js.map",
+        "size": 2054,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.cjs",
+        "size": 709,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.cjs.map",
+        "size": 409,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.d.cts",
+        "size": 651,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.d.cts.map",
+        "size": 299,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.d.ts",
+        "size": 651,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.d.ts.map",
+        "size": 299,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.js",
+        "size": 557,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-tool.js.map",
+        "size": 444,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.cjs",
+        "size": 4362,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.cjs.map",
+        "size": 3073,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.d.cts",
+        "size": 4389,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.d.cts.map",
+        "size": 1052,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.d.ts",
+        "size": 4389,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.d.ts.map",
+        "size": 1052,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.js",
+        "size": 3598,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/capability-turn-lead.js.map",
+        "size": 3239,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.cjs",
+        "size": 12020,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.cjs.map",
+        "size": 9657,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.d.cts",
+        "size": 13203,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.d.cts.map",
+        "size": 2140,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.d.ts",
+        "size": 13203,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.d.ts.map",
+        "size": 2140,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.js",
+        "size": 10588,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/coach/index.js.map",
+        "size": 10002,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.cjs",
+        "size": 1168,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.cjs.map",
+        "size": 603,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.d.cts",
+        "size": 1512,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.d.cts.map",
+        "size": 420,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.d.ts",
+        "size": 1512,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.d.ts.map",
+        "size": 420,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.js",
+        "size": 958,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/env-schema.js.map",
+        "size": 648,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.cjs",
+        "size": 1130,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.cjs.map",
+        "size": 666,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.d.cts",
+        "size": 1125,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.d.cts.map",
+        "size": 308,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.d.ts",
+        "size": 1125,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.d.ts.map",
+        "size": 308,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.js",
+        "size": 962,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/health-status.js.map",
+        "size": 701,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.cjs",
+        "size": 6844,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.cjs.map",
+        "size": 943,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.d.cts",
+        "size": 2433,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.d.cts.map",
+        "size": 974,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.d.ts",
+        "size": 2411,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.d.ts.map",
+        "size": 974,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.js",
+        "size": 2628,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/index.js.map",
+        "size": 808,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.cjs",
+        "size": 2378,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.cjs.map",
+        "size": 1479,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.d.cts",
+        "size": 1557,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.d.cts.map",
+        "size": 543,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.d.ts",
+        "size": 1557,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.d.ts.map",
+        "size": 543,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.js",
+        "size": 2091,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/agent-config.js.map",
+        "size": 1610,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.cjs",
+        "size": 1813,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.cjs.map",
+        "size": 1181,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.d.cts",
+        "size": 1623,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.d.cts.map",
+        "size": 596,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.d.ts",
+        "size": 1623,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.d.ts.map",
+        "size": 596,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.js",
+        "size": 1467,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/competence.js.map",
+        "size": 1278,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.cjs",
+        "size": 5994,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.cjs.map",
+        "size": 897,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.d.cts",
+        "size": 1916,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.d.cts.map",
+        "size": 1006,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.d.ts",
+        "size": 1912,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.d.ts.map",
+        "size": 1006,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.js",
+        "size": 1400,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/index.js.map",
+        "size": 601,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.cjs",
+        "size": 3532,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.cjs.map",
+        "size": 2610,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.d.cts",
+        "size": 5900,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.d.cts.map",
+        "size": 1702,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.d.ts",
+        "size": 5900,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.d.ts.map",
+        "size": 1702,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.js",
+        "size": 2933,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/tools.js.map",
+        "size": 2861,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.cjs",
+        "size": 3302,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.cjs.map",
+        "size": 2247,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.d.cts",
+        "size": 2547,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.d.cts.map",
+        "size": 891,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.d.ts",
+        "size": 2547,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.d.ts.map",
+        "size": 891,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.js",
+        "size": 2762,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/lab/wiki.js.map",
+        "size": 2411,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.cjs",
+        "size": 10279,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.cjs.map",
+        "size": 9568,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.d.cts",
+        "size": 25715,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.d.cts.map",
+        "size": 2026,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.d.ts",
+        "size": 25715,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.d.ts.map",
+        "size": 2026,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.js",
+        "size": 9374,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/parameters.js.map",
+        "size": 9737,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.cjs",
+        "size": 8941,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.cjs.map",
+        "size": 7852,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.d.cts",
+        "size": 10351,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.d.cts.map",
+        "size": 2403,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.d.ts",
+        "size": 10351,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.d.ts.map",
+        "size": 2403,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.js",
+        "size": 7591,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/presentation.js.map",
+        "size": 8181,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.cjs",
+        "size": 4235,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.cjs.map",
+        "size": 2077,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.d.cts",
+        "size": 3739,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.d.cts.map",
+        "size": 1021,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.d.ts",
+        "size": 3739,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.d.ts.map",
+        "size": 1021,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.js",
+        "size": 3644,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/agent-config.js.map",
+        "size": 2234,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.cjs",
+        "size": 6210,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.cjs.map",
+        "size": 913,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.d.cts",
+        "size": 1945,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.d.cts.map",
+        "size": 968,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.d.ts",
+        "size": 1941,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.d.ts.map",
+        "size": 968,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.js",
+        "size": 1461,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/index.js.map",
+        "size": 616,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.cjs",
+        "size": 3581,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.cjs.map",
+        "size": 2422,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.d.cts",
+        "size": 3148,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.d.cts.map",
+        "size": 929,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.d.ts",
+        "size": 3148,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.d.ts.map",
+        "size": 929,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.js",
+        "size": 3078,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/research.js.map",
+        "size": 2547,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.cjs",
+        "size": 2432,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.cjs.map",
+        "size": 1332,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.d.cts",
+        "size": 1450,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.d.cts.map",
+        "size": 495,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.d.ts",
+        "size": 1450,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.d.ts.map",
+        "size": 495,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.js",
+        "size": 2145,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/spend.js.map",
+        "size": 1418,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.cjs",
+        "size": 2036,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.cjs.map",
+        "size": 947,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.d.cts",
+        "size": 3771,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.d.cts.map",
+        "size": 1134,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.d.ts",
+        "size": 3771,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.d.ts.map",
+        "size": 1134,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.js",
+        "size": 1637,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/ricerca/tools.js.map",
+        "size": 1110,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.cjs",
+        "size": 5573,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.cjs.map",
+        "size": 1007,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.d.cts",
+        "size": 5576,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.d.cts.map",
+        "size": 740,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.d.ts",
+        "size": 5576,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.d.ts.map",
+        "size": 740,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.js",
+        "size": 5242,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/stt/index.js.map",
+        "size": 1092,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.cjs",
+        "size": 3250,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.cjs.map",
+        "size": 1498,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.d.cts",
+        "size": 2752,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.d.cts.map",
+        "size": 649,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.d.ts",
+        "size": 2752,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.d.ts.map",
+        "size": 649,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.js",
+        "size": 2858,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tool-call.js.map",
+        "size": 1585,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.cjs",
+        "size": 1986,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.cjs.map",
+        "size": 387,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.d.cts",
+        "size": 1907,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.d.cts.map",
+        "size": 445,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.d.ts",
+        "size": 1907,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.d.ts.map",
+        "size": 445,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.js",
+        "size": 1781,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/tts/index.js.map",
+        "size": 452,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.cjs",
+        "size": 6038,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.cjs.map",
+        "size": 2756,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.d.cts",
+        "size": 5710,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.d.cts.map",
+        "size": 1252,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.d.ts",
+        "size": 5710,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.d.ts.map",
+        "size": 1252,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.js",
+        "size": 5403,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice-live/index.js.map",
+        "size": 2905,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.cjs",
+        "size": 9003,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.cjs.map",
+        "size": 6417,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.d.cts",
+        "size": 9534,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.d.cts.map",
+        "size": 2048,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.d.ts",
+        "size": 9534,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.d.ts.map",
+        "size": 2048,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.js",
+        "size": 7971,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/agent-voice-settings.js.map",
+        "size": 6718,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.cjs",
+        "size": 2857,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.cjs.map",
+        "size": 1322,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.d.cts",
+        "size": 2082,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.d.cts.map",
+        "size": 341,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.d.ts",
+        "size": 2082,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.d.ts.map",
+        "size": 341,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.js",
+        "size": 2636,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/authorized-actions.js.map",
+        "size": 1357,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.cjs",
+        "size": 4668,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.cjs.map",
+        "size": 1685,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.d.cts",
+        "size": 2403,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.d.cts.map",
+        "size": 332,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.d.ts",
+        "size": 2403,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.d.ts.map",
+        "size": 332,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.js",
+        "size": 4431,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/brief.js.map",
+        "size": 1764,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.cjs",
+        "size": 6147,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.cjs.map",
+        "size": 3361,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.d.cts",
+        "size": 4607,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.d.cts.map",
+        "size": 1441,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.d.ts",
+        "size": 4607,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.d.ts.map",
+        "size": 1441,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.js",
+        "size": 5444,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/calendar-tools.js.map",
+        "size": 3486,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.cjs",
+        "size": 2374,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.cjs.map",
+        "size": 1101,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.d.cts",
+        "size": 3604,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.d.cts.map",
+        "size": 477,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.d.ts",
+        "size": 3604,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.d.ts.map",
+        "size": 477,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.js",
+        "size": 2118,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/call-start.js.map",
+        "size": 1212,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.cjs",
+        "size": 13997,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.cjs.map",
+        "size": 1856,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.d.cts",
+        "size": 4181,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.d.cts.map",
+        "size": 1997,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.d.ts",
+        "size": 4163,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.d.ts.map",
+        "size": 1997,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.js",
+        "size": 4328,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/index.js.map",
+        "size": 1433,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.cjs",
+        "size": 1636,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.cjs.map",
+        "size": 624,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.d.cts",
+        "size": 2378,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.d.cts.map",
+        "size": 549,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.d.ts",
+        "size": 2378,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.d.ts.map",
+        "size": 549,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.js",
+        "size": 1380,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/ingest.js.map",
+        "size": 701,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.cjs",
+        "size": 1273,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.cjs.map",
+        "size": 353,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.d.cts",
+        "size": 1325,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.d.cts.map",
+        "size": 350,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.d.ts",
+        "size": 1325,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.d.ts.map",
+        "size": 350,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.js",
+        "size": 1118,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/intent.js.map",
+        "size": 398,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.cjs",
+        "size": 2967,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.cjs.map",
+        "size": 1343,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.d.cts",
+        "size": 3659,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.d.cts.map",
+        "size": 380,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.d.ts",
+        "size": 3659,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.d.ts.map",
+        "size": 380,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.js",
+        "size": 2741,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/memory-payload.js.map",
+        "size": 1422,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.cjs",
+        "size": 2402,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.cjs.map",
+        "size": 1692,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.d.cts",
+        "size": 3262,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.d.cts.map",
+        "size": 634,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.d.ts",
+        "size": 3261,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.d.ts.map",
+        "size": 634,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.js",
+        "size": 2189,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/model-descriptor-voice.js.map",
+        "size": 1787,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.cjs",
+        "size": 3094,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.cjs.map",
+        "size": 1160,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.d.cts",
+        "size": 1635,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.d.cts.map",
+        "size": 338,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.d.ts",
+        "size": 1635,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.d.ts.map",
+        "size": 338,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.js",
+        "size": 2869,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/normalized-event.js.map",
+        "size": 1239,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.cjs",
+        "size": 4802,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.cjs.map",
+        "size": 1749,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.d.cts",
+        "size": 3808,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.d.cts.map",
+        "size": 825,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.d.ts",
+        "size": 3808,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.d.ts.map",
+        "size": 825,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.js",
+        "size": 4382,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/outcome.js.map",
+        "size": 1815,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.cjs",
+        "size": 2712,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.cjs.map",
+        "size": 914,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.d.cts",
+        "size": 4540,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.d.cts.map",
+        "size": 499,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.d.ts",
+        "size": 4540,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.d.ts.map",
+        "size": 499,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.js",
+        "size": 2467,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/prepare-call.js.map",
+        "size": 1047,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.cjs",
+        "size": 2168,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.cjs.map",
+        "size": 852,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.d.cts",
+        "size": 1726,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.d.cts.map",
+        "size": 420,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.d.ts",
+        "size": 1726,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.d.ts.map",
+        "size": 420,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.js",
+        "size": 1955,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/privacy.js.map",
+        "size": 897,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.cjs",
+        "size": 1752,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.cjs.map",
+        "size": 574,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.d.cts",
+        "size": 1382,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.d.cts.map",
+        "size": 314,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.d.ts",
+        "size": 1382,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.d.ts.map",
+        "size": 314,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.js",
+        "size": 1596,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provenance.js.map",
+        "size": 609,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.cjs",
+        "size": 1553,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.cjs.map",
+        "size": 382,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.d.cts",
+        "size": 1476,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.d.cts.map",
+        "size": 437,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.d.ts",
+        "size": 1476,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.d.ts.map",
+        "size": 437,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.js",
+        "size": 1339,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/provider.js.map",
+        "size": 447,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.cjs",
+        "size": 2233,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.cjs.map",
+        "size": 1111,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.d.cts",
+        "size": 2645,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.d.cts.map",
+        "size": 461,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.d.ts",
+        "size": 2645,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.d.ts.map",
+        "size": 461,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.js",
+        "size": 2012,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tool-log.js.map",
+        "size": 1190,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.cjs",
+        "size": 6226,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.cjs.map",
+        "size": 2770,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.d.cts",
+        "size": 7115,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.d.cts.map",
+        "size": 1255,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.d.ts",
+        "size": 7115,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.d.ts.map",
+        "size": 1255,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.js",
+        "size": 5629,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/tools.js.map",
+        "size": 2885,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.cjs",
+        "size": 2690,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.cjs.map",
+        "size": 955,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.d.cts",
+        "size": 2865,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.d.cts.map",
+        "size": 691,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.d.ts",
+        "size": 2865,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.d.ts.map",
+        "size": 691,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.js",
+        "size": 2348,
+        "mode": 420
+      },
+      {
+        "path": "dist/capability/voice/webhook-events.js.map",
+        "size": 1020,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.cjs",
+        "size": 9898,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.cjs.map",
+        "size": 6070,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.d.cts",
+        "size": 7995,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.d.cts.map",
+        "size": 3234,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.d.ts",
+        "size": 7981,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.d.ts.map",
+        "size": 3234,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.js",
+        "size": 9518,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/bridge-client.js.map",
+        "size": 6386,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.cjs",
+        "size": 122,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.cjs.map",
+        "size": 134,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.d.cts",
+        "size": 1091,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.d.cts.map",
+        "size": 752,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.d.ts",
+        "size": 1090,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.d.ts.map",
+        "size": 752,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.js",
+        "size": 56,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoint-contract.js.map",
+        "size": 134,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.cjs",
+        "size": 1305,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.cjs.map",
+        "size": 368,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.d.cts",
+        "size": 1387,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.d.cts.map",
+        "size": 425,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.d.ts",
+        "size": 1385,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.d.ts.map",
+        "size": 425,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.js",
+        "size": 914,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-context.js.map",
+        "size": 419,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.cjs",
+        "size": 887,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.cjs.map",
+        "size": 323,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.d.cts",
+        "size": 1333,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.d.cts.map",
+        "size": 376,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.d.ts",
+        "size": 1331,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.d.ts.map",
+        "size": 376,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.js",
+        "size": 636,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-env-schema.js.map",
+        "size": 366,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.cjs",
+        "size": 867,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.cjs.map",
+        "size": 315,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.d.cts",
+        "size": 1178,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.d.cts.map",
+        "size": 367,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.d.ts",
+        "size": 1176,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.d.ts.map",
+        "size": 367,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.js",
+        "size": 613,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-health.js.map",
+        "size": 358,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.cjs",
+        "size": 1056,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.cjs.map",
+        "size": 320,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.d.cts",
+        "size": 10131,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.d.cts.map",
+        "size": 581,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.d.ts",
+        "size": 10129,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.d.ts.map",
+        "size": 581,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.js",
+        "size": 786,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-manifest.js.map",
+        "size": 363,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.cjs",
+        "size": 1025,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.cjs.map",
+        "size": 646,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.d.cts",
+        "size": 1595,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.d.cts.map",
+        "size": 359,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.d.ts",
+        "size": 1595,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.d.ts.map",
+        "size": 359,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.js",
+        "size": 808,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-tool-call.js.map",
+        "size": 716,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.cjs",
+        "size": 589,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.cjs.map",
+        "size": 311,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.d.cts",
+        "size": 2113,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.d.cts.map",
+        "size": 278,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.d.ts",
+        "size": 2113,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.d.ts.map",
+        "size": 278,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.js",
+        "size": 465,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/cap-turn-lead.js.map",
+        "size": 352,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.cjs",
+        "size": 1257,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.cjs.map",
+        "size": 371,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.d.cts",
+        "size": 2487,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.d.cts.map",
+        "size": 330,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.d.ts",
+        "size": 2487,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.d.ts.map",
+        "size": 330,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.js",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-call-context.js.map",
+        "size": 424,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.cjs",
+        "size": 976,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.cjs.map",
+        "size": 446,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.d.cts",
+        "size": 7685,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.d.cts.map",
+        "size": 477,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.d.ts",
+        "size": 7685,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.d.ts.map",
+        "size": 477,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.js",
+        "size": 824,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/capability-elevenlabs-web-context.js.map",
+        "size": 531,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.cjs",
+        "size": 8196,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.cjs.map",
+        "size": 4698,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.d.cts",
+        "size": 66321,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.d.cts.map",
+        "size": 2574,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.d.ts",
+        "size": 66321,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.d.ts.map",
+        "size": 2574,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.js",
+        "size": 6705,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-access.js.map",
+        "size": 4940,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.cjs",
+        "size": 2632,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.cjs.map",
+        "size": 1456,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.d.cts",
+        "size": 6674,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.d.cts.map",
+        "size": 581,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.d.ts",
+        "size": 6674,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.d.ts.map",
+        "size": 581,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.js",
+        "size": 2117,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-history.js.map",
+        "size": 1570,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.cjs",
+        "size": 5061,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.cjs.map",
+        "size": 2483,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.d.cts",
+        "size": 26719,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.d.cts.map",
+        "size": 1331,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.d.ts",
+        "size": 26719,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.d.ts.map",
+        "size": 1331,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.js",
+        "size": 4094,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-channel-resource.js.map",
+        "size": 2631,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.cjs",
+        "size": 7510,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.cjs.map",
+        "size": 4474,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.d.cts",
+        "size": 39262,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.d.cts.map",
+        "size": 1891,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.d.ts",
+        "size": 39262,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.d.ts.map",
+        "size": 1891,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.js",
+        "size": 6218,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-agent-phone-channel.js.map",
+        "size": 4653,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.cjs",
+        "size": 4845,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.cjs.map",
+        "size": 3081,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.d.cts",
+        "size": 151031,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.d.cts.map",
+        "size": 3860,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.d.ts",
+        "size": 151031,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.d.ts.map",
+        "size": 3860,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.js",
+        "size": 4147,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/forge-models.js.map",
+        "size": 3345,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.cjs",
+        "size": 5565,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.cjs.map",
+        "size": 1119,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.d.cts",
+        "size": 2398,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.d.cts.map",
+        "size": 761,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.d.ts",
+        "size": 2350,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.d.ts.map",
+        "size": 761,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.js",
+        "size": 3896,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/index.js.map",
+        "size": 1103,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.cjs",
+        "size": 2543,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.cjs.map",
+        "size": 1200,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.d.cts",
+        "size": 31481,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.d.cts.map",
+        "size": 1234,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.d.ts",
+        "size": 31481,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.d.ts.map",
+        "size": 1234,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.js",
+        "size": 1996,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-access.js.map",
+        "size": 1313,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.cjs",
+        "size": 1958,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.cjs.map",
+        "size": 1065,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.d.cts",
+        "size": 7076,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.d.cts.map",
+        "size": 707,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.d.ts",
+        "size": 7076,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.d.ts.map",
+        "size": 707,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.js",
+        "size": 1537,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-channel-history.js.map",
+        "size": 1211,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.cjs",
+        "size": 1092,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.cjs.map",
+        "size": 558,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.d.cts",
+        "size": 3601,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.d.cts.map",
+        "size": 395,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.d.ts",
+        "size": 3601,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.d.ts.map",
+        "size": 395,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.js",
+        "size": 820,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-model-catalog.js.map",
+        "size": 622,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.cjs",
+        "size": 2632,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.cjs.map",
+        "size": 1225,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.d.cts",
+        "size": 28746,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.d.cts.map",
+        "size": 1161,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.d.ts",
+        "size": 28746,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.d.ts.map",
+        "size": 1161,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.js",
+        "size": 2103,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-phone-channel.js.map",
+        "size": 1357,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.cjs",
+        "size": 4016,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.cjs.map",
+        "size": 1182,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.d.cts",
+        "size": 9060,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.d.cts.map",
+        "size": 1039,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.d.ts",
+        "size": 9060,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.d.ts.map",
+        "size": 1039,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.js",
+        "size": 3519,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agent-turn.js.map",
+        "size": 1394,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.cjs",
+        "size": 2439,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.cjs.map",
+        "size": 902,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.d.cts",
+        "size": 6139,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.d.cts.map",
+        "size": 736,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.d.ts",
+        "size": 6139,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.d.ts.map",
+        "size": 736,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.js",
+        "size": 2087,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-deletion.js.map",
+        "size": 1014,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.cjs",
+        "size": 7146,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.cjs.map",
+        "size": 3201,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.d.cts",
+        "size": 13820,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.d.cts.map",
+        "size": 1360,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.d.ts",
+        "size": 13818,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.d.ts.map",
+        "size": 1360,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.js",
+        "size": 6499,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-list.js.map",
+        "size": 3399,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.cjs",
+        "size": 3515,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.cjs.map",
+        "size": 1527,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.d.cts",
+        "size": 9995,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.d.cts.map",
+        "size": 930,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.d.ts",
+        "size": 9995,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.d.ts.map",
+        "size": 930,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.js",
+        "size": 3055,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-management.js.map",
+        "size": 1679,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.cjs",
+        "size": 1864,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.cjs.map",
+        "size": 838,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.d.cts",
+        "size": 1642,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.d.cts.map",
+        "size": 581,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.d.ts",
+        "size": 1642,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.d.ts.map",
+        "size": 581,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.js",
+        "size": 1583,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-reload.js.map",
+        "size": 903,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.cjs",
+        "size": 1307,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.cjs.map",
+        "size": 758,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.d.cts",
+        "size": 1492,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.d.cts.map",
+        "size": 574,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.d.ts",
+        "size": 1492,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.d.ts.map",
+        "size": 574,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.js",
+        "size": 1040,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-agents-stop.js.map",
+        "size": 823,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.cjs",
+        "size": 7170,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.cjs.map",
+        "size": 3747,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.d.cts",
+        "size": 13117,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.d.cts.map",
+        "size": 1661,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.d.ts",
+        "size": 13116,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.d.ts.map",
+        "size": 1661,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.js",
+        "size": 5941,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-agent.js.map",
+        "size": 4009,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.cjs",
+        "size": 3717,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.cjs.map",
+        "size": 1592,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.d.cts",
+        "size": 11509,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.d.cts.map",
+        "size": 889,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.d.ts",
+        "size": 11509,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.d.ts.map",
+        "size": 889,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.js",
+        "size": 3152,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-coach.js.map",
+        "size": 1757,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.cjs",
+        "size": 2696,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.cjs.map",
+        "size": 1231,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.cts",
+        "size": 13793,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.cts.map",
+        "size": 908,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.ts",
+        "size": 13793,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.d.ts.map",
+        "size": 908,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.js",
+        "size": 2204,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs-web.js.map",
+        "size": 1413,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.cjs",
+        "size": 2015,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.cjs.map",
+        "size": 700,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.d.cts",
+        "size": 7034,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.d.cts.map",
+        "size": 523,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.d.ts",
+        "size": 7034,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.d.ts.map",
+        "size": 523,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.js",
+        "size": 1763,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-capability-elevenlabs.js.map",
+        "size": 779,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.cjs",
+        "size": 832,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.cjs.map",
+        "size": 341,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.d.cts",
+        "size": 3339,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.d.cts.map",
+        "size": 333,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.d.ts",
+        "size": 3339,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.d.ts.map",
+        "size": 333,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.js",
+        "size": 680,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-channel-attestation.js.map",
+        "size": 382,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.cjs",
+        "size": 928,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.cjs.map",
+        "size": 300,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.d.cts",
+        "size": 16193,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.d.cts.map",
+        "size": 579,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.d.ts",
+        "size": 16193,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.d.ts.map",
+        "size": 579,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.js",
+        "size": 739,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-creation.js.map",
+        "size": 363,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.cjs",
+        "size": 5556,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.cjs.map",
+        "size": 2289,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.d.cts",
+        "size": 4730,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.d.cts.map",
+        "size": 639,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.d.ts",
+        "size": 4730,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.d.ts.map",
+        "size": 639,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.js",
+        "size": 5120,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-deploy.js.map",
+        "size": 2354,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.cjs",
+        "size": 2745,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.cjs.map",
+        "size": 1127,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.d.cts",
+        "size": 2920,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.d.cts.map",
+        "size": 722,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.d.ts",
+        "size": 2920,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.d.ts.map",
+        "size": 722,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.js",
+        "size": 2317,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-factory-telegram-token.js.map",
+        "size": 1202,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.cjs",
+        "size": 2080,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.cjs.map",
+        "size": 1511,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.d.cts",
+        "size": 2528,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.d.cts.map",
+        "size": 644,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.d.ts",
+        "size": 2528,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.d.ts.map",
+        "size": 644,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.js",
+        "size": 1656,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-extract.js.map",
+        "size": 1586,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.cjs",
+        "size": 4296,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.cjs.map",
+        "size": 3578,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.d.cts",
+        "size": 8402,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.d.cts.map",
+        "size": 904,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.d.ts",
+        "size": 8402,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.d.ts.map",
+        "size": 904,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.js",
+        "size": 3622,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-memory-recall-bundle.js.map",
+        "size": 3685,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.cjs",
+        "size": 1130,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.cjs.map",
+        "size": 363,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.d.cts",
+        "size": 1608,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.d.cts.map",
+        "size": 397,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.d.ts",
+        "size": 1608,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.d.ts.map",
+        "size": 397,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.js",
+        "size": 954,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config-version.js.map",
+        "size": 402,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.cjs",
+        "size": 1288,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.cjs.map",
+        "size": 261,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.d.cts",
+        "size": 806,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.d.cts.map",
+        "size": 284,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.d.ts",
+        "size": 804,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.d.ts.map",
+        "size": 284,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.js",
+        "size": 709,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-model-config.js.map",
+        "size": 235,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.cjs",
+        "size": 2253,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.cjs.map",
+        "size": 1025,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.d.cts",
+        "size": 78919,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.d.cts.map",
+        "size": 2028,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.d.ts",
+        "size": 78919,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.d.ts.map",
+        "size": 2028,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.js",
+        "size": 1873,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-models-batch.js.map",
+        "size": 1189,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.cjs",
+        "size": 1409,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.cjs.map",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.d.cts",
+        "size": 1680,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.d.cts.map",
+        "size": 565,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.d.ts",
+        "size": 1680,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.d.ts.map",
+        "size": 565,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.js",
+        "size": 1125,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-query.js.map",
+        "size": 796,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.cjs",
+        "size": 1091,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.cjs.map",
+        "size": 518,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.d.cts",
+        "size": 2712,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.d.cts.map",
+        "size": 554,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.d.ts",
+        "size": 2710,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.d.ts.map",
+        "size": 554,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.js",
+        "size": 1345,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn-stream.js.map",
+        "size": 634,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.cjs",
+        "size": 3315,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.cjs.map",
+        "size": 1942,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.d.cts",
+        "size": 6532,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.d.cts.map",
+        "size": 913,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.d.ts",
+        "size": 6532,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.d.ts.map",
+        "size": 913,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.js",
+        "size": 2837,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/internal-turn.js.map",
+        "size": 2027,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.cjs",
+        "size": 1824,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.cjs.map",
+        "size": 733,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.d.cts",
+        "size": 2064,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.d.cts.map",
+        "size": 475,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.d.ts",
+        "size": 2064,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.d.ts.map",
+        "size": 475,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.js",
+        "size": 1619,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-console.js.map",
+        "size": 824,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.cjs",
+        "size": 597,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.cjs.map",
+        "size": 316,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.d.cts",
+        "size": 2084,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.d.cts.map",
+        "size": 277,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.d.ts",
+        "size": 2084,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.d.ts.map",
+        "size": 277,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.js",
+        "size": 497,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/memory-correct.js.map",
+        "size": 393,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.cjs",
+        "size": 3041,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.cjs.map",
+        "size": 1028,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.d.cts",
+        "size": 3326,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.d.cts.map",
+        "size": 720,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.d.ts",
+        "size": 3326,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.d.ts.map",
+        "size": 720,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.js",
+        "size": 2684,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/vault-resolve.js.map",
+        "size": 1122,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.cjs",
+        "size": 773,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.cjs.map",
+        "size": 323,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.d.cts",
+        "size": 1592,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.d.cts.map",
+        "size": 259,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.d.ts",
+        "size": 1592,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.d.ts.map",
+        "size": 259,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.js",
+        "size": 626,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-catalog.js.map",
+        "size": 374,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.cjs",
+        "size": 2141,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.cjs.map",
+        "size": 602,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.d.cts",
+        "size": 1584,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.d.cts.map",
+        "size": 569,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.d.ts",
+        "size": 1584,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.d.ts.map",
+        "size": 569,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.js",
+        "size": 1648,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-live.js.map",
+        "size": 664,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.cjs",
+        "size": 2121,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.cjs.map",
+        "size": 1095,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.d.cts",
+        "size": 3146,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.d.cts.map",
+        "size": 599,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.d.ts",
+        "size": 3146,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.d.ts.map",
+        "size": 599,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.js",
+        "size": 1812,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice-register.js.map",
+        "size": 1182,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.cjs",
+        "size": 4398,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.cjs.map",
+        "size": 959,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.d.cts",
+        "size": 3336,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.d.cts.map",
+        "size": 818,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.d.ts",
+        "size": 3335,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.d.ts.map",
+        "size": 818,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.js",
+        "size": 3772,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/voice.js.map",
+        "size": 1081,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.cjs",
+        "size": 3083,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.cjs.map",
+        "size": 582,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.d.cts",
+        "size": 4216,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.d.cts.map",
+        "size": 580,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.d.ts",
+        "size": 4216,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.d.ts.map",
+        "size": 580,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.js",
+        "size": 2774,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-email.js.map",
+        "size": 669,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.cjs",
+        "size": 2592,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.cjs.map",
+        "size": 580,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.d.cts",
+        "size": 3719,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.d.cts.map",
+        "size": 579,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.d.ts",
+        "size": 3719,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.d.ts.map",
+        "size": 579,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.js",
+        "size": 2271,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-inbound-telegram.js.map",
+        "size": 667,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.cjs",
+        "size": 4750,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.cjs.map",
+        "size": 1868,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.d.cts",
+        "size": 4358,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.d.cts.map",
+        "size": 752,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.d.ts",
+        "size": 4358,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.d.ts.map",
+        "size": 752,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.js",
+        "size": 4359,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/endpoints/webhook-post-call.js.map",
+        "size": 1966,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.cjs",
+        "size": 4490,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.cjs.map",
+        "size": 678,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.d.cts",
+        "size": 1411,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.d.cts.map",
+        "size": 804,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.d.ts",
+        "size": 1400,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.d.ts.map",
+        "size": 804,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.js",
+        "size": 1011,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/index.js.map",
+        "size": 520,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.cjs",
+        "size": 1131,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.cjs.map",
+        "size": 656,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.d.cts",
+        "size": 1346,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.d.cts.map",
+        "size": 517,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.d.ts",
+        "size": 1346,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.d.ts.map",
+        "size": 517,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.js",
+        "size": 881,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/response.js.map",
+        "size": 711,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.cjs",
+        "size": 2426,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.cjs.map",
+        "size": 1443,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.d.cts",
+        "size": 4058,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.d.cts.map",
+        "size": 978,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.d.ts",
+        "size": 4058,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.d.ts.map",
+        "size": 978,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.js",
+        "size": 1943,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-frames.js.map",
+        "size": 1560,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.cjs",
+        "size": 4136,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.cjs.map",
+        "size": 2460,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.d.cts",
+        "size": 1948,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.d.cts.map",
+        "size": 573,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.d.ts",
+        "size": 1947,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.d.ts.map",
+        "size": 573,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.js",
+        "size": 3974,
+        "mode": 420
+      },
+      {
+        "path": "dist/http/sse-parser.js.map",
+        "size": 2465,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.cjs",
+        "size": 1151,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.cjs.map",
+        "size": 146,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.d.cts",
+        "size": 378,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.d.cts.map",
+        "size": 132,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.d.ts",
+        "size": 377,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.d.ts.map",
+        "size": 132,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.js",
+        "size": 375,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.js.map",
+        "size": 130,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.cjs",
+        "size": 7150,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.cjs.map",
+        "size": 3382,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.d.cts",
+        "size": 9208,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.d.cts.map",
+        "size": 1573,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.d.ts",
+        "size": 9208,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.d.ts.map",
+        "size": 1573,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.js",
+        "size": 6143,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/console.js.map",
+        "size": 3468,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.cjs",
+        "size": 3527,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.cjs.map",
+        "size": 1258,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.d.cts",
+        "size": 3972,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.d.cts.map",
+        "size": 778,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.d.ts",
+        "size": 3971,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.d.ts.map",
+        "size": 778,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.js",
+        "size": 3128,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/corrective-action.js.map",
+        "size": 1367,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.cjs",
+        "size": 2992,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.cjs.map",
+        "size": 1374,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.d.cts",
+        "size": 2648,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.d.cts.map",
+        "size": 489,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.d.ts",
+        "size": 2648,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.d.ts.map",
+        "size": 489,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.js",
+        "size": 2695,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/delete.js.map",
+        "size": 1429,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.cjs",
+        "size": 4882,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.cjs.map",
+        "size": 912,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.d.cts",
+        "size": 5518,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.d.cts.map",
+        "size": 805,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.d.ts",
+        "size": 5518,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.d.ts.map",
+        "size": 805,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.js",
+        "size": 4629,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/enums.js.map",
+        "size": 987,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.cjs",
+        "size": 1504,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.cjs.map",
+        "size": 511,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.d.cts",
+        "size": 1448,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.d.cts.map",
+        "size": 298,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.d.ts",
+        "size": 1448,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.d.ts.map",
+        "size": 298,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.js",
+        "size": 1350,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/identity.js.map",
+        "size": 546,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.cjs",
+        "size": 2764,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.cjs.map",
+        "size": 349,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.d.cts",
+        "size": 1798,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.d.cts.map",
+        "size": 339,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.d.ts",
+        "size": 1788,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.d.ts.map",
+        "size": 339,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.js",
+        "size": 1779,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/index.js.map",
+        "size": 342,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.cjs",
+        "size": 1101,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.cjs.map",
+        "size": 344,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.d.cts",
+        "size": 869,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.d.cts.map",
+        "size": 373,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.d.ts",
+        "size": 869,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.d.ts.map",
+        "size": 373,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.js",
+        "size": 825,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/paths.js.map",
+        "size": 401,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.cjs",
+        "size": 3326,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.cjs.map",
+        "size": 1248,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.d.cts",
+        "size": 7465,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.d.cts.map",
+        "size": 688,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.d.ts",
+        "size": 7465,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.d.ts.map",
+        "size": 688,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.js",
+        "size": 3028,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/recall-bundle.js.map",
+        "size": 1358,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.cjs",
+        "size": 1999,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.cjs.map",
+        "size": 618,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.d.cts",
+        "size": 2432,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.d.cts.map",
+        "size": 541,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.d.ts",
+        "size": 2432,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.d.ts.map",
+        "size": 541,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.js",
+        "size": 1776,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/retention.js.map",
+        "size": 673,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.cjs",
+        "size": 4392,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.cjs.map",
+        "size": 2271,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.d.cts",
+        "size": 4599,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.d.cts.map",
+        "size": 809,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.d.ts",
+        "size": 4599,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.d.ts.map",
+        "size": 809,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.js",
+        "size": 4000,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/temporal.js.map",
+        "size": 2368,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.cjs",
+        "size": 3491,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.cjs.map",
+        "size": 1136,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.d.cts",
+        "size": 4340,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.d.cts.map",
+        "size": 604,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.d.ts",
+        "size": 4340,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.d.ts.map",
+        "size": 604,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.js",
+        "size": 3221,
+        "mode": 420
+      },
+      {
+        "path": "dist/memory/write-candidate.js.map",
+        "size": 1269,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.cjs",
+        "size": 1961,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.cjs.map",
+        "size": 679,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.d.cts",
+        "size": 1053,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.d.cts.map",
+        "size": 309,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.d.ts",
+        "size": 1053,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.d.ts.map",
+        "size": 309,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.js",
+        "size": 1786,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-email-inbox.js.map",
+        "size": 733,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.cjs",
+        "size": 2732,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.cjs.map",
+        "size": 734,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.d.cts",
+        "size": 1548,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.d.cts.map",
+        "size": 322,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.d.ts",
+        "size": 1548,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.d.ts.map",
+        "size": 322,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.js",
+        "size": 2550,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/agent-telegram-bot.js.map",
+        "size": 788,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.cjs",
+        "size": 1651,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.cjs.map",
+        "size": 697,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.d.cts",
+        "size": 1155,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.d.cts.map",
+        "size": 299,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.d.ts",
+        "size": 1155,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.d.ts.map",
+        "size": 299,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.js",
+        "size": 1488,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/attachment.js.map",
+        "size": 732,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.cjs",
+        "size": 1513,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.cjs.map",
+        "size": 272,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.d.cts",
+        "size": 1520,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.d.cts.map",
+        "size": 307,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.d.ts",
+        "size": 1520,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.d.ts.map",
+        "size": 307,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.js",
+        "size": 1394,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/channel-type.js.map",
+        "size": 307,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.cjs",
+        "size": 6920,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.cjs.map",
+        "size": 1852,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.d.cts",
+        "size": 3280,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.d.cts.map",
+        "size": 377,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.d.ts",
+        "size": 3280,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.d.ts.map",
+        "size": 377,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.js",
+        "size": 6638,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/incoming-message-envelope.js.map",
+        "size": 1959,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.cjs",
+        "size": 2256,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.cjs.map",
+        "size": 328,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.d.cts",
+        "size": 1551,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.d.cts.map",
+        "size": 488,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.d.ts",
+        "size": 1541,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.d.ts.map",
+        "size": 488,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.js",
+        "size": 1212,
+        "mode": 420
+      },
+      {
+        "path": "dist/messaging/index.js.map",
+        "size": 315,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.cjs",
+        "size": 16240,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.cjs.map",
+        "size": 12559,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.d.cts",
+        "size": 128748,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.d.cts.map",
+        "size": 4863,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.d.ts",
+        "size": 128747,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.d.ts.map",
+        "size": 4863,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.js",
+        "size": 14703,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/agent-model-configuration.js.map",
+        "size": 13034,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.cjs",
+        "size": 3971,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.cjs.map",
+        "size": 3268,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.d.cts",
+        "size": 4646,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.d.cts.map",
+        "size": 700,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.d.ts",
+        "size": 4646,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.d.ts.map",
+        "size": 700,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.js",
+        "size": 3615,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/capability-model-settings.js.map",
+        "size": 3409,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.cjs",
+        "size": 4985,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.cjs.map",
+        "size": 757,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.d.cts",
+        "size": 1811,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.d.cts.map",
+        "size": 790,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.d.ts",
+        "size": 1792,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.d.ts.map",
+        "size": 790,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.js",
+        "size": 1645,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/index.js.map",
+        "size": 639,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.cjs",
+        "size": 7668,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.cjs.map",
+        "size": 6629,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.d.cts",
+        "size": 7330,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.d.cts.map",
+        "size": 1230,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.d.ts",
+        "size": 7330,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.d.ts.map",
+        "size": 1230,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.js",
+        "size": 6868,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-catalog.js.map",
+        "size": 6779,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.cjs",
+        "size": 2297,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.cjs.map",
+        "size": 1370,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.d.cts",
+        "size": 2154,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.d.cts.map",
+        "size": 646,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.d.ts",
+        "size": 2154,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.d.ts.map",
+        "size": 646,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.js",
+        "size": 1873,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-consumers.js.map",
+        "size": 1507,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.cjs",
+        "size": 1216,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.cjs.map",
+        "size": 522,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.d.cts",
+        "size": 1174,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.d.cts.map",
+        "size": 316,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.d.ts",
+        "size": 1174,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.d.ts.map",
+        "size": 316,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.js",
+        "size": 1030,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-hot-reload.js.map",
+        "size": 579,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.cjs",
+        "size": 1386,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.cjs.map",
+        "size": 602,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.d.cts",
+        "size": 1179,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.d.cts.map",
+        "size": 312,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.d.ts",
+        "size": 1179,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.d.ts.map",
+        "size": 312,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.js",
+        "size": 1226,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-policy.js.map",
+        "size": 659,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.cjs",
+        "size": 842,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.cjs.map",
+        "size": 290,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.d.cts",
+        "size": 845,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.d.cts.map",
+        "size": 335,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.d.ts",
+        "size": 845,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.d.ts.map",
+        "size": 335,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.js",
+        "size": 692,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-provider.js.map",
+        "size": 334,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.cjs",
+        "size": 3529,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.cjs.map",
+        "size": 1728,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.d.cts",
+        "size": 6736,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.d.cts.map",
+        "size": 667,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.d.ts",
+        "size": 6736,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.d.ts.map",
+        "size": 667,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.js",
+        "size": 3056,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-push.js.map",
+        "size": 1891,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.cjs",
+        "size": 1376,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.cjs.map",
+        "size": 696,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.d.cts",
+        "size": 764,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.d.cts.map",
+        "size": 340,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.d.ts",
+        "size": 763,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.d.ts.map",
+        "size": 340,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.js",
+        "size": 1225,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier-mapping.js.map",
+        "size": 760,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.cjs",
+        "size": 1646,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.cjs.map",
+        "size": 640,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.d.cts",
+        "size": 1485,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.d.cts.map",
+        "size": 504,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.d.ts",
+        "size": 1485,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.d.ts.map",
+        "size": 504,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.js",
+        "size": 1434,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/model-tier.js.map",
+        "size": 682,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.cjs",
+        "size": 22909,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.cjs.map",
+        "size": 20707,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.d.cts",
+        "size": 101553,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.d.cts.map",
+        "size": 4165,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.d.ts",
+        "size": 101553,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.d.ts.map",
+        "size": 4165,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.js",
+        "size": 20694,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/models-batch.js.map",
+        "size": 21107,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.cjs",
+        "size": 2185,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.cjs.map",
+        "size": 931,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.d.cts",
+        "size": 1827,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.d.cts.map",
+        "size": 351,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.d.ts",
+        "size": 1827,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.d.ts.map",
+        "size": 351,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.js",
+        "size": 1984,
+        "mode": 420
+      },
+      {
+        "path": "dist/model-router/per-agent-model-override.js.map",
+        "size": 1029,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.cjs",
+        "size": 9747,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.cjs.map",
+        "size": 1391,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.d.cts",
+        "size": 2970,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.d.cts.map",
+        "size": 1556,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.d.ts",
+        "size": 2954,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.d.ts.map",
+        "size": 1556,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.js",
+        "size": 2427,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/index.js.map",
+        "size": 984,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.cjs",
+        "size": 4400,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.cjs.map",
+        "size": 3541,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.d.cts",
+        "size": 4560,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.d.cts.map",
+        "size": 1484,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.d.ts",
+        "size": 4560,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.d.ts.map",
+        "size": 1484,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.js",
+        "size": 3696,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-common.js.map",
+        "size": 3687,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.cjs",
+        "size": 3494,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.cjs.map",
+        "size": 2561,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.d.cts",
+        "size": 6243,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.d.cts.map",
+        "size": 1157,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.d.ts",
+        "size": 6243,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.d.ts.map",
+        "size": 1157,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.js",
+        "size": 2850,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-document.js.map",
+        "size": 2700,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.cjs",
+        "size": 1391,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.cjs.map",
+        "size": 1202,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.d.cts",
+        "size": 1654,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.d.cts.map",
+        "size": 516,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.d.ts",
+        "size": 1654,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.d.ts.map",
+        "size": 516,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.js",
+        "size": 1107,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-query.js.map",
+        "size": 1257,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.cjs",
+        "size": 3963,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.cjs.map",
+        "size": 2867,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.d.cts",
+        "size": 9499,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.d.cts.map",
+        "size": 1420,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.d.ts",
+        "size": 9499,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.d.ts.map",
+        "size": 1420,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.js",
+        "size": 3289,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-source.js.map",
+        "size": 3028,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.cjs",
+        "size": 3184,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.cjs.map",
+        "size": 2565,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.d.cts",
+        "size": 3594,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.d.cts.map",
+        "size": 1151,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.d.ts",
+        "size": 3594,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.d.ts.map",
+        "size": 1151,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.js",
+        "size": 2427,
+        "mode": 420
+      },
+      {
+        "path": "dist/rag/rag-topic.js.map",
+        "size": 2700,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.cjs",
+        "size": 1588,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.cjs.map",
+        "size": 221,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.d.cts",
+        "size": 1435,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.d.cts.map",
+        "size": 276,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.d.ts",
+        "size": 1433,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.d.ts.map",
+        "size": 276,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.js",
+        "size": 1333,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/agent-vaulted-credentials.js.map",
+        "size": 227,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.cjs",
+        "size": 8786,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.cjs.map",
+        "size": 6337,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.d.cts",
+        "size": 8101,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.d.cts.map",
+        "size": 1627,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.d.ts",
+        "size": 8101,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.d.ts.map",
+        "size": 1627,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.js",
+        "size": 7737,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/credential-link.js.map",
+        "size": 6602,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.cjs",
+        "size": 5398,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.cjs.map",
+        "size": 780,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.d.cts",
+        "size": 1678,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.d.cts.map",
+        "size": 855,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.d.ts",
+        "size": 1662,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.d.ts.map",
+        "size": 855,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.js",
+        "size": 1354,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/index.js.map",
+        "size": 620,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.cjs",
+        "size": 127,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.cjs.map",
+        "size": 145,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.d.cts",
+        "size": 1184,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.d.cts.map",
+        "size": 367,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.d.ts",
+        "size": 1184,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.d.ts.map",
+        "size": 367,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.js",
+        "size": 61,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-bootstrap-env.js.map",
+        "size": 145,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.cjs",
+        "size": 2114,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.cjs.map",
+        "size": 650,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.d.cts",
+        "size": 1809,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.d.cts.map",
+        "size": 486,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.d.ts",
+        "size": 1809,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.d.ts.map",
+        "size": 486,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.js",
+        "size": 1844,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/platform-internal-credentials.js.map",
+        "size": 641,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.cjs",
+        "size": 3392,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.cjs.map",
+        "size": 1254,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.d.cts",
+        "size": 2744,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.d.cts.map",
+        "size": 493,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.d.ts",
+        "size": 2744,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.d.ts.map",
+        "size": 493,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.js",
+        "size": 3117,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-entry.js.map",
+        "size": 1328,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.cjs",
+        "size": 2217,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.cjs.map",
+        "size": 1028,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.d.cts",
+        "size": 3198,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.d.cts.map",
+        "size": 753,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.d.ts",
+        "size": 3198,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.d.ts.map",
+        "size": 753,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.js",
+        "size": 1882,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-event.js.map",
+        "size": 1103,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.cjs",
+        "size": 931,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.cjs.map",
+        "size": 410,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.d.cts",
+        "size": 911,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.d.cts.map",
+        "size": 433,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.d.ts",
+        "size": 910,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.d.ts.map",
+        "size": 433,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.js",
+        "size": 750,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-sync-state.js.map",
+        "size": 446,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.cjs",
+        "size": 1160,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.cjs.map",
+        "size": 576,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.d.cts",
+        "size": 991,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.d.cts.map",
+        "size": 426,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.d.ts",
+        "size": 991,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.d.ts.map",
+        "size": 426,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.js",
+        "size": 972,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/vault-tier.js.map",
+        "size": 609,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.cjs",
+        "size": 1258,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.cjs.map",
+        "size": 621,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.d.cts",
+        "size": 1177,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.d.cts.map",
+        "size": 306,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.d.ts",
+        "size": 1177,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.d.ts.map",
+        "size": 306,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.js",
+        "size": 1083,
+        "mode": 420
+      },
+      {
+        "path": "dist/vault/workspace-file.js.map",
+        "size": 675,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 5365,
+        "mode": 420
+      }
+    ],
+    "entryCount": 1514,
+    "bundled": []
+  }
+]
+npm notice
+npm notice New minor version of npm available! 11.11.0 -> 11.21.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0
+npm notice To update run: npm install -g npm@11.21.0
+npm notice

@@ -1,0 +1,67 @@
+{
+  "package": "@x9-forge/contracts",
+  "version": "1.44.0",
+  "branch": "codex/chiavi-100-bridge",
+  "base": "f88d02a0a8517fe9aca1d969f55dd340847425d9",
+  "source_commit": "c23eb7f38d38ebd1ff0221d6a43a2edf26dd9419",
+  "source_commit_status": "local atomic product commit; no push",
+  "review_status": "independent revision-2 PASS; local commit",
+  "archive": "/private/tmp/codex-a-chiavi-completamento/artifacts/34-18/revision-2/x9-forge-contracts.tgz",
+  "archive_sha256": "6311b755b4aa1258d9be5b41ca754f8300ab1ddf5ec774e53ce98ede2a4a6eba",
+  "node": "24.14.1",
+  "pnpm": "9.15.9",
+  "vitest": "3.2.4",
+  "proof_root": "/private/tmp/codex-a-chiavi-completamento/proofs/34-18/revision-2",
+  "proof_ids": [
+    "../review-r2-red-source-esm.log",
+    "../review-r2-red-cjs.log",
+    "../review-r2-build.log",
+    "../review-r2-green-targeted.log",
+    "../review-r2-green-cjs.log",
+    "../review-r2-full-native.log",
+    "../review-r2-typecheck.log",
+    "../review-r2-lint.log",
+    "mutations.json",
+    "packed-mutations.json",
+    "consumer-install.log",
+    "packed-types.log",
+    "packed-mjs.log",
+    "packed-cjs.log",
+    "check-pack.log"
+  ],
+  "qualification": {
+    "targeted": {
+      "passed": 62,
+      "total": 62,
+      "new_tests": 51,
+      "preserved_legacy_voice_tests": 11
+    },
+    "full_suite": {
+      "passed": 4800,
+      "total": 4800,
+      "files_passed": 166,
+      "files_total": 166
+    },
+    "source_causal_cuts": {
+      "caught": 23,
+      "total": 23,
+      "exact_restore_fresh_green": 23
+    },
+    "canonical_result_keys": 29,
+    "canonical_result_assertions_each_format": 87,
+    "packed_runtime_assertions_each_format": 97,
+    "packed_types_formats": 2,
+    "packed_causal_cuts": {
+      "caught": 7,
+      "total": 7,
+      "exact_restore_fresh_green": 7
+    },
+    "operator_live": false
+  },
+  "rejected_archive_sha256": "3f436760818b26c66a751d1dd1ad33085ab616b249a8c4b92d4c527eb0cef645",
+  "source_files_matched": 190,
+  "dist_files_matched": 1520,
+  "test_files_matched": 4,
+  "review_report": "/private/tmp/codex-a-chiavi-completamento/proofs/34-18/independent-review/REVIEW.md",
+  "product_diff_sha256": "47452ff53d4a3b9ce13ccba12bfce60703625cfe5b6452d2f3b1ea4a5acdd31a"
+}

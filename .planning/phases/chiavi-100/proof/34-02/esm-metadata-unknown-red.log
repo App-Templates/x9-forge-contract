@@ -1,0 +1,35 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: unknown key
++ actual - expected
+
++ {
++   key: 'OPENAI_API_KEY',
++   kind: 'credential',
++   label: 'Chiave API OpenAI',
++   secret: true,
++   service: {
++     id: 'openai',
++     type: 'commercial'
++   }
++ }
+- null
+
+    at file:///private/tmp/codex-a-chiavi-completamento/bridge-34-02-smoke.mjs:17:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    key: 'OPENAI_API_KEY',
+    label: 'Chiave API OpenAI',
+    kind: 'credential',
+    service: { type: 'commercial', id: 'openai' },
+    secret: true
+  },
+  expected: null,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.14.1

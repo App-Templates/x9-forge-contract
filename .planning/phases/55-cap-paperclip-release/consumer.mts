@@ -1,0 +1,10 @@
+import {PaperclipQueueInputSchema,PaperclipAgentBindingSchema,type PaperclipQueueInput,type PaperclipAgentBinding,type PaperclipManualConfirmation} from '@x9-forge/contracts/capability/paperclip';
+import {PaperclipMaterialEventSchema,type PaperclipMaterialEvent} from '@x9-forge/contracts/capability';
+const queue:PaperclipQueueInput={};
+const enabled:PaperclipAgentBinding['enabled']=false;
+export const parsed=PaperclipQueueInputSchema.safeParse(queue);
+export const bindingSchema=PaperclipAgentBindingSchema;
+export const eventSchema=PaperclipMaterialEventSchema;
+export type PublicMaterial=PaperclipMaterialEvent;
+export type PublicConfirmation=PaperclipManualConfirmation;
+export {enabled};

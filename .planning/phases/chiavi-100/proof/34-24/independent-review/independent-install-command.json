@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/pnpm",
+    "install",
+    "--offline",
+    "--config.confirmModulesPurge=false"
+  ],
+  "cwd": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/consumer",
+  "env": {
+    "PATH": "/Users/admintemp/.nvm/versions/node/v24.14.1/bin:/usr/bin:/bin",
+    "CI": "1",
+    "NO_COLOR": "1",
+    "TMPDIR": "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review",
+    "PNPM_HOME": "/Users/admintemp/.nvm/versions/node/v24.14.1/bin"
+  },
+  "exit": 1
+}

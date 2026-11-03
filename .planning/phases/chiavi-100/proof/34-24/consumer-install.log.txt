@@ -1,0 +1,15 @@
+$ ["pnpm", "install", "--offline"]
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +2
+++
+Progress: resolved 2, reused 1, downloaded 1, added 2, done
+
+dependencies:
++ @x9-forge/contracts 1.44.0
++ zod 4.3.6 (4.6.5 is available)
+
+Done in 911ms using pnpm v9.15.9
+(node:21386) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+EXIT_CODE=0

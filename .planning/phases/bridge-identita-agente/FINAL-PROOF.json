@@ -1,0 +1,198 @@
+{
+  "product": "8a7aac014732775fcaeddecc110ebfe36f215b8b",
+  "completedAt": "2026-10-08T15:36:56.967108+02:00",
+  "status": "bridge contract implemented and locally qualified; ready for independent review",
+  "sourceSha": {
+    "src/agent/agent-context-identity.ts": "4792c9a9aa22a090eddfd0f67938cb4c16f11d87401329cb2ede2f32ca415b7c",
+    "src/agent/index.ts": "72b047915a5fa50c76fe725c8384d9358c52ca841686ba3f39fdc0a1c004256d",
+    "tests/agent/bridge-identita-agente.test.ts": "6271103582c4232db81d14064e51f8f7b5e2d1a89afb8eefbc86eb6acf9e0589"
+  },
+  "full": {
+    "passed": 3400,
+    "total": 3400,
+    "files": 139,
+    "failed": 0,
+    "pending": 0,
+    "exit": 0,
+    "reportSha256": "1f487adfeb36837951f2848a17a9c4963d0c1d93848fb8ac343b30edd3980cec",
+    "nativeCwd": "/private/tmp/d-bridge-identita-agente-20261008/checkout",
+    "environment": "env -i HOME/PATH Node24",
+    "worker": 1,
+    "singleFull": true
+  },
+  "newTests": {
+    "passed": 173,
+    "total": 173,
+    "files": 1,
+    "authorPassed": 173,
+    "sameNames": true,
+    "authorReportSha": "cf868122aa22a45d6e3daf8db73e8bc37f50343d00230c6ac74cf040ccc7b8fb"
+  },
+  "sourceMutations": {
+    "qualified": 25,
+    "total": 25,
+    "assertionWitnesses": 277,
+    "restores": 25,
+    "testsEachRestore": 173
+  },
+  "compiledMutations": {
+    "qualified": 2,
+    "total": 2,
+    "testsEachRestore": 18,
+    "publicSubpath": "@x9-forge/contracts/agent"
+  },
+  "compileNegativeCalls": 5,
+  "quality": {
+    "checks": [
+      {
+        "name": "typecheck",
+        "exit": 0,
+        "seconds": 8.2,
+        "command": [
+          "pnpm",
+          "typecheck"
+        ],
+        "logSha": "44e6637da7d58d611fcec3715af073109e82be5ec72111ce472802438c269d23"
+      },
+      {
+        "name": "lint",
+        "exit": 0,
+        "seconds": 25.84,
+        "command": [
+          "pnpm",
+          "lint"
+        ],
+        "logSha": "e97065acbd3a4b02a8af92af29e692f5798ffadc47d62bc1fa8a28b11b9d19a2"
+      },
+      {
+        "name": "build",
+        "exit": 0,
+        "seconds": 45.76,
+        "command": [
+          "pnpm",
+          "build"
+        ],
+        "logSha": "ea9e7ff41b1e8b660f16388de6e3ffcdc83a2f88544b36581897d741a0e3a9e9"
+      },
+      {
+        "name": "new-types",
+        "exit": 0,
+        "seconds": 10.14,
+        "command": [
+          "pnpm",
+          "exec",
+          "tsc",
+          "-p",
+          "/private/tmp/d-bridge-identita-agente-20261008/TEST-TSC.json"
+        ],
+        "logSha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "old-cjs",
+        "exit": 0,
+        "seconds": 1.27,
+        "command": [
+          "node",
+          "tests/cjs/smoke.cjs"
+        ],
+        "logSha": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79"
+      },
+      {
+        "name": "new-esm-cjs",
+        "exit": 0,
+        "seconds": 1.0,
+        "command": [
+          "node",
+          ".planning/phases/bridge-identita-agente/consumer.mjs"
+        ],
+        "logSha": "7428e95e61df0d0473a226227f5b3f26d5101480d6d6a72daeee0e424f49d79d",
+        "finalPublicSubpath": "@x9-forge/contracts/agent",
+        "finalPublicProbeLogSha": "7428e95e61df0d0473a226227f5b3f26d5101480d6d6a72daeee0e424f49d79d"
+      },
+      {
+        "name": "pack",
+        "exit": 0,
+        "seconds": 12.99,
+        "command": [
+          "pnpm",
+          "check:pack"
+        ],
+        "logSha": "231004a5dfd60408cc3a9c976f11ab8303d8369298e063bdecd381c795c86924",
+        "excludedFirstAttempt": {
+          "exit": 3,
+          "reason": "npm pack needs writable private cache"
+        },
+        "finalLogSha": "3ce1413fce51f6f3d4552b0c05eb8848dd8527f4e6f36b259172bd9a1f00c44a"
+      }
+    ],
+    "passed": 7,
+    "total": 7,
+    "cacheOnlyFinalRetry": true
+  },
+  "audit": {
+    "sourceSha": {
+      "src/agent/agent-context-identity.ts": "4792c9a9aa22a090eddfd0f67938cb4c16f11d87401329cb2ede2f32ca415b7c",
+      "src/agent/index.ts": "72b047915a5fa50c76fe725c8384d9358c52ca841686ba3f39fdc0a1c004256d",
+      "tests/agent/bridge-identita-agente.test.ts": "6271103582c4232db81d14064e51f8f7b5e2d1a89afb8eefbc86eb6acf9e0589"
+    },
+    "app": 3,
+    "dist": 1344,
+    "protected": 1757,
+    "oldTests": 253,
+    "faults": [
+      "old-test",
+      "deletion",
+      "perimeter",
+      "manifest",
+      "source-sha",
+      "dist-sha",
+      "legacy-schema"
+    ],
+    "zeroFileDeletion": true,
+    "packageAndLockUnchanged": true
+  },
+  "firstRed": {
+    "validAssertion": 130,
+    "rawAssertion": 131,
+    "total": 173,
+    "baselineGreen": 42,
+    "excludedFixture": 1,
+    "reason": "BI14 originally used non-platform INTERNAL_SECRET; only new fixture changed to canonical TELEGRAM_SESSION_STRING"
+  },
+  "excludedSetup": [
+    "first Vite cache EPERM, fixed only private dependency cache placement",
+    "first npm pack cache EPERM, fixed private npm cache without profile/script changes"
+  ],
+  "timers": {
+    "original": {
+      "start": "2026-10-08T14:42:44.052778+02:00",
+      "deadline": "2026-10-08T15:27:44.052778+02:00",
+      "authorization": "20261008-143238-coordinatrice-a-codex-d-risposta",
+      "base": "a251bbc9451381a67afa10f330fa5a3b501e8ba4",
+      "lot": "BRIDGE-IDENTITA-AGENTE contract"
+    },
+    "qualification": {
+      "start": "2026-10-08T15:25:25.776416+02:00",
+      "deadline": "2026-10-08T15:45:25.776416+02:00",
+      "authorization": "20261008-152337-coordinatrice-a-codex-d-risposta",
+      "lot": "qualification only from full-green checkpoint",
+      "sourceUnchanged": true,
+      "product": "8a7aac014732775fcaeddecc110ebfe36f215b8b",
+      "precedingLotClosedAt": "2026-10-08T15:25:25.776416+02:00",
+      "precedingDeadline": "2026-10-08T15:27:44.052778+02:00"
+    }
+  },
+  "live": 0,
+  "consumersUpdated": 0,
+  "providerCalls": 0,
+  "pushMergeRelease": false,
+  "rawDirectory": "/private/tmp/d-bridge-identita-agente-20261008",
+  "artifactCompatibility": {
+    "basePathsPreserved": 1336,
+    "basePathsTotal": 1336,
+    "byteUnchanged": 1328,
+    "existingBarrelsChanged": 8,
+    "newArtifacts": 8,
+    "finalTotal": 1344
+  }
+}

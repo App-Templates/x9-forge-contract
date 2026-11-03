@@ -54,6 +54,14 @@ export {
 } from './platform-internal-credentials.js';
 export type { PlatformInternalCredentialKey } from './platform-internal-credentials.js';
 
+// Agent-only connection credential keys
+export {
+  CONNECTION_CREDENTIAL_KEY_PREFIX,
+  CONNECT_VAULT_SECRET_ENV,
+  connectionCredentialKey,
+  isConnectionCredentialKey,
+} from './connection-credential-keys.js';
+
 // Vaulted credentials alias (re-export of Phase 2 AgentCredentials)
 export { AgentVaultedCredentialsSchema } from './agent-vaulted-credentials.js';
 export type { AgentVaultedCredentials } from './agent-vaulted-credentials.js';

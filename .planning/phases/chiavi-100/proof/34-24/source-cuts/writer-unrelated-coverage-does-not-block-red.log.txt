@@ -1,0 +1,85 @@
+$ ["pnpm", "exec", "vitest", "run", "--config", "/private/tmp/codex-a-chiavi-completamento/bridge.config.mjs", "tests/model-router/models-overview-coverage.test.ts", "--maxWorkers=1", "-t", "W01|W03"]
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ❯ tests/model-router/models-overview-coverage.test.ts (33 tests | 3 failed | 30 skipped) 10ms
+   ↓ read overview coverage > keeps old responses valid without inventing coverage
+   ↓ read overview coverage > accepts complete data and attested zero separately
+   ↓ read overview coverage > represents partial without claiming zero
+   ↓ read overview coverage > represents unavailable without claiming zero
+   ↓ read overview coverage > accepts unknown origin only in the read projection
+   ↓ read overview coverage > rejects unqualified unknown provenance {"editability":"editable","reason":null}
+   ↓ read overview coverage > rejects unqualified unknown provenance {"masterAgentId":"master-a"}
+   ↓ read overview coverage > rejects unqualified unknown provenance {"masterConfigVersion":2}
+   ↓ read overview coverage > rejects unqualified unknown provenance {"reason":"   "}
+   ↓ read overview coverage > rejects non-public extra fields in coverage
+   ↓ read overview coverage > rejects missing reason for partial
+   ↓ read overview coverage > rejects missing reason for unavailable
+   ↓ read overview coverage > requires a meaningful reason for partial
+   ↓ read overview coverage > requires a meaningful reason for unavailable
+   ↓ read overview coverage > complete cannot carry incomplete evidence {"missingSlots":["news_digest"]}
+   ↓ read overview coverage > complete cannot carry incomplete evidence {"reason":"Incomplete"}
+   ↓ read overview coverage > I01 rejects mismatching runtime in coverage at the same owner
+   ↓ read overview coverage > I02 rejects absent versus present vault identity
+   ↓ read overview coverage > rejects mismatching coverage owner and duplicate logical agents
+   ↓ read overview coverage > I03 rejects cross namespace collision involving coverage-only agents
+   ↓ read overview coverage > I03 rejects shared vault on distinct coverage-only agents
+   ↓ read overview coverage > I03 rejects shared vault on distinct row-only agents
+   ↓ read overview coverage > I04 rejects duplicate missing slots
+   ↓ read overview coverage > I04 rejects a slot both present and missing
+   ↓ read overview coverage > checks access for an owner present only in coverage
+   × writer coverage is scoped to the requested agents > W01/W02 permits A while unrelated B is partial 8ms
+     → expected [ 'slot-unavailable' ] to deeply equal []
+   × writer coverage is scoped to the requested agents > W01/W02 permits A while unrelated B is unavailable 1ms
+     → expected [ 'slot-unavailable' ] to deeply equal []
+   × writer coverage is scoped to the requested agents > W03 permits A while unrelated B is unknown and not installed 1ms
+     → expected [ 'slot-unavailable' ] to deeply equal []
+   ↓ writer coverage is scoped to the requested agents > W04 rejects requested A with partial coverage
+   ↓ writer coverage is scoped to the requested agents > W04 rejects requested A with unavailable coverage
+   ↓ writer coverage is scoped to the requested agents > rejects requested unknown origin
+   ↓ writer coverage is scoped to the requested agents > preserves existing writer validation for old producers
+   ↓ writer coverage is scoped to the requested agents > rejects globally malformed unrelated identity
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/model-router/models-overview-coverage.test.ts > writer coverage is scoped to the requested agents > W01/W02 permits A while unrelated B is partial
+ FAIL  tests/model-router/models-overview-coverage.test.ts > writer coverage is scoped to the requested agents > W01/W02 permits A while unrelated B is unavailable
+AssertionError: expected [ 'slot-unavailable' ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "slot-unavailable",
++ ]
+
+ ❯ tests/model-router/models-overview-coverage.test.ts:41:260
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/model-router/models-overview-coverage.test.ts > writer coverage is scoped to the requested agents > W03 permits A while unrelated B is unknown and not installed
+AssertionError: expected [ 'slot-unavailable' ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "slot-unavailable",
++ ]
+
+ ❯ tests/model-router/models-overview-coverage.test.ts:42:323
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 30 skipped (33)
+   Start at  21:49:09
+   Duration  355ms (transform 121ms, setup 4ms, collect 210ms, tests 10ms, environment 0ms, prepare 32ms)
+
+
+EXIT_CODE=1

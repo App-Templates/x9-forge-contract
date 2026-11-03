@@ -1,0 +1,1 @@
+JSON report written to /private/tmp/codex-e-bridge-voice-20261008/catalog-schema-red.json

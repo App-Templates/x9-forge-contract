@@ -36,9 +36,25 @@ export const KNOWN_CREDENTIAL_KEYS = [
   'GOOGLE_CALENDAR_CLIENT_ID',
   'GOOGLE_CALENDAR_CLIENT_SECRET',
   'GOOGLE_CALENDAR_REFRESH_TOKEN',
+  'GOOGLE_CONTACTS_CLIENT_ID',
+  'GOOGLE_CONTACTS_CLIENT_SECRET',
+  'GOOGLE_CONTACTS_REFRESH_TOKEN',
+  'NETATMO_EMAIL',
+  'NETATMO_CLIENT_ID',
+  'NETATMO_CLIENT_SECRET',
+  'NETATMO_REFRESH_TOKEN',
+  'NETATMO_ACCESS_TOKEN',
+  'NETATMO_PASSWORD',
   'INTERNAL_SECRET',
   'X9_INTERNAL_SECRET',
   'HOSTINGER_API_TOKEN',                      // Phase 59 — cap-backup only; full-account token (no scopes): vault, never projected to prompts or devices
+  // Phase 55 — cap-dev, per agente
+  'GITHUB_TOKEN',
+  'GITHUB_APP_ID',
+  'GITHUB_APP_INSTALLATION_ID',
+  'GITHUB_APP_PRIVATE_KEY',
+  'DEV_SIGNING_PRIVATE_KEY',
+  'PAPERCLIP_API_KEY',                       // P01 — native Paperclip agent API key; per agent, never platform-wide
 ] as const;
 
 export type KnownCredentialKey = (typeof KNOWN_CREDENTIAL_KEYS)[number];
@@ -80,8 +96,25 @@ export const AgentCredentialsSchema = z
     GOOGLE_CALENDAR_CLIENT_ID: z.string().optional(),
     GOOGLE_CALENDAR_CLIENT_SECRET: z.string().optional(),
     GOOGLE_CALENDAR_REFRESH_TOKEN: z.string().optional(),
+    GOOGLE_CONTACTS_CLIENT_ID: z.string().optional(),
+    GOOGLE_CONTACTS_CLIENT_SECRET: z.string().optional(),
+    GOOGLE_CONTACTS_REFRESH_TOKEN: z.string().optional(),
+    NETATMO_EMAIL: z.string().optional(),
+    NETATMO_CLIENT_ID: z.string().optional(),
+    NETATMO_CLIENT_SECRET: z.string().optional(),
+    NETATMO_REFRESH_TOKEN: z.string().optional(),
+    NETATMO_ACCESS_TOKEN: z.string().optional(),
+    NETATMO_PASSWORD: z.string().optional(),
     INTERNAL_SECRET: z.string().optional(),
     X9_INTERNAL_SECRET: z.string().optional(),
+    HOSTINGER_API_TOKEN: z.string().optional(),
+    // Phase 55 — cap-dev, per agente
+    GITHUB_TOKEN: z.string().optional(),
+    GITHUB_APP_ID: z.string().optional(),
+    GITHUB_APP_INSTALLATION_ID: z.string().optional(),
+    GITHUB_APP_PRIVATE_KEY: z.string().optional(),
+    DEV_SIGNING_PRIVATE_KEY: z.string().optional(),
+    PAPERCLIP_API_KEY: z.string().optional(),
   })
   .catchall(z.string());
 

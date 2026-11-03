@@ -21,7 +21,7 @@ export declare const capabilityCallContextContract: {
             userId: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>;
         capability: z.ZodString;
-        keys: z.ZodArray<z.ZodString>;
+        keys: z.ZodArray<z.ZodLazy<z.ZodString>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodUnion<readonly [z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -35,8 +35,8 @@ export declare const capabilityCallContextContract: {
             capability: z.ZodString;
             configVersion: z.ZodNullable<z.ZodNumber>;
             settings: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnion<readonly [z.ZodNumber, z.ZodString, z.ZodBoolean, z.ZodArray<z.ZodString>]>>>;
-            credentials: z.ZodRecord<z.ZodString, z.ZodString>;
-            credentialVersions: z.ZodRecord<z.ZodString, z.ZodNumber>;
+            credentials: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodString>;
+            credentialVersions: z.ZodRecord<z.ZodLazy<z.ZodString>, z.ZodLazy<z.ZodNumber>>;
         }, z.core.$strict>;
     }, z.core.$strip>, z.ZodObject<{
         ok: z.ZodLiteral<false>;
@@ -46,8 +46,13 @@ export declare const capabilityCallContextContract: {
             capability_disabled: "capability_disabled";
             capability_not_installed: "capability_not_installed";
             identity_mismatch: "identity_mismatch";
+            business_unit_pending: "business_unit_pending";
+            business_unit_refused: "business_unit_refused";
+            business_unit_unavailable: "business_unit_unavailable";
+            business_unit_register_failed: "business_unit_register_failed";
+            business_unit_failed: "business_unit_failed";
         }>;
-        keys: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        keys: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodString>>>;
     }, z.core.$strip>]>;
 };
 //# sourceMappingURL=capability-call-context.d.ts.map

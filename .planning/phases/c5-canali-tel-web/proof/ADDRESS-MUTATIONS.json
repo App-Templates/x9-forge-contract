@@ -1,0 +1,78 @@
+{
+  "mutations": [
+    {
+      "name": "phone-format",
+      "exitCode": 1,
+      "failedTests": 9,
+      "totalTests": 21,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 additive canonical telephone address book rejects noncanonical phone 12345678",
+        "C5 additive canonical telephone address book rejects noncanonical phone +012345678",
+        "C5 additive canonical telephone address book rejects noncanonical phone +3902 12345678",
+        "C5 additive canonical telephone address book rejects noncanonical phone +390212345678 ",
+        "C5 additive canonical telephone address book rejects noncanonical phone  +390212345678",
+        "C5 additive canonical telephone address book rejects noncanonical phone +1234567",
+        "C5 additive canonical telephone address book rejects noncanonical phone +1234567890123456",
+        "C5 additive canonical telephone address book rejects noncanonical phone *",
+        "C5 additive canonical telephone address book rejects noncanonical phone tel:+390212345678"
+      ]
+    },
+    {
+      "name": "phone-bound",
+      "exitCode": 1,
+      "failedTests": 1,
+      "totalTests": 21,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 additive canonical telephone address book limits each scoped list independently to 2048 exact entries"
+      ]
+    },
+    {
+      "name": "phone-unique",
+      "exitCode": 1,
+      "failedTests": 1,
+      "totalTests": 21,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 additive canonical telephone address book rejects duplicate canonical phone numbers"
+      ]
+    },
+    {
+      "name": "phone-complete",
+      "exitCode": 1,
+      "failedTests": 2,
+      "totalTests": 21,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 additive canonical telephone address book rejects a partial source publishing telephone entries",
+        "C5 additive canonical telephone address book rejects a unavailable source publishing telephone entries"
+      ]
+    },
+    {
+      "name": "phone-null",
+      "exitCode": 1,
+      "failedTests": 2,
+      "totalTests": 21,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 additive canonical telephone address book distinguishes empty and unobserved telephone lists from an absent legacy field",
+        "C5 additive canonical telephone address book roundtrips a scoped unavailable telephone source without admitting partial entries"
+      ]
+    },
+    {
+      "name": "phone-legacy",
+      "exitCode": 1,
+      "failedTests": 1,
+      "totalTests": 21,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 additive canonical telephone address book preserves the exact legacy email-only shape without fabricating phones"
+      ]
+    }
+  ],
+  "qualified": 6,
+  "total": 6,
+  "sourceRestored": true,
+  "sha256": "c4df9f46924a8744363a1693d566b47869d10d1bbfa85157062738c75dd50e7c"
+}

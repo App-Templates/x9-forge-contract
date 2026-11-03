@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import * as managedVoice from '../../src/capability/voice-live/index.js';
+const managedApi = managedVoice;
 import {
   CAP_VOICE_LIVE_DEFAULT_PORT,
   VoiceLiveCallStartRequestSchema,
@@ -113,4 +115,47 @@ describe('Phase 50 — capability/voice-live contracts', () => {
     expect(() => VoiceLiveTranscriptTurnSchema.parse({ role: 'assistant', message: 'x', time_in_call_secs: 0 })).toThrow();
     expect(VoiceLiveCallEndReasonSchema.options).toContain('no_answer');
   });
+});
+
+const managedIdentity = { tenantId: 'tenant-a', ownerId: 'owner-a', agentId: '1' };
+const managedCredentials = { OPENAI_API_KEY: 'fixture', TELNYX_API_KEY: 'fixture', TELNYX_CONNECTION_ID: 'fixture', TELNYX_FROM_NUMBER: '+393331234567', TELNYX_PUBLIC_KEY: 'fixture' };
+const managedStart = { ...validStart, credentialPolicy: 'managed', identity: managedIdentity, credentials: managedCredentials };
+describe('managed live voice handoff', () => {
+  it('accepts only explicit standalone policy without managed material', () => {
+    expect(managedApi.StandaloneVoiceLiveCallStartRequestSchema?.safeParse({ ...validStart, credentialPolicy: 'standalone' }).success).toBe(true);
+    expect(managedApi.StandaloneVoiceLiveCallStartRequestSchema?.safeParse({ ...validStart, credentialPolicy: 'standalone' }).success).toBe(true);
+    expect(VoiceLiveCallStartRequestSchema.safeParse(validStart).success).toBe(true);
+    expect(managedApi.StandaloneVoiceLiveCallStartRequestSchema.safeParse(validStart).success).toBe(false);
+    const legacy = validStart;
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse(legacy).success).toBe(false);
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse({ ...validStart, credentials: managedCredentials }).success).toBe(false);
+  });
+  it('accepts managed canonical identity and the minimal OpenAI/Telnyx bundle', () => {
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse(managedStart).success).toBe(true);
+  });
+  it.each(['tenantId', 'ownerId', 'agentId'])('requires managed identity %s', key => {
+    const identity: Record<string, string> = { ...managedIdentity }; delete identity[key];
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse({ ...managedStart, identity }).success).toBe(false);
+  });
+  it('requires matching agent identity and never infers ownership', () => {
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse({ ...managedStart, identity: { ...managedIdentity, agentId: 'foreign' } }).success).toBe(false);
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse({ ...validStart, credentialPolicy: 'managed' }).success).toBe(false);
+  });
+  it.each(Object.keys(managedCredentials))('requires nonempty admitted %s', key => {
+    const credentials: Record<string, string> = { ...managedCredentials }; delete credentials[key];
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse({ ...managedStart, credentials }).success).toBe(false);
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse({ ...managedStart, credentials: { ...managedCredentials, [key]: '' } }).success).toBe(false);
+  });
+  it.each(['ANTHROPIC_API_KEY', 'INTERNAL_SECRET', 'ELEVENLABS_API_KEY', 'unknown'])('rejects unrelated bundle field %s', key => {
+    expect(managedApi.ManagedVoiceLiveCallStartRequestSchema?.safeParse({ ...managedStart, credentials: { ...managedCredentials, [key]: 'fixture' } }).success).toBe(false);
+  });
+  it('rejects credentials in call-start responses', () => {
+    expect(managedApi.ManagedVoiceLiveCallStartResponseSchema?.safeParse({ call_id: 'c', provider: 'openai_live', conversation_id: 'r', started_at: '2026-09-12T10:00:00Z', credentials: {} }).success).toBe(false);
+  });
+});
+
+it('loads the managed handoff through the actual compiled ESM subpath', async () => {
+  const compiled = await import('@x9-forge/contracts/capability/voice-live');
+  expect(compiled.ManagedVoiceLiveCallStartRequestSchema?.safeParse(managedStart).success).toBe(true);
+  expect(compiled.VoiceLiveCallStartRequestSchema.safeParse(validStart).success).toBe(true);
 });

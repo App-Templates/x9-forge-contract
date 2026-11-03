@@ -3,8 +3,8 @@ import { z } from 'zod';
 export declare const CAPABILITY_PRESENTATION_PAGE_SIZE = 100;
 export declare const CAPABILITY_OUTPUT_CONTENT_MAX_BYTES: number;
 export declare const CapabilityFeedbackKindSchema: z.ZodEnum<{
-    rating: "rating";
     approval: "approval";
+    rating: "rating";
 }>;
 export declare const CapabilityFeedbackDecisionSchema: z.ZodEnum<{
     approved: "approved";
@@ -73,8 +73,8 @@ export declare const CAPABILITY_FEEDBACK_MAX_ATTACHMENTS = 10;
 export declare const CapabilityFeedbackDeclarationSchema: z.ZodObject<{
     label: z.ZodString;
     kind: z.ZodEnum<{
-        rating: "rating";
         approval: "approval";
+        rating: "rating";
     }>;
     attachments: z.ZodBoolean;
     sources: z.ZodArray<z.ZodEnum<{
@@ -106,8 +106,8 @@ export declare const CapabilityPresentationDeclarationSchema: z.ZodObject<{
     feedback: z.ZodOptional<z.ZodObject<{
         label: z.ZodString;
         kind: z.ZodEnum<{
-            rating: "rating";
             approval: "approval";
+            rating: "rating";
         }>;
         attachments: z.ZodBoolean;
         sources: z.ZodArray<z.ZodEnum<{

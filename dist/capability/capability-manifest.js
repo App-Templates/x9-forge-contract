@@ -1,5 +1,7 @@
 import { z } from 'zod';
+import { CapabilityCredentialRequirementsSchema } from "./capability-credential-requirements.js";
 import { CapabilityParametersDeclarationSchema } from "./parameters.js";
+import { CapabilityOrdinaryDeclarationSchema, checkOrdinaryDeclarationCompatibility } from "./ordinary-declaration.js";
 import { CapabilityPresentationDeclarationSchema } from "./presentation.js";
 import { CapabilityTurnLeadDeclarationSchema } from "./capability-turn-lead.js";
 import { CapabilityToolSchema } from "./capability-tool.js";
@@ -31,6 +33,8 @@ export const CapabilityManifestSchema = z.object({
      * @since v1.5.0 (Bug D1 — quick-260422-wrz)
      */
     requires: z.array(z.string().min(1)).optional(),
+    /** Explicit per-call fields from loaded agent context; absence authorizes no new credential projection. */
+    credentialRequirements: CapabilityCredentialRequirementsSchema.optional(),
     /**
      * The capability serves `POST /context`: what it knows about an agent, put in front of the model by the runtime
      * at every turn (see capability-context.ts). Absent: no context (every manifest before v1.24.0).
@@ -42,7 +46,9 @@ export const CapabilityManifestSchema = z.object({
     turnLead: CapabilityTurnLeadDeclarationSchema.optional(),
     /** Ordinary parameter metadata (B1); absent preserves every pre-v1.29 payload. */
     parameters: CapabilityParametersDeclarationSchema.optional(),
+    /** Complete ordinary-v2 metadata, including typed structured settings; retains all declared B1 definitions. */
+    ordinaryParameters: CapabilityOrdinaryDeclarationSchema.optional(),
     /** Optional output/feedback/trend sections (B7), never configuration of an external project. */
     presentation: CapabilityPresentationDeclarationSchema.optional(),
-});
+}).superRefine(checkOrdinaryDeclarationCompatibility);
 //# sourceMappingURL=capability-manifest.js.map

@@ -1,0 +1,73 @@
+[
+  {
+    "check": "typecheck",
+    "command": [
+      "pnpm",
+      "typecheck"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "lint",
+    "command": [
+      "pnpm",
+      "exec",
+      "eslint",
+      "src/http/endpoints/internal-agent-phone-channel.ts",
+      "src/http/endpoints/forge-agent-phone-channel.ts",
+      "src/http/endpoints/index.ts",
+      "tests/http/endpoints/agent-phone-http-internal.test.ts",
+      "tests/http/endpoints/agent-phone-http-forge.test.ts",
+      "tests/cjs/agent-phone-channel-smoke.mjs"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "build",
+    "command": [
+      "pnpm",
+      "build"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "check-pack",
+    "command": [
+      "pnpm",
+      "check:pack"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "smoke",
+    "command": [
+      "node",
+      "tests/cjs/agent-phone-channel-smoke.mjs"
+    ],
+    "exit": 0
+  },
+  {
+    "check": "matrix",
+    "command": [
+      "pnpm",
+      "exec",
+      "vitest",
+      "run",
+      "tests/agent/agent-phone-channel.test.ts",
+      "tests/agent/agent-phone-commands.test.ts",
+      "tests/agent/r2-channel-configuration.test.ts",
+      "tests/agent/r2-attestation.test.ts",
+      "tests/agent/bridge134-voice-context.test.ts",
+      "tests/agent/agent-channel-access-requests.test.ts",
+      "tests/agent/agent-channel-access-policy.test.ts",
+      "tests/http/endpoints/agent-phone-http-internal.test.ts",
+      "tests/http/endpoints/agent-phone-http-forge.test.ts",
+      "tests/http/endpoints/agent-channel-access-http-internal.test.ts",
+      "tests/http/endpoints/agent-channel-access-http-forge.test.ts",
+      "--maxWorkers=1",
+      "--reporter=json",
+      "--outputFile=.planning/phases/canali-c2-bridge/b4-matrix.json"
+    ],
+    "exit": 0
+  }
+]

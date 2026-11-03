@@ -1,0 +1,231 @@
+{
+  "sourceSha256": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76",
+  "restoredSha256": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76",
+  "rows": [
+    {
+      "id": 1,
+      "label": "command strict",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 2,
+      "label": "command CAS ordering",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 3,
+      "label": "intent Vault required",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 4,
+      "label": "previous resource binding",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 5,
+      "label": "previous resource door",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 6,
+      "label": "creation must be absent",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 7,
+      "label": "rotation Telegram only",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 8,
+      "label": "rotation existing resource",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 9,
+      "label": "ready validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 10,
+      "label": "ready binding",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 11,
+      "label": "ready door",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 12,
+      "label": "ready desired CAS",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 13,
+      "label": "ready applied CAS",
+      "exit": 0,
+      "semanticRed": false,
+      "log": null
+    },
+    {
+      "id": 14,
+      "label": "ready resource identity",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 15,
+      "label": "result strict",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 16,
+      "label": "result binding",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 17,
+      "label": "result door",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 18,
+      "label": "result resource binding",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 19,
+      "label": "progress time ordering",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 20,
+      "label": "observation future bound",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 21,
+      "label": "result version lower bound",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 22,
+      "label": "result version upper bound",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 23,
+      "label": "rotation preserves bot",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 24,
+      "label": "failed resource must reconcile",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 25,
+      "label": "fixed error presence",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 26,
+      "label": "explicit reconciliation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 27,
+      "label": "applied advances exactly once",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 28,
+      "label": "applied has resource",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 29,
+      "label": "applied runtime evidence",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 30,
+      "label": "applied observation is new",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 31,
+      "label": "receipt full correlation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    },
+    {
+      "id": 32,
+      "label": "receipt validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": null
+    }
+  ],
+  "note": "Intermediate runner metadata only: raw logs were replaced by the final qualification. Not used as final evidence."
+}

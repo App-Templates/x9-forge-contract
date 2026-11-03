@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalMemoryRecallBundleContract = exports.INTERNAL_MEMORY_RECALL_BUNDLE_PATH = exports.InternalMemoryRecallBundleResponseSchema = exports.RecallBundleAuditSchema = exports.RecallBundleEntrySchema = exports.InternalMemoryRecallBundleRequestSchema = void 0;
 const zod_1 = require("zod");
 const temporal_js_1 = require("../../memory/temporal.cjs");
+const recall_js_1 = require("../../organization/recall.cjs");
 /**
  * POST /internal/memory/recall/bundle — v2 recall endpoint.
  * Direction: X9 internal (agent-core / cap-voice -> memory-svc) + Forge console.
@@ -43,6 +44,7 @@ exports.InternalMemoryRecallBundleRequestSchema = zod_1.z.object({
     })
         .optional(),
     temporal: temporal_js_1.RecallTemporalFilterSchema.optional(),
+    organization: recall_js_1.OrganizationRecallContextSchema.optional(),
 });
 exports.RecallBundleEntrySchema = zod_1.z.object({
     id: zod_1.z.string(),
@@ -84,6 +86,7 @@ exports.RecallBundleAuditSchema = zod_1.z.object({
 exports.InternalMemoryRecallBundleResponseSchema = zod_1.z.object({
     entries: zod_1.z.array(exports.RecallBundleEntrySchema),
     audit: exports.RecallBundleAuditSchema,
+    organizationReferences: zod_1.z.array(recall_js_1.OrganizationRecallReferenceSchema).max(50).optional(),
 });
 exports.INTERNAL_MEMORY_RECALL_BUNDLE_PATH = '/internal/memory/recall/bundle';
 exports.internalMemoryRecallBundleContract = {

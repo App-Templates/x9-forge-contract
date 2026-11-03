@@ -1,0 +1,211 @@
+[
+  {
+    "recipe": "elevenLabsWebSnapshotContract-method",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebSnapshotContract-path",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebSnapshotContract-response",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebPolicyContract-method",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebPolicyContract-path",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebPolicyContract-response",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebPolicyContract-body",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebCatalogContract-method",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebCatalogContract-path",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebCatalogContract-response",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebSessionContract-method",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebSessionContract-path",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebSessionContract-response",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "elevenLabsWebSessionContract-body",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "http-final-service-auth",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 5,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "http-final-validated-agent-path",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 4,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "public-page-path",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 4,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "public-link-id-validation",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 6,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  },
+  {
+    "recipe": "public-link-id-encoding",
+    "file": "src/http/endpoints/internal-capability-elevenlabs-web.ts",
+    "qualified": true,
+    "failures": 1,
+    "redExit": 1,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "greenExit": 0,
+    "greenPassed": 130,
+    "greenTotal": 130
+  }
+]

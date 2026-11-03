@@ -165,3 +165,6 @@ export {
 
 // -- Per-agent voice settings, provider catalog, outbound caller identity (R4, v1.31.0) --
 export * from './agent-voice-settings.js';
+
+// -- Models voice descriptor conversion with explicit producer catalog validation --
+export * from './model-descriptor-voice.js';

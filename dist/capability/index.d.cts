@@ -12,8 +12,8 @@
  * - EnvSchemaField / EnvSchemaDoc with Zod schemas
  * - HealthStatus / HealthStatusSchema
  */
-export { CapabilityToolSchema, type CapabilityTool, } from "./capability-tool.cjs";
-export { ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, type ToolCallRequest, type ToolCallSuccessResponse, type ToolCallErrorResponse, type ToolCallResponse, } from "./tool-call.cjs";
+export { CAPABILITY_TOOL_ACCESS, CapabilityToolAccessSchema, CapabilityToolSchema, capabilityToolAccess, toolsForRole, type CapabilityTool, type CapabilityToolAccess, } from "./capability-tool.cjs";
+export { TOOL_ERROR_MODEL_REASON_MAX_CHARS, ToolErrorModelReasonSchema, toolErrorModelReasonOf, type ToolErrorModelReason, ToolCallRequestSchema, ToolCallSuccessResponseSchema, ToolCallErrorResponseSchema, ToolCallResponseSchema, type ToolCallRequest, type ToolCallSuccessResponse, type ToolCallErrorResponse, type ToolCallResponse, } from "./tool-call.cjs";
 export { CAPABILITY_CONTEXT_MAX_CHARS, CAPABILITY_CONTEXT_TIMEOUT_MS, CapabilityContextDeclarationSchema, CapabilityContextRequestSchema, CapabilityContextResponseSchema, type CapabilityContextDeclaration, type CapabilityContextRequest, type CapabilityContextResponse, } from "./capability-context.cjs";
 export { CapabilityManifestSchema, type CapabilityManifest, } from "./capability-manifest.cjs";
 export { CapabilityRegistryEntrySchema, type CapabilityRegistryEntry, toEndpoint, fromEndpoint, } from "./capability-registry-entry.cjs";
@@ -22,10 +22,44 @@ export { EnvSchemaFieldSchema, EnvSchemaDocSchema, type EnvSchemaField, type Env
 export { HealthStatusSchema, type HealthStatus, } from "./health-status.cjs";
 export * from "./capability-turn-lead.cjs";
 export * from "./parameters.cjs";
+export * from "./ordinary-configuration.cjs";
+export * from "./ordinary-declaration.cjs";
+export * from "./ordinary-lifecycle.cjs";
+export * from "./configuration/feeds.cjs";
+export * from "./configuration/briefing.cjs";
+export * from "./configuration/conditions.cjs";
+export * from "./configuration/rules.cjs";
+export * from "./configuration/camera-policy.cjs";
 export * from "./presentation.cjs";
 export * from "./capability-call-context.cjs";
 export * from "./agent-elevenlabs/index.cjs";
 export * from "./coach/index.cjs";
 export * from "./approvals/index.cjs";
 export * from "./backup/index.cjs";
+export * from "./notice/index.cjs";
+export * from "./agent-elevenlabs/web-channel.cjs";
+export * from "./agent-elevenlabs/web-session.cjs";
+export * from "./agent-elevenlabs/web-catalog.cjs";
+export * from "./agent-elevenlabs/web-context.cjs";
+export * from "./agent-elevenlabs/web-browser.cjs";
+export * from "./agent-elevenlabs/web-invitations.cjs";
+export * from "./capability-credential-requirements.cjs";
+export * from "./paperclip/index.cjs";
+export * from "./connect/index.cjs";
+export * from "./portable-contracts.cjs";
+export * from "./coach/program-version.cjs";
+export * from "./coach/execution.cjs";
+export * from "./coach/measures.cjs";
+export * from "./coach/accounting.cjs";
+export * from "./coach/rolling-budget.cjs";
+export * from "./agent-elevenlabs/coach-binding.cjs";
+export * from "./coach/operational/index.cjs";
+export * from "./agent-elevenlabs/native-session.cjs";
+export * from "./agent-elevenlabs/native-session-grant.cjs";
+export * from "./agent-elevenlabs/native-tools.cjs";
+export * from "./agent-elevenlabs/native-config.cjs";
+export * from "./agent-elevenlabs/native-readback.cjs";
+export * from "./configuration/news-briefing.cjs";
+export * from "./feature-switch.cjs";
+export * from "./paperclip-protocollo/index.cjs";
 //# sourceMappingURL=index.d.ts.map

@@ -1,0 +1,34 @@
+[
+  {
+    "recipe": "admission-export",
+    "redExit": 1,
+    "semanticAssertion": true,
+    "restoredSHA256": "e2492e468c740844617bb7114bae3467478558727999dd0c2d88c062819cde1c",
+    "freshBuildExit": 0,
+    "freshCJSExit": 0
+  },
+  {
+    "recipe": "catalog-export",
+    "redExit": 1,
+    "semanticAssertion": true,
+    "restoredSHA256": "e2492e468c740844617bb7114bae3467478558727999dd0c2d88c062819cde1c",
+    "freshBuildExit": 0,
+    "freshCJSExit": 0
+  },
+  {
+    "recipe": "http-service-auth",
+    "redExit": 1,
+    "semanticAssertion": true,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "freshBuildExit": 0,
+    "freshCJSExit": 0
+  },
+  {
+    "recipe": "public-link-path",
+    "redExit": 1,
+    "semanticAssertion": true,
+    "restoredSHA256": "bf4eea539c8f3bc737f2376b465d374385e98f5a3410aae672d868a1ffa4f1e8",
+    "freshBuildExit": 0,
+    "freshCJSExit": 0
+  }
+]

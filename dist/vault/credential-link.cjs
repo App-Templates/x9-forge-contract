@@ -5,7 +5,7 @@ const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const agent_management_js_1 = require("../agent/agent-management.cjs");
 const vault_tier_js_1 = require("./vault-tier.cjs");
-const platform_internal_credentials_js_1 = require("./platform-internal-credentials.cjs");
+const credential_key_js_1 = require("./credential-key.cjs");
 /**
  * Keys linked to the Master Chief (R3, v1.31.0).
  *
@@ -17,9 +17,8 @@ const platform_internal_credentials_js_1 = require("./platform-internal-credenti
  *
  * These schemas carry metadata only — the strict entry schema rejects a `value` field.
  */
-/** Vault key name; platform-internal keys are never listed or acted upon for an agent. */
-exports.CredentialKeySchema = zod_1.z.string().max(128).regex(/^[A-Za-z_][A-Za-z0-9_.-]*$/)
-    .refine((key) => !(0, platform_internal_credentials_js_1.isPlatformInternalCredentialKey)(key), { message: 'Platform-internal credential keys are never exposed per agent' });
+var credential_key_js_2 = require("./credential-key.cjs");
+Object.defineProperty(exports, "CredentialKeySchema", { enumerable: true, get: function () { return credential_key_js_2.CredentialKeySchema; } });
 /** Saved version of one key's value; every save raises it. */
 exports.CredentialVersionSchema = zod_1.z.number().int().positive();
 exports.CredentialOwnTierSchema = vault_tier_js_1.VaultTierSchema.exclude(['platform']);
@@ -28,7 +27,7 @@ exports.CredentialLinkSchema = zod_1.z.discriminatedUnion('link', [
     zod_1.z.object({ link: zod_1.z.literal('unlinked'), tier: exports.CredentialOwnTierSchema }).strict(),
 ]);
 exports.AgentCredentialLinkEntrySchema = zod_1.z.object({
-    key: exports.CredentialKeySchema,
+    key: credential_key_js_1.CredentialKeySchema,
     provenance: exports.CredentialLinkSchema,
     /** A value exists at the source the provenance points to. */
     present: zod_1.z.boolean(),
@@ -63,7 +62,7 @@ exports.CredentialActionSchema = zod_1.z.enum(['rotate', 'relink', 'unlink']);
 const RotateRequestSchema = zod_1.z.object({
     action: zod_1.z.literal('rotate'),
     requestId: agent_management_js_1.AgentManagementRequestIdSchema,
-    key: exports.CredentialKeySchema,
+    key: credential_key_js_1.CredentialKeySchema,
     /** master: the Master source (reaches every linked agent) · own: one agent's unlinked value. */
     scope: zod_1.z.enum(['master', 'own']),
     agentId: agent_identity_js_1.AgentIdSchema.optional(),
@@ -77,13 +76,13 @@ const RotateRequestSchema = zod_1.z.object({
 const RelinkRequestSchema = zod_1.z.object({
     action: zod_1.z.literal('relink'),
     requestId: agent_management_js_1.AgentManagementRequestIdSchema,
-    key: exports.CredentialKeySchema,
+    key: credential_key_js_1.CredentialKeySchema,
     agentId: agent_identity_js_1.AgentIdSchema,
 }).strict();
 const UnlinkRequestSchema = zod_1.z.object({
     action: zod_1.z.literal('unlink'),
     requestId: agent_management_js_1.AgentManagementRequestIdSchema,
-    key: exports.CredentialKeySchema,
+    key: credential_key_js_1.CredentialKeySchema,
     agentId: agent_identity_js_1.AgentIdSchema,
     tier: exports.CredentialOwnTierSchema,
     /** Already-saved own version. */
@@ -106,7 +105,7 @@ exports.CredentialActionResultSchema = zod_1.z.object({
     ok: zod_1.z.literal(true),
     requestId: agent_management_js_1.AgentManagementRequestIdSchema,
     action: exports.CredentialActionSchema,
-    key: exports.CredentialKeySchema,
+    key: credential_key_js_1.CredentialKeySchema,
     /** Version made effective by the action. */
     version: exports.CredentialVersionSchema,
     replayed: zod_1.z.boolean(),

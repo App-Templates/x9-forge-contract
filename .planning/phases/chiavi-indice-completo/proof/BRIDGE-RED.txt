@@ -1,0 +1,1 @@
+JSON report written to /private/tmp/a-chiavi-indice-20261009/BRIDGE-RED.json

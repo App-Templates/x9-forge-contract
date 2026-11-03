@@ -1,0 +1,99 @@
+import { describe, expect, it } from 'vitest';
+import * as dev from '../../../src/capability/dev/index.js';
+import * as capability from '../../../src/capability/index.js';
+import * as signedCommand from '../../../src/capability/dev/signed-command.js';
+import * as configState from '../../../src/capability/dev/config-state.js';
+import * as productionJob from '../../../src/capability/dev/production-job.js';
+import * as productionResult from '../../../src/capability/dev/production-result.js';
+import * as productionArtifactContent from '../../../src/capability/dev/production-artifact-content.js';
+import * as productionProgress from '../../../src/capability/dev/production-progress.js';
+import * as productionConfigMatch from '../../../src/capability/dev/production-config-match.js';
+import * as sessionAssignment from '../../../src/capability/dev/session-assignment.js';
+
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment };
+
+describe('capability/dev subpath', () => {
+  it('re-exports every symbol of signed-command, config-state, production-job, production-result, production-artifact-content, production-config-match and production-progress', () => {
+    expect(dev.DevSignedCommandV2Schema).toBe(signedCommand.DevSignedCommandV2Schema);
+    expect(dev.DEV_SIGNED_COMMAND_V2_DOMAIN).toBe(signedCommand.DEV_SIGNED_COMMAND_V2_DOMAIN);
+    expect(dev.canonicalizeDevSignedCommandV2).toBe(signedCommand.canonicalizeDevSignedCommandV2);
+    expect(dev.canonicalizeDevProductionReport).toBe(productionJob.canonicalizeDevProductionReport);
+    expect(dev.isDevProductionJobForConfig).toBe(productionConfigMatch.isDevProductionJobForConfig);
+    expect(dev.DevProductionProgressSchema).toBe(productionProgress.DevProductionProgressSchema);
+    expect(dev.isDevProductionProgressForJob).toBe(productionProgress.isDevProductionProgressForJob);
+    expect(dev.DevBindingSchema).toBe(configState.DevBindingSchema);
+    expect(dev.DevAgentConfigSchema).toBe(configState.DevAgentConfigSchema);
+    expect(dev.DevAgentStatusSchema).toBe(configState.DevAgentStatusSchema);
+    expect(dev.DevAgentStateSchema).toBe(configState.DevAgentStateSchema);
+    expect(dev.DevAgentConfigStateSchema).toBe(configState.DevAgentConfigStateSchema);
+    for (const name of Object.keys(productionJob) as (keyof typeof productionJob)[]) {
+      expect(dev[name]).toBe(productionJob[name]);
+    }
+    for (const name of Object.keys(productionResult) as (keyof typeof productionResult)[]) {
+      expect(dev[name]).toBe(productionResult[name]);
+    }
+    for (const name of Object.keys(sessionAssignment) as (keyof typeof sessionAssignment)[]) {
+      expect(dev[name]).toBe(sessionAssignment[name]);
+    }
+    expect(Object.keys(dev).sort()).toEqual(Object.keys(allSymbols).sort());
+  });
+
+  it('exposes the expected set of keys (mutation guard: a dropped re-export fails)', () => {
+    expect(Object.keys(dev).sort()).toEqual(
+      [
+        'DEV_SIGNED_COMMAND_V2_DOMAIN',
+        'DevAgentConfigSchema',
+        'DevAgentConfigStateSchema',
+        'DevAgentStateSchema',
+        'DevAgentStatusSchema',
+        'DevBindingSchema',
+        'DevSignedCommandV2Schema',
+        'DevProductionKindSchema',
+        'DevProductionJobSchema',
+        'DevProductionArtifactSchema',
+        'DevProductionArtifactChunkSchema',
+        'DevProductionResultSchema',
+        'DevProductionProgressSchema',
+        'isDevProductionProgressForJob',
+        'isDevProductionResultForJob',
+        'isDevProductionJobForConfig',
+        'isDevProductionArtifactChunkForArtifact',
+        'isDevProductionJobModelsUsable',
+        'devProductionApprovalBindings',
+        'devProductionExecutionMode',
+        'canonicalizeDevSignedCommandV2',
+        'canonicalizeDevProductionReport',
+        'DEV_SESSION_AUTONOMOUS_LABEL',
+        'DEV_SESSION_BRANCH_PREFIX',
+        'DEV_SESSION_DELIVERED_FILES_LABEL',
+        'DEV_SESSION_COMMIT_LABEL',
+        'DEV_SESSION_MAX_FILES',
+        'DEV_SESSION_MAX_MATERIALS',
+        'DEV_SESSION_BLOCK_MARKER',
+        'DevSessionKindSchema',
+        'DevSessionRepoSchema',
+        'DevSessionGitHubLinkSchema',
+        'DevSessionMaterialSchema',
+        'DevSessionAssignmentSchema',
+        'DevSessionCommitSchema',
+        'DevSessionDeliveredFileSchema',
+        'DevSessionDeliverySchema',
+        'DevSessionResultFileSchema',
+        'DevSessionResultSchema',
+        'devSessionBranch',
+        'devSessionId',
+        'devSessionAssignmentCanonicalJson',
+        'renderDevSessionBlock',
+        'parseDevSessionBlock',
+        'renderDevSessionDelivery',
+        'parseDevSessionDelivery',
+      ].sort(),
+    );
+  });
+
+  it('keeps every dev symbol out of the capability index', () => {
+    for (const name of Object.keys(allSymbols)) {
+      expect(capability).not.toHaveProperty(name);
+    }
+  });
+});

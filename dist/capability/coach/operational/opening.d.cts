@@ -1,0 +1,179 @@
+import { z } from 'zod';
+export declare const CoachOperationalBudgetStateSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    status: z.ZodLiteral<"known">;
+    budget: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        windowSeconds: z.ZodNumber;
+        asOf: z.ZodISODateTime;
+        windowStart: z.ZodISODateTime;
+        limitSeconds: z.ZodNumber;
+        usedSeconds: z.ZodNumber;
+    }, z.core.$strict>;
+    quota: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        budgetAsOf: z.ZodISODateTime;
+        remainingSeconds: z.ZodNumber;
+        shareLimitSeconds: z.ZodNumber;
+        limitSeconds: z.ZodNumber;
+    }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    status: z.ZodLiteral<"unknown">;
+    reason: z.ZodEnum<{
+        source_unavailable: "source_unavailable";
+        usage_pending: "usage_pending";
+        authority_unavailable: "authority_unavailable";
+    }>;
+}, z.core.$strict>], "status">;
+export type CoachOperationalBudgetState = z.infer<typeof CoachOperationalBudgetStateSchema>;
+export declare const CoachReservationSchema: z.ZodObject<{
+    reservationId: z.ZodString;
+    openingId: z.ZodString;
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>;
+    version: z.ZodNumber;
+    status: z.ZodEnum<{
+        uncertain: "uncertain";
+        held: "held";
+        consumed: "consumed";
+        released: "released";
+    }>;
+    limitSeconds: z.ZodNumber;
+    createdAt: z.ZodISODateTime;
+    updatedAt: z.ZodISODateTime;
+    expiresAt: z.ZodNullable<z.ZodISODateTime>;
+}, z.core.$strict>;
+export type CoachReservation = z.infer<typeof CoachReservationSchema>;
+export declare const CoachOpeningRequestSchema: z.ZodObject<{
+    requestId: z.ZodString;
+    scope: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+        userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+    }, z.core.$strict>;
+    program: z.ZodObject<{
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+        }, z.core.$strict>;
+        programId: z.ZodString;
+        programVersion: z.ZodNumber;
+        strategy: z.ZodObject<{
+            strategyId: z.ZodString;
+            strategyVersion: z.ZodString;
+        }, z.core.$strict>;
+        catalogRevision: z.ZodString;
+        policyRevision: z.ZodString;
+        progressionRevision: z.ZodString;
+        measureDefinitionRevision: z.ZodString;
+    }, z.core.$strict>;
+    appliedConfigVersion: z.ZodNumber;
+}, z.core.$strict>;
+export type CoachOpeningRequest = z.infer<typeof CoachOpeningRequestSchema>;
+export declare const CoachOpeningResultSchema: z.ZodObject<{
+    ok: z.ZodLiteral<true>;
+    replayed: z.ZodBoolean;
+    opening: z.ZodObject<{
+        openingId: z.ZodString;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        sessionId: z.ZodString;
+        program: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+            }, z.core.$strict>;
+            programId: z.ZodString;
+            programVersion: z.ZodNumber;
+            strategy: z.ZodObject<{
+                strategyId: z.ZodString;
+                strategyVersion: z.ZodString;
+            }, z.core.$strict>;
+            catalogRevision: z.ZodString;
+            policyRevision: z.ZodString;
+            progressionRevision: z.ZodString;
+            measureDefinitionRevision: z.ZodString;
+        }, z.core.$strict>;
+        appliedConfigVersion: z.ZodNumber;
+        openedAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    revision: z.ZodNumber;
+    budget: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        status: z.ZodLiteral<"known">;
+        budget: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+            }, z.core.$strict>;
+            windowSeconds: z.ZodNumber;
+            asOf: z.ZodISODateTime;
+            windowStart: z.ZodISODateTime;
+            limitSeconds: z.ZodNumber;
+            usedSeconds: z.ZodNumber;
+        }, z.core.$strict>;
+        quota: z.ZodObject<{
+            scope: z.ZodObject<{
+                agentId: z.ZodString;
+                ownerId: z.ZodString;
+                tenantId: z.ZodString;
+                userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+            }, z.core.$strict>;
+            budgetAsOf: z.ZodISODateTime;
+            remainingSeconds: z.ZodNumber;
+            shareLimitSeconds: z.ZodNumber;
+            limitSeconds: z.ZodNumber;
+        }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"unknown">;
+        reason: z.ZodEnum<{
+            source_unavailable: "source_unavailable";
+            usage_pending: "usage_pending";
+            authority_unavailable: "authority_unavailable";
+        }>;
+    }, z.core.$strict>], "status">;
+    reservation: z.ZodObject<{
+        reservationId: z.ZodString;
+        openingId: z.ZodString;
+        scope: z.ZodObject<{
+            agentId: z.ZodString;
+            ownerId: z.ZodString;
+            tenantId: z.ZodString;
+            userId: z.ZodNonOptional<z.ZodOptional<z.ZodString>>;
+        }, z.core.$strict>;
+        version: z.ZodNumber;
+        status: z.ZodEnum<{
+            uncertain: "uncertain";
+            held: "held";
+            consumed: "consumed";
+            released: "released";
+        }>;
+        limitSeconds: z.ZodNumber;
+        createdAt: z.ZodISODateTime;
+        updatedAt: z.ZodISODateTime;
+        expiresAt: z.ZodNullable<z.ZodISODateTime>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export type CoachOpeningResult = z.infer<typeof CoachOpeningResultSchema>;
+//# sourceMappingURL=opening.d.ts.map

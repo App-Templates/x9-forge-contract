@@ -1,0 +1,44 @@
+
+ RUN  v3.2.4 /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+
+ ✓ tests/agent/agent-credential-services.test.ts (77 tests) 10ms
+ ❯ tests/agent/agent-credentials.test.ts (10 tests | 1 failed) 13ms
+   ✓ KNOWN_CREDENTIAL_KEYS > has at least 16 known keys 1ms
+   ✓ KNOWN_CREDENTIAL_KEYS > includes core credential keys 2ms
+   ✓ KNOWN_CREDENTIAL_KEYS > Phase 50: includes voice-note provider-lane keys 3ms
+   ✓ AgentCredentialsSchema > parses full production credentials 0ms
+   ✓ AgentCredentialsSchema > accepts empty credentials object 0ms
+   ✓ AgentCredentialsSchema > accepts dynamic capability-specific keys via catchall 0ms
+   ✓ AgentCredentialsSchema > rejects non-string credential values 1ms
+   ✓ AgentCredentialsSchema > rejects non-string dynamic key values 0ms
+   ✓ Netatmo account credential > declares the account email as a known key 0ms
+   × Netatmo account credential > declares an explicit optional string schema for the account email 4ms
+     → expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/agent/agent-credentials.test.ts > Netatmo account credential > declares an explicit optional string schema for the account email
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ tests/agent/agent-credentials.test.ts:86:74
+     84| 
+     85|   it('declares an explicit optional string schema for the account emai…
+     86|     expect(Object.hasOwn(AgentCredentialsSchema.shape, 'NETATMO_EMAIL'…
+       |                                                                          ^
+     87|     const field = AgentCredentialsSchema.shape['NETATMO_EMAIL' as keyo…
+     88|     expect(field.isOptional()).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 86 passed (87)
+   Start at  20:21:40
+   Duration  729ms (transform 206ms, setup 8ms, collect 378ms, tests 24ms, environment 0ms, prepare 95ms)
+

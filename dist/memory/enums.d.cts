@@ -48,10 +48,10 @@ export declare const MemoryStatusSchema: z.ZodEnum<{
     active: "active";
     rejected: "rejected";
     draft: "draft";
+    archived: "archived";
     invalidated: "invalidated";
     superseded: "superseded";
     redacted: "redacted";
-    archived: "archived";
     needs_review: "needs_review";
 }>;
 export type MemoryStatus = z.infer<typeof MemoryStatusSchema>;

@@ -1,0 +1,276 @@
+{
+  "total": 20,
+  "qualified": 20,
+  "mutations": [
+    {
+      "name": "browser-request-strict",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 7,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection accepts no browser authority field viewer",
+        "C5 browser lease projection accepts no browser authority field scope",
+        "C5 browser lease projection accepts no browser authority field agentIdentity",
+        "C5 browser lease projection accepts no browser authority field mapping",
+        "C5 browser lease projection accepts no browser authority field invitation",
+        "C5 browser lease projection accepts no browser authority field credentials",
+        "C5 browser lease projection accepts no browser authority field signedUrl"
+      ]
+    },
+    {
+      "name": "browser-response-strict",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 7,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection does not accept private scope in the browser response",
+        "C5 browser lease projection does not accept private mapping in the browser response",
+        "C5 browser lease projection does not accept private viewer in the browser response",
+        "C5 browser lease projection does not accept private invitation in the browser response",
+        "C5 browser lease projection does not accept private agentIdentity in the browser response",
+        "C5 browser lease projection does not accept private policyVersion in the browser response",
+        "C5 browser lease projection does not accept private credentials in the browser response"
+      ]
+    },
+    {
+      "name": "browser-window",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 3,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection bounds browser connection window 0",
+        "C5 browser lease projection bounds browser connection window -1",
+        "C5 browser lease projection bounds browser connection window 900001"
+      ]
+    },
+    {
+      "name": "browser-url",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 11,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "browser-request-id",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection correlates the exact browser requestId"
+      ]
+    },
+    {
+      "name": "browser-link-id",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection correlates the exact browser linkId"
+      ]
+    },
+    {
+      "name": "projection-session",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection rechecks paused, off, archived, policy and provider mapping after mint",
+        "C5 browser lease projection supports explicit public and current authenticated invitation through existing admission"
+      ]
+    },
+    {
+      "name": "projection-authority",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection requires canonical D authority current after await, never an unresolved or before snapshot"
+      ]
+    },
+    {
+      "name": "after-phase",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 10,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection reuses valid canonical private evidence and returns exactly the public lease",
+        "C5 browser lease projection requires canonical D authority current after await, never an unresolved or before snapshot",
+        "C5 browser lease projection supports explicit public and current authenticated invitation through existing admission",
+        "C5 browser lease projection does not accept private scope in the browser response",
+        "C5 browser lease projection does not accept private mapping in the browser response",
+        "C5 browser lease projection does not accept private viewer in the browser response",
+        "C5 browser lease projection does not accept private invitation in the browser response",
+        "C5 browser lease projection does not accept private agentIdentity in the browser response",
+        "C5 browser lease projection does not accept private policyVersion in the browser response",
+        "C5 browser lease projection does not accept private credentials in the browser response"
+      ]
+    },
+    {
+      "name": "projection-private-fields",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 7,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection reuses valid canonical private evidence and returns exactly the public lease",
+        "C5 browser lease projection supports explicit public and current authenticated invitation through existing admission",
+        "C5 browser lease projection does not accept private scope in the browser response",
+        "C5 browser lease projection does not accept private mapping in the browser response",
+        "C5 browser lease projection does not accept private viewer in the browser response",
+        "C5 browser lease projection does not accept private invitation in the browser response",
+        "C5 browser lease projection does not accept private policyVersion in the browser response"
+      ]
+    },
+    {
+      "name": "url-protocol",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects invalid synthetic provider connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-host",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects invalid synthetic provider connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-path",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects invalid synthetic provider connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-username",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-password",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-fragment",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-one-resource",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects invalid synthetic provider connection artifact",
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-bound-resource",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 2,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "rejects invalid synthetic provider connection artifact",
+        "C5 browser lease projection reuses C3 URL validation without treating its format as a mapped resource or permission"
+      ]
+    },
+    {
+      "name": "url-one-signature",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    },
+    {
+      "name": "url-signature",
+      "exitCode": 1,
+      "tests": 124,
+      "functionalFailures": 1,
+      "otherFailures": 0,
+      "qualified": true,
+      "failingAssertions": [
+        "C5 browser lease projection rejects an invalid synthetic connection artifact"
+      ]
+    }
+  ],
+  "restored": true,
+  "sha256": {
+    "src/capability/agent-elevenlabs/web-browser.ts": "7497d5fad97320a043f3ae785e69d687e781e562e840cd3210348f3ee31b5970",
+    "src/capability/agent-elevenlabs/web-session.ts": "7bff93ca9582841d9735c56b544d3e6e510568612b7d952d2507742b43bf0fdd"
+  }
+}

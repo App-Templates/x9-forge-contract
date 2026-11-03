@@ -1,0 +1,202 @@
+{
+  "sourceSha256": "98fef67e3b35e8e0eaade974ddea261402aebf4741e634a06ca1b9cf6761ac4e",
+  "restoredSha256": "98fef67e3b35e8e0eaade974ddea261402aebf4741e634a06ca1b9cf6761ac4e",
+  "rows": [
+    {
+      "id": 1,
+      "label": "trusted authorization validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-01.txt"
+    },
+    {
+      "id": 2,
+      "label": "trusted SA allowed",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-02.txt"
+    },
+    {
+      "id": 3,
+      "label": "owner isolated",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-03.txt"
+    },
+    {
+      "id": 4,
+      "label": "tenant isolated",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-04.txt"
+    },
+    {
+      "id": 5,
+      "label": "progress params strict",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-05.txt"
+    },
+    {
+      "id": 6,
+      "label": "route result validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-06.txt"
+    },
+    {
+      "id": 7,
+      "label": "management identity route",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-07.txt"
+    },
+    {
+      "id": 8,
+      "label": "door route",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-08.txt"
+    },
+    {
+      "id": 9,
+      "label": "request id route",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-09.txt"
+    },
+    {
+      "id": 10,
+      "label": "trusted binding route",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-10.txt"
+    },
+    {
+      "id": 11,
+      "label": "browser authentication",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-11.txt"
+    },
+    {
+      "id": 12,
+      "label": "browser authorization",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-12.txt"
+    },
+    {
+      "id": 13,
+      "label": "creation method",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-13.txt"
+    },
+    {
+      "id": 14,
+      "label": "creation path",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-14.txt"
+    },
+    {
+      "id": 15,
+      "label": "creation params alias",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-15.txt"
+    },
+    {
+      "id": 16,
+      "label": "creation body alias",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-16.txt"
+    },
+    {
+      "id": 17,
+      "label": "creation response alias",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-17.txt"
+    },
+    {
+      "id": 18,
+      "label": "creation error alias",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-18.txt"
+    },
+    {
+      "id": 19,
+      "label": "progress method",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-19.txt"
+    },
+    {
+      "id": 20,
+      "label": "progress path",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-20.txt"
+    },
+    {
+      "id": 21,
+      "label": "progress params alias",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-21.txt"
+    },
+    {
+      "id": 22,
+      "label": "progress response alias",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-22.txt"
+    },
+    {
+      "id": 23,
+      "label": "progress error alias",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-23.txt"
+    },
+    {
+      "id": 24,
+      "label": "resource path validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-24.txt"
+    },
+    {
+      "id": 25,
+      "label": "progress path validation",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-25.txt"
+    },
+    {
+      "id": 26,
+      "label": "request URI encoding",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-26.txt"
+    },
+    {
+      "id": 27,
+      "label": "progress is read-only",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-27.txt"
+    },
+    {
+      "id": 28,
+      "label": "no browser S2S header descriptor",
+      "exit": 1,
+      "semanticRed": true,
+      "log": "B2-mutant-28.txt"
+    }
+  ]
+}

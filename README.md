@@ -2,7 +2,7 @@
 
 > TypeScript contract package that sits between [agent-x9](../agent-x9/) (Master Chief runtime) and [forge-v2](../forge-v2/) (control plane). Single source of truth for every type, endpoint, header, schema, and constant shared across the X9 ↔ Forge boundary.
 
-**Package:** `@x9-forge/contracts` · **Versione:** `1.27.1` (2026-10-05, chiavi interne di piattaforma fuori dai contesti degli agenti). Precedenti: `1.27.0` onboarding condotto dalla voce, `1.26.0` identità utente, `1.25.0` guida dei turni (MVP-07), `1.24.0` contesto per turno.
+**Package:** `@x9-forge/contracts` · **Version:** `1.45.0` (2026-10-09, approved Models contracts and independent ESM/CJS entrypoint loading).
 
 ## Why this repo exists (R-14 NON NEGOZIABILE)
 
@@ -23,7 +23,7 @@ pnpm add "@x9-forge/contracts@git+https://github.com/App-Templates/x9-forge-cont
 ```
 
 `dist/` è versionata dal rilascio 1.7.1: ogni modifica ai sorgenti include la build ESM/CJS aggiornata,
-verificata su Node 20. `prepare` installa solo gli hook. Il repository è privato; i consumer usano uno SHA
+verified with the native build and public entrypoint checks on Node 24 (package minimum: Node 20). `prepare` installa solo gli hook. Il repository è privato; i consumer usano uno SHA
 approvato (oppure il collegamento locale per lo sviluppo).
 
 ## Dev locale (hot-reload)
@@ -56,7 +56,7 @@ Then `pnpm install`. Bridge edits are visible to the consumer on the next `tsc -
        ┌─────────────────────┴────────────────────────────────┐
        │  x9-forge-contract-bridge  ·  @x9-forge/contracts    │  ← types, no runtime
        │  Zod schemas + TS types + endpoint contracts         │
-       │  8 sub-paths · 67 contract files · 384 tests         │
+       │  18 public entrypoints · ESM/CJS + declarations         │
        └─────────────────────┬────────────────────────────────┘
                              │  both repos import from here
                              │  (SHA-pinned, no semver drift)
@@ -72,7 +72,11 @@ The bridge is a **compile-time** contract package. No runtime, no server. When F
 
 ## Sub-paths and coverage
 
-8 sub-path exports. Import via `@x9-forge/contracts/<sub-path>`.
+18 public entrypoints, including the package root. Import the root as `@x9-forge/contracts` or a listed subpath as `@x9-forge/contracts/<sub-path>`.
+
+Authoritative export keys: `.`, `./auth`, `./agent`, `./capability`, `./voice`, `./capability/stt`, `./capability/tts`, `./capability/voice-live`, `./capability/ricerca`, `./capability/lab`, `./http`, `./memory`, `./messaging`, `./model-router`, `./rag`, `./vault`, `./capability/parameters`, `./capability/presentation`.
+
+The table below describes the original domain groups; the export keys above list every installable entrypoint.
 
 | Sub-path | Files | Covers |
 |----------|-------|--------|
@@ -299,3 +303,47 @@ Claude rivede, unisce e tagga il bridge dopo approvazione; i consumer importano 
 Nessun tag, pubblicazione, deploy o workflow manuale eseguito. Voce reale e percorso completo non ancora
 collaudati da questo blocco. Negoziazione versioni, budget voce, organizzazione in Forge ed eventi 004
 restano fuori dal taglio MVP.
+
+## C5: permanent single-agent deletion (B0d, additive source contract)
+
+`@x9-forge/contracts/agent` exports `AgentDeletionCommandSchema`, `AgentDeletionResultSchema`,
+`AGENT_DELETION_STEPS` and `isAgentDeletionResultCurrent`. The HTTP subpath exports
+`agentDeletionContract`, `agentDeletionPath` and sanitized not-processed errors. The new
+secret-auth POST `/internal/agents/:agentId/deletion` is separate from lifecycle stop and
+Forge archival. The address is the management ID, bound to the declared runtime identity;
+Forge compares `confirmedName` exactly to its authoritative saved name and enforces owner/
+superadmin authorization. X9 independently protects the primary agent and validates mapping.
+
+All eight pieces must be reported: durable tombstone, admission/drain, own channels, logical
+runtime, caches, context references, workspace references and runtime-private state. The
+`context` and `workspace` pieces detach in-memory references only; they never delete files.
+X9 closes runtime channel handlers. Factory remains the sole filesystem and external-data
+cleanup writer, reusing its existing email/bot/Qdrant/database/file pipeline. A shared container, owner
+credentials or owner memory are never deletion scopes. Producers must persist the tombstone
+before effects, use the same mutex as start/reload/apply, prevent resurrection after restart,
+and keep per-piece progress. Same request ID and exact body resumes only unfinished pieces;
+a different intention under that key conflicts. The deletion tombstone/receipt itself survives
+private-state cleanup. `complete` requires every piece finished; failed/blocked pieces imply
+`partial`. Failed isolation blocks downstream cleanup. Responses contain fixed machine codes
+only, with no provider diagnostics or filesystem paths. Consumers must validate and correlate
+the report with `isAgentDeletionResultCurrent` before progressing their job.
+
+This source addition does not implement either consumer, apply a migration or execute deletion.
+Version bump and consolidated `dist/` belong to the integration owner. After the native build,
+run `node tests/cjs/agent-deletion-smoke.cjs` and compile `tests/cjs/agent-deletion-types.cts`
+with NodeNext; the existing package smoke runner is unchanged in this limited perimeter.
+
+## Roleless initial model source
+
+AgentModelInitialSourceSchema, AgentModelInitialSource and isAgentModelInitialSourceCurrent are additive root/model-router contracts for loaded selections before first Forge apply. The strict source rejects any role, binds all three identity fields and the runtime scope, and requires every one of34 registered consumers to be selected, explicitly missing or observed excluded exactly once. Complete source is nonempty and has no missing consumers. Bootstrap remains Master-only; the initial helper shares its validity and generation checks without an added sixty-second maximumage.
+
+AgentModelsStateSchema.initialSource is optional/nullable and requires matching identity, null saved/runtime/versions and absent/null competing sources. The existing HTTP local-source observation stays roleless and strict. These contracts implement no runtime reader, first-save persistence or provider call; X9/Forge still own loaded topology, preservation of all34 choices and post-await generation rechecks.
+
+
+### Positive legacy model observation before first Forge apply
+
+`ModelConsumerRuntimeStateSchema` adds `status: 'observed'` to represent a positively observed legacy selection on the existing consumer readState transport. It requires canonical non-null settings, an opaque source generation, complete identity/scope, a valid observation interval and a public non-null reason. Both `configVersion` and `requestId` must be null. Embedding readback retains its actual active descriptor and positive dimensions; a running rebuild cannot present its pending target as active.
+
+`observed` never confirms installation: receipt outcomes remain installed/pending/failed and `isModelConsumerInstallConfirmed` still requires actual installed evidence. Existing unknown states with settings remain valid and non-confirming; unknown still blocks a complete Initial source. Bootstrap remains Master-only and Initial remains roleless with its existing freshness rules.
+
+The producer must prove actual loaded selection, catalog, scope, credential/runtime revisions and absence of modern authority. Missing installation receipt alone does not authorize legacy fallback; present invalid, stale or partial modern authority fails closed. These are producer qualification requirements, not facts established by schema parsing. This additive wire value can be rejected by older strict parsers: consumers must import an independently reviewed immutable SHA before using it. This bridge change implements no service binding or live bootstrap; external capability qualification remains 0/31.

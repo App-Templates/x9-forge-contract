@@ -1,0 +1,4 @@
+$ ["/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node", "/private/tmp/codex-a-chiavi-completamento/proofs/34-24/independent-review/consumer/model-legacy-observation-smoke.mjs"]
+{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","passed":4,"total":4,"assertions":112,"results":[{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"esm","suffix":"root","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"esm","suffix":"/model-router","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"cjs","suffix":"root","assertions":28},{"marker":"LEGACY_OBSERVATION_PUBLIC_PROBE","format":"cjs","suffix":"/model-router","assertions":28}]}
+
+EXIT 0

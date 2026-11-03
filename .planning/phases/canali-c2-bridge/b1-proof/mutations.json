@@ -1,0 +1,759 @@
+{
+  "initial": {
+    "exit": 0,
+    "total": 70,
+    "passed": 70,
+    "failed": 0,
+    "success": true,
+    "semantic": []
+  },
+  "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5",
+  "mutations": [
+    {
+      "name": "number-evidence",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 62,
+        "failed": 8,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration available number requires number",
+          "phone B1 shared number and scoped configuration available number requires resourceId",
+          "phone B1 shared number and scoped configuration available number requires version",
+          "phone B1 shared number and scoped configuration available number requires observedAt",
+          "phone B1 shared number and scoped configuration unknown source cannot publish number",
+          "phone B1 shared number and scoped configuration unknown source cannot publish resourceId",
+          "phone B1 shared number and scoped configuration unknown source cannot publish version",
+          "phone B1 shared number and scoped configuration unknown source cannot publish observedAt"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "vault-identity",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration requires explicit Vault identity without a legacy fallback"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "routing-owner",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 65,
+        "failed": 5,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects routing tenant",
+          "phone B1 shared number and scoped configuration rejects routing owner",
+          "phone B1 shared number and scoped configuration rejects routing other agent same owner",
+          "phone B1 shared number and scoped configuration rejects routing management",
+          "phone B1 shared number and scoped configuration rejects routing vault"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "routing-line",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 68,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects routing number",
+          "phone B1 shared number and scoped configuration rejects routing resource"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "version-order",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects applied ahead"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "version-state",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects same version state mismatch"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "active-route",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects active without routing"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "policy-applied",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects policy without application"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "policy-version",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects same version policy mismatch"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "evidence-owner",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 65,
+        "failed": 5,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects attestation tenant",
+          "phone B1 shared number and scoped configuration rejects attestation owner",
+          "phone B1 shared number and scoped configuration rejects attestation other agent same owner",
+          "phone B1 shared number and scoped configuration rejects attestation management",
+          "phone B1 shared number and scoped configuration rejects attestation vault"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "evidence-kind",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects attestation kind"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "evidence-version",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 67,
+        "failed": 3,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects attestation version",
+          "phone B1 shared number and scoped configuration rejects attestation state",
+          "phone B1 shared number and scoped configuration rejects attestation without application"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "context-owner",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 64,
+        "failed": 6,
+        "success": false,
+        "semantic": [
+          "phone B1 additive read/write context rejects foreign context tenantId",
+          "phone B1 additive read/write context rejects foreign context ownerId",
+          "phone B1 additive read/write context rejects foreign context agentId",
+          "phone B1 additive read/write context requires authoritative root identity 0",
+          "phone B1 additive read/write context requires authoritative root identity 1",
+          "phone B1 additive read/write context requires authoritative root identity 2"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "context-birth",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 additive read/write context requires agreement with each birth channel vault"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "clock",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 68,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects invalid clock or age NaN",
+          "phone B1 shared number and scoped configuration rejects invalid clock or age Infinity"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "config-error",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for configuration error"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "current-version",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration retains old applied policy during a pending edit"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "current-policy",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for missing applied policy"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "runtime-error",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for attestation error"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "runtime-state",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for not loaded"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "runtime-age",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 68,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for stale runtime",
+          "phone B1 shared number and scoped configuration does not claim convergence for future runtime"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "runtime-readiness",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for not ready"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "line-available",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for number unavailable"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "line-age",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 68,
+        "failed": 2,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration does not claim convergence for stale number",
+          "phone B1 shared number and scoped configuration does not claim convergence for future number"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "strict-number",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects extra private metadata in number"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "strict-routing",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects extra private metadata in routing"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "strict-policy",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects extra private metadata in policy"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "strict-access",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects extra private metadata in access"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "strict-config",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration rejects extra private metadata in root"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    },
+    {
+      "name": "absence-evidence",
+      "qualified": true,
+      "restored": true,
+      "red": {
+        "exit": 1,
+        "total": 70,
+        "passed": 69,
+        "failed": 1,
+        "success": false,
+        "semantic": [
+          "phone B1 shared number and scoped configuration keeps availability separate from application"
+        ]
+      },
+      "green": {
+        "exit": 0,
+        "total": 70,
+        "passed": 70,
+        "failed": 0,
+        "success": true,
+        "semantic": []
+      },
+      "hash": "c3418d40604700cce74adae526497ce50017bb2e56056199f942cd860afee3c5"
+    }
+  ]
+}

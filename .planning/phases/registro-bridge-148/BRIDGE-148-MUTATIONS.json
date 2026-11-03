@@ -1,0 +1,221 @@
+{
+  "mutants": 35,
+  "rejected": 35,
+  "results": [
+    {
+      "id": 1,
+      "name": "B1 route slot binding",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 2,
+      "name": "B1 strict params",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 3,
+      "name": "B1 strict receipt",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 4,
+      "name": "B1 path slot validation",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 5,
+      "name": "B1 POST metadata",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 6,
+      "name": "B1 secret authentication metadata",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 7,
+      "name": "B1 canonical auth header",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 8,
+      "name": "B1 correct core route",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 9,
+      "name": "B2 strict work",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 10,
+      "name": "B2 strict slot",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 11,
+      "name": "B2 strict progress",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 12,
+      "name": "B2 strict failure",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 13,
+      "name": "B2 duplicate slots",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 14,
+      "name": "B2 registered slots",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 15,
+      "name": "B2 registered failure slot",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 16,
+      "name": "B2 progress bound",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 17,
+      "name": "B2 completed nonnegative",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 18,
+      "name": "B2 completed integer",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 19,
+      "name": "B2 total integer",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 20,
+      "name": "B2 total nonnegative with overlapping bound bypassed",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 21,
+      "name": "B2 chronological update",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 22,
+      "name": "B2 failure phase equivalence",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 23,
+      "name": "B2 initial version one",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 24,
+      "name": "B2 initial requires absent saved",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 25,
+      "name": "B2 apply requires saved",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 26,
+      "name": "B2 optional pending",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 27,
+      "name": "B2 nullable pending",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 28,
+      "name": "B2 work kind",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 29,
+      "name": "B2 work phase",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 30,
+      "name": "B2 slot status",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 31,
+      "name": "B2b valid result header",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 32,
+      "name": "B2b apply action",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 33,
+      "name": "B2b at least one unsuccessful target",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 34,
+      "name": "B2b every unsuccessful reason",
+      "assertion_rejected": true,
+      "returncode": 1
+    },
+    {
+      "id": 35,
+      "name": "B2b requested version remains unapplied",
+      "assertion_rejected": true,
+      "returncode": 1
+    }
+  ],
+  "restored_sha256": {
+    "src/http/endpoints/internal-models-batch.ts": "8fc05867c2def5dc3d24252ae47d9dfe2a1c4854923d452f4e3f706cc7544c1b",
+    "src/model-router/agent-model-configuration.ts": "ef95893eecaad3d922fa09a272c8d0aa43c4eeab1fbaa407349ec5c9fced41c5",
+    "src/agent/agent-management.ts": "1d2386bc3de678103c0300945c2e2ba09b863eb3fc72a1ab6b2c75f854b6fde4"
+  }
+}

@@ -16,7 +16,7 @@ export type ForgeModelsAccess = z.infer<typeof ForgeModelsAccessSchema>;
 export function isAgentModelsOverviewWithinAccess(input: unknown, trustedAccess: unknown): boolean {
   const overview = AgentModelsOverviewSchema.safeParse(input); const access = ForgeModelsAccessSchema.safeParse(trustedAccess);
   if (!overview.success || !access.success) return false;
-  return access.data.role === 'sa' || overview.data.rows.every(row => access.data.role === 'owner' && row.ownerId === access.data.ownerId);
+  return access.data.role === 'sa' || [...overview.data.rows, ...(overview.data.coverage ?? [])].every(row => access.data.role === 'owner' && row.ownerId === access.data.ownerId);
 }
 export function isAgentModelsBatchWithinAccess(input: unknown, serverOverview: unknown, trustedAccess: unknown): boolean {
   const request = AgentModelsBatchIntentSchema.safeParse(input); const overview = AgentModelsOverviewSchema.safeParse(serverOverview); const access = ForgeModelsAccessSchema.safeParse(trustedAccess);

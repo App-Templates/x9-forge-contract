@@ -54,15 +54,23 @@ export * from './agent-runtime-source.js';
 
 // R1b logical management: lifecycle/apply-config commands, versions, per-target outcomes (v1.31.0)
 export * from './agent-management.js';
+export * from './agent-birth.js';
 
 // Scope and action policy: allow/ask/deny per capability/tool, approvals, action log (R5, v1.31.0)
 export * from './agent-scope-policy.js';
+export * from './policy-approval-request.js';
+export * from './agent-role-scope-policy.js';
+
+// Per-agent turn limits: tool rounds per turn and turn token budget (v1.49.2)
+export * from './agent-turn-limits.js';
 
 // R2: scoped birth channels, optional context extension and replayable creation.
 export * from './agent-channel-configuration.js';
 export * from './agent-creation-replay.js';
 
 export * from './agent-channel-attestation.js';
+export * from './agent-creation-authority.js';
+export * from './agent-creation-by-email.js';
 
 // R7 / D-A9: versioned human core and generated progressive skills.
 export * from './agent-workspace.js';
@@ -77,3 +85,26 @@ export * from './agent-credential-services.js';
 export * from './agent-channel-access.js';
 
 export * from './agent-channel-access-requests.js';
+
+// C2 shared phone door, separately scoped from the two birth channels.
+export * from './agent-phone-channel.js';
+export * from './agent-phone-commands.js';
+// Forge-declared context authority, including explicit Master/heir provenance.
+export * from './agent-context-identity.js';
+
+// C5 resource operations for existing agents; no credential material.
+export * from './agent-channel-resource-operation.js';
+
+// C5 permanent single-agent deletion, separate from lifecycle and archival.
+export * from './agent-deletion.js';
+// C5: exact telephone admission and explicit server-owned outbound correlation.
+export * from './agent-phone-admission.js';
+
+export * from './agent-channel-history.js';
+
+// Canonical descriptor digest shared by the control plane and runtime.
+export * from './agent-workspace-digest.js';
+
+export * from './ordinary-authority.js';
+export * from './agent-knowledge-address-book.js';
+export * from './agent-channel-history-content.js';

@@ -49,6 +49,10 @@ export { AgentDaySchema, SpendingCapabilitySchema, AgentSpendDaySchema, type Spe
 
 export {
   RICERCA_TOOLS,
+  RICERCA_INTERNAL_TOOLS,
+  ResearchExecuteInputSchema,
+  researchExecutePath,
+  type ResearchExecuteInput,
   RicercaToolErrorSchema,
   ResearchStartInputSchema,
   ResearchStartOutputSchema,

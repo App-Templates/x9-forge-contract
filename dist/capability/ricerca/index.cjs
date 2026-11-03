@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResearchResultOutputSchema = exports.ResearchResultInputSchema = exports.ResearchStatusOutputSchema = exports.ResearchStatusInputSchema = exports.ResearchStartOutputSchema = exports.ResearchStartInputSchema = exports.RicercaToolErrorSchema = exports.RICERCA_TOOLS = exports.AgentSpendDaySchema = exports.SpendingCapabilitySchema = exports.AgentDaySchema = exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.ResearchIdSchema = exports.ResearchAgentConfigSchema = exports.SourceRuleSchema = exports.ResearchParamsSchema = exports.ResearchEffortSchema = exports.ResearchModelsSchema = exports.ResearchBudgetSchema = exports.CapabilityModelIdSchema = exports.CapabilityUsdSchema = exports.AgentTimeZoneSchema = exports.AgentConfigVersionSchema = exports.CapabilityAgentIdSchema = void 0;
+exports.ResearchResultOutputSchema = exports.ResearchResultInputSchema = exports.ResearchStatusOutputSchema = exports.ResearchStatusInputSchema = exports.ResearchStartOutputSchema = exports.ResearchStartInputSchema = exports.RicercaToolErrorSchema = exports.researchExecutePath = exports.ResearchExecuteInputSchema = exports.RICERCA_INTERNAL_TOOLS = exports.RICERCA_TOOLS = exports.AgentSpendDaySchema = exports.SpendingCapabilitySchema = exports.AgentDaySchema = exports.ResearchResultSchema = exports.ResearchCostSchema = exports.ResearchFindingSchema = exports.ResearchSourceSchema = exports.ResearchStateSchema = exports.ResearchRequestSchema = exports.WebUrlSchema = exports.ResearchIdSchema = exports.ResearchAgentConfigSchema = exports.SourceRuleSchema = exports.ResearchParamsSchema = exports.ResearchEffortSchema = exports.ResearchModelsSchema = exports.ResearchBudgetSchema = exports.CapabilityModelIdSchema = exports.CapabilityUsdSchema = exports.AgentTimeZoneSchema = exports.AgentConfigVersionSchema = exports.CapabilityAgentIdSchema = void 0;
 /**
  * cap-ricerca contracts — sub-path `@x9-forge/contracts/capability/ricerca` (v1.28.0, Phase 54).
  *
@@ -39,6 +39,9 @@ Object.defineProperty(exports, "SpendingCapabilitySchema", { enumerable: true, g
 Object.defineProperty(exports, "AgentSpendDaySchema", { enumerable: true, get: function () { return spend_js_1.AgentSpendDaySchema; } });
 var tools_js_1 = require("./tools.cjs");
 Object.defineProperty(exports, "RICERCA_TOOLS", { enumerable: true, get: function () { return tools_js_1.RICERCA_TOOLS; } });
+Object.defineProperty(exports, "RICERCA_INTERNAL_TOOLS", { enumerable: true, get: function () { return tools_js_1.RICERCA_INTERNAL_TOOLS; } });
+Object.defineProperty(exports, "ResearchExecuteInputSchema", { enumerable: true, get: function () { return tools_js_1.ResearchExecuteInputSchema; } });
+Object.defineProperty(exports, "researchExecutePath", { enumerable: true, get: function () { return tools_js_1.researchExecutePath; } });
 Object.defineProperty(exports, "RicercaToolErrorSchema", { enumerable: true, get: function () { return tools_js_1.RicercaToolErrorSchema; } });
 Object.defineProperty(exports, "ResearchStartInputSchema", { enumerable: true, get: function () { return tools_js_1.ResearchStartInputSchema; } });
 Object.defineProperty(exports, "ResearchStartOutputSchema", { enumerable: true, get: function () { return tools_js_1.ResearchStartOutputSchema; } });

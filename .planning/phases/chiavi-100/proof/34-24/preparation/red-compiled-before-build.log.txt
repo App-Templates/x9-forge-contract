@@ -1,0 +1,24 @@
+$ ["pnpm", "exec", "node", "tests/cjs/chiavi-model-composition-smoke.mjs"]
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: esm root export AgentModelInitialSourceSchema
++ actual - expected
+
++ 'undefined'
+- 'object'
+
+    at check (file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/tests/cjs/chiavi-model-composition-smoke.mjs:5:69)
+    at file:///Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1/tests/cjs/chiavi-model-composition-smoke.mjs:15:30 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'undefined',
+  expected: 'object',
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.14.1
+
+EXIT_CODE=1

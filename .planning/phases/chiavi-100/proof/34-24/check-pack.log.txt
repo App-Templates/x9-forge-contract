@@ -1,0 +1,65 @@
+$ ["pnpm", "check:pack"]
+
+> @x9-forge/contracts@1.44.0 check:pack /Users/admintemp/Downloads/Claude/x9-forge-contract-bridge-codex-180-1
+> publint && attw --pack . --profile node16 --ignore-rules false-cjs
+
+Running [1mpublint v0.3.18[22m for [1m@x9-forge/contracts[22m...
+Packing files with `pnpm pack`...
+Linting...
+[1m[33mWarnings:[39m[22m
+[2m1. [22m[1mpkg.exports["."].types[22m types is interpreted as CJS when resolving with the "[1mimport[22m" condition. This causes the types to be ambiguous when default importing the package due to its implied interop. Consider splitting out two [1m"types"[22m conditions for [1m"import"[22m and [1m"require"[22m, and use the [33m.mts[39m extension, e.g. [1mpkg.exports["."].import.types[22m: "[1m./dist/index.d.mts[22m"
+
+@x9-forge/contracts v1.44.0
+
+Build tools:
+- @arethetypeswrong/cli@^0.18.2
+- typescript@^6.0.2
+
+ (ignoring rules: 'false-cjs')
+
+ (ignoring resolutions: 'node10')
+
+(ignored per resolution) 💀 Import failed to resolve to type declarations or JavaScript files. https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/docs/problems/NoResolution.md
+
+
+┌───────────────────────────────────────────────┬───────────────────┬───────────────────┬─────────┬────────────────────────────────┐
+│                                               │ node16 (from CJS) │ node16 (from ESM) │ bundler │ node10 (ignored)               │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts"                         │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 🟢                   │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/auth"                    │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/agent"                   │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability"              │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/voice"                   │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability/stt"          │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability/tts"          │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability/voice-live"   │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability/ricerca"      │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability/lab"          │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/http"                    │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/memory"                  │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/messaging"               │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/model-router"            │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/rag"                     │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/vault"                   │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability/parameters"   │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+├───────────────────────────────────────────────┼───────────────────┼───────────────────┼─────────┼────────────────────────────────┤
+│ "@x9-forge/contracts/capability/presentation" │ 🟢 (CJS)          │ 🟢 (CJS)          │ 🟢      │ (ignored) 💀 Resolution failed │
+└───────────────────────────────────────────────┴───────────────────┴───────────────────┴─────────┴────────────────────────────────┘
+
+EXIT_CODE=0

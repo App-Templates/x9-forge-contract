@@ -1,0 +1,617 @@
+[
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/CJS-MUTATIONS.json",
+    "sha256": "b1b318634094929eb94bf569ae4081d34763a1eafc7f865a1e7e474d3c04b3ce",
+    "bytes": 543
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/MUTATIONS.json",
+    "sha256": "350dd9ccbc0bb5e63943729b4487353c38bef67d43a1996213d6ba8219d8a188",
+    "bytes": 4316
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/QUALITY.json",
+    "sha256": "8afb6ce78dba2818de8b689825d7b41f0d7ca3bb08f9e0b676ce184372773d9e",
+    "bytes": 1138
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/build.log",
+    "sha256": "616c4d80a67c0899ef29348f8e428864e2771c66b936b7f268fd90b46b28d960",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-invitation-export-build.log",
+    "sha256": "616c4d80a67c0899ef29348f8e428864e2771c66b936b7f268fd90b46b28d960",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-invitation-export-restore-build.log",
+    "sha256": "616c4d80a67c0899ef29348f8e428864e2771c66b936b7f268fd90b46b28d960",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-invitation-export-restore.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-invitation-export.log",
+    "sha256": "6e3871af70cadf0bc48841cc34f91c5ccab76158e2edf1e6f68660595105390a",
+    "bytes": 913
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-export-build.log",
+    "sha256": "616c4d80a67c0899ef29348f8e428864e2771c66b936b7f268fd90b46b28d960",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-export-restore-build.log",
+    "sha256": "616c4d80a67c0899ef29348f8e428864e2771c66b936b7f268fd90b46b28d960",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-export-restore.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-export.log",
+    "sha256": "2105f61790b0ee258426513bce45aa05e3750105ba84209b813a4fef0cb6ef62",
+    "bytes": 913
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-shape-build.log",
+    "sha256": "616c4d80a67c0899ef29348f8e428864e2771c66b936b7f268fd90b46b28d960",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-shape-restore-build.log",
+    "sha256": "616c4d80a67c0899ef29348f8e428864e2771c66b936b7f268fd90b46b28d960",
+    "bytes": 4134
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-shape-restore.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-mut-policy-shape.log",
+    "sha256": "130c7b1a0542c8fc1b6838d2ea62121ae5213a4c8d00e5049548521ae91e86ce",
+    "bytes": 869
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-qualify.py",
+    "sha256": "4afa53764b16b9d1e2f01be0575cfa6f90efadb11479b7de9a55ee61aeb3fe70",
+    "bytes": 1877
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs-red.log",
+    "sha256": "2105f61790b0ee258426513bce45aa05e3750105ba84209b813a4fef0cb6ef62",
+    "bytes": 913
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/cjs.log",
+    "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+    "bytes": 3513
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/finalize.py",
+    "sha256": "daceec7fc9f7e491935246517cc90fbaa093a152e0cb5ea0765da3b33aa26336",
+    "bytes": 8069
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/full.json",
+    "sha256": "629693872d0bbb2722ad22009cbe4c4abb2bba27ac4e4952e088060ad358a86c",
+    "bytes": 1625360
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/full.log",
+    "sha256": "d4bb6e767b682914542b072d29071ccd44e05265bde0b8f2e2877d8c9f9eea17",
+    "bytes": 80
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/green.json",
+    "sha256": "3ab4cd683c34d601923e660965ab69e700798527447a0c158ac445b766898e04",
+    "bytes": 17536
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/green.log",
+    "sha256": "8c63493df63a4a6d606c5806ccff4490e6391c9cde866cdcba16bc4fe39d0cd6",
+    "bytes": 81
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/lint.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-01-access-modes-restore.json",
+    "sha256": "38a31112f2e02407d919e1993746ffd4d7f36f907a486016eec6b03e7b39d557",
+    "bytes": 17532
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-01-access-modes-restore.log",
+    "sha256": "450644ce65f43c3bea9a688d4c5c4b0e15c7d046c1bd4bbf6cd31bc7aba7dab8",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-01-access-modes.json",
+    "sha256": "af6cdf165c04b6572ba338f7972c309e4d1b8835a068f0ceaa7373c05db54bcf",
+    "bytes": 19173
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-01-access-modes.log",
+    "sha256": "e17ff5542cf9e6e6187399ce8aa17ada287c1e017696a9572abbf710c5d7947a",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-02-policy-strict-restore.json",
+    "sha256": "e24caedbd3421dfbd9b56da813d9f807e2208bfd245c72327b6ab1c3d1b095d3",
+    "bytes": 17546
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-02-policy-strict-restore.log",
+    "sha256": "10b07c66fda73c88b5e153838a6b48f785d2b5870060cc9aea8173ac3279964b",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-02-policy-strict.json",
+    "sha256": "9ad139de20b5b4bc7d71755ea0b2091541e7fd786a501c05e61807b3932da2f4",
+    "bytes": 24025
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-02-policy-strict.log",
+    "sha256": "2dbfc7df31140e6848d2bdf969b3deae8809177dd66ceb8ad251ca7b279f3ea6",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-03-change-strict-restore.json",
+    "sha256": "2df728163e3858f87b27167d858090a399b94cab3e7c52abca6ad1de59fb730e",
+    "bytes": 17543
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-03-change-strict-restore.log",
+    "sha256": "9192fc247baaa572f3623475eb20cfe3b71bd3cb77f2cf03b643a4c6adde7fc8",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-03-change-strict.json",
+    "sha256": "6c98fc8b2616f4621e847f5b380a51fe1536bd5a3ecb937d1275c52391e82069",
+    "bytes": 19168
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-03-change-strict.log",
+    "sha256": "bd317e9766bfce9e63120d5cbbeb5bf0b2b7718ebd37e3b020817a072473a65f",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-04-result-strict-restore.json",
+    "sha256": "73c034926275176a428dc2ddd4104bb63ad639e6704ff2c2ac96c4c0a2df06ae",
+    "bytes": 17532
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-04-result-strict-restore.log",
+    "sha256": "6d7077d2ec3eb9360bc484d5cc24bc84cebafbb521b356c242d863e7af5c4017",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-04-result-strict.json",
+    "sha256": "2be8802a0024bb2403b305aa1f26325cf3b7c06494cc4272b110a5d91529126e",
+    "bytes": 19168
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-04-result-strict.log",
+    "sha256": "e1465e72ce066fe983d744098bcfb6e222c6666a9a66f35724d5895ae1d4b02e",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-05-invitation-strict-restore.json",
+    "sha256": "bf987c3602b3c371fd1a8d0b6510120b4e903f4032cd77f11323202a08d155cc",
+    "bytes": 17517
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-05-invitation-strict-restore.log",
+    "sha256": "39ef17599a5dd07a4fbf26596deed64651b13b8ac72336b38d7389fc709ce28b",
+    "bytes": 108
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-05-invitation-strict.json",
+    "sha256": "3be56bd9aa79a6e166e45d1eed364b8f962999e62e7ee01d898cff3ce71c4120",
+    "bytes": 19169
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-05-invitation-strict.log",
+    "sha256": "f3b2f7c72583a64e457656c267ba8751c59647f2fb24a660654b053bb31a5e02",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-06-policy-parse-restore.json",
+    "sha256": "ce37a34b6735609619de78a5c92f02ed1cef7817f52d64288818380b707cc39e",
+    "bytes": 17539
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-06-policy-parse-restore.log",
+    "sha256": "bb31c650f7866948bdbf3e37ff97639e18e9a9ead469f316d5f2bff2eb687ef2",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-06-policy-parse.json",
+    "sha256": "d2268dc16bddb9174b4d8ead3e0c952a8a3f1dc529620b04b64f074b0f4cdca4",
+    "bytes": 22409
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-06-policy-parse.log",
+    "sha256": "dded7681f578a17aac75aa3a537fdd15f9b574edb891a9b5e594ea5e08033b26",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-07-request-correlation-restore.json",
+    "sha256": "6062abf963a330675c0bfc57f17d1dcad47388eb26c120a471801906b616933c",
+    "bytes": 17539
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-07-request-correlation-restore.log",
+    "sha256": "25b08ee331138256feb08a0f5b35e67799fc24f420eca86e84ccd95c55c681e6",
+    "bytes": 110
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-07-request-correlation.json",
+    "sha256": "340bf9e43eaff260a436b528668f59c9cd0d4ee59d0cbb3ad4b688065a515d33",
+    "bytes": 19174
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-07-request-correlation.log",
+    "sha256": "d89a3410774a590f75cf1fe4e06e7e4451abf7d9e01615aec84c7fd485a5f52b",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-08-policy-scope-restore.json",
+    "sha256": "9269a319b44dfd89720d51f9397ca9b8ebfb496a9690ea94f64ac80bda7e8be2",
+    "bytes": 17520
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-08-policy-scope-restore.log",
+    "sha256": "f8d6a8f69f8a23d5ef95f40a09681ad1277a3130e11fa3ba523bb8e90a3e320b",
+    "bytes": 103
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-08-policy-scope.json",
+    "sha256": "0147c686e1d2cdb0bc637024373a11ef32a244f634fc2072097764337a277fc8",
+    "bytes": 22410
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-08-policy-scope.log",
+    "sha256": "6cb79b49cfdd19b911deeb29ecbb5dcb60a4c7c2b3fe8c2ea67c59daa65dd9ae",
+    "bytes": 95
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-09-next-revision-restore.json",
+    "sha256": "90c7a79be4ede406c8e4cca770fbbf35ef7b02759aeb3164a17d8efcbde9b677",
+    "bytes": 17539
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-09-next-revision-restore.log",
+    "sha256": "706380e0c75e0277ba5859584c5bfc77657d2d0e117425938b3d45d566c9292c",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-09-next-revision.json",
+    "sha256": "f3cda32ec9dcde002a925215b98803c5f7ce35f5a8d8a1433e56b9d98398517a",
+    "bytes": 22408
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-09-next-revision.log",
+    "sha256": "2cf6701762169c638b404c880277f0f2a91a76cfbe982626a4bd966faf85fcc3",
+    "bytes": 96
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-10-requested-access-restore.json",
+    "sha256": "0596de1484881a7c6830a02ddcdd16e41d4be0202611f7456b10b46b59676220",
+    "bytes": 17538
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-10-requested-access-restore.log",
+    "sha256": "23aa380289d242f229d9e4dd3138d376637b52e00cf9d373e2a911a02cd95e1d",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-10-requested-access.json",
+    "sha256": "45e3882853b75dc6ff7dd78982d20bc58674eacf04bb7c9efa8f309c49ae3ba2",
+    "bytes": 19174
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-10-requested-access.log",
+    "sha256": "8a4eb3c0e545120900b7cac64a25b2732fe1ce98152d07e54affa12ecdf912b6",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-11-requested-pause-restore.json",
+    "sha256": "6960b5e4fcfbf2a283abf7e60917d48b6afdab9b3b13cf49160ebe1c1a88fd73",
+    "bytes": 17540
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-11-requested-pause-restore.log",
+    "sha256": "3816a74654e5d217424b0b39aa588d9501999b0fc810717d9969912f8d5f71cd",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-11-requested-pause.json",
+    "sha256": "3fbaeb1f596b8928896ddef56f6850036ad4e4bbcc44130a4b03ce13f2256744",
+    "bytes": 19176
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-11-requested-pause.log",
+    "sha256": "c0c5bace65ca0c635c55b2d3e6a7365dbaf068e8b28ca021db3e657d92d2f8dc",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-12-expiry-chronology-restore.json",
+    "sha256": "a63307e2465f216949c5363bbddc93fdb6a3a28298de605c04e6eb9a07d5f57d",
+    "bytes": 17539
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-12-expiry-chronology-restore.log",
+    "sha256": "d1631514b06ac498ead88edb2c9d0f1fce549f09373d03061797cb71dfc8b1bc",
+    "bytes": 108
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-12-expiry-chronology.json",
+    "sha256": "85b37a2fb67684b9c4114ffaae4202edca7545e2c9959209c749545c9327cb75",
+    "bytes": 20785
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-12-expiry-chronology.log",
+    "sha256": "0045643ef851d93190bfe77f2ba4941c8852b49199ee0440bf98469b9e0c4ab0",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-13-revocation-chronology-restore.json",
+    "sha256": "292b40cc7bf2ef5df944fd5d35744a6bea6441751bd9a9acc1b26aef93cf7f03",
+    "bytes": 17550
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-13-revocation-chronology-restore.log",
+    "sha256": "0db1632f62de69a082fef5bcdcc54b0ecc2ed008c22de632b9d4adef8287e89d",
+    "bytes": 112
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-13-revocation-chronology.json",
+    "sha256": "f6f849ffe2466be9723a6ebb58b7e20fcf2bc6e6270f50137735e60bf7caa586",
+    "bytes": 19159
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-13-revocation-chronology.log",
+    "sha256": "9e4f405cd6d128fb3b1a1dddade8e47862894cb04da5706d841ef5a33c658369",
+    "bytes": 104
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-14-invitation-inputs-restore.json",
+    "sha256": "5a8ee13e979e8d7b45ce777b1e01ee2db78ada4fbf20a0cbfd1ea511065d53bb",
+    "bytes": 17546
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-14-invitation-inputs-restore.log",
+    "sha256": "71c3ebd08418da93b8b6d74c68b2c7bec8dece1f515d658d550fa8c6a9197dc3",
+    "bytes": 108
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-14-invitation-inputs.json",
+    "sha256": "734817eba41cf2eac6f7530f6b496cbc92ffb9dc55b73115c45c97355648d1e7",
+    "bytes": 41877
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-14-invitation-inputs.log",
+    "sha256": "bc4554815ddbda36885a463647ac478db833eaf3ab1605d9ad933fecc2d35d86",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-15-invitation-scope-restore.json",
+    "sha256": "bcaa22ee1a660421677b41dfe82d20478fdb8a98579b75a680abf13cae9cca2d",
+    "bytes": 17524
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-15-invitation-scope-restore.log",
+    "sha256": "c9c1e632e42d1671e986d6d04703fe6d40d403ce33bebeb9f3497793a0b70967",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-15-invitation-scope.json",
+    "sha256": "db6248bba8220b8b5a96f2fdc0af94f13bc800d9da37d7409a77abd231bcd7ae",
+    "bytes": 22406
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-15-invitation-scope.log",
+    "sha256": "087d8aec19f9cfee3610d87bac6c4b015c78617fd4f7018a7c106492bba8292c",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-16-recipient-restore.json",
+    "sha256": "5e9bb0773574bbef8074c86561f38f865dbc1559d8b1b2e04720ae60f04cc6f8",
+    "bytes": 17535
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-16-recipient-restore.log",
+    "sha256": "51514f297aaef526a98a9a5d4544003a0deff19f83b7102f4287e8f933c2e0ab",
+    "bytes": 100
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-16-recipient.json",
+    "sha256": "863479945007ebea1ba200c84173d0df67ca6d1f03f2d672979b1804c6908b98",
+    "bytes": 19165
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-16-recipient.log",
+    "sha256": "11d3112837849d692b4e9fda2621992df54ee7f7afaac1ae524e5a4507349883",
+    "bytes": 92
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-17-invitation-revision-restore.json",
+    "sha256": "1bcb2728ea5acb657d72fd3cbf8ae2e58565b8728cba532be490a7d91636d3ac",
+    "bytes": 17543
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-17-invitation-revision-restore.log",
+    "sha256": "1455fda6fdf3c1f7562481ed9817ef0f530b61c5b1da264ebc13ba10e2e15db8",
+    "bytes": 110
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-17-invitation-revision.json",
+    "sha256": "090596e73c6994d0a63ff5e546050d8e2fefa7ab59039069a18e6b02c1a188bc",
+    "bytes": 22392
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-17-invitation-revision.log",
+    "sha256": "f1f2deb2cb245522471bf14545d200b707a82caa19d83662478b7e5baf822115",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-18-revoked-restore.json",
+    "sha256": "5219c405c442c8a6db17b1cb530d73cd0c895db472a3966ebb18526c4271d882",
+    "bytes": 17514
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-18-revoked-restore.log",
+    "sha256": "5f6e909b9e7f2c594be5de89f2e15191218c062804bd0b56b46420e6151a9b74",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-18-revoked.json",
+    "sha256": "cc49f062623750838aeafa3e20f5db25b431f6c6db4a18b4d04213cebd36c14b",
+    "bytes": 19175
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-18-revoked.log",
+    "sha256": "56fab09414032ff9fc4db17c89e4dd188172e56497ae85e919f338bd67d0cd61",
+    "bytes": 90
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-19-not-yet-created-restore.json",
+    "sha256": "c92ebc200b3332144e9bef88a4b70bc59c41efd60d0e85cb614951d136edd3f1",
+    "bytes": 17546
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-19-not-yet-created-restore.log",
+    "sha256": "d05b2283169a06ce26e8a29c3a92843d87674ab14edd60e94152b734e79567d4",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-19-not-yet-created.json",
+    "sha256": "0e711284129680928598dedcba8b2faf0e515eea9f1cfe52b344a9761740ab38",
+    "bytes": 19172
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-19-not-yet-created.log",
+    "sha256": "fd2ce37ceacb089639af141e54a6e51cf19cf4d95660f6a1a7be0bb088d56713",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-20-expired-restore.json",
+    "sha256": "fb24b1ccc86a603a492f98b3a306d327ed942c86235de501047471ddc39889cf",
+    "bytes": 17553
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-20-expired-restore.log",
+    "sha256": "69f0fb1547d88a6e4591eff0dd5e5f089c17e1978583fc8bb1ae5e34e63c09d6",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-20-expired.json",
+    "sha256": "d35d4179a3f26d4c0fbe1b734010a2e3e0c140242d5fc4ff2e8a3b1b9fa40a6b",
+    "bytes": 20784
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-20-expired.log",
+    "sha256": "baf93455f0fb729529a88487fe544e04c913f40b34dd94ddfe59cfce015ee1c3",
+    "bytes": 90
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-21-clock-and-window-restore.json",
+    "sha256": "199a9c7c0f4c0fa11d02e58d4b228f747899d0578c25085b45beaef80cb53acf",
+    "bytes": 17541
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-21-clock-and-window-restore.log",
+    "sha256": "74abe031a63d425852cedeb0f019d3923f7a4017677ae8bc058e53e5a297d452",
+    "bytes": 107
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-21-clock-and-window.json",
+    "sha256": "050e2e7390b0cac2867d165877960ec70c6c5cd128e5f1bc5e0d54e675b7a3ad",
+    "bytes": 24041
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-21-clock-and-window.log",
+    "sha256": "5f2b1ab11c48dbda0035b1c96a589a9c246476e9a92cc0229814be884ff6d185",
+    "bytes": 99
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-22-positive-policy-restore.json",
+    "sha256": "16a90bd0a47213c16b768f373b1fcda7835ed35af034eaa99654e1943408a906",
+    "bytes": 17522
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-22-positive-policy-restore.log",
+    "sha256": "0a060bd2516be344f03dbafee9b6338cafea3721ec4ceff6ad773f7ae1aa2bb0",
+    "bytes": 106
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-22-positive-policy.json",
+    "sha256": "6c9ebde989c87b60ac6f905291955df3bf8d459fc51b0c09f0f3aee32b14b555",
+    "bytes": 20768
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-22-positive-policy.log",
+    "sha256": "352a6c0ff60b03b47b57e7ec6783feb0fb87fa99a563de8c9f6622a0ce230840",
+    "bytes": 98
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-23-positive-invitation-restore.json",
+    "sha256": "203abf52b2e9fab397fa62c20fef11ef24c16a0c8b8ed1be5a6e365fe1bb2284",
+    "bytes": 17542
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-23-positive-invitation-restore.log",
+    "sha256": "5f18658094b25b004755c2c489980feb2931eebb3698687c105abb9d00bbeda0",
+    "bytes": 110
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-23-positive-invitation.json",
+    "sha256": "41034733d8a5134356ac7894c1548bb9bc8e71b53cd8ddea3b4363d8dbb88d54",
+    "bytes": 25664
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mut-23-positive-invitation.log",
+    "sha256": "f13aa94b10854a734a20b461c8a7bad7325271931471f5ff764cfca4a41cf1ad",
+    "bytes": 102
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/mutate.py",
+    "sha256": "553f80d01a581e7c55934efd745f92000ee521c90eb1a3418a841ef72c903241",
+    "bytes": 4310
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/pack.log",
+    "sha256": "2ce3493bda4d4ce5803de89a908561900a59df4518321ac44090f6fd3b9a7bc5",
+    "bytes": 11969
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/quality.py",
+    "sha256": "a1fbd56305791681b2fb5644a28e548077a1ee010f479c9a7f77062b0a6d0d50",
+    "bytes": 1052
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/red.json",
+    "sha256": "77bc3a410de16b935a5d82f8bc636659b2e19cf34bc9246ad1fa51360f7ee5b7",
+    "bytes": 102115
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/red.log",
+    "sha256": "4cba1e374e69a0cf95c966e3dd242c88fc3dd08efdc7607a31dcedf603dfddc1",
+    "bytes": 79
+  },
+  {
+    "file": "/private/tmp/codex-a-canali-c3-bridge-20261008/typecheck.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "total": 39,
+  "passed": 16,
+  "functionalFailures": 23,
+  "otherFailures": 0,
+  "exitCode": 1,
+  "restored": true,
+  "sha256": "7497d5fad97320a043f3ae785e69d687e781e562e840cd3210348f3ee31b5970"
+}

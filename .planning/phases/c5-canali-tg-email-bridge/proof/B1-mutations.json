@@ -1,0 +1,172 @@
+[
+  [
+    "command strict",
+    "}).strict().refine(command",
+    "}).passthrough().refine(command"
+  ],
+  [
+    "command CAS ordering",
+    "command.expectedAppliedVersion <= command.expectedDesiredVersion",
+    "command.expectedAppliedVersion >= command.expectedDesiredVersion"
+  ],
+  [
+    "intent Vault required",
+    "intent.identity.vaultAgentId === undefined",
+    "false"
+  ],
+  [
+    "previous resource binding",
+    "!sameAgentChannelAccessBinding(bindingOf(intent.previousResource), bindingOf(intent))",
+    "false"
+  ],
+  [
+    "previous resource door",
+    "intent.previousResource.kind !== intent.kind",
+    "false"
+  ],
+  [
+    "creation must be absent",
+    "intent.command.action === 'create-resource' && intent.previousResource !== null",
+    "false"
+  ],
+  [
+    "rotation Telegram only",
+    "intent.kind !== 'telegram' || intent.previousResource === null",
+    "intent.previousResource === null"
+  ],
+  [
+    "rotation existing resource",
+    "intent.kind !== 'telegram' || intent.previousResource === null",
+    "intent.kind !== 'telegram'"
+  ],
+  [
+    "ready validation",
+    "if (!intent.success || !current.success) return false;",
+    "if (!intent.success || !current.success) return true;"
+  ],
+  [
+    "ready binding",
+    "return sameAgentChannelAccessBinding(bindingOf(expected), bindingOf(actual)) && expected.kind === actual.kind",
+    "return true && expected.kind === actual.kind"
+  ],
+  [
+    "ready door",
+    "expected.kind === actual.kind",
+    "true"
+  ],
+  [
+    "ready desired CAS",
+    "expected.command.expectedDesiredVersion === actual.desired.version",
+    "true"
+  ],
+  [
+    "ready applied CAS",
+    "expected.command.expectedAppliedVersion === (actual.applied?.version ?? null)",
+    "true"
+  ],
+  [
+    "ready resource identity",
+    "sameResource(expected.previousResource, actual.resource)",
+    "true"
+  ],
+  [
+    "result strict",
+    "}).strict().superRefine((result, ctx)",
+    "}).passthrough().superRefine((result, ctx)"
+  ],
+  [
+    "result binding",
+    "!sameAgentChannelAccessBinding(bindingOf(intent), bindingOf(config))",
+    "false"
+  ],
+  [
+    "result door",
+    "intent.kind !== config.kind",
+    "false"
+  ],
+  [
+    "result resource binding",
+    "config.resource !== null && !sameAgentChannelAccessBinding(bindingOf(config.resource), bindingOf(intent))",
+    "false"
+  ],
+  [
+    "progress time ordering",
+    "Date.parse(result.updatedAt) < Date.parse(result.startedAt)",
+    "false"
+  ],
+  [
+    "observation future bound",
+    "config.observedAt !== null && Date.parse(config.observedAt) > Date.parse(result.updatedAt)",
+    "false"
+  ],
+  [
+    "result version lower bound",
+    "config.desired.version < intent.command.expectedDesiredVersion",
+    "false"
+  ],
+  [
+    "result version upper bound",
+    "config.desired.version > intent.command.expectedDesiredVersion + 1",
+    "false"
+  ],
+  [
+    "rotation preserves bot",
+    "intent.command.action === 'rotate-token' && !sameResource(config.resource, intent.previousResource)",
+    "false"
+  ],
+  [
+    "failed resource must reconcile",
+    "result.outcome === 'failed' && !sameResource(config.resource, intent.previousResource)",
+    "false"
+  ],
+  [
+    "fixed error presence",
+    "(result.outcome === 'failed' || result.outcome === 'reconcile_pending') !== (result.error !== null)",
+    "false"
+  ],
+  [
+    "explicit reconciliation",
+    "(result.outcome === 'reconcile_pending') !== (result.error?.code === 'reconcile_pending')",
+    "false"
+  ],
+  [
+    "applied advances exactly once",
+    "config.desired.version !== intent.command.expectedDesiredVersion + 1",
+    "false"
+  ],
+  [
+    "applied has resource",
+    "config.resource === null || !isChannelConfigurationApplied(config)",
+    "false || !isChannelConfigurationApplied(config)"
+  ],
+  [
+    "applied runtime evidence",
+    "!isChannelConfigurationApplied(config)",
+    "false"
+  ],
+  [
+    "applied observation is new",
+    "Date.parse(config.observedAt) < Date.parse(result.startedAt)",
+    "false"
+  ],
+  [
+    "receipt full correlation",
+    "return JSON.stringify(intent.data) === JSON.stringify(result.data.intent);",
+    "return true;"
+  ],
+  [
+    "receipt validation",
+    "if (!intent.success || !result.success) return false;",
+    "if (!intent.success || !result.success) return true;"
+  ],
+  [
+    "command actions",
+    "z.enum(['create-resource', 'rotate-token'])",
+    "z.string()"
+  ],
+  [
+    "operation outcomes",
+    "z.enum(['pending', 'applied', 'failed', 'reconcile_pending'])",
+    "z.string()"
+  ]
+]

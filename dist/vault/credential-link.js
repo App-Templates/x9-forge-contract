@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { AgentIdSchema } from "../agent/agent-identity.js";
 import { AgentManagementOutcomeSchema, AgentManagementOverallOutcomeSchema, AgentManagementReasonSchema, AgentManagementRequestIdSchema, deriveAgentManagementOutcome, } from "../agent/agent-management.js";
 import { VaultTierSchema } from "./vault-tier.js";
-import { isPlatformInternalCredentialKey } from "./platform-internal-credentials.js";
+import { CredentialKeySchema } from "./credential-key.js";
 /**
  * Keys linked to the Master Chief (R3, v1.31.0).
  *
@@ -14,9 +14,7 @@ import { isPlatformInternalCredentialKey } from "./platform-internal-credentials
  *
  * These schemas carry metadata only — the strict entry schema rejects a `value` field.
  */
-/** Vault key name; platform-internal keys are never listed or acted upon for an agent. */
-export const CredentialKeySchema = z.string().max(128).regex(/^[A-Za-z_][A-Za-z0-9_.-]*$/)
-    .refine((key) => !isPlatformInternalCredentialKey(key), { message: 'Platform-internal credential keys are never exposed per agent' });
+export { CredentialKeySchema } from "./credential-key.js";
 /** Saved version of one key's value; every save raises it. */
 export const CredentialVersionSchema = z.number().int().positive();
 export const CredentialOwnTierSchema = VaultTierSchema.exclude(['platform']);

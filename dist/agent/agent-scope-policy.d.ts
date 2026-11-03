@@ -91,11 +91,11 @@ export interface PolicyRequest {
 /** Decision for one operation: tool rule > capability rule > defaults. */
 export declare function resolvePolicyDecision(policy: AgentScopePolicy, request: PolicyRequest): PolicyDecision;
 export declare const PolicyApprovalStatusSchema: z.ZodEnum<{
+    revoked: "revoked";
     pending: "pending";
+    expired: "expired";
     approved: "approved";
     rejected: "rejected";
-    expired: "expired";
-    revoked: "revoked";
 }>;
 export type PolicyApprovalStatus = z.infer<typeof PolicyApprovalStatusSchema>;
 export declare const PolicyApprovalSchema: z.ZodObject<{
@@ -116,11 +116,11 @@ export declare const PolicyApprovalSchema: z.ZodObject<{
     requestedAt: z.ZodISODateTime;
     expiresAt: z.ZodISODateTime;
     status: z.ZodEnum<{
+        revoked: "revoked";
         pending: "pending";
+        expired: "expired";
         approved: "approved";
         rejected: "rejected";
-        expired: "expired";
-        revoked: "revoked";
     }>;
     decidedBy: z.ZodOptional<z.ZodString>;
     decidedAt: z.ZodOptional<z.ZodISODateTime>;
@@ -128,9 +128,9 @@ export declare const PolicyApprovalSchema: z.ZodObject<{
 export type PolicyApproval = z.infer<typeof PolicyApprovalSchema>;
 export declare const AgentActionOutcomeSchema: z.ZodEnum<{
     failed: "failed";
+    denied: "denied";
     expired: "expired";
     executed: "executed";
-    denied: "denied";
     "pending-approval": "pending-approval";
 }>;
 export type AgentActionOutcome = z.infer<typeof AgentActionOutcomeSchema>;
@@ -166,9 +166,9 @@ export declare const AgentActionLogEventSchema: z.ZodObject<{
     }>;
     outcome: z.ZodEnum<{
         failed: "failed";
+        denied: "denied";
         expired: "expired";
         executed: "executed";
-        denied: "denied";
         "pending-approval": "pending-approval";
     }>;
     policyVersion: z.ZodNumber;

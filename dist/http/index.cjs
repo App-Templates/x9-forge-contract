@@ -49,4 +49,13 @@ var cap_tool_call_js_1 = require("./endpoints/cap-tool-call.cjs");
 Object.defineProperty(exports, "capToolCallContract", { enumerable: true, get: function () { return cap_tool_call_js_1.capToolCallContract; } });
 Object.defineProperty(exports, "capToolCallPath", { enumerable: true, get: function () { return cap_tool_call_js_1.capToolCallPath; } });
 Object.defineProperty(exports, "CapToolCallParamsSchema", { enumerable: true, get: function () { return cap_tool_call_js_1.CapToolCallParamsSchema; } });
+__exportStar(require("./endpoints/forge-elevenlabs-web.cjs"), exports);
+__exportStar(require("./endpoints/internal-agent-channel-history-content.cjs"), exports);
+__exportStar(require("./endpoints/forge-agent-channel-history-content.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-common.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-write.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-read.cjs"), exports);
+__exportStar(require("./endpoints/native-channel.cjs"), exports);
+__exportStar(require("./endpoints/internal-capability-news-briefing.cjs"), exports);
+__exportStar(require("./endpoints/coach-operational-authority.cjs"), exports);
 //# sourceMappingURL=index.js.map

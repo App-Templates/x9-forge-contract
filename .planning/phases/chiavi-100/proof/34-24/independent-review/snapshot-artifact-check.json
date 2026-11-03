@@ -1,0 +1,121 @@
+{
+  "errors": [],
+  "source_count": 195,
+  "dist_count": 1560,
+  "tests_count": 21,
+  "proof_hash_count": 211,
+  "matrices": {
+    "source-cuts/matrix-results.json": {
+      "valid": [
+        "initial-runtime-binding",
+        "initial-validity-window",
+        "initial-complete-slot-partition",
+        "initial-no-missing-or-all-excluded",
+        "initial-canonical-consumer-settings",
+        "initial-state-exact-identity",
+        "initial-state-no-saved-version",
+        "initial-state-no-competing-authority",
+        "initial-roleless-strict",
+        "initial-complete-vault-identity",
+        "initial-fresh-time",
+        "initial-generation-identity-scope",
+        "modern-source-runtime-binding",
+        "modern-source-time-order",
+        "modern-source-saved-provenance",
+        "modern-source-state-identity",
+        "modern-source-state-scope",
+        "modern-source-freshness",
+        "consumer-install-registered",
+        "consumer-runtime-scoped",
+        "consumer-readback-registered-slot",
+        "consumer-readback-validity",
+        "consumer-readback-public-reason",
+        "consumer-readback-registered-settings",
+        "consumer-installed-complete-proof",
+        "consumer-observed-actual-settings",
+        "consumer-observed-no-version",
+        "consumer-observed-no-request",
+        "consumer-active-vector-space",
+        "consumer-rebuild-before-install",
+        "consumer-installed-receipt-matches",
+        "consumer-pending-never-installed",
+        "consumer-read-request-registered",
+        "consumer-current-cas-authority",
+        "consumer-confirm-freshness",
+        "consumer-confirm-request-version-slot",
+        "consumer-confirm-identity-scope-settings",
+        "consumer-route-slot-binding",
+        "single-embedding-dimension",
+        "single-selection-position",
+        "failover-selection-order",
+        "catalog-embedding-dimension",
+        "catalog-vision-search-support",
+        "overview-unknown-provenance",
+        "overview-complete-no-missing",
+        "overview-incomplete-public-reason",
+        "overview-missing-slots-unique",
+        "overview-exact-identity",
+        "overview-owner-binding",
+        "overview-unique-coverage",
+        "overview-present-missing-disjoint",
+        "overview-cross-namespace-identity",
+        "overview-vault-identity",
+        "overview-owner-coverage-access",
+        "writer-coverage-request-scoped",
+        "writer-unrelated-coverage-does-not-block",
+        "command-version-cas",
+        "command-observed-generation-required",
+        "command-bootstrap-generation-matches",
+        "command-replay-full-semantic-identity"
+      ],
+      "excluded": [
+        "failover-no-embedding"
+      ],
+      "total": 61
+    },
+    "source-cuts/fixture-repair/matrix-results.json": {
+      "valid": [
+        "failover-no-embedding"
+      ],
+      "excluded": [],
+      "total": 1
+    },
+    "source-cuts-extra/matrix-results.json": {
+      "valid": [
+        "registry-detached-definitions",
+        "registry-detached-lookup",
+        "registry-required-metadata",
+        "registry-feature-types",
+        "runtime-exact-position-count",
+        "runtime-vector-dimension",
+        "runtime-exact-selection-metadata",
+        "apply-confirm-explicit-authority",
+        "command-direct-generation-authority",
+        "command-registered-consumer-authority",
+        "local-http-required-auth",
+        "public-model-execution-export"
+      ],
+      "excluded": [],
+      "total": 12
+    },
+    "packed-cuts/matrix-results.json": {
+      "valid": [
+        "esm-model-execution-export",
+        "cjs-model-execution-export",
+        "esm-initial-export",
+        "cjs-initial-export-publication",
+        "esm-canonical-internal-token",
+        "cjs-canonical-internal-token",
+        "initial-type",
+        "observed-type",
+        "local-http-type",
+        "managed-voice-type",
+        "research-lease-type",
+        "archive-byte-tamper",
+        "manifest-binding-tamper"
+      ],
+      "excluded": [],
+      "total": 13
+    }
+  }
+}

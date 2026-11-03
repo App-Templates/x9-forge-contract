@@ -1,0 +1,55 @@
+{
+  "scope": "TG/email server-only roundtrip proof, no storage/handlers/admission/authentication; phone/web proof still missing",
+  "newTests": 22,
+  "full": {
+    "passed": 4481,
+    "total": 4481,
+    "files": 158,
+    "skipped": 0
+  },
+  "baseline": {
+    "total": 64,
+    "passed": 60,
+    "functionalFailures": 4,
+    "otherFailures": 0,
+    "exitCode": 1,
+    "restored": true,
+    "sha256": "7cdd039df62f8c265e2e3909f6db20a86e6a1ef2416ed6496d93149f4bac27db"
+  },
+  "sourceQualified": 17,
+  "sourceTotal": 17,
+  "sourceCampaignRestored": true,
+  "sourceCampaignSha256": "829443aff6822697c421e7568389a3a84fe3dae6e2d20da3d17dd569d2248044",
+  "finalSourceSha256": "7cdd039df62f8c265e2e3909f6db20a86e6a1ef2416ed6496d93149f4bac27db",
+  "typeOnlyFixAfterSourceCampaign": "closure narrowing: capture terminal entryId in const before array.find; no guard/condition changed",
+  "compiledQualified": 2,
+  "compiledTotal": 2,
+  "compiledGreen": {
+    "checks": 16,
+    "total": 16,
+    "status": "passed"
+  },
+  "browserRegression": {
+    "passed": 88,
+    "total": 88
+  },
+  "legacy": {
+    "passed": 36,
+    "total": 36
+  },
+  "quality": {
+    "typecheck": 0,
+    "lint": 0,
+    "build": 0,
+    "pack": 0
+  },
+  "live": {
+    "passed": 0,
+    "total": 42
+  },
+  "manifestSha256": {
+    "src/agent/agent-channel-history.ts": "7cdd039df62f8c265e2e3909f6db20a86e6a1ef2416ed6496d93149f4bac27db",
+    "tests/agent/c5-channel-history.test.ts": "17aa03cc6bdd07085d830749ac2f19e9ce669cca3f1cfbe8251eabb1c4a8ffb3",
+    ".planning/phases/c5-canali-tel-web/proof/round-trip-smoke.mjs": "b8b903bda3831cd7ab288b8e8843f61000efc88f8d8fc4344a4482d94a7c2472"
+  }
+}

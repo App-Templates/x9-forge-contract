@@ -1,0 +1,47 @@
+[
+  {
+    "name": "compiled-capability-export",
+    "file": "src/capability/index.ts",
+    "sourceSHA256": "305a348c524f32901f1216684ce25230a982ddb1425c1cee07860e590a5307a3",
+    "buildRed": 0,
+    "cjsRed": 1,
+    "buildGreen": 0,
+    "cjsGreen": 0
+  },
+  {
+    "name": "compiled-token-auth",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "sourceSHA256": "efdf144e9f57535b4d019cbfda0b3b1d6850d68eade8f72791016dc60265c5b8",
+    "buildRed": 0,
+    "cjsRed": 1,
+    "buildGreen": 0,
+    "cjsGreen": 0
+  },
+  {
+    "name": "compiled-token-header",
+    "file": "src/http/endpoints/capability-elevenlabs-web-context.ts",
+    "sourceSHA256": "efdf144e9f57535b4d019cbfda0b3b1d6850d68eade8f72791016dc60265c5b8",
+    "buildRed": 0,
+    "cjsRed": 1,
+    "buildGreen": 0,
+    "cjsGreen": 0
+  },
+  {
+    "name": "compiled-denial-gate",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "sourceSHA256": "ba12824451035ac07e9d89a870de053a3d94170b9ffb6af272108559cde2001a",
+    "buildRed": 0,
+    "cjsRed": 1,
+    "buildGreen": 0,
+    "cjsGreen": 0
+  },
+  {
+    "name": "compiled-unresolved-identity",
+    "file": "src/capability/agent-elevenlabs/web-context.ts",
+    "sourceSHA256": "ba12824451035ac07e9d89a870de053a3d94170b9ffb6af272108559cde2001a",
+    "buildRed": 0,
+    "cjsRed": 1,
+    "buildGreen": 0,
+    "cjsGreen": 0
+  }
+]

@@ -197,3 +197,20 @@ describe('additive applied workspace context', () => {
   it.each(['../USER.md', '..', '.', 'cap/other', 'cap\\other', '%2e%2e', 'cap:name'])('rejects unsafe capability path segment %s', value => expect(() => agentWorkspaceSkillPath(value)).toThrow(ZodError));
   it('rejects capability traversal before deriving a procedure path', () => expect(() => agentWorkspaceSkillPath('../USER.md')).toThrow(ZodError));
 });
+
+describe('ordinary configuration frozen in workspace', () => {
+  const configuration = { format: 'ordinary-v2', scope: { tenantId: 'tenant-1', ownerId: 'owner-1', agentId: 'agent-1' }, capability: 'cap-calendar', version: 2, parameters: [] };
+  it('preserves optional ordinary configuration separately from bundle version', () => {
+    const value = { ...workspace(), ordinaryConfigurations: [configuration] };
+    expect(AgentWorkspaceDescriptorSchema.parse(value)).toEqual(value);
+  });
+  it.each(['tenantId', 'ownerId', 'agentId'] as const)('rejects configuration from a different %s', key => {
+    expect(AgentWorkspaceDescriptorSchema.safeParse({ ...workspace(), ordinaryConfigurations: [{ ...configuration, scope: { ...configuration.scope, [key]: 'other' } }] }).success).toBe(false);
+  });
+  it('rejects duplicate or disabled or absent capability configurations', () => {
+    expect(AgentWorkspaceDescriptorSchema.safeParse({ ...workspace(), ordinaryConfigurations: [configuration, configuration] }).success).toBe(false);
+    const disabled = workspace(); disabled.registry.capabilities[0]!.enabled = false; disabled.skills = [];
+    expect(AgentWorkspaceDescriptorSchema.safeParse({ ...disabled, ordinaryConfigurations: [configuration] }).success).toBe(false);
+    expect(AgentWorkspaceDescriptorSchema.safeParse({ ...workspace(), ordinaryConfigurations: [{ ...configuration, capability: 'cap-other' }] }).success).toBe(false);
+  });
+});

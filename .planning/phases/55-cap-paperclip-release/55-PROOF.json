@@ -1,0 +1,118 @@
+{
+  "timestamp": "2026-10-09T15:30:22.855896+00:00",
+  "productCommit": "e6c1f97e46503ab89022f94fcbfd8f40e904fbca",
+  "base": "8b44af1f98c25b40f9bed68305da328f9c5888be",
+  "frozenSource": "854f36a8f88280bad6c5b19249e8ababeee5bb44",
+  "allSourceTestsDistByteIdentical": true,
+  "archive": "/private/tmp/d-paperclip-145-pack-1ve779c_/x9-forge-contracts-1.45.0.tgz",
+  "archiveSha256": "721da65bbb6960402c65552add8ace77b82e1149a14b2485f91bb7a8d77d0e2c",
+  "qualification": {
+    "vitest": {
+      "passed": 4094,
+      "total": 4094,
+      "files": 153
+    },
+    "portableDeclarations": {
+      "passed": 362,
+      "total": 362
+    },
+    "cjsSmoke": {
+      "passed": 36,
+      "total": 36
+    },
+    "bridge130": {
+      "passed": 6,
+      "total": 6
+    },
+    "R7": {
+      "passed": 15,
+      "total": 15
+    },
+    "modelCatalog": {
+      "passed": 16,
+      "total": 16
+    },
+    "modelsBatch": {
+      "passed": 39,
+      "total": 39
+    },
+    "packedExportAvailability": {
+      "passed": 63,
+      "total": 63
+    },
+    "historicalExportEntries": {
+      "passed": 18,
+      "total": 18
+    },
+    "buildExitCode": 0,
+    "typecheckExitCode": 0,
+    "lintExitCode": 0,
+    "packageChecks": [
+      {
+        "name": "publint",
+        "exitCode": 0,
+        "log": "/private/tmp/d-paperclip-145-publint-archive.log",
+        "command": "pnpm exec publint /private/tmp/d-paperclip-145-pack-1ve779c_/x9-forge-contracts-1.45.0.tgz"
+      },
+      {
+        "name": "attw",
+        "exitCode": 0,
+        "log": "/private/tmp/d-paperclip-145-attw.log"
+      },
+      {
+        "name": "packed-exports",
+        "exitCode": 0,
+        "log": "/private/tmp/d-paperclip-145-packed-exports.log"
+      },
+      {
+        "name": "consumer-node16",
+        "exitCode": 0,
+        "log": "/private/tmp/d-paperclip-145-consumer-node16.log"
+      },
+      {
+        "name": "consumer-bundler",
+        "exitCode": 0,
+        "log": "/private/tmp/d-paperclip-145-consumer-bundler.log"
+      }
+    ],
+    "publintWarnings": 1
+  },
+  "sourceQualification": "Prior D4/D5 semantic fault campaigns retained with byte identity; not rerun or counted as new controls. Packed probes verify artifact availability, not new product behavior.",
+  "liveOperations": {
+    "nativePaperclip": 0,
+    "provider": 0,
+    "email": 0,
+    "deployment": 0
+  },
+  "status": "Independently approved local candidate; coordinator publication/consumer integration pending",
+  "independentReview": {
+    "status": "APPROVE scoped",
+    "reviewCommit": "4fe25f2",
+    "candidate": "15b839ce3d92fa0c0be19d8bf262438b95283cfb",
+    "product": "e6c1f97e46503ab89022f94fcbfd8f40e904fbca",
+    "report": "/Users/admintemp/Downloads/Claude/filiera-codex-163-1/c-rilascio/reviews/bridge-145-release/REVIEW.md",
+    "freshTests": {
+      "passed": 118,
+      "total": 118,
+      "files": 4
+    },
+    "sourceCuts": {
+      "killed": 1,
+      "total": 1
+    },
+    "metadataCuts": {
+      "killed": 2,
+      "total": 2
+    },
+    "archiveEntries": {
+      "identical": 1450,
+      "total": 1450
+    },
+    "availability": {
+      "passed": 63,
+      "total": 63
+    },
+    "archiveSha256": "721da65bbb6960402c65552add8ace77b82e1149a14b2485f91bb7a8d77d0e2c",
+    "limits": "Previous Cfull4094/4094 on854 retained by identity, not new1.45 full. Local package only; no native/provider/email/VPS."
+  }
+}

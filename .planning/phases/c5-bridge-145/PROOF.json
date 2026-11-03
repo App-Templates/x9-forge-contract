@@ -1,0 +1,1221 @@
+{
+  "scope": "Independent review and integration of public bridge contracts; synthetic fixtures only, no handlers/live effects",
+  "base": "ae7c464",
+  "sourceHead": "db3afaa69f6bb2eaf62d9d174d301f1cc6b40799",
+  "authors": {
+    "B": "c8a2683",
+    "E": "7d4c3f3",
+    "C": "6c4db3880519b039bcad390b409ee8ad3490a86e"
+  },
+  "environment": {
+    "node": "24.14.1",
+    "compatibilityNode": "20.20.2",
+    "emptyEnvironment": true,
+    "workers": 1,
+    "nativeConfiguration": true
+  },
+  "full": {
+    "passed": 4678,
+    "total": 4678,
+    "files": 162,
+    "skipped": 0
+  },
+  "build": {
+    "exit": 0,
+    "portableDeclarationFiles": 376,
+    "log": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/BUILD-FINAL-02.txt"
+  },
+  "quality": [
+    {
+      "name": "FULL-FINAL",
+      "exit": 0,
+      "elapsedSeconds": 38.03,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--maxWorkers=1",
+        "--testTimeout=60000",
+        "--reporter=json",
+        "--outputFile=/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/FULL-FINAL.json"
+      ],
+      "log": "FULL-FINAL.txt"
+    },
+    {
+      "name": "TYPECHECK",
+      "exit": 0,
+      "elapsedSeconds": 0.94,
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "log": "TYPECHECK.txt"
+    },
+    {
+      "name": "LINT",
+      "exit": 0,
+      "elapsedSeconds": 2.72,
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "log": "LINT.txt"
+    },
+    {
+      "name": "PACK",
+      "exit": 0,
+      "elapsedSeconds": 3.1,
+      "command": [
+        "pnpm",
+        "check:pack"
+      ],
+      "log": "PACK.txt"
+    },
+    {
+      "name": "NATIVE-CJS-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.2,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "log": "NATIVE-CJS-NODE24.txt"
+    },
+    {
+      "name": "E-DELETION-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.14,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/agent-deletion-smoke.cjs"
+      ],
+      "log": "E-DELETION-NODE24.txt"
+    },
+    {
+      "name": "C-PHONE-WEB-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.27,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/c5-phone-web-smoke.mjs"
+      ],
+      "log": "C-PHONE-WEB-NODE24.txt"
+    },
+    {
+      "name": "B-RESOURCE-INDEPENDENT-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.26,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "tests/cjs/c5-resource-independent.mjs"
+      ],
+      "log": "B-RESOURCE-INDEPENDENT-NODE24.txt"
+    },
+    {
+      "name": "NATIVE-CJS-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.25,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/smoke.cjs"
+      ],
+      "log": "NATIVE-CJS-NODE20.txt"
+    },
+    {
+      "name": "E-DELETION-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.15,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/agent-deletion-smoke.cjs"
+      ],
+      "log": "E-DELETION-NODE20.txt"
+    },
+    {
+      "name": "C-PHONE-WEB-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.3,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/c5-phone-web-smoke.mjs"
+      ],
+      "log": "C-PHONE-WEB-NODE20.txt"
+    },
+    {
+      "name": "B-RESOURCE-INDEPENDENT-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.26,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        "tests/cjs/c5-resource-independent.mjs"
+      ],
+      "log": "B-RESOURCE-INDEPENDENT-NODE20.txt"
+    },
+    {
+      "name": "C-ROUNDTRIP-NODE24",
+      "exit": 0,
+      "elapsedSeconds": 0.2,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        ".planning/phases/c5-canali-tel-web/proof/round-trip-smoke.mjs"
+      ],
+      "log": "C-ROUNDTRIP-NODE24.txt"
+    },
+    {
+      "name": "C-ROUNDTRIP-NODE20",
+      "exit": 0,
+      "elapsedSeconds": 0.2,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v20.20.2/bin/node",
+        ".planning/phases/c5-canali-tel-web/proof/round-trip-smoke.mjs"
+      ],
+      "log": "C-ROUNDTRIP-NODE20.txt"
+    },
+    {
+      "name": "E-PUBLIC-TYPES",
+      "exit": 0,
+      "elapsedSeconds": 0.37,
+      "command": [
+        "/Users/admintemp/.nvm/versions/node/v24.14.1/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "--ignoreConfig",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2023",
+        "--strict",
+        "--skipLibCheck",
+        "--ignoreDeprecations",
+        "6.0",
+        "tests/cjs/agent-deletion-types.cts"
+      ],
+      "log": "E-PUBLIC-TYPES.txt"
+    }
+  ],
+  "smokePerNode": {
+    "BIndependent": 29,
+    "EDeletion": 27,
+    "CBrowserPhone": 88,
+    "COwnerRoundTrip": 16,
+    "originalCjsProbes": 36
+  },
+  "independentMutations": {
+    "beforeDelta": {
+      "ESource": 2,
+      "CSource": 3,
+      "sourceHead": "e376f07"
+    },
+    "finalDelta": {
+      "BCompiled": 8,
+      "CSource": 2,
+      "sourceHead": "db3afaa"
+    },
+    "qualified": 15,
+    "candidates": 15,
+    "BFormatRedRuns": 16,
+    "functionalOnly": true,
+    "restoredExact": true,
+    "campaigns": [
+      {
+        "baseline": 0,
+        "mutations": [
+          {
+            "name": "B-intent",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-intent-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-intent-FINAL-CJS-RED.txt"
+              }
+            ]
+          },
+          {
+            "name": "B-tenant",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-tenant-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-tenant-FINAL-CJS-RED.txt"
+              }
+            ]
+          },
+          {
+            "name": "B-route-binding",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-route-binding-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-route-binding-FINAL-CJS-RED.txt"
+              }
+            ]
+          },
+          {
+            "name": "B-observation",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-observation-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-observation-FINAL-CJS-RED.txt"
+              }
+            ]
+          },
+          {
+            "name": "B-rotation",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-rotation-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-rotation-FINAL-CJS-RED.txt"
+              }
+            ]
+          },
+          {
+            "name": "B-shared-response",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-shared-response-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-shared-response-FINAL-CJS-RED.txt"
+              }
+            ]
+          },
+          {
+            "name": "B-session",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-session-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-session-FINAL-CJS-RED.txt"
+              }
+            ]
+          },
+          {
+            "name": "B-public-api",
+            "build": 0,
+            "qualified": true,
+            "formats": [
+              {
+                "format": "ESM",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-public-api-FINAL-ESM-RED.txt"
+              },
+              {
+                "format": "CJS",
+                "exit": 1,
+                "qualified": true,
+                "log": "B-public-api-FINAL-CJS-RED.txt"
+              }
+            ]
+          }
+        ],
+        "restoredExact": true,
+        "sourceHashes": {
+          "src/agent/agent-channel-resource-operation.ts": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76",
+          "src/http/endpoints/forge-agent-channel-resource.ts": "98fef67e3b35e8e0eaade974ddea261402aebf4741e634a06ca1b9cf6761ac4e",
+          "src/agent/index.ts": "9397218da96663918911962664a947e5387cb12e8796ff412a57e5874a082ac3"
+        },
+        "restoredBuild": 0,
+        "restoredGreen": 0
+      },
+      {
+        "mutations": [
+          {
+            "exit": 1,
+            "passed": 67,
+            "total": 68,
+            "assertionFailures": [
+              "rejects a mismatched vaultAgentId"
+            ],
+            "otherFailures": 0,
+            "report": "E-vault-RED.json",
+            "name": "E-vault",
+            "qualified": true
+          },
+          {
+            "exit": 1,
+            "passed": 67,
+            "total": 68,
+            "assertionFailures": [
+              "accepts a failed tombstone only when all effects are blocked"
+            ],
+            "otherFailures": 0,
+            "report": "E-tombstone-before-effects-RED.json",
+            "name": "E-tombstone-before-effects",
+            "qualified": true
+          },
+          {
+            "exit": 1,
+            "passed": 83,
+            "total": 84,
+            "assertionFailures": [
+              "refuses not explicitly requested"
+            ],
+            "otherFailures": 0,
+            "report": "C-explicit-outbound-RED.json",
+            "name": "C-explicit-outbound",
+            "qualified": true
+          },
+          {
+            "exit": 1,
+            "passed": 38,
+            "total": 39,
+            "assertionFailures": [
+              "requires canonical D authority current after await, never an unresolved or before snapshot"
+            ],
+            "otherFailures": 0,
+            "report": "C-browser-authority-RED.json",
+            "name": "C-browser-authority",
+            "qualified": true
+          },
+          {
+            "exit": 1,
+            "passed": 40,
+            "total": 42,
+            "assertionFailures": [
+              "checks expected owner, management, vault, kind and finite fresh clock",
+              "does not bypass the current full binding or requested door for verification"
+            ],
+            "otherFailures": 0,
+            "report": "C-history-binding-RED.json",
+            "name": "C-history-binding",
+            "qualified": true
+          }
+        ],
+        "baseline": {
+          "exit": 0,
+          "passed": 233,
+          "total": 233,
+          "assertionFailures": [],
+          "otherFailures": 0,
+          "report": "EC-SAMPLES-BASELINE.json"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 233,
+          "total": 233,
+          "assertionFailures": [],
+          "otherFailures": 0,
+          "report": "EC-SAMPLES-RESTORED.json"
+        },
+        "restoredExact": true,
+        "sourceHashes": {
+          "src/agent/agent-deletion.ts": "94ced15d48f946f15b16a41f2ecf7a5d5435939418b5d5ed01074a71c055ef02",
+          "src/agent/agent-phone-admission.ts": "68b9bbcbdffce5f5b424f01b227c0596ead731da29b4c239e81d0c908c908a6e",
+          "src/capability/agent-elevenlabs/web-browser.ts": "7497d5fad97320a043f3ae785e69d687e781e562e840cd3210348f3ee31b5970",
+          "src/agent/agent-channel-history.ts": "b7ef565712d1f91db677a8775b74184077c2d36ce42bb7d830e7181ebaf4e51c"
+        }
+      },
+      {
+        "mutations": [
+          {
+            "exit": 1,
+            "passed": 62,
+            "total": 64,
+            "assertionFailures": [
+              "recognizes the registered owner rather than another admitted participant or arbitrary body target",
+              "normalizes the existing canonical owner mailbox but never permits a different authenticated sender"
+            ],
+            "otherFailures": 0,
+            "report": "C-trip-participant-RED.json",
+            "name": "C-trip-participant",
+            "qualified": true
+          },
+          {
+            "exit": 1,
+            "passed": 62,
+            "total": 64,
+            "assertionFailures": [
+              "requires the frozen and current complete canonical resource and applied policy/version",
+              "does not accept configuration evidence observed after the frozen request or a substituted runtime channel"
+            ],
+            "otherFailures": 0,
+            "report": "C-trip-generation-RED.json",
+            "name": "C-trip-generation",
+            "qualified": true
+          }
+        ],
+        "baseline": {
+          "exit": 0,
+          "passed": 64,
+          "total": 64,
+          "assertionFailures": [],
+          "otherFailures": 0,
+          "report": "TRIP-SAMPLES-BASELINE.json"
+        },
+        "restored": {
+          "exit": 0,
+          "passed": 64,
+          "total": 64,
+          "assertionFailures": [],
+          "otherFailures": 0,
+          "report": "TRIP-SAMPLES-RESTORED.json"
+        },
+        "restoredExact": true,
+        "sourceHashes": {
+          "src/agent/agent-channel-history.ts": "7cdd039df62f8c265e2e3909f6db20a86e6a1ef2416ed6496d93149f4bac27db"
+        }
+      }
+    ],
+    "note": "Five source candidates were qualified before the C roundtrip delta; two new guards and eight B compiled protections qualified on its final source. B eight candidates each fail separately on ESM and CJS (16 functional red runs, not16 independent mutations). The first full was4656/4656, recorded in SUMMARY/tool output. A report-directory mistake overwrote its raw full/quality files during the final run; only the final4678 raw full/quality report is retained. Mutation campaigns and source restore reports were not overwritten. No claim of 15 mutations on one identical source snapshot."
+  },
+  "sourceManifest": {
+    "sourceHead": "db3afaa69f6bb2eaf62d9d174d301f1cc6b40799",
+    "base": "ae7c464",
+    "source": [
+      {
+        "author": "B",
+        "ref": "c8a2683",
+        "path": "src/agent/agent-channel-resource-operation.ts",
+        "sha256": "f10b666d8b49fe7121e0bdef51b2b365258d293c7ba7a0fb96c434f5d6f2ff76",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "B",
+        "ref": "c8a2683",
+        "path": "src/http/endpoints/forge-agent-channel-resource.ts",
+        "sha256": "98fef67e3b35e8e0eaade974ddea261402aebf4741e634a06ca1b9cf6761ac4e",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "E",
+        "ref": "7d4c3f3",
+        "path": "src/agent/agent-deletion.ts",
+        "sha256": "94ced15d48f946f15b16a41f2ecf7a5d5435939418b5d5ed01074a71c055ef02",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "E",
+        "ref": "7d4c3f3",
+        "path": "src/http/endpoints/internal-agents-deletion.ts",
+        "sha256": "9414d8452032009f4c4f8b4f113eea166723eeb2f56cae17efa5c6cf7ed871d8",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/agent/agent-channel-access.ts",
+        "sha256": "c4df9f46924a8744363a1693d566b47869d10d1bbfa85157062738c75dd50e7c",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/agent/agent-channel-history.ts",
+        "sha256": "7cdd039df62f8c265e2e3909f6db20a86e6a1ef2416ed6496d93149f4bac27db",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/agent/agent-phone-admission.ts",
+        "sha256": "68b9bbcbdffce5f5b424f01b227c0596ead731da29b4c239e81d0c908c908a6e",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/capability/agent-elevenlabs/web-browser.ts",
+        "sha256": "7497d5fad97320a043f3ae785e69d687e781e562e840cd3210348f3ee31b5970",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/capability/agent-elevenlabs/web-channel.ts",
+        "sha256": "ab9cb6104b35b2f37c371fc743c30a1c8d80737b61c5d90865b26b68948ba584",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/capability/agent-elevenlabs/web-context.ts",
+        "sha256": "7b57a2666918a4d7aba7544985c9439967b271da763a342c109dc24b9344ff09",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/capability/agent-elevenlabs/web-session.ts",
+        "sha256": "7bff93ca9582841d9735c56b544d3e6e510568612b7d952d2507742b43bf0fdd",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/http/endpoints/forge-agent-channel-history.ts",
+        "sha256": "9a21ab8142edd7ef47d40e3ae6bba915429e5c8eae8b252d67d4e1f07b54397c",
+        "exactAuthorBytes": true
+      },
+      {
+        "author": "C",
+        "ref": "6c4db38",
+        "path": "src/http/endpoints/internal-agent-channel-history.ts",
+        "sha256": "49ea17f67bd92aa12bb1e09701cd15b92d0c2ee83aedcbb5b5fbf01f8e2f5396",
+        "exactAuthorBytes": true
+      }
+    ],
+    "B0": [
+      {
+        "path": "src/model-router/agent-model-configuration.ts",
+        "sha256": "ece5dae3aad800d195c7ec63fecd8fafb81291906895eef30cd37cd7085394e8",
+        "exactBaseBytes": true
+      },
+      {
+        "path": "src/model-router/model-catalog.ts",
+        "sha256": "1eca8897b27414cad62eb67d633b6bfe452b1ba5133e74d3ed8a08d08d928174",
+        "exactBaseBytes": true
+      }
+    ],
+    "barrels": [
+      "src/agent/index.ts",
+      "src/http/endpoints/index.ts",
+      "src/capability/index.ts"
+    ],
+    "perimeterViolations": [],
+    "packageUnchanged": true,
+    "distFiles": 1504
+  },
+  "live": {
+    "executed": 0,
+    "claim": "No user flow completed live; schemas and guards do not authenticate, send replies, persist tombstones or perform cleanup."
+  },
+  "excluded": [
+    "private B0b credential birth",
+    "Spesa",
+    "unqualified author WIP",
+    "consumer pin",
+    "version bump",
+    "push",
+    "remote merge",
+    "deploy"
+  ],
+  "rawFiles": [
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/MUTATIONS-RESTORED-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/SOURCE-MANIFEST.json",
+      "sha256": "43f516665c6a8fc02dbe10fbcc5b9e5b0a1681006735a258e0c08692e7640ba5",
+      "bytes": 3708
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/E-DELETION-NODE20.txt",
+      "sha256": "639e24c5d3f473a58c5ca631c4df9b048e31d23a8cc8f3e99fa249c33c07e1f5",
+      "bytes": 61
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/E-vault-RED.json",
+      "sha256": "c666745624aea036994bbd31d74bc3d1438c2330faa8bdeda6bef482a3b063b5",
+      "bytes": 22088
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-INDEPENDENT-COMPILED-01.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-trip-generation-RED.json",
+      "sha256": "63d25834879520350d4b7ef5a9b564b35e177131a0d6cfe2ae1d4077dbc57dfb",
+      "bytes": 26500
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-public-api-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-route-binding-RED.txt",
+      "sha256": "6c11d8f3837916d3cd3a6e2975d417689fc6b99abe88a30cdfff6df920b4fd46",
+      "bytes": 816
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-DUAL-RESTORED.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-session-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-route-binding-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/EC-SAMPLES-BASELINE.txt",
+      "sha256": "d315736e171a19a090074478cdd989d9aa6c666267d5f714f77357afe7727952",
+      "bytes": 138
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/E-vault-RED.txt",
+      "sha256": "da96efdb3b7fea71c8b769aa53911d7f47653d1daa34ca20224d52bda3dc6255",
+      "bytes": 130
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/E-DELETION-NODE24.txt",
+      "sha256": "639e24c5d3f473a58c5ca631c4df9b048e31d23a8cc8f3e99fa249c33c07e1f5",
+      "bytes": 61
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-intent-FINAL-ESM-RED.txt",
+      "sha256": "02cfd95290d85e807603997a783ebc4fdedf146870daea250053b7988339a67c",
+      "bytes": 817
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-shared-response-FINAL-ESM-RED.txt",
+      "sha256": "7c2e00d804378c83e5ba95e99ad988829cb2d9a2a33cd6599e73ec2baa0b9280",
+      "bytes": 1909775
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-rotation-RED.txt",
+      "sha256": "9974150f36062417de4bcc1da3fe17eb14333e29fb99d78c789aec53d2906196",
+      "bytes": 809
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-shared-response-FINAL-CJS-RED.txt",
+      "sha256": "42013077c1b06fac5d2d5c280a9cbe78b216a5eb4ec30022cd9c0298373d5f03",
+      "bytes": 1909775
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-intent-FINAL-CJS-RED.txt",
+      "sha256": "50b8a49e5e59cd7cb0d611a37b7974e9a26dd5ca4319beafae88f43a3bd10aa8",
+      "bytes": 817
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/BUILD-FINAL-01.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-observation-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-observation-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-observation-RED.txt",
+      "sha256": "7c08c4badc4148bdc38ad9f2db8414b94669b0d584fb8b2e933ef07f238f227c",
+      "bytes": 818
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-intent-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/BUILD-FINAL-02.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-route-binding-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-tenant-FINAL-CJS-RED.txt",
+      "sha256": "468ccb6d4ef78ac4c685f20dacccdbf66ed9a5019b2edcfa65cd8b1bc137643f",
+      "bytes": 802
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/E-tombstone-before-effects-RED.txt",
+      "sha256": "6536ae8b33b61f0645197f4beaabda37b1ffdbe93f9e829e5d2f0aa4dcd34f18",
+      "bytes": 149
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-explicit-outbound-RED.json",
+      "sha256": "546e68eb5004dea9fac5fc88ac7a735b73ed4abb47de527af1fa7de20863b3c4",
+      "bytes": 26047
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-tenant-FINAL-ESM-RED.txt",
+      "sha256": "7825acefbe98051f97d7fb7d04ff6eb15ecccef7bf785f9aed61f157923854cd",
+      "bytes": 802
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/EC-SAMPLES-RESTORED.txt",
+      "sha256": "944aa6d74120310809cf32ef6bd9c2ecc786bd7890207689ce3429bc60f88fdd",
+      "bytes": 138
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/BUILD-01.txt",
+      "sha256": "9aa6bc9e22aabc2cc2ba76b5e1cccbff552bb01134f2cd7ce26c3ca8ef3a9edb",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-public-api-FINAL-CJS-RED.txt",
+      "sha256": "757c67f33dbcbaf29e7546c5da745787236836bbddbc105003680e66644913fe",
+      "bytes": 848
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/FULL-FINAL.txt",
+      "sha256": "6a8b6974b4aa0db6bd6414f9a5c546eda3b39d78b42622372173ab6b5abd2d1a",
+      "bytes": 129
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-public-api-FINAL-ESM-RED.txt",
+      "sha256": "6f7bb3b2085baa261cd6cfed70af6c9632a4cfe370ad1b56caa7b3ea10171898",
+      "bytes": 848
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-shared-response-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-rotation-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-tenant-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-rotation-FINAL-CJS-RED.txt",
+      "sha256": "3f5a11903e2d12c4350c6737c730997ae2e1c306482bdc6b1e78ff557f69fd8a",
+      "bytes": 809
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-rotation-FINAL-ESM-RED.txt",
+      "sha256": "358238cf437beaf8976b2a9ed72d57d39c801ba9b855b782edda9dafb1d69990",
+      "bytes": 809
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-ROUNDTRIP-NODE24.txt",
+      "sha256": "4ada6a06771dd3f4b4977ffb5404c0d14bbeddc7be0f3427e4995bff8b1036de",
+      "bytes": 43
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/FULL-FINAL.json",
+      "sha256": "7e252c8615812d93a9acaf11b78a32c8296919777d9870ef62a71a248340f843",
+      "bytes": 2042720
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-RESOURCE-INDEPENDENT-NODE20.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-browser-authority-RED.txt",
+      "sha256": "72a3144d7d41a09486a998bed021b5f3cfa3ea98dd79d7ea809939fa2ffefb9a",
+      "bytes": 142
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/DUAL-RESTORED-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-session-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/TRIP-SAMPLES-BASELINE.json",
+      "sha256": "ed814522d0a1765e4e65698a73395a8aa1925726b4522a7de422d6dc730b7215",
+      "bytes": 23265
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-DUAL-qualification.json",
+      "sha256": "d45c67de96d349c8cc6188c7981747a12a89de9106606a5d13acfbc44eb86430",
+      "bytes": 3727
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/NATIVE-CJS-NODE24.txt",
+      "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+      "bytes": 3513
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-trip-participant-RED.json",
+      "sha256": "64c5b4df80ef7904c6c911de9de954477ec7797e1433848f97d63fdf55e781ce",
+      "bytes": 26512
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-public-api-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-independent-qualification.json",
+      "sha256": "0acd887d248468591904dcd58cf7f72d24d2c6378e00894174ee98befcbbcf9c",
+      "bytes": 1603
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-intent-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-shared-response-RED.txt",
+      "sha256": "d5a6579026a7811129e0bfe6e2442505d690b586dfa6326d68fe3a41e9dd4cf7",
+      "bytes": 1909775
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/NATIVE-CJS-NODE20.txt",
+      "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+      "bytes": 3513
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-INDEPENDENT-RESTORED.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-tenant-RED.txt",
+      "sha256": "1433a7f7b28418c22aeb2351f1691fb267b5fbc0fa0aea95a75e83d22e0aac4f",
+      "bytes": 802
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/TRIP-sample-qualification.json",
+      "sha256": "8bfa671eaed271e247570cb12dbed1510f144b3b59022d2d2d0374c2052f3f3f",
+      "bytes": 1427
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/LINT.txt",
+      "sha256": "51475dabdba8a8024ec3a32e4938337245716395e8816302618124cced738a66",
+      "bytes": 126
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/EC-sample-qualification.json",
+      "sha256": "efe00f2a032ddbb833162d82b77015e4ac3d15c22c74b8d416642190fe8825bd",
+      "bytes": 2474
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-shared-response-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-observation-FINAL-ESM-RED.txt",
+      "sha256": "6865299ab5424794ce13e5b865ec403266311083d77faf7f3f98db4f2e0ce985",
+      "bytes": 818
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-intent-RED.txt",
+      "sha256": "ff69ddf1820af771f13652539644ad2f0acd6a7000669dbf3bb982ca82531cbf",
+      "bytes": 817
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/TRIP-SAMPLES-RESTORED.txt",
+      "sha256": "fe7613a275430a2675837bd06d645552763587e525af42310f3ca1337b7097a2",
+      "bytes": 140
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-observation-FINAL-CJS-RED.txt",
+      "sha256": "0a1cb23c47b3af4c828462874b2a429a9cae8f32e8a8c51dfdb720b3a95b37cc",
+      "bytes": 818
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-RESOURCE-INDEPENDENT-NODE24.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/EC-SAMPLES-BASELINE.json",
+      "sha256": "8faa87c60340abb804a636d0acdb33fa2475f521a3a215108d1268dc8795bca8",
+      "bytes": 72107
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-ROUNDTRIP-NODE20.txt",
+      "sha256": "4ada6a06771dd3f4b4977ffb5404c0d14bbeddc7be0f3427e4995bff8b1036de",
+      "bytes": 43
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-tenant-FINAL-DUAL-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/EC-SAMPLES-RESTORED.json",
+      "sha256": "c2d739e8b9457ed88a251378c4679e274505a5ca4583cb0e5d9f021552fc09d7",
+      "bytes": 72086
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-history-binding-RED.txt",
+      "sha256": "5dc7b48ed18ee8d2f6d6d49783507c3899286a72077d7bc272d1240b11d73780",
+      "bytes": 140
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-route-binding-FINAL-ESM-RED.txt",
+      "sha256": "0a4d52bc2e0ea1e76a570dfbcbf7f4b192b92050cf916c9f5423cf1e94d91c33",
+      "bytes": 816
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-session-RED.txt",
+      "sha256": "593ee9aa1623900aa15686941b8fc68597784ea1f8528a5f85e0f8cf716700d5",
+      "bytes": 854
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-route-binding-FINAL-CJS-RED.txt",
+      "sha256": "54f47982a878fd872b7637fc17618058e610ed10d6f387da50c448711599b8f9",
+      "bytes": 816
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-DUAL-FINAL-BASELINE.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/TYPECHECK.txt",
+      "sha256": "a3dc75929e8897f2f821a9fa5311e2b3bf21653eef594231b80b22c58299e10c",
+      "bytes": 127
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-PHONE-WEB-NODE24.txt",
+      "sha256": "2b9b26a6ecefcbbe37983ef4b10400c4eebc2aa06593e7eb5b345912429a40ee",
+      "bytes": 56
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-session-FINAL-ESM-RED.txt",
+      "sha256": "37598a7cd89f2ec8b3772b75954c0bd23cf756a617ab67b7568bf8571759f67f",
+      "bytes": 854
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/E-tombstone-before-effects-RED.json",
+      "sha256": "f1daac44bcc6e25b898711fe7c30e3c6e6c38a78993113fd2ccf8e09cf0d2548",
+      "bytes": 22090
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-public-api-RED.txt",
+      "sha256": "2a0dc996825505145b141139d9786773b0e24516b72e3b8e4f5c79101c986a49",
+      "bytes": 848
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/FINAL-CHECKS.json",
+      "sha256": "fa62db94899b46e2f90e9989132ebda5ca6008d079ed2182c52dd3171f2dee60",
+      "bytes": 4016
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-session-FINAL-CJS-RED.txt",
+      "sha256": "3dc9d8bab4dfd38fc39453fe67f80aa711b0a472888e586387952cad2d0d2e36",
+      "bytes": 854
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/LINT-AFTER-HARNESS.txt",
+      "sha256": "51475dabdba8a8024ec3a32e4938337245716395e8816302618124cced738a66",
+      "bytes": 126
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-trip-participant-RED.txt",
+      "sha256": "895d3a196e8087297b88359520b907a6e884b71ecc608b1fae028998899328d3",
+      "bytes": 141
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-explicit-outbound-RED.txt",
+      "sha256": "69245b85d931209ec4f934c4d869de4e65a64c9f5463529e63e4b94fee20a632",
+      "bytes": 142
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-INDEPENDENT-FINAL-BASELINE.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-trip-generation-RED.txt",
+      "sha256": "cc576572eed498cb48759134ae1a2e13ac07423ed0e43dd02027900364b55505",
+      "bytes": 140
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-PHONE-WEB-NODE20.txt",
+      "sha256": "2b9b26a6ecefcbbe37983ef4b10400c4eebc2aa06593e7eb5b345912429a40ee",
+      "bytes": 56
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/TRIP-SAMPLES-RESTORED.json",
+      "sha256": "eb7d70045f84480824dcfbfc03b7e8d63d15a027a120177aba37ba0f45ae5c63",
+      "bytes": 23275
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-browser-authority-RED.json",
+      "sha256": "57269a8a73cdf1847b80feb712d4c2ede2ce9f57dc58af3bfccfb8ea3b690261",
+      "bytes": 15177
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/TRIP-SAMPLES-BASELINE.txt",
+      "sha256": "9abd67efd46772985512000cbc425a32843dac4c7071dfa1778f016dcadba223",
+      "bytes": 140
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/PACK.txt",
+      "sha256": "cd906eb0c86ab9390d3f915d35c3f5b47fc9e3699e59bf377d75eb5af8dc281b",
+      "bytes": 11850
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/C-history-binding-RED.json",
+      "sha256": "d7e0cb7a2b98a8e7ebe61e22a73fe260c8928a7d3cc040462b6ae02c1437cd74",
+      "bytes": 18313
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/E-PUBLIC-TYPES.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/B-rotation-BUILD.txt",
+      "sha256": "f973723962194a242150877b03d8782be47553044cbddc4cbb738245e5408025",
+      "bytes": 4134
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/E-DELETION-NODE20.txt",
+      "sha256": "639e24c5d3f473a58c5ca631c4df9b048e31d23a8cc8f3e99fa249c33c07e1f5",
+      "bytes": 61
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/E-DELETION-NODE24.txt",
+      "sha256": "639e24c5d3f473a58c5ca631c4df9b048e31d23a8cc8f3e99fa249c33c07e1f5",
+      "bytes": 61
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/FULL-FINAL.txt",
+      "sha256": "6a8b6974b4aa0db6bd6414f9a5c546eda3b39d78b42622372173ab6b5abd2d1a",
+      "bytes": 129
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/C-ROUNDTRIP-NODE24.txt",
+      "sha256": "4ada6a06771dd3f4b4977ffb5404c0d14bbeddc7be0f3427e4995bff8b1036de",
+      "bytes": 43
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/FULL-FINAL.json",
+      "sha256": "7e252c8615812d93a9acaf11b78a32c8296919777d9870ef62a71a248340f843",
+      "bytes": 2042720
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/B-RESOURCE-INDEPENDENT-NODE20.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/NATIVE-CJS-NODE24.txt",
+      "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+      "bytes": 3513
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/NATIVE-CJS-NODE20.txt",
+      "sha256": "2e781abfef2a1b7e26b540183fd2767569116596bf319f1d68b320bf081b3b79",
+      "bytes": 3513
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/LINT.txt",
+      "sha256": "51475dabdba8a8024ec3a32e4938337245716395e8816302618124cced738a66",
+      "bytes": 126
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/B-RESOURCE-INDEPENDENT-NODE24.txt",
+      "sha256": "09507a28047d4123d351b58cd7aa3c6079dacdf551cfe0bad612ef3a7fda2c1e",
+      "bytes": 85
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/C-ROUNDTRIP-NODE20.txt",
+      "sha256": "4ada6a06771dd3f4b4977ffb5404c0d14bbeddc7be0f3427e4995bff8b1036de",
+      "bytes": 43
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/TYPECHECK.txt",
+      "sha256": "a3dc75929e8897f2f821a9fa5311e2b3bf21653eef594231b80b22c58299e10c",
+      "bytes": 127
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/C-PHONE-WEB-NODE24.txt",
+      "sha256": "2b9b26a6ecefcbbe37983ef4b10400c4eebc2aa06593e7eb5b345912429a40ee",
+      "bytes": 56
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/FINAL-CHECKS.json",
+      "sha256": "fa62db94899b46e2f90e9989132ebda5ca6008d079ed2182c52dd3171f2dee60",
+      "bytes": 4016
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/C-PHONE-WEB-NODE20.txt",
+      "sha256": "2b9b26a6ecefcbbe37983ef4b10400c4eebc2aa06593e7eb5b345912429a40ee",
+      "bytes": 56
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/PACK.txt",
+      "sha256": "cd906eb0c86ab9390d3f915d35c3f5b47fc9e3699e59bf377d75eb5af8dc281b",
+      "bytes": 11850
+    },
+    {
+      "path": "/Users/admintemp/Documents/Codex/2026-10-08/tu-sei-codex-f-crea-in/work/c5-bridge-145/raw/second-final/E-PUBLIC-TYPES.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ]
+}

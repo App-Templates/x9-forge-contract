@@ -1,0 +1,40 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: canonical public account metadata
++ actual - expected
+
+  {
+    key: 'NETATMO_EMAIL',
+    kind: 'credential',
++   label: 'Email',
+-   label: 'Indirizzo email account Netatmo',
+    secret: false,
+    service: {
+      id: 'netatmo',
+      type: 'commercial'
+    }
+
+    at file:///private/tmp/codex-a-chiavi-completamento/bridge-34-02-smoke.mjs:14:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    key: 'NETATMO_EMAIL',
+    label: 'Email',
+    kind: 'credential',
+    service: { type: 'commercial', id: 'netatmo' },
+    secret: false
+  },
+  expected: {
+    key: 'NETATMO_EMAIL',
+    label: 'Indirizzo email account Netatmo',
+    kind: 'credential',
+    secret: false,
+    service: { type: 'commercial', id: 'netatmo' }
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.14.1

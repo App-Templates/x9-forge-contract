@@ -38,9 +38,25 @@ exports.KNOWN_CREDENTIAL_KEYS = [
     'GOOGLE_CALENDAR_CLIENT_ID',
     'GOOGLE_CALENDAR_CLIENT_SECRET',
     'GOOGLE_CALENDAR_REFRESH_TOKEN',
+    'GOOGLE_CONTACTS_CLIENT_ID',
+    'GOOGLE_CONTACTS_CLIENT_SECRET',
+    'GOOGLE_CONTACTS_REFRESH_TOKEN',
+    'NETATMO_EMAIL',
+    'NETATMO_CLIENT_ID',
+    'NETATMO_CLIENT_SECRET',
+    'NETATMO_REFRESH_TOKEN',
+    'NETATMO_ACCESS_TOKEN',
+    'NETATMO_PASSWORD',
     'INTERNAL_SECRET',
     'X9_INTERNAL_SECRET',
     'HOSTINGER_API_TOKEN', // Phase 59 — cap-backup only; full-account token (no scopes): vault, never projected to prompts or devices
+    // Phase 55 — cap-dev, per agente
+    'GITHUB_TOKEN',
+    'GITHUB_APP_ID',
+    'GITHUB_APP_INSTALLATION_ID',
+    'GITHUB_APP_PRIVATE_KEY',
+    'DEV_SIGNING_PRIVATE_KEY',
+    'PAPERCLIP_API_KEY', // P01 — native Paperclip agent API key; per agent, never platform-wide
 ];
 /**
  * Agent credentials schema.
@@ -79,8 +95,25 @@ exports.AgentCredentialsSchema = zod_1.z
     GOOGLE_CALENDAR_CLIENT_ID: zod_1.z.string().optional(),
     GOOGLE_CALENDAR_CLIENT_SECRET: zod_1.z.string().optional(),
     GOOGLE_CALENDAR_REFRESH_TOKEN: zod_1.z.string().optional(),
+    GOOGLE_CONTACTS_CLIENT_ID: zod_1.z.string().optional(),
+    GOOGLE_CONTACTS_CLIENT_SECRET: zod_1.z.string().optional(),
+    GOOGLE_CONTACTS_REFRESH_TOKEN: zod_1.z.string().optional(),
+    NETATMO_EMAIL: zod_1.z.string().optional(),
+    NETATMO_CLIENT_ID: zod_1.z.string().optional(),
+    NETATMO_CLIENT_SECRET: zod_1.z.string().optional(),
+    NETATMO_REFRESH_TOKEN: zod_1.z.string().optional(),
+    NETATMO_ACCESS_TOKEN: zod_1.z.string().optional(),
+    NETATMO_PASSWORD: zod_1.z.string().optional(),
     INTERNAL_SECRET: zod_1.z.string().optional(),
     X9_INTERNAL_SECRET: zod_1.z.string().optional(),
+    HOSTINGER_API_TOKEN: zod_1.z.string().optional(),
+    // Phase 55 — cap-dev, per agente
+    GITHUB_TOKEN: zod_1.z.string().optional(),
+    GITHUB_APP_ID: zod_1.z.string().optional(),
+    GITHUB_APP_INSTALLATION_ID: zod_1.z.string().optional(),
+    GITHUB_APP_PRIVATE_KEY: zod_1.z.string().optional(),
+    DEV_SIGNING_PRIVATE_KEY: zod_1.z.string().optional(),
+    PAPERCLIP_API_KEY: zod_1.z.string().optional(),
 })
     .catchall(zod_1.z.string());
 /**

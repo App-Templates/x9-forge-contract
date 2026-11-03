@@ -1,7 +1,4 @@
-import { describe, expect, it } from 'vitest';
-import { createServer } from 'node:http';
-import { once } from 'node:events';
-import type { AddressInfo } from 'node:net';
+import { describe, expect, it, vi } from 'vitest';
 import {
   AgentTurnSchema, CapabilityTurnLeadRequestSchema, CapabilityTurnLeadResponseSchema,
   CAPABILITY_LEAD_MAX_INSTRUCTIONS_CHARS, CAPABILITY_NOTE_MAX_CHARS,
@@ -59,18 +56,19 @@ describe('voice-led onboarding turns (synthetic, v1.27.0)', () => {
   });
   it('lead and note travel through the real bridge HTTP client', async () => {
     const received: { path?: string; body?: unknown } = {};
-    const server = createServer(async (req, res) => {
-      const chunks: Buffer[] = []; for await (const chunk of req) chunks.push(Buffer.from(chunk));
-      received.path = req.url; received.body = JSON.parse(Buffer.concat(chunks).toString());
-      res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify({ ...reply, note: 'TEST nota' }));
+    const transport = vi.fn<typeof fetch>(async (input, init) => {
+      received.path = new URL(String(input)).pathname;
+      received.body = JSON.parse(String(init?.body));
+      return Response.json({ ...reply, note: 'TEST nota' });
     });
-    server.listen(0, '127.0.0.1'); await once(server, 'listening');
+    vi.stubGlobal('fetch', transport);
     try {
-      const client = createBridgeClient({ baseUrl: `http://127.0.0.1:${(server.address() as AddressInfo).port}`,
+      const client = createBridgeClient({ baseUrl: 'http://bridge.invalid',
         auth: { [INTERNAL_SECRET_HEADER]: 'synthetic-test-only' } });
       const result = await client.internalAgentTurn('synthetic-agent', { ...body, turn: AgentTurnSchema.parse(exchange) });
       expect(received).toEqual({ path: internalAgentTurnPath('synthetic-agent'), body: { ...body, turn: exchange } });
       expect(result).toEqual({ ...reply, note: 'TEST nota' });
-    } finally { await new Promise<void>((resolve, reject) => server.close((e) => e ? reject(e) : resolve())); }
+      expect(transport).toHaveBeenCalledTimes(1);
+    } finally { vi.unstubAllGlobals(); }
   });
 });
