@@ -109,4 +109,5 @@ export * from "./development-session-heartbeat.js";
 export * from "./internal-dev-artifact-content.js";
 export * from "./internal-dev-session-asset-content.js";
 export * from "./paperclip-protocollo-turno.js";
+export * from "./officina-video.js";
 //# sourceMappingURL=index.d.ts.map
