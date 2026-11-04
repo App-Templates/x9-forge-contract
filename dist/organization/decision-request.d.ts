@@ -188,6 +188,10 @@ export declare function decisionOutcomeMatchesSubject(request: Pick<DecisionRequ
 /** Word used in the email subject to tie a reply to its decision request: `[decisione <requestId>]`. */
 export declare const DECISION_REQUEST_SUBJECT_LABEL: "decisione";
 export declare function decisionRequestSubjectLabel(requestId: DecisionRequestId): string;
+/** Header of the outgoing email that carries the `requestId`; the referent's reply is matched to the original message that carries it. */
+export declare const DECISION_REQUEST_HEADER: "X-X9-Decision-Request";
+/** True when the headers (name matched case-insensitively) carry exactly this `requestId` (value trimmed). */
+export declare function decisionRequestHeaderMatches(headers: Readonly<Record<string, string>> | undefined, requestId: DecisionRequestId): boolean;
 /** Human email reply already interpreted by the lead (approve / refuse with reason / unclear). */
 export declare const DecisionEmailReplySchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"approve">;
