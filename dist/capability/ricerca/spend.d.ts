@@ -4,12 +4,14 @@ import { z } from 'zod';
  * `day` is the date in the agent's time zone. `spentUsd` is settled cost; `reservedUsd` is cost reserved and not settled:
  * calls still running, and calls that ended without a reported usage (an unknown cost is never free: it stays reserved).
  * `capUsd` is the daily budget in force that day (the highest, if it changed during the day).
+ * For `video`, `day` is the projects' creation date in Europe/Rome, `spentUsd` is closed projects' spend, `reservedUsd` is ongoing projects' spend, and `capUsd` is the sum of budgets of projects created that day.
  */
 export declare const AgentDaySchema: z.ZodString;
 /** Longest window of one agent spend request, days (inclusive). */
 export declare const AGENT_SPEND_MAX_DAYS = 400;
 /** The capabilities that report spend this way. */
 export declare const SpendingCapabilitySchema: z.ZodEnum<{
+    video: "video";
     ricerca: "ricerca";
     lab: "lab";
 }>;
@@ -17,6 +19,7 @@ export type SpendingCapability = z.infer<typeof SpendingCapabilitySchema>;
 export declare const AgentSpendDaySchema: z.ZodObject<{
     agentId: z.ZodString;
     capability: z.ZodEnum<{
+        video: "video";
         ricerca: "ricerca";
         lab: "lab";
     }>;
