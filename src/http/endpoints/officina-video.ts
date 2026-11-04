@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from '../../capability/video/story.js';
-import { VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEnginePlanRequestSchema, VideoEngineApproveRequestSchema, VideoEngineRunRequestSchema, VideoEngineMediaPathSchema } from '../../capability/video/engine.js';
+import { VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema, VideoEngineRouteRunRequestSchema,VideoEngineMediaPathSchema } from '../../capability/video/engine.js';
 
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
@@ -31,8 +31,9 @@ export const officinaVideoPlanContract = {
   method: 'POST',
   path: '/api/projects/:engineProjectId/plan',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
-  requestSchema: VideoEnginePlanRequestSchema,
+  requestSchema: VideoEngineRoutePlanRequestSchema,
   responseSchema: VideoEngineProjectSchema,
+  responseStatus: 200,
 } as const;
 
 /** cap-video -> engine: approve a stage at the revision that was shown. Internal, INTERNAL_SECRET_HEADER. */
@@ -40,8 +41,9 @@ export const officinaVideoApproveContract = {
   method: 'POST',
   path: '/api/projects/:engineProjectId/approve',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
-  requestSchema: VideoEngineApproveRequestSchema,
+  requestSchema: VideoEngineRouteApproveRequestSchema,
   responseSchema: VideoEngineProjectSchema,
+  responseStatus: 200,
 } as const;
 
 /** cap-video -> engine: start a production stage (asynchronous, 202). Internal, INTERNAL_SECRET_HEADER. */
@@ -49,7 +51,9 @@ export const officinaVideoRunContract = {
   method: 'POST',
   path: '/api/projects/:engineProjectId/run',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
-  requestSchema: VideoEngineRunRequestSchema,
+  requestSchema: VideoEngineRouteRunRequestSchema,
+  responseSchema: VideoEngineProjectSchema,
+  responseStatus: 202,
 } as const;
 
 /**

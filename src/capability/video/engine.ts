@@ -64,6 +64,42 @@ export const VideoEngineRunRequestSchema = z.object({
 }).strict();
 export type VideoEngineRunRequest = z.infer<typeof VideoEngineRunRequestSchema>;
 
+export const VideoEngineIdSchema = z.string().regex(/^[a-f0-9]{32}$/);
+
+/** Stages the engine route accepts on run; the facade drives a subset (`VideoEngineRunStageSchema`). */
+export const VideoEngineRouteRunStageSchema = z.enum(['frames', 'animatic', 'clips', 'assemble', 'voice']);
+export type VideoEngineRouteRunStage = z.infer<typeof VideoEngineRouteRunStageSchema>;
+/** Stages the engine route accepts on approve; the facade drives a subset (`VideoEngineApproveStageSchema`). */
+export const VideoEngineRouteApproveStageSchema = z.enum(['references', 'plan', 'frames', 'final', 'voice']);
+export type VideoEngineRouteApproveStage = z.infer<typeof VideoEngineRouteApproveStageSchema>;
+
+/** Whole plan body of the engine route; the facade sends `{}` (`VideoEnginePlanRequestSchema`). */
+export const VideoEngineRoutePlanRequestSchema = z.object({
+  quote_id: VideoEngineIdSchema.optional(),
+  retry_authorization_id: VideoEngineIdSchema.optional(),
+  revision: VideoEngineRevisionSchema.optional(),
+}).strict();
+export type VideoEngineRoutePlanRequest = z.infer<typeof VideoEngineRoutePlanRequestSchema>;
+
+/** Whole approve body of the engine route; the facade body is a subset of it. */
+export const VideoEngineRouteApproveRequestSchema = z.object({
+  stage: VideoEngineRouteApproveStageSchema,
+  revision: VideoEngineRevisionSchema,
+}).strict();
+export type VideoEngineRouteApproveRequest = z.infer<typeof VideoEngineRouteApproveRequestSchema>;
+
+/**
+ * Whole run body of the engine route; the facade body is a subset of it. The uniqueness of `scene_ids`
+ * is checked by the engine (`officina/pipeline.py:1730`): no `refine` here, the portable catalog would block it.
+ */
+export const VideoEngineRouteRunRequestSchema = z.object({
+  stage: VideoEngineRouteRunStageSchema,
+  scene_ids: z.array(VideoEngineIdSchema).max(32).optional(),
+  revision: VideoEngineRevisionSchema.optional(),
+  quote_id: VideoEngineIdSchema.optional(),
+}).strict();
+export type VideoEngineRouteRunRequest = z.infer<typeof VideoEngineRouteRunRequestSchema>;
+
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export const VideoEngineMediaPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);
 
