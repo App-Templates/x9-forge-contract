@@ -2,6 +2,21 @@ import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
 import { VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from './brief.js';
 
+export const VideoEngineErrorSchema = z.object({
+  error: z.string().min(1).max(2000),
+  operation_state: z.enum(['rejected', 'pending', 'uncertain']).nullish(),
+  code: z.string().min(1).max(64).nullish(),
+}).strict();
+export type VideoEngineError = z.infer<typeof VideoEngineErrorSchema>;
+
+export const VideoEngineHealthSchema = z.object({
+  ok: z.boolean(),
+  ffmpeg: z.boolean(),
+  ffprobe: z.boolean(),
+  paid_enabled: z.boolean().optional(),
+}).passthrough();
+export type VideoEngineHealth = z.infer<typeof VideoEngineHealthSchema>;
+
 export const VideoProviderSchema = z.enum(['demo', 'minimax', 'fal', 'byteplus']);
 export type VideoProvider = z.infer<typeof VideoProviderSchema>;
 
