@@ -3,14 +3,14 @@ import { CapabilityOrdinaryCallSnapshotSchema, CapabilityOrdinaryConfigurationSc
 import { CapabilityParameterKeySchema, CapabilityParameterValueSchema } from './parameters.js';
 import { ToolCallRequestSchema } from './tool-call.js';
 import { RagQueryRequestSchema, RagQueryResponseSchema } from '../rag/rag-query.js';
-import { VideoEngineJobSchema, VideoEngineJobResponseSchema } from './video/engine.js';
+import { VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema, VideoEngineRouteRunRequestSchema, VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineIdSchema } from './video/engine.js';
 import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from './video/story.js';
 import { AgentOrdinaryAuthorityQuerySchema, AgentOrdinaryAuthoritySchema, parseAgentOrdinaryAuthorityResponse } from '../agent/ordinary-authority.js';
 import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, CapabilityOrdinaryLifecycleTransactionSchema, parseCapabilityOrdinaryLifecycle, parseCapabilityOrdinaryLifecycleReceipt } from './ordinary-lifecycle.js';
 import { agentOrdinaryAuthorityContract } from '../http/endpoints/internal-agents-ordinary-authority.js';
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from '../http/endpoints/internal-capability-agent.js';
 import { capToolCallContract } from '../http/endpoints/cap-tool-call.js';
-import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract } from '../http/endpoints/officina-video.js';
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract } from '../http/endpoints/officina-video.js';
 import { INTERNAL_SECRET_HEADER } from '../auth/auth-headers.js';
 
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
@@ -59,7 +59,7 @@ export interface PortableCapabilityContract {
 export interface PortableCapabilityCatalog {
   format: 'x9-capability-portable-v1';
   contracts: Record<string, PortableCapabilityContract>;
-  transports: Record<string, { method: string; path: string; authHeader: string; paramsSchema: Record<string, unknown>; queryContract?: string; requestContract?: string; responseContract?: string }>;
+  transports: Record<string, { method: string; path: string; authHeader: string; paramsSchema: Record<string, unknown>; queryContract?: string; requestContract?: string; responseContract?: string; errorContract?: string }>;
 }
 
 /** Probes on which `String.prototype.trim` is the only plausible overwrite: whitespace of every JS class, case, inner spaces. */
@@ -171,6 +171,12 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   add('videoEngineJobResponse', VideoEngineJobResponseSchema, [], 0);
   add('videoEngineStoryRequest', VideoEngineStoryRequestSchema, [], 0);
   add('videoEngineStoryEstimate', VideoEngineStoryEstimateSchema, [], 0);
+  add('videoEngineProject', VideoEngineProjectSchema, [], 0);
+  add('videoEnginePlanRequest', VideoEngineRoutePlanRequestSchema, [], 0);
+  add('videoEngineApproveRequest', VideoEngineRouteApproveRequestSchema, [], 0);
+  add('videoEngineRunRequest', VideoEngineRouteRunRequestSchema, [], 0);
+  add('videoEngineError', VideoEngineErrorSchema, [], 0);
+  add('videoEngineHealth', VideoEngineHealthSchema, [], 0);
   add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
   add('authorityResponse', authorityResponse, authorityRules, 2);
   contracts.authorityResponse!.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -186,16 +192,25 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   for (const name of ['lifecycleRequest', 'lifecycleReceipt', 'lifecycleTransaction', 'lifecycleAuthority']) {
     contracts[name]!.limitations = ['Only null or frozen configurations with zero parameters; durable effects and reconciliation are consumer-owned'];
   }
-  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract | typeof officinaVideoStoryEstimateContract) => ({
+  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract | typeof officinaVideoStoryEstimateContract | typeof officinaVideoProjectGetContract | typeof officinaVideoPlanContract | typeof officinaVideoApproveContract | typeof officinaVideoRunContract) => ({
     method: contract.method, path: contract.path, authHeader: INTERNAL_SECRET_HEADER, paramsSchema: z.toJSONSchema(contract.paramsSchema),
   });
   return { format: 'x9-capability-portable-v1', contracts, transports: {
     authority: { ...transport(agentOrdinaryAuthorityContract), queryContract: 'authorityQuery' },
     ordinaryGet: { ...transport(ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
     lifecycle: transport(ordinaryCapabilityLifecyclePutContract), call: transport(capToolCallContract),
-    videoEngineJob: transport(officinaVideoJobContract), videoEngineHealth: transport(officinaVideoHealthContract),
-    videoEngineStory: { ...transport(officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest' },
-    videoEngineStoryEstimate: { ...transport(officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate' },
+    videoEngineJob: { ...transport(officinaVideoJobContract), errorContract: 'videoEngineError' },
+    videoEngineHealth: { ...transport(officinaVideoHealthContract), responseContract: 'videoEngineHealth', errorContract: 'videoEngineError' },
+    videoEngineStory: { ...transport(officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest', errorContract: 'videoEngineError' },
+    videoEngineStoryEstimate: { ...transport(officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate', errorContract: 'videoEngineError' },
+    videoEngineProjectGet: { ...transport(officinaVideoProjectGetContract), responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+    videoEnginePlan: { ...transport(officinaVideoPlanContract), requestContract: 'videoEnginePlanRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+    videoEngineApprove: { ...transport(officinaVideoApproveContract), requestContract: 'videoEngineApproveRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+    videoEngineRun: { ...transport(officinaVideoRunContract), requestContract: 'videoEngineRunRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+    videoEngineMedia: {
+      method: 'GET', path: '/media/:engineProjectId/:file', authHeader: INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError',
+      paramsSchema: z.toJSONSchema(z.object({ engineProjectId: VideoEngineIdSchema, file: z.string().regex(/^[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/) }).strict()),
+    },
   } };
 }
 

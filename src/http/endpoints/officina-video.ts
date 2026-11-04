@@ -1,9 +1,10 @@
 import { z } from 'zod';
 import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from '../../capability/video/story.js';
-import { VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEnginePlanRequestSchema, VideoEngineApproveRequestSchema, VideoEngineRunRequestSchema, VideoEngineMediaPathSchema } from '../../capability/video/engine.js';
+import { VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema, VideoEngineRouteRunRequestSchema, VideoEngineMediaPathSchema } from '../../capability/video/engine.js';
 
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'POST',
   path: '/api/jobs',
   paramsSchema: z.object({}).strict(),
@@ -13,6 +14,9 @@ export const officinaVideoJobContract = {
 
 /** cap-video -> Officina video engine health probe. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoHealthContract = {
+  errorSchema: VideoEngineErrorSchema,
+  responseSchema: VideoEngineHealthSchema,
+  responseStatus: 200,
   method: 'GET',
   path: '/api/health',
   paramsSchema: z.object({}).strict(),
@@ -20,6 +24,7 @@ export const officinaVideoHealthContract = {
 
 /** cap-video -> engine: read one project. Internal, INTERNAL_SECRET_HEADER. */
 export const officinaVideoProjectGetContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'GET',
   path: '/api/projects/:engineProjectId',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
@@ -28,28 +33,35 @@ export const officinaVideoProjectGetContract = {
 
 /** cap-video -> engine: write the plan of a project. Internal, INTERNAL_SECRET_HEADER. */
 export const officinaVideoPlanContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'POST',
   path: '/api/projects/:engineProjectId/plan',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
-  requestSchema: VideoEnginePlanRequestSchema,
+  requestSchema: VideoEngineRoutePlanRequestSchema,
   responseSchema: VideoEngineProjectSchema,
+  responseStatus: 200,
 } as const;
 
 /** cap-video -> engine: approve a stage at the revision that was shown. Internal, INTERNAL_SECRET_HEADER. */
 export const officinaVideoApproveContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'POST',
   path: '/api/projects/:engineProjectId/approve',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
-  requestSchema: VideoEngineApproveRequestSchema,
+  requestSchema: VideoEngineRouteApproveRequestSchema,
   responseSchema: VideoEngineProjectSchema,
+  responseStatus: 200,
 } as const;
 
 /** cap-video -> engine: start a production stage (asynchronous, 202). Internal, INTERNAL_SECRET_HEADER. */
 export const officinaVideoRunContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'POST',
   path: '/api/projects/:engineProjectId/run',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
-  requestSchema: VideoEngineRunRequestSchema,
+  requestSchema: VideoEngineRouteRunRequestSchema,
+  responseSchema: VideoEngineProjectSchema,
+  responseStatus: 202,
 } as const;
 
 /**
@@ -57,6 +69,7 @@ export const officinaVideoRunContract = {
  * regia. Asynchronous (202) and idempotent on `revision`; the state is read with GET project. Internal, INTERNAL_SECRET_HEADER.
  */
 export const officinaVideoStoryContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'POST',
   path: '/api/projects/:engineProjectId/story',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
@@ -69,6 +82,7 @@ export const officinaVideoStoryContract = {
  * no side effect, nothing paid: answers the figure the story start compares with the budget. Internal, INTERNAL_SECRET_HEADER.
  */
 export const officinaVideoStoryEstimateContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'POST',
   path: '/api/projects/:engineProjectId/story/estimate',
   paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
@@ -79,6 +93,7 @@ export const officinaVideoStoryEstimateContract = {
 
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 export const officinaVideoMediaContract = {
+  errorSchema: VideoEngineErrorSchema,
   method: 'GET',
   pathSchema: VideoEngineMediaPathSchema,
 } as const;

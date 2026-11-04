@@ -64,6 +64,8 @@ describe('capability/dev subpath', () => {
         'canonicalizeDevSignedCommandV2',
         'canonicalizeDevProductionReport',
         'DEV_SESSION_AUTONOMOUS_LABEL',
+        'DEV_SESSION_EXECUTOR_LABEL_PREFIX',
+        'DEV_SESSION_SERVER_EXECUTOR_LABEL',
         'DEV_SESSION_BRANCH_PREFIX',
         'DEV_SESSION_DELIVERED_FILES_LABEL',
         'DEV_SESSION_COMMIT_LABEL',

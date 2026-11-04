@@ -1,6 +1,17 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
 import { VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from "./brief.js";
+export const VideoEngineErrorSchema = z.object({
+    error: z.string().min(1).max(2000),
+    operation_state: z.enum(['rejected', 'pending', 'uncertain']).nullish(),
+    code: z.string().min(1).max(64).nullish(),
+}).strict();
+export const VideoEngineHealthSchema = z.object({
+    ok: z.boolean(),
+    ffmpeg: z.boolean(),
+    ffprobe: z.boolean(),
+    paid_enabled: z.boolean().optional(),
+}).passthrough();
 export const VideoProviderSchema = z.enum(['demo', 'minimax', 'fal', 'byteplus']);
 export const VideoEngineSettingsSchema = z.object({
     aspectRatio: z.enum(['9:16', '16:9', '1:1']),
@@ -45,6 +56,32 @@ export const VideoEngineApproveRequestSchema = z.object({
 export const VideoEngineRunRequestSchema = z.object({
     stage: VideoEngineRunStageSchema,
     revision: VideoEngineRevisionSchema.optional(),
+}).strict();
+export const VideoEngineIdSchema = z.string().regex(/^[a-f0-9]{32}$/);
+/** Stages the engine route accepts on run; the facade drives a subset (`VideoEngineRunStageSchema`). */
+export const VideoEngineRouteRunStageSchema = z.enum(['frames', 'animatic', 'clips', 'assemble', 'voice']);
+/** Stages the engine route accepts on approve; the facade drives a subset (`VideoEngineApproveStageSchema`). */
+export const VideoEngineRouteApproveStageSchema = z.enum(['references', 'plan', 'frames', 'final', 'voice']);
+/** Whole plan body of the engine route; the facade sends `{}` (`VideoEnginePlanRequestSchema`). */
+export const VideoEngineRoutePlanRequestSchema = z.object({
+    quote_id: VideoEngineIdSchema.optional(),
+    retry_authorization_id: VideoEngineIdSchema.optional(),
+    revision: VideoEngineRevisionSchema.optional(),
+}).strict();
+/** Whole approve body of the engine route; the facade body is a subset of it. */
+export const VideoEngineRouteApproveRequestSchema = z.object({
+    stage: VideoEngineRouteApproveStageSchema,
+    revision: VideoEngineRevisionSchema,
+}).strict();
+/**
+ * Whole run body of the engine route; the facade body is a subset of it. The uniqueness of `scene_ids`
+ * is checked by the engine (`officina/pipeline.py:1730`): no `refine` here, the portable catalog would block it.
+ */
+export const VideoEngineRouteRunRequestSchema = z.object({
+    stage: VideoEngineRouteRunStageSchema,
+    scene_ids: z.array(VideoEngineIdSchema).max(32).optional(),
+    revision: VideoEngineRevisionSchema.optional(),
+    quote_id: VideoEngineIdSchema.optional(),
 }).strict();
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export const VideoEngineMediaPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);

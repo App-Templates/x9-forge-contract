@@ -2,6 +2,18 @@
 
 ## Non rilasciato
 
+## v1.94.0 — Officina video: ogni chiamata del motore nel contratto e nel catalogo Python, additivo
+
+- `@x9-forge/contracts/capability/video`: richieste delle rotte `VideoEngineRoutePlanRequestSchema`, `VideoEngineRouteApproveRequestSchema` e `VideoEngineRouteRunRequestSchema`; in `@x9-forge/contracts/http`, plan e approve rispondono con `VideoEngineProjectSchema` (200), run con lo stesso schema (202). Le richieste della facciata restano disponibili.
+- `VideoEngineErrorSchema` è esposto come `errorSchema` su ogni contratto HTTP del motore; `VideoEngineHealthSchema` descrive la risposta della rotta health.
+- Catalogo portabile Python: nuove voci `videoEngineProject`, `videoEnginePlanRequest`, `videoEngineApproveRequest`, `videoEngineRunRequest`, `videoEngineError` e `videoEngineHealth`; nuovi trasporti `videoEngineProjectGet`, `videoEnginePlan`, `videoEngineApprove`, `videoEngineRun` e `videoEngineMedia`. Il campo facoltativo `errorContract` collega ogni trasporto del motore a `videoEngineError`; health espone anche `responseContract`.
+- Parità zod/Python: `tests/capability/video/engine-parity.test.ts` confronta verdetti e valori sullo stesso corpus per ogni voce `videoEngine` (10/10 voci), con controllo della copertura del catalogo.
+- `@x9-forge/contracts/capability/dev`: `DEV_SESSION_EXECUTOR_LABEL_PREFIX` (`esecutore:`) e `DEV_SESSION_SERVER_EXECUTOR_LABEL` (`esecutore:server`) identificano la regia assegnata all'esecutore del server. Consumer: cap-dev ed esecutore del portatile, che deve ignorare gli incarichi con l'etichetta del server.
+- Corretto il commento di `fitsBudget`: il preventivo deve rientrare sia nel budget del progetto sia nel limite del server; se `serverAvailableUsd` è `null`, `fitsBudget` è falso e l'avvio della story viene rifiutato con HTTP 503 perché il limite del server non è impostato.
+- Consumer: motore Officina (validazione generata Python) e cap-video (test di contratto). Adozione e aggiornamento dei pin sono affidati alle rispettive corsie.
+
+Nessuno schema zod si stringe: gli schemi della facciata restano, quelli della rotta sono nuovi.
+
 ## v1.93.0 — Officina video: stato della story nel progetto del motore, additivo
 
 - `@x9-forge/contracts/capability/video`: `VideoEngineStoryStatusSchema`, `VideoEngineStoryStateSchema` e il campo facoltativo `story` di `VideoEngineProjectSchema` (stato della story del motore, letto da cap-video). Consumer: agent-x9 `services/cap-video` (fine della story).

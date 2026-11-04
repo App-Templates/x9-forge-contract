@@ -58,7 +58,8 @@ const usd = z.number().finite().min(0);
  * story, the same figure `POST .../story` compares with the budget before starting. cap-video asks it before email 1 and
  * shows `estimateUsd`, so the person never approves a cost the engine will then refuse. `availableUsd` is what is left of
  * the project budget; `serverAvailableUsd` what is left of the server's runtime limit (null when the limit is not set);
- * `fitsBudget` is true only when the estimate fits both, i.e. when `POST .../story` would not refuse it for cost.
+ * `fitsBudget` is true only when the estimate fits both. When `serverAvailableUsd` is null, it is false:
+ * starting the story would be rejected with HTTP 503 because the server limit is not set.
  */
 export const VideoEngineStoryEstimateSchema = z.strictObject({
   estimateUsd: usd,

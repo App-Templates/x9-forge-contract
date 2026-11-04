@@ -1,9 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoEngineProjectSchema = exports.VideoEngineStoryStateSchema = exports.VideoEngineStoryStatusSchema = exports.VideoEngineMediaPathSchema = exports.VideoEngineRunRequestSchema = exports.VideoEngineApproveRequestSchema = exports.VideoEnginePlanRequestSchema = exports.VideoEngineRevisionSchema = exports.VideoEngineApproveStageSchema = exports.VideoEngineRunStageSchema = exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = exports.VideoProviderSchema = void 0;
+exports.VideoEngineProjectSchema = exports.VideoEngineStoryStateSchema = exports.VideoEngineStoryStatusSchema = exports.VideoEngineMediaPathSchema = exports.VideoEngineRouteRunRequestSchema = exports.VideoEngineRouteApproveRequestSchema = exports.VideoEngineRoutePlanRequestSchema = exports.VideoEngineRouteApproveStageSchema = exports.VideoEngineRouteRunStageSchema = exports.VideoEngineIdSchema = exports.VideoEngineRunRequestSchema = exports.VideoEngineApproveRequestSchema = exports.VideoEnginePlanRequestSchema = exports.VideoEngineRevisionSchema = exports.VideoEngineApproveStageSchema = exports.VideoEngineRunStageSchema = exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = exports.VideoProviderSchema = exports.VideoEngineHealthSchema = exports.VideoEngineErrorSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const brief_js_1 = require("./brief.cjs");
+exports.VideoEngineErrorSchema = zod_1.z.object({
+    error: zod_1.z.string().min(1).max(2000),
+    operation_state: zod_1.z.enum(['rejected', 'pending', 'uncertain']).nullish(),
+    code: zod_1.z.string().min(1).max(64).nullish(),
+}).strict();
+exports.VideoEngineHealthSchema = zod_1.z.object({
+    ok: zod_1.z.boolean(),
+    ffmpeg: zod_1.z.boolean(),
+    ffprobe: zod_1.z.boolean(),
+    paid_enabled: zod_1.z.boolean().optional(),
+}).passthrough();
 exports.VideoProviderSchema = zod_1.z.enum(['demo', 'minimax', 'fal', 'byteplus']);
 exports.VideoEngineSettingsSchema = zod_1.z.object({
     aspectRatio: zod_1.z.enum(['9:16', '16:9', '1:1']),
@@ -48,6 +59,32 @@ exports.VideoEngineApproveRequestSchema = zod_1.z.object({
 exports.VideoEngineRunRequestSchema = zod_1.z.object({
     stage: exports.VideoEngineRunStageSchema,
     revision: exports.VideoEngineRevisionSchema.optional(),
+}).strict();
+exports.VideoEngineIdSchema = zod_1.z.string().regex(/^[a-f0-9]{32}$/);
+/** Stages the engine route accepts on run; the facade drives a subset (`VideoEngineRunStageSchema`). */
+exports.VideoEngineRouteRunStageSchema = zod_1.z.enum(['frames', 'animatic', 'clips', 'assemble', 'voice']);
+/** Stages the engine route accepts on approve; the facade drives a subset (`VideoEngineApproveStageSchema`). */
+exports.VideoEngineRouteApproveStageSchema = zod_1.z.enum(['references', 'plan', 'frames', 'final', 'voice']);
+/** Whole plan body of the engine route; the facade sends `{}` (`VideoEnginePlanRequestSchema`). */
+exports.VideoEngineRoutePlanRequestSchema = zod_1.z.object({
+    quote_id: exports.VideoEngineIdSchema.optional(),
+    retry_authorization_id: exports.VideoEngineIdSchema.optional(),
+    revision: exports.VideoEngineRevisionSchema.optional(),
+}).strict();
+/** Whole approve body of the engine route; the facade body is a subset of it. */
+exports.VideoEngineRouteApproveRequestSchema = zod_1.z.object({
+    stage: exports.VideoEngineRouteApproveStageSchema,
+    revision: exports.VideoEngineRevisionSchema,
+}).strict();
+/**
+ * Whole run body of the engine route; the facade body is a subset of it. The uniqueness of `scene_ids`
+ * is checked by the engine (`officina/pipeline.py:1730`): no `refine` here, the portable catalog would block it.
+ */
+exports.VideoEngineRouteRunRequestSchema = zod_1.z.object({
+    stage: exports.VideoEngineRouteRunStageSchema,
+    scene_ids: zod_1.z.array(exports.VideoEngineIdSchema).max(32).optional(),
+    revision: exports.VideoEngineRevisionSchema.optional(),
+    quote_id: exports.VideoEngineIdSchema.optional(),
 }).strict();
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 exports.VideoEngineMediaPathSchema = zod_1.z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);

@@ -11,6 +11,10 @@ import { ParticipantAgentIdentitySchema } from "../../organization/participant-b
  */
 /** Etichetta con cui cap-dev marca una issue come incarico di sessione autonoma. */
 export const DEV_SESSION_AUTONOMOUS_LABEL = 'sessione:autonoma';
+/** Prefisso delle etichette con cui cap-dev indica quale esecutore deve prendere la sessione. */
+export const DEV_SESSION_EXECUTOR_LABEL_PREFIX = 'esecutore:';
+/** La sessione la prende solo un esecutore sul server (container); l'esecutore del portatile la ignora. */
+export const DEV_SESSION_SERVER_EXECUTOR_LABEL = 'esecutore:server';
 /** Il lavoro prodotto si committa sul ramo `consegna/<numero della issue>` del repository di destinazione. */
 export const DEV_SESSION_BRANCH_PREFIX = 'consegna/';
 /** Riga che apre l'elenco dei file consegnati nel commento finale. */
