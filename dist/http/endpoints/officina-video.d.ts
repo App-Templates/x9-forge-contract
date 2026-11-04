@@ -204,6 +204,47 @@ export declare const officinaVideoStoryContract: {
     }, z.core.$strict>;
     readonly responseStatus: 202;
 };
+/**
+ * cap-video -> engine: upper estimate of a story, before email 1. Same body as the story (validated by the same contract),
+ * no side effect, nothing paid: answers the figure the story start compares with the budget. Internal, INTERNAL_SECRET_HEADER.
+ */
+export declare const officinaVideoStoryEstimateContract: {
+    readonly method: "POST";
+    readonly path: "/api/projects/:engineProjectId/story/estimate";
+    readonly paramsSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        scenes: z.ZodArray<z.ZodObject<{
+            text: z.ZodString;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>>;
+        graphicHtml: z.ZodString;
+        footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        outro: z.ZodObject<{
+            title: z.ZodString;
+            line: z.ZodString;
+        }, z.core.$strict>;
+        resolution: z.ZodDefault<z.ZodEnum<{
+            "480p": "480p";
+            "720p": "720p";
+            "1080p": "1080p";
+        }>>;
+        revision: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        estimateUsd: z.ZodNumber;
+        voiceUsd: z.ZodNumber;
+        lipSyncUsd: z.ZodNumber;
+        estimatedSeconds: z.ZodNumber;
+        characters: z.ZodNumber;
+        availableUsd: z.ZodNumber;
+        serverAvailableUsd: z.ZodNullable<z.ZodNumber>;
+        fitsBudget: z.ZodBoolean;
+        source: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoMediaContract: {
     readonly method: "GET";

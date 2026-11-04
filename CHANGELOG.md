@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.92.0 — Officina video: la story del contratto è la story del motore, e il preventivo prima dell'email, additivo
+
+- Catalogo dei contratti portabili (canale Python del motore): `trim()` di zod non spariva più in silenzio dallo schema JSON. Ora viaggia come parola chiave `x-trim: true` (il runtime Python generato toglie gli spazi come `String.prototype.trim` e poi controlla lunghezze e forma), solo quando il trim è il primo controllo del testo; ogni altra sovrascrittura (trim tardivo, `toLowerCase`, …) conta come raffinazione non portabile e il catalogo la blocca invece di pubblicarla. Effetto su `videoEngineStoryRequest`: `scenes[].text`, `outro.title`, `outro.line` («   » rifiutato, testo di 1200 caratteri con spazi intorno accettato, come zod). Le altre voci cambiano solo per `x-trim` sul campo `capability`.
+- Runtime Python generato: i `pattern` seguono la semantica JS, `$` è la fine del testo (prima `calm\n` passava in Python e non in zod).
+- `@x9-forge/contracts/capability/video`: `VideoEngineStoryEstimateSchema` (`estimateUsd`, `voiceUsd`, `lipSyncUsd`, `estimatedSeconds`, `characters`, `availableUsd`, `serverAvailableUsd`, `fitsBudget`, `source`); in `@x9-forge/contracts/http` `officinaVideoStoryEstimateContract` (POST `/api/projects/:engineProjectId/story/estimate`, stesso corpo della story, risposta 200, nessun effetto, segreto interno); voce portabile `videoEngineStoryEstimate` e trasporto `videoEngineStoryEstimate` (`requestContract` + `responseContract`, campo facoltativo nuovo dei trasporti). Consumer: agent-x9 `services/cap-video` (preventivo prima dell'email 1), motore Officina.
+- Test: `tests/capability/video/story-parity.test.ts` dà a zod e al Python generato lo stesso corpus di story (forme valide e rifiutate) e fallisce a ogni verdetto o valore diverso, e se il catalogo in `dist/python` non è quello che zod produce oggi.
+
+Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`night/p6c-ponte-20261030`, `night/ov-ponte-unito-20261104`) sono in volo e non ancora in main, quindi questa è la minore libera successiva.
+
 ## v1.89.0 — Officina video: preset veri con regia e operazione story, additivo
 
 - `@x9-forge/contracts/capability/video`: `VideoBriefRequestSchema` e `VideoBriefToolInputSchema` hanno il campo facoltativo `footage` (1-2 id dell'archivio delle riprese, `VideoFootageIdSchema`, `VideoFootageChoiceSchema`; assente = sceglie la regia); `VideoProjectStepSchema` aggiunge `regia` e `story`.

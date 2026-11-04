@@ -37,4 +37,23 @@ export const VideoEngineStoryRequestSchema = z.strictObject({
     resolution: VideoStoryResolutionSchema.default('1080p'),
     revision: VideoEngineRevisionSchema,
 });
+const usd = z.number().finite().min(0);
+/**
+ * Answer of `POST /api/projects/:engineProjectId/story/estimate` (200, no side effect): the engine's upper estimate of a
+ * story, the same figure `POST .../story` compares with the budget before starting. cap-video asks it before email 1 and
+ * shows `estimateUsd`, so the person never approves a cost the engine will then refuse. `availableUsd` is what is left of
+ * the project budget; `serverAvailableUsd` what is left of the server's runtime limit (null when the limit is not set);
+ * `fitsBudget` is true only when the estimate fits both, i.e. when `POST .../story` would not refuse it for cost.
+ */
+export const VideoEngineStoryEstimateSchema = z.strictObject({
+    estimateUsd: usd,
+    voiceUsd: usd,
+    lipSyncUsd: usd,
+    estimatedSeconds: usd,
+    characters: z.number().int().min(0),
+    availableUsd: usd,
+    serverAvailableUsd: usd.nullable(),
+    fitsBudget: z.boolean(),
+    source: z.string().min(1).max(500),
+});
 //# sourceMappingURL=story.js.map

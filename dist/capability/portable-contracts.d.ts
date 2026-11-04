@@ -235,8 +235,15 @@ export interface PortableCapabilityCatalog {
         paramsSchema: Record<string, unknown>;
         queryContract?: string;
         requestContract?: string;
+        responseContract?: string;
     }>;
 }
+/**
+ * JSON Schema of a canonical zod schema for the portable catalog. `trim()` has no standard keyword: it is carried
+ * as `x-trim: true` (strip JS whitespace first, then check and return the trimmed text), so the generated Python
+ * runtime admits exactly what zod admits.
+ */
+export declare function portableJsonSchema(schema: z.ZodType): Record<string, unknown>;
 /** Export data consumed by the compiled generator. Gated schemas are documentation, never admission. */
 export declare function getPortableCapabilityContracts(): PortableCapabilityCatalog;
 /** Pure IR binding used by TS and generated Python; authority must come from the authenticated loaded consumer. */

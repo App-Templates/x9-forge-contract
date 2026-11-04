@@ -4,13 +4,13 @@ import { CapabilityParameterKeySchema, CapabilityParameterValueSchema } from './
 import { ToolCallRequestSchema } from './tool-call.js';
 import { RagQueryRequestSchema, RagQueryResponseSchema } from '../rag/rag-query.js';
 import { VideoEngineJobSchema, VideoEngineJobResponseSchema } from './video/engine.js';
-import { VideoEngineStoryRequestSchema } from './video/story.js';
+import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from './video/story.js';
 import { AgentOrdinaryAuthorityQuerySchema, AgentOrdinaryAuthoritySchema, parseAgentOrdinaryAuthorityResponse } from '../agent/ordinary-authority.js';
 import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, CapabilityOrdinaryLifecycleTransactionSchema, parseCapabilityOrdinaryLifecycle, parseCapabilityOrdinaryLifecycleReceipt } from './ordinary-lifecycle.js';
 import { agentOrdinaryAuthorityContract } from '../http/endpoints/internal-agents-ordinary-authority.js';
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from '../http/endpoints/internal-capability-agent.js';
 import { capToolCallContract } from '../http/endpoints/cap-tool-call.js';
-import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract } from '../http/endpoints/officina-video.js';
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract } from '../http/endpoints/officina-video.js';
 import { INTERNAL_SECRET_HEADER } from '../auth/auth-headers.js';
 
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
@@ -59,7 +59,36 @@ export interface PortableCapabilityContract {
 export interface PortableCapabilityCatalog {
   format: 'x9-capability-portable-v1';
   contracts: Record<string, PortableCapabilityContract>;
-  transports: Record<string, { method: string; path: string; authHeader: string; paramsSchema: Record<string, unknown>; queryContract?: string; requestContract?: string }>;
+  transports: Record<string, { method: string; path: string; authHeader: string; paramsSchema: Record<string, unknown>; queryContract?: string; requestContract?: string; responseContract?: string }>;
+}
+
+/** Probes on which `String.prototype.trim` is the only plausible overwrite: whitespace of every JS class, case, inner spaces. */
+const TRIM_PROBES = [' a B ', '\t\n\u000b\f\r x\u00a0', '\ufeff\u1680\u2000\u200a\u2028\u2029\u202f\u205f\u3000y z\u3000', '\u001c q \u001c', 'Ab', ''];
+
+/** True when a zod check is an overwrite that behaves exactly as `trim()` (portable as the `x-trim` keyword). */
+function isTrimCheck(check: unknown): boolean {
+  const def = (check as { _zod?: { def?: { check?: string; tx?: unknown } } } | undefined)?._zod?.def;
+  if (def?.check !== 'overwrite' || typeof def.tx !== 'function') return false;
+  const tx = def.tx as (value: string) => unknown;
+  return TRIM_PROBES.every(probe => tx(probe) === probe.trim());
+}
+
+/** A string schema whose first check is trim: zod trims before every length/pattern check, as `x-trim` says. */
+function hasLeadingTrim(schema: unknown): boolean {
+  const def = (schema as { _zod?: { def?: { type?: string; checks?: unknown[] } } } | undefined)?._zod?.def;
+  return def?.type === 'string' && isTrimCheck(def.checks?.[0]);
+}
+
+/**
+ * JSON Schema of a canonical zod schema for the portable catalog. `trim()` has no standard keyword: it is carried
+ * as `x-trim: true` (strip JS whitespace first, then check and return the trimmed text), so the generated Python
+ * runtime admits exactly what zod admits.
+ */
+export function portableJsonSchema(schema: z.ZodType): Record<string, unknown> {
+  return z.toJSONSchema(schema, {
+    io: 'input', target: 'draft-2020-12',
+    override: (ctx) => { if (hasLeadingTrim(ctx.zodSchema)) (ctx.jsonSchema as Record<string, unknown>)['x-trim'] = true; },
+  }) as Record<string, unknown>;
 }
 
 /** Count non-JSON custom checks so a newly added refinement cannot silently become portable. */
@@ -68,7 +97,9 @@ function customRefinements(schema: z.ZodType, seen = new Set<object>()): number 
   seen.add(schema);
   const def = schema._zod.def as unknown as Record<string, unknown>;
   const checks = (def.checks ?? []) as Array<{ _zod: { def: { check: string } } }>;
-  let count = checks.filter(check => check._zod.def.check === 'custom').length;
+  // A custom check, or an overwrite other than a leading trim, has no JSON Schema form: it must be gated, never dropped.
+  let count = checks.filter((check, index) => check._zod.def.check === 'custom'
+    || (check._zod.def.check === 'overwrite' && !(index === 0 && isTrimCheck(check)))).length;
   const visit = (value: unknown): void => {
     if (value && typeof value === 'object' && '_zod' in value) count += customRefinements(value as z.ZodType, seen);
     else if (Array.isArray(value)) value.forEach(visit);
@@ -124,7 +155,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
     const count = customRefinements(schema);
     if (expectedChecks !== null && count !== expectedChecks) throw new Error(`Uncovered refinement in portable contract ${name}`);
     let json: Record<string, unknown> | null = null;
-    try { json = z.toJSONSchema(schema, { io: 'input', target: 'draft-2020-12' }) as Record<string, unknown>; }
+    try { json = portableJsonSchema(schema); }
     catch {
       if (gates.length === 0) throw new Error(`Nonportable schema in ${name}`);
       gates = [...gates, 'JSON Schema conversion requires an explicit transform/recursive codec'];
@@ -139,6 +170,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   add('videoEngineJob', VideoEngineJobSchema, [], 0);
   add('videoEngineJobResponse', VideoEngineJobResponseSchema, [], 0);
   add('videoEngineStoryRequest', VideoEngineStoryRequestSchema, [], 0);
+  add('videoEngineStoryEstimate', VideoEngineStoryEstimateSchema, [], 0);
   add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
   add('authorityResponse', authorityResponse, authorityRules, 2);
   contracts.authorityResponse!.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -154,7 +186,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   for (const name of ['lifecycleRequest', 'lifecycleReceipt', 'lifecycleTransaction', 'lifecycleAuthority']) {
     contracts[name]!.limitations = ['Only null or frozen configurations with zero parameters; durable effects and reconciliation are consumer-owned'];
   }
-  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract) => ({
+  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract | typeof officinaVideoStoryEstimateContract) => ({
     method: contract.method, path: contract.path, authHeader: INTERNAL_SECRET_HEADER, paramsSchema: z.toJSONSchema(contract.paramsSchema),
   });
   return { format: 'x9-capability-portable-v1', contracts, transports: {
@@ -163,6 +195,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
     lifecycle: transport(ordinaryCapabilityLifecyclePutContract), call: transport(capToolCallContract),
     videoEngineJob: transport(officinaVideoJobContract), videoEngineHealth: transport(officinaVideoHealthContract),
     videoEngineStory: { ...transport(officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest' },
+    videoEngineStoryEstimate: { ...transport(officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate' },
   } };
 }
 

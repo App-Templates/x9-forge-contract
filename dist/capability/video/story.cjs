@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoEngineStoryRequestSchema = exports.VideoGraphicHtmlSchema = exports.VIDEO_GRAPHIC_HTML_MAX_CHARS = exports.VideoStoryOutroSchema = exports.VideoStoryScenesSchema = exports.VIDEO_STORY_MAX_SCENES = exports.VideoStorySceneSchema = exports.VideoStoryTagSchema = exports.VideoStoryResolutionSchema = void 0;
+exports.VideoEngineStoryEstimateSchema = exports.VideoEngineStoryRequestSchema = exports.VideoGraphicHtmlSchema = exports.VIDEO_GRAPHIC_HTML_MAX_CHARS = exports.VideoStoryOutroSchema = exports.VideoStoryScenesSchema = exports.VIDEO_STORY_MAX_SCENES = exports.VideoStorySceneSchema = exports.VideoStoryTagSchema = exports.VideoStoryResolutionSchema = void 0;
 const zod_1 = require("zod");
 const engine_js_1 = require("./engine.cjs");
 const footage_js_1 = require("./footage.cjs");
@@ -39,5 +39,24 @@ exports.VideoEngineStoryRequestSchema = zod_1.z.strictObject({
     outro: exports.VideoStoryOutroSchema,
     resolution: exports.VideoStoryResolutionSchema.default('1080p'),
     revision: engine_js_1.VideoEngineRevisionSchema,
+});
+const usd = zod_1.z.number().finite().min(0);
+/**
+ * Answer of `POST /api/projects/:engineProjectId/story/estimate` (200, no side effect): the engine's upper estimate of a
+ * story, the same figure `POST .../story` compares with the budget before starting. cap-video asks it before email 1 and
+ * shows `estimateUsd`, so the person never approves a cost the engine will then refuse. `availableUsd` is what is left of
+ * the project budget; `serverAvailableUsd` what is left of the server's runtime limit (null when the limit is not set);
+ * `fitsBudget` is true only when the estimate fits both, i.e. when `POST .../story` would not refuse it for cost.
+ */
+exports.VideoEngineStoryEstimateSchema = zod_1.z.strictObject({
+    estimateUsd: usd,
+    voiceUsd: usd,
+    lipSyncUsd: usd,
+    estimatedSeconds: usd,
+    characters: zod_1.z.number().int().min(0),
+    availableUsd: usd,
+    serverAvailableUsd: usd.nullable(),
+    fitsBudget: zod_1.z.boolean(),
+    source: zod_1.z.string().min(1).max(500),
 });
 //# sourceMappingURL=story.js.map

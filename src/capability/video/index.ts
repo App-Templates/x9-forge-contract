@@ -73,6 +73,8 @@ export {
   VIDEO_GRAPHIC_HTML_MAX_CHARS,
   VideoGraphicHtmlSchema,
   VideoEngineStoryRequestSchema,
+  VideoEngineStoryEstimateSchema,
+  type VideoEngineStoryEstimate,
   type VideoStoryResolution,
   type VideoStoryScene,
   type VideoStoryOutro,

@@ -57,4 +57,23 @@ export declare const VideoEngineStoryRequestSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type VideoEngineStoryRequest = z.infer<typeof VideoEngineStoryRequestSchema>;
 export type VideoEngineStoryRequestInput = z.input<typeof VideoEngineStoryRequestSchema>;
+/**
+ * Answer of `POST /api/projects/:engineProjectId/story/estimate` (200, no side effect): the engine's upper estimate of a
+ * story, the same figure `POST .../story` compares with the budget before starting. cap-video asks it before email 1 and
+ * shows `estimateUsd`, so the person never approves a cost the engine will then refuse. `availableUsd` is what is left of
+ * the project budget; `serverAvailableUsd` what is left of the server's runtime limit (null when the limit is not set);
+ * `fitsBudget` is true only when the estimate fits both, i.e. when `POST .../story` would not refuse it for cost.
+ */
+export declare const VideoEngineStoryEstimateSchema: z.ZodObject<{
+    estimateUsd: z.ZodNumber;
+    voiceUsd: z.ZodNumber;
+    lipSyncUsd: z.ZodNumber;
+    estimatedSeconds: z.ZodNumber;
+    characters: z.ZodNumber;
+    availableUsd: z.ZodNumber;
+    serverAvailableUsd: z.ZodNullable<z.ZodNumber>;
+    fitsBudget: z.ZodBoolean;
+    source: z.ZodString;
+}, z.core.$strict>;
+export type VideoEngineStoryEstimate = z.infer<typeof VideoEngineStoryEstimateSchema>;
 //# sourceMappingURL=story.d.ts.map
