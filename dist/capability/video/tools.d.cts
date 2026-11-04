@@ -31,10 +31,10 @@ export declare const VideoProjectStepSchema: z.ZodEnum<{
     clips: "clips";
     assemble: "assemble";
     plan: "plan";
+    story: "story";
     review_sent: "review_sent";
     delivery_sent: "delivery_sent";
     regia: "regia";
-    story: "story";
 }>;
 export type VideoProjectStep = z.infer<typeof VideoProjectStepSchema>;
 /** One project as the owning agent sees it: state, step and the two links of the two emails. */
@@ -56,10 +56,10 @@ export declare const VideoProjectViewSchema: z.ZodObject<{
         clips: "clips";
         assemble: "assemble";
         plan: "plan";
+        story: "story";
         review_sent: "review_sent";
         delivery_sent: "delivery_sent";
         regia: "regia";
-        story: "story";
     }>;
     identity: z.ZodObject<{
         agentId: z.ZodString;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoEngineProjectSchema = exports.VideoEngineMediaPathSchema = exports.VideoEngineRunRequestSchema = exports.VideoEngineApproveRequestSchema = exports.VideoEnginePlanRequestSchema = exports.VideoEngineRevisionSchema = exports.VideoEngineApproveStageSchema = exports.VideoEngineRunStageSchema = exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = exports.VideoProviderSchema = void 0;
+exports.VideoEngineProjectSchema = exports.VideoEngineStoryStateSchema = exports.VideoEngineStoryStatusSchema = exports.VideoEngineMediaPathSchema = exports.VideoEngineRunRequestSchema = exports.VideoEngineApproveRequestSchema = exports.VideoEnginePlanRequestSchema = exports.VideoEngineRevisionSchema = exports.VideoEngineApproveStageSchema = exports.VideoEngineRunStageSchema = exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = exports.VideoProviderSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const brief_js_1 = require("./brief.cjs");
@@ -51,6 +51,14 @@ exports.VideoEngineRunRequestSchema = zod_1.z.object({
 }).strict();
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 exports.VideoEngineMediaPathSchema = zod_1.z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);
+exports.VideoEngineStoryStatusSchema = zod_1.z.enum(['queued', 'running', 'completed', 'failed', 'interrupted']);
+/** Stato della story scritto dal motore (`officina/story_op.py`); gli altri campi passano. */
+exports.VideoEngineStoryStateSchema = zod_1.z.object({
+    status: exports.VideoEngineStoryStatusSchema,
+    step: zod_1.z.string().max(64).nullish(),
+    output_url: exports.VideoEngineMediaPathSchema.nullish(),
+    error: zod_1.z.string().max(1000).nullish(),
+}).passthrough();
 /**
  * The part of an engine project the facade reads. The engine answers with more fields: they pass
  * through untouched (the engine owns its full project document).
@@ -74,5 +82,6 @@ exports.VideoEngineProjectSchema = zod_1.z.object({
     }).passthrough()),
     output_url: exports.VideoEngineMediaPathSchema.nullish(),
     spent_usd: zod_1.z.number().nonnegative().optional(),
+    story: exports.VideoEngineStoryStateSchema.nullish(),
 }).passthrough();
 //# sourceMappingURL=engine.js.map

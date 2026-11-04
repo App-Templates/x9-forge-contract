@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.93.0 — Officina video: stato della story nel progetto del motore, additivo
+
+- `@x9-forge/contracts/capability/video`: `VideoEngineStoryStatusSchema`, `VideoEngineStoryStateSchema` e il campo facoltativo `story` di `VideoEngineProjectSchema` (stato della story del motore, letto da cap-video). Consumer: agent-x9 `services/cap-video` (fine della story).
+
+Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`night/p6c-ponte-20261030`, `night/ov-ponte-unito-20261104`) sono in volo e non ancora in main, quindi questa è la minore libera successiva.
+
 ## v1.92.0 — Officina video: la story del contratto è la story del motore, e il preventivo prima dell'email, additivo
 
 - Catalogo dei contratti portabili (canale Python del motore): `trim()` di zod non spariva più in silenzio dallo schema JSON. Ora viaggia come parola chiave `x-trim: true` (il runtime Python generato toglie gli spazi come `String.prototype.trim` e poi controlla lunghezze e forma), solo quando il trim è il primo controllo del testo; ogni altra sovrascrittura (trim tardivo, `toLowerCase`, …) conta come raffinazione non portabile e il catalogo la blocca invece di pubblicarla. Effetto su `videoEngineStoryRequest`: `scenes[].text`, `outro.title`, `outro.line` («   » rifiutato, testo di 1200 caratteri con spazi intorno accettato, come zod). Le altre voci cambiano solo per `x-trim` sul campo `capability`.
