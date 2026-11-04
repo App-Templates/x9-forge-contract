@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.89.0 — Officina video: preset veri con regia e operazione story, additivo
+
+- `@x9-forge/contracts/capability/video`: `VideoBriefRequestSchema` e `VideoBriefToolInputSchema` hanno il campo facoltativo `footage` (1-2 id dell'archivio delle riprese, `VideoFootageIdSchema`, `VideoFootageChoiceSchema`; assente = sceglie la regia); `VideoProjectStepSchema` aggiunge `regia` e `story`.
+- Operazione story del motore: `VideoEngineStoryRequestSchema` (`scenes` `{text, tags?}`, `graphicHtml` con `render(t)` fino a circa 200 KB, `footage?`, `outro` `{title, line}`, `resolution` `480p` | `720p` | `1080p` predefinito `1080p`, `revision`) e, in `@x9-forge/contracts/http`, `officinaVideoStoryContract` (POST `/api/projects/:engineProjectId/story`, risposta 202, segreto interno); voce portabile `videoEngineStoryRequest` e trasporto `videoEngineStory` per il motore Python.
+- Regia cap-video → cap-dev: `VideoRegiaRequestSchema` (identità del richiedente, `videoProjectId`, brief, `presetId`, riprese candidate, ripresa scelta facoltativa, ricetta, materiali come link GitHub), `VideoRegiaOpenResponseSchema` (numero dell'incarico e ramo di consegna), `VideoRegiaResultSchema` (`pending` | `failed` | `delivered` con `regia.json` validato da `VideoRegiaDocumentSchema` e `grafica.html` come testo, con sha256 e byte di entrambi), `VIDEO_REGIA_FILE`, `VIDEO_REGIA_GRAPHIC_FILE`; in `@x9-forge/contracts/http` `internalDevRegiaOpenContract` (POST `/internal/dev/regia`) e `internalDevRegiaResultContract` (POST `/internal/dev/regia/:regiaId/result`), entrambi col segreto interno; consumer: agent-x9 `services/cap-video` e `services/cap-dev`.
+
+Nessuno schema esistente si stringe: i brief e i progetti di v1.88.0 restano validi. Nota: il ramo `opus/ponte-053` (1.90.0) non è ancora in main; questa versione è la minore libera successiva a main.
+
 ## v1.88.0 — Officina video dal brief al video (strumenti con busta, lettura del progetto, guida del motore), additivo
 
 - `@x9-forge/contracts/capability/video`: `VideoBriefToolInputSchema` (il brief senza identità: tenant, owner e agente arrivano solo dalla busta di agent-core, R-33), `VideoProjectGetToolInputSchema`, `VideoProjectStepSchema`, `VideoProjectViewSchema` (stato, passo, link di revisione e del video); motore: `VideoEngineRunStageSchema`, `VideoEngineApproveStageSchema`, `VideoEngineRevisionSchema`, `VideoEnginePlanRequestSchema`, `VideoEngineApproveRequestSchema`, `VideoEngineRunRequestSchema`, `VideoEngineMediaPathSchema`, `VideoEngineProjectSchema` (campi letti dalla facciata, il resto passa); consumer: agent-x9 `services/cap-video`.

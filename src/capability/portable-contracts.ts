@@ -4,12 +4,13 @@ import { CapabilityParameterKeySchema, CapabilityParameterValueSchema } from './
 import { ToolCallRequestSchema } from './tool-call.js';
 import { RagQueryRequestSchema, RagQueryResponseSchema } from '../rag/rag-query.js';
 import { VideoEngineJobSchema, VideoEngineJobResponseSchema } from './video/engine.js';
+import { VideoEngineStoryRequestSchema } from './video/story.js';
 import { AgentOrdinaryAuthorityQuerySchema, AgentOrdinaryAuthoritySchema, parseAgentOrdinaryAuthorityResponse } from '../agent/ordinary-authority.js';
 import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, CapabilityOrdinaryLifecycleTransactionSchema, parseCapabilityOrdinaryLifecycle, parseCapabilityOrdinaryLifecycleReceipt } from './ordinary-lifecycle.js';
 import { agentOrdinaryAuthorityContract } from '../http/endpoints/internal-agents-ordinary-authority.js';
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from '../http/endpoints/internal-capability-agent.js';
 import { capToolCallContract } from '../http/endpoints/cap-tool-call.js';
-import { officinaVideoJobContract, officinaVideoHealthContract } from '../http/endpoints/officina-video.js';
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract } from '../http/endpoints/officina-video.js';
 import { INTERNAL_SECRET_HEADER } from '../auth/auth-headers.js';
 
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
@@ -58,7 +59,7 @@ export interface PortableCapabilityContract {
 export interface PortableCapabilityCatalog {
   format: 'x9-capability-portable-v1';
   contracts: Record<string, PortableCapabilityContract>;
-  transports: Record<string, { method: string; path: string; authHeader: string; paramsSchema: Record<string, unknown>; queryContract?: string }>;
+  transports: Record<string, { method: string; path: string; authHeader: string; paramsSchema: Record<string, unknown>; queryContract?: string; requestContract?: string }>;
 }
 
 /** Count non-JSON custom checks so a newly added refinement cannot silently become portable. */
@@ -137,6 +138,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   add('ragQueryResponse', RagQueryResponseSchema, [], 0);
   add('videoEngineJob', VideoEngineJobSchema, [], 0);
   add('videoEngineJobResponse', VideoEngineJobResponseSchema, [], 0);
+  add('videoEngineStoryRequest', VideoEngineStoryRequestSchema, [], 0);
   add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
   add('authorityResponse', authorityResponse, authorityRules, 2);
   contracts.authorityResponse!.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -152,7 +154,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   for (const name of ['lifecycleRequest', 'lifecycleReceipt', 'lifecycleTransaction', 'lifecycleAuthority']) {
     contracts[name]!.limitations = ['Only null or frozen configurations with zero parameters; durable effects and reconciliation are consumer-owned'];
   }
-  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract) => ({
+  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract) => ({
     method: contract.method, path: contract.path, authHeader: INTERNAL_SECRET_HEADER, paramsSchema: z.toJSONSchema(contract.paramsSchema),
   });
   return { format: 'x9-capability-portable-v1', contracts, transports: {
@@ -160,6 +162,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
     ordinaryGet: { ...transport(ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
     lifecycle: transport(ordinaryCapabilityLifecyclePutContract), call: transport(capToolCallContract),
     videoEngineJob: transport(officinaVideoJobContract), videoEngineHealth: transport(officinaVideoHealthContract),
+    videoEngineStory: { ...transport(officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest' },
   } };
 }
 

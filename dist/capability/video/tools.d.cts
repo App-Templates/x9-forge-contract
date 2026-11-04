@@ -13,6 +13,7 @@ export declare const VideoBriefToolInputSchema: z.ZodObject<{
     budgetUsd: z.ZodNumber;
     brief: z.ZodString;
     externalRef: z.ZodOptional<z.ZodString>;
+    footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
     requestedBy: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type VideoBriefToolInput = z.infer<typeof VideoBriefToolInputSchema>;
@@ -32,6 +33,8 @@ export declare const VideoProjectStepSchema: z.ZodEnum<{
     plan: "plan";
     review_sent: "review_sent";
     delivery_sent: "delivery_sent";
+    regia: "regia";
+    story: "story";
 }>;
 export type VideoProjectStep = z.infer<typeof VideoProjectStepSchema>;
 /** One project as the owning agent sees it: state, step and the two links of the two emails. */
@@ -55,6 +58,8 @@ export declare const VideoProjectViewSchema: z.ZodObject<{
         plan: "plan";
         review_sent: "review_sent";
         delivery_sent: "delivery_sent";
+        regia: "regia";
+        story: "story";
     }>;
     identity: z.ZodObject<{
         agentId: z.ZodString;
