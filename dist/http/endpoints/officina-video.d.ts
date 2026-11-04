@@ -65,4 +65,148 @@ export declare const officinaVideoHealthContract: {
     readonly path: "/api/health";
     readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
 };
+/** cap-video -> engine: read one project. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoProjectGetContract: {
+    readonly method: "GET";
+    readonly path: "/api/projects/:engineProjectId";
+    readonly paramsSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        status: z.ZodString;
+        revision: z.ZodNumber;
+        scenes: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodOptional<z.ZodString>;
+            narration: z.ZodOptional<z.ZodString>;
+            frame_prompt: z.ZodOptional<z.ZodString>;
+            frame_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            clip_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        jobs: z.ZodArray<z.ZodObject<{
+            stage: z.ZodOptional<z.ZodString>;
+            status: z.ZodOptional<z.ZodString>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        spent_usd: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$loose>;
+};
+/** cap-video -> engine: write the plan of a project. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoPlanContract: {
+    readonly method: "POST";
+    readonly path: "/api/projects/:engineProjectId/plan";
+    readonly paramsSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        status: z.ZodString;
+        revision: z.ZodNumber;
+        scenes: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodOptional<z.ZodString>;
+            narration: z.ZodOptional<z.ZodString>;
+            frame_prompt: z.ZodOptional<z.ZodString>;
+            frame_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            clip_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        jobs: z.ZodArray<z.ZodObject<{
+            stage: z.ZodOptional<z.ZodString>;
+            status: z.ZodOptional<z.ZodString>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        spent_usd: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$loose>;
+};
+/** cap-video -> engine: approve a stage at the revision that was shown. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoApproveContract: {
+    readonly method: "POST";
+    readonly path: "/api/projects/:engineProjectId/approve";
+    readonly paramsSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        stage: z.ZodEnum<{
+            frames: "frames";
+            plan: "plan";
+            final: "final";
+        }>;
+        revision: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        status: z.ZodString;
+        revision: z.ZodNumber;
+        scenes: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodOptional<z.ZodString>;
+            narration: z.ZodOptional<z.ZodString>;
+            frame_prompt: z.ZodOptional<z.ZodString>;
+            frame_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            clip_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        jobs: z.ZodArray<z.ZodObject<{
+            stage: z.ZodOptional<z.ZodString>;
+            status: z.ZodOptional<z.ZodString>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        spent_usd: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$loose>;
+};
+/** cap-video -> engine: start a production stage (asynchronous, 202). Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoRunContract: {
+    readonly method: "POST";
+    readonly path: "/api/projects/:engineProjectId/run";
+    readonly paramsSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        stage: z.ZodEnum<{
+            frames: "frames";
+            clips: "clips";
+            assemble: "assemble";
+        }>;
+        revision: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strict>;
+};
+/**
+ * cap-video -> engine: produce the story of a preset (voice, lip sync, graphic capture, montage) from the approved
+ * regia. Asynchronous (202) and idempotent on `revision`; the state is read with GET project. Internal, INTERNAL_SECRET_HEADER.
+ */
+export declare const officinaVideoStoryContract: {
+    readonly method: "POST";
+    readonly path: "/api/projects/:engineProjectId/story";
+    readonly paramsSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        scenes: z.ZodArray<z.ZodObject<{
+            text: z.ZodString;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>>;
+        graphicHtml: z.ZodString;
+        footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        outro: z.ZodObject<{
+            title: z.ZodString;
+            line: z.ZodString;
+        }, z.core.$strict>;
+        resolution: z.ZodDefault<z.ZodEnum<{
+            "480p": "480p";
+            "720p": "720p";
+            "1080p": "1080p";
+        }>>;
+        revision: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseStatus: 202;
+};
+/** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoMediaContract: {
+    readonly method: "GET";
+    readonly pathSchema: z.ZodString;
+};
 //# sourceMappingURL=officina-video.d.ts.map

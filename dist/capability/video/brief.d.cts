@@ -22,6 +22,7 @@ export declare const VideoBriefRequestSchema: z.ZodObject<{
     budgetUsd: z.ZodNumber;
     brief: z.ZodString;
     externalRef: z.ZodOptional<z.ZodString>;
+    footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
 }, z.core.$strict>;
 export type VideoBriefRequest = z.infer<typeof VideoBriefRequestSchema>;
 export declare const VideoProjectIdSchema: z.ZodString;

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from "../capability-call-context.js";
+import { VideoFootageChoiceSchema } from "./footage.js";
 export const VideoModeSchema = z.enum(['approval', 'autonomous']);
 export const VideoPresetIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/);
 export const VideoBriefRequestSchema = z.object({
@@ -11,6 +12,8 @@ export const VideoBriefRequestSchema = z.object({
     budgetUsd: z.number().positive().finite(),
     brief: z.string().min(1).max(6000),
     externalRef: z.string().max(256).optional(),
+    /** The shot(s) of the archive the person chose (1-2 ids of the same place); absent: the regia chooses. */
+    footage: VideoFootageChoiceSchema.optional(),
 }).strict();
 export const VideoProjectIdSchema = z.string().min(1).max(100);
 export const VideoProjectStateSchema = z.enum([
