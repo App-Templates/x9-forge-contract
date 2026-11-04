@@ -14,7 +14,31 @@ _MISSING = object()
 _KEYWORDS = {'$schema', '$defs', '$ref', 'type', 'properties', 'required', 'additionalProperties',
              'propertyNames', 'items', 'minItems', 'maxItems', 'minLength', 'maxLength', 'pattern',
              'format', 'minimum', 'maximum', 'exclusiveMinimum', 'exclusiveMaximum', 'multipleOf',
-             'anyOf', 'oneOf', 'allOf', 'not', 'const', 'enum', 'default', 'description', 'title'}
+             'anyOf', 'oneOf', 'allOf', 'not', 'const', 'enum', 'default', 'description', 'title', 'x-trim'}
+
+
+# ECMAScript WhiteSpace + LineTerminator: exactly what zod's trim() (String.prototype.trim) removes.
+_JS_WHITESPACE = ('\t\n\u000b\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009'
+                  '\u200a\u2028\u2029\u202f\u205f\u3000\ufeff')
+
+
+def _js_pattern(pattern):
+    """A JS (non-multiline) pattern for Python: `$` is the end of the text, never before a final newline."""
+    out, escaped, in_class = [], False, False
+    for char in pattern:
+        if escaped:
+            escaped = False
+        elif char == '\\':
+            escaped = True
+        elif char == '[':
+            in_class = True
+        elif char == ']':
+            in_class = False
+        elif char == '$' and not in_class:
+            out.append('\\Z')
+            continue
+        out.append(char)
+    return ''.join(out)
 
 
 def verify_catalog_hash(expected=CATALOG_SHA256):
@@ -35,9 +59,11 @@ def _schema_supported(schema, depth=0):
     if 'pattern' in schema:
         # A JS-only pattern needs a canonical portable codec, never a permissive fallback.
         try:
-            re.compile(schema['pattern'])
+            re.compile(_js_pattern(schema['pattern']))
         except re.error as exc:
             raise ValueError('Unsupported portable pattern') from exc
+    if 'x-trim' in schema and (schema['x-trim'] is not True or schema.get('type') != 'string'):
+        raise ValueError('Unsupported portable trim codec')
     if schema.get('format') not in (None, 'uuid', 'date-time', 'date', 'uri', 'url'):
         raise ValueError('Unsupported portable format')
     for key in ('$defs', 'properties'):
@@ -131,10 +157,12 @@ def _validate(schema, value, root, depth=0):
     if kind == 'string':
         if not isinstance(value, str):
             raise ValueError('Expected string')
+        if schema.get('x-trim'):
+            value = value.strip(_JS_WHITESPACE)
         length = len(value.encode('utf-16-le', errors='surrogatepass')) // 2
         if length < schema.get('minLength', 0) or length > schema.get('maxLength', math.inf):
             raise ValueError('String length outside bounds')
-        if 'pattern' in schema and re.search(schema['pattern'], value) is None:
+        if 'pattern' in schema and re.search(_js_pattern(schema['pattern']), value) is None:
             raise ValueError('String pattern mismatch')
         fmt = schema.get('format')
         try:

@@ -62,13 +62,44 @@ export interface PortableCapabilityCatalog {
   transports: Record<string, { method: string; path: string; authHeader: string; paramsSchema: Record<string, unknown>; queryContract?: string; requestContract?: string }>;
 }
 
+/** Probes on which `String.prototype.trim` is the only plausible overwrite: whitespace of every JS class, case, inner spaces. */
+const TRIM_PROBES = [' a B ', '\t\n\u000b\f\r x\u00a0', '\ufeff\u1680\u2000\u200a\u2028\u2029\u202f\u205f\u3000y z\u3000', '\u001c q \u001c', 'Ab', ''];
+
+/** True when a zod check is an overwrite that behaves exactly as `trim()` (portable as the `x-trim` keyword). */
+function isTrimCheck(check: unknown): boolean {
+  const def = (check as { _zod?: { def?: { check?: string; tx?: unknown } } } | undefined)?._zod?.def;
+  if (def?.check !== 'overwrite' || typeof def.tx !== 'function') return false;
+  const tx = def.tx as (value: string) => unknown;
+  return TRIM_PROBES.every(probe => tx(probe) === probe.trim());
+}
+
+/** A string schema whose first check is trim: zod trims before every length/pattern check, as `x-trim` says. */
+function hasLeadingTrim(schema: unknown): boolean {
+  const def = (schema as { _zod?: { def?: { type?: string; checks?: unknown[] } } } | undefined)?._zod?.def;
+  return def?.type === 'string' && isTrimCheck(def.checks?.[0]);
+}
+
+/**
+ * JSON Schema of a canonical zod schema for the portable catalog. `trim()` has no standard keyword: it is carried
+ * as `x-trim: true` (strip JS whitespace first, then check and return the trimmed text), so the generated Python
+ * runtime admits exactly what zod admits.
+ */
+export function portableJsonSchema(schema: z.ZodType): Record<string, unknown> {
+  return z.toJSONSchema(schema, {
+    io: 'input', target: 'draft-2020-12',
+    override: (ctx) => { if (hasLeadingTrim(ctx.zodSchema)) (ctx.jsonSchema as Record<string, unknown>)['x-trim'] = true; },
+  }) as Record<string, unknown>;
+}
+
 /** Count non-JSON custom checks so a newly added refinement cannot silently become portable. */
 function customRefinements(schema: z.ZodType, seen = new Set<object>()): number {
   if (seen.has(schema)) return 0;
   seen.add(schema);
   const def = schema._zod.def as unknown as Record<string, unknown>;
   const checks = (def.checks ?? []) as Array<{ _zod: { def: { check: string } } }>;
-  let count = checks.filter(check => check._zod.def.check === 'custom').length;
+  // A custom check, or an overwrite other than a leading trim, has no JSON Schema form: it must be gated, never dropped.
+  let count = checks.filter((check, index) => check._zod.def.check === 'custom'
+    || (check._zod.def.check === 'overwrite' && !(index === 0 && isTrimCheck(check)))).length;
   const visit = (value: unknown): void => {
     if (value && typeof value === 'object' && '_zod' in value) count += customRefinements(value as z.ZodType, seen);
     else if (Array.isArray(value)) value.forEach(visit);
@@ -124,7 +155,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
     const count = customRefinements(schema);
     if (expectedChecks !== null && count !== expectedChecks) throw new Error(`Uncovered refinement in portable contract ${name}`);
     let json: Record<string, unknown> | null = null;
-    try { json = z.toJSONSchema(schema, { io: 'input', target: 'draft-2020-12' }) as Record<string, unknown>; }
+    try { json = portableJsonSchema(schema); }
     catch {
       if (gates.length === 0) throw new Error(`Nonportable schema in ${name}`);
       gates = [...gates, 'JSON Schema conversion requires an explicit transform/recursive codec'];
