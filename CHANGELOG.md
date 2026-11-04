@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.91.0 — sezioni delle BU nel piano d'azione; additivo
+
+- `@x9-forge/contracts/organization`: `ActionPlanBuSectionSchema` e il campo facoltativo `businessUnits[].sections` (`id`, `title`, `expectedGoal`, `deliveryCriteria`, `milestone`, `needsFrom`), con le descrizioni per il Director; `ReconciledMandateSchema` le porta nel Mandato. Consumer: X9 memory (salva), cap-email (email del piano), cap-paperclip (Mandato).
+- `@x9-forge/contracts/organization`: `ActionPlanSubmissionSchema` (bozza nuova: ogni BU che parte subito ha le sezioni; tappe e BU citate esistono). Consumer: X9 cap-email.
+
+Nessuno schema esistente si stringe; i piani salvati e le bozze di oggi restano validi, il digest di un piano senza sezioni non cambia.
+
 ## v1.90.0 — capi BU abilitati per progetto e materiali dalla Memoria; additivo
 
 - `@x9-forge/contracts/http`: `devBusinessUnitProjectEnableContract` (piattaforma → cap-dev, abilita un capo BU alle sessioni per un progetto); `@x9-forge/contracts/capability/dev`: `production.session` facoltativa in `DevAgentConfigSchema`. Consumer: X9 cap-dev e cap-paperclip; Forge solo in lettura (pannello).
