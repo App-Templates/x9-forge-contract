@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { VideoEngineStoryRequestSchema } from "../../capability/video/story.js";
 import { VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEnginePlanRequestSchema, VideoEngineApproveRequestSchema, VideoEngineRunRequestSchema, VideoEngineMediaPathSchema } from "../../capability/video/engine.js";
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
@@ -43,6 +44,17 @@ export const officinaVideoRunContract = {
     path: '/api/projects/:engineProjectId/run',
     paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
     requestSchema: VideoEngineRunRequestSchema,
+};
+/**
+ * cap-video -> engine: produce the story of a preset (voice, lip sync, graphic capture, montage) from the approved
+ * regia. Asynchronous (202) and idempotent on `revision`; the state is read with GET project. Internal, INTERNAL_SECRET_HEADER.
+ */
+export const officinaVideoStoryContract = {
+    method: 'POST',
+    path: '/api/projects/:engineProjectId/story',
+    paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
+    requestSchema: VideoEngineStoryRequestSchema,
+    responseStatus: 202,
 };
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 export const officinaVideoMediaContract = {

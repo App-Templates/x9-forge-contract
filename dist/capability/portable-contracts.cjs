@@ -12,6 +12,7 @@ const parameters_js_1 = require("./parameters.cjs");
 const tool_call_js_1 = require("./tool-call.cjs");
 const rag_query_js_1 = require("../rag/rag-query.cjs");
 const engine_js_1 = require("./video/engine.cjs");
+const story_js_1 = require("./video/story.cjs");
 const ordinary_authority_js_1 = require("../agent/ordinary-authority.cjs");
 const ordinary_lifecycle_js_1 = require("./ordinary-lifecycle.cjs");
 const internal_agents_ordinary_authority_js_1 = require("../http/endpoints/internal-agents-ordinary-authority.cjs");
@@ -121,6 +122,7 @@ function getPortableCapabilityContracts() {
     add('ragQueryResponse', rag_query_js_1.RagQueryResponseSchema, [], 0);
     add('videoEngineJob', engine_js_1.VideoEngineJobSchema, [], 0);
     add('videoEngineJobResponse', engine_js_1.VideoEngineJobResponseSchema, [], 0);
+    add('videoEngineStoryRequest', story_js_1.VideoEngineStoryRequestSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -144,6 +146,7 @@ function getPortableCapabilityContracts() {
             ordinaryGet: { ...transport(internal_capability_agent_js_1.ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
             lifecycle: transport(internal_capability_agent_js_1.ordinaryCapabilityLifecyclePutContract), call: transport(cap_tool_call_js_1.capToolCallContract),
             videoEngineJob: transport(officina_video_js_1.officinaVideoJobContract), videoEngineHealth: transport(officina_video_js_1.officinaVideoHealthContract),
+            videoEngineStory: { ...transport(officina_video_js_1.officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest' },
         } };
 }
 function at(value, path) {

@@ -16,6 +16,8 @@ exports.VideoProjectGetToolInputSchema = zod_1.z.object({ projectId: brief_js_1.
 /** Production step inside a project state, for people and agents reading the project. */
 exports.VideoProjectStepSchema = zod_1.z.enum([
     'queued', 'plan', 'frames', 'review_sent', 'clips', 'assemble', 'delivery_sent', 'done', 'failed',
+    // Presets with a face or a pure infographic: the regia session writes script and graphic, the engine produces the story.
+    'regia', 'story',
 ]);
 /** One project as the owning agent sees it: state, step and the two links of the two emails. */
 exports.VideoProjectViewSchema = zod_1.z.object({

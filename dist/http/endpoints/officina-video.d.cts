@@ -174,6 +174,36 @@ export declare const officinaVideoRunContract: {
         revision: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
 };
+/**
+ * cap-video -> engine: produce the story of a preset (voice, lip sync, graphic capture, montage) from the approved
+ * regia. Asynchronous (202) and idempotent on `revision`; the state is read with GET project. Internal, INTERNAL_SECRET_HEADER.
+ */
+export declare const officinaVideoStoryContract: {
+    readonly method: "POST";
+    readonly path: "/api/projects/:engineProjectId/story";
+    readonly paramsSchema: z.ZodObject<{
+        engineProjectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        scenes: z.ZodArray<z.ZodObject<{
+            text: z.ZodString;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>>;
+        graphicHtml: z.ZodString;
+        footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        outro: z.ZodObject<{
+            title: z.ZodString;
+            line: z.ZodString;
+        }, z.core.$strict>;
+        resolution: z.ZodDefault<z.ZodEnum<{
+            "480p": "480p";
+            "720p": "720p";
+            "1080p": "1080p";
+        }>>;
+        revision: z.ZodNumber;
+    }, z.core.$strict>;
+    readonly responseStatus: 202;
+};
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoMediaContract: {
     readonly method: "GET";

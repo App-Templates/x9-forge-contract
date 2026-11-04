@@ -18,6 +18,8 @@ export type VideoProjectGetToolInput = z.infer<typeof VideoProjectGetToolInputSc
 /** Production step inside a project state, for people and agents reading the project. */
 export const VideoProjectStepSchema = z.enum([
   'queued', 'plan', 'frames', 'review_sent', 'clips', 'assemble', 'delivery_sent', 'done', 'failed',
+  // Presets with a face or a pure infographic: the regia session writes script and graphic, the engine produces the story.
+  'regia', 'story',
 ]);
 export type VideoProjectStep = z.infer<typeof VideoProjectStepSchema>;
 

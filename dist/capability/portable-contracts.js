@@ -4,12 +4,13 @@ import { CapabilityParameterKeySchema, CapabilityParameterValueSchema } from "./
 import { ToolCallRequestSchema } from "./tool-call.js";
 import { RagQueryRequestSchema, RagQueryResponseSchema } from "../rag/rag-query.js";
 import { VideoEngineJobSchema, VideoEngineJobResponseSchema } from "./video/engine.js";
+import { VideoEngineStoryRequestSchema } from "./video/story.js";
 import { AgentOrdinaryAuthorityQuerySchema, AgentOrdinaryAuthoritySchema, parseAgentOrdinaryAuthorityResponse } from "../agent/ordinary-authority.js";
 import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, CapabilityOrdinaryLifecycleTransactionSchema, parseCapabilityOrdinaryLifecycle, parseCapabilityOrdinaryLifecycleReceipt } from "./ordinary-lifecycle.js";
 import { agentOrdinaryAuthorityContract } from "../http/endpoints/internal-agents-ordinary-authority.js";
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from "../http/endpoints/internal-capability-agent.js";
 import { capToolCallContract } from "../http/endpoints/cap-tool-call.js";
-import { officinaVideoJobContract, officinaVideoHealthContract } from "../http/endpoints/officina-video.js";
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract } from "../http/endpoints/officina-video.js";
 import { INTERNAL_SECRET_HEADER } from "../auth/auth-headers.js";
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
 const snapshot = CapabilityOrdinaryCallSnapshotSchema.safeExtend({ values: z.record(CapabilityParameterKeySchema, CapabilityParameterValueSchema) });
@@ -113,6 +114,7 @@ export function getPortableCapabilityContracts() {
     add('ragQueryResponse', RagQueryResponseSchema, [], 0);
     add('videoEngineJob', VideoEngineJobSchema, [], 0);
     add('videoEngineJobResponse', VideoEngineJobResponseSchema, [], 0);
+    add('videoEngineStoryRequest', VideoEngineStoryRequestSchema, [], 0);
     add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -136,6 +138,7 @@ export function getPortableCapabilityContracts() {
             ordinaryGet: { ...transport(ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
             lifecycle: transport(ordinaryCapabilityLifecyclePutContract), call: transport(capToolCallContract),
             videoEngineJob: transport(officinaVideoJobContract), videoEngineHealth: transport(officinaVideoHealthContract),
+            videoEngineStory: { ...transport(officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest' },
         } };
 }
 function at(value, path) {

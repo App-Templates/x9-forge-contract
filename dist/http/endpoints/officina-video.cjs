@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoMediaContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoMediaContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
+const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 exports.officinaVideoJobContract = {
@@ -46,6 +47,17 @@ exports.officinaVideoRunContract = {
     path: '/api/projects/:engineProjectId/run',
     paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
     requestSchema: engine_js_1.VideoEngineRunRequestSchema,
+};
+/**
+ * cap-video -> engine: produce the story of a preset (voice, lip sync, graphic capture, montage) from the approved
+ * regia. Asynchronous (202) and idempotent on `revision`; the state is read with GET project. Internal, INTERNAL_SECRET_HEADER.
+ */
+exports.officinaVideoStoryContract = {
+    method: 'POST',
+    path: '/api/projects/:engineProjectId/story',
+    paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
+    requestSchema: story_js_1.VideoEngineStoryRequestSchema,
+    responseStatus: 202,
 };
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 exports.officinaVideoMediaContract = {

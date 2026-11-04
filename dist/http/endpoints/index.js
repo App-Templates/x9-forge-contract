@@ -121,4 +121,5 @@ export * from "./internal-dev-artifact-content.js";
 export * from "./internal-dev-session-asset-content.js";
 export * from "./paperclip-protocollo-turno.js";
 export * from "./officina-video.js";
+export * from "./internal-dev-regia.js"; // v1.89.0 — regia of a video: cap-video -> cap-dev
 //# sourceMappingURL=index.js.map

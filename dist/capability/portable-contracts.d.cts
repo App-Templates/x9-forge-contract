@@ -234,6 +234,7 @@ export interface PortableCapabilityCatalog {
         authHeader: string;
         paramsSchema: Record<string, unknown>;
         queryContract?: string;
+        requestContract?: string;
     }>;
 }
 /** Export data consumed by the compiled generator. Gated schemas are documentation, never admission. */
