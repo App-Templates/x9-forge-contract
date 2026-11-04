@@ -30,4 +30,5 @@ export * from "./company-map.cjs";
 export * from "./business-unit-mandate.cjs";
 export * from "./vertical-plan.cjs";
 export * from "./vertical-plan-observation.cjs";
+export * from "./delivery-package.cjs";
 //# sourceMappingURL=index.d.ts.map
