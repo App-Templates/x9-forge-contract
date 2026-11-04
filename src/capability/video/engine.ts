@@ -67,6 +67,18 @@ export type VideoEngineRunRequest = z.infer<typeof VideoEngineRunRequestSchema>;
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export const VideoEngineMediaPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);
 
+export const VideoEngineStoryStatusSchema = z.enum(['queued', 'running', 'completed', 'failed', 'interrupted']);
+export type VideoEngineStoryStatus = z.infer<typeof VideoEngineStoryStatusSchema>;
+
+/** Stato della story scritto dal motore (`officina/story_op.py`); gli altri campi passano. */
+export const VideoEngineStoryStateSchema = z.object({
+  status: VideoEngineStoryStatusSchema,
+  step: z.string().max(64).nullish(),
+  output_url: VideoEngineMediaPathSchema.nullish(),
+  error: z.string().max(1000).nullish(),
+}).passthrough();
+export type VideoEngineStoryState = z.infer<typeof VideoEngineStoryStateSchema>;
+
 /**
  * The part of an engine project the facade reads. The engine answers with more fields: they pass
  * through untouched (the engine owns its full project document).
@@ -90,5 +102,6 @@ export const VideoEngineProjectSchema = z.object({
   }).passthrough()),
   output_url: VideoEngineMediaPathSchema.nullish(),
   spent_usd: z.number().nonnegative().optional(),
+  story: VideoEngineStoryStateSchema.nullish(),
 }).passthrough();
 export type VideoEngineProject = z.infer<typeof VideoEngineProjectSchema>;
