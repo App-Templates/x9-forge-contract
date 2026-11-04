@@ -6,7 +6,7 @@ import { MODEL_PROVIDERS } from '../model-router/model-provider.js';
 export const AGENT_CREDENTIAL_SERVICE_KEYS = [...new Set([...KNOWN_CREDENTIAL_KEYS, ...AUTH_GATE_FIELDS])] as const;
 export type AgentCredentialServiceKey = KnownCredentialKey | AuthGateField;
 export const AgentCredentialServiceKeySchema = z.enum(AGENT_CREDENTIAL_SERVICE_KEYS);
-export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo', 'paperclip', 'github'] as const;
+export const AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS = [...MODEL_PROVIDERS, 'telegram', 'elevenlabs', 'telnyx', 'qdrant', 'agentmail', 'hostinger', 'netatmo', 'paperclip', 'github', 'bitbucket', 'figma'] as const;
 export const AgentCredentialCommercialServiceSchema = z.enum(AGENT_CREDENTIAL_COMMERCIAL_SERVICE_IDS);
 export const AgentCredentialInternalServiceSchema = z.enum(['x9', 'forge']);
 export const AgentCredentialKindSchema = z.enum(['credential', 'setting', 'identifier']);
@@ -50,6 +50,24 @@ const definitions = {
       "id": "github"
     },
     "secret": false
+  },
+  "BITBUCKET_TOKEN": {
+    "label": "Token Bitbucket (sola lettura)",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "bitbucket"
+    },
+    "secret": true
+  },
+  "FIGMA_TOKEN": {
+    "label": "Token Figma (sola lettura)",
+    "kind": "credential",
+    "service": {
+      "type": "commercial",
+      "id": "figma"
+    },
+    "secret": true
   },
   "GITHUB_APP_PRIVATE_KEY": {
     "label": "Chiave privata app GitHub",

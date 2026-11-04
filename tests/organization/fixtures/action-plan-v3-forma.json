@@ -1,0 +1,689 @@
+{
+  "risks": [
+    "Gli importi zero sono esclusivamente tetti alle nuove spese autorizzate, non stime del costo complessivo o lavoro gratuito.",
+    "Nessuno scenario contiene ancora un preventivo verificato: occorrono capacità reale, costi delle persone, volumi e condizioni dei fornitori.",
+    "Copertura italiana, qualità dei dati e diritti delle immagini potrebbero non soddisfare i criteri concordati.",
+    "Le tecnologie e gli accessi effettivi potrebbero non consentire l’integrazione senza interventi ulteriori.",
+    "Dipendenze dall’app, dagli specialisti e dalle verifiche di pubblicazione possono impedire l’avanzamento.",
+    "Il confronto può diventare fuorviante se categorie, unità o dati mancanti non sono trattati in modo simmetrico.",
+    "La misurazione dell’uso richiede verifica dei trattamenti effettivi, non una presunta copertura degli strumenti esistenti.",
+    "La lettura completa della mappa aziendale non è disponibile: non dedurre assenza di materiali né duplicare richieste."
+  ],
+  "budget": {
+    "perBu": [
+      {
+        "cap": 0,
+        "buSlug": "dati"
+      },
+      {
+        "cap": 0,
+        "buSlug": "design"
+      },
+      {
+        "cap": 0,
+        "buSlug": "app"
+      },
+      {
+        "cap": 0,
+        "buSlug": "backend"
+      },
+      {
+        "cap": 0,
+        "buSlug": "contenuti"
+      },
+      {
+        "cap": 0,
+        "buSlug": "conformita"
+      },
+      {
+        "cap": 0,
+        "buSlug": "brand"
+      },
+      {
+        "cap": 0,
+        "buSlug": "qa"
+      }
+    ],
+    "total": 0,
+    "currency": "EUR"
+  },
+  "digest": "2f1812fa88cedaaf642a7418981df4fc6867c8bd6dbda6b694c10ff6cff097d0",
+  "planId": "plan_2880531b-8048-4666-853a-2c25fd762ecd",
+  "version": 3,
+  "analysis": {
+    "startingPoint": "Brief e conversazione già esaminati, piano precedente approvato per le sole verifiche. Letto il dossier preliminare del Lab: sei pagine pubblicate, tutte versione 1. La rubrica distingue cinque persone anche se condividono il recapito. Referente A è referente aziendale già registrato. La mappa completa non è consultabile; questo non dimostra assenza di materiali. Tecnologie, accessi effettivi, capacità produttiva e costi restano da verificare.",
+    "recommendedMethod": {
+      "why": "Evita una dimostrazione scollegata dall’app e rende verificabili qualità e dipendenze. Consente di scegliere tra le tre alternative senza presumere disponibilità, costi o diritti. Il dossier orienta le verifiche, ma non sostituisce prove sull’app o pareri specialistici.",
+      "method": "Riutilizzare tecnologie e sistemi dell’app, dopo averne verificato accessibilità e vincoli. Confrontare le fonti sullo stesso campione di prodotti italiani. Separare completezza della funzione e ampiezza del catalogo. Definire insieme schermate, testi, dati e prove prima della realizzazione autorizzata."
+    },
+    "marketAndAlternatives": {
+      "text": "Il dossier letto confronta Open Food Facts, Verified by GS1 e GS1 ONE come fonti candidate, non come fornitori già scelti. I collegamenti indicano i siti delle fonti; la base di questa analisi sono le sei pagine del Lab versione 1: fonti alimentari, diritti dati e immagini, confronto neutrale, riservatezza e pubblicazione, accettazione e manutenzione, scenari di costo. Il dossier non contiene misure sperimentali di copertura italiana né preventivi applicabili. Tre alternative: A dati aperti e cura editoriale; B fonti miste con flussi o licenze; C servizio gestito. Tutte mantengono la stessa completezza della funzione; cambiano copertura, automazione, diritti e servizio. Prezzi e condizioni concrete vanno verificati prima della scelta.",
+      "sources": [
+        "https://world.openfoodfacts.org/",
+        "https://www.gs1it.org/"
+      ]
+    }
+  },
+  "clientId": "good-choice",
+  "strategy": {
+    "choices": [
+      "Mantenere la funzione completa richiesta, con ricerca o riconoscimento, scheda, confronto e gestione dei casi incompleti.",
+      "Riusare materiali e accessi già registrati; chiedere solo ciò che manca dopo la verifica.",
+      "Valutare l’alternativa A solo se qualità e diritti risultano adeguati; altrimenti sottoporre B o C a Referente A, senza scelta automatica.",
+      "Mostrare provenienza e informazioni mancanti, usare criteri di confronto dichiarati e non creare classifiche opache.",
+      "Misurare l’uso con finalità approvate e verificare possibilità di disattivazione e ripristino della funzione.",
+      "Le attività avviate con questa approvazione sono soltanto preparatorie e senza nuove spese."
+    ],
+    "approach": "Prima verificare materiali, accessi, persone e criteri; poi confrontare fonti e costi; quindi concordare schermate, testi e prove; soltanto dopo autorizzazione realizzare e integrare; infine verificare pubblicazione e passaggio alla manutenzione.",
+    "discardedAlternatives": [
+      "Dimostrazione separata dall’app o funzione volutamente incompleta come consegna finale.",
+      "Scelta del fornitore senza verifica sul campione, diritti d’uso e condizioni economiche.",
+      "Uso di immagini sulla sola base della disponibilità di un collegamento.",
+      "Produzione, acquisti o contratti considerati autorizzati dal solo avvio delle verifiche."
+    ]
+  },
+  "tenantId": "1",
+  "exchanges": [
+    {
+      "toBu": "backend",
+      "what": "Campi, provenienza, qualità e regole di correzione dei dati.",
+      "format": "Documento condiviso con versione e campione di esempio.",
+      "fromBu": "dati"
+    },
+    {
+      "toBu": "app",
+      "what": "Percorsi, schermate, componenti e casi di errore.",
+      "format": "File grafici esistenti e specifiche con versione.",
+      "fromBu": "design"
+    },
+    {
+      "toBu": "app",
+      "what": "Testi e regole del confronto, con revisione nutrizionale distinta da quella del tono.",
+      "format": "Tabella dei testi e stato delle revisioni.",
+      "fromBu": "contenuti"
+    },
+    {
+      "toBu": "dati",
+      "what": "Condizioni d’uso e vincoli su dati e immagini.",
+      "format": "Registro delle condizioni e dei controlli specialistici.",
+      "fromBu": "conformita"
+    },
+    {
+      "toBu": "app",
+      "what": "Vincoli sui trattamenti e verifiche per la pubblicazione.",
+      "format": "Lista dei controlli con responsabili ed evidenze.",
+      "fromBu": "conformita"
+    },
+    {
+      "toBu": "contenuti",
+      "what": "Tono e criteri di neutralità verso prodotti e partner.",
+      "format": "Regole editoriali con esempi approvati.",
+      "fromBu": "brand"
+    },
+    {
+      "toBu": "qa",
+      "what": "Servizi verificabili, errori previsti e istruzioni operative.",
+      "format": "Specifiche e ambiente con accesso verificato, senza credenziali nei documenti.",
+      "fromBu": "backend"
+    },
+    {
+      "toBu": "qa",
+      "what": "Versione integrata da provare e istruzioni di disattivazione e ripristino.",
+      "format": "Riferimenti alla versione, casi e istruzioni.",
+      "fromBu": "app"
+    },
+    {
+      "toBu": "app",
+      "what": "Esiti, difetti ed evidenze per correzioni e manutenzione.",
+      "format": "Rapporto ripetibile con riferimenti alle prove.",
+      "fromBu": "qa"
+    }
+  ],
+  "objective": {
+    "measure": "Prove nel flusso reale dell’app e dei servizi, con casi concordati di successo, dati mancanti, errore e connessione lenta. Concordare soglie misurabili di qualità, copertura e uso a partire dalle misure esistenti. Nessuna prova o soglia si considera già verificata.",
+    "request": "Portare Good Choice dentro l’app GialloZafferano: riconoscere o cercare un alimento, comprenderne le caratteristiche e confrontarlo con alternative simili, senza giudizi di migliore o peggiore. Il risultato richiesto è completo e interamente integrato, non una dimostrazione separata.",
+    "expectedResult": "Funzione completa nell’app: riconoscimento o ricerca, scheda prodotto, confronto neutrale, gestione di errori e informazioni mancanti, misurazione dell’uso e istruzioni per manutenzione e pubblicazione. Questa approvazione avvia soltanto verifiche senza nuove spese; realizzazione e acquisti richiedono successiva autorizzazione."
+  },
+  "projectId": "good-choice",
+  "questions": [
+    {
+      "unlocks": "Referenti specialistici per dati e prove e revisione nutrizionale, senza attribuire competenze non confermate.",
+      "question": "Chi indichi per catalogo prodotti, correttezza nutrizionale e prove finali? Tre nomi, oppure «da individuare»."
+    },
+    {
+      "unlocks": "Confronto economico valorizzato e organizzazione eseguibile, da sottoporre a successiva approvazione.",
+      "question": "Quale persona può validare disponibilità e costi delle persone che lavorano sull’app? Un nome, oppure «da individuare»."
+    }
+  ],
+  "ifApproved": {
+    "updates": {
+      "how": "Dopo approvazione registrata di questa revisione creo i gruppi dal piano approvato. Avviano solo lettura, verifiche e preparazione senza nuove spese. Ogni responsabile legge il proprio incarico, verifica materiali e accessi e prepara il lavoro. Produzione e acquisti attendono autorizzazione separata. Assemblo la consegna finale soltanto dopo l’approvazione registrata di tutti i pezzi.",
+      "every": "A ogni tappa completata o blocco, con risultato verificato, dipendenza aperta e decisione necessaria."
+    },
+    "startNow": [
+      "dati",
+      "design",
+      "app",
+      "backend",
+      "contenuti",
+      "conformita",
+      "brand",
+      "qa"
+    ],
+    "startLater": [],
+    "verticalPlanDueBy": [
+      {
+        "buSlug": "dati",
+        "dueDate": "2026-11-05"
+      },
+      {
+        "buSlug": "design",
+        "dueDate": "2026-11-05"
+      },
+      {
+        "buSlug": "app",
+        "dueDate": "2026-11-05"
+      },
+      {
+        "buSlug": "backend",
+        "dueDate": "2026-11-05"
+      },
+      {
+        "buSlug": "contenuti",
+        "dueDate": "2026-11-05"
+      },
+      {
+        "buSlug": "conformita",
+        "dueDate": "2026-11-05"
+      },
+      {
+        "buSlug": "brand",
+        "dueDate": "2026-11-05"
+      },
+      {
+        "buSlug": "qa",
+        "dueDate": "2026-11-05"
+      }
+    ]
+  },
+  "milestones": [
+    {
+      "buSlug": "dati",
+      "number": 1,
+      "dueDate": "2026-11-05",
+      "delivery": "Materiali, accessi, tecnologie, persone disponibili e campione prodotti verificati.",
+      "blockedBy": [],
+      "closeCriterion": "Situazione effettiva documentata, lacune identificate e criteri del campione concordati; nessun accesso presunto."
+    },
+    {
+      "buSlug": "dati",
+      "number": 2,
+      "dueDate": "2026-11-06",
+      "delivery": "Tre alternative economiche e proposta di fonte sottoposte a Referente A.",
+      "blockedBy": [
+        1
+      ],
+      "closeCriterion": "Confronto con costi e condizioni verificabili, diritti valutati e autorizzazione di Referente A acquisita prima di produzione o acquisti."
+    },
+    {
+      "buSlug": "design",
+      "number": 3,
+      "dueDate": "2026-11-09",
+      "delivery": "Schermate, testi, collegamenti tecnici e prove concordati.",
+      "blockedBy": [
+        2
+      ],
+      "closeCriterion": "Specifiche coerenti tra tutte le aree e casi verificabili accettati dai referenti competenti."
+    },
+    {
+      "buSlug": "app",
+      "number": 4,
+      "dueDate": "2026-11-23",
+      "delivery": "Funzione completa integrata nell’app.",
+      "blockedBy": [
+        3
+      ],
+      "closeCriterion": "Flusso reale completo con servizi, errori, informazioni mancanti e misurazione concordata; realizzazione avviata soltanto dopo autorizzazione separata."
+    },
+    {
+      "buSlug": "qa",
+      "number": 5,
+      "dueDate": "2026-11-30",
+      "delivery": "Pubblicazione verificata, prove e istruzioni consegnate.",
+      "blockedBy": [
+        4
+      ],
+      "closeCriterion": "Verifiche di pubblicazione completate, prove documentate, manutenzione assegnata e tutte le consegne approvate dai rispettivi referenti."
+    }
+  ],
+  "assumptions": [
+    "Obiettivo, risultato completo, otto aree e ordine delle cinque tappe restano quelli del piano precedente; questa revisione viene approvata per intero.",
+    "Si riutilizza Referente A, referente aziendale registrato versione 1. Le altre cinque persone sono proposte a livello aziendale, una voce per persona, con recapito condiviso come nella rubrica.",
+    "Referente E segue tono e brand, non certifica la correttezza nutrizionale; Referente F raccorda gli specialisti e non ne sostituisce il parere.",
+    "L’alternativa A usa dati aperti e cura editoriale; B combina fonti; C considera un servizio gestito. Tutte prevedono la stessa completezza funzionale.",
+    "Per ciascuno scenario stimare lavoro per ruolo moltiplicato per costo unitario, più integrazione non duplicata, licenze, infrastruttura, manutenzione e riserva esplicita; separare costi iniziali e ricorrenti.",
+    "Le tappe seguono dipendenze verificabili. I campi interni di pianificazione non sono impegni verso il committente e andranno rivalutati sulla capacità reale.",
+    "Se una verifica richiede una nuova spesa, si ferma e viene richiesta autorizzazione prima di sostenerla."
+  ],
+  "criticalPath": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "businessUnits": [
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "dati",
+      "typeId": "dati",
+      "mandate": "Verificare fonti di prodotti e immagini sul medesimo campione italiano e preparare il confronto dei tre scenari. Referente A è contatto provvisorio in attesa del referente del catalogo. Solo verifiche senza nuove spese; nessun acquisto o contratto.",
+      "executor": "agent",
+      "referent": {
+        "personRef": "referente-a",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Qualità e provenienza dei dati",
+        "Valutazione cataloghi e fonti",
+        "Confronto economico documentato"
+      ],
+      "firstActivities": [
+        "Leggere materiali e fonti già presenti e verificare gli accessi effettivi.",
+        "Concordare campione e soglie da misurare.",
+        "Confrontare copertura, diritti e struttura dei costi dei tre scenari."
+      ]
+    },
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "design",
+      "typeId": "design",
+      "mandate": "Referente B segue la progettazione dei percorsi e delle schermate coerenti con l’app. Iniziare dalle verifiche dei materiali esistenti; la produzione resta subordinata ad autorizzazione separata.",
+      "executor": "agent",
+      "referent": {
+        "personRef": "referente-b",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Progettazione dei percorsi utente",
+        "Accessibilità",
+        "Componenti e coerenza visiva"
+      ],
+      "firstActivities": [
+        "Leggere i file grafici già disponibili e verificarne l’accesso.",
+        "Individuare componenti e percorsi da riutilizzare.",
+        "Definire le verifiche per errori, informazioni mancanti e confronto."
+      ]
+    },
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "app",
+      "typeId": "sviluppo",
+      "mandate": "Referente D segue l’integrazione nell’app e la pubblicazione. Verificare prima codice, tecnologie, accessi e processo esistente. Nessun avvio della produzione con questa sola approvazione.",
+      "executor": "dev_session",
+      "referent": {
+        "personRef": "referente-d",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Integrazione applicativa",
+        "Gestione errori e ripristino",
+        "Pubblicazione e manutenzione dell’app"
+      ],
+      "firstActivities": [
+        "Leggere codice e materiali esistenti e classificare tecnologie e accessi dimostrati.",
+        "Verificare capacità disponibile e vincoli della pubblicazione.",
+        "Preparare dipendenze e criteri per l’integrazione completa."
+      ]
+    },
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "backend",
+      "typeId": "sviluppo",
+      "mandate": "Referente C segue servizi, database e infrastruttura. Verificare ambiente reale e collegamenti necessari, senza inventare le tecnologie né avviare spese o produzione.",
+      "executor": "dev_session",
+      "referent": {
+        "personRef": "referente-c",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Servizi e integrazione dei dati",
+        "Database e infrastruttura",
+        "Monitoraggio e affidabilità"
+      ],
+      "firstActivities": [
+        "Rileggere architettura e accessi già registrati e verificarne la disponibilità.",
+        "Individuare requisiti per provenienza, correzioni ed errori.",
+        "Preparare le dipendenze e le stime basate sul sistema reale."
+      ]
+    },
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "contenuti",
+      "typeId": "design",
+      "mandate": "Referente E segue tono e coerenza dei testi. Preparare regole di confronto leggibili e neutrali; la correttezza nutrizionale richiede uno specialista da individuare e non viene attribuita a Referente E.",
+      "executor": "agent",
+      "referent": {
+        "personRef": "referente-e",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Scrittura chiara per l’app",
+        "Presentazione dei dati di etichetta",
+        "Coordinamento della revisione nutrizionale"
+      ],
+      "firstActivities": [
+        "Riutilizzare tono e testi già disponibili.",
+        "Esplicitare unità, fonte e gestione delle informazioni mancanti.",
+        "Individuare con Referente A il necessario controllo nutrizionale."
+      ]
+    },
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "conformita",
+      "typeId": "dati",
+      "mandate": "Referente F raccorda le verifiche legali e di riservatezza con gli specialisti competenti. Verificare materiali e contratti esistenti; non presumere conformità e non sostituire un parere professionale.",
+      "executor": "agent",
+      "referent": {
+        "personRef": "referente-f",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Raccolta dei diritti d’uso",
+        "Mappatura dei trattamenti",
+        "Raccordo con specialisti e verifiche di pubblicazione"
+      ],
+      "firstActivities": [
+        "Leggere informative, contratti e condizioni già disponibili.",
+        "Mappare gli usi previsti di dati e immagini e le verifiche ancora aperte.",
+        "Raccordare gli specialisti per diritti, misurazione dell’uso e pubblicazione."
+      ]
+    },
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "brand",
+      "typeId": "marketing",
+      "mandate": "Referente E verifica posizionamento, tono e neutralità rispetto a prodotti, partner e inserzionisti. Nessuna trattativa o impegno commerciale è autorizzato.",
+      "executor": "agent",
+      "referent": {
+        "personRef": "referente-e",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Coerenza del brand",
+        "Neutralità del confronto",
+        "Vincoli commerciali ed editoriali"
+      ],
+      "firstActivities": [
+        "Riusare linee guida e vincoli commerciali già documentati.",
+        "Esplicitare criteri di neutralità per testi e presentazione.",
+        "Concordare le evidenze richieste per approvare il proprio pezzo."
+      ]
+    },
+    {
+      "lead": {
+        "role": "capo-bu"
+      },
+      "start": {
+        "kind": "now"
+      },
+      "buSlug": "qa",
+      "typeId": "sviluppo",
+      "mandate": "Preparare prove complete e ripetibili e verificare le consegne nel flusso reale. Referente A è contatto provvisorio in attesa del referente delle prove. Nessun esito positivo è presunto.",
+      "executor": "agent",
+      "referent": {
+        "personRef": "referente-a",
+        "entryVersion": 1
+      },
+      "reviewer": {
+        "role": "director"
+      },
+      "competencies": [
+        "Prove funzionali integrate",
+        "Gestione dei difetti",
+        "Evidenze e istruzioni di manutenzione"
+      ],
+      "firstActivities": [
+        "Leggere i criteri e i materiali già disponibili.",
+        "Definire casi, soglie e ambiente reale delle prove.",
+        "Preparare la raccolta delle evidenze e la distinzione tra difetti bloccanti e non bloccanti."
+      ]
+    }
+  ],
+  "objectiveTree": {
+    "project": {
+      "expectedResult": "Good Choice completo e integrato nell’app, verificato e mantenibile, con confronto neutrale tra prodotti simili.",
+      "deliveryCriteria": [
+        "Flusso reale verificato per ricerca o riconoscimento, scheda e confronto.",
+        "Errori e informazioni mancanti gestiti senza inventare valori.",
+        "Fonti e diritti documentati per l’uso concreto.",
+        "Misurazione dell’uso, istruzioni e responsabilità di manutenzione definite.",
+        "Approvazione registrata di ogni consegna dal rispettivo referente prima dell’assemblaggio finale."
+      ]
+    },
+    "businessUnits": [
+      {
+        "buSlug": "dati",
+        "indicators": [
+          {
+            "name": "Copertura e completezza del campione",
+            "source": "Rapporto di verifica dei prodotti e delle fonti, da produrre."
+          }
+        ],
+        "expectedResult": "Catalogo e fonti valutati con provenienza verificabile.",
+        "deliveryCriteria": [
+          "Campione italiano e criteri concordati.",
+          "Copertura, completezza e aggiornamento misurati.",
+          "Tre alternative documentate senza presumere diritti o prezzi."
+        ]
+      },
+      {
+        "buSlug": "design",
+        "indicators": [],
+        "expectedResult": "Schermate coerenti con l’app, comprensibili e accessibili.",
+        "deliveryCriteria": [
+          "Percorsi completi e casi di errore progettati.",
+          "Componenti esistenti riutilizzati dove disponibili.",
+          "Confronto neutrale e dati mancanti resi comprensibili."
+        ]
+      },
+      {
+        "buSlug": "app",
+        "indicators": [],
+        "expectedResult": "Funzione integrata nei percorsi reali dell’app.",
+        "deliveryCriteria": [
+          "Ricerca o riconoscimento, scheda e confronto funzionanti.",
+          "Errori e connessione lenta verificati.",
+          "Disattivazione, ripristino e passaggio alla manutenzione documentati."
+        ]
+      },
+      {
+        "buSlug": "backend",
+        "indicators": [],
+        "expectedResult": "Servizi e dati collegati all’infrastruttura esistente.",
+        "deliveryCriteria": [
+          "Origine dei dati e correzioni tracciabili.",
+          "Gestione errori e collegamenti verificati.",
+          "Monitoraggio e istruzioni operative disponibili."
+        ]
+      },
+      {
+        "buSlug": "contenuti",
+        "indicators": [],
+        "expectedResult": "Testi chiari, confronti simmetrici e correttezza nutrizionale sottoposta a specialista.",
+        "deliveryCriteria": [
+          "Fonte, unità di misura e informazioni mancanti esplicite.",
+          "Tono verificato da Referente E.",
+          "Regole nutrizionali non considerate approvate senza specialista individuato."
+        ]
+      },
+      {
+        "buSlug": "conformita",
+        "indicators": [],
+        "expectedResult": "Condizioni d’uso dei dati e dei trattamenti verificate con le persone competenti.",
+        "deliveryCriteria": [
+          "Diritti su dati e immagini documentati per l’uso previsto.",
+          "Flussi dei dati personali e misurazione dell’uso esaminati.",
+          "Referente F raccorda gli specialisti senza sostituirne il parere."
+        ]
+      },
+      {
+        "buSlug": "brand",
+        "indicators": [],
+        "expectedResult": "Funzione coerente con il brand e con un confronto neutrale.",
+        "deliveryCriteria": [
+          "Tono e presentazione verificati.",
+          "Vincoli verso partner e inserzionisti esplicitati.",
+          "Nessuna classifica implicita non concordata."
+        ]
+      },
+      {
+        "buSlug": "qa",
+        "indicators": [
+          {
+            "name": "Esito dei casi e difetti bloccanti",
+            "source": "Rapporto delle prove, da produrre."
+          }
+        ],
+        "expectedResult": "Prove finali ripetibili e difetti documentati.",
+        "deliveryCriteria": [
+          "Casi e soglie concordati prima della verifica.",
+          "Prove nel flusso reale con evidenze.",
+          "Nessun difetto bloccante aperto secondo i criteri concordati."
+        ]
+      }
+    ]
+  },
+  "organizationId": "good-choice",
+  "missingMaterials": [
+    {
+      "kind": "access",
+      "what": "Verificare, senza richiedere di nuovo in blocco, codice, tecnologie, versioni, architettura, ambienti e accessi già disponibili.",
+      "owner": "Referente D e Referente C",
+      "blocks": {
+        "buSlug": "app",
+        "milestone": 1
+      }
+    },
+    {
+      "kind": "data",
+      "what": "Recuperare prima le voci esistenti e integrare soltanto le lacune su disponibilità delle persone, lavoro necessario, costi, volumi e condizioni delle fonti.",
+      "owner": "Persona da indicare da Referente A",
+      "blocks": {
+        "buSlug": "dati",
+        "milestone": 2
+      }
+    },
+    {
+      "kind": "data",
+      "what": "Individuare nei materiali e concordare dove mancanti campione italiano, misure d’uso e criteri numerici di riuscita.",
+      "owner": "Referente A e referenti da individuare",
+      "blocks": {
+        "buSlug": "dati",
+        "milestone": 1
+      }
+    },
+    {
+      "kind": "asset",
+      "what": "Verificare disponibilità dei file grafici, linee guida, informative, contratti e processo di pubblicazione già dichiarati; non presumere che manchino.",
+      "owner": "Referente B, Referente E, Referente F e Referente D",
+      "blocks": {
+        "buSlug": "design",
+        "milestone": 3
+      }
+    }
+  ],
+  "referentProposals": [
+    {
+      "name": "Referente B",
+      "role": "referente per il design; può collegare Figma o Sketch",
+      "email": "recapito-condiviso@example.com",
+      "level": "client",
+      "personRef": "referente-b"
+    },
+    {
+      "name": "Referente C",
+      "role": "CTO, area tecnica (database, infrastruttura)",
+      "email": "recapito-condiviso@example.com",
+      "level": "client",
+      "personRef": "referente-c"
+    },
+    {
+      "name": "Referente D",
+      "role": "produzione dell'app (sviluppo e rilascio sugli store)",
+      "email": "recapito-condiviso@example.com",
+      "level": "client",
+      "personRef": "referente-d"
+    },
+    {
+      "name": "Referente E",
+      "role": "brand GialloZafferano: posizionamento e vincoli di brand",
+      "email": "recapito-condiviso@example.com",
+      "level": "client",
+      "personRef": "referente-e"
+    },
+    {
+      "name": "Referente F",
+      "role": "PM del progetto: raccordo funzionale, avanzamento, coordinamento, temi legali",
+      "email": "recapito-condiviso@example.com",
+      "level": "client",
+      "personRef": "referente-f"
+    }
+  ]
+}

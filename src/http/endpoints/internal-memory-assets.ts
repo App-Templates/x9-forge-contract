@@ -37,10 +37,26 @@ export const InternalMemoryAssetIngestRequestSchema = z
   });
 export type InternalMemoryAssetIngestRequest = z.infer<typeof InternalMemoryAssetIngestRequestSchema>;
 
+/**
+ * Present only when the asset is registered but its bytes were NOT kept because the company reached its quota;
+ * absent means the bytes are kept. The agent can explain it to the referent.
+ */
+const ContentNotStoredSchema = z.strictObject({
+  reason: z.literal('company_quota'),
+  quotaBytes: z.number().int().min(0),
+  usedBytes: z.number().int().min(0),
+});
+
 export const InternalMemoryAssetIngestResponseSchema = z.discriminatedUnion('kind', [
-  z.strictObject({ kind: z.literal('file'), assetId: AssetRefSchema.shape.assetId, sha256: AssetSha256Schema }),
+  z.strictObject({
+    kind: z.literal('file'),
+    assetId: AssetRefSchema.shape.assetId,
+    sha256: AssetSha256Schema,
+    contentNotStored: ContentNotStoredSchema.optional(),
+  }),
   z.strictObject({
     kind: z.literal('archive'),
+    contentNotStored: ContentNotStoredSchema.optional(),
     archiveAssetId: AssetRefSchema.shape.assetId,
     entries: z.array(
       z.strictObject({
@@ -85,15 +101,19 @@ export const InternalMemoryAssetListResponseSchema = z.strictObject({
 });
 export type InternalMemoryAssetListResponse = z.infer<typeof InternalMemoryAssetListResponseSchema>;
 
-/** Transport request only: the service verifies the signed context, its expiry and the asset's ownership. */
+/**
+ * Transport request only: the service verifies the signed context, its expiry and the asset's ownership.
+ * Readable origins are `generated`, `email` (a file received by email) and `archive` (a file extracted from an
+ * archive). A `link` has no bytes and a `session` has its own route, so both are refused.
+ */
 export const InternalMemoryAssetContentRequestSchema = z.strictObject({
   context: OrganizationRunContextSchema,
   asset: AssetRefSchema,
   offset: z.number().int().min(0),
   length: z.number().int().min(1).max(262144),
-}).refine((request) => request.asset.origin.kind === 'generated', {
+}).refine((request) => ['generated', 'email', 'archive'].includes(request.asset.origin.kind), {
   path: ['asset', 'origin'],
-  message: 'Asset must have a generated origin',
+  message: 'Asset must have a generated, email or archive origin',
 }).refine((request) => request.offset < request.asset.sizeBytes, {
   path: ['offset'],
   message: 'Offset must be less than asset sizeBytes',

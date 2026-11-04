@@ -2,6 +2,7 @@
 
 ## Non rilasciato
 
+<<<<<<< HEAD
 ## v1.94.0 — Officina video: ogni chiamata del motore nel contratto e nel catalogo Python, additivo
 
 - `@x9-forge/contracts/capability/video`: richieste delle rotte `VideoEngineRoutePlanRequestSchema`, `VideoEngineRouteApproveRequestSchema` e `VideoEngineRouteRunRequestSchema`; in `@x9-forge/contracts/http`, plan e approve rispondono con `VideoEngineProjectSchema` (200), run con lo stesso schema (202). Le richieste della facciata restano disponibili.
@@ -30,6 +31,52 @@ Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`ni
 Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`night/p6c-ponte-20261030`, `night/ov-ponte-unito-20261104`) sono in volo e non ancora in main, quindi questa è la minore libera successiva.
 
 ## v1.89.0 — Officina video: preset veri con regia e operazione story, additivo
+=======
+## v1.91.1 — unione del ponte 1.91.0 con i contratti della regia dell'Officina video; additivo
+
+- Unisce il ramo del ponte 1.91.0 (sezioni delle BU nel piano d'azione, capi BU per progetto, `FIGMA_TOKEN`, contenuto di email e archivio dalla Memoria) con la v1.88.0 e la v1.89.0 dell'Officina (strumenti con busta, operazione story del motore, regia cap-video → cap-dev: `VideoRegiaRequestSchema`, `internalDevRegiaOpenContract`, `internalDevRegiaResultContract`). Le due righe si erano numerate da sole (1.88.0 e 1.89.0 compaiono due volte, sotto marcate «(Officina)»); 1.91.1 è la prima versione che le contiene entrambe e non collide con 1.91.0 né con la 1.92.0 in arrivo.
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.91.0 — sezioni delle BU nel piano d'azione; additivo
+
+- `@x9-forge/contracts/organization`: `ActionPlanBuSectionSchema` e il campo facoltativo `businessUnits[].sections` (`id`, `title`, `expectedGoal`, `deliveryCriteria`, `milestone`, `needsFrom`), con le descrizioni per il Director; `ReconciledMandateSchema` le porta nel Mandato. Consumer: X9 memory (salva), cap-email (email del piano), cap-paperclip (Mandato).
+- `@x9-forge/contracts/organization`: `ActionPlanSubmissionSchema` (bozza nuova: ogni BU che parte subito ha le sezioni; tappe e BU citate esistono). Consumer: X9 cap-email.
+
+Nessuno schema esistente si stringe; i piani salvati e le bozze di oggi restano validi, il digest di un piano senza sezioni non cambia.
+
+## v1.90.0 — capi BU abilitati per progetto e materiali dalla Memoria; additivo
+
+- `@x9-forge/contracts/http`: `devBusinessUnitProjectEnableContract` (piattaforma → cap-dev, abilita un capo BU alle sessioni per un progetto); `@x9-forge/contracts/capability/dev`: `production.session` facoltativa in `DevAgentConfigSchema`. Consumer: X9 cap-dev e cap-paperclip; Forge solo in lettura (pannello).
+- `@x9-forge/contracts/capability/dev`: `session-material-link` (percorso `/dev/materiali/:chiave`, link firmato per materiale, sezione dell'incarico). Consumer: X9 cap-dev ed esecutore del portatile.
+
+Contiene anche la v1.87.0 dell'Officina (capacità video, `@x9-forge/contracts/capability/video` e contratti del motore), unita da `main` nel rilascio 053: le due righe di sviluppo, entrambe additive, sono ora una sola.
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.89.0 — chiave FIGMA_TOKEN per agente; additivo
+
+- `@x9-forge/contracts/agent`: `FIGMA_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `figma` con etichetta «Token Figma (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.88.0 — contenuto di email e archivio leggibile dalla Memoria; risposta «contenuto non conservato»; additivo
+
+- `@x9-forge/contracts/http`: `InternalMemoryAssetContentRequestSchema` ammette anche asset di origine `email` e `archive` (prima solo `generated`; `link` e `session` restano rifiutate); consumer: X9 memory (conserva e serve i byte), X9 cap-qa e `@x9/capability-sdk` (leggono i byte di un asset).
+- `@x9-forge/contracts/http`: `InternalMemoryAssetIngestResponseSchema` ha il campo facoltativo `contentNotStored { reason:'company_quota', quotaBytes, usedBytes }`, presente solo quando i byte non sono stati conservati perché l'azienda ha raggiunto la quota; consumer: X9 memory (lo scrive) e cap-email (lo riferisce all'agente).
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.87.0 — chiave BITBUCKET_TOKEN, fornitori Bitbucket e Figma per le Connessioni; additivo
+
+- `@x9-forge/contracts/agent`: `BITBUCKET_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `bitbucket` con etichetta «Token Bitbucket (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».
+- `@x9-forge/contracts/capability`: `ConnectProviderSchema` accetta anche `bitbucket` e `figma`; `ConnectScopeSchema` accetta anche `code_read` e `design_read`; `CONNECT_PROVIDER_SCOPES` (permessi di ogni fornitore) e `ConnectStartRequestSchema` rifiuta permessi che non sono del fornitore; `CONNECT_INVITE_LIMITS` (invito per email valido 7 giorni); consumer: X9 cap-connect e cap-dev, Forge Vault e pannello «Connessioni».
+- `@x9-forge/contracts/vault`: `PLATFORM_INTERNAL_CREDENTIAL_KEYS` elenca anche `CONNECT_BITBUCKET_CLIENT_ID/SECRET` e `CONNECT_FIGMA_CLIENT_ID/SECRET` (solo il servizio Connessioni; mai proiettate in un agente).
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.89.0 (Officina) — Officina video: preset veri con regia e operazione story, additivo
+>>>>>>> origin/night/ov-ponte-unito-20261104
 
 - `@x9-forge/contracts/capability/video`: `VideoBriefRequestSchema` e `VideoBriefToolInputSchema` hanno il campo facoltativo `footage` (1-2 id dell'archivio delle riprese, `VideoFootageIdSchema`, `VideoFootageChoiceSchema`; assente = sceglie la regia); `VideoProjectStepSchema` aggiunge `regia` e `story`.
 - Operazione story del motore: `VideoEngineStoryRequestSchema` (`scenes` `{text, tags?}`, `graphicHtml` con `render(t)` fino a circa 200 KB, `footage?`, `outro` `{title, line}`, `resolution` `480p` | `720p` | `1080p` predefinito `1080p`, `revision`) e, in `@x9-forge/contracts/http`, `officinaVideoStoryContract` (POST `/api/projects/:engineProjectId/story`, risposta 202, segreto interno); voce portabile `videoEngineStoryRequest` e trasporto `videoEngineStory` per il motore Python.
@@ -37,14 +84,14 @@ Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`ni
 
 Nessuno schema esistente si stringe: i brief e i progetti di v1.88.0 restano validi. Nota: il ramo `opus/ponte-053` (1.90.0) non è ancora in main; questa versione è la minore libera successiva a main.
 
-## v1.88.0 — Officina video dal brief al video (strumenti con busta, lettura del progetto, guida del motore), additivo
+## v1.88.0 (Officina) — Officina video dal brief al video (strumenti con busta, lettura del progetto, guida del motore), additivo
 
 - `@x9-forge/contracts/capability/video`: `VideoBriefToolInputSchema` (il brief senza identità: tenant, owner e agente arrivano solo dalla busta di agent-core, R-33), `VideoProjectGetToolInputSchema`, `VideoProjectStepSchema`, `VideoProjectViewSchema` (stato, passo, link di revisione e del video); motore: `VideoEngineRunStageSchema`, `VideoEngineApproveStageSchema`, `VideoEngineRevisionSchema`, `VideoEnginePlanRequestSchema`, `VideoEngineApproveRequestSchema`, `VideoEngineRunRequestSchema`, `VideoEngineMediaPathSchema`, `VideoEngineProjectSchema` (campi letti dalla facciata, il resto passa); consumer: agent-x9 `services/cap-video`.
 - `@x9-forge/contracts/http`: `officinaVideoProjectGetContract`, `officinaVideoPlanContract`, `officinaVideoApproveContract`, `officinaVideoRunContract`, `officinaVideoMediaContract` (cap-video → motore, segreto interno).
 
 Nessuno schema esistente si stringe.
 
-## v1.87.0 — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
+## v1.87.0 (Officina) — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
 
 - `@x9-forge/contracts/capability/video`: subpath nuovo con `VideoBriefRequestSchema`, `VideoBriefResponseSchema`, `VideoProviderSchema`, `VideoEngineSettingsSchema`, `VideoEngineJobSchema`, `VideoEngineJobResponseSchema`, `VideoProjectGetRequestSchema` e i tipi; consumer: agent-x9 `services/cap-video`, motore Officina.
 - `@x9-forge/contracts/http` (`./http`): `officinaVideoJobContract` (POST `/api/jobs`) e `officinaVideoHealthContract` (GET `/api/health`) per il motore Officina.

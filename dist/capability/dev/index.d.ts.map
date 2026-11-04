@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/capability/dev/index.ts"],"names":[],"mappings":"AAAA,oCAAoC;AACpC,kCAAkC;AAClC,oCAAoC;AACpC,uCAAuC;AACvC,6CAA6C;AAC7C,yCAAyC;AACzC,iDAAiD;AACjD,wCAAwC;AACxC,OAAO,EACL,iCAAiC,EACjC,iCAAiC,GAClC,gCAAgC"}
+=======
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/capability/dev/index.ts"],"names":[],"mappings":"AAAA,oCAAoC;AACpC,kCAAkC;AAClC,oCAAoC;AACpC,uCAAuC;AACvC,6CAA6C;AAC7C,yCAAyC;AACzC,iDAAiD;AACjD,wCAAwC;AACxC,2CAA2C"}
+>>>>>>> origin/night/ov-ponte-unito-20261104

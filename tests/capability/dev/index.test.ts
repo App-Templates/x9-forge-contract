@@ -9,8 +9,9 @@ import * as productionArtifactContent from '../../../src/capability/dev/producti
 import * as productionProgress from '../../../src/capability/dev/production-progress.js';
 import * as productionConfigMatch from '../../../src/capability/dev/production-config-match.js';
 import * as sessionAssignment from '../../../src/capability/dev/session-assignment.js';
+import * as sessionMaterialLink from '../../../src/capability/dev/session-material-link.js';
 
-const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment };
+const allSymbols = { ...signedCommand, ...configState, ...productionJob, ...productionResult, ...productionArtifactContent, ...productionConfigMatch, ...productionProgress, ...sessionAssignment, ...sessionMaterialLink };
 
 describe('capability/dev subpath', () => {
   it('re-exports every symbol of signed-command, config-state, production-job, production-result, production-artifact-content, production-config-match and production-progress', () => {
@@ -34,6 +35,9 @@ describe('capability/dev subpath', () => {
     }
     for (const name of Object.keys(sessionAssignment) as (keyof typeof sessionAssignment)[]) {
       expect(dev[name]).toBe(sessionAssignment[name]);
+    }
+    for (const name of Object.keys(sessionMaterialLink) as (keyof typeof sessionMaterialLink)[]) {
+      expect(dev[name]).toBe(sessionMaterialLink[name]);
     }
     expect(Object.keys(dev).sort()).toEqual(Object.keys(allSymbols).sort());
   });
@@ -89,6 +93,13 @@ describe('capability/dev subpath', () => {
         'parseDevSessionBlock',
         'renderDevSessionDelivery',
         'parseDevSessionDelivery',
+        'DEV_SESSION_MATERIAL_PATH',
+        'DevSessionMaterialKeySchema',
+        'DevSessionMaterialLinkSchema',
+        'devSessionMaterialKey',
+        'devSessionMaterialSignedMessage',
+        'renderDevSessionMaterialLinks',
+        'parseDevSessionMaterialLinks',
       ].sort(),
     );
   });

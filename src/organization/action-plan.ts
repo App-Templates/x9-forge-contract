@@ -43,12 +43,27 @@ export const ActionPlanBuStartSchema = z.discriminatedUnion('kind', [
 ]);
 export type ActionPlanBuStart = z.infer<typeof ActionPlanBuStartSchema>;
 
+export const ActionPlanBuSectionSchema = z.strictObject({
+  id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
+  title: z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
+  expectedGoal: z.string().min(1).max(1000).describe("cosa potrà fare l'utente quando la sezione è finita"),
+  deliveryCriteria: z.array(z.string().min(1).max(500)).min(1).max(10)
+    .describe('come si verifica che è finita'),
+  milestone: z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
+  needsFrom: z.array(z.strictObject({
+    buSlug: SlugSchema(1, 30),
+    what: z.string().min(1).max(500),
+  })).max(10).optional().describe("cosa serve da un'altra BU per costruirla"),
+});
+export type ActionPlanBuSection = z.infer<typeof ActionPlanBuSectionSchema>;
+
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 export const ActionPlanBusinessUnitSchema = z.strictObject({
   buSlug: SlugSchema(1, 30),
   /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
   typeId: BusinessUnitLeadTypeIdSchema,
-  mandate: z.string().min(1).max(2000),
+  mandate: z.string().min(1).max(2000)
+    .describe('ruolo e perimetro della BU in poche frasi; le cose da costruire vanno in `sections`'),
   competencies: UniqueCompetenciesSchema,
   lead: z.strictObject({ role: z.literal(BUSINESS_UNIT_LEAD_ROLE) }),
   reviewer: z.union([
@@ -57,7 +72,12 @@ export const ActionPlanBusinessUnitSchema = z.strictObject({
   ]).optional(),
   executor: ActionPlanBuExecutorSchema,
   referent: ActionPlanReferentRefSchema,
-  firstActivities: z.array(z.string().min(1).max(500)).min(1).max(20),
+  firstActivities: z.array(z.string().min(1).max(500)).min(1).max(20)
+    .describe('i primi passi del capo, prima di costruire le sezioni'),
+  sections: z.array(ActionPlanBuSectionSchema).min(1).max(20).refine(
+    (sections) => new Set(sections.map((section) => section.id)).size === sections.length,
+    { message: 'Section ids must be unique within the business unit' },
+  ).optional().describe('Le sezioni che questa BU costruisce dopo l’approvazione: la missione scomposta per questa BU, ognuna con cosa potrà fare l’utente. È il mini-brief che il capo riceve nel Mandato.'),
   roleAgents: z.array(ActionPlanRoleAgentSchema).max(20).optional(),
   start: ActionPlanBuStartSchema,
 });
@@ -168,6 +188,40 @@ export const ActionPlanDraftSchema = ActionPlanSchema.omit({ digest: true, tenan
   version: ActionPlanSchema.shape.version.optional(),
 });
 export type ActionPlanDraft = z.infer<typeof ActionPlanDraftSchema>;
+
+/** The plan as the Director submits a new version: every unit that starts now carries its sections. Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which do not require them. */
+export const ActionPlanSubmissionSchema = ActionPlanDraftSchema.superRefine((plan, ctx) => {
+  const businessUnitSlugs = new Set(plan.businessUnits.map((unit) => unit.buSlug));
+  const milestoneNumbers = new Set(plan.milestones.map((milestone) => milestone.number));
+  plan.businessUnits.forEach((unit, index) => {
+    if (unit.start.kind === 'now' && unit.sections === undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['businessUnits', index, 'sections'],
+        message: `Business unit ${unit.buSlug} starts now and needs its sections: the mission split into what this unit builds`,
+      });
+    }
+    unit.sections?.forEach((section, position) => {
+      if (!milestoneNumbers.has(section.milestone)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['businessUnits', index, 'sections', position, 'milestone'],
+          message: `Section ${section.id} milestone ${section.milestone} does not exist in the plan`,
+        });
+      }
+      section.needsFrom?.forEach((need, dependencyIndex) => {
+        if (!businessUnitSlugs.has(need.buSlug) || need.buSlug === unit.buSlug) {
+          ctx.addIssue({
+            code: 'custom',
+            path: ['businessUnits', index, 'sections', position, 'needsFrom', dependencyIndex, 'buSlug'],
+            message: `Section ${section.id} needs work from ${need.buSlug}, which is not another existing business unit`,
+          });
+        }
+      });
+    });
+  });
+});
+export type ActionPlanSubmission = z.infer<typeof ActionPlanSubmissionSchema>;
 
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 export const CompleteActionPlanSchema = ActionPlanSchema.extend({

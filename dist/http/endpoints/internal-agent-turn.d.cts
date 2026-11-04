@@ -184,6 +184,8 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
         cardId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         permissions: z.ZodArray<z.ZodEnum<{
             calendar_events: "calendar_events";
@@ -192,6 +194,8 @@ export declare const InternalAgentTurnResponseSchema: z.ZodObject<{
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
         url: z.ZodString;
         expiresAt: z.ZodNumber;
@@ -645,6 +649,8 @@ export declare const internalAgentTurnContract: {
             cardId: z.ZodString;
             provider: z.ZodEnum<{
                 google: "google";
+                bitbucket: "bitbucket";
+                figma: "figma";
             }>;
             permissions: z.ZodArray<z.ZodEnum<{
                 calendar_events: "calendar_events";
@@ -653,6 +659,8 @@ export declare const internalAgentTurnContract: {
                 mail_draft: "mail_draft";
                 mail_read: "mail_read";
                 drive_read: "drive_read";
+                code_read: "code_read";
+                design_read: "design_read";
             }>>;
             url: z.ZodString;
             expiresAt: z.ZodNumber;

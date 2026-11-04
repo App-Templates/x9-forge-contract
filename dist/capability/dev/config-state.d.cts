@@ -26,7 +26,7 @@ export declare const DevAgentConfigSchema: z.ZodObject<{
     }, z.core.$strict>>;
     /** A saved choice only; presence, consent and an execution lease are separate facts. */
     production: z.ZodOptional<z.ZodObject<{
-        session: z.ZodObject<{
+        session: z.ZodOptional<z.ZodObject<{
             scope: z.ZodLazy<z.ZodObject<{
                 agentId: z.ZodString;
                 ownerId: z.ZodString;
@@ -44,7 +44,7 @@ export declare const DevAgentConfigSchema: z.ZodObject<{
                 claude: "claude";
                 codex: "codex";
             }>>;
-        }, z.core.$strict>;
+        }, z.core.$strict>>;
         roleModels: z.ZodOptional<z.ZodObject<{
             coordination: z.ZodObject<{
                 engine: z.ZodEnum<{
@@ -145,7 +145,7 @@ export declare const DevAgentConfigStateSchema: z.ZodObject<{
         }, z.core.$strict>>;
         /** A saved choice only; presence, consent and an execution lease are separate facts. */
         production: z.ZodOptional<z.ZodObject<{
-            session: z.ZodObject<{
+            session: z.ZodOptional<z.ZodObject<{
                 scope: z.ZodLazy<z.ZodObject<{
                     agentId: z.ZodString;
                     ownerId: z.ZodString;
@@ -163,7 +163,7 @@ export declare const DevAgentConfigStateSchema: z.ZodObject<{
                     claude: "claude";
                     codex: "codex";
                 }>>;
-            }, z.core.$strict>;
+            }, z.core.$strict>>;
             roleModels: z.ZodOptional<z.ZodObject<{
                 coordination: z.ZodObject<{
                     engine: z.ZodEnum<{

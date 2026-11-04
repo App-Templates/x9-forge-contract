@@ -23,6 +23,8 @@ export declare const ConnectionCompletedBodySchema: z.ZodObject<{
     personRef: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
     grantedPermissions: z.ZodArray<z.ZodEnum<{
         calendar_events: "calendar_events";
@@ -31,6 +33,8 @@ export declare const ConnectionCompletedBodySchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
     outcome: z.ZodEnum<{
         connected: "connected";
@@ -86,6 +90,8 @@ export declare const connectionCompletedContract: {
         personRef: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         grantedPermissions: z.ZodArray<z.ZodEnum<{
             calendar_events: "calendar_events";
@@ -94,6 +100,8 @@ export declare const connectionCompletedContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
         outcome: z.ZodEnum<{
             connected: "connected";
