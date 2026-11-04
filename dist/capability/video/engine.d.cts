@@ -140,6 +140,28 @@ export declare const VideoEngineRunRequestSchema: z.ZodObject<{
 export type VideoEngineRunRequest = z.infer<typeof VideoEngineRunRequestSchema>;
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export declare const VideoEngineMediaPathSchema: z.ZodString;
+export declare const VideoEngineStoryStatusSchema: z.ZodEnum<{
+    failed: "failed";
+    completed: "completed";
+    queued: "queued";
+    running: "running";
+    interrupted: "interrupted";
+}>;
+export type VideoEngineStoryStatus = z.infer<typeof VideoEngineStoryStatusSchema>;
+/** Stato della story scritto dal motore (`officina/story_op.py`); gli altri campi passano. */
+export declare const VideoEngineStoryStateSchema: z.ZodObject<{
+    status: z.ZodEnum<{
+        failed: "failed";
+        completed: "completed";
+        queued: "queued";
+        running: "running";
+        interrupted: "interrupted";
+    }>;
+    step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+}, z.core.$loose>;
+export type VideoEngineStoryState = z.infer<typeof VideoEngineStoryStateSchema>;
 /**
  * The part of an engine project the facade reads. The engine answers with more fields: they pass
  * through untouched (the engine owns its full project document).
@@ -163,6 +185,18 @@ export declare const VideoEngineProjectSchema: z.ZodObject<{
     }, z.core.$loose>>;
     output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     spent_usd: z.ZodOptional<z.ZodNumber>;
+    story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        status: z.ZodEnum<{
+            failed: "failed";
+            completed: "completed";
+            queued: "queued";
+            running: "running";
+            interrupted: "interrupted";
+        }>;
+        step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$loose>>>;
 }, z.core.$loose>;
 export type VideoEngineProject = z.infer<typeof VideoEngineProjectSchema>;
 //# sourceMappingURL=engine.d.ts.map

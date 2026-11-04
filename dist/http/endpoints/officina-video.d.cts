@@ -91,6 +91,18 @@ export declare const officinaVideoProjectGetContract: {
         }, z.core.$loose>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         spent_usd: z.ZodOptional<z.ZodNumber>;
+        story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            status: z.ZodEnum<{
+                failed: "failed";
+                completed: "completed";
+                queued: "queued";
+                running: "running";
+                interrupted: "interrupted";
+            }>;
+            step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>>;
     }, z.core.$loose>;
 };
 /** cap-video -> engine: write the plan of a project. Internal, INTERNAL_SECRET_HEADER. */
@@ -120,6 +132,18 @@ export declare const officinaVideoPlanContract: {
         }, z.core.$loose>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         spent_usd: z.ZodOptional<z.ZodNumber>;
+        story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            status: z.ZodEnum<{
+                failed: "failed";
+                completed: "completed";
+                queued: "queued";
+                running: "running";
+                interrupted: "interrupted";
+            }>;
+            step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>>;
     }, z.core.$loose>;
 };
 /** cap-video -> engine: approve a stage at the revision that was shown. Internal, INTERNAL_SECRET_HEADER. */
@@ -156,6 +180,18 @@ export declare const officinaVideoApproveContract: {
         }, z.core.$loose>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         spent_usd: z.ZodOptional<z.ZodNumber>;
+        story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            status: z.ZodEnum<{
+                failed: "failed";
+                completed: "completed";
+                queued: "queued";
+                running: "running";
+                interrupted: "interrupted";
+            }>;
+            step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>>;
     }, z.core.$loose>;
 };
 /** cap-video -> engine: start a production stage (asynchronous, 202). Internal, INTERNAL_SECRET_HEADER. */
