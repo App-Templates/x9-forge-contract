@@ -154,6 +154,12 @@ function getPortableCapabilityContracts() {
     add('videoEngineJobResponse', engine_js_1.VideoEngineJobResponseSchema, [], 0);
     add('videoEngineStoryRequest', story_js_1.VideoEngineStoryRequestSchema, [], 0);
     add('videoEngineStoryEstimate', story_js_1.VideoEngineStoryEstimateSchema, [], 0);
+    add('videoEngineProject', engine_js_1.VideoEngineProjectSchema, [], 0);
+    add('videoEnginePlanRequest', engine_js_1.VideoEngineRoutePlanRequestSchema, [], 0);
+    add('videoEngineApproveRequest', engine_js_1.VideoEngineRouteApproveRequestSchema, [], 0);
+    add('videoEngineRunRequest', engine_js_1.VideoEngineRouteRunRequestSchema, [], 0);
+    add('videoEngineError', engine_js_1.VideoEngineErrorSchema, [], 0);
+    add('videoEngineHealth', engine_js_1.VideoEngineHealthSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -176,9 +182,18 @@ function getPortableCapabilityContracts() {
             authority: { ...transport(internal_agents_ordinary_authority_js_1.agentOrdinaryAuthorityContract), queryContract: 'authorityQuery' },
             ordinaryGet: { ...transport(internal_capability_agent_js_1.ordinaryCapabilityAgentConfigGetContract), queryContract: 'ordinaryQuery' },
             lifecycle: transport(internal_capability_agent_js_1.ordinaryCapabilityLifecyclePutContract), call: transport(cap_tool_call_js_1.capToolCallContract),
-            videoEngineJob: transport(officina_video_js_1.officinaVideoJobContract), videoEngineHealth: transport(officina_video_js_1.officinaVideoHealthContract),
-            videoEngineStory: { ...transport(officina_video_js_1.officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest' },
-            videoEngineStoryEstimate: { ...transport(officina_video_js_1.officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate' },
+            videoEngineJob: { ...transport(officina_video_js_1.officinaVideoJobContract), errorContract: 'videoEngineError' },
+            videoEngineHealth: { ...transport(officina_video_js_1.officinaVideoHealthContract), responseContract: 'videoEngineHealth', errorContract: 'videoEngineError' },
+            videoEngineStory: { ...transport(officina_video_js_1.officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest', errorContract: 'videoEngineError' },
+            videoEngineStoryEstimate: { ...transport(officina_video_js_1.officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate', errorContract: 'videoEngineError' },
+            videoEngineProjectGet: { ...transport(officina_video_js_1.officinaVideoProjectGetContract), responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEnginePlan: { ...transport(officina_video_js_1.officinaVideoPlanContract), requestContract: 'videoEnginePlanRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEngineApprove: { ...transport(officina_video_js_1.officinaVideoApproveContract), requestContract: 'videoEngineApproveRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEngineRun: { ...transport(officina_video_js_1.officinaVideoRunContract), requestContract: 'videoEngineRunRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEngineMedia: {
+                method: 'GET', path: '/media/:engineProjectId/:file', authHeader: auth_headers_js_1.INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError',
+                paramsSchema: zod_1.z.toJSONSchema(zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineIdSchema, file: zod_1.z.string().regex(/^[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/) }).strict()),
+            },
         } };
 }
 function at(value, path) {

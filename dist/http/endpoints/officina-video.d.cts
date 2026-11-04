@@ -1,6 +1,15 @@
 import { z } from 'zod';
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoJobContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "POST";
     readonly path: "/api/jobs";
     readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
@@ -61,12 +70,37 @@ export declare const officinaVideoJobContract: {
 };
 /** cap-video -> Officina video engine health probe. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoHealthContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        ok: z.ZodBoolean;
+        ffmpeg: z.ZodBoolean;
+        ffprobe: z.ZodBoolean;
+        paid_enabled: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$loose>;
+    readonly responseStatus: 200;
     readonly method: "GET";
     readonly path: "/api/health";
     readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
 };
 /** cap-video -> engine: read one project. Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoProjectGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "GET";
     readonly path: "/api/projects/:engineProjectId";
     readonly paramsSchema: z.ZodObject<{
@@ -107,12 +141,25 @@ export declare const officinaVideoProjectGetContract: {
 };
 /** cap-video -> engine: write the plan of a project. Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoPlanContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "POST";
     readonly path: "/api/projects/:engineProjectId/plan";
     readonly paramsSchema: z.ZodObject<{
         engineProjectId: z.ZodString;
     }, z.core.$strict>;
-    readonly requestSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly requestSchema: z.ZodObject<{
+        quote_id: z.ZodOptional<z.ZodString>;
+        retry_authorization_id: z.ZodOptional<z.ZodString>;
+        revision: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         id: z.ZodString;
         status: z.ZodString;
@@ -145,9 +192,19 @@ export declare const officinaVideoPlanContract: {
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>>;
     }, z.core.$loose>;
+    readonly responseStatus: 200;
 };
 /** cap-video -> engine: approve a stage at the revision that was shown. Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoApproveContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "POST";
     readonly path: "/api/projects/:engineProjectId/approve";
     readonly paramsSchema: z.ZodObject<{
@@ -155,9 +212,11 @@ export declare const officinaVideoApproveContract: {
     }, z.core.$strict>;
     readonly requestSchema: z.ZodObject<{
         stage: z.ZodEnum<{
+            voice: "voice";
             frames: "frames";
             plan: "plan";
             final: "final";
+            references: "references";
         }>;
         revision: z.ZodNumber;
     }, z.core.$strict>;
@@ -193,9 +252,19 @@ export declare const officinaVideoApproveContract: {
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>>;
     }, z.core.$loose>;
+    readonly responseStatus: 200;
 };
 /** cap-video -> engine: start a production stage (asynchronous, 202). Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoRunContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "POST";
     readonly path: "/api/projects/:engineProjectId/run";
     readonly paramsSchema: z.ZodObject<{
@@ -203,18 +272,64 @@ export declare const officinaVideoRunContract: {
     }, z.core.$strict>;
     readonly requestSchema: z.ZodObject<{
         stage: z.ZodEnum<{
+            voice: "voice";
             frames: "frames";
             clips: "clips";
             assemble: "assemble";
+            animatic: "animatic";
         }>;
+        scene_ids: z.ZodOptional<z.ZodArray<z.ZodString>>;
         revision: z.ZodOptional<z.ZodNumber>;
+        quote_id: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        id: z.ZodString;
+        status: z.ZodString;
+        revision: z.ZodNumber;
+        scenes: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodOptional<z.ZodString>;
+            narration: z.ZodOptional<z.ZodString>;
+            frame_prompt: z.ZodOptional<z.ZodString>;
+            frame_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            clip_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        jobs: z.ZodArray<z.ZodObject<{
+            stage: z.ZodOptional<z.ZodString>;
+            status: z.ZodOptional<z.ZodString>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>;
+        output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        spent_usd: z.ZodOptional<z.ZodNumber>;
+        story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            status: z.ZodEnum<{
+                failed: "failed";
+                completed: "completed";
+                queued: "queued";
+                running: "running";
+                interrupted: "interrupted";
+            }>;
+            step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$loose>>>;
+    }, z.core.$loose>;
+    readonly responseStatus: 202;
 };
 /**
  * cap-video -> engine: produce the story of a preset (voice, lip sync, graphic capture, montage) from the approved
  * regia. Asynchronous (202) and idempotent on `revision`; the state is read with GET project. Internal, INTERNAL_SECRET_HEADER.
  */
 export declare const officinaVideoStoryContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "POST";
     readonly path: "/api/projects/:engineProjectId/story";
     readonly paramsSchema: z.ZodObject<{
@@ -245,6 +360,15 @@ export declare const officinaVideoStoryContract: {
  * no side effect, nothing paid: answers the figure the story start compares with the budget. Internal, INTERNAL_SECRET_HEADER.
  */
 export declare const officinaVideoStoryEstimateContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "POST";
     readonly path: "/api/projects/:engineProjectId/story/estimate";
     readonly paramsSchema: z.ZodObject<{
@@ -283,6 +407,15 @@ export declare const officinaVideoStoryEstimateContract: {
 };
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 export declare const officinaVideoMediaContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
     readonly method: "GET";
     readonly pathSchema: z.ZodString;
 };

@@ -236,6 +236,7 @@ export interface PortableCapabilityCatalog {
         queryContract?: string;
         requestContract?: string;
         responseContract?: string;
+        errorContract?: string;
     }>;
 }
 /**

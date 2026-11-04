@@ -1,4 +1,21 @@
 import { z } from 'zod';
+export declare const VideoEngineErrorSchema: z.ZodObject<{
+    error: z.ZodString;
+    operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+        uncertain: "uncertain";
+        pending: "pending";
+        rejected: "rejected";
+    }>>>;
+    code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+}, z.core.$strict>;
+export type VideoEngineError = z.infer<typeof VideoEngineErrorSchema>;
+export declare const VideoEngineHealthSchema: z.ZodObject<{
+    ok: z.ZodBoolean;
+    ffmpeg: z.ZodBoolean;
+    ffprobe: z.ZodBoolean;
+    paid_enabled: z.ZodOptional<z.ZodBoolean>;
+}, z.core.$loose>;
+export type VideoEngineHealth = z.infer<typeof VideoEngineHealthSchema>;
 export declare const VideoProviderSchema: z.ZodEnum<{
     demo: "demo";
     minimax: "minimax";
@@ -138,6 +155,61 @@ export declare const VideoEngineRunRequestSchema: z.ZodObject<{
     revision: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type VideoEngineRunRequest = z.infer<typeof VideoEngineRunRequestSchema>;
+export declare const VideoEngineIdSchema: z.ZodString;
+/** Stages the engine route accepts on run; the facade drives a subset (`VideoEngineRunStageSchema`). */
+export declare const VideoEngineRouteRunStageSchema: z.ZodEnum<{
+    voice: "voice";
+    frames: "frames";
+    clips: "clips";
+    assemble: "assemble";
+    animatic: "animatic";
+}>;
+export type VideoEngineRouteRunStage = z.infer<typeof VideoEngineRouteRunStageSchema>;
+/** Stages the engine route accepts on approve; the facade drives a subset (`VideoEngineApproveStageSchema`). */
+export declare const VideoEngineRouteApproveStageSchema: z.ZodEnum<{
+    voice: "voice";
+    frames: "frames";
+    plan: "plan";
+    final: "final";
+    references: "references";
+}>;
+export type VideoEngineRouteApproveStage = z.infer<typeof VideoEngineRouteApproveStageSchema>;
+/** Whole plan body of the engine route; the facade sends `{}` (`VideoEnginePlanRequestSchema`). */
+export declare const VideoEngineRoutePlanRequestSchema: z.ZodObject<{
+    quote_id: z.ZodOptional<z.ZodString>;
+    retry_authorization_id: z.ZodOptional<z.ZodString>;
+    revision: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export type VideoEngineRoutePlanRequest = z.infer<typeof VideoEngineRoutePlanRequestSchema>;
+/** Whole approve body of the engine route; the facade body is a subset of it. */
+export declare const VideoEngineRouteApproveRequestSchema: z.ZodObject<{
+    stage: z.ZodEnum<{
+        voice: "voice";
+        frames: "frames";
+        plan: "plan";
+        final: "final";
+        references: "references";
+    }>;
+    revision: z.ZodNumber;
+}, z.core.$strict>;
+export type VideoEngineRouteApproveRequest = z.infer<typeof VideoEngineRouteApproveRequestSchema>;
+/**
+ * Whole run body of the engine route; the facade body is a subset of it. The uniqueness of `scene_ids`
+ * is checked by the engine (`officina/pipeline.py:1730`): no `refine` here, the portable catalog would block it.
+ */
+export declare const VideoEngineRouteRunRequestSchema: z.ZodObject<{
+    stage: z.ZodEnum<{
+        voice: "voice";
+        frames: "frames";
+        clips: "clips";
+        assemble: "assemble";
+        animatic: "animatic";
+    }>;
+    scene_ids: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    revision: z.ZodOptional<z.ZodNumber>;
+    quote_id: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type VideoEngineRouteRunRequest = z.infer<typeof VideoEngineRouteRunRequestSchema>;
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export declare const VideoEngineMediaPathSchema: z.ZodString;
 export declare const VideoEngineStoryStatusSchema: z.ZodEnum<{
