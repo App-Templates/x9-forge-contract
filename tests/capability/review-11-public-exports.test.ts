@@ -34,6 +34,7 @@ describe('reviewed 1.29 distribution consumed through public exports', () => {
     it(system + ' exports the lab spend route and queued tool names', async () => {
       const http = (system === 'ESM' ? await import('@x9-forge/contracts/http') : require('@x9-forge/contracts/http')) as Record<string, unknown>;
       expect(http.labAgentSpendContract).toMatchObject({ method: 'GET', path: '/internal/capability/agents/:agentId/spend', authType: 'secret' });
+      expect(http.videoAgentSpendContract).toMatchObject({ method: 'GET', path: '/internal/capability/agents/:agentId/spend', authType: 'secret' });
       const lab = (system === 'ESM' ? await import('@x9-forge/contracts/capability/lab') : require('@x9-forge/contracts/capability/lab')) as Record<string, unknown>;
       expect(lab.LAB_TOOLS).toMatchObject({ ingest: 'lab_ingest', ingestStatus: 'lab_ingest_status' });
     });
