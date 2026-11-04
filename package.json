@@ -1,10 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-<<<<<<< HEAD
   "version": "1.94.0",
-=======
-  "version": "1.91.1",
->>>>>>> origin/night/ov-ponte-unito-20261104
   "private": false,
   "publishConfig": {
     "access": "restricted"
