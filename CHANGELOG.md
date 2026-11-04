@@ -2,7 +2,13 @@
 
 ## Non rilasciato
 
-<<<<<<< HEAD
+## v1.95.0 — unione della linea 1.87-1.91.1 (azienda agentica e regia) e dei contratti dell'email di consegna con main 1.94.0; additivo
+
+- Entra in main la linea 1.87.0-1.91.1: chiavi Bitbucket e Figma, contenuto dalla Memoria per email e archivio, capi BU per progetto, sezioni delle BU nel piano d'azione, regia cap-video → cap-dev.
+- `@x9-forge/contracts/organization`: `DeliveryPackageSchema`, `deliveryEmail` nella scheda del tipo di BU, `DECISION_REQUEST_HEADER`.
+- `@x9-forge/contracts/http`: link di consegna di cap-dev (`DEV_DELIVERY_LINK_TTL_MS`, 30 giorni).
+- Nessuno schema esistente si stringe.
+
 ## v1.94.0 — Officina video: ogni chiamata del motore nel contratto e nel catalogo Python, additivo
 
 - `@x9-forge/contracts/capability/video`: richieste delle rotte `VideoEngineRoutePlanRequestSchema`, `VideoEngineRouteApproveRequestSchema` e `VideoEngineRouteRunRequestSchema`; in `@x9-forge/contracts/http`, plan e approve rispondono con `VideoEngineProjectSchema` (200), run con lo stesso schema (202). Le richieste della facciata restano disponibili.
@@ -30,8 +36,6 @@ Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`ni
 
 Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`night/p6c-ponte-20261030`, `night/ov-ponte-unito-20261104`) sono in volo e non ancora in main, quindi questa è la minore libera successiva.
 
-## v1.89.0 — Officina video: preset veri con regia e operazione story, additivo
-=======
 ## v1.91.1 — unione del ponte 1.91.0 con i contratti della regia dell'Officina video; additivo
 
 - Unisce il ramo del ponte 1.91.0 (sezioni delle BU nel piano d'azione, capi BU per progetto, `FIGMA_TOKEN`, contenuto di email e archivio dalla Memoria) con la v1.88.0 e la v1.89.0 dell'Officina (strumenti con busta, operazione story del motore, regia cap-video → cap-dev: `VideoRegiaRequestSchema`, `internalDevRegiaOpenContract`, `internalDevRegiaResultContract`). Le due righe si erano numerate da sole (1.88.0 e 1.89.0 compaiono due volte, sotto marcate «(Officina)»); 1.91.1 è la prima versione che le contiene entrambe e non collide con 1.91.0 né con la 1.92.0 in arrivo.
@@ -76,7 +80,6 @@ Nessuno schema esistente si stringe; i corpi di oggi restano validi.
 Nessuno schema esistente si stringe; i corpi di oggi restano validi.
 
 ## v1.89.0 (Officina) — Officina video: preset veri con regia e operazione story, additivo
->>>>>>> origin/night/ov-ponte-unito-20261104
 
 - `@x9-forge/contracts/capability/video`: `VideoBriefRequestSchema` e `VideoBriefToolInputSchema` hanno il campo facoltativo `footage` (1-2 id dell'archivio delle riprese, `VideoFootageIdSchema`, `VideoFootageChoiceSchema`; assente = sceglie la regia); `VideoProjectStepSchema` aggiunge `regia` e `story`.
 - Operazione story del motore: `VideoEngineStoryRequestSchema` (`scenes` `{text, tags?}`, `graphicHtml` con `render(t)` fino a circa 200 KB, `footage?`, `outro` `{title, line}`, `resolution` `480p` | `720p` | `1080p` predefinito `1080p`, `revision`) e, in `@x9-forge/contracts/http`, `officinaVideoStoryContract` (POST `/api/projects/:engineProjectId/story`, risposta 202, segreto interno); voce portabile `videoEngineStoryRequest` e trasporto `videoEngineStory` per il motore Python.
