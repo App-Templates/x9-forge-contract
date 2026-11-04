@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { VideoEngineStoryRequestSchema } from "../../capability/video/story.js";
+import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from "../../capability/video/story.js";
 import { VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEnginePlanRequestSchema, VideoEngineApproveRequestSchema, VideoEngineRunRequestSchema, VideoEngineMediaPathSchema } from "../../capability/video/engine.js";
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
@@ -55,6 +55,18 @@ export const officinaVideoStoryContract = {
     paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
     requestSchema: VideoEngineStoryRequestSchema,
     responseStatus: 202,
+};
+/**
+ * cap-video -> engine: upper estimate of a story, before email 1. Same body as the story (validated by the same contract),
+ * no side effect, nothing paid: answers the figure the story start compares with the budget. Internal, INTERNAL_SECRET_HEADER.
+ */
+export const officinaVideoStoryEstimateContract = {
+    method: 'POST',
+    path: '/api/projects/:engineProjectId/story/estimate',
+    paramsSchema: z.object({ engineProjectId: VideoEngineProjectSchema.shape.id }).strict(),
+    requestSchema: VideoEngineStoryRequestSchema,
+    responseSchema: VideoEngineStoryEstimateSchema,
+    responseStatus: 200,
 };
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 export const officinaVideoMediaContract = {

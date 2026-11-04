@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.portableJsonSchema = portableJsonSchema;
 exports.getPortableCapabilityContracts = getPortableCapabilityContracts;
 exports.applyPortableCapabilityRules = applyPortableCapabilityRules;
 exports.parsePortableAuthorityResponse = parsePortableAuthorityResponse;
@@ -38,6 +39,33 @@ const lifecycleTransaction = ordinary_lifecycle_js_1.CapabilityOrdinaryLifecycle
     request: lifecycleRequest, previousState: emptyState, receipts: zod_1.z.array(lifecycleReceipt).max(4),
 });
 const lifecycleAuthority = authorityResponse.safeExtend({ current: ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.nullable(), transaction: lifecycleTransaction.nullable() });
+/** Probes on which `String.prototype.trim` is the only plausible overwrite: whitespace of every JS class, case, inner spaces. */
+const TRIM_PROBES = [' a B ', '\t\n\u000b\f\r x\u00a0', '\ufeff\u1680\u2000\u200a\u2028\u2029\u202f\u205f\u3000y z\u3000', '\u001c q \u001c', 'Ab', ''];
+/** True when a zod check is an overwrite that behaves exactly as `trim()` (portable as the `x-trim` keyword). */
+function isTrimCheck(check) {
+    const def = check?._zod?.def;
+    if (def?.check !== 'overwrite' || typeof def.tx !== 'function')
+        return false;
+    const tx = def.tx;
+    return TRIM_PROBES.every(probe => tx(probe) === probe.trim());
+}
+/** A string schema whose first check is trim: zod trims before every length/pattern check, as `x-trim` says. */
+function hasLeadingTrim(schema) {
+    const def = schema?._zod?.def;
+    return def?.type === 'string' && isTrimCheck(def.checks?.[0]);
+}
+/**
+ * JSON Schema of a canonical zod schema for the portable catalog. `trim()` has no standard keyword: it is carried
+ * as `x-trim: true` (strip JS whitespace first, then check and return the trimmed text), so the generated Python
+ * runtime admits exactly what zod admits.
+ */
+function portableJsonSchema(schema) {
+    return zod_1.z.toJSONSchema(schema, {
+        io: 'input', target: 'draft-2020-12',
+        override: (ctx) => { if (hasLeadingTrim(ctx.zodSchema))
+            ctx.jsonSchema['x-trim'] = true; },
+    });
+}
 /** Count non-JSON custom checks so a newly added refinement cannot silently become portable. */
 function customRefinements(schema, seen = new Set()) {
     if (seen.has(schema))
@@ -45,7 +73,9 @@ function customRefinements(schema, seen = new Set()) {
     seen.add(schema);
     const def = schema._zod.def;
     const checks = (def.checks ?? []);
-    let count = checks.filter(check => check._zod.def.check === 'custom').length;
+    // A custom check, or an overwrite other than a leading trim, has no JSON Schema form: it must be gated, never dropped.
+    let count = checks.filter((check, index) => check._zod.def.check === 'custom'
+        || (check._zod.def.check === 'overwrite' && !(index === 0 && isTrimCheck(check)))).length;
     const visit = (value) => {
         if (value && typeof value === 'object' && '_zod' in value)
             count += customRefinements(value, seen);
@@ -106,7 +136,7 @@ function getPortableCapabilityContracts() {
             throw new Error(`Uncovered refinement in portable contract ${name}`);
         let json = null;
         try {
-            json = zod_1.z.toJSONSchema(schema, { io: 'input', target: 'draft-2020-12' });
+            json = portableJsonSchema(schema);
         }
         catch {
             if (gates.length === 0)
@@ -123,6 +153,7 @@ function getPortableCapabilityContracts() {
     add('videoEngineJob', engine_js_1.VideoEngineJobSchema, [], 0);
     add('videoEngineJobResponse', engine_js_1.VideoEngineJobResponseSchema, [], 0);
     add('videoEngineStoryRequest', story_js_1.VideoEngineStoryRequestSchema, [], 0);
+    add('videoEngineStoryEstimate', story_js_1.VideoEngineStoryEstimateSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -147,6 +178,7 @@ function getPortableCapabilityContracts() {
             lifecycle: transport(internal_capability_agent_js_1.ordinaryCapabilityLifecyclePutContract), call: transport(cap_tool_call_js_1.capToolCallContract),
             videoEngineJob: transport(officina_video_js_1.officinaVideoJobContract), videoEngineHealth: transport(officina_video_js_1.officinaVideoHealthContract),
             videoEngineStory: { ...transport(officina_video_js_1.officinaVideoStoryContract), requestContract: 'videoEngineStoryRequest' },
+            videoEngineStoryEstimate: { ...transport(officina_video_js_1.officinaVideoStoryEstimateContract), requestContract: 'videoEngineStoryRequest', responseContract: 'videoEngineStoryEstimate' },
         } };
 }
 function at(value, path) {

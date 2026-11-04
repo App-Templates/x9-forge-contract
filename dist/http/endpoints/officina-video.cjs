@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoMediaContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
 const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
@@ -58,6 +58,18 @@ exports.officinaVideoStoryContract = {
     paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
     requestSchema: story_js_1.VideoEngineStoryRequestSchema,
     responseStatus: 202,
+};
+/**
+ * cap-video -> engine: upper estimate of a story, before email 1. Same body as the story (validated by the same contract),
+ * no side effect, nothing paid: answers the figure the story start compares with the budget. Internal, INTERNAL_SECRET_HEADER.
+ */
+exports.officinaVideoStoryEstimateContract = {
+    method: 'POST',
+    path: '/api/projects/:engineProjectId/story/estimate',
+    paramsSchema: zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineProjectSchema.shape.id }).strict(),
+    requestSchema: story_js_1.VideoEngineStoryRequestSchema,
+    responseSchema: story_js_1.VideoEngineStoryEstimateSchema,
+    responseStatus: 200,
 };
 /** cap-video -> engine: one media file of a project. Internal, INTERNAL_SECRET_HEADER. */
 exports.officinaVideoMediaContract = {
