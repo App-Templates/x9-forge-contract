@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
+exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
 exports.devSessionBranch = devSessionBranch;
 exports.devSessionId = devSessionId;
 exports.devSessionAssignmentCanonicalJson = devSessionAssignmentCanonicalJson;
@@ -21,6 +21,10 @@ const participant_binding_js_1 = require("../../organization/participant-binding
  */
 /** Etichetta con cui cap-dev marca una issue come incarico di sessione autonoma. */
 exports.DEV_SESSION_AUTONOMOUS_LABEL = 'sessione:autonoma';
+/** Prefisso delle etichette con cui cap-dev indica quale esecutore deve prendere la sessione. */
+exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = 'esecutore:';
+/** La sessione la prende solo un esecutore sul server (container); l'esecutore del portatile la ignora. */
+exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = 'esecutore:server';
 /** Il lavoro prodotto si committa sul ramo `consegna/<numero della issue>` del repository di destinazione. */
 exports.DEV_SESSION_BRANCH_PREFIX = 'consegna/';
 /** Riga che apre l'elenco dei file consegnati nel commento finale. */
