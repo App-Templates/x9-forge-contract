@@ -93,6 +93,8 @@ export const ricercaAgentSpendContract = {
 };
 /** cap-lab reports the same per-agent spend shape and path as cap-ricerca. */
 export const labAgentSpendContract = { ...ricercaAgentSpendContract };
+/** cap-video reports the same per-agent spend shape and path as cap-ricerca. */
+export const videoAgentSpendContract = { ...ricercaAgentSpendContract };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 export const AgentGrowthResponseSchema = z.object({
     agentId: CapabilityAgentIdSchema,

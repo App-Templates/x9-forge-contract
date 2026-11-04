@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.96.0 — Officina video: spesa per capacità `video`, additivo
+
+- `SpendingCapabilitySchema` ammette `video` (con il significato di giorno, `spentUsd`, `reservedUsd`, `capUsd` scritto in `spend.ts`).
+- `videoAgentSpendContract` in `@x9-forge/contracts/http`, stessa forma e rotta di `ricercaAgentSpendContract`.
+- Consumer: cap-video (rotta `GET /internal/capability/agents/:agentId/spend`) e Forge factory (`capability-agent-contracts.ts`, riga `video` nella pagina Spesa).
+
+Nessuno schema zod si stringe: l'enum si allarga.
+
 ## v1.94.0 — Officina video: ogni chiamata del motore nel contratto e nel catalogo Python, additivo
 
 - `@x9-forge/contracts/capability/video`: richieste delle rotte `VideoEngineRoutePlanRequestSchema`, `VideoEngineRouteApproveRequestSchema` e `VideoEngineRouteRunRequestSchema`; in `@x9-forge/contracts/http`, plan e approve rispondono con `VideoEngineProjectSchema` (200), run con lo stesso schema (202). Le richieste della facciata restano disponibili.

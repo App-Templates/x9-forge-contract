@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ordinaryCapabilityLifecyclePutContract = exports.ordinaryCapabilityAgentConfigGetContract = exports.ordinaryCapabilityAgentConfigPutContract = exports.CapabilityOrdinaryConfigQuerySchema = exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
+exports.ordinaryCapabilityLifecyclePutContract = exports.ordinaryCapabilityAgentConfigGetContract = exports.ordinaryCapabilityAgentConfigPutContract = exports.CapabilityOrdinaryConfigQuerySchema = exports.labAgentGrowthContract = exports.AgentGrowthResponseSchema = exports.videoAgentSpendContract = exports.labAgentSpendContract = exports.ricercaAgentSpendContract = exports.AgentSpendResponseSchema = exports.AgentSpendQuerySchema = exports.AGENT_SPEND_MAX_DAYS = exports.labAgentConfigGetContract = exports.labAgentConfigPutContract = exports.ricercaAgentConfigGetContract = exports.ricercaAgentConfigPutContract = exports.CapabilityAgentRouteErrorSchema = exports.AgentConfigStaleSchema = exports.AgentConfigSavedSchema = exports.capAgentGrowthPath = exports.capAgentSpendPath = exports.capAgentConfigPath = exports.CapabilityAgentParamsSchema = void 0;
 exports.selectCapabilityAgentConfigFormat = selectCapabilityAgentConfigFormat;
 exports.parseOrdinaryCapabilityAgentConfigGet = parseOrdinaryCapabilityAgentConfigGet;
 exports.parseOrdinaryCapabilityAgentConfigPut = parseOrdinaryCapabilityAgentConfigPut;
@@ -104,6 +104,8 @@ exports.ricercaAgentSpendContract = {
 };
 /** cap-lab reports the same per-agent spend shape and path as cap-ricerca. */
 exports.labAgentSpendContract = { ...exports.ricercaAgentSpendContract };
+/** cap-video reports the same per-agent spend shape and path as cap-ricerca. */
+exports.videoAgentSpendContract = { ...exports.ricercaAgentSpendContract };
 /** GET /internal/capability/agents/:agentId/growth — cap-lab: the graph, the open gaps and the wiki's size. */
 exports.AgentGrowthResponseSchema = zod_1.z.object({
     agentId: agent_config_js_1.CapabilityAgentIdSchema,

@@ -8,6 +8,7 @@ const agent_config_js_1 = require("./agent-config.cjs");
  * `day` is the date in the agent's time zone. `spentUsd` is settled cost; `reservedUsd` is cost reserved and not settled:
  * calls still running, and calls that ended without a reported usage (an unknown cost is never free: it stays reserved).
  * `capUsd` is the daily budget in force that day (the highest, if it changed during the day).
+ * For `video`, `day` is the projects' creation date in Europe/Rome, `spentUsd` is closed projects' spend, `reservedUsd` is ongoing projects' spend, and `capUsd` is the sum of budgets of projects created that day.
  */
 exports.AgentDaySchema = zod_1.z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d => {
     const t = new Date(d + 'T00:00:00Z');
@@ -16,7 +17,7 @@ exports.AgentDaySchema = zod_1.z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(d 
 /** Longest window of one agent spend request, days (inclusive). */
 exports.AGENT_SPEND_MAX_DAYS = 400;
 /** The capabilities that report spend this way. */
-exports.SpendingCapabilitySchema = zod_1.z.enum(['ricerca', 'lab']);
+exports.SpendingCapabilitySchema = zod_1.z.enum(['ricerca', 'lab', 'video']);
 exports.AgentSpendDaySchema = zod_1.z.object({
     agentId: agent_config_js_1.CapabilityAgentIdSchema,
     capability: exports.SpendingCapabilitySchema,
