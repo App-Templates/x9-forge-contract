@@ -189,6 +189,40 @@ export const ActionPlanDraftSchema = ActionPlanSchema.omit({ digest: true, tenan
 });
 export type ActionPlanDraft = z.infer<typeof ActionPlanDraftSchema>;
 
+/** The plan as the Director submits a new version: every unit that starts now carries its sections. Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which do not require them. */
+export const ActionPlanSubmissionSchema = ActionPlanDraftSchema.superRefine((plan, ctx) => {
+  const businessUnitSlugs = new Set(plan.businessUnits.map((unit) => unit.buSlug));
+  const milestoneNumbers = new Set(plan.milestones.map((milestone) => milestone.number));
+  plan.businessUnits.forEach((unit, index) => {
+    if (unit.start.kind === 'now' && unit.sections === undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['businessUnits', index, 'sections'],
+        message: `Business unit ${unit.buSlug} starts now and needs its sections: the mission split into what this unit builds`,
+      });
+    }
+    unit.sections?.forEach((section, position) => {
+      if (!milestoneNumbers.has(section.milestone)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['businessUnits', index, 'sections', position, 'milestone'],
+          message: `Section ${section.id} milestone ${section.milestone} does not exist in the plan`,
+        });
+      }
+      section.needsFrom?.forEach((need, dependencyIndex) => {
+        if (!businessUnitSlugs.has(need.buSlug) || need.buSlug === unit.buSlug) {
+          ctx.addIssue({
+            code: 'custom',
+            path: ['businessUnits', index, 'sections', position, 'needsFrom', dependencyIndex, 'buSlug'],
+            message: `Section ${section.id} needs work from ${need.buSlug}, which is not another existing business unit`,
+          });
+        }
+      });
+    });
+  });
+});
+export type ActionPlanSubmission = z.infer<typeof ActionPlanSubmissionSchema>;
+
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 export const CompleteActionPlanSchema = ActionPlanSchema.extend({
   marketingPlan: z.strictObject({
