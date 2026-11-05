@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
-import { VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from './brief.js';
+import { VideoAspectRatioSchema, VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from './brief.js';
 
 export const VideoEngineErrorSchema = z.object({
   error: z.string().min(1).max(2000),
@@ -21,7 +21,7 @@ export const VideoProviderSchema = z.enum(['demo', 'minimax', 'fal', 'byteplus']
 export type VideoProvider = z.infer<typeof VideoProviderSchema>;
 
 export const VideoEngineSettingsSchema = z.object({
-  aspectRatio: z.enum(['9:16', '16:9', '1:1']),
+  aspectRatio: VideoAspectRatioSchema,
   provider: VideoProviderSchema,
   durationSeconds: z.number().int().positive(),
   sceneCount: z.number().int().positive(),
