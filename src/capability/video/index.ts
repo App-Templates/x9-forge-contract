@@ -131,3 +131,14 @@ export {
   type VideoRegiaResult,
   type VideoRegiaError,
 } from './regia.js';
+export {
+  VIDEO_PROJECT_MANIFEST_VERSION,
+  VideoProjectManifestFileSchema,
+  VideoProjectManifestSceneSchema,
+  VideoProjectManifestScriptSchema,
+  VideoProjectManifestSchema,
+  type VideoProjectManifestFile,
+  type VideoProjectManifestScene,
+  type VideoProjectManifestScript,
+  type VideoProjectManifest,
+} from './manifest.js';

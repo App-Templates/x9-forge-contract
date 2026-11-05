@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
-import { VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema, VideoProjectStateSchema } from './brief.js';
+import { VideoBriefRequestSchema, VideoModeSchema, VideoRequestChoicesSchema, VideoPresetIdSchema, VideoProjectIdSchema, VideoProjectStateSchema } from './brief.js';
 
 /**
  * What the model writes when an agent calls `video_brief_create`: the brief without identity.
@@ -36,6 +36,10 @@ export const VideoProjectViewSchema = z.object({
   reviewUrl: z.url().optional(),
   videoUrl: z.url().optional(),
   error: z.string().max(500).optional(),
+  /** The choices of the request, resolved with the preset; absent in views written before 1.97.0. */
+  choices: VideoRequestChoicesSchema.optional(),
+  /** Revision of the script the regia wrote (the person may ask to correct it); absent for presets without regia. */
+  scriptRevision: z.number().int().min(1).optional(),
   createdAt: z.string().min(1),
   updatedAt: z.string().min(1),
 }).strict();
