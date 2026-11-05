@@ -124,6 +124,7 @@ export declare const officinaVideoProjectGetContract: {
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         spent_usd: z.ZodOptional<z.ZodNumber>;
         story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
             status: z.ZodEnum<{
@@ -135,6 +136,7 @@ export declare const officinaVideoProjectGetContract: {
             }>;
             step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>>;
     }, z.core.$loose>;
@@ -178,6 +180,7 @@ export declare const officinaVideoPlanContract: {
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         spent_usd: z.ZodOptional<z.ZodNumber>;
         story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
             status: z.ZodEnum<{
@@ -189,6 +192,7 @@ export declare const officinaVideoPlanContract: {
             }>;
             step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>>;
     }, z.core.$loose>;
@@ -238,6 +242,7 @@ export declare const officinaVideoApproveContract: {
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         spent_usd: z.ZodOptional<z.ZodNumber>;
         story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
             status: z.ZodEnum<{
@@ -249,6 +254,7 @@ export declare const officinaVideoApproveContract: {
             }>;
             step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>>;
     }, z.core.$loose>;
@@ -300,6 +306,7 @@ export declare const officinaVideoRunContract: {
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         spent_usd: z.ZodOptional<z.ZodNumber>;
         story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
             status: z.ZodEnum<{
@@ -311,6 +318,7 @@ export declare const officinaVideoRunContract: {
             }>;
             step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         }, z.core.$loose>>>;
     }, z.core.$loose>;
@@ -351,6 +359,7 @@ export declare const officinaVideoStoryContract: {
             "720p": "720p";
             "1080p": "1080p";
         }>>;
+        voice: z.ZodOptional<z.ZodString>;
         revision: z.ZodNumber;
     }, z.core.$strict>;
     readonly responseStatus: 202;
@@ -390,6 +399,7 @@ export declare const officinaVideoStoryEstimateContract: {
             "720p": "720p";
             "1080p": "1080p";
         }>>;
+        voice: z.ZodOptional<z.ZodString>;
         revision: z.ZodNumber;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{

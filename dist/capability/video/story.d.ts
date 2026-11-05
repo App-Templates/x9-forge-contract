@@ -53,6 +53,8 @@ export declare const VideoEngineStoryRequestSchema: z.ZodObject<{
         "720p": "720p";
         "1080p": "1080p";
     }>>;
+    /** Voice id of the preset catalogue; absent: the default voice of the engine's preset. */
+    voice: z.ZodOptional<z.ZodString>;
     revision: z.ZodNumber;
 }, z.core.$strict>;
 export type VideoEngineStoryRequest = z.infer<typeof VideoEngineStoryRequestSchema>;

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { VideoResolutionSchema, VideoVoiceIdSchema } from "./brief.js";
 import { VideoEngineRevisionSchema } from "./engine.js";
 import { VideoFootageChoiceSchema } from "./footage.js";
 /**
@@ -7,7 +8,7 @@ import { VideoFootageChoiceSchema } from "./footage.js";
  * `POST /api/projects/:engineProjectId/story` (cap-video → engine).
  */
 /** Output resolution of the story; the engine default is 1080p (1080×1920). */
-export const VideoStoryResolutionSchema = z.enum(['480p', '720p', '1080p']);
+export const VideoStoryResolutionSchema = VideoResolutionSchema;
 /** Voice tags of one scene, written without brackets (`calm`, `conversational`, ...): the preset decides which are allowed. */
 export const VideoStoryTagSchema = z.string().regex(/^[a-z][a-z-]{0,23}$/);
 /** One scene: the text the voice says, with its optional voice tags. */
@@ -35,6 +36,8 @@ export const VideoEngineStoryRequestSchema = z.strictObject({
     footage: VideoFootageChoiceSchema.optional(),
     outro: VideoStoryOutroSchema,
     resolution: VideoStoryResolutionSchema.default('1080p'),
+    /** Voice id of the preset catalogue; absent: the default voice of the engine's preset. */
+    voice: VideoVoiceIdSchema.optional(),
     revision: VideoEngineRevisionSchema,
 });
 const usd = z.number().finite().min(0);

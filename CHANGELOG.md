@@ -2,6 +2,16 @@
 
 ## Non rilasciato
 
+## v1.97.0 — Officina video: scelte per richiesta, sottotitoli, manifesto e revisione del copione, additivo
+
+- Brief e strumento: `voice`, `aspectRatio`, `durationSeconds` e `resolution` facoltativi, raccolti in `VideoRequestChoicesSchema`; story con `voice` facoltativo; `VideoStoryResolutionSchema` è `VideoResolutionSchema`.
+- Motore: `subtitles_url` tipizzato su progetto e story con `VideoEngineSubtitlesPathSchema` (percorso `.srt`, `null` o assente). La prova sui progetti salvati deve essere fatta prima del pin; questa consegna non ne attesta l'esecuzione.
+- `VideoProjectManifestSchema`: manifesto pubblico del progetto, senza identità né email.
+- `video_script_revise`: `VideoScriptReviseToolInputSchema` e `VideoScriptReviseResponseSchema`; vista del progetto con `choices` e `scriptRevision` facoltativi.
+- Consumer: cap-video (agent-x9, corsia ov-x9 3348-3359), motore Officina (adozione del modulo generato: `voice` e SRT della story), registro di agent-core (voce `video`). Adozione e aggiornamento dei pin sono affidati alle rispettive corsie.
+
+Nota di compatibilità da confermare con la prova prima del pin: «Nessuno schema zod si stringe, salvo `subtitles_url` (da libero a percorso `.srt`, provato sui dati salvati).»
+
 ## v1.96.0 — Officina video: spesa per capacità `video`, additivo
 
 - `SpendingCapabilitySchema` ammette `video` (con il significato di giorno, `spentUsd`, `reservedUsd`, `capUsd` scritto in `spend.ts`).

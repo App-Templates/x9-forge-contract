@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VideoEngineStoryEstimateSchema = exports.VideoEngineStoryRequestSchema = exports.VideoGraphicHtmlSchema = exports.VIDEO_GRAPHIC_HTML_MAX_CHARS = exports.VideoStoryOutroSchema = exports.VideoStoryScenesSchema = exports.VIDEO_STORY_MAX_SCENES = exports.VideoStorySceneSchema = exports.VideoStoryTagSchema = exports.VideoStoryResolutionSchema = void 0;
 const zod_1 = require("zod");
+const brief_js_1 = require("./brief.cjs");
 const engine_js_1 = require("./engine.cjs");
 const footage_js_1 = require("./footage.cjs");
 /**
@@ -10,7 +11,7 @@ const footage_js_1 = require("./footage.cjs");
  * `POST /api/projects/:engineProjectId/story` (cap-video → engine).
  */
 /** Output resolution of the story; the engine default is 1080p (1080×1920). */
-exports.VideoStoryResolutionSchema = zod_1.z.enum(['480p', '720p', '1080p']);
+exports.VideoStoryResolutionSchema = brief_js_1.VideoResolutionSchema;
 /** Voice tags of one scene, written without brackets (`calm`, `conversational`, ...): the preset decides which are allowed. */
 exports.VideoStoryTagSchema = zod_1.z.string().regex(/^[a-z][a-z-]{0,23}$/);
 /** One scene: the text the voice says, with its optional voice tags. */
@@ -38,6 +39,8 @@ exports.VideoEngineStoryRequestSchema = zod_1.z.strictObject({
     footage: footage_js_1.VideoFootageChoiceSchema.optional(),
     outro: exports.VideoStoryOutroSchema,
     resolution: exports.VideoStoryResolutionSchema.default('1080p'),
+    /** Voice id of the preset catalogue; absent: the default voice of the engine's preset. */
+    voice: brief_js_1.VideoVoiceIdSchema.optional(),
     revision: engine_js_1.VideoEngineRevisionSchema,
 });
 const usd = zod_1.z.number().finite().min(0);
