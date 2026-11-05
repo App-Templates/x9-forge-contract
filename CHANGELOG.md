@@ -2,6 +2,10 @@
 
 ## Non rilasciato
 
+## v1.98.0 — il rifiuto di un percorso del pacchetto dice le estensioni ammesse
+
+- Cambia solo il testo del messaggio di rifiuto dei percorsi del pacchetto, che elenca le estensioni ammesse per il campo; nessuna forma cambia.
+
 ## v1.97.0 — la scheda di un file di sessione arriva in Memoria senza byte
 
 - `@x9-forge/contracts/http`: `InternalMemoryAssetIngestRequestSchema` vieta `contentBase64` per l'origine `session` (`session_has_no_content`) e non lo richiede più; `sha256` e `sizeBytes` dichiarati restano obbligatori. Le altre origini restano invariate.

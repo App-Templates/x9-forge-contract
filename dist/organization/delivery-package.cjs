@@ -17,7 +17,7 @@ function packagePath(exts) {
         const fileName = path.split('/').at(-1);
         const dot = fileName.lastIndexOf('.');
         return dot !== -1 && exts.includes(fileName.slice(dot + 1).toLowerCase());
-    }, { message: 'Package path must be relative, without whitespace or unsafe segments, and have an allowed extension' });
+    }, { message: `Package path must be relative, without whitespace or unsafe segments; allowed extensions: ${exts.join(", ")}` });
 }
 exports.DeliveryPackageSchema = zod_1.z.strictObject({
     version: zod_1.z.literal(1),
