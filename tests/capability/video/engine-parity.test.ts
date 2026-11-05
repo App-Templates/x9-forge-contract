@@ -47,6 +47,18 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
     schema: VideoEngineProjectSchema,
     cases: {
       'demo project with scenes and jobs': project,
+      'demo project with engine subtitles': {
+        ...project, subtitles_url: `${media}/sottotitoli-0123456789abcdef.srt`,
+      },
+      'null subtitles': { ...project, subtitles_url: null },
+      'completed story with subtitles': {
+        ...project, status: 'completed',
+        story: {
+          status: 'completed', output_url: `${media}/story.mp4`,
+          subtitles_url: `${media}/sottotitoli-0123456789abcdef.srt`,
+        },
+      },
+      'video used as subtitles': { ...project, subtitles_url: `${media}/video.mp4` },
       'completed story and engine-owned fields': {
         ...project, status: 'completed', spent_usd: 1.2, output_url: `${media}/final.mp4`,
         story: { status: 'completed', step: 'done', output_url: `${media}/story.mp4`, error: null, revision: 1 },

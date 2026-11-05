@@ -19,6 +19,8 @@ const ws = '\t\n\u000b\f\r         　﻿';
 
 const cases: Record<string, unknown> = {
   minimal: base,
+  'voice marco': { ...base, voice: 'marco' },
+  'voice stefano-pro': { ...base, voice: 'stefano-pro' },
   'tags without brackets': { ...base, scenes: [{ text: 'Uno.', tags: ['calm', 'conversational'] }, { text: 'Due.', tags: [] }] },
   'four tags': { ...base, scenes: [{ text: 'Uno.', tags: ['a', 'b-c', 'calm', 'warm'] }] },
   'footage of one shot': { ...base, footage: ['piante-02'] },
@@ -35,6 +37,9 @@ const cases: Record<string, unknown> = {
   'graphic at the bound': { ...base, graphicHtml: 'x'.repeat(VIDEO_GRAPHIC_HTML_MAX_CHARS) },
   'large revision': { ...base, revision: Number.MAX_SAFE_INTEGER },
   // Refused by the contract: the engine must refuse them too.
+  'voice uppercase': { ...base, voice: 'Marco' },
+  'voice empty': { ...base, voice: '' },
+  'voice too long': { ...base, voice: 'a'.repeat(65) },
   'tag with brackets': { ...base, scenes: [{ text: 'Uno.', tags: ['[calm]'] }] },
   'tag with final newline': { ...base, scenes: [{ text: 'Uno.', tags: ['calm\n'] }] },
   'tag uppercase': { ...base, scenes: [{ text: 'Uno.', tags: ['Calm'] }] },

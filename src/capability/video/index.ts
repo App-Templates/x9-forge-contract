@@ -62,6 +62,7 @@ export {
   VideoEngineRouteApproveRequestSchema,
   VideoEngineRouteRunRequestSchema,
   VideoEngineMediaPathSchema,
+  VideoEngineSubtitlesPathSchema,
   VideoEngineProjectSchema,
   VideoEngineStoryStatusSchema,
   VideoEngineStoryStateSchema,

@@ -118,6 +118,8 @@ export type VideoEngineRouteRunRequest = z.infer<typeof VideoEngineRouteRunReque
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export const VideoEngineMediaPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);
 
+export const VideoEngineSubtitlesPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.srt$/);
+
 export const VideoEngineStoryStatusSchema = z.enum(['queued', 'running', 'completed', 'failed', 'interrupted']);
 export type VideoEngineStoryStatus = z.infer<typeof VideoEngineStoryStatusSchema>;
 
@@ -126,6 +128,7 @@ export const VideoEngineStoryStateSchema = z.object({
   status: VideoEngineStoryStatusSchema,
   step: z.string().max(64).nullish(),
   output_url: VideoEngineMediaPathSchema.nullish(),
+  subtitles_url: VideoEngineSubtitlesPathSchema.nullish(),
   error: z.string().max(1000).nullish(),
 }).passthrough();
 export type VideoEngineStoryState = z.infer<typeof VideoEngineStoryStateSchema>;
@@ -152,6 +155,7 @@ export const VideoEngineProjectSchema = z.object({
     error: z.string().nullish(),
   }).passthrough()),
   output_url: VideoEngineMediaPathSchema.nullish(),
+  subtitles_url: VideoEngineSubtitlesPathSchema.nullish(),
   spent_usd: z.number().nonnegative().optional(),
   story: VideoEngineStoryStateSchema.nullish(),
 }).passthrough();
