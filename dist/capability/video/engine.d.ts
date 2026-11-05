@@ -212,6 +212,7 @@ export declare const VideoEngineRouteRunRequestSchema: z.ZodObject<{
 export type VideoEngineRouteRunRequest = z.infer<typeof VideoEngineRouteRunRequestSchema>;
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export declare const VideoEngineMediaPathSchema: z.ZodString;
+export declare const VideoEngineSubtitlesPathSchema: z.ZodString;
 export declare const VideoEngineStoryStatusSchema: z.ZodEnum<{
     failed: "failed";
     completed: "completed";
@@ -231,6 +232,7 @@ export declare const VideoEngineStoryStateSchema: z.ZodObject<{
     }>;
     step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
 }, z.core.$loose>;
 export type VideoEngineStoryState = z.infer<typeof VideoEngineStoryStateSchema>;
@@ -256,6 +258,7 @@ export declare const VideoEngineProjectSchema: z.ZodObject<{
         error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     }, z.core.$loose>>;
     output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     spent_usd: z.ZodOptional<z.ZodNumber>;
     story: z.ZodOptional<z.ZodNullable<z.ZodObject<{
         status: z.ZodEnum<{
@@ -267,6 +270,7 @@ export declare const VideoEngineProjectSchema: z.ZodObject<{
         }>;
         step: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         output_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     }, z.core.$loose>>>;
 }, z.core.$loose>;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoEngineProjectSchema = exports.VideoEngineStoryStateSchema = exports.VideoEngineStoryStatusSchema = exports.VideoEngineMediaPathSchema = exports.VideoEngineRouteRunRequestSchema = exports.VideoEngineRouteApproveRequestSchema = exports.VideoEngineRoutePlanRequestSchema = exports.VideoEngineRouteApproveStageSchema = exports.VideoEngineRouteRunStageSchema = exports.VideoEngineIdSchema = exports.VideoEngineRunRequestSchema = exports.VideoEngineApproveRequestSchema = exports.VideoEnginePlanRequestSchema = exports.VideoEngineRevisionSchema = exports.VideoEngineApproveStageSchema = exports.VideoEngineRunStageSchema = exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = exports.VideoProviderSchema = exports.VideoEngineHealthSchema = exports.VideoEngineErrorSchema = void 0;
+exports.VideoEngineProjectSchema = exports.VideoEngineStoryStateSchema = exports.VideoEngineStoryStatusSchema = exports.VideoEngineSubtitlesPathSchema = exports.VideoEngineMediaPathSchema = exports.VideoEngineRouteRunRequestSchema = exports.VideoEngineRouteApproveRequestSchema = exports.VideoEngineRoutePlanRequestSchema = exports.VideoEngineRouteApproveStageSchema = exports.VideoEngineRouteRunStageSchema = exports.VideoEngineIdSchema = exports.VideoEngineRunRequestSchema = exports.VideoEngineApproveRequestSchema = exports.VideoEnginePlanRequestSchema = exports.VideoEngineRevisionSchema = exports.VideoEngineApproveStageSchema = exports.VideoEngineRunStageSchema = exports.VideoProjectGetRequestSchema = exports.VideoEngineJobResponseSchema = exports.VideoEngineJobSchema = exports.VideoEngineSettingsSchema = exports.VideoProviderSchema = exports.VideoEngineHealthSchema = exports.VideoEngineErrorSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_context_js_1 = require("../capability-call-context.cjs");
 const brief_js_1 = require("./brief.cjs");
@@ -17,7 +17,7 @@ exports.VideoEngineHealthSchema = zod_1.z.object({
 }).passthrough();
 exports.VideoProviderSchema = zod_1.z.enum(['demo', 'minimax', 'fal', 'byteplus']);
 exports.VideoEngineSettingsSchema = zod_1.z.object({
-    aspectRatio: zod_1.z.enum(['9:16', '16:9', '1:1']),
+    aspectRatio: brief_js_1.VideoAspectRatioSchema,
     provider: exports.VideoProviderSchema,
     durationSeconds: zod_1.z.number().int().positive(),
     sceneCount: zod_1.z.number().int().positive(),
@@ -88,12 +88,14 @@ exports.VideoEngineRouteRunRequestSchema = zod_1.z.object({
 }).strict();
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 exports.VideoEngineMediaPathSchema = zod_1.z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);
+exports.VideoEngineSubtitlesPathSchema = zod_1.z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.srt$/);
 exports.VideoEngineStoryStatusSchema = zod_1.z.enum(['queued', 'running', 'completed', 'failed', 'interrupted']);
 /** Stato della story scritto dal motore (`officina/story_op.py`); gli altri campi passano. */
 exports.VideoEngineStoryStateSchema = zod_1.z.object({
     status: exports.VideoEngineStoryStatusSchema,
     step: zod_1.z.string().max(64).nullish(),
     output_url: exports.VideoEngineMediaPathSchema.nullish(),
+    subtitles_url: exports.VideoEngineSubtitlesPathSchema.nullish(),
     error: zod_1.z.string().max(1000).nullish(),
 }).passthrough();
 /**
@@ -118,6 +120,7 @@ exports.VideoEngineProjectSchema = zod_1.z.object({
         error: zod_1.z.string().nullish(),
     }).passthrough()),
     output_url: exports.VideoEngineMediaPathSchema.nullish(),
+    subtitles_url: exports.VideoEngineSubtitlesPathSchema.nullish(),
     spent_usd: zod_1.z.number().nonnegative().optional(),
     story: exports.VideoEngineStoryStateSchema.nullish(),
 }).passthrough();

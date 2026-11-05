@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-context.js';
-import { VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from './brief.js';
+import { VideoAspectRatioSchema, VideoBriefRequestSchema, VideoModeSchema, VideoPresetIdSchema, VideoProjectIdSchema } from './brief.js';
 
 export const VideoEngineErrorSchema = z.object({
   error: z.string().min(1).max(2000),
@@ -21,7 +21,7 @@ export const VideoProviderSchema = z.enum(['demo', 'minimax', 'fal', 'byteplus']
 export type VideoProvider = z.infer<typeof VideoProviderSchema>;
 
 export const VideoEngineSettingsSchema = z.object({
-  aspectRatio: z.enum(['9:16', '16:9', '1:1']),
+  aspectRatio: VideoAspectRatioSchema,
   provider: VideoProviderSchema,
   durationSeconds: z.number().int().positive(),
   sceneCount: z.number().int().positive(),
@@ -118,6 +118,8 @@ export type VideoEngineRouteRunRequest = z.infer<typeof VideoEngineRouteRunReque
 /** Engine media path served behind the internal secret: `/media/<engineProjectId>/<file>`. */
 export const VideoEngineMediaPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/);
 
+export const VideoEngineSubtitlesPathSchema = z.string().regex(/^\/media\/[a-f0-9]{32}\/[A-Za-z0-9_-]+\.srt$/);
+
 export const VideoEngineStoryStatusSchema = z.enum(['queued', 'running', 'completed', 'failed', 'interrupted']);
 export type VideoEngineStoryStatus = z.infer<typeof VideoEngineStoryStatusSchema>;
 
@@ -126,6 +128,7 @@ export const VideoEngineStoryStateSchema = z.object({
   status: VideoEngineStoryStatusSchema,
   step: z.string().max(64).nullish(),
   output_url: VideoEngineMediaPathSchema.nullish(),
+  subtitles_url: VideoEngineSubtitlesPathSchema.nullish(),
   error: z.string().max(1000).nullish(),
 }).passthrough();
 export type VideoEngineStoryState = z.infer<typeof VideoEngineStoryStateSchema>;
@@ -152,6 +155,7 @@ export const VideoEngineProjectSchema = z.object({
     error: z.string().nullish(),
   }).passthrough()),
   output_url: VideoEngineMediaPathSchema.nullish(),
+  subtitles_url: VideoEngineSubtitlesPathSchema.nullish(),
   spent_usd: z.number().nonnegative().optional(),
   story: VideoEngineStoryStateSchema.nullish(),
 }).passthrough();
