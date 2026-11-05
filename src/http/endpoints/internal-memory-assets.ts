@@ -10,7 +10,8 @@ export const INTERNAL_MEMORY_ASSET_CONTENT_PATH = '/internal/memory/assets/conte
 
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
- * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ * A `link` or `session` origin carries no bytes (the session file stays in its delivery branch, memory keeps
+ * the card); every other origin requires `contentBase64`.
  * `context` says for which agentic company (organization) the asset is stored: the signed context of the run,
  * as for the other company memory routes. An attachment that arrives on its own (email) carries the context the
  * connector issues for the organization of the conversation. The service takes tenant and organization from the
@@ -28,10 +29,14 @@ export const InternalMemoryAssetIngestRequestSchema = z
       ctx.addIssue({ code: 'custom', path: ['asset', 'providedBy'], message: 'provided_by_is_resolved_by_the_service' });
     }
     const isLink = value.asset.origin.kind === 'link';
+    const isSession = value.asset.origin.kind === 'session';
     if (isLink && value.contentBase64 !== undefined) {
       ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'link_has_no_content' });
     }
-    if (!isLink && value.contentBase64 === undefined) {
+    if (isSession && value.contentBase64 !== undefined) {
+      ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'session_has_no_content' });
+    }
+    if (!isLink && !isSession && value.contentBase64 === undefined) {
       ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'content_required' });
     }
   });

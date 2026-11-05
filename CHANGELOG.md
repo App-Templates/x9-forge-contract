@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.97.0 — la scheda di un file di sessione arriva in Memoria senza byte
+
+- `@x9-forge/contracts/http`: `InternalMemoryAssetIngestRequestSchema` vieta `contentBase64` per l'origine `session` (`session_has_no_content`) e non lo richiede più; `sha256` e `sizeBytes` dichiarati restano obbligatori. Le altre origini restano invariate.
+- Consumer: X9 memory registra la scheda coi valori dichiarati; cap-dev non legge e non manda i byte. Adozione in X9 (4961), memory (4962) e cap-dev (4963) da rilasciare insieme.
+- Si stringe solo il corpo in ingresso; nessun dato salvato cambia.
+
 ## v1.95.0 — unione della linea 1.87-1.91.1 (azienda agentica e regia) e dei contratti dell'email di consegna con main 1.94.0; additivo
 
 - Entra in main la linea 1.87.0-1.91.1: chiavi Bitbucket e Figma, contenuto dalla Memoria per email e archivio, capi BU per progetto, sezioni delle BU nel piano d'azione, regia cap-video → cap-dev.
