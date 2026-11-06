@@ -2,6 +2,9 @@ import { z } from 'zod';
 import { INTERNAL_SECRET_HEADER } from '../auth/index.js';
 import { AgentManagementParamsSchema } from '../http/endpoints/internal-agents-management.js';
 import { EffectiveModelsResponseSchema } from './effective-models.js';
+import { EffectiveSlotReadRequestSchema, EffectiveSlotStateSchema } from './effective-slot-state.js';
+import type { EffectiveSlotReadRequest } from './effective-slot-state.js';
+import { ModelSlotIdSchema } from './model-slot.js';
 
 /** What agent-core did with a pushed effective response, compared with the one it already holds. */
 export const ModelsPushOutcomeSchema = z.enum(['accepted', 'same', 'older', 'incomparable']);
@@ -57,4 +60,39 @@ export const internalModelsReturnWindowContract = {
 } as const;
 export function modelsReturnWindowPath(agentId: string): string {
   return internalModelsReturnWindowContract.path.replace(':agentId', AgentManagementParamsSchema.parse({ agentId }).agentId);
+}
+
+export const EffectiveSlotPathParamsSchema = z.object({
+  agentId: AgentManagementParamsSchema.shape.agentId,
+  slotId: ModelSlotIdSchema,
+}).strict();
+
+/**
+ * Services → agent-core: reads one slot with the complete identity triple in the body.
+ * `params.agentId` and `params.slotId` must match `body.scope.agentId` and `body.slotId`;
+ * a mismatch returns 400.
+ * `If-None-Match` equal to a configured state's `etag` returns 304 without a body.
+ * All other states have no ETag and always return 200.
+ */
+export const internalAgentModelSlotContract = {
+  method: 'POST' as const, path: '/internal/agents/:agentId/models/slots/:slotId' as const,
+  authType: 'secret' as const, authHeader: INTERNAL_SECRET_HEADER,
+  paramsSchema: EffectiveSlotPathParamsSchema,
+  bodySchema: EffectiveSlotReadRequestSchema,
+  responseSchema: EffectiveSlotStateSchema,
+} as const;
+
+export function agentModelSlotPath(agentId: string, slotId: string): string {
+  const params = EffectiveSlotPathParamsSchema.parse({ agentId, slotId });
+  return internalAgentModelSlotContract.path
+    .replace(':agentId', params.agentId)
+    .replace(':slotId', params.slotId);
+}
+
+/** Compare the path and body after each has passed its boundary schema. */
+export function slotRequestMatchesPath(
+  params: z.infer<typeof EffectiveSlotPathParamsSchema>,
+  body: EffectiveSlotReadRequest,
+): boolean {
+  return params.agentId === body.scope.agentId && params.slotId === body.slotId;
 }
