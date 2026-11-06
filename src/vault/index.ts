@@ -11,11 +11,13 @@
 export {
   VaultTierSchema,
   VAULT_TIERS,
+  VaultCascadeTierSchema,
+  VAULT_CASCADE_TIERS,
   VaultGenericTierSchema,
   VAULT_GENERIC_TIERS,
   compareTiers,
 } from './vault-tier.js';
-export type { VaultTier, VaultGenericTier } from './vault-tier.js';
+export type { VaultTier, VaultCascadeTier, VaultGenericTier } from './vault-tier.js';
 
 // Sync state
 export { VaultSyncStateSchema, VAULT_SYNC_STATES, toSyncState } from './vault-sync-state.js';

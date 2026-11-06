@@ -4,6 +4,7 @@ import { VaultEntryPlainSchema } from '../../src/vault/vault-entry.js';
 import {
   VAULT_GENERIC_TIERS,
   VaultGenericTierSchema,
+  VaultCascadeTierSchema,
   VaultTierSchema,
 } from '../../src/vault/vault-tier.js';
 import { WorkspaceFileSchema } from '../../src/vault/workspace-file.js';
@@ -41,7 +42,12 @@ describe('preset tier in the vault cascade', () => {
     }
   });
 
-  it('a read entry may come from the preset', () => {
+  it('the cascade knows preset, the vault tier does not', () => {
+    expect(VaultCascadeTierSchema.safeParse('preset').success).toBe(true);
+    expect(VaultTierSchema.safeParse('preset').success).toBe(false);
+  });
+
+  it('a read entry stays on the three tiers of today', () => {
     const r = VaultEntryPlainSchema.safeParse({
       id: 1,
       key: 'OPENAI_API_KEY',
@@ -52,6 +58,6 @@ describe('preset tier in the vault cascade', () => {
       agentId: null,
       ownerId: 1,
     });
-    expect(r.success).toBe(true);
+    expect(r.success).toBe(false);
   });
 });

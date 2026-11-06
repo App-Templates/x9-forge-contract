@@ -1,23 +1,33 @@
 import { z } from 'zod';
 
 /**
- * 4-tier vault cascade. Order matches priority (lower index = lower priority):
- * platform < owner < preset < agent. Agent tier overrides the other three.
+ * 3-tier vault, as saved and read by every consumer today. Order matches
+ * priority (lower index = lower priority): platform < owner < agent.
  *
  * @see forge-v2/services/vault/src/repositories/vault.repo.ts:5
  * @see forge-v2/services/vault/src/services/vault.service.ts:258 ("Merge: later tiers override earlier tiers")
  */
-export const VAULT_TIERS = ['platform', 'owner', 'preset', 'agent'] as const;
+export const VAULT_TIERS = ['platform', 'owner', 'agent'] as const;
 
 export const VaultTierSchema = z.enum(VAULT_TIERS);
 
 export type VaultTier = z.infer<typeof VaultTierSchema>;
 
 /**
- * Tiers the generic vault routes write: `preset` is written only by the preset
- * routes, with its `presetId`.
+ * Cascade levels: the 3 vault tiers plus `preset`, which sits between owner
+ * and agent. Only the cascade (and the preset routes) know `preset`.
  */
-export const VAULT_GENERIC_TIERS = ['platform', 'owner', 'agent'] as const;
+export const VAULT_CASCADE_TIERS = ['platform', 'owner', 'preset', 'agent'] as const;
+
+export const VaultCascadeTierSchema = z.enum(VAULT_CASCADE_TIERS);
+
+export type VaultCascadeTier = z.infer<typeof VaultCascadeTierSchema>;
+
+/**
+ * Tiers the generic vault routes write (same as `VAULT_TIERS`, kept exported
+ * for compatibility with 1.103.0).
+ */
+export const VAULT_GENERIC_TIERS = VAULT_TIERS;
 
 export const VaultGenericTierSchema = z.enum(VAULT_GENERIC_TIERS);
 
@@ -29,11 +39,11 @@ export type VaultGenericTier = z.infer<typeof VaultGenericTierSchema>;
  *
  * Example: compareTiers('platform','agent') === -1.
  *
- * @see VAULT_TIERS for the priority order.
+ * @see VAULT_CASCADE_TIERS for the priority order.
  */
-export function compareTiers(a: VaultTier, b: VaultTier): -1 | 0 | 1 {
-  const ai = VAULT_TIERS.indexOf(a);
-  const bi = VAULT_TIERS.indexOf(b);
+export function compareTiers(a: VaultCascadeTier, b: VaultCascadeTier): -1 | 0 | 1 {
+  const ai = VAULT_CASCADE_TIERS.indexOf(a);
+  const bi = VAULT_CASCADE_TIERS.indexOf(b);
   if (ai < bi) return -1;
   if (ai > bi) return 1;
   return 0;

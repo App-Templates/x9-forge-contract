@@ -21,8 +21,8 @@ describe('VaultTierSchema', () => {
     expect(VaultTierSchema.parse('agent')).toBe('agent');
   });
 
-  it('parses preset tier', () => {
-    expect(VaultTierSchema.parse('preset')).toBe('preset');
+  it('rejects preset tier (cascade only)', () => {
+    expect(VaultTierSchema.safeParse('preset').success).toBe(false);
   });
 
   it('rejects unknown tier strings', () => {
@@ -31,8 +31,8 @@ describe('VaultTierSchema', () => {
 });
 
 describe('VAULT_TIERS', () => {
-  it('has the exact priority order [platform, owner, preset, agent]', () => {
-    expect(VAULT_TIERS).toEqual(['platform', 'owner', 'preset', 'agent']);
+  it('has the exact priority order [platform, owner, agent]', () => {
+    expect(VAULT_TIERS).toEqual(['platform', 'owner', 'agent']);
   });
 
   it('keeps preset out of the generic write tiers', () => {
