@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.105.1 — chiavi risolte: `source`, `counter`, `revoked` facoltativi in `VaultResolvedEntrySchema` e `resolvedEntryRef`
+
+- Versione e `dist/` rigenerati: la voce delle chiavi risolte porta sorgente, contatore e revoca.
+- Solo campi facoltativi: nessuno schema che legge dati salvati si stringe.
+- Adozione nei consumatori: mp-x9 5380.
+
 ## v1.105.0 — chiavi nel preset: `VaultCascadeEntryPlainSchema` con `presetId`; `CredentialSourceIdSchema`/`CredentialVersionRefSchema`/`compareCredentialVersions`; `credential` facoltativo nello stato `configured`; contratto delle chiavi risolte e `PRIMARY_FORGE_PROVIDER_KEYS`
 
 - Sorgente della chiave e versione con revoca esportate da `@x9-forge/contracts/vault`.

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { CredentialVersionRef } from "./credential-source.js";
 export declare const VaultResolvedEntrySchema: z.ZodObject<{
     key: z.ZodString;
     value: z.ZodString;
@@ -9,8 +10,18 @@ export declare const VaultResolvedEntrySchema: z.ZodObject<{
         preset: "preset";
     }>;
     secret: z.ZodBoolean;
+    source: z.ZodOptional<z.ZodString>;
+    counter: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+    revoked: z.ZodOptional<z.ZodBoolean>;
+    revokedThrough: z.ZodOptional<z.ZodObject<{
+        source: z.ZodString;
+        counter: z.ZodNumber;
+        revoked: z.ZodDefault<z.ZodBoolean>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type VaultResolvedEntry = z.infer<typeof VaultResolvedEntrySchema>;
+/** Resolve a version without inventing a counter or trusting a source from another tier. */
+export declare function resolvedEntryRef(entry: VaultResolvedEntry): CredentialVersionRef | null;
 export declare const VaultResolvedResponseSchema: z.ZodObject<{
     agentId: z.ZodNumber;
     entries: z.ZodArray<z.ZodObject<{
@@ -23,6 +34,14 @@ export declare const VaultResolvedResponseSchema: z.ZodObject<{
             preset: "preset";
         }>;
         secret: z.ZodBoolean;
+        source: z.ZodOptional<z.ZodString>;
+        counter: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+        revoked: z.ZodOptional<z.ZodBoolean>;
+        revokedThrough: z.ZodOptional<z.ZodObject<{
+            source: z.ZodString;
+            counter: z.ZodNumber;
+            revoked: z.ZodDefault<z.ZodBoolean>;
+        }, z.core.$strict>>;
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type VaultResolvedResponse = z.infer<typeof VaultResolvedResponseSchema>;
@@ -43,6 +62,14 @@ export declare const internalVaultResolvedContract: {
                 preset: "preset";
             }>;
             secret: z.ZodBoolean;
+            source: z.ZodOptional<z.ZodString>;
+            counter: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+            revoked: z.ZodOptional<z.ZodBoolean>;
+            revokedThrough: z.ZodOptional<z.ZodObject<{
+                source: z.ZodString;
+                counter: z.ZodNumber;
+                revoked: z.ZodDefault<z.ZodBoolean>;
+            }, z.core.$strict>>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };

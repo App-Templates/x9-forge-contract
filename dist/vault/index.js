@@ -13,7 +13,7 @@ export { VaultSyncStateSchema, VAULT_SYNC_STATES, toSyncState } from "./vault-sy
 // Entries
 export { AES_WIRE_FORMAT_REGEX, VaultEntryPlainSchema, VaultEntryEncryptedSchema, VaultCascadeEntryPlainSchema, presetScopeIssues, } from "./vault-entry.js";
 // Resolved agent credentials
-export { VaultResolvedEntrySchema, VaultResolvedResponseSchema, internalVaultResolvedContract, vaultResolvedPath, PRIMARY_FORGE_PROVIDER_KEYS, } from "./vault-resolved.js";
+export { VaultResolvedEntrySchema, VaultResolvedResponseSchema, resolvedEntryRef, internalVaultResolvedContract, vaultResolvedPath, PRIMARY_FORGE_PROVIDER_KEYS, } from "./vault-resolved.js";
 // Sync event
 export { SyncAgentResultSchema, SyncAllRequestSchema, SyncAllResponseSchema, SyncAllErrorResponseSchema, syncAllContract, } from "./vault-sync-event.js";
 // Workspace file

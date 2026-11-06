@@ -1,28 +1,56 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalModelsEffectiveContract = exports.EffectiveModelsParamsSchema = exports.EffectiveModelsResponseSchema = exports.EffectiveModelSlotSchema = void 0;
+exports.internalModelsEffectiveContract = exports.EffectiveModelsParamsSchema = exports.EffectiveModelsResponseSchema = exports.EffectiveModelSlotSchema = exports.EffectiveSlotRetirementSchema = exports.EffectiveSlotRetirementReasonSchema = exports.EffectiveModelSlotStatusSchema = exports.EFFECTIVE_MODEL_SLOT_STATUSES = void 0;
 exports.modelsEffectivePath = modelsEffectivePath;
 const zod_1 = require("zod");
 const index_js_1 = require("../auth/index.cjs");
 const capability_call_identity_js_1 = require("../capability/capability-call-identity.cjs");
+const agent_config_js_1 = require("../capability/ricerca/agent-config.cjs");
 const credential_key_js_1 = require("../vault/credential-key.cjs");
 const agent_model_configuration_values_js_1 = require("./agent-model-configuration-values.cjs");
 const model_choice_js_1 = require("./model-choice.cjs");
 const model_consumers_js_1 = require("./model-consumers.cjs");
 const model_slot_js_1 = require("./model-slot.cjs");
 const models_generation_js_1 = require("./models-generation.cjs");
+/**
+ * active with upgradedFrom: a retired model was replaced; show an "updated from" label and warning.
+ * retired: a successor is being applied.
+ * retired-no-successor: show a red row, keep the choice menu enabled and notify the user.
+ */
+exports.EFFECTIVE_MODEL_SLOT_STATUSES = ['active', 'retired', 'retired-no-successor'];
+exports.EffectiveModelSlotStatusSchema = zod_1.z.enum(exports.EFFECTIVE_MODEL_SLOT_STATUSES);
+exports.EffectiveSlotRetirementReasonSchema = zod_1.z.enum(['registry', 'provider-inventory', 'provider-error']);
+exports.EffectiveSlotRetirementSchema = zod_1.z.object({
+    modelId: agent_config_js_1.CapabilityModelIdSchema,
+    reason: exports.EffectiveSlotRetirementReasonSchema,
+    observedAt: zod_1.z.iso.datetime({ offset: true }),
+}).strict();
 /** Effective choice metadata; credential references never contain credential values. */
 exports.EffectiveModelSlotSchema = zod_1.z.object({
     choice: model_choice_js_1.ModelChoiceSchema,
     origin: zod_1.z.enum(['agent', 'preset']),
     version: zod_1.z.number().int().positive(),
-    status: zod_1.z.enum(['active', 'retired', 'retired-no-successor']),
+    status: exports.EffectiveModelSlotStatusSchema,
     upgradedFrom: zod_1.z.string().min(1).max(256).optional(),
+    upgradedAt: zod_1.z.iso.datetime({ offset: true }).optional(),
+    /** A retired model is replaced even when the previous choice was manually pinned. */
+    upgradedWhilePinned: zod_1.z.literal(true).optional(),
+    retirement: exports.EffectiveSlotRetirementSchema.optional(),
     credentialKey: credential_key_js_1.CredentialKeySchema.nullable(),
     credentialVersion: zod_1.z.number().int().positive().nullable(),
 }).strict().superRefine((slot, ctx) => {
     if ((slot.credentialKey === null) !== (slot.credentialVersion === null)) {
         ctx.addIssue({ code: 'custom', path: ['credentialVersion'], message: 'Credential key and version must be present together or both null' });
+    }
+    if (slot.upgradedAt !== undefined && slot.upgradedFrom === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['upgradedAt'], message: 'Upgrade time requires the previous model' });
+    }
+    if (slot.upgradedWhilePinned !== undefined && slot.upgradedFrom === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['upgradedWhilePinned'], message: 'Pinned upgrade metadata requires the previous model' });
+    }
+    const retired = slot.status === 'retired' || slot.status === 'retired-no-successor';
+    if (retired !== (slot.retirement !== undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['retirement'], message: 'Retirement metadata must be present exactly for retired statuses' });
     }
 });
 /** One declared agent and one generation, with choices for registered consumers only. */

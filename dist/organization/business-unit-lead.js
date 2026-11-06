@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { OwnerIdSchema } from "../agent/agent-identity.js";
+import { AgentPresetAttachmentSchema } from "../model-router/model-preset.js";
 import { ModelTierSchema } from "../model-router/model-tier.js";
 import { BUSINESS_UNIT_LEAD_ROLE } from "./agent-role.js";
 import { BusinessUnitTypeCardSchema } from "./business-unit-type.js";
@@ -53,6 +54,26 @@ export const BusinessUnitLeadBirthResultSchema = z.strictObject({
     companyId: BusinessUnitLeadBirthRequestSchema.shape.company.shape.companyId,
     businessUnitSlug: BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug,
     agentIdentity: ParticipantAgentIdentitySchema,
+    /**
+     * Absent in receipts written before the preset existed (R-37); present = the factory attached the agent to this
+     * preset at birth.
+     */
+    modelPreset: AgentPresetAttachmentSchema.optional(),
+}).superRefine((receipt, ctx) => {
+    const attachment = receipt.modelPreset;
+    if (attachment === undefined)
+        return;
+    if (attachment.tenantId !== receipt.tenantId) {
+        ctx.addIssue({ code: 'custom', path: ['modelPreset', 'tenantId'], message: 'The preset attachment must belong to the receipt tenant' });
+    }
+    for (const field of ['managementAgentId', 'runtimeAgentId', 'vaultAgentId']) {
+        if (attachment.identity[field] !== receipt.agentIdentity[field]) {
+            ctx.addIssue({ code: 'custom', path: ['modelPreset', 'identity', field], message: 'The preset attachment must be for the agent of the receipt' });
+        }
+    }
+    if (attachment.resolvedBy === 'company' && attachment.preset.companyId !== receipt.companyId) {
+        ctx.addIssue({ code: 'custom', path: ['modelPreset', 'preset', 'companyId'], message: 'A company preset must belong to the receipt company' });
+    }
 });
 /** Forge HTTP 202 receipt: birth is pending, with the public reason preserved verbatim. */
 export const BusinessUnitLeadBirthPendingSchema = z.strictObject({

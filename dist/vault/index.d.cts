@@ -12,7 +12,7 @@ export { VaultSyncStateSchema, VAULT_SYNC_STATES, toSyncState } from "./vault-sy
 export type { VaultSyncState } from "./vault-sync-state.cjs";
 export { AES_WIRE_FORMAT_REGEX, VaultEntryPlainSchema, VaultEntryEncryptedSchema, VaultCascadeEntryPlainSchema, presetScopeIssues, } from "./vault-entry.cjs";
 export type { VaultEntryPlain, VaultEntryEncrypted, VaultCascadeEntryPlain } from "./vault-entry.cjs";
-export { VaultResolvedEntrySchema, VaultResolvedResponseSchema, internalVaultResolvedContract, vaultResolvedPath, PRIMARY_FORGE_PROVIDER_KEYS, } from "./vault-resolved.cjs";
+export { VaultResolvedEntrySchema, VaultResolvedResponseSchema, resolvedEntryRef, internalVaultResolvedContract, vaultResolvedPath, PRIMARY_FORGE_PROVIDER_KEYS, } from "./vault-resolved.cjs";
 export type { VaultResolvedEntry, VaultResolvedResponse } from "./vault-resolved.cjs";
 export { SyncAgentResultSchema, SyncAllRequestSchema, SyncAllResponseSchema, SyncAllErrorResponseSchema, syncAllContract, } from "./vault-sync-event.cjs";
 export type { SyncAgentResult, SyncAllRequest, SyncAllResponse, SyncAllErrorResponse, VaultSyncEvent, } from "./vault-sync-event.cjs";

@@ -1,24 +1,52 @@
 import { z } from 'zod';
 import { INTERNAL_TOKEN_HEADER } from "../auth/index.js";
 import { CapabilityAgentScopeSchema } from "../capability/capability-call-identity.js";
+import { CapabilityModelIdSchema } from "../capability/ricerca/agent-config.js";
 import { CredentialKeySchema } from "../vault/credential-key.js";
 import { CompleteModelIdentitySchema } from "./agent-model-configuration-values.js";
 import { ModelChoiceSchema } from "./model-choice.js";
 import { findModelConsumer } from "./model-consumers.js";
 import { ModelSlotIdSchema } from "./model-slot.js";
 import { ModelsGenerationSchema, ModelsModeSchema, modelsEtag } from "./models-generation.js";
+/**
+ * active with upgradedFrom: a retired model was replaced; show an "updated from" label and warning.
+ * retired: a successor is being applied.
+ * retired-no-successor: show a red row, keep the choice menu enabled and notify the user.
+ */
+export const EFFECTIVE_MODEL_SLOT_STATUSES = ['active', 'retired', 'retired-no-successor'];
+export const EffectiveModelSlotStatusSchema = z.enum(EFFECTIVE_MODEL_SLOT_STATUSES);
+export const EffectiveSlotRetirementReasonSchema = z.enum(['registry', 'provider-inventory', 'provider-error']);
+export const EffectiveSlotRetirementSchema = z.object({
+    modelId: CapabilityModelIdSchema,
+    reason: EffectiveSlotRetirementReasonSchema,
+    observedAt: z.iso.datetime({ offset: true }),
+}).strict();
 /** Effective choice metadata; credential references never contain credential values. */
 export const EffectiveModelSlotSchema = z.object({
     choice: ModelChoiceSchema,
     origin: z.enum(['agent', 'preset']),
     version: z.number().int().positive(),
-    status: z.enum(['active', 'retired', 'retired-no-successor']),
+    status: EffectiveModelSlotStatusSchema,
     upgradedFrom: z.string().min(1).max(256).optional(),
+    upgradedAt: z.iso.datetime({ offset: true }).optional(),
+    /** A retired model is replaced even when the previous choice was manually pinned. */
+    upgradedWhilePinned: z.literal(true).optional(),
+    retirement: EffectiveSlotRetirementSchema.optional(),
     credentialKey: CredentialKeySchema.nullable(),
     credentialVersion: z.number().int().positive().nullable(),
 }).strict().superRefine((slot, ctx) => {
     if ((slot.credentialKey === null) !== (slot.credentialVersion === null)) {
         ctx.addIssue({ code: 'custom', path: ['credentialVersion'], message: 'Credential key and version must be present together or both null' });
+    }
+    if (slot.upgradedAt !== undefined && slot.upgradedFrom === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['upgradedAt'], message: 'Upgrade time requires the previous model' });
+    }
+    if (slot.upgradedWhilePinned !== undefined && slot.upgradedFrom === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['upgradedWhilePinned'], message: 'Pinned upgrade metadata requires the previous model' });
+    }
+    const retired = slot.status === 'retired' || slot.status === 'retired-no-successor';
+    if (retired !== (slot.retirement !== undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['retirement'], message: 'Retirement metadata must be present exactly for retired statuses' });
     }
 });
 /** One declared agent and one generation, with choices for registered consumers only. */

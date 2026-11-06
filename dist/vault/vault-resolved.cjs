@@ -1,17 +1,47 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PRIMARY_FORGE_PROVIDER_KEYS = exports.internalVaultResolvedContract = exports.VaultResolvedResponseSchema = exports.VaultResolvedEntrySchema = void 0;
+exports.resolvedEntryRef = resolvedEntryRef;
 exports.vaultResolvedPath = vaultResolvedPath;
 const zod_1 = require("zod");
 const index_js_1 = require("../auth/index.cjs");
 const credential_key_js_1 = require("./credential-key.cjs");
+const credential_source_js_1 = require("./credential-source.cjs");
 const vault_tier_js_1 = require("./vault-tier.cjs");
 exports.VaultResolvedEntrySchema = zod_1.z.object({
     key: credential_key_js_1.CredentialKeySchema,
     value: zod_1.z.string(),
     tier: vault_tier_js_1.VaultCascadeTierSchema,
     secret: zod_1.z.boolean(),
+    source: credential_source_js_1.CredentialSourceIdSchema.optional(),
+    counter: zod_1.z.number().int().positive().nullable().optional(),
+    /** True when this version originated from an urgent revocation; open sessions close. */
+    revoked: zod_1.z.boolean().optional(),
+    /** Versions from the same source at or below this threshold remain revoked after rotation. */
+    revokedThrough: credential_source_js_1.CredentialVersionRefSchema.optional(),
 }).strict();
+/** Resolve a version without inventing a counter or trusting a source from another tier. */
+function resolvedEntryRef(entry) {
+    if (entry.source === undefined || entry.counter === undefined || entry.counter === null) {
+        return null;
+    }
+    const sourceMatchesTier = entry.tier === 'platform'
+        ? entry.source === 'platform'
+        : entry.source.startsWith(`${entry.tier}:`);
+    if (!sourceMatchesTier)
+        return null;
+    const ref = credential_source_js_1.CredentialVersionRefSchema.parse({
+        source: entry.source,
+        counter: entry.counter,
+        revoked: entry.revoked ?? false,
+    });
+    if (entry.revokedThrough !== undefined) {
+        const order = (0, credential_source_js_1.compareCredentialVersions)(ref, entry.revokedThrough);
+        if (order === 'older' || order === 'same')
+            return { ...ref, revoked: true };
+    }
+    return ref;
+}
 exports.VaultResolvedResponseSchema = zod_1.z.object({
     agentId: zod_1.z.number().int().positive(),
     entries: zod_1.z.array(exports.VaultResolvedEntrySchema),

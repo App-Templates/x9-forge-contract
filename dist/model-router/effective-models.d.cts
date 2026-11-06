@@ -1,4 +1,31 @@
 import { z } from 'zod';
+/**
+ * active with upgradedFrom: a retired model was replaced; show an "updated from" label and warning.
+ * retired: a successor is being applied.
+ * retired-no-successor: show a red row, keep the choice menu enabled and notify the user.
+ */
+export declare const EFFECTIVE_MODEL_SLOT_STATUSES: readonly ["active", "retired", "retired-no-successor"];
+export declare const EffectiveModelSlotStatusSchema: z.ZodEnum<{
+    active: "active";
+    retired: "retired";
+    "retired-no-successor": "retired-no-successor";
+}>;
+export type EffectiveModelSlotStatus = z.infer<typeof EffectiveModelSlotStatusSchema>;
+export declare const EffectiveSlotRetirementReasonSchema: z.ZodEnum<{
+    registry: "registry";
+    "provider-inventory": "provider-inventory";
+    "provider-error": "provider-error";
+}>;
+export declare const EffectiveSlotRetirementSchema: z.ZodObject<{
+    modelId: z.ZodString;
+    reason: z.ZodEnum<{
+        registry: "registry";
+        "provider-inventory": "provider-inventory";
+        "provider-error": "provider-error";
+    }>;
+    observedAt: z.ZodISODateTime;
+}, z.core.$strict>;
+export type EffectiveSlotRetirement = z.infer<typeof EffectiveSlotRetirementSchema>;
 /** Effective choice metadata; credential references never contain credential values. */
 export declare const EffectiveModelSlotSchema: z.ZodObject<{
     choice: z.ZodUnion<readonly [z.ZodObject<{
@@ -197,6 +224,17 @@ export declare const EffectiveModelSlotSchema: z.ZodObject<{
         "retired-no-successor": "retired-no-successor";
     }>;
     upgradedFrom: z.ZodOptional<z.ZodString>;
+    upgradedAt: z.ZodOptional<z.ZodISODateTime>;
+    upgradedWhilePinned: z.ZodOptional<z.ZodLiteral<true>>;
+    retirement: z.ZodOptional<z.ZodObject<{
+        modelId: z.ZodString;
+        reason: z.ZodEnum<{
+            registry: "registry";
+            "provider-inventory": "provider-inventory";
+            "provider-error": "provider-error";
+        }>;
+        observedAt: z.ZodISODateTime;
+    }, z.core.$strict>>;
     credentialKey: z.ZodNullable<z.ZodString>;
     credentialVersion: z.ZodNullable<z.ZodNumber>;
 }, z.core.$strict>;
@@ -420,6 +458,17 @@ export declare const EffectiveModelsResponseSchema: z.ZodObject<{
             "retired-no-successor": "retired-no-successor";
         }>;
         upgradedFrom: z.ZodOptional<z.ZodString>;
+        upgradedAt: z.ZodOptional<z.ZodISODateTime>;
+        upgradedWhilePinned: z.ZodOptional<z.ZodLiteral<true>>;
+        retirement: z.ZodOptional<z.ZodObject<{
+            modelId: z.ZodString;
+            reason: z.ZodEnum<{
+                registry: "registry";
+                "provider-inventory": "provider-inventory";
+                "provider-error": "provider-error";
+            }>;
+            observedAt: z.ZodISODateTime;
+        }, z.core.$strict>>;
         credentialKey: z.ZodNullable<z.ZodString>;
         credentialVersion: z.ZodNullable<z.ZodNumber>;
     }, z.core.$strict>>;
@@ -659,6 +708,17 @@ export declare const internalModelsEffectiveContract: {
                 "retired-no-successor": "retired-no-successor";
             }>;
             upgradedFrom: z.ZodOptional<z.ZodString>;
+            upgradedAt: z.ZodOptional<z.ZodISODateTime>;
+            upgradedWhilePinned: z.ZodOptional<z.ZodLiteral<true>>;
+            retirement: z.ZodOptional<z.ZodObject<{
+                modelId: z.ZodString;
+                reason: z.ZodEnum<{
+                    registry: "registry";
+                    "provider-inventory": "provider-inventory";
+                    "provider-error": "provider-error";
+                }>;
+                observedAt: z.ZodISODateTime;
+            }, z.core.$strict>>;
             credentialKey: z.ZodNullable<z.ZodString>;
             credentialVersion: z.ZodNullable<z.ZodNumber>;
         }, z.core.$strict>>;

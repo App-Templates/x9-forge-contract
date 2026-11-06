@@ -5,6 +5,7 @@ exports.businessUnitLeadAgentId = businessUnitLeadAgentId;
 exports.businessUnitSlugOfLeadAgentId = businessUnitSlugOfLeadAgentId;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
+const model_preset_js_1 = require("../model-router/model-preset.cjs");
 const model_tier_js_1 = require("../model-router/model-tier.cjs");
 const agent_role_js_1 = require("./agent-role.cjs");
 const business_unit_type_js_1 = require("./business-unit-type.cjs");
@@ -58,6 +59,26 @@ exports.BusinessUnitLeadBirthResultSchema = zod_1.z.strictObject({
     companyId: exports.BusinessUnitLeadBirthRequestSchema.shape.company.shape.companyId,
     businessUnitSlug: exports.BusinessUnitLeadBirthRequestSchema.shape.businessUnit.shape.slug,
     agentIdentity: participant_binding_js_1.ParticipantAgentIdentitySchema,
+    /**
+     * Absent in receipts written before the preset existed (R-37); present = the factory attached the agent to this
+     * preset at birth.
+     */
+    modelPreset: model_preset_js_1.AgentPresetAttachmentSchema.optional(),
+}).superRefine((receipt, ctx) => {
+    const attachment = receipt.modelPreset;
+    if (attachment === undefined)
+        return;
+    if (attachment.tenantId !== receipt.tenantId) {
+        ctx.addIssue({ code: 'custom', path: ['modelPreset', 'tenantId'], message: 'The preset attachment must belong to the receipt tenant' });
+    }
+    for (const field of ['managementAgentId', 'runtimeAgentId', 'vaultAgentId']) {
+        if (attachment.identity[field] !== receipt.agentIdentity[field]) {
+            ctx.addIssue({ code: 'custom', path: ['modelPreset', 'identity', field], message: 'The preset attachment must be for the agent of the receipt' });
+        }
+    }
+    if (attachment.resolvedBy === 'company' && attachment.preset.companyId !== receipt.companyId) {
+        ctx.addIssue({ code: 'custom', path: ['modelPreset', 'preset', 'companyId'], message: 'A company preset must belong to the receipt company' });
+    }
 });
 /** Forge HTTP 202 receipt: birth is pending, with the public reason preserved verbatim. */
 exports.BusinessUnitLeadBirthPendingSchema = zod_1.z.strictObject({

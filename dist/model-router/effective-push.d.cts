@@ -249,6 +249,17 @@ export declare const internalModelsPushContract: {
                 "retired-no-successor": "retired-no-successor";
             }>;
             upgradedFrom: z.ZodOptional<z.ZodString>;
+            upgradedAt: z.ZodOptional<z.ZodISODateTime>;
+            upgradedWhilePinned: z.ZodOptional<z.ZodLiteral<true>>;
+            retirement: z.ZodOptional<z.ZodObject<{
+                modelId: z.ZodString;
+                reason: z.ZodEnum<{
+                    registry: "registry";
+                    "provider-inventory": "provider-inventory";
+                    "provider-error": "provider-error";
+                }>;
+                observedAt: z.ZodISODateTime;
+            }, z.core.$strict>>;
             credentialKey: z.ZodNullable<z.ZodString>;
             credentialVersion: z.ZodNullable<z.ZodNumber>;
         }, z.core.$strict>>;

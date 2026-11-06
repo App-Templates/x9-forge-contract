@@ -69,6 +69,32 @@ export declare const BusinessUnitLeadBirthResultSchema: z.ZodObject<{
         runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
         vaultAgentId: z.ZodNumber;
     }, z.core.$strict>;
+    /**
+     * Absent in receipts written before the preset existed (R-37); present = the factory attached the agent to this
+     * preset at birth.
+     */
+    modelPreset: z.ZodOptional<z.ZodObject<{
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodNumber;
+        }, z.core.$strict>;
+        tenantId: z.ZodString;
+        preset: z.ZodObject<{
+            presetId: z.ZodNumber;
+            kind: z.ZodEnum<{
+                platform: "platform";
+                company: "company";
+            }>;
+            tenantId: z.ZodString;
+            companyId: z.ZodNullable<z.ZodString>;
+        }, z.core.$strict>;
+        resolvedBy: z.ZodEnum<{
+            company: "company";
+            "platform-fallback": "platform-fallback";
+        }>;
+        note: z.ZodNullable<z.ZodString>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type BusinessUnitLeadBirthResult = z.infer<typeof BusinessUnitLeadBirthResultSchema>;
 /** Forge HTTP 202 receipt: birth is pending, with the public reason preserved verbatim. */
