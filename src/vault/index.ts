@@ -28,8 +28,10 @@ export {
   AES_WIRE_FORMAT_REGEX,
   VaultEntryPlainSchema,
   VaultEntryEncryptedSchema,
+  VaultCascadeEntryPlainSchema,
+  presetScopeIssues,
 } from './vault-entry.js';
-export type { VaultEntryPlain, VaultEntryEncrypted } from './vault-entry.js';
+export type { VaultEntryPlain, VaultEntryEncrypted, VaultCascadeEntryPlain } from './vault-entry.js';
 
 // Sync event
 export {
