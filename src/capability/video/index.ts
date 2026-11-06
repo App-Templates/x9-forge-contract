@@ -76,6 +76,14 @@ export {
 } from './engine.js';
 export {
   VideoBriefToolInputSchema,
+  VideoPresetsListToolInputSchema,
+  VideoPresetFootageShotsSchema,
+  VideoPresetSummarySchema,
+  VideoPresetsListResponseSchema,
+  type VideoPresetsListToolInput,
+  type VideoPresetFootageShots,
+  type VideoPresetSummary,
+  type VideoPresetsListResponse,
   VideoProjectGetToolInputSchema,
   VideoProjectStepSchema,
   VideoProjectViewSchema,

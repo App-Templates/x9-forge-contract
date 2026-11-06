@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.99.0 — Officina video: elenco dei preset per il modello, additivo
+
+- `video_presets_list`: `VideoPresetsListToolInputSchema`, `VideoPresetSummarySchema`, `VideoPresetsListResponseSchema`; riprese dell'archivio tipizzate con `VideoPresetFootageShotsSchema`.
+- `presetId` dello strumento `video_brief_create` con descrizione che rimanda a `video_presets_list`; il brief interno e il pattern dell'id restano invariati.
+- Consumer: cap-video (manifest e strumento, corsia ov-x9 3401) e registro di agent-core (voce `video`).
+
+Nessuno schema zod si stringe: un campo descritto e schemi nuovi.
+
 ## v1.97.0 — Officina video: scelte per richiesta, sottotitoli, manifesto e revisione del copione, additivo
 
 - Brief e strumento: `voice`, `aspectRatio`, `durationSeconds` e `resolution` facoltativi, raccolti in `VideoRequestChoicesSchema`; story con `voice` facoltativo; `VideoStoryResolutionSchema` è `VideoResolutionSchema`.
