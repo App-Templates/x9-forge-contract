@@ -117,7 +117,7 @@ export const ActionPlanSchema = z.strictObject({
         number: MilestoneNumberSchema,
         delivery: TextSchema,
         buSlug: BuSlugSchema,
-        dueDate: z.iso.date(),
+        dueDate: z.iso.date().optional().describe('giorno della tappa, se esiste'),
         closeCriterion: TextSchema,
         blockedBy: z.array(z.number().int()),
     })).min(1).max(50),

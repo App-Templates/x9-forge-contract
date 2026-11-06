@@ -161,7 +161,7 @@ export declare const ActionPlanSchema: z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
         buSlug: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         closeCriterion: z.ZodString;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;
@@ -392,7 +392,7 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
         buSlug: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         closeCriterion: z.ZodString;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;
@@ -562,7 +562,7 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
         buSlug: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         closeCriterion: z.ZodString;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;
@@ -674,7 +674,7 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
         buSlug: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         closeCriterion: z.ZodString;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;

@@ -76,7 +76,7 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
             number: z.ZodNumber;
             delivery: z.ZodString;
             buSlug: z.ZodString;
-            dueDate: z.ZodISODate;
+            dueDate: z.ZodOptional<z.ZodISODate>;
             closeCriterion: z.ZodString;
             blockedBy: z.ZodArray<z.ZodNumber>;
         }, z.core.$strict>>;
@@ -282,7 +282,7 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
             number: z.ZodNumber;
             delivery: z.ZodString;
             buSlug: z.ZodString;
-            dueDate: z.ZodISODate;
+            dueDate: z.ZodOptional<z.ZodISODate>;
             closeCriterion: z.ZodString;
             blockedBy: z.ZodArray<z.ZodNumber>;
         }, z.core.$strict>>;
@@ -504,7 +504,7 @@ export declare const internalMemoryActionPlanSaveContract: {
                 number: z.ZodNumber;
                 delivery: z.ZodString;
                 buSlug: z.ZodString;
-                dueDate: z.ZodISODate;
+                dueDate: z.ZodOptional<z.ZodISODate>;
                 closeCriterion: z.ZodString;
                 blockedBy: z.ZodArray<z.ZodNumber>;
             }, z.core.$strict>>;
@@ -713,7 +713,7 @@ export declare const internalMemoryActionPlanReadContract: {
                 number: z.ZodNumber;
                 delivery: z.ZodString;
                 buSlug: z.ZodString;
-                dueDate: z.ZodISODate;
+                dueDate: z.ZodOptional<z.ZodISODate>;
                 closeCriterion: z.ZodString;
                 blockedBy: z.ZodArray<z.ZodNumber>;
             }, z.core.$strict>>;

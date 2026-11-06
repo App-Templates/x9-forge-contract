@@ -122,7 +122,7 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
         number: MilestoneNumberSchema,
         delivery: TextSchema,
         buSlug: BuSlugSchema,
-        dueDate: zod_1.z.iso.date(),
+        dueDate: zod_1.z.iso.date().optional().describe('giorno della tappa, se esiste'),
         closeCriterion: TextSchema,
         blockedBy: zod_1.z.array(zod_1.z.number().int()),
     })).min(1).max(50),

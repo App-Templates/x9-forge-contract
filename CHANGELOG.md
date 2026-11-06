@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.106.0 — la data delle tappe è facoltativa
+
+- `@x9-forge/contracts/organization`: `milestones[].dueDate` del piano d'azione diventa facoltativa (`z.iso.date().optional()`, descrizione neutra «giorno della tappa, se esiste»). Un campo obbligatorio diventa facoltativo: nessun dato salvato cambia, e un piano già salvato conserva testo canonico e impronta sha256 (prova sulla fixture v3 di produzione). `verticalPlanDueBy` e `CompleteActionPlanSchema` restano come sono.
+- Consumer: cap-email, memory.
+
 ## v1.99.0 — un unico ZIP fra i link di consegna
 
 - `@x9-forge/contracts/http`: la richiesta dei link di consegna di cap-dev prende `bundle` facoltativo (`fileName` minuscolo `.zip`, `paths` distinti, fino a 12); la risposta prende `bundle` facoltativo, un link `application/zip` il cui `path` è `fileName`. Il servizio compone lo ZIP dai file letti allo stesso commit, con gli stessi controlli dei `paths`.
