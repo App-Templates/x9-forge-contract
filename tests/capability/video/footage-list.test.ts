@@ -23,6 +23,10 @@ describe('footage list: query', () => {
   it('accepts the identity and a person', () => {
     expect(VideoFootageListQuerySchema.safeParse(query).success).toBe(true);
   });
+  it.each(['ownerId', 'agentId', 'person'] as const)('refuses a query without %s', (field) => {
+    const { [field]: _missing, ...withoutField } = query;
+    expect(VideoFootageListQuerySchema.safeParse(withoutField).success).toBe(false);
+  });
   it('refuses a bad person, an extra field and a missing tenant', () => {
     const { tenantId: _t, ...noTenant } = query;
     expect(VideoFootageListQuerySchema.safeParse({ ...query, person: '../x' }).success).toBe(false);
@@ -36,6 +40,44 @@ describe('footage list: response', () => {
   it('accepts the four shots of today and an empty archive', () => {
     expect(VideoFootageListSchema.safeParse(list).success).toBe(true);
     expect(VideoFootageListSchema.safeParse({ person: 'stefano', shots: [] }).success).toBe(true);
+  });
+  it.each(['id', 'place', 'outfit', 'framing', 'durationSeconds', 'scenes', 'sha256', 'fileName'] as const)(
+    'refuses a shot without %s', (field) => {
+      const { [field]: _missing, ...withoutField } = shots[0]!;
+      expect(VideoFootageListSchema.safeParse({ ...list, shots: [withoutField] }).success).toBe(false);
+    },
+  );
+  it('accepts a shot without group', () => {
+    expect(shots[0]).not.toHaveProperty('group');
+    expect(VideoFootageListSchema.safeParse({ ...list, shots: [shots[0]] }).success).toBe(true);
+  });
+  it.each(['person', 'shots'] as const)('refuses a list without %s', (field) => {
+    const { [field]: _missing, ...withoutField } = list;
+    expect(VideoFootageListSchema.safeParse(withoutField).success).toBe(false);
+  });
+  it.each([0, -1])('refuses durationSeconds %s', (durationSeconds) => {
+    expect(VideoFootageListSchema.safeParse({ ...list, shots: [{ ...shots[0], durationSeconds }] }).success).toBe(false);
+  });
+  it('refuses fractional scenes', () => {
+    expect(VideoFootageListSchema.safeParse({ ...list, shots: [{ ...shots[0], scenes: 1.5 }] }).success).toBe(false);
+  });
+  it('accepts zero scenes', () => {
+    expect(VideoFootageListSchema.safeParse({ ...list, shots: [{ ...shots[0], scenes: 0 }] }).success).toBe(true);
+  });
+  it.each([
+    { field: 'outfit', value: '' },
+    { field: 'outfit', value: 'x'.repeat(81) },
+    { field: 'fileName', value: '' },
+    { field: 'fileName', value: 'x'.repeat(301) },
+  ])('refuses $field with invalid length: $value', ({ field, value }) => {
+    expect(VideoFootageListSchema.safeParse({ ...list, shots: [{ ...shots[0], [field]: value }] }).success).toBe(false);
+  });
+  it.each([
+    { count: 500, expected: true },
+    { count: 501, expected: false },
+  ])('validates $count shots: $expected', ({ count, expected }) => {
+    const archive = { ...list, shots: Array.from({ length: count }, () => ({ ...shots[0] })) };
+    expect(VideoFootageListSchema.safeParse(archive).success).toBe(expected);
   });
   it('refuses bad shots', () => {
     const one = (patch: Record<string, unknown>) => ({ person: 'stefano', shots: [{ ...shots[0], ...patch }] });
@@ -98,15 +140,24 @@ describe('footage list: zod and the generated Python give the same verdict', () 
     });
   }
 
+  const { sha256: _sha256, ...noSha256 } = shots[0]!;
+  const { place: _place, ...noPlace } = shots[0]!;
+  const invalidLists: Record<string, unknown> = {
+    'no sha256': { ...list, shots: [noSha256] },
+    'no place': { ...list, shots: [noPlace] },
+    'zero duration': { ...list, shots: [{ ...shots[0], durationSeconds: 0 }] },
+  };
   const lists: Record<string, unknown> = {
     'four shots': list, empty: { person: 'stefano', shots: [] },
     'framing wide': { person: 'stefano', shots: [{ ...shots[0], framing: 'wide' }] },
     'sha256 uppercase': { person: 'stefano', shots: [{ ...shots[0], sha256: hash('A') }] },
+    ...invalidLists,
   };
   const pythonLists = pythonVerdicts('videoEngineFootageList', lists);
   for (const [name, value] of Object.entries(lists)) {
     it(`response: ${name}`, () => {
       const zod = VideoFootageListSchema.safeParse(value);
+      if (name in invalidLists) expect(zod.success).toBe(false);
       expect(pythonLists[name]!.ok).toBe(zod.success);
       if (zod.success) expect(pythonLists[name]!.value).toEqual(zod.data);
     });
