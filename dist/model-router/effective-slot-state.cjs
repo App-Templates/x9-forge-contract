@@ -5,6 +5,7 @@ exports.slotFallback = slotFallback;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability/capability-call-identity.cjs");
 const credential_key_js_1 = require("../vault/credential-key.cjs");
+const credential_source_js_1 = require("../vault/credential-source.cjs");
 const model_choice_js_1 = require("./model-choice.cjs");
 const model_slot_js_1 = require("./model-slot.cjs");
 const models_generation_js_1 = require("./models-generation.cjs");
@@ -17,6 +18,11 @@ exports.EffectiveSlotStateSchema = zod_1.z.discriminatedUnion('state', [
         generation: models_generation_js_1.ModelsGenerationSchema,
         credentialKey: credential_key_js_1.CredentialKeySchema.nullable(),
         credentialVersion: zod_1.z.number().int().positive().nullable(),
+        /**
+         * Version of the key with its source. `revoked === true` is an urgent revocation (the service closes the
+         * session at once); a higher `counter` with `revoked` false is an ordinary rotation (an open session continues).
+         */
+        credential: credential_source_js_1.CredentialVersionRefSchema.nullable().optional(),
         etag: zod_1.z.string().min(1).max(256),
     }).strict(),
     zod_1.z.object({ state: zod_1.z.literal('unconfigured') }).strict(),

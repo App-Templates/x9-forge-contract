@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultEntryEncryptedSchema = exports.VaultEntryPlainSchema = exports.AES_WIRE_FORMAT_REGEX = void 0;
+exports.VaultCascadeEntryPlainSchema = exports.VaultEntryEncryptedSchema = exports.VaultEntryPlainSchema = exports.AES_WIRE_FORMAT_REGEX = void 0;
+exports.presetScopeIssues = presetScopeIssues;
 const zod_1 = require("zod");
 const vault_tier_js_1 = require("./vault-tier.cjs");
 /**
@@ -68,4 +69,53 @@ exports.VaultEntryEncryptedSchema = VaultEntryBase.extend({
     value: zod_1.z.string().regex(exports.AES_WIRE_FORMAT_REGEX, { message: AES_WIRE_FORMAT_ERROR }),
     isSecret: zod_1.z.literal(true),
 });
+/**
+ * Vault entry DTO with the cascade tiers (`platform`, `owner`, `preset`, `agent`)
+ * and the preset the row belongs to. Same fields as `VaultEntryPlainSchema`
+ * plus `presetId`; the three-tier schema above is unchanged.
+ *
+ * Rules mirror the Forge DB checks `vault_entries_preset_tier` and
+ * `vault_entries_preset_scope`, plus the plaintext-secret guard.
+ *
+ * @see forge-v2/packages/db/src/schema.ts:126-135
+ */
+exports.VaultCascadeEntryPlainSchema = VaultEntryBase.omit({ tier: true })
+    .extend({
+    tier: vault_tier_js_1.VaultCascadeTierSchema,
+    presetId: zod_1.z.number().int().positive().nullable(),
+    value: zod_1.z.string(),
+    isSecret: zod_1.z.boolean(),
+})
+    .superRefine((row, ctx) => {
+    for (const issue of presetScopeIssues(row))
+        ctx.addIssue({ code: 'custom', ...issue });
+    if (row.isSecret && exports.AES_WIRE_FORMAT_REGEX.test(row.value)) {
+        ctx.addIssue({
+            code: 'custom',
+            path: ['value'],
+            message: 'Plain secret value matches AES wire format — decrypt was not performed?',
+        });
+    }
+});
+/**
+ * Preset scope rules shared by every consumer of a cascade row:
+ * `tier === 'preset'` iff `presetId` is set, and a preset row has no agent or owner.
+ */
+function presetScopeIssues(row) {
+    const issues = [];
+    const isPreset = row.tier === 'preset';
+    if (isPreset !== (row.presetId !== null)) {
+        issues.push({
+            path: ['presetId'],
+            message: "presetId must be set if and only if tier is 'preset'",
+        });
+    }
+    if (isPreset && (row.agentId !== null || row.ownerId !== null)) {
+        issues.push({
+            path: ['tier'],
+            message: "a 'preset' row must have no agentId and no ownerId",
+        });
+    }
+    return issues;
+}
 //# sourceMappingURL=vault-entry.js.map

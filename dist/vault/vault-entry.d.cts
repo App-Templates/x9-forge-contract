@@ -70,4 +70,45 @@ export declare const VaultEntryEncryptedSchema: z.ZodObject<{
     isSecret: z.ZodLiteral<true>;
 }, z.core.$strip>;
 export type VaultEntryEncrypted = z.infer<typeof VaultEntryEncryptedSchema>;
+/**
+ * Vault entry DTO with the cascade tiers (`platform`, `owner`, `preset`, `agent`)
+ * and the preset the row belongs to. Same fields as `VaultEntryPlainSchema`
+ * plus `presetId`; the three-tier schema above is unchanged.
+ *
+ * Rules mirror the Forge DB checks `vault_entries_preset_tier` and
+ * `vault_entries_preset_scope`, plus the plaintext-secret guard.
+ *
+ * @see forge-v2/packages/db/src/schema.ts:126-135
+ */
+export declare const VaultCascadeEntryPlainSchema: z.ZodObject<{
+    key: z.ZodString;
+    agentId: z.ZodNullable<z.ZodNumber>;
+    ownerId: z.ZodNullable<z.ZodNumber>;
+    id: z.ZodNumber;
+    createdAt: z.ZodOptional<z.ZodString>;
+    isCustomized: z.ZodBoolean;
+    tier: z.ZodEnum<{
+        owner: "owner";
+        agent: "agent";
+        platform: "platform";
+        preset: "preset";
+    }>;
+    presetId: z.ZodNullable<z.ZodNumber>;
+    value: z.ZodString;
+    isSecret: z.ZodBoolean;
+}, z.core.$strip>;
+export type VaultCascadeEntryPlain = z.infer<typeof VaultCascadeEntryPlainSchema>;
+/**
+ * Preset scope rules shared by every consumer of a cascade row:
+ * `tier === 'preset'` iff `presetId` is set, and a preset row has no agent or owner.
+ */
+export declare function presetScopeIssues(row: {
+    tier: string;
+    presetId: number | null;
+    agentId: number | null;
+    ownerId: number | null;
+}): Array<{
+    path: string[];
+    message: string;
+}>;
 //# sourceMappingURL=vault-entry.d.ts.map

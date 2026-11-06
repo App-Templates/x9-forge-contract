@@ -11,7 +11,9 @@ export { VaultTierSchema, VAULT_TIERS, VaultCascadeTierSchema, VAULT_CASCADE_TIE
 // Sync state
 export { VaultSyncStateSchema, VAULT_SYNC_STATES, toSyncState } from "./vault-sync-state.js";
 // Entries
-export { AES_WIRE_FORMAT_REGEX, VaultEntryPlainSchema, VaultEntryEncryptedSchema, } from "./vault-entry.js";
+export { AES_WIRE_FORMAT_REGEX, VaultEntryPlainSchema, VaultEntryEncryptedSchema, VaultCascadeEntryPlainSchema, presetScopeIssues, } from "./vault-entry.js";
+// Resolved agent credentials
+export { VaultResolvedEntrySchema, VaultResolvedResponseSchema, internalVaultResolvedContract, vaultResolvedPath, PRIMARY_FORGE_PROVIDER_KEYS, } from "./vault-resolved.js";
 // Sync event
 export { SyncAgentResultSchema, SyncAllRequestSchema, SyncAllResponseSchema, SyncAllErrorResponseSchema, syncAllContract, } from "./vault-sync-event.js";
 // Workspace file
@@ -24,4 +26,6 @@ export { CONNECTION_CREDENTIAL_KEY_PREFIX, CONNECT_VAULT_SECRET_ENV, connectionC
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.js";
 // Keys linked to the Master Chief: provenance, versions, rotate/relink/unlink outcomes (R3, v1.31.0)
 export * from "./credential-link.js";
+// Credential sources and counters scoped to one source
+export { CredentialSourceIdSchema, credentialSourceOf, CredentialVersionRefSchema, compareCredentialVersions, } from "./credential-source.js";
 //# sourceMappingURL=index.js.map

@@ -196,6 +196,11 @@ export declare const EffectiveSlotStateSchema: z.ZodDiscriminatedUnion<[z.ZodObj
     }, z.core.$strict>;
     credentialKey: z.ZodNullable<z.ZodString>;
     credentialVersion: z.ZodNullable<z.ZodNumber>;
+    credential: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        source: z.ZodString;
+        counter: z.ZodNumber;
+        revoked: z.ZodDefault<z.ZodBoolean>;
+    }, z.core.$strict>>>;
     etag: z.ZodString;
 }, z.core.$strict>, z.ZodObject<{
     state: z.ZodLiteral<"unconfigured">;

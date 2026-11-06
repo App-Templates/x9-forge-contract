@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.104.0 — Modelli col preset: push della scelta effettiva con conferma, lettura di un posto, invalidazione e finestra di ritorno
+
+- `ModelsPushAckSchema`, `internalModelsPushContract` (`POST /internal/models/effective`, segreto interno).
+- `internalModelsInvalidateContract`, `modelsInvalidatePath`.
+- `ModelsReturnWindowRequestSchema`, `internalModelsReturnWindowContract`, `modelsReturnWindowPath`.
+- `internalAgentModelSlotContract` (`POST /internal/agents/:agentId/models/slots/:slotId`), `agentModelSlotPath`, `slotRequestMatchesPath`.
+- Consumer: agent-core (mp-x9 5253 e seguenti) e vault (mp-forge 5262 e seguenti).
+- Solo contratti nuovi; nessuno schema esistente cambia.
+
 ## v1.103.1 — `VaultTier` torna a tre livelli come nella 1.102.0; il livello `preset` della cascata è in `VaultCascadeTierSchema`/`VAULT_CASCADE_TIERS`
 
 ## v1.103.0 — Modelli col preset: scelta del preset, scelta effettiva, livello `preset` della cascata

@@ -22,7 +22,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentVaultedCredentialsSchema = exports.isConnectionCredentialKey = exports.connectionCredentialKey = exports.CONNECT_VAULT_SECRET_ENV = exports.CONNECTION_CREDENTIAL_KEY_PREFIX = exports.stripPlatformInternalCredentials = exports.isPlatformInternalCredentialKey = exports.PLATFORM_INTERNAL_CREDENTIAL_KEYS = exports.WorkspaceFileSchema = exports.syncAllContract = exports.SyncAllErrorResponseSchema = exports.SyncAllResponseSchema = exports.SyncAllRequestSchema = exports.SyncAgentResultSchema = exports.VaultEntryEncryptedSchema = exports.VaultEntryPlainSchema = exports.AES_WIRE_FORMAT_REGEX = exports.toSyncState = exports.VAULT_SYNC_STATES = exports.VaultSyncStateSchema = exports.compareTiers = exports.VAULT_GENERIC_TIERS = exports.VaultGenericTierSchema = exports.VAULT_CASCADE_TIERS = exports.VaultCascadeTierSchema = exports.VAULT_TIERS = exports.VaultTierSchema = void 0;
+exports.compareCredentialVersions = exports.CredentialVersionRefSchema = exports.credentialSourceOf = exports.CredentialSourceIdSchema = exports.AgentVaultedCredentialsSchema = exports.isConnectionCredentialKey = exports.connectionCredentialKey = exports.CONNECT_VAULT_SECRET_ENV = exports.CONNECTION_CREDENTIAL_KEY_PREFIX = exports.stripPlatformInternalCredentials = exports.isPlatformInternalCredentialKey = exports.PLATFORM_INTERNAL_CREDENTIAL_KEYS = exports.WorkspaceFileSchema = exports.syncAllContract = exports.SyncAllErrorResponseSchema = exports.SyncAllResponseSchema = exports.SyncAllRequestSchema = exports.SyncAgentResultSchema = exports.PRIMARY_FORGE_PROVIDER_KEYS = exports.vaultResolvedPath = exports.internalVaultResolvedContract = exports.VaultResolvedResponseSchema = exports.VaultResolvedEntrySchema = exports.presetScopeIssues = exports.VaultCascadeEntryPlainSchema = exports.VaultEntryEncryptedSchema = exports.VaultEntryPlainSchema = exports.AES_WIRE_FORMAT_REGEX = exports.toSyncState = exports.VAULT_SYNC_STATES = exports.VaultSyncStateSchema = exports.compareTiers = exports.VAULT_GENERIC_TIERS = exports.VaultGenericTierSchema = exports.VAULT_CASCADE_TIERS = exports.VaultCascadeTierSchema = exports.VAULT_TIERS = exports.VaultTierSchema = void 0;
 // Tier
 var vault_tier_js_1 = require("./vault-tier.cjs");
 Object.defineProperty(exports, "VaultTierSchema", { enumerable: true, get: function () { return vault_tier_js_1.VaultTierSchema; } });
@@ -42,6 +42,15 @@ var vault_entry_js_1 = require("./vault-entry.cjs");
 Object.defineProperty(exports, "AES_WIRE_FORMAT_REGEX", { enumerable: true, get: function () { return vault_entry_js_1.AES_WIRE_FORMAT_REGEX; } });
 Object.defineProperty(exports, "VaultEntryPlainSchema", { enumerable: true, get: function () { return vault_entry_js_1.VaultEntryPlainSchema; } });
 Object.defineProperty(exports, "VaultEntryEncryptedSchema", { enumerable: true, get: function () { return vault_entry_js_1.VaultEntryEncryptedSchema; } });
+Object.defineProperty(exports, "VaultCascadeEntryPlainSchema", { enumerable: true, get: function () { return vault_entry_js_1.VaultCascadeEntryPlainSchema; } });
+Object.defineProperty(exports, "presetScopeIssues", { enumerable: true, get: function () { return vault_entry_js_1.presetScopeIssues; } });
+// Resolved agent credentials
+var vault_resolved_js_1 = require("./vault-resolved.cjs");
+Object.defineProperty(exports, "VaultResolvedEntrySchema", { enumerable: true, get: function () { return vault_resolved_js_1.VaultResolvedEntrySchema; } });
+Object.defineProperty(exports, "VaultResolvedResponseSchema", { enumerable: true, get: function () { return vault_resolved_js_1.VaultResolvedResponseSchema; } });
+Object.defineProperty(exports, "internalVaultResolvedContract", { enumerable: true, get: function () { return vault_resolved_js_1.internalVaultResolvedContract; } });
+Object.defineProperty(exports, "vaultResolvedPath", { enumerable: true, get: function () { return vault_resolved_js_1.vaultResolvedPath; } });
+Object.defineProperty(exports, "PRIMARY_FORGE_PROVIDER_KEYS", { enumerable: true, get: function () { return vault_resolved_js_1.PRIMARY_FORGE_PROVIDER_KEYS; } });
 // Sync event
 var vault_sync_event_js_1 = require("./vault-sync-event.cjs");
 Object.defineProperty(exports, "SyncAgentResultSchema", { enumerable: true, get: function () { return vault_sync_event_js_1.SyncAgentResultSchema; } });
@@ -68,4 +77,10 @@ var agent_vaulted_credentials_js_1 = require("./agent-vaulted-credentials.cjs");
 Object.defineProperty(exports, "AgentVaultedCredentialsSchema", { enumerable: true, get: function () { return agent_vaulted_credentials_js_1.AgentVaultedCredentialsSchema; } });
 // Keys linked to the Master Chief: provenance, versions, rotate/relink/unlink outcomes (R3, v1.31.0)
 __exportStar(require("./credential-link.cjs"), exports);
+// Credential sources and counters scoped to one source
+var credential_source_js_1 = require("./credential-source.cjs");
+Object.defineProperty(exports, "CredentialSourceIdSchema", { enumerable: true, get: function () { return credential_source_js_1.CredentialSourceIdSchema; } });
+Object.defineProperty(exports, "credentialSourceOf", { enumerable: true, get: function () { return credential_source_js_1.credentialSourceOf; } });
+Object.defineProperty(exports, "CredentialVersionRefSchema", { enumerable: true, get: function () { return credential_source_js_1.CredentialVersionRefSchema; } });
+Object.defineProperty(exports, "compareCredentialVersions", { enumerable: true, get: function () { return credential_source_js_1.compareCredentialVersions; } });
 //# sourceMappingURL=index.js.map
