@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability/capability-call-identity.js';
 import { CredentialKeySchema } from '../vault/credential-key.js';
+import { CredentialVersionRefSchema } from '../vault/credential-source.js';
 import { ModelChoiceSchema } from './model-choice.js';
 import { ModelSlotIdSchema } from './model-slot.js';
 import { ModelsGenerationSchema } from './models-generation.js';
@@ -14,6 +15,11 @@ export const EffectiveSlotStateSchema = z.discriminatedUnion('state', [
     generation: ModelsGenerationSchema,
     credentialKey: CredentialKeySchema.nullable(),
     credentialVersion: z.number().int().positive().nullable(),
+    /**
+     * Version of the key with its source. `revoked === true` is an urgent revocation (the service closes the
+     * session at once); a higher `counter` with `revoked` false is an ordinary rotation (an open session continues).
+     */
+    credential: CredentialVersionRefSchema.nullable().optional(),
     etag: z.string().min(1).max(256),
   }).strict(),
   z.object({ state: z.literal('unconfigured') }).strict(),
