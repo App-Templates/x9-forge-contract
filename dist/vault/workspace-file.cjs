@@ -6,7 +6,7 @@ const vault_tier_js_1 = require("./vault-tier.cjs");
 /**
  * Workspace file DTO — written to DB by `syncWorkspaceFilesToDB`.
  *
- * Tier semantics reuse `VaultTier` (platform/owner/agent) from the vault.
+ * Tier semantics reuse `VaultGenericTier` (platform/owner/agent) from the vault.
  * `content` is nullable when the file was unreadable at sync time.
  *
  * NOTE: `agentId` is nullable (aligned with Drizzle `workspace_files.agent_id`)
@@ -21,7 +21,7 @@ const vault_tier_js_1 = require("./vault-tier.cjs");
 exports.WorkspaceFileSchema = zod_1.z.object({
     agentId: zod_1.z.number().int().nullable(),
     ownerId: zod_1.z.number().int().nullable(),
-    tier: vault_tier_js_1.VaultTierSchema,
+    tier: vault_tier_js_1.VaultGenericTierSchema,
     path: zod_1.z.string().min(1),
     content: zod_1.z.string().nullable(),
     isCustomized: zod_1.z.boolean(),

@@ -34,6 +34,7 @@ export declare const VaultEntryPlainSchema: z.ZodObject<{
         owner: "owner";
         agent: "agent";
         platform: "platform";
+        preset: "preset";
     }>;
     agentId: z.ZodNullable<z.ZodNumber>;
     ownerId: z.ZodNullable<z.ZodNumber>;
@@ -62,6 +63,7 @@ export declare const VaultEntryEncryptedSchema: z.ZodObject<{
         owner: "owner";
         agent: "agent";
         platform: "platform";
+        preset: "preset";
     }>;
     agentId: z.ZodNullable<z.ZodNumber>;
     ownerId: z.ZodNullable<z.ZodNumber>;

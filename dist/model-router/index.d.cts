@@ -26,6 +26,8 @@ export { ModelHotReloadNotificationSchema } from "./model-hot-reload.cjs";
 export type { ModelHotReloadNotification } from "./model-hot-reload.cjs";
 export * from "./model-catalog.cjs";
 export * from "./capability-model-settings.cjs";
+export * from "./model-choice.cjs";
+export * from "./consumer-accepts.cjs";
 export * from "./agent-model-configuration.cjs";
 export * from "./models-batch.cjs";
 export * from "./model-consumers.cjs";
@@ -33,4 +35,7 @@ export * from "./model-chain.cjs";
 export * from "./model-consumer-execution.cjs";
 export * from "./models-version.cjs";
 export * from "./models-target.cjs";
+export * from "./models-generation.cjs";
+export * from "./effective-models.cjs";
+export * from "./effective-slot-state.cjs";
 //# sourceMappingURL=index.d.ts.map

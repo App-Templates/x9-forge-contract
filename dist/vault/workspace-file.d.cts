@@ -2,7 +2,7 @@ import { z } from 'zod';
 /**
  * Workspace file DTO — written to DB by `syncWorkspaceFilesToDB`.
  *
- * Tier semantics reuse `VaultTier` (platform/owner/agent) from the vault.
+ * Tier semantics reuse `VaultGenericTier` (platform/owner/agent) from the vault.
  * `content` is nullable when the file was unreadable at sync time.
  *
  * NOTE: `agentId` is nullable (aligned with Drizzle `workspace_files.agent_id`)

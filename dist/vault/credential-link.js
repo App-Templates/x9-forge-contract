@@ -17,7 +17,7 @@ import { CredentialKeySchema } from "./credential-key.js";
 export { CredentialKeySchema } from "./credential-key.js";
 /** Saved version of one key's value; every save raises it. */
 export const CredentialVersionSchema = z.number().int().positive();
-export const CredentialOwnTierSchema = VaultTierSchema.exclude(['platform']);
+export const CredentialOwnTierSchema = VaultTierSchema.exclude(['platform', 'preset']);
 export const CredentialLinkSchema = z.discriminatedUnion('link', [
     z.object({ link: z.literal('linked'), source: z.literal('master') }).strict(),
     z.object({ link: z.literal('unlinked'), tier: CredentialOwnTierSchema }).strict(),

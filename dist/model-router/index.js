@@ -27,6 +27,8 @@ export { ModelHotReloadNotificationSchema } from "./model-hot-reload.js";
 // Attested catalogs and capability-owned settings (M1a); no model ids or credentials embedded here.
 export * from "./model-catalog.js";
 export * from "./capability-model-settings.js";
+export * from "./model-choice.js";
+export * from "./consumer-accepts.js";
 export * from "./agent-model-configuration.js";
 export * from "./models-batch.js";
 // Canonical server-owned model consumer bindings; no runtime installation is inferred.
@@ -35,4 +37,7 @@ export * from "./model-chain.js";
 export * from "./model-consumer-execution.js";
 export * from "./models-version.js";
 export * from "./models-target.js";
+export * from "./models-generation.js";
+export * from "./effective-models.js";
+export * from "./effective-slot-state.js";
 //# sourceMappingURL=index.js.map

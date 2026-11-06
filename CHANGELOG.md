@@ -2,6 +2,18 @@
 
 ## Non rilasciato
 
+## v1.103.0 — Modelli col preset: scelta del preset, scelta effettiva, livello `preset` della cascata
+
+- `ModelChoiceSchema`, `toModelChoice`, `toCapabilityModelSettings` (`model-router/model-choice.ts`).
+- `consumerAccepts`, `linkedChoiceConflicts`.
+- `ModelsGenerationSchema`, `compareModelsGeneration` (il `presetId` entra nell'ordinamento), `modelsEtag`, `parseModelsEtag`.
+- `EffectiveModelsResponseSchema` e `internalModelsEffectiveContract` (`GET /internal/models/effective/:vaultAgentId`, token interno).
+- `EffectiveSlotStateSchema`, `slotFallback`.
+- `VAULT_TIERS` a quattro livelli con `preset` e `VaultGenericTierSchema` per le scritture generiche (valori di oggi).
+- Consumer: forge-v2 (vault, mp-forge 5220 e seguenti) e agent-core (mp-x9 5240 e seguenti).
+
+Si allarga `VaultTierSchema` (`preset`); `CredentialOwnTierSchema` e il livello dei file di workspace mantengono i valori di oggi; nessun altro schema si stringe.
+
 ## v1.102.0 — Officina video: elenco dell'archivio delle riprese, additivo
 
 - `GET /api/footage` (`officinaVideoFootageListContract`): identità e `person` in query, `VideoFootageListSchema` con id, posto, abito, inquadratura, gruppo, durata, scene, sha256 e nome originale di ogni ripresa.

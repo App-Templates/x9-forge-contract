@@ -1,17 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultTierSchema = exports.VAULT_TIERS = void 0;
+exports.VaultGenericTierSchema = exports.VAULT_GENERIC_TIERS = exports.VaultTierSchema = exports.VAULT_TIERS = void 0;
 exports.compareTiers = compareTiers;
 const zod_1 = require("zod");
 /**
- * 3-tier vault cascade. Order matches priority (lower index = lower priority):
- * platform < owner < agent. Agent tier overrides the other two.
+ * 4-tier vault cascade. Order matches priority (lower index = lower priority):
+ * platform < owner < preset < agent. Agent tier overrides the other three.
  *
  * @see forge-v2/services/vault/src/repositories/vault.repo.ts:5
  * @see forge-v2/services/vault/src/services/vault.service.ts:258 ("Merge: later tiers override earlier tiers")
  */
-exports.VAULT_TIERS = ['platform', 'owner', 'agent'];
+exports.VAULT_TIERS = ['platform', 'owner', 'preset', 'agent'];
 exports.VaultTierSchema = zod_1.z.enum(exports.VAULT_TIERS);
+/**
+ * Tiers the generic vault routes write: `preset` is written only by the preset
+ * routes, with its `presetId`.
+ */
+exports.VAULT_GENERIC_TIERS = ['platform', 'owner', 'agent'];
+exports.VaultGenericTierSchema = zod_1.z.enum(exports.VAULT_GENERIC_TIERS);
 /**
  * Compare two tiers by cascade priority. Returns -1 if `a` has lower priority than `b`,
  * 0 if equal, 1 if higher. Higher priority = overrides lower.

@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityModelSettingsSchema = void 0;
+exports.refinePinnedTiers = refinePinnedTiers;
+exports.refineSingleEmbedding = refineSingleEmbedding;
+exports.refineFailoverFunction = refineFailoverFunction;
 exports.modelSettingsSelections = modelSettingsSelections;
 exports.validateCapabilityModels = validateCapabilityModels;
 exports.sameCapabilityModelSettings = sameCapabilityModelSettings;
@@ -19,29 +22,33 @@ const base = {
     fallback: model_catalog_js_1.ModelDescriptorSchema,
 };
 const AutomaticModelSettingsSchema = zod_1.z.object({ ...base, mode: zod_1.z.literal('automatic') }).strict();
-const PinnedModelSettingsSchema = zod_1.z.object({ ...base, mode: zod_1.z.literal('pin'), pin: model_catalog_js_1.ModelDescriptorSchema }).strict().superRefine((settings, ctx) => {
+/** Shared refinements: used by CapabilityModelSettingsSchema and ModelChoiceSchema so both reject the same shapes. */
+function refinePinnedTiers(settings, ctx) {
     for (const tier of model_tier_js_1.MODEL_TIERS) {
         if (!(0, model_catalog_js_1.sameModelDescriptor)(settings.pin, settings.tiers[tier]))
             ctx.addIssue({ code: 'custom', path: ['tiers', tier], message: 'Every pinned tier must use the pinned descriptor' });
     }
     if (!(0, model_catalog_js_1.sameModelDescriptor)(settings.pin, settings.fallback))
         ctx.addIssue({ code: 'custom', path: ['fallback'], message: 'A pin must also cover the fallback descriptor' });
-});
+}
+function refineSingleEmbedding(settings, ctx) {
+    if ((settings.function === 'embedding') !== (settings.embeddingDimensions !== undefined))
+        ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });
+}
+function refineFailoverFunction(settings, ctx) {
+    if (settings.function === 'embedding')
+        ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });
+}
+const PinnedModelSettingsSchema = zod_1.z.object({ ...base, mode: zod_1.z.literal('pin'), pin: model_catalog_js_1.ModelDescriptorSchema }).strict().superRefine(refinePinnedTiers);
 const SingleModelSettingsSchema = zod_1.z.object({
     ...base, tiers: zod_1.z.never().optional(), fallback: zod_1.z.never().optional(),
     mode: zod_1.z.literal('single'), descriptor: model_catalog_js_1.ModelDescriptorSchema,
     embeddingDimensions: zod_1.z.number().int().positive().optional(),
-}).strict().superRefine((settings, ctx) => {
-    if ((settings.function === 'embedding') !== (settings.embeddingDimensions !== undefined))
-        ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });
-});
+}).strict().superRefine(refineSingleEmbedding);
 const FailoverModelSettingsSchema = zod_1.z.object({
     ...base, tiers: zod_1.z.never().optional(),
     mode: zod_1.z.literal('failover'), primary: model_catalog_js_1.ModelDescriptorSchema,
-}).strict().superRefine((settings, ctx) => {
-    if (settings.function === 'embedding')
-        ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });
-});
+}).strict().superRefine(refineFailoverFunction);
 /** Existing tiered choices remain unchanged; single and failover describe their actual executable paths. */
 exports.CapabilityModelSettingsSchema = zod_1.z.union([AutomaticModelSettingsSchema, PinnedModelSettingsSchema, SingleModelSettingsSchema, FailoverModelSettingsSchema]);
 /** The installed positions expected for one choice; never invent reasoning tiers for a single-model service. */

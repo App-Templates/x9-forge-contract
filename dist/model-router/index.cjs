@@ -59,6 +59,8 @@ Object.defineProperty(exports, "ModelHotReloadNotificationSchema", { enumerable:
 // Attested catalogs and capability-owned settings (M1a); no model ids or credentials embedded here.
 __exportStar(require("./model-catalog.cjs"), exports);
 __exportStar(require("./capability-model-settings.cjs"), exports);
+__exportStar(require("./model-choice.cjs"), exports);
+__exportStar(require("./consumer-accepts.cjs"), exports);
 __exportStar(require("./agent-model-configuration.cjs"), exports);
 __exportStar(require("./models-batch.cjs"), exports);
 // Canonical server-owned model consumer bindings; no runtime installation is inferred.
@@ -67,4 +69,7 @@ __exportStar(require("./model-chain.cjs"), exports);
 __exportStar(require("./model-consumer-execution.cjs"), exports);
 __exportStar(require("./models-version.cjs"), exports);
 __exportStar(require("./models-target.cjs"), exports);
+__exportStar(require("./models-generation.cjs"), exports);
+__exportStar(require("./effective-models.cjs"), exports);
+__exportStar(require("./effective-slot-state.cjs"), exports);
 //# sourceMappingURL=index.js.map

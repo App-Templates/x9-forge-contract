@@ -1,5 +1,19 @@
 import { z } from 'zod';
+import type { ModelTier } from "./model-tier.js";
 import { ModelDescriptorSchema, ModelFeaturesSchema } from "./model-catalog.js";
+/** Shared refinements: used by CapabilityModelSettingsSchema and ModelChoiceSchema so both reject the same shapes. */
+export declare function refinePinnedTiers(settings: {
+    pin: z.infer<typeof ModelDescriptorSchema>;
+    tiers: Record<ModelTier, z.infer<typeof ModelDescriptorSchema>>;
+    fallback: z.infer<typeof ModelDescriptorSchema>;
+}, ctx: z.RefinementCtx): void;
+export declare function refineSingleEmbedding(settings: {
+    function: string;
+    embeddingDimensions?: number | undefined;
+}, ctx: z.RefinementCtx): void;
+export declare function refineFailoverFunction(settings: {
+    function: string;
+}, ctx: z.RefinementCtx): void;
 /** Existing tiered choices remain unchanged; single and failover describe their actual executable paths. */
 export declare const CapabilityModelSettingsSchema: z.ZodUnion<readonly [z.ZodObject<{
     mode: z.ZodLiteral<"automatic">;
