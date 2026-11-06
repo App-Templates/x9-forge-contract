@@ -8,9 +8,31 @@ import { VideoBriefRequestSchema, VideoModeSchema, VideoRequestChoicesSchema, Vi
  * Tenant, owner and agent come only from the tool envelope agent-core admitted (R-33), never from the model.
  */
 export const VideoBriefToolInputSchema = VideoBriefRequestSchema.omit({ identity: true, requestedBy: true }).extend({
+  presetId: VideoPresetIdSchema.describe("Id di un preset dell'Officina, come lo restituisce video_presets_list (es. «singola»)."),
   requestedBy: VideoBriefRequestSchema.shape.requestedBy.optional(),
 }).strict();
 export type VideoBriefToolInput = z.infer<typeof VideoBriefToolInputSchema>;
+
+/** Identity comes only from the admitted tool envelope (R-33). */
+export const VideoPresetsListToolInputSchema = z.strictObject({});
+export type VideoPresetsListToolInput = z.infer<typeof VideoPresetsListToolInputSchema>;
+
+/** Number of archive shots used by a preset. */
+export const VideoPresetFootageShotsSchema = z.union([z.literal(0), z.literal(1), z.literal(2)]);
+export type VideoPresetFootageShots = z.infer<typeof VideoPresetFootageShotsSchema>;
+
+export const VideoPresetSummarySchema = z.strictObject({
+  id: VideoPresetIdSchema,
+  title: z.string().min(1).max(200),
+  expectedCostUsd: z.number().nonnegative().finite(),
+  footageShots: VideoPresetFootageShotsSchema,
+});
+export type VideoPresetSummary = z.infer<typeof VideoPresetSummarySchema>;
+
+export const VideoPresetsListResponseSchema = z.strictObject({
+  presets: z.array(VideoPresetSummarySchema).min(1),
+});
+export type VideoPresetsListResponse = z.infer<typeof VideoPresetsListResponseSchema>;
 
 /** What the model writes when an agent calls `video_project_get`. */
 export const VideoProjectGetToolInputSchema = z.object({ projectId: VideoProjectIdSchema }).strict();
