@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.100.0 — Officina video: aggiungere una ripresa all'archivio del motore, additivo
+
+- `POST /api/footage` (`officinaVideoFootageAddContract`): corpo binario mp4/mov/m4v fino a 256 MiB, metadati e identità in query, 202 `VideoFootageJobAcceptedSchema`, 422 sincrono `VideoEngineFootageRejectedSchema`.
+- `GET /api/footage/jobs/:jobId` (`officinaVideoFootageJobGetContract`, `VideoFootageJobSchema`): `queued`, `running`, `completed` con id, scene e durata, `rejected` con `code` fra `doppione`, `illeggibile`, `troppo_corta`, `risoluzione_bassa`, `senza_volto`, `nessuna_scena`, `failed`, `interrupted`.
+- Catalogo Python: i due transports (`videoEngineFootageAdd`, `videoEngineFootageJobGet`) e i cinque contratti `videoEngineFootage*`.
+- Consumer: motore (ov-motore 3406) e cap-video (connettore Drive, scheda futura).
+
+Nessuno schema zod si stringe: due rotte e schemi nuovi.
+
 ## v1.99.0 — Officina video: elenco dei preset per il modello, additivo
 
 - `video_presets_list`: `VideoPresetsListToolInputSchema`, `VideoPresetSummarySchema`, `VideoPresetsListResponseSchema`; riprese dell'archivio tipizzate con `VideoPresetFootageShotsSchema`.
