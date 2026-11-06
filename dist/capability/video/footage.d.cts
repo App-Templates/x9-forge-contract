@@ -130,4 +130,48 @@ export declare const VideoFootageJobQuerySchema: z.ZodObject<{
     tenantId: z.ZodString;
 }, z.core.$strict>;
 export type VideoFootageJobQuery = z.infer<typeof VideoFootageJobQuerySchema>;
+/** Query of `GET /api/footage`: the identity and the person whose archive is read. */
+export declare const VideoFootageListQuerySchema: z.ZodObject<{
+    person: z.ZodString;
+    agentId: z.ZodString;
+    ownerId: z.ZodString;
+    tenantId: z.ZodString;
+}, z.core.$strict>;
+export type VideoFootageListQuery = z.infer<typeof VideoFootageListQuerySchema>;
+/** One shot of the archive (`id`, `posto`, `abito`, `inquadratura`, `gruppo`, `durata`, `sha256`, `originale` of `archivio.json`). */
+export declare const VideoFootageShotSchema: z.ZodObject<{
+    id: z.ZodString;
+    place: z.ZodString;
+    outfit: z.ZodString;
+    framing: z.ZodEnum<{
+        largo: "largo";
+        medio: "medio";
+        stretto: "stretto";
+    }>;
+    group: z.ZodOptional<z.ZodString>;
+    durationSeconds: z.ZodNumber;
+    scenes: z.ZodNumber;
+    sha256: z.ZodString;
+    fileName: z.ZodString;
+}, z.core.$strict>;
+export type VideoFootageShot = z.infer<typeof VideoFootageShotSchema>;
+export declare const VideoFootageListSchema: z.ZodObject<{
+    person: z.ZodString;
+    shots: z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        place: z.ZodString;
+        outfit: z.ZodString;
+        framing: z.ZodEnum<{
+            largo: "largo";
+            medio: "medio";
+            stretto: "stretto";
+        }>;
+        group: z.ZodOptional<z.ZodString>;
+        durationSeconds: z.ZodNumber;
+        scenes: z.ZodNumber;
+        sha256: z.ZodString;
+        fileName: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type VideoFootageList = z.infer<typeof VideoFootageListSchema>;
 //# sourceMappingURL=footage.d.ts.map

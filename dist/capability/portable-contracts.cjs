@@ -166,6 +166,8 @@ function getPortableCapabilityContracts() {
     add('videoEngineFootageRejected', footage_js_1.VideoEngineFootageRejectedSchema, [], 0);
     add('videoEngineFootageJobQuery', footage_js_1.VideoFootageJobQuerySchema, [], 0);
     add('videoEngineFootageJob', footage_js_1.VideoFootageJobSchema, [], 0);
+    add('videoEngineFootageListQuery', footage_js_1.VideoFootageListQuerySchema, [], 0);
+    add('videoEngineFootageList', footage_js_1.VideoFootageListSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -201,6 +203,7 @@ function getPortableCapabilityContracts() {
                 bodyMediaTypes: officina_video_js_1.officinaVideoFootageAddContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoFootageAddContract.maxBodyBytes,
             },
             videoEngineFootageJobGet: { ...transport(officina_video_js_1.officinaVideoFootageJobGetContract), queryContract: 'videoEngineFootageJobQuery', responseContract: 'videoEngineFootageJob', errorContract: 'videoEngineError' },
+            videoEngineFootageList: { ...transport(officina_video_js_1.officinaVideoFootageListContract), queryContract: 'videoEngineFootageListQuery', responseContract: 'videoEngineFootageList', errorContract: 'videoEngineError' },
             videoEngineMedia: {
                 method: 'GET', path: '/media/:engineProjectId/:file', authHeader: auth_headers_js_1.INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError',
                 paramsSchema: zod_1.z.toJSONSchema(zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineIdSchema, file: zod_1.z.string().regex(/^[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/) }).strict()),

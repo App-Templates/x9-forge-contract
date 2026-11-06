@@ -58,4 +58,25 @@ export const VideoFootageJobSchema = z.discriminatedUnion('status', [
     z.strictObject({ ...jobBase, status: z.literal('interrupted'), error: VideoFootageErrorTextSchema }),
 ]);
 export const VideoFootageJobQuerySchema = CapabilityAgentScopeSchema;
+/** Query of `GET /api/footage`: the identity and the person whose archive is read. */
+export const VideoFootageListQuerySchema = z.strictObject({
+    ...CapabilityAgentScopeSchema.shape,
+    person: VideoFootagePersonSchema,
+});
+/** One shot of the archive (`id`, `posto`, `abito`, `inquadratura`, `gruppo`, `durata`, `sha256`, `originale` of `archivio.json`). */
+export const VideoFootageShotSchema = z.strictObject({
+    id: VideoFootageIdSchema,
+    place: VideoFootagePlaceSchema,
+    outfit: z.string().min(1).max(80),
+    framing: VideoFootageFramingSchema,
+    group: VideoFootageIdSchema.optional(),
+    durationSeconds: z.number().positive(),
+    scenes: z.number().int().nonnegative(),
+    sha256: z.string().regex(/^[0-9a-f]{64}$/),
+    fileName: z.string().min(1).max(300),
+});
+export const VideoFootageListSchema = z.strictObject({
+    person: VideoFootagePersonSchema,
+    shots: z.array(VideoFootageShotSchema).max(500),
+});
 //# sourceMappingURL=footage.js.map

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoFootageListContract = exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
 const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
@@ -117,6 +117,19 @@ exports.officinaVideoFootageJobGetContract = {
     paramsSchema: zod_1.z.object({ jobId: footage_js_1.VideoFootageJobIdSchema }).strict(),
     querySchema: footage_js_1.VideoFootageJobQuerySchema,
     responseSchema: footage_js_1.VideoFootageJobSchema,
+    responseStatus: 200,
+};
+/**
+ * cap-video -> engine: the footage archive of one person of the tenant. A person without an archive is `shots: []`.
+ * Internal, INTERNAL_SECRET_HEADER only.
+ */
+exports.officinaVideoFootageListContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/footage',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: footage_js_1.VideoFootageListQuerySchema,
+    responseSchema: footage_js_1.VideoFootageListSchema,
     responseStatus: 200,
 };
 //# sourceMappingURL=officina-video.js.map
