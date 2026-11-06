@@ -49,6 +49,7 @@ export type { ModelHotReloadNotification } from './model-hot-reload.js';
 export * from './model-catalog.js';
 export * from './capability-model-settings.js';
 export * from './model-choice.js';
+export * from './consumer-accepts.js';
 export * from './agent-model-configuration.js';
 export * from './models-batch.js';
 
