@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.107.0 — la data delle tappe del piano di reparto è facoltativa
+
+- `@x9-forge/contracts/organization`: `VerticalPlanSchema.milestones[].dueDate` diventa facoltativa (`z.iso.date().optional()`, descrizione neutra «giorno della tappa, se esiste»); se presente, resta una data ISO valida. Anche l'evento `sent` dell'osservazione accetta piani senza date per eredità dello schema.
+- I piani con date conservano testo canonico e impronta SHA-256; nessun dato salvato cambia. Consumer: X9 (5111) e cap-email (5112), che deve gestire le tappe senza data nell'email.
+
 ## v1.106.0 — la data delle tappe è facoltativa
 
 - `@x9-forge/contracts/organization`: `milestones[].dueDate` del piano d'azione diventa facoltativa (`z.iso.date().optional()`, descrizione neutra «giorno della tappa, se esiste»). Un campo obbligatorio diventa facoltativo: nessun dato salvato cambia, e un piano già salvato conserva testo canonico e impronta sha256 (prova sulla fixture v3 di produzione). `verticalPlanDueBy` e `CompleteActionPlanSchema` restano come sono.

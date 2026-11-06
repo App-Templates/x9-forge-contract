@@ -28,7 +28,7 @@ export declare const VerticalPlanSchema: z.ZodObject<{
     milestones: z.ZodArray<z.ZodObject<{
         number: z.ZodNumber;
         expectedGoal: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;
     blockers: z.ZodArray<z.ZodObject<{
