@@ -10,6 +10,7 @@ export declare const VideoBriefToolInputSchema: z.ZodObject<{
         autonomous: "autonomous";
     }>;
     durationSeconds: z.ZodOptional<z.ZodNumber>;
+    footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
     aspectRatio: z.ZodOptional<z.ZodEnum<{
         "9:16": "9:16";
         "16:9": "16:9";
@@ -24,7 +25,6 @@ export declare const VideoBriefToolInputSchema: z.ZodObject<{
     budgetUsd: z.ZodNumber;
     brief: z.ZodString;
     externalRef: z.ZodOptional<z.ZodString>;
-    footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
     presetId: z.ZodString;
     requestedBy: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;

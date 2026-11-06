@@ -97,8 +97,8 @@ export declare const InternalMemoryKnowledgePublishRequestSchema: z.ZodObject<{
             kind: z.ZodEnum<{
                 access: "access";
                 referent: "referent";
-                asset: "asset";
                 person: "person";
+                asset: "asset";
                 responsibility: "responsibility";
             }>;
             key: z.ZodString;
@@ -305,8 +305,8 @@ export declare const internalMemoryKnowledgePublishContract: {
                 kind: z.ZodEnum<{
                     access: "access";
                     referent: "referent";
-                    asset: "asset";
                     person: "person";
+                    asset: "asset";
                     responsibility: "responsibility";
                 }>;
                 key: z.ZodString;
