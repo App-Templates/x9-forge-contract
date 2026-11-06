@@ -33,6 +33,16 @@ export {
 } from './vault-entry.js';
 export type { VaultEntryPlain, VaultEntryEncrypted, VaultCascadeEntryPlain } from './vault-entry.js';
 
+// Resolved agent credentials
+export {
+  VaultResolvedEntrySchema,
+  VaultResolvedResponseSchema,
+  internalVaultResolvedContract,
+  vaultResolvedPath,
+  PRIMARY_FORGE_PROVIDER_KEYS,
+} from './vault-resolved.js';
+export type { VaultResolvedEntry, VaultResolvedResponse } from './vault-resolved.js';
+
 // Sync event
 export {
   SyncAgentResultSchema,
