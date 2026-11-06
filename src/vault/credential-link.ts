@@ -28,7 +28,7 @@ export { CredentialKeySchema, type CredentialKey } from './credential-key.js';
 export const CredentialVersionSchema = z.number().int().positive();
 export type CredentialVersion = z.infer<typeof CredentialVersionSchema>;
 
-export const CredentialOwnTierSchema = VaultTierSchema.exclude(['platform']);
+export const CredentialOwnTierSchema = VaultTierSchema.exclude(['platform', 'preset']);
 export type CredentialOwnTier = z.infer<typeof CredentialOwnTierSchema>;
 
 export const CredentialLinkSchema = z.discriminatedUnion('link', [

@@ -8,8 +8,14 @@
  */
 
 // Tier
-export { VaultTierSchema, VAULT_TIERS, compareTiers } from './vault-tier.js';
-export type { VaultTier } from './vault-tier.js';
+export {
+  VaultTierSchema,
+  VAULT_TIERS,
+  VaultGenericTierSchema,
+  VAULT_GENERIC_TIERS,
+  compareTiers,
+} from './vault-tier.js';
+export type { VaultTier, VaultGenericTier } from './vault-tier.js';
 
 // Sync state
 export { VaultSyncStateSchema, VAULT_SYNC_STATES, toSyncState } from './vault-sync-state.js';
