@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.102.0 — Officina video: elenco dell'archivio delle riprese, additivo
+
+- `GET /api/footage` (`officinaVideoFootageListContract`): identità e `person` in query, `VideoFootageListSchema` con id, posto, abito, inquadratura, gruppo, durata, scene, sha256 e nome originale di ogni ripresa.
+- Catalogo Python: transport `videoEngineFootageList` e i due contratti `videoEngineFootageListQuery` e `videoEngineFootageList`.
+- Consumer: motore (ov-motore 3423) e cap-video (ov-x9 3415, 3418, 3424-3426).
+
+Nessuno schema zod si stringe: una rotta e schemi nuovi.
+
 ## v1.101.0 — Officina video: riprese da una cartella di Google Drive, additivo
 
 - `video_footage_sync`: `VideoFootageSyncToolInputSchema` (`person` e `folder` facoltativo, link o id); `VideoFootageSyncResponseSchema` con esito `sincronizzata` (stato di ogni file), `oltre_il_tetto`, `serve_google` (con `drive_read`), `cartella_illeggibile`.

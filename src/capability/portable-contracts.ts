@@ -5,13 +5,13 @@ import { ToolCallRequestSchema } from './tool-call.js';
 import { RagQueryRequestSchema, RagQueryResponseSchema } from '../rag/rag-query.js';
 import { VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema, VideoEngineRouteRunRequestSchema, VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineIdSchema } from './video/engine.js';
 import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from './video/story.js';
-import { VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoEngineFootageRejectedSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema } from './video/footage.js';
+import { VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoEngineFootageRejectedSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoFootageListQuerySchema, VideoFootageListSchema } from './video/footage.js';
 import { AgentOrdinaryAuthorityQuerySchema, AgentOrdinaryAuthoritySchema, parseAgentOrdinaryAuthorityResponse } from '../agent/ordinary-authority.js';
 import { CapabilityOrdinaryBundleReferenceSchema, CapabilityOrdinaryLifecycleRequestSchema, CapabilityOrdinaryLifecycleReceiptSchema, CapabilityOrdinaryLifecycleTransactionSchema, parseCapabilityOrdinaryLifecycle, parseCapabilityOrdinaryLifecycleReceipt } from './ordinary-lifecycle.js';
 import { agentOrdinaryAuthorityContract } from '../http/endpoints/internal-agents-ordinary-authority.js';
 import { ordinaryCapabilityLifecyclePutContract, ordinaryCapabilityAgentConfigGetContract } from '../http/endpoints/internal-capability-agent.js';
 import { capToolCallContract } from '../http/endpoints/cap-tool-call.js';
-import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract } from '../http/endpoints/officina-video.js';
+import { officinaVideoJobContract, officinaVideoHealthContract, officinaVideoStoryContract, officinaVideoStoryEstimateContract, officinaVideoProjectGetContract, officinaVideoPlanContract, officinaVideoApproveContract, officinaVideoRunContract, officinaVideoFootageAddContract, officinaVideoFootageJobGetContract, officinaVideoFootageListContract } from '../http/endpoints/officina-video.js';
 import { INTERNAL_SECRET_HEADER } from '../auth/auth-headers.js';
 
 // Narrow using canonical schemas, never copied definitions. Structured refinement portability is gated.
@@ -183,6 +183,8 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   add('videoEngineFootageRejected', VideoEngineFootageRejectedSchema, [], 0);
   add('videoEngineFootageJobQuery', VideoFootageJobQuerySchema, [], 0);
   add('videoEngineFootageJob', VideoFootageJobSchema, [], 0);
+  add('videoEngineFootageListQuery', VideoFootageListQuerySchema, [], 0);
+  add('videoEngineFootageList', VideoFootageListSchema, [], 0);
   add('authorityQuery', AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: z.toJSONSchema(CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
   add('authorityResponse', authorityResponse, authorityRules, 2);
   contracts.authorityResponse!.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -198,7 +200,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
   for (const name of ['lifecycleRequest', 'lifecycleReceipt', 'lifecycleTransaction', 'lifecycleAuthority']) {
     contracts[name]!.limitations = ['Only null or frozen configurations with zero parameters; durable effects and reconciliation are consumer-owned'];
   }
-  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract | typeof officinaVideoStoryEstimateContract | typeof officinaVideoProjectGetContract | typeof officinaVideoPlanContract | typeof officinaVideoApproveContract | typeof officinaVideoRunContract | typeof officinaVideoFootageAddContract | typeof officinaVideoFootageJobGetContract) => ({
+  const transport = (contract: typeof agentOrdinaryAuthorityContract | typeof ordinaryCapabilityLifecyclePutContract | typeof ordinaryCapabilityAgentConfigGetContract | typeof capToolCallContract | typeof officinaVideoJobContract | typeof officinaVideoHealthContract | typeof officinaVideoStoryContract | typeof officinaVideoStoryEstimateContract | typeof officinaVideoProjectGetContract | typeof officinaVideoPlanContract | typeof officinaVideoApproveContract | typeof officinaVideoRunContract | typeof officinaVideoFootageAddContract | typeof officinaVideoFootageJobGetContract | typeof officinaVideoFootageListContract) => ({
     method: contract.method, path: contract.path, authHeader: INTERNAL_SECRET_HEADER, paramsSchema: z.toJSONSchema(contract.paramsSchema),
   });
   return { format: 'x9-capability-portable-v1', contracts, transports: {
@@ -218,6 +220,7 @@ export function getPortableCapabilityContracts(): PortableCapabilityCatalog {
       bodyMediaTypes: officinaVideoFootageAddContract.bodyMediaTypes, maxBodyBytes: officinaVideoFootageAddContract.maxBodyBytes,
     },
     videoEngineFootageJobGet: { ...transport(officinaVideoFootageJobGetContract), queryContract: 'videoEngineFootageJobQuery', responseContract: 'videoEngineFootageJob', errorContract: 'videoEngineError' },
+    videoEngineFootageList: { ...transport(officinaVideoFootageListContract), queryContract: 'videoEngineFootageListQuery', responseContract: 'videoEngineFootageList', errorContract: 'videoEngineError' },
     videoEngineMedia: {
       method: 'GET', path: '/media/:engineProjectId/:file', authHeader: INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError',
       paramsSchema: z.toJSONSchema(z.object({ engineProjectId: VideoEngineIdSchema, file: z.string().regex(/^[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/) }).strict()),

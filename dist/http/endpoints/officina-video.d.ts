@@ -546,4 +546,47 @@ export declare const officinaVideoFootageJobGetContract: {
     }, z.core.$strict>], "status">;
     readonly responseStatus: 200;
 };
+/**
+ * cap-video -> engine: the footage archive of one person of the tenant. A person without an archive is `shots: []`.
+ * Internal, INTERNAL_SECRET_HEADER only.
+ */
+export declare const officinaVideoFootageListContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/footage";
+    readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        person: z.ZodString;
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        person: z.ZodString;
+        shots: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            place: z.ZodString;
+            outfit: z.ZodString;
+            framing: z.ZodEnum<{
+                largo: "largo";
+                medio: "medio";
+                stretto: "stretto";
+            }>;
+            group: z.ZodOptional<z.ZodString>;
+            durationSeconds: z.ZodNumber;
+            scenes: z.ZodNumber;
+            sha256: z.ZodString;
+            fileName: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    readonly responseStatus: 200;
+};
 //# sourceMappingURL=officina-video.d.ts.map

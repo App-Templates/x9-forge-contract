@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoFootageJobQuerySchema = exports.VideoFootageJobSchema = exports.VideoFootageAddedSchema = exports.VideoEngineFootageRejectedSchema = exports.VideoFootageRejectionReasonSchema = exports.VideoFootageJobAcceptedSchema = exports.VideoFootageJobIdSchema = exports.VideoFootageAddQuerySchema = exports.VideoFootageFileNameSchema = exports.VideoFootageFramingSchema = exports.VideoFootagePlaceSchema = exports.VideoFootagePersonSchema = exports.VIDEO_FOOTAGE_MAX_PER_PERSON = exports.VIDEO_FOOTAGE_MEDIA_TYPES = exports.VIDEO_FOOTAGE_MAX_BYTES = exports.VideoFootageChoiceSchema = exports.VideoFootageIdSchema = void 0;
+exports.VideoFootageListSchema = exports.VideoFootageShotSchema = exports.VideoFootageListQuerySchema = exports.VideoFootageJobQuerySchema = exports.VideoFootageJobSchema = exports.VideoFootageAddedSchema = exports.VideoEngineFootageRejectedSchema = exports.VideoFootageRejectionReasonSchema = exports.VideoFootageJobAcceptedSchema = exports.VideoFootageJobIdSchema = exports.VideoFootageAddQuerySchema = exports.VideoFootageFileNameSchema = exports.VideoFootageFramingSchema = exports.VideoFootagePlaceSchema = exports.VideoFootagePersonSchema = exports.VIDEO_FOOTAGE_MAX_PER_PERSON = exports.VIDEO_FOOTAGE_MEDIA_TYPES = exports.VIDEO_FOOTAGE_MAX_BYTES = exports.VideoFootageChoiceSchema = exports.VideoFootageIdSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 /** Id of one shot of the footage archive on the engine (e.g. `piante-02`). Never a path. */
@@ -61,4 +61,25 @@ exports.VideoFootageJobSchema = zod_1.z.discriminatedUnion('status', [
     zod_1.z.strictObject({ ...jobBase, status: zod_1.z.literal('interrupted'), error: VideoFootageErrorTextSchema }),
 ]);
 exports.VideoFootageJobQuerySchema = capability_call_identity_js_1.CapabilityAgentScopeSchema;
+/** Query of `GET /api/footage`: the identity and the person whose archive is read. */
+exports.VideoFootageListQuerySchema = zod_1.z.strictObject({
+    ...capability_call_identity_js_1.CapabilityAgentScopeSchema.shape,
+    person: exports.VideoFootagePersonSchema,
+});
+/** One shot of the archive (`id`, `posto`, `abito`, `inquadratura`, `gruppo`, `durata`, `sha256`, `originale` of `archivio.json`). */
+exports.VideoFootageShotSchema = zod_1.z.strictObject({
+    id: exports.VideoFootageIdSchema,
+    place: exports.VideoFootagePlaceSchema,
+    outfit: zod_1.z.string().min(1).max(80),
+    framing: exports.VideoFootageFramingSchema,
+    group: exports.VideoFootageIdSchema.optional(),
+    durationSeconds: zod_1.z.number().positive(),
+    scenes: zod_1.z.number().int().nonnegative(),
+    sha256: zod_1.z.string().regex(/^[0-9a-f]{64}$/),
+    fileName: zod_1.z.string().min(1).max(300),
+});
+exports.VideoFootageListSchema = zod_1.z.strictObject({
+    person: exports.VideoFootagePersonSchema,
+    shots: zod_1.z.array(exports.VideoFootageShotSchema).max(500),
+});
 //# sourceMappingURL=footage.js.map

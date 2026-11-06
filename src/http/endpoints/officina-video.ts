@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from '../../capability/video/story.js';
 import { VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema, VideoEngineRouteRunRequestSchema, VideoEngineMediaPathSchema } from '../../capability/video/engine.js';
-import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoFootageJobIdSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoEngineFootageRejectedSchema } from '../../capability/video/footage.js';
+import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoFootageJobIdSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoEngineFootageRejectedSchema, VideoFootageListQuerySchema, VideoFootageListSchema } from '../../capability/video/footage.js';
 
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
@@ -125,5 +125,19 @@ export const officinaVideoFootageJobGetContract = {
   paramsSchema: z.object({ jobId: VideoFootageJobIdSchema }).strict(),
   querySchema: VideoFootageJobQuerySchema,
   responseSchema: VideoFootageJobSchema,
+  responseStatus: 200,
+} as const;
+
+/**
+ * cap-video -> engine: the footage archive of one person of the tenant. A person without an archive is `shots: []`.
+ * Internal, INTERNAL_SECRET_HEADER only.
+ */
+export const officinaVideoFootageListContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/footage',
+  paramsSchema: z.object({}).strict(),
+  querySchema: VideoFootageListQuerySchema,
+  responseSchema: VideoFootageListSchema,
   responseStatus: 200,
 } as const;
