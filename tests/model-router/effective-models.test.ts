@@ -140,7 +140,10 @@ describe('EffectiveModelsResponseSchema', () => {
 
 describe('EffectiveModelSlotSchema', () => {
   it.each(['active', 'retired', 'retired-no-successor'])('accepts status %s and upgrade metadata', status => {
-    expect(EffectiveModelSlotSchema.safeParse({ ...chatSlot(), status, upgradedFrom: 'previous-model' }).success).toBe(true);
+    const retirement = status === 'active'
+      ? {}
+      : { retirement: { modelId: 'previous-model', reason: 'registry', observedAt: '2026-11-06T01:00:00+01:00' } };
+    expect(EffectiveModelSlotSchema.safeParse({ ...chatSlot(), status, upgradedFrom: 'previous-model', ...retirement }).success).toBe(true);
   });
 
   it.each([
