@@ -78,3 +78,12 @@ export type { AgentVaultedCredentials } from './agent-vaulted-credentials.js';
 
 // Keys linked to the Master Chief: provenance, versions, rotate/relink/unlink outcomes (R3, v1.31.0)
 export * from './credential-link.js';
+
+// Credential sources and counters scoped to one source
+export {
+  CredentialSourceIdSchema,
+  credentialSourceOf,
+  CredentialVersionRefSchema,
+  compareCredentialVersions,
+} from './credential-source.js';
+export type { CredentialSourceId, CredentialVersionRef } from './credential-source.js';
