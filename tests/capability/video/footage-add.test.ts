@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -16,6 +16,7 @@ const identity = { tenantId: 'tenant-1', ownerId: 'owner-1', agentId: 'agent-1' 
 const query = { ...identity, person: 'stefano', place: 'piscina', outfit: 'maglietta grigia', framing: 'largo', fileName: 'IMG_0412 (1).MOV' };
 const jobId = 'a'.repeat(32);
 const base = { jobId, fileName: 'clip.mp4' };
+const expectedRejectionReasons = ['doppione', 'illeggibile', 'troppo_corta', 'risoluzione_bassa', 'senza_volto', 'nessuna_scena'];
 const jobs: Record<string, unknown> = {
   queued: { ...base, status: 'queued' },
   running: { ...base, status: 'running' },
@@ -59,6 +60,10 @@ describe('footage add: query', () => {
 });
 
 describe('footage add: job state and rejection', () => {
+  it('pins the exact ordered rejection reasons of the engine archive', () => {
+    expect(VideoFootageRejectionReasonSchema.options).toEqual(expectedRejectionReasons);
+  });
+
   for (const [status, value] of Object.entries(jobs)) {
     it(`accepts ${status}`, () => expect(VideoFootageJobSchema.safeParse(value).success).toBe(true));
   }
@@ -84,6 +89,21 @@ describe('footage add: job state and rejection', () => {
 });
 
 describe('footage add: catalog', () => {
+  it('pins the upload limit to 256 MiB', () => {
+    expect(VIDEO_FOOTAGE_MAX_BYTES).toBe(256 * 1024 * 1024);
+    expect(getPortableCapabilityContracts().transports.videoEngineFootageAdd?.maxBodyBytes).toBe(256 * 1024 * 1024);
+  });
+
+  it('ships the exact ordered rejection reasons and upload limit in the Python catalog', () => {
+    const shipped: ReturnType<typeof getPortableCapabilityContracts> = JSON.parse(
+      readFileSync(resolve('dist/python/capabilities.contracts.json'), 'utf8'),
+    );
+    expect(shipped.contracts.videoEngineFootageRejected).toMatchObject({
+      schema: { properties: { code: { enum: expectedRejectionReasons } } },
+    });
+    expect(shipped.transports.videoEngineFootageAdd?.maxBodyBytes).toBe(256 * 1024 * 1024);
+  });
+
   it('describes the two transports', () => {
     const { contracts, transports } = getPortableCapabilityContracts();
     expect(transports.videoEngineFootageAdd).toMatchObject({
