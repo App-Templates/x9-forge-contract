@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoBriefToolInputSchema = void 0;
+exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoPresetsListResponseSchema = exports.VideoPresetSummarySchema = exports.VideoPresetFootageShotsSchema = exports.VideoPresetsListToolInputSchema = exports.VideoBriefToolInputSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const story_js_1 = require("./story.cjs");
@@ -10,8 +10,22 @@ const brief_js_1 = require("./brief.cjs");
  * Tenant, owner and agent come only from the tool envelope agent-core admitted (R-33), never from the model.
  */
 exports.VideoBriefToolInputSchema = brief_js_1.VideoBriefRequestSchema.omit({ identity: true, requestedBy: true }).extend({
+    presetId: brief_js_1.VideoPresetIdSchema.describe("Id di un preset dell'Officina, come lo restituisce video_presets_list (es. «singola»)."),
     requestedBy: brief_js_1.VideoBriefRequestSchema.shape.requestedBy.optional(),
 }).strict();
+/** Identity comes only from the admitted tool envelope (R-33). */
+exports.VideoPresetsListToolInputSchema = zod_1.z.strictObject({});
+/** Number of archive shots used by a preset. */
+exports.VideoPresetFootageShotsSchema = zod_1.z.union([zod_1.z.literal(0), zod_1.z.literal(1), zod_1.z.literal(2)]);
+exports.VideoPresetSummarySchema = zod_1.z.strictObject({
+    id: brief_js_1.VideoPresetIdSchema,
+    title: zod_1.z.string().min(1).max(200),
+    expectedCostUsd: zod_1.z.number().nonnegative().finite(),
+    footageShots: exports.VideoPresetFootageShotsSchema,
+});
+exports.VideoPresetsListResponseSchema = zod_1.z.strictObject({
+    presets: zod_1.z.array(exports.VideoPresetSummarySchema).min(1),
+});
 /** What the model writes when an agent calls `video_project_get`. */
 exports.VideoProjectGetToolInputSchema = zod_1.z.object({ projectId: brief_js_1.VideoProjectIdSchema }).strict();
 /** Revision of the script the regia wrote; a correction is always based on the one the person read. */

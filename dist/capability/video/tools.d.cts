@@ -20,15 +20,37 @@ export declare const VideoBriefToolInputSchema: z.ZodObject<{
         "720p": "720p";
         "1080p": "1080p";
     }>>;
-    presetId: z.ZodString;
     approverEmail: z.ZodEmail;
     budgetUsd: z.ZodNumber;
     brief: z.ZodString;
     externalRef: z.ZodOptional<z.ZodString>;
     footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    presetId: z.ZodString;
     requestedBy: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type VideoBriefToolInput = z.infer<typeof VideoBriefToolInputSchema>;
+/** Identity comes only from the admitted tool envelope (R-33). */
+export declare const VideoPresetsListToolInputSchema: z.ZodObject<{}, z.core.$strict>;
+export type VideoPresetsListToolInput = z.infer<typeof VideoPresetsListToolInputSchema>;
+/** Number of archive shots used by a preset. */
+export declare const VideoPresetFootageShotsSchema: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>]>;
+export type VideoPresetFootageShots = z.infer<typeof VideoPresetFootageShotsSchema>;
+export declare const VideoPresetSummarySchema: z.ZodObject<{
+    id: z.ZodString;
+    title: z.ZodString;
+    expectedCostUsd: z.ZodNumber;
+    footageShots: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>]>;
+}, z.core.$strict>;
+export type VideoPresetSummary = z.infer<typeof VideoPresetSummarySchema>;
+export declare const VideoPresetsListResponseSchema: z.ZodObject<{
+    presets: z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        title: z.ZodString;
+        expectedCostUsd: z.ZodNumber;
+        footageShots: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>]>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type VideoPresetsListResponse = z.infer<typeof VideoPresetsListResponseSchema>;
 /** What the model writes when an agent calls `video_project_get`. */
 export declare const VideoProjectGetToolInputSchema: z.ZodObject<{
     projectId: z.ZodString;
