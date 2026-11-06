@@ -10,7 +10,7 @@ import {
   VideoEngineRouteRunRequestSchema, VideoEngineErrorSchema, VideoEngineHealthSchema,
   VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema,
   VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoEngineFootageRejectedSchema,
-  VideoFootageJobQuerySchema, VideoFootageJobSchema,
+  VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoFootageListQuerySchema, VideoFootageListSchema,
 } from '../../../src/capability/video/index.js';
 import { getPortableCapabilityContracts } from '../../../src/capability/portable-contracts.js';
 
@@ -283,6 +283,47 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
         ...footageJob, status: 'completed', footage: { id: 'piscina-03', scenes: 0, durationSeconds: 12.5 },
       },
       'extra field': { ...footageJob, status: 'queued', extra: true },
+    },
+  },
+  videoEngineFootageListQuery: {
+    schema: VideoFootageListQuerySchema, minimum: 1,
+    cases: {
+      'scoped list': { ...job.identity, person: 'stefano' },
+      'person path': { ...job.identity, person: '../x' },
+      'missing person': job.identity,
+      'extra field': { ...job.identity, person: 'stefano', extra: true },
+    },
+  },
+  videoEngineFootageList: {
+    schema: VideoFootageListSchema,
+    cases: {
+      'empty archive': { person: 'stefano', shots: [] },
+      'one shot': { person: 'stefano', shots: [{
+        id: 'piscina-03', place: 'piscina', outfit: 'grey shirt', framing: 'largo', durationSeconds: 12.5, scenes: 3,
+        sha256: 'a'.repeat(64), fileName: 'piscina.mp4',
+      }] },
+      'grouped shot': { person: 'stefano', shots: [{
+        id: 'piscina-04', place: 'piscina', outfit: 'grey shirt', framing: 'stretto', group: 'piscina-03', durationSeconds: 8, scenes: 0,
+        sha256: 'b'.repeat(64), fileName: 'piscina-stretto.mp4',
+      }] },
+      'two shots': { person: 'stefano', shots: [0, 1].map(n => ({
+        id: `ufficio-0${n + 1}`, place: 'ufficio', outfit: 'black sweater', framing: 'medio', durationSeconds: 20, scenes: 2,
+        sha256: `${n}`.repeat(64), fileName: 'ufficio.mp4',
+      })) },
+      'wide framing': { person: 'stefano', shots: [{
+        id: 'piscina-03', place: 'piscina', outfit: 'grey shirt', framing: 'wide', durationSeconds: 12.5, scenes: 3,
+        sha256: 'a'.repeat(64), fileName: 'piscina.mp4',
+      }] },
+      'extra field': { person: 'stefano', shots: [], extra: true },
+      'person path': { person: '../x', shots: [] },
+      'sha256 uppercase': { person: 'stefano', shots: [{
+        id: 'piscina-03', place: 'piscina', outfit: 'grey shirt', framing: 'largo', durationSeconds: 12.5, scenes: 3,
+        sha256: 'A'.repeat(64), fileName: 'piscina.mp4',
+      }] },
+      'negative scenes': { person: 'stefano', shots: [{
+        id: 'piscina-03', place: 'piscina', outfit: 'grey shirt', framing: 'largo', durationSeconds: 12.5, scenes: -1,
+        sha256: 'a'.repeat(64), fileName: 'piscina.mp4',
+      }] },
     },
   },
 };
