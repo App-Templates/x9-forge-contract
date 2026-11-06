@@ -10,6 +10,7 @@ export declare const VideoBriefToolInputSchema: z.ZodObject<{
         autonomous: "autonomous";
     }>;
     durationSeconds: z.ZodOptional<z.ZodNumber>;
+    footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
     aspectRatio: z.ZodOptional<z.ZodEnum<{
         "9:16": "9:16";
         "16:9": "16:9";
@@ -24,7 +25,6 @@ export declare const VideoBriefToolInputSchema: z.ZodObject<{
     budgetUsd: z.ZodNumber;
     brief: z.ZodString;
     externalRef: z.ZodOptional<z.ZodString>;
-    footage: z.ZodOptional<z.ZodArray<z.ZodString>>;
     presetId: z.ZodString;
     requestedBy: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
@@ -174,4 +174,122 @@ export declare const VideoProjectViewSchema: z.ZodObject<{
     updatedAt: z.ZodString;
 }, z.core.$strict>;
 export type VideoProjectView = z.infer<typeof VideoProjectViewSchema>;
+/** Link of a Google Drive folder or its id. */
+export declare const VideoDriveFolderRefSchema: z.ZodString;
+/**
+ * What the model writes when an agent calls `video_footage_sync`: no identity (from the envelope, R-33).
+ * `folder` absent = the last folder used for the same tenant and person.
+ */
+export declare const VideoFootageSyncToolInputSchema: z.ZodObject<{
+    person: z.ZodString;
+    folder: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type VideoFootageSyncToolInput = z.infer<typeof VideoFootageSyncToolInputSchema>;
+/** Id of a Google Drive file or folder. */
+export declare const VideoDriveFileIdSchema: z.ZodString;
+export type VideoDriveFileId = z.infer<typeof VideoDriveFileIdSchema>;
+export declare const VideoFootageSyncFileStatusSchema: z.ZodEnum<{
+    in_corso: "in_corso";
+    in_coda: "in_coda";
+    aggiunta: "aggiunta";
+    gia_nell_archivio: "gia_nell_archivio";
+    rifiutata: "rifiutata";
+    errore: "errore";
+}>;
+export type VideoFootageSyncFileStatus = z.infer<typeof VideoFootageSyncFileStatusSchema>;
+/** The engine's reasons, plus the two cap-video sees itself before downloading (over the byte limit, not a video type). */
+export declare const VideoFootageSyncReasonSchema: z.ZodEnum<{
+    doppione: "doppione";
+    illeggibile: "illeggibile";
+    troppo_corta: "troppo_corta";
+    risoluzione_bassa: "risoluzione_bassa";
+    senza_volto: "senza_volto";
+    nessuna_scena: "nessuna_scena";
+    troppo_grande: "troppo_grande";
+    non_video: "non_video";
+}>;
+export type VideoFootageSyncReason = z.infer<typeof VideoFootageSyncReasonSchema>;
+export declare const VideoFootageSyncFileSchema: z.ZodObject<{
+    driveFileId: z.ZodString;
+    name: z.ZodString;
+    status: z.ZodEnum<{
+        in_corso: "in_corso";
+        in_coda: "in_coda";
+        aggiunta: "aggiunta";
+        gia_nell_archivio: "gia_nell_archivio";
+        rifiutata: "rifiutata";
+        errore: "errore";
+    }>;
+    footageId: z.ZodOptional<z.ZodString>;
+    reason: z.ZodOptional<z.ZodEnum<{
+        doppione: "doppione";
+        illeggibile: "illeggibile";
+        troppo_corta: "troppo_corta";
+        risoluzione_bassa: "risoluzione_bassa";
+        senza_volto: "senza_volto";
+        nessuna_scena: "nessuna_scena";
+        troppo_grande: "troppo_grande";
+        non_video: "non_video";
+    }>>;
+}, z.core.$strict>;
+export type VideoFootageSyncFile = z.infer<typeof VideoFootageSyncFileSchema>;
+/** One outcome for the whole folder; `sincronizzata` carries one status per file. */
+export declare const VideoFootageSyncResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+    counted: z.ZodNumber;
+    files: z.ZodArray<z.ZodObject<{
+        driveFileId: z.ZodString;
+        name: z.ZodString;
+        status: z.ZodEnum<{
+            in_corso: "in_corso";
+            in_coda: "in_coda";
+            aggiunta: "aggiunta";
+            gia_nell_archivio: "gia_nell_archivio";
+            rifiutata: "rifiutata";
+            errore: "errore";
+        }>;
+        footageId: z.ZodOptional<z.ZodString>;
+        reason: z.ZodOptional<z.ZodEnum<{
+            doppione: "doppione";
+            illeggibile: "illeggibile";
+            troppo_corta: "troppo_corta";
+            risoluzione_bassa: "risoluzione_bassa";
+            senza_volto: "senza_volto";
+            nessuna_scena: "nessuna_scena";
+            troppo_grande: "troppo_grande";
+            non_video: "non_video";
+        }>>;
+    }, z.core.$strict>>;
+    person: z.ZodString;
+    folderId: z.ZodString;
+    limit: z.ZodLiteral<20>;
+    outcome: z.ZodLiteral<"sincronizzata">;
+}, z.core.$strict>, z.ZodObject<{
+    counted: z.ZodNumber;
+    newFiles: z.ZodNumber;
+    person: z.ZodString;
+    folderId: z.ZodString;
+    limit: z.ZodLiteral<20>;
+    outcome: z.ZodLiteral<"oltre_il_tetto">;
+}, z.core.$strict>, z.ZodObject<{
+    outcome: z.ZodLiteral<"serve_google">;
+    permission: z.ZodEnum<{
+        drive_read: "drive_read";
+    }>;
+    reason: z.ZodEnum<{
+        revoked: "revoked";
+        not_connected: "not_connected";
+        expired: "expired";
+        unavailable: "unavailable";
+        scope_missing: "scope_missing";
+        person_not_determinable: "person_not_determinable";
+    }>;
+}, z.core.$strict>, z.ZodObject<{
+    outcome: z.ZodLiteral<"cartella_illeggibile">;
+    reason: z.ZodEnum<{
+        link_non_valido: "link_non_valido";
+        nessuna_cartella: "nessuna_cartella";
+        non_trovata: "non_trovata";
+    }>;
+}, z.core.$strict>], "outcome">;
+export type VideoFootageSyncResponse = z.infer<typeof VideoFootageSyncResponseSchema>;
 //# sourceMappingURL=tools.d.ts.map

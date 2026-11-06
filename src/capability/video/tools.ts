@@ -1,6 +1,14 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability-call-identity.js';
 import { VideoStoryOutroSchema, VideoStoryScenesSchema } from './story.js';
+import { ConnectScopeSchema } from '../connect/index.js';
+import { ConnectAccessErrorCodeSchema } from '../../http/endpoints/internal-connect.js';
+import {
+  VIDEO_FOOTAGE_MAX_PER_PERSON,
+  VideoFootageIdSchema,
+  VideoFootagePersonSchema,
+  VideoFootageRejectionReasonSchema,
+} from './footage.js';
 import { VideoBriefRequestSchema, VideoModeSchema, VideoRequestChoicesSchema, VideoPresetIdSchema, VideoProjectIdSchema, VideoProjectStateSchema } from './brief.js';
 
 /**
@@ -90,3 +98,76 @@ export const VideoProjectViewSchema = z.object({
   updatedAt: z.string().min(1),
 }).strict();
 export type VideoProjectView = z.infer<typeof VideoProjectViewSchema>;
+
+/** Link of a Google Drive folder or its id. */
+export const VideoDriveFolderRefSchema = z.string().trim().min(10).max(300)
+  .describe('Link di una cartella di Google Drive (https://drive.google.com/drive/folders/…) o il suo id.');
+
+/**
+ * What the model writes when an agent calls `video_footage_sync`: no identity (from the envelope, R-33).
+ * `folder` absent = the last folder used for the same tenant and person.
+ */
+export const VideoFootageSyncToolInputSchema = z.strictObject({
+  person: VideoFootagePersonSchema.describe("Chi è ripreso, come nell'archivio (es. «stefano»)."),
+  folder: VideoDriveFolderRefSchema.optional(),
+});
+export type VideoFootageSyncToolInput = z.infer<typeof VideoFootageSyncToolInputSchema>;
+
+/** Id of a Google Drive file or folder. */
+export const VideoDriveFileIdSchema = z.string().regex(/^[A-Za-z0-9_-]{10,200}$/);
+export type VideoDriveFileId = z.infer<typeof VideoDriveFileIdSchema>;
+
+export const VideoFootageSyncFileStatusSchema = z.enum(['in_coda', 'in_corso', 'aggiunta', 'gia_nell_archivio', 'rifiutata', 'errore']);
+export type VideoFootageSyncFileStatus = z.infer<typeof VideoFootageSyncFileStatusSchema>;
+
+/** The engine's reasons, plus the two cap-video sees itself before downloading (over the byte limit, not a video type). */
+export const VideoFootageSyncReasonSchema = z.enum([...VideoFootageRejectionReasonSchema.options, 'troppo_grande', 'non_video']);
+export type VideoFootageSyncReason = z.infer<typeof VideoFootageSyncReasonSchema>;
+
+export const VideoFootageSyncFileSchema = z.strictObject({
+  driveFileId: VideoDriveFileIdSchema,
+  name: z.string().min(1).max(300),
+  status: VideoFootageSyncFileStatusSchema,
+  footageId: VideoFootageIdSchema.optional(),
+  reason: VideoFootageSyncReasonSchema.optional(),
+}).superRefine((file, ctx) => {
+  if ((file.footageId !== undefined) !== (file.status === 'aggiunta')) {
+    ctx.addIssue({ code: 'custom', path: ['footageId'], message: 'footageId solo e sempre con lo stato aggiunta' });
+  }
+  if ((file.reason !== undefined) !== (file.status === 'rifiutata')) {
+    ctx.addIssue({ code: 'custom', path: ['reason'], message: 'reason solo e sempre con lo stato rifiutata' });
+  }
+});
+export type VideoFootageSyncFile = z.infer<typeof VideoFootageSyncFileSchema>;
+
+const syncFolderBase = {
+  person: VideoFootagePersonSchema,
+  folderId: VideoDriveFileIdSchema,
+  limit: z.literal(VIDEO_FOOTAGE_MAX_PER_PERSON),
+};
+
+/** One outcome for the whole folder; `sincronizzata` carries one status per file. */
+export const VideoFootageSyncResponseSchema = z.discriminatedUnion('outcome', [
+  z.strictObject({
+    outcome: z.literal('sincronizzata'),
+    ...syncFolderBase,
+    counted: z.number().int().min(0).max(VIDEO_FOOTAGE_MAX_PER_PERSON),
+    files: z.array(VideoFootageSyncFileSchema).max(200),
+  }),
+  z.strictObject({
+    outcome: z.literal('oltre_il_tetto'),
+    ...syncFolderBase,
+    counted: z.number().int().min(0),
+    newFiles: z.number().int().positive(),
+  }),
+  z.strictObject({
+    outcome: z.literal('serve_google'),
+    permission: ConnectScopeSchema.extract(['drive_read']),
+    reason: ConnectAccessErrorCodeSchema,
+  }),
+  z.strictObject({
+    outcome: z.literal('cartella_illeggibile'),
+    reason: z.enum(['link_non_valido', 'nessuna_cartella', 'non_trovata']),
+  }),
+]);
+export type VideoFootageSyncResponse = z.infer<typeof VideoFootageSyncResponseSchema>;

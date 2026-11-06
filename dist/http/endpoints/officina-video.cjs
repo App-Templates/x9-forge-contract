@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
+exports.officinaVideoFootageJobGetContract = exports.officinaVideoFootageAddContract = exports.officinaVideoMediaContract = exports.officinaVideoStoryEstimateContract = exports.officinaVideoStoryContract = exports.officinaVideoRunContract = exports.officinaVideoApproveContract = exports.officinaVideoPlanContract = exports.officinaVideoProjectGetContract = exports.officinaVideoHealthContract = exports.officinaVideoJobContract = void 0;
 const zod_1 = require("zod");
 const story_js_1 = require("../../capability/video/story.cjs");
 const engine_js_1 = require("../../capability/video/engine.cjs");
+const footage_js_1 = require("../../capability/video/footage.cjs");
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 exports.officinaVideoJobContract = {
     errorSchema: engine_js_1.VideoEngineErrorSchema,
@@ -90,5 +91,32 @@ exports.officinaVideoMediaContract = {
     errorSchema: engine_js_1.VideoEngineErrorSchema,
     method: 'GET',
     pathSchema: engine_js_1.VideoEngineMediaPathSchema,
+};
+/**
+ * cap-video -> engine: add one shot to the footage archive. The body is the video itself (binary), the metadata and the
+ * identity are in the query. Checks that are fast answer now (422 with the reason in `code`, e.g. a duplicate); the rest
+ * runs in a job (202 + id), read with GET job. Internal, INTERNAL_SECRET_HEADER.
+ */
+exports.officinaVideoFootageAddContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    rejectedSchema: footage_js_1.VideoEngineFootageRejectedSchema,
+    method: 'POST',
+    path: '/api/footage',
+    paramsSchema: zod_1.z.object({}).strict(),
+    querySchema: footage_js_1.VideoFootageAddQuerySchema,
+    bodyMediaTypes: footage_js_1.VIDEO_FOOTAGE_MEDIA_TYPES,
+    maxBodyBytes: footage_js_1.VIDEO_FOOTAGE_MAX_BYTES,
+    responseSchema: footage_js_1.VideoFootageJobAcceptedSchema,
+    responseStatus: 202,
+};
+/** cap-video -> engine: state of one footage job. The job of another tenant is 404. Internal, INTERNAL_SECRET_HEADER. */
+exports.officinaVideoFootageJobGetContract = {
+    errorSchema: engine_js_1.VideoEngineErrorSchema,
+    method: 'GET',
+    path: '/api/footage/jobs/:jobId',
+    paramsSchema: zod_1.z.object({ jobId: footage_js_1.VideoFootageJobIdSchema }).strict(),
+    querySchema: footage_js_1.VideoFootageJobQuerySchema,
+    responseSchema: footage_js_1.VideoFootageJobSchema,
+    responseStatus: 200,
 };
 //# sourceMappingURL=officina-video.js.map

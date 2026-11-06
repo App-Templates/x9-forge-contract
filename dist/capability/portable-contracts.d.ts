@@ -237,6 +237,8 @@ export interface PortableCapabilityCatalog {
         requestContract?: string;
         responseContract?: string;
         errorContract?: string;
+        bodyMediaTypes?: readonly string[];
+        maxBodyBytes?: number;
     }>;
 }
 /**

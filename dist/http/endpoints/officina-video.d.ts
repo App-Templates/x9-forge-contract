@@ -429,4 +429,121 @@ export declare const officinaVideoMediaContract: {
     readonly method: "GET";
     readonly pathSchema: z.ZodString;
 };
+/**
+ * cap-video -> engine: add one shot to the footage archive. The body is the video itself (binary), the metadata and the
+ * identity are in the query. Checks that are fast answer now (422 with the reason in `code`, e.g. a duplicate); the rest
+ * runs in a job (202 + id), read with GET job. Internal, INTERNAL_SECRET_HEADER.
+ */
+export declare const officinaVideoFootageAddContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly rejectedSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodLiteral<"rejected">;
+        code: z.ZodEnum<{
+            doppione: "doppione";
+            illeggibile: "illeggibile";
+            troppo_corta: "troppo_corta";
+            risoluzione_bassa: "risoluzione_bassa";
+            senza_volto: "senza_volto";
+            nessuna_scena: "nessuna_scena";
+        }>;
+    }, z.core.$strict>;
+    readonly method: "POST";
+    readonly path: "/api/footage";
+    readonly paramsSchema: z.ZodObject<{}, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        person: z.ZodString;
+        place: z.ZodString;
+        outfit: z.ZodString;
+        group: z.ZodOptional<z.ZodString>;
+        framing: z.ZodEnum<{
+            largo: "largo";
+            medio: "medio";
+            stretto: "stretto";
+        }>;
+        note: z.ZodOptional<z.ZodString>;
+        fileName: z.ZodString;
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly bodyMediaTypes: readonly ["video/mp4", "video/quicktime", "video/x-m4v"];
+    readonly maxBodyBytes: number;
+    readonly responseSchema: z.ZodObject<{
+        jobId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseStatus: 202;
+};
+/** cap-video -> engine: state of one footage job. The job of another tenant is 404. Internal, INTERNAL_SECRET_HEADER. */
+export declare const officinaVideoFootageJobGetContract: {
+    readonly errorSchema: z.ZodObject<{
+        error: z.ZodString;
+        operation_state: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            uncertain: "uncertain";
+            pending: "pending";
+            rejected: "rejected";
+        }>>>;
+        code: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    }, z.core.$strict>;
+    readonly method: "GET";
+    readonly path: "/api/footage/jobs/:jobId";
+    readonly paramsSchema: z.ZodObject<{
+        jobId: z.ZodString;
+    }, z.core.$strict>;
+    readonly querySchema: z.ZodObject<{
+        agentId: z.ZodString;
+        ownerId: z.ZodString;
+        tenantId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        status: z.ZodLiteral<"queued">;
+        jobId: z.ZodString;
+        fileName: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"running">;
+        jobId: z.ZodString;
+        fileName: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"completed">;
+        footage: z.ZodObject<{
+            id: z.ZodString;
+            scenes: z.ZodNumber;
+            durationSeconds: z.ZodNumber;
+        }, z.core.$strict>;
+        jobId: z.ZodString;
+        fileName: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"rejected">;
+        code: z.ZodEnum<{
+            doppione: "doppione";
+            illeggibile: "illeggibile";
+            troppo_corta: "troppo_corta";
+            risoluzione_bassa: "risoluzione_bassa";
+            senza_volto: "senza_volto";
+            nessuna_scena: "nessuna_scena";
+        }>;
+        error: z.ZodString;
+        jobId: z.ZodString;
+        fileName: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"failed">;
+        error: z.ZodString;
+        jobId: z.ZodString;
+        fileName: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"interrupted">;
+        error: z.ZodString;
+        jobId: z.ZodString;
+        fileName: z.ZodString;
+    }, z.core.$strict>], "status">;
+    readonly responseStatus: 200;
+};
 //# sourceMappingURL=officina-video.d.ts.map

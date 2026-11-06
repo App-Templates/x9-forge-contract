@@ -262,8 +262,8 @@ export declare const LabPublishInputSchema: z.ZodObject<{
         kind: z.ZodEnum<{
             access: "access";
             referent: "referent";
-            asset: "asset";
             person: "person";
+            asset: "asset";
             responsibility: "responsibility";
         }>;
         key: z.ZodString;
@@ -312,8 +312,8 @@ export declare const LabReadPublishedOutputSchema: z.ZodObject<{
             kind: z.ZodEnum<{
                 access: "access";
                 referent: "referent";
-                asset: "asset";
                 person: "person";
+                asset: "asset";
                 responsibility: "responsibility";
             }>;
             key: z.ZodString;

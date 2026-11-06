@@ -13,8 +13,8 @@ export declare const COMPANY_MAP_ENTRY_KINDS: readonly ["referent", "person", "r
 export declare const CompanyMapEntryKindSchema: z.ZodEnum<{
     access: "access";
     referent: "referent";
-    asset: "asset";
     person: "person";
+    asset: "asset";
     responsibility: "responsibility";
 }>;
 export type CompanyMapEntryKind = z.infer<typeof CompanyMapEntryKindSchema>;
@@ -72,8 +72,8 @@ export declare const CompanyMapConfirmTargetSchema: z.ZodObject<{
     kind: z.ZodEnum<{
         access: "access";
         referent: "referent";
-        asset: "asset";
         person: "person";
+        asset: "asset";
         responsibility: "responsibility";
     }>;
     entryRef: z.ZodString;

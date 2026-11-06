@@ -2,6 +2,23 @@
 
 ## Non rilasciato
 
+## v1.101.0 — Officina video: riprese da una cartella di Google Drive, additivo
+
+- `video_footage_sync`: `VideoFootageSyncToolInputSchema` (`person` e `folder` facoltativo, link o id); `VideoFootageSyncResponseSchema` con esito `sincronizzata` (stato di ogni file), `oltre_il_tetto`, `serve_google` (con `drive_read`), `cartella_illeggibile`.
+- `VIDEO_FOOTAGE_MAX_PER_PERSON = 20`.
+- Consumer: cap-video (ov-x9 3414-3420) e registro di agent-core (voce `video`).
+
+Catalogo Python invariato. Nessuno schema zod si stringe: uno strumento e una costante nuovi.
+
+## v1.100.0 — Officina video: aggiungere una ripresa all'archivio del motore, additivo
+
+- `POST /api/footage` (`officinaVideoFootageAddContract`): corpo binario mp4/mov/m4v fino a 256 MiB, metadati e identità in query, 202 `VideoFootageJobAcceptedSchema`, 422 sincrono `VideoEngineFootageRejectedSchema`.
+- `GET /api/footage/jobs/:jobId` (`officinaVideoFootageJobGetContract`, `VideoFootageJobSchema`): `queued`, `running`, `completed` con id, scene e durata, `rejected` con `code` fra `doppione`, `illeggibile`, `troppo_corta`, `risoluzione_bassa`, `senza_volto`, `nessuna_scena`, `failed`, `interrupted`.
+- Catalogo Python: i due transports (`videoEngineFootageAdd`, `videoEngineFootageJobGet`) e i cinque contratti `videoEngineFootage*`.
+- Consumer: motore (ov-motore 3406) e cap-video (connettore Drive, scheda futura).
+
+Nessuno schema zod si stringe: due rotte e schemi nuovi.
+
 ## v1.99.0 — Officina video: elenco dei preset per il modello, additivo
 
 - `video_presets_list`: `VideoPresetsListToolInputSchema`, `VideoPresetSummarySchema`, `VideoPresetsListResponseSchema`; riprese dell'archivio tipizzate con `VideoPresetFootageShotsSchema`.

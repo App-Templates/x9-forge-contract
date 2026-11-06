@@ -9,6 +9,8 @@ import {
   VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema,
   VideoEngineRouteRunRequestSchema, VideoEngineErrorSchema, VideoEngineHealthSchema,
   VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema,
+  VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoEngineFootageRejectedSchema,
+  VideoFootageJobQuerySchema, VideoFootageJobSchema,
 } from '../../../src/capability/video/index.js';
 import { getPortableCapabilityContracts } from '../../../src/capability/portable-contracts.js';
 
@@ -37,6 +39,12 @@ const story = {
   scenes: [{ text: 'Plants speak.' }], graphicHtml: '<script>function render(t){}</script>',
   outro: { title: 'In practice', line: 'Each plant has a rhythm.' }, revision: 3,
 };
+const footageQuery = {
+  ...job.identity, person: 'stefano', place: 'piscina', outfit: 'maglietta grigia',
+  framing: 'largo', fileName: 'IMG_0412 (1).MOV',
+};
+const footageJob = { jobId: ID, fileName: 'clip.mp4' };
+const footageRejection = { error: 'Ripresa rifiutata.', operation_state: 'rejected', code: 'doppione' };
 
 // Verdicts come from the canonical schema: a shared contract change is not a parity failure.
 // Gate counterchecks: remove Error.strict() to check shared evolution; change a pattern
@@ -196,6 +204,85 @@ const corpus: Record<string, { schema: ZodType; cases: Record<string, unknown>; 
       'server limit unset': estimate,
       'extra field': { ...estimate, extra: true },
       'missing source': Object.fromEntries(Object.entries(estimate).filter(([key]) => key !== 'source')),
+    },
+  },
+  videoEngineFootageAddQuery: {
+    schema: VideoFootageAddQuerySchema,
+    cases: {
+      'archive upload metadata': footageQuery,
+      'group and note': { ...footageQuery, group: 'piscina-01', note: 'sole alto' },
+      'trimmed outfit': { ...footageQuery, outfit: '  maglietta grigia  ' },
+      'metadata string limits': { ...footageQuery, outfit: 'x'.repeat(80), note: 'n'.repeat(500) },
+      'missing tenant': Object.fromEntries(Object.entries(footageQuery).filter(([key]) => key !== 'tenantId')),
+      'missing owner': Object.fromEntries(Object.entries(footageQuery).filter(([key]) => key !== 'ownerId')),
+      'missing agent': Object.fromEntries(Object.entries(footageQuery).filter(([key]) => key !== 'agentId')),
+      'person path': { ...footageQuery, person: '../x' },
+      'unknown framing': { ...footageQuery, framing: 'wide' },
+      'blank outfit': { ...footageQuery, outfit: '  ' },
+      'long outfit': { ...footageQuery, outfit: 'x'.repeat(81) },
+      'long note': { ...footageQuery, note: 'n'.repeat(501) },
+      'file path': { ...footageQuery, fileName: '../clip.mp4' },
+      'unsupported container': { ...footageQuery, fileName: 'clip.avi' },
+      'extra field': { ...footageQuery, extra: true },
+    },
+  },
+  videoEngineFootageJobAccepted: {
+    schema: VideoFootageJobAcceptedSchema, minimum: 1,
+    cases: {
+      'accepted upload': { jobId: ID },
+      'missing job id': {},
+      'short job id': { jobId: 'abc' },
+      'non hexadecimal job id': { jobId: 'g'.repeat(32) },
+      'extra field': { jobId: ID, extra: true },
+    },
+  },
+  videoEngineFootageRejected: {
+    schema: VideoEngineFootageRejectedSchema,
+    cases: {
+      'duplicate': footageRejection,
+      'unreadable': { ...footageRejection, code: 'illeggibile' },
+      'too short': { ...footageRejection, code: 'troppo_corta' },
+      'low resolution': { ...footageRejection, code: 'risoluzione_bassa' },
+      'no face': { ...footageRejection, code: 'senza_volto' },
+      'no scene and error limit': { ...footageRejection, code: 'nessuna_scena', error: 'e'.repeat(2000) },
+      'unknown rejection reason': { ...footageRejection, code: 'altro' },
+      'unknown operation state': { ...footageRejection, operation_state: 'failed' },
+      'empty error': { ...footageRejection, error: '' },
+      'long error': { ...footageRejection, error: 'e'.repeat(2001) },
+      'extra field': { ...footageRejection, extra: true },
+    },
+  },
+  videoEngineFootageJobQuery: {
+    schema: VideoFootageJobQuerySchema, minimum: 1,
+    cases: {
+      'scoped job lookup': job.identity,
+      'missing identity': {},
+      'missing tenant': { ownerId: job.identity.ownerId, agentId: job.identity.agentId },
+      'missing owner': { tenantId: job.identity.tenantId, agentId: job.identity.agentId },
+      'missing agent': { tenantId: job.identity.tenantId, ownerId: job.identity.ownerId },
+      'extra field': { ...job.identity, extra: true },
+    },
+  },
+  videoEngineFootageJob: {
+    schema: VideoFootageJobSchema,
+    cases: {
+      'queued upload': { ...footageJob, status: 'queued' },
+      'running upload': { ...footageJob, status: 'running' },
+      'completed upload': {
+        ...footageJob, status: 'completed', footage: { id: 'piscina-03', scenes: 4, durationSeconds: 12.5 },
+      },
+      'rejected upload': { ...footageJob, status: 'rejected', code: 'senza_volto', error: 'Nessun volto.' },
+      'failed upload': { ...footageJob, status: 'failed', error: 'ffprobe failed.' },
+      'interrupted upload': { ...footageJob, status: 'interrupted', error: 'Engine restarted.' },
+      'unknown status': { ...footageJob, status: 'done' },
+      'malformed job id': { ...footageJob, jobId: '../x', status: 'queued' },
+      'completed without footage': { ...footageJob, status: 'completed' },
+      'rejected with unknown reason': { ...footageJob, status: 'rejected', code: 'altro', error: 'Refused.' },
+      'failed without error': { ...footageJob, status: 'failed' },
+      'completed without scenes': {
+        ...footageJob, status: 'completed', footage: { id: 'piscina-03', scenes: 0, durationSeconds: 12.5 },
+      },
+      'extra field': { ...footageJob, status: 'queued', extra: true },
     },
   },
 };

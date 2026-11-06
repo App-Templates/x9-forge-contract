@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { VideoEngineStoryRequestSchema, VideoEngineStoryEstimateSchema } from '../../capability/video/story.js';
 import { VideoEngineErrorSchema, VideoEngineHealthSchema, VideoEngineJobSchema, VideoEngineJobResponseSchema, VideoEngineProjectSchema, VideoEngineRoutePlanRequestSchema, VideoEngineRouteApproveRequestSchema, VideoEngineRouteRunRequestSchema, VideoEngineMediaPathSchema } from '../../capability/video/engine.js';
+import { VIDEO_FOOTAGE_MAX_BYTES, VIDEO_FOOTAGE_MEDIA_TYPES, VideoFootageAddQuerySchema, VideoFootageJobAcceptedSchema, VideoFootageJobIdSchema, VideoFootageJobQuerySchema, VideoFootageJobSchema, VideoEngineFootageRejectedSchema } from '../../capability/video/footage.js';
 
 /** cap-video -> Officina video engine. Internal calls only, authenticated with INTERNAL_SECRET_HEADER. */
 export const officinaVideoJobContract = {
@@ -96,4 +97,33 @@ export const officinaVideoMediaContract = {
   errorSchema: VideoEngineErrorSchema,
   method: 'GET',
   pathSchema: VideoEngineMediaPathSchema,
+} as const;
+
+/**
+ * cap-video -> engine: add one shot to the footage archive. The body is the video itself (binary), the metadata and the
+ * identity are in the query. Checks that are fast answer now (422 with the reason in `code`, e.g. a duplicate); the rest
+ * runs in a job (202 + id), read with GET job. Internal, INTERNAL_SECRET_HEADER.
+ */
+export const officinaVideoFootageAddContract = {
+  errorSchema: VideoEngineErrorSchema,
+  rejectedSchema: VideoEngineFootageRejectedSchema,
+  method: 'POST',
+  path: '/api/footage',
+  paramsSchema: z.object({}).strict(),
+  querySchema: VideoFootageAddQuerySchema,
+  bodyMediaTypes: VIDEO_FOOTAGE_MEDIA_TYPES,
+  maxBodyBytes: VIDEO_FOOTAGE_MAX_BYTES,
+  responseSchema: VideoFootageJobAcceptedSchema,
+  responseStatus: 202,
+} as const;
+
+/** cap-video -> engine: state of one footage job. The job of another tenant is 404. Internal, INTERNAL_SECRET_HEADER. */
+export const officinaVideoFootageJobGetContract = {
+  errorSchema: VideoEngineErrorSchema,
+  method: 'GET',
+  path: '/api/footage/jobs/:jobId',
+  paramsSchema: z.object({ jobId: VideoFootageJobIdSchema }).strict(),
+  querySchema: VideoFootageJobQuerySchema,
+  responseSchema: VideoFootageJobSchema,
+  responseStatus: 200,
 } as const;

@@ -14,6 +14,7 @@ const tool_call_js_1 = require("./tool-call.cjs");
 const rag_query_js_1 = require("../rag/rag-query.cjs");
 const engine_js_1 = require("./video/engine.cjs");
 const story_js_1 = require("./video/story.cjs");
+const footage_js_1 = require("./video/footage.cjs");
 const ordinary_authority_js_1 = require("../agent/ordinary-authority.cjs");
 const ordinary_lifecycle_js_1 = require("./ordinary-lifecycle.cjs");
 const internal_agents_ordinary_authority_js_1 = require("../http/endpoints/internal-agents-ordinary-authority.cjs");
@@ -160,6 +161,11 @@ function getPortableCapabilityContracts() {
     add('videoEngineRunRequest', engine_js_1.VideoEngineRouteRunRequestSchema, [], 0);
     add('videoEngineError', engine_js_1.VideoEngineErrorSchema, [], 0);
     add('videoEngineHealth', engine_js_1.VideoEngineHealthSchema, [], 0);
+    add('videoEngineFootageAddQuery', footage_js_1.VideoFootageAddQuerySchema, [], 0);
+    add('videoEngineFootageJobAccepted', footage_js_1.VideoFootageJobAcceptedSchema, [], 0);
+    add('videoEngineFootageRejected', footage_js_1.VideoEngineFootageRejectedSchema, [], 0);
+    add('videoEngineFootageJobQuery', footage_js_1.VideoFootageJobQuerySchema, [], 0);
+    add('videoEngineFootageJob', footage_js_1.VideoFootageJobSchema, [], 0);
     add('authorityQuery', ordinary_authority_js_1.AgentOrdinaryAuthorityQuerySchema, [{ op: 'normalize_integer', path: 'bundleVersion', schema: zod_1.z.toJSONSchema(ordinary_lifecycle_js_1.CapabilityOrdinaryBundleReferenceSchema.shape.appliedVersion) }], 0);
     add('authorityResponse', authorityResponse, authorityRules, 2);
     contracts.authorityResponse.limitations = ['Only null or frozen configurations with zero parameters; parameter/Master/structured semantics remain gated'];
@@ -190,6 +196,11 @@ function getPortableCapabilityContracts() {
             videoEnginePlan: { ...transport(officina_video_js_1.officinaVideoPlanContract), requestContract: 'videoEnginePlanRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
             videoEngineApprove: { ...transport(officina_video_js_1.officinaVideoApproveContract), requestContract: 'videoEngineApproveRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
             videoEngineRun: { ...transport(officina_video_js_1.officinaVideoRunContract), requestContract: 'videoEngineRunRequest', responseContract: 'videoEngineProject', errorContract: 'videoEngineError' },
+            videoEngineFootageAdd: {
+                ...transport(officina_video_js_1.officinaVideoFootageAddContract), queryContract: 'videoEngineFootageAddQuery', responseContract: 'videoEngineFootageJobAccepted', errorContract: 'videoEngineError',
+                bodyMediaTypes: officina_video_js_1.officinaVideoFootageAddContract.bodyMediaTypes, maxBodyBytes: officina_video_js_1.officinaVideoFootageAddContract.maxBodyBytes,
+            },
+            videoEngineFootageJobGet: { ...transport(officina_video_js_1.officinaVideoFootageJobGetContract), queryContract: 'videoEngineFootageJobQuery', responseContract: 'videoEngineFootageJob', errorContract: 'videoEngineError' },
             videoEngineMedia: {
                 method: 'GET', path: '/media/:engineProjectId/:file', authHeader: auth_headers_js_1.INTERNAL_SECRET_HEADER, errorContract: 'videoEngineError',
                 paramsSchema: zod_1.z.toJSONSchema(zod_1.z.object({ engineProjectId: engine_js_1.VideoEngineIdSchema, file: zod_1.z.string().regex(/^[A-Za-z0-9_-]+\.(png|jpg|jpeg|mp4|mov|srt|wav|mp3|m4a|aac|zip)$/) }).strict()),
