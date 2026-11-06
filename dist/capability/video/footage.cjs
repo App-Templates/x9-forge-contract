@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoFootageJobQuerySchema = exports.VideoFootageJobSchema = exports.VideoFootageAddedSchema = exports.VideoEngineFootageRejectedSchema = exports.VideoFootageRejectionReasonSchema = exports.VideoFootageJobAcceptedSchema = exports.VideoFootageJobIdSchema = exports.VideoFootageAddQuerySchema = exports.VideoFootageFileNameSchema = exports.VideoFootageFramingSchema = exports.VideoFootagePlaceSchema = exports.VideoFootagePersonSchema = exports.VIDEO_FOOTAGE_MEDIA_TYPES = exports.VIDEO_FOOTAGE_MAX_BYTES = exports.VideoFootageChoiceSchema = exports.VideoFootageIdSchema = void 0;
+exports.VideoFootageJobQuerySchema = exports.VideoFootageJobSchema = exports.VideoFootageAddedSchema = exports.VideoEngineFootageRejectedSchema = exports.VideoFootageRejectionReasonSchema = exports.VideoFootageJobAcceptedSchema = exports.VideoFootageJobIdSchema = exports.VideoFootageAddQuerySchema = exports.VideoFootageFileNameSchema = exports.VideoFootageFramingSchema = exports.VideoFootagePlaceSchema = exports.VideoFootagePersonSchema = exports.VIDEO_FOOTAGE_MAX_PER_PERSON = exports.VIDEO_FOOTAGE_MEDIA_TYPES = exports.VIDEO_FOOTAGE_MAX_BYTES = exports.VideoFootageChoiceSchema = exports.VideoFootageIdSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 /** Id of one shot of the footage archive on the engine (e.g. `piante-02`). Never a path. */
@@ -11,6 +11,8 @@ exports.VideoFootageChoiceSchema = zod_1.z.array(exports.VideoFootageIdSchema).m
 exports.VIDEO_FOOTAGE_MAX_BYTES = 256 * 1024 * 1024;
 /** Containers the engine reads. */
 exports.VIDEO_FOOTAGE_MEDIA_TYPES = ['video/mp4', 'video/quicktime', 'video/x-m4v'];
+/** Riprese al massimo per tenant e persona, comprese quelle già nell'archivio. */
+exports.VIDEO_FOOTAGE_MAX_PER_PERSON = 20;
 /** Who is filmed: a slug, never a path. */
 exports.VideoFootagePersonSchema = zod_1.z.string().regex(/^[a-z][a-z0-9-]{0,31}$/);
 /** Where it was filmed; the shot id `<place>-NN` stays a `VideoFootageIdSchema`. */

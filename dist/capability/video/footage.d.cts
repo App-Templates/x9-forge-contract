@@ -9,6 +9,8 @@ export type VideoFootageChoice = z.infer<typeof VideoFootageChoiceSchema>;
 export declare const VIDEO_FOOTAGE_MAX_BYTES: number;
 /** Containers the engine reads. */
 export declare const VIDEO_FOOTAGE_MEDIA_TYPES: readonly ["video/mp4", "video/quicktime", "video/x-m4v"];
+/** Riprese al massimo per tenant e persona, comprese quelle già nell'archivio. */
+export declare const VIDEO_FOOTAGE_MAX_PER_PERSON = 20;
 /** Who is filmed: a slug, never a path. */
 export declare const VideoFootagePersonSchema: z.ZodString;
 export type VideoFootagePerson = z.infer<typeof VideoFootagePersonSchema>;

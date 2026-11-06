@@ -1,9 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoPresetsListResponseSchema = exports.VideoPresetSummarySchema = exports.VideoPresetFootageShotsSchema = exports.VideoPresetsListToolInputSchema = exports.VideoBriefToolInputSchema = void 0;
+exports.VideoFootageSyncResponseSchema = exports.VideoFootageSyncFileSchema = exports.VideoFootageSyncReasonSchema = exports.VideoFootageSyncFileStatusSchema = exports.VideoDriveFileIdSchema = exports.VideoFootageSyncToolInputSchema = exports.VideoDriveFolderRefSchema = exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoPresetsListResponseSchema = exports.VideoPresetSummarySchema = exports.VideoPresetFootageShotsSchema = exports.VideoPresetsListToolInputSchema = exports.VideoBriefToolInputSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const story_js_1 = require("./story.cjs");
+const index_js_1 = require("../connect/index.cjs");
+const internal_connect_js_1 = require("../../http/endpoints/internal-connect.cjs");
+const footage_js_1 = require("./footage.cjs");
 const brief_js_1 = require("./brief.cjs");
 /**
  * What the model writes when an agent calls `video_brief_create`: the brief without identity.
@@ -72,4 +75,63 @@ exports.VideoProjectViewSchema = zod_1.z.object({
     createdAt: zod_1.z.string().min(1),
     updatedAt: zod_1.z.string().min(1),
 }).strict();
+/** Link of a Google Drive folder or its id. */
+exports.VideoDriveFolderRefSchema = zod_1.z.string().trim().min(10).max(300)
+    .describe('Link di una cartella di Google Drive (https://drive.google.com/drive/folders/…) o il suo id.');
+/**
+ * What the model writes when an agent calls `video_footage_sync`: no identity (from the envelope, R-33).
+ * `folder` absent = the last folder used for the same tenant and person.
+ */
+exports.VideoFootageSyncToolInputSchema = zod_1.z.strictObject({
+    person: footage_js_1.VideoFootagePersonSchema.describe("Chi è ripreso, come nell'archivio (es. «stefano»)."),
+    folder: exports.VideoDriveFolderRefSchema.optional(),
+});
+/** Id of a Google Drive file or folder. */
+exports.VideoDriveFileIdSchema = zod_1.z.string().regex(/^[A-Za-z0-9_-]{10,200}$/);
+exports.VideoFootageSyncFileStatusSchema = zod_1.z.enum(['in_coda', 'in_corso', 'aggiunta', 'gia_nell_archivio', 'rifiutata', 'errore']);
+/** The engine's reasons, plus the two cap-video sees itself before downloading (over the byte limit, not a video type). */
+exports.VideoFootageSyncReasonSchema = zod_1.z.enum([...footage_js_1.VideoFootageRejectionReasonSchema.options, 'troppo_grande', 'non_video']);
+exports.VideoFootageSyncFileSchema = zod_1.z.strictObject({
+    driveFileId: exports.VideoDriveFileIdSchema,
+    name: zod_1.z.string().min(1).max(300),
+    status: exports.VideoFootageSyncFileStatusSchema,
+    footageId: footage_js_1.VideoFootageIdSchema.optional(),
+    reason: exports.VideoFootageSyncReasonSchema.optional(),
+}).superRefine((file, ctx) => {
+    if ((file.footageId !== undefined) !== (file.status === 'aggiunta')) {
+        ctx.addIssue({ code: 'custom', path: ['footageId'], message: 'footageId solo e sempre con lo stato aggiunta' });
+    }
+    if ((file.reason !== undefined) !== (file.status === 'rifiutata')) {
+        ctx.addIssue({ code: 'custom', path: ['reason'], message: 'reason solo e sempre con lo stato rifiutata' });
+    }
+});
+const syncFolderBase = {
+    person: footage_js_1.VideoFootagePersonSchema,
+    folderId: exports.VideoDriveFileIdSchema,
+    limit: zod_1.z.literal(footage_js_1.VIDEO_FOOTAGE_MAX_PER_PERSON),
+};
+/** One outcome for the whole folder; `sincronizzata` carries one status per file. */
+exports.VideoFootageSyncResponseSchema = zod_1.z.discriminatedUnion('outcome', [
+    zod_1.z.strictObject({
+        outcome: zod_1.z.literal('sincronizzata'),
+        ...syncFolderBase,
+        counted: zod_1.z.number().int().min(0).max(footage_js_1.VIDEO_FOOTAGE_MAX_PER_PERSON),
+        files: zod_1.z.array(exports.VideoFootageSyncFileSchema).max(200),
+    }),
+    zod_1.z.strictObject({
+        outcome: zod_1.z.literal('oltre_il_tetto'),
+        ...syncFolderBase,
+        counted: zod_1.z.number().int().min(0),
+        newFiles: zod_1.z.number().int().positive(),
+    }),
+    zod_1.z.strictObject({
+        outcome: zod_1.z.literal('serve_google'),
+        permission: index_js_1.ConnectScopeSchema.extract(['drive_read']),
+        reason: internal_connect_js_1.ConnectAccessErrorCodeSchema,
+    }),
+    zod_1.z.strictObject({
+        outcome: zod_1.z.literal('cartella_illeggibile'),
+        reason: zod_1.z.enum(['link_non_valido', 'nessuna_cartella', 'non_trovata']),
+    }),
+]);
 //# sourceMappingURL=tools.js.map

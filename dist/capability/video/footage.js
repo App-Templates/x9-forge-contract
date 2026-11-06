@@ -8,6 +8,8 @@ export const VideoFootageChoiceSchema = z.array(VideoFootageIdSchema).min(1).max
 export const VIDEO_FOOTAGE_MAX_BYTES = 256 * 1024 * 1024;
 /** Containers the engine reads. */
 export const VIDEO_FOOTAGE_MEDIA_TYPES = ['video/mp4', 'video/quicktime', 'video/x-m4v'];
+/** Riprese al massimo per tenant e persona, comprese quelle già nell'archivio. */
+export const VIDEO_FOOTAGE_MAX_PER_PERSON = 20;
 /** Who is filmed: a slug, never a path. */
 export const VideoFootagePersonSchema = z.string().regex(/^[a-z][a-z0-9-]{0,31}$/);
 /** Where it was filmed; the shot id `<place>-NN` stays a `VideoFootageIdSchema`. */

@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.101.0 — Officina video: riprese da una cartella di Google Drive, additivo
+
+- `video_footage_sync`: `VideoFootageSyncToolInputSchema` (`person` e `folder` facoltativo, link o id); `VideoFootageSyncResponseSchema` con esito `sincronizzata` (stato di ogni file), `oltre_il_tetto`, `serve_google` (con `drive_read`), `cartella_illeggibile`.
+- `VIDEO_FOOTAGE_MAX_PER_PERSON = 20`.
+- Consumer: cap-video (ov-x9 3414-3420) e registro di agent-core (voce `video`).
+
+Catalogo Python invariato. Nessuno schema zod si stringe: uno strumento e una costante nuovi.
+
 ## v1.100.0 — Officina video: aggiungere una ripresa all'archivio del motore, additivo
 
 - `POST /api/footage` (`officinaVideoFootageAddContract`): corpo binario mp4/mov/m4v fino a 256 MiB, metadati e identità in query, 202 `VideoFootageJobAcceptedSchema`, 422 sincrono `VideoEngineFootageRejectedSchema`.
