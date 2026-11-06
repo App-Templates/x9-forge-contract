@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { type CredentialVersionRef } from "../vault/credential-source.js";
+import { type EffectiveModelSlot } from "./effective-models.js";
+import { type ModelsGeneration } from "./models-generation.js";
 /** What agent-core tells a service about one model slot. */
 export declare const EffectiveSlotStateSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     state: z.ZodLiteral<"disabled">;
@@ -215,8 +218,22 @@ export declare const EffectiveSlotStateSchema: z.ZodDiscriminatedUnion<[z.ZodObj
     }>;
 }, z.core.$strict>, z.ZodObject<{
     state: z.ZodLiteral<"capability_disabled">;
+}, z.core.$strict>, z.ZodObject<{
+    state: z.ZodLiteral<"retired_no_successor">;
+    modelId: z.ZodString;
+    reason: z.ZodEnum<{
+        registry: "registry";
+        "provider-inventory": "provider-inventory";
+        "provider-error": "provider-error";
+    }>;
 }, z.core.$strict>], "state">;
 export type EffectiveSlotState = z.infer<typeof EffectiveSlotStateSchema>;
+/** Convert the effective Vault slot into the state shared by agent-core and its services. */
+export declare function effectiveSlotStateFromSlot(slot: EffectiveModelSlot, extra: {
+    generation: ModelsGeneration;
+    etag: string;
+    credential?: CredentialVersionRef | null;
+}): EffectiveSlotState;
 /** The identity triple travels in the body, never in the path. */
 export declare const EffectiveSlotReadRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{

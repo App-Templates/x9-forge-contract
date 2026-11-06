@@ -559,6 +559,14 @@ export declare const internalAgentModelSlotContract: {
         }>;
     }, z.core.$strict>, z.ZodObject<{
         state: z.ZodLiteral<"capability_disabled">;
+    }, z.core.$strict>, z.ZodObject<{
+        state: z.ZodLiteral<"retired_no_successor">;
+        modelId: z.ZodString;
+        reason: z.ZodEnum<{
+            registry: "registry";
+            "provider-inventory": "provider-inventory";
+            "provider-error": "provider-error";
+        }>;
     }, z.core.$strict>], "state">;
 };
 export declare function agentModelSlotPath(agentId: string, slotId: string): string;

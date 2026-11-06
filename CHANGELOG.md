@@ -2,6 +2,17 @@
 
 ## Non rilasciato
 
+## v1.106.0 — Modelli col preset: nascita agganciata al preset dell'azienda e modelli ritirati
+
+- Nascita (F8): `ModelPresetKindSchema`, `ModelPresetRefSchema`, `AgentPresetAttachmentSchema`, `selectBirthPreset`; `modelPreset` facoltativo in `BusinessUnitLeadBirthResultSchema`.
+- Successioni: `ModelSuccessionRowSchema`, `ModelSuccessionTableSchema`, `MODEL_SUCCESSION_TABLE` (vuota: le righe le approva Stefano), `resolveSuccessor`.
+- Posto effettivo: `EffectiveModelSlotStatusSchema`, `EffectiveSlotRetirementSchema`, `upgradedAt`/`upgradedWhilePinned`/`retirement` facoltativi.
+- Ritiro osservato e avviso: `internalModelsRetiredObservedContract`, `vaultModelsRetiredObservedContract`, `ModelRetirementNoticeSchema`, `retirementNoticeKey`.
+- Stato `retired_no_successor` e `effectiveSlotStateFromSlot`.
+- Ricostruzioni: `ModelRebuildTargetSchema`, `ModelRebuildStateSchema`, `rebuildDecision`, `isRebuildJobCurrent`.
+- Consumatori: factory e vault (mp-forge), agent-core, memory e cap-rag (mp-x9).
+- Nessuno schema che legge dati salvati si stringe: schemi nuovi, campi facoltativi e una forma in più nell'unione degli stati.
+
 ## v1.105.1 — chiavi risolte: `source`, `counter`, `revoked` facoltativi in `VaultResolvedEntrySchema` e `resolvedEntryRef`
 
 - Versione e `dist/` rigenerati: la voce delle chiavi risolte porta sorgente, contatore e revoca.
