@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { CapabilityAgentParametersSchema } from '../capability/parameters.js';
 import { MODEL_TIERS, ModelTierSchema } from './model-tier.js';
+import type { ModelTier } from './model-tier.js';
 import { ModelCatalogSchema, ModelCatalogVersionSchema, ModelDescriptorSchema, ModelFeaturesSchema, ModelFunctionSchema, sameModelDescriptor } from './model-catalog.js';
 
 const base = {
@@ -13,25 +14,29 @@ const base = {
   fallback: ModelDescriptorSchema,
 };
 const AutomaticModelSettingsSchema = z.object({ ...base, mode: z.literal('automatic') }).strict();
-const PinnedModelSettingsSchema = z.object({ ...base, mode: z.literal('pin'), pin: ModelDescriptorSchema }).strict().superRefine((settings, ctx) => {
+/** Shared refinements: used by CapabilityModelSettingsSchema and ModelChoiceSchema so both reject the same shapes. */
+export function refinePinnedTiers(settings: { pin: z.infer<typeof ModelDescriptorSchema>; tiers: Record<ModelTier, z.infer<typeof ModelDescriptorSchema>>; fallback: z.infer<typeof ModelDescriptorSchema> }, ctx: z.RefinementCtx): void {
   for (const tier of MODEL_TIERS) {
     if (!sameModelDescriptor(settings.pin, settings.tiers[tier])) ctx.addIssue({ code: 'custom', path: ['tiers', tier], message: 'Every pinned tier must use the pinned descriptor' });
   }
   if (!sameModelDescriptor(settings.pin, settings.fallback)) ctx.addIssue({ code: 'custom', path: ['fallback'], message: 'A pin must also cover the fallback descriptor' });
-});
+}
+export function refineSingleEmbedding(settings: { function: string; embeddingDimensions?: number | undefined }, ctx: z.RefinementCtx): void {
+  if ((settings.function === 'embedding') !== (settings.embeddingDimensions !== undefined)) ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });
+}
+export function refineFailoverFunction(settings: { function: string }, ctx: z.RefinementCtx): void {
+  if (settings.function === 'embedding') ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });
+}
+const PinnedModelSettingsSchema = z.object({ ...base, mode: z.literal('pin'), pin: ModelDescriptorSchema }).strict().superRefine(refinePinnedTiers);
 const SingleModelSettingsSchema = z.object({
   ...base, tiers: z.never().optional(), fallback: z.never().optional(),
   mode: z.literal('single'), descriptor: ModelDescriptorSchema,
   embeddingDimensions: z.number().int().positive().optional(),
-}).strict().superRefine((settings, ctx) => {
-  if ((settings.function === 'embedding') !== (settings.embeddingDimensions !== undefined)) ctx.addIssue({ code: 'custom', path: ['embeddingDimensions'], message: 'Single embedding selection requires its vector dimension only' });
-});
+}).strict().superRefine(refineSingleEmbedding);
 const FailoverModelSettingsSchema = z.object({
   ...base, tiers: z.never().optional(),
   mode: z.literal('failover'), primary: ModelDescriptorSchema,
-}).strict().superRefine((settings, ctx) => {
-  if (settings.function === 'embedding') ctx.addIssue({ code: 'custom', path: ['function'], message: 'Embedding cannot fail over into a different vector space' });
-});
+}).strict().superRefine(refineFailoverFunction);
 /** Existing tiered choices remain unchanged; single and failover describe their actual executable paths. */
 export const CapabilityModelSettingsSchema = z.union([AutomaticModelSettingsSchema, PinnedModelSettingsSchema, SingleModelSettingsSchema, FailoverModelSettingsSchema]);
 export type CapabilityModelSettings = z.infer<typeof CapabilityModelSettingsSchema>;
