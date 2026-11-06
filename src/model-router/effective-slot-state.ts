@@ -1,10 +1,12 @@
 import { z } from 'zod';
 import { CapabilityAgentScopeSchema } from '../capability/capability-call-identity.js';
+import { CapabilityModelIdSchema } from '../capability/ricerca/agent-config.js';
 import { CredentialKeySchema } from '../vault/credential-key.js';
-import { CredentialVersionRefSchema } from '../vault/credential-source.js';
+import { CredentialVersionRefSchema, type CredentialVersionRef } from '../vault/credential-source.js';
+import { EffectiveSlotRetirementReasonSchema, EffectiveSlotRetirementSchema, type EffectiveModelSlot } from './effective-models.js';
 import { ModelChoiceSchema } from './model-choice.js';
 import { ModelSlotIdSchema } from './model-slot.js';
-import { ModelsGenerationSchema } from './models-generation.js';
+import { ModelsGenerationSchema, type ModelsGeneration } from './models-generation.js';
 
 /** What agent-core tells a service about one model slot. */
 export const EffectiveSlotStateSchema = z.discriminatedUnion('state', [
@@ -26,8 +28,37 @@ export const EffectiveSlotStateSchema = z.discriminatedUnion('state', [
   z.object({ state: z.literal('unavailable') }).strict(),
   z.object({ state: z.literal('identity_mismatch'), field: z.enum(['tenantId', 'ownerId', 'agentId']) }).strict(),
   z.object({ state: z.literal('capability_disabled') }).strict(),
+  /**
+   * agent-core sends this for an effective slot with status 'retired-no-successor'.
+   * The service must avoid the provider call and return an error naming the agent, slot and model.
+   */
+  z.object({
+    state: z.literal('retired_no_successor'),
+    modelId: CapabilityModelIdSchema,
+    reason: EffectiveSlotRetirementReasonSchema,
+  }).strict(),
 ]);
 export type EffectiveSlotState = z.infer<typeof EffectiveSlotStateSchema>;
+
+/** Convert the effective Vault slot into the state shared by agent-core and its services. */
+export function effectiveSlotStateFromSlot(
+  slot: EffectiveModelSlot,
+  extra: { generation: ModelsGeneration; etag: string; credential?: CredentialVersionRef | null },
+): EffectiveSlotState {
+  if (slot.status === 'retired-no-successor') {
+    const retirement = EffectiveSlotRetirementSchema.parse(slot.retirement);
+    return { state: 'retired_no_successor', modelId: retirement.modelId, reason: retirement.reason };
+  }
+  return {
+    state: 'configured',
+    choice: slot.choice,
+    generation: extra.generation,
+    credentialKey: slot.credentialKey,
+    credentialVersion: slot.credentialVersion,
+    ...(extra.credential === undefined ? {} : { credential: extra.credential }),
+    etag: extra.etag,
+  };
+}
 
 /** The identity triple travels in the body, never in the path. */
 export const EffectiveSlotReadRequestSchema = z.object({
@@ -43,6 +74,7 @@ export function slotFallback(state: EffectiveSlotState, lastKnown: { sameIdentit
   switch (state.state) {
     case 'disabled': return 'v1';
     case 'configured': return 'choice';
+    case 'retired_no_successor': return 'refuse';
     case 'unavailable': return lastKnown?.sameIdentity === true ? 'last-known' : 'refuse';
     case 'unconfigured':
     case 'identity_mismatch':
