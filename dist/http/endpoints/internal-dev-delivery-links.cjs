@@ -10,11 +10,17 @@ exports.DEV_DELIVERY_LINK_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const DeliveryPathSchema = asset_js_1.AssetOriginSchema.options[2].shape.path.unwrap()
     .refine((path) => !/\s/.test(path), 'Delivery path must contain no whitespace');
 const hasDistinct = (values) => new Set(values).size === values.length;
+const DevDeliveryBundleFileNameSchema = zod_1.z.string().regex(/^[a-z0-9][a-z0-9-]{0,59}\.zip$/);
+const DevDeliveryBundleRequestSchema = zod_1.z.strictObject({
+    fileName: DevDeliveryBundleFileNameSchema,
+    paths: zod_1.z.array(DeliveryPathSchema).min(1).max(exports.DEV_DELIVERY_LINKS_MAX_PATHS),
+});
 /** Transport request only; session authorization and file lookup belong to the service. */
 exports.DevDeliveryLinksRequestSchema = zod_1.z.strictObject({
     scope: capability_call_context_js_1.CapabilityAgentScopeSchema,
     deliveryRef: asset_js_1.AssetRefSchema,
     paths: zod_1.z.array(DeliveryPathSchema).min(1).max(exports.DEV_DELIVERY_LINKS_MAX_PATHS),
+    bundle: DevDeliveryBundleRequestSchema.optional(),
 }).superRefine((request, ctx) => {
     const origin = request.deliveryRef.origin;
     if (origin.kind !== 'session' || origin.repo === undefined || origin.commit === undefined || origin.path === undefined) {
@@ -27,6 +33,9 @@ exports.DevDeliveryLinksRequestSchema = zod_1.z.strictObject({
     if (!hasDistinct(request.paths)) {
         ctx.addIssue({ code: 'custom', path: ['paths'], message: 'Paths must be distinct' });
     }
+    if (request.bundle !== undefined && !hasDistinct(request.bundle.paths)) {
+        ctx.addIssue({ code: 'custom', path: ['bundle', 'paths'], message: 'Paths must be distinct' });
+    }
 });
 exports.DevDeliveryLinkSchema = zod_1.z.strictObject({
     path: DeliveryPathSchema,
@@ -36,8 +45,13 @@ exports.DevDeliveryLinkSchema = zod_1.z.strictObject({
     sha256: asset_js_1.AssetRefSchema.shape.sha256,
     sizeBytes: asset_js_1.AssetRefSchema.shape.sizeBytes,
 });
+const DevDeliveryBundleLinkSchema = exports.DevDeliveryLinkSchema.extend({
+    path: DevDeliveryBundleFileNameSchema,
+    mediaType: zod_1.z.literal('application/zip'),
+});
 exports.DevDeliveryLinksResponseSchema = zod_1.z.strictObject({
     links: zod_1.z.array(exports.DevDeliveryLinkSchema).max(exports.DEV_DELIVERY_LINKS_MAX_PATHS),
+    bundle: DevDeliveryBundleLinkSchema.optional(),
 }).refine((response) => hasDistinct(response.links.map((link) => link.path)), {
     path: ['links'],
     message: 'One link per path',
@@ -48,6 +62,9 @@ exports.DevDeliveryLinksResponseSchema = zod_1.z.strictObject({
  * and agent belong to that session. Every path is read at the delivery commit;
  * links expire after DEV_DELIVERY_LINK_TTL_MS (30 days). sha256 and sizeBytes
  * let the caller re-read the bytes through readDevSessionAssetContract.
+ * With request.bundle the service also composes one ZIP of bundle.paths, read at
+ * the same commit with the same checks as paths, and answers response.bundle: a
+ * link whose path is bundle.fileName and whose mediaType is application/zip.
  */
 exports.devDeliveryLinksContract = {
     method: 'POST',

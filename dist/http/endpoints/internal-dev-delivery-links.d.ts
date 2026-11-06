@@ -47,6 +47,10 @@ export declare const DevDeliveryLinksRequestSchema: z.ZodObject<{
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>;
     paths: z.ZodArray<z.ZodString>;
+    bundle: z.ZodOptional<z.ZodObject<{
+        fileName: z.ZodString;
+        paths: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type DevDeliveryLinksRequest = z.infer<typeof DevDeliveryLinksRequestSchema>;
 export declare const DevDeliveryLinkSchema: z.ZodObject<{
@@ -67,6 +71,14 @@ export declare const DevDeliveryLinksResponseSchema: z.ZodObject<{
         sha256: z.ZodString;
         sizeBytes: z.ZodNumber;
     }, z.core.$strict>>;
+    bundle: z.ZodOptional<z.ZodObject<{
+        url: z.ZodURL;
+        expiresAt: z.ZodISODateTime;
+        sha256: z.ZodString;
+        sizeBytes: z.ZodNumber;
+        path: z.ZodString;
+        mediaType: z.ZodLiteral<"application/zip">;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type DevDeliveryLinksResponse = z.infer<typeof DevDeliveryLinksResponseSchema>;
 /**
@@ -75,6 +87,9 @@ export type DevDeliveryLinksResponse = z.infer<typeof DevDeliveryLinksResponseSc
  * and agent belong to that session. Every path is read at the delivery commit;
  * links expire after DEV_DELIVERY_LINK_TTL_MS (30 days). sha256 and sizeBytes
  * let the caller re-read the bytes through readDevSessionAssetContract.
+ * With request.bundle the service also composes one ZIP of bundle.paths, read at
+ * the same commit with the same checks as paths, and answers response.bundle: a
+ * link whose path is bundle.fileName and whose mediaType is application/zip.
  */
 export declare const devDeliveryLinksContract: {
     readonly method: "POST";
@@ -129,6 +144,10 @@ export declare const devDeliveryLinksContract: {
             createdAt: z.ZodISODateTime;
         }, z.core.$strict>;
         paths: z.ZodArray<z.ZodString>;
+        bundle: z.ZodOptional<z.ZodObject<{
+            fileName: z.ZodString;
+            paths: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         links: z.ZodArray<z.ZodObject<{
@@ -138,6 +157,14 @@ export declare const devDeliveryLinksContract: {
             mediaType: z.ZodString;
             sha256: z.ZodString;
             sizeBytes: z.ZodNumber;
+        }, z.core.$strict>>;
+        bundle: z.ZodOptional<z.ZodObject<{
+            url: z.ZodURL;
+            expiresAt: z.ZodISODateTime;
+            sha256: z.ZodString;
+            sizeBytes: z.ZodNumber;
+            path: z.ZodString;
+            mediaType: z.ZodLiteral<"application/zip">;
         }, z.core.$strict>>;
     }, z.core.$strict>;
 };

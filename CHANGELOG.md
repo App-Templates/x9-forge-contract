@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.99.0 — un unico ZIP fra i link di consegna
+
+- `@x9-forge/contracts/http`: la richiesta dei link di consegna di cap-dev prende `bundle` facoltativo (`fileName` minuscolo `.zip`, `paths` distinti, fino a 12); la risposta prende `bundle` facoltativo, un link `application/zip` il cui `path` è `fileName`. Il servizio compone lo ZIP dai file letti allo stesso commit, con gli stessi controlli dei `paths`.
+- Solo campi facoltativi: nessuna forma si stringe. Consumer: cap-dev (compone lo ZIP) e cap-email (lo chiede).
+
 ## v1.98.0 — il rifiuto di un percorso del pacchetto dice le estensioni ammesse
 
 - Cambia solo il testo del messaggio di rifiuto dei percorsi del pacchetto, che elenca le estensioni ammesse per il campo; nessuna forma cambia.
