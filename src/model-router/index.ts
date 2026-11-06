@@ -67,3 +67,4 @@ export * from './effective-slot-state.js';
 export * from './effective-push.js';
 export * from './model-succession.js';
 export * from './model-preset.js';
+export * from './model-retirement.js';
