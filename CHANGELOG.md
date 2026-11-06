@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.105.0 — chiavi nel preset: `VaultCascadeEntryPlainSchema` con `presetId`; `CredentialSourceIdSchema`/`CredentialVersionRefSchema`/`compareCredentialVersions`; `credential` facoltativo nello stato `configured`; contratto delle chiavi risolte e `PRIMARY_FORGE_PROVIDER_KEYS`
+
+- Sorgente della chiave e versione con revoca esportate da `@x9-forge/contracts/vault`.
+- `internalVaultResolvedContract`, `VaultResolvedEntrySchema` e `VaultResolvedResponseSchema` per le chiavi risolte, incluso il livello `preset`.
+- Nessuno schema che legge dati salvati si stringe: schemi nuovi e campo `credential` facoltativo e nullable.
+- Adozione nei consumatori: mp-forge 5341 e mp-x9 5374.
+
 ## v1.104.0 — Modelli col preset: push della scelta effettiva con conferma, lettura di un posto, invalidazione e finestra di ritorno
 
 - `ModelsPushAckSchema`, `internalModelsPushContract` (`POST /internal/models/effective`, segreto interno).
