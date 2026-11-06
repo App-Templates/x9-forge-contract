@@ -37,6 +37,7 @@ export type { VaultEntryPlain, VaultEntryEncrypted, VaultCascadeEntryPlain } fro
 export {
   VaultResolvedEntrySchema,
   VaultResolvedResponseSchema,
+  resolvedEntryRef,
   internalVaultResolvedContract,
   vaultResolvedPath,
   PRIMARY_FORGE_PROVIDER_KEYS,
