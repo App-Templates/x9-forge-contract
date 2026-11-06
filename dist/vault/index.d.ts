@@ -6,8 +6,8 @@
  * @module @x9-forge/contracts/vault
  * @see .planning/phases/05-vault-contracts-block-e/05-RESEARCH.md
  */
-export { VaultTierSchema, VAULT_TIERS, VaultGenericTierSchema, VAULT_GENERIC_TIERS, compareTiers, } from "./vault-tier.js";
-export type { VaultTier, VaultGenericTier } from "./vault-tier.js";
+export { VaultTierSchema, VAULT_TIERS, VaultCascadeTierSchema, VAULT_CASCADE_TIERS, VaultGenericTierSchema, VAULT_GENERIC_TIERS, compareTiers, } from "./vault-tier.js";
+export type { VaultTier, VaultCascadeTier, VaultGenericTier } from "./vault-tier.js";
 export { VaultSyncStateSchema, VAULT_SYNC_STATES, toSyncState } from "./vault-sync-state.js";
 export type { VaultSyncState } from "./vault-sync-state.js";
 export { AES_WIRE_FORMAT_REGEX, VaultEntryPlainSchema, VaultEntryEncryptedSchema, } from "./vault-entry.js";

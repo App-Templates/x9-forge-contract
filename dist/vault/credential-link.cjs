@@ -21,7 +21,7 @@ var credential_key_js_2 = require("./credential-key.cjs");
 Object.defineProperty(exports, "CredentialKeySchema", { enumerable: true, get: function () { return credential_key_js_2.CredentialKeySchema; } });
 /** Saved version of one key's value; every save raises it. */
 exports.CredentialVersionSchema = zod_1.z.number().int().positive();
-exports.CredentialOwnTierSchema = vault_tier_js_1.VaultTierSchema.exclude(['platform', 'preset']);
+exports.CredentialOwnTierSchema = vault_tier_js_1.VaultTierSchema.exclude(['platform']);
 exports.CredentialLinkSchema = zod_1.z.discriminatedUnion('link', [
     zod_1.z.object({ link: zod_1.z.literal('linked'), source: zod_1.z.literal('master') }).strict(),
     zod_1.z.object({ link: zod_1.z.literal('unlinked'), tier: exports.CredentialOwnTierSchema }).strict(),

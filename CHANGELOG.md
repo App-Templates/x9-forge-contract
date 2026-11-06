@@ -2,6 +2,8 @@
 
 ## Non rilasciato
 
+## v1.103.1 — `VaultTier` torna a tre livelli come nella 1.102.0; il livello `preset` della cascata è in `VaultCascadeTierSchema`/`VAULT_CASCADE_TIERS`
+
 ## v1.103.0 — Modelli col preset: scelta del preset, scelta effettiva, livello `preset` della cascata
 
 - `ModelChoiceSchema`, `toModelChoice`, `toCapabilityModelSettings` (`model-router/model-choice.ts`).

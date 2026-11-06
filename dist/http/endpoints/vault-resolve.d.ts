@@ -40,7 +40,6 @@ export declare const VaultResolveResponseSchema: z.ZodObject<{
         owner: "owner";
         agent: "agent";
         platform: "platform";
-        preset: "preset";
     }>;
 }, z.core.$strip>;
 export type VaultResolveResponse = z.infer<typeof VaultResolveResponseSchema>;
@@ -72,7 +71,6 @@ export declare const vaultResolveContract: {
             owner: "owner";
             agent: "agent";
             platform: "platform";
-            preset: "preset";
         }>;
     }, z.core.$strip>;
 };
