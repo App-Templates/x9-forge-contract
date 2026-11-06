@@ -167,6 +167,16 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         commit: session_assignment_js_1.DevSessionCommitSchema,
         projectId: session_assignment_js_1.DevSessionAssignmentSchema.shape.projectId,
     }),
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('work_stalled'),
+        issueId: zod_1.z.uuid(),
+        identifier: zod_1.z.string().min(1).max(40),
+        title: zod_1.z.string().min(1).max(300),
+        unitId: zod_1.z.string().min(1).max(200),
+        status: tools_js_1.PaperclipIssueStatusSchema,
+        stalledSince: zod_1.z.iso.datetime({ offset: true }),
+        reason: zod_1.z.enum(['no_activity', 'waiting_too_long', 'queue_not_continued']),
+    }),
 ]);
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
 // dell'agente, come il canale email di Paperclip: incarico assegnato a sé (sveglia d'assegnazione) oppure commento

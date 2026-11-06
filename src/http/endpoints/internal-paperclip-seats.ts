@@ -11,6 +11,7 @@ import {
 import {
   PaperclipActivityInputSchema,
   PaperclipActivityOutputSchema,
+  PaperclipIssueStatusSchema,
   PaperclipSearchInputSchema,
   PaperclipSearchKindSchema,
   PaperclipSearchOutputSchema,
@@ -213,6 +214,16 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     sessionIssue: DevSessionResultSchema.shape.issue,
     commit: DevSessionCommitSchema,
     projectId: DevSessionAssignmentSchema.shape.projectId,
+  }),
+  z.strictObject({
+    kind: z.literal('work_stalled'),
+    issueId: z.uuid(),
+    identifier: z.string().min(1).max(40),
+    title: z.string().min(1).max(300),
+    unitId: z.string().min(1).max(200),
+    status: PaperclipIssueStatusSchema,
+    stalledSince: z.iso.datetime({ offset: true }),
+    reason: z.enum(['no_activity', 'waiting_too_long', 'queue_not_continued']),
   }),
 ]);
 

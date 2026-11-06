@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.108.0 — la sveglia dei posti conosce il lavoro fermo
+
+- `@x9-forge/contracts/http`: `PaperclipSeatNativeWakeEventSchema` aggiunge l'evento rigido `work_stalled` con incarico, reparto, stato Paperclip, istante di stallo (anche con offset) e motivo (`no_activity`, `waiting_too_long`, `queue_not_continued`). La richiesta richiede `organizationId` e `identity`, con identità coerente con l'agente, come `dev_delivered`.
+- Le forme `email`, `research_done` e `dev_delivered` restano valide. Consumer: cap-paperclip (5118); nessun evento nuovo viene inviato finché l'allarme è spento. Build ESM e CommonJS aggiornata.
+
 ## v1.107.0 — la data delle tappe del piano di reparto è facoltativa
 
 - `@x9-forge/contracts/organization`: `VerticalPlanSchema.milestones[].dueDate` diventa facoltativa (`z.iso.date().optional()`, descrizione neutra «giorno della tappa, se esiste»); se presente, resta una data ISO valida. Anche l'evento `sent` dell'osservazione accetta piani senza date per eredità dello schema.
