@@ -14,6 +14,9 @@ export const VIDEO_FOOTAGE_MAX_BYTES = 256 * 1024 * 1024;
 /** Containers the engine reads. */
 export const VIDEO_FOOTAGE_MEDIA_TYPES = ['video/mp4', 'video/quicktime', 'video/x-m4v'] as const;
 
+/** Riprese al massimo per tenant e persona, comprese quelle già nell'archivio. */
+export const VIDEO_FOOTAGE_MAX_PER_PERSON = 20;
+
 /** Who is filmed: a slug, never a path. */
 export const VideoFootagePersonSchema = z.string().regex(/^[a-z][a-z0-9-]{0,31}$/);
 export type VideoFootagePerson = z.infer<typeof VideoFootagePersonSchema>;
