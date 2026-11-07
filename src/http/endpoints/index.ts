@@ -147,3 +147,4 @@ export * from './internal-dev-delivery-links.js';
 export * from './paperclip-protocollo-turno.js';
 export * from './officina-video.js';
 export * from './internal-dev-regia.js'; // v1.89.0 — regia of a video: cap-video -> cap-dev
+export * from './internal-company-board.js'; // v1.113.0 — company board reads
