@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.111.0 — aggancio salvato col preset
+
+- `AgentPresetAttachmentRecordSchema`: identità completa, ambito e `source` (`nascita`/`riallineamento`), ciò che Forge salva per un agente senza configurazione Modelli.
+- `presetAttachmentAuthorityOf`: identità e ambito solo se il record coincide con id, slug e proprietario della riga dell'agente.
+- `presetAttachmentRecordFromBirth`: costruisce il record salvato alla nascita dall'aggancio e dal proprietario.
+- Consumatori: Forge vault e factory (mp-forge 5549, 5552-5554).
+- Nessuno schema esistente cambia valori.
+- Fonte dell'identità: Stefano 07/11 «A».
+
 ## v1.110.0 — fonte del preset generale
 
 - `PLATFORM_PRESET_SOURCE_IDENTITY` (`runtimeAgentId` `x9`, `managementAgentId` `x9-staging`): l'identità salvata di X9, Stefano 07/11 «prendi X9».
