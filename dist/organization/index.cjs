@@ -48,4 +48,5 @@ __exportStar(require("./vertical-plan.cjs"), exports);
 __exportStar(require("./vertical-plan-observation.cjs"), exports);
 __exportStar(require("./delivery-package.cjs"), exports);
 __exportStar(require("./company-board.cjs"), exports);
+__exportStar(require("./company-board-rule.cjs"), exports);
 //# sourceMappingURL=index.js.map
