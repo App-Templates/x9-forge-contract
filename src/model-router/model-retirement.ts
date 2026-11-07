@@ -8,17 +8,59 @@ import { ModelSlotIdSchema } from './model-slot.js';
 import { NoSuccessorCauseSchema } from './model-succession.js';
 
 /**
- * What a service saw when a provider refused a call because the model no longer exists:
- * OpenAI 404 `model_not_found`, Anthropic `not_found_error`.
+ * The error code each provider answers with when the model no longer exists.
+ * openai: `error.code`; anthropic: `error.type`; google: `error.status` (google.rpc);
+ * elevenlabs: `detail.type` of the 404 body.
+ */
+export const RETIRED_PROVIDER_ERROR_CODES = {
+  openai: ['model_not_found'],
+  anthropic: ['not_found_error'],
+  google: ['NOT_FOUND'],
+  elevenlabs: ['not_found'],
+} as const;
+
+export const RetiredProviderErrorSchema = z.enum(['model_not_found', 'not_found_error', 'NOT_FOUND', 'not_found']);
+export type RetiredProviderError = z.infer<typeof RetiredProviderErrorSchema>;
+
+/** True only when `code` is in the provider's own row; an unknown provider never fits. */
+export function retiredProviderErrorFits(provider: string, code: string): boolean {
+  if (!Object.hasOwn(RETIRED_PROVIDER_ERROR_CODES, provider)) return false;
+  return (RETIRED_PROVIDER_ERROR_CODES[provider as keyof typeof RETIRED_PROVIDER_ERROR_CODES] as readonly string[]).includes(code);
+}
+
+/** `provider-error`: a call was refused; `provider-inventory`: the provider's catalog no longer lists the model. */
+export const RETIREMENT_SOURCES = ['provider-error', 'provider-inventory'] as const;
+export const RetirementSourceSchema = EffectiveSlotRetirementReasonSchema.extract([...RETIREMENT_SOURCES]);
+export type RetirementSource = z.infer<typeof RetirementSourceSchema>;
+
+/**
+ * What a service saw when a model no longer exists: a provider refused a call
+ * (`provider-error`, the default when `source` is absent, carries `providerError`) or the
+ * provider's catalog stopped listing it (`provider-inventory`, no `providerError`).
+ * The provider/code pair is checked by whoever recognises the error, with `retiredProviderErrorFits`.
  * Never carries the raw provider error text or any credential.
  */
 export const RetiredModelObservationSchema = z.object({
   scope: CapabilityAgentScopeSchema,
   slotId: ModelSlotIdSchema,
   model: ModelDescriptorSchema,
-  providerError: z.enum(['model_not_found', 'not_found_error']),
-}).strict();
+  source: RetirementSourceSchema.optional(),
+  providerError: RetiredProviderErrorSchema.optional(),
+}).strict().superRefine((observation, ctx) => {
+  const source = observation.source ?? 'provider-error';
+  if (source === 'provider-error' && observation.providerError === undefined) {
+    ctx.addIssue({ code: 'custom', path: ['providerError'], message: 'A provider-error observation needs the provider error code' });
+  }
+  if (source === 'provider-inventory' && observation.providerError !== undefined) {
+    ctx.addIssue({ code: 'custom', path: ['providerError'], message: 'A provider-inventory observation has no provider error code' });
+  }
+});
 export type RetiredModelObservation = z.infer<typeof RetiredModelObservationSchema>;
+
+/** The vault writes this as the `reason` of the notice. */
+export function retirementSource(observation: RetiredModelObservation): RetirementSource {
+  return observation.source ?? 'provider-error';
+}
 
 /**
  * `scheduled`: the vault runs its retirement pass now. `not-in-table`: the model has no row in the
