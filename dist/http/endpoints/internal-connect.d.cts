@@ -17,6 +17,8 @@ export declare const ConnectStateParamsSchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
 }, z.core.$strict>;
 export type ConnectStateParams = z.infer<typeof ConnectStateParamsSchema>;
@@ -24,6 +26,8 @@ export declare const IssueConnectPermitBodySchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
     scopes: z.ZodArray<z.ZodEnum<{
         calendar_events: "calendar_events";
@@ -32,6 +36,8 @@ export declare const IssueConnectPermitBodySchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
 }, z.core.$strict>;
 export type IssueConnectPermitBody = z.infer<typeof IssueConnectPermitBodySchema>;
@@ -41,6 +47,8 @@ export declare const IssueConnectPermitResponseSchema: z.ZodDiscriminatedUnion<[
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         scopes: z.ZodArray<z.ZodEnum<{
             calendar_events: "calendar_events";
@@ -49,6 +57,8 @@ export declare const IssueConnectPermitResponseSchema: z.ZodDiscriminatedUnion<[
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
         issuedAt: z.ZodNumber;
         expiresAt: z.ZodNumber;
@@ -64,6 +74,8 @@ export declare const IssueConnectAccessTokenBodySchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
     scope: z.ZodEnum<{
         calendar_events: "calendar_events";
@@ -72,7 +84,9 @@ export declare const IssueConnectAccessTokenBodySchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
-    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
+        code_read: "code_read";
+        design_read: "design_read";
+    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read">>;
     personRef: z.ZodString;
 }, z.core.$strict>;
 export type IssueConnectAccessTokenBody = z.infer<typeof IssueConnectAccessTokenBodySchema>;
@@ -97,6 +111,8 @@ export declare const IssueConnectAccessTokenResponseSchema: z.ZodDiscriminatedUn
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
 }, z.core.$strict>, z.ZodObject<{
     ok: z.ZodLiteral<false>;
@@ -120,6 +136,8 @@ export declare const startConnectContract: {
         conversationId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         scopes: z.ZodArray<z.ZodEnum<{
             calendar_events: "calendar_events";
@@ -128,6 +146,8 @@ export declare const startConnectContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -147,12 +167,16 @@ export declare const getConnectStateContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         status: z.ZodEnum<{
             connected: "connected";
@@ -168,6 +192,8 @@ export declare const getConnectStateContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
         connectedAt: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
@@ -180,6 +206,8 @@ export declare const revokeConnectContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -200,6 +228,8 @@ export declare const issueConnectPermitContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         scopes: z.ZodArray<z.ZodEnum<{
             calendar_events: "calendar_events";
@@ -208,6 +238,8 @@ export declare const issueConnectPermitContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -216,6 +248,8 @@ export declare const issueConnectPermitContract: {
             agentId: z.ZodString;
             provider: z.ZodEnum<{
                 google: "google";
+                bitbucket: "bitbucket";
+                figma: "figma";
             }>;
             scopes: z.ZodArray<z.ZodEnum<{
                 calendar_events: "calendar_events";
@@ -224,6 +258,8 @@ export declare const issueConnectPermitContract: {
                 mail_draft: "mail_draft";
                 mail_read: "mail_read";
                 drive_read: "drive_read";
+                code_read: "code_read";
+                design_read: "design_read";
             }>>;
             issuedAt: z.ZodNumber;
             expiresAt: z.ZodNumber;
@@ -242,6 +278,8 @@ export declare const issueConnectAccessTokenContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         scope: z.ZodEnum<{
             calendar_events: "calendar_events";
@@ -250,7 +288,9 @@ export declare const issueConnectAccessTokenContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
-        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
+            code_read: "code_read";
+            design_read: "design_read";
+        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read">>;
         personRef: z.ZodString;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -264,6 +304,8 @@ export declare const issueConnectAccessTokenContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
     }, z.core.$strict>, z.ZodObject<{
         ok: z.ZodLiteral<false>;

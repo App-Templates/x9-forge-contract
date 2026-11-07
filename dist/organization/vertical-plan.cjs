@@ -31,7 +31,7 @@ exports.VerticalPlanSchema = zod_1.z.strictObject({
     milestones: zod_1.z.array(zod_1.z.strictObject({
         number: MilestoneNumberSchema,
         expectedGoal: zod_1.z.string().min(1).max(2000),
-        dueDate: zod_1.z.iso.date(),
+        dueDate: zod_1.z.iso.date().optional().describe('giorno della tappa, se esiste'),
         blockedBy: zod_1.z.array(zod_1.z.number().int()),
     })).min(1).max(30),
     blockers: zod_1.z.array(zod_1.z.strictObject({

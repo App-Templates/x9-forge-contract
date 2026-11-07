@@ -62,7 +62,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteRequestSchem
             milestones: z.ZodArray<z.ZodObject<{
                 number: z.ZodNumber;
                 expectedGoal: z.ZodString;
-                dueDate: z.ZodISODate;
+                dueDate: z.ZodOptional<z.ZodISODate>;
                 blockedBy: z.ZodArray<z.ZodNumber>;
             }, z.core.$strict>>;
             blockers: z.ZodArray<z.ZodObject<{
@@ -291,7 +291,7 @@ export declare const InternalMemoryVerticalPlanObservationReadResponseSchema: z.
                 milestones: z.ZodArray<z.ZodObject<{
                     number: z.ZodNumber;
                     expectedGoal: z.ZodString;
-                    dueDate: z.ZodISODate;
+                    dueDate: z.ZodOptional<z.ZodISODate>;
                     blockedBy: z.ZodArray<z.ZodNumber>;
                 }, z.core.$strict>>;
                 blockers: z.ZodArray<z.ZodObject<{
@@ -521,7 +521,7 @@ export declare const InternalMemoryVerticalPlanObservationEventWriteResponseSche
                 milestones: z.ZodArray<z.ZodObject<{
                     number: z.ZodNumber;
                     expectedGoal: z.ZodString;
-                    dueDate: z.ZodISODate;
+                    dueDate: z.ZodOptional<z.ZodISODate>;
                     blockedBy: z.ZodArray<z.ZodNumber>;
                 }, z.core.$strict>>;
                 blockers: z.ZodArray<z.ZodObject<{
@@ -786,7 +786,7 @@ export declare const internalMemoryVerticalPlanObservationReadContract: {
                     milestones: z.ZodArray<z.ZodObject<{
                         number: z.ZodNumber;
                         expectedGoal: z.ZodString;
-                        dueDate: z.ZodISODate;
+                        dueDate: z.ZodOptional<z.ZodISODate>;
                         blockedBy: z.ZodArray<z.ZodNumber>;
                     }, z.core.$strict>>;
                     blockers: z.ZodArray<z.ZodObject<{
@@ -1030,7 +1030,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                 milestones: z.ZodArray<z.ZodObject<{
                     number: z.ZodNumber;
                     expectedGoal: z.ZodString;
-                    dueDate: z.ZodISODate;
+                    dueDate: z.ZodOptional<z.ZodISODate>;
                     blockedBy: z.ZodArray<z.ZodNumber>;
                 }, z.core.$strict>>;
                 blockers: z.ZodArray<z.ZodObject<{
@@ -1258,7 +1258,7 @@ export declare const internalMemoryVerticalPlanObservationEventWriteContract: {
                     milestones: z.ZodArray<z.ZodObject<{
                         number: z.ZodNumber;
                         expectedGoal: z.ZodString;
-                        dueDate: z.ZodISODate;
+                        dueDate: z.ZodOptional<z.ZodISODate>;
                         blockedBy: z.ZodArray<z.ZodNumber>;
                     }, z.core.$strict>>;
                     blockers: z.ZodArray<z.ZodObject<{

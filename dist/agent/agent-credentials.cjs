@@ -55,6 +55,8 @@ exports.KNOWN_CREDENTIAL_KEYS = [
     'GITHUB_APP_ID',
     'GITHUB_APP_INSTALLATION_ID',
     'GITHUB_APP_PRIVATE_KEY',
+    'BITBUCKET_TOKEN', // cap-dev, lettura Bitbucket, per agente
+    'FIGMA_TOKEN', // cap-dev, lettura Figma, per agente
     'DEV_SIGNING_PRIVATE_KEY',
     'PAPERCLIP_API_KEY', // P01 — native Paperclip agent API key; per agent, never platform-wide
 ];
@@ -112,6 +114,8 @@ exports.AgentCredentialsSchema = zod_1.z
     GITHUB_APP_ID: zod_1.z.string().optional(),
     GITHUB_APP_INSTALLATION_ID: zod_1.z.string().optional(),
     GITHUB_APP_PRIVATE_KEY: zod_1.z.string().optional(),
+    BITBUCKET_TOKEN: zod_1.z.string().optional(),
+    FIGMA_TOKEN: zod_1.z.string().optional(),
     DEV_SIGNING_PRIVATE_KEY: zod_1.z.string().optional(),
     PAPERCLIP_API_KEY: zod_1.z.string().optional(),
 })

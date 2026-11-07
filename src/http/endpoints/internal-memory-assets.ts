@@ -10,7 +10,8 @@ export const INTERNAL_MEMORY_ASSET_CONTENT_PATH = '/internal/memory/assets/conte
 
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
- * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ * A `link` or `session` origin carries no bytes (the session file stays in its delivery branch, memory keeps
+ * the card); every other origin requires `contentBase64`.
  * `context` says for which agentic company (organization) the asset is stored: the signed context of the run,
  * as for the other company memory routes. An attachment that arrives on its own (email) carries the context the
  * connector issues for the organization of the conversation. The service takes tenant and organization from the
@@ -28,19 +29,39 @@ export const InternalMemoryAssetIngestRequestSchema = z
       ctx.addIssue({ code: 'custom', path: ['asset', 'providedBy'], message: 'provided_by_is_resolved_by_the_service' });
     }
     const isLink = value.asset.origin.kind === 'link';
+    const isSession = value.asset.origin.kind === 'session';
     if (isLink && value.contentBase64 !== undefined) {
       ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'link_has_no_content' });
     }
-    if (!isLink && value.contentBase64 === undefined) {
+    if (isSession && value.contentBase64 !== undefined) {
+      ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'session_has_no_content' });
+    }
+    if (!isLink && !isSession && value.contentBase64 === undefined) {
       ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'content_required' });
     }
   });
 export type InternalMemoryAssetIngestRequest = z.infer<typeof InternalMemoryAssetIngestRequestSchema>;
 
+/**
+ * Present only when the asset is registered but its bytes were NOT kept because the company reached its quota;
+ * absent means the bytes are kept. The agent can explain it to the referent.
+ */
+const ContentNotStoredSchema = z.strictObject({
+  reason: z.literal('company_quota'),
+  quotaBytes: z.number().int().min(0),
+  usedBytes: z.number().int().min(0),
+});
+
 export const InternalMemoryAssetIngestResponseSchema = z.discriminatedUnion('kind', [
-  z.strictObject({ kind: z.literal('file'), assetId: AssetRefSchema.shape.assetId, sha256: AssetSha256Schema }),
+  z.strictObject({
+    kind: z.literal('file'),
+    assetId: AssetRefSchema.shape.assetId,
+    sha256: AssetSha256Schema,
+    contentNotStored: ContentNotStoredSchema.optional(),
+  }),
   z.strictObject({
     kind: z.literal('archive'),
+    contentNotStored: ContentNotStoredSchema.optional(),
     archiveAssetId: AssetRefSchema.shape.assetId,
     entries: z.array(
       z.strictObject({
@@ -85,15 +106,19 @@ export const InternalMemoryAssetListResponseSchema = z.strictObject({
 });
 export type InternalMemoryAssetListResponse = z.infer<typeof InternalMemoryAssetListResponseSchema>;
 
-/** Transport request only: the service verifies the signed context, its expiry and the asset's ownership. */
+/**
+ * Transport request only: the service verifies the signed context, its expiry and the asset's ownership.
+ * Readable origins are `generated`, `email` (a file received by email) and `archive` (a file extracted from an
+ * archive). A `link` has no bytes and a `session` has its own route, so both are refused.
+ */
 export const InternalMemoryAssetContentRequestSchema = z.strictObject({
   context: OrganizationRunContextSchema,
   asset: AssetRefSchema,
   offset: z.number().int().min(0),
   length: z.number().int().min(1).max(262144),
-}).refine((request) => request.asset.origin.kind === 'generated', {
+}).refine((request) => ['generated', 'email', 'archive'].includes(request.asset.origin.kind), {
   path: ['asset', 'origin'],
-  message: 'Asset must have a generated origin',
+  message: 'Asset must have a generated, email or archive origin',
 }).refine((request) => request.offset < request.asset.sizeBytes, {
   path: ['offset'],
   message: 'Offset must be less than asset sizeBytes',

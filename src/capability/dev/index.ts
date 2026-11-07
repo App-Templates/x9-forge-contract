@@ -10,3 +10,5 @@ export {
   DEV_SESSION_EXECUTOR_LABEL_PREFIX,
   DEV_SESSION_SERVER_EXECUTOR_LABEL,
 } from './session-assignment.js';
+export * from './session-material-link.js';
+export { DevSessionMaterialLinkSchema } from './session-material-link.js';

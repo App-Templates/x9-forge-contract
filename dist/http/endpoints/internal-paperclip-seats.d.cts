@@ -228,8 +228,8 @@ export declare const InternalPaperclipSeatReplyWakeRequestSchema: z.ZodObject<{
 export declare const PAPERCLIP_SEAT_REPLY_WAKE_RESULTS: readonly ["woken", "skipped", "duplicate", "not_waiting", "no_mandate", "ambiguous"];
 export declare const PaperclipSeatReplyWakeResultSchema: z.ZodEnum<{
     duplicate: "duplicate";
-    ambiguous: "ambiguous";
     skipped: "skipped";
+    ambiguous: "ambiguous";
     woken: "woken";
     not_waiting: "not_waiting";
     no_mandate: "no_mandate";
@@ -237,8 +237,8 @@ export declare const PaperclipSeatReplyWakeResultSchema: z.ZodEnum<{
 export declare const InternalPaperclipSeatReplyWakeResponseSchema: z.ZodObject<{
     result: z.ZodEnum<{
         duplicate: "duplicate";
-        ambiguous: "ambiguous";
         skipped: "skipped";
+        ambiguous: "ambiguous";
         woken: "woken";
         not_waiting: "not_waiting";
         no_mandate: "no_mandate";
@@ -262,8 +262,8 @@ export declare const internalPaperclipSeatReplyWakeContract: {
     readonly responseSchema: z.ZodObject<{
         result: z.ZodEnum<{
             duplicate: "duplicate";
-            ambiguous: "ambiguous";
             skipped: "skipped";
+            ambiguous: "ambiguous";
             woken: "woken";
             not_waiting: "not_waiting";
             no_mandate: "no_mandate";
@@ -315,6 +315,27 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
     sessionIssue: z.ZodNumber;
     commit: z.ZodString;
     projectId: z.ZodString;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"work_stalled">;
+    issueId: z.ZodUUID;
+    identifier: z.ZodString;
+    title: z.ZodString;
+    unitId: z.ZodString;
+    status: z.ZodEnum<{
+        cancelled: "cancelled";
+        done: "done";
+        blocked: "blocked";
+        backlog: "backlog";
+        todo: "todo";
+        in_progress: "in_progress";
+        in_review: "in_review";
+    }>;
+    stalledSince: z.ZodISODateTime;
+    reason: z.ZodEnum<{
+        no_activity: "no_activity";
+        waiting_too_long: "waiting_too_long";
+        queue_not_continued: "queue_not_continued";
+    }>;
 }, z.core.$strict>], "kind">;
 export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{
@@ -367,6 +388,27 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         sessionIssue: z.ZodNumber;
         commit: z.ZodString;
         projectId: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"work_stalled">;
+        issueId: z.ZodUUID;
+        identifier: z.ZodString;
+        title: z.ZodString;
+        unitId: z.ZodString;
+        status: z.ZodEnum<{
+            cancelled: "cancelled";
+            done: "done";
+            blocked: "blocked";
+            backlog: "backlog";
+            todo: "todo";
+            in_progress: "in_progress";
+            in_review: "in_review";
+        }>;
+        stalledSince: z.ZodISODateTime;
+        reason: z.ZodEnum<{
+            no_activity: "no_activity";
+            waiting_too_long: "waiting_too_long";
+            queue_not_continued: "queue_not_continued";
+        }>;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
 export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited"];
@@ -454,6 +496,27 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             sessionIssue: z.ZodNumber;
             commit: z.ZodString;
             projectId: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"work_stalled">;
+            issueId: z.ZodUUID;
+            identifier: z.ZodString;
+            title: z.ZodString;
+            unitId: z.ZodString;
+            status: z.ZodEnum<{
+                cancelled: "cancelled";
+                done: "done";
+                blocked: "blocked";
+                backlog: "backlog";
+                todo: "todo";
+                in_progress: "in_progress";
+                in_review: "in_review";
+            }>;
+            stalledSince: z.ZodISODateTime;
+            reason: z.ZodEnum<{
+                no_activity: "no_activity";
+                waiting_too_long: "waiting_too_long";
+                queue_not_continued: "queue_not_continued";
+            }>;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{

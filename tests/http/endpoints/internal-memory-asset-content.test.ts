@@ -59,9 +59,11 @@ const response = {
   contentBase64: content.subarray(0, 4).toString('base64'),
   eof: false,
 };
-const otherOrigins = [
+const receivedOrigins = [
   { kind: 'email', messageId: 'message-1', attachmentName: asset.name },
   { kind: 'archive', archiveSha256: 'b'.repeat(64), entryPath: 'docs/delivery.txt' },
+];
+const otherOrigins = [
   { kind: 'session', sessionId: 'session-1' },
   { kind: 'link', url: 'https://example.com/delivery' },
 ];
@@ -91,15 +93,19 @@ describe('generated memory asset content contract', () => {
     expect(endpointResponse).toStrictEqual(response);
   });
 
-  it('generated asset content request accepts only generated assets', () => {
+  it('accepts generated, email and archive assets and refuses session and link', () => {
     expect(InternalMemoryAssetContentRequestSchema.parse(request)).toStrictEqual(request);
+    for (const origin of receivedOrigins) {
+      const input = { ...request, asset: { ...asset, origin } };
+      expect(InternalMemoryAssetContentRequestSchema.parse(input)).toStrictEqual(input);
+    }
     for (const origin of otherOrigins) {
       const otherAsset = { ...asset, origin };
       expect(AssetRefSchema.safeParse(otherAsset).success).toBe(true);
       const result = InternalMemoryAssetContentRequestSchema.safeParse({ ...request, asset: otherAsset });
       expect(result.success).toBe(false);
       expect(result.error?.issues).toContainEqual({
-        code: 'custom', path: ['asset', 'origin'], message: 'Asset must have a generated origin',
+        code: 'custom', path: ['asset', 'origin'], message: 'Asset must have a generated, email or archive origin',
       });
     }
   });

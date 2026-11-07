@@ -14,14 +14,28 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectToolPermitSchema = exports.ConnectRevokeResponseSchema = exports.ConnectRevokeRequestSchema = exports.ConnectStateResponseSchema = exports.ConnectStatusSchema = exports.ConnectStartResponseSchema = exports.ConnectStartRequestSchema = exports.CONNECT_PERMIT_MAX_TTL_SECONDS = exports.CONNECT_LINK_LIMITS = exports.ConnectScopeSchema = exports.ConnectProviderSchema = void 0;
+exports.ConnectToolPermitSchema = exports.ConnectRevokeResponseSchema = exports.ConnectRevokeRequestSchema = exports.ConnectStateResponseSchema = exports.ConnectStatusSchema = exports.ConnectStartResponseSchema = exports.ConnectStartRequestSchema = exports.CONNECT_PERMIT_MAX_TTL_SECONDS = exports.CONNECT_INVITE_LIMITS = exports.CONNECT_LINK_LIMITS = exports.CONNECT_PROVIDER_SCOPES = exports.ConnectScopeSchema = exports.ConnectProviderSchema = void 0;
 const zod_1 = require("zod");
 /** Providers a person can connect (provider list is configuration; Google first). */
-exports.ConnectProviderSchema = zod_1.z.enum(['google']);
+exports.ConnectProviderSchema = zod_1.z.enum(['google', 'bitbucket', 'figma']);
 /** Separate permissions for mailbox and Drive reading. `mail_draft` creates drafts, it never reads mail. */
-exports.ConnectScopeSchema = zod_1.z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read']);
+exports.ConnectScopeSchema = zod_1.z.enum([
+    'calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read',
+    // Read repository code through Bitbucket.
+    'code_read',
+    // Read design files through Figma.
+    'design_read',
+]);
+/** Permissions available from each connection provider. */
+exports.CONNECT_PROVIDER_SCOPES = {
+    google: ['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read'],
+    bitbucket: ['code_read'],
+    figma: ['design_read'],
+};
 /** One-time link limits: the link expires in 10 minutes. */
 exports.CONNECT_LINK_LIMITS = { ttlSeconds: 600, stateBytes: 32 };
+/** Email invitation lifetime: seven days until the connection succeeds. */
+exports.CONNECT_INVITE_LIMITS = { ttlSeconds: 604800 };
 /** Maximum lifetime of a tool permit, in seconds. */
 exports.CONNECT_PERMIT_MAX_TTL_SECONDS = 3600;
 const ScopesSchema = zod_1.z.array(exports.ConnectScopeSchema).min(1).refine((scopes) => new Set(scopes).size === scopes.length, {
@@ -38,7 +52,16 @@ exports.ConnectStartRequestSchema = zod_1.z.object({
     conversationId: zod_1.z.string().min(1),
     provider: exports.ConnectProviderSchema,
     scopes: ScopesSchema,
-}).strict();
+}).strict().superRefine((request, ctx) => {
+    const allowedScopes = exports.CONNECT_PROVIDER_SCOPES[request.provider];
+    if (request.scopes.some((scope) => !allowedScopes.includes(scope))) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Scopes must belong to the selected provider',
+            path: ['scopes'],
+        });
+    }
+});
 /** One-time https link, or an explicit failure reason. */
 exports.ConnectStartResponseSchema = zod_1.z.discriminatedUnion('ok', [
     zod_1.z.object({

@@ -5,7 +5,8 @@ export declare const INTERNAL_MEMORY_ASSETS_LIST_PATH: "/internal/memory/assets/
 export declare const INTERNAL_MEMORY_ASSET_CONTENT_PATH: "/internal/memory/assets/content";
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
- * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ * A `link` or `session` origin carries no bytes (the session file stays in its delivery branch, memory keeps
+ * the card); every other origin requires `contentBase64`.
  * `context` says for which agentic company (organization) the asset is stored: the signed context of the run,
  * as for the other company memory routes. An attachment that arrives on its own (email) carries the context the
  * connector issues for the organization of the conversation. The service takes tenant and organization from the
@@ -77,8 +78,18 @@ export declare const InternalMemoryAssetIngestResponseSchema: z.ZodDiscriminated
     kind: z.ZodLiteral<"file">;
     assetId: z.ZodString;
     sha256: z.ZodString;
+    contentNotStored: z.ZodOptional<z.ZodObject<{
+        reason: z.ZodLiteral<"company_quota">;
+        quotaBytes: z.ZodNumber;
+        usedBytes: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"archive">;
+    contentNotStored: z.ZodOptional<z.ZodObject<{
+        reason: z.ZodLiteral<"company_quota">;
+        quotaBytes: z.ZodNumber;
+        usedBytes: z.ZodNumber;
+    }, z.core.$strict>>;
     archiveAssetId: z.ZodString;
     entries: z.ZodArray<z.ZodObject<{
         assetId: z.ZodString;
@@ -171,7 +182,11 @@ export declare const InternalMemoryAssetListResponseSchema: z.ZodObject<{
     }, z.core.$strict>>;
 }, z.core.$strict>;
 export type InternalMemoryAssetListResponse = z.infer<typeof InternalMemoryAssetListResponseSchema>;
-/** Transport request only: the service verifies the signed context, its expiry and the asset's ownership. */
+/**
+ * Transport request only: the service verifies the signed context, its expiry and the asset's ownership.
+ * Readable origins are `generated`, `email` (a file received by email) and `archive` (a file extracted from an
+ * archive). A `link` has no bytes and a `session` has its own route, so both are refused.
+ */
 export declare const InternalMemoryAssetContentRequestSchema: z.ZodObject<{
     context: z.ZodObject<{
         schemaVersion: z.ZodLiteral<1>;
@@ -318,8 +333,18 @@ export declare const internalMemoryAssetIngestContract: {
         kind: z.ZodLiteral<"file">;
         assetId: z.ZodString;
         sha256: z.ZodString;
+        contentNotStored: z.ZodOptional<z.ZodObject<{
+            reason: z.ZodLiteral<"company_quota">;
+            quotaBytes: z.ZodNumber;
+            usedBytes: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"archive">;
+        contentNotStored: z.ZodOptional<z.ZodObject<{
+            reason: z.ZodLiteral<"company_quota">;
+            quotaBytes: z.ZodNumber;
+            usedBytes: z.ZodNumber;
+        }, z.core.$strict>>;
         archiveAssetId: z.ZodString;
         entries: z.ZodArray<z.ZodObject<{
             assetId: z.ZodString;

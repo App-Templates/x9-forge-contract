@@ -149,6 +149,22 @@ export function decisionRequestSubjectLabel(requestId: DecisionRequestId): strin
   return `[${DECISION_REQUEST_SUBJECT_LABEL} ${requestId}]`;
 }
 
+/** Header of the outgoing email that carries the `requestId`; the referent's reply is matched to the original message that carries it. */
+export const DECISION_REQUEST_HEADER = 'X-X9-Decision-Request' as const;
+
+/** True when the headers (name matched case-insensitively) carry exactly this `requestId` (value trimmed). */
+export function decisionRequestHeaderMatches(
+  headers: Readonly<Record<string, string>> | undefined,
+  requestId: DecisionRequestId,
+): boolean {
+  if (headers === undefined) return false;
+  const wanted = DECISION_REQUEST_HEADER.toLowerCase();
+  for (const [name, value] of Object.entries(headers)) {
+    if (name.toLowerCase() === wanted && value.trim() === requestId) return true;
+  }
+  return false;
+}
+
 /** Human email reply already interpreted by the lead (approve / refuse with reason / unclear). */
 export const DecisionEmailReplySchema = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('approve'), requestId: DecisionRequestIdSchema, optionId: OptionIdSchema.optional() }),

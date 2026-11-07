@@ -4,7 +4,7 @@ import { CapabilityAgentScopeSchema } from "../../capability/capability-call-ide
 import { DecisionOutcomeSchema, DecisionRequestIdSchema } from "../../organization/decision-request.js";
 import { ResearchIdSchema, ResearchStateSchema } from "../../capability/ricerca/research.js";
 import { DevSessionAssignmentSchema, DevSessionCommitSchema, DevSessionResultSchema, } from "../../capability/dev/session-assignment.js";
-import { PaperclipActivityInputSchema, PaperclipActivityOutputSchema, PaperclipSearchInputSchema, PaperclipSearchKindSchema, PaperclipSearchOutputSchema, } from "../../capability/paperclip/tools.js";
+import { PaperclipActivityInputSchema, PaperclipActivityOutputSchema, PaperclipIssueStatusSchema, PaperclipSearchInputSchema, PaperclipSearchKindSchema, PaperclipSearchOutputSchema, } from "../../capability/paperclip/tools.js";
 export const INTERNAL_PAPERCLIP_SEATS_PATH = '/internal/paperclip/seats';
 export const InternalPaperclipSeatsQuerySchema = z.strictObject({
     organizationId: z.string().min(1).max(64),
@@ -163,6 +163,16 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
         sessionIssue: DevSessionResultSchema.shape.issue,
         commit: DevSessionCommitSchema,
         projectId: DevSessionAssignmentSchema.shape.projectId,
+    }),
+    z.strictObject({
+        kind: z.literal('work_stalled'),
+        issueId: z.uuid(),
+        identifier: z.string().min(1).max(40),
+        title: z.string().min(1).max(300),
+        unitId: z.string().min(1).max(200),
+        status: PaperclipIssueStatusSchema,
+        stalledSince: z.iso.datetime({ offset: true }),
+        reason: z.enum(['no_activity', 'waiting_too_long', 'queue_not_continued']),
     }),
 ]);
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip

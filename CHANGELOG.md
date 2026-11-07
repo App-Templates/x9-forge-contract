@@ -2,7 +2,15 @@
 
 ## Non rilasciato
 
-## v1.106.3 — origine del posto effettivo e aggancio al Master esportati
+## v1.109.0 — unione della linea modelli-preset (1.103.0-1.106.3) e della linea ec-ponte (1.95.0-1.108.0)
+
+- Unione con merge commit di `night/modelli-preset-20261106` (main 1.102.0 + 1.103.0-1.106.3: preset, scelta effettiva, push con conferma, chiavi del preset, revoca come soglia, ritiri, nascita agganciata al preset) e di `night/ec-ponte-unione-20261104` (1.95.0-1.108.0: asset della memoria senza byte per le sessioni, link e ZIP delle consegne di cap-dev, parti dell'organizzazione, sveglia dei posti, strumenti video).
+- Le due linee non toccano gli stessi file sorgente: nessun export, valore di enum o schema è cambiato rispetto alla linea di origine. `dist/` ricostruita dalla build.
+- Le due linee hanno numerato in parallelo alcune versioni (1.97.0, 1.99.0 e 1.106.0 esistono in entrambe con contenuti diversi): le due storie restano qui sotto, ognuna nella sua sezione. Da questa versione la numerazione è unica.
+
+### Storia della linea modelli-preset (main 1.95.0-1.102.0 e 1.103.0-1.106.3)
+
+#### v1.106.3 — origine del posto effettivo e aggancio al Master esportati
 
 - `EffectiveSlotOriginSchema` (`EFFECTIVE_SLOT_ORIGINS`), usato da `EffectiveModelSlotSchema.origin`.
 - `ModelBindingOriginSchema` (`MODEL_BINDING_ORIGINS`), usato dal `binding` di `AgentModelsMasterImpactSchema`.
@@ -10,7 +18,7 @@
 - Nessuno schema cambia valori.
 - Nota sulle versioni 1.104.0 e 1.105.1: i loro `dist/` contengono già parte delle voci delle versioni successive; nessun consumatore si fermi a quelle versioni.
 
-## v1.106.2 — soglia di revoca nel riferimento della chiave: `revokedThrough` facoltativo e `credentialVersionRevoked`
+#### v1.106.2 — soglia di revoca nel riferimento della chiave: `revokedThrough` facoltativo e `credentialVersionRevoked`
 
 - `CredentialVersionThresholdSchema`.
 - `revokedThrough` facoltativo in `CredentialVersionRefSchema`, quindi nel `credential` dello stato `configured`.
@@ -18,7 +26,7 @@
 - Consumatori: agent-core e capability-sdk (mp-x9 5451-5453), cap-voice-live (mp-x9 5367).
 - Nessuno schema si stringe: un riferimento senza soglia è quello di oggi.
 
-## v1.106.1 — ritiro osservato: `source` facoltativo (`provider-error` | `provider-inventory`) e codici d'errore per fornitore
+#### v1.106.1 — ritiro osservato: `source` facoltativo (`provider-error` | `provider-inventory`) e codici d'errore per fornitore
 
 - `RetirementSourceSchema`, `RETIREMENT_SOURCES`, `retirementSource`.
 - `RETIRED_PROVIDER_ERROR_CODES` (openai, anthropic, google, elevenlabs), `RetiredProviderErrorSchema`, `retiredProviderErrorFits`.
@@ -26,7 +34,7 @@
 - Consumatori: agent-core (mp-x9 5445) e vault (mp-forge 5298-5299).
 - Nessuno schema si stringe: un corpo senza `source` è una chiamata, come oggi.
 
-## v1.106.0 — Modelli col preset: nascita agganciata al preset dell'azienda e modelli ritirati
+#### v1.106.0 — Modelli col preset: nascita agganciata al preset dell'azienda e modelli ritirati
 
 - Nascita (F8): `ModelPresetKindSchema`, `ModelPresetRefSchema`, `AgentPresetAttachmentSchema`, `selectBirthPreset`; `modelPreset` facoltativo in `BusinessUnitLeadBirthResultSchema`.
 - Successioni: `ModelSuccessionRowSchema`, `ModelSuccessionTableSchema`, `MODEL_SUCCESSION_TABLE` (vuota: le righe le approva Stefano), `resolveSuccessor`.
@@ -37,20 +45,20 @@
 - Consumatori: factory e vault (mp-forge), agent-core, memory e cap-rag (mp-x9).
 - Nessuno schema che legge dati salvati si stringe: schemi nuovi, campi facoltativi e una forma in più nell'unione degli stati.
 
-## v1.105.1 — chiavi risolte: `source`, `counter`, `revoked` facoltativi in `VaultResolvedEntrySchema` e `resolvedEntryRef`
+#### v1.105.1 — chiavi risolte: `source`, `counter`, `revoked` facoltativi in `VaultResolvedEntrySchema` e `resolvedEntryRef`
 
 - Versione e `dist/` rigenerati: la voce delle chiavi risolte porta sorgente, contatore e revoca.
 - Solo campi facoltativi: nessuno schema che legge dati salvati si stringe.
 - Adozione nei consumatori: mp-x9 5380.
 
-## v1.105.0 — chiavi nel preset: `VaultCascadeEntryPlainSchema` con `presetId`; `CredentialSourceIdSchema`/`CredentialVersionRefSchema`/`compareCredentialVersions`; `credential` facoltativo nello stato `configured`; contratto delle chiavi risolte e `PRIMARY_FORGE_PROVIDER_KEYS`
+#### v1.105.0 — chiavi nel preset: `VaultCascadeEntryPlainSchema` con `presetId`; `CredentialSourceIdSchema`/`CredentialVersionRefSchema`/`compareCredentialVersions`; `credential` facoltativo nello stato `configured`; contratto delle chiavi risolte e `PRIMARY_FORGE_PROVIDER_KEYS`
 
 - Sorgente della chiave e versione con revoca esportate da `@x9-forge/contracts/vault`.
 - `internalVaultResolvedContract`, `VaultResolvedEntrySchema` e `VaultResolvedResponseSchema` per le chiavi risolte, incluso il livello `preset`.
 - Nessuno schema che legge dati salvati si stringe: schemi nuovi e campo `credential` facoltativo e nullable.
 - Adozione nei consumatori: mp-forge 5341 e mp-x9 5374.
 
-## v1.104.0 — Modelli col preset: push della scelta effettiva con conferma, lettura di un posto, invalidazione e finestra di ritorno
+#### v1.104.0 — Modelli col preset: push della scelta effettiva con conferma, lettura di un posto, invalidazione e finestra di ritorno
 
 - `ModelsPushAckSchema`, `internalModelsPushContract` (`POST /internal/models/effective`, segreto interno).
 - `internalModelsInvalidateContract`, `modelsInvalidatePath`.
@@ -59,9 +67,9 @@
 - Consumer: agent-core (mp-x9 5253 e seguenti) e vault (mp-forge 5262 e seguenti).
 - Solo contratti nuovi; nessuno schema esistente cambia.
 
-## v1.103.1 — `VaultTier` torna a tre livelli come nella 1.102.0; il livello `preset` della cascata è in `VaultCascadeTierSchema`/`VAULT_CASCADE_TIERS`
+#### v1.103.1 — `VaultTier` torna a tre livelli come nella 1.102.0; il livello `preset` della cascata è in `VaultCascadeTierSchema`/`VAULT_CASCADE_TIERS`
 
-## v1.103.0 — Modelli col preset: scelta del preset, scelta effettiva, livello `preset` della cascata
+#### v1.103.0 — Modelli col preset: scelta del preset, scelta effettiva, livello `preset` della cascata
 
 - `ModelChoiceSchema`, `toModelChoice`, `toCapabilityModelSettings` (`model-router/model-choice.ts`).
 - `consumerAccepts`, `linkedChoiceConflicts`.
@@ -73,7 +81,7 @@
 
 Si allarga `VaultTierSchema` (`preset`); `CredentialOwnTierSchema` e il livello dei file di workspace mantengono i valori di oggi; nessun altro schema si stringe.
 
-## v1.102.0 — Officina video: elenco dell'archivio delle riprese, additivo
+#### v1.102.0 — Officina video: elenco dell'archivio delle riprese, additivo
 
 - `GET /api/footage` (`officinaVideoFootageListContract`): identità e `person` in query, `VideoFootageListSchema` con id, posto, abito, inquadratura, gruppo, durata, scene, sha256 e nome originale di ogni ripresa.
 - Catalogo Python: transport `videoEngineFootageList` e i due contratti `videoEngineFootageListQuery` e `videoEngineFootageList`.
@@ -81,7 +89,7 @@ Si allarga `VaultTierSchema` (`preset`); `CredentialOwnTierSchema` e il livello 
 
 Nessuno schema zod si stringe: una rotta e schemi nuovi.
 
-## v1.101.0 — Officina video: riprese da una cartella di Google Drive, additivo
+#### v1.101.0 — Officina video: riprese da una cartella di Google Drive, additivo
 
 - `video_footage_sync`: `VideoFootageSyncToolInputSchema` (`person` e `folder` facoltativo, link o id); `VideoFootageSyncResponseSchema` con esito `sincronizzata` (stato di ogni file), `oltre_il_tetto`, `serve_google` (con `drive_read`), `cartella_illeggibile`.
 - `VIDEO_FOOTAGE_MAX_PER_PERSON = 20`.
@@ -89,7 +97,7 @@ Nessuno schema zod si stringe: una rotta e schemi nuovi.
 
 Catalogo Python invariato. Nessuno schema zod si stringe: uno strumento e una costante nuovi.
 
-## v1.100.0 — Officina video: aggiungere una ripresa all'archivio del motore, additivo
+#### v1.100.0 — Officina video: aggiungere una ripresa all'archivio del motore, additivo
 
 - `POST /api/footage` (`officinaVideoFootageAddContract`): corpo binario mp4/mov/m4v fino a 256 MiB, metadati e identità in query, 202 `VideoFootageJobAcceptedSchema`, 422 sincrono `VideoEngineFootageRejectedSchema`.
 - `GET /api/footage/jobs/:jobId` (`officinaVideoFootageJobGetContract`, `VideoFootageJobSchema`): `queued`, `running`, `completed` con id, scene e durata, `rejected` con `code` fra `doppione`, `illeggibile`, `troppo_corta`, `risoluzione_bassa`, `senza_volto`, `nessuna_scena`, `failed`, `interrupted`.
@@ -98,7 +106,7 @@ Catalogo Python invariato. Nessuno schema zod si stringe: uno strumento e una co
 
 Nessuno schema zod si stringe: due rotte e schemi nuovi.
 
-## v1.99.0 — Officina video: elenco dei preset per il modello, additivo
+#### v1.99.0 — Officina video: elenco dei preset per il modello, additivo
 
 - `video_presets_list`: `VideoPresetsListToolInputSchema`, `VideoPresetSummarySchema`, `VideoPresetsListResponseSchema`; riprese dell'archivio tipizzate con `VideoPresetFootageShotsSchema`.
 - `presetId` dello strumento `video_brief_create` con descrizione che rimanda a `video_presets_list`; il brief interno e il pattern dell'id restano invariati.
@@ -106,7 +114,7 @@ Nessuno schema zod si stringe: due rotte e schemi nuovi.
 
 Nessuno schema zod si stringe: un campo descritto e schemi nuovi.
 
-## v1.97.0 — Officina video: scelte per richiesta, sottotitoli, manifesto e revisione del copione, additivo
+#### v1.97.0 — Officina video: scelte per richiesta, sottotitoli, manifesto e revisione del copione, additivo
 
 - Brief e strumento: `voice`, `aspectRatio`, `durationSeconds` e `resolution` facoltativi, raccolti in `VideoRequestChoicesSchema`; story con `voice` facoltativo; `VideoStoryResolutionSchema` è `VideoResolutionSchema`.
 - Motore: `subtitles_url` tipizzato su progetto e story con `VideoEngineSubtitlesPathSchema` (percorso `.srt`, `null` o assente). La prova sui progetti salvati deve essere fatta prima del pin; questa consegna non ne attesta l'esecuzione.
@@ -116,13 +124,52 @@ Nessuno schema zod si stringe: un campo descritto e schemi nuovi.
 
 Nota di compatibilità da confermare con la prova prima del pin: «Nessuno schema zod si stringe, salvo `subtitles_url` (da libero a percorso `.srt`, provato sui dati salvati).»
 
-## v1.96.0 — Officina video: spesa per capacità `video`, additivo
+#### v1.96.0 — Officina video: spesa per capacità `video`, additivo
 
 - `SpendingCapabilitySchema` ammette `video` (con il significato di giorno, `spentUsd`, `reservedUsd`, `capUsd` scritto in `spend.ts`).
 - `videoAgentSpendContract` in `@x9-forge/contracts/http`, stessa forma e rotta di `ricercaAgentSpendContract`.
 - Consumer: cap-video (rotta `GET /internal/capability/agents/:agentId/spend`) e Forge factory (`capability-agent-contracts.ts`, riga `video` nella pagina Spesa).
 
 Nessuno schema zod si stringe: l'enum si allarga.
+
+### Storia della linea ec-ponte (1.95.0-1.108.0)
+
+#### v1.108.0 — la sveglia dei posti conosce il lavoro fermo
+
+- `@x9-forge/contracts/http`: `PaperclipSeatNativeWakeEventSchema` aggiunge l'evento rigido `work_stalled` con incarico, reparto, stato Paperclip, istante di stallo (anche con offset) e motivo (`no_activity`, `waiting_too_long`, `queue_not_continued`). La richiesta richiede `organizationId` e `identity`, con identità coerente con l'agente, come `dev_delivered`.
+- Le forme `email`, `research_done` e `dev_delivered` restano valide. Consumer: cap-paperclip (5118); nessun evento nuovo viene inviato finché l'allarme è spento. Build ESM e CommonJS aggiornata.
+
+#### v1.107.0 — la data delle tappe del piano di reparto è facoltativa
+
+- `@x9-forge/contracts/organization`: `VerticalPlanSchema.milestones[].dueDate` diventa facoltativa (`z.iso.date().optional()`, descrizione neutra «giorno della tappa, se esiste»); se presente, resta una data ISO valida. Anche l'evento `sent` dell'osservazione accetta piani senza date per eredità dello schema.
+- I piani con date conservano testo canonico e impronta SHA-256; nessun dato salvato cambia. Consumer: X9 (5111) e cap-email (5112), che deve gestire le tappe senza data nell'email.
+
+#### v1.106.0 — la data delle tappe è facoltativa
+
+- `@x9-forge/contracts/organization`: `milestones[].dueDate` del piano d'azione diventa facoltativa (`z.iso.date().optional()`, descrizione neutra «giorno della tappa, se esiste»). Un campo obbligatorio diventa facoltativo: nessun dato salvato cambia, e un piano già salvato conserva testo canonico e impronta sha256 (prova sulla fixture v3 di produzione). `verticalPlanDueBy` e `CompleteActionPlanSchema` restano come sono.
+- Consumer: cap-email, memory.
+
+#### v1.99.0 — un unico ZIP fra i link di consegna
+
+- `@x9-forge/contracts/http`: la richiesta dei link di consegna di cap-dev prende `bundle` facoltativo (`fileName` minuscolo `.zip`, `paths` distinti, fino a 12); la risposta prende `bundle` facoltativo, un link `application/zip` il cui `path` è `fileName`. Il servizio compone lo ZIP dai file letti allo stesso commit, con gli stessi controlli dei `paths`.
+- Solo campi facoltativi: nessuna forma si stringe. Consumer: cap-dev (compone lo ZIP) e cap-email (lo chiede).
+
+#### v1.98.0 — il rifiuto di un percorso del pacchetto dice le estensioni ammesse
+
+- Cambia solo il testo del messaggio di rifiuto dei percorsi del pacchetto, che elenca le estensioni ammesse per il campo; nessuna forma cambia.
+
+#### v1.97.0 — la scheda di un file di sessione arriva in Memoria senza byte
+
+- `@x9-forge/contracts/http`: `InternalMemoryAssetIngestRequestSchema` vieta `contentBase64` per l'origine `session` (`session_has_no_content`) e non lo richiede più; `sha256` e `sizeBytes` dichiarati restano obbligatori. Le altre origini restano invariate.
+- Consumer: X9 memory registra la scheda coi valori dichiarati; cap-dev non legge e non manda i byte. Adozione in X9 (4961), memory (4962) e cap-dev (4963) da rilasciare insieme.
+- Si stringe solo il corpo in ingresso; nessun dato salvato cambia.
+
+#### v1.95.0 — unione della linea 1.87-1.91.1 (azienda agentica e regia) e dei contratti dell'email di consegna con main 1.94.0; additivo
+
+- Entra in main la linea 1.87.0-1.91.1: chiavi Bitbucket e Figma, contenuto dalla Memoria per email e archivio, capi BU per progetto, sezioni delle BU nel piano d'azione, regia cap-video → cap-dev.
+- `@x9-forge/contracts/organization`: `DeliveryPackageSchema`, `deliveryEmail` nella scheda del tipo di BU, `DECISION_REQUEST_HEADER`.
+- `@x9-forge/contracts/http`: link di consegna di cap-dev (`DEV_DELIVERY_LINK_TTL_MS`, 30 giorni).
+- Nessuno schema esistente si stringe.
 
 ## v1.94.0 — Officina video: ogni chiamata del motore nel contratto e nel catalogo Python, additivo
 
@@ -151,7 +198,50 @@ Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`ni
 
 Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`night/p6c-ponte-20261030`, `night/ov-ponte-unito-20261104`) sono in volo e non ancora in main, quindi questa è la minore libera successiva.
 
-## v1.89.0 — Officina video: preset veri con regia e operazione story, additivo
+## v1.91.1 — unione del ponte 1.91.0 con i contratti della regia dell'Officina video; additivo
+
+- Unisce il ramo del ponte 1.91.0 (sezioni delle BU nel piano d'azione, capi BU per progetto, `FIGMA_TOKEN`, contenuto di email e archivio dalla Memoria) con la v1.88.0 e la v1.89.0 dell'Officina (strumenti con busta, operazione story del motore, regia cap-video → cap-dev: `VideoRegiaRequestSchema`, `internalDevRegiaOpenContract`, `internalDevRegiaResultContract`). Le due righe si erano numerate da sole (1.88.0 e 1.89.0 compaiono due volte, sotto marcate «(Officina)»); 1.91.1 è la prima versione che le contiene entrambe e non collide con 1.91.0 né con la 1.92.0 in arrivo.
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.91.0 — sezioni delle BU nel piano d'azione; additivo
+
+- `@x9-forge/contracts/organization`: `ActionPlanBuSectionSchema` e il campo facoltativo `businessUnits[].sections` (`id`, `title`, `expectedGoal`, `deliveryCriteria`, `milestone`, `needsFrom`), con le descrizioni per il Director; `ReconciledMandateSchema` le porta nel Mandato. Consumer: X9 memory (salva), cap-email (email del piano), cap-paperclip (Mandato).
+- `@x9-forge/contracts/organization`: `ActionPlanSubmissionSchema` (bozza nuova: ogni BU che parte subito ha le sezioni; tappe e BU citate esistono). Consumer: X9 cap-email.
+
+Nessuno schema esistente si stringe; i piani salvati e le bozze di oggi restano validi, il digest di un piano senza sezioni non cambia.
+
+## v1.90.0 — capi BU abilitati per progetto e materiali dalla Memoria; additivo
+
+- `@x9-forge/contracts/http`: `devBusinessUnitProjectEnableContract` (piattaforma → cap-dev, abilita un capo BU alle sessioni per un progetto); `@x9-forge/contracts/capability/dev`: `production.session` facoltativa in `DevAgentConfigSchema`. Consumer: X9 cap-dev e cap-paperclip; Forge solo in lettura (pannello).
+- `@x9-forge/contracts/capability/dev`: `session-material-link` (percorso `/dev/materiali/:chiave`, link firmato per materiale, sezione dell'incarico). Consumer: X9 cap-dev ed esecutore del portatile.
+
+Contiene anche la v1.87.0 dell'Officina (capacità video, `@x9-forge/contracts/capability/video` e contratti del motore), unita da `main` nel rilascio 053: le due righe di sviluppo, entrambe additive, sono ora una sola.
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.89.0 — chiave FIGMA_TOKEN per agente; additivo
+
+- `@x9-forge/contracts/agent`: `FIGMA_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `figma` con etichetta «Token Figma (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.88.0 — contenuto di email e archivio leggibile dalla Memoria; risposta «contenuto non conservato»; additivo
+
+- `@x9-forge/contracts/http`: `InternalMemoryAssetContentRequestSchema` ammette anche asset di origine `email` e `archive` (prima solo `generated`; `link` e `session` restano rifiutate); consumer: X9 memory (conserva e serve i byte), X9 cap-qa e `@x9/capability-sdk` (leggono i byte di un asset).
+- `@x9-forge/contracts/http`: `InternalMemoryAssetIngestResponseSchema` ha il campo facoltativo `contentNotStored { reason:'company_quota', quotaBytes, usedBytes }`, presente solo quando i byte non sono stati conservati perché l'azienda ha raggiunto la quota; consumer: X9 memory (lo scrive) e cap-email (lo riferisce all'agente).
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.87.0 — chiave BITBUCKET_TOKEN, fornitori Bitbucket e Figma per le Connessioni; additivo
+
+- `@x9-forge/contracts/agent`: `BITBUCKET_TOKEN` fra le chiavi note per agente (`KNOWN_CREDENTIAL_KEYS`, `AgentCredentialsSchema`, facoltativa) e servizio commerciale `bitbucket` con etichetta «Token Bitbucket (sola lettura)»; consumer: X9 cap-dev e agent-core (consegna della chiave alla capacità), Forge Vault e pannello «Chiavi».
+- `@x9-forge/contracts/capability`: `ConnectProviderSchema` accetta anche `bitbucket` e `figma`; `ConnectScopeSchema` accetta anche `code_read` e `design_read`; `CONNECT_PROVIDER_SCOPES` (permessi di ogni fornitore) e `ConnectStartRequestSchema` rifiuta permessi che non sono del fornitore; `CONNECT_INVITE_LIMITS` (invito per email valido 7 giorni); consumer: X9 cap-connect e cap-dev, Forge Vault e pannello «Connessioni».
+- `@x9-forge/contracts/vault`: `PLATFORM_INTERNAL_CREDENTIAL_KEYS` elenca anche `CONNECT_BITBUCKET_CLIENT_ID/SECRET` e `CONNECT_FIGMA_CLIENT_ID/SECRET` (solo il servizio Connessioni; mai proiettate in un agente).
+
+Nessuno schema esistente si stringe; i corpi di oggi restano validi.
+
+## v1.89.0 (Officina) — Officina video: preset veri con regia e operazione story, additivo
 
 - `@x9-forge/contracts/capability/video`: `VideoBriefRequestSchema` e `VideoBriefToolInputSchema` hanno il campo facoltativo `footage` (1-2 id dell'archivio delle riprese, `VideoFootageIdSchema`, `VideoFootageChoiceSchema`; assente = sceglie la regia); `VideoProjectStepSchema` aggiunge `regia` e `story`.
 - Operazione story del motore: `VideoEngineStoryRequestSchema` (`scenes` `{text, tags?}`, `graphicHtml` con `render(t)` fino a circa 200 KB, `footage?`, `outro` `{title, line}`, `resolution` `480p` | `720p` | `1080p` predefinito `1080p`, `revision`) e, in `@x9-forge/contracts/http`, `officinaVideoStoryContract` (POST `/api/projects/:engineProjectId/story`, risposta 202, segreto interno); voce portabile `videoEngineStoryRequest` e trasporto `videoEngineStory` per il motore Python.
@@ -159,14 +249,14 @@ Nessuno schema zod si stringe. Versione: 1.90.0 (`opus/ponte-053`) e 1.91.x (`ni
 
 Nessuno schema esistente si stringe: i brief e i progetti di v1.88.0 restano validi. Nota: il ramo `opus/ponte-053` (1.90.0) non è ancora in main; questa versione è la minore libera successiva a main.
 
-## v1.88.0 — Officina video dal brief al video (strumenti con busta, lettura del progetto, guida del motore), additivo
+## v1.88.0 (Officina) — Officina video dal brief al video (strumenti con busta, lettura del progetto, guida del motore), additivo
 
 - `@x9-forge/contracts/capability/video`: `VideoBriefToolInputSchema` (il brief senza identità: tenant, owner e agente arrivano solo dalla busta di agent-core, R-33), `VideoProjectGetToolInputSchema`, `VideoProjectStepSchema`, `VideoProjectViewSchema` (stato, passo, link di revisione e del video); motore: `VideoEngineRunStageSchema`, `VideoEngineApproveStageSchema`, `VideoEngineRevisionSchema`, `VideoEnginePlanRequestSchema`, `VideoEngineApproveRequestSchema`, `VideoEngineRunRequestSchema`, `VideoEngineMediaPathSchema`, `VideoEngineProjectSchema` (campi letti dalla facciata, il resto passa); consumer: agent-x9 `services/cap-video`.
 - `@x9-forge/contracts/http`: `officinaVideoProjectGetContract`, `officinaVideoPlanContract`, `officinaVideoApproveContract`, `officinaVideoRunContract`, `officinaVideoMediaContract` (cap-video → motore, segreto interno).
 
 Nessuno schema esistente si stringe.
 
-## v1.87.0 — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
+## v1.87.0 (Officina) — capacità video dell'Officina (brief, lavoro del motore, lettura del progetto), additivo
 
 - `@x9-forge/contracts/capability/video`: subpath nuovo con `VideoBriefRequestSchema`, `VideoBriefResponseSchema`, `VideoProviderSchema`, `VideoEngineSettingsSchema`, `VideoEngineJobSchema`, `VideoEngineJobResponseSchema`, `VideoProjectGetRequestSchema` e i tipi; consumer: agent-x9 `services/cap-video`, motore Officina.
 - `@x9-forge/contracts/http` (`./http`): `officinaVideoJobContract` (POST `/api/jobs`) e `officinaVideoHealthContract` (GET `/api/health`) per il motore Officina.

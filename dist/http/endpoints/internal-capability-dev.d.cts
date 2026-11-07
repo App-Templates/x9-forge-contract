@@ -26,7 +26,7 @@ export declare const devConfigGetContract: {
             addedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
         production: z.ZodOptional<z.ZodObject<{
-            session: z.ZodObject<{
+            session: z.ZodOptional<z.ZodObject<{
                 scope: z.ZodLazy<z.ZodObject<{
                     agentId: z.ZodString;
                     ownerId: z.ZodString;
@@ -44,7 +44,7 @@ export declare const devConfigGetContract: {
                     claude: "claude";
                     codex: "codex";
                 }>>;
-            }, z.core.$strict>;
+            }, z.core.$strict>>;
             roleModels: z.ZodOptional<z.ZodObject<{
                 coordination: z.ZodObject<{
                     engine: z.ZodEnum<{
@@ -123,7 +123,7 @@ export declare const devConfigPutContract: {
             addedAt: z.ZodISODateTime;
         }, z.core.$strict>>;
         production: z.ZodOptional<z.ZodObject<{
-            session: z.ZodObject<{
+            session: z.ZodOptional<z.ZodObject<{
                 scope: z.ZodLazy<z.ZodObject<{
                     agentId: z.ZodString;
                     ownerId: z.ZodString;
@@ -141,7 +141,7 @@ export declare const devConfigPutContract: {
                     claude: "claude";
                     codex: "codex";
                 }>>;
-            }, z.core.$strict>;
+            }, z.core.$strict>>;
             roleModels: z.ZodOptional<z.ZodObject<{
                 coordination: z.ZodObject<{
                     engine: z.ZodEnum<{
@@ -225,7 +225,7 @@ export declare const devStateGetContract: {
                 addedAt: z.ZodISODateTime;
             }, z.core.$strict>>;
             production: z.ZodOptional<z.ZodObject<{
-                session: z.ZodObject<{
+                session: z.ZodOptional<z.ZodObject<{
                     scope: z.ZodLazy<z.ZodObject<{
                         agentId: z.ZodString;
                         ownerId: z.ZodString;
@@ -243,7 +243,7 @@ export declare const devStateGetContract: {
                         claude: "claude";
                         codex: "codex";
                     }>>;
-                }, z.core.$strict>;
+                }, z.core.$strict>>;
                 roleModels: z.ZodOptional<z.ZodObject<{
                     coordination: z.ZodObject<{
                         engine: z.ZodEnum<{
@@ -310,6 +310,47 @@ export declare const devStateGetContract: {
             lastSeenAt: z.ZodNullable<z.ZodISODateTime>;
             reason: z.ZodNullable<z.ZodString>;
         }, z.core.$strict>;
+    }, z.core.$strict>;
+};
+export declare const DevBusinessUnitProjectEnableRequestSchema: z.ZodObject<{
+    tenantId: z.ZodString;
+    ownerId: z.ZodString;
+    projectId: z.ZodString;
+}, z.core.$strict>;
+export type DevBusinessUnitProjectEnableRequest = z.infer<typeof DevBusinessUnitProjectEnableRequestSchema>;
+export declare const DevBusinessUnitProjectEnableResponseSchema: z.ZodObject<{
+    status: z.ZodEnum<{
+        enabled: "enabled";
+        already: "already";
+    }>;
+    configVersion: z.ZodNumber;
+    allowedProjectIds: z.ZodArray<z.ZodString>;
+}, z.core.$strict>;
+export type DevBusinessUnitProjectEnableResponse = z.infer<typeof DevBusinessUnitProjectEnableResponseSchema>;
+/**
+ * Platform → cap-dev. cap-dev composes the lead's configuration from its own deployment
+ * (board = SESSION_BOARD_REPO) and adds the project; idempotent. Refusals: 403 not a
+ * business unit lead or foreign scope, 409 disabled by the owner, 503 sessions switched off.
+ */
+export declare const devBusinessUnitProjectEnableContract: {
+    readonly method: "POST";
+    readonly path: "/internal/capability/agents/:agentId/dev/business-unit-project";
+    readonly authType: "secret";
+    readonly paramsSchema: z.ZodObject<{
+        agentId: z.ZodString;
+    }, z.core.$strip>;
+    readonly bodySchema: z.ZodObject<{
+        tenantId: z.ZodString;
+        ownerId: z.ZodString;
+        projectId: z.ZodString;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodObject<{
+        status: z.ZodEnum<{
+            enabled: "enabled";
+            already: "already";
+        }>;
+        configVersion: z.ZodNumber;
+        allowedProjectIds: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
 };
 //# sourceMappingURL=internal-capability-dev.d.ts.map

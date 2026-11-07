@@ -33,7 +33,8 @@ exports.DevAgentConfigSchema = zod_1.z
     bindings: zod_1.z.array(exports.DevBindingSchema),
     /** A saved choice only; presence, consent and an execution lease are separate facts. */
     production: zod_1.z.strictObject({
-        session: development_session_js_1.DevelopmentSessionBindingSchema,
+        // A board-driven unit (sessions opened on the board and taken by the laptop executor) has no device binding.
+        session: development_session_js_1.DevelopmentSessionBindingSchema.optional(),
         roleModels: development_session_models_js_1.DevProductionRoleModelsSchema.optional(),
         allowedProjectIds: zod_1.z.array(zod_1.z.string().min(1)).min(1)
             .refine((ids) => new Set(ids).size === ids.length, {
@@ -53,22 +54,30 @@ exports.DevAgentConfigSchema = zod_1.z
 })
     .superRefine((cfg, ctx) => {
     if (cfg.production) {
-        if (cfg.production.roleModels) {
-            for (const [role, choice] of Object.entries(cfg.production.roleModels)) {
-                if (!cfg.production.session.engines.includes(choice.engine)) {
-                    ctx.addIssue({ code: 'custom', path: ['production', 'roleModels', role, 'engine'], message: 'Role model engine must be selected in the session' });
-                }
+        const session = cfg.production.session;
+        if (!session) {
+            if (cfg.production.roleModels) {
+                ctx.addIssue({ code: 'custom', path: ['production', 'roleModels'], message: 'Role models need a session' });
             }
         }
-        const scope = cfg.production.session.scope;
-        if (scope.tenantId !== cfg.tenantId) {
-            ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'tenantId'], message: 'Session tenantId must match config' });
-        }
-        if (scope.ownerId !== cfg.ownerId) {
-            ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'ownerId'], message: 'Session ownerId must match config' });
-        }
-        if (scope.agentId !== cfg.agentId) {
-            ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'agentId'], message: 'Session agentId must match config' });
+        else {
+            if (cfg.production.roleModels) {
+                for (const [role, choice] of Object.entries(cfg.production.roleModels)) {
+                    if (!session.engines.includes(choice.engine)) {
+                        ctx.addIssue({ code: 'custom', path: ['production', 'roleModels', role, 'engine'], message: 'Role model engine must be selected in the session' });
+                    }
+                }
+            }
+            const scope = session.scope;
+            if (scope.tenantId !== cfg.tenantId) {
+                ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'tenantId'], message: 'Session tenantId must match config' });
+            }
+            if (scope.ownerId !== cfg.ownerId) {
+                ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'ownerId'], message: 'Session ownerId must match config' });
+            }
+            if (scope.agentId !== cfg.agentId) {
+                ctx.addIssue({ code: 'custom', path: ['production', 'session', 'scope', 'agentId'], message: 'Session agentId must match config' });
+            }
         }
     }
     const seenChats = new Set();

@@ -29,6 +29,18 @@ export declare const ActionPlanBuStartSchema: z.ZodDiscriminatedUnion<[z.ZodObje
     }, z.core.$strict>;
 }, z.core.$strict>], "kind">;
 export type ActionPlanBuStart = z.infer<typeof ActionPlanBuStartSchema>;
+export declare const ActionPlanBuSectionSchema: z.ZodObject<{
+    id: z.ZodString;
+    title: z.ZodString;
+    expectedGoal: z.ZodString;
+    deliveryCriteria: z.ZodArray<z.ZodString>;
+    milestone: z.ZodNumber;
+    needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        buSlug: z.ZodString;
+        what: z.ZodString;
+    }, z.core.$strict>>>;
+}, z.core.$strict>;
+export type ActionPlanBuSection = z.infer<typeof ActionPlanBuSectionSchema>;
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
     buSlug: z.ZodString;
@@ -60,6 +72,17 @@ export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
         entryVersion: z.ZodNumber;
     }, z.core.$strict>;
     firstActivities: z.ZodArray<z.ZodString>;
+    sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        title: z.ZodString;
+        expectedGoal: z.ZodString;
+        deliveryCriteria: z.ZodArray<z.ZodString>;
+        milestone: z.ZodNumber;
+        needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            what: z.ZodString;
+        }, z.core.$strict>>>;
+    }, z.core.$strict>>>;
     roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
         role: z.ZodString;
         competencies: z.ZodArray<z.ZodString>;
@@ -138,7 +161,7 @@ export declare const ActionPlanSchema: z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
         buSlug: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         closeCriterion: z.ZodString;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;
@@ -173,6 +196,17 @@ export declare const ActionPlanSchema: z.ZodObject<{
             entryVersion: z.ZodNumber;
         }, z.core.$strict>;
         firstActivities: z.ZodArray<z.ZodString>;
+        sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                what: z.ZodString;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
             competencies: z.ZodArray<z.ZodString>;
@@ -329,6 +363,17 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
             entryVersion: z.ZodNumber;
         }, z.core.$strict>;
         firstActivities: z.ZodArray<z.ZodString>;
+        sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                what: z.ZodString;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
             competencies: z.ZodArray<z.ZodString>;
@@ -347,7 +392,7 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
         buSlug: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         closeCriterion: z.ZodString;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;
@@ -410,6 +455,176 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
     version: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type ActionPlanDraft = z.infer<typeof ActionPlanDraftSchema>;
+/** The plan as the Director submits a new version: every unit that starts now carries its sections. Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which do not require them. */
+export declare const ActionPlanSubmissionSchema: z.ZodObject<{
+    budget: z.ZodObject<{
+        currency: z.ZodString;
+        total: z.ZodNumber;
+        perBu: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            cap: z.ZodNumber;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    objective: z.ZodObject<{
+        request: z.ZodString;
+        expectedResult: z.ZodString;
+        measure: z.ZodString;
+    }, z.core.$strict>;
+    projectId: z.ZodString;
+    strategy: z.ZodObject<{
+        approach: z.ZodString;
+        choices: z.ZodArray<z.ZodString>;
+        discardedAlternatives: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>;
+    clientId: z.ZodString;
+    analysis: z.ZodObject<{
+        startingPoint: z.ZodString;
+        marketAndAlternatives: z.ZodObject<{
+            text: z.ZodString;
+            sources: z.ZodArray<z.ZodURL>;
+        }, z.core.$strict>;
+        recommendedMethod: z.ZodObject<{
+            method: z.ZodString;
+            why: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+    objectiveTree: z.ZodObject<{
+        project: z.ZodObject<{
+            expectedResult: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>;
+        businessUnits: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            expectedResult: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            indicators: z.ZodArray<z.ZodObject<{
+                name: z.ZodString;
+                source: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>;
+    businessUnits: z.ZodArray<z.ZodObject<{
+        buSlug: z.ZodString;
+        /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
+        typeId: z.ZodEnum<{
+            dati: "dati";
+            design: "design";
+            sviluppo: "sviluppo";
+            finanza: "finanza";
+            marketing: "marketing";
+        }>;
+        mandate: z.ZodString;
+        competencies: z.ZodArray<z.ZodString>;
+        lead: z.ZodObject<{
+            role: z.ZodLiteral<"capo-bu">;
+        }, z.core.$strict>;
+        reviewer: z.ZodOptional<z.ZodUnion<readonly [z.ZodObject<{
+            buSlug: z.ZodString;
+        }, z.core.$strict>, z.ZodObject<{
+            role: z.ZodLiteral<"director">;
+        }, z.core.$strict>]>>;
+        executor: z.ZodEnum<{
+            agent: "agent";
+            night: "night";
+            dev_session: "dev_session";
+        }>;
+        referent: z.ZodObject<{
+            personRef: z.ZodString;
+            entryVersion: z.ZodNumber;
+        }, z.core.$strict>;
+        firstActivities: z.ZodArray<z.ZodString>;
+        sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                what: z.ZodString;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
+        roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            role: z.ZodString;
+            competencies: z.ZodArray<z.ZodString>;
+        }, z.core.$strict>>>;
+        start: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"now">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"planned">;
+            unlockedBy: z.ZodObject<{
+                milestone: z.ZodNumber;
+                delivery: z.ZodString;
+            }, z.core.$strict>;
+        }, z.core.$strict>], "kind">;
+    }, z.core.$strict>>;
+    milestones: z.ZodArray<z.ZodObject<{
+        number: z.ZodNumber;
+        delivery: z.ZodString;
+        buSlug: z.ZodString;
+        dueDate: z.ZodOptional<z.ZodISODate>;
+        closeCriterion: z.ZodString;
+        blockedBy: z.ZodArray<z.ZodNumber>;
+    }, z.core.$strict>>;
+    criticalPath: z.ZodArray<z.ZodNumber>;
+    exchanges: z.ZodArray<z.ZodObject<{
+        fromBu: z.ZodString;
+        toBu: z.ZodString;
+        what: z.ZodString;
+        format: z.ZodString;
+    }, z.core.$strict>>;
+    risks: z.ZodArray<z.ZodString>;
+    assumptions: z.ZodArray<z.ZodString>;
+    missingMaterials: z.ZodArray<z.ZodObject<{
+        what: z.ZodString;
+        kind: z.ZodEnum<{
+            access: "access";
+            asset: "asset";
+            data: "data";
+        }>;
+        owner: z.ZodOptional<z.ZodString>;
+        blocks: z.ZodOptional<z.ZodObject<{
+            buSlug: z.ZodString;
+            milestone: z.ZodNumber;
+        }, z.core.$strict>>;
+        neededBy: z.ZodOptional<z.ZodISODate>;
+    }, z.core.$strict>>;
+    questions: z.ZodArray<z.ZodObject<{
+        question: z.ZodString;
+        unlocks: z.ZodString;
+    }, z.core.$strict>>;
+    ifApproved: z.ZodObject<{
+        startNow: z.ZodArray<z.ZodString>;
+        startLater: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            after: z.ZodString;
+        }, z.core.$strict>>;
+        verticalPlanDueBy: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            dueDate: z.ZodISODate;
+        }, z.core.$strict>>;
+        updates: z.ZodObject<{
+            how: z.ZodString;
+            every: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+    opportunities: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    referentProposals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        personRef: z.ZodString;
+        name: z.ZodString;
+        role: z.ZodString;
+        email: z.ZodEmail;
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
+        buSlug: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>>;
+    planId: z.ZodOptional<z.ZodString>;
+    version: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export type ActionPlanSubmission = z.infer<typeof ActionPlanSubmissionSchema>;
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 export declare const CompleteActionPlanSchema: z.ZodObject<{
     planId: z.ZodString;
@@ -459,7 +674,7 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
         buSlug: z.ZodString;
-        dueDate: z.ZodISODate;
+        dueDate: z.ZodOptional<z.ZodISODate>;
         closeCriterion: z.ZodString;
         blockedBy: z.ZodArray<z.ZodNumber>;
     }, z.core.$strict>>;
@@ -494,6 +709,17 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
             entryVersion: z.ZodNumber;
         }, z.core.$strict>;
         firstActivities: z.ZodArray<z.ZodString>;
+        sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                what: z.ZodString;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
             role: z.ZodString;
             competencies: z.ZodArray<z.ZodString>;

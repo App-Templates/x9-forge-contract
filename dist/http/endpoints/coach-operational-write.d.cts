@@ -97,8 +97,8 @@ export declare const coachProgramApplyContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -257,8 +257,8 @@ export declare const coachOpeningContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -381,8 +381,8 @@ export declare const coachConversationInputContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -512,8 +512,8 @@ export declare const coachExecutionStartContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -699,8 +699,8 @@ export declare const coachExecutionEventContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -829,8 +829,8 @@ export declare const coachGuideEndContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -1052,8 +1052,8 @@ export declare const coachSessionCloseContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -1245,8 +1245,8 @@ export declare const coachUsageObserveContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
+            budget_exhausted: "budget_exhausted";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";

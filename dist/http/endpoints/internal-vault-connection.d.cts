@@ -14,6 +14,8 @@ export declare const VaultConnectionParamsSchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
 }, z.core.$strict>;
 export type VaultConnectionParams = z.infer<typeof VaultConnectionParamsSchema>;
@@ -27,6 +29,8 @@ export declare const PutVaultConnectionBodySchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
 }, z.core.$strict>;
 export type PutVaultConnectionBody = z.infer<typeof PutVaultConnectionBodySchema>;
@@ -53,6 +57,8 @@ export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
     agentId: z.ZodString;
     provider: z.ZodEnum<{
         google: "google";
+        bitbucket: "bitbucket";
+        figma: "figma";
     }>;
     status: z.ZodEnum<{
         connected: "connected";
@@ -68,6 +74,8 @@ export declare const GetVaultConnectionStateResponseSchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
     connectedAt: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
@@ -99,7 +107,9 @@ export declare const VaultAccessScopeSchema: z.ZodEnum<{
     mail_draft: "mail_draft";
     mail_read: "mail_read";
     drive_read: "drive_read";
-}> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
+    code_read: "code_read";
+    design_read: "design_read";
+}> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read">>;
 export type VaultAccessScope = z.infer<typeof VaultAccessScopeSchema>;
 export declare const PostVaultAccessTokenBodySchema: z.ZodObject<{
     scope: z.ZodEnum<{
@@ -109,7 +119,9 @@ export declare const PostVaultAccessTokenBodySchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
-    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
+        code_read: "code_read";
+        design_read: "design_read";
+    }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read">>;
     personRef: z.ZodString;
 }, z.core.$strict>;
 export type PostVaultAccessTokenBody = z.infer<typeof PostVaultAccessTokenBodySchema>;
@@ -124,6 +136,8 @@ export declare const PostVaultAccessTokenResponseSchema: z.ZodObject<{
         mail_draft: "mail_draft";
         mail_read: "mail_read";
         drive_read: "drive_read";
+        code_read: "code_read";
+        design_read: "design_read";
     }>>;
 }, z.core.$strict>;
 export type PostVaultAccessTokenResponse = z.infer<typeof PostVaultAccessTokenResponseSchema>;
@@ -146,6 +160,8 @@ export declare const ListVaultConnectionsResponseSchema: z.ZodObject<{
     connections: z.ZodArray<z.ZodObject<{
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         status: z.ZodEnum<{
             connected: "connected";
@@ -160,6 +176,8 @@ export declare const ListVaultConnectionsResponseSchema: z.ZodObject<{
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
         accountLabel: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>>;
@@ -173,6 +191,8 @@ export declare const putVaultConnectionContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly bodySchema: z.ZodObject<{
@@ -185,6 +205,8 @@ export declare const putVaultConnectionContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -200,6 +222,8 @@ export declare const deleteVaultConnectionContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -215,6 +239,8 @@ export declare const revokeVaultConnectionContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -233,12 +259,16 @@ export declare const getVaultConnectionStateContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
         status: z.ZodEnum<{
             connected: "connected";
@@ -254,6 +284,8 @@ export declare const getVaultConnectionStateContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
         connectedAt: z.ZodOptional<z.ZodNumber>;
     }, z.core.$strict>;
@@ -266,6 +298,8 @@ export declare const getVaultConnectionValueContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -281,6 +315,8 @@ export declare const postVaultAccessTokenContract: {
         agentId: z.ZodString;
         provider: z.ZodEnum<{
             google: "google";
+            bitbucket: "bitbucket";
+            figma: "figma";
         }>;
     }, z.core.$strict>;
     readonly bodySchema: z.ZodObject<{
@@ -291,7 +327,9 @@ export declare const postVaultAccessTokenContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
-        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read">>;
+            code_read: "code_read";
+            design_read: "design_read";
+        }> & z.ZodType<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", z.core.$ZodTypeInternals<"calendar_events" | "contacts_read" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read", "calendar_events" | "contacts_read" | "mail_send" | "mail_draft" | "mail_read" | "drive_read" | "code_read" | "design_read">>;
         personRef: z.ZodString;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -305,6 +343,8 @@ export declare const postVaultAccessTokenContract: {
             mail_draft: "mail_draft";
             mail_read: "mail_read";
             drive_read: "drive_read";
+            code_read: "code_read";
+            design_read: "design_read";
         }>>;
     }, z.core.$strict>;
 };
@@ -320,6 +360,8 @@ export declare const listVaultConnectionsContract: {
         connections: z.ZodArray<z.ZodObject<{
             provider: z.ZodEnum<{
                 google: "google";
+                bitbucket: "bitbucket";
+                figma: "figma";
             }>;
             status: z.ZodEnum<{
                 connected: "connected";
@@ -334,6 +376,8 @@ export declare const listVaultConnectionsContract: {
                 mail_draft: "mail_draft";
                 mail_read: "mail_read";
                 drive_read: "drive_read";
+                code_read: "code_read";
+                design_read: "design_read";
             }>>;
             accountLabel: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>>;

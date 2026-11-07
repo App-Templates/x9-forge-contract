@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
+exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
 exports.decisionOutcomeMatchesSubject = decisionOutcomeMatchesSubject;
 exports.decisionRequestSubjectLabel = decisionRequestSubjectLabel;
+exports.decisionRequestHeaderMatches = decisionRequestHeaderMatches;
 exports.decisionOutcomeFromEmailReply = decisionOutcomeFromEmailReply;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
@@ -131,6 +132,19 @@ function decisionOutcomeMatchesSubject(request, outcome) {
 exports.DECISION_REQUEST_SUBJECT_LABEL = 'decisione';
 function decisionRequestSubjectLabel(requestId) {
     return `[${exports.DECISION_REQUEST_SUBJECT_LABEL} ${requestId}]`;
+}
+/** Header of the outgoing email that carries the `requestId`; the referent's reply is matched to the original message that carries it. */
+exports.DECISION_REQUEST_HEADER = 'X-X9-Decision-Request';
+/** True when the headers (name matched case-insensitively) carry exactly this `requestId` (value trimmed). */
+function decisionRequestHeaderMatches(headers, requestId) {
+    if (headers === undefined)
+        return false;
+    const wanted = exports.DECISION_REQUEST_HEADER.toLowerCase();
+    for (const [name, value] of Object.entries(headers)) {
+        if (name.toLowerCase() === wanted && value.trim() === requestId)
+            return true;
+    }
+    return false;
 }
 /** Human email reply already interpreted by the lead (approve / refuse with reason / unclear). */
 exports.DecisionEmailReplySchema = zod_1.z.discriminatedUnion('kind', [

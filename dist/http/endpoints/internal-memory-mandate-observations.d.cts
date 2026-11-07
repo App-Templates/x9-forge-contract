@@ -64,6 +64,17 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                         entryVersion: z.ZodNumber;
                     }, z.core.$strict>;
                     firstActivities: z.ZodArray<z.ZodString>;
+                    sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        title: z.ZodString;
+                        expectedGoal: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        milestone: z.ZodNumber;
+                        needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            buSlug: z.ZodString;
+                            what: z.ZodString;
+                        }, z.core.$strict>>>;
+                    }, z.core.$strict>>>;
                     roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                         role: z.ZodString;
                         competencies: z.ZodArray<z.ZodString>;
@@ -217,6 +228,17 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                             entryVersion: z.ZodNumber;
                         }, z.core.$strict>;
                         firstActivities: z.ZodArray<z.ZodString>;
+                        sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            title: z.ZodString;
+                            expectedGoal: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                            milestone: z.ZodNumber;
+                            needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                buSlug: z.ZodString;
+                                what: z.ZodString;
+                            }, z.core.$strict>>>;
+                        }, z.core.$strict>>>;
                         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             role: z.ZodString;
                             competencies: z.ZodArray<z.ZodString>;
@@ -371,6 +393,17 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                             entryVersion: z.ZodNumber;
                         }, z.core.$strict>;
                         firstActivities: z.ZodArray<z.ZodString>;
+                        sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            title: z.ZodString;
+                            expectedGoal: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                            milestone: z.ZodNumber;
+                            needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                buSlug: z.ZodString;
+                                what: z.ZodString;
+                            }, z.core.$strict>>>;
+                        }, z.core.$strict>>>;
                         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             role: z.ZodString;
                             competencies: z.ZodArray<z.ZodString>;
@@ -558,6 +591,17 @@ export declare const internalMemoryMandateObservationReadContract: {
                                 entryVersion: z.ZodNumber;
                             }, z.core.$strict>;
                             firstActivities: z.ZodArray<z.ZodString>;
+                            sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                id: z.ZodString;
+                                title: z.ZodString;
+                                expectedGoal: z.ZodString;
+                                deliveryCriteria: z.ZodArray<z.ZodString>;
+                                milestone: z.ZodNumber;
+                                needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                    buSlug: z.ZodString;
+                                    what: z.ZodString;
+                                }, z.core.$strict>>>;
+                            }, z.core.$strict>>>;
                             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                 role: z.ZodString;
                                 competencies: z.ZodArray<z.ZodString>;
@@ -724,6 +768,17 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                             entryVersion: z.ZodNumber;
                         }, z.core.$strict>;
                         firstActivities: z.ZodArray<z.ZodString>;
+                        sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            title: z.ZodString;
+                            expectedGoal: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                            milestone: z.ZodNumber;
+                            needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                buSlug: z.ZodString;
+                                what: z.ZodString;
+                            }, z.core.$strict>>>;
+                        }, z.core.$strict>>>;
                         roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                             role: z.ZodString;
                             competencies: z.ZodArray<z.ZodString>;
@@ -876,6 +931,17 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                 entryVersion: z.ZodNumber;
                             }, z.core.$strict>;
                             firstActivities: z.ZodArray<z.ZodString>;
+                            sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                id: z.ZodString;
+                                title: z.ZodString;
+                                expectedGoal: z.ZodString;
+                                deliveryCriteria: z.ZodArray<z.ZodString>;
+                                milestone: z.ZodNumber;
+                                needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                                    buSlug: z.ZodString;
+                                    what: z.ZodString;
+                                }, z.core.$strict>>>;
+                            }, z.core.$strict>>>;
                             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                                 role: z.ZodString;
                                 competencies: z.ZodArray<z.ZodString>;

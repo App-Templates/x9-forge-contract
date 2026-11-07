@@ -94,8 +94,8 @@ export declare const internalAgentChannelHistoryTranscriptContract: {
             apply_failed: "apply_failed";
             reconcile_pending: "reconcile_pending";
             stale_version: "stale_version";
-            request_not_found: "request_not_found";
             command_in_progress: "command_in_progress";
+            request_not_found: "request_not_found";
             address_book_unavailable: "address_book_unavailable";
             queue_limit: "queue_limit";
             not_supported: "not_supported";

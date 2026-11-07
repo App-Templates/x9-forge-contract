@@ -76,7 +76,7 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
             number: z.ZodNumber;
             delivery: z.ZodString;
             buSlug: z.ZodString;
-            dueDate: z.ZodISODate;
+            dueDate: z.ZodOptional<z.ZodISODate>;
             closeCriterion: z.ZodString;
             blockedBy: z.ZodArray<z.ZodNumber>;
         }, z.core.$strict>>;
@@ -110,6 +110,17 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
                 entryVersion: z.ZodNumber;
             }, z.core.$strict>;
             firstActivities: z.ZodArray<z.ZodString>;
+            sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                title: z.ZodString;
+                expectedGoal: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                milestone: z.ZodNumber;
+                needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    what: z.ZodString;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                 role: z.ZodString;
                 competencies: z.ZodArray<z.ZodString>;
@@ -271,7 +282,7 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
             number: z.ZodNumber;
             delivery: z.ZodString;
             buSlug: z.ZodString;
-            dueDate: z.ZodISODate;
+            dueDate: z.ZodOptional<z.ZodISODate>;
             closeCriterion: z.ZodString;
             blockedBy: z.ZodArray<z.ZodNumber>;
         }, z.core.$strict>>;
@@ -305,6 +316,17 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
                 entryVersion: z.ZodNumber;
             }, z.core.$strict>;
             firstActivities: z.ZodArray<z.ZodString>;
+            sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                title: z.ZodString;
+                expectedGoal: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                milestone: z.ZodNumber;
+                needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    what: z.ZodString;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
             roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                 role: z.ZodString;
                 competencies: z.ZodArray<z.ZodString>;
@@ -482,7 +504,7 @@ export declare const internalMemoryActionPlanSaveContract: {
                 number: z.ZodNumber;
                 delivery: z.ZodString;
                 buSlug: z.ZodString;
-                dueDate: z.ZodISODate;
+                dueDate: z.ZodOptional<z.ZodISODate>;
                 closeCriterion: z.ZodString;
                 blockedBy: z.ZodArray<z.ZodNumber>;
             }, z.core.$strict>>;
@@ -516,6 +538,17 @@ export declare const internalMemoryActionPlanSaveContract: {
                     entryVersion: z.ZodNumber;
                 }, z.core.$strict>;
                 firstActivities: z.ZodArray<z.ZodString>;
+                sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    title: z.ZodString;
+                    expectedGoal: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    milestone: z.ZodNumber;
+                    needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        what: z.ZodString;
+                    }, z.core.$strict>>>;
+                }, z.core.$strict>>>;
                 roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     role: z.ZodString;
                     competencies: z.ZodArray<z.ZodString>;
@@ -680,7 +713,7 @@ export declare const internalMemoryActionPlanReadContract: {
                 number: z.ZodNumber;
                 delivery: z.ZodString;
                 buSlug: z.ZodString;
-                dueDate: z.ZodISODate;
+                dueDate: z.ZodOptional<z.ZodISODate>;
                 closeCriterion: z.ZodString;
                 blockedBy: z.ZodArray<z.ZodNumber>;
             }, z.core.$strict>>;
@@ -714,6 +747,17 @@ export declare const internalMemoryActionPlanReadContract: {
                     entryVersion: z.ZodNumber;
                 }, z.core.$strict>;
                 firstActivities: z.ZodArray<z.ZodString>;
+                sections: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    title: z.ZodString;
+                    expectedGoal: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    milestone: z.ZodNumber;
+                    needsFrom: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        what: z.ZodString;
+                    }, z.core.$strict>>>;
+                }, z.core.$strict>>>;
                 roleAgents: z.ZodOptional<z.ZodArray<z.ZodObject<{
                     role: z.ZodString;
                     competencies: z.ZodArray<z.ZodString>;

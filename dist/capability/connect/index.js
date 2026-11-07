@@ -1,10 +1,24 @@
 import { z } from 'zod';
 /** Providers a person can connect (provider list is configuration; Google first). */
-export const ConnectProviderSchema = z.enum(['google']);
+export const ConnectProviderSchema = z.enum(['google', 'bitbucket', 'figma']);
 /** Separate permissions for mailbox and Drive reading. `mail_draft` creates drafts, it never reads mail. */
-export const ConnectScopeSchema = z.enum(['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read']);
+export const ConnectScopeSchema = z.enum([
+    'calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read',
+    // Read repository code through Bitbucket.
+    'code_read',
+    // Read design files through Figma.
+    'design_read',
+]);
+/** Permissions available from each connection provider. */
+export const CONNECT_PROVIDER_SCOPES = {
+    google: ['calendar_events', 'contacts_read', 'mail_send', 'mail_draft', 'mail_read', 'drive_read'],
+    bitbucket: ['code_read'],
+    figma: ['design_read'],
+};
 /** One-time link limits: the link expires in 10 minutes. */
 export const CONNECT_LINK_LIMITS = { ttlSeconds: 600, stateBytes: 32 };
+/** Email invitation lifetime: seven days until the connection succeeds. */
+export const CONNECT_INVITE_LIMITS = { ttlSeconds: 604800 };
 /** Maximum lifetime of a tool permit, in seconds. */
 export const CONNECT_PERMIT_MAX_TTL_SECONDS = 3600;
 const ScopesSchema = z.array(ConnectScopeSchema).min(1).refine((scopes) => new Set(scopes).size === scopes.length, {
@@ -21,7 +35,16 @@ export const ConnectStartRequestSchema = z.object({
     conversationId: z.string().min(1),
     provider: ConnectProviderSchema,
     scopes: ScopesSchema,
-}).strict();
+}).strict().superRefine((request, ctx) => {
+    const allowedScopes = CONNECT_PROVIDER_SCOPES[request.provider];
+    if (request.scopes.some((scope) => !allowedScopes.includes(scope))) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Scopes must belong to the selected provider',
+            path: ['scopes'],
+        });
+    }
+});
 /** One-time https link, or an explicit failure reason. */
 export const ConnectStartResponseSchema = z.discriminatedUnion('ok', [
     z.object({

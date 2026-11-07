@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompleteActionPlanSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuSectionSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
 exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
@@ -34,12 +34,25 @@ exports.ActionPlanBuStartSchema = zod_1.z.discriminatedUnion('kind', [
         }),
     }),
 ]);
+exports.ActionPlanBuSectionSchema = zod_1.z.strictObject({
+    id: SlugSchema(1, 40).describe('nome breve e stabile della sezione'),
+    title: zod_1.z.string().min(1).max(200).describe("la sezione, come la chiamerebbe l'utente"),
+    expectedGoal: zod_1.z.string().min(1).max(1000).describe("cosa potrà fare l'utente quando la sezione è finita"),
+    deliveryCriteria: zod_1.z.array(zod_1.z.string().min(1).max(500)).min(1).max(10)
+        .describe('come si verifica che è finita'),
+    milestone: zod_1.z.number().int().min(1).describe('la tappa del piano (`milestones[].number`) in cui si consegna'),
+    needsFrom: zod_1.z.array(zod_1.z.strictObject({
+        buSlug: SlugSchema(1, 30),
+        what: zod_1.z.string().min(1).max(500),
+    })).max(10).optional().describe("cosa serve da un'altra BU per costruirla"),
+});
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 exports.ActionPlanBusinessUnitSchema = zod_1.z.strictObject({
     buSlug: SlugSchema(1, 30),
     /** Only a lead type of the catalog (1.65.0): the unit is born by Forge from this type. */
     typeId: business_unit_type_js_1.BusinessUnitLeadTypeIdSchema,
-    mandate: zod_1.z.string().min(1).max(2000),
+    mandate: zod_1.z.string().min(1).max(2000)
+        .describe('ruolo e perimetro della BU in poche frasi; le cose da costruire vanno in `sections`'),
     competencies: UniqueCompetenciesSchema,
     lead: zod_1.z.strictObject({ role: zod_1.z.literal(agent_role_js_1.BUSINESS_UNIT_LEAD_ROLE) }),
     reviewer: zod_1.z.union([
@@ -48,7 +61,9 @@ exports.ActionPlanBusinessUnitSchema = zod_1.z.strictObject({
     ]).optional(),
     executor: exports.ActionPlanBuExecutorSchema,
     referent: exports.ActionPlanReferentRefSchema,
-    firstActivities: zod_1.z.array(zod_1.z.string().min(1).max(500)).min(1).max(20),
+    firstActivities: zod_1.z.array(zod_1.z.string().min(1).max(500)).min(1).max(20)
+        .describe('i primi passi del capo, prima di costruire le sezioni'),
+    sections: zod_1.z.array(exports.ActionPlanBuSectionSchema).min(1).max(20).refine((sections) => new Set(sections.map((section) => section.id)).size === sections.length, { message: 'Section ids must be unique within the business unit' }).optional().describe('Le sezioni che questa BU costruisce dopo l’approvazione: la missione scomposta per questa BU, ognuna con cosa potrà fare l’utente. È il mini-brief che il capo riceve nel Mandato.'),
     roleAgents: zod_1.z.array(exports.ActionPlanRoleAgentSchema).max(20).optional(),
     start: exports.ActionPlanBuStartSchema,
 });
@@ -107,7 +122,7 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
         number: MilestoneNumberSchema,
         delivery: TextSchema,
         buSlug: BuSlugSchema,
-        dueDate: zod_1.z.iso.date(),
+        dueDate: zod_1.z.iso.date().optional().describe('giorno della tappa, se esiste'),
         closeCriterion: TextSchema,
         blockedBy: zod_1.z.array(zod_1.z.number().int()),
     })).min(1).max(50),
@@ -147,6 +162,38 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
 exports.ActionPlanDraftSchema = exports.ActionPlanSchema.omit({ digest: true, tenantId: true, organizationId: true }).extend({
     planId: exports.ActionPlanSchema.shape.planId.optional(),
     version: exports.ActionPlanSchema.shape.version.optional(),
+});
+/** The plan as the Director submits a new version: every unit that starts now carries its sections. Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which do not require them. */
+exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema.superRefine((plan, ctx) => {
+    const businessUnitSlugs = new Set(plan.businessUnits.map((unit) => unit.buSlug));
+    const milestoneNumbers = new Set(plan.milestones.map((milestone) => milestone.number));
+    plan.businessUnits.forEach((unit, index) => {
+        if (unit.start.kind === 'now' && unit.sections === undefined) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['businessUnits', index, 'sections'],
+                message: `Business unit ${unit.buSlug} starts now and needs its sections: the mission split into what this unit builds`,
+            });
+        }
+        unit.sections?.forEach((section, position) => {
+            if (!milestoneNumbers.has(section.milestone)) {
+                ctx.addIssue({
+                    code: 'custom',
+                    path: ['businessUnits', index, 'sections', position, 'milestone'],
+                    message: `Section ${section.id} milestone ${section.milestone} does not exist in the plan`,
+                });
+            }
+            section.needsFrom?.forEach((need, dependencyIndex) => {
+                if (!businessUnitSlugs.has(need.buSlug) || need.buSlug === unit.buSlug) {
+                    ctx.addIssue({
+                        code: 'custom',
+                        path: ['businessUnits', index, 'sections', position, 'needsFrom', dependencyIndex, 'buSlug'],
+                        message: `Section ${section.id} needs work from ${need.buSlug}, which is not another existing business unit`,
+                    });
+                }
+            });
+        });
+    });
 });
 /** The plan Stefano can approve as it stands: the eleven parts plus marketing, launch and financial plans, cross-checked. */
 exports.CompleteActionPlanSchema = exports.ActionPlanSchema.extend({

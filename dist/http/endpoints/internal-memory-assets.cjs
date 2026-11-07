@@ -11,7 +11,8 @@ exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = '/internal/memory/assets/list';
 exports.INTERNAL_MEMORY_ASSET_CONTENT_PATH = '/internal/memory/assets/content';
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
- * A `link` origin carries no bytes; every other origin requires `contentBase64`.
+ * A `link` or `session` origin carries no bytes (the session file stays in its delivery branch, memory keeps
+ * the card); every other origin requires `contentBase64`.
  * `context` says for which agentic company (organization) the asset is stored: the signed context of the run,
  * as for the other company memory routes. An attachment that arrives on its own (email) carries the context the
  * connector issues for the organization of the conversation. The service takes tenant and organization from the
@@ -29,17 +30,36 @@ exports.InternalMemoryAssetIngestRequestSchema = zod_1.z
         ctx.addIssue({ code: 'custom', path: ['asset', 'providedBy'], message: 'provided_by_is_resolved_by_the_service' });
     }
     const isLink = value.asset.origin.kind === 'link';
+    const isSession = value.asset.origin.kind === 'session';
     if (isLink && value.contentBase64 !== undefined) {
         ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'link_has_no_content' });
     }
-    if (!isLink && value.contentBase64 === undefined) {
+    if (isSession && value.contentBase64 !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'session_has_no_content' });
+    }
+    if (!isLink && !isSession && value.contentBase64 === undefined) {
         ctx.addIssue({ code: 'custom', path: ['contentBase64'], message: 'content_required' });
     }
 });
+/**
+ * Present only when the asset is registered but its bytes were NOT kept because the company reached its quota;
+ * absent means the bytes are kept. The agent can explain it to the referent.
+ */
+const ContentNotStoredSchema = zod_1.z.strictObject({
+    reason: zod_1.z.literal('company_quota'),
+    quotaBytes: zod_1.z.number().int().min(0),
+    usedBytes: zod_1.z.number().int().min(0),
+});
 exports.InternalMemoryAssetIngestResponseSchema = zod_1.z.discriminatedUnion('kind', [
-    zod_1.z.strictObject({ kind: zod_1.z.literal('file'), assetId: asset_js_1.AssetRefSchema.shape.assetId, sha256: asset_js_1.AssetSha256Schema }),
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('file'),
+        assetId: asset_js_1.AssetRefSchema.shape.assetId,
+        sha256: asset_js_1.AssetSha256Schema,
+        contentNotStored: ContentNotStoredSchema.optional(),
+    }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal('archive'),
+        contentNotStored: ContentNotStoredSchema.optional(),
         archiveAssetId: asset_js_1.AssetRefSchema.shape.assetId,
         entries: zod_1.z.array(zod_1.z.strictObject({
             assetId: asset_js_1.AssetRefSchema.shape.assetId,
@@ -72,15 +92,19 @@ exports.InternalMemoryAssetListResponseSchema = zod_1.z.strictObject({
         links: zod_1.z.array(zod_1.z.strictObject({ recordId: zod_1.z.string().min(1), recordKind: zod_1.z.string().min(1) })),
     })),
 });
-/** Transport request only: the service verifies the signed context, its expiry and the asset's ownership. */
+/**
+ * Transport request only: the service verifies the signed context, its expiry and the asset's ownership.
+ * Readable origins are `generated`, `email` (a file received by email) and `archive` (a file extracted from an
+ * archive). A `link` has no bytes and a `session` has its own route, so both are refused.
+ */
 exports.InternalMemoryAssetContentRequestSchema = zod_1.z.strictObject({
     context: run_context_js_1.OrganizationRunContextSchema,
     asset: asset_js_1.AssetRefSchema,
     offset: zod_1.z.number().int().min(0),
     length: zod_1.z.number().int().min(1).max(262144),
-}).refine((request) => request.asset.origin.kind === 'generated', {
+}).refine((request) => ['generated', 'email', 'archive'].includes(request.asset.origin.kind), {
     path: ['asset', 'origin'],
-    message: 'Asset must have a generated origin',
+    message: 'Asset must have a generated, email or archive origin',
 }).refine((request) => request.offset < request.asset.sizeBytes, {
     path: ['offset'],
     message: 'Offset must be less than asset sizeBytes',

@@ -16,8 +16,8 @@ export declare const PAPERCLIP_TOOLS: {
 };
 export declare const PaperclipGoalLevelSchema: z.ZodEnum<{
     agent: "agent";
-    team: "team";
     company: "company";
+    team: "team";
     task: "task";
 }>;
 export declare const PaperclipCreateProjectInputSchema: z.ZodObject<{
@@ -48,8 +48,8 @@ export declare const PaperclipCreateGoalInputSchema: z.ZodObject<{
     description: z.ZodOptional<z.ZodString>;
     level: z.ZodEnum<{
         agent: "agent";
-        team: "team";
         company: "company";
+        team: "team";
         task: "task";
     }>;
     parentId: z.ZodOptional<z.ZodUUID>;
@@ -61,8 +61,8 @@ export declare const PaperclipGoalViewSchema: z.ZodObject<{
     title: z.ZodString;
     level: z.ZodEnum<{
         agent: "agent";
-        team: "team";
         company: "company";
+        team: "team";
         task: "task";
     }>;
     parentId: z.ZodNullable<z.ZodUUID>;
@@ -75,8 +75,8 @@ export declare const PaperclipCreateGoalOutputSchema: z.ZodObject<{
         title: z.ZodString;
         level: z.ZodEnum<{
             agent: "agent";
-            team: "team";
             company: "company";
+            team: "team";
             task: "task";
         }>;
         parentId: z.ZodNullable<z.ZodUUID>;
