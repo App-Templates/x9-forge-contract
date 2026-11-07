@@ -756,6 +756,8 @@ export declare const InternalPaperclipCompanyBoardResponseSchema: z.ZodObject<{
             in_review: "in_review";
         }>;
         parentId: z.ZodNullable<z.ZodString>;
+        /** Project of the issue, same id as `projects[].projectId`; null when the issue has none. */
+        projectId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         assigneeAgentId: z.ZodNullable<z.ZodUUID>;
         blockedBy: z.ZodArray<z.ZodString>;
         approvalMark: z.ZodNullable<z.ZodString>;
@@ -851,6 +853,8 @@ export declare const internalPaperclipCompanyBoardContract: {
                 in_review: "in_review";
             }>;
             parentId: z.ZodNullable<z.ZodString>;
+            /** Project of the issue, same id as `projects[].projectId`; null when the issue has none. */
+            projectId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
             assigneeAgentId: z.ZodNullable<z.ZodUUID>;
             blockedBy: z.ZodArray<z.ZodString>;
             approvalMark: z.ZodNullable<z.ZodString>;

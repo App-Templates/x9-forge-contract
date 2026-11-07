@@ -103,6 +103,8 @@ export const InternalPaperclipCompanyBoardResponseSchema = z.strictObject({
         title: z.string().min(1).max(300),
         status: PaperclipBoardIssueStatusSchema,
         parentId: z.string().min(1).max(64).nullable(),
+        /** Project of the issue, same id as `projects[].projectId`; null when the issue has none. */
+        projectId: ProjectIdSchema.nullable().optional(),
         assigneeAgentId: z.uuid().nullable(),
         blockedBy: z.array(z.string().min(1).max(64)).max(50),
         approvalMark: z.string().min(1).max(64).nullable(),

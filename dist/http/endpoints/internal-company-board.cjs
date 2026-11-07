@@ -106,6 +106,8 @@ exports.InternalPaperclipCompanyBoardResponseSchema = zod_1.z.strictObject({
         title: zod_1.z.string().min(1).max(300),
         status: exports.PaperclipBoardIssueStatusSchema,
         parentId: zod_1.z.string().min(1).max(64).nullable(),
+        /** Project of the issue, same id as `projects[].projectId`; null when the issue has none. */
+        projectId: ProjectIdSchema.nullable().optional(),
         assigneeAgentId: zod_1.z.uuid().nullable(),
         blockedBy: zod_1.z.array(zod_1.z.string().min(1).max(64)).max(50),
         approvalMark: zod_1.z.string().min(1).max(64).nullable(),

@@ -80,6 +80,21 @@ describe('company board read contracts', () => {
     expect(paperclip.responseSchema.safeParse({ ...paperclipResponse(), issues: [{ ...issue, status: 'blocked' }] }).success).toBe(true);
   });
 
+  it('(h) an issue may carry its project, null, or nothing', () => {
+    const issue = { issueId: 'i1', identifier: 'X-1', title: 't', status: 'todo', parentId: null, assigneeAgentId: null, blockedBy: [], approvalMark: null, updatedAt: at, startedAt: null, completedAt: null, lastComment: null };
+    for (const extra of [{ projectId: 'Sito' }, { projectId: null }, {}]) {
+      expect(paperclip.responseSchema.safeParse({ ...paperclipResponse(), issues: [{ ...issue, ...extra }] }).success, JSON.stringify(extra)).toBe(true);
+    }
+  });
+
+  it('(i) rejects an empty or 101-character issue projectId', () => {
+    const issue = { issueId: 'i1', identifier: 'X-1', title: 't', status: 'todo', parentId: null, assigneeAgentId: null, blockedBy: [], approvalMark: null, updatedAt: at, startedAt: null, completedAt: null, lastComment: null };
+    for (const projectId of ['', 'a'.repeat(101)]) {
+      expect(paperclip.responseSchema.safeParse({ ...paperclipResponse(), issues: [{ ...issue, projectId }] }).success).toBe(false);
+    }
+    expect(paperclip.responseSchema.safeParse({ ...paperclipResponse(), issues: [{ ...issue, projectId: 'a'.repeat(100) }] }).success).toBe(true);
+  });
+
   it('(e) sessions response is strict: an assignment field is rejected', () => {
     expect(sessions.responseSchema.safeParse(sessionResponse()).success).toBe(true);
     expect(sessions.responseSchema.safeParse(sessionResponse({ incarico: 'testo' })).success).toBe(false);
