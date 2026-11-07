@@ -14,10 +14,15 @@ export function credentialSourceOf(row) {
             return CredentialSourceIdSchema.parse(`preset:${row.presetId}`);
     }
 }
-export const CredentialVersionRefSchema = z.object({
+/** A version of a key within its source; never carries a threshold of its own. */
+export const CredentialVersionThresholdSchema = z.object({
     source: CredentialSourceIdSchema,
     counter: z.number().int().positive(),
     revoked: z.boolean().default(false),
+}).strict();
+/** A version of a key; `revokedThrough` is the revocation threshold and is absent when nothing was revoked. */
+export const CredentialVersionRefSchema = CredentialVersionThresholdSchema.extend({
+    revokedThrough: CredentialVersionThresholdSchema.optional(),
 }).strict();
 /** Counters are comparable only within their source; revocation does not affect ordering. */
 export function compareCredentialVersions(a, b) {
@@ -28,5 +33,30 @@ export function compareCredentialVersions(a, b) {
     if (a.counter < b.counter)
         return 'older';
     return 'same';
+}
+/**
+ * True when `version` is revoked by `threshold`: the threshold is present, comes from the same source,
+ * and the version is at or below it. A threshold from another source never applies.
+ */
+export function withinRevocationThreshold(version, threshold) {
+    if (threshold === undefined)
+        return false;
+    const order = compareCredentialVersions(version, threshold);
+    return order === 'older' || order === 'same';
+}
+/**
+ * Whether the version a session was opened with is revoked, given the current version of the key.
+ * A revocation closes the session even when an ordinary rotation followed it (the threshold covers the opened
+ * version); a plain rotation or a key from another source lets the session continue. When the current version is
+ * revoked, anything not strictly newer from the same source closes, including another source (prudent).
+ */
+export function credentialVersionRevoked(opened, current) {
+    if (current === null || current === undefined)
+        return false;
+    if (opened === null || opened === undefined)
+        return current.revoked === true;
+    if (withinRevocationThreshold(opened, current.revokedThrough))
+        return true;
+    return current.revoked === true && compareCredentialVersions(opened, current) !== 'newer';
 }
 //# sourceMappingURL=credential-source.js.map

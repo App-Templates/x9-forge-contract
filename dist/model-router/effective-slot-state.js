@@ -19,6 +19,8 @@ export const EffectiveSlotStateSchema = z.discriminatedUnion('state', [
         /**
          * Version of the key with its source. `revoked === true` is an urgent revocation (the service closes the
          * session at once); a higher `counter` with `revoked` false is an ordinary rotation (an open session continues).
+         * `revokedThrough` is the revocation threshold: it keeps covering older versions after a later rotation.
+         * Services decide with `credentialVersionRevoked(opened, credential)`.
          */
         credential: CredentialVersionRefSchema.nullable().optional(),
         etag: z.string().min(1).max(256),

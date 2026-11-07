@@ -25,6 +25,6 @@ export { CONNECTION_CREDENTIAL_KEY_PREFIX, CONNECT_VAULT_SECRET_ENV, connectionC
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.js";
 export type { AgentVaultedCredentials } from "./agent-vaulted-credentials.js";
 export * from "./credential-link.js";
-export { CredentialSourceIdSchema, credentialSourceOf, CredentialVersionRefSchema, compareCredentialVersions, } from "./credential-source.js";
-export type { CredentialSourceId, CredentialVersionRef } from "./credential-source.js";
+export { CredentialSourceIdSchema, credentialSourceOf, CredentialVersionRefSchema, CredentialVersionThresholdSchema, compareCredentialVersions, withinRevocationThreshold, credentialVersionRevoked, } from "./credential-source.js";
+export type { CredentialSourceId, CredentialVersionRef, CredentialVersionThreshold, } from "./credential-source.js";
 //# sourceMappingURL=index.d.ts.map

@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.106.2 — soglia di revoca nel riferimento della chiave: `revokedThrough` facoltativo e `credentialVersionRevoked`
+
+- `CredentialVersionThresholdSchema`.
+- `revokedThrough` facoltativo in `CredentialVersionRefSchema`, quindi nel `credential` dello stato `configured`.
+- `withinRevocationThreshold` (usata anche da `resolvedEntryRef`), `credentialVersionRevoked`.
+- Consumatori: agent-core e capability-sdk (mp-x9 5451-5453), cap-voice-live (mp-x9 5367).
+- Nessuno schema si stringe: un riferimento senza soglia è quello di oggi.
+
 ## v1.106.1 — ritiro osservato: `source` facoltativo (`provider-error` | `provider-inventory`) e codici d'errore per fornitore
 
 - `RetirementSourceSchema`, `RETIREMENT_SOURCES`, `retirementSource`.

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { INTERNAL_TOKEN_HEADER } from "../auth/index.js";
 import { CredentialKeySchema } from "./credential-key.js";
-import { CredentialSourceIdSchema, CredentialVersionRefSchema, compareCredentialVersions, } from "./credential-source.js";
+import { CredentialSourceIdSchema, CredentialVersionRefSchema, CredentialVersionThresholdSchema, withinRevocationThreshold, } from "./credential-source.js";
 import { VaultCascadeTierSchema } from "./vault-tier.js";
 export const VaultResolvedEntrySchema = z.object({
     key: CredentialKeySchema,
@@ -13,7 +13,7 @@ export const VaultResolvedEntrySchema = z.object({
     /** True when this version originated from an urgent revocation; open sessions close. */
     revoked: z.boolean().optional(),
     /** Versions from the same source at or below this threshold remain revoked after rotation. */
-    revokedThrough: CredentialVersionRefSchema.optional(),
+    revokedThrough: CredentialVersionThresholdSchema.optional(),
 }).strict();
 /** Resolve a version without inventing a counter or trusting a source from another tier. */
 export function resolvedEntryRef(entry) {
@@ -30,11 +30,8 @@ export function resolvedEntryRef(entry) {
         counter: entry.counter,
         revoked: entry.revoked ?? false,
     });
-    if (entry.revokedThrough !== undefined) {
-        const order = compareCredentialVersions(ref, entry.revokedThrough);
-        if (order === 'older' || order === 'same')
-            return { ...ref, revoked: true };
-    }
+    if (withinRevocationThreshold(ref, entry.revokedThrough))
+        return { ...ref, revoked: true };
     return ref;
 }
 export const VaultResolvedResponseSchema = z.object({

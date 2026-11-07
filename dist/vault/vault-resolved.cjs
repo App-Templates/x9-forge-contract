@@ -18,7 +18,7 @@ exports.VaultResolvedEntrySchema = zod_1.z.object({
     /** True when this version originated from an urgent revocation; open sessions close. */
     revoked: zod_1.z.boolean().optional(),
     /** Versions from the same source at or below this threshold remain revoked after rotation. */
-    revokedThrough: credential_source_js_1.CredentialVersionRefSchema.optional(),
+    revokedThrough: credential_source_js_1.CredentialVersionThresholdSchema.optional(),
 }).strict();
 /** Resolve a version without inventing a counter or trusting a source from another tier. */
 function resolvedEntryRef(entry) {
@@ -35,11 +35,8 @@ function resolvedEntryRef(entry) {
         counter: entry.counter,
         revoked: entry.revoked ?? false,
     });
-    if (entry.revokedThrough !== undefined) {
-        const order = (0, credential_source_js_1.compareCredentialVersions)(ref, entry.revokedThrough);
-        if (order === 'older' || order === 'same')
-            return { ...ref, revoked: true };
-    }
+    if ((0, credential_source_js_1.withinRevocationThreshold)(ref, entry.revokedThrough))
+        return { ...ref, revoked: true };
     return ref;
 }
 exports.VaultResolvedResponseSchema = zod_1.z.object({

@@ -203,6 +203,11 @@ export declare const EffectiveSlotStateSchema: z.ZodDiscriminatedUnion<[z.ZodObj
         source: z.ZodString;
         counter: z.ZodNumber;
         revoked: z.ZodDefault<z.ZodBoolean>;
+        revokedThrough: z.ZodOptional<z.ZodObject<{
+            source: z.ZodString;
+            counter: z.ZodNumber;
+            revoked: z.ZodDefault<z.ZodBoolean>;
+        }, z.core.$strict>>;
     }, z.core.$strict>>>;
     etag: z.ZodString;
 }, z.core.$strict>, z.ZodObject<{
