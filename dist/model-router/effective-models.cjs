@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalModelsEffectiveContract = exports.EffectiveModelsParamsSchema = exports.EffectiveModelsResponseSchema = exports.EffectiveModelSlotSchema = exports.EffectiveSlotRetirementSchema = exports.EffectiveSlotRetirementReasonSchema = exports.EffectiveModelSlotStatusSchema = exports.EFFECTIVE_MODEL_SLOT_STATUSES = void 0;
+exports.internalModelsEffectiveContract = exports.EffectiveModelsParamsSchema = exports.EffectiveModelsResponseSchema = exports.EffectiveModelSlotSchema = exports.EffectiveSlotOriginSchema = exports.EFFECTIVE_SLOT_ORIGINS = exports.EffectiveSlotRetirementSchema = exports.EffectiveSlotRetirementReasonSchema = exports.EffectiveModelSlotStatusSchema = exports.EFFECTIVE_MODEL_SLOT_STATUSES = void 0;
 exports.modelsEffectivePath = modelsEffectivePath;
 const zod_1 = require("zod");
 const index_js_1 = require("../auth/index.cjs");
@@ -25,10 +25,13 @@ exports.EffectiveSlotRetirementSchema = zod_1.z.object({
     reason: exports.EffectiveSlotRetirementReasonSchema,
     observedAt: zod_1.z.iso.datetime({ offset: true }),
 }).strict();
+/** Own row of the agent, or the row of its preset. */
+exports.EFFECTIVE_SLOT_ORIGINS = ['agent', 'preset'];
+exports.EffectiveSlotOriginSchema = zod_1.z.enum(exports.EFFECTIVE_SLOT_ORIGINS);
 /** Effective choice metadata; credential references never contain credential values. */
 exports.EffectiveModelSlotSchema = zod_1.z.object({
     choice: model_choice_js_1.ModelChoiceSchema,
-    origin: zod_1.z.enum(['agent', 'preset']),
+    origin: exports.EffectiveSlotOriginSchema,
     version: zod_1.z.number().int().positive(),
     status: exports.EffectiveModelSlotStatusSchema,
     upgradedFrom: zod_1.z.string().min(1).max(256).optional(),

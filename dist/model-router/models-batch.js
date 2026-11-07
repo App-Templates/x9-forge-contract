@@ -156,6 +156,9 @@ export const AgentModelsBatchIntentSchema = z.union([AgentModelsBatchRequestSche
 const sameSettings = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const normalizedConfiguration = (config) => JSON.stringify({ ...config, selections: [...config.selections].sort((left, right) => left.slotId.localeCompare(right.slotId)) });
 const normalizedRequest = (request) => JSON.stringify({ ...request, agents: request.agents.map(agent => ({ ...agent, changes: [...agent.changes].sort((a, b) => a.slotId.localeCompare(b.slotId)) })).sort((a, b) => a.identity.managementAgentId.localeCompare(b.identity.managementAgentId)) });
+/** A slot that follows the Master, or a custom choice of the agent. */
+export const MODEL_BINDING_ORIGINS = ['master', 'custom'];
+export const ModelBindingOriginSchema = z.enum(MODEL_BINDING_ORIGINS);
 /** Server-produced relation snapshot. It describes impact and never grants permission. */
 export const AgentModelsMasterImpactSchema = z.object({
     token: z.object({ version: ModelCatalogVersionSchema, sourceVersion: AgentModelBootstrapSourceVersionSchema, relationVersion: ModelCatalogVersionSchema }).strict(),
@@ -166,7 +169,7 @@ export const AgentModelsMasterImpactSchema = z.object({
         ownerId: OwnerIdSchema.refine(value => value.trim().length > 0), tenantId: z.string().trim().min(1).max(128),
         displayName: z.string().trim().min(1).max(160).regex(/^[^<>\u0000-\u001f\u007f]+$/).nullable(),
         slots: z.array(z.object({
-            slotId: ModelSlotIdSchema, binding: z.enum(['master', 'custom']), effect: z.enum(['changes', 'preserved']),
+            slotId: ModelSlotIdSchema, binding: ModelBindingOriginSchema, effect: z.enum(['changes', 'preserved']),
             currentVersion: AgentConfigVersionSchema, nextVersion: AgentConfigVersionSchema,
         }).strict()).min(1).max(64),
     }).strict()).max(2048),

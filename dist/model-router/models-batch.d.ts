@@ -3401,6 +3401,13 @@ export declare const AgentModelsBatchIntentSchema: z.ZodUnion<readonly [z.ZodObj
     }, z.core.$strict>>;
 }, z.core.$strict>]>;
 export type AgentModelsBatchRequest = z.infer<typeof AgentModelsBatchRequestSchema>;
+/** A slot that follows the Master, or a custom choice of the agent. */
+export declare const MODEL_BINDING_ORIGINS: readonly ["master", "custom"];
+export declare const ModelBindingOriginSchema: z.ZodEnum<{
+    custom: "custom";
+    master: "master";
+}>;
+export type ModelBindingOrigin = z.infer<typeof ModelBindingOriginSchema>;
 /** Server-produced relation snapshot. It describes impact and never grants permission. */
 export declare const AgentModelsMasterImpactSchema: z.ZodObject<{
     token: z.ZodObject<{

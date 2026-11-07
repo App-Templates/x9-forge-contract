@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.106.3 — origine del posto effettivo e aggancio al Master esportati
+
+- `EffectiveSlotOriginSchema` (`EFFECTIVE_SLOT_ORIGINS`), usato da `EffectiveModelSlotSchema.origin`.
+- `ModelBindingOriginSchema` (`MODEL_BINDING_ORIGINS`), usato dal `binding` di `AgentModelsMasterImpactSchema`.
+- Consumatori: Forge vault e web (mp-forge 5461, 5464).
+- Nessuno schema cambia valori.
+- Nota sulle versioni 1.104.0 e 1.105.1: i loro `dist/` contengono già parte delle voci delle versioni successive; nessun consumatore si fermi a quelle versioni.
+
 ## v1.106.2 — soglia di revoca nel riferimento della chiave: `revokedThrough` facoltativo e `credentialVersionRevoked`
 
 - `CredentialVersionThresholdSchema`.

@@ -26,6 +26,13 @@ export declare const EffectiveSlotRetirementSchema: z.ZodObject<{
     observedAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type EffectiveSlotRetirement = z.infer<typeof EffectiveSlotRetirementSchema>;
+/** Own row of the agent, or the row of its preset. */
+export declare const EFFECTIVE_SLOT_ORIGINS: readonly ["agent", "preset"];
+export declare const EffectiveSlotOriginSchema: z.ZodEnum<{
+    agent: "agent";
+    preset: "preset";
+}>;
+export type EffectiveSlotOrigin = z.infer<typeof EffectiveSlotOriginSchema>;
 /** Effective choice metadata; credential references never contain credential values. */
 export declare const EffectiveModelSlotSchema: z.ZodObject<{
     choice: z.ZodUnion<readonly [z.ZodObject<{

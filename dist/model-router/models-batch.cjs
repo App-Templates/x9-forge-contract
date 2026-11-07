@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentModelsBatchResultSchema = exports.AgentModelsBatchOutcomeSchema = exports.AgentModelsBatchStatusSchema = exports.AgentModelsBatchPreviewSchema = exports.AgentModelsMasterImpactSchema = exports.AgentModelsBatchIntentSchema = exports.AgentModelsBatchRequestSchema = exports.AgentModelsBatchPreviewRequestSchema = exports.AgentModelSlotChangeSchema = exports.AgentModelsOverviewSchema = exports.AgentModelsOverviewCoverageSchema = exports.AgentModelOverviewRowSchema = exports.ModelEmbeddingRebuildSchema = exports.ModelCostMetadataSchema = void 0;
+exports.AgentModelsBatchResultSchema = exports.AgentModelsBatchOutcomeSchema = exports.AgentModelsBatchStatusSchema = exports.AgentModelsBatchPreviewSchema = exports.AgentModelsMasterImpactSchema = exports.ModelBindingOriginSchema = exports.MODEL_BINDING_ORIGINS = exports.AgentModelsBatchIntentSchema = exports.AgentModelsBatchRequestSchema = exports.AgentModelsBatchPreviewRequestSchema = exports.AgentModelSlotChangeSchema = exports.AgentModelsOverviewSchema = exports.AgentModelsOverviewCoverageSchema = exports.AgentModelOverviewRowSchema = exports.ModelEmbeddingRebuildSchema = exports.ModelCostMetadataSchema = void 0;
 exports.isAgentModelsMasterImpactCurrent = isAgentModelsMasterImpactCurrent;
 exports.validateAgentModelsBatch = validateAgentModelsBatch;
 exports.isAgentModelsBatchPreviewCurrent = isAgentModelsBatchPreviewCurrent;
@@ -165,6 +165,9 @@ exports.AgentModelsBatchIntentSchema = zod_1.z.union([exports.AgentModelsBatchRe
 const sameSettings = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const normalizedConfiguration = (config) => JSON.stringify({ ...config, selections: [...config.selections].sort((left, right) => left.slotId.localeCompare(right.slotId)) });
 const normalizedRequest = (request) => JSON.stringify({ ...request, agents: request.agents.map(agent => ({ ...agent, changes: [...agent.changes].sort((a, b) => a.slotId.localeCompare(b.slotId)) })).sort((a, b) => a.identity.managementAgentId.localeCompare(b.identity.managementAgentId)) });
+/** A slot that follows the Master, or a custom choice of the agent. */
+exports.MODEL_BINDING_ORIGINS = ['master', 'custom'];
+exports.ModelBindingOriginSchema = zod_1.z.enum(exports.MODEL_BINDING_ORIGINS);
 /** Server-produced relation snapshot. It describes impact and never grants permission. */
 exports.AgentModelsMasterImpactSchema = zod_1.z.object({
     token: zod_1.z.object({ version: model_catalog_js_1.ModelCatalogVersionSchema, sourceVersion: model_slot_js_1.AgentModelBootstrapSourceVersionSchema, relationVersion: model_catalog_js_1.ModelCatalogVersionSchema }).strict(),
@@ -175,7 +178,7 @@ exports.AgentModelsMasterImpactSchema = zod_1.z.object({
         ownerId: agent_identity_js_1.OwnerIdSchema.refine(value => value.trim().length > 0), tenantId: zod_1.z.string().trim().min(1).max(128),
         displayName: zod_1.z.string().trim().min(1).max(160).regex(/^[^<>\u0000-\u001f\u007f]+$/).nullable(),
         slots: zod_1.z.array(zod_1.z.object({
-            slotId: agent_model_configuration_js_1.ModelSlotIdSchema, binding: zod_1.z.enum(['master', 'custom']), effect: zod_1.z.enum(['changes', 'preserved']),
+            slotId: agent_model_configuration_js_1.ModelSlotIdSchema, binding: exports.ModelBindingOriginSchema, effect: zod_1.z.enum(['changes', 'preserved']),
             currentVersion: agent_config_js_1.AgentConfigVersionSchema, nextVersion: agent_config_js_1.AgentConfigVersionSchema,
         }).strict()).min(1).max(64),
     }).strict()).max(2048),
