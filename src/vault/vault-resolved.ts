@@ -4,7 +4,8 @@ import { CredentialKeySchema } from './credential-key.js';
 import {
   CredentialSourceIdSchema,
   CredentialVersionRefSchema,
-  compareCredentialVersions,
+  CredentialVersionThresholdSchema,
+  withinRevocationThreshold,
 } from './credential-source.js';
 import type { CredentialVersionRef } from './credential-source.js';
 import { VaultCascadeTierSchema } from './vault-tier.js';
@@ -19,7 +20,7 @@ export const VaultResolvedEntrySchema = z.object({
   /** True when this version originated from an urgent revocation; open sessions close. */
   revoked: z.boolean().optional(),
   /** Versions from the same source at or below this threshold remain revoked after rotation. */
-  revokedThrough: CredentialVersionRefSchema.optional(),
+  revokedThrough: CredentialVersionThresholdSchema.optional(),
 }).strict();
 export type VaultResolvedEntry = z.infer<typeof VaultResolvedEntrySchema>;
 
@@ -38,10 +39,7 @@ export function resolvedEntryRef(entry: VaultResolvedEntry): CredentialVersionRe
     counter: entry.counter,
     revoked: entry.revoked ?? false,
   });
-  if (entry.revokedThrough !== undefined) {
-    const order = compareCredentialVersions(ref, entry.revokedThrough);
-    if (order === 'older' || order === 'same') return { ...ref, revoked: true };
-  }
+  if (withinRevocationThreshold(ref, entry.revokedThrough)) return { ...ref, revoked: true };
   return ref;
 }
 

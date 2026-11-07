@@ -95,6 +95,13 @@ export {
   CredentialSourceIdSchema,
   credentialSourceOf,
   CredentialVersionRefSchema,
+  CredentialVersionThresholdSchema,
   compareCredentialVersions,
+  withinRevocationThreshold,
+  credentialVersionRevoked,
 } from './credential-source.js';
-export type { CredentialSourceId, CredentialVersionRef } from './credential-source.js';
+export type {
+  CredentialSourceId,
+  CredentialVersionRef,
+  CredentialVersionThreshold,
+} from './credential-source.js';
