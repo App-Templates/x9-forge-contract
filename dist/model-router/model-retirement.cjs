@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModelRetirementNoticeSchema = exports.ModelNoSuccessorNoticeSchema = exports.ModelUpgradedNoticeSchema = exports.ModelUpgradeTargetSchema = exports.MODEL_UPGRADE_TARGETS = exports.vaultModelsRetiredObservedContract = exports.internalModelsRetiredObservedContract = exports.RetiredObservedAckSchema = exports.RetiredModelObservationSchema = void 0;
+exports.ModelRetirementNoticeSchema = exports.ModelNoSuccessorNoticeSchema = exports.ModelUpgradedNoticeSchema = exports.ModelUpgradeTargetSchema = exports.MODEL_UPGRADE_TARGETS = exports.vaultModelsRetiredObservedContract = exports.internalModelsRetiredObservedContract = exports.RetiredObservedAckSchema = exports.RetiredModelObservationSchema = exports.RetirementSourceSchema = exports.RETIREMENT_SOURCES = exports.RetiredProviderErrorSchema = exports.RETIRED_PROVIDER_ERROR_CODES = void 0;
+exports.retiredProviderErrorFits = retiredProviderErrorFits;
+exports.retirementSource = retirementSource;
 exports.vaultModelsRetiredObservedPath = vaultModelsRetiredObservedPath;
 exports.retirementNoticeKey = retirementNoticeKey;
 const zod_1 = require("zod");
@@ -12,16 +14,52 @@ const model_catalog_js_1 = require("./model-catalog.cjs");
 const model_slot_js_1 = require("./model-slot.cjs");
 const model_succession_js_1 = require("./model-succession.cjs");
 /**
- * What a service saw when a provider refused a call because the model no longer exists:
- * OpenAI 404 `model_not_found`, Anthropic `not_found_error`.
+ * The error code each provider answers with when the model no longer exists.
+ * openai: `error.code`; anthropic: `error.type`; google: `error.status` (google.rpc);
+ * elevenlabs: `detail.type` of the 404 body.
+ */
+exports.RETIRED_PROVIDER_ERROR_CODES = {
+    openai: ['model_not_found'],
+    anthropic: ['not_found_error'],
+    google: ['NOT_FOUND'],
+    elevenlabs: ['not_found'],
+};
+exports.RetiredProviderErrorSchema = zod_1.z.enum(['model_not_found', 'not_found_error', 'NOT_FOUND', 'not_found']);
+/** True only when `code` is in the provider's own row; an unknown provider never fits. */
+function retiredProviderErrorFits(provider, code) {
+    if (!Object.hasOwn(exports.RETIRED_PROVIDER_ERROR_CODES, provider))
+        return false;
+    return exports.RETIRED_PROVIDER_ERROR_CODES[provider].includes(code);
+}
+/** `provider-error`: a call was refused; `provider-inventory`: the provider's catalog no longer lists the model. */
+exports.RETIREMENT_SOURCES = ['provider-error', 'provider-inventory'];
+exports.RetirementSourceSchema = effective_models_js_1.EffectiveSlotRetirementReasonSchema.extract([...exports.RETIREMENT_SOURCES]);
+/**
+ * What a service saw when a model no longer exists: a provider refused a call
+ * (`provider-error`, the default when `source` is absent, carries `providerError`) or the
+ * provider's catalog stopped listing it (`provider-inventory`, no `providerError`).
+ * The provider/code pair is checked by whoever recognises the error, with `retiredProviderErrorFits`.
  * Never carries the raw provider error text or any credential.
  */
 exports.RetiredModelObservationSchema = zod_1.z.object({
     scope: capability_call_identity_js_1.CapabilityAgentScopeSchema,
     slotId: model_slot_js_1.ModelSlotIdSchema,
     model: model_catalog_js_1.ModelDescriptorSchema,
-    providerError: zod_1.z.enum(['model_not_found', 'not_found_error']),
-}).strict();
+    source: exports.RetirementSourceSchema.optional(),
+    providerError: exports.RetiredProviderErrorSchema.optional(),
+}).strict().superRefine((observation, ctx) => {
+    const source = observation.source ?? 'provider-error';
+    if (source === 'provider-error' && observation.providerError === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['providerError'], message: 'A provider-error observation needs the provider error code' });
+    }
+    if (source === 'provider-inventory' && observation.providerError !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['providerError'], message: 'A provider-inventory observation has no provider error code' });
+    }
+});
+/** The vault writes this as the `reason` of the notice. */
+function retirementSource(observation) {
+    return observation.source ?? 'provider-error';
+}
 /**
  * `scheduled`: the vault runs its retirement pass now. `not-in-table`: the model has no row in the
  * succession table, so only a notice is produced and never an upgrade. `duplicate`: already known.

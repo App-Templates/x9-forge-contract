@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.106.1 — ritiro osservato: `source` facoltativo (`provider-error` | `provider-inventory`) e codici d'errore per fornitore
+
+- `RetirementSourceSchema`, `RETIREMENT_SOURCES`, `retirementSource`.
+- `RETIRED_PROVIDER_ERROR_CODES` (openai, anthropic, google, elevenlabs), `RetiredProviderErrorSchema`, `retiredProviderErrorFits`.
+- `providerError` richiesto solo con la fonte `provider-error`; assente con `provider-inventory`.
+- Consumatori: agent-core (mp-x9 5445) e vault (mp-forge 5298-5299).
+- Nessuno schema si stringe: un corpo senza `source` è una chiamata, come oggi.
+
 ## v1.106.0 — Modelli col preset: nascita agganciata al preset dell'azienda e modelli ritirati
 
 - Nascita (F8): `ModelPresetKindSchema`, `ModelPresetRefSchema`, `AgentPresetAttachmentSchema`, `selectBirthPreset`; `modelPreset` facoltativo in `BusinessUnitLeadBirthResultSchema`.

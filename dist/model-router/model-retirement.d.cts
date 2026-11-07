@@ -1,7 +1,36 @@
 import { z } from 'zod';
 /**
- * What a service saw when a provider refused a call because the model no longer exists:
- * OpenAI 404 `model_not_found`, Anthropic `not_found_error`.
+ * The error code each provider answers with when the model no longer exists.
+ * openai: `error.code`; anthropic: `error.type`; google: `error.status` (google.rpc);
+ * elevenlabs: `detail.type` of the 404 body.
+ */
+export declare const RETIRED_PROVIDER_ERROR_CODES: {
+    readonly openai: readonly ["model_not_found"];
+    readonly anthropic: readonly ["not_found_error"];
+    readonly google: readonly ["NOT_FOUND"];
+    readonly elevenlabs: readonly ["not_found"];
+};
+export declare const RetiredProviderErrorSchema: z.ZodEnum<{
+    model_not_found: "model_not_found";
+    not_found_error: "not_found_error";
+    NOT_FOUND: "NOT_FOUND";
+    not_found: "not_found";
+}>;
+export type RetiredProviderError = z.infer<typeof RetiredProviderErrorSchema>;
+/** True only when `code` is in the provider's own row; an unknown provider never fits. */
+export declare function retiredProviderErrorFits(provider: string, code: string): boolean;
+/** `provider-error`: a call was refused; `provider-inventory`: the provider's catalog no longer lists the model. */
+export declare const RETIREMENT_SOURCES: readonly ["provider-error", "provider-inventory"];
+export declare const RetirementSourceSchema: z.ZodEnum<{
+    "provider-inventory": "provider-inventory";
+    "provider-error": "provider-error";
+}>;
+export type RetirementSource = z.infer<typeof RetirementSourceSchema>;
+/**
+ * What a service saw when a model no longer exists: a provider refused a call
+ * (`provider-error`, the default when `source` is absent, carries `providerError`) or the
+ * provider's catalog stopped listing it (`provider-inventory`, no `providerError`).
+ * The provider/code pair is checked by whoever recognises the error, with `retiredProviderErrorFits`.
  * Never carries the raw provider error text or any credential.
  */
 export declare const RetiredModelObservationSchema: z.ZodObject<{
@@ -27,12 +56,20 @@ export declare const RetiredModelObservationSchema: z.ZodObject<{
         }>;
         adapterId: z.ZodString;
     }, z.core.$strict>;
-    providerError: z.ZodEnum<{
+    source: z.ZodOptional<z.ZodEnum<{
+        "provider-inventory": "provider-inventory";
+        "provider-error": "provider-error";
+    }>>;
+    providerError: z.ZodOptional<z.ZodEnum<{
         model_not_found: "model_not_found";
         not_found_error: "not_found_error";
-    }>;
+        NOT_FOUND: "NOT_FOUND";
+        not_found: "not_found";
+    }>>;
 }, z.core.$strict>;
 export type RetiredModelObservation = z.infer<typeof RetiredModelObservationSchema>;
+/** The vault writes this as the `reason` of the notice. */
+export declare function retirementSource(observation: RetiredModelObservation): RetirementSource;
 /**
  * `scheduled`: the vault runs its retirement pass now. `not-in-table`: the model has no row in the
  * succession table, so only a notice is produced and never an upgrade. `duplicate`: already known.
@@ -75,10 +112,16 @@ export declare const internalModelsRetiredObservedContract: {
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
-        providerError: z.ZodEnum<{
+        source: z.ZodOptional<z.ZodEnum<{
+            "provider-inventory": "provider-inventory";
+            "provider-error": "provider-error";
+        }>>;
+        providerError: z.ZodOptional<z.ZodEnum<{
             model_not_found: "model_not_found";
             not_found_error: "not_found_error";
-        }>;
+            NOT_FOUND: "NOT_FOUND";
+            not_found: "not_found";
+        }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
@@ -121,10 +164,16 @@ export declare const vaultModelsRetiredObservedContract: {
             }>;
             adapterId: z.ZodString;
         }, z.core.$strict>;
-        providerError: z.ZodEnum<{
+        source: z.ZodOptional<z.ZodEnum<{
+            "provider-inventory": "provider-inventory";
+            "provider-error": "provider-error";
+        }>>;
+        providerError: z.ZodOptional<z.ZodEnum<{
             model_not_found: "model_not_found";
             not_found_error: "not_found_error";
-        }>;
+            NOT_FOUND: "NOT_FOUND";
+            not_found: "not_found";
+        }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
         ok: z.ZodLiteral<true>;
