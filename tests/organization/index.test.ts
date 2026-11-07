@@ -34,6 +34,11 @@ import * as businessUnitMandate from '../../src/organization/business-unit-manda
 import * as verticalPlan from '../../src/organization/vertical-plan.js';
 import * as verticalPlanObservation from '../../src/organization/vertical-plan-observation.js';
 import * as deliveryPackage from '../../src/organization/delivery-package.js';
+import * as companyBoard from '../../src/organization/company-board.js';
+import * as companyBoardRule from '../../src/organization/company-board-rule.js';
+import * as companyBoardComposeRules from '../../src/organization/company-board-compose-rules.js';
+import * as companyBoardDirectorSummary from '../../src/organization/company-board-director-summary.js';
+import * as companyBoardUnitActions from '../../src/organization/company-board-unit-actions.js';
 
 const allSymbols = {
   ...runContext,
@@ -69,6 +74,11 @@ const allSymbols = {
   ...verticalPlan,
   ...verticalPlanObservation,
   ...deliveryPackage,
+  ...companyBoard,
+  ...companyBoardRule,
+  ...companyBoardComposeRules,
+  ...companyBoardDirectorSummary,
+  ...companyBoardUnitActions,
 };
 
 describe('organization subpath', () => {
