@@ -26,10 +26,15 @@ export const EffectiveSlotRetirementSchema = z.object({
 }).strict();
 export type EffectiveSlotRetirement = z.infer<typeof EffectiveSlotRetirementSchema>;
 
+/** Own row of the agent, or the row of its preset. */
+export const EFFECTIVE_SLOT_ORIGINS = ['agent', 'preset'] as const;
+export const EffectiveSlotOriginSchema = z.enum(EFFECTIVE_SLOT_ORIGINS);
+export type EffectiveSlotOrigin = z.infer<typeof EffectiveSlotOriginSchema>;
+
 /** Effective choice metadata; credential references never contain credential values. */
 export const EffectiveModelSlotSchema = z.object({
   choice: ModelChoiceSchema,
-  origin: z.enum(['agent', 'preset']),
+  origin: EffectiveSlotOriginSchema,
   version: z.number().int().positive(),
   status: EffectiveModelSlotStatusSchema,
   upgradedFrom: z.string().min(1).max(256).optional(),
