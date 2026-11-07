@@ -33,4 +33,5 @@ export * from "./vertical-plan-observation.cjs";
 export * from "./delivery-package.cjs";
 export * from "./company-board.cjs";
 export * from "./company-board-rule.cjs";
+export * from "./company-board-compose-rules.cjs";
 //# sourceMappingURL=index.d.ts.map

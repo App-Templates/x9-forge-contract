@@ -33,3 +33,4 @@ export * from './vertical-plan-observation.js';
 export * from './delivery-package.js';
 export * from './company-board.js';
 export * from './company-board-rule.js';
+export * from './company-board-compose-rules.js';
