@@ -51,4 +51,5 @@ __exportStar(require("./company-board.cjs"), exports);
 __exportStar(require("./company-board-rule.cjs"), exports);
 __exportStar(require("./company-board-compose-rules.cjs"), exports);
 __exportStar(require("./company-board-director-summary.cjs"), exports);
+__exportStar(require("./company-board-unit-actions.cjs"), exports);
 //# sourceMappingURL=index.js.map

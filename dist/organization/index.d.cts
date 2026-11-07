@@ -35,4 +35,5 @@ export * from "./company-board.cjs";
 export * from "./company-board-rule.cjs";
 export * from "./company-board-compose-rules.cjs";
 export * from "./company-board-director-summary.cjs";
+export * from "./company-board-unit-actions.cjs";
 //# sourceMappingURL=index.d.ts.map
