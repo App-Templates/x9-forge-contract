@@ -6,6 +6,7 @@ import {
   ModelRebuildStateSchema,
   REBUILD_DECISIONS,
   rebuildDecision,
+  embeddingRebuildCost,
   isRebuildJobCurrent,
   type EmbeddingSpace,
   type ModelRebuildTarget,
@@ -184,5 +185,35 @@ describe('model rebuild barrel exports', () => {
     expect(barrel.isRebuildJobCurrent).toBe(isRebuildJobCurrent);
     const decisions: readonly RebuildDecision[] = ['start', 'keep', 'supersede', 'cancel', 'discard', 're-read', 'noop'];
     expect(REBUILD_DECISIONS).toEqual(decisions);
+  });
+});
+
+describe('embeddingRebuildCost', () => {
+  const known = (rates: { unit: 'million-input-tokens' | 'character'; amount: number }[]) => ({
+    state: 'known' as const, currency: 'USD', rates, source: 'price list', observedAt: '2026-11-07T10:00:00Z',
+  });
+  const perMillion = known([{ unit: 'million-input-tokens', amount: 0.02 }]);
+
+  it('rounds up to the cent', () => {
+    expect(embeddingRebuildCost(2_048_000, perMillion)).toEqual({ amount: 0.05, currency: 'USD', reason: null });
+    expect(embeddingRebuildCost(2_000_001, perMillion).amount).toBe(0.05);
+  });
+
+  it('does not add a cent for decimal noise', () => {
+    expect(embeddingRebuildCost(3_500_000, perMillion).amount).toBe(0.07);
+  });
+
+  it('costs nothing for no tokens', () => {
+    expect(embeddingRebuildCost(0, perMillion)).toEqual({ amount: 0, currency: 'USD', reason: null });
+  });
+
+  it('gives a reason, never a figure, without a per-token rate', () => {
+    expect(embeddingRebuildCost(1_000_000, known([{ unit: 'character', amount: 1 }])))
+      .toEqual({ amount: null, currency: null, reason: 'tariffa per token non nota' });
+  });
+
+  it('keeps the reason of an unknown cost, with a fallback when it is empty', () => {
+    expect(embeddingRebuildCost(1, { state: 'unknown', reason: 'no price list' }).reason).toBe('no price list');
+    expect(embeddingRebuildCost(1, { state: 'unknown', reason: '' })).toEqual({ amount: null, currency: null, reason: 'tariffa per token non nota' });
   });
 });

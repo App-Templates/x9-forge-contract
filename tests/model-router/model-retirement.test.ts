@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { INTERNAL_SECRET_HEADER, INTERNAL_TOKEN_HEADER } from '../../src/auth/index.js';
+import { INTERNAL_TOKEN_HEADER } from '../../src/auth/index.js';
 import * as barrel from '../../src/model-router/index.js';
 import {
   MODEL_UPGRADE_TARGETS,
@@ -7,7 +7,6 @@ import {
   ModelUpgradeTargetSchema,
   RetiredModelObservationSchema,
   RetiredObservedAckSchema,
-  internalModelsRetiredObservedContract,
   retirementNoticeKey,
   vaultModelsRetiredObservedContract,
   vaultModelsRetiredObservedPath,
@@ -17,7 +16,7 @@ const observation = () => ({
   scope: { agentId: 'x9', ownerId: '1', tenantId: '1' },
   slotId: 'agent_chat',
   model: { provider: 'openai', modelId: 'gpt-5.6-luna', protocol: 'responses', adapterId: 'openai-live-delegation' },
-  providerError: 'model_not_found',
+  source: 'provider-inventory',
 });
 
 const common = () => ({
@@ -33,13 +32,12 @@ const upgraded = () => ({ kind: 'upgraded', ...common(), toModel: 'gpt-5.6-terra
 const noSuccessor = () => ({ kind: 'no-successor', ...common(), cause: 'end-of-line' });
 
 describe('RetiredModelObservationSchema', () => {
-  it('accepts a valid observation for both provider errors', () => {
+  it('accepts a valid catalog observation', () => {
     expect(RetiredModelObservationSchema.safeParse(observation()).success).toBe(true);
-    expect(RetiredModelObservationSchema.safeParse({ ...observation(), providerError: 'not_found_error' }).success).toBe(true);
   });
 
-  it('rejects other provider errors and extra fields such as the raw error text', () => {
-    expect(RetiredModelObservationSchema.safeParse({ ...observation(), providerError: 'timeout' }).success).toBe(false);
+  it('rejects a provider error and extra fields such as the raw error text', () => {
+    expect(RetiredModelObservationSchema.safeParse({ ...observation(), providerError: 'model_not_found' }).success).toBe(false);
     expect(RetiredModelObservationSchema.safeParse({ ...observation(), rawError: 'The model does not exist' }).success).toBe(false);
     expect(RetiredModelObservationSchema.safeParse({ ...observation(), apiKey: 'x' }).success).toBe(false);
   });
@@ -61,19 +59,15 @@ describe('RetiredObservedAckSchema', () => {
 
 describe('retired-observed contracts', () => {
   it('uses the shared auth headers, never literals', () => {
-    expect(internalModelsRetiredObservedContract.authHeader).toBe(INTERNAL_SECRET_HEADER);
-    expect(internalModelsRetiredObservedContract.authType).toBe('secret');
     expect(vaultModelsRetiredObservedContract.authHeader).toBe(INTERNAL_TOKEN_HEADER);
     expect(vaultModelsRetiredObservedContract.authType).toBe('token');
   });
 
-  it('declares POST with the observation body and the ack response on both hops', () => {
-    for (const contract of [internalModelsRetiredObservedContract, vaultModelsRetiredObservedContract]) {
-      expect(contract.method).toBe('POST');
-      expect(contract.bodySchema).toBe(RetiredModelObservationSchema);
-      expect(contract.responseSchema).toBe(RetiredObservedAckSchema);
-    }
-    expect(internalModelsRetiredObservedContract.path).toBe('/internal/models/retired-observed');
+  it('declares POST with the observation body and the ack response', () => {
+    const contract = vaultModelsRetiredObservedContract;
+    expect(contract.method).toBe('POST');
+    expect(contract.bodySchema).toBe(RetiredModelObservationSchema);
+    expect(contract.responseSchema).toBe(RetiredObservedAckSchema);
   });
 
   it('builds the vault path from a positive id and refuses an invalid one', () => {
@@ -149,7 +143,7 @@ describe('retirementNoticeKey', () => {
 describe('barrel', () => {
   it('exports the retirement contracts', () => {
     for (const name of [
-      'RetiredModelObservationSchema', 'RetiredObservedAckSchema', 'internalModelsRetiredObservedContract',
+      'RetiredModelObservationSchema', 'RetiredObservedAckSchema',
       'vaultModelsRetiredObservedContract', 'vaultModelsRetiredObservedPath', 'MODEL_UPGRADE_TARGETS',
       'ModelUpgradeTargetSchema', 'ModelRetirementNoticeSchema', 'retirementNoticeKey',
     ]) {

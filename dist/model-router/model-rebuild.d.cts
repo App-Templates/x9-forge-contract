@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { ModelCostMetadata } from "./models-batch.cjs";
 /** The consumer computes spaceId from the descriptor, dimensions and scope; the bridge preserves it. */
 export declare const EmbeddingSpaceSchema: z.ZodObject<{
     spaceId: z.ZodString;
@@ -118,4 +119,13 @@ export type RebuildDecision = typeof REBUILD_DECISIONS[number];
 export declare function rebuildDecision(next: ModelRebuildTarget, state: ModelRebuildState): RebuildDecision;
 /** Workers check the persisted state before every block so superseded or cancelled jobs stop themselves. */
 export declare function isRebuildJobCurrent(jobRequestId: string, state: ModelRebuildState): boolean;
+/**
+ * What an embedding rebuild of `maxTokens` input tokens costs, always rounded up to the cent.
+ * Never an invented figure: without a known per-token rate there is a reason and no amount.
+ */
+export declare function embeddingRebuildCost(maxTokens: number, cost: ModelCostMetadata): {
+    amount: number | null;
+    currency: string | null;
+    reason: string | null;
+};
 //# sourceMappingURL=model-rebuild.d.ts.map

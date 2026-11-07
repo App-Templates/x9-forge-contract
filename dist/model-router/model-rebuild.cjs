@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.REBUILD_DECISIONS = exports.ModelRebuildStateSchema = exports.ModelRebuildTargetSchema = exports.EmbeddingSpaceSchema = void 0;
 exports.rebuildDecision = rebuildDecision;
 exports.isRebuildJobCurrent = isRebuildJobCurrent;
+exports.embeddingRebuildCost = embeddingRebuildCost;
 const zod_1 = require("zod");
 const model_catalog_js_1 = require("./model-catalog.cjs");
 const model_consumers_js_1 = require("./model-consumers.cjs");
@@ -67,5 +68,19 @@ function rebuildDecision(next, state) {
 /** Workers check the persisted state before every block so superseded or cancelled jobs stop themselves. */
 function isRebuildJobCurrent(jobRequestId, state) {
     return state.building?.requestId === jobRequestId;
+}
+const NO_TOKEN_RATE_REASON = 'tariffa per token non nota';
+/**
+ * What an embedding rebuild of `maxTokens` input tokens costs, always rounded up to the cent.
+ * Never an invented figure: without a known per-token rate there is a reason and no amount.
+ */
+function embeddingRebuildCost(maxTokens, cost) {
+    if (cost.state === 'unknown')
+        return { amount: null, currency: null, reason: cost.reason || NO_TOKEN_RATE_REASON };
+    const rate = cost.rates.find(candidate => candidate.unit === 'million-input-tokens');
+    if (rate === undefined)
+        return { amount: null, currency: null, reason: NO_TOKEN_RATE_REASON };
+    const amount = Math.ceil(Number(((maxTokens / 1_000_000) * rate.amount * 100).toFixed(6))) / 100;
+    return { amount, currency: cost.currency, reason: null };
 }
 //# sourceMappingURL=model-rebuild.js.map

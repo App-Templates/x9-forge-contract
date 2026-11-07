@@ -646,8 +646,8 @@ export declare const coachProgramVersionReadContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            not_found: "not_found";
             budget_exhausted: "budget_exhausted";
+            not_found: "not_found";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -1011,8 +1011,8 @@ export declare const coachOperationalSessionReadContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            not_found: "not_found";
             budget_exhausted: "budget_exhausted";
+            not_found: "not_found";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -1144,8 +1144,8 @@ export declare const coachSessionRevisionsReadContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            not_found: "not_found";
             budget_exhausted: "budget_exhausted";
+            not_found: "not_found";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
@@ -1271,8 +1271,8 @@ export declare const coachOperationalBudgetReadContract: {
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            not_found: "not_found";
             budget_exhausted: "budget_exhausted";
+            not_found: "not_found";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";

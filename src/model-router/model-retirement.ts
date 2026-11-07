@@ -8,58 +8,22 @@ import { ModelSlotIdSchema } from './model-slot.js';
 import { NoSuccessorCauseSchema } from './model-succession.js';
 
 /**
- * The error code each provider answers with when the model no longer exists.
- * openai: `error.code`; anthropic: `error.type`; google: `error.status` (google.rpc);
- * elevenlabs: `detail.type` of the 404 body.
- */
-export const RETIRED_PROVIDER_ERROR_CODES = {
-  openai: ['model_not_found'],
-  anthropic: ['not_found_error'],
-  google: ['NOT_FOUND'],
-  elevenlabs: ['not_found'],
-} as const;
-
-export const RetiredProviderErrorSchema = z.enum(['model_not_found', 'not_found_error', 'NOT_FOUND', 'not_found']);
-export type RetiredProviderError = z.infer<typeof RetiredProviderErrorSchema>;
-
-/** True only when `code` is in the provider's own row; an unknown provider never fits. */
-export function retiredProviderErrorFits(provider: string, code: string): boolean {
-  if (!Object.hasOwn(RETIRED_PROVIDER_ERROR_CODES, provider)) return false;
-  return (RETIRED_PROVIDER_ERROR_CODES[provider as keyof typeof RETIRED_PROVIDER_ERROR_CODES] as readonly string[]).includes(code);
-}
-
-/** `provider-error`: a call was refused; `provider-inventory`: the provider's catalog no longer lists the model. */
-export const RETIREMENT_SOURCES = ['provider-error', 'provider-inventory'] as const;
-export const RetirementSourceSchema = EffectiveSlotRetirementReasonSchema.extract([...RETIREMENT_SOURCES]);
-export type RetirementSource = z.infer<typeof RetirementSourceSchema>;
-
-/**
- * What a service saw when a model no longer exists: a provider refused a call
- * (`provider-error`, the default when `source` is absent, carries `providerError`) or the
- * provider's catalog stopped listing it (`provider-inventory`, no `providerError`).
- * The provider/code pair is checked by whoever recognises the error, with `retiredProviderErrorFits`.
+ * What a service saw when a model no longer exists: the provider's catalog stopped listing it
+ * (`provider-inventory`, the hourly catalog scan of agent-core). It is the only way a retirement is observed.
  * Never carries the raw provider error text or any credential.
  */
 export const RetiredModelObservationSchema = z.object({
   scope: CapabilityAgentScopeSchema,
   slotId: ModelSlotIdSchema,
   model: ModelDescriptorSchema,
-  source: RetirementSourceSchema.optional(),
-  providerError: RetiredProviderErrorSchema.optional(),
-}).strict().superRefine((observation, ctx) => {
-  const source = observation.source ?? 'provider-error';
-  if (source === 'provider-error' && observation.providerError === undefined) {
-    ctx.addIssue({ code: 'custom', path: ['providerError'], message: 'A provider-error observation needs the provider error code' });
-  }
-  if (source === 'provider-inventory' && observation.providerError !== undefined) {
-    ctx.addIssue({ code: 'custom', path: ['providerError'], message: 'A provider-inventory observation has no provider error code' });
-  }
-});
+  source: z.literal('provider-inventory'),
+}).strict();
 export type RetiredModelObservation = z.infer<typeof RetiredModelObservationSchema>;
+export type RetirementSource = RetiredModelObservation['source'];
 
 /** The vault writes this as the `reason` of the notice. */
 export function retirementSource(observation: RetiredModelObservation): RetirementSource {
-  return observation.source ?? 'provider-error';
+  return observation.source;
 }
 
 /**
@@ -71,13 +35,6 @@ export const RetiredObservedAckSchema = z.object({
   outcome: z.enum(['scheduled', 'not-in-table', 'duplicate']),
 }).strict();
 export type RetiredObservedAck = z.infer<typeof RetiredObservedAckSchema>;
-
-/** Service → agent-core: a call found its model retired. */
-export const internalModelsRetiredObservedContract = {
-  method: 'POST' as const, path: '/internal/models/retired-observed' as const,
-  authType: 'secret' as const, authHeader: INTERNAL_SECRET_HEADER,
-  bodySchema: RetiredModelObservationSchema, responseSchema: RetiredObservedAckSchema,
-} as const;
 
 /** Agent-core → vault: the same observation, for the declared Vault agent. */
 export const vaultModelsRetiredObservedContract = {

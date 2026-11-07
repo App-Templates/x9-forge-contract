@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.112.0 — una sola via del ritiro e stima del costo della ricostruzione
+
+- Tolti (mai rilasciati): `internalModelsRetiredObservedContract`, `retiredProviderErrorFits`, `RETIRED_PROVIDER_ERROR_CODES`, `RetiredProviderErrorSchema`, `RetirementSourceSchema`.
+- L'osservazione ha solo `source: 'provider-inventory'`, senza `providerError`.
+- Nuova `embeddingRebuildCost`: stima del costo della ricostruzione degli embedding, scritta una volta, sempre per eccesso al centesimo.
+- Consumatori: X9 (mp-x9 5562); Forge resta sulla 1.111.0 finché non adotta.
+
 ## v1.111.0 — aggancio salvato col preset
 
 - `AgentPresetAttachmentRecordSchema`: identità completa, ambito e `source` (`nascita`/`riallineamento`), ciò che Forge salva per un agente senza configurazione Modelli.

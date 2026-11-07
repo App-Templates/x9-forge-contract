@@ -63,4 +63,18 @@ export function rebuildDecision(next, state) {
 export function isRebuildJobCurrent(jobRequestId, state) {
     return state.building?.requestId === jobRequestId;
 }
+const NO_TOKEN_RATE_REASON = 'tariffa per token non nota';
+/**
+ * What an embedding rebuild of `maxTokens` input tokens costs, always rounded up to the cent.
+ * Never an invented figure: without a known per-token rate there is a reason and no amount.
+ */
+export function embeddingRebuildCost(maxTokens, cost) {
+    if (cost.state === 'unknown')
+        return { amount: null, currency: null, reason: cost.reason || NO_TOKEN_RATE_REASON };
+    const rate = cost.rates.find(candidate => candidate.unit === 'million-input-tokens');
+    if (rate === undefined)
+        return { amount: null, currency: null, reason: NO_TOKEN_RATE_REASON };
+    const amount = Math.ceil(Number(((maxTokens / 1_000_000) * rate.amount * 100).toFixed(6))) / 100;
+    return { amount, currency: cost.currency, reason: null };
+}
 //# sourceMappingURL=model-rebuild.js.map
