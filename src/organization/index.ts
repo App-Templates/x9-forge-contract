@@ -31,3 +31,4 @@ export * from './business-unit-mandate.js';
 export * from './vertical-plan.js';
 export * from './vertical-plan-observation.js';
 export * from './delivery-package.js';
+export * from './company-board.js';
