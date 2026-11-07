@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.110.0 — fonte del preset generale
+
+- `PLATFORM_PRESET_SOURCE_IDENTITY` (`runtimeAgentId` `x9`, `managementAgentId` `x9-staging`): l'identità salvata di X9, Stefano 07/11 «prendi X9».
+- `isPlatformPresetSourceIdentity`: vero solo se entrambi gli id coincidono.
+- Consumatori: Forge vault, rapporto a secco e semina del preset generale (mp-forge 5533, 5535).
+- Nessuno schema cambia valori.
+
 ## v1.109.0 — unione della linea modelli-preset (1.103.0-1.106.3) e della linea ec-ponte (1.95.0-1.108.0)
 
 - Unione con merge commit di `night/modelli-preset-20261106` (main 1.102.0 + 1.103.0-1.106.3: preset, scelta effettiva, push con conferma, chiavi del preset, revoca come soglia, ritiri, nascita agganciata al preset) e di `night/ec-ponte-unione-20261104` (1.95.0-1.108.0: asset della memoria senza byte per le sessioni, link e ZIP delle consegne di cap-dev, parti dell'organizzazione, sveglia dei posti, strumenti video).
