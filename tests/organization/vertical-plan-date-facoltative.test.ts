@@ -7,9 +7,10 @@ import {
   verticalPlanDecisionSubject,
 } from '../../src/organization/vertical-plan.js';
 import { VerticalPlanAttemptObservationSchema } from '../../src/organization/vertical-plan-observation.js';
+import type * as SrcVerticalPlan from '../../src/organization/vertical-plan.js';
 
 const require = createRequire(import.meta.url);
-const commonJs: typeof import('../../src/organization/vertical-plan.js') = require('../../dist/organization/vertical-plan.cjs');
+const commonJs: typeof SrcVerticalPlan = require('../../dist/organization/vertical-plan.cjs');
 
 // Same dated plan as vertical-plan.test.ts; the hash pins its canonical bytes.
 const datedPlan = () => ({

@@ -5,9 +5,10 @@ import {
   DeliveryPackageSchema,
   type DeliveryPackage,
 } from '../../src/organization/index.js';
+import type * as SrcOrganization from '../../src/organization/index.js';
 
 const require = createRequire(import.meta.url);
-const commonJs: typeof import('../../src/organization/index.js') = require('../../dist/organization/index.cjs');
+const commonJs: typeof SrcOrganization = require('../../dist/organization/index.cjs');
 
 const minimal = (): DeliveryPackage => ({
   version: 1,

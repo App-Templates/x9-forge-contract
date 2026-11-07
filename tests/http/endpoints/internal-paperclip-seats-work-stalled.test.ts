@@ -4,9 +4,10 @@ import {
   InternalPaperclipSeatNativeWakeRequestSchema,
   PaperclipSeatNativeWakeEventSchema,
 } from '../../../src/http/endpoints/internal-paperclip-seats.js';
+import type * as SrcEndpoints from '../../../src/http/endpoints/index.js';
 
 const built = createRequire(import.meta.url)('../../../dist/http/endpoints/index.cjs') as Pick<
-  typeof import('../../../src/http/endpoints/index.js'),
+  typeof SrcEndpoints,
   'InternalPaperclipSeatNativeWakeRequestSchema' | 'PaperclipSeatNativeWakeEventSchema'
 >;
 

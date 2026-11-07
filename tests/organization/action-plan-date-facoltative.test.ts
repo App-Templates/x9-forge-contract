@@ -10,9 +10,10 @@ import {
   actionPlanCanonicalJson,
   type ActionPlan,
 } from '../../src/organization/action-plan.js';
+import type * as SrcActionPlan from '../../src/organization/action-plan.js';
 
 const require = createRequire(import.meta.url);
-const commonJs: typeof import('../../src/organization/action-plan.js') = require('../../dist/organization/action-plan.cjs');
+const commonJs: typeof SrcActionPlan = require('../../dist/organization/action-plan.cjs');
 
 type Milestone = ActionPlan['milestones'][number];
 

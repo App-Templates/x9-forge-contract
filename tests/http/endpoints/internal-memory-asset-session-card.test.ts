@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
 import { InternalMemoryAssetIngestRequestSchema } from '../../../src/http/endpoints/index.js';
+import type * as SrcEndpoints from '../../../src/http/endpoints/index.js';
 
 const asset = {
   assetId: 'asset_000013',
@@ -23,7 +24,7 @@ const context = {
   issuedAt: '2026-11-05T09:00:00.000Z', expiresAt: '2026-11-05T11:00:00.000Z',
 };
 const built = createRequire(import.meta.url)('../../../dist/http/endpoints/index.cjs') as Pick<
-  typeof import('../../../src/http/endpoints/index.js'), 'InternalMemoryAssetIngestRequestSchema'
+  typeof SrcEndpoints, 'InternalMemoryAssetIngestRequestSchema'
 >;
 
 describe.each([

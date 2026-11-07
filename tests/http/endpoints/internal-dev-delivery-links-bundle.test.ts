@@ -5,6 +5,7 @@ import {
   DevDeliveryLinksRequestSchema,
   DevDeliveryLinksResponseSchema,
 } from '../../../src/http/endpoints/internal-dev-delivery-links.js';
+import type * as SrcEndpoints from '../../../src/http/endpoints/index.js';
 
 const request = {
   scope: { tenantId: 'tenant-1', ownerId: 'owner-1', agentId: 'agent-1' },
@@ -48,7 +49,7 @@ const bundleLink = {
   sizeBytes: 16384,
 };
 const built = createRequire(import.meta.url)('../../../dist/http/endpoints/index.cjs') as Pick<
-  typeof import('../../../src/http/endpoints/index.js'),
+  typeof SrcEndpoints,
   'DevDeliveryLinksRequestSchema' | 'DevDeliveryLinksResponseSchema'
 >;
 
