@@ -34,4 +34,5 @@ export * from "./delivery-package.js";
 export * from "./company-board.js";
 export * from "./company-board-rule.js";
 export * from "./company-board-compose-rules.js";
+export * from "./company-board-director-summary.js";
 //# sourceMappingURL=index.js.map

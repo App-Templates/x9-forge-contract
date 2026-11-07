@@ -34,4 +34,5 @@ export * from "./delivery-package.cjs";
 export * from "./company-board.cjs";
 export * from "./company-board-rule.cjs";
 export * from "./company-board-compose-rules.cjs";
+export * from "./company-board-director-summary.cjs";
 //# sourceMappingURL=index.d.ts.map
