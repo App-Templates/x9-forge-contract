@@ -157,6 +157,69 @@ const CompanyBoardExchangeSchema = z.strictObject({
     open: z.boolean(),
 });
 const CompanyBoardSummarySchema = z.string().min(1).max(400);
+const SpendMicrosSchema = z.number().int().min(0);
+/**
+ * Spend of a project (1.115.0): micro-dollars of the X9 journal; `null` = agent not measured by the cap, never zero.
+ * `scope: 'azienda'` when the spend cannot be split by project.
+ */
+const CompanyBoardSpendRowSchema = z.strictObject({
+    kind: z.enum(['reparto', 'director', 'ricerca_sviluppo', 'altro']),
+    buSlug: BuSlugSchema.nullable(),
+    todayMicros: SpendMicrosSchema.nullable(),
+    totalMicros: SpendMicrosSchema.nullable(),
+}).superRefine((r, ctx) => {
+    if ((r.kind === 'reparto') !== (r.buSlug !== null)) {
+        ctx.addIssue({ code: 'custom', path: ['buSlug'], message: 'buSlug is required if and only if kind is reparto' });
+    }
+    if ((r.todayMicros === null) !== (r.totalMicros === null)) {
+        ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros and totalMicros are both null or both numbers' });
+    }
+    if (r.todayMicros !== null && r.totalMicros !== null && r.todayMicros > r.totalMicros) {
+        ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros cannot exceed totalMicros' });
+    }
+});
+const SPEND_DAYS = 14;
+const DAY_MS = 86_400_000;
+export const CompanyBoardSpendSchema = z.union([
+    z.strictObject({ status: z.literal('non_collegata') }),
+    z.strictObject({
+        status: z.literal('ok'),
+        scope: z.enum(['progetto', 'azienda']),
+        usdPerEur: z.number().positive().finite(),
+        since: IsoSchema,
+        todayMicros: SpendMicrosSchema,
+        totalMicros: SpendMicrosSchema,
+        days: z.array(z.strictObject({ date: z.iso.date(), micros: SpendMicrosSchema })).length(SPEND_DAYS),
+        rows: z.array(CompanyBoardSpendRowSchema).max(44),
+        estimated: z.boolean(),
+    }).superRefine((s, ctx) => {
+        const consecutive = s.days.every((d, i) => i === 0 || Date.parse(d.date) - Date.parse(s.days[i - 1].date) === DAY_MS);
+        if (!consecutive) {
+            ctx.addIssue({ code: 'custom', path: ['days'], message: 'days must be consecutive, oldest first' });
+        }
+        const sum = (values) => values.reduce((a, v) => a + (v ?? 0), 0);
+        if (s.days.length === SPEND_DAYS && s.todayMicros !== s.days[SPEND_DAYS - 1].micros) {
+            ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros must equal the last day' });
+        }
+        if (s.todayMicros !== sum(s.rows.map((r) => r.todayMicros))) {
+            ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros must equal the sum of the rows' });
+        }
+        if (s.totalMicros !== sum(s.rows.map((r) => r.totalMicros))) {
+            ctx.addIssue({ code: 'custom', path: ['totalMicros'], message: 'totalMicros must equal the sum of the rows' });
+        }
+        if (sum(s.days.map((d) => d.micros)) > s.totalMicros) {
+            ctx.addIssue({ code: 'custom', path: ['days'], message: 'the days cannot add up to more than totalMicros' });
+        }
+        const seen = new Set();
+        s.rows.forEach((r, i) => {
+            const key = r.kind === 'reparto' ? `reparto:${r.buSlug}` : r.kind;
+            if (seen.has(key)) {
+                ctx.addIssue({ code: 'custom', path: ['rows', i], message: 'duplicate row' });
+            }
+            seen.add(key);
+        });
+    }),
+]);
 const CompanyBoardProjectBaseShape = {
     project: z.strictObject({
         projectId: ProjectIdSchema,
@@ -175,7 +238,7 @@ const CompanyBoardProjectBaseShape = {
     milestones: z.array(CompanyBoardMilestoneSchema).max(200),
     waits: z.array(CompanyBoardWaitSchema).max(100),
     exchanges: z.array(CompanyBoardExchangeSchema).max(200),
-    spend: z.strictObject({ status: z.literal('non_collegata') }),
+    spend: CompanyBoardSpendSchema,
     sources: z.array(CompanyBoardSourceSchema).max(COMPANY_BOARD_SOURCES.length),
 };
 /** Project page. At most 40 units: agent-core cuts before building (the cut is declared in `sources`). */

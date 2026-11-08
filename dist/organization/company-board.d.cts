@@ -371,6 +371,36 @@ export declare const CompanyBoardServiceSchema: z.ZodObject<{
         what: z.ZodString;
     }, z.core.$strict>>;
 }, z.core.$strict>;
+export declare const CompanyBoardSpendSchema: z.ZodUnion<readonly [z.ZodObject<{
+    status: z.ZodLiteral<"non_collegata">;
+}, z.core.$strict>, z.ZodObject<{
+    status: z.ZodLiteral<"ok">;
+    scope: z.ZodEnum<{
+        progetto: "progetto";
+        azienda: "azienda";
+    }>;
+    usdPerEur: z.ZodNumber;
+    since: z.ZodISODateTime;
+    todayMicros: z.ZodNumber;
+    totalMicros: z.ZodNumber;
+    days: z.ZodArray<z.ZodObject<{
+        date: z.ZodISODate;
+        micros: z.ZodNumber;
+    }, z.core.$strict>>;
+    rows: z.ZodArray<z.ZodObject<{
+        kind: z.ZodEnum<{
+            director: "director";
+            reparto: "reparto";
+            ricerca_sviluppo: "ricerca_sviluppo";
+            altro: "altro";
+        }>;
+        buSlug: z.ZodNullable<z.ZodString>;
+        todayMicros: z.ZodNullable<z.ZodNumber>;
+        totalMicros: z.ZodNullable<z.ZodNumber>;
+    }, z.core.$strict>>;
+    estimated: z.ZodBoolean;
+}, z.core.$strict>]>;
+export type CompanyBoardSpend = z.infer<typeof CompanyBoardSpendSchema>;
 /** Project page. At most 40 units: agent-core cuts before building (the cut is declared in `sources`). */
 export declare const CompanyBoardSchema: z.ZodObject<{
     units: z.ZodArray<z.ZodObject<{
@@ -628,9 +658,35 @@ export declare const CompanyBoardSchema: z.ZodObject<{
         blocking: z.ZodBoolean;
         open: z.ZodBoolean;
     }, z.core.$strict>>;
-    spend: z.ZodObject<{
+    spend: z.ZodUnion<readonly [z.ZodObject<{
         status: z.ZodLiteral<"non_collegata">;
-    }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"ok">;
+        scope: z.ZodEnum<{
+            progetto: "progetto";
+            azienda: "azienda";
+        }>;
+        usdPerEur: z.ZodNumber;
+        since: z.ZodISODateTime;
+        todayMicros: z.ZodNumber;
+        totalMicros: z.ZodNumber;
+        days: z.ZodArray<z.ZodObject<{
+            date: z.ZodISODate;
+            micros: z.ZodNumber;
+        }, z.core.$strict>>;
+        rows: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                director: "director";
+                reparto: "reparto";
+                ricerca_sviluppo: "ricerca_sviluppo";
+                altro: "altro";
+            }>;
+            buSlug: z.ZodNullable<z.ZodString>;
+            todayMicros: z.ZodNullable<z.ZodNumber>;
+            totalMicros: z.ZodNullable<z.ZodNumber>;
+        }, z.core.$strict>>;
+        estimated: z.ZodBoolean;
+    }, z.core.$strict>]>;
     sources: z.ZodArray<z.ZodObject<{
         source: z.ZodEnum<{
             piano: "piano";
@@ -894,9 +950,35 @@ export declare const CompanyOverviewProjectSchema: z.ZodObject<{
         blocking: z.ZodBoolean;
         open: z.ZodBoolean;
     }, z.core.$strict>>;
-    spend: z.ZodObject<{
+    spend: z.ZodUnion<readonly [z.ZodObject<{
         status: z.ZodLiteral<"non_collegata">;
-    }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        status: z.ZodLiteral<"ok">;
+        scope: z.ZodEnum<{
+            progetto: "progetto";
+            azienda: "azienda";
+        }>;
+        usdPerEur: z.ZodNumber;
+        since: z.ZodISODateTime;
+        todayMicros: z.ZodNumber;
+        totalMicros: z.ZodNumber;
+        days: z.ZodArray<z.ZodObject<{
+            date: z.ZodISODate;
+            micros: z.ZodNumber;
+        }, z.core.$strict>>;
+        rows: z.ZodArray<z.ZodObject<{
+            kind: z.ZodEnum<{
+                director: "director";
+                reparto: "reparto";
+                ricerca_sviluppo: "ricerca_sviluppo";
+                altro: "altro";
+            }>;
+            buSlug: z.ZodNullable<z.ZodString>;
+            todayMicros: z.ZodNullable<z.ZodNumber>;
+            totalMicros: z.ZodNullable<z.ZodNumber>;
+        }, z.core.$strict>>;
+        estimated: z.ZodBoolean;
+    }, z.core.$strict>]>;
     sources: z.ZodArray<z.ZodObject<{
         source: z.ZodEnum<{
             piano: "piano";
@@ -1174,9 +1256,35 @@ export declare const CompanyOverviewSchema: z.ZodObject<{
             blocking: z.ZodBoolean;
             open: z.ZodBoolean;
         }, z.core.$strict>>;
-        spend: z.ZodObject<{
+        spend: z.ZodUnion<readonly [z.ZodObject<{
             status: z.ZodLiteral<"non_collegata">;
-        }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            status: z.ZodLiteral<"ok">;
+            scope: z.ZodEnum<{
+                progetto: "progetto";
+                azienda: "azienda";
+            }>;
+            usdPerEur: z.ZodNumber;
+            since: z.ZodISODateTime;
+            todayMicros: z.ZodNumber;
+            totalMicros: z.ZodNumber;
+            days: z.ZodArray<z.ZodObject<{
+                date: z.ZodISODate;
+                micros: z.ZodNumber;
+            }, z.core.$strict>>;
+            rows: z.ZodArray<z.ZodObject<{
+                kind: z.ZodEnum<{
+                    director: "director";
+                    reparto: "reparto";
+                    ricerca_sviluppo: "ricerca_sviluppo";
+                    altro: "altro";
+                }>;
+                buSlug: z.ZodNullable<z.ZodString>;
+                todayMicros: z.ZodNullable<z.ZodNumber>;
+                totalMicros: z.ZodNullable<z.ZodNumber>;
+            }, z.core.$strict>>;
+            estimated: z.ZodBoolean;
+        }, z.core.$strict>]>;
         sources: z.ZodArray<z.ZodObject<{
             source: z.ZodEnum<{
                 piano: "piano";

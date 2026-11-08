@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompanyListSchema = exports.CompanyOverviewSchema = exports.CompanyOverviewProjectSchema = exports.CompanyBoardSchema = exports.CompanyBoardServiceSchema = exports.CompanyBoardMilestoneSchema = exports.CompanyBoardUnitSchema = exports.CompanyBoardUnitActionsSchema = exports.CompanyBoardHistoryEntrySchema = exports.CompanyBoardComputerSessionSchema = exports.CompanyBoardPartSchema = exports.CompanyBoardWaitSchema = exports.CompanyBoardUnblockHintSchema = exports.CompanyBoardPersonSchema = exports.CompanyBoardWaitActionSchema = exports.COMPANY_BOARD_WAIT_ACTIONS = exports.CompanyBoardSourceSchema = exports.CompanyBoardSourceNameSchema = exports.COMPANY_BOARD_SOURCES = exports.CompanyBoardHistoryKindSchema = exports.COMPANY_BOARD_HISTORY_KINDS = exports.CompanyBoardWaitKindSchema = exports.COMPANY_BOARD_WAIT_KINDS = exports.CompanyBoardPartStateSchema = exports.COMPANY_BOARD_PART_STATES = exports.CompanyBoardUnitStateSchema = exports.COMPANY_BOARD_UNIT_STATES = void 0;
+exports.CompanyListSchema = exports.CompanyOverviewSchema = exports.CompanyOverviewProjectSchema = exports.CompanyBoardSchema = exports.CompanyBoardSpendSchema = exports.CompanyBoardServiceSchema = exports.CompanyBoardMilestoneSchema = exports.CompanyBoardUnitSchema = exports.CompanyBoardUnitActionsSchema = exports.CompanyBoardHistoryEntrySchema = exports.CompanyBoardComputerSessionSchema = exports.CompanyBoardPartSchema = exports.CompanyBoardWaitSchema = exports.CompanyBoardUnblockHintSchema = exports.CompanyBoardPersonSchema = exports.CompanyBoardWaitActionSchema = exports.COMPANY_BOARD_WAIT_ACTIONS = exports.CompanyBoardSourceSchema = exports.CompanyBoardSourceNameSchema = exports.COMPANY_BOARD_SOURCES = exports.CompanyBoardHistoryKindSchema = exports.COMPANY_BOARD_HISTORY_KINDS = exports.CompanyBoardWaitKindSchema = exports.COMPANY_BOARD_WAIT_KINDS = exports.CompanyBoardPartStateSchema = exports.COMPANY_BOARD_PART_STATES = exports.CompanyBoardUnitStateSchema = exports.COMPANY_BOARD_UNIT_STATES = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const asset_js_1 = require("./asset.cjs");
@@ -160,6 +160,69 @@ const CompanyBoardExchangeSchema = zod_1.z.strictObject({
     open: zod_1.z.boolean(),
 });
 const CompanyBoardSummarySchema = zod_1.z.string().min(1).max(400);
+const SpendMicrosSchema = zod_1.z.number().int().min(0);
+/**
+ * Spend of a project (1.115.0): micro-dollars of the X9 journal; `null` = agent not measured by the cap, never zero.
+ * `scope: 'azienda'` when the spend cannot be split by project.
+ */
+const CompanyBoardSpendRowSchema = zod_1.z.strictObject({
+    kind: zod_1.z.enum(['reparto', 'director', 'ricerca_sviluppo', 'altro']),
+    buSlug: BuSlugSchema.nullable(),
+    todayMicros: SpendMicrosSchema.nullable(),
+    totalMicros: SpendMicrosSchema.nullable(),
+}).superRefine((r, ctx) => {
+    if ((r.kind === 'reparto') !== (r.buSlug !== null)) {
+        ctx.addIssue({ code: 'custom', path: ['buSlug'], message: 'buSlug is required if and only if kind is reparto' });
+    }
+    if ((r.todayMicros === null) !== (r.totalMicros === null)) {
+        ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros and totalMicros are both null or both numbers' });
+    }
+    if (r.todayMicros !== null && r.totalMicros !== null && r.todayMicros > r.totalMicros) {
+        ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros cannot exceed totalMicros' });
+    }
+});
+const SPEND_DAYS = 14;
+const DAY_MS = 86_400_000;
+exports.CompanyBoardSpendSchema = zod_1.z.union([
+    zod_1.z.strictObject({ status: zod_1.z.literal('non_collegata') }),
+    zod_1.z.strictObject({
+        status: zod_1.z.literal('ok'),
+        scope: zod_1.z.enum(['progetto', 'azienda']),
+        usdPerEur: zod_1.z.number().positive().finite(),
+        since: IsoSchema,
+        todayMicros: SpendMicrosSchema,
+        totalMicros: SpendMicrosSchema,
+        days: zod_1.z.array(zod_1.z.strictObject({ date: zod_1.z.iso.date(), micros: SpendMicrosSchema })).length(SPEND_DAYS),
+        rows: zod_1.z.array(CompanyBoardSpendRowSchema).max(44),
+        estimated: zod_1.z.boolean(),
+    }).superRefine((s, ctx) => {
+        const consecutive = s.days.every((d, i) => i === 0 || Date.parse(d.date) - Date.parse(s.days[i - 1].date) === DAY_MS);
+        if (!consecutive) {
+            ctx.addIssue({ code: 'custom', path: ['days'], message: 'days must be consecutive, oldest first' });
+        }
+        const sum = (values) => values.reduce((a, v) => a + (v ?? 0), 0);
+        if (s.days.length === SPEND_DAYS && s.todayMicros !== s.days[SPEND_DAYS - 1].micros) {
+            ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros must equal the last day' });
+        }
+        if (s.todayMicros !== sum(s.rows.map((r) => r.todayMicros))) {
+            ctx.addIssue({ code: 'custom', path: ['todayMicros'], message: 'todayMicros must equal the sum of the rows' });
+        }
+        if (s.totalMicros !== sum(s.rows.map((r) => r.totalMicros))) {
+            ctx.addIssue({ code: 'custom', path: ['totalMicros'], message: 'totalMicros must equal the sum of the rows' });
+        }
+        if (sum(s.days.map((d) => d.micros)) > s.totalMicros) {
+            ctx.addIssue({ code: 'custom', path: ['days'], message: 'the days cannot add up to more than totalMicros' });
+        }
+        const seen = new Set();
+        s.rows.forEach((r, i) => {
+            const key = r.kind === 'reparto' ? `reparto:${r.buSlug}` : r.kind;
+            if (seen.has(key)) {
+                ctx.addIssue({ code: 'custom', path: ['rows', i], message: 'duplicate row' });
+            }
+            seen.add(key);
+        });
+    }),
+]);
 const CompanyBoardProjectBaseShape = {
     project: zod_1.z.strictObject({
         projectId: ProjectIdSchema,
@@ -178,7 +241,7 @@ const CompanyBoardProjectBaseShape = {
     milestones: zod_1.z.array(exports.CompanyBoardMilestoneSchema).max(200),
     waits: zod_1.z.array(exports.CompanyBoardWaitSchema).max(100),
     exchanges: zod_1.z.array(CompanyBoardExchangeSchema).max(200),
-    spend: zod_1.z.strictObject({ status: zod_1.z.literal('non_collegata') }),
+    spend: exports.CompanyBoardSpendSchema,
     sources: zod_1.z.array(exports.CompanyBoardSourceSchema).max(exports.COMPANY_BOARD_SOURCES.length),
 };
 /** Project page. At most 40 units: agent-core cuts before building (the cut is declared in `sources`). */
