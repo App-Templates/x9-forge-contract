@@ -75,6 +75,27 @@ export {
 } from './platform-internal-credentials.js';
 export type { PlatformInternalCredentialKey } from './platform-internal-credentials.js';
 
+// Owner-person credentials (owner tier, only read by the dedicated service port)
+export {
+  OWNER_PERSON_CREDENTIAL_KEYS,
+  isOwnerPersonCredentialKey,
+  stripOwnerPersonCredentials,
+  OWNER_PERSON_VAULT_SECRET_ENV,
+  OwnerPersonCredentialKeySchema,
+  OwnerPersonKeyParamsSchema,
+  OwnerPersonKeyOkResponseSchema,
+  OwnerPersonKeyNotFoundResponseSchema,
+  OwnerPersonKeyResponseSchema,
+  internalVaultOwnerPersonKeyContract,
+} from './owner-person-credentials.js';
+export type {
+  OwnerPersonCredentialKey,
+  OwnerPersonKeyParams,
+  OwnerPersonKeyOkResponse,
+  OwnerPersonKeyNotFoundResponse,
+  OwnerPersonKeyResponse,
+} from './owner-person-credentials.js';
+
 // Agent-only connection credential keys
 export {
   CONNECTION_CREDENTIAL_KEY_PREFIX,

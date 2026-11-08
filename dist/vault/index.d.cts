@@ -21,6 +21,8 @@ export type { WorkspaceFile } from "./workspace-file.cjs";
 export type { PlatformBootstrapEnv } from "./platform-bootstrap-env.cjs";
 export { PLATFORM_INTERNAL_CREDENTIAL_KEYS, isPlatformInternalCredentialKey, stripPlatformInternalCredentials, } from "./platform-internal-credentials.cjs";
 export type { PlatformInternalCredentialKey } from "./platform-internal-credentials.cjs";
+export { OWNER_PERSON_CREDENTIAL_KEYS, isOwnerPersonCredentialKey, stripOwnerPersonCredentials, OWNER_PERSON_VAULT_SECRET_ENV, OwnerPersonCredentialKeySchema, OwnerPersonKeyParamsSchema, OwnerPersonKeyOkResponseSchema, OwnerPersonKeyNotFoundResponseSchema, OwnerPersonKeyResponseSchema, internalVaultOwnerPersonKeyContract, } from "./owner-person-credentials.cjs";
+export type { OwnerPersonCredentialKey, OwnerPersonKeyParams, OwnerPersonKeyOkResponse, OwnerPersonKeyNotFoundResponse, OwnerPersonKeyResponse, } from "./owner-person-credentials.cjs";
 export { CONNECTION_CREDENTIAL_KEY_PREFIX, CONNECT_VAULT_SECRET_ENV, connectionCredentialKey, isConnectionCredentialKey, } from "./connection-credential-keys.cjs";
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.cjs";
 export type { AgentVaultedCredentials } from "./agent-vaulted-credentials.cjs";
