@@ -140,4 +140,5 @@ __exportStar(require("./paperclip-protocollo-turno.cjs"), exports);
 __exportStar(require("./officina-video.cjs"), exports);
 __exportStar(require("./internal-dev-regia.cjs"), exports); // v1.89.0 — regia of a video: cap-video -> cap-dev
 __exportStar(require("./internal-company-board.cjs"), exports); // v1.113.0 — company board reads
+__exportStar(require("./internal-company-board-actions.cjs"), exports); // v1.116.0 — owner actions on the company board
 //# sourceMappingURL=index.js.map

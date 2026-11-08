@@ -113,4 +113,5 @@ export * from "./paperclip-protocollo-turno.js";
 export * from "./officina-video.js";
 export * from "./internal-dev-regia.js";
 export * from "./internal-company-board.js";
+export * from "./internal-company-board-actions.js";
 //# sourceMappingURL=index.d.ts.map

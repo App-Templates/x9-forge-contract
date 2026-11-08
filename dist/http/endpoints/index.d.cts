@@ -113,4 +113,5 @@ export * from "./paperclip-protocollo-turno.cjs";
 export * from "./officina-video.cjs";
 export * from "./internal-dev-regia.cjs";
 export * from "./internal-company-board.cjs";
+export * from "./internal-company-board-actions.cjs";
 //# sourceMappingURL=index.d.ts.map
