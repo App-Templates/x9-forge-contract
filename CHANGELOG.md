@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.130.0 — la richiesta fra agenti ha una forma condivisa; additivo
+
+- `@x9-forge/contracts/organization`: `AgentRequestSchema`, `AgentRequestIdSchema` e `AGENT_REQUEST_TARGET_KINDS` descrivono chi chiede, a chi, cosa serve, perché, il Mandato di origine e, quando presente, il piano con la sua versione.
+- `@x9-forge/contracts/http/endpoints`: nuovo evento di sveglia `agent_request` in `PaperclipSeatNativeWakeEventSchema`, con la richiesta condivisa nel campo `request`. Consumer: X9 cap-paperclip (5978, 5979).
+- I corpi di sveglia già in coda restano validi.
+
 ## v1.129.0 — porting del 055 (già 1.92.0, mai pubblicata): alberatura del progetto nel piano d'azione e Mandato che eredita gli obiettivi; additivo per i dati salvati
 
 - `@x9-forge/contracts/organization`: `ACTION_PLAN_DELIVERY_SHAPES` (`product` | `study`) e i campi facoltativi `deliveryShape` e `workBreakdown` (l'alberatura: `ActionPlanWorkItemSchema` con `id`, `parentId`, `title`, `expectedGoal`, `deliveryCriteria`, `milestone`, `owners[{ buSlug, does }]`, max 60 voci) in `ActionPlanSchema` e `ActionPlanDraftSchema`; `ActionPlanObjectiveSchema`, `ActionPlanProjectObjectiveSchema`, `ActionPlanBuObjectiveSchema` estratti ed esportati. Consumer: X9 memory (salva), cap-email (email del piano), cap-paperclip (Mandato), Forge (profilo del Director).

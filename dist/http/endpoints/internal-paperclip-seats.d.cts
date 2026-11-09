@@ -346,6 +346,35 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
     }, z.core.$strict>>;
     attempt: z.ZodInt;
     maxAttempts: z.ZodInt;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"agent_request">;
+    request: z.ZodObject<{
+        schemaVersion: z.ZodLiteral<1>;
+        requestId: z.ZodString;
+        from: z.ZodObject<{
+            unitId: z.ZodString;
+            paperclipAgentId: z.ZodUUID;
+        }, z.core.$strict>;
+        to: z.ZodDiscriminatedUnion<[z.ZodObject<{
+            kind: z.ZodLiteral<"director">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"lab">;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"business_unit">;
+            unitId: z.ZodString;
+        }, z.core.$strict>], "kind">;
+        need: z.ZodString;
+        why: z.ZodString;
+        mandate: z.ZodObject<{
+            issueId: z.ZodUUID;
+            identifier: z.ZodString;
+        }, z.core.$strict>;
+        plan: z.ZodOptional<z.ZodObject<{
+            planId: z.ZodString;
+            version: z.ZodInt;
+        }, z.core.$strict>>;
+        requestedAt: z.ZodISODateTime;
+    }, z.core.$strict>;
 }, z.core.$strict>], "kind">;
 export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{
@@ -429,6 +458,35 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         }, z.core.$strict>>;
         attempt: z.ZodInt;
         maxAttempts: z.ZodInt;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"agent_request">;
+        request: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            requestId: z.ZodString;
+            from: z.ZodObject<{
+                unitId: z.ZodString;
+                paperclipAgentId: z.ZodUUID;
+            }, z.core.$strict>;
+            to: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                kind: z.ZodLiteral<"director">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"lab">;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"business_unit">;
+                unitId: z.ZodString;
+            }, z.core.$strict>], "kind">;
+            need: z.ZodString;
+            why: z.ZodString;
+            mandate: z.ZodObject<{
+                issueId: z.ZodUUID;
+                identifier: z.ZodString;
+            }, z.core.$strict>;
+            plan: z.ZodOptional<z.ZodObject<{
+                planId: z.ZodString;
+                version: z.ZodInt;
+            }, z.core.$strict>>;
+            requestedAt: z.ZodISODateTime;
+        }, z.core.$strict>;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
 export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited"];
@@ -547,6 +605,35 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             }, z.core.$strict>>;
             attempt: z.ZodInt;
             maxAttempts: z.ZodInt;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"agent_request">;
+            request: z.ZodObject<{
+                schemaVersion: z.ZodLiteral<1>;
+                requestId: z.ZodString;
+                from: z.ZodObject<{
+                    unitId: z.ZodString;
+                    paperclipAgentId: z.ZodUUID;
+                }, z.core.$strict>;
+                to: z.ZodDiscriminatedUnion<[z.ZodObject<{
+                    kind: z.ZodLiteral<"director">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"lab">;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"business_unit">;
+                    unitId: z.ZodString;
+                }, z.core.$strict>], "kind">;
+                need: z.ZodString;
+                why: z.ZodString;
+                mandate: z.ZodObject<{
+                    issueId: z.ZodUUID;
+                    identifier: z.ZodString;
+                }, z.core.$strict>;
+                plan: z.ZodOptional<z.ZodObject<{
+                    planId: z.ZodString;
+                    version: z.ZodInt;
+                }, z.core.$strict>>;
+                requestedAt: z.ZodISODateTime;
+            }, z.core.$strict>;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
