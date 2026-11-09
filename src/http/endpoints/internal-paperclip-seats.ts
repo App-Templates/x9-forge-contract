@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
+import { AgentRequestSchema } from '../../organization/agent-request.js';
 import { DecisionOutcomeSchema, DecisionRequestIdSchema } from '../../organization/decision-request.js';
 import { ResearchIdSchema, ResearchStateSchema } from '../../capability/ricerca/research.js';
 import {
@@ -236,6 +237,7 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     attempt: z.int().min(1).max(10),
     maxAttempts: z.int().min(1).max(10),
   }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
+  z.strictObject({ kind: z.literal('agent_request'), request: AgentRequestSchema }),
 ]);
 
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
