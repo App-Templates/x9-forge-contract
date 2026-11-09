@@ -89,21 +89,29 @@ export const OWNER_ACTION_FAILED_TEXT = 'Non è partito: il reparto non risponde
 const WAKE_PREVIEW_MAX = 80;
 const OWNER_TIME_ZONE = 'Europe/Rome';
 
+/** Sentence of the board without the time: the line of "Cosa è successo" (tavola `esegui`). */
+export function ownerActionHistoryText(kind: OwnerActionKind, text?: string): string {
+  switch (kind) {
+    case 'sveglia': {
+      const comment = text ?? '';
+      const preview = comment.length > WAKE_PREVIEW_MAX ? `${comment.slice(0, WAKE_PREVIEW_MAX)}…` : comment;
+      return `Hai svegliato il reparto: «${preview}».`;
+    }
+    case 'via':
+      return 'Hai dato il via al reparto.';
+    case 'ferma':
+      return 'Hai fermato il capo del reparto. Non lavora, in nessun progetto, finché non lo riprendi.';
+    case 'riprendi':
+      return 'Hai ripreso il capo del reparto.';
+  }
+}
+
 /** Confirmation sentences of the board (tavola §3.10); time in Rome. */
 export function ownerActionConfirmation(kind: OwnerActionKind, at: string | Date, text?: string): string {
   const time = new Intl.DateTimeFormat('it-IT', {
     timeZone: OWNER_TIME_ZONE, hour: 'numeric', minute: '2-digit', hourCycle: 'h23',
   }).format(new Date(at));
-  switch (kind) {
-    case 'sveglia':
-      return `Fatto alle ${time}. Hai svegliato il reparto: ${(text ?? '').slice(0, WAKE_PREVIEW_MAX)}`;
-    case 'via':
-      return `Hai dato il via alle ${time}: il reparto riparte`;
-    case 'ferma':
-      return `Hai fermato il capo alle ${time}`;
-    case 'riprendi':
-      return `Hai ripreso il capo alle ${time}`;
-  }
+  return `Fatto alle ${time}. ${ownerActionHistoryText(kind, text)}`;
 }
 
 export const internalCompanyBoardActionContract = {

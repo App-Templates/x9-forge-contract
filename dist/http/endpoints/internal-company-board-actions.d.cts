@@ -96,6 +96,8 @@ export declare const OwnerActionResultSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type OwnerActionResult = z.infer<typeof OwnerActionResultSchema>;
 export declare const OWNER_ACTION_FAILED_TEXT: "Non \u00E8 partito: il reparto non risponde. Riprova.";
+/** Sentence of the board without the time: the line of "Cosa è successo" (tavola `esegui`). */
+export declare function ownerActionHistoryText(kind: OwnerActionKind, text?: string): string;
 /** Confirmation sentences of the board (tavola §3.10); time in Rome. */
 export declare function ownerActionConfirmation(kind: OwnerActionKind, at: string | Date, text?: string): string;
 export declare const internalCompanyBoardActionContract: {

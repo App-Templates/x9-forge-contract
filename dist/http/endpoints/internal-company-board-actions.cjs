@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.internalPaperclipOwnerActionContract = exports.InternalPaperclipOwnerActionOkSchema = exports.InternalPaperclipOwnerActionRequestSchema = exports.internalCompanyBoardActionContract = exports.OWNER_ACTION_FAILED_TEXT = exports.OwnerActionResultSchema = exports.OWNER_ACTION_HISTORY_KINDS = exports.OwnerActionErrorSchema = exports.OwnerActionErrorCodeSchema = exports.OWNER_ACTION_ERRORS = exports.OwnerActionRequestSchema = exports.OWNER_ACTION_TEXT_MAX = exports.OwnerActionKindSchema = exports.INTERNAL_PAPERCLIP_OWNER_ACTION_PATH = exports.INTERNAL_COMPANY_BOARD_ACTION_PATH = void 0;
+exports.ownerActionHistoryText = ownerActionHistoryText;
 exports.ownerActionConfirmation = ownerActionConfirmation;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
@@ -74,21 +75,28 @@ exports.OwnerActionResultSchema = zod_1.z.strictObject({
 exports.OWNER_ACTION_FAILED_TEXT = 'Non è partito: il reparto non risponde. Riprova.';
 const WAKE_PREVIEW_MAX = 80;
 const OWNER_TIME_ZONE = 'Europe/Rome';
+/** Sentence of the board without the time: the line of "Cosa è successo" (tavola `esegui`). */
+function ownerActionHistoryText(kind, text) {
+    switch (kind) {
+        case 'sveglia': {
+            const comment = text ?? '';
+            const preview = comment.length > WAKE_PREVIEW_MAX ? `${comment.slice(0, WAKE_PREVIEW_MAX)}…` : comment;
+            return `Hai svegliato il reparto: «${preview}».`;
+        }
+        case 'via':
+            return 'Hai dato il via al reparto.';
+        case 'ferma':
+            return 'Hai fermato il capo del reparto. Non lavora, in nessun progetto, finché non lo riprendi.';
+        case 'riprendi':
+            return 'Hai ripreso il capo del reparto.';
+    }
+}
 /** Confirmation sentences of the board (tavola §3.10); time in Rome. */
 function ownerActionConfirmation(kind, at, text) {
     const time = new Intl.DateTimeFormat('it-IT', {
         timeZone: OWNER_TIME_ZONE, hour: 'numeric', minute: '2-digit', hourCycle: 'h23',
     }).format(new Date(at));
-    switch (kind) {
-        case 'sveglia':
-            return `Fatto alle ${time}. Hai svegliato il reparto: ${(text ?? '').slice(0, WAKE_PREVIEW_MAX)}`;
-        case 'via':
-            return `Hai dato il via alle ${time}: il reparto riparte`;
-        case 'ferma':
-            return `Hai fermato il capo alle ${time}`;
-        case 'riprendi':
-            return `Hai ripreso il capo alle ${time}`;
-    }
+    return `Fatto alle ${time}. ${ownerActionHistoryText(kind, text)}`;
 }
 exports.internalCompanyBoardActionContract = {
     method: 'POST',

@@ -3,11 +3,14 @@ import { describe, expect, it } from 'vitest';
 import {
   OWNER_ACTION_ERRORS,
   OWNER_ACTION_FAILED_TEXT,
+  OWNER_ACTION_HISTORY_KINDS,
+  OWNER_ACTION_TEXT_MAX,
   OwnerActionKindSchema,
   OwnerActionResultSchema,
   internalCompanyBoardActionContract as action,
   internalPaperclipOwnerActionContract as paperclip,
   ownerActionConfirmation,
+  ownerActionHistoryText,
 } from '../../../src/http/endpoints/internal-company-board-actions.js';
 import { CompanyBoardUnitActionsSchema } from '../../../src/organization/company-board.js';
 
@@ -67,12 +70,14 @@ describe('company board owner actions', () => {
     for (const [k, h] of pairs) expect(OwnerActionResultSchema.safeParse(result(k, h)).success).toBe(true);
   });
 
-  it('(a7) confirmations use Rome time and cut long text', () => {
-    expect(ownerActionConfirmation('via', '2026-11-08T17:12:00Z')).toBe('Hai dato il via alle 18:12: il reparto riparte');
-    expect(ownerActionConfirmation('ferma', '2026-11-08T08:49:00Z')).toBe('Hai fermato il capo alle 9:49');
-    expect(ownerActionConfirmation('riprendi', '2026-11-08T08:52:00Z')).toBe('Hai ripreso il capo alle 9:52');
+  it('(a7) confirmations use the board sentences and Rome time', () => {
+    expect(ownerActionConfirmation('via', '2026-11-08T17:12:00Z')).toBe('Fatto alle 18:12. Hai dato il via al reparto.');
+    expect(ownerActionConfirmation('ferma', '2026-11-08T08:49:00Z')).toBe('Fatto alle 9:49. Hai fermato il capo del reparto. Non lavora, in nessun progetto, finché non lo riprendi.');
+    expect(ownerActionConfirmation('riprendi', '2026-11-08T08:52:00Z')).toBe('Fatto alle 9:52. Hai ripreso il capo del reparto.');
+    expect(ownerActionConfirmation('sveglia', at, 'Guarda il report')).toBe('Fatto alle 18:12. Hai svegliato il reparto: «Guarda il report».');
+    expect(ownerActionConfirmation('via', '2026-11-09T05:05:00Z')).toBe('Fatto alle 6:05. Hai dato il via al reparto.');
     const long = ownerActionConfirmation('sveglia', at, 'a'.repeat(100));
-    expect(long).toBe(`Fatto alle 18:12. Hai svegliato il reparto: ${'a'.repeat(80)}`);
+    expect(long).toBe(`Fatto alle 18:12. Hai svegliato il reparto: «${'a'.repeat(80)}…».`);
     expect(OWNER_ACTION_FAILED_TEXT).toBe('Non è partito: il reparto non risponde. Riprova.');
   });
 
@@ -81,5 +86,26 @@ describe('company board owner actions', () => {
     expect(cjs.internalCompanyBoardActionContract.path).toBe('/internal/company-board/action');
     expect(cjs.internalPaperclipOwnerActionContract.path).toBe('/internal/paperclip/owner-action');
     expect(typeof cjs.ownerActionConfirmation).toBe('function');
+    expect(typeof cjs.ownerActionHistoryText).toBe('function');
+  });
+
+  it('(a9) history uses the board sentences without time and bounds wake previews', () => {
+    expect(ownerActionHistoryText('sveglia', 'Guarda il report')).toBe('Hai svegliato il reparto: «Guarda il report».');
+    expect(ownerActionHistoryText('via')).toBe('Hai dato il via al reparto.');
+    expect(ownerActionHistoryText('ferma')).toBe('Hai fermato il capo del reparto. Non lavora, in nessun progetto, finché non lo riprendi.');
+    expect(ownerActionHistoryText('riprendi')).toBe('Hai ripreso il capo del reparto.');
+    expect(ownerActionHistoryText('sveglia', 'a'.repeat(80))).toBe(`Hai svegliato il reparto: «${'a'.repeat(80)}».`);
+    expect(ownerActionHistoryText('sveglia', 'a'.repeat(100))).toBe(`Hai svegliato il reparto: «${'a'.repeat(80)}…».`);
+    const text = 'a'.repeat(OWNER_ACTION_TEXT_MAX);
+    for (const kind of OwnerActionKindSchema.options) {
+      const comment = kind === 'sveglia' ? text : undefined;
+      const historyText = ownerActionHistoryText(kind, comment);
+      const confirmation = ownerActionConfirmation(kind, at, comment);
+      expect(confirmation).toBe(`Fatto alle 18:12. ${historyText}`);
+      expect(OwnerActionResultSchema.safeParse({
+        ok: true, kind, at, confirmation,
+        historyEntry: { at, kind: OWNER_ACTION_HISTORY_KINDS[kind], text: historyText, mine: true },
+      }).success).toBe(true);
+    }
   });
 });
