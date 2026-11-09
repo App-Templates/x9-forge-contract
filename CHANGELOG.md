@@ -2,6 +2,10 @@
 
 ## Non rilasciato
 
+## v1.127.0 — il rifiuto per legame ambiguo ha il suo nome
+
+- `ORGANIZATION_ADMISSION_REFUSAL_CODES` include `organization_binding_ambiguous`: l'agente ha più di un legame attivo di partecipante per la corsa. Prima agent-core lo rifiutava come `organization_binding_missing`. Adozione con 5906 (agent-core); cap-paperclip legge l'elenco dal ponte. Versione da riservare dalla coordinatrice.
+
 ## v1.126.0 — il piano cita le pagine del dossier
 
 - Nuovi `ActionPlanDossierPageSchema` e tipo `ActionPlanDossierPage` in `organization/action-plan`: slug e versione riusano il contratto delle pagine wiki. `ActionPlanSchema.dossier` contiene fino a 50 pagine con slug unici, senza cambiare la lettura dei piani salvati e delle bozze prive del campo.

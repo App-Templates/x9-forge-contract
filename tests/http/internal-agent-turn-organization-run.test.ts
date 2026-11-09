@@ -148,7 +148,7 @@ describe('organization run response and refusals', () => {
   });
 
   it('riconosce ogni codice di rifiuto e non uno inventato', () => {
-    expect(ORGANIZATION_ADMISSION_REFUSAL_CODES).toHaveLength(14);
+    expect(ORGANIZATION_ADMISSION_REFUSAL_CODES).toHaveLength(15);
     for (const code of ORGANIZATION_ADMISSION_REFUSAL_CODES) {
       expect(OrganizationAdmissionRefusalCodeSchema.safeParse(code).success).toBe(true);
     }

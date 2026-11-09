@@ -349,7 +349,7 @@ export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
 }, z.core.$strip>;
 export type InternalAgentTurnErrorResponse = z.infer<typeof InternalAgentTurnErrorResponseSchema>;
 /** Typed admission refusals of an organization run (`error` of a refused turn). */
-export declare const ORGANIZATION_ADMISSION_REFUSAL_CODES: readonly ["organization_context_missing", "organization_context_invalid", "organization_attempt_invalid", "run_correlation_mismatch", "issuer_not_authorized", "context_expired", "organization_binding_unavailable", "organization_binding_missing", "tenant_mismatch", "owner_mismatch", "agent_identity_mismatch", "agent_target_mismatch", "organization_admission_unavailable", "organization_tenant_unknown"];
+export declare const ORGANIZATION_ADMISSION_REFUSAL_CODES: readonly ["organization_context_missing", "organization_context_invalid", "organization_attempt_invalid", "run_correlation_mismatch", "issuer_not_authorized", "context_expired", "organization_binding_unavailable", "organization_binding_missing", "organization_binding_ambiguous", "tenant_mismatch", "owner_mismatch", "agent_identity_mismatch", "agent_target_mismatch", "organization_admission_unavailable", "organization_tenant_unknown"];
 export declare const OrganizationAdmissionRefusalCodeSchema: z.ZodEnum<{
     organization_context_missing: "organization_context_missing";
     organization_context_invalid: "organization_context_invalid";
@@ -359,6 +359,7 @@ export declare const OrganizationAdmissionRefusalCodeSchema: z.ZodEnum<{
     context_expired: "context_expired";
     organization_binding_unavailable: "organization_binding_unavailable";
     organization_binding_missing: "organization_binding_missing";
+    organization_binding_ambiguous: "organization_binding_ambiguous";
     tenant_mismatch: "tenant_mismatch";
     owner_mismatch: "owner_mismatch";
     agent_identity_mismatch: "agent_identity_mismatch";
