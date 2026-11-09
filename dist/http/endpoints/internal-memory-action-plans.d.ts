@@ -36,6 +36,10 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
         organizationId: z.ZodString;
         clientId: z.ZodString;
         projectId: z.ZodString;
+        dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
         objective: z.ZodObject<{
             request: z.ZodString;
             expectedResult: z.ZodString;
@@ -242,6 +246,10 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
         organizationId: z.ZodString;
         clientId: z.ZodString;
         projectId: z.ZodString;
+        dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
         objective: z.ZodObject<{
             request: z.ZodString;
             expectedResult: z.ZodString;
@@ -464,6 +472,10 @@ export declare const internalMemoryActionPlanSaveContract: {
             organizationId: z.ZodString;
             clientId: z.ZodString;
             projectId: z.ZodString;
+            dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>>;
             objective: z.ZodObject<{
                 request: z.ZodString;
                 expectedResult: z.ZodString;
@@ -673,6 +685,10 @@ export declare const internalMemoryActionPlanReadContract: {
             organizationId: z.ZodString;
             clientId: z.ZodString;
             projectId: z.ZodString;
+            dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>>;
             objective: z.ZodObject<{
                 request: z.ZodString;
                 expectedResult: z.ZodString;

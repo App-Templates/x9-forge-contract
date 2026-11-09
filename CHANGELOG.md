@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.126.0 — il piano cita le pagine del dossier
+
+- Nuovi `ActionPlanDossierPageSchema` e tipo `ActionPlanDossierPage` in `organization/action-plan`: slug e versione riusano il contratto delle pagine wiki. `ActionPlanSchema.dossier` contiene fino a 50 pagine con slug unici, senza cambiare la lettura dei piani salvati e delle bozze prive del campo.
+- `ActionPlanSubmissionSchema` richiede un dossier non vuoto per ogni nuova sottomissione; il legame con la decisione resta `planId`. Il piano salvato `plan_2880531b` senza dossier resta leggibile e invariato.
+- Adozione e fruibilità con 5945 e 5954–5956: lettura delle pagine nel piano, nell'email e nel Mandato. Versione da riservare dalla coordinatrice.
+
 ## v1.125.0 — origine e citazioni delle affermazioni wiki
 
 - `WikiOriginSchema` include `model`, sapere del modello senza fonte salvata. `human` indica un documento o una nota di una persona.

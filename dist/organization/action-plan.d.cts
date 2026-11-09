@@ -112,6 +112,12 @@ export declare const ActionPlanReferentProposalSchema: z.ZodObject<{
     buSlug: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type ActionPlanReferentProposal = z.infer<typeof ActionPlanReferentProposalSchema>;
+/** A published wiki page at the version used to write the plan. */
+export declare const ActionPlanDossierPageSchema: z.ZodObject<{
+    slug: z.ZodString;
+    version: z.ZodNumber;
+}, z.core.$strict>;
+export type ActionPlanDossierPage = z.infer<typeof ActionPlanDossierPageSchema>;
 /** The eleven required parts of the versioned plan submitted for owner approval. */
 export declare const ActionPlanSchema: z.ZodObject<{
     planId: z.ZodString;
@@ -121,6 +127,10 @@ export declare const ActionPlanSchema: z.ZodObject<{
     organizationId: z.ZodString;
     clientId: z.ZodString;
     projectId: z.ZodString;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
     objective: z.ZodObject<{
         request: z.ZodString;
         expectedResult: z.ZodString;
@@ -318,6 +328,10 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
             why: z.ZodString;
         }, z.core.$strict>;
     }, z.core.$strict>;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;
@@ -455,7 +469,7 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
     version: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type ActionPlanDraft = z.infer<typeof ActionPlanDraftSchema>;
-/** The plan as the Director submits a new version: every unit that starts now carries its sections. Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which do not require them. */
+/** A new submission requires dossier pages and sections for units that start now. Saved plans and old drafts remain readable without these fields. */
 export declare const ActionPlanSubmissionSchema: z.ZodObject<{
     budget: z.ZodObject<{
         currency: z.ZodString;
@@ -488,6 +502,10 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
             why: z.ZodString;
         }, z.core.$strict>;
     }, z.core.$strict>;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;
@@ -634,6 +652,10 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
     organizationId: z.ZodString;
     clientId: z.ZodString;
     projectId: z.ZodString;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
     objective: z.ZodObject<{
         request: z.ZodString;
         expectedResult: z.ZodString;

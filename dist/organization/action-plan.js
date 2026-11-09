@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { WikiPageSchema } from "../capability/lab/wiki.js";
 import { BUSINESS_UNIT_LEAD_ROLE, DIRECTOR_ROLE } from "./agent-role.js";
 import { AssetRefSchema, AssetSha256Schema } from "./asset.js";
 import { BusinessUnitLeadTypeIdSchema } from "./business-unit-type.js";
@@ -77,6 +78,11 @@ export const ActionPlanReferentProposalSchema = z.strictObject({
 }).refine((p) => (p.level === 'business_unit') === (p.buSlug !== undefined), {
     message: 'buSlug is required at business_unit level and only allowed there', path: ['buSlug'],
 });
+/** A published wiki page at the version used to write the plan. */
+export const ActionPlanDossierPageSchema = z.strictObject({
+    slug: WikiPageSchema.shape.slug,
+    version: WikiPageSchema.shape.version,
+});
 /** The eleven required parts of the versioned plan submitted for owner approval. */
 export const ActionPlanSchema = z.strictObject({
     planId: DecisionRequestIdSchema,
@@ -86,6 +92,7 @@ export const ActionPlanSchema = z.strictObject({
     organizationId: z.string().min(1).max(64),
     clientId: AssetRefSchema.shape.companyId,
     projectId: z.string().min(1).max(64),
+    dossier: z.array(ActionPlanDossierPageSchema).max(50).refine((pages) => new Set(pages.map((page) => page.slug)).size === pages.length, { message: 'Dossier page slugs must be unique' }).optional().describe('le pagine pubblicate da Lab su cui è scritto il piano, come le restituisce lab_read_published (slug e versione)'),
     objective: z.strictObject({
         request: TextSchema,
         expectedResult: TextSchema,
@@ -158,8 +165,15 @@ export const ActionPlanDraftSchema = ActionPlanSchema.omit({ digest: true, tenan
     planId: ActionPlanSchema.shape.planId.optional(),
     version: ActionPlanSchema.shape.version.optional(),
 });
-/** The plan as the Director submits a new version: every unit that starts now carries its sections. Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which do not require them. */
+/** A new submission requires dossier pages and sections for units that start now. Saved plans and old drafts remain readable without these fields. */
 export const ActionPlanSubmissionSchema = ActionPlanDraftSchema.superRefine((plan, ctx) => {
+    if (plan.dossier === undefined || plan.dossier.length === 0) {
+        ctx.addIssue({
+            code: 'custom',
+            path: ['dossier'],
+            message: 'A new plan version needs the published dossier pages used to write it',
+        });
+    }
     const businessUnitSlugs = new Set(plan.businessUnits.map((unit) => unit.buSlug));
     const milestoneNumbers = new Set(plan.milestones.map((milestone) => milestone.number));
     plan.businessUnits.forEach((unit, index) => {

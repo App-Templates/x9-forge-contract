@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuSectionSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
+exports.CompleteActionPlanSchema = exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema = exports.ActionPlanSchema = exports.ActionPlanDossierPageSchema = exports.ActionPlanReferentProposalSchema = exports.ActionPlanBusinessUnitSchema = exports.ActionPlanBuSectionSchema = exports.ActionPlanBuStartSchema = exports.ActionPlanRoleAgentSchema = exports.ActionPlanReferentRefSchema = exports.ActionPlanBuExecutorSchema = exports.ACTION_PLAN_BU_EXECUTORS = void 0;
 exports.canonicalJson = canonicalJson;
 exports.actionPlanCanonicalJson = actionPlanCanonicalJson;
 const zod_1 = require("zod");
+const wiki_js_1 = require("../capability/lab/wiki.cjs");
 const agent_role_js_1 = require("./agent-role.cjs");
 const asset_js_1 = require("./asset.cjs");
 const business_unit_type_js_1 = require("./business-unit-type.cjs");
@@ -82,6 +83,11 @@ exports.ActionPlanReferentProposalSchema = zod_1.z.strictObject({
 }).refine((p) => (p.level === 'business_unit') === (p.buSlug !== undefined), {
     message: 'buSlug is required at business_unit level and only allowed there', path: ['buSlug'],
 });
+/** A published wiki page at the version used to write the plan. */
+exports.ActionPlanDossierPageSchema = zod_1.z.strictObject({
+    slug: wiki_js_1.WikiPageSchema.shape.slug,
+    version: wiki_js_1.WikiPageSchema.shape.version,
+});
 /** The eleven required parts of the versioned plan submitted for owner approval. */
 exports.ActionPlanSchema = zod_1.z.strictObject({
     planId: decision_request_js_1.DecisionRequestIdSchema,
@@ -91,6 +97,7 @@ exports.ActionPlanSchema = zod_1.z.strictObject({
     organizationId: zod_1.z.string().min(1).max(64),
     clientId: asset_js_1.AssetRefSchema.shape.companyId,
     projectId: zod_1.z.string().min(1).max(64),
+    dossier: zod_1.z.array(exports.ActionPlanDossierPageSchema).max(50).refine((pages) => new Set(pages.map((page) => page.slug)).size === pages.length, { message: 'Dossier page slugs must be unique' }).optional().describe('le pagine pubblicate da Lab su cui è scritto il piano, come le restituisce lab_read_published (slug e versione)'),
     objective: zod_1.z.strictObject({
         request: TextSchema,
         expectedResult: TextSchema,
@@ -163,8 +170,15 @@ exports.ActionPlanDraftSchema = exports.ActionPlanSchema.omit({ digest: true, te
     planId: exports.ActionPlanSchema.shape.planId.optional(),
     version: exports.ActionPlanSchema.shape.version.optional(),
 });
-/** The plan as the Director submits a new version: every unit that starts now carries its sections. Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which do not require them. */
+/** A new submission requires dossier pages and sections for units that start now. Saved plans and old drafts remain readable without these fields. */
 exports.ActionPlanSubmissionSchema = exports.ActionPlanDraftSchema.superRefine((plan, ctx) => {
+    if (plan.dossier === undefined || plan.dossier.length === 0) {
+        ctx.addIssue({
+            code: 'custom',
+            path: ['dossier'],
+            message: 'A new plan version needs the published dossier pages used to write it',
+        });
+    }
     const businessUnitSlugs = new Set(plan.businessUnits.map((unit) => unit.buSlug));
     const milestoneNumbers = new Set(plan.milestones.map((milestone) => milestone.number));
     plan.businessUnits.forEach((unit, index) => {
