@@ -14,6 +14,8 @@ export const LAB_TOOLS = {
     ingest: 'lab_ingest',
     /** State of a queued ingest, with final counts when completed. */
     ingestStatus: 'lab_ingest_status',
+    /** Withdraw a document's sources and rewrite the affected wiki pages. */
+    withdraw: 'lab_withdraw',
     /** Ask the wiki: the pages and claims that answer. */
     query: 'lab_query',
     /** The open gaps: the next questions for research. */
@@ -30,11 +32,23 @@ export const LAB_TOOLS = {
 /** Why a lab tool call failed, as the bridge tool-call error text. */
 export const LabToolErrorSchema = z.enum(['invalid_request', 'not_configured', 'not_found', 'not_ready']);
 export const LabIngestIdSchema = z.uuid();
-/** Document provenance and excerpts supplied by the caller; the lab does not read asset bytes. */
+/** Document provenance with optional excerpts; otherwise the lab reads and converts the asset from company memory. */
 export const LabIngestDocumentSchema = z.strictObject({
     asset: AssetRefSchema,
     title: z.string().min(1).max(200),
-    excerpts: z.array(z.string().min(1).max(4000)).min(1).max(50),
+    excerpts: z.array(z.string().min(1).max(4000)).min(1).max(50).optional(),
+    /** Previous document asset replaced and withdrawn by this version. */
+    supersedes: AssetRefSchema.shape.assetId.optional(),
+});
+export const LabWithdrawInputSchema = z.strictObject({
+    assetId: AssetRefSchema.shape.assetId,
+    reason: z.string().trim().min(1).max(500),
+});
+export const LabWithdrawOutputSchema = z.strictObject({
+    assetId: AssetRefSchema.shape.assetId,
+    sourcesWithdrawn: z.int().min(0),
+    pagesRewritten: z.int().min(0),
+    withdrawnAt: z.iso.datetime({ offset: true }),
 });
 export const LabIngestInputSchema = z.union([
     z.object({ result: ResearchResultSchema }).strict(),

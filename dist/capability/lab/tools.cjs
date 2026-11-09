@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabBriefGapsOutputSchema = exports.LabBriefGapsInputSchema = exports.LabReadPublishedOutputSchema = exports.LabReadPublishedInputSchema = exports.LabPublishOutputSchema = exports.LabPublishInputSchema = exports.LabPublicationRecipientSchema = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabIngestDocumentSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
+exports.LabExecuteOutputSchema = exports.LabExecuteInputSchema = exports.LAB_INTERNAL_TOOLS = exports.LabBriefGapsOutputSchema = exports.LabBriefGapsInputSchema = exports.LabReadPublishedOutputSchema = exports.LabReadPublishedInputSchema = exports.LabPublishOutputSchema = exports.LabPublishInputSchema = exports.LabPublicationRecipientSchema = exports.LabCompetenceOutputSchema = exports.LabCompetenceInputSchema = exports.LabGapsOutputSchema = exports.LabGapsInputSchema = exports.LabQueryOutputSchema = exports.LabQueryInputSchema = exports.LabIngestStatusOutputSchema = exports.LabIngestStatusInputSchema = exports.LabIngestOutputSchema = exports.LabIngestInputSchema = exports.LabWithdrawOutputSchema = exports.LabWithdrawInputSchema = exports.LabIngestDocumentSchema = exports.LabIngestIdSchema = exports.LabToolErrorSchema = exports.LAB_TOOLS = void 0;
 const zod_1 = require("zod");
 const asset_js_1 = require("../../organization/asset.cjs");
 const knowledge_publication_js_1 = require("../../organization/knowledge-publication.cjs");
@@ -17,6 +17,8 @@ exports.LAB_TOOLS = {
     ingest: 'lab_ingest',
     /** State of a queued ingest, with final counts when completed. */
     ingestStatus: 'lab_ingest_status',
+    /** Withdraw a document's sources and rewrite the affected wiki pages. */
+    withdraw: 'lab_withdraw',
     /** Ask the wiki: the pages and claims that answer. */
     query: 'lab_query',
     /** The open gaps: the next questions for research. */
@@ -33,11 +35,23 @@ exports.LAB_TOOLS = {
 /** Why a lab tool call failed, as the bridge tool-call error text. */
 exports.LabToolErrorSchema = zod_1.z.enum(['invalid_request', 'not_configured', 'not_found', 'not_ready']);
 exports.LabIngestIdSchema = zod_1.z.uuid();
-/** Document provenance and excerpts supplied by the caller; the lab does not read asset bytes. */
+/** Document provenance with optional excerpts; otherwise the lab reads and converts the asset from company memory. */
 exports.LabIngestDocumentSchema = zod_1.z.strictObject({
     asset: asset_js_1.AssetRefSchema,
     title: zod_1.z.string().min(1).max(200),
-    excerpts: zod_1.z.array(zod_1.z.string().min(1).max(4000)).min(1).max(50),
+    excerpts: zod_1.z.array(zod_1.z.string().min(1).max(4000)).min(1).max(50).optional(),
+    /** Previous document asset replaced and withdrawn by this version. */
+    supersedes: asset_js_1.AssetRefSchema.shape.assetId.optional(),
+});
+exports.LabWithdrawInputSchema = zod_1.z.strictObject({
+    assetId: asset_js_1.AssetRefSchema.shape.assetId,
+    reason: zod_1.z.string().trim().min(1).max(500),
+});
+exports.LabWithdrawOutputSchema = zod_1.z.strictObject({
+    assetId: asset_js_1.AssetRefSchema.shape.assetId,
+    sourcesWithdrawn: zod_1.z.int().min(0),
+    pagesRewritten: zod_1.z.int().min(0),
+    withdrawnAt: zod_1.z.iso.datetime({ offset: true }),
 });
 exports.LabIngestInputSchema = zod_1.z.union([
     zod_1.z.object({ result: research_js_1.ResearchResultSchema }).strict(),

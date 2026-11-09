@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.124.0 — documenti wiki senza estratti, versioni e ritiro
+
+- `LabIngestDocumentSchema`: `excerpts` facoltativo (limiti invariati quando presente); senza estratti il Lab legge e converte l'asset dalla Memoria Aziendale. `supersedes` identifica l'asset precedente da ritirare.
+- Nuovo `LAB_TOOLS.withdraw` (`lab_withdraw`), con `LabWithdrawInputSchema`, `LabWithdrawOutputSchema` e tipi nel sottopercorso `capability/lab/tools`: motivo obbligatorio, conteggi del ritiro e data con fuso orario. Adozione e fruibilità nelle schede 5945, 5947 e 5949; versione da riservare dalla coordinatrice.
+
 ## v1.123.0 — la mappa di ogni nome dei barili verso il suo sotto-percorso stretto
 
 - Nuovo `dist/narrow-imports.json` (formato `x9-narrow-imports-v1`), scritto da `scripts/generate-narrow-imports.mjs` nella build dopo zshy: per ogni chiave esatta di `exports`, ogni nome a runtime con il sotto-percorso stretto del modulo che lo dichiara (un nome rinominato in un re-export vale per il modulo che lo rinomina; la chiave esatta vince sul percorso stretto). Il generatore fallisce con «Cannot place» su un nome dichiarato fuori da `src` o senza sotto-percorso.

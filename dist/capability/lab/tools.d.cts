@@ -9,6 +9,8 @@ export declare const LAB_TOOLS: {
     readonly ingest: "lab_ingest";
     /** State of a queued ingest, with final counts when completed. */
     readonly ingestStatus: "lab_ingest_status";
+    /** Withdraw a document's sources and rewrite the affected wiki pages. */
+    readonly withdraw: "lab_withdraw";
     /** Ask the wiki: the pages and claims that answer. */
     readonly query: "lab_query";
     /** The open gaps: the next questions for research. */
@@ -33,7 +35,7 @@ export declare const LabToolErrorSchema: z.ZodEnum<{
 export type LabToolError = z.infer<typeof LabToolErrorSchema>;
 export declare const LabIngestIdSchema: z.ZodUUID;
 export type LabIngestId = z.infer<typeof LabIngestIdSchema>;
-/** Document provenance and excerpts supplied by the caller; the lab does not read asset bytes. */
+/** Document provenance with optional excerpts; otherwise the lab reads and converts the asset from company memory. */
 export declare const LabIngestDocumentSchema: z.ZodObject<{
     asset: z.ZodObject<{
         assetId: z.ZodString;
@@ -74,8 +76,22 @@ export declare const LabIngestDocumentSchema: z.ZodObject<{
         createdAt: z.ZodISODateTime;
     }, z.core.$strict>;
     title: z.ZodString;
-    excerpts: z.ZodArray<z.ZodString>;
+    excerpts: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    /** Previous document asset replaced and withdrawn by this version. */
+    supersedes: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
+export declare const LabWithdrawInputSchema: z.ZodObject<{
+    assetId: z.ZodString;
+    reason: z.ZodString;
+}, z.core.$strict>;
+export type LabWithdrawInput = z.infer<typeof LabWithdrawInputSchema>;
+export declare const LabWithdrawOutputSchema: z.ZodObject<{
+    assetId: z.ZodString;
+    sourcesWithdrawn: z.ZodInt;
+    pagesRewritten: z.ZodInt;
+    withdrawnAt: z.ZodISODateTime;
+}, z.core.$strict>;
+export type LabWithdrawOutput = z.infer<typeof LabWithdrawOutputSchema>;
 export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
     result: z.ZodObject<{
         researchId: z.ZodString;
@@ -149,7 +165,9 @@ export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
             createdAt: z.ZodISODateTime;
         }, z.core.$strict>;
         title: z.ZodString;
-        excerpts: z.ZodArray<z.ZodString>;
+        excerpts: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        /** Previous document asset replaced and withdrawn by this version. */
+        supersedes: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>;
 }, z.core.$strict>, z.ZodObject<{
     researchId: z.ZodString;
