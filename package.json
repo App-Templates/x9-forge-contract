@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.121.0",
+  "version": "1.122.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -34,7 +34,17 @@
       "./vault": "./src/vault/index.ts",
       "./capability/parameters": "./src/capability/parameters.ts",
       "./capability/presentation": "./src/capability/presentation.ts",
-      "./capability/paperclip": "./src/capability/paperclip/index.ts"
+      "./capability/paperclip": "./src/capability/paperclip/index.ts",
+      "./agent/*": "./src/agent/**/*",
+      "./auth/*": "./src/auth/**/*",
+      "./capability/*": "./src/capability/**/*",
+      "./http/*": "./src/http/**/*",
+      "./memory/*": "./src/memory/**/*",
+      "./messaging/*": "./src/messaging/**/*",
+      "./model-router/*": "./src/model-router/**/*",
+      "./organization/*": "./src/organization/**/*",
+      "./rag/*": "./src/rag/**/*",
+      "./vault/*": "./src/vault/**/*"
     }
   },
   "exports": {
@@ -157,6 +167,56 @@
       "types": "./dist/capability/paperclip/index.d.cts",
       "import": "./dist/capability/paperclip/index.js",
       "require": "./dist/capability/paperclip/index.cjs"
+    },
+    "./agent/*": {
+      "types": "./dist/agent/*.d.cts",
+      "import": "./dist/agent/*.js",
+      "require": "./dist/agent/*.cjs"
+    },
+    "./auth/*": {
+      "types": "./dist/auth/*.d.cts",
+      "import": "./dist/auth/*.js",
+      "require": "./dist/auth/*.cjs"
+    },
+    "./capability/*": {
+      "types": "./dist/capability/*.d.cts",
+      "import": "./dist/capability/*.js",
+      "require": "./dist/capability/*.cjs"
+    },
+    "./http/*": {
+      "types": "./dist/http/*.d.cts",
+      "import": "./dist/http/*.js",
+      "require": "./dist/http/*.cjs"
+    },
+    "./memory/*": {
+      "types": "./dist/memory/*.d.cts",
+      "import": "./dist/memory/*.js",
+      "require": "./dist/memory/*.cjs"
+    },
+    "./messaging/*": {
+      "types": "./dist/messaging/*.d.cts",
+      "import": "./dist/messaging/*.js",
+      "require": "./dist/messaging/*.cjs"
+    },
+    "./model-router/*": {
+      "types": "./dist/model-router/*.d.cts",
+      "import": "./dist/model-router/*.js",
+      "require": "./dist/model-router/*.cjs"
+    },
+    "./organization/*": {
+      "types": "./dist/organization/*.d.cts",
+      "import": "./dist/organization/*.js",
+      "require": "./dist/organization/*.cjs"
+    },
+    "./rag/*": {
+      "types": "./dist/rag/*.d.cts",
+      "import": "./dist/rag/*.js",
+      "require": "./dist/rag/*.cjs"
+    },
+    "./vault/*": {
+      "types": "./dist/vault/*.d.cts",
+      "import": "./dist/vault/*.js",
+      "require": "./dist/vault/*.cjs"
     }
   },
   "files": [
@@ -164,7 +224,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "zshy && node scripts/check-portable-dts.mjs && node scripts/generate-portable-capability-contracts.mjs",
+    "build": "zshy && node -e \"const fs=require('fs'),p=JSON.parse(fs.readFileSync('package.json'));for(const k of Object.keys(p.exports))if(k.endsWith('/*')){const d='./dist/'+k.slice(2,-1);p.exports[k]={types:d+'*.d.cts',import:d+'*.js',require:d+'*.cjs'}}fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\\n')\" && node scripts/check-portable-dts.mjs && node scripts/generate-portable-capability-contracts.mjs",
     "check:dts": "node scripts/check-portable-dts.mjs",
     "check:pack": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
     "validate": "pnpm build && pnpm check:pack && pnpm test",

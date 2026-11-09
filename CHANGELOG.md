@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.122.0 — ogni modulo dei contratti ha il suo sotto-percorso stretto
+
+- Dieci chiavi `./<dominio>/*` (`agent`, `auth`, `capability`, `http`, `memory`, `messaging`, `model-router`, `organization`, `rag`, `vault`): `@x9-forge/contracts/http/endpoints/internal-paperclip-seats` o `@x9-forge/contracts/capability/tool-call` caricano solo il modulo che dichiara lo schema (ESM, CJS e tipi), senza il barile del dominio.
+- Le 24 chiavi di prima risolvono allo stesso file e danno lo stesso oggetto; nessun sorgente cambia. Le chiavi esatte vincono sulle `*`.
+- `pnpm build` riscrive dopo zshy i bersagli delle chiavi `*` con l'estensione (`*.js`, `*.cjs`, `*.d.cts`), perché zshy li lascia senza e l'import senza estensione non risolverebbe.
+- Tetti di heap delle dieci chiavi in `tests/memory/import-heap-budgets.json`. Adozione X9 nelle schede 5897–5936.
+
 ## v1.121.0 — la sveglia dei posti conosce le aree approvate non nate
 
 - Nuova voce `approved_units_failed` di `PaperclipSeatNativeWakeEventSchema`: richiesta, incarico del Director, da 1 a 20 aree con motivo, `attempt` non oltre `maxAttempts` (l'ultima sveglia è l'avviso). Richiede `organizationId` e `identity` come le altre voci diverse da `research_done`.

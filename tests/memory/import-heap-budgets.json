@@ -1,5 +1,5 @@
 {
-  "misurato": "09/11/2026, node 24.14.1, darwin arm64, dist di 81d4ab07 (1.121.0)",
+  "misurato": "09/11/2026, node 24.14.1, darwin arm64, dist di 81d4ab07 (1.121.0) · chiavi «/*» misurate il 09/11/2026 sul dist di 1.122.0 (tetto = misura × 1.05, un tetto vale per il file peggiore del dominio)",
   "voci": {
     ".": {
       "heap_mb": 32,
@@ -120,6 +120,56 @@
       "heap_mb": 22,
       "moduli": 49,
       "motivo": "contratti della capacità paperclip"
+    },
+    "./agent/*": {
+      "heap_mb": 31.5,
+      "moduli": 84,
+      "motivo": "ogni modulo di agent/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/agent/ordinary-authority.js (29.8 MB, 80 moduli)"
+    },
+    "./auth/*": {
+      "heap_mb": 0.5,
+      "moduli": 2,
+      "motivo": "ogni modulo di auth/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/auth/device-signature.js (0.3 MB, 1 moduli)"
+    },
+    "./capability/*": {
+      "heap_mb": 37.5,
+      "moduli": 99,
+      "motivo": "ogni modulo di capability/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/capability/portable-contracts.js (35.5 MB, 94 moduli)"
+    },
+    "./http/*": {
+      "heap_mb": 101.0,
+      "moduli": 297,
+      "motivo": "ogni modulo di http/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/http/endpoints/index.js (96.1 MB, 282 moduli)"
+    },
+    "./memory/*": {
+      "heap_mb": 1.5,
+      "moduli": 5,
+      "motivo": "ogni modulo di memory/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/memory/write-candidate.js (1.4 MB, 4 moduli)"
+    },
+    "./messaging/*": {
+      "heap_mb": 1.5,
+      "moduli": 5,
+      "motivo": "ogni modulo di messaging/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/messaging/incoming-message-envelope.js (1 MB, 4 moduli)"
+    },
+    "./model-router/*": {
+      "heap_mb": 27.5,
+      "moduli": 71,
+      "motivo": "ogni modulo di model-router/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/model-router/model-consumer-execution.js (26 MB, 67 moduli)"
+    },
+    "./organization/*": {
+      "heap_mb": 25.5,
+      "moduli": 55,
+      "motivo": "ogni modulo di organization/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/organization/vertical-plan-observation.js (24.1 MB, 52 moduli)"
+    },
+    "./rag/*": {
+      "heap_mb": 18.5,
+      "moduli": 52,
+      "motivo": "ogni modulo di rag/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/rag/qualified-citation.js (17.3 MB, 49 moduli)"
+    },
+    "./vault/*": {
+      "heap_mb": 11.0,
+      "moduli": 36,
+      "motivo": "ogni modulo di vault/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/vault/credential-link.js (10.4 MB, 34 moduli)"
     }
   }
 }
