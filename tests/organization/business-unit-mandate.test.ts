@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
 import {
   MANDATE_RECONCILIATION_OUTCOMES,
@@ -151,5 +152,49 @@ describe('ReconciledMandateSchema', () => {
       const notebookPages = Array.from({ length: count }, (_, index) => ({ slug: `page-${index}`, version: 1 }));
       expect(ReconciledMandateSchema.safeParse({ ...mandate(), notebookPages }).success).toBe(valid);
     }
+  });
+});
+
+describe('ReconciledMandateSchema planSection objectives and breakdown (1.129.0)', () => {
+  const project = {
+    objective: { request: 'App', expectedResult: 'App usabile', measure: 'Utenti' },
+    objectiveTree: { project: { expectedResult: 'App in prova', deliveryCriteria: ['Cento scansioni'] } },
+  };
+  const unitObjective = {
+    buSlug: 'sales', expectedResult: 'Primo cliente', deliveryCriteria: ['Contratto'], indicators: [],
+  };
+  const workBreakdown = [{
+    id: 'scansione', title: 'Scansione', expectedGoal: 'Scansiona', deliveryCriteria: ['Funziona'], milestone: 1,
+    owners: [{ buSlug: 'sales', does: 'Vende' }],
+  }];
+
+  it('accepts and preserves project, unitObjective, deliveryShape and workBreakdown', () => {
+    const value = mandate();
+    const extended = {
+      ...value,
+      planSection: { ...value.planSection, project, unitObjective, deliveryShape: 'product' as const, workBreakdown },
+    };
+    expect(ReconciledMandateSchema.parse(extended)).toEqual(extended);
+  });
+
+  it('keeps old mandates without the new fields valid in source and CommonJS', () => {
+    const value = mandate();
+    const require = createRequire(import.meta.url);
+    const commonJs: typeof import('../../src/organization/business-unit-mandate.js') =
+      require('../../dist/organization/business-unit-mandate.cjs');
+    expect(ReconciledMandateSchema.parse(value)).toEqual(value);
+    expect(commonJs.ReconciledMandateSchema.parse(value)).toEqual(value);
+  });
+
+  it('rejects the objective of another unit and a breakdown outside a product plan', () => {
+    const value = mandate();
+    const other = ReconciledMandateSchema.safeParse({
+      ...value, planSection: { ...value.planSection, unitObjective: { ...unitObjective, buSlug: 'design' } },
+    });
+    expect(other.error?.issues).toEqual([expect.objectContaining({ path: ['planSection', 'unitObjective', 'buSlug'] })]);
+    const study = ReconciledMandateSchema.safeParse({
+      ...value, planSection: { ...value.planSection, deliveryShape: 'study', workBreakdown },
+    });
+    expect(study.error?.issues).toEqual([expect.objectContaining({ path: ['planSection', 'workBreakdown'] })]);
   });
 });

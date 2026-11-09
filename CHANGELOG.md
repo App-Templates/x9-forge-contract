@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.129.0 — porting del 055 (già 1.92.0, mai pubblicata): alberatura del progetto nel piano d'azione e Mandato che eredita gli obiettivi; additivo per i dati salvati
+
+- `@x9-forge/contracts/organization`: `ACTION_PLAN_DELIVERY_SHAPES` (`product` | `study`) e i campi facoltativi `deliveryShape` e `workBreakdown` (l'alberatura: `ActionPlanWorkItemSchema` con `id`, `parentId`, `title`, `expectedGoal`, `deliveryCriteria`, `milestone`, `owners[{ buSlug, does }]`, max 60 voci) in `ActionPlanSchema` e `ActionPlanDraftSchema`; `ActionPlanObjectiveSchema`, `ActionPlanProjectObjectiveSchema`, `ActionPlanBuObjectiveSchema` estratti ed esportati. Consumer: X9 memory (salva), cap-email (email del piano), cap-paperclip (Mandato), Forge (profilo del Director).
+- `ActionPlanSubmissionSchema` (solo i piani nuovi del Director): `deliveryShape` obbligatorio; `product` vuole l'alberatura (parent esistenti, niente cicli, foglie con owner di BU esistenti, tappe esistenti, ogni BU `now` owner di almeno una voce) e non ammette `sections` per BU; `study` non ammette l'alberatura e vuole le `sections` delle BU `now` come in 1.91.0; ogni BU ha la sua voce in `objectiveTree.businessUnits`. Consumer: X9 cap-email.
+- `ReconciledMandateSchema.planSection`: `project` (`objective` e `objectiveTree.project`), `unitObjective`, `deliveryShape`, `workBreakdown`, tutti facoltativi. Consumer: X9 cap-paperclip.
+
+I piani salvati (v1-v3), le bozze di oggi e i Mandati salvati restano validi; il digest di un piano senza i campi nuovi non cambia. Si stringe solo la sottomissione di un piano nuovo.
+
 ## v1.127.0 — il rifiuto per legame ambiguo ha il suo nome
 
 - `ORGANIZATION_ADMISSION_REFUSAL_CODES` include `organization_binding_ambiguous`: l'agente ha più di un legame attivo di partecipante per la corsa. Prima agent-core lo rifiutava come `organization_binding_missing`. Adozione con 5906 (agent-core); cap-paperclip legge l'elenco dal ponte. Versione da riservare dalla coordinatrice.

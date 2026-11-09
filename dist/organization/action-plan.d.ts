@@ -41,6 +41,47 @@ export declare const ActionPlanBuSectionSchema: z.ZodObject<{
     }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type ActionPlanBuSection = z.infer<typeof ActionPlanBuSectionSchema>;
+/** What the plan delivers: `product` builds something the user uses (app, site, service); `study` delivers documents (analysis, research, financial plan, opinion). */
+export declare const ACTION_PLAN_DELIVERY_SHAPES: readonly ["product", "study"];
+export declare const ActionPlanDeliveryShapeSchema: z.ZodEnum<{
+    product: "product";
+    study: "study";
+}>;
+export type ActionPlanDeliveryShape = z.infer<typeof ActionPlanDeliveryShapeSchema>;
+/** A business unit working on an item of the project breakdown, and what it does there. */
+export declare const ActionPlanWorkItemOwnerSchema: z.ZodObject<{
+    buSlug: z.ZodString;
+    does: z.ZodString;
+}, z.core.$strict>;
+export type ActionPlanWorkItemOwner = z.infer<typeof ActionPlanWorkItemOwnerSchema>;
+/** One item of the project breakdown (alberatura): a section of what the user will use, nested through `parentId`. */
+export declare const ActionPlanWorkItemSchema: z.ZodObject<{
+    id: z.ZodString;
+    parentId: z.ZodOptional<z.ZodString>;
+    title: z.ZodString;
+    expectedGoal: z.ZodString;
+    deliveryCriteria: z.ZodArray<z.ZodString>;
+    milestone: z.ZodNumber;
+    owners: z.ZodArray<z.ZodObject<{
+        buSlug: z.ZodString;
+        does: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type ActionPlanWorkItem = z.infer<typeof ActionPlanWorkItemSchema>;
+export declare const ACTION_PLAN_WORK_BREAKDOWN_MAX_ITEMS = 60;
+export declare const ActionPlanWorkBreakdownSchema: z.ZodArray<z.ZodObject<{
+    id: z.ZodString;
+    parentId: z.ZodOptional<z.ZodString>;
+    title: z.ZodString;
+    expectedGoal: z.ZodString;
+    deliveryCriteria: z.ZodArray<z.ZodString>;
+    milestone: z.ZodNumber;
+    owners: z.ZodArray<z.ZodObject<{
+        buSlug: z.ZodString;
+        does: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>>;
+export type ActionPlanWorkBreakdown = z.infer<typeof ActionPlanWorkBreakdownSchema>;
 /** Part 6 «Organizzazione» of the action plan: one business unit. */
 export declare const ActionPlanBusinessUnitSchema: z.ZodObject<{
     buSlug: z.ZodString;
@@ -118,6 +159,30 @@ export declare const ActionPlanDossierPageSchema: z.ZodObject<{
     version: z.ZodNumber;
 }, z.core.$strict>;
 export type ActionPlanDossierPage = z.infer<typeof ActionPlanDossierPageSchema>;
+/** Part 1 of the plan: the request, the expected result and how it is measured. */
+export declare const ActionPlanObjectiveSchema: z.ZodObject<{
+    request: z.ZodString;
+    expectedResult: z.ZodString;
+    measure: z.ZodString;
+}, z.core.$strict>;
+export type ActionPlanObjective = z.infer<typeof ActionPlanObjectiveSchema>;
+/** Objective tree, project level: result and delivery criteria of the whole project. */
+export declare const ActionPlanProjectObjectiveSchema: z.ZodObject<{
+    expectedResult: z.ZodString;
+    deliveryCriteria: z.ZodArray<z.ZodString>;
+}, z.core.$strict>;
+export type ActionPlanProjectObjective = z.infer<typeof ActionPlanProjectObjectiveSchema>;
+/** Objective tree, business unit level: what this unit must obtain. */
+export declare const ActionPlanBuObjectiveSchema: z.ZodObject<{
+    buSlug: z.ZodString;
+    expectedResult: z.ZodString;
+    deliveryCriteria: z.ZodArray<z.ZodString>;
+    indicators: z.ZodArray<z.ZodObject<{
+        name: z.ZodString;
+        source: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type ActionPlanBuObjective = z.infer<typeof ActionPlanBuObjectiveSchema>;
 /** The eleven required parts of the versioned plan submitted for owner approval. */
 export declare const ActionPlanSchema: z.ZodObject<{
     planId: z.ZodString;
@@ -136,6 +201,10 @@ export declare const ActionPlanSchema: z.ZodObject<{
         expectedResult: z.ZodString;
         measure: z.ZodString;
     }, z.core.$strict>;
+    deliveryShape: z.ZodOptional<z.ZodEnum<{
+        product: "product";
+        study: "study";
+    }>>;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -167,6 +236,18 @@ export declare const ActionPlanSchema: z.ZodObject<{
             }, z.core.$strict>>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
+    workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        parentId: z.ZodOptional<z.ZodString>;
+        title: z.ZodString;
+        expectedGoal: z.ZodString;
+        deliveryCriteria: z.ZodArray<z.ZodString>;
+        milestone: z.ZodNumber;
+        owners: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            does: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>>;
     milestones: z.ZodArray<z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
@@ -332,6 +413,10 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         slug: z.ZodString;
         version: z.ZodNumber;
     }, z.core.$strict>>>;
+    deliveryShape: z.ZodOptional<z.ZodEnum<{
+        product: "product";
+        study: "study";
+    }>>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;
@@ -402,6 +487,18 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
             }, z.core.$strict>;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>>;
+    workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        parentId: z.ZodOptional<z.ZodString>;
+        title: z.ZodString;
+        expectedGoal: z.ZodString;
+        deliveryCriteria: z.ZodArray<z.ZodString>;
+        milestone: z.ZodNumber;
+        owners: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            does: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>>;
     milestones: z.ZodArray<z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
@@ -469,7 +566,14 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
     version: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type ActionPlanDraft = z.infer<typeof ActionPlanDraftSchema>;
-/** A new submission requires dossier pages and sections for units that start now. Saved plans and old drafts remain readable without these fields. */
+/**
+ * The plan as the Director submits a new version. A new version needs the published dossier pages it is written on, and `deliveryShape` is required:
+ * - `product`: the work breakdown (alberatura) is required and is the only source of what to build (no `sections` per unit);
+ *   every parent exists, no cycles, every leaf has an owner, owners and milestones exist, every unit that starts now owns an item.
+ * - `study`: no work breakdown; every unit that starts now carries its `sections` (the deliverables).
+ * Every unit has its entry in `objectiveTree.businessUnits`.
+ * Saved plans and old drafts are read with ActionPlanSchema / ActionPlanDraftSchema, which require none of this.
+ */
 export declare const ActionPlanSubmissionSchema: z.ZodObject<{
     budget: z.ZodObject<{
         currency: z.ZodString;
@@ -506,6 +610,10 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         slug: z.ZodString;
         version: z.ZodNumber;
     }, z.core.$strict>>>;
+    deliveryShape: z.ZodOptional<z.ZodEnum<{
+        product: "product";
+        study: "study";
+    }>>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;
@@ -576,6 +684,18 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
             }, z.core.$strict>;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>>;
+    workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        parentId: z.ZodOptional<z.ZodString>;
+        title: z.ZodString;
+        expectedGoal: z.ZodString;
+        deliveryCriteria: z.ZodArray<z.ZodString>;
+        milestone: z.ZodNumber;
+        owners: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            does: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>>;
     milestones: z.ZodArray<z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;
@@ -661,6 +781,10 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
         expectedResult: z.ZodString;
         measure: z.ZodString;
     }, z.core.$strict>;
+    deliveryShape: z.ZodOptional<z.ZodEnum<{
+        product: "product";
+        study: "study";
+    }>>;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -692,6 +816,18 @@ export declare const CompleteActionPlanSchema: z.ZodObject<{
             }, z.core.$strict>>;
         }, z.core.$strict>>;
     }, z.core.$strict>;
+    workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        parentId: z.ZodOptional<z.ZodString>;
+        title: z.ZodString;
+        expectedGoal: z.ZodString;
+        deliveryCriteria: z.ZodArray<z.ZodString>;
+        milestone: z.ZodNumber;
+        owners: z.ZodArray<z.ZodObject<{
+            buSlug: z.ZodString;
+            does: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>>;
     milestones: z.ZodArray<z.ZodObject<{
         number: z.ZodNumber;
         delivery: z.ZodString;

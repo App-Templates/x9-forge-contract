@@ -89,6 +89,44 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                         }, z.core.$strict>;
                     }, z.core.$strict>], "kind">;
                 }, z.core.$strict>;
+                project: z.ZodOptional<z.ZodObject<{
+                    objective: z.ZodObject<{
+                        request: z.ZodString;
+                        expectedResult: z.ZodString;
+                        measure: z.ZodString;
+                    }, z.core.$strict>;
+                    objectiveTree: z.ZodObject<{
+                        project: z.ZodObject<{
+                            expectedResult: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>>;
+                unitObjective: z.ZodOptional<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    expectedResult: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    indicators: z.ZodArray<z.ZodObject<{
+                        name: z.ZodString;
+                        source: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                deliveryShape: z.ZodOptional<z.ZodEnum<{
+                    product: "product";
+                    study: "study";
+                }>>;
+                workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    parentId: z.ZodOptional<z.ZodString>;
+                    title: z.ZodString;
+                    expectedGoal: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    milestone: z.ZodNumber;
+                    owners: z.ZodArray<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        does: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>>;
             }, z.core.$strict>;
             decision: z.ZodObject<{
                 requestId: z.ZodString;
@@ -253,6 +291,44 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                             }, z.core.$strict>;
                         }, z.core.$strict>], "kind">;
                     }, z.core.$strict>;
+                    project: z.ZodOptional<z.ZodObject<{
+                        objective: z.ZodObject<{
+                            request: z.ZodString;
+                            expectedResult: z.ZodString;
+                            measure: z.ZodString;
+                        }, z.core.$strict>;
+                        objectiveTree: z.ZodObject<{
+                            project: z.ZodObject<{
+                                expectedResult: z.ZodString;
+                                deliveryCriteria: z.ZodArray<z.ZodString>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>>;
+                    unitObjective: z.ZodOptional<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        expectedResult: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        indicators: z.ZodArray<z.ZodObject<{
+                            name: z.ZodString;
+                            source: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
+                    deliveryShape: z.ZodOptional<z.ZodEnum<{
+                        product: "product";
+                        study: "study";
+                    }>>;
+                    workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        parentId: z.ZodOptional<z.ZodString>;
+                        title: z.ZodString;
+                        expectedGoal: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        milestone: z.ZodNumber;
+                        owners: z.ZodArray<z.ZodObject<{
+                            buSlug: z.ZodString;
+                            does: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 decision: z.ZodObject<{
                     requestId: z.ZodString;
@@ -418,6 +494,44 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                             }, z.core.$strict>;
                         }, z.core.$strict>], "kind">;
                     }, z.core.$strict>;
+                    project: z.ZodOptional<z.ZodObject<{
+                        objective: z.ZodObject<{
+                            request: z.ZodString;
+                            expectedResult: z.ZodString;
+                            measure: z.ZodString;
+                        }, z.core.$strict>;
+                        objectiveTree: z.ZodObject<{
+                            project: z.ZodObject<{
+                                expectedResult: z.ZodString;
+                                deliveryCriteria: z.ZodArray<z.ZodString>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>>;
+                    unitObjective: z.ZodOptional<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        expectedResult: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        indicators: z.ZodArray<z.ZodObject<{
+                            name: z.ZodString;
+                            source: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
+                    deliveryShape: z.ZodOptional<z.ZodEnum<{
+                        product: "product";
+                        study: "study";
+                    }>>;
+                    workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        parentId: z.ZodOptional<z.ZodString>;
+                        title: z.ZodString;
+                        expectedGoal: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        milestone: z.ZodNumber;
+                        owners: z.ZodArray<z.ZodObject<{
+                            buSlug: z.ZodString;
+                            does: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 decision: z.ZodObject<{
                     requestId: z.ZodString;
@@ -616,6 +730,44 @@ export declare const internalMemoryMandateObservationReadContract: {
                                 }, z.core.$strict>;
                             }, z.core.$strict>], "kind">;
                         }, z.core.$strict>;
+                        project: z.ZodOptional<z.ZodObject<{
+                            objective: z.ZodObject<{
+                                request: z.ZodString;
+                                expectedResult: z.ZodString;
+                                measure: z.ZodString;
+                            }, z.core.$strict>;
+                            objectiveTree: z.ZodObject<{
+                                project: z.ZodObject<{
+                                    expectedResult: z.ZodString;
+                                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>>;
+                        unitObjective: z.ZodOptional<z.ZodObject<{
+                            buSlug: z.ZodString;
+                            expectedResult: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                            indicators: z.ZodArray<z.ZodObject<{
+                                name: z.ZodString;
+                                source: z.ZodString;
+                            }, z.core.$strict>>;
+                        }, z.core.$strict>>;
+                        deliveryShape: z.ZodOptional<z.ZodEnum<{
+                            product: "product";
+                            study: "study";
+                        }>>;
+                        workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            parentId: z.ZodOptional<z.ZodString>;
+                            title: z.ZodString;
+                            expectedGoal: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                            milestone: z.ZodNumber;
+                            owners: z.ZodArray<z.ZodObject<{
+                                buSlug: z.ZodString;
+                                does: z.ZodString;
+                            }, z.core.$strict>>;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>;
                     decision: z.ZodObject<{
                         requestId: z.ZodString;
@@ -793,6 +945,44 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                             }, z.core.$strict>;
                         }, z.core.$strict>], "kind">;
                     }, z.core.$strict>;
+                    project: z.ZodOptional<z.ZodObject<{
+                        objective: z.ZodObject<{
+                            request: z.ZodString;
+                            expectedResult: z.ZodString;
+                            measure: z.ZodString;
+                        }, z.core.$strict>;
+                        objectiveTree: z.ZodObject<{
+                            project: z.ZodObject<{
+                                expectedResult: z.ZodString;
+                                deliveryCriteria: z.ZodArray<z.ZodString>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>>;
+                    unitObjective: z.ZodOptional<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        expectedResult: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        indicators: z.ZodArray<z.ZodObject<{
+                            name: z.ZodString;
+                            source: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
+                    deliveryShape: z.ZodOptional<z.ZodEnum<{
+                        product: "product";
+                        study: "study";
+                    }>>;
+                    workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                        id: z.ZodString;
+                        parentId: z.ZodOptional<z.ZodString>;
+                        title: z.ZodString;
+                        expectedGoal: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                        milestone: z.ZodNumber;
+                        owners: z.ZodArray<z.ZodObject<{
+                            buSlug: z.ZodString;
+                            does: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>;
                 decision: z.ZodObject<{
                     requestId: z.ZodString;
@@ -956,6 +1146,44 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                                 }, z.core.$strict>;
                             }, z.core.$strict>], "kind">;
                         }, z.core.$strict>;
+                        project: z.ZodOptional<z.ZodObject<{
+                            objective: z.ZodObject<{
+                                request: z.ZodString;
+                                expectedResult: z.ZodString;
+                                measure: z.ZodString;
+                            }, z.core.$strict>;
+                            objectiveTree: z.ZodObject<{
+                                project: z.ZodObject<{
+                                    expectedResult: z.ZodString;
+                                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                                }, z.core.$strict>;
+                            }, z.core.$strict>;
+                        }, z.core.$strict>>;
+                        unitObjective: z.ZodOptional<z.ZodObject<{
+                            buSlug: z.ZodString;
+                            expectedResult: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                            indicators: z.ZodArray<z.ZodObject<{
+                                name: z.ZodString;
+                                source: z.ZodString;
+                            }, z.core.$strict>>;
+                        }, z.core.$strict>>;
+                        deliveryShape: z.ZodOptional<z.ZodEnum<{
+                            product: "product";
+                            study: "study";
+                        }>>;
+                        workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                            id: z.ZodString;
+                            parentId: z.ZodOptional<z.ZodString>;
+                            title: z.ZodString;
+                            expectedGoal: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                            milestone: z.ZodNumber;
+                            owners: z.ZodArray<z.ZodObject<{
+                                buSlug: z.ZodString;
+                                does: z.ZodString;
+                            }, z.core.$strict>>;
+                        }, z.core.$strict>>>;
                     }, z.core.$strict>;
                     decision: z.ZodObject<{
                         requestId: z.ZodString;
