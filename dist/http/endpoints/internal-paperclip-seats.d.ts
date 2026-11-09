@@ -336,6 +336,16 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         waiting_too_long: "waiting_too_long";
         queue_not_continued: "queue_not_continued";
     }>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"approved_units_failed">;
+    requestId: z.ZodString;
+    directorIssueId: z.ZodUUID;
+    units: z.ZodArray<z.ZodObject<{
+        unitId: z.ZodString;
+        reason: z.ZodString;
+    }, z.core.$strict>>;
+    attempt: z.ZodInt;
+    maxAttempts: z.ZodInt;
 }, z.core.$strict>], "kind">;
 export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{
@@ -409,6 +419,16 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             waiting_too_long: "waiting_too_long";
             queue_not_continued: "queue_not_continued";
         }>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"approved_units_failed">;
+        requestId: z.ZodString;
+        directorIssueId: z.ZodUUID;
+        units: z.ZodArray<z.ZodObject<{
+            unitId: z.ZodString;
+            reason: z.ZodString;
+        }, z.core.$strict>>;
+        attempt: z.ZodInt;
+        maxAttempts: z.ZodInt;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
 export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited"];
@@ -517,6 +537,16 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 waiting_too_long: "waiting_too_long";
                 queue_not_continued: "queue_not_continued";
             }>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"approved_units_failed">;
+            requestId: z.ZodString;
+            directorIssueId: z.ZodUUID;
+            units: z.ZodArray<z.ZodObject<{
+                unitId: z.ZodString;
+                reason: z.ZodString;
+            }, z.core.$strict>>;
+            attempt: z.ZodInt;
+            maxAttempts: z.ZodInt;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{

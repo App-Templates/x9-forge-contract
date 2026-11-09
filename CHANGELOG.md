@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.121.0 — la sveglia dei posti conosce le aree approvate non nate
+
+- Nuova voce `approved_units_failed` di `PaperclipSeatNativeWakeEventSchema`: richiesta, incarico del Director, da 1 a 20 aree con motivo, `attempt` non oltre `maxAttempts` (l'ultima sveglia è l'avviso). Richiede `organizationId` e `identity` come le altre voci diverse da `research_done`.
+- Le quattro voci esistenti non cambiano. Adozione X9 nelle schede 5885–5887.
+
 ## v1.120.0 — conferme dei referenti in un'unica richiesta
 
 - Nuovo soggetto `confirmation_set`: da 1 a 50 voci della stessa azienda, senza doppioni, con digest SHA-256 indipendente dall'ordine e identificativo `mapset-…` verificati.

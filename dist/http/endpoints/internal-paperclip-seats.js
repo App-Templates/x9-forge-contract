@@ -174,6 +174,17 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
         stalledSince: z.iso.datetime({ offset: true }),
         reason: z.enum(['no_activity', 'waiting_too_long', 'queue_not_continued']),
     }),
+    z.strictObject({
+        kind: z.literal('approved_units_failed'),
+        requestId: DecisionRequestIdSchema,
+        directorIssueId: z.uuid(),
+        units: z.array(z.strictObject({
+            unitId: z.string().min(1).max(200),
+            reason: z.string().min(1).max(200),
+        })).min(1).max(20),
+        attempt: z.int().min(1).max(10),
+        maxAttempts: z.int().min(1).max(10),
+    }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
 ]);
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
 // dell'agente, come il canale email di Paperclip: incarico assegnato a sé (sveglia d'assegnazione) oppure commento
