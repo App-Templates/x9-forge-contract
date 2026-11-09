@@ -123,6 +123,12 @@ exports.InternalPaperclipCompanyBoardResponseSchema = zod_1.z.strictObject({
             excerpt: zod_1.z.string().max(500),
             byAgent: zod_1.z.boolean(),
         }).nullable(),
+        /** Only with `detail=true`: the last comments of the issue, newest first, the person's and the agents' (`lastComment` is the first of them). */
+        recentComments: zod_1.z.array(zod_1.z.strictObject({
+            at: IsoSchema,
+            excerpt: zod_1.z.string().max(500),
+            byAgent: zod_1.z.boolean(),
+        })).max(5).optional(),
     })).max(1000),
     /** X9 projects that have a project in Paperclip (for projects without a plan). */
     projects: zod_1.z.array(zod_1.z.strictObject({ projectId: ProjectIdSchema })).max(100),

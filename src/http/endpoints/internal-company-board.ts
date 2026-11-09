@@ -138,6 +138,12 @@ export const InternalPaperclipCompanyBoardResponseSchema = z.strictObject({
       excerpt: z.string().max(500),
       byAgent: z.boolean(),
     }).nullable(),
+    /** Only with `detail=true`: the last comments of the issue, newest first, the person's and the agents' (`lastComment` is the first of them). */
+    recentComments: z.array(z.strictObject({
+      at: IsoSchema,
+      excerpt: z.string().max(500),
+      byAgent: z.boolean(),
+    })).max(5).optional(),
   })).max(1000),
   /** X9 projects that have a project in Paperclip (for projects without a plan). */
   projects: z.array(z.strictObject({ projectId: ProjectIdSchema })).max(100),

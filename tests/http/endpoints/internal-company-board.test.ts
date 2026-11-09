@@ -95,6 +95,26 @@ describe('company board read contracts', () => {
     expect(paperclip.responseSchema.safeParse({ ...paperclipResponse(), issues: [{ ...issue, projectId: 'a'.repeat(100) }] }).success).toBe(true);
   });
 
+  it('(j) an issue may carry up to 5 recent comments, none, or nothing', () => {
+    const issue = { issueId: 'i1', identifier: 'X-1', title: 't', status: 'todo', parentId: null, assigneeAgentId: null, blockedBy: [], approvalMark: null, updatedAt: at, startedAt: null, completedAt: null, lastComment: null };
+    const comment = { at, excerpt: 'ciao', byAgent: false };
+    for (const extra of [{ recentComments: Array.from({ length: 5 }, () => comment) }, { recentComments: [] }, {}]) {
+      expect(paperclip.responseSchema.safeParse({ ...paperclipResponse(), issues: [{ ...issue, ...extra }] }).success, JSON.stringify(extra).slice(0, 40)).toBe(true);
+    }
+  });
+
+  it('(k) rejects 6 recent comments, an extra field, or a 501-character excerpt', () => {
+    const issue = { issueId: 'i1', identifier: 'X-1', title: 't', status: 'todo', parentId: null, assigneeAgentId: null, blockedBy: [], approvalMark: null, updatedAt: at, startedAt: null, completedAt: null, lastComment: null };
+    const comment = { at, excerpt: 'ciao', byAgent: true };
+    for (const recentComments of [
+      Array.from({ length: 6 }, () => comment),
+      [{ ...comment, extra: 'x' }],
+      [{ ...comment, excerpt: 'a'.repeat(501) }],
+    ]) {
+      expect(paperclip.responseSchema.safeParse({ ...paperclipResponse(), issues: [{ ...issue, recentComments }] }).success).toBe(false);
+    }
+  });
+
   it('(e) sessions response is strict: an assignment field is rejected', () => {
     expect(sessions.responseSchema.safeParse(sessionResponse()).success).toBe(true);
     expect(sessions.responseSchema.safeParse(sessionResponse({ incarico: 'testo' })).success).toBe(false);

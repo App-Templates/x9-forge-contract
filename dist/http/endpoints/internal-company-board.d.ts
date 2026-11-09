@@ -775,6 +775,12 @@ export declare const InternalPaperclipCompanyBoardResponseSchema: z.ZodObject<{
             excerpt: z.ZodString;
             byAgent: z.ZodBoolean;
         }, z.core.$strict>>;
+        /** Only with `detail=true`: the last comments of the issue, newest first, the person's and the agents' (`lastComment` is the first of them). */
+        recentComments: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            at: z.ZodISODateTime;
+            excerpt: z.ZodString;
+            byAgent: z.ZodBoolean;
+        }, z.core.$strict>>>;
     }, z.core.$strict>>;
     /** X9 projects that have a project in Paperclip (for projects without a plan). */
     projects: z.ZodArray<z.ZodObject<{
@@ -872,6 +878,12 @@ export declare const internalPaperclipCompanyBoardContract: {
                 excerpt: z.ZodString;
                 byAgent: z.ZodBoolean;
             }, z.core.$strict>>;
+            /** Only with `detail=true`: the last comments of the issue, newest first, the person's and the agents' (`lastComment` is the first of them). */
+            recentComments: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                at: z.ZodISODateTime;
+                excerpt: z.ZodString;
+                byAgent: z.ZodBoolean;
+            }, z.core.$strict>>>;
         }, z.core.$strict>>;
         /** X9 projects that have a project in Paperclip (for projects without a plan). */
         projects: z.ZodArray<z.ZodObject<{
