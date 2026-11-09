@@ -301,12 +301,12 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         measure: z.ZodString;
     }, z.core.$strict>;
     projectId: z.ZodString;
+    clientId: z.ZodString;
     strategy: z.ZodObject<{
         approach: z.ZodString;
         choices: z.ZodArray<z.ZodString>;
         discardedAlternatives: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
-    clientId: z.ZodString;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -471,12 +471,12 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         measure: z.ZodString;
     }, z.core.$strict>;
     projectId: z.ZodString;
+    clientId: z.ZodString;
     strategy: z.ZodObject<{
         approach: z.ZodString;
         choices: z.ZodArray<z.ZodString>;
         discardedAlternatives: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
-    clientId: z.ZodString;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{

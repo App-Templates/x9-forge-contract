@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.120.0 — conferme dei referenti in un'unica richiesta
+
+- Nuovo soggetto `confirmation_set`: da 1 a 50 voci della stessa azienda, senza doppioni, con digest SHA-256 indipendente dall'ordine e identificativo `mapset-…` verificati.
+- `companyMapConfirmationSetSubject` costruisce l'insieme dalle versioni correnti della mappa; `confirmationSetDigest` ne calcola l'impronta canonica.
+- Risposte email e approvazioni possono includere fino a 20 `referentChanges`, con `replaces` facoltativo, solo per un insieme confermato con `confermo`. Le altre opzioni dell'insieme registrano un rifiuto con l'etichetta scelta e il soggetto completo.
+- Le richieste senza soggetto, le conferme singole, i piani e le consegne conservano le forme esistenti. Adozione X9 nelle schede 5865–5869; nessun cambiamento a Forge.
+
 ## v1.112.0 — una sola via del ritiro e stima del costo della ricostruzione
 
 - Tolti (mai rilasciati): `internalModelsRetiredObservedContract`, `retiredProviderErrorFits`, `RETIRED_PROVIDER_ERROR_CODES`, `RetiredProviderErrorSchema`, `RetirementSourceSchema`.

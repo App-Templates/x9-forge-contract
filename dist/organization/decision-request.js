@@ -1,7 +1,9 @@
+import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { OwnerIdSchema } from "../agent/agent-identity.js";
 import { AssetRefSchema, AssetSha256Schema } from "./asset.js";
 import { ParticipantAgentIdentitySchema } from "./participant-binding.js";
+import { CompanyMapConfirmTargetSchema, CompanyMapLevelSchema, CompanyMapReferentFieldsSchema, CompanyMapScopeFieldsSchema, } from "./company-map.js";
 /** Channels through which an agent asks the owner for a decision. */
 export const DECISION_REQUEST_CHANNELS = ['email', 'x9_conversation', 'forge_panel'];
 export const DecisionRequestChannelSchema = z.enum(DECISION_REQUEST_CHANNELS);
@@ -15,15 +17,61 @@ export const DecisionRequestOptionSchema = z.strictObject({
     label: z.string().min(1).max(200),
     detail: z.string().min(1).max(2000).optional(),
 });
-/** What a decision is about: an exact plan version or an immutable delivery. */
-export const DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation', 'delivery'];
+/** What a decision is about: an exact plan version, confirmation set or immutable delivery. */
+export const DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation', 'delivery', 'confirmation_set'];
 export const DecisionSubjectKindSchema = z.enum(DECISION_SUBJECT_KINDS);
 const PlanDecisionSubjectSchema = z.strictObject({
-    kind: DecisionSubjectKindSchema.exclude(['delivery']),
+    kind: DecisionSubjectKindSchema.exclude(['delivery', 'confirmation_set']),
     planId: DecisionRequestIdSchema,
     planVersion: z.number().int().min(1),
     digest: AssetSha256Schema,
 });
+// Defer map schemas because the map also uses decision request identifiers.
+const ConfirmationSetEntrySchema = z.lazy(() => CompanyMapConfirmTargetSchema.safeExtend({
+    entryVersion: z.number().int().min(1),
+    entryDigest: AssetSha256Schema,
+}));
+function confirmationSetEntryKey(entry) {
+    return JSON.stringify([entry.level, entry.projectId ?? null, entry.buSlug ?? null, entry.kind, entry.entryRef]);
+}
+/** Hash fixed-order entry tuples sorted by their complete scope and identity key. */
+export function confirmationSetDigest(entries) {
+    const ordered = entries.map((entry) => ({ key: confirmationSetEntryKey(entry), entry }))
+        .sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0)
+        .map(({ entry }) => [
+        entry.level, entry.projectId ?? null, entry.buSlug ?? null, entry.kind, entry.entryRef,
+        entry.entryVersion, entry.entryDigest,
+    ]);
+    return createHash('sha256').update(JSON.stringify(ordered)).digest('hex');
+}
+/** An immutable set keeps the plan columns used by existing decision stores. */
+export const ConfirmationSetDecisionSubjectSchema = z.strictObject({
+    kind: z.literal('confirmation_set'),
+    planId: DecisionRequestIdSchema,
+    planVersion: z.literal(1),
+    digest: AssetSha256Schema,
+    clientId: AssetRefSchema.shape.companyId,
+    entries: z.array(ConfirmationSetEntrySchema).min(1).max(50),
+}).superRefine((subject, ctx) => {
+    if (new Set(subject.entries.map(confirmationSetEntryKey)).size !== subject.entries.length) {
+        ctx.addIssue({ code: 'custom', path: ['entries'], message: 'Confirmation set entries must be unique' });
+    }
+    if (subject.digest !== confirmationSetDigest(subject.entries)) {
+        ctx.addIssue({ code: 'custom', path: ['digest'], message: 'Confirmation set digest must match its entries' });
+    }
+    if (subject.planId !== 'mapset-' + subject.digest.slice(0, 40)) {
+        ctx.addIssue({ code: 'custom', path: ['planId'], message: 'Confirmation set planId must match its digest' });
+    }
+});
+/** A replacement proposed in the owner's confirmation reply, with the plan proposal fields. */
+export const CompanyMapReferentChangeSchema = z.lazy(() => z.strictObject({
+    ...CompanyMapReferentFieldsSchema.omit({ kind: true }).shape,
+    level: CompanyMapLevelSchema,
+    buSlug: CompanyMapScopeFieldsSchema.shape.buSlug,
+    replaces: CompanyMapReferentFieldsSchema.shape.personRef.optional(),
+}).refine((change) => (change.level === 'business_unit') === (change.buSlug !== undefined), {
+    message: 'buSlug is required at business_unit level and only allowed there', path: ['buSlug'],
+}));
 /** The consumer must resolve this saved asset to immutable content, never a moving branch or generic URL. */
 export const DeliveryDecisionSubjectSchema = z.strictObject({
     kind: z.literal('delivery'),
@@ -38,6 +86,7 @@ export const DeliveryDecisionSubjectSchema = z.strictObject({
 export const DecisionSubjectSchema = z.discriminatedUnion('kind', [
     PlanDecisionSubjectSchema,
     DeliveryDecisionSubjectSchema,
+    ConfirmationSetDecisionSubjectSchema,
 ]);
 const ReferentSchema = z.strictObject({ kind: z.literal('referent'), email: z.email() });
 /** Open question an agent puts to the owner or delivery referent, with the options to choose from. */
@@ -88,9 +137,21 @@ const outcomeBase = {
 };
 /** Recorded human answer to a decision request. */
 export const DecisionOutcomeSchema = z.discriminatedUnion('outcome', [
-    z.strictObject({ ...outcomeBase, outcome: z.literal('approved'), optionId: OptionIdSchema }),
+    z.strictObject({
+        ...outcomeBase, outcome: z.literal('approved'), optionId: OptionIdSchema,
+        referentChanges: z.array(CompanyMapReferentChangeSchema).max(20).optional(),
+    }),
     z.strictObject({ ...outcomeBase, outcome: z.literal('rejected'), reason: z.string().min(3).max(2000) }),
 ]).superRefine((outcome, ctx) => {
+    if (outcome.outcome === 'approved') {
+        if (outcome.subject?.kind === 'confirmation_set' && outcome.optionId !== 'confermo') {
+            ctx.addIssue({ code: 'custom', path: ['optionId'], message: 'A confirmation set can only be approved with confermo' });
+        }
+        if (outcome.referentChanges !== undefined
+            && (outcome.subject?.kind !== 'confirmation_set' || outcome.optionId !== 'confermo')) {
+            ctx.addIssue({ code: 'custom', path: ['referentChanges'], message: 'Referent changes require a confirmed confirmation set' });
+        }
+    }
     if (outcome.subject?.kind === 'delivery') {
         if (outcome.decidedBy.kind !== 'referent') {
             ctx.addIssue({ code: 'custom', path: ['decidedBy'], message: 'Delivery requires a referent decision' });
@@ -141,7 +202,10 @@ export function decisionRequestHeaderMatches(headers, requestId) {
 }
 /** Human email reply already interpreted by the lead (approve / refuse with reason / unclear). */
 export const DecisionEmailReplySchema = z.discriminatedUnion('kind', [
-    z.strictObject({ kind: z.literal('approve'), requestId: DecisionRequestIdSchema, optionId: OptionIdSchema.optional() }),
+    z.strictObject({
+        kind: z.literal('approve'), requestId: DecisionRequestIdSchema, optionId: OptionIdSchema.optional(),
+        referentChanges: z.array(CompanyMapReferentChangeSchema).max(20).optional(),
+    }),
     z.strictObject({ kind: z.literal('refuse'), requestId: DecisionRequestIdSchema, reason: z.string().min(3).max(2000) }),
     z.strictObject({
         kind: z.literal('unclear'),
@@ -155,6 +219,10 @@ export function decisionOutcomeFromEmailReply(input) {
     if (reply.requestId !== request.requestId)
         return { ok: false, code: 'mismatch' };
     const delivery = request.subject?.kind === 'delivery';
+    const confirmationSet = request.subject?.kind === 'confirmation_set';
+    if (reply.kind === 'approve' && reply.referentChanges !== undefined && !confirmationSet) {
+        return { ok: false, code: 'mismatch' };
+    }
     if (delivery) {
         if (!('email' in from) || !('email' in request.addressedTo)
             || from.email.trim().toLowerCase() !== request.addressedTo.email.trim().toLowerCase()) {
@@ -177,7 +245,7 @@ export function decisionOutcomeFromEmailReply(input) {
         decidedAt: receivedAt,
         channel: 'email',
         sourceRef: messageId,
-        ...(delivery ? { subject: request.subject } : {}),
+        ...(delivery || confirmationSet ? { subject: request.subject } : {}),
     };
     if (reply.kind === 'refuse') {
         return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: reply.reason }) };
@@ -188,8 +256,15 @@ export function decisionOutcomeFromEmailReply(input) {
             return { ok: false, code: 'option_required' };
         optionId = request.options[0].optionId;
     }
-    if (!request.options.some((o) => o.optionId === optionId))
+    const option = request.options.find((o) => o.optionId === optionId);
+    if (option === undefined)
         return { ok: false, code: 'unknown_option' };
-    return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'approved', optionId }) };
+    if (confirmationSet && optionId !== 'confermo') {
+        return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
+    }
+    return { ok: true, outcome: DecisionOutcomeSchema.parse({
+            ...base, outcome: 'approved', optionId,
+            ...(reply.referentChanges !== undefined ? { referentChanges: reply.referentChanges } : {}),
+        }) };
 }
 //# sourceMappingURL=decision-request.js.map

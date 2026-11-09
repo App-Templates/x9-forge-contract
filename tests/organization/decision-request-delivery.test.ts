@@ -64,7 +64,7 @@ const planSubject = { kind: 'vertical_plan' as const, planId: 'plan-0001', planV
 
 describe('delivery decision exports and inherited HTTP contracts', () => {
   it('exports the strict delivery branch through organization and reuses create/read/outcome schemas', () => {
-    expect(DECISION_SUBJECT_KINDS).toEqual(['action_plan', 'vertical_plan', 'confirmation', 'delivery']);
+    expect(DECISION_SUBJECT_KINDS).toEqual(['action_plan', 'vertical_plan', 'confirmation', 'delivery', 'confirmation_set']);
     expect(DecisionSubjectKindSchema.parse('delivery')).toBe('delivery');
     expect(DeliveryDecisionSubjectSchema.parse(subject)).toEqual(subject);
     expect(DecisionSubjectSchema.parse(subject)).toEqual(subject);

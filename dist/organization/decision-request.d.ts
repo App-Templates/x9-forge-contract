@@ -15,15 +15,81 @@ export declare const DecisionRequestOptionSchema: z.ZodObject<{
     detail: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export type DecisionRequestOption = z.infer<typeof DecisionRequestOptionSchema>;
-/** What a decision is about: an exact plan version or an immutable delivery. */
-export declare const DECISION_SUBJECT_KINDS: readonly ["action_plan", "vertical_plan", "confirmation", "delivery"];
+/** What a decision is about: an exact plan version, confirmation set or immutable delivery. */
+export declare const DECISION_SUBJECT_KINDS: readonly ["action_plan", "vertical_plan", "confirmation", "delivery", "confirmation_set"];
 export declare const DecisionSubjectKindSchema: z.ZodEnum<{
     delivery: "delivery";
     action_plan: "action_plan";
     vertical_plan: "vertical_plan";
     confirmation: "confirmation";
+    confirmation_set: "confirmation_set";
 }>;
 export type DecisionSubjectKind = z.infer<typeof DecisionSubjectKindSchema>;
+declare const ConfirmationSetEntrySchema: z.ZodLazy<z.ZodObject<{
+    level: z.ZodEnum<{
+        client: "client";
+        project: "project";
+        business_unit: "business_unit";
+    }>;
+    projectId: z.ZodOptional<z.ZodString>;
+    buSlug: z.ZodOptional<z.ZodString>;
+    kind: z.ZodEnum<{
+        access: "access";
+        referent: "referent";
+        person: "person";
+        responsibility: "responsibility";
+        asset: "asset";
+    }>;
+    entryRef: z.ZodString;
+    entryVersion: z.ZodNumber;
+    entryDigest: z.ZodString;
+}, z.core.$strict>>;
+type ConfirmationSetEntry = z.infer<typeof ConfirmationSetEntrySchema>;
+/** Hash fixed-order entry tuples sorted by their complete scope and identity key. */
+export declare function confirmationSetDigest(entries: readonly ConfirmationSetEntry[]): string;
+/** An immutable set keeps the plan columns used by existing decision stores. */
+export declare const ConfirmationSetDecisionSubjectSchema: z.ZodObject<{
+    kind: z.ZodLiteral<"confirmation_set">;
+    planId: z.ZodString;
+    planVersion: z.ZodLiteral<1>;
+    digest: z.ZodString;
+    clientId: z.ZodString;
+    entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
+        projectId: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        kind: z.ZodEnum<{
+            access: "access";
+            referent: "referent";
+            person: "person";
+            responsibility: "responsibility";
+            asset: "asset";
+        }>;
+        entryRef: z.ZodString;
+        entryVersion: z.ZodNumber;
+        entryDigest: z.ZodString;
+    }, z.core.$strict>>>;
+}, z.core.$strict>;
+export type ConfirmationSetDecisionSubject = z.infer<typeof ConfirmationSetDecisionSubjectSchema>;
+/** A replacement proposed in the owner's confirmation reply, with the plan proposal fields. */
+export declare const CompanyMapReferentChangeSchema: z.ZodLazy<z.ZodObject<{
+    level: z.ZodEnum<{
+        client: "client";
+        project: "project";
+        business_unit: "business_unit";
+    }>;
+    buSlug: z.ZodOptional<z.ZodString>;
+    replaces: z.ZodOptional<z.ZodString>;
+    email: z.ZodEmail;
+    personRef: z.ZodString;
+    role: z.ZodString;
+    name: z.ZodString;
+}, z.core.$strict>>;
+export type CompanyMapReferentChange = z.infer<typeof CompanyMapReferentChangeSchema>;
 /** The consumer must resolve this saved asset to immutable content, never a moving branch or generic URL. */
 export declare const DeliveryDecisionSubjectSchema: z.ZodObject<{
     kind: z.ZodLiteral<"delivery">;
@@ -54,6 +120,31 @@ export declare const DecisionSubjectSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         assetId: z.ZodString;
         sha256: z.ZodString;
     }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"confirmation_set">;
+    planId: z.ZodString;
+    planVersion: z.ZodLiteral<1>;
+    digest: z.ZodString;
+    clientId: z.ZodString;
+    entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
+        projectId: z.ZodOptional<z.ZodString>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        kind: z.ZodEnum<{
+            access: "access";
+            referent: "referent";
+            person: "person";
+            responsibility: "responsibility";
+            asset: "asset";
+        }>;
+        entryRef: z.ZodString;
+        entryVersion: z.ZodNumber;
+        entryDigest: z.ZodString;
+    }, z.core.$strict>>>;
 }, z.core.$strict>], "kind">;
 export type DecisionSubject = z.infer<typeof DecisionSubjectSchema>;
 /** Open question an agent puts to the owner or delivery referent, with the options to choose from. */
@@ -80,6 +171,31 @@ export declare const DecisionRequestSchema: z.ZodObject<{
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"confirmation_set">;
+        planId: z.ZodString;
+        planVersion: z.ZodLiteral<1>;
+        digest: z.ZodString;
+        clientId: z.ZodString;
+        entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
+            projectId: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            kind: z.ZodEnum<{
+                access: "access";
+                referent: "referent";
+                person: "person";
+                responsibility: "responsibility";
+                asset: "asset";
+            }>;
+            entryRef: z.ZodString;
+            entryVersion: z.ZodNumber;
+            entryDigest: z.ZodString;
+        }, z.core.$strict>>>;
     }, z.core.$strict>], "kind">>;
     question: z.ZodString;
     options: z.ZodArray<z.ZodObject<{
@@ -110,6 +226,19 @@ export type DecisionRequest = z.infer<typeof DecisionRequestSchema>;
 export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     outcome: z.ZodLiteral<"approved">;
     optionId: z.ZodString;
+    referentChanges: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodObject<{
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        replaces: z.ZodOptional<z.ZodString>;
+        email: z.ZodEmail;
+        personRef: z.ZodString;
+        role: z.ZodString;
+        name: z.ZodString;
+    }, z.core.$strict>>>>;
     requestId: z.ZodString;
     decidedBy: z.ZodUnion<readonly [z.ZodObject<{
         kind: z.ZodLiteral<"owner">;
@@ -143,6 +272,31 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"confirmation_set">;
+        planId: z.ZodString;
+        planVersion: z.ZodLiteral<1>;
+        digest: z.ZodString;
+        clientId: z.ZodString;
+        entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
+            projectId: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            kind: z.ZodEnum<{
+                access: "access";
+                referent: "referent";
+                person: "person";
+                responsibility: "responsibility";
+                asset: "asset";
+            }>;
+            entryRef: z.ZodString;
+            entryVersion: z.ZodNumber;
+            entryDigest: z.ZodString;
+        }, z.core.$strict>>>;
     }, z.core.$strict>], "kind">>;
 }, z.core.$strict>, z.ZodObject<{
     outcome: z.ZodLiteral<"rejected">;
@@ -180,6 +334,31 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"confirmation_set">;
+        planId: z.ZodString;
+        planVersion: z.ZodLiteral<1>;
+        digest: z.ZodString;
+        clientId: z.ZodString;
+        entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
+            projectId: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            kind: z.ZodEnum<{
+                access: "access";
+                referent: "referent";
+                person: "person";
+                responsibility: "responsibility";
+                asset: "asset";
+            }>;
+            entryRef: z.ZodString;
+            entryVersion: z.ZodNumber;
+            entryDigest: z.ZodString;
+        }, z.core.$strict>>>;
     }, z.core.$strict>], "kind">>;
 }, z.core.$strict>], "outcome">;
 export type DecisionOutcome = z.infer<typeof DecisionOutcomeSchema>;
@@ -197,6 +376,19 @@ export declare const DecisionEmailReplySchema: z.ZodDiscriminatedUnion<[z.ZodObj
     kind: z.ZodLiteral<"approve">;
     requestId: z.ZodString;
     optionId: z.ZodOptional<z.ZodString>;
+    referentChanges: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodObject<{
+        level: z.ZodEnum<{
+            client: "client";
+            project: "project";
+            business_unit: "business_unit";
+        }>;
+        buSlug: z.ZodOptional<z.ZodString>;
+        replaces: z.ZodOptional<z.ZodString>;
+        email: z.ZodEmail;
+        personRef: z.ZodString;
+        role: z.ZodString;
+        name: z.ZodString;
+    }, z.core.$strict>>>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"refuse">;
     requestId: z.ZodString;
@@ -231,4 +423,5 @@ export declare function decisionOutcomeFromEmailReply(input: {
     receivedAt: string;
     messageId: string;
 }): DecisionOutcomeFromEmailReply;
+export {};
 //# sourceMappingURL=decision-request.d.ts.map

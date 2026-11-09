@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.COMPANY_MAP_CONFIRM_OPTIONS = exports.CompanyMapAnyEntrySchema = exports.CompanyMapAccessEntrySchema = exports.CompanyMapAssetEntrySchema = exports.CompanyMapResponsibilityEntrySchema = exports.CompanyMapPersonEntrySchema = exports.CompanyMapEntrySchema = exports.CompanyMapAccessFieldsSchema = exports.CompanyMapAssetFieldsSchema = exports.CompanyMapResponsibilityFieldsSchema = exports.CompanyMapPersonFieldsSchema = exports.CompanyMapReferentFieldsSchema = exports.CompanyMapConfirmTargetSchema = exports.CompanyMapVersionFieldsSchema = exports.CompanyMapScopeFieldsSchema = exports.CompanyMapSourceSchema = exports.CompanyMapEntryKindSchema = exports.COMPANY_MAP_ENTRY_KINDS = exports.CompanyMapLevelSchema = exports.COMPANY_MAP_LEVELS = void 0;
 exports.checkCompanyMapLevelScope = checkCompanyMapLevelScope;
 exports.companyMapConfirmationSubject = companyMapConfirmationSubject;
+exports.companyMapConfirmationSetSubject = companyMapConfirmationSetSubject;
 exports.companyMapEntryKey = companyMapEntryKey;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
@@ -20,7 +21,8 @@ exports.CompanyMapSourceSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({ kind: zod_1.z.literal('seed') }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal('decision'),
-        requestId: decision_request_js_1.DecisionRequestIdSchema,
+        // Decision subjects reuse map schemas; resolve the identifier after both modules initialize.
+        requestId: zod_1.z.lazy(() => decision_request_js_1.DecisionRequestIdSchema),
         planVersion: zod_1.z.number().int().min(1),
     }),
 ]);
@@ -170,6 +172,27 @@ function companyMapConfirmationSubject(entry) {
         planId: 'map-' + entry.digest.slice(0, 40),
         planVersion: entry.version,
         digest: entry.digest,
+    });
+}
+/** Bind one owner confirmation to the current entries of a single client company. */
+function companyMapConfirmationSetSubject(entries) {
+    const clientId = entries[0]?.clientId;
+    if (entries.some((entry) => entry.clientId !== clientId)) {
+        throw new Error('Confirmation set entries must belong to the same client');
+    }
+    const targets = entries.map((entry) => ({
+        level: entry.level,
+        ...(entry.projectId !== undefined ? { projectId: entry.projectId } : {}),
+        ...(entry.buSlug !== undefined ? { buSlug: entry.buSlug } : {}),
+        kind: entry.kind,
+        entryRef: companyMapEntryKey(entry),
+        entryVersion: entry.version,
+        entryDigest: entry.digest,
+    }));
+    const digest = (0, decision_request_js_1.confirmationSetDigest)(targets);
+    return decision_request_js_1.ConfirmationSetDecisionSubjectSchema.parse({
+        kind: 'confirmation_set', planId: 'mapset-' + digest.slice(0, 40), planVersion: 1,
+        digest, clientId, entries: targets,
     });
 }
 /** Key of an entry inside its level and kind: the person, the asset or the access. */
