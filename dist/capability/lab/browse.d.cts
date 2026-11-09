@@ -68,9 +68,14 @@ export declare const LabPageDetailOutputSchema: z.ZodObject<{
         }>;
         origin: z.ZodEnum<{
             web: "web";
+            model: "model";
             dataset: "dataset";
             human: "human";
         }>;
+        quotes: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            sourceId: z.ZodString;
+            text: z.ZodString;
+        }, z.core.$strict>>>;
     }, z.core.$strict>>;
     links: z.ZodArray<z.ZodObject<{
         from: z.ZodString;
@@ -86,6 +91,7 @@ export declare const LabPageDetailOutputSchema: z.ZodObject<{
         contentSha256: z.ZodString;
         origin: z.ZodEnum<{
             web: "web";
+            model: "model";
             dataset: "dataset";
             human: "human";
         }>;

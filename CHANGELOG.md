@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.125.0 — origine e citazioni delle affermazioni wiki
+
+- `WikiOriginSchema` include `model`, sapere del modello senza fonte salvata. `human` indica un documento o una nota di una persona.
+- `WikiClaimSchema` accetta fonti vuote solo per `model`, che richiede fonti vuote e non può avere stato `confermata`. `quotes` facoltativo contiene fino a 50 estratti di 1–500 caratteri, ciascuno riferito a una delle `sourceIds` dell'affermazione. Le forme salvate con origine `web` e almeno una fonte restano valide.
+- Adozione e fruibilità con 5945 e 5948, incluso il controllo degli estratti nel Lab. Versione da riservare dalla coordinatrice.
+
 ## v1.124.0 — documenti wiki senza estratti, versioni e ritiro
 
 - `LabIngestDocumentSchema`: `excerpts` facoltativo (limiti invariati quando presente); senza estratti il Lab legge e converte l'asset dalla Memoria Aziendale. `supersedes` identifica l'asset precedente da ritirare.

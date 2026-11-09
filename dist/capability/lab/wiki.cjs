@@ -13,7 +13,8 @@ const agent_config_js_2 = require("./agent-config.cjs");
  * datasets or people. Whoever puts them in front of a model marks them as data and never uses them as instructions
  * (same rule as the capability context, `../capability-context.ts`).
  */
-exports.WikiOriginSchema = zod_1.z.enum(['web', 'dataset', 'human']);
+/** `human` is a person's document or note; `model` is model knowledge without a stored source. */
+exports.WikiOriginSchema = zod_1.z.enum(['web', 'dataset', 'human', 'model']);
 exports.WikiSourceIdSchema = zod_1.z.string().min(1).max(100);
 exports.WikiPageSlugSchema = zod_1.z.string().regex(/^[a-z0-9][a-z0-9-]{0,119}$/);
 exports.WikiSourceSchema = zod_1.z.object({
@@ -44,11 +45,40 @@ exports.WikiClaimSchema = zod_1.z.object({
     id: zod_1.z.string().min(1).max(100),
     pageSlug: exports.WikiPageSlugSchema,
     text: zod_1.z.string().trim().min(1).max(2000),
-    /** Every claim rests on at least one stored source. */
-    sourceIds: zod_1.z.array(exports.WikiSourceIdSchema).min(1).max(50),
+    /** Only model knowledge has no stored sources. */
+    sourceIds: zod_1.z.array(exports.WikiSourceIdSchema).min(0).max(50),
     status: exports.WikiClaimStatusSchema,
     origin: exports.WikiOriginSchema,
-}).strict();
+    /** Source excerpts supporting the claim, verified by cap-lab. */
+    quotes: zod_1.z.array(zod_1.z.strictObject({
+        sourceId: exports.WikiSourceIdSchema,
+        text: zod_1.z.string().min(1).max(500),
+    })).max(50).optional(),
+}).strict().superRefine((claim, ctx) => {
+    if ((claim.origin === 'model') !== (claim.sourceIds.length === 0)) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'only model claims have no stored sources',
+            path: ['sourceIds'],
+        });
+    }
+    if (claim.origin === 'model' && claim.status === 'confermata') {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'model knowledge cannot be confirmed without a stored source',
+            path: ['status'],
+        });
+    }
+    claim.quotes?.forEach((quote, index) => {
+        if (!claim.sourceIds.includes(quote.sourceId)) {
+            ctx.addIssue({
+                code: 'custom',
+                message: 'a quote must reference one of the claim sources',
+                path: ['quotes', index, 'sourceId'],
+            });
+        }
+    });
+});
 exports.WikiLinkSchema = zod_1.z.object({
     from: exports.WikiPageSlugSchema,
     to: exports.WikiPageSlugSchema,
