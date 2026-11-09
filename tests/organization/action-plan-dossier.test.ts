@@ -36,6 +36,7 @@ function submission(): ActionPlanDraft {
       }],
     })),
     dossier: [{ slug: 'fonti-alimentari', version: 1 }, { slug: 'diritti-dati', version: 2 }],
+    deliveryShape: 'study',
   };
 }
 
