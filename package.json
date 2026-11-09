@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.122.0",
+  "version": "1.123.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -224,8 +224,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "zshy && node -e \"const fs=require('fs'),p=JSON.parse(fs.readFileSync('package.json'));for(const k of Object.keys(p.exports))if(k.endsWith('/*')){const d='./dist/'+k.slice(2,-1);p.exports[k]={types:d+'*.d.cts',import:d+'*.js',require:d+'*.cjs'}}fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\\n')\" && node scripts/check-portable-dts.mjs && node scripts/generate-portable-capability-contracts.mjs",
-    "check:dts": "node scripts/check-portable-dts.mjs",
+    "build": "zshy && node -e \"const fs=require('fs'),p=JSON.parse(fs.readFileSync('package.json'));for(const k of Object.keys(p.exports))if(k.endsWith('/*')){const d='./dist/'+k.slice(2,-1);p.exports[k]={types:d+'*.d.cts',import:d+'*.js',require:d+'*.cjs'}}fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\\n')\" && node scripts/generate-narrow-imports.mjs && node scripts/check-portable-dts.mjs && node scripts/generate-portable-capability-contracts.mjs",
+    "check:dts": "node scripts/generate-narrow-imports.mjs && node scripts/check-portable-dts.mjs",
     "check:pack": "publint && attw --pack . --profile node16 --ignore-rules false-cjs",
     "validate": "pnpm build && pnpm check:pack && pnpm test",
     "test": "vitest run --maxWorkers=2 --testTimeout=60000 && node tests/cjs/smoke.cjs",

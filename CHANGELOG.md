@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.123.0 — la mappa di ogni nome dei barili verso il suo sotto-percorso stretto
+
+- Nuovo `dist/narrow-imports.json` (formato `x9-narrow-imports-v1`), scritto da `scripts/generate-narrow-imports.mjs` nella build dopo zshy: per ogni chiave esatta di `exports`, ogni nome a runtime con il sotto-percorso stretto del modulo che lo dichiara (un nome rinominato in un re-export vale per il modulo che lo rinomina; la chiave esatta vince sul percorso stretto). Il generatore fallisce con «Cannot place» su un nome dichiarato fuori da `src` o senza sotto-percorso.
+- I barili non cambiano: la mappa è solo un'aggiunta. La leggerà lo strumento di X9 (5898).
+
 ## v1.122.0 — ogni modulo dei contratti ha il suo sotto-percorso stretto
 
 - Dieci chiavi `./<dominio>/*` (`agent`, `auth`, `capability`, `http`, `memory`, `messaging`, `model-router`, `organization`, `rag`, `vault`): `@x9-forge/contracts/http/endpoints/internal-paperclip-seats` o `@x9-forge/contracts/capability/tool-call` caricano solo il modulo che dichiara lo schema (ESM, CJS e tipi), senza il barile del dominio.
