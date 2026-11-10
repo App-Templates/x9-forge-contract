@@ -1,7 +1,10 @@
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   ActionPlanSchema,
+  actionPlanCanonicalJson,
+  canonicalJson,
   AssetRefSchema,
   DecisionOutcomeSchema,
   DecisionRequestSchema,
@@ -10,9 +13,12 @@ import {
   PROJECT_DELIVERY_SENT_KINDS,
   PROJECT_DELIVERY_TOOL,
   ProjectDeliveryInputSchema,
+  ProjectDeliveryPieceSchema,
   ProjectDeliveryReconciliationSchema,
   projectDeliveryDigest,
+  projectDeliveryUnitDigest,
   reconcileProjectDelivery,
+  type ActionPlan,
   type AssetRef,
   type DecisionOutcome,
   type DecisionRequest,
@@ -68,6 +74,40 @@ function approvedUnit(buSlug: string, createdAt = '2026-11-06T08:00:00Z', finger
 
 function reconcile(decisions: { request: DecisionRequest; outcome: DecisionOutcome | null }[], assets: AssetRef[], planApprovedAt = FIRST_APPROVAL) {
   return reconcileProjectDelivery({ plan, planApprovedAt, decisions, assets });
+}
+
+function planApproval(version: number, digest: string, createdAt: string, decidedAt: string) {
+  const req = DecisionRequestSchema.parse({
+    requestId: 'req-plan-v' + version,
+    tenantId: plan.tenantId, organizationId: plan.organizationId, projectId: plan.projectId,
+    subject: { kind: 'action_plan', planId: plan.planId, planVersion: version, digest },
+    question: 'Approve this plan?', options: [{ optionId: 'approva', label: 'Approve' }],
+    requestedBy: { managementAgentId: 'director', runtimeAgentId: 'agent-director', vaultAgentId: 17 },
+    addressedTo: { ownerId: 'owner-1' }, channel: 'email', createdAt,
+  });
+  const outcome = DecisionOutcomeSchema.parse({
+    requestId: req.requestId, subject: req.subject, outcome: 'approved', optionId: 'approva',
+    decidedBy: { kind: 'owner', ownerId: 'owner-1' }, decidedAt,
+    channel: 'email', sourceRef: 'message-' + req.requestId,
+  });
+  return { request: req, outcome };
+}
+
+function revisedPlan(changes: Partial<ActionPlan> = {}): ActionPlan {
+  const revised = ActionPlanSchema.parse({ ...plan, version: 4, ...changes });
+  return { ...revised, digest: createHash('sha256').update(actionPlanCanonicalJson(revised)).digest('hex') };
+}
+
+function versionedInput(current: ActionPlan, units: ReturnType<typeof approvedUnit>[]) {
+  return {
+    plan: current, planApprovedAt: FIRST_APPROVAL,
+    decisions: [
+      planApproval(3, plan.digest, '2026-11-04T07:00:00Z', FIRST_APPROVAL),
+      ...units.map((unit) => unit.decision),
+      planApproval(4, current.digest, '2026-11-09T08:00:00Z', V4_APPROVAL),
+    ],
+    assets: units.map((unit) => unit.asset),
+  };
 }
 
 describe('project delivery reconciliation', () => {
@@ -256,10 +296,232 @@ describe('project delivery reconciliation', () => {
     expect(v4.pieces.find((piece) => piece.buSlug === 'brand')?.state).toBe('pending');
   });
 
+  it('s6100 consegna-completa-falsa-dopo-ripianificazione: a v4 plan with the design mandate changed and eight approvals under v3 is not complete', () => {
+    const v4 = revisedPlan({ businessUnits: plan.businessUnits.map((unit) => unit.buSlug === 'design'
+      ? { ...unit, mandate: 'Design a revised checkout flow.' } : unit) });
+    const result = reconcileProjectDelivery({
+      ...versionedInput(v4, SLUGS.map((slug) => approvedUnit(slug))),
+      planVersions: [{ plan, approvedAt: FIRST_APPROVAL }, { plan: v4, approvedAt: V4_APPROVAL }],
+    });
+
+    // Before needs_reapproval and the unit comparison, these eight old approvals incorrectly yielded complete (M1).
+    expect(result.outcome).toBe('partial');
+    expect(result.pieces.find((piece) => piece.buSlug === 'design')).toEqual({
+      buSlug: 'design', state: 'needs_reapproval', requestId: 'req-design',
+      deliveryRef: { assetId: 'asset-design', sha256: sha('a') },
+      decidedAt: '2026-11-06T09:00:00Z', approvedUnderVersion: 3,
+    });
+    expect(result.pieces.filter((piece) => piece.state === 'approved').map((piece) => piece.buSlug))
+      .toEqual(SLUGS.filter((slug) => slug !== 'design'));
+    expect(result.missing).toEqual([{ buSlug: 'design', state: 'needs_reapproval', waitsOn: [] }]);
+    expect(ProjectDeliveryReconciliationSchema.parse(result)).toEqual(result);
+  });
+
+  it('s6100 a v4 identical for every unit keeps the eight approvals and is complete', () => {
+    const v4 = revisedPlan({ risks: [...plan.risks, 'A newly identified project risk.'] });
+    const result = reconcileProjectDelivery({
+      ...versionedInput(v4, SLUGS.map((slug) => approvedUnit(slug))),
+      planVersions: [{ plan, approvedAt: FIRST_APPROVAL }],
+    });
+    expect(result.outcome).toBe('complete');
+    expect(result.pieces).toHaveLength(8);
+    expect(result.pieces.every((piece) => piece.state === 'approved' && piece.approvedUnderVersion === undefined)).toBe(true);
+    expect(result.missing).toEqual([]);
+    expect(ProjectDeliveryReconciliationSchema.parse(result)).toEqual(result);
+  });
+
+  it('s6100 without the content of the old version a piece approved under it needs reapproval', () => {
+    const result = reconcileProjectDelivery(versionedInput(revisedPlan(), SLUGS.map((slug) => approvedUnit(slug))));
+    expect(result.outcome).toBe('empty');
+    expect(result.pieces).toHaveLength(8);
+    expect(result.pieces.every((piece) => piece.state === 'needs_reapproval' && piece.approvedUnderVersion === 3)).toBe(true);
+    expect(result.missing.map((piece) => piece.buSlug)).toEqual(SLUGS);
+    expect(ProjectDeliveryReconciliationSchema.parse(result)).toEqual(result);
+  });
+
+  it('s6100 a delivery sent after the v4 approval is approved under v4', () => {
+    const design = approvedUnit('design', '2026-11-09T09:00:00Z');
+    design.decision.outcome = answer(design.decision.request, '2026-11-10T09:00:00Z');
+    const result = reconcileProjectDelivery(versionedInput(revisedPlan(), [design]));
+    expect(result.pieces.find((piece) => piece.buSlug === 'design')).toMatchObject({ state: 'approved' });
+    expect(result.pieces.find((piece) => piece.buSlug === 'design')?.approvedUnderVersion).toBeUndefined();
+    expect(result.outcome).toBe('partial');
+  });
+
+  it('s6100 a delivery sent under v3 and decided after v4 still needs reapproval', () => {
+    const design = approvedUnit('design');
+    design.decision.outcome = answer(design.decision.request, '2026-11-10T09:00:00Z');
+    const result = reconcileProjectDelivery(versionedInput(revisedPlan(), [design]));
+    // Using the reply instant instead of the request instant would incorrectly approve this piece (M3).
+    expect(result.pieces.find((piece) => piece.buSlug === 'design')).toMatchObject({
+      state: 'needs_reapproval', approvedUnderVersion: 3, decidedAt: '2026-11-10T09:00:00Z',
+    });
+    expect(result.outcome).toBe('empty');
+  });
+
+  it('s6100 a change of start or referent alone does not ask for reapproval', () => {
+    const v4 = revisedPlan({ businessUnits: plan.businessUnits.map((unit) => ({
+      ...unit, referent: { personRef: 'new-referent', entryVersion: 2 },
+      start: { kind: 'planned', unlockedBy: { milestone: 1, delivery: 'Inputs verified.' } },
+    })) });
+    const result = reconcileProjectDelivery({
+      ...versionedInput(v4, SLUGS.map((slug) => approvedUnit(slug))),
+      planVersions: [{ plan, approvedAt: FIRST_APPROVAL }],
+    });
+    expect(result.outcome).toBe('complete');
+    for (const slug of SLUGS) expect(projectDeliveryUnitDigest(v4, slug)).toBe(projectDeliveryUnitDigest(plan, slug));
+  });
+
+  it('s6100 a unit that starts later still counts: seven approved and the later unit missing is partial', () => {
+    const later = revisedPlan({
+      businessUnits: plan.businessUnits.map((unit) => unit.buSlug === 'qa' ? {
+        ...unit, start: { kind: 'planned', unlockedBy: { milestone: 4, delivery: 'Integrated application.' } },
+      } : unit),
+      ifApproved: { ...plan.ifApproved, startNow: SLUGS.filter((slug) => slug !== 'qa'),
+        startLater: [{ buSlug: 'qa', after: 'Integrated application.' }] },
+    });
+    const result = reconcileProjectDelivery({
+      ...versionedInput(later, SLUGS.filter((slug) => slug !== 'qa').map((slug) => approvedUnit(slug))),
+      planVersions: [{ plan, approvedAt: FIRST_APPROVAL }],
+    });
+    // Counting only startNow would lose qa and incorrectly return complete (M2).
+    expect(result.pieces).toHaveLength(8);
+    expect(result.pieces.filter((piece) => piece.state === 'approved')).toHaveLength(7);
+    expect(result.outcome).toBe('partial');
+    expect(result.missing).toEqual([{ buSlug: 'qa', state: 'missing', waitsOn: [] }]);
+    expect(ProjectDeliveryReconciliationSchema.parse(result)).toEqual(result);
+  });
+
+  it('s6100 the schema refuses needs_reapproval without approvedUnderVersion and approvedUnderVersion on other states', () => {
+    const piece = { buSlug: 'design', state: 'needs_reapproval', requestId: 'req-design',
+      deliveryRef: { assetId: 'asset-design', sha256: sha('a') }, decidedAt: '2026-11-06T09:00:00Z', approvedUnderVersion: 3 };
+    expect(ProjectDeliveryPieceSchema.parse(piece)).toEqual(piece);
+    for (const key of ['requestId', 'deliveryRef', 'decidedAt', 'approvedUnderVersion'] as const) {
+      const incomplete = { ...piece };
+      Reflect.deleteProperty(incomplete, key);
+      expect(ProjectDeliveryPieceSchema.safeParse(incomplete).success).toBe(false);
+    }
+    for (const approvedUnderVersion of [0, 1.5]) {
+      expect(ProjectDeliveryPieceSchema.safeParse({ ...piece, approvedUnderVersion }).success).toBe(false);
+    }
+    const otherPieces = [
+      { ...piece, state: 'approved' },
+      { buSlug: 'design', state: 'pending', requestId: 'req-design', approvedUnderVersion: 3 },
+      { ...piece, state: 'rejected' },
+      { buSlug: 'design', state: 'missing', approvedUnderVersion: 3 },
+    ];
+    for (const other of otherPieces) expect(ProjectDeliveryPieceSchema.safeParse(other).success).toBe(false);
+  });
+
+  it('s6100 production shape with v2, v3 and v4 approvals keeps unchanged design approved and brand pending', () => {
+    const v4 = revisedPlan({ risks: [...plan.risks, 'Updated production risk.'] });
+    const design = approvedUnit('design');
+    const brand = request('brand', 'req-brand-1', 'asset-brand-1', sha('3'), '2026-11-09T11:00:00Z');
+    const result = reconcileProjectDelivery({
+      plan: v4, planApprovedAt: '2026-11-03T09:00:00Z',
+      decisions: [
+        planApproval(2, revisedPlan({ version: 2 }).digest, '2026-11-03T08:00:00Z', '2026-11-03T09:00:00Z'),
+        planApproval(3, plan.digest, '2026-11-04T07:00:00Z', FIRST_APPROVAL),
+        design.decision, { request: brand, outcome: null },
+        planApproval(4, v4.digest, '2026-11-09T14:00:00Z', '2026-11-09T14:43:00Z'),
+      ],
+      assets: [design.asset], planVersions: [{ plan, approvedAt: FIRST_APPROVAL }],
+    });
+    expect(plan.businessUnits).toHaveLength(8);
+    expect(plan.deliveryShape).toBeUndefined();
+    expect(plan.businessUnits.every((unit) => unit.sections === undefined)).toBe(true);
+    expect(result.outcome).toBe('partial');
+    expect(result.pieces.find((piece) => piece.buSlug === 'design')?.state).toBe('approved');
+    expect(result.pieces.find((piece) => piece.buSlug === 'brand')?.state).toBe('pending');
+    expect(result.pieces.filter((piece) => piece.state === 'missing')).toHaveLength(6);
+    expect(ProjectDeliveryReconciliationSchema.parse(result)).toEqual(result);
+  });
+
+  it('s6100 unit digest uses canonical unit, objective, owned work and delivery criteria', () => {
+    const workItem = { id: 'checkout', title: 'Checkout', expectedGoal: 'Place an order.',
+      deliveryCriteria: ['Order confirmed.'], milestone: 3, owners: [{ buSlug: 'design', does: 'Design checkout.' }] };
+    const withWork = revisedPlan({ workBreakdown: [
+      { ...workItem, id: 'summary' }, workItem,
+      { ...workItem, id: 'backend', owners: [{ buSlug: 'backend', does: 'Store the order.' }] },
+    ], milestones: [...plan.milestones, { number: 6, buSlug: 'design', delivery: 'Additional screens.',
+      closeCriterion: 'Screens approved.', blockedBy: [] }] });
+    const { start: _start, referent: _referent, ...unit } = withWork.businessUnits.find((candidate) => candidate.buSlug === 'design')!;
+    const expected = { unit, objective: withWork.objectiveTree.businessUnits.find((candidate) => candidate.buSlug === 'design'),
+      work: [workItem, { ...workItem, id: 'summary' }],
+      milestones: withWork.milestones.filter((milestone) => milestone.buSlug === 'design')
+        .map(({ delivery, closeCriterion }) => ({ delivery, closeCriterion }))
+        .sort((a, b) => a.delivery < b.delivery ? -1 : a.delivery > b.delivery ? 1 : 0) };
+    const digest = projectDeliveryUnitDigest(withWork, 'design');
+    expect(digest).toBe(createHash('sha256').update(canonicalJson(expected)).digest('hex'));
+    const reordered = revisedPlan({ ...withWork,
+      businessUnits: [...withWork.businessUnits].reverse(),
+      objectiveTree: { ...withWork.objectiveTree, businessUnits: [...withWork.objectiveTree.businessUnits].reverse() },
+      workBreakdown: [...withWork.workBreakdown!].reverse(),
+      milestones: [...withWork.milestones].reverse().map((milestone) => ({ ...milestone, dueDate: '2026-12-01' })),
+    });
+    expect(projectDeliveryUnitDigest(reordered, 'design')).toBe(digest);
+    const changes: Partial<ActionPlan>[] = [
+      { businessUnits: withWork.businessUnits.map((candidate) => candidate.buSlug === 'design'
+        ? { ...candidate, mandate: 'Changed design mandate.' } : candidate) },
+      { objectiveTree: { ...withWork.objectiveTree, businessUnits: withWork.objectiveTree.businessUnits.map((candidate) => candidate.buSlug === 'design'
+        ? { ...candidate, expectedResult: 'Changed design objective.' } : candidate) } },
+      { workBreakdown: withWork.workBreakdown!.map((item) => item.id === 'checkout' ? { ...item, expectedGoal: 'Changed checkout.' } : item) },
+      { milestones: withWork.milestones.map((milestone) => milestone.buSlug === 'design'
+        ? { ...milestone, closeCriterion: 'Changed acceptance criterion.' } : milestone) },
+    ];
+    for (const change of changes) expect(projectDeliveryUnitDigest(revisedPlan({ ...withWork, ...change }), 'design')).not.toBe(digest);
+    const noObjective = revisedPlan({ objectiveTree: { ...plan.objectiveTree,
+      businessUnits: plan.objectiveTree.businessUnits.filter((candidate) => candidate.buSlug !== 'design') } });
+    const { start: _oldStart, referent: _oldReferent, ...originalUnit } = plan.businessUnits.find((candidate) => candidate.buSlug === 'design')!;
+    expect(projectDeliveryUnitDigest(noObjective, 'design')).toBe(createHash('sha256').update(canonicalJson({
+      unit: originalUnit, objective: null, work: [], milestones: plan.milestones.filter((milestone) => milestone.buSlug === 'design')
+        .map(({ delivery, closeCriterion }) => ({ delivery, closeCriterion })),
+    })).digest('hex'));
+  });
+
+  it('s6100 the earliest approval per version and highest version at submission win regardless of decision order', () => {
+    const v4 = revisedPlan();
+    const input = versionedInput(v4, [approvedUnit('design')]);
+    const laterV3 = planApproval(3, plan.digest, '2026-11-08T07:00:00Z', '2026-11-08T09:00:00Z');
+    const v2 = planApproval(2, revisedPlan({ version: 2 }).digest, '2026-11-03T07:00:00Z', '2026-11-03T09:00:00Z');
+    for (const decisions of [[laterV3, ...input.decisions, v2], [v2, ...input.decisions, laterV3].reverse()]) {
+      const result = reconcileProjectDelivery({ ...input, decisions });
+      expect(result.pieces.find((piece) => piece.buSlug === 'design')).toMatchObject({ state: 'needs_reapproval', approvedUnderVersion: 3 });
+    }
+  });
+
+  it('s6100 an unrelated or unanswered current plan approval preserves legacy behavior', () => {
+    const input = versionedInput(revisedPlan(), [approvedUnit('design')]);
+    const current = input.decisions[2]!;
+    const foreignDecisions = [
+      { ...current, outcome: null },
+      { ...current, outcome: { ...current.outcome!, requestId: 'req-unrelated' } },
+      { ...current, request: { ...current.request, subject: { kind: 'action_plan' as const, planId: 'plan-other', planVersion: 4, digest: sha('b') } } },
+      { ...current, request: { ...current.request, tenantId: 'other-tenant' } },
+      { ...current, request: { ...current.request, organizationId: 'other-organization' } },
+      { ...current, request: { ...current.request, projectId: 'other-project' } },
+    ];
+    for (const other of foreignDecisions) {
+      const result = reconcileProjectDelivery({ ...input, decisions: [input.decisions[0]!, input.decisions[1]!, other] });
+      expect(result.pieces.find((piece) => piece.buSlug === 'design')?.state).toBe('approved');
+    }
+    const foreignPlan = revisedPlan({ planId: 'plan-other', version: 3 });
+    const result = reconcileProjectDelivery({ ...input, planVersions: [{ plan: foreignPlan, approvedAt: FIRST_APPROVAL }] });
+    expect(result.pieces.find((piece) => piece.buSlug === 'design')?.state).toBe('needs_reapproval');
+  });
+
+  it('s6100 a known current approval with no approved version at submission leaves the piece missing', () => {
+    const input = versionedInput(revisedPlan(), [approvedUnit('design')]);
+    const result = reconcileProjectDelivery({ ...input, decisions: input.decisions.slice(1) });
+    expect(result.pieces.find((piece) => piece.buSlug === 'design')).toEqual({ buSlug: 'design', state: 'missing' });
+    expect(result.outcome).toBe('empty');
+    expect(ProjectDeliveryReconciliationSchema.parse(result)).toEqual(result);
+  });
+
   it('exports the tool name, the vocabularies and a strict input', () => {
     expect(PROJECT_DELIVERY_TOOL).toBe('email_deliver_project');
     expect(PROJECT_DELIVERY_OUTCOMES).toEqual(['complete', 'partial', 'empty']);
-    expect(PROJECT_DELIVERY_PIECE_STATES).toEqual(['approved', 'pending', 'rejected', 'missing']);
+    expect(PROJECT_DELIVERY_PIECE_STATES).toEqual(['approved', 'pending', 'rejected', 'missing', 'needs_reapproval']);
     expect(PROJECT_DELIVERY_SENT_KINDS).toEqual(['final', 'partial']);
     expect(ProjectDeliveryInputSchema.parse({ projectId: 'good-choice', partial: true })).toEqual({ projectId: 'good-choice', partial: true });
     expect(ProjectDeliveryInputSchema.parse({ projectId: 'good-choice' })).toEqual({ projectId: 'good-choice' });

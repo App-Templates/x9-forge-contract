@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
-import type { ActionPlan } from './action-plan.js';
+import { canonicalJson, type ActionPlan } from './action-plan.js';
 import { AssetRefSchema, AssetSha256Schema, type AssetRef } from './asset.js';
 import {
   DecisionRequestIdSchema,
@@ -17,7 +17,7 @@ export const PROJECT_DELIVERY_OUTCOMES = ['complete', 'partial', 'empty'] as con
 export const ProjectDeliveryOutcomeSchema = z.enum(PROJECT_DELIVERY_OUTCOMES);
 export type ProjectDeliveryOutcome = z.infer<typeof ProjectDeliveryOutcomeSchema>;
 
-export const PROJECT_DELIVERY_PIECE_STATES = ['approved', 'pending', 'rejected', 'missing'] as const;
+export const PROJECT_DELIVERY_PIECE_STATES = ['approved', 'pending', 'rejected', 'missing', 'needs_reapproval'] as const;
 export const ProjectDeliveryPieceStateSchema = z.enum(PROJECT_DELIVERY_PIECE_STATES);
 export type ProjectDeliveryPieceState = z.infer<typeof ProjectDeliveryPieceStateSchema>;
 
@@ -51,11 +51,19 @@ export const ProjectDeliveryPieceSchema = z.strictObject({
     sha256: AssetSha256Schema,
   }).optional().describe('il file consegnato dal reparto, con la sua impronta'),
   decidedAt: IsoInstantSchema.optional().describe('quando il referente ha deciso'),
+  approvedUnderVersion: z.number().int().min(1).optional()
+    .describe('la versione del piano sotto cui il pezzo è stato fatto e approvato'),
 }).superRefine((piece, ctx) => {
-  if (piece.state === 'approved') {
+  if (piece.state !== 'needs_reapproval' && piece.approvedUnderVersion !== undefined) {
+    ctx.addIssue({ code: 'custom', path: ['approvedUnderVersion'], message: 'Only a piece needing reapproval carries approvedUnderVersion' });
+  }
+  if (piece.state === 'needs_reapproval' && piece.approvedUnderVersion === undefined) {
+    ctx.addIssue({ code: 'custom', path: ['approvedUnderVersion'], message: 'A piece needing reapproval carries approvedUnderVersion' });
+  }
+  if (piece.state === 'approved' || piece.state === 'needs_reapproval') {
     for (const key of ['requestId', 'deliveryRef', 'decidedAt'] as const) {
       if (piece[key] === undefined) {
-        ctx.addIssue({ code: 'custom', path: [key], message: 'An approved piece carries ' + key });
+        ctx.addIssue({ code: 'custom', path: [key], message: 'A ' + piece.state + ' piece carries ' + key });
       }
     }
   } else if (piece.state === 'missing') {
@@ -152,8 +160,23 @@ export function projectDeliveryDigest(plan: PlanRef, pieces: readonly ProjectDel
   return createHash('sha256').update(JSON.stringify([plan.planId, plan.version, plan.digest, ordered])).digest('hex');
 }
 
+/** Fingerprint of a unit's work, independent of its start conditions and referent. */
+export function projectDeliveryUnitDigest(plan: ActionPlan, buSlug: string): string {
+  const businessUnit = plan.businessUnits.find((candidate) => candidate.buSlug === buSlug);
+  const { start: _start, referent: _referent, ...unit } = { ...businessUnit };
+  const objective = plan.objectiveTree.businessUnits.find((candidate) => candidate.buSlug === buSlug) ?? null;
+  const work = (plan.workBreakdown ?? [])
+    .filter((item) => item.owners.some((owner) => owner.buSlug === buSlug))
+    .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  const milestones = plan.milestones.filter((milestone) => milestone.buSlug === buSlug)
+    .map(({ delivery, closeCriterion }) => ({ delivery, closeCriterion }))
+    .sort((a, b) => a.delivery < b.delivery ? -1 : a.delivery > b.delivery ? 1 : 0);
+  return createHash('sha256').update(canonicalJson({ unit, objective, work, milestones })).digest('hex');
+}
+
 type Decision = { request: DecisionRequest; outcome: DecisionOutcome | null };
 type DeliverySubject = Extract<NonNullable<DecisionRequest['subject']>, { kind: 'delivery' }>;
+type PlanVersion = { plan: ActionPlan; approvedAt: string };
 
 /** Latest request wins: by creation instant, then by the greater requestId. */
 function isLater(a: DecisionRequest, b: DecisionRequest): boolean {
@@ -161,7 +184,10 @@ function isLater(a: DecisionRequest, b: DecisionRequest): boolean {
   return delta !== 0 ? delta > 0 : a.requestId > b.requestId;
 }
 
-function pieceOf(plan: ActionPlan, buSlug: string, since: number, decisions: readonly Decision[], assets: readonly AssetRef[]): ProjectDeliveryPiece {
+function pieceOf(
+  plan: ActionPlan, buSlug: string, since: number, decisions: readonly Decision[], assets: readonly AssetRef[],
+  approvals: ReadonlyMap<number, number>, planVersions: readonly PlanVersion[],
+): ProjectDeliveryPiece {
   let latest: (Decision & { subject: DeliverySubject }) | undefined;
   for (const decision of decisions) {
     const { subject } = decision.request;
@@ -185,9 +211,25 @@ function pieceOf(plan: ActionPlan, buSlug: string, since: number, decisions: rea
     && decisionOutcomeMatchesSubject(request, outcome)
     && stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
     && stored.projectId === plan.projectId;
-  return sound
-    ? { buSlug, state: 'approved', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt }
-    : { buSlug, state: 'missing' };
+  if (!sound) return { buSlug, state: 'missing' };
+  const approved: ProjectDeliveryPiece = { buSlug, state: 'approved', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt };
+  // Without the current version's approval, the caller has not provided the history: preserve legacy behavior.
+  if (!approvals.has(plan.version)) return approved;
+  let approvedUnderVersion: number | undefined;
+  for (const [version, approvedAt] of approvals) {
+    if (approvedAt <= Date.parse(request.createdAt) && (approvedUnderVersion === undefined || version > approvedUnderVersion)) {
+      approvedUnderVersion = version;
+    }
+  }
+  if (approvedUnderVersion === undefined) return { buSlug, state: 'missing' };
+  if (approvedUnderVersion === plan.version) return approved;
+  const previous = planVersions.find((entry) => entry.plan.planId === plan.planId
+    && entry.plan.version === approvedUnderVersion && entry.plan.tenantId === plan.tenantId
+    && entry.plan.organizationId === plan.organizationId && entry.plan.projectId === plan.projectId);
+  if (previous !== undefined && projectDeliveryUnitDigest(previous.plan, buSlug) === projectDeliveryUnitDigest(plan, buSlug)) {
+    return approved;
+  }
+  return { ...approved, state: 'needs_reapproval', approvedUnderVersion };
 }
 
 function waitsOn(plan: ActionPlan, buSlug: string, open: ReadonlySet<string>): ProjectDeliveryWait[] {
@@ -221,16 +263,29 @@ function waitsOn(plan: ActionPlan, buSlug: string, open: ReadonlySet<string>): P
  * `planApprovedAt` is chosen by the caller (X9) and must be the FIRST approval of the same `planId`, not
  * the approval of the current version. In production the design was approved on 06/11 under v3 and v4
  * was approved on 09/11: with "after the approval of the current version" the design piece would vanish.
+ * An older approval counts only if that unit's work is unchanged in the current plan. For example, v4
+ * changing the design mandate requires reapproval of its v3 piece and prevents a complete delivery.
  */
 export function reconcileProjectDelivery(input: {
   plan: ActionPlan;
   planApprovedAt: string;
   decisions: readonly Decision[];
   assets: readonly AssetRef[];
+  planVersions?: readonly PlanVersion[];
 }): ProjectDeliveryReconciliation {
   const { plan, decisions, assets } = input;
   const since = Date.parse(IsoInstantSchema.parse(input.planApprovedAt));
-  const pieces = plan.businessUnits.map((unit) => pieceOf(plan, unit.buSlug, since, decisions, assets));
+  const approvals = new Map<number, number>();
+  for (const { request, outcome } of decisions) {
+    const { subject } = request;
+    if (subject?.kind !== 'action_plan' || subject.planId !== plan.planId
+      || request.tenantId !== plan.tenantId || request.organizationId !== plan.organizationId
+      || (request.projectId !== undefined && request.projectId !== plan.projectId)
+      || outcome?.outcome !== 'approved' || outcome.requestId !== request.requestId) continue;
+    const decidedAt = Date.parse(outcome.decidedAt);
+    approvals.set(subject.planVersion, Math.min(approvals.get(subject.planVersion) ?? Infinity, decidedAt));
+  }
+  const pieces = plan.businessUnits.map((unit) => pieceOf(plan, unit.buSlug, since, decisions, assets, approvals, input.planVersions ?? []));
   const open = new Set(pieces.filter((piece) => piece.state !== 'approved').map((piece) => piece.buSlug));
   const missing: ProjectDeliveryMissing[] = pieces
     .filter((piece) => open.has(piece.buSlug))
