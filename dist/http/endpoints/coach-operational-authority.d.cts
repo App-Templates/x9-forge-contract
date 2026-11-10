@@ -11,10 +11,10 @@ export declare const coachOperationalAuthorityResolveContract: {
     readonly errorSchema: z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
+            budget_exhausted: "budget_exhausted";
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";
@@ -358,10 +358,10 @@ export declare const coachOperationalAuthorityRecheckContract: {
     readonly errorSchema: z.ZodObject<{
         ok: z.ZodLiteral<false>;
         error: z.ZodEnum<{
+            budget_exhausted: "budget_exhausted";
             invalid_request: "invalid_request";
             idempotency_conflict: "idempotency_conflict";
             source_unavailable: "source_unavailable";
-            budget_exhausted: "budget_exhausted";
             not_found: "not_found";
             program_not_found: "program_not_found";
             scope_mismatch: "scope_mismatch";

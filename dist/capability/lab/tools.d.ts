@@ -98,10 +98,10 @@ export declare const LabIngestInputSchema: z.ZodUnion<readonly [z.ZodObject<{
         agentId: z.ZodString;
         state: z.ZodEnum<{
             failed: "failed";
+            budget_exhausted: "budget_exhausted";
             completed: "completed";
             queued: "queued";
             running: "running";
-            budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
         parentResearchId: z.ZodOptional<z.ZodString>;
@@ -183,10 +183,10 @@ export declare const LabIngestStatusOutputSchema: z.ZodObject<{
     ingestId: z.ZodUUID;
     state: z.ZodEnum<{
         failed: "failed";
+        budget_exhausted: "budget_exhausted";
         completed: "completed";
         queued: "queued";
         running: "running";
-        budget_exhausted: "budget_exhausted";
     }>;
     sourcesStored: z.ZodOptional<z.ZodNumber>;
     pagesTouched: z.ZodOptional<z.ZodNumber>;
@@ -390,10 +390,10 @@ export declare const LabExecuteOutputSchema: z.ZodObject<{
     jobId: z.ZodUUID;
     state: z.ZodEnum<{
         failed: "failed";
+        budget_exhausted: "budget_exhausted";
         completed: "completed";
         queued: "queued";
         running: "running";
-        budget_exhausted: "budget_exhausted";
     }>;
 }, z.core.$strict>;
 export type LabExecuteInput = z.infer<typeof LabExecuteInputSchema>;

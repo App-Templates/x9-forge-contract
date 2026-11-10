@@ -305,10 +305,10 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
     researchId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
+        budget_exhausted: "budget_exhausted";
         completed: "completed";
         queued: "queued";
         running: "running";
-        budget_exhausted: "budget_exhausted";
     }>;
     question: z.ZodString;
 }, z.core.$strict>, z.ZodObject<{
@@ -418,10 +418,10 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
         researchId: z.ZodString;
         state: z.ZodEnum<{
             failed: "failed";
+            budget_exhausted: "budget_exhausted";
             completed: "completed";
             queued: "queued";
             running: "running";
-            budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
     }, z.core.$strict>, z.ZodObject<{
@@ -566,10 +566,10 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             researchId: z.ZodString;
             state: z.ZodEnum<{
                 failed: "failed";
+                budget_exhausted: "budget_exhausted";
                 completed: "completed";
                 queued: "queued";
                 running: "running";
-                budget_exhausted: "budget_exhausted";
             }>;
             question: z.ZodString;
         }, z.core.$strict>, z.ZodObject<{

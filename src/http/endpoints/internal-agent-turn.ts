@@ -105,6 +105,9 @@ export const ORGANIZATION_ADMISSION_REFUSAL_CODES = [
   'agent_target_mismatch',
   'organization_admission_unavailable',
   'organization_tenant_unknown',
+  // not now: the company spend cap or the R&D pause; the run never starts
+  'budget_exhausted',
+  'rd_paused',
 ] as const;
 export const OrganizationAdmissionRefusalCodeSchema = z.enum(ORGANIZATION_ADMISSION_REFUSAL_CODES);
 export type OrganizationAdmissionRefusalCode = z.infer<typeof OrganizationAdmissionRefusalCodeSchema>;
@@ -119,6 +122,8 @@ export const InternalAgentTurnRunErrorResponseSchema = InternalAgentTurnErrorRes
   code: z.string().min(1).optional(),
   message: z.string().optional(),
   outcome: RunOutcomeSchema.optional(),
+  // when the caller may try the same run again; absent = no estimate (cap) or never (R&D paused)
+  retryAfterSeconds: z.number().int().positive().max(86_400 * 7).optional(),
 });
 export type InternalAgentTurnRunErrorResponse = z.infer<typeof InternalAgentTurnRunErrorResponseSchema>;
 

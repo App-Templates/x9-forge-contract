@@ -349,7 +349,7 @@ export declare const InternalAgentTurnErrorResponseSchema: z.ZodObject<{
 }, z.core.$strip>;
 export type InternalAgentTurnErrorResponse = z.infer<typeof InternalAgentTurnErrorResponseSchema>;
 /** Typed admission refusals of an organization run (`error` of a refused turn). */
-export declare const ORGANIZATION_ADMISSION_REFUSAL_CODES: readonly ["organization_context_missing", "organization_context_invalid", "organization_attempt_invalid", "run_correlation_mismatch", "issuer_not_authorized", "context_expired", "organization_binding_unavailable", "organization_binding_missing", "organization_binding_ambiguous", "tenant_mismatch", "owner_mismatch", "agent_identity_mismatch", "agent_target_mismatch", "organization_admission_unavailable", "organization_tenant_unknown"];
+export declare const ORGANIZATION_ADMISSION_REFUSAL_CODES: readonly ["organization_context_missing", "organization_context_invalid", "organization_attempt_invalid", "run_correlation_mismatch", "issuer_not_authorized", "context_expired", "organization_binding_unavailable", "organization_binding_missing", "organization_binding_ambiguous", "tenant_mismatch", "owner_mismatch", "agent_identity_mismatch", "agent_target_mismatch", "organization_admission_unavailable", "organization_tenant_unknown", "budget_exhausted", "rd_paused"];
 export declare const OrganizationAdmissionRefusalCodeSchema: z.ZodEnum<{
     organization_context_missing: "organization_context_missing";
     organization_context_invalid: "organization_context_invalid";
@@ -366,6 +366,8 @@ export declare const OrganizationAdmissionRefusalCodeSchema: z.ZodEnum<{
     agent_target_mismatch: "agent_target_mismatch";
     organization_admission_unavailable: "organization_admission_unavailable";
     organization_tenant_unknown: "organization_tenant_unknown";
+    budget_exhausted: "budget_exhausted";
+    rd_paused: "rd_paused";
 }>;
 export type OrganizationAdmissionRefusalCode = z.infer<typeof OrganizationAdmissionRefusalCodeSchema>;
 /** `error` values of an organization run that was admitted but did not succeed. */
@@ -514,6 +516,7 @@ export declare const InternalAgentTurnRunErrorResponseSchema: z.ZodObject<{
         }, z.core.$strict>>;
         recordedAt: z.ZodISODateTime;
     }, z.core.$strict>], "status">>;
+    retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strip>;
 export type InternalAgentTurnRunErrorResponse = z.infer<typeof InternalAgentTurnRunErrorResponseSchema>;
 /** Error code returned with 404 when the agent is not loaded in agent-core. */

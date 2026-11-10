@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.139.0 — tetto di spesa e pausa R&D sono rifiuti all'ammissione del turno; additivo
+
+- `http/endpoints/internal-agent-turn` (6171): `ORGANIZATION_ADMISSION_REFUSAL_CODES` include `budget_exhausted` e `rd_paused`: il turno non parte. `InternalAgentTurnRunErrorResponseSchema` conserva `retryAfterSeconds` facoltativo, intero positivo fino a sette giorni; assente indica nessuna stima per il tetto o nessuna ripresa per R&D in pausa. I corpi esistenti, compreso `run_failed` con `code` e `outcome`, restano validi.
+- Produttore: X9 agent-core (ec-x9, 6174); consumatore: X9 cap-paperclip (ec-x9, 6175). Fruibilità con 6173, 6174 e 6175; agent-core e cap-paperclip nello stesso rilascio.
+- 1.138.0 riservata a bacheca-azienda, non pubblicata da questa linea.
+
 ## v1.137.0 — il rifiuto del tetto per ricerca indica il minimo accettato; additivo
 
 - `http/endpoints/internal-capability-agent` (6161): `CapabilityAgentRouteErrorSchema` conserva `minimumUsd` facoltativo, positivo e finito, solo per `budget_below_minimum`: il minimo tetto per ricerca accettato dalla configurazione, in dollari, arrotondato per eccesso al centesimo. I corpi senza il campo restano validi; gli altri errori lo rifiutano.
