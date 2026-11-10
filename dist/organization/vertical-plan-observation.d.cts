@@ -126,6 +126,19 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
     outcome: z.ZodDiscriminatedUnion<[z.ZodObject<{
         outcome: z.ZodLiteral<"approved">;
         optionId: z.ZodString;
+        referentChanges: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodObject<{
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            replaces: z.ZodOptional<z.ZodString>;
+            email: z.ZodEmail;
+            personRef: z.ZodString;
+            role: z.ZodString;
+            name: z.ZodString;
+        }, z.core.$strict>>>>;
         requestId: z.ZodString;
         decidedBy: z.ZodUnion<readonly [z.ZodObject<{
             kind: z.ZodLiteral<"owner">;
@@ -159,6 +172,31 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"confirmation_set">;
+            planId: z.ZodString;
+            planVersion: z.ZodLiteral<1>;
+            digest: z.ZodString;
+            clientId: z.ZodString;
+            entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                level: z.ZodEnum<{
+                    client: "client";
+                    project: "project";
+                    business_unit: "business_unit";
+                }>;
+                projectId: z.ZodOptional<z.ZodString>;
+                buSlug: z.ZodOptional<z.ZodString>;
+                kind: z.ZodEnum<{
+                    access: "access";
+                    referent: "referent";
+                    person: "person";
+                    responsibility: "responsibility";
+                    asset: "asset";
+                }>;
+                entryRef: z.ZodString;
+                entryVersion: z.ZodNumber;
+                entryDigest: z.ZodString;
+            }, z.core.$strict>>>;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>, z.ZodObject<{
         outcome: z.ZodLiteral<"rejected">;
@@ -196,6 +234,31 @@ export declare const VerticalPlanAttemptEventSchema: z.ZodDiscriminatedUnion<[z.
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"confirmation_set">;
+            planId: z.ZodString;
+            planVersion: z.ZodLiteral<1>;
+            digest: z.ZodString;
+            clientId: z.ZodString;
+            entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                level: z.ZodEnum<{
+                    client: "client";
+                    project: "project";
+                    business_unit: "business_unit";
+                }>;
+                projectId: z.ZodOptional<z.ZodString>;
+                buSlug: z.ZodOptional<z.ZodString>;
+                kind: z.ZodEnum<{
+                    access: "access";
+                    referent: "referent";
+                    person: "person";
+                    responsibility: "responsibility";
+                    asset: "asset";
+                }>;
+                entryRef: z.ZodString;
+                entryVersion: z.ZodNumber;
+                entryDigest: z.ZodString;
+            }, z.core.$strict>>>;
         }, z.core.$strict>], "kind">>;
     }, z.core.$strict>], "outcome">;
     eventId: z.ZodString;
@@ -238,6 +301,31 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"confirmation_set">;
+        planId: z.ZodString;
+        planVersion: z.ZodLiteral<1>;
+        digest: z.ZodString;
+        clientId: z.ZodString;
+        entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+            level: z.ZodEnum<{
+                client: "client";
+                project: "project";
+                business_unit: "business_unit";
+            }>;
+            projectId: z.ZodOptional<z.ZodString>;
+            buSlug: z.ZodOptional<z.ZodString>;
+            kind: z.ZodEnum<{
+                access: "access";
+                referent: "referent";
+                person: "person";
+                responsibility: "responsibility";
+                asset: "asset";
+            }>;
+            entryRef: z.ZodString;
+            entryVersion: z.ZodNumber;
+            entryDigest: z.ZodString;
+        }, z.core.$strict>>>;
     }, z.core.$strict>], "kind">;
     events: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
         kind: z.ZodLiteral<"sent">;
@@ -356,6 +444,19 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
         outcome: z.ZodDiscriminatedUnion<[z.ZodObject<{
             outcome: z.ZodLiteral<"approved">;
             optionId: z.ZodString;
+            referentChanges: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodObject<{
+                level: z.ZodEnum<{
+                    client: "client";
+                    project: "project";
+                    business_unit: "business_unit";
+                }>;
+                buSlug: z.ZodOptional<z.ZodString>;
+                replaces: z.ZodOptional<z.ZodString>;
+                email: z.ZodEmail;
+                personRef: z.ZodString;
+                role: z.ZodString;
+                name: z.ZodString;
+            }, z.core.$strict>>>>;
             requestId: z.ZodString;
             decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
@@ -389,6 +490,31 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"confirmation_set">;
+                planId: z.ZodString;
+                planVersion: z.ZodLiteral<1>;
+                digest: z.ZodString;
+                clientId: z.ZodString;
+                entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                    level: z.ZodEnum<{
+                        client: "client";
+                        project: "project";
+                        business_unit: "business_unit";
+                    }>;
+                    projectId: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    kind: z.ZodEnum<{
+                        access: "access";
+                        referent: "referent";
+                        person: "person";
+                        responsibility: "responsibility";
+                        asset: "asset";
+                    }>;
+                    entryRef: z.ZodString;
+                    entryVersion: z.ZodNumber;
+                    entryDigest: z.ZodString;
+                }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
@@ -426,6 +552,31 @@ export declare const VerticalPlanAttemptObservationSchema: z.ZodObject<{
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"confirmation_set">;
+                planId: z.ZodString;
+                planVersion: z.ZodLiteral<1>;
+                digest: z.ZodString;
+                clientId: z.ZodString;
+                entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                    level: z.ZodEnum<{
+                        client: "client";
+                        project: "project";
+                        business_unit: "business_unit";
+                    }>;
+                    projectId: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    kind: z.ZodEnum<{
+                        access: "access";
+                        referent: "referent";
+                        person: "person";
+                        responsibility: "responsibility";
+                        asset: "asset";
+                    }>;
+                    entryRef: z.ZodString;
+                    entryVersion: z.ZodNumber;
+                    entryDigest: z.ZodString;
+                }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
         }, z.core.$strict>], "outcome">;
         eventId: z.ZodString;

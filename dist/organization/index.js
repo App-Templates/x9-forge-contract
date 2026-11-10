@@ -36,4 +36,6 @@ export * from "./company-board-rule.js";
 export * from "./company-board-compose-rules.js";
 export * from "./company-board-director-summary.js";
 export * from "./company-board-unit-actions.js";
+export * from "./agent-request.js";
+export * from "./project-delivery.js";
 //# sourceMappingURL=index.js.map

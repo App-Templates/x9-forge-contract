@@ -41,6 +41,7 @@ export declare const CapabilityAgentRouteErrorSchema: z.ZodObject<{
         unknown_model_rate: "unknown_model_rate";
         budget_below_minimum: "budget_below_minimum";
     }>;
+    minimumUsd: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
 export type CapabilityAgentRouteError = z.infer<typeof CapabilityAgentRouteErrorSchema>;
 /** cap-ricerca's configuration of an agent: budget, models, research parameters, source rule. */
@@ -67,6 +68,7 @@ export declare const ricercaAgentConfigPutContract: {
         }, z.core.$strip>;
         research: z.ZodObject<{
             maxToolCalls: z.ZodNumber;
+            maxPerDossier: z.ZodOptional<z.ZodNumber>;
             searchContextSize: z.ZodEnum<{
                 low: "low";
                 medium: "medium";
@@ -111,6 +113,7 @@ export declare const ricercaAgentConfigGetContract: {
         }, z.core.$strip>;
         research: z.ZodObject<{
             maxToolCalls: z.ZodNumber;
+            maxPerDossier: z.ZodOptional<z.ZodNumber>;
             searchContextSize: z.ZodEnum<{
                 low: "low";
                 medium: "medium";

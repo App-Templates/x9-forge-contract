@@ -5,7 +5,7 @@ import {
   EffectiveSlotStateSchema,
   MODEL_SUCCESSION_TABLE,
   ModelRetirementNoticeSchema,
-  internalModelsRetiredObservedContract,
+  vaultModelsRetiredObservedContract,
   rebuildDecision,
   resolveSuccessor,
   selectBirthPreset,
@@ -15,7 +15,7 @@ import { BusinessUnitLeadBirthResultSchema } from '../../dist/organization/index
 describe('dist 1.106.0', () => {
   it('exports the retirement and preset contracts', () => {
     for (const fn of [selectBirthPreset, resolveSuccessor, rebuildDecision]) expect(typeof fn).toBe('function');
-    for (const value of [AgentPresetAttachmentSchema, EffectiveModelSlotStatusSchema, ModelRetirementNoticeSchema, internalModelsRetiredObservedContract]) {
+    for (const value of [AgentPresetAttachmentSchema, EffectiveModelSlotStatusSchema, ModelRetirementNoticeSchema, vaultModelsRetiredObservedContract]) {
       expect(value).toBeDefined();
     }
     expect(MODEL_SUCCESSION_TABLE.length).toBe(0);

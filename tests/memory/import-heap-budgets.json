@@ -1,0 +1,175 @@
+{
+  "misurato": "09/11/2026, node 24.14.1, darwin arm64, dist di 81d4ab07 (1.121.0) · chiavi «/*» misurate il 09/11/2026 sul dist di 1.122.0 (tetto = misura × 1.05, un tetto vale per il file peggiore del dominio)",
+  "voci": {
+    ".": {
+      "heap_mb": 32,
+      "moduli": 96,
+      "motivo": "radice: solo model-router, ma con tutti i suoi schemi di politiche, tier e fornitori"
+    },
+    "./auth": {
+      "heap_mb": 1,
+      "moduli": 5,
+      "motivo": "solo le due costanti degli header e gli schemi di autenticazione interna"
+    },
+    "./agent": {
+      "heap_mb": 37.5,
+      "moduli": 108,
+      "motivo": "identità, proprietari e credenziali degli agenti con i loro schemi"
+    },
+    "./capability": {
+      "heap_mb": 60,
+      "moduli": 147,
+      "motivo": "barile delle capacità: manifest, chiamate agli strumenti, schema dell’ambiente e contratti di ogni capacità"
+    },
+    "./capability/dev": {
+      "heap_mb": 21,
+      "moduli": 56,
+      "motivo": "contratti della capacità di sviluppo"
+    },
+    "./voice": {
+      "heap_mb": 18.5,
+      "moduli": 58,
+      "motivo": "contratti della voce (stt, tts, voice-live riuniti)"
+    },
+    "./capability/stt": {
+      "heap_mb": 1,
+      "moduli": 3,
+      "motivo": "solo il contratto stt, quasi nessuno schema costruito all’import"
+    },
+    "./capability/tts": {
+      "heap_mb": 1,
+      "moduli": 3,
+      "motivo": "solo il contratto tts, quasi nessuno schema costruito all’import"
+    },
+    "./capability/voice-live": {
+      "heap_mb": 13.5,
+      "moduli": 39,
+      "motivo": "contratti della voce dal vivo"
+    },
+    "./capability/ricerca": {
+      "heap_mb": 23,
+      "moduli": 61,
+      "motivo": "contratti della capacità di ricerca"
+    },
+    "./capability/lab": {
+      "heap_mb": 23,
+      "moduli": 54,
+      "motivo": "contratti della capacità laboratorio"
+    },
+    "./capability/video": {
+      "heap_mb": 23.5,
+      "moduli": 54,
+      "motivo": "contratti della capacità video"
+    },
+    "./http": {
+      "heap_mb": 104.5,
+      "moduli": 300,
+      "motivo": "barile intero: tutti gli endpoint interni e i loro domini"
+    },
+    "./memory": {
+      "heap_mb": 4,
+      "moduli": 13,
+      "motivo": "tipi condivisi con il servizio di memoria"
+    },
+    "./organization": {
+      "heap_mb": 33,
+      "moduli": 73,
+      "motivo": "barile dell’organizzazione: unità di business, tipi e mandati"
+    },
+    "./organization/business-unit-lead": {
+      "heap_mb": 14.5,
+      "moduli": 42,
+      "motivo": "solo il capo di unità di business"
+    },
+    "./organization/business-unit-type": {
+      "heap_mb": 2,
+      "moduli": 8,
+      "motivo": "solo il tipo di unità di business"
+    },
+    "./messaging": {
+      "heap_mb": 1.5,
+      "moduli": 9,
+      "motivo": "contratti dei messaggi"
+    },
+    "./model-router": {
+      "heap_mb": 32,
+      "moduli": 95,
+      "motivo": "politiche, tier, consumer e fornitori dei modelli"
+    },
+    "./rag": {
+      "heap_mb": 20,
+      "moduli": 54,
+      "motivo": "tipi di cap-rag: corpus, ingest, ricerca"
+    },
+    "./vault": {
+      "heap_mb": 13.5,
+      "moduli": 48,
+      "motivo": "livelli, voci e sincronizzazione del vault, credenziali degli agenti"
+    },
+    "./capability/parameters": {
+      "heap_mb": 7.5,
+      "moduli": 20,
+      "motivo": "solo i parametri delle capacità"
+    },
+    "./capability/presentation": {
+      "heap_mb": 17.5,
+      "moduli": 46,
+      "motivo": "solo la presentazione delle capacità"
+    },
+    "./capability/paperclip": {
+      "heap_mb": 22,
+      "moduli": 49,
+      "motivo": "contratti della capacità paperclip"
+    },
+    "./agent/*": {
+      "heap_mb": 31.5,
+      "moduli": 84,
+      "motivo": "ogni modulo di agent/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/agent/ordinary-authority.js (29.8 MB, 80 moduli)"
+    },
+    "./auth/*": {
+      "heap_mb": 0.5,
+      "moduli": 2,
+      "motivo": "ogni modulo di auth/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/auth/device-signature.js (0.3 MB, 1 moduli)"
+    },
+    "./capability/*": {
+      "heap_mb": 37.5,
+      "moduli": 99,
+      "motivo": "ogni modulo di capability/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/capability/portable-contracts.js (35.5 MB, 94 moduli)"
+    },
+    "./http/*": {
+      "heap_mb": 101.0,
+      "moduli": 297,
+      "motivo": "ogni modulo di http/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/http/endpoints/index.js (96.1 MB, 282 moduli)"
+    },
+    "./memory/*": {
+      "heap_mb": 1.5,
+      "moduli": 5,
+      "motivo": "ogni modulo di memory/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/memory/write-candidate.js (1.4 MB, 4 moduli)"
+    },
+    "./messaging/*": {
+      "heap_mb": 1.5,
+      "moduli": 5,
+      "motivo": "ogni modulo di messaging/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/messaging/incoming-message-envelope.js (1 MB, 4 moduli)"
+    },
+    "./model-router/*": {
+      "heap_mb": 27.5,
+      "moduli": 71,
+      "motivo": "ogni modulo di model-router/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/model-router/model-consumer-execution.js (26 MB, 67 moduli)"
+    },
+    "./organization/*": {
+      "heap_mb": 25.5,
+      "moduli": 55,
+      "motivo": "ogni modulo di organization/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/organization/vertical-plan-observation.js (24.1 MB, 52 moduli)"
+    },
+    "./rag/*": {
+      "heap_mb": 18.5,
+      "moduli": 52,
+      "motivo": "ogni modulo di rag/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/rag/qualified-citation.js (17.3 MB, 49 moduli)"
+    },
+    "./vault/*": {
+      "heap_mb": 11.0,
+      "moduli": 36,
+      "motivo": "ogni modulo di vault/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/vault/credential-link.js (10.4 MB, 34 moduli)"
+    }
+  }
+}

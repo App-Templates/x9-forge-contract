@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { AgentIdSchema } from "../agent/agent-identity.js";
 import { AssetRefSchema, AssetSha256Schema, AssetTypeSchema } from "./asset.js";
-import { DecisionRequestIdSchema, DecisionSubjectSchema, } from "./decision-request.js";
+import { ConfirmationSetDecisionSubjectSchema, DecisionRequestIdSchema, DecisionSubjectSchema, confirmationSetDigest, } from "./decision-request.js";
 const SlugSchema = (min, max) => z.string().min(min).max(max).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 /** Levels of the client company map: client company → project → business unit. */
 export const COMPANY_MAP_LEVELS = ['client', 'project', 'business_unit'];
@@ -14,7 +14,8 @@ export const CompanyMapSourceSchema = z.discriminatedUnion('kind', [
     z.strictObject({ kind: z.literal('seed') }),
     z.strictObject({
         kind: z.literal('decision'),
-        requestId: DecisionRequestIdSchema,
+        // Decision subjects reuse map schemas; resolve the identifier after both modules initialize.
+        requestId: z.lazy(() => DecisionRequestIdSchema),
         planVersion: z.number().int().min(1),
     }),
 ]);
@@ -164,6 +165,27 @@ export function companyMapConfirmationSubject(entry) {
         planId: 'map-' + entry.digest.slice(0, 40),
         planVersion: entry.version,
         digest: entry.digest,
+    });
+}
+/** Bind one owner confirmation to the current entries of a single client company. */
+export function companyMapConfirmationSetSubject(entries) {
+    const clientId = entries[0]?.clientId;
+    if (entries.some((entry) => entry.clientId !== clientId)) {
+        throw new Error('Confirmation set entries must belong to the same client');
+    }
+    const targets = entries.map((entry) => ({
+        level: entry.level,
+        ...(entry.projectId !== undefined ? { projectId: entry.projectId } : {}),
+        ...(entry.buSlug !== undefined ? { buSlug: entry.buSlug } : {}),
+        kind: entry.kind,
+        entryRef: companyMapEntryKey(entry),
+        entryVersion: entry.version,
+        entryDigest: entry.digest,
+    }));
+    const digest = confirmationSetDigest(targets);
+    return ConfirmationSetDecisionSubjectSchema.parse({
+        kind: 'confirmation_set', planId: 'mapset-' + digest.slice(0, 40), planVersion: 1,
+        digest, clientId, entries: targets,
     });
 }
 /** Key of an entry inside its level and kind: the person, the asset or the access. */

@@ -35,11 +35,19 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
         organizationId: z.ZodString;
         clientId: z.ZodString;
         projectId: z.ZodString;
+        dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
         objective: z.ZodObject<{
             request: z.ZodString;
             expectedResult: z.ZodString;
             measure: z.ZodString;
         }, z.core.$strict>;
+        deliveryShape: z.ZodOptional<z.ZodEnum<{
+            product: "product";
+            study: "study";
+        }>>;
         analysis: z.ZodObject<{
             startingPoint: z.ZodString;
             marketAndAlternatives: z.ZodObject<{
@@ -71,6 +79,18 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                 }, z.core.$strict>>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
+        workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            parentId: z.ZodOptional<z.ZodString>;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            owners: z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                does: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>>;
         milestones: z.ZodArray<z.ZodObject<{
             number: z.ZodNumber;
             delivery: z.ZodString;
@@ -223,6 +243,31 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"confirmation_set">;
+                planId: z.ZodString;
+                planVersion: z.ZodLiteral<1>;
+                digest: z.ZodString;
+                clientId: z.ZodString;
+                entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                    level: z.ZodEnum<{
+                        client: "client";
+                        project: "project";
+                        business_unit: "business_unit";
+                    }>;
+                    projectId: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    kind: z.ZodEnum<{
+                        access: "access";
+                        referent: "referent";
+                        person: "person";
+                        responsibility: "responsibility";
+                        asset: "asset";
+                    }>;
+                    entryRef: z.ZodString;
+                    entryVersion: z.ZodNumber;
+                    entryDigest: z.ZodString;
+                }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
             question: z.ZodString;
             options: z.ZodArray<z.ZodObject<{
@@ -251,6 +296,19 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
         outcome: z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
             outcome: z.ZodLiteral<"approved">;
             optionId: z.ZodString;
+            referentChanges: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodObject<{
+                level: z.ZodEnum<{
+                    client: "client";
+                    project: "project";
+                    business_unit: "business_unit";
+                }>;
+                buSlug: z.ZodOptional<z.ZodString>;
+                replaces: z.ZodOptional<z.ZodString>;
+                email: z.ZodEmail;
+                personRef: z.ZodString;
+                role: z.ZodString;
+                name: z.ZodString;
+            }, z.core.$strict>>>>;
             requestId: z.ZodString;
             decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                 kind: z.ZodLiteral<"owner">;
@@ -284,6 +342,31 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"confirmation_set">;
+                planId: z.ZodString;
+                planVersion: z.ZodLiteral<1>;
+                digest: z.ZodString;
+                clientId: z.ZodString;
+                entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                    level: z.ZodEnum<{
+                        client: "client";
+                        project: "project";
+                        business_unit: "business_unit";
+                    }>;
+                    projectId: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    kind: z.ZodEnum<{
+                        access: "access";
+                        referent: "referent";
+                        person: "person";
+                        responsibility: "responsibility";
+                        asset: "asset";
+                    }>;
+                    entryRef: z.ZodString;
+                    entryVersion: z.ZodNumber;
+                    entryDigest: z.ZodString;
+                }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
         }, z.core.$strict>, z.ZodObject<{
             outcome: z.ZodLiteral<"rejected">;
@@ -321,6 +404,31 @@ export declare const InternalMemoryCompanyBoardSourcesResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+            }, z.core.$strict>, z.ZodObject<{
+                kind: z.ZodLiteral<"confirmation_set">;
+                planId: z.ZodString;
+                planVersion: z.ZodLiteral<1>;
+                digest: z.ZodString;
+                clientId: z.ZodString;
+                entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                    level: z.ZodEnum<{
+                        client: "client";
+                        project: "project";
+                        business_unit: "business_unit";
+                    }>;
+                    projectId: z.ZodOptional<z.ZodString>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    kind: z.ZodEnum<{
+                        access: "access";
+                        referent: "referent";
+                        person: "person";
+                        responsibility: "responsibility";
+                        asset: "asset";
+                    }>;
+                    entryRef: z.ZodString;
+                    entryVersion: z.ZodNumber;
+                    entryDigest: z.ZodString;
+                }, z.core.$strict>>>;
             }, z.core.$strict>], "kind">>;
         }, z.core.$strict>], "outcome">>;
         mailSubject: z.ZodNullable<z.ZodString>;
@@ -353,11 +461,19 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
             organizationId: z.ZodString;
             clientId: z.ZodString;
             projectId: z.ZodString;
+            dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>>;
             objective: z.ZodObject<{
                 request: z.ZodString;
                 expectedResult: z.ZodString;
                 measure: z.ZodString;
             }, z.core.$strict>;
+            deliveryShape: z.ZodOptional<z.ZodEnum<{
+                product: "product";
+                study: "study";
+            }>>;
             analysis: z.ZodObject<{
                 startingPoint: z.ZodString;
                 marketAndAlternatives: z.ZodObject<{
@@ -389,6 +505,18 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                     }, z.core.$strict>>;
                 }, z.core.$strict>>;
             }, z.core.$strict>;
+            workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                parentId: z.ZodOptional<z.ZodString>;
+                title: z.ZodString;
+                expectedGoal: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                milestone: z.ZodNumber;
+                owners: z.ZodArray<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    does: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>>;
             milestones: z.ZodArray<z.ZodObject<{
                 number: z.ZodNumber;
                 delivery: z.ZodString;
@@ -541,6 +669,31 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"confirmation_set">;
+                    planId: z.ZodString;
+                    planVersion: z.ZodLiteral<1>;
+                    digest: z.ZodString;
+                    clientId: z.ZodString;
+                    entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                        level: z.ZodEnum<{
+                            client: "client";
+                            project: "project";
+                            business_unit: "business_unit";
+                        }>;
+                        projectId: z.ZodOptional<z.ZodString>;
+                        buSlug: z.ZodOptional<z.ZodString>;
+                        kind: z.ZodEnum<{
+                            access: "access";
+                            referent: "referent";
+                            person: "person";
+                            responsibility: "responsibility";
+                            asset: "asset";
+                        }>;
+                        entryRef: z.ZodString;
+                        entryVersion: z.ZodNumber;
+                        entryDigest: z.ZodString;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
                 question: z.ZodString;
                 options: z.ZodArray<z.ZodObject<{
@@ -569,6 +722,19 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
             outcome: z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
                 outcome: z.ZodLiteral<"approved">;
                 optionId: z.ZodString;
+                referentChanges: z.ZodOptional<z.ZodArray<z.ZodLazy<z.ZodObject<{
+                    level: z.ZodEnum<{
+                        client: "client";
+                        project: "project";
+                        business_unit: "business_unit";
+                    }>;
+                    buSlug: z.ZodOptional<z.ZodString>;
+                    replaces: z.ZodOptional<z.ZodString>;
+                    email: z.ZodEmail;
+                    personRef: z.ZodString;
+                    role: z.ZodString;
+                    name: z.ZodString;
+                }, z.core.$strict>>>>;
                 requestId: z.ZodString;
                 decidedBy: z.ZodUnion<readonly [z.ZodObject<{
                     kind: z.ZodLiteral<"owner">;
@@ -602,6 +768,31 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"confirmation_set">;
+                    planId: z.ZodString;
+                    planVersion: z.ZodLiteral<1>;
+                    digest: z.ZodString;
+                    clientId: z.ZodString;
+                    entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                        level: z.ZodEnum<{
+                            client: "client";
+                            project: "project";
+                            business_unit: "business_unit";
+                        }>;
+                        projectId: z.ZodOptional<z.ZodString>;
+                        buSlug: z.ZodOptional<z.ZodString>;
+                        kind: z.ZodEnum<{
+                            access: "access";
+                            referent: "referent";
+                            person: "person";
+                            responsibility: "responsibility";
+                            asset: "asset";
+                        }>;
+                        entryRef: z.ZodString;
+                        entryVersion: z.ZodNumber;
+                        entryDigest: z.ZodString;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
             }, z.core.$strict>, z.ZodObject<{
                 outcome: z.ZodLiteral<"rejected">;
@@ -639,6 +830,31 @@ export declare const internalMemoryCompanyBoardSourcesContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                }, z.core.$strict>, z.ZodObject<{
+                    kind: z.ZodLiteral<"confirmation_set">;
+                    planId: z.ZodString;
+                    planVersion: z.ZodLiteral<1>;
+                    digest: z.ZodString;
+                    clientId: z.ZodString;
+                    entries: z.ZodArray<z.ZodLazy<z.ZodObject<{
+                        level: z.ZodEnum<{
+                            client: "client";
+                            project: "project";
+                            business_unit: "business_unit";
+                        }>;
+                        projectId: z.ZodOptional<z.ZodString>;
+                        buSlug: z.ZodOptional<z.ZodString>;
+                        kind: z.ZodEnum<{
+                            access: "access";
+                            referent: "referent";
+                            person: "person";
+                            responsibility: "responsibility";
+                            asset: "asset";
+                        }>;
+                        entryRef: z.ZodString;
+                        entryVersion: z.ZodNumber;
+                        entryDigest: z.ZodString;
+                    }, z.core.$strict>>>;
                 }, z.core.$strict>], "kind">>;
             }, z.core.$strict>], "outcome">>;
             mailSubject: z.ZodNullable<z.ZodString>;

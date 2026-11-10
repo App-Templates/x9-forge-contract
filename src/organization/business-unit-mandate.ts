@@ -1,6 +1,14 @@
 import { z } from 'zod';
 import { WikiPageSchema } from '../capability/lab/wiki.js';
-import { ActionPlanBusinessUnitSchema, ActionPlanReferentRefSchema } from './action-plan.js';
+import {
+  ActionPlanBuObjectiveSchema,
+  ActionPlanBusinessUnitSchema,
+  ActionPlanDeliveryShapeSchema,
+  ActionPlanObjectiveSchema,
+  ActionPlanProjectObjectiveSchema,
+  ActionPlanReferentRefSchema,
+  ActionPlanWorkBreakdownSchema,
+} from './action-plan.js';
 import { AssetRefSchema, AssetSha256Schema } from './asset.js';
 import { CompanyMapScopeFieldsSchema } from './company-map.js';
 import { DecisionRequestIdSchema } from './decision-request.js';
@@ -46,6 +54,16 @@ export const ReconciledMandateSchema = z.strictObject({
     planVersion: z.number().int().min(1),
     planDigest: AssetSha256Schema,
     businessUnit: ActionPlanBusinessUnitSchema,
+    /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
+    project: z.strictObject({
+      objective: ActionPlanObjectiveSchema,
+      objectiveTree: z.strictObject({ project: ActionPlanProjectObjectiveSchema }),
+    }).optional(),
+    /** This unit's entry of objectiveTree.businessUnits. */
+    unitObjective: ActionPlanBuObjectiveSchema.optional(),
+    deliveryShape: ActionPlanDeliveryShapeSchema.optional(),
+    /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
+    workBreakdown: ActionPlanWorkBreakdownSchema.optional(),
   }),
   decision: z.strictObject({
     requestId: DecisionRequestIdSchema,
@@ -64,6 +82,21 @@ export const ReconciledMandateSchema = z.strictObject({
       code: 'custom',
       message: 'Decision must refer to the same plan version as the plan section',
       path: ['decision', 'planVersion'],
+    });
+  }
+  const unitObjective = mandate.planSection.unitObjective;
+  if (unitObjective !== undefined && unitObjective.buSlug !== mandate.planSection.businessUnit.buSlug) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'The unit objective must be the objective tree entry of the same business unit',
+      path: ['planSection', 'unitObjective', 'buSlug'],
+    });
+  }
+  if (mandate.planSection.workBreakdown !== undefined && mandate.planSection.deliveryShape !== 'product') {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Only a product plan carries the work breakdown into the mandate',
+      path: ['planSection', 'workBreakdown'],
     });
   }
   if (new Set(mandate.notebookPages.map((page) => page.slug)).size !== mandate.notebookPages.length) {

@@ -53,10 +53,10 @@ describe('lab_ingest document input', () => {
     expect(LabIngestInputSchema.parse(input)).toEqual(input);
   });
 
-  it('refuses a document without excerpts', () => {
+  it('accepts omitted excerpts but refuses empty excerpts', () => {
     expect(LabIngestInputSchema.safeParse({
       document: { asset, title: document.title },
-    }).success).toBe(false);
+    }).success).toBe(true);
     expect(LabIngestInputSchema.safeParse({
       document: { ...document, excerpts: [] },
     }).success).toBe(false);

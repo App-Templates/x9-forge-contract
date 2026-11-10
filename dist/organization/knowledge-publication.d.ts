@@ -35,8 +35,8 @@ export declare const KnowledgeContradictionTargetSchema: z.ZodDiscriminatedUnion
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>;
     key: z.ZodString;
     version: z.ZodNumber;
@@ -53,8 +53,8 @@ export declare const KnowledgeContradictionSchema: z.ZodUnion<readonly [z.ZodStr
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>;
     key: z.ZodString;
     version: z.ZodNumber;
@@ -141,8 +141,8 @@ export declare const KnowledgePublicationSchema: z.ZodObject<{
             access: "access";
             referent: "referent";
             person: "person";
-            asset: "asset";
             responsibility: "responsibility";
+            asset: "asset";
         }>;
         key: z.ZodString;
         version: z.ZodNumber;

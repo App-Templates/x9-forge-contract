@@ -13,6 +13,8 @@ function draftPlan(): ActionPlanDraft {
     version: 1,
     clientId: 'client-1',
     projectId: 'project-1',
+    dossier: [{ slug: 'buyer-research', version: 1 }],
+    deliveryShape: 'study',
     objective: { request: 'Find clients', expectedResult: 'One contract', measure: 'Signed contracts' },
     analysis: {
       startingPoint: 'New service',
@@ -90,6 +92,9 @@ describe('ActionPlanSubmissionSchema', () => {
       ...unit,
       buSlug: 'supporto',
       start: { kind: 'planned', unlockedBy: { milestone: 1, delivery: 'First contract' } },
+    });
+    input.objectiveTree.businessUnits.push({
+      buSlug: 'supporto', expectedResult: 'Ready support', deliveryCriteria: ['Support desk open'], indicators: [],
     });
     input.businessUnits[0].sections![0].needsFrom = [{ buSlug: 'supporto', what: 'Lead profile' }];
     expect(ActionPlanSubmissionSchema.parse(input)).toEqual(input);

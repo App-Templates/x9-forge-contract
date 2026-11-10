@@ -36,11 +36,19 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
         organizationId: z.ZodString;
         clientId: z.ZodString;
         projectId: z.ZodString;
+        dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
         objective: z.ZodObject<{
             request: z.ZodString;
             expectedResult: z.ZodString;
             measure: z.ZodString;
         }, z.core.$strict>;
+        deliveryShape: z.ZodOptional<z.ZodEnum<{
+            product: "product";
+            study: "study";
+        }>>;
         analysis: z.ZodObject<{
             startingPoint: z.ZodString;
             marketAndAlternatives: z.ZodObject<{
@@ -72,6 +80,18 @@ export declare const ActionPlanSaveRequestSchema: z.ZodObject<{
                 }, z.core.$strict>>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
+        workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            parentId: z.ZodOptional<z.ZodString>;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            owners: z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                does: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>>;
         milestones: z.ZodArray<z.ZodObject<{
             number: z.ZodNumber;
             delivery: z.ZodString;
@@ -242,11 +262,19 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
         organizationId: z.ZodString;
         clientId: z.ZodString;
         projectId: z.ZodString;
+        dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>>;
         objective: z.ZodObject<{
             request: z.ZodString;
             expectedResult: z.ZodString;
             measure: z.ZodString;
         }, z.core.$strict>;
+        deliveryShape: z.ZodOptional<z.ZodEnum<{
+            product: "product";
+            study: "study";
+        }>>;
         analysis: z.ZodObject<{
             startingPoint: z.ZodString;
             marketAndAlternatives: z.ZodObject<{
@@ -278,6 +306,18 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
                 }, z.core.$strict>>;
             }, z.core.$strict>>;
         }, z.core.$strict>;
+        workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            parentId: z.ZodOptional<z.ZodString>;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            owners: z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                does: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>>;
         milestones: z.ZodArray<z.ZodObject<{
             number: z.ZodNumber;
             delivery: z.ZodString;
@@ -464,11 +504,19 @@ export declare const internalMemoryActionPlanSaveContract: {
             organizationId: z.ZodString;
             clientId: z.ZodString;
             projectId: z.ZodString;
+            dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>>;
             objective: z.ZodObject<{
                 request: z.ZodString;
                 expectedResult: z.ZodString;
                 measure: z.ZodString;
             }, z.core.$strict>;
+            deliveryShape: z.ZodOptional<z.ZodEnum<{
+                product: "product";
+                study: "study";
+            }>>;
             analysis: z.ZodObject<{
                 startingPoint: z.ZodString;
                 marketAndAlternatives: z.ZodObject<{
@@ -500,6 +548,18 @@ export declare const internalMemoryActionPlanSaveContract: {
                     }, z.core.$strict>>;
                 }, z.core.$strict>>;
             }, z.core.$strict>;
+            workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                parentId: z.ZodOptional<z.ZodString>;
+                title: z.ZodString;
+                expectedGoal: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                milestone: z.ZodNumber;
+                owners: z.ZodArray<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    does: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>>;
             milestones: z.ZodArray<z.ZodObject<{
                 number: z.ZodNumber;
                 delivery: z.ZodString;
@@ -673,11 +733,19 @@ export declare const internalMemoryActionPlanReadContract: {
             organizationId: z.ZodString;
             clientId: z.ZodString;
             projectId: z.ZodString;
+            dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                slug: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>>;
             objective: z.ZodObject<{
                 request: z.ZodString;
                 expectedResult: z.ZodString;
                 measure: z.ZodString;
             }, z.core.$strict>;
+            deliveryShape: z.ZodOptional<z.ZodEnum<{
+                product: "product";
+                study: "study";
+            }>>;
             analysis: z.ZodObject<{
                 startingPoint: z.ZodString;
                 marketAndAlternatives: z.ZodObject<{
@@ -709,6 +777,18 @@ export declare const internalMemoryActionPlanReadContract: {
                     }, z.core.$strict>>;
                 }, z.core.$strict>>;
             }, z.core.$strict>;
+            workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                parentId: z.ZodOptional<z.ZodString>;
+                title: z.ZodString;
+                expectedGoal: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                milestone: z.ZodNumber;
+                owners: z.ZodArray<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    does: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>>;
             milestones: z.ZodArray<z.ZodObject<{
                 number: z.ZodNumber;
                 delivery: z.ZodString;

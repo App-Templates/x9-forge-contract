@@ -165,6 +165,7 @@ export declare const ListAgentsAgentSchema: z.ZodObject<{
         name: z.ZodString;
         enabled: z.ZodBoolean;
     }, z.core.$strict>>>>;
+    emailInbox: z.ZodOptional<z.ZodEmail>;
 }, z.core.$strip>;
 export type ListAgentsAgent = z.infer<typeof ListAgentsAgentSchema>;
 export declare const ListAgentsResponseSchema: z.ZodObject<{
@@ -264,6 +265,7 @@ export declare const ListAgentsResponseSchema: z.ZodObject<{
             name: z.ZodString;
             enabled: z.ZodBoolean;
         }, z.core.$strict>>>>;
+        emailInbox: z.ZodOptional<z.ZodEmail>;
     }, z.core.$strip>>;
     source: z.ZodOptional<z.ZodObject<{
         authority: z.ZodLiteral<"x9">;
@@ -396,6 +398,7 @@ export declare const listAgentsContract: {
                 name: z.ZodString;
                 enabled: z.ZodBoolean;
             }, z.core.$strict>>>>;
+            emailInbox: z.ZodOptional<z.ZodEmail>;
         }, z.core.$strip>>;
         source: z.ZodOptional<z.ZodObject<{
             authority: z.ZodLiteral<"x9">;

@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ModelDescriptorSchema } from './model-catalog.js';
 import { findModelConsumerDefinition } from './model-consumers.js';
 import { ModelSlotIdSchema } from './model-slot.js';
+import type { ModelCostMetadata } from './models-batch.js';
 import { ModelsGenerationSchema, compareModelsGeneration } from './models-generation.js';
 
 /** The consumer computes spaceId from the descriptor, dimensions and scope; the bridge preserves it. */
@@ -67,4 +68,21 @@ export function rebuildDecision(next: ModelRebuildTarget, state: ModelRebuildSta
 /** Workers check the persisted state before every block so superseded or cancelled jobs stop themselves. */
 export function isRebuildJobCurrent(jobRequestId: string, state: ModelRebuildState): boolean {
   return state.building?.requestId === jobRequestId;
+}
+
+const NO_TOKEN_RATE_REASON = 'tariffa per token non nota';
+
+/**
+ * What an embedding rebuild of `maxTokens` input tokens costs, always rounded up to the cent.
+ * Never an invented figure: without a known per-token rate there is a reason and no amount.
+ */
+export function embeddingRebuildCost(
+  maxTokens: number,
+  cost: ModelCostMetadata,
+): { amount: number | null; currency: string | null; reason: string | null } {
+  if (cost.state === 'unknown') return { amount: null, currency: null, reason: cost.reason || NO_TOKEN_RATE_REASON };
+  const rate = cost.rates.find(candidate => candidate.unit === 'million-input-tokens');
+  if (rate === undefined) return { amount: null, currency: null, reason: NO_TOKEN_RATE_REASON };
+  const amount = Math.ceil(Number(((maxTokens / 1_000_000) * rate.amount * 100).toFixed(6))) / 100;
+  return { amount, currency: cost.currency, reason: null };
 }

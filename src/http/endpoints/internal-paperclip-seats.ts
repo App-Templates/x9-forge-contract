@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import { ParticipantAgentIdentitySchema } from '../../organization/participant-binding.js';
 import { CapabilityAgentScopeSchema } from '../../capability/capability-call-identity.js';
-import { DecisionOutcomeSchema, DecisionRequestIdSchema } from '../../organization/decision-request.js';
+import { AgentRequestSchema } from '../../organization/agent-request.js';
+import { DecisionOutcomeSchema, DecisionRequestIdSchema, DecisionRequestSchema } from '../../organization/decision-request.js';
 import { ResearchIdSchema, ResearchStateSchema } from '../../capability/ricerca/research.js';
 import {
   DevSessionAssignmentSchema,
@@ -186,6 +187,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     messageId: InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
     threadKey: InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
     mode: z.enum(PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES),
+    // Memory A project of the decision request this email answers, when cap-email knows it; never guessed.
+    projectRef: DecisionRequestSchema.shape.projectId,
     from: z.string().min(1).max(320),
     subject: z.string().min(1).max(300),
     receivedAt: z.iso.datetime(),
@@ -225,6 +228,18 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     stalledSince: z.iso.datetime({ offset: true }),
     reason: z.enum(['no_activity', 'waiting_too_long', 'queue_not_continued']),
   }),
+  z.strictObject({
+    kind: z.literal('approved_units_failed'),
+    requestId: DecisionRequestIdSchema,
+    directorIssueId: z.uuid(),
+    units: z.array(z.strictObject({
+      unitId: z.string().min(1).max(200),
+      reason: z.string().min(1).max(200),
+    })).min(1).max(20),
+    attempt: z.int().min(1).max(10),
+    maxAttempts: z.int().min(1).max(10),
+  }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
+  z.strictObject({ kind: z.literal('agent_request'), request: AgentRequestSchema }),
 ]);
 
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip

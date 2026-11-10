@@ -29,8 +29,8 @@ export declare const MandateReconcileRequestSchema: z.ZodObject<{
                 access: "access";
                 referent: "referent";
                 person: "person";
-                asset: "asset";
                 responsibility: "responsibility";
+                asset: "asset";
             }>;
             key: z.ZodString;
             version: z.ZodNumber;
@@ -99,8 +99,8 @@ export declare const internalMemoryMandateReconcileContract: {
                     access: "access";
                     referent: "referent";
                     person: "person";
-                    asset: "asset";
                     responsibility: "responsibility";
+                    asset: "asset";
                 }>;
                 key: z.ZodString;
                 version: z.ZodNumber;

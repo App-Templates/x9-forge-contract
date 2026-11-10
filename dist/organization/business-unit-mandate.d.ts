@@ -106,6 +106,47 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
                 }, z.core.$strict>;
             }, z.core.$strict>], "kind">;
         }, z.core.$strict>;
+        /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
+        project: z.ZodOptional<z.ZodObject<{
+            objective: z.ZodObject<{
+                request: z.ZodString;
+                expectedResult: z.ZodString;
+                measure: z.ZodString;
+            }, z.core.$strict>;
+            objectiveTree: z.ZodObject<{
+                project: z.ZodObject<{
+                    expectedResult: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                }, z.core.$strict>;
+            }, z.core.$strict>;
+        }, z.core.$strict>>;
+        /** This unit's entry of objectiveTree.businessUnits. */
+        unitObjective: z.ZodOptional<z.ZodObject<{
+            buSlug: z.ZodString;
+            expectedResult: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            indicators: z.ZodArray<z.ZodObject<{
+                name: z.ZodString;
+                source: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        deliveryShape: z.ZodOptional<z.ZodEnum<{
+            product: "product";
+            study: "study";
+        }>>;
+        /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
+        workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            parentId: z.ZodOptional<z.ZodString>;
+            title: z.ZodString;
+            expectedGoal: z.ZodString;
+            deliveryCriteria: z.ZodArray<z.ZodString>;
+            milestone: z.ZodNumber;
+            owners: z.ZodArray<z.ZodObject<{
+                buSlug: z.ZodString;
+                does: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>;
     decision: z.ZodObject<{
         requestId: z.ZodString;
@@ -229,6 +270,47 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
                     }, z.core.$strict>;
                 }, z.core.$strict>], "kind">;
             }, z.core.$strict>;
+            /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
+            project: z.ZodOptional<z.ZodObject<{
+                objective: z.ZodObject<{
+                    request: z.ZodString;
+                    expectedResult: z.ZodString;
+                    measure: z.ZodString;
+                }, z.core.$strict>;
+                objectiveTree: z.ZodObject<{
+                    project: z.ZodObject<{
+                        expectedResult: z.ZodString;
+                        deliveryCriteria: z.ZodArray<z.ZodString>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>;
+            }, z.core.$strict>>;
+            /** This unit's entry of objectiveTree.businessUnits. */
+            unitObjective: z.ZodOptional<z.ZodObject<{
+                buSlug: z.ZodString;
+                expectedResult: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                indicators: z.ZodArray<z.ZodObject<{
+                    name: z.ZodString;
+                    source: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+            deliveryShape: z.ZodOptional<z.ZodEnum<{
+                product: "product";
+                study: "study";
+            }>>;
+            /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
+            workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                id: z.ZodString;
+                parentId: z.ZodOptional<z.ZodString>;
+                title: z.ZodString;
+                expectedGoal: z.ZodString;
+                deliveryCriteria: z.ZodArray<z.ZodString>;
+                milestone: z.ZodNumber;
+                owners: z.ZodArray<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    does: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>>;
         }, z.core.$strict>;
         decision: z.ZodObject<{
             requestId: z.ZodString;
@@ -392,6 +474,47 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                         }, z.core.$strict>;
                     }, z.core.$strict>], "kind">;
                 }, z.core.$strict>;
+                /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
+                project: z.ZodOptional<z.ZodObject<{
+                    objective: z.ZodObject<{
+                        request: z.ZodString;
+                        expectedResult: z.ZodString;
+                        measure: z.ZodString;
+                    }, z.core.$strict>;
+                    objectiveTree: z.ZodObject<{
+                        project: z.ZodObject<{
+                            expectedResult: z.ZodString;
+                            deliveryCriteria: z.ZodArray<z.ZodString>;
+                        }, z.core.$strict>;
+                    }, z.core.$strict>;
+                }, z.core.$strict>>;
+                /** This unit's entry of objectiveTree.businessUnits. */
+                unitObjective: z.ZodOptional<z.ZodObject<{
+                    buSlug: z.ZodString;
+                    expectedResult: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    indicators: z.ZodArray<z.ZodObject<{
+                        name: z.ZodString;
+                        source: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                deliveryShape: z.ZodOptional<z.ZodEnum<{
+                    product: "product";
+                    study: "study";
+                }>>;
+                /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
+                workBreakdown: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                    id: z.ZodString;
+                    parentId: z.ZodOptional<z.ZodString>;
+                    title: z.ZodString;
+                    expectedGoal: z.ZodString;
+                    deliveryCriteria: z.ZodArray<z.ZodString>;
+                    milestone: z.ZodNumber;
+                    owners: z.ZodArray<z.ZodObject<{
+                        buSlug: z.ZodString;
+                        does: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>>;
             }, z.core.$strict>;
             decision: z.ZodObject<{
                 requestId: z.ZodString;

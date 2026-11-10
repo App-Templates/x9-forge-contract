@@ -12,7 +12,7 @@ export declare const CompanyMapReferentWriteRequestSchema: z.ZodObject<{
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -38,7 +38,7 @@ export declare const CompanyMapEntryWriteRequestSchema: z.ZodDiscriminatedUnion<
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -62,7 +62,7 @@ export declare const CompanyMapEntryWriteRequestSchema: z.ZodDiscriminatedUnion<
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -84,7 +84,7 @@ export declare const CompanyMapEntryWriteRequestSchema: z.ZodDiscriminatedUnion<
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -110,7 +110,7 @@ export declare const CompanyMapEntryWriteRequestSchema: z.ZodDiscriminatedUnion<
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -134,7 +134,7 @@ export declare const CompanyMapEntryWriteRequestSchema: z.ZodDiscriminatedUnion<
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -156,7 +156,7 @@ export declare const CompanyMapEntryWriteResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -183,7 +183,7 @@ export declare const CompanyMapEntryWriteResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -210,7 +210,7 @@ export declare const CompanyMapEntryWriteResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -235,7 +235,7 @@ export declare const CompanyMapEntryWriteResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -264,7 +264,7 @@ export declare const CompanyMapEntryWriteResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -305,8 +305,8 @@ export declare const CompanyMapEntriesQuerySchema: z.ZodObject<{
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>>;
 }, z.core.$strict>;
 export type CompanyMapEntriesQuery = z.infer<typeof CompanyMapEntriesQuerySchema>;
@@ -316,7 +316,7 @@ export declare const CompanyMapEntriesResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -343,7 +343,7 @@ export declare const CompanyMapEntriesResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -370,7 +370,7 @@ export declare const CompanyMapEntriesResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -395,7 +395,7 @@ export declare const CompanyMapEntriesResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -424,7 +424,7 @@ export declare const CompanyMapEntriesResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -455,8 +455,8 @@ export declare const CompanyMapHistoryQuerySchema: z.ZodObject<{
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>;
     entryRef: z.ZodString;
     after: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
@@ -479,7 +479,7 @@ export declare const CompanyMapHistoryResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -506,7 +506,7 @@ export declare const CompanyMapHistoryResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -533,7 +533,7 @@ export declare const CompanyMapHistoryResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -558,7 +558,7 @@ export declare const CompanyMapHistoryResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -587,7 +587,7 @@ export declare const CompanyMapHistoryResponseSchema: z.ZodObject<{
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -623,8 +623,8 @@ export declare const internalMemoryCompanyMapHistoryContract: {
             access: "access";
             referent: "referent";
             person: "person";
-            asset: "asset";
             responsibility: "responsibility";
+            asset: "asset";
         }>;
         entryRef: z.ZodString;
         after: z.ZodOptional<z.ZodCoercedNumber<unknown>>;
@@ -646,7 +646,7 @@ export declare const internalMemoryCompanyMapHistoryContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -673,7 +673,7 @@ export declare const internalMemoryCompanyMapHistoryContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -700,7 +700,7 @@ export declare const internalMemoryCompanyMapHistoryContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -725,7 +725,7 @@ export declare const internalMemoryCompanyMapHistoryContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -754,7 +754,7 @@ export declare const internalMemoryCompanyMapHistoryContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -795,7 +795,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -819,7 +819,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -841,7 +841,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -867,7 +867,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -891,7 +891,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
             kind: z.ZodLiteral<"seed">;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"decision">;
-            requestId: z.ZodString;
+            requestId: z.ZodLazy<z.ZodString>;
             planVersion: z.ZodNumber;
         }, z.core.$strict>], "kind">;
         confirmedAt: z.ZodISODateTime;
@@ -912,7 +912,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -939,7 +939,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -966,7 +966,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -991,7 +991,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -1020,7 +1020,7 @@ export declare const internalMemoryCompanyMapWriteContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -1064,8 +1064,8 @@ export declare const internalMemoryCompanyMapListContract: {
             access: "access";
             referent: "referent";
             person: "person";
-            asset: "asset";
             responsibility: "responsibility";
+            asset: "asset";
         }>>;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -1074,7 +1074,7 @@ export declare const internalMemoryCompanyMapListContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -1101,7 +1101,7 @@ export declare const internalMemoryCompanyMapListContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -1128,7 +1128,7 @@ export declare const internalMemoryCompanyMapListContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -1153,7 +1153,7 @@ export declare const internalMemoryCompanyMapListContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;
@@ -1182,7 +1182,7 @@ export declare const internalMemoryCompanyMapListContract: {
                 kind: z.ZodLiteral<"seed">;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"decision">;
-                requestId: z.ZodString;
+                requestId: z.ZodLazy<z.ZodString>;
                 planVersion: z.ZodNumber;
             }, z.core.$strict>], "kind">;
             confirmedAt: z.ZodISODateTime;

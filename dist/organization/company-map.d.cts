@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { type DecisionSubject } from "./decision-request.cjs";
+import { type ConfirmationSetDecisionSubject, type DecisionSubject } from "./decision-request.cjs";
 /** Levels of the client company map: client company → project → business unit. */
 export declare const COMPANY_MAP_LEVELS: readonly ["client", "project", "business_unit"];
 export declare const CompanyMapLevelSchema: z.ZodEnum<{
@@ -14,8 +14,8 @@ export declare const CompanyMapEntryKindSchema: z.ZodEnum<{
     access: "access";
     referent: "referent";
     person: "person";
-    asset: "asset";
     responsibility: "responsibility";
+    asset: "asset";
 }>;
 export type CompanyMapEntryKind = z.infer<typeof CompanyMapEntryKindSchema>;
 /** An entry comes only from a seed or from an approved decision, never from a model. */
@@ -23,7 +23,7 @@ export declare const CompanyMapSourceSchema: z.ZodDiscriminatedUnion<[z.ZodObjec
     kind: z.ZodLiteral<"seed">;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"decision">;
-    requestId: z.ZodString;
+    requestId: z.ZodLazy<z.ZodString>;
     planVersion: z.ZodNumber;
 }, z.core.$strict>], "kind">;
 export type CompanyMapSource = z.infer<typeof CompanyMapSourceSchema>;
@@ -46,7 +46,7 @@ export declare const CompanyMapVersionFieldsSchema: z.ZodObject<{
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -73,8 +73,8 @@ export declare const CompanyMapConfirmTargetSchema: z.ZodObject<{
         access: "access";
         referent: "referent";
         person: "person";
-        asset: "asset";
         responsibility: "responsibility";
+        asset: "asset";
     }>;
     entryRef: z.ZodString;
 }, z.core.$strict>;
@@ -125,7 +125,7 @@ export declare const CompanyMapEntrySchema: z.ZodObject<{
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -154,7 +154,7 @@ export declare const CompanyMapPersonEntrySchema: z.ZodObject<{
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -183,7 +183,7 @@ export declare const CompanyMapResponsibilityEntrySchema: z.ZodObject<{
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -210,7 +210,7 @@ export declare const CompanyMapAssetEntrySchema: z.ZodObject<{
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -241,7 +241,7 @@ export declare const CompanyMapAccessEntrySchema: z.ZodObject<{
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -271,7 +271,7 @@ export declare const CompanyMapAnyEntrySchema: z.ZodDiscriminatedUnion<[z.ZodObj
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -298,7 +298,7 @@ export declare const CompanyMapAnyEntrySchema: z.ZodDiscriminatedUnion<[z.ZodObj
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -325,7 +325,7 @@ export declare const CompanyMapAnyEntrySchema: z.ZodDiscriminatedUnion<[z.ZodObj
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -350,7 +350,7 @@ export declare const CompanyMapAnyEntrySchema: z.ZodDiscriminatedUnion<[z.ZodObj
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -379,7 +379,7 @@ export declare const CompanyMapAnyEntrySchema: z.ZodDiscriminatedUnion<[z.ZodObj
         kind: z.ZodLiteral<"seed">;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"decision">;
-        requestId: z.ZodString;
+        requestId: z.ZodLazy<z.ZodString>;
         planVersion: z.ZodNumber;
     }, z.core.$strict>], "kind">;
     confirmedAt: z.ZodISODateTime;
@@ -413,6 +413,8 @@ export declare const COMPANY_MAP_CONFIRM_OPTIONS: [{
 }];
 /** Bind a confirmation to the exact entry version and digest the owner read. */
 export declare function companyMapConfirmationSubject(entry: CompanyMapAnyEntry): DecisionSubject;
+/** Bind one owner confirmation to the current entries of a single client company. */
+export declare function companyMapConfirmationSetSubject(entries: CompanyMapAnyEntry[]): ConfirmationSetDecisionSubject;
 /** Key of an entry inside its level and kind: the person, the asset or the access. */
 export declare function companyMapEntryKey(entry: {
     kind: 'referent' | 'person' | 'responsibility';

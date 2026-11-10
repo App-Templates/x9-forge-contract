@@ -13,6 +13,7 @@ const agent_credential_services_js_1 = require("../../agent/agent-credential-ser
 const platform_internal_credentials_js_1 = require("../../vault/platform-internal-credentials.cjs");
 const cap_tool_call_js_1 = require("./cap-tool-call.cjs");
 const internal_agent_turn_js_1 = require("./internal-agent-turn.cjs");
+const email_tools_js_1 = require("../../capability/email-tools.cjs");
 const briefing_js_1 = require("../../capability/configuration/briefing.cjs");
 const text = zod_1.z.string().min(1).max(32_000);
 const telegramInput = zod_1.z.strictObject({ chatId: zod_1.z.union([zod_1.z.number().int(), zod_1.z.string().min(1).max(64)]), text });
@@ -81,7 +82,7 @@ exports.INTERNAL_AGENT_EXECUTIONS = Object.freeze({
     voice_calendar_create: registration('calendar', 'calendar_create', calendarCreateInput, GOOGLE_CALENDAR),
     voice_calendar_update: registration('calendar', 'calendar_update', calendarUpdateInput, GOOGLE_CALENDAR),
     voice_calendar_delete: registration('calendar', 'calendar_delete', calendarDeleteInput, GOOGLE_CALENDAR),
-    voice_email_send: registration('email', 'email_send', emailSendInput, ['AGENTMAIL_API_KEY'], ['AGENTMAIL_INBOX_ID']),
+    voice_email_send: registration('email', email_tools_js_1.EMAIL_SEND_TOOL, emailSendInput, ['AGENTMAIL_API_KEY'], ['AGENTMAIL_INBOX_ID']),
     voice_contacts_search: registration('contacts', 'contacts_search', contactsSearchInput, ['GOOGLE_CONTACTS_CLIENT_ID', 'GOOGLE_CONTACTS_CLIENT_SECRET', 'GOOGLE_CONTACTS_REFRESH_TOKEN']),
     voice_schedule_create: registration('scheduler', 'schedule_create', reminderInput, []),
     // cap-security alarm and sentinel: the home of the agent the alarm belongs to.

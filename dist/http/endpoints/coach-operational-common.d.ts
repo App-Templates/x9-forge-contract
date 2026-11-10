@@ -34,14 +34,14 @@ export declare const CoachOperationalErrorSchema: z.ZodObject<{
         invalid_request: "invalid_request";
         idempotency_conflict: "idempotency_conflict";
         source_unavailable: "source_unavailable";
-        not_found: "not_found";
         budget_exhausted: "budget_exhausted";
+        not_found: "not_found";
         program_not_found: "program_not_found";
         scope_mismatch: "scope_mismatch";
         authority_unavailable: "authority_unavailable";
         unauthorized: "unauthorized";
-        strategy_unavailable: "strategy_unavailable";
         stale_revision: "stale_revision";
+        strategy_unavailable: "strategy_unavailable";
         stale_program_version: "stale_program_version";
         budget_unavailable: "budget_unavailable";
     }>;

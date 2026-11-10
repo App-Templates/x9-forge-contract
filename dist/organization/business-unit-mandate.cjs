@@ -42,6 +42,16 @@ exports.ReconciledMandateSchema = zod_1.z.strictObject({
         planVersion: zod_1.z.number().int().min(1),
         planDigest: asset_js_1.AssetSha256Schema,
         businessUnit: action_plan_js_1.ActionPlanBusinessUnitSchema,
+        /** The whole project's objective (plan part 1 and objectiveTree.project). Absent in mandates saved before 1.129.0. */
+        project: zod_1.z.strictObject({
+            objective: action_plan_js_1.ActionPlanObjectiveSchema,
+            objectiveTree: zod_1.z.strictObject({ project: action_plan_js_1.ActionPlanProjectObjectiveSchema }),
+        }).optional(),
+        /** This unit's entry of objectiveTree.businessUnits. */
+        unitObjective: action_plan_js_1.ActionPlanBuObjectiveSchema.optional(),
+        deliveryShape: action_plan_js_1.ActionPlanDeliveryShapeSchema.optional(),
+        /** The whole project breakdown (product plans): the unit sees its items and where they sit. */
+        workBreakdown: action_plan_js_1.ActionPlanWorkBreakdownSchema.optional(),
     }),
     decision: zod_1.z.strictObject({
         requestId: decision_request_js_1.DecisionRequestIdSchema,
@@ -60,6 +70,21 @@ exports.ReconciledMandateSchema = zod_1.z.strictObject({
             code: 'custom',
             message: 'Decision must refer to the same plan version as the plan section',
             path: ['decision', 'planVersion'],
+        });
+    }
+    const unitObjective = mandate.planSection.unitObjective;
+    if (unitObjective !== undefined && unitObjective.buSlug !== mandate.planSection.businessUnit.buSlug) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'The unit objective must be the objective tree entry of the same business unit',
+            path: ['planSection', 'unitObjective', 'buSlug'],
+        });
+    }
+    if (mandate.planSection.workBreakdown !== undefined && mandate.planSection.deliveryShape !== 'product') {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Only a product plan carries the work breakdown into the mandate',
+            path: ['planSection', 'workBreakdown'],
         });
     }
     if (new Set(mandate.notebookPages.map((page) => page.slug)).size !== mandate.notebookPages.length) {

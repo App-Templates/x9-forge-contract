@@ -97,6 +97,8 @@ export const ORGANIZATION_ADMISSION_REFUSAL_CODES = [
   'context_expired',
   'organization_binding_unavailable',
   'organization_binding_missing',
+  // more than one active participant binding for the run scope
+  'organization_binding_ambiguous',
   'tenant_mismatch',
   'owner_mismatch',
   'agent_identity_mismatch',

@@ -2,6 +2,133 @@
 
 ## Non rilasciato
 
+## v1.138.0 — unione della linea bacheca (1.110.0-1.119.0) sopra la linea opus-azienda (1.120.0-1.137.0, e6302c3b)
+
+- Unione con merge commit di `e6302c3b` (`night/ec-ponte-conferme-20261109`, 1.120.0-1.137.0) nel ramo della bacheca (1.110.0-1.119.0: lettura dell'azienda, storia dei reparti, azioni del proprietario sveglia/via/ferma/riprendi, spesa per giorno, frasi di conferma).
+- Conflitti solo meccanici: versione di `package.json` e righe di esportazione/importazione in `src/organization/index.ts` e `tests/organization/index.test.ts` (tenuti entrambi i lati). Nessun export, valore di enum o schema è cambiato rispetto alla linea di origine.
+- `dist/` ricostruita dalla build; corretti due errori di lint arrivati con la linea opus-azienda (import inutilizzato in `model-retirement.ts`, `typeof import()` in `business-unit-mandate.test.ts`).
+
+## v1.137.0 — il rifiuto del tetto per ricerca indica il minimo accettato; additivo
+
+- `http/endpoints/internal-capability-agent` (6161): `CapabilityAgentRouteErrorSchema` conserva `minimumUsd` facoltativo, positivo e finito, solo per `budget_below_minimum`: il minimo tetto per ricerca accettato dalla configurazione, in dollari, arrotondato per eccesso al centesimo. I corpi senza il campo restano validi; gli altri errori lo rifiutano.
+- Produttore: X9 cap-ricerca (ec-x9); consumatore: Forge (forge-rel-059). Forge deve adottare 1.137.0 PRIMA del rilascio di cap-ricerca che invia il campo: lo schema `.strict()` precedente lo rifiuta. La visualizzazione del minimo richiede l'adozione nei servizi e nel pannello Forge.
+
+## v1.136.0 — il tetto di spesa dell'azienda si legge e si cambia con un contratto; additivo
+
+- `http/endpoints/internal-company-spend` (6160): `GET`/`PUT /internal/companies/:company/spend` (`internalCompanySpendReadContract`, `internalCompanySpendCapUpdateContract`). La lettura dà tetto, speso, speso per agente e per fonte, `revision` e le fonti che X9 non legge (`unreadSources`). Il cambio chiede la `revision` letta, il nuovo tetto in centesimi (≥ 1) e, se serve, `since` per far ripartire il contatore; errori in `InternalCompanySpendErrorSchema` (`stale_revision` porta `currentRevision`). Anche `CompanySpendSourceSchema`.
+- Consumer: produttore X9 agent-core (ec-x9), consumatore Forge (forge-rel-059). Contratto della BU invariato.
+
+## v1.135.0 — l'inventario degli agenti dice la casella AgentMail che ogni agente usa; additivo
+
+- `http/endpoints/internal-agents-list` (6124): `ListAgentsAgentSchema` ha il campo facoltativo `emailInbox` (indirizzo email), la casella `AGENTMAIL_INBOX_ID` del contesto caricato dell'agente, Master compreso. Assente = nessuna o ignota, mai dedotta. Gli inventari senza il campo restano validi.
+- Consumer: produttore X9 agent-core (ec-x9/6125-6126), consumatore Forge (forge-rel-059/6127-6128). Lo schema non è stretto: l'ordine dei rilasci è libero.
+
+## v1.134.0 — il progetto della domanda viaggia con la sveglia email; additivo
+
+- `http/endpoints/internal-paperclip-seats` (6118): il ramo email di `PaperclipSeatNativeWakeEventSchema` conserva `projectRef` facoltativo, riusando `DecisionRequestSchema.shape.projectId` (1–64 caratteri). Gli eventi senza il campo restano validi; gli altri rami restano stretti.
+- Consumer: X9 ec-x9/6119–6121. Il produttore cap-email e il consumatore cap-paperclip vanno rilasciati insieme: lo schema stretto di cap-paperclip su 1.133.0 rifiuterebbe il campo nuovo.
+
+## v1.133.0 — il tetto di ricerche per dossier è una impostazione della Ricerca; additivo
+
+- `capability/ricerca` (6112): `ResearchParamsSchema` ha il campo facoltativo `maxPerDossier` (intero 1–100), accanto a `maxToolCalls`. Assente vale il default del servizio. Le configurazioni salvate senza il campo restano valide.
+- Consumer: X9 cap-ricerca (ec-x9/6113-6114), Forge (forge-rel-059/6115).
+
+## v1.132.0 — la consegna di progetto non conta pezzi superati e non si manda due volte; additivo
+
+- `organization/project-delivery` (6100): stato `needs_reapproval` con `approvedUnderVersion`, input `planVersions` e `projectDeliveryUnitDigest` per riconoscere i pezzi approvati sotto una versione superata del piano.
+- Registrazioni della consegna (6101): `PROJECT_DELIVERY_ASSET_TYPE`, `ProjectDeliveryRecordSchema`, `projectDeliveryRecordName`, `projectDeliveryRecordAssetId`, `ProjectDeliveryToolOutputSchema` e codice `project_delivery_duplicate_unit`; nomi e identificativi deterministici per ritrovare le registrazioni degli invii.
+- `capability/email-tools` (6101): `EMAIL_SEND_TOOL`, nome condiviso dello strumento di invio email, con esportazione esplicita e mappa degli import stretti.
+- `http/endpoints/internal-memory-assets` (6102): `internalMemoryAssetReadContract`, POST con contesto firmato, progetto e id dell'asset. Restituisce il riferimento senza `links`, oppure `null` se assente dal progetto dell'organizzazione verificata. La lettura per id supera il limite di 200 voci della lista senza cambiarla.
+- Consumer: X9 cap-email e memory, Forge profilo del Director. Distribuzione con le cure 6100 e 6101; adozione X9 6103–6106 e Forge 6107. Le forme salvate esistenti restano valide.
+
+## v1.131.0 — la consegna di progetto; additivo
+
+- `@x9-forge/contracts/organization`: nuovo `project-delivery`. `PROJECT_DELIVERY_TOOL` (`email_deliver_project`), `ProjectDeliveryInputSchema`, `ProjectDeliveryReconciliationSchema` (esito `complete` | `partial` | `empty`, un pezzo per reparto del piano con stato `approved` | `pending` | `rejected` | `missing`, `missing[].waitsOn` con chi aspetta chi, impronta, invio `final` | `partial`) e `projectDeliveryDigest`.
+- `reconcileProjectDelivery({ plan, planApprovedAt, decisions, assets })`: funzione pura che riconcilia le consegne approvate dal referente con il piano; un pezzo vale solo se l'asset salvato ha la stessa impronta. `planApprovedAt` è la prima approvazione dello stesso `planId`, non quella della versione corrente.
+- Consumer: X9 cap-email (strumento) e cap-paperclip, Forge profilo del Director. Nessuno schema esistente cambia.
+
+## v1.130.0 — la richiesta fra agenti ha una forma condivisa; additivo
+
+- `@x9-forge/contracts/organization`: `AgentRequestSchema`, `AgentRequestIdSchema` e `AGENT_REQUEST_TARGET_KINDS` descrivono chi chiede, a chi, cosa serve, perché, il Mandato di origine e, quando presente, il piano con la sua versione.
+- `@x9-forge/contracts/http/endpoints`: nuovo evento di sveglia `agent_request` in `PaperclipSeatNativeWakeEventSchema`, con la richiesta condivisa nel campo `request`. Consumer: X9 cap-paperclip (5978, 5979).
+- I corpi di sveglia già in coda restano validi.
+
+## v1.129.0 — porting del 055 (già 1.92.0, mai pubblicata): alberatura del progetto nel piano d'azione e Mandato che eredita gli obiettivi; additivo per i dati salvati
+
+- `@x9-forge/contracts/organization`: `ACTION_PLAN_DELIVERY_SHAPES` (`product` | `study`) e i campi facoltativi `deliveryShape` e `workBreakdown` (l'alberatura: `ActionPlanWorkItemSchema` con `id`, `parentId`, `title`, `expectedGoal`, `deliveryCriteria`, `milestone`, `owners[{ buSlug, does }]`, max 60 voci) in `ActionPlanSchema` e `ActionPlanDraftSchema`; `ActionPlanObjectiveSchema`, `ActionPlanProjectObjectiveSchema`, `ActionPlanBuObjectiveSchema` estratti ed esportati. Consumer: X9 memory (salva), cap-email (email del piano), cap-paperclip (Mandato), Forge (profilo del Director).
+- `ActionPlanSubmissionSchema` (solo i piani nuovi del Director): `deliveryShape` obbligatorio; `product` vuole l'alberatura (parent esistenti, niente cicli, foglie con owner di BU esistenti, tappe esistenti, ogni BU `now` owner di almeno una voce) e non ammette `sections` per BU; `study` non ammette l'alberatura e vuole le `sections` delle BU `now` come in 1.91.0; ogni BU ha la sua voce in `objectiveTree.businessUnits`. Consumer: X9 cap-email.
+- `ReconciledMandateSchema.planSection`: `project` (`objective` e `objectiveTree.project`), `unitObjective`, `deliveryShape`, `workBreakdown`, tutti facoltativi. Consumer: X9 cap-paperclip.
+
+I piani salvati (v1-v3), le bozze di oggi e i Mandati salvati restano validi; il digest di un piano senza i campi nuovi non cambia. Si stringe solo la sottomissione di un piano nuovo.
+
+## v1.127.0 — il rifiuto per legame ambiguo ha il suo nome
+
+- `ORGANIZATION_ADMISSION_REFUSAL_CODES` include `organization_binding_ambiguous`: l'agente ha più di un legame attivo di partecipante per la corsa. Prima agent-core lo rifiutava come `organization_binding_missing`. Adozione con 5906 (agent-core); cap-paperclip legge l'elenco dal ponte. Versione da riservare dalla coordinatrice.
+
+## v1.126.0 — il piano cita le pagine del dossier
+
+- Nuovi `ActionPlanDossierPageSchema` e tipo `ActionPlanDossierPage` in `organization/action-plan`: slug e versione riusano il contratto delle pagine wiki. `ActionPlanSchema.dossier` contiene fino a 50 pagine con slug unici, senza cambiare la lettura dei piani salvati e delle bozze prive del campo.
+- `ActionPlanSubmissionSchema` richiede un dossier non vuoto per ogni nuova sottomissione; il legame con la decisione resta `planId`. Il piano salvato `plan_2880531b` senza dossier resta leggibile e invariato.
+- Adozione e fruibilità con 5945 e 5954–5956: lettura delle pagine nel piano, nell'email e nel Mandato. Versione da riservare dalla coordinatrice.
+
+## v1.125.0 — origine e citazioni delle affermazioni wiki
+
+- `WikiOriginSchema` include `model`, sapere del modello senza fonte salvata. `human` indica un documento o una nota di una persona.
+- `WikiClaimSchema` accetta fonti vuote solo per `model`, che richiede fonti vuote e non può avere stato `confermata`. `quotes` facoltativo contiene fino a 50 estratti di 1–500 caratteri, ciascuno riferito a una delle `sourceIds` dell'affermazione. Le forme salvate con origine `web` e almeno una fonte restano valide.
+- Adozione e fruibilità con 5945 e 5948, incluso il controllo degli estratti nel Lab. Versione da riservare dalla coordinatrice.
+
+## v1.124.0 — documenti wiki senza estratti, versioni e ritiro
+
+- `LabIngestDocumentSchema`: `excerpts` facoltativo (limiti invariati quando presente); senza estratti il Lab legge e converte l'asset dalla Memoria Aziendale. `supersedes` identifica l'asset precedente da ritirare.
+- Nuovo `LAB_TOOLS.withdraw` (`lab_withdraw`), con `LabWithdrawInputSchema`, `LabWithdrawOutputSchema` e tipi nel sottopercorso `capability/lab/tools`: motivo obbligatorio, conteggi del ritiro e data con fuso orario. Adozione e fruibilità nelle schede 5945, 5947 e 5949; versione da riservare dalla coordinatrice.
+
+## v1.123.0 — la mappa di ogni nome dei barili verso il suo sotto-percorso stretto
+
+- Nuovo `dist/narrow-imports.json` (formato `x9-narrow-imports-v1`), scritto da `scripts/generate-narrow-imports.mjs` nella build dopo zshy: per ogni chiave esatta di `exports`, ogni nome a runtime con il sotto-percorso stretto del modulo che lo dichiara (un nome rinominato in un re-export vale per il modulo che lo rinomina; la chiave esatta vince sul percorso stretto). Il generatore fallisce con «Cannot place» su un nome dichiarato fuori da `src` o senza sotto-percorso.
+- I barili non cambiano: la mappa è solo un'aggiunta. La leggerà lo strumento di X9 (5898).
+
+## v1.122.0 — ogni modulo dei contratti ha il suo sotto-percorso stretto
+
+- Dieci chiavi `./<dominio>/*` (`agent`, `auth`, `capability`, `http`, `memory`, `messaging`, `model-router`, `organization`, `rag`, `vault`): `@x9-forge/contracts/http/endpoints/internal-paperclip-seats` o `@x9-forge/contracts/capability/tool-call` caricano solo il modulo che dichiara lo schema (ESM, CJS e tipi), senza il barile del dominio.
+- Le 24 chiavi di prima risolvono allo stesso file e danno lo stesso oggetto; nessun sorgente cambia. Le chiavi esatte vincono sulle `*`.
+- `pnpm build` riscrive dopo zshy i bersagli delle chiavi `*` con l'estensione (`*.js`, `*.cjs`, `*.d.cts`), perché zshy li lascia senza e l'import senza estensione non risolverebbe.
+- Tetti di heap delle dieci chiavi in `tests/memory/import-heap-budgets.json`. Adozione X9 nelle schede 5897–5936.
+
+## v1.121.0 — la sveglia dei posti conosce le aree approvate non nate
+
+- Nuova voce `approved_units_failed` di `PaperclipSeatNativeWakeEventSchema`: richiesta, incarico del Director, da 1 a 20 aree con motivo, `attempt` non oltre `maxAttempts` (l'ultima sveglia è l'avviso). Richiede `organizationId` e `identity` come le altre voci diverse da `research_done`.
+- Le quattro voci esistenti non cambiano. Adozione X9 nelle schede 5885–5887.
+
+## v1.120.0 — conferme dei referenti in un'unica richiesta
+
+- Nuovo soggetto `confirmation_set`: da 1 a 50 voci della stessa azienda, senza doppioni, con digest SHA-256 indipendente dall'ordine e identificativo `mapset-…` verificati.
+- `companyMapConfirmationSetSubject` costruisce l'insieme dalle versioni correnti della mappa; `confirmationSetDigest` ne calcola l'impronta canonica.
+- Risposte email e approvazioni possono includere fino a 20 `referentChanges`, con `replaces` facoltativo, solo per un insieme confermato con `confermo`. Le altre opzioni dell'insieme registrano un rifiuto con l'etichetta scelta e il soggetto completo.
+- Le richieste senza soggetto, le conferme singole, i piani e le consegne conservano le forme esistenti. Adozione X9 nelle schede 5865–5869; nessun cambiamento a Forge.
+
+## v1.112.0 — una sola via del ritiro e stima del costo della ricostruzione
+
+- Tolti (mai rilasciati): `internalModelsRetiredObservedContract`, `retiredProviderErrorFits`, `RETIRED_PROVIDER_ERROR_CODES`, `RetiredProviderErrorSchema`, `RetirementSourceSchema`.
+- L'osservazione ha solo `source: 'provider-inventory'`, senza `providerError`.
+- Nuova `embeddingRebuildCost`: stima del costo della ricostruzione degli embedding, scritta una volta, sempre per eccesso al centesimo.
+- Consumatori: X9 (mp-x9 5562); Forge resta sulla 1.111.0 finché non adotta.
+
+## v1.111.0 — aggancio salvato col preset
+
+- `AgentPresetAttachmentRecordSchema`: identità completa, ambito e `source` (`nascita`/`riallineamento`), ciò che Forge salva per un agente senza configurazione Modelli.
+- `presetAttachmentAuthorityOf`: identità e ambito solo se il record coincide con id, slug e proprietario della riga dell'agente.
+- `presetAttachmentRecordFromBirth`: costruisce il record salvato alla nascita dall'aggancio e dal proprietario.
+- Consumatori: Forge vault e factory (mp-forge 5549, 5552-5554).
+- Nessuno schema esistente cambia valori.
+- Fonte dell'identità: Stefano 07/11 «A».
+
+## v1.110.0 — fonte del preset generale
+
+- `PLATFORM_PRESET_SOURCE_IDENTITY` (`runtimeAgentId` `x9`, `managementAgentId` `x9-staging`): l'identità salvata di X9, Stefano 07/11 «prendi X9».
+- `isPlatformPresetSourceIdentity`: vero solo se entrambi gli id coincidono.
+- Consumatori: Forge vault, rapporto a secco e semina del preset generale (mp-forge 5533, 5535).
+- Nessuno schema cambia valori.
+
 ## v1.109.0 — unione della linea modelli-preset (1.103.0-1.106.3) e della linea ec-ponte (1.95.0-1.108.0)
 
 - Unione con merge commit di `night/modelli-preset-20261106` (main 1.102.0 + 1.103.0-1.106.3: preset, scelta effettiva, push con conferma, chiavi del preset, revoca come soglia, ritiri, nascita agganciata al preset) e di `night/ec-ponte-unione-20261104` (1.95.0-1.108.0: asset della memoria senza byte per le sessioni, link e ZIP delle consegne di cap-dev, parti dell'organizzazione, sveglia dei posti, strumenti video).

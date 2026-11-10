@@ -4,6 +4,7 @@ exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatN
 const zod_1 = require("zod");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
 const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
+const agent_request_js_1 = require("../../organization/agent-request.cjs");
 const decision_request_js_1 = require("../../organization/decision-request.cjs");
 const research_js_1 = require("../../capability/ricerca/research.cjs");
 const session_assignment_js_1 = require("../../capability/dev/session-assignment.cjs");
@@ -141,6 +142,8 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         messageId: exports.InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
         threadKey: exports.InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
         mode: zod_1.z.enum(exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES),
+        // Memory A project of the decision request this email answers, when cap-email knows it; never guessed.
+        projectRef: decision_request_js_1.DecisionRequestSchema.shape.projectId,
         from: zod_1.z.string().min(1).max(320),
         subject: zod_1.z.string().min(1).max(300),
         receivedAt: zod_1.z.iso.datetime(),
@@ -177,6 +180,18 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         stalledSince: zod_1.z.iso.datetime({ offset: true }),
         reason: zod_1.z.enum(['no_activity', 'waiting_too_long', 'queue_not_continued']),
     }),
+    zod_1.z.strictObject({
+        kind: zod_1.z.literal('approved_units_failed'),
+        requestId: decision_request_js_1.DecisionRequestIdSchema,
+        directorIssueId: zod_1.z.uuid(),
+        units: zod_1.z.array(zod_1.z.strictObject({
+            unitId: zod_1.z.string().min(1).max(200),
+            reason: zod_1.z.string().min(1).max(200),
+        })).min(1).max(20),
+        attempt: zod_1.z.int().min(1).max(10),
+        maxAttempts: zod_1.z.int().min(1).max(10),
+    }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
+    zod_1.z.strictObject({ kind: zod_1.z.literal('agent_request'), request: agent_request_js_1.AgentRequestSchema }),
 ]);
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
 // dell'agente, come il canale email di Paperclip: incarico assegnato a sé (sveglia d'assegnazione) oppure commento

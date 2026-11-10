@@ -57,6 +57,8 @@ export const ResearchEffortSchema = z.enum(['low', 'medium', 'high']);
 export const ResearchParamsSchema = z.object({
   /** Most hosted tool calls (searches, opened pages, finds) of one research; fewer when the budget left covers fewer. */
   maxToolCalls: z.number().int().min(1).max(100),
+  /** Most researches per dossier (same Lab gaps analysis, or same organization and project) in the agent's day; absent: the service default. */
+  maxPerDossier: z.number().int().min(1).max(100).optional(),
   searchContextSize: ResearchEffortSchema,
   reasoningEffort: ResearchEffortSchema,
 });

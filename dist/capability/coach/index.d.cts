@@ -317,10 +317,10 @@ export declare const CoachRouteErrorCodeSchema: z.ZodEnum<{
     invalid_request: "invalid_request";
     idempotency_conflict: "idempotency_conflict";
     stale_version: "stale_version";
-    not_found: "not_found";
     budget_exhausted: "budget_exhausted";
     agent_mismatch: "agent_mismatch";
     person_mismatch: "person_mismatch";
+    not_found: "not_found";
     program_not_found: "program_not_found";
 }>;
 export type CoachRouteErrorCode = z.infer<typeof CoachRouteErrorCodeSchema>;
@@ -330,10 +330,10 @@ export declare const CoachRouteErrorSchema: z.ZodObject<{
         invalid_request: "invalid_request";
         idempotency_conflict: "idempotency_conflict";
         stale_version: "stale_version";
-        not_found: "not_found";
         budget_exhausted: "budget_exhausted";
         agent_mismatch: "agent_mismatch";
         person_mismatch: "person_mismatch";
+        not_found: "not_found";
         program_not_found: "program_not_found";
     }>;
     currentVersion: z.ZodOptional<z.ZodNumber>;

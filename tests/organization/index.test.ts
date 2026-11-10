@@ -39,6 +39,8 @@ import * as companyBoardRule from '../../src/organization/company-board-rule.js'
 import * as companyBoardComposeRules from '../../src/organization/company-board-compose-rules.js';
 import * as companyBoardDirectorSummary from '../../src/organization/company-board-director-summary.js';
 import * as companyBoardUnitActions from '../../src/organization/company-board-unit-actions.js';
+import * as agentRequest from '../../src/organization/agent-request.js';
+import * as projectDelivery from '../../src/organization/project-delivery.js';
 
 const allSymbols = {
   ...runContext,
@@ -79,6 +81,8 @@ const allSymbols = {
   ...companyBoardComposeRules,
   ...companyBoardDirectorSummary,
   ...companyBoardUnitActions,
+  ...agentRequest,
+  ...projectDelivery,
 };
 
 describe('organization subpath', () => {
@@ -128,6 +132,16 @@ describe('organization subpath', () => {
     };
 
     expect(organization.OrganizationRunContextSchema.parse(context)).toEqual(context);
+  });
+
+  it('exports the project delivery record forms', () => {
+    for (const name of [
+      'PROJECT_DELIVERY_ASSET_TYPE', 'PROJECT_DELIVERY_MAX_ATTEMPTS', 'PROJECT_DELIVERY_RECORD_STAGES',
+      'PROJECT_DELIVERY_DUPLICATE_UNIT', 'ProjectDeliveryRecordSchema', 'ProjectDeliveryToolOutputSchema',
+      'projectDeliveryRecordName', 'projectDeliveryRecordAssetId',
+    ]) {
+      expect(organization).toHaveProperty(name);
+    }
   });
 
   it('keeps every organization runtime symbol out of the package root', () => {

@@ -49,6 +49,8 @@ exports.ResearchEffortSchema = zod_1.z.enum(['low', 'medium', 'high']);
 exports.ResearchParamsSchema = zod_1.z.object({
     /** Most hosted tool calls (searches, opened pages, finds) of one research; fewer when the budget left covers fewer. */
     maxToolCalls: zod_1.z.number().int().min(1).max(100),
+    /** Most researches per dossier (same Lab gaps analysis, or same organization and project) in the agent's day; absent: the service default. */
+    maxPerDossier: zod_1.z.number().int().min(1).max(100).optional(),
     searchContextSize: exports.ResearchEffortSchema,
     reasoningEffort: exports.ResearchEffortSchema,
 });

@@ -12,7 +12,8 @@ import { KindSlugSchema } from './agent-config.js';
  * (same rule as the capability context, `../capability-context.ts`).
  */
 
-export const WikiOriginSchema = z.enum(['web', 'dataset', 'human']);
+/** `human` is a person's document or note; `model` is model knowledge without a stored source. */
+export const WikiOriginSchema = z.enum(['web', 'dataset', 'human', 'model']);
 export type WikiOrigin = z.infer<typeof WikiOriginSchema>;
 
 export const WikiSourceIdSchema = z.string().min(1).max(100);
@@ -52,11 +53,40 @@ export const WikiClaimSchema = z.object({
   id: z.string().min(1).max(100),
   pageSlug: WikiPageSlugSchema,
   text: z.string().trim().min(1).max(2000),
-  /** Every claim rests on at least one stored source. */
-  sourceIds: z.array(WikiSourceIdSchema).min(1).max(50),
+  /** Only model knowledge has no stored sources. */
+  sourceIds: z.array(WikiSourceIdSchema).min(0).max(50),
   status: WikiClaimStatusSchema,
   origin: WikiOriginSchema,
-}).strict();
+  /** Source excerpts supporting the claim, verified by cap-lab. */
+  quotes: z.array(z.strictObject({
+    sourceId: WikiSourceIdSchema,
+    text: z.string().min(1).max(500),
+  })).max(50).optional(),
+}).strict().superRefine((claim, ctx) => {
+  if ((claim.origin === 'model') !== (claim.sourceIds.length === 0)) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'only model claims have no stored sources',
+      path: ['sourceIds'],
+    });
+  }
+  if (claim.origin === 'model' && claim.status === 'confermata') {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'model knowledge cannot be confirmed without a stored source',
+      path: ['status'],
+    });
+  }
+  claim.quotes?.forEach((quote, index) => {
+    if (!claim.sourceIds.includes(quote.sourceId)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'a quote must reference one of the claim sources',
+        path: ['quotes', index, 'sourceId'],
+      });
+    }
+  });
+});
 export type WikiClaim = z.infer<typeof WikiClaimSchema>;
 
 export const WikiLinkSchema = z.object({

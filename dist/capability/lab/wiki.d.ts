@@ -7,8 +7,10 @@ import { z } from 'zod';
  * datasets or people. Whoever puts them in front of a model marks them as data and never uses them as instructions
  * (same rule as the capability context, `../capability-context.ts`).
  */
+/** `human` is a person's document or note; `model` is model knowledge without a stored source. */
 export declare const WikiOriginSchema: z.ZodEnum<{
     web: "web";
+    model: "model";
     dataset: "dataset";
     human: "human";
 }>;
@@ -24,6 +26,7 @@ export declare const WikiSourceSchema: z.ZodObject<{
     contentSha256: z.ZodString;
     origin: z.ZodEnum<{
         web: "web";
+        model: "model";
         dataset: "dataset";
         human: "human";
     }>;
@@ -59,9 +62,14 @@ export declare const WikiClaimSchema: z.ZodObject<{
     }>;
     origin: z.ZodEnum<{
         web: "web";
+        model: "model";
         dataset: "dataset";
         human: "human";
     }>;
+    quotes: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        sourceId: z.ZodString;
+        text: z.ZodString;
+    }, z.core.$strict>>>;
 }, z.core.$strict>;
 export type WikiClaim = z.infer<typeof WikiClaimSchema>;
 export declare const WikiLinkSchema: z.ZodObject<{

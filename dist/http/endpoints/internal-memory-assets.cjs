@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryAssetContentContract = exports.internalMemoryAssetListContract = exports.internalMemoryAssetIngestContract = exports.InternalMemoryAssetContentResponseSchema = exports.InternalMemoryAssetContentRequestSchema = exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetListRequestSchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.INTERNAL_MEMORY_ASSET_CONTENT_PATH = exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
+exports.internalMemoryAssetContentContract = exports.internalMemoryAssetReadContract = exports.internalMemoryAssetListContract = exports.internalMemoryAssetIngestContract = exports.InternalMemoryAssetContentResponseSchema = exports.InternalMemoryAssetContentRequestSchema = exports.InternalMemoryAssetReadResponseSchema = exports.InternalMemoryAssetReadRequestSchema = exports.InternalMemoryAssetListResponseSchema = exports.InternalMemoryAssetListQuerySchema = exports.InternalMemoryAssetListRequestSchema = exports.InternalMemoryAssetIngestResponseSchema = exports.InternalMemoryAssetIngestRequestSchema = exports.INTERNAL_MEMORY_ASSET_CONTENT_PATH = exports.INTERNAL_MEMORY_ASSET_READ_PATH = exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = exports.INTERNAL_MEMORY_ASSETS_PATH = void 0;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../../agent/agent-identity.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
@@ -8,6 +8,7 @@ const run_context_js_1 = require("../../organization/run-context.cjs");
 exports.INTERNAL_MEMORY_ASSETS_PATH = '/internal/memory/assets';
 /** List of the assets of a project: POST, because the signed run context does not fit a query string. */
 exports.INTERNAL_MEMORY_ASSETS_LIST_PATH = '/internal/memory/assets/list';
+exports.INTERNAL_MEMORY_ASSET_READ_PATH = '/internal/memory/assets/read';
 exports.INTERNAL_MEMORY_ASSET_CONTENT_PATH = '/internal/memory/assets/content';
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
@@ -93,6 +94,20 @@ exports.InternalMemoryAssetListResponseSchema = zod_1.z.strictObject({
     })),
 });
 /**
+ * Read by known ID instead of listing (deterministic records, approved pieces); listing remains for browsing.
+ * POST carries the signed context, as for listing. The service scopes the lookup to the requested project
+ * and the organization of the verified context; missing assets, including foreign ones, return null.
+ */
+exports.InternalMemoryAssetReadRequestSchema = zod_1.z.strictObject({
+    context: run_context_js_1.OrganizationRunContextSchema,
+    projectId: asset_js_1.AssetRefSchema.shape.projectId,
+    assetId: asset_js_1.AssetRefSchema.shape.assetId,
+});
+/** The stored asset reference only, without the links attached by listing. */
+exports.InternalMemoryAssetReadResponseSchema = zod_1.z.strictObject({
+    asset: asset_js_1.AssetRefSchema.nullable(),
+});
+/**
  * Transport request only: the service verifies the signed context, its expiry and the asset's ownership.
  * Readable origins are `generated`, `email` (a file received by email) and `archive` (a file extracted from an
  * archive). A `link` has no bytes and a `session` has its own route, so both are refused.
@@ -150,6 +165,13 @@ exports.internalMemoryAssetListContract = {
     authType: 'secret',
     bodySchema: exports.InternalMemoryAssetListRequestSchema,
     responseSchema: exports.InternalMemoryAssetListResponseSchema,
+};
+exports.internalMemoryAssetReadContract = {
+    method: 'POST',
+    path: exports.INTERNAL_MEMORY_ASSET_READ_PATH,
+    authType: 'secret',
+    bodySchema: exports.InternalMemoryAssetReadRequestSchema,
+    responseSchema: exports.InternalMemoryAssetReadResponseSchema,
 };
 exports.internalMemoryAssetContentContract = {
     method: 'POST',

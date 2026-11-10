@@ -23,6 +23,8 @@ function draftPlan(milestone: Record<string, unknown>) {
     version: 1,
     clientId: 'client-1',
     projectId: 'project-1',
+    dossier: [{ slug: 'buyer-research', version: 1 }],
+    deliveryShape: 'study',
     objective: { request: 'Find clients', expectedResult: 'One contract', measure: 'Signed contracts' },
     analysis: {
       startingPoint: 'New service',

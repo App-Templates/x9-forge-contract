@@ -5,6 +5,7 @@ import { OrganizationRunContextSchema } from "../../organization/run-context.js"
 export const INTERNAL_MEMORY_ASSETS_PATH = '/internal/memory/assets';
 /** List of the assets of a project: POST, because the signed run context does not fit a query string. */
 export const INTERNAL_MEMORY_ASSETS_LIST_PATH = '/internal/memory/assets/list';
+export const INTERNAL_MEMORY_ASSET_READ_PATH = '/internal/memory/assets/read';
 export const INTERNAL_MEMORY_ASSET_CONTENT_PATH = '/internal/memory/assets/content';
 /**
  * POST: a file, archive or link handed to the company memory. Size is limited by the service, not the contract.
@@ -90,6 +91,20 @@ export const InternalMemoryAssetListResponseSchema = z.strictObject({
     })),
 });
 /**
+ * Read by known ID instead of listing (deterministic records, approved pieces); listing remains for browsing.
+ * POST carries the signed context, as for listing. The service scopes the lookup to the requested project
+ * and the organization of the verified context; missing assets, including foreign ones, return null.
+ */
+export const InternalMemoryAssetReadRequestSchema = z.strictObject({
+    context: OrganizationRunContextSchema,
+    projectId: AssetRefSchema.shape.projectId,
+    assetId: AssetRefSchema.shape.assetId,
+});
+/** The stored asset reference only, without the links attached by listing. */
+export const InternalMemoryAssetReadResponseSchema = z.strictObject({
+    asset: AssetRefSchema.nullable(),
+});
+/**
  * Transport request only: the service verifies the signed context, its expiry and the asset's ownership.
  * Readable origins are `generated`, `email` (a file received by email) and `archive` (a file extracted from an
  * archive). A `link` has no bytes and a `session` has its own route, so both are refused.
@@ -147,6 +162,13 @@ export const internalMemoryAssetListContract = {
     authType: 'secret',
     bodySchema: InternalMemoryAssetListRequestSchema,
     responseSchema: InternalMemoryAssetListResponseSchema,
+};
+export const internalMemoryAssetReadContract = {
+    method: 'POST',
+    path: INTERNAL_MEMORY_ASSET_READ_PATH,
+    authType: 'secret',
+    bodySchema: InternalMemoryAssetReadRequestSchema,
+    responseSchema: InternalMemoryAssetReadResponseSchema,
 };
 export const internalMemoryAssetContentContract = {
     method: 'POST',
