@@ -171,3 +171,19 @@ export const VideoFootageSyncResponseSchema = z.discriminatedUnion('outcome', [
   }),
 ]);
 export type VideoFootageSyncResponse = z.infer<typeof VideoFootageSyncResponseSchema>;
+
+/** Identity comes only from the admitted tool envelope (R-33), never from the model. */
+export const VideoStudioOpenToolInputSchema = z.strictObject({});
+export type VideoStudioOpenToolInput = z.infer<typeof VideoStudioOpenToolInputSchema>;
+
+/** One-use access link lifetime (15 minutes). */
+export const VIDEO_STUDIO_ACCESS_TTL_SECONDS = 900;
+/** Authenticated studio session lifetime (12 hours). */
+export const VIDEO_STUDIO_SESSION_TTL_SECONDS = 43200;
+
+export const VideoStudioOpenResponseSchema = z.strictObject({
+  url: z.url({ protocol: /^https$/ }).max(500),
+  expiresAt: z.iso.datetime({ offset: true }),
+  sessionHours: z.literal(12),
+});
+export type VideoStudioOpenResponse = z.infer<typeof VideoStudioOpenResponseSchema>;
