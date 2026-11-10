@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.140.0 — `research_start` con il budget del dossier finito dice quando riprovare; additivo
+
+- `capability/ricerca/tools` (6172): `ResearchStartOutputSchema` conserva `retryAfter` facoltativo (data ISO con offset), ammesso solo con `state: 'budget_exhausted'` (inizio della prossima finestra del dossier); con altri stati è rifiutato. Le uscite senza il campo restano valide.
+- Produttore: X9 cap-ricerca (ec-x9, 6179); consumatori: agent-core via ponte e Forge. Chi legge l'uscita adotta 1.140.0 PRIMA del rilascio di cap-ricerca che manda il campo: lo schema `.strict()` precedente lo rifiuta. Fruibilità con 6173 e 6179.
+
 ## v1.139.0 — tetto di spesa e pausa R&D sono rifiuti all'ammissione del turno; additivo
 
 - `http/endpoints/internal-agent-turn` (6171): `ORGANIZATION_ADMISSION_REFUSAL_CODES` include `budget_exhausted` e `rd_paused`: il turno non parte. `InternalAgentTurnRunErrorResponseSchema` conserva `retryAfterSeconds` facoltativo, intero positivo fino a sette giorni; assente indica nessuna stima per il tetto o nessuna ripresa per R&D in pausa. I corpi esistenti, compreso `run_failed` con `code` e `outcome`, restano validi.

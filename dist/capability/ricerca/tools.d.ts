@@ -42,6 +42,7 @@ export declare const ResearchStartOutputSchema: z.ZodObject<{
         queued: "queued";
         running: "running";
     }>;
+    retryAfter: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const ResearchStatusInputSchema: z.ZodObject<{
     researchId: z.ZodString;
