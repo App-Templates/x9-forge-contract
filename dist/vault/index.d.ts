@@ -21,7 +21,7 @@ export type { WorkspaceFile } from "./workspace-file.js";
 export type { PlatformBootstrapEnv } from "./platform-bootstrap-env.js";
 export { PLATFORM_INTERNAL_CREDENTIAL_KEYS, isPlatformInternalCredentialKey, stripPlatformInternalCredentials, } from "./platform-internal-credentials.js";
 export type { PlatformInternalCredentialKey } from "./platform-internal-credentials.js";
-export { OWNER_PERSON_CREDENTIAL_KEYS, isOwnerPersonCredentialKey, stripOwnerPersonCredentials, OWNER_PERSON_VAULT_SECRET_ENV, OwnerPersonCredentialKeySchema, OwnerPersonKeyParamsSchema, OwnerPersonKeyOkResponseSchema, OwnerPersonKeyNotFoundResponseSchema, OwnerPersonKeyResponseSchema, internalVaultOwnerPersonKeyContract, } from "./owner-person-credentials.js";
+export { OWNER_PERSON_CREDENTIAL_KEYS, isOwnerPersonCredentialKey, stripOwnerPersonCredentials, OWNER_PERSON_VAULT_SECRET_ENV, OwnerPersonCredentialKeySchema, OwnerPersonKeyParamsSchema, OwnerPersonKeyOkResponseSchema, OwnerPersonKeyNotFoundResponseSchema, OwnerPersonKeyResponseSchema, internalVaultOwnerPersonKeyContract, publicVaultOwnerPersonKeyContract, } from "./owner-person-credentials.js";
 export type { OwnerPersonCredentialKey, OwnerPersonKeyParams, OwnerPersonKeyOkResponse, OwnerPersonKeyNotFoundResponse, OwnerPersonKeyResponse, } from "./owner-person-credentials.js";
 export { CONNECTION_CREDENTIAL_KEY_PREFIX, CONNECT_VAULT_SECRET_ENV, connectionCredentialKey, isConnectionCredentialKey, } from "./connection-credential-keys.js";
 export { AgentVaultedCredentialsSchema } from "./agent-vaulted-credentials.js";

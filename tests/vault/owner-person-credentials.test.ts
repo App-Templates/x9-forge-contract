@@ -111,5 +111,21 @@ describe('owner-person credentials', () => {
     expect(builtContract.responseSchema.parse(success)).toEqual(success);
     expect(builtContract.responseSchema.parse(notFound)).toEqual(notFound);
     expect(builtContract.responseSchema.safeParse({ ...success, extra: true }).success).toBe(false);
+    const builtPublic = built.publicVaultOwnerPersonKeyContract;
+    expect(builtPublic.path).toBe('/api/vault/owner-person-key/:ownerId/:key');
+    expect(builtPublic.secretEnv).toBe(vault.OWNER_PERSON_VAULT_SECRET_ENV);
+  });
+
+  it('(c7) exposes the same door on the public Vault path with the same schemas and secret', () => {
+    const publicContract = vault.publicVaultOwnerPersonKeyContract;
+    expect(publicContract.method).toBe('GET');
+    expect(publicContract.path).toBe('/api/vault/owner-person-key/:ownerId/:key');
+    expect(publicContract.path.startsWith('/api/vault/')).toBe(true);
+    expect(publicContract.path).not.toContain('/internal');
+    expect(publicContract.authType).toBe(contract.authType);
+    expect(publicContract.authHeader).toBe(contract.authHeader);
+    expect(publicContract.secretEnv).toBe(contract.secretEnv);
+    expect(publicContract.paramsSchema).toBe(contract.paramsSchema);
+    expect(publicContract.responseSchema).toBe(contract.responseSchema);
   });
 });

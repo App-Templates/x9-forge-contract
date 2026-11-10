@@ -62,3 +62,18 @@ export const internalVaultOwnerPersonKeyContract = {
   paramsSchema: OwnerPersonKeyParamsSchema,
   responseSchema: OwnerPersonKeyResponseSchema,
 } as const;
+
+/**
+ * Same door on the Vault's public address: Traefik sends `PathPrefix(/api/vault)` to vault-svc
+ * unchanged. Only cap-paperclip calls it, with the dedicated secret; the internal path stays
+ * for the Forge network.
+ */
+export const publicVaultOwnerPersonKeyContract = {
+  method: 'GET' as const,
+  path: '/api/vault/owner-person-key/:ownerId/:key' as const,
+  authType: internalVaultOwnerPersonKeyContract.authType,
+  authHeader: internalVaultOwnerPersonKeyContract.authHeader,
+  secretEnv: internalVaultOwnerPersonKeyContract.secretEnv,
+  paramsSchema: internalVaultOwnerPersonKeyContract.paramsSchema,
+  responseSchema: internalVaultOwnerPersonKeyContract.responseSchema,
+} as const;

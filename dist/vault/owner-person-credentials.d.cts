@@ -70,4 +70,32 @@ export declare const internalVaultOwnerPersonKeyContract: {
         error: z.ZodLiteral<"not_found">;
     }, z.core.$strict>], "ok">;
 };
+/**
+ * Same door on the Vault's public address: Traefik sends `PathPrefix(/api/vault)` to vault-svc
+ * unchanged. Only cap-paperclip calls it, with the dedicated secret; the internal path stays
+ * for the Forge network.
+ */
+export declare const publicVaultOwnerPersonKeyContract: {
+    readonly method: "GET";
+    readonly path: "/api/vault/owner-person-key/:ownerId/:key";
+    readonly authType: "secret";
+    readonly authHeader: "X-Internal-Secret";
+    readonly secretEnv: "OWNER_PERSON_VAULT_SECRET";
+    readonly paramsSchema: z.ZodObject<{
+        ownerId: z.ZodString;
+        key: z.ZodEnum<{
+            PAPERCLIP_OWNER_BOARD_KEY: "PAPERCLIP_OWNER_BOARD_KEY";
+        }>;
+    }, z.core.$strict>;
+    readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
+        ok: z.ZodLiteral<true>;
+        key: z.ZodEnum<{
+            PAPERCLIP_OWNER_BOARD_KEY: "PAPERCLIP_OWNER_BOARD_KEY";
+        }>;
+        value: z.ZodString;
+    }, z.core.$strict>, z.ZodObject<{
+        ok: z.ZodLiteral<false>;
+        error: z.ZodLiteral<"not_found">;
+    }, z.core.$strict>], "ok">;
+};
 //# sourceMappingURL=owner-person-credentials.d.ts.map

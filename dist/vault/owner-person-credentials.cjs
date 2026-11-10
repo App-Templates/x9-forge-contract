@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalVaultOwnerPersonKeyContract = exports.OwnerPersonKeyResponseSchema = exports.OwnerPersonKeyNotFoundResponseSchema = exports.OwnerPersonKeyOkResponseSchema = exports.OwnerPersonKeyParamsSchema = exports.OWNER_PERSON_VAULT_SECRET_ENV = exports.OwnerPersonCredentialKeySchema = exports.OWNER_PERSON_CREDENTIAL_KEYS = void 0;
+exports.publicVaultOwnerPersonKeyContract = exports.internalVaultOwnerPersonKeyContract = exports.OwnerPersonKeyResponseSchema = exports.OwnerPersonKeyNotFoundResponseSchema = exports.OwnerPersonKeyOkResponseSchema = exports.OwnerPersonKeyParamsSchema = exports.OWNER_PERSON_VAULT_SECRET_ENV = exports.OwnerPersonCredentialKeySchema = exports.OWNER_PERSON_CREDENTIAL_KEYS = void 0;
 exports.isOwnerPersonCredentialKey = isOwnerPersonCredentialKey;
 exports.stripOwnerPersonCredentials = stripOwnerPersonCredentials;
 const zod_1 = require("zod");
@@ -53,5 +53,19 @@ exports.internalVaultOwnerPersonKeyContract = {
     secretEnv: exports.OWNER_PERSON_VAULT_SECRET_ENV,
     paramsSchema: exports.OwnerPersonKeyParamsSchema,
     responseSchema: exports.OwnerPersonKeyResponseSchema,
+};
+/**
+ * Same door on the Vault's public address: Traefik sends `PathPrefix(/api/vault)` to vault-svc
+ * unchanged. Only cap-paperclip calls it, with the dedicated secret; the internal path stays
+ * for the Forge network.
+ */
+exports.publicVaultOwnerPersonKeyContract = {
+    method: 'GET',
+    path: '/api/vault/owner-person-key/:ownerId/:key',
+    authType: exports.internalVaultOwnerPersonKeyContract.authType,
+    authHeader: exports.internalVaultOwnerPersonKeyContract.authHeader,
+    secretEnv: exports.internalVaultOwnerPersonKeyContract.secretEnv,
+    paramsSchema: exports.internalVaultOwnerPersonKeyContract.paramsSchema,
+    responseSchema: exports.internalVaultOwnerPersonKeyContract.responseSchema,
 };
 //# sourceMappingURL=owner-person-credentials.js.map

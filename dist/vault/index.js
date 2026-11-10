@@ -21,7 +21,7 @@ export { WorkspaceFileSchema } from "./workspace-file.js";
 // Platform-internal credentials (platform tier, never projected into a tenant)
 export { PLATFORM_INTERNAL_CREDENTIAL_KEYS, isPlatformInternalCredentialKey, stripPlatformInternalCredentials, } from "./platform-internal-credentials.js";
 // Owner-person credentials (owner tier, only read by the dedicated service port)
-export { OWNER_PERSON_CREDENTIAL_KEYS, isOwnerPersonCredentialKey, stripOwnerPersonCredentials, OWNER_PERSON_VAULT_SECRET_ENV, OwnerPersonCredentialKeySchema, OwnerPersonKeyParamsSchema, OwnerPersonKeyOkResponseSchema, OwnerPersonKeyNotFoundResponseSchema, OwnerPersonKeyResponseSchema, internalVaultOwnerPersonKeyContract, } from "./owner-person-credentials.js";
+export { OWNER_PERSON_CREDENTIAL_KEYS, isOwnerPersonCredentialKey, stripOwnerPersonCredentials, OWNER_PERSON_VAULT_SECRET_ENV, OwnerPersonCredentialKeySchema, OwnerPersonKeyParamsSchema, OwnerPersonKeyOkResponseSchema, OwnerPersonKeyNotFoundResponseSchema, OwnerPersonKeyResponseSchema, internalVaultOwnerPersonKeyContract, publicVaultOwnerPersonKeyContract, } from "./owner-person-credentials.js";
 // Agent-only connection credential keys
 export { CONNECTION_CREDENTIAL_KEY_PREFIX, CONNECT_VAULT_SECRET_ENV, connectionCredentialKey, isConnectionCredentialKey, } from "./connection-credential-keys.js";
 // Vaulted credentials alias (re-export of Phase 2 AgentCredentials)

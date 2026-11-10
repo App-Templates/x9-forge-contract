@@ -87,6 +87,7 @@ export {
   OwnerPersonKeyNotFoundResponseSchema,
   OwnerPersonKeyResponseSchema,
   internalVaultOwnerPersonKeyContract,
+  publicVaultOwnerPersonKeyContract,
 } from './owner-person-credentials.js';
 export type {
   OwnerPersonCredentialKey,

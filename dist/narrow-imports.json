@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.138.0",
+  "versione": "1.150.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2992,6 +2992,7 @@
       "isOwnerPersonCredentialKey": "@x9-forge/contracts/vault/owner-person-credentials",
       "isPlatformInternalCredentialKey": "@x9-forge/contracts/vault/platform-internal-credentials",
       "presetScopeIssues": "@x9-forge/contracts/vault/vault-entry",
+      "publicVaultOwnerPersonKeyContract": "@x9-forge/contracts/vault/owner-person-credentials",
       "resolvedEntryRef": "@x9-forge/contracts/vault/vault-resolved",
       "stripOwnerPersonCredentials": "@x9-forge/contracts/vault/owner-person-credentials",
       "stripPlatformInternalCredentials": "@x9-forge/contracts/vault/platform-internal-credentials",
