@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.153.0 — ricontrollo Paperclip fino a sette giorni; allargamento compatibile
+
+- `capability/paperclip/native-wait` (6183): `PaperclipCheckLaterSchema.afterSeconds` e `PaperclipCheckLaterInputSchema.afterSeconds` usano `PAPERCLIP_CHECK_LATER_MAX_SECONDS` (604800), come `retryAfterSeconds`. Il minimo resta 30 secondi; gli ingressi già validi restano validi. Paperclip non impone limiti di tempo al monitor.
+- Fruibilità con l'adozione di 1.153.0 in X9, per `paperclip_review` con `checkLater` e `paperclip_check_later`.
+
 ## v1.152.0 — dall'esito di un turno alla disposizione su Paperclip decide una sola funzione del ponte; additivo
 
 - `capability/paperclip/turn-disposition` (6182): file nuovo. `ADMISSION_REFUSAL_CLASS` classifica ogni codice di rifiuto in `definitive` o `not_now` (un codice senza classe non compila); `TurnEndSchema`, `TurnDispositionSchema`, `dispositionForTurnEnd` e `paperclipBodyForDisposition` (pure, l'ora entra da `ctx.now`). Solo `failed`, `uncertain` e `unavailable` fanno fallire la corsa; `budget_exhausted` e gli altri «non adesso» diventano un controllo a tempo, `rd_paused` chiude l'incarico come non eseguito, un rifiuto definitivo blocca per il proprietario.

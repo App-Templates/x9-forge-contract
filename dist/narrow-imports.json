@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.152.0",
+  "versione": "1.153.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -828,6 +828,7 @@
       "OwnerNoticeResponseSchema": "@x9-forge/contracts/capability/notice/index",
       "PAPERCLIP_AGENT_KEY_NAME": "@x9-forge/contracts/capability/paperclip/enrollment",
       "PAPERCLIP_CHECKOUT_STATI_ATTESI": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
+      "PAPERCLIP_CHECK_LATER_MAX_SECONDS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_NATIVE_WAIT_TOOLS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_PROTOCOLLO_ERRORI": "@x9-forge/contracts/capability/paperclip-protocollo/strumenti",
       "PAPERCLIP_PROTOCOLLO_RUOLI": "@x9-forge/contracts/capability/paperclip-protocollo/agenti",
@@ -2938,6 +2939,7 @@
       "InternalPaperclipEnrollmentResolveRequestSchema": "@x9-forge/contracts/capability/paperclip/enrollment",
       "InternalPaperclipEnrollmentResolveResponseSchema": "@x9-forge/contracts/capability/paperclip/enrollment",
       "PAPERCLIP_AGENT_KEY_NAME": "@x9-forge/contracts/capability/paperclip/enrollment",
+      "PAPERCLIP_CHECK_LATER_MAX_SECONDS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_NATIVE_WAIT_TOOLS": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PAPERCLIP_TOOLS": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipActivityInputSchema": "@x9-forge/contracts/capability/paperclip/tools",
