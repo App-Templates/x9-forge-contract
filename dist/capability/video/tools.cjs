@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VideoFootageSyncResponseSchema = exports.VideoFootageSyncFileSchema = exports.VideoFootageSyncReasonSchema = exports.VideoFootageSyncFileStatusSchema = exports.VideoDriveFileIdSchema = exports.VideoFootageSyncToolInputSchema = exports.VideoDriveFolderRefSchema = exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoPresetsListResponseSchema = exports.VideoPresetSummarySchema = exports.VideoPresetFootageShotsSchema = exports.VideoPresetsListToolInputSchema = exports.VideoBriefToolInputSchema = void 0;
+exports.VideoStudioOpenResponseSchema = exports.VIDEO_STUDIO_SESSION_TTL_SECONDS = exports.VIDEO_STUDIO_ACCESS_TTL_SECONDS = exports.VideoStudioOpenToolInputSchema = exports.VideoFootageSyncResponseSchema = exports.VideoFootageSyncFileSchema = exports.VideoFootageSyncReasonSchema = exports.VideoFootageSyncFileStatusSchema = exports.VideoDriveFileIdSchema = exports.VideoFootageSyncToolInputSchema = exports.VideoDriveFolderRefSchema = exports.VideoProjectViewSchema = exports.VideoScriptReviseResponseSchema = exports.VideoProjectStepSchema = exports.VideoScriptReviseToolInputSchema = exports.VideoScriptRevisionSchema = exports.VideoProjectGetToolInputSchema = exports.VideoPresetsListResponseSchema = exports.VideoPresetSummarySchema = exports.VideoPresetFootageShotsSchema = exports.VideoPresetsListToolInputSchema = exports.VideoBriefToolInputSchema = void 0;
 const zod_1 = require("zod");
 const capability_call_identity_js_1 = require("../capability-call-identity.cjs");
 const story_js_1 = require("./story.cjs");
@@ -134,4 +134,15 @@ exports.VideoFootageSyncResponseSchema = zod_1.z.discriminatedUnion('outcome', [
         reason: zod_1.z.enum(['link_non_valido', 'nessuna_cartella', 'non_trovata']),
     }),
 ]);
+/** Identity comes only from the admitted tool envelope (R-33), never from the model. */
+exports.VideoStudioOpenToolInputSchema = zod_1.z.strictObject({});
+/** One-use access link lifetime (15 minutes). */
+exports.VIDEO_STUDIO_ACCESS_TTL_SECONDS = 900;
+/** Authenticated studio session lifetime (12 hours). */
+exports.VIDEO_STUDIO_SESSION_TTL_SECONDS = 43200;
+exports.VideoStudioOpenResponseSchema = zod_1.z.strictObject({
+    url: zod_1.z.url({ protocol: /^https$/ }).max(500),
+    expiresAt: zod_1.z.iso.datetime({ offset: true }),
+    sessionHours: zod_1.z.literal(12),
+});
 //# sourceMappingURL=tools.js.map
