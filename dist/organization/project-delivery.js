@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
+import { canonicalJson } from "./action-plan.js";
 import { AssetRefSchema, AssetSha256Schema } from "./asset.js";
 import { DecisionRequestIdSchema, decisionOutcomeMatchesSubject, } from "./decision-request.js";
 /** Tool through which the Director reconciles the approved deliveries of a project and sends them to the client. */
@@ -7,10 +8,19 @@ export const PROJECT_DELIVERY_TOOL = 'email_deliver_project';
 /** `complete`: every unit of the plan has an approved piece; `partial`: some do; `empty`: none does. */
 export const PROJECT_DELIVERY_OUTCOMES = ['complete', 'partial', 'empty'];
 export const ProjectDeliveryOutcomeSchema = z.enum(PROJECT_DELIVERY_OUTCOMES);
-export const PROJECT_DELIVERY_PIECE_STATES = ['approved', 'pending', 'rejected', 'missing'];
+export const PROJECT_DELIVERY_PIECE_STATES = ['approved', 'pending', 'rejected', 'missing', 'needs_reapproval'];
 export const ProjectDeliveryPieceStateSchema = z.enum(PROJECT_DELIVERY_PIECE_STATES);
 export const PROJECT_DELIVERY_SENT_KINDS = ['final', 'partial'];
 export const ProjectDeliverySentKindSchema = z.enum(PROJECT_DELIVERY_SENT_KINDS);
+/** Asset type under which the delivery of a project is recorded in Memory. */
+export const PROJECT_DELIVERY_ASSET_TYPE = 'consegna-progetto';
+/** How many times a send of the same delivery state may be claimed (each attempt has its own `sending` record). */
+export const PROJECT_DELIVERY_MAX_ATTEMPTS = 3;
+/** `sending`: claimed before mailing; `sent`: mailed; `released`: the claimed send did not leave, the next attempt may retry. */
+export const PROJECT_DELIVERY_RECORD_STAGES = ['sending', 'sent', 'released'];
+export const ProjectDeliveryRecordStageSchema = z.enum(PROJECT_DELIVERY_RECORD_STAGES);
+/** Refusal code of a plan that lists the same business unit more than once. */
+export const PROJECT_DELIVERY_DUPLICATE_UNIT = 'project_delivery_duplicate_unit';
 const BuSlugSchema = AssetRefSchema.shape.buSlug.unwrap();
 const IsoInstantSchema = z.iso.datetime({ offset: true });
 export const ProjectDeliveryInputSchema = z.strictObject({
@@ -32,11 +42,19 @@ export const ProjectDeliveryPieceSchema = z.strictObject({
         sha256: AssetSha256Schema,
     }).optional().describe('il file consegnato dal reparto, con la sua impronta'),
     decidedAt: IsoInstantSchema.optional().describe('quando il referente ha deciso'),
+    approvedUnderVersion: z.number().int().min(1).optional()
+        .describe('la versione del piano sotto cui il pezzo è stato fatto e approvato'),
 }).superRefine((piece, ctx) => {
-    if (piece.state === 'approved') {
+    if (piece.state !== 'needs_reapproval' && piece.approvedUnderVersion !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['approvedUnderVersion'], message: 'Only a piece needing reapproval carries approvedUnderVersion' });
+    }
+    if (piece.state === 'needs_reapproval' && piece.approvedUnderVersion === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['approvedUnderVersion'], message: 'A piece needing reapproval carries approvedUnderVersion' });
+    }
+    if (piece.state === 'approved' || piece.state === 'needs_reapproval') {
         for (const key of ['requestId', 'deliveryRef', 'decidedAt']) {
             if (piece[key] === undefined) {
-                ctx.addIssue({ code: 'custom', path: [key], message: 'An approved piece carries ' + key });
+                ctx.addIssue({ code: 'custom', path: [key], message: 'A ' + piece.state + ' piece carries ' + key });
             }
         }
     }
@@ -111,6 +129,61 @@ export const ProjectDeliveryReconciliationSchema = z.discriminatedUnion('outcome
         ctx.addIssue({ code: 'custom', path: ['digest'], message: 'Digest must match the plan and the pieces' });
     }
 });
+/** Output of the project delivery tool: exactly the reconciliation. */
+export const ProjectDeliveryToolOutputSchema = z.strictObject({
+    reconciliation: ProjectDeliveryReconciliationSchema,
+});
+const recordBase = {
+    kind: ProjectDeliverySentKindSchema,
+    digest: AssetSha256Schema.describe('impronta dell\'esito della consegna a cui la registrazione si riferisce'),
+    attempt: z.number().int().min(1).max(PROJECT_DELIVERY_MAX_ATTEMPTS).describe('il tentativo di invio, da 1'),
+};
+/** Registration of a send, in stages: claimed (`sending`), mailed (`sent`) or given back (`released`). */
+export const ProjectDeliveryRecordSchema = z.discriminatedUnion('stage', [
+    z.strictObject({
+        stage: z.literal('sending'), ...recordBase,
+        reconciliation: ProjectDeliveryReconciliationSchema,
+        claimedBy: z.string().min(1).max(200).describe('il callId di chi sta spedendo'),
+        claimedAt: IsoInstantSchema,
+    }),
+    z.strictObject({
+        stage: z.literal('sent'), ...recordBase,
+        reconciliation: ProjectDeliveryReconciliationSchema,
+    }),
+    z.strictObject({
+        stage: z.literal('released'), ...recordBase,
+        reason: z.string().min(1).max(500).describe('perché l\'invio di questo tentativo non è partito'),
+        releasedAt: IsoInstantSchema,
+    }),
+]).superRefine((record, ctx) => {
+    if (record.stage === 'released')
+        return;
+    const { reconciliation } = record;
+    if (record.digest !== reconciliation.digest) {
+        ctx.addIssue({ code: 'custom', path: ['digest'], message: 'Digest must equal the digest of the reconciliation' });
+    }
+    if (record.kind !== (reconciliation.outcome === 'complete' ? 'final' : reconciliation.outcome === 'partial' ? 'partial' : undefined)) {
+        ctx.addIssue({ code: 'custom', path: ['kind'], message: 'A final record needs a complete outcome and a partial one a partial outcome' });
+    }
+    if (record.stage === 'sending' && reconciliation.sent !== undefined) {
+        ctx.addIssue({ code: 'custom', path: ['reconciliation', 'sent'], message: 'A sending record carries no send yet' });
+    }
+    if (record.stage === 'sent' && (reconciliation.sent === undefined || reconciliation.sent.kind !== record.kind)) {
+        ctx.addIssue({ code: 'custom', path: ['reconciliation', 'sent'], message: 'A sent record carries the send of its kind' });
+    }
+});
+/** Asset name of a record: one `sent` per delivery state, one record per stage and attempt otherwise. */
+export function projectDeliveryRecordName(input) {
+    const head = PROJECT_DELIVERY_ASSET_TYPE + '-' + input.kind + '-' + input.digest.slice(0, 16);
+    return input.stage === 'sent' ? head + '-sent.json' : head + '-' + input.stage + '-' + input.attempt + '.json';
+}
+/** Deterministic asset id of a record, so a retry or a concurrent call finds the same asset. */
+export function projectDeliveryRecordAssetId(input) {
+    const hash = createHash('sha256')
+        .update(JSON.stringify([input.tenantId, input.organizationId, input.projectId, input.name]))
+        .digest('hex');
+    return 'a_' + hash.slice(0, 40);
+}
 /** Fingerprint of the delivery state: plan identity plus each piece, sorted by unit so decision order never matters. */
 export function projectDeliveryDigest(plan, pieces) {
     const ordered = [...pieces]
@@ -120,12 +193,25 @@ export function projectDeliveryDigest(plan, pieces) {
     ]);
     return createHash('sha256').update(JSON.stringify([plan.planId, plan.version, plan.digest, ordered])).digest('hex');
 }
+/** Fingerprint of a unit's work, independent of its start conditions and referent. */
+export function projectDeliveryUnitDigest(plan, buSlug) {
+    const businessUnit = plan.businessUnits.find((candidate) => candidate.buSlug === buSlug);
+    const { start: _start, referent: _referent, ...unit } = { ...businessUnit };
+    const objective = plan.objectiveTree.businessUnits.find((candidate) => candidate.buSlug === buSlug) ?? null;
+    const work = (plan.workBreakdown ?? [])
+        .filter((item) => item.owners.some((owner) => owner.buSlug === buSlug))
+        .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+    const milestones = plan.milestones.filter((milestone) => milestone.buSlug === buSlug)
+        .map(({ delivery, closeCriterion }) => ({ delivery, closeCriterion }))
+        .sort((a, b) => a.delivery < b.delivery ? -1 : a.delivery > b.delivery ? 1 : 0);
+    return createHash('sha256').update(canonicalJson({ unit, objective, work, milestones })).digest('hex');
+}
 /** Latest request wins: by creation instant, then by the greater requestId. */
 function isLater(a, b) {
     const delta = Date.parse(a.createdAt) - Date.parse(b.createdAt);
     return delta !== 0 ? delta > 0 : a.requestId > b.requestId;
 }
-function pieceOf(plan, buSlug, since, decisions, assets) {
+function pieceOf(plan, buSlug, since, decisions, assets, approvals, planVersions) {
     let latest;
     for (const decision of decisions) {
         const { subject } = decision.request;
@@ -155,9 +241,29 @@ function pieceOf(plan, buSlug, since, decisions, assets) {
         && decisionOutcomeMatchesSubject(request, outcome)
         && stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
         && stored.projectId === plan.projectId;
-    return sound
-        ? { buSlug, state: 'approved', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt }
-        : { buSlug, state: 'missing' };
+    if (!sound)
+        return { buSlug, state: 'missing' };
+    const approved = { buSlug, state: 'approved', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt };
+    // Without the current version's approval, the caller has not provided the history: preserve legacy behavior.
+    if (!approvals.has(plan.version))
+        return approved;
+    let approvedUnderVersion;
+    for (const [version, approvedAt] of approvals) {
+        if (approvedAt <= Date.parse(request.createdAt) && (approvedUnderVersion === undefined || version > approvedUnderVersion)) {
+            approvedUnderVersion = version;
+        }
+    }
+    if (approvedUnderVersion === undefined)
+        return { buSlug, state: 'missing' };
+    if (approvedUnderVersion === plan.version)
+        return approved;
+    const previous = planVersions.find((entry) => entry.plan.planId === plan.planId
+        && entry.plan.version === approvedUnderVersion && entry.plan.tenantId === plan.tenantId
+        && entry.plan.organizationId === plan.organizationId && entry.plan.projectId === plan.projectId);
+    if (previous !== undefined && projectDeliveryUnitDigest(previous.plan, buSlug) === projectDeliveryUnitDigest(plan, buSlug)) {
+        return approved;
+    }
+    return { ...approved, state: 'needs_reapproval', approvedUnderVersion };
 }
 function waitsOn(plan, buSlug, open) {
     const found = [];
@@ -195,11 +301,31 @@ function waitsOn(plan, buSlug, open) {
  * `planApprovedAt` is chosen by the caller (X9) and must be the FIRST approval of the same `planId`, not
  * the approval of the current version. In production the design was approved on 06/11 under v3 and v4
  * was approved on 09/11: with "after the approval of the current version" the design piece would vanish.
+ * An older approval counts only if that unit's work is unchanged in the current plan. For example, v4
+ * changing the design mandate requires reapproval of its v3 piece and prevents a complete delivery.
  */
 export function reconcileProjectDelivery(input) {
     const { plan, decisions, assets } = input;
+    const seenUnits = new Set();
+    for (const { buSlug } of plan.businessUnits) {
+        if (seenUnits.has(buSlug)) {
+            throw new Error(`${PROJECT_DELIVERY_DUPLICATE_UNIT}: il piano ${plan.planId} versione ${plan.version} elenca più volte il reparto ${buSlug}`);
+        }
+        seenUnits.add(buSlug);
+    }
     const since = Date.parse(IsoInstantSchema.parse(input.planApprovedAt));
-    const pieces = plan.businessUnits.map((unit) => pieceOf(plan, unit.buSlug, since, decisions, assets));
+    const approvals = new Map();
+    for (const { request, outcome } of decisions) {
+        const { subject } = request;
+        if (subject?.kind !== 'action_plan' || subject.planId !== plan.planId
+            || request.tenantId !== plan.tenantId || request.organizationId !== plan.organizationId
+            || (request.projectId !== undefined && request.projectId !== plan.projectId)
+            || outcome?.outcome !== 'approved' || outcome.requestId !== request.requestId)
+            continue;
+        const decidedAt = Date.parse(outcome.decidedAt);
+        approvals.set(subject.planVersion, Math.min(approvals.get(subject.planVersion) ?? Infinity, decidedAt));
+    }
+    const pieces = plan.businessUnits.map((unit) => pieceOf(plan, unit.buSlug, since, decisions, assets, approvals, input.planVersions ?? []));
     const open = new Set(pieces.filter((piece) => piece.state !== 'approved').map((piece) => piece.buSlug));
     const missing = pieces
         .filter((piece) => open.has(piece.buSlug))

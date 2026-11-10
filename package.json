@@ -1,6 +1,6 @@
 {
   "name": "@x9-forge/contracts",
-  "version": "1.131.0",
+  "version": "1.132.0",
   "private": false,
   "publishConfig": {
     "access": "restricted"
@@ -15,6 +15,7 @@
       "./auth": "./src/auth/index.ts",
       "./agent": "./src/agent/index.ts",
       "./capability": "./src/capability/index.ts",
+      "./capability/email-tools": "./src/capability/email-tools.ts",
       "./capability/dev": "./src/capability/dev/index.ts",
       "./voice": "./src/capability/voice/index.ts",
       "./capability/stt": "./src/capability/stt/index.ts",
@@ -67,6 +68,11 @@
       "types": "./dist/capability/index.d.cts",
       "import": "./dist/capability/index.js",
       "require": "./dist/capability/index.cjs"
+    },
+    "./capability/email-tools": {
+      "types": "./dist/capability/email-tools.d.cts",
+      "import": "./dist/capability/email-tools.js",
+      "require": "./dist/capability/email-tools.cjs"
     },
     "./capability/dev": {
       "types": "./dist/capability/dev/index.d.cts",

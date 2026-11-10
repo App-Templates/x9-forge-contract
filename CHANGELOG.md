@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.132.0 — la consegna di progetto non conta pezzi superati e non si manda due volte; additivo
+
+- `organization/project-delivery` (6100): stato `needs_reapproval` con `approvedUnderVersion`, input `planVersions` e `projectDeliveryUnitDigest` per riconoscere i pezzi approvati sotto una versione superata del piano.
+- Registrazioni della consegna (6101): `PROJECT_DELIVERY_ASSET_TYPE`, `ProjectDeliveryRecordSchema`, `projectDeliveryRecordName`, `projectDeliveryRecordAssetId`, `ProjectDeliveryToolOutputSchema` e codice `project_delivery_duplicate_unit`; nomi e identificativi deterministici per ritrovare le registrazioni degli invii.
+- `capability/email-tools` (6101): `EMAIL_SEND_TOOL`, nome condiviso dello strumento di invio email, con esportazione esplicita e mappa degli import stretti.
+- `http/endpoints/internal-memory-assets` (6102): `internalMemoryAssetReadContract`, POST con contesto firmato, progetto e id dell'asset. Restituisce il riferimento senza `links`, oppure `null` se assente dal progetto dell'organizzazione verificata. La lettura per id supera il limite di 200 voci della lista senza cambiarla.
+- Consumer: X9 cap-email e memory, Forge profilo del Director. Distribuzione con le cure 6100 e 6101; adozione X9 6103–6106 e Forge 6107. Le forme salvate esistenti restano valide.
+
 ## v1.131.0 — la consegna di progetto; additivo
 
 - `@x9-forge/contracts/organization`: nuovo `project-delivery`. `PROJECT_DELIVERY_TOOL` (`email_deliver_project`), `ProjectDeliveryInputSchema`, `ProjectDeliveryReconciliationSchema` (esito `complete` | `partial` | `empty`, un pezzo per reparto del piano con stato `approved` | `pending` | `rejected` | `missing`, `missing[].waitsOn` con chi aspetta chi, impronta, invio `final` | `partial`) e `projectDeliveryDigest`.

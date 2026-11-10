@@ -9,6 +9,7 @@ import { AGENT_CREDENTIAL_SERVICE_KEYS, getAgentCredentialServiceMetadata } from
 import { PLATFORM_INTERNAL_CREDENTIAL_KEYS } from "../../vault/platform-internal-credentials.js";
 import { capToolCallPath } from "./cap-tool-call.js";
 import { InternalAgentTurnOrganizationRunSchema } from "./internal-agent-turn.js";
+import { EMAIL_SEND_TOOL } from "../../capability/email-tools.js";
 import { BriefingSettingsSchema } from "../../capability/configuration/briefing.js";
 const text = z.string().min(1).max(32_000);
 const telegramInput = z.strictObject({ chatId: z.union([z.number().int(), z.string().min(1).max(64)]), text });
@@ -77,7 +78,7 @@ export const INTERNAL_AGENT_EXECUTIONS = Object.freeze({
     voice_calendar_create: registration('calendar', 'calendar_create', calendarCreateInput, GOOGLE_CALENDAR),
     voice_calendar_update: registration('calendar', 'calendar_update', calendarUpdateInput, GOOGLE_CALENDAR),
     voice_calendar_delete: registration('calendar', 'calendar_delete', calendarDeleteInput, GOOGLE_CALENDAR),
-    voice_email_send: registration('email', 'email_send', emailSendInput, ['AGENTMAIL_API_KEY'], ['AGENTMAIL_INBOX_ID']),
+    voice_email_send: registration('email', EMAIL_SEND_TOOL, emailSendInput, ['AGENTMAIL_API_KEY'], ['AGENTMAIL_INBOX_ID']),
     voice_contacts_search: registration('contacts', 'contacts_search', contactsSearchInput, ['GOOGLE_CONTACTS_CLIENT_ID', 'GOOGLE_CONTACTS_CLIENT_SECRET', 'GOOGLE_CONTACTS_REFRESH_TOKEN']),
     voice_schedule_create: registration('scheduler', 'schedule_create', reminderInput, []),
     // cap-security alarm and sentinel: the home of the agent the alarm belongs to.
