@@ -41,7 +41,17 @@ export const AgentConfigStaleSchema = z.object({
 export const CapabilityAgentRouteErrorSchema = z.object({
   ok: z.literal(false),
   error: z.enum(['invalid_request', 'agent_mismatch', 'not_configured', 'invalid_config', 'unknown_model_rate', 'budget_below_minimum']),
-}).strict();
+  /** Least per-research ceiling cap-ricerca accepts for this configuration, in USD, rounded up to the cent */
+  minimumUsd: z.number().positive().finite().optional(),
+}).strict().superRefine((value, ctx) => {
+  if (value.minimumUsd !== undefined && value.error !== 'budget_below_minimum') {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['minimumUsd'],
+      message: 'minimumUsd is only allowed for budget_below_minimum',
+    });
+  }
+});
 export type CapabilityAgentRouteError = z.infer<typeof CapabilityAgentRouteErrorSchema>;
 
 /** cap-ricerca's configuration of an agent: budget, models, research parameters, source rule. */

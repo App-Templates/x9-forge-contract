@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.137.0 — il rifiuto del tetto per ricerca indica il minimo accettato; additivo
+
+- `http/endpoints/internal-capability-agent` (6161): `CapabilityAgentRouteErrorSchema` conserva `minimumUsd` facoltativo, positivo e finito, solo per `budget_below_minimum`: il minimo tetto per ricerca accettato dalla configurazione, in dollari, arrotondato per eccesso al centesimo. I corpi senza il campo restano validi; gli altri errori lo rifiutano.
+- Produttore: X9 cap-ricerca (ec-x9); consumatore: Forge (forge-rel-059). Forge deve adottare 1.137.0 PRIMA del rilascio di cap-ricerca che invia il campo: lo schema `.strict()` precedente lo rifiuta. La visualizzazione del minimo richiede l'adozione nei servizi e nel pannello Forge.
+
 ## v1.136.0 — il tetto di spesa dell'azienda si legge e si cambia con un contratto; additivo
 
 - `http/endpoints/internal-company-spend` (6160): `GET`/`PUT /internal/companies/:company/spend` (`internalCompanySpendReadContract`, `internalCompanySpendCapUpdateContract`). La lettura dà tetto, speso, speso per agente e per fonte, `revision` e le fonti che X9 non legge (`unreadSources`). Il cambio chiede la `revision` letta, il nuovo tetto in centesimi (≥ 1) e, se serve, `since` per far ripartire il contatore; errori in `InternalCompanySpendErrorSchema` (`stale_revision` porta `currentRevision`). Anche `CompanySpendSourceSchema`.
