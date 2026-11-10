@@ -37,6 +37,7 @@ export declare const ResearchEffortSchema: z.ZodEnum<{
 }>;
 export declare const ResearchParamsSchema: z.ZodObject<{
     maxToolCalls: z.ZodNumber;
+    maxPerDossier: z.ZodOptional<z.ZodNumber>;
     searchContextSize: z.ZodEnum<{
         low: "low";
         medium: "medium";
@@ -75,6 +76,7 @@ export declare const ResearchAgentConfigSchema: z.ZodObject<{
     }, z.core.$strip>;
     research: z.ZodObject<{
         maxToolCalls: z.ZodNumber;
+        maxPerDossier: z.ZodOptional<z.ZodNumber>;
         searchContextSize: z.ZodEnum<{
             low: "low";
             medium: "medium";

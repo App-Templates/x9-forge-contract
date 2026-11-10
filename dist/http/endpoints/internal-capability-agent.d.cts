@@ -67,6 +67,7 @@ export declare const ricercaAgentConfigPutContract: {
         }, z.core.$strip>;
         research: z.ZodObject<{
             maxToolCalls: z.ZodNumber;
+            maxPerDossier: z.ZodOptional<z.ZodNumber>;
             searchContextSize: z.ZodEnum<{
                 low: "low";
                 medium: "medium";
@@ -111,6 +112,7 @@ export declare const ricercaAgentConfigGetContract: {
         }, z.core.$strip>;
         research: z.ZodObject<{
             maxToolCalls: z.ZodNumber;
+            maxPerDossier: z.ZodOptional<z.ZodNumber>;
             searchContextSize: z.ZodEnum<{
                 low: "low";
                 medium: "medium";

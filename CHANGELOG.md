@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.133.0 — il tetto di ricerche per dossier è una impostazione della Ricerca; additivo
+
+- `capability/ricerca` (6112): `ResearchParamsSchema` ha il campo facoltativo `maxPerDossier` (intero 1–100), accanto a `maxToolCalls`. Assente vale il default del servizio. Le configurazioni salvate senza il campo restano valide.
+- Consumer: X9 cap-ricerca (ec-x9/6113-6114), Forge (forge-rel-059/6115).
+
 ## v1.132.0 — la consegna di progetto non conta pezzi superati e non si manda due volte; additivo
 
 - `organization/project-delivery` (6100): stato `needs_reapproval` con `approvedUnderVersion`, input `planVersions` e `projectDeliveryUnitDigest` per riconoscere i pezzi approvati sotto una versione superata del piano.
