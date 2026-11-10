@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipDisposizioneCorpoSchema = exports.PaperclipControlloSchema = exports.PaperclipDescrittoreSbloccoSchema = exports.PaperclipInterazioneSchema = exports.PaperclipConfermaCorpoSchema = exports.PaperclipDocumentoSchema = exports.PaperclipPianoCorpoSchema = exports.PaperclipCommentoCorpoSchema = exports.PaperclipAggiornaCorpoSchema = exports.PaperclipFiglioCorpoSchema = exports.PaperclipCheckoutCorpoSchema = exports.PAPERCLIP_CHECKOUT_STATI_ATTESI = void 0;
+exports.PaperclipDisposizioneCorpoSchema = exports.PaperclipPoliticaConControlloSchema = exports.PaperclipControlloSchema = exports.PaperclipDescrittoreSbloccoSchema = exports.PaperclipInterazioneSchema = exports.PaperclipConfermaCorpoSchema = exports.PaperclipDocumentoSchema = exports.PaperclipPianoCorpoSchema = exports.PaperclipCommentoCorpoSchema = exports.PaperclipAggiornaCorpoSchema = exports.PaperclipFiglioCorpoSchema = exports.PaperclipCheckoutCorpoSchema = exports.PAPERCLIP_CHECKOUT_STATI_ATTESI = void 0;
 const zod_1 = require("zod");
 const wire_letture_js_1 = require("./wire-letture.cjs");
 // Paperclip docs/guides/agent-developer/heartbeat-protocol.md:53.
@@ -80,13 +80,16 @@ exports.PaperclipControlloSchema = zod_1.z.strictObject({
     notes: zod_1.z.string().trim().min(1).max(500),
     serviceName: zod_1.z.string().trim().min(1).max(120).optional(),
 });
+// Paperclip replaces the whole execution policy on an update (routes/issues.ts:13103-13105),
+// so the body carries the policy intact: only the monitor is ours, the rest passes through.
+exports.PaperclipPoliticaConControlloSchema = zod_1.z.looseObject({ monitor: exports.PaperclipControlloSchema });
 exports.PaperclipDisposizioneCorpoSchema = zod_1.z
     .strictObject({
     status: zod_1.z.enum(['done', 'in_review', 'blocked', 'in_progress']),
     comment: zod_1.z.string().trim().min(1).optional(),
     blockedByIssueIds: zod_1.z.array(zod_1.z.guid()).min(1).optional(),
     unblockDescriptor: exports.PaperclipDescrittoreSbloccoSchema.optional(),
-    executionPolicy: zod_1.z.strictObject({ monitor: exports.PaperclipControlloSchema }).optional(),
+    executionPolicy: exports.PaperclipPoliticaConControlloSchema.optional(),
 })
     .superRefine((value, ctx) => {
     if (value.status === 'blocked') {

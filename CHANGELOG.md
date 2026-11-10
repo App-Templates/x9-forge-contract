@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.154.0 — la disposizione conserva la politica di esecuzione; additivo
+
+- `capability/paperclip-protocollo` (6192): `PaperclipPoliticaConControlloSchema` conserva i campi della politica corrente accanto al `monitor` obbligatorio e stretto; allarga il corpo introdotto in 1.151.0.
+- `capability/paperclip/turn-disposition` (6193): `paperclipBodyForDisposition` accetta `ctx.currentExecutionPolicy?: Record<string, unknown> | null`; per `check_later` conserva la politica e sostituisce il monitor. Ogni corpo restituito passa da `PaperclipDisposizioneCorpoSchema.parse`, che rifiuta anche un identificativo agente non valido nello sblocco. `TurnEndSchema.refused` accetta `message` facoltativo da 1 a 2000 caratteri; allargamento della 1.152.0.
+- Consumatore: X9 cap-paperclip. Fruibilità con ec-x9/6191 (adozione di 1.154.0) ed ec-x9/6186 (passaggio della politica letta dall'incarico).
+
 ## v1.153.0 — ricontrollo Paperclip fino a sette giorni; allargamento compatibile
 
 - `capability/paperclip/native-wait` (6183): `PaperclipCheckLaterSchema.afterSeconds` e `PaperclipCheckLaterInputSchema.afterSeconds` usano `PAPERCLIP_CHECK_LATER_MAX_SECONDS` (604800), come `retryAfterSeconds`. Il minimo resta 30 secondi; gli ingressi già validi restano validi. Paperclip non impone limiti di tempo al monitor.

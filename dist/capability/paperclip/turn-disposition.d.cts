@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { type OrganizationAdmissionRefusalCode } from "../../http/endpoints/internal-agent-turn.cjs";
-import type { PaperclipDisposizioneCorpo } from "../paperclip-protocollo/wire-scritture.cjs";
+import { type PaperclipDisposizioneCorpo } from "../paperclip-protocollo/wire-scritture.cjs";
 /**
  * What stays written on Paperclip when an organization turn ends is decided here and only here: a «not now» refusal
  * (spend cap, R&D pause, infrastructure not ready) is a wait Paperclip re-checks by itself, never a failed run.
@@ -55,6 +55,7 @@ export declare const TurnEndSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         budget_exhausted: "budget_exhausted";
         rd_paused: "rd_paused";
     }>;
+    message: z.ZodOptional<z.ZodString>;
     retryAfterSeconds: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"failed">;
@@ -94,5 +95,6 @@ export declare function dispositionForTurnEnd(end: TurnEnd): TurnDisposition;
 export declare function paperclipBodyForDisposition(d: TurnDisposition, ctx: {
     now: Date;
     agentId: string;
+    currentExecutionPolicy?: Record<string, unknown> | null;
 }): PaperclipDisposizioneCorpo | null;
 //# sourceMappingURL=turn-disposition.d.ts.map

@@ -83,6 +83,13 @@ export declare const PaperclipControlloSchema: z.ZodObject<{
     notes: z.ZodString;
     serviceName: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
+export declare const PaperclipPoliticaConControlloSchema: z.ZodObject<{
+    monitor: z.ZodObject<{
+        nextCheckAt: z.ZodISODateTime;
+        notes: z.ZodString;
+        serviceName: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+}, z.core.$loose>;
 export declare const PaperclipDisposizioneCorpoSchema: z.ZodObject<{
     status: z.ZodEnum<{
         done: "done";
@@ -106,9 +113,10 @@ export declare const PaperclipDisposizioneCorpoSchema: z.ZodObject<{
             notes: z.ZodString;
             serviceName: z.ZodOptional<z.ZodString>;
         }, z.core.$strict>;
-    }, z.core.$strict>>;
+    }, z.core.$loose>>;
 }, z.core.$strict>;
 export type PaperclipDescrittoreSblocco = z.infer<typeof PaperclipDescrittoreSbloccoSchema>;
 export type PaperclipControllo = z.infer<typeof PaperclipControlloSchema>;
+export type PaperclipPoliticaConControllo = z.infer<typeof PaperclipPoliticaConControlloSchema>;
 export type PaperclipDisposizioneCorpo = z.infer<typeof PaperclipDisposizioneCorpoSchema>;
 //# sourceMappingURL=wire-scritture.d.ts.map

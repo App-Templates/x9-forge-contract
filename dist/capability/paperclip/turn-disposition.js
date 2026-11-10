@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { OrganizationAdmissionRefusalCodeSchema, } from "../../http/endpoints/internal-agent-turn.js";
+import { PaperclipDisposizioneCorpoSchema, } from "../paperclip-protocollo/wire-scritture.js";
 /** A code added to ORGANIZATION_ADMISSION_REFUSAL_CODES without a class here does not compile. */
 export const ADMISSION_REFUSAL_CLASS = {
     organization_context_missing: 'definitive',
@@ -33,6 +34,7 @@ export const TurnEndSchema = z.discriminatedUnion('kind', [
     z.strictObject({
         kind: z.literal('refused'),
         code: OrganizationAdmissionRefusalCodeSchema,
+        message: z.string().min(1).max(2000).optional(),
         retryAfterSeconds: z.number().int().min(1).max(MAX_CHECK_SECONDS).optional(),
     }),
     z.strictObject({ kind: z.literal('failed'), failureCode: z.string().min(1) }),
@@ -84,24 +86,30 @@ export function dispositionForTurnEnd(end) {
 }
 /** The write to make on the Paperclip issue, or null when nothing is written. The time enters only from `ctx.now`. */
 export function paperclipBodyForDisposition(d, ctx) {
+    let body;
     switch (d.kind) {
         case 'leave':
         case 'fail_run':
             return null;
         case 'check_later':
-            return {
+            body = {
                 status: 'in_progress',
                 executionPolicy: {
+                    ...(ctx.currentExecutionPolicy ?? {}),
                     monitor: {
                         nextCheckAt: new Date(ctx.now.getTime() + d.afterSeconds * 1000).toISOString(),
                         notes: d.notes,
                     },
                 },
             };
+            break;
         case 'close_not_executed':
-            return { status: 'done', comment: d.comment };
+            body = { status: 'done', comment: d.comment };
+            break;
         case 'block_for_owner':
-            return { status: 'blocked', unblockDescriptor: { owner: { agentId: ctx.agentId }, action: d.action } };
+            body = { status: 'blocked', unblockDescriptor: { owner: { agentId: ctx.agentId }, action: d.action } };
+            break;
     }
+    return PaperclipDisposizioneCorpoSchema.parse(body);
 }
 //# sourceMappingURL=turn-disposition.js.map

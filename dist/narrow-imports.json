@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.153.0",
+  "versione": "1.154.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -890,6 +890,7 @@
       "PaperclipNativeCreateIssueInputSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipNativeReviewInputSchema": "@x9-forge/contracts/capability/paperclip/native-wait",
       "PaperclipPianoCorpoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
+      "PaperclipPoliticaConControlloSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
       "PaperclipProjectViewSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipProtocolloAgenteSchema": "@x9-forge/contracts/capability/paperclip-protocollo/agenti",
       "PaperclipProtocolloAgentiSchema": "@x9-forge/contracts/capability/paperclip-protocollo/agenti",

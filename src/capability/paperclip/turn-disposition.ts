@@ -3,7 +3,10 @@ import {
   OrganizationAdmissionRefusalCodeSchema,
   type OrganizationAdmissionRefusalCode,
 } from '../../http/endpoints/internal-agent-turn.js';
-import type { PaperclipDisposizioneCorpo } from '../paperclip-protocollo/wire-scritture.js';
+import {
+  PaperclipDisposizioneCorpoSchema,
+  type PaperclipDisposizioneCorpo,
+} from '../paperclip-protocollo/wire-scritture.js';
 
 /**
  * What stays written on Paperclip when an organization turn ends is decided here and only here: a «not now» refusal
@@ -49,6 +52,7 @@ export const TurnEndSchema = z.discriminatedUnion('kind', [
   z.strictObject({
     kind: z.literal('refused'),
     code: OrganizationAdmissionRefusalCodeSchema,
+    message: z.string().min(1).max(2000).optional(),
     retryAfterSeconds: z.number().int().min(1).max(MAX_CHECK_SECONDS).optional(),
   }),
   z.strictObject({ kind: z.literal('failed'), failureCode: z.string().min(1) }),
@@ -106,25 +110,31 @@ export function dispositionForTurnEnd(end: TurnEnd): TurnDisposition {
 /** The write to make on the Paperclip issue, or null when nothing is written. The time enters only from `ctx.now`. */
 export function paperclipBodyForDisposition(
   d: TurnDisposition,
-  ctx: { now: Date; agentId: string },
+  ctx: { now: Date; agentId: string; currentExecutionPolicy?: Record<string, unknown> | null },
 ): PaperclipDisposizioneCorpo | null {
+  let body: PaperclipDisposizioneCorpo;
   switch (d.kind) {
     case 'leave':
     case 'fail_run':
       return null;
     case 'check_later':
-      return {
+      body = {
         status: 'in_progress',
         executionPolicy: {
+          ...(ctx.currentExecutionPolicy ?? {}),
           monitor: {
             nextCheckAt: new Date(ctx.now.getTime() + d.afterSeconds * 1000).toISOString(),
             notes: d.notes,
           },
         },
       };
+      break;
     case 'close_not_executed':
-      return { status: 'done', comment: d.comment };
+      body = { status: 'done', comment: d.comment };
+      break;
     case 'block_for_owner':
-      return { status: 'blocked', unblockDescriptor: { owner: { agentId: ctx.agentId }, action: d.action } };
+      body = { status: 'blocked', unblockDescriptor: { owner: { agentId: ctx.agentId }, action: d.action } };
+      break;
   }
+  return PaperclipDisposizioneCorpoSchema.parse(body);
 }
