@@ -286,6 +286,7 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         decision: "decision";
         request: "request";
     }>;
+    projectRef: z.ZodOptional<z.ZodString>;
     from: z.ZodString;
     subject: z.ZodString;
     receivedAt: z.ZodISODateTime;
@@ -398,6 +399,7 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             decision: "decision";
             request: "request";
         }>;
+        projectRef: z.ZodOptional<z.ZodString>;
         from: z.ZodString;
         subject: z.ZodString;
         receivedAt: z.ZodISODateTime;
@@ -545,6 +547,7 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 decision: "decision";
                 request: "request";
             }>;
+            projectRef: z.ZodOptional<z.ZodString>;
             from: z.ZodString;
             subject: z.ZodString;
             receivedAt: z.ZodISODateTime;

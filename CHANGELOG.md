@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.134.0 — il progetto della domanda viaggia con la sveglia email; additivo
+
+- `http/endpoints/internal-paperclip-seats` (6118): il ramo email di `PaperclipSeatNativeWakeEventSchema` conserva `projectRef` facoltativo, riusando `DecisionRequestSchema.shape.projectId` (1–64 caratteri). Gli eventi senza il campo restano validi; gli altri rami restano stretti.
+- Consumer: X9 ec-x9/6119–6121. Il produttore cap-email e il consumatore cap-paperclip vanno rilasciati insieme: lo schema stretto di cap-paperclip su 1.133.0 rifiuterebbe il campo nuovo.
+
 ## v1.133.0 — il tetto di ricerche per dossier è una impostazione della Ricerca; additivo
 
 - `capability/ricerca` (6112): `ResearchParamsSchema` ha il campo facoltativo `maxPerDossier` (intero 1–100), accanto a `maxToolCalls`. Assente vale il default del servizio. Le configurazioni salvate senza il campo restano valide.

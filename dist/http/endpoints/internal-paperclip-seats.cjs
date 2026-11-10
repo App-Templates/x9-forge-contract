@@ -142,6 +142,8 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         messageId: exports.InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
         threadKey: exports.InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
         mode: zod_1.z.enum(exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES),
+        // Memory A project of the decision request this email answers, when cap-email knows it; never guessed.
+        projectRef: decision_request_js_1.DecisionRequestSchema.shape.projectId,
         from: zod_1.z.string().min(1).max(320),
         subject: zod_1.z.string().min(1).max(300),
         receivedAt: zod_1.z.iso.datetime(),

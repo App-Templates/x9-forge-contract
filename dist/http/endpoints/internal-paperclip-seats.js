@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { ParticipantAgentIdentitySchema } from "../../organization/participant-binding.js";
 import { CapabilityAgentScopeSchema } from "../../capability/capability-call-identity.js";
 import { AgentRequestSchema } from "../../organization/agent-request.js";
-import { DecisionOutcomeSchema, DecisionRequestIdSchema } from "../../organization/decision-request.js";
+import { DecisionOutcomeSchema, DecisionRequestIdSchema, DecisionRequestSchema } from "../../organization/decision-request.js";
 import { ResearchIdSchema, ResearchStateSchema } from "../../capability/ricerca/research.js";
 import { DevSessionAssignmentSchema, DevSessionCommitSchema, DevSessionResultSchema, } from "../../capability/dev/session-assignment.js";
 import { PaperclipActivityInputSchema, PaperclipActivityOutputSchema, PaperclipIssueStatusSchema, PaperclipSearchInputSchema, PaperclipSearchKindSchema, PaperclipSearchOutputSchema, } from "../../capability/paperclip/tools.js";
@@ -139,6 +139,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
         messageId: InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
         threadKey: InternalPaperclipSeatReplyWakeRequestSchema.shape.messageId,
         mode: z.enum(PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES),
+        // Memory A project of the decision request this email answers, when cap-email knows it; never guessed.
+        projectRef: DecisionRequestSchema.shape.projectId,
         from: z.string().min(1).max(320),
         subject: z.string().min(1).max(300),
         receivedAt: z.iso.datetime(),
