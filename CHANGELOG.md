@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.152.0 — dall'esito di un turno alla disposizione su Paperclip decide una sola funzione del ponte; additivo
+
+- `capability/paperclip/turn-disposition` (6182): file nuovo. `ADMISSION_REFUSAL_CLASS` classifica ogni codice di rifiuto in `definitive` o `not_now` (un codice senza classe non compila); `TurnEndSchema`, `TurnDispositionSchema`, `dispositionForTurnEnd` e `paperclipBodyForDisposition` (pure, l'ora entra da `ctx.now`). Solo `failed`, `uncertain` e `unavailable` fanno fallire la corsa; `budget_exhausted` e gli altri «non adesso» diventano un controllo a tempo, `rd_paused` chiude l'incarico come non eseguito, un rifiuto definitivo blocca per il proprietario.
+- Produttore: X9 agent-core; consumatore: X9 cap-paperclip. Nulla cambia in esecuzione finché X9 non adotta 1.152.0.
+
 ## v1.151.0 — disposizione di fine turno Paperclip con sblocco e controllo a tempo; additivo
 
 - `capability/paperclip-protocollo` (6181): nuovi `PaperclipDescrittoreSbloccoSchema`, `PaperclipControlloSchema`, `PaperclipDisposizioneCorpoSchema` e relativi tipi inferiti. Un incarico `blocked` richiede blocchi o un descrittore di sblocco; `in_progress` richiede un controllo pianificato UTC. I controlli sono ammessi solo per `in_progress` e `in_review`; blocchi e descrittore solo per `blocked`.
