@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalMemoryActionPlanReadContract = exports.internalMemoryActionPlanSaveContract = exports.ActionPlanErrorResponseSchema = exports.ActionPlanErrorCodeSchema = exports.ACTION_PLAN_ERROR_CODES = exports.ActionPlanReadResponseSchema = exports.ActionPlanReadRequestSchema = exports.ActionPlanSaveResponseSchema = exports.ActionPlanSaveRequestSchema = exports.INTERNAL_MEMORY_ACTION_PLAN_READ_PATH = exports.INTERNAL_MEMORY_ACTION_PLANS_PATH = void 0;
+exports.internalMemoryActionPlanReadContract = exports.internalMemoryActionPlanSaveContract = exports.ActionPlanErrorResponseSchema = exports.ActionPlanReferentVersionMismatchDetailsSchema = exports.ActionPlanErrorCodeSchema = exports.ACTION_PLAN_ERROR_CODES = exports.ActionPlanReadResponseSchema = exports.ActionPlanReadRequestSchema = exports.ActionPlanSaveResponseSchema = exports.ActionPlanSaveRequestSchema = exports.INTERNAL_MEMORY_ACTION_PLAN_READ_PATH = exports.INTERNAL_MEMORY_ACTION_PLANS_PATH = void 0;
 const zod_1 = require("zod");
 const action_plan_js_1 = require("../../organization/action-plan.cjs");
 const asset_js_1 = require("../../organization/asset.cjs");
@@ -39,16 +39,31 @@ exports.ACTION_PLAN_ERROR_CODES = [
     'action_plan_digest_mismatch',
     'action_plan_scope_mismatch',
     'identity_uncertain',
+    'action_plan_referent_version_mismatch',
 ];
 exports.ActionPlanErrorCodeSchema = zod_1.z.enum(exports.ACTION_PLAN_ERROR_CODES);
+/**
+ * Numbers of the refusal `action_plan_referent_version_mismatch`: `expectedVersion` is the version the entry will
+ * have once the plan is approved (the one to write); `writtenVersion` is the one the business unit wrote.
+ */
+exports.ActionPlanReferentVersionMismatchDetailsSchema = zod_1.z.strictObject({
+    buSlug: action_plan_js_1.ActionPlanSchema.shape.businessUnits.element.shape.buSlug,
+    expectedVersion: action_plan_js_1.ActionPlanSchema.shape.businessUnits.element.shape.referent.shape.entryVersion,
+    writtenVersion: action_plan_js_1.ActionPlanSchema.shape.businessUnits.element.shape.referent.shape.entryVersion,
+});
 exports.ActionPlanErrorResponseSchema = zod_1.z.strictObject({
     code: exports.ActionPlanErrorCodeSchema,
     message: zod_1.z.string().min(1),
+    details: exports.ActionPlanReferentVersionMismatchDetailsSchema.optional(),
+}).refine((r) => r.details === undefined || r.code === 'action_plan_referent_version_mismatch', {
+    message: 'details are only allowed with action_plan_referent_version_mismatch', path: ['details'],
 });
 /**
  * Save: 201 new version, 200 identical replay (`created: false`); 409 action_plan_conflict for the same
  * planId and version with another digest; 400 action_plan_digest_mismatch when the digest is not the one of
- * `actionPlanCanonicalJson`; 403 action_plan_scope_mismatch / identity_uncertain.
+ * `actionPlanCanonicalJson`; 403 action_plan_scope_mismatch / identity_uncertain;
+ * 400 action_plan_referent_version_mismatch when a business unit cites a referent version other than the one the
+ * proposals of the plan will produce on approval; `details` optional.
  */
 exports.internalMemoryActionPlanSaveContract = {
     method: 'POST',

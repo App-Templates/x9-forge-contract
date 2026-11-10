@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.155.0 — il salvataggio del piano d'azione rifiuta il puntatore sbagliato al referente; additivo
+
+- `http/endpoints/internal-memory-action-plans` (6232): `ACTION_PLAN_ERROR_CODES` riceve `action_plan_referent_version_mismatch` (in coda); nuovo `ActionPlanReferentVersionMismatchDetailsSchema` (`buSlug`, `expectedVersion`, `writtenVersion`) e `ActionPlanErrorResponseSchema.details` facoltativo, ammesso solo con il codice nuovo. Le risposte di oggi restano valide.
+- Consumatori: X9 memory e cap-email. Fruibilità con ec-x9/6233 (adozione di 1.155.0), 6234 (memory rifiuta al salvataggio), 6235 (il Director legge e corregge).
+
 ## v1.154.0 — la disposizione conserva la politica di esecuzione; additivo
 
 - `capability/paperclip-protocollo` (6192): `PaperclipPoliticaConControlloSchema` conserva i campi della politica corrente accanto al `monitor` obbligatorio e stretto; allarga il corpo introdotto in 1.151.0.
