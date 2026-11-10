@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.131.0 — la consegna di progetto; additivo
+
+- `@x9-forge/contracts/organization`: nuovo `project-delivery`. `PROJECT_DELIVERY_TOOL` (`email_deliver_project`), `ProjectDeliveryInputSchema`, `ProjectDeliveryReconciliationSchema` (esito `complete` | `partial` | `empty`, un pezzo per reparto del piano con stato `approved` | `pending` | `rejected` | `missing`, `missing[].waitsOn` con chi aspetta chi, impronta, invio `final` | `partial`) e `projectDeliveryDigest`.
+- `reconcileProjectDelivery({ plan, planApprovedAt, decisions, assets })`: funzione pura che riconcilia le consegne approvate dal referente con il piano; un pezzo vale solo se l'asset salvato ha la stessa impronta. `planApprovedAt` è la prima approvazione dello stesso `planId`, non quella della versione corrente.
+- Consumer: X9 cap-email (strumento) e cap-paperclip, Forge profilo del Director. Nessuno schema esistente cambia.
+
 ## v1.130.0 — la richiesta fra agenti ha una forma condivisa; additivo
 
 - `@x9-forge/contracts/organization`: `AgentRequestSchema`, `AgentRequestIdSchema` e `AGENT_REQUEST_TARGET_KINDS` descrivono chi chiede, a chi, cosa serve, perché, il Mandato di origine e, quando presente, il piano con la sua versione.

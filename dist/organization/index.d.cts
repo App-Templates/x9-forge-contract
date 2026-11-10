@@ -32,4 +32,5 @@ export * from "./vertical-plan.cjs";
 export * from "./vertical-plan-observation.cjs";
 export * from "./delivery-package.cjs";
 export * from "./agent-request.cjs";
+export * from "./project-delivery.cjs";
 //# sourceMappingURL=index.d.ts.map
