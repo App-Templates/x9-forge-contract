@@ -98,13 +98,17 @@ export const PaperclipControlloSchema = z.strictObject({
   serviceName: z.string().trim().min(1).max(120).optional(),
 });
 
+// Paperclip replaces the whole execution policy on an update (routes/issues.ts:13103-13105),
+// so the body carries the policy intact: only the monitor is ours, the rest passes through.
+export const PaperclipPoliticaConControlloSchema = z.looseObject({ monitor: PaperclipControlloSchema });
+
 export const PaperclipDisposizioneCorpoSchema = z
   .strictObject({
     status: z.enum(['done', 'in_review', 'blocked', 'in_progress']),
     comment: z.string().trim().min(1).optional(),
     blockedByIssueIds: z.array(z.guid()).min(1).optional(),
     unblockDescriptor: PaperclipDescrittoreSbloccoSchema.optional(),
-    executionPolicy: z.strictObject({ monitor: PaperclipControlloSchema }).optional(),
+    executionPolicy: PaperclipPoliticaConControlloSchema.optional(),
   })
   .superRefine((value, ctx) => {
     if (value.status === 'blocked') {
@@ -149,4 +153,5 @@ export const PaperclipDisposizioneCorpoSchema = z
 
 export type PaperclipDescrittoreSblocco = z.infer<typeof PaperclipDescrittoreSbloccoSchema>;
 export type PaperclipControllo = z.infer<typeof PaperclipControlloSchema>;
-export type PaperclipDisposizioneCorpo = z.infer<typeof PaperclipDisposizioneCorpoSchema>;
+export type PaperclipPoliticaConControllo = z.infer<typeof PaperclipPoliticaConControlloSchema>;
+export type PaperclipDisposizioneCorpo =z.infer<typeof PaperclipDisposizioneCorpoSchema>;

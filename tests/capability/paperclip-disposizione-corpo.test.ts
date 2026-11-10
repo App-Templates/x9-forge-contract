@@ -35,8 +35,31 @@ it('s6181 in-corso-senza-destinazione: PaperclipDisposizioneCorpoSchema refuses 
   }
   expect(PaperclipDisposizioneCorpoSchema.safeParse({ status: 'in_progress', executionPolicy: {} }).success).toBe(false);
   expect(PaperclipDisposizioneCorpoSchema.safeParse({
-    status: 'in_progress', executionPolicy: { monitor, extra: true },
+    status: 'in_progress', executionPolicy: { monitor: { ...monitor, extra: true } },
   }).success).toBe(false);
+});
+
+const policy = {
+  mode: 'normal',
+  commentRequired: true,
+  stages: [{ id: '22222222-2222-4222-8222-222222222222', type: 'review', participants: [{ type: 'agent', agentId: ISSUE_ID }] }],
+};
+
+it('s6192 politica-tagliata: PaperclipDisposizioneCorpoSchema keeps mode and stages of the execution policy next to the monitor', () => {
+  const parsed = PaperclipDisposizioneCorpoSchema.parse({ status: 'in_progress', executionPolicy: { ...policy, monitor } });
+  expect(parsed.executionPolicy).toEqual({ ...policy, monitor });
+  expect(parsed.executionPolicy).toMatchObject({ mode: 'normal', commentRequired: true, stages: policy.stages });
+});
+
+it('s6192 the body the client writes today, policy spread plus monitor, parses with PaperclipDisposizioneCorpoSchema', () => {
+  // Shape of agent-x9 services/cap-paperclip/src/native-client.ts:296-305, copied by hand.
+  const body = { status: 'in_review', comment: 'Waiting', executionPolicy: { ...policy, monitor } };
+  expect(PaperclipDisposizioneCorpoSchema.parse(body)).toEqual(body);
+});
+
+it('s6192 a policy without monitor is still refused, also when it carries mode and stages', () => {
+  expect(PaperclipDisposizioneCorpoSchema.safeParse({ status: 'in_review', executionPolicy: policy }).success).toBe(false);
+  expect(PaperclipDisposizioneCorpoSchema.safeParse({ status: 'in_progress', executionPolicy: { ...policy, monitor: undefined } }).success).toBe(false);
 });
 
 it('s6181 blocked needs blockers or an unblock descriptor, and both are refused outside blocked', () => {
