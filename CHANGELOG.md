@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.136.0 — il tetto di spesa dell'azienda si legge e si cambia con un contratto; additivo
+
+- `http/endpoints/internal-company-spend` (6160): `GET`/`PUT /internal/companies/:company/spend` (`internalCompanySpendReadContract`, `internalCompanySpendCapUpdateContract`). La lettura dà tetto, speso, speso per agente e per fonte, `revision` e le fonti che X9 non legge (`unreadSources`). Il cambio chiede la `revision` letta, il nuovo tetto in centesimi (≥ 1) e, se serve, `since` per far ripartire il contatore; errori in `InternalCompanySpendErrorSchema` (`stale_revision` porta `currentRevision`). Anche `CompanySpendSourceSchema`.
+- Consumer: produttore X9 agent-core (ec-x9), consumatore Forge (forge-rel-059). Contratto della BU invariato.
+
 ## v1.135.0 — l'inventario degli agenti dice la casella AgentMail che ogni agente usa; additivo
 
 - `http/endpoints/internal-agents-list` (6124): `ListAgentsAgentSchema` ha il campo facoltativo `emailInbox` (indirizzo email), la casella `AGENTMAIL_INBOX_ID` del contesto caricato dell'agente, Master compreso. Assente = nessuna o ignota, mai dedotta. Gli inventari senza il campo restano validi.

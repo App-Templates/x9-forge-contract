@@ -103,8 +103,8 @@ export declare const coachProgramApplyContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -263,8 +263,8 @@ export declare const coachOpeningContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -387,8 +387,8 @@ export declare const coachConversationInputContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -518,8 +518,8 @@ export declare const coachExecutionStartContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -705,8 +705,8 @@ export declare const coachExecutionEventContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -835,8 +835,8 @@ export declare const coachGuideEndContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -1058,8 +1058,8 @@ export declare const coachSessionCloseContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -1251,8 +1251,8 @@ export declare const coachUsageObserveContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;

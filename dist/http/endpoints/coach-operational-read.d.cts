@@ -652,8 +652,8 @@ export declare const coachProgramVersionReadContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -1017,8 +1017,8 @@ export declare const coachOperationalSessionReadContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -1150,8 +1150,8 @@ export declare const coachSessionRevisionsReadContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
@@ -1277,8 +1277,8 @@ export declare const coachOperationalBudgetReadContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;

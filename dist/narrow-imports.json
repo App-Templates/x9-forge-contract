@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.135.0",
+  "versione": "1.136.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1489,6 +1489,7 @@
       "CompanyRdEnrollmentSeatSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-rd-enrollment",
       "CompanyRdEnrollmentSeatStatusSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-rd-enrollment",
       "CompanyRdPartSchema": "@x9-forge/contracts/http/endpoints/internal-company-rd",
+      "CompanySpendSourceSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "ConnectAccessErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-connect",
       "ConnectErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-connect",
       "ConnectReturnErrorReasonSchema": "@x9-forge/contracts/http/endpoints/connect-public",
@@ -1574,6 +1575,7 @@
       "INTERNAL_COMPANY_RD_BIRTH_PATH": "@x9-forge/contracts/http/endpoints/internal-company-rd",
       "INTERNAL_COMPANY_RD_ENROLLMENT_PATH": "@x9-forge/contracts/http/endpoints/internal-paperclip-rd-enrollment",
       "INTERNAL_COMPANY_SPEND_BUSINESS_UNIT_PATH": "@x9-forge/contracts/http/endpoints/internal-company-spend",
+      "INTERNAL_COMPANY_SPEND_PATH": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "INTERNAL_CONNECTION_COMPLETED_PATH": "@x9-forge/contracts/http/endpoints/internal-connection-completed",
       "INTERNAL_MEMORY_ACTION_PLANS_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-action-plans",
       "INTERNAL_MEMORY_ACTION_PLAN_READ_PATH": "@x9-forge/contracts/http/endpoints/internal-memory-action-plans",
@@ -1641,6 +1643,10 @@
       "InternalCompanySpendBusinessUnitParamsSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "InternalCompanySpendBusinessUnitQuerySchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "InternalCompanySpendBusinessUnitResponseSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
+      "InternalCompanySpendCapUpdateBodySchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
+      "InternalCompanySpendErrorSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
+      "InternalCompanySpendParamsSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
+      "InternalCompanySpendResponseSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "InternalFactoryDeployErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-factory-deploy",
       "InternalFactoryDeployRequestSchema": "@x9-forge/contracts/http/endpoints/internal-factory-deploy",
       "InternalFactoryDeployResponseSchema": "@x9-forge/contracts/http/endpoints/internal-factory-deploy",
@@ -2016,6 +2022,8 @@
       "internalCompanyRdBirthContract": "@x9-forge/contracts/http/endpoints/internal-company-rd",
       "internalCompanyRdEnrollmentContract": "@x9-forge/contracts/http/endpoints/internal-paperclip-rd-enrollment",
       "internalCompanySpendBusinessUnitReadContract": "@x9-forge/contracts/http/endpoints/internal-company-spend",
+      "internalCompanySpendCapUpdateContract": "@x9-forge/contracts/http/endpoints/internal-company-spend",
+      "internalCompanySpendReadContract": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "internalDevRegiaOpenContract": "@x9-forge/contracts/http/endpoints/internal-dev-regia",
       "internalDevRegiaResultContract": "@x9-forge/contracts/http/endpoints/internal-dev-regia",
       "internalDevRegiaResultPath": "@x9-forge/contracts/http/endpoints/internal-dev-regia",

@@ -55,7 +55,7 @@ export type InternalCompanySpendBusinessUnitResponse = z.infer<
   typeof InternalCompanySpendBusinessUnitResponseSchema
 >;
 
-/** Read-only: the cap cannot be changed from here. */
+/** Read-only: the cap of a business unit cannot be changed from here. */
 export const internalCompanySpendBusinessUnitReadContract = {
   method: 'GET' as const,
   path: INTERNAL_COMPANY_SPEND_BUSINESS_UNIT_PATH,
@@ -63,4 +63,83 @@ export const internalCompanySpendBusinessUnitReadContract = {
   paramsSchema: InternalCompanySpendBusinessUnitParamsSchema,
   querySchema: InternalCompanySpendBusinessUnitQuerySchema,
   responseSchema: InternalCompanySpendBusinessUnitResponseSchema,
+} as const;
+
+/** Spend sources of the company guard; the same list agent-core meters. */
+export const CompanySpendSourceSchema = z.enum(['model', 'tool', 'ricerca', 'lab']);
+export type CompanySpendSource = z.infer<typeof CompanySpendSourceSchema>;
+
+export const INTERNAL_COMPANY_SPEND_PATH = '/internal/companies/:company/spend' as const;
+
+/** `company` is the guard's company name, e.g. `good-choice`. */
+export const InternalCompanySpendParamsSchema = z.strictObject({
+  company: z.string().regex(/^[a-z0-9][a-z0-9-]*$/).max(64),
+});
+export type InternalCompanySpendParams = z.infer<typeof InternalCompanySpendParamsSchema>;
+
+const CompanySpendIsoSchema = z.iso.datetime({ offset: true });
+
+/**
+ * Company spend report against its cap. `revision` is 0 for the value shipped
+ * in the image and grows by 1 at every cap change. `unreadSources` lists the
+ * sources X9 does not read today: their spend is unknown, never zero.
+ */
+export const InternalCompanySpendResponseSchema = z.strictObject({
+  company: InternalCompanySpendParamsSchema.shape.company,
+  label: z.string().min(1),
+  since: CompanySpendIsoSchema,
+  capEurCents: z.int().min(1),
+  usdPerEur: z.number().positive().finite(),
+  capUsdMicros: z.int().min(0),
+  spentUsdMicros: z.int().min(0),
+  over: z.boolean(),
+  revision: z.int().min(0),
+  changedAt: CompanySpendIsoSchema.nullable(),
+  changedBy: z.string().min(1).max(200).nullable(),
+  perAgent: z.array(
+    z.strictObject({
+      agentId: z.string().min(1),
+      usdMicros: z.int().min(0),
+      estimated: z.boolean(),
+      bySource: z.partialRecord(CompanySpendSourceSchema, z.int().min(0)),
+    }),
+  ),
+  unreadSources: z.array(CompanySpendSourceSchema),
+});
+export type InternalCompanySpendResponse = z.infer<typeof InternalCompanySpendResponseSchema>;
+
+/** `since` restarts the counter (reset); `revision` is the one the caller read. */
+export const InternalCompanySpendCapUpdateBodySchema = z.strictObject({
+  revision: z.int().min(0),
+  capEurCents: z.int().min(1).max(10_000_000),
+  since: CompanySpendIsoSchema.optional(),
+  changedBy: z.string().min(1).max(200),
+});
+export type InternalCompanySpendCapUpdateBody = z.infer<
+  typeof InternalCompanySpendCapUpdateBodySchema
+>;
+
+export const InternalCompanySpendErrorSchema = z.strictObject({
+  ok: z.literal(false),
+  error: z.enum(['unknown_company', 'guard_off', 'stale_revision', 'below_business_units', 'invalid_request']),
+  currentRevision: z.int().min(0).optional(),
+});
+export type InternalCompanySpendError = z.infer<typeof InternalCompanySpendErrorSchema>;
+
+export const internalCompanySpendReadContract = {
+  method: 'GET' as const,
+  path: INTERNAL_COMPANY_SPEND_PATH,
+  authType: 'secret' as const,
+  paramsSchema: InternalCompanySpendParamsSchema,
+  responseSchema: InternalCompanySpendResponseSchema,
+} as const;
+
+/** The response is the same report as the read, taken after the change. */
+export const internalCompanySpendCapUpdateContract = {
+  method: 'PUT' as const,
+  path: INTERNAL_COMPANY_SPEND_PATH,
+  authType: 'secret' as const,
+  paramsSchema: InternalCompanySpendParamsSchema,
+  bodySchema: InternalCompanySpendCapUpdateBodySchema,
+  responseSchema: InternalCompanySpendResponseSchema,
 } as const;

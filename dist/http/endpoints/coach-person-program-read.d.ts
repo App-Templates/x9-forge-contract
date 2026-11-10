@@ -853,8 +853,8 @@ export declare const coachPersonProgramReadContract: {
             scope_mismatch: "scope_mismatch";
             authority_unavailable: "authority_unavailable";
             unauthorized: "unauthorized";
-            strategy_unavailable: "strategy_unavailable";
             stale_revision: "stale_revision";
+            strategy_unavailable: "strategy_unavailable";
             stale_program_version: "stale_program_version";
             budget_unavailable: "budget_unavailable";
         }>;
