@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.156.0 — la sveglia `research_done` porta tutte le ricerche del dossier con il loro stato; additivo
+
+- `http/endpoints/internal-paperclip-seats` (6275): l'evento `research_done` accetta `dossier` facoltativo (1-20 voci `researchId` + `state`), con la ricerca dell'evento dentro la lista con lo stesso stato e nessun id ripetuto; nuovi `PaperclipSeatResearchDoneDossierEntrySchema` e tipo `PaperclipSeatResearchDoneDossierEntry`. Gli eventi senza `dossier` restano validi.
+- Consumatori: X9 cap-ricerca e cap-paperclip. Fruibilità con ec-x9/6276 (adozione di 1.156.0) e 6277 (cap-ricerca riempie, cap-paperclip scrive nel commento).
+
 ## v1.155.0 — il salvataggio del piano d'azione rifiuta il puntatore sbagliato al referente; additivo
 
 - `http/endpoints/internal-memory-action-plans` (6232): `ACTION_PLAN_ERROR_CODES` riceve `action_plan_referent_version_mismatch` (in coda); nuovo `ActionPlanReferentVersionMismatchDetailsSchema` (`buSlug`, `expectedVersion`, `writtenVersion`) e `ActionPlanErrorResponseSchema.details` facoltativo, ammesso solo con il codice nuovo. Le risposte di oggi restano valide.

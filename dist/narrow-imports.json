@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.155.0",
+  "versione": "1.156.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1784,6 +1784,7 @@
       "PaperclipSeatNativeWakeEventSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatNativeWakeResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "PaperclipSeatReplyWakeResultSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
+      "PaperclipSeatResearchDoneDossierEntrySchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-seats",
       "ParticipantBindingErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-participant-binding",
       "PostCallErrorResponseSchema": "@x9-forge/contracts/http/endpoints/webhook-post-call",
       "PostCallPayloadSchema": "@x9-forge/contracts/http/endpoints/webhook-post-call",

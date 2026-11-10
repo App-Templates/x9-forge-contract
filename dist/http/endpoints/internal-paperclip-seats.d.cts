@@ -277,6 +277,17 @@ export type InternalPaperclipSeatReplyWakeResponse = z.infer<typeof InternalPape
 export type PaperclipSeatReplyWakeResult = z.infer<typeof PaperclipSeatReplyWakeResultSchema>;
 export declare const INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH: "/internal/paperclip/seats/native-wake";
 export declare const PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES: readonly ["request", "reply", "decision"];
+export declare const PaperclipSeatResearchDoneDossierEntrySchema: z.ZodObject<{
+    researchId: z.ZodString;
+    state: z.ZodEnum<{
+        failed: "failed";
+        budget_exhausted: "budget_exhausted";
+        completed: "completed";
+        queued: "queued";
+        running: "running";
+    }>;
+}, z.core.$strict>;
+export type PaperclipSeatResearchDoneDossierEntry = z.infer<typeof PaperclipSeatResearchDoneDossierEntrySchema>;
 export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     kind: z.ZodLiteral<"email">;
     messageId: z.ZodString;
@@ -311,6 +322,16 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         running: "running";
     }>;
     question: z.ZodString;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        researchId: z.ZodString;
+        state: z.ZodEnum<{
+            failed: "failed";
+            budget_exhausted: "budget_exhausted";
+            completed: "completed";
+            queued: "queued";
+            running: "running";
+        }>;
+    }, z.core.$strict>>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"dev_delivered">;
     sessionIssue: z.ZodNumber;
@@ -424,6 +445,16 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             running: "running";
         }>;
         question: z.ZodString;
+        dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            researchId: z.ZodString;
+            state: z.ZodEnum<{
+                failed: "failed";
+                budget_exhausted: "budget_exhausted";
+                completed: "completed";
+                queued: "queued";
+                running: "running";
+            }>;
+        }, z.core.$strict>>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"dev_delivered">;
         sessionIssue: z.ZodNumber;
@@ -572,6 +603,16 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 running: "running";
             }>;
             question: z.ZodString;
+            dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+                researchId: z.ZodString;
+                state: z.ZodEnum<{
+                    failed: "failed";
+                    budget_exhausted: "budget_exhausted";
+                    completed: "completed";
+                    queued: "queued";
+                    running: "running";
+                }>;
+            }, z.core.$strict>>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"dev_delivered">;
             sessionIssue: z.ZodNumber;
