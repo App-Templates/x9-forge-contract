@@ -87,6 +87,8 @@ export const ListAgentsAgentSchema = z.object({
     workspace: AgentWorkspaceAttestationSchema.nullable().optional(),
     /** Registry metadata actually observed by X9 for this agent; null is unknown, [] is known empty. */
     capabilities: AgentInventoryCapabilitiesSchema.nullable().optional(),
+    /** AgentMail inbox the running agent uses (AGENTMAIL_INBOX_ID of its loaded context), observed by X9; absent = none or unknown, never inferred. */
+    emailInbox: z.email().optional(),
 }).superRefine((agent, ctx) => {
     if (agent.authority) {
         const declared = agent.authority;

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.135.0 — l'inventario degli agenti dice la casella AgentMail che ogni agente usa; additivo
+
+- `http/endpoints/internal-agents-list` (6124): `ListAgentsAgentSchema` ha il campo facoltativo `emailInbox` (indirizzo email), la casella `AGENTMAIL_INBOX_ID` del contesto caricato dell'agente, Master compreso. Assente = nessuna o ignota, mai dedotta. Gli inventari senza il campo restano validi.
+- Consumer: produttore X9 agent-core (ec-x9/6125-6126), consumatore Forge (forge-rel-059/6127-6128). Lo schema non è stretto: l'ordine dei rilasci è libero.
+
 ## v1.134.0 — il progetto della domanda viaggia con la sveglia email; additivo
 
 - `http/endpoints/internal-paperclip-seats` (6118): il ramo email di `PaperclipSeatNativeWakeEventSchema` conserva `projectRef` facoltativo, riusando `DecisionRequestSchema.shape.projectId` (1–64 caratteri). Gli eventi senza il campo restano validi; gli altri rami restano stretti.
