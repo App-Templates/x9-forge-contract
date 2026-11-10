@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.140.0",
+  "versione": "1.151.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -856,6 +856,7 @@
       "PaperclipCommunicationRecordSchema": "@x9-forge/contracts/capability/paperclip",
       "PaperclipConfermaCorpoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
       "PaperclipContestoTurnoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-letture",
+      "PaperclipControlloSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
       "PaperclipCreateApprovedBusinessUnitsInputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipCreateBusinessUnitInputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipCreateBusinessUnitOutputSchema": "@x9-forge/contracts/capability/paperclip/tools",
@@ -866,6 +867,8 @@
       "PaperclipCreateProjectOutputSchema": "@x9-forge/contracts/capability/paperclip/tools",
       "PaperclipDecisionRecordSchema": "@x9-forge/contracts/capability/paperclip",
       "PaperclipDecisionViewSchema": "@x9-forge/contracts/capability/paperclip",
+      "PaperclipDescrittoreSbloccoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
+      "PaperclipDisposizioneCorpoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
       "PaperclipDocumentoSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-scritture",
       "PaperclipEnrollmentSchema": "@x9-forge/contracts/capability/paperclip/enrollment",
       "PaperclipErroreRispostaSchema": "@x9-forge/contracts/capability/paperclip-protocollo/wire-letture",

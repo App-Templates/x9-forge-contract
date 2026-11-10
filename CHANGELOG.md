@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.151.0 — disposizione di fine turno Paperclip con sblocco e controllo a tempo; additivo
+
+- `capability/paperclip-protocollo` (6181): nuovi `PaperclipDescrittoreSbloccoSchema`, `PaperclipControlloSchema`, `PaperclipDisposizioneCorpoSchema` e relativi tipi inferiti. Un incarico `blocked` richiede blocchi o un descrittore di sblocco; `in_progress` richiede un controllo pianificato UTC. I controlli sono ammessi solo per `in_progress` e `in_review`; blocchi e descrittore solo per `blocked`.
+- `PaperclipAggiornaCorpoSchema` e gli altri schemi esistenti restano invariati. Consumatore previsto: X9 cap-paperclip (ec-x9); fruibilità con 6182 e l'adozione in cap-paperclip nello stesso rilascio delle schede X9 della cura.
+
 ## v1.140.0 — `research_start` con il budget del dossier finito dice quando riprovare; additivo
 
 - `capability/ricerca/tools` (6172): `ResearchStartOutputSchema` conserva `retryAfter` facoltativo (data ISO con offset), ammesso solo con `state: 'budget_exhausted'` (inizio della prossima finestra del dossier); con altri stati è rifiutato. Le uscite senza il campo restano valide.
