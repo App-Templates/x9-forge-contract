@@ -25,6 +25,20 @@ export const PROJECT_DELIVERY_SENT_KINDS = ['final', 'partial'] as const;
 export const ProjectDeliverySentKindSchema = z.enum(PROJECT_DELIVERY_SENT_KINDS);
 export type ProjectDeliverySentKind = z.infer<typeof ProjectDeliverySentKindSchema>;
 
+/** Asset type under which the delivery of a project is recorded in Memory. */
+export const PROJECT_DELIVERY_ASSET_TYPE = 'consegna-progetto' as const;
+
+/** How many times a send of the same delivery state may be claimed (each attempt has its own `sending` record). */
+export const PROJECT_DELIVERY_MAX_ATTEMPTS = 3;
+
+/** `sending`: claimed before mailing; `sent`: mailed; `released`: the claimed send did not leave, the next attempt may retry. */
+export const PROJECT_DELIVERY_RECORD_STAGES = ['sending', 'sent', 'released'] as const;
+export const ProjectDeliveryRecordStageSchema = z.enum(PROJECT_DELIVERY_RECORD_STAGES);
+export type ProjectDeliveryRecordStage = z.infer<typeof ProjectDeliveryRecordStageSchema>;
+
+/** Refusal code of a plan that lists the same business unit more than once. */
+export const PROJECT_DELIVERY_DUPLICATE_UNIT = 'project_delivery_duplicate_unit' as const;
+
 const BuSlugSchema = AssetRefSchema.shape.buSlug.unwrap();
 const IsoInstantSchema = z.iso.datetime({ offset: true });
 
@@ -150,6 +164,71 @@ export const ProjectDeliveryReconciliationSchema = z.discriminatedUnion('outcome
 });
 export type ProjectDeliveryReconciliation = z.infer<typeof ProjectDeliveryReconciliationSchema>;
 
+/** Output of the project delivery tool: exactly the reconciliation. */
+export const ProjectDeliveryToolOutputSchema = z.strictObject({
+  reconciliation: ProjectDeliveryReconciliationSchema,
+});
+export type ProjectDeliveryToolOutput = z.infer<typeof ProjectDeliveryToolOutputSchema>;
+
+const recordBase = {
+  kind: ProjectDeliverySentKindSchema,
+  digest: AssetSha256Schema.describe('impronta dell\'esito della consegna a cui la registrazione si riferisce'),
+  attempt: z.number().int().min(1).max(PROJECT_DELIVERY_MAX_ATTEMPTS).describe('il tentativo di invio, da 1'),
+};
+
+/** Registration of a send, in stages: claimed (`sending`), mailed (`sent`) or given back (`released`). */
+export const ProjectDeliveryRecordSchema = z.discriminatedUnion('stage', [
+  z.strictObject({
+    stage: z.literal('sending'), ...recordBase,
+    reconciliation: ProjectDeliveryReconciliationSchema,
+    claimedBy: z.string().min(1).max(200).describe('il callId di chi sta spedendo'),
+    claimedAt: IsoInstantSchema,
+  }),
+  z.strictObject({
+    stage: z.literal('sent'), ...recordBase,
+    reconciliation: ProjectDeliveryReconciliationSchema,
+  }),
+  z.strictObject({
+    stage: z.literal('released'), ...recordBase,
+    reason: z.string().min(1).max(500).describe('perché l\'invio di questo tentativo non è partito'),
+    releasedAt: IsoInstantSchema,
+  }),
+]).superRefine((record, ctx) => {
+  if (record.stage === 'released') return;
+  const { reconciliation } = record;
+  if (record.digest !== reconciliation.digest) {
+    ctx.addIssue({ code: 'custom', path: ['digest'], message: 'Digest must equal the digest of the reconciliation' });
+  }
+  if (record.kind !== (reconciliation.outcome === 'complete' ? 'final' : reconciliation.outcome === 'partial' ? 'partial' : undefined)) {
+    ctx.addIssue({ code: 'custom', path: ['kind'], message: 'A final record needs a complete outcome and a partial one a partial outcome' });
+  }
+  if (record.stage === 'sending' && reconciliation.sent !== undefined) {
+    ctx.addIssue({ code: 'custom', path: ['reconciliation', 'sent'], message: 'A sending record carries no send yet' });
+  }
+  if (record.stage === 'sent' && (reconciliation.sent === undefined || reconciliation.sent.kind !== record.kind)) {
+    ctx.addIssue({ code: 'custom', path: ['reconciliation', 'sent'], message: 'A sent record carries the send of its kind' });
+  }
+});
+export type ProjectDeliveryRecord = z.infer<typeof ProjectDeliveryRecordSchema>;
+
+/** Asset name of a record: one `sent` per delivery state, one record per stage and attempt otherwise. */
+export function projectDeliveryRecordName(input: {
+  kind: ProjectDeliverySentKind; digest: string; stage: ProjectDeliveryRecordStage; attempt: number;
+}): string {
+  const head = PROJECT_DELIVERY_ASSET_TYPE + '-' + input.kind + '-' + input.digest.slice(0, 16);
+  return input.stage === 'sent' ? head + '-sent.json' : head + '-' + input.stage + '-' + input.attempt + '.json';
+}
+
+/** Deterministic asset id of a record, so a retry or a concurrent call finds the same asset. */
+export function projectDeliveryRecordAssetId(input: {
+  tenantId: string; organizationId: string; projectId: string; name: string;
+}): string {
+  const hash = createHash('sha256')
+    .update(JSON.stringify([input.tenantId, input.organizationId, input.projectId, input.name]))
+    .digest('hex');
+  return 'a_' + hash.slice(0, 40);
+}
+
 /** Fingerprint of the delivery state: plan identity plus each piece, sorted by unit so decision order never matters. */
 export function projectDeliveryDigest(plan: PlanRef, pieces: readonly ProjectDeliveryPiece[]): string {
   const ordered = [...pieces]
@@ -274,6 +353,13 @@ export function reconcileProjectDelivery(input: {
   planVersions?: readonly PlanVersion[];
 }): ProjectDeliveryReconciliation {
   const { plan, decisions, assets } = input;
+  const seenUnits = new Set<string>();
+  for (const { buSlug } of plan.businessUnits) {
+    if (seenUnits.has(buSlug)) {
+      throw new Error(`${PROJECT_DELIVERY_DUPLICATE_UNIT}: il piano ${plan.planId} versione ${plan.version} elenca più volte il reparto ${buSlug}`);
+    }
+    seenUnits.add(buSlug);
+  }
   const since = Date.parse(IsoInstantSchema.parse(input.planApprovedAt));
   const approvals = new Map<number, number>();
   for (const { request, outcome } of decisions) {

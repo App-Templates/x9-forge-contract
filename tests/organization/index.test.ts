@@ -124,6 +124,16 @@ describe('organization subpath', () => {
     expect(organization.OrganizationRunContextSchema.parse(context)).toEqual(context);
   });
 
+  it('exports the project delivery record forms', () => {
+    for (const name of [
+      'PROJECT_DELIVERY_ASSET_TYPE', 'PROJECT_DELIVERY_MAX_ATTEMPTS', 'PROJECT_DELIVERY_RECORD_STAGES',
+      'PROJECT_DELIVERY_DUPLICATE_UNIT', 'ProjectDeliveryRecordSchema', 'ProjectDeliveryToolOutputSchema',
+      'projectDeliveryRecordName', 'projectDeliveryRecordAssetId',
+    ]) {
+      expect(organization).toHaveProperty(name);
+    }
+  });
+
   it('keeps every organization runtime symbol out of the package root', () => {
     for (const name of Object.keys(allSymbols)) {
       expect(root).not.toHaveProperty(name);
