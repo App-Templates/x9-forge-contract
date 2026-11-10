@@ -292,4 +292,17 @@ export declare const VideoFootageSyncResponseSchema: z.ZodDiscriminatedUnion<[z.
     }>;
 }, z.core.$strict>], "outcome">;
 export type VideoFootageSyncResponse = z.infer<typeof VideoFootageSyncResponseSchema>;
+/** Identity comes only from the admitted tool envelope (R-33), never from the model. */
+export declare const VideoStudioOpenToolInputSchema: z.ZodObject<{}, z.core.$strict>;
+export type VideoStudioOpenToolInput = z.infer<typeof VideoStudioOpenToolInputSchema>;
+/** One-use access link lifetime (15 minutes). */
+export declare const VIDEO_STUDIO_ACCESS_TTL_SECONDS = 900;
+/** Authenticated studio session lifetime (12 hours). */
+export declare const VIDEO_STUDIO_SESSION_TTL_SECONDS = 43200;
+export declare const VideoStudioOpenResponseSchema: z.ZodObject<{
+    url: z.ZodURL;
+    expiresAt: z.ZodISODateTime;
+    sessionHours: z.ZodLiteral<12>;
+}, z.core.$strict>;
+export type VideoStudioOpenResponse = z.infer<typeof VideoStudioOpenResponseSchema>;
 //# sourceMappingURL=tools.d.ts.map

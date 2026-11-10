@@ -2,6 +2,15 @@
 
 ## Non rilasciato
 
+## v1.103.0 — Officina video: strumento per aprire lo studio, additivo
+
+- `video_studio_open`: `VideoStudioOpenToolInputSchema` (vuoto, identità dalla busta).
+- `VideoStudioOpenResponseSchema`: `url` https, `expiresAt`, `sessionHours`.
+- `VIDEO_STUDIO_ACCESS_TTL_SECONDS = 900` e `VIDEO_STUDIO_SESSION_TTL_SECONDS = 43200`.
+- Consumer: cap-video e agent-core (ov-x9 3462-3466).
+
+Nessuno schema zod si stringe.
+
 ## v1.102.0 — Officina video: elenco dell'archivio delle riprese, additivo
 
 - `GET /api/footage` (`officinaVideoFootageListContract`): identità e `person` in query, `VideoFootageListSchema` con id, posto, abito, inquadratura, gruppo, durata, scene, sha256 e nome originale di ogni ripresa.

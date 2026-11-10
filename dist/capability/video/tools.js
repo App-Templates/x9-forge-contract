@@ -131,4 +131,15 @@ export const VideoFootageSyncResponseSchema = z.discriminatedUnion('outcome', [
         reason: z.enum(['link_non_valido', 'nessuna_cartella', 'non_trovata']),
     }),
 ]);
+/** Identity comes only from the admitted tool envelope (R-33), never from the model. */
+export const VideoStudioOpenToolInputSchema = z.strictObject({});
+/** One-use access link lifetime (15 minutes). */
+export const VIDEO_STUDIO_ACCESS_TTL_SECONDS = 900;
+/** Authenticated studio session lifetime (12 hours). */
+export const VIDEO_STUDIO_SESSION_TTL_SECONDS = 43200;
+export const VideoStudioOpenResponseSchema = z.strictObject({
+    url: z.url({ protocol: /^https$/ }).max(500),
+    expiresAt: z.iso.datetime({ offset: true }),
+    sessionHours: z.literal(12),
+});
 //# sourceMappingURL=tools.js.map
