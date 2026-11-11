@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.160.0 — versioni degli asset di progetto e stato derivato dai fatti registrati; additivo
+
+- `organization/asset-version` (6305) aggiunge gli schemi dei file, della provenienza, dei record di versione e delle revisioni del capo, con i relativi tipi. I documenti del Director e del Lab possono avere provenienza senza sessione.
+- `ASSET_VERSION_STATES`, `ASSET_VERSION_TRANSITIONS`, `assetVersionTransitionAllowed(from, to)`, `isLaterDecisionRequest(a, b)`, `assetVersionDecisionState(request, outcome)`, `deriveAssetVersionStates({ versions, decisions, leadReviews })` e `latestApprovedAssetVersion(states, { buSlug, key })` sono esportati anche da `organization`. Una versione approvata diventa superata quando una versione successiva della stessa chiave viene approvata. I doppioni di versione producono `asset_version_duplicate`.
+- Consumatori previsti sono X9 memory, cap-dev e agent-core. La fruibilità richiede le rotte 6306 e l'adozione nelle schede ec-x9 X1, X2, X4 e X11.
+
 ## v1.159.0 — la chiave stabile del pezzo da consegnare viene dal Mandato e viaggia nell'incarico di sessione; additivo
 
 - `organization/asset` (6304): nuovi `AssetKeySchema` (slug di 1-40 caratteri, come gli id del piano) e `AssetVersionRefSchema` (`key` + `version` intera ≥ 1), con i tipi `AssetKey` e `AssetVersionRef`.

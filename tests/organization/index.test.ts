@@ -25,6 +25,7 @@ import * as recall from '../../src/organization/recall.js';
 import * as businessUnitLead from '../../src/organization/business-unit-lead.js';
 import * as decisionRequest from '../../src/organization/decision-request.js';
 import * as asset from '../../src/organization/asset.js';
+import * as assetVersion from '../../src/organization/asset-version.js';
 import * as sharedMailbox from '../../src/organization/shared-mailbox.js';
 import * as businessUnitType from '../../src/organization/business-unit-type.js';
 import * as agentRole from '../../src/organization/agent-role.js';
@@ -63,6 +64,7 @@ const allSymbols = {
   ...businessUnitLead,
   ...decisionRequest,
   ...asset,
+  ...assetVersion,
   ...sharedMailbox,
   ...agentRole,
   ...actionPlan,
