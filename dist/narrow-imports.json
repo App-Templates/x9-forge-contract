@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.164.0",
+  "versione": "1.162.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2385,6 +2385,7 @@
       "ConfirmationSetDecisionSubjectSchema": "@x9-forge/contracts/organization/decision-request",
       "ConsumptionCapSchema": "@x9-forge/contracts/organization/run-receipt",
       "ConsumptionSchema": "@x9-forge/contracts/organization/run-outcome",
+      "DECISION_OPTION_EFFECTS": "@x9-forge/contracts/organization/decision-request",
       "DECISION_REQUEST_CHANNELS": "@x9-forge/contracts/organization/decision-request",
       "DECISION_REQUEST_HEADER": "@x9-forge/contracts/organization/decision-request",
       "DECISION_REQUEST_SUBJECT_LABEL": "@x9-forge/contracts/organization/decision-request",
@@ -2400,6 +2401,7 @@
       "DecisionApproverSchema": "@x9-forge/contracts/organization/experience",
       "DecisionCompletenessSchema": "@x9-forge/contracts/organization/decision-response",
       "DecisionEmailReplySchema": "@x9-forge/contracts/organization/decision-request",
+      "DecisionOptionEffectSchema": "@x9-forge/contracts/organization/decision-request",
       "DecisionOutcomeSchema": "@x9-forge/contracts/organization/decision-request",
       "DecisionRequestChannelSchema": "@x9-forge/contracts/organization/decision-request",
       "DecisionRequestIdSchema": "@x9-forge/contracts/organization/decision-request",

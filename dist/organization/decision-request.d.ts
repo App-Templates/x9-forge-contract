@@ -9,10 +9,23 @@ export declare const DecisionRequestChannelSchema: z.ZodEnum<{
 export type DecisionRequestChannel = z.infer<typeof DecisionRequestChannelSchema>;
 export declare const DecisionRequestIdSchema: z.ZodString;
 export type DecisionRequestId = z.infer<typeof DecisionRequestIdSchema>;
+/** What choosing an option means; an option that does not approve is recorded as a rejection. */
+export declare const DECISION_OPTION_EFFECTS: readonly ["approve", "request_changes", "reject"];
+export declare const DecisionOptionEffectSchema: z.ZodEnum<{
+    approve: "approve";
+    request_changes: "request_changes";
+    reject: "reject";
+}>;
+export type DecisionOptionEffect = z.infer<typeof DecisionOptionEffectSchema>;
 export declare const DecisionRequestOptionSchema: z.ZodObject<{
     optionId: z.ZodString;
     label: z.ZodString;
     detail: z.ZodOptional<z.ZodString>;
+    effect: z.ZodOptional<z.ZodEnum<{
+        approve: "approve";
+        request_changes: "request_changes";
+        reject: "reject";
+    }>>;
 }, z.core.$strict>;
 export type DecisionRequestOption = z.infer<typeof DecisionRequestOptionSchema>;
 /** What a decision is about: an exact plan version, confirmation set or immutable delivery. */
@@ -100,6 +113,10 @@ export declare const DeliveryDecisionSubjectSchema: z.ZodObject<{
         assetId: z.ZodString;
         sha256: z.ZodString;
     }, z.core.$strict>;
+    assetVersion: z.ZodOptional<z.ZodObject<{
+        key: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type DeliveryDecisionSubject = z.infer<typeof DeliveryDecisionSubjectSchema>;
 export declare const DecisionSubjectSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
@@ -120,6 +137,10 @@ export declare const DecisionSubjectSchema: z.ZodDiscriminatedUnion<[z.ZodObject
         assetId: z.ZodString;
         sha256: z.ZodString;
     }, z.core.$strict>;
+    assetVersion: z.ZodOptional<z.ZodObject<{
+        key: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strict>, z.ZodObject<{
     kind: z.ZodLiteral<"confirmation_set">;
     planId: z.ZodString;
@@ -171,6 +192,10 @@ export declare const DecisionRequestSchema: z.ZodObject<{
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+        assetVersion: z.ZodOptional<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
@@ -202,6 +227,11 @@ export declare const DecisionRequestSchema: z.ZodObject<{
         optionId: z.ZodString;
         label: z.ZodString;
         detail: z.ZodOptional<z.ZodString>;
+        effect: z.ZodOptional<z.ZodEnum<{
+            approve: "approve";
+            request_changes: "request_changes";
+            reject: "reject";
+        }>>;
     }, z.core.$strict>>;
     requestedBy: z.ZodObject<{
         managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -272,6 +302,10 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+        assetVersion: z.ZodOptional<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;
@@ -334,6 +368,10 @@ export declare const DecisionOutcomeSchema: z.ZodDiscriminatedUnion<[z.ZodObject
             assetId: z.ZodString;
             sha256: z.ZodString;
         }, z.core.$strict>;
+        assetVersion: z.ZodOptional<z.ZodObject<{
+            key: z.ZodString;
+            version: z.ZodNumber;
+        }, z.core.$strict>>;
     }, z.core.$strict>, z.ZodObject<{
         kind: z.ZodLiteral<"confirmation_set">;
         planId: z.ZodString;

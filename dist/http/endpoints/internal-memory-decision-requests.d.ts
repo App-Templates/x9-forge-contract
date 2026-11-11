@@ -41,6 +41,10 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -72,6 +76,11 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             optionId: z.ZodString;
             label: z.ZodString;
             detail: z.ZodOptional<z.ZodString>;
+            effect: z.ZodOptional<z.ZodEnum<{
+                approve: "approve";
+                request_changes: "request_changes";
+                reject: "reject";
+            }>>;
         }, z.core.$strict>>;
         requestedBy: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -117,6 +126,10 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -148,6 +161,11 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
             optionId: z.ZodString;
             label: z.ZodString;
             detail: z.ZodOptional<z.ZodString>;
+            effect: z.ZodOptional<z.ZodEnum<{
+                approve: "approve";
+                request_changes: "request_changes";
+                reject: "reject";
+            }>>;
         }, z.core.$strict>>;
         requestedBy: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -217,6 +235,10 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -279,6 +301,10 @@ export declare const InternalMemoryDecisionRequestReadResponseSchema: z.ZodDiscr
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -344,6 +370,10 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -375,6 +405,11 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 optionId: z.ZodString;
                 label: z.ZodString;
                 detail: z.ZodOptional<z.ZodString>;
+                effect: z.ZodOptional<z.ZodEnum<{
+                    approve: "approve";
+                    request_changes: "request_changes";
+                    reject: "reject";
+                }>>;
             }, z.core.$strict>>;
             requestedBy: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -420,6 +455,10 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -451,6 +490,11 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                 optionId: z.ZodString;
                 label: z.ZodString;
                 detail: z.ZodOptional<z.ZodString>;
+                effect: z.ZodOptional<z.ZodEnum<{
+                    approve: "approve";
+                    request_changes: "request_changes";
+                    reject: "reject";
+                }>>;
             }, z.core.$strict>>;
             requestedBy: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -520,6 +564,10 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -582,6 +630,10 @@ export declare const InternalMemoryDecisionRequestListResponseSchema: z.ZodObjec
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -661,6 +713,10 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -692,6 +748,11 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                 optionId: z.ZodString;
                 label: z.ZodString;
                 detail: z.ZodOptional<z.ZodString>;
+                effect: z.ZodOptional<z.ZodEnum<{
+                    approve: "approve";
+                    request_changes: "request_changes";
+                    reject: "reject";
+                }>>;
             }, z.core.$strict>>;
             requestedBy: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -737,6 +798,10 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -768,6 +833,11 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                 optionId: z.ZodString;
                 label: z.ZodString;
                 detail: z.ZodOptional<z.ZodString>;
+                effect: z.ZodOptional<z.ZodEnum<{
+                    approve: "approve";
+                    request_changes: "request_changes";
+                    reject: "reject";
+                }>>;
             }, z.core.$strict>>;
             requestedBy: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -837,6 +907,10 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -899,6 +973,10 @@ export declare const InternalMemoryDecisionRequestProjectListResponseSchema: z.Z
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -983,6 +1061,10 @@ export declare const internalMemoryDecisionRequestCreateContract: {
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -1014,6 +1096,11 @@ export declare const internalMemoryDecisionRequestCreateContract: {
             optionId: z.ZodString;
             label: z.ZodString;
             detail: z.ZodOptional<z.ZodString>;
+            effect: z.ZodOptional<z.ZodEnum<{
+                approve: "approve";
+                request_changes: "request_changes";
+                reject: "reject";
+            }>>;
         }, z.core.$strict>>;
         requestedBy: z.ZodObject<{
             managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -1078,6 +1165,10 @@ export declare const internalMemoryDecisionRequestReadContract: {
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -1109,6 +1200,11 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 optionId: z.ZodString;
                 label: z.ZodString;
                 detail: z.ZodOptional<z.ZodString>;
+                effect: z.ZodOptional<z.ZodEnum<{
+                    approve: "approve";
+                    request_changes: "request_changes";
+                    reject: "reject";
+                }>>;
             }, z.core.$strict>>;
             requestedBy: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -1154,6 +1250,10 @@ export declare const internalMemoryDecisionRequestReadContract: {
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -1185,6 +1285,11 @@ export declare const internalMemoryDecisionRequestReadContract: {
                 optionId: z.ZodString;
                 label: z.ZodString;
                 detail: z.ZodOptional<z.ZodString>;
+                effect: z.ZodOptional<z.ZodEnum<{
+                    approve: "approve";
+                    request_changes: "request_changes";
+                    reject: "reject";
+                }>>;
             }, z.core.$strict>>;
             requestedBy: z.ZodObject<{
                 managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -1254,6 +1359,10 @@ export declare const internalMemoryDecisionRequestReadContract: {
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -1316,6 +1425,10 @@ export declare const internalMemoryDecisionRequestReadContract: {
                     assetId: z.ZodString;
                     sha256: z.ZodString;
                 }, z.core.$strict>;
+                assetVersion: z.ZodOptional<z.ZodObject<{
+                    key: z.ZodString;
+                    version: z.ZodNumber;
+                }, z.core.$strict>>;
             }, z.core.$strict>, z.ZodObject<{
                 kind: z.ZodLiteral<"confirmation_set">;
                 planId: z.ZodString;
@@ -1407,6 +1520,10 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -1469,6 +1586,10 @@ export declare const internalMemoryDecisionRequestOutcomeContract: {
                 assetId: z.ZodString;
                 sha256: z.ZodString;
             }, z.core.$strict>;
+            assetVersion: z.ZodOptional<z.ZodObject<{
+                key: z.ZodString;
+                version: z.ZodNumber;
+            }, z.core.$strict>>;
         }, z.core.$strict>, z.ZodObject<{
             kind: z.ZodLiteral<"confirmation_set">;
             planId: z.ZodString;
@@ -1539,6 +1660,10 @@ export declare const internalMemoryDecisionRequestListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1570,6 +1695,11 @@ export declare const internalMemoryDecisionRequestListContract: {
                     optionId: z.ZodString;
                     label: z.ZodString;
                     detail: z.ZodOptional<z.ZodString>;
+                    effect: z.ZodOptional<z.ZodEnum<{
+                        approve: "approve";
+                        request_changes: "request_changes";
+                        reject: "reject";
+                    }>>;
                 }, z.core.$strict>>;
                 requestedBy: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -1615,6 +1745,10 @@ export declare const internalMemoryDecisionRequestListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1646,6 +1780,11 @@ export declare const internalMemoryDecisionRequestListContract: {
                     optionId: z.ZodString;
                     label: z.ZodString;
                     detail: z.ZodOptional<z.ZodString>;
+                    effect: z.ZodOptional<z.ZodEnum<{
+                        approve: "approve";
+                        request_changes: "request_changes";
+                        reject: "reject";
+                    }>>;
                 }, z.core.$strict>>;
                 requestedBy: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -1715,6 +1854,10 @@ export declare const internalMemoryDecisionRequestListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1777,6 +1920,10 @@ export declare const internalMemoryDecisionRequestListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1864,6 +2011,10 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1895,6 +2046,11 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                     optionId: z.ZodString;
                     label: z.ZodString;
                     detail: z.ZodOptional<z.ZodString>;
+                    effect: z.ZodOptional<z.ZodEnum<{
+                        approve: "approve";
+                        request_changes: "request_changes";
+                        reject: "reject";
+                    }>>;
                 }, z.core.$strict>>;
                 requestedBy: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -1940,6 +2096,10 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -1971,6 +2131,11 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                     optionId: z.ZodString;
                     label: z.ZodString;
                     detail: z.ZodOptional<z.ZodString>;
+                    effect: z.ZodOptional<z.ZodEnum<{
+                        approve: "approve";
+                        request_changes: "request_changes";
+                        reject: "reject";
+                    }>>;
                 }, z.core.$strict>>;
                 requestedBy: z.ZodObject<{
                     managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
@@ -2040,6 +2205,10 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;
@@ -2102,6 +2271,10 @@ export declare const internalMemoryDecisionRequestProjectListContract: {
                         assetId: z.ZodString;
                         sha256: z.ZodString;
                     }, z.core.$strict>;
+                    assetVersion: z.ZodOptional<z.ZodObject<{
+                        key: z.ZodString;
+                        version: z.ZodNumber;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>, z.ZodObject<{
                     kind: z.ZodLiteral<"confirmation_set">;
                     planId: z.ZodString;

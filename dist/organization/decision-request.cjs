@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
+exports.DecisionEmailReplySchema = exports.DECISION_REQUEST_HEADER = exports.DECISION_REQUEST_SUBJECT_LABEL = exports.DecisionOutcomeSchema = exports.DecisionRequestSchema = exports.DecisionSubjectSchema = exports.DeliveryDecisionSubjectSchema = exports.CompanyMapReferentChangeSchema = exports.ConfirmationSetDecisionSubjectSchema = exports.DecisionSubjectKindSchema = exports.DECISION_SUBJECT_KINDS = exports.DecisionRequestOptionSchema = exports.DecisionOptionEffectSchema = exports.DECISION_OPTION_EFFECTS = exports.DecisionRequestIdSchema = exports.DecisionRequestChannelSchema = exports.DECISION_REQUEST_CHANNELS = void 0;
 exports.confirmationSetDigest = confirmationSetDigest;
 exports.decisionOutcomeMatchesSubject = decisionOutcomeMatchesSubject;
 exports.decisionRequestSubjectLabel = decisionRequestSubjectLabel;
@@ -20,10 +20,16 @@ const OptionIdSchema = zod_1.z
     .string()
     .max(40)
     .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+/** What choosing an option means; an option that does not approve is recorded as a rejection. */
+exports.DECISION_OPTION_EFFECTS = ['approve', 'request_changes', 'reject'];
+exports.DecisionOptionEffectSchema = zod_1.z.enum(exports.DECISION_OPTION_EFFECTS);
 exports.DecisionRequestOptionSchema = zod_1.z.strictObject({
     optionId: OptionIdSchema,
     label: zod_1.z.string().min(1).max(200),
     detail: zod_1.z.string().min(1).max(2000).optional(),
+    effect: exports.DecisionOptionEffectSchema.optional(),
+}).refine((option) => option.effect === undefined || option.effect === 'approve' || option.label.length >= 3, {
+    path: ['label'], message: 'An option that does not approve needs a label of at least 3 characters (it becomes the reason)',
 });
 /** What a decision is about: an exact plan version, confirmation set or immutable delivery. */
 exports.DECISION_SUBJECT_KINDS = ['action_plan', 'vertical_plan', 'confirmation', 'delivery', 'confirmation_set'];
@@ -90,6 +96,7 @@ exports.DeliveryDecisionSubjectSchema = zod_1.z.strictObject({
         assetId: asset_js_1.AssetRefSchema.shape.assetId,
         sha256: asset_js_1.AssetSha256Schema,
     }),
+    assetVersion: asset_js_1.AssetVersionRefSchema.optional(),
 });
 exports.DecisionSubjectSchema = zod_1.z.discriminatedUnion('kind', [
     PlanDecisionSubjectSchema,
@@ -117,6 +124,18 @@ exports.DecisionRequestSchema = zod_1.z.strictObject({
     channel: exports.DecisionRequestChannelSchema,
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 }).superRefine((request, ctx) => {
+    const effects = request.options.map((option) => option.effect);
+    if (effects.some((effect) => effect !== undefined)) {
+        if (effects.some((effect) => effect === undefined)) {
+            ctx.addIssue({ code: 'custom', path: ['options'], message: 'When one option declares an effect, all must' });
+        }
+        if (!effects.includes('approve')) {
+            ctx.addIssue({ code: 'custom', path: ['options'], message: 'Options that declare effects need at least one approve' });
+        }
+        if (request.subject?.kind === 'confirmation_set') {
+            ctx.addIssue({ code: 'custom', path: ['options'], message: 'A confirmation set does not declare option effects' });
+        }
+    }
     if (request.subject?.kind === 'delivery') {
         if (!('kind' in request.addressedTo)) {
             ctx.addIssue({ code: 'custom', path: ['addressedTo'], message: 'Delivery requires a referent' });
@@ -186,7 +205,8 @@ function decisionOutcomeMatchesSubject(request, outcome) {
     if (a.kind === 'delivery' || b.kind === 'delivery') {
         return a.kind === 'delivery' && b.kind === 'delivery'
             && a.organizationId === b.organizationId && a.projectId === b.projectId && a.buSlug === b.buSlug
-            && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
+            && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256
+            && a.assetVersion?.key === b.assetVersion?.key && a.assetVersion?.version === b.assetVersion?.version;
     }
     return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
 }
@@ -268,6 +288,9 @@ function decisionOutcomeFromEmailReply(input) {
     if (option === undefined)
         return { ok: false, code: 'unknown_option' };
     if (confirmationSet && optionId !== 'confermo') {
+        return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
+    }
+    if (option.effect === 'request_changes' || option.effect === 'reject') {
         return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
     }
     return { ok: true, outcome: exports.DecisionOutcomeSchema.parse({

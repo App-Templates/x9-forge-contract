@@ -118,6 +118,10 @@ function deriveAssetVersionStates(input) {
                 continue;
             let target;
             for (const { record } of group) {
+                // A decision bound to an asset version belongs to that version only.
+                if (subject.assetVersion !== undefined
+                    && (subject.assetVersion.key !== record.key || subject.assetVersion.version !== record.version))
+                    continue;
                 if (Date.parse(record.recordedAt) > Date.parse(request.createdAt))
                     continue;
                 if (target !== undefined && record.version <= target.version)

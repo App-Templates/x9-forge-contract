@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { OwnerIdSchema } from '../agent/agent-identity.js';
-import { AssetRefSchema, AssetSha256Schema } from './asset.js';
+import { AssetRefSchema, AssetSha256Schema, AssetVersionRefSchema } from './asset.js';
 import { ParticipantAgentIdentitySchema } from './participant-binding.js';
 import {
   CompanyMapConfirmTargetSchema,
@@ -23,10 +23,18 @@ const OptionIdSchema = z
   .max(40)
   .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 
+/** What choosing an option means; an option that does not approve is recorded as a rejection. */
+export const DECISION_OPTION_EFFECTS = ['approve', 'request_changes', 'reject'] as const;
+export const DecisionOptionEffectSchema = z.enum(DECISION_OPTION_EFFECTS);
+export type DecisionOptionEffect = z.infer<typeof DecisionOptionEffectSchema>;
+
 export const DecisionRequestOptionSchema = z.strictObject({
   optionId: OptionIdSchema,
   label: z.string().min(1).max(200),
   detail: z.string().min(1).max(2000).optional(),
+  effect: DecisionOptionEffectSchema.optional(),
+}).refine((option) => option.effect === undefined || option.effect === 'approve' || option.label.length >= 3, {
+  path: ['label'], message: 'An option that does not approve needs a label of at least 3 characters (it becomes the reason)',
 });
 export type DecisionRequestOption = z.infer<typeof DecisionRequestOptionSchema>;
 
@@ -106,6 +114,7 @@ export const DeliveryDecisionSubjectSchema = z.strictObject({
     assetId: AssetRefSchema.shape.assetId,
     sha256: AssetSha256Schema,
   }),
+  assetVersion: AssetVersionRefSchema.optional(),
 });
 export type DeliveryDecisionSubject = z.infer<typeof DeliveryDecisionSubjectSchema>;
 
@@ -138,6 +147,18 @@ export const DecisionRequestSchema = z.strictObject({
   channel: DecisionRequestChannelSchema,
   createdAt: z.iso.datetime({ offset: true }),
 }).superRefine((request, ctx) => {
+  const effects = request.options.map((option) => option.effect);
+  if (effects.some((effect) => effect !== undefined)) {
+    if (effects.some((effect) => effect === undefined)) {
+      ctx.addIssue({ code: 'custom', path: ['options'], message: 'When one option declares an effect, all must' });
+    }
+    if (!effects.includes('approve')) {
+      ctx.addIssue({ code: 'custom', path: ['options'], message: 'Options that declare effects need at least one approve' });
+    }
+    if (request.subject?.kind === 'confirmation_set') {
+      ctx.addIssue({ code: 'custom', path: ['options'], message: 'A confirmation set does not declare option effects' });
+    }
+  }
   if (request.subject?.kind === 'delivery') {
     if (!('kind' in request.addressedTo)) {
       ctx.addIssue({ code: 'custom', path: ['addressedTo'], message: 'Delivery requires a referent' });
@@ -211,7 +232,8 @@ export function decisionOutcomeMatchesSubject(
   if (a.kind === 'delivery' || b.kind === 'delivery') {
     return a.kind === 'delivery' && b.kind === 'delivery'
       && a.organizationId === b.organizationId && a.projectId === b.projectId && a.buSlug === b.buSlug
-      && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
+      && a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256
+      && a.assetVersion?.key === b.assetVersion?.key && a.assetVersion?.version === b.assetVersion?.version;
   }
   return a.kind === b.kind && a.planId === b.planId && a.planVersion === b.planVersion && a.digest === b.digest;
 }
@@ -314,6 +336,9 @@ export function decisionOutcomeFromEmailReply(input: {
   const option = request.options.find((o) => o.optionId === optionId);
   if (option === undefined) return { ok: false, code: 'unknown_option' };
   if (confirmationSet && optionId !== 'confermo') {
+    return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
+  }
+  if (option.effect === 'request_changes' || option.effect === 'reject') {
     return { ok: true, outcome: DecisionOutcomeSchema.parse({ ...base, outcome: 'rejected', reason: option.label }) };
   }
   return { ok: true, outcome: DecisionOutcomeSchema.parse({

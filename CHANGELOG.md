@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.162.0 — l'opzione di una decisione dichiara il suo effetto e l'oggetto `delivery` porta la versione del pezzo; additivo (scheda 6307)
+
+- `DecisionRequestOptionSchema` accetta `effect?: 'approve' | 'request_changes' | 'reject'` (`DECISION_OPTION_EFFECTS`). Se un'opzione lo dichiara tutte lo dichiarano e almeno una è `approve`; una `confirmation_set` non li dichiara; con effetto diverso da `approve` la `label` ha almeno 3 caratteri. `decisionOutcomeFromEmailReply` registra `rejected` (motivo = `label`) per `request_changes` e `reject`: «chiedo modifiche» non diventa mai `approved`. Le richieste salvate senza `effect` si decidono come prima; nessun valore nuovo di `outcome`.
+- `DeliveryDecisionSubjectSchema` accetta `assetVersion?: { key, version }`; `decisionOutcomeMatchesSubject` lo confronta (assente da entrambe le parti = uguale). `deriveAssetVersionStates` assegna una decisione con `assetVersion` solo a quella versione.
+- Consumatori: X9 cap-email che apre le richieste di consegna, memory che le registra; Forge profili del capo. Versione 1.162.0 come richiesto dalla scheda 6307; le modifiche delle schede successive già presenti nel worktree restano conservate.
+
 ## v1.164.0 — la consegna di progetto usa la derivazione unica dello stato delle decisioni
 
 - `organization/project-delivery` (6309) riusa `isLaterDecisionRequest` e `assetVersionDecisionState` di `organization/asset-version` per scegliere la richiesta e leggerne l'esito. La rifattura conserva comportamento, stati, impronte e registrazioni della consegna, compresa la lettura delle approvazioni sotto versioni precedenti del piano.
