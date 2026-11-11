@@ -87,6 +87,7 @@ export * from "./internal-memory-decision-requests.cjs";
 export * from "./internal-paperclip-seats.cjs";
 export * from "./internal-paperclip-rd-enrollment.cjs";
 export * from "./internal-memory-assets.cjs";
+export * from "./internal-memory-asset-versions.cjs";
 export * from "./internal-memory-company-map.cjs";
 export * from "./internal-memory-company-content.cjs";
 export * from "./internal-memory-action-plans.cjs";

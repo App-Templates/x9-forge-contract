@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.165.0 — rotte del registro delle versioni degli asset di progetto; additivo (scheda 6306)
+
+- `http/endpoints/internal-memory-asset-versions` aggiunge quattro contratti POST con autenticazione `secret` e contesto organizzativo firmato: registrazione con versione precedente attesa e codici di rifiuto, elenco con stato derivato, ultima versione approvata (o `null`) e verifica del capo. Identità del creatore e del revisore risolte dal servizio; nessuna rotta o forma salvata esistente cambia.
+- Consumatori: X9 memory che serve le rotte, cap-dev e agent-core che le chiamano. Fruibilità con ec-x9 X1, X2, X4, X5 e X11; nessun cambiamento operativo dal solo aggiornamento del ponte.
+
 ## v1.162.0 — l'opzione di una decisione dichiara il suo effetto e l'oggetto `delivery` porta la versione del pezzo; additivo (scheda 6307)
 
 - `DecisionRequestOptionSchema` accetta `effect?: 'approve' | 'request_changes' | 'reject'` (`DECISION_OPTION_EFFECTS`). Se un'opzione lo dichiara tutte lo dichiarano e almeno una è `approve`; una `confirmation_set` non li dichiara; con effetto diverso da `approve` la `label` ha almeno 3 caratteri. `decisionOutcomeFromEmailReply` registra `rejected` (motivo = `label`) per `request_changes` e `reject`: «chiedo modifiche» non diventa mai `approved`. Le richieste salvate senza `effect` si decidono come prima; nessun valore nuovo di `outcome`.
