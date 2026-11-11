@@ -64,7 +64,8 @@ exports.PaperclipActivityOutputSchema = zod_1.z.strictObject({
 });
 exports.PaperclipIssueInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid() });
 exports.PaperclipTakeInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(), expectedStatuses: Statuses });
-exports.PaperclipAssignInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(), roleRef: Text });
+// `comment`: nota per chi terrà l'incarico: Paperclip la scrive come commento di chi chiama e sveglia l'assegnatario.
+exports.PaperclipAssignInputSchema = zod_1.z.strictObject({ issueId: zod_1.z.uuid(), roleRef: Text, comment: Text.max(4000).optional() });
 exports.PaperclipCreateIssueInputSchema = zod_1.z.strictObject({
     title: Text, description: zod_1.z.string().max(16384).optional(), assigneeRoleRef: Text.optional(),
     projectId: zod_1.z.uuid().optional(), goalId: zod_1.z.uuid().optional(),

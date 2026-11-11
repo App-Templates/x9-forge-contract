@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.157.0 — `paperclip_assign` accetta un `comment` facoltativo; additivo
+
+- `capability/paperclip/tools` (6288): `PaperclipAssignInputSchema` riceve `comment` facoltativo (testo non vuoto, al massimo 4000 caratteri): Paperclip lo scrive come commento di chi chiama e sveglia l'assegnatario. Gli ingressi di oggi restano validi.
+- Consumatore: X9 cap-paperclip. Fruibilità con ec-x9/6289 (adozione di 1.157.0), 6290 (cap-paperclip usa la nota), 6291 (incarico nuovo per l'email).
+
 ## v1.156.0 — la sveglia `research_done` porta tutte le ricerche del dossier con il loro stato; additivo
 
 - `http/endpoints/internal-paperclip-seats` (6275): l'evento `research_done` accetta `dossier` facoltativo (1-20 voci `researchId` + `state`), con la ricerca dell'evento dentro la lista con lo stesso stato e nessun id ripetuto; nuovi `PaperclipSeatResearchDoneDossierEntrySchema` e tipo `PaperclipSeatResearchDoneDossierEntry`. Gli eventi senza `dossier` restano validi.
