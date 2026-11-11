@@ -2,7 +2,8 @@ import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { canonicalJson } from "./action-plan.js";
 import { AssetRefSchema, AssetSha256Schema } from "./asset.js";
-import { DecisionRequestIdSchema, decisionOutcomeMatchesSubject, } from "./decision-request.js";
+import { assetVersionDecisionState, isLaterDecisionRequest } from "./asset-version.js";
+import { DecisionRequestIdSchema, } from "./decision-request.js";
 /** Tool through which the Director reconciles the approved deliveries of a project and sends them to the client. */
 export const PROJECT_DELIVERY_TOOL = 'email_deliver_project';
 /** `complete`: every unit of the plan has an approved piece; `partial`: some do; `empty`: none does. */
@@ -206,11 +207,6 @@ export function projectDeliveryUnitDigest(plan, buSlug) {
         .sort((a, b) => a.delivery < b.delivery ? -1 : a.delivery > b.delivery ? 1 : 0);
     return createHash('sha256').update(canonicalJson({ unit, objective, work, milestones })).digest('hex');
 }
-/** Latest request wins: by creation instant, then by the greater requestId. */
-function isLater(a, b) {
-    const delta = Date.parse(a.createdAt) - Date.parse(b.createdAt);
-    return delta !== 0 ? delta > 0 : a.requestId > b.requestId;
-}
 function pieceOf(plan, buSlug, since, decisions, assets, approvals, planVersions) {
     let latest;
     for (const decision of decisions) {
@@ -222,24 +218,24 @@ function pieceOf(plan, buSlug, since, decisions, assets, approvals, planVersions
             continue;
         if (Date.parse(decision.request.createdAt) < since)
             continue;
-        if (latest === undefined || isLater(decision.request, latest.request))
+        if (latest === undefined || isLaterDecisionRequest(decision.request, latest.request))
             latest = { ...decision, subject };
     }
     if (latest === undefined)
         return { buSlug, state: 'missing' };
     const { request } = latest;
     const { deliveryRef } = latest.subject;
-    // An outcome that answers another request is ignored: it never counts as a decision.
-    const outcome = latest.outcome?.requestId === request.requestId ? latest.outcome : null;
-    if (outcome === null)
+    const { outcome } = latest;
+    const decisionState = assetVersionDecisionState(request, outcome);
+    if (decisionState === 'awaiting_decision')
         return { buSlug, state: 'pending', requestId: request.requestId, deliveryRef };
-    if (outcome.outcome === 'rejected') {
+    if (decisionState === null || outcome === null)
+        return { buSlug, state: 'missing' };
+    if (decisionState === 'changes_requested') {
         return { buSlug, state: 'rejected', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt };
     }
     const stored = assets.find((asset) => asset.assetId === deliveryRef.assetId);
-    const sound = outcome.decidedBy.kind === 'referent'
-        && decisionOutcomeMatchesSubject(request, outcome)
-        && stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
+    const sound = stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
         && stored.projectId === plan.projectId;
     if (!sound)
         return { buSlug, state: 'missing' };

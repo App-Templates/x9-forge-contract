@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.164.0 — la consegna di progetto usa la derivazione unica dello stato delle decisioni
+
+- `organization/project-delivery` (6309) riusa `isLaterDecisionRequest` e `assetVersionDecisionState` di `organization/asset-version` per scegliere la richiesta e leggerne l'esito. La rifattura conserva comportamento, stati, impronte e registrazioni della consegna, compresa la lettura delle approvazioni sotto versioni precedenti del piano.
+- Consumatore X9 cap-email, `agent-x9/services/cap-email/src/tools/project-delivery.ts`. Fruibilità con l'adozione del ponte in cap-email e memory nello stesso rilascio della fetta A del magazzino degli asset.
+
 ## v1.163.0 — il foglio di consegna è un campo firmato dell'incarico e il ponte controlla i file che cita; additivo
 
 - `DevSessionAssignmentSchema` accetta `deliveryPackage?: 'required' | 'optional'` (`DEV_SESSION_DELIVERY_PACKAGE_MODES`), uguale per `code` e `design`. Assente = incarico scritto prima della 1.163.0. Le prove del codice restano facoltative.

@@ -10,6 +10,7 @@ const node_crypto_1 = require("node:crypto");
 const zod_1 = require("zod");
 const action_plan_js_1 = require("./action-plan.cjs");
 const asset_js_1 = require("./asset.cjs");
+const asset_version_js_1 = require("./asset-version.cjs");
 const decision_request_js_1 = require("./decision-request.cjs");
 /** Tool through which the Director reconciles the approved deliveries of a project and sends them to the client. */
 exports.PROJECT_DELIVERY_TOOL = 'email_deliver_project';
@@ -214,11 +215,6 @@ function projectDeliveryUnitDigest(plan, buSlug) {
         .sort((a, b) => a.delivery < b.delivery ? -1 : a.delivery > b.delivery ? 1 : 0);
     return (0, node_crypto_1.createHash)('sha256').update((0, action_plan_js_1.canonicalJson)({ unit, objective, work, milestones })).digest('hex');
 }
-/** Latest request wins: by creation instant, then by the greater requestId. */
-function isLater(a, b) {
-    const delta = Date.parse(a.createdAt) - Date.parse(b.createdAt);
-    return delta !== 0 ? delta > 0 : a.requestId > b.requestId;
-}
 function pieceOf(plan, buSlug, since, decisions, assets, approvals, planVersions) {
     let latest;
     for (const decision of decisions) {
@@ -230,24 +226,24 @@ function pieceOf(plan, buSlug, since, decisions, assets, approvals, planVersions
             continue;
         if (Date.parse(decision.request.createdAt) < since)
             continue;
-        if (latest === undefined || isLater(decision.request, latest.request))
+        if (latest === undefined || (0, asset_version_js_1.isLaterDecisionRequest)(decision.request, latest.request))
             latest = { ...decision, subject };
     }
     if (latest === undefined)
         return { buSlug, state: 'missing' };
     const { request } = latest;
     const { deliveryRef } = latest.subject;
-    // An outcome that answers another request is ignored: it never counts as a decision.
-    const outcome = latest.outcome?.requestId === request.requestId ? latest.outcome : null;
-    if (outcome === null)
+    const { outcome } = latest;
+    const decisionState = (0, asset_version_js_1.assetVersionDecisionState)(request, outcome);
+    if (decisionState === 'awaiting_decision')
         return { buSlug, state: 'pending', requestId: request.requestId, deliveryRef };
-    if (outcome.outcome === 'rejected') {
+    if (decisionState === null || outcome === null)
+        return { buSlug, state: 'missing' };
+    if (decisionState === 'changes_requested') {
         return { buSlug, state: 'rejected', requestId: request.requestId, deliveryRef, decidedAt: outcome.decidedAt };
     }
     const stored = assets.find((asset) => asset.assetId === deliveryRef.assetId);
-    const sound = outcome.decidedBy.kind === 'referent'
-        && (0, decision_request_js_1.decisionOutcomeMatchesSubject)(request, outcome)
-        && stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
+    const sound = stored !== undefined && stored.sha256 === deliveryRef.sha256 && stored.buSlug === buSlug
         && stored.projectId === plan.projectId;
     if (!sound)
         return { buSlug, state: 'missing' };
