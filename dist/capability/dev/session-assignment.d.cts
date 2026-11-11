@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { ReconciledMandate } from "../../organization/business-unit-mandate.cjs";
 /**
  * Incarico di sessione di una business unit (F4): il contratto fra chi lo apre (cap-dev di X9, per conto del capo
  * BU) e chi lo esegue (l'esecutore sul laptop del proprietario). L'incarico vive nel corpo di una issue della
@@ -161,12 +162,23 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
         url: z.ZodString;
         note: z.ZodOptional<z.ZodString>;
     }, z.core.$strict>], "kind">>;
+    /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
+    deliverableKey: z.ZodOptional<z.ZodString>;
     destination: z.ZodObject<{
         repo: z.ZodString;
     }, z.core.$strict>;
     createdAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type DevSessionAssignment = z.infer<typeof DevSessionAssignmentSchema>;
+/**
+ * The deliverable keys a mandate hands to its business unit, in plan order: for a product plan the breakdown items the
+ * unit works on, otherwise the unit's own sections.
+ */
+export declare function mandateDeliverableKeys(mandate: ReconciledMandate): string[];
+export declare const DEV_SESSION_DELIVERABLE_KEY_PROBLEMS: readonly ["deliverable_key_missing", "mandate_foreign_scope", "mandate_foreign_business_unit", "mandate_without_deliverables", "deliverable_key_not_in_mandate"];
+export type DevSessionDeliverableKeyProblem = (typeof DEV_SESSION_DELIVERABLE_KEY_PROBLEMS)[number];
+/** First reason why the assignment's deliverable key does not come from this mandate, or `null` when it does. */
+export declare function devSessionDeliverableKeyProblem(assignment: DevSessionAssignment, mandate: ReconciledMandate): DevSessionDeliverableKeyProblem | null;
 /** Ramo di consegna dell'incarico aperto come issue `issueNumber`. */
 export declare function devSessionBranch(issueNumber: number): string;
 /** Identificativo di sessione negli asset di origine `session`: `R<numero della issue>`. */

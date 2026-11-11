@@ -11,6 +11,21 @@ export type AssetSha256 = z.infer<typeof AssetSha256Schema>;
 export const AssetTypeSchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 export type AssetType = z.infer<typeof AssetTypeSchema>;
 
+/**
+ * Stable key of a deliverable piece: the id of the section or breakdown item of the approved action plan, inherited
+ * through the mandate. Never chosen by the session or by the model, so every new delivery of the same piece can be
+ * chained to the previous one.
+ */
+export const AssetKeySchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+export type AssetKey = z.infer<typeof AssetKeySchema>;
+
+/** Reference to one version of a deliverable piece. */
+export const AssetVersionRefSchema = z.strictObject({
+  key: AssetKeySchema,
+  version: z.number().int().min(1),
+});
+export type AssetVersionRef = z.infer<typeof AssetVersionRefSchema>;
+
 const AssetIdSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 
 /** Provenance of a company file, without embedding its contents. */

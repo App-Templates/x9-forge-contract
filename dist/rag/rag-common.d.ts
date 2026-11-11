@@ -34,8 +34,8 @@ export type RagPrivacyLevel = z.infer<typeof RagPrivacyLevelSchema>;
 export declare const RagTopicTypeSchema: z.ZodEnum<{
     research: "research";
     project: "project";
-    other: "other";
     product: "product";
+    other: "other";
     personal: "personal";
 }>;
 export type RagTopicType = z.infer<typeof RagTopicTypeSchema>;
@@ -51,8 +51,8 @@ export declare const RagTopicRefSchema: z.ZodObject<{
     topic_type: z.ZodEnum<{
         research: "research";
         project: "project";
-        other: "other";
         product: "product";
+        other: "other";
         personal: "personal";
     }>;
 }, z.core.$strip>;

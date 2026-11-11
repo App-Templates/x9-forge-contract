@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
+exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
+exports.mandateDeliverableKeys = mandateDeliverableKeys;
+exports.devSessionDeliverableKeyProblem = devSessionDeliverableKeyProblem;
 exports.devSessionBranch = devSessionBranch;
 exports.devSessionId = devSessionId;
 exports.devSessionAssignmentCanonicalJson = devSessionAssignmentCanonicalJson;
@@ -96,6 +98,8 @@ exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
     /** Il mini piano della business unit per questo incarico. */
     miniPlan: zod_1.z.string().min(3).max(20000),
     materials: zod_1.z.array(exports.DevSessionMaterialSchema).max(exports.DEV_SESSION_MAX_MATERIALS),
+    /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
+    deliverableKey: asset_js_1.AssetKeySchema.optional(),
     destination: zod_1.z.strictObject({ repo: exports.DevSessionRepoSchema }),
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {
@@ -114,6 +118,41 @@ exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
             mismatch('material_foreign_business_unit');
     });
 });
+/**
+ * The deliverable keys a mandate hands to its business unit, in plan order: for a product plan the breakdown items the
+ * unit works on, otherwise the unit's own sections.
+ */
+function mandateDeliverableKeys(mandate) {
+    const { workBreakdown, businessUnit } = mandate.planSection;
+    if (mandate.planSection.deliveryShape === 'product' && workBreakdown !== undefined) {
+        return workBreakdown
+            .filter((item) => item.owners.some((owner) => owner.buSlug === businessUnit.buSlug))
+            .map((item) => item.id);
+    }
+    return (businessUnit.sections ?? []).map((section) => section.id);
+}
+exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = [
+    'deliverable_key_missing',
+    'mandate_foreign_scope',
+    'mandate_foreign_business_unit',
+    'mandate_without_deliverables',
+    'deliverable_key_not_in_mandate',
+];
+/** First reason why the assignment's deliverable key does not come from this mandate, or `null` when it does. */
+function devSessionDeliverableKeyProblem(assignment, mandate) {
+    if (assignment.deliverableKey === undefined)
+        return 'deliverable_key_missing';
+    if (mandate.tenantId !== assignment.tenantId
+        || mandate.organizationId !== assignment.organizationId
+        || mandate.projectId !== assignment.projectId)
+        return 'mandate_foreign_scope';
+    if (mandate.planSection.businessUnit.buSlug !== assignment.businessUnit.slug)
+        return 'mandate_foreign_business_unit';
+    const keys = mandateDeliverableKeys(mandate);
+    if (keys.length === 0)
+        return 'mandate_without_deliverables';
+    return keys.includes(assignment.deliverableKey) ? null : 'deliverable_key_not_in_mandate';
+}
 /** Ramo di consegna dell'incarico aperto come issue `issueNumber`. */
 function devSessionBranch(issueNumber) {
     if (!Number.isSafeInteger(issueNumber) || issueNumber < 1)

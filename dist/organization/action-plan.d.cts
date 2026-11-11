@@ -398,6 +398,14 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
         choices: z.ZodArray<z.ZodString>;
         discardedAlternatives: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
+    deliveryShape: z.ZodOptional<z.ZodEnum<{
+        product: "product";
+        study: "study";
+    }>>;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -409,14 +417,6 @@ export declare const ActionPlanDraftSchema: z.ZodObject<{
             why: z.ZodString;
         }, z.core.$strict>;
     }, z.core.$strict>;
-    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
-        slug: z.ZodString;
-        version: z.ZodNumber;
-    }, z.core.$strict>>>;
-    deliveryShape: z.ZodOptional<z.ZodEnum<{
-        product: "product";
-        study: "study";
-    }>>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;
@@ -595,6 +595,14 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
         choices: z.ZodArray<z.ZodString>;
         discardedAlternatives: z.ZodArray<z.ZodString>;
     }, z.core.$strict>;
+    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        version: z.ZodNumber;
+    }, z.core.$strict>>>;
+    deliveryShape: z.ZodOptional<z.ZodEnum<{
+        product: "product";
+        study: "study";
+    }>>;
     analysis: z.ZodObject<{
         startingPoint: z.ZodString;
         marketAndAlternatives: z.ZodObject<{
@@ -606,14 +614,6 @@ export declare const ActionPlanSubmissionSchema: z.ZodObject<{
             why: z.ZodString;
         }, z.core.$strict>;
     }, z.core.$strict>;
-    dossier: z.ZodOptional<z.ZodArray<z.ZodObject<{
-        slug: z.ZodString;
-        version: z.ZodNumber;
-    }, z.core.$strict>>>;
-    deliveryShape: z.ZodOptional<z.ZodEnum<{
-        product: "product";
-        study: "study";
-    }>>;
     objectiveTree: z.ZodObject<{
         project: z.ZodObject<{
             expectedResult: z.ZodString;

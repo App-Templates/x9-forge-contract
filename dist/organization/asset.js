@@ -5,6 +5,17 @@ export const ASSET_ORIGIN_KINDS = ['email', 'archive', 'session', 'link', 'gener
 export const AssetSha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
 /** Kind of a company asset (logo, brand-book, price-list...), lowercase slug. */
 export const AssetTypeSchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+/**
+ * Stable key of a deliverable piece: the id of the section or breakdown item of the approved action plan, inherited
+ * through the mandate. Never chosen by the session or by the model, so every new delivery of the same piece can be
+ * chained to the previous one.
+ */
+export const AssetKeySchema = z.string().min(1).max(40).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+/** Reference to one version of a deliverable piece. */
+export const AssetVersionRefSchema = z.strictObject({
+    key: AssetKeySchema,
+    version: z.number().int().min(1),
+});
 const AssetIdSchema = z.string().regex(/^[A-Za-z0-9_-]{6,64}$/);
 /** Provenance of a company file, without embedding its contents. */
 export const AssetOriginSchema = z.discriminatedUnion('kind', [

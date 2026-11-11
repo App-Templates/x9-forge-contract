@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.159.0 — la chiave stabile del pezzo da consegnare viene dal Mandato e viaggia nell'incarico di sessione; additivo
+
+- `organization/asset` (6304): nuovi `AssetKeySchema` (slug di 1-40 caratteri, come gli id del piano) e `AssetVersionRefSchema` (`key` + `version` intera ≥ 1), con i tipi `AssetKey` e `AssetVersionRef`.
+- `capability/dev/session-assignment` (6304): `DevSessionAssignmentSchema` riceve `deliverableKey` facoltativo; nuove `mandateDeliverableKeys(mandate)`, `devSessionDeliverableKeyProblem(assignment, mandate)` e `DEV_SESSION_DELIVERABLE_KEY_PROBLEMS`. Gli incarichi senza chiave restano validi e il loro testo canonico, quindi l'impronta, non cambia.
+- Consumatori: X9 cap-dev ed esecutore del portatile (devono avere la 1.159.0 prima che cap-dev scriva il campo: con un ponte vecchio `parseDevSessionBlock` rifiuta una chiave sconosciuta).
+
 ## v1.157.0 — `paperclip_assign` accetta un `comment` facoltativo; additivo
 
 - `capability/paperclip/tools` (6288): `PaperclipAssignInputSchema` riceve `comment` facoltativo (testo non vuoto, al massimo 4000 caratteri): Paperclip lo scrive come commento di chi chiama e sveglia l'assegnatario. Gli ingressi di oggi restano validi.
