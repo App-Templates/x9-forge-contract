@@ -31,4 +31,17 @@ export declare const DeliveryPackageSchema: z.ZodObject<{
 export type DeliveryPackage = z.infer<typeof DeliveryPackageSchema>;
 /** Attachment paths relative to the delivery commit root, in presentation order. */
 export declare function deliveryPackagePaths(pkg: DeliveryPackage): string[];
+export declare const DELIVERY_PACKAGE_PROBLEM_CODES: readonly ["manifest_missing", "manifest_not_at_root", "invalid_package", "cited_file_missing"];
+export type DeliveryPackageProblemCode = (typeof DELIVERY_PACKAGE_PROBLEM_CODES)[number];
+export type DeliveryPackageProblem = {
+    code: DeliveryPackageProblemCode;
+    path?: string;
+    message?: string;
+};
+/**
+ * Every reason why a delivery does not carry a usable package, in order: no manifest at the root, each manifest outside
+ * the root, each schema problem of `pkg`, each cited file absent from the delivery. Pure: the caller lists the delivered
+ * paths (relative to the commit root). Call it when the package is required or present.
+ */
+export declare function deliveryPackageProblems(pkg: unknown | undefined, deliveredPaths: readonly string[]): DeliveryPackageProblem[];
 //# sourceMappingURL=delivery-package.d.ts.map

@@ -56,4 +56,37 @@ export function deliveryPackagePaths(pkg) {
         ...(pkg.documents ?? []).map((document) => document.path),
     ];
 }
+export const DELIVERY_PACKAGE_PROBLEM_CODES = [
+    'manifest_missing',
+    'manifest_not_at_root',
+    'invalid_package',
+    'cited_file_missing',
+];
+/**
+ * Every reason why a delivery does not carry a usable package, in order: no manifest at the root, each manifest outside
+ * the root, each schema problem of `pkg`, each cited file absent from the delivery. Pure: the caller lists the delivered
+ * paths (relative to the commit root). Call it when the package is required or present.
+ */
+export function deliveryPackageProblems(pkg, deliveredPaths) {
+    const problems = [];
+    if (!deliveredPaths.includes(DELIVERY_PACKAGE_FILE_NAME))
+        problems.push({ code: 'manifest_missing' });
+    for (const path of deliveredPaths) {
+        if (path.endsWith(`/${DELIVERY_PACKAGE_FILE_NAME}`))
+            problems.push({ code: 'manifest_not_at_root', path });
+    }
+    const parsed = DeliveryPackageSchema.safeParse(pkg);
+    if (!parsed.success) {
+        for (const issue of parsed.error.issues) {
+            problems.push({ code: 'invalid_package', path: issue.path.join('.'), message: issue.message });
+        }
+        return problems;
+    }
+    const delivered = new Set(deliveredPaths);
+    for (const path of deliveryPackagePaths(parsed.data)) {
+        if (!delivered.has(path))
+            problems.push({ code: 'cited_file_missing', path });
+    }
+    return problems;
+}
 //# sourceMappingURL=delivery-package.js.map

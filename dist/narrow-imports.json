@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.160.0",
+  "versione": "1.163.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1028,6 +1028,7 @@
       "DEV_SESSION_COMMIT_LABEL": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_DELIVERABLE_KEY_PROBLEMS": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_DELIVERED_FILES_LABEL": "@x9-forge/contracts/capability/dev/session-assignment",
+      "DEV_SESSION_DELIVERY_PACKAGE_MODES": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_EXECUTOR_LABEL_PREFIX": "@x9-forge/contracts/capability/dev/session-assignment",
       "DEV_SESSION_MATERIAL_PATH": "@x9-forge/contracts/capability/dev/session-material-link",
       "DEV_SESSION_MAX_FILES": "@x9-forge/contracts/capability/dev/session-assignment",
@@ -2393,6 +2394,7 @@
       "DELIVERY_PACKAGE_IMAGE_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_OVERVIEW_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_PREVIEW_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
+      "DELIVERY_PACKAGE_PROBLEM_CODES": "@x9-forge/contracts/organization/delivery-package",
       "DIRECTOR_ROLE": "@x9-forge/contracts/organization/agent-role",
       "DecisionAlternativeSchema": "@x9-forge/contracts/organization/decision-response",
       "DecisionApproverSchema": "@x9-forge/contracts/organization/experience",
@@ -2552,6 +2554,7 @@
       "decisionRequestSubjectLabel": "@x9-forge/contracts/organization/decision-request",
       "deliveryPackageMeets": "@x9-forge/contracts/organization/business-unit-type",
       "deliveryPackagePaths": "@x9-forge/contracts/organization/delivery-package",
+      "deliveryPackageProblems": "@x9-forge/contracts/organization/delivery-package",
       "deriveAssetVersionStates": "@x9-forge/contracts/organization/asset-version",
       "isExperienceReceiptForEvent": "@x9-forge/contracts/organization/experience",
       "isLaterDecisionRequest": "@x9-forge/contracts/organization/asset-version",

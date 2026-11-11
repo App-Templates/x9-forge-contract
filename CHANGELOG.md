@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.163.0 — il foglio di consegna è un campo firmato dell'incarico e il ponte controlla i file che cita; additivo
+
+- `DevSessionAssignmentSchema` accetta `deliveryPackage?: 'required' | 'optional'` (`DEV_SESSION_DELIVERY_PACKAGE_MODES`), uguale per `code` e `design`. Assente = incarico scritto prima della 1.163.0. Le prove del codice restano facoltative.
+- `organization/delivery-package` aggiunge `DELIVERY_PACKAGE_PROBLEM_CODES` (`manifest_missing`, `manifest_not_at_root`, `invalid_package`, `cited_file_missing`) e `deliveryPackageProblems(pkg, deliveredPaths)`, pura, che elenca tutti i problemi in ordine.
+- Consumatori previsti: cap-dev, che scrive il campo solo dopo che l'esecutore del portatile ha la 1.163.0 (`strictObject`); l'esecutore, che lo legge e usa la funzione; ec-x9 X9.
+
 ## v1.160.0 — versioni degli asset di progetto e stato derivato dai fatti registrati; additivo
 
 - `organization/asset-version` (6305) aggiunge gli schemi dei file, della provenienza, dei record di versione e delle revisioni del capo, con i relativi tipi. I documenti del Director e del Lab possono avere provenienza senza sessione.

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
+exports.DevSessionResultSchema = exports.DevSessionResultFileSchema = exports.DevSessionDeliverySchema = exports.DevSessionDeliveredFileSchema = exports.DevSessionCommitSchema = exports.DEV_SESSION_DELIVERABLE_KEY_PROBLEMS = exports.DevSessionAssignmentSchema = exports.DevSessionMaterialSchema = exports.DevSessionGitHubLinkSchema = exports.DevSessionRepoSchema = exports.DEV_SESSION_DELIVERY_PACKAGE_MODES = exports.DevSessionKindSchema = exports.DEV_SESSION_BLOCK_MARKER = exports.DEV_SESSION_MAX_MATERIALS = exports.DEV_SESSION_MAX_FILES = exports.DEV_SESSION_COMMIT_LABEL = exports.DEV_SESSION_DELIVERED_FILES_LABEL = exports.DEV_SESSION_BRANCH_PREFIX = exports.DEV_SESSION_SERVER_EXECUTOR_LABEL = exports.DEV_SESSION_EXECUTOR_LABEL_PREFIX = exports.DEV_SESSION_AUTONOMOUS_LABEL = void 0;
 exports.mandateDeliverableKeys = mandateDeliverableKeys;
 exports.devSessionDeliverableKeyProblem = devSessionDeliverableKeyProblem;
 exports.devSessionBranch = devSessionBranch;
@@ -39,6 +39,7 @@ exports.DEV_SESSION_MAX_MATERIALS = 20;
 exports.DEV_SESSION_BLOCK_MARKER = 'x9:dev-session:v1';
 /** Una sessione produce codice o design; gli altri tipi di produzione non passano da qui. */
 exports.DevSessionKindSchema = zod_1.z.enum(['code', 'design']);
+exports.DEV_SESSION_DELIVERY_PACKAGE_MODES = ['required', 'optional'];
 const REPO_PATTERN = /^[A-Za-z0-9-]{1,39}\/(?!\.{1,2}$)[A-Za-z0-9_.-]{1,100}$/;
 /** `owner/repo` su GitHub. */
 exports.DevSessionRepoSchema = zod_1.z.string().regex(REPO_PATTERN);
@@ -100,6 +101,11 @@ exports.DevSessionAssignmentSchema = zod_1.z.strictObject({
     materials: zod_1.z.array(exports.DevSessionMaterialSchema).max(exports.DEV_SESSION_MAX_MATERIALS),
     /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
     deliverableKey: asset_js_1.AssetKeySchema.optional(),
+    /**
+     * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
+     * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
+     */
+    deliveryPackage: zod_1.z.enum(exports.DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
     destination: zod_1.z.strictObject({ repo: exports.DevSessionRepoSchema }),
     createdAt: zod_1.z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {

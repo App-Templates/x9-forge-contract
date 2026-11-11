@@ -29,6 +29,7 @@ export declare const DevSessionKindSchema: z.ZodEnum<{
     design: "design";
 }>;
 export type DevSessionKind = z.infer<typeof DevSessionKindSchema>;
+export declare const DEV_SESSION_DELIVERY_PACKAGE_MODES: readonly ["required", "optional"];
 /** `owner/repo` su GitHub. */
 export declare const DevSessionRepoSchema: z.ZodString;
 /**
@@ -164,6 +165,14 @@ export declare const DevSessionAssignmentSchema: z.ZodObject<{
     }, z.core.$strict>], "kind">>;
     /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
     deliverableKey: z.ZodOptional<z.ZodString>;
+    /**
+     * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
+     * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
+     */
+    deliveryPackage: z.ZodOptional<z.ZodEnum<{
+        optional: "optional";
+        required: "required";
+    }>>;
     destination: z.ZodObject<{
         repo: z.ZodString;
     }, z.core.$strict>;

@@ -33,6 +33,8 @@ export const DEV_SESSION_BLOCK_MARKER = 'x9:dev-session:v1' as const;
 export const DevSessionKindSchema = z.enum(['code', 'design']);
 export type DevSessionKind = z.infer<typeof DevSessionKindSchema>;
 
+export const DEV_SESSION_DELIVERY_PACKAGE_MODES = ['required', 'optional'] as const;
+
 const REPO_PATTERN = /^[A-Za-z0-9-]{1,39}\/(?!\.{1,2}$)[A-Za-z0-9_.-]{1,100}$/;
 
 /** `owner/repo` su GitHub. */
@@ -96,6 +98,11 @@ export const DevSessionAssignmentSchema = z.strictObject({
   materials: z.array(DevSessionMaterialSchema).max(DEV_SESSION_MAX_MATERIALS),
   /** Stable key of the piece delivered, taken from the mandate (see `mandateDeliverableKeys`); absent in assignments written before 1.159.0. */
   deliverableKey: AssetKeySchema.optional(),
+  /**
+   * Whether the delivery package (`CONSEGNA.json`) is due. Same meaning for `code` and `design`, no link with
+   * `productKind`; absent = assignment written before 1.163.0, the reader keeps today's rule.
+   */
+  deliveryPackage: z.enum(DEV_SESSION_DELIVERY_PACKAGE_MODES).optional(),
   destination: z.strictObject({ repo: DevSessionRepoSchema }),
   createdAt: z.iso.datetime({ offset: true }),
 }).superRefine((assignment, ctx) => {
