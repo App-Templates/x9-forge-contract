@@ -70,4 +70,53 @@ export type PaperclipPianoCorpo = z.infer<typeof PaperclipPianoCorpoSchema>;
 export type PaperclipDocumento = z.infer<typeof PaperclipDocumentoSchema>;
 export type PaperclipConfermaCorpo = z.infer<typeof PaperclipConfermaCorpoSchema>;
 export type PaperclipInterazione = z.infer<typeof PaperclipInterazioneSchema>;
+export declare const PaperclipDescrittoreSbloccoSchema: z.ZodObject<{
+    owner: z.ZodUnion<readonly [z.ZodObject<{
+        agentId: z.ZodGUID;
+    }, z.core.$strict>, z.ZodObject<{
+        userId: z.ZodString;
+    }, z.core.$strict>, z.ZodLiteral<"board">]>;
+    action: z.ZodString;
+}, z.core.$strict>;
+export declare const PaperclipControlloSchema: z.ZodObject<{
+    nextCheckAt: z.ZodISODateTime;
+    notes: z.ZodString;
+    serviceName: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export declare const PaperclipPoliticaConControlloSchema: z.ZodObject<{
+    monitor: z.ZodObject<{
+        nextCheckAt: z.ZodISODateTime;
+        notes: z.ZodString;
+        serviceName: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+}, z.core.$loose>;
+export declare const PaperclipDisposizioneCorpoSchema: z.ZodObject<{
+    status: z.ZodEnum<{
+        done: "done";
+        blocked: "blocked";
+        in_progress: "in_progress";
+        in_review: "in_review";
+    }>;
+    comment: z.ZodOptional<z.ZodString>;
+    blockedByIssueIds: z.ZodOptional<z.ZodArray<z.ZodGUID>>;
+    unblockDescriptor: z.ZodOptional<z.ZodObject<{
+        owner: z.ZodUnion<readonly [z.ZodObject<{
+            agentId: z.ZodGUID;
+        }, z.core.$strict>, z.ZodObject<{
+            userId: z.ZodString;
+        }, z.core.$strict>, z.ZodLiteral<"board">]>;
+        action: z.ZodString;
+    }, z.core.$strict>>;
+    executionPolicy: z.ZodOptional<z.ZodObject<{
+        monitor: z.ZodObject<{
+            nextCheckAt: z.ZodISODateTime;
+            notes: z.ZodString;
+            serviceName: z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>;
+    }, z.core.$loose>>;
+}, z.core.$strict>;
+export type PaperclipDescrittoreSblocco = z.infer<typeof PaperclipDescrittoreSbloccoSchema>;
+export type PaperclipControllo = z.infer<typeof PaperclipControlloSchema>;
+export type PaperclipPoliticaConControllo = z.infer<typeof PaperclipPoliticaConControlloSchema>;
+export type PaperclipDisposizioneCorpo = z.infer<typeof PaperclipDisposizioneCorpoSchema>;
 //# sourceMappingURL=wire-scritture.d.ts.map

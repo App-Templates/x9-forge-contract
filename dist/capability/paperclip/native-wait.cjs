@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipCheckLaterSchema = exports.PaperclipWaitingForSchema = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
+exports.PaperclipCheckLaterOutputSchema = exports.PaperclipCheckLaterInputSchema = exports.PaperclipNativeCreateIssueInputSchema = exports.PaperclipNativeReviewInputSchema = exports.PaperclipCheckLaterSchema = exports.PaperclipWaitingForSchema = exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = exports.PAPERCLIP_NATIVE_WAIT_TOOLS = void 0;
 const zod_1 = require("zod");
 const tools_js_1 = require("./tools.cjs");
 /**
@@ -15,8 +15,10 @@ const tools_js_1 = require("./tools.cjs");
  *   (`doc/execution-semantics.md` «Blockers»); `POST /issues/:id/children` with `blockParentUntilDone` adds the blocker;
  * - an async external job owned by the assignee is a one-shot monitor (`executionPolicy.monitor.nextCheckAt`, notes up to
  *   500 characters, serviceName up to 120), consumed by an `issue_monitor_due` wake.
+ * Paperclip sets no time bounds on the monitor; one week is our bound, equal to retryAfterSeconds.
  */
 exports.PAPERCLIP_NATIVE_WAIT_TOOLS = { checkLater: 'paperclip_check_later' };
+exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604_800;
 const Text = zod_1.z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 const IssueIds = zod_1.z.array(zod_1.z.uuid()).min(1).max(20)
     .refine(values => new Set(values).size === values.length, 'Blocking issue IDs must be unique');
@@ -24,7 +26,7 @@ const IssueIds = zod_1.z.array(zod_1.z.uuid()).min(1).max(20)
 exports.PaperclipWaitingForSchema = zod_1.z.strictObject({ action: Text.max(2000) });
 /** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
 exports.PaperclipCheckLaterSchema = zod_1.z.strictObject({
-    afterSeconds: zod_1.z.number().int().min(30).max(3600),
+    afterSeconds: zod_1.z.number().int().min(30).max(exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS),
     notes: Text.max(500),
     serviceName: Text.max(120).optional(),
 });
@@ -61,7 +63,7 @@ exports.PaperclipNativeCreateIssueInputSchema = tools_js_1.PaperclipCreateIssueI
 /** One-shot Paperclip monitor on a task the agent owns, for an async job it will check later (no recurring interval). */
 exports.PaperclipCheckLaterInputSchema = zod_1.z.strictObject({
     issueId: zod_1.z.uuid(),
-    afterSeconds: zod_1.z.number().int().min(30).max(3600),
+    afterSeconds: zod_1.z.number().int().min(30).max(exports.PAPERCLIP_CHECK_LATER_MAX_SECONDS),
     notes: Text.max(500),
     serviceName: Text.max(120).optional(),
 });

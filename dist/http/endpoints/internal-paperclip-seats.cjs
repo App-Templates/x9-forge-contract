@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
+exports.internalPaperclipSeatNativeWakeContract = exports.InternalPaperclipSeatNativeWakeResponseSchema = exports.PaperclipSeatNativeWakeResultSchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = exports.InternalPaperclipSeatNativeWakeRequestSchema = exports.PaperclipSeatNativeWakeEventSchema = exports.PaperclipSeatResearchDoneDossierEntrySchema = exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = exports.internalPaperclipSeatReplyWakeContract = exports.InternalPaperclipSeatReplyWakeResponseSchema = exports.PaperclipSeatReplyWakeResultSchema = exports.PAPERCLIP_SEAT_REPLY_WAKE_RESULTS = exports.InternalPaperclipSeatReplyWakeRequestSchema = exports.INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH = exports.internalPaperclipSeatActivityReadContract = exports.InternalPaperclipSeatActivityResponseSchema = exports.InternalPaperclipSeatActivityQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_ACTIVITY_PATH = exports.internalPaperclipSeatSearchReadContract = exports.InternalPaperclipSeatSearchResponseSchema = exports.InternalPaperclipSeatSearchQuerySchema = exports.INTERNAL_PAPERCLIP_SEAT_SEARCH_PATH = exports.internalPaperclipSeatIssuesReadContract = exports.InternalPaperclipSeatIssuesResponseSchema = exports.InternalPaperclipSeatIssueSchema = exports.InternalPaperclipSeatIssuesParamsSchema = exports.INTERNAL_PAPERCLIP_SEAT_ISSUES_PATH = exports.internalPaperclipSeatsReadContract = exports.InternalPaperclipSeatsResponseSchema = exports.InternalPaperclipSeatSchema = exports.InternalPaperclipSeatsQuerySchema = exports.INTERNAL_PAPERCLIP_SEATS_PATH = void 0;
 const zod_1 = require("zod");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
 const capability_call_identity_js_1 = require("../../capability/capability-call-identity.cjs");
@@ -136,6 +136,10 @@ exports.internalPaperclipSeatReplyWakeContract = {
 };
 exports.INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = '/internal/paperclip/seats/native-wake';
 exports.PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = ['request', 'reply', 'decision'];
+exports.PaperclipSeatResearchDoneDossierEntrySchema = zod_1.z.strictObject({
+    researchId: research_js_1.ResearchIdSchema,
+    state: research_js_1.ResearchStateSchema,
+});
 exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', [
     zod_1.z.strictObject({
         kind: zod_1.z.literal('email'),
@@ -163,6 +167,8 @@ exports.PaperclipSeatNativeWakeEventSchema = zod_1.z.discriminatedUnion('kind', 
         researchId: research_js_1.ResearchIdSchema,
         state: research_js_1.ResearchStateSchema,
         question: zod_1.z.string().min(1).max(1000),
+        // Tutte le ricerche del dossier chiuse da questa sveglia, l'evento compreso; senza dossier: la sola ricerca dell'evento.
+        dossier: zod_1.z.array(exports.PaperclipSeatResearchDoneDossierEntrySchema).min(1).max(20).optional(),
     }),
     zod_1.z.strictObject({
         kind: zod_1.z.literal('dev_delivered'),
@@ -213,6 +219,16 @@ exports.InternalPaperclipSeatNativeWakeRequestSchema = zod_1.z.strictObject({
     }
     if (value.identity !== undefined && value.identity.runtimeAgentId !== value.scope.agentId) {
         ctx.addIssue({ code: 'custom', message: 'identity.runtimeAgentId must equal scope.agentId', path: ['identity', 'runtimeAgentId'] });
+    }
+    if (value.event.kind === 'research_done' && value.event.dossier !== undefined) {
+        const { researchId, state, dossier } = value.event;
+        const own = dossier.find(d => d.researchId === researchId);
+        if (own === undefined || own.state !== state) {
+            ctx.addIssue({ code: 'custom', message: 'dossier must include the event research with the same state', path: ['event', 'dossier'] });
+        }
+        if (new Set(dossier.map(d => d.researchId)).size !== dossier.length) {
+            ctx.addIssue({ code: 'custom', message: 'dossier must not repeat a researchId', path: ['event', 'dossier'] });
+        }
     }
     if (value.event.kind === 'email') {
         const isDecision = value.event.mode === 'decision';

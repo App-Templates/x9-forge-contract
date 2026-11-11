@@ -2,6 +2,59 @@
 
 ## Non rilasciato
 
+## v1.158.0 — unione della linea di produzione (1.157.0, 5fdcafb6) sopra la linea bacheca (1.150.0, 4c6e7eda)
+
+- Dalla produzione entrano `paperclip_assign` con `comment` e le voci 1.138.0-1.157.0; dalla bacheca entrano la chiave della persona del proprietario dalla porta pubblica del Vault e i contratti della bacheca.
+- Nessuno schema cambiato: ogni lato resta additivo rispetto alla sua linea d'origine; conflitti solo meccanici (versione, CHANGELOG, elenco generato).
+- `dist/` ricostruita dalla build.
+
+## v1.157.0 — `paperclip_assign` accetta un `comment` facoltativo; additivo
+
+- `capability/paperclip/tools` (6288): `PaperclipAssignInputSchema` riceve `comment` facoltativo (testo non vuoto, al massimo 4000 caratteri): Paperclip lo scrive come commento di chi chiama e sveglia l'assegnatario. Gli ingressi di oggi restano validi.
+- Consumatore: X9 cap-paperclip. Fruibilità con ec-x9/6289 (adozione di 1.157.0), 6290 (cap-paperclip usa la nota), 6291 (incarico nuovo per l'email).
+
+## v1.156.0 — la sveglia `research_done` porta tutte le ricerche del dossier con il loro stato; additivo
+
+- `http/endpoints/internal-paperclip-seats` (6275): l'evento `research_done` accetta `dossier` facoltativo (1-20 voci `researchId` + `state`), con la ricerca dell'evento dentro la lista con lo stesso stato e nessun id ripetuto; nuovi `PaperclipSeatResearchDoneDossierEntrySchema` e tipo `PaperclipSeatResearchDoneDossierEntry`. Gli eventi senza `dossier` restano validi.
+- Consumatori: X9 cap-ricerca e cap-paperclip. Fruibilità con ec-x9/6276 (adozione di 1.156.0) e 6277 (cap-ricerca riempie, cap-paperclip scrive nel commento).
+
+## v1.155.0 — il salvataggio del piano d'azione rifiuta il puntatore sbagliato al referente; additivo
+
+- `http/endpoints/internal-memory-action-plans` (6232): `ACTION_PLAN_ERROR_CODES` riceve `action_plan_referent_version_mismatch` (in coda); nuovo `ActionPlanReferentVersionMismatchDetailsSchema` (`buSlug`, `expectedVersion`, `writtenVersion`) e `ActionPlanErrorResponseSchema.details` facoltativo, ammesso solo con il codice nuovo. Le risposte di oggi restano valide.
+- Consumatori: X9 memory e cap-email. Fruibilità con ec-x9/6233 (adozione di 1.155.0), 6234 (memory rifiuta al salvataggio), 6235 (il Director legge e corregge).
+
+## v1.154.0 — la disposizione conserva la politica di esecuzione; additivo
+
+- `capability/paperclip-protocollo` (6192): `PaperclipPoliticaConControlloSchema` conserva i campi della politica corrente accanto al `monitor` obbligatorio e stretto; allarga il corpo introdotto in 1.151.0.
+- `capability/paperclip/turn-disposition` (6193): `paperclipBodyForDisposition` accetta `ctx.currentExecutionPolicy?: Record<string, unknown> | null`; per `check_later` conserva la politica e sostituisce il monitor. Ogni corpo restituito passa da `PaperclipDisposizioneCorpoSchema.parse`, che rifiuta anche un identificativo agente non valido nello sblocco. `TurnEndSchema.refused` accetta `message` facoltativo da 1 a 2000 caratteri; allargamento della 1.152.0.
+- Consumatore: X9 cap-paperclip. Fruibilità con ec-x9/6191 (adozione di 1.154.0) ed ec-x9/6186 (passaggio della politica letta dall'incarico).
+
+## v1.153.0 — ricontrollo Paperclip fino a sette giorni; allargamento compatibile
+
+- `capability/paperclip/native-wait` (6183): `PaperclipCheckLaterSchema.afterSeconds` e `PaperclipCheckLaterInputSchema.afterSeconds` usano `PAPERCLIP_CHECK_LATER_MAX_SECONDS` (604800), come `retryAfterSeconds`. Il minimo resta 30 secondi; gli ingressi già validi restano validi. Paperclip non impone limiti di tempo al monitor.
+- Fruibilità con l'adozione di 1.153.0 in X9, per `paperclip_review` con `checkLater` e `paperclip_check_later`.
+
+## v1.152.0 — dall'esito di un turno alla disposizione su Paperclip decide una sola funzione del ponte; additivo
+
+- `capability/paperclip/turn-disposition` (6182): file nuovo. `ADMISSION_REFUSAL_CLASS` classifica ogni codice di rifiuto in `definitive` o `not_now` (un codice senza classe non compila); `TurnEndSchema`, `TurnDispositionSchema`, `dispositionForTurnEnd` e `paperclipBodyForDisposition` (pure, l'ora entra da `ctx.now`). Solo `failed`, `uncertain` e `unavailable` fanno fallire la corsa; `budget_exhausted` e gli altri «non adesso» diventano un controllo a tempo, `rd_paused` chiude l'incarico come non eseguito, un rifiuto definitivo blocca per il proprietario.
+- Produttore: X9 agent-core; consumatore: X9 cap-paperclip. Nulla cambia in esecuzione finché X9 non adotta 1.152.0.
+
+## v1.151.0 — disposizione di fine turno Paperclip con sblocco e controllo a tempo; additivo
+
+- `capability/paperclip-protocollo` (6181): nuovi `PaperclipDescrittoreSbloccoSchema`, `PaperclipControlloSchema`, `PaperclipDisposizioneCorpoSchema` e relativi tipi inferiti. Un incarico `blocked` richiede blocchi o un descrittore di sblocco; `in_progress` richiede un controllo pianificato UTC. I controlli sono ammessi solo per `in_progress` e `in_review`; blocchi e descrittore solo per `blocked`.
+- `PaperclipAggiornaCorpoSchema` e gli altri schemi esistenti restano invariati. Consumatore previsto: X9 cap-paperclip (ec-x9); fruibilità con 6182 e l'adozione in cap-paperclip nello stesso rilascio delle schede X9 della cura.
+
+## v1.140.0 — `research_start` con il budget del dossier finito dice quando riprovare; additivo
+
+- `capability/ricerca/tools` (6172): `ResearchStartOutputSchema` conserva `retryAfter` facoltativo (data ISO con offset), ammesso solo con `state: 'budget_exhausted'` (inizio della prossima finestra del dossier); con altri stati è rifiutato. Le uscite senza il campo restano valide.
+- Produttore: X9 cap-ricerca (ec-x9, 6179); consumatori: agent-core via ponte e Forge. Chi legge l'uscita adotta 1.140.0 PRIMA del rilascio di cap-ricerca che manda il campo: lo schema `.strict()` precedente lo rifiuta. Fruibilità con 6173 e 6179.
+
+## v1.139.0 — tetto di spesa e pausa R&D sono rifiuti all'ammissione del turno; additivo
+
+- `http/endpoints/internal-agent-turn` (6171): `ORGANIZATION_ADMISSION_REFUSAL_CODES` include `budget_exhausted` e `rd_paused`: il turno non parte. `InternalAgentTurnRunErrorResponseSchema` conserva `retryAfterSeconds` facoltativo, intero positivo fino a sette giorni; assente indica nessuna stima per il tetto o nessuna ripresa per R&D in pausa. I corpi esistenti, compreso `run_failed` con `code` e `outcome`, restano validi.
+- Produttore: X9 agent-core (ec-x9, 6174); consumatore: X9 cap-paperclip (ec-x9, 6175). Fruibilità con 6173, 6174 e 6175; agent-core e cap-paperclip nello stesso rilascio.
+- 1.138.0 riservata a bacheca-azienda, non pubblicata da questa linea.
+
 ## v1.138.0 — unione della linea bacheca (1.110.0-1.119.0) sopra la linea opus-azienda (1.120.0-1.137.0, e6302c3b)
 
 - Unione con merge commit di `e6302c3b` (`night/ec-ponte-conferme-20261109`, 1.120.0-1.137.0) nel ramo della bacheca (1.110.0-1.119.0: lettura dell'azienda, storia dei reparti, azioni del proprietario sveglia/via/ferma/riprendi, spesa per giorno, frasi di conferma).

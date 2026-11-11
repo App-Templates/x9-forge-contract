@@ -61,4 +61,72 @@ export const PaperclipInterazioneSchema = z.looseObject({
     kind: z.string(),
     status: z.string(),
 });
+// Paperclip validators/issue.ts:693-704: strict {owner, action}; an agent may name only itself (403).
+export const PaperclipDescrittoreSbloccoSchema = z.strictObject({
+    owner: z.union([
+        z.strictObject({ agentId: z.guid() }),
+        z.strictObject({ userId: z.string().min(1) }),
+        z.literal('board'),
+    ]),
+    action: z.string().trim().min(1).max(2000),
+});
+// One-shot monitor, consumed by an issue_monitor_due wake; valid only in in_progress or
+// in_review (issue-execution-policy.ts:74,265-267); Paperclip sets no time bounds.
+export const PaperclipControlloSchema = z.strictObject({
+    nextCheckAt: z.iso.datetime(),
+    notes: z.string().trim().min(1).max(500),
+    serviceName: z.string().trim().min(1).max(120).optional(),
+});
+// Paperclip replaces the whole execution policy on an update (routes/issues.ts:13103-13105),
+// so the body carries the policy intact: only the monitor is ours, the rest passes through.
+export const PaperclipPoliticaConControlloSchema = z.looseObject({ monitor: PaperclipControlloSchema });
+export const PaperclipDisposizioneCorpoSchema = z
+    .strictObject({
+    status: z.enum(['done', 'in_review', 'blocked', 'in_progress']),
+    comment: z.string().trim().min(1).optional(),
+    blockedByIssueIds: z.array(z.guid()).min(1).optional(),
+    unblockDescriptor: PaperclipDescrittoreSbloccoSchema.optional(),
+    executionPolicy: PaperclipPoliticaConControlloSchema.optional(),
+})
+    .superRefine((value, ctx) => {
+    if (value.status === 'blocked') {
+        if (value.blockedByIssueIds === undefined && value.unblockDescriptor === undefined) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['status'],
+                message: 'blocked requires blocking issues or an unblock descriptor',
+            });
+        }
+    }
+    else {
+        if (value.blockedByIssueIds !== undefined) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['blockedByIssueIds'],
+                message: 'blocking issues are allowed only with blocked',
+            });
+        }
+        if (value.unblockDescriptor !== undefined) {
+            ctx.addIssue({
+                code: 'custom',
+                path: ['unblockDescriptor'],
+                message: 'an unblock descriptor is allowed only with blocked',
+            });
+        }
+    }
+    if (value.executionPolicy !== undefined && value.status !== 'in_progress' && value.status !== 'in_review') {
+        ctx.addIssue({
+            code: 'custom',
+            path: ['executionPolicy'],
+            message: 'a scheduled check is allowed only with in_progress or in_review',
+        });
+    }
+    if (value.status === 'in_progress' && value.executionPolicy === undefined) {
+        ctx.addIssue({
+            code: 'custom',
+            path: ['status'],
+            message: 'in_progress is a disposition only with a scheduled check',
+        });
+    }
+});
 //# sourceMappingURL=wire-scritture.js.map

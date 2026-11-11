@@ -62,7 +62,8 @@ export const PaperclipActivityOutputSchema = z.strictObject({
 });
 export const PaperclipIssueInputSchema = z.strictObject({ issueId: z.uuid() });
 export const PaperclipTakeInputSchema = z.strictObject({ issueId: z.uuid(), expectedStatuses: Statuses });
-export const PaperclipAssignInputSchema = z.strictObject({ issueId: z.uuid(), roleRef: Text });
+// `comment`: nota per chi terrà l'incarico: Paperclip la scrive come commento di chi chiama e sveglia l'assegnatario.
+export const PaperclipAssignInputSchema = z.strictObject({ issueId: z.uuid(), roleRef: Text, comment: Text.max(4000).optional() });
 export const PaperclipCreateIssueInputSchema = z.strictObject({
   title: Text, description: z.string().max(16384).optional(), assigneeRoleRef: Text.optional(),
   projectId: z.uuid().optional(), goalId: z.uuid().optional(),

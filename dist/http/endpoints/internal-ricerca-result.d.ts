@@ -22,10 +22,10 @@ export declare const InternalRicercaResultResponseSchema: z.ZodObject<{
     agentId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
+        budget_exhausted: "budget_exhausted";
         completed: "completed";
         queued: "queued";
         running: "running";
-        budget_exhausted: "budget_exhausted";
     }>;
     question: z.ZodString;
     parentResearchId: z.ZodOptional<z.ZodString>;
@@ -77,10 +77,10 @@ export declare const internalRicercaResultContract: {
         agentId: z.ZodString;
         state: z.ZodEnum<{
             failed: "failed";
+            budget_exhausted: "budget_exhausted";
             completed: "completed";
             queued: "queued";
             running: "running";
-            budget_exhausted: "budget_exhausted";
         }>;
         question: z.ZodString;
         parentResearchId: z.ZodOptional<z.ZodString>;

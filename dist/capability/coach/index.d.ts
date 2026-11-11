@@ -314,10 +314,10 @@ export declare const CoachSessionRecordResultSchema: z.ZodObject<{
 }, z.core.$strip>;
 export type CoachSessionRecordResult = z.infer<typeof CoachSessionRecordResultSchema>;
 export declare const CoachRouteErrorCodeSchema: z.ZodEnum<{
+    budget_exhausted: "budget_exhausted";
     invalid_request: "invalid_request";
     idempotency_conflict: "idempotency_conflict";
     stale_version: "stale_version";
-    budget_exhausted: "budget_exhausted";
     agent_mismatch: "agent_mismatch";
     person_mismatch: "person_mismatch";
     not_found: "not_found";
@@ -327,10 +327,10 @@ export type CoachRouteErrorCode = z.infer<typeof CoachRouteErrorCodeSchema>;
 export declare const CoachRouteErrorSchema: z.ZodObject<{
     ok: z.ZodLiteral<false>;
     error: z.ZodEnum<{
+        budget_exhausted: "budget_exhausted";
         invalid_request: "invalid_request";
         idempotency_conflict: "idempotency_conflict";
         stale_version: "stale_version";
-        budget_exhausted: "budget_exhausted";
         agent_mismatch: "agent_mismatch";
         person_mismatch: "person_mismatch";
         not_found: "not_found";

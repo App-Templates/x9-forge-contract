@@ -31,7 +31,19 @@ exports.RicercaToolErrorSchema = zod_1.z.enum([
     'consulta_prima_il_quaderno',
 ]);
 exports.ResearchStartInputSchema = research_js_1.ResearchRequestSchema;
-exports.ResearchStartOutputSchema = zod_1.z.object({ researchId: research_js_1.ResearchIdSchema, state: research_js_1.ResearchStateSchema }).strict();
+exports.ResearchStartOutputSchema = zod_1.z
+    .object({
+    researchId: research_js_1.ResearchIdSchema,
+    state: research_js_1.ResearchStateSchema,
+    /** Start of the next dossier window, when the same dossier may research again. Only with `budget_exhausted`. */
+    retryAfter: zod_1.z.string().datetime({ offset: true }).optional(),
+})
+    .strict()
+    .superRefine((value, ctx) => {
+    if (value.retryAfter !== undefined && value.state !== 'budget_exhausted') {
+        ctx.addIssue({ code: 'custom', path: ['retryAfter'], message: 'retryAfter is only allowed with state budget_exhausted' });
+    }
+});
 exports.ResearchStatusInputSchema = zod_1.z.object({ researchId: research_js_1.ResearchIdSchema }).strict();
 exports.ResearchStatusOutputSchema = zod_1.z.object({ researchId: research_js_1.ResearchIdSchema, state: research_js_1.ResearchStateSchema }).strict();
 exports.ResearchResultInputSchema = zod_1.z.object({ researchId: research_js_1.ResearchIdSchema }).strict();

@@ -93,6 +93,9 @@ exports.ORGANIZATION_ADMISSION_REFUSAL_CODES = [
     'agent_target_mismatch',
     'organization_admission_unavailable',
     'organization_tenant_unknown',
+    // not now: the company spend cap or the R&D pause; the run never starts
+    'budget_exhausted',
+    'rd_paused',
 ];
 exports.OrganizationAdmissionRefusalCodeSchema = zod_1.z.enum(exports.ORGANIZATION_ADMISSION_REFUSAL_CODES);
 /** `error` values of an organization run that was admitted but did not succeed. */
@@ -103,6 +106,8 @@ exports.InternalAgentTurnRunErrorResponseSchema = exports.InternalAgentTurnError
     code: zod_1.z.string().min(1).optional(),
     message: zod_1.z.string().optional(),
     outcome: run_outcome_js_1.RunOutcomeSchema.optional(),
+    // when the caller may try the same run again; absent = no estimate (cap) or never (R&D paused)
+    retryAfterSeconds: zod_1.z.number().int().positive().max(86_400 * 7).optional(),
 });
 /** Error code returned with 404 when the agent is not loaded in agent-core. */
 exports.INTERNAL_AGENT_TURN_UNKNOWN_AGENT = 'unknown_agent';

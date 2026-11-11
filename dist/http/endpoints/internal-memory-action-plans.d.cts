@@ -449,28 +449,47 @@ export declare const ActionPlanReadResponseSchema: z.ZodDiscriminatedUnion<[z.Zo
     status: z.ZodLiteral<"not_found">;
 }, z.core.$strict>], "status">;
 export type ActionPlanReadResponse = z.infer<typeof ActionPlanReadResponseSchema>;
-export declare const ACTION_PLAN_ERROR_CODES: readonly ["action_plan_conflict", "action_plan_digest_mismatch", "action_plan_scope_mismatch", "identity_uncertain"];
+export declare const ACTION_PLAN_ERROR_CODES: readonly ["action_plan_conflict", "action_plan_digest_mismatch", "action_plan_scope_mismatch", "identity_uncertain", "action_plan_referent_version_mismatch"];
 export declare const ActionPlanErrorCodeSchema: z.ZodEnum<{
     identity_uncertain: "identity_uncertain";
     action_plan_conflict: "action_plan_conflict";
     action_plan_digest_mismatch: "action_plan_digest_mismatch";
     action_plan_scope_mismatch: "action_plan_scope_mismatch";
+    action_plan_referent_version_mismatch: "action_plan_referent_version_mismatch";
 }>;
 export type ActionPlanErrorCode = z.infer<typeof ActionPlanErrorCodeSchema>;
+/**
+ * Numbers of the refusal `action_plan_referent_version_mismatch`: `expectedVersion` is the version the entry will
+ * have once the plan is approved (the one to write); `writtenVersion` is the one the business unit wrote.
+ */
+export declare const ActionPlanReferentVersionMismatchDetailsSchema: z.ZodObject<{
+    buSlug: z.ZodString;
+    expectedVersion: z.ZodNumber;
+    writtenVersion: z.ZodNumber;
+}, z.core.$strict>;
+export type ActionPlanReferentVersionMismatchDetails = z.infer<typeof ActionPlanReferentVersionMismatchDetailsSchema>;
 export declare const ActionPlanErrorResponseSchema: z.ZodObject<{
     code: z.ZodEnum<{
         identity_uncertain: "identity_uncertain";
         action_plan_conflict: "action_plan_conflict";
         action_plan_digest_mismatch: "action_plan_digest_mismatch";
         action_plan_scope_mismatch: "action_plan_scope_mismatch";
+        action_plan_referent_version_mismatch: "action_plan_referent_version_mismatch";
     }>;
     message: z.ZodString;
+    details: z.ZodOptional<z.ZodObject<{
+        buSlug: z.ZodString;
+        expectedVersion: z.ZodNumber;
+        writtenVersion: z.ZodNumber;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ActionPlanErrorResponse = z.infer<typeof ActionPlanErrorResponseSchema>;
 /**
  * Save: 201 new version, 200 identical replay (`created: false`); 409 action_plan_conflict for the same
  * planId and version with another digest; 400 action_plan_digest_mismatch when the digest is not the one of
- * `actionPlanCanonicalJson`; 403 action_plan_scope_mismatch / identity_uncertain.
+ * `actionPlanCanonicalJson`; 403 action_plan_scope_mismatch / identity_uncertain;
+ * 400 action_plan_referent_version_mismatch when a business unit cites a referent version other than the one the
+ * proposals of the plan will produce on approval; `details` optional.
  */
 export declare const internalMemoryActionPlanSaveContract: {
     readonly method: "POST";

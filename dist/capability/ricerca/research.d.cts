@@ -23,10 +23,10 @@ export declare const ResearchRequestSchema: z.ZodObject<{
 export type ResearchRequest = z.infer<typeof ResearchRequestSchema>;
 export declare const ResearchStateSchema: z.ZodEnum<{
     failed: "failed";
+    budget_exhausted: "budget_exhausted";
     completed: "completed";
     queued: "queued";
     running: "running";
-    budget_exhausted: "budget_exhausted";
 }>;
 export type ResearchState = z.infer<typeof ResearchStateSchema>;
 export declare const ResearchSourceSchema: z.ZodObject<{
@@ -54,10 +54,10 @@ export declare const ResearchResultSchema: z.ZodObject<{
     agentId: z.ZodString;
     state: z.ZodEnum<{
         failed: "failed";
+        budget_exhausted: "budget_exhausted";
         completed: "completed";
         queued: "queued";
         running: "running";
-        budget_exhausted: "budget_exhausted";
     }>;
     question: z.ZodString;
     parentResearchId: z.ZodOptional<z.ZodString>;

@@ -46,20 +46,37 @@ export const ACTION_PLAN_ERROR_CODES = [
   'action_plan_digest_mismatch',
   'action_plan_scope_mismatch',
   'identity_uncertain',
+  'action_plan_referent_version_mismatch',
 ] as const;
 export const ActionPlanErrorCodeSchema = z.enum(ACTION_PLAN_ERROR_CODES);
 export type ActionPlanErrorCode = z.infer<typeof ActionPlanErrorCodeSchema>;
 
+/**
+ * Numbers of the refusal `action_plan_referent_version_mismatch`: `expectedVersion` is the version the entry will
+ * have once the plan is approved (the one to write); `writtenVersion` is the one the business unit wrote.
+ */
+export const ActionPlanReferentVersionMismatchDetailsSchema = z.strictObject({
+  buSlug: ActionPlanSchema.shape.businessUnits.element.shape.buSlug,
+  expectedVersion: ActionPlanSchema.shape.businessUnits.element.shape.referent.shape.entryVersion,
+  writtenVersion: ActionPlanSchema.shape.businessUnits.element.shape.referent.shape.entryVersion,
+});
+export type ActionPlanReferentVersionMismatchDetails = z.infer<typeof ActionPlanReferentVersionMismatchDetailsSchema>;
+
 export const ActionPlanErrorResponseSchema = z.strictObject({
   code: ActionPlanErrorCodeSchema,
   message: z.string().min(1),
+  details: ActionPlanReferentVersionMismatchDetailsSchema.optional(),
+}).refine((r) => r.details === undefined || r.code === 'action_plan_referent_version_mismatch', {
+  message: 'details are only allowed with action_plan_referent_version_mismatch', path: ['details'],
 });
 export type ActionPlanErrorResponse = z.infer<typeof ActionPlanErrorResponseSchema>;
 
 /**
  * Save: 201 new version, 200 identical replay (`created: false`); 409 action_plan_conflict for the same
  * planId and version with another digest; 400 action_plan_digest_mismatch when the digest is not the one of
- * `actionPlanCanonicalJson`; 403 action_plan_scope_mismatch / identity_uncertain.
+ * `actionPlanCanonicalJson`; 403 action_plan_scope_mismatch / identity_uncertain;
+ * 400 action_plan_referent_version_mismatch when a business unit cites a referent version other than the one the
+ * proposals of the plan will produce on approval; `details` optional.
  */
 export const internalMemoryActionPlanSaveContract = {
   method: 'POST' as const,

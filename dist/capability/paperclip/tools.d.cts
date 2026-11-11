@@ -174,6 +174,7 @@ export declare const PaperclipTakeInputSchema: z.ZodObject<{
 export declare const PaperclipAssignInputSchema: z.ZodObject<{
     issueId: z.ZodUUID;
     roleRef: z.ZodString;
+    comment: z.ZodOptional<z.ZodString>;
 }, z.core.$strict>;
 export declare const PaperclipCreateIssueInputSchema: z.ZodObject<{
     title: z.ZodString;

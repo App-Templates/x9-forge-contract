@@ -4,6 +4,7 @@ import {
   ACTION_PLAN_ERROR_CODES,
   ActionPlanErrorResponseSchema,
   ActionPlanReadRequestSchema,
+  ActionPlanReferentVersionMismatchDetailsSchema,
   ActionPlanReadResponseSchema,
   ActionPlanSaveRequestSchema,
   ActionPlanSaveResponseSchema,
@@ -114,8 +115,45 @@ describe('internal memory action plans contract', () => {
   });
 
   it('names its refusals', () => {
-    expect(ACTION_PLAN_ERROR_CODES).toEqual(['action_plan_conflict', 'action_plan_digest_mismatch', 'action_plan_scope_mismatch', 'identity_uncertain']);
+    expect(ACTION_PLAN_ERROR_CODES).toEqual(['action_plan_conflict', 'action_plan_digest_mismatch', 'action_plan_scope_mismatch', 'identity_uncertain', 'action_plan_referent_version_mismatch']);
     expect(ActionPlanErrorResponseSchema.safeParse({ code: 'action_plan_conflict', message: 'x' }).success).toBe(true);
     expect(ActionPlanErrorResponseSchema.safeParse({ code: 'other', message: 'x' }).success).toBe(false);
   });
+
+  const mismatch = { code: 'action_plan_referent_version_mismatch', message: 'x' } as const;
+  const details = { buSlug: 'vendite', expectedVersion: 2, writtenVersion: 1 };
+
+  it('s6232 puntatore-referente-al-salvataggio: the action plan save contract names action_plan_referent_version_mismatch and carries buSlug, expectedVersion and writtenVersion', () => {
+    const body = { ...mismatch, details };
+    const parsed = ActionPlanErrorResponseSchema.safeParse(body);
+    expect(parsed.success).toBe(true);
+    expect(parsed.data).toEqual(body);
+    expect(ActionPlanReferentVersionMismatchDetailsSchema.parse(details)).toEqual(details);
+  });
+
+  it('s6232 the mismatch is valid without details', () => {
+    expect(ActionPlanErrorResponseSchema.safeParse(mismatch).success).toBe(true);
+  });
+
+  it('s6232 the refusals of today still parse unchanged', () => {
+    for (const code of ['action_plan_conflict', 'action_plan_digest_mismatch', 'action_plan_scope_mismatch', 'identity_uncertain']) {
+      const body = { code, message: 'x' };
+      expect(ActionPlanErrorResponseSchema.parse(body)).toEqual(body);
+    }
+  });
+
+  it('s6232 details are refused with another code, with an unknown key, a version below 1 or a slug that is not a business unit slug', () => {
+    expect(ActionPlanErrorResponseSchema.safeParse({ code: 'action_plan_conflict', message: 'x', details }).success).toBe(false);
+    expect(ActionPlanErrorResponseSchema.safeParse({ ...mismatch, details: { ...details, extra: 1 } }).success).toBe(false);
+    expect(ActionPlanErrorResponseSchema.safeParse({ ...mismatch, details: { ...details, expectedVersion: 0 } }).success).toBe(false);
+    expect(ActionPlanErrorResponseSchema.safeParse({ ...mismatch, details: { ...details, writtenVersion: 0 } }).success).toBe(false);
+    expect(ActionPlanErrorResponseSchema.safeParse({ ...mismatch, details: { ...details, buSlug: 'Not A Slug!' } }).success).toBe(false);
+    expect(ActionPlanErrorResponseSchema.safeParse({ ...mismatch, details: { buSlug: 'vendite', expectedVersion: 2 } }).success).toBe(false);
+  });
+
+  it('s6232 the built CommonJS index exports the details schema', () => {
+    const built = createRequire(import.meta.url)('../dist/http/endpoints/index.cjs') as Record<string, unknown>;
+    expect(built.ActionPlanReferentVersionMismatchDetailsSchema).toBeDefined();
+    expect(built.ACTION_PLAN_ERROR_CODES).toContain('action_plan_referent_version_mismatch');
+  }, 30_000);
 });

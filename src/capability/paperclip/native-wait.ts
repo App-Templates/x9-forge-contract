@@ -13,8 +13,10 @@ import { PaperclipCreateIssueInputSchema, PaperclipIssueViewSchema, PaperclipRev
  *   (`doc/execution-semantics.md` «Blockers»); `POST /issues/:id/children` with `blockParentUntilDone` adds the blocker;
  * - an async external job owned by the assignee is a one-shot monitor (`executionPolicy.monitor.nextCheckAt`, notes up to
  *   500 characters, serviceName up to 120), consumed by an `issue_monitor_due` wake.
+ * Paperclip sets no time bounds on the monitor; one week is our bound, equal to retryAfterSeconds.
  */
 export const PAPERCLIP_NATIVE_WAIT_TOOLS = { checkLater: 'paperclip_check_later' } as const;
+export const PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604_800;
 
 const Text = z.string().min(1).max(4096).refine(value => value.trim().length > 0, 'Non-blank text required');
 const IssueIds = z.array(z.uuid()).min(1).max(20)
@@ -25,7 +27,7 @@ export const PaperclipWaitingForSchema = z.strictObject({ action: Text.max(2000)
 
 /** One-shot check of an async job the agent owns: Paperclip wakes it (issue_monitor_due) after afterSeconds. */
 export const PaperclipCheckLaterSchema = z.strictObject({
-  afterSeconds: z.number().int().min(30).max(3600),
+  afterSeconds: z.number().int().min(30).max(PAPERCLIP_CHECK_LATER_MAX_SECONDS),
   notes: Text.max(500),
   serviceName: Text.max(120).optional(),
 });
@@ -65,7 +67,7 @@ export const PaperclipNativeCreateIssueInputSchema = PaperclipCreateIssueInputSc
 /** One-shot Paperclip monitor on a task the agent owns, for an async job it will check later (no recurring interval). */
 export const PaperclipCheckLaterInputSchema = z.strictObject({
   issueId: z.uuid(),
-  afterSeconds: z.number().int().min(30).max(3600),
+  afterSeconds: z.number().int().min(30).max(PAPERCLIP_CHECK_LATER_MAX_SECONDS),
   notes: Text.max(500),
   serviceName: Text.max(120).optional(),
 });

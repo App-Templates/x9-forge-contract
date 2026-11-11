@@ -133,6 +133,10 @@ export const internalPaperclipSeatReplyWakeContract = {
 };
 export const INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH = '/internal/paperclip/seats/native-wake';
 export const PAPERCLIP_SEAT_NATIVE_WAKE_EMAIL_MODES = ['request', 'reply', 'decision'];
+export const PaperclipSeatResearchDoneDossierEntrySchema = z.strictObject({
+    researchId: ResearchIdSchema,
+    state: ResearchStateSchema,
+});
 export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
     z.strictObject({
         kind: z.literal('email'),
@@ -160,6 +164,8 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
         researchId: ResearchIdSchema,
         state: ResearchStateSchema,
         question: z.string().min(1).max(1000),
+        // Tutte le ricerche del dossier chiuse da questa sveglia, l'evento compreso; senza dossier: la sola ricerca dell'evento.
+        dossier: z.array(PaperclipSeatResearchDoneDossierEntrySchema).min(1).max(20).optional(),
     }),
     z.strictObject({
         kind: z.literal('dev_delivered'),
@@ -210,6 +216,16 @@ export const InternalPaperclipSeatNativeWakeRequestSchema = z.strictObject({
     }
     if (value.identity !== undefined && value.identity.runtimeAgentId !== value.scope.agentId) {
         ctx.addIssue({ code: 'custom', message: 'identity.runtimeAgentId must equal scope.agentId', path: ['identity', 'runtimeAgentId'] });
+    }
+    if (value.event.kind === 'research_done' && value.event.dossier !== undefined) {
+        const { researchId, state, dossier } = value.event;
+        const own = dossier.find(d => d.researchId === researchId);
+        if (own === undefined || own.state !== state) {
+            ctx.addIssue({ code: 'custom', message: 'dossier must include the event research with the same state', path: ['event', 'dossier'] });
+        }
+        if (new Set(dossier.map(d => d.researchId)).size !== dossier.length) {
+            ctx.addIssue({ code: 'custom', message: 'dossier must not repeat a researchId', path: ['event', 'dossier'] });
+        }
     }
     if (value.event.kind === 'email') {
         const isDecision = value.event.mode === 'decision';

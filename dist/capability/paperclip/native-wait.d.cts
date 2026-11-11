@@ -11,10 +11,12 @@ import { z } from 'zod';
  *   (`doc/execution-semantics.md` «Blockers»); `POST /issues/:id/children` with `blockParentUntilDone` adds the blocker;
  * - an async external job owned by the assignee is a one-shot monitor (`executionPolicy.monitor.nextCheckAt`, notes up to
  *   500 characters, serviceName up to 120), consumed by an `issue_monitor_due` wake.
+ * Paperclip sets no time bounds on the monitor; one week is our bound, equal to retryAfterSeconds.
  */
 export declare const PAPERCLIP_NATIVE_WAIT_TOOLS: {
     readonly checkLater: "paperclip_check_later";
 };
+export declare const PAPERCLIP_CHECK_LATER_MAX_SECONDS = 604800;
 /** The concrete action that unblocks the task, owned by the calling agent itself (Paperclip: agents name only themselves). */
 export declare const PaperclipWaitingForSchema: z.ZodObject<{
     action: z.ZodString;
