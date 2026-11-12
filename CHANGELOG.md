@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.199.0 — project name check before the Director birth (task 6720)
+
+- New `http/endpoints/internal-project-name-check`: `internalProjectNameCheckContract` (POST `/internal/paperclip/project-name-check`, secret, read only) asks whether the short name of a project is free in Paperclip for a company: `free` | `taken` with `existing_project` | `archived_project`; five named errors (`invalid_request`, `organization_unknown`, `not_configured`, `reader_unavailable`, `paperclip_unavailable`) each with its HTTP status.
+- Additive: no existing shape changes. Consumers: X9 (6721, 6723), Forge (6724-6726).
+
 ## v1.198.0 — project id within the Director slug, project referent step and write contract, enrollment step order (tasks 6715-6716)
 
 - `ProjectIdSchema` allows at most 21 characters (`director-` + 21 = 30, the slug length of Forge agents); it tightens 1.196.0, which no consumer has adopted.
