@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { INTERNAL_TOKEN_HEADER } from '../../src/auth/index.js';
+import { InternalFactoryDeployRequestSchema } from '../../src/http/endpoints/internal-factory-deploy.js';
 import {
   PROJECT_CREATE_STEPS,
+  PROJECT_DIRECTOR_AGENT_ID_PREFIX,
   PROJECT_ID_MAX_LENGTH,
   ProjectCreateErrorResponseSchema,
   ProjectCreateRequestSchema,
@@ -38,7 +40,7 @@ const ready = {
 
 const failure = { reason: 'Forge could not complete the step' };
 
-describe('s6667 crea-progetto: a project create request names the project referent and has a project id of at most 55 characters so the Director agent id fits the Forge slug, the ready answer names the Director and how to write to it, with the subject label on the shared mailbox, and every failure is a fixed error with the step or the taken place named', () => {
+describe('s6667 crea-progetto: a project create request names the project referent and has a project id of at most 21 characters so the Director agent id fits the Forge slug, the ready answer names the Director and how to write to it, with the subject label on the shared mailbox, and every failure is a fixed error with the step or the taken place named', () => {
   it('publishes the POST path with token authentication', () => {
     expect(internalProjectCreateContract.method).toBe('POST');
     expect(internalProjectCreateContract.path).toBe('/api/internal/factory/projects');
@@ -56,10 +58,12 @@ describe('s6667 crea-progetto: a project create request names the project refere
     it('accepts the owner request for cantina-facile', () => {
       expect(ProjectCreateRequestSchema.safeParse(request).success).toBe(true);
     });
-    it('accepts a project id of 55 characters and rejects 56', () => {
-      expect(PROJECT_ID_MAX_LENGTH).toBe(55);
-      expect(ProjectCreateRequestSchema.safeParse(withProject(id(55))).success).toBe(true);
-      expect(ProjectCreateRequestSchema.safeParse(withProject(id(56))).success).toBe(false);
+    it('s6715 accepts a project id of 21 characters and rejects 22', () => {
+      expect(PROJECT_ID_MAX_LENGTH).toBe(21);
+      expect(ProjectIdSchema.safeParse(id(21)).success).toBe(true);
+      expect(ProjectIdSchema.safeParse(id(22)).success).toBe(false);
+      expect(ProjectCreateRequestSchema.safeParse(withProject(id(21))).success).toBe(true);
+      expect(ProjectCreateRequestSchema.safeParse(withProject(id(22))).success).toBe(false);
     });
     it('rejects project ids that are not Forge slugs', () => {
       expect(ProjectIdSchema.safeParse('orto-facile 2').success).toBe(false);
@@ -90,9 +94,13 @@ describe('s6667 crea-progetto: a project create request names the project refere
     it('is director-<projectId>, the name of today\'s Director', () => {
       expect(projectDirectorAgentId('good-choice')).toBe('director-good-choice');
     });
-    it('is 64 characters for a 55-character project id and throws for 56', () => {
-      expect(projectDirectorAgentId('a'.repeat(55))).toHaveLength(64);
-      expect(() => projectDirectorAgentId('a'.repeat(56))).toThrow();
+    it('s6715 fits the 30-character Forge agent slug and throws for a 22-character project id', () => {
+      expect(PROJECT_DIRECTOR_AGENT_ID_PREFIX.length + PROJECT_ID_MAX_LENGTH).toBe(30);
+      const directorId = projectDirectorAgentId('a'.repeat(21));
+      expect(directorId).toHaveLength(30);
+      expect(InternalFactoryDeployRequestSchema.shape.slug.safeParse(directorId).success).toBe(true);
+      expect(InternalFactoryDeployRequestSchema.shape.slug.safeParse('a'.repeat(31)).success).toBe(false);
+      expect(() => projectDirectorAgentId('a'.repeat(22))).toThrow();
     });
   });
 
@@ -133,6 +141,21 @@ describe('s6667 crea-progetto: a project create request names the project refere
       expect(PROJECT_CREATE_STEPS).toContain('director_mailbox');
       expect(ProjectCreateResponseSchema.safeParse({ state: 'in_corso', step: 'director_mailbox' }).success).toBe(true);
       expect(ProjectCreateResponseSchema.safeParse({ state: 'in_corso', step: 'invented' }).success).toBe(false);
+    });
+    it('s6715 writes the project referent immediately after the project group', () => {
+      expect(PROJECT_CREATE_STEPS).toEqual([
+        'company_group',
+        'project_group',
+        'project_referent',
+        'director_birth',
+        'director_mailbox',
+        'paperclip_enrollment',
+        'director_profile',
+      ]);
+      expect(ProjectCreateResponseSchema.safeParse({ state: 'in_corso', step: 'project_referent' }).success).toBe(true);
+      expect(ProjectCreateErrorResponseSchema.safeParse({
+        error: 'birth_failed', step: 'project_referent', ...failure,
+      }).success).toBe(true);
     });
   });
 
