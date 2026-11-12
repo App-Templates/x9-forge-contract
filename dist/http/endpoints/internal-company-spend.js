@@ -51,6 +51,12 @@ export const internalCompanySpendBusinessUnitReadContract = {
 };
 /** Spend sources of the company guard; the same list agent-core meters. */
 export const CompanySpendSourceSchema = z.enum(['model', 'tool', 'ricerca', 'lab']);
+/**
+ * The only sources X9 reads from a capability, and so the only ones it can
+ * fail to read. `model` and `tool` are metered by X9 itself and are never unread.
+ */
+export const COMPANY_SPEND_CAPABILITY_SOURCES = ['ricerca', 'lab'];
+export const CompanySpendCapabilitySourceSchema = CompanySpendSourceSchema.extract(COMPANY_SPEND_CAPABILITY_SOURCES);
 export const INTERNAL_COMPANY_SPEND_PATH = '/internal/companies/:company/spend';
 /** `company` is the guard's company name, e.g. `good-choice`. */
 export const InternalCompanySpendParamsSchema = z.strictObject({
@@ -80,7 +86,7 @@ export const InternalCompanySpendResponseSchema = z.strictObject({
         estimated: z.boolean(),
         bySource: z.partialRecord(CompanySpendSourceSchema, z.int().min(0)),
     })),
-    unreadSources: z.array(CompanySpendSourceSchema),
+    unreadSources: z.array(CompanySpendCapabilitySourceSchema),
 });
 /** `since` restarts the counter (reset); `revision` is the one the caller read. */
 export const InternalCompanySpendCapUpdateBodySchema = z.strictObject({
@@ -91,7 +97,18 @@ export const InternalCompanySpendCapUpdateBodySchema = z.strictObject({
 });
 export const InternalCompanySpendErrorSchema = z.strictObject({
     ok: z.literal(false),
-    error: z.enum(['unknown_company', 'guard_off', 'stale_revision', 'below_business_units', 'invalid_request']),
+    error: z.enum([
+        'unknown_company',
+        'guard_off',
+        'stale_revision',
+        'below_business_units',
+        'invalid_request',
+        // The internal-secret guard did not let the call through (401).
+        'unauthorized',
+        // The requested cap leads to a configuration the guard refuses for a rule
+        // other than the business unit caps, which have `below_business_units`.
+        'invalid_config',
+    ]),
     currentRevision: z.int().min(0).optional(),
 });
 export const internalCompanySpendReadContract = {

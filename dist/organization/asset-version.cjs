@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ASSET_VERSION_DUPLICATE = exports.ASSET_VERSION_TRANSITIONS = exports.AssetVersionStateSchema = exports.ASSET_VERSION_STATES = exports.AssetVersionLeadReviewSchema = exports.AssetVersionRecordSchema = exports.AssetVersionProvenanceSchema = exports.AssetVersionFileSchema = void 0;
+exports.ASSET_VERSION_DUPLICATE = exports.ASSET_VERSION_TRANSITIONS = exports.AssetVersionStateSchema = exports.ASSET_VERSION_STATES = exports.AssetVersionLeadReviewSchema = exports.ASSET_VERSION_REDO_REASON_MESSAGE = exports.AssetVersionRecordSchema = exports.AssetVersionProvenanceSchema = exports.AssetVersionFileSchema = void 0;
+exports.assetVersionRedoHasReason = assetVersionRedoHasReason;
 exports.assetVersionTransitionAllowed = assetVersionTransitionAllowed;
 exports.isLaterDecisionRequest = isLaterDecisionRequest;
 exports.assetVersionDecisionState = assetVersionDecisionState;
@@ -43,6 +44,10 @@ exports.AssetVersionRecordSchema = zod_1.z.strictObject({
     provenance: exports.AssetVersionProvenanceSchema,
     recordedAt: asset_js_1.AssetRefSchema.shape.createdAt,
 });
+exports.ASSET_VERSION_REDO_REASON_MESSAGE = 'A redo review requires a reason';
+function assetVersionRedoHasReason(review) {
+    return review.verdict !== 'redo' || review.reason !== undefined;
+}
 exports.AssetVersionLeadReviewSchema = zod_1.z.strictObject({
     buSlug: exports.AssetVersionRecordSchema.shape.buSlug,
     key: asset_js_1.AssetKeySchema,
@@ -51,8 +56,8 @@ exports.AssetVersionLeadReviewSchema = zod_1.z.strictObject({
     reason: zod_1.z.string().min(3).max(2000).optional(),
     reviewedBy: participant_binding_js_1.ParticipantAgentIdentitySchema,
     reviewedAt: asset_js_1.AssetRefSchema.shape.createdAt,
-}).refine((review) => review.verdict !== 'redo' || review.reason !== undefined, {
-    path: ['reason'], message: 'A redo review requires a reason',
+}).refine(assetVersionRedoHasReason, {
+    path: ['reason'], message: exports.ASSET_VERSION_REDO_REASON_MESSAGE,
 });
 exports.ASSET_VERSION_STATES = [
     'delivered', 'rejected_by_lead', 'awaiting_decision', 'changes_requested', 'approved', 'superseded',

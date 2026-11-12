@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.193.0",
+  "versione": "1.194.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1487,6 +1487,7 @@
       "COACH_OPERATIONAL_PREFIX": "@x9-forge/contracts/http/endpoints/coach-operational-common",
       "COMPANY_CONTENT_SOURCES": "@x9-forge/contracts/http/endpoints/internal-memory-company-content",
       "COMPANY_RD_PARTS": "@x9-forge/contracts/http/endpoints/internal-company-rd",
+      "COMPANY_SPEND_CAPABILITY_SOURCES": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "CONNECTION_CARD_ENVELOPE_TYPE": "@x9-forge/contracts/http/endpoints/connection-card",
       "CONNECT_ACCESS_ERROR_CODES": "@x9-forge/contracts/http/endpoints/internal-connect",
       "CONNECT_RETURN_PATH": "@x9-forge/contracts/http/endpoints/connect-public",
@@ -1540,6 +1541,7 @@
       "CompanyRdEnrollmentSeatSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-rd-enrollment",
       "CompanyRdEnrollmentSeatStatusSchema": "@x9-forge/contracts/http/endpoints/internal-paperclip-rd-enrollment",
       "CompanyRdPartSchema": "@x9-forge/contracts/http/endpoints/internal-company-rd",
+      "CompanySpendCapabilitySourceSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "CompanySpendSourceSchema": "@x9-forge/contracts/http/endpoints/internal-company-spend",
       "ConnectAccessErrorCodeSchema": "@x9-forge/contracts/http/endpoints/internal-connect",
       "ConnectErrorResponseSchema": "@x9-forge/contracts/http/endpoints/internal-connect",
@@ -2385,6 +2387,7 @@
       "AGENT_ROLE_READ_ONLY_CAPABILITIES": "@x9-forge/contracts/organization/agent-role",
       "ASSET_ORIGIN_KINDS": "@x9-forge/contracts/organization/asset",
       "ASSET_VERSION_DUPLICATE": "@x9-forge/contracts/organization/asset-version",
+      "ASSET_VERSION_REDO_REASON_MESSAGE": "@x9-forge/contracts/organization/asset-version",
       "ASSET_VERSION_STATES": "@x9-forge/contracts/organization/asset-version",
       "ASSET_VERSION_TRANSITIONS": "@x9-forge/contracts/organization/asset-version",
       "AcknowledgeStopOperationSchema": "@x9-forge/contracts/organization/operations",
@@ -2634,6 +2637,7 @@
       "actionPlanCanonicalJson": "@x9-forge/contracts/organization/action-plan",
       "assertScenarioMatchesCorpus": "@x9-forge/contracts/organization/scenario",
       "assetVersionDecisionState": "@x9-forge/contracts/organization/asset-version",
+      "assetVersionRedoHasReason": "@x9-forge/contracts/organization/asset-version",
       "assetVersionTransitionAllowed": "@x9-forge/contracts/organization/asset-version",
       "businessUnitLeadAgentId": "@x9-forge/contracts/organization/business-unit-lead",
       "businessUnitSlugOfLeadAgentId": "@x9-forge/contracts/organization/business-unit-lead",

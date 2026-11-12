@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.194.0 — decision request state filter, recall limits, company spend error codes and typed lead review request (tasks 6576-6579)
+
+- `state` (`open` | `decided`) is an optional field of the chief's decision request list query; the project list for the Director stays unfiltered.
+- `MEMORY_RECALL_QUERY_MAX_CHARS`, `MEMORY_RECALL_TOP_K_MIN`, `MEMORY_RECALL_TOP_K_MAX`, `MEMORY_RECALL_TOP_K_DEFAULT` and `MEMORY_RECALL_TOOL_TOP_K_DEFAULT` are exported and used by the recall bundle schema; no value changes.
+- The company spend error body also names `unauthorized` and `invalid_config`, and `unreadSources` only holds `COMPANY_SPEND_CAPABILITY_SOURCES` (`ricerca`, `lab`), narrowing a field X9 only ever filled with those two.
+- `InternalMemoryAssetVersionReviewRequestSchema` keeps the type of `context`, and the redo-needs-reason rule is one exported function (`assetVersionRedoHasReason`).
+- Consumers: X9 adoption ec-x9/6581, then ec-x9/6582, 6583, 6497, 6584, 6585.
+
 ## v1.193.0 — the note on an issue stopped by the spend cap carries the refusal sentence and the minutes to the next check (task 6543)
 
 - `TURN_DISPOSITION_TEXT.checkNoteWithReason(code, message, afterSeconds)`; `dispositionForTurnEnd` uses it only for a `budget_exhausted` refusal that carries a `message`, when the whole note fits the 500 characters of the field. Every other code, a refusal without message and a stop mid-turn keep today's note.

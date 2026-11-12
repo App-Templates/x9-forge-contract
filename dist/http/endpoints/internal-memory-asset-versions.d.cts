@@ -267,7 +267,36 @@ export declare const InternalMemoryAssetVersionLatestResponseSchema: z.ZodObject
 }, z.core.$strict>;
 export type InternalMemoryAssetVersionLatestResponse = z.infer<typeof InternalMemoryAssetVersionLatestResponseSchema>;
 /** Reviewer identity and timestamp come from the service; the existing redo/reason check is preserved. */
-export declare const InternalMemoryAssetVersionReviewRequestSchema: z.ZodObject<z.core.$ZodLooseShape, z.core.$strip>;
+export declare const InternalMemoryAssetVersionReviewRequestSchema: z.ZodObject<{
+    context: z.ZodObject<{
+        schemaVersion: z.ZodLiteral<1>;
+        runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+        organizationId: z.ZodString;
+        ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+        identity: z.ZodObject<{
+            managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+            vaultAgentId: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>;
+        personRef: z.ZodOptional<z.ZodString>;
+        issuer: z.ZodEnum<{
+            x9: "x9";
+            forge: "forge";
+            paperclip: "paperclip";
+        }>;
+        issuedAt: z.ZodISODateTime;
+        expiresAt: z.ZodISODateTime;
+    }, z.core.$strict>;
+    projectId: z.ZodString;
+    key: z.ZodString;
+    reason: z.ZodOptional<z.ZodString>;
+    version: z.ZodNumber;
+    buSlug: z.ZodString;
+    verdict: z.ZodEnum<{
+        ok: "ok";
+        redo: "redo";
+    }>;
+}, z.core.$strict>;
 export type InternalMemoryAssetVersionReviewRequest = z.infer<typeof InternalMemoryAssetVersionReviewRequestSchema>;
 export declare const InternalMemoryAssetVersionReviewResponseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
     outcome: z.ZodLiteral<"recorded">;
@@ -565,7 +594,36 @@ export declare const internalMemoryAssetVersionReviewContract: {
     readonly method: "POST";
     readonly path: "/internal/memory/asset-versions/reviews";
     readonly authType: "secret";
-    readonly bodySchema: z.ZodObject<z.core.$ZodLooseShape, z.core.$strip>;
+    readonly bodySchema: z.ZodObject<{
+        context: z.ZodObject<{
+            schemaVersion: z.ZodLiteral<1>;
+            runId: z.core.$ZodBranded<z.ZodString, "RunId", "out">;
+            organizationId: z.ZodString;
+            ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
+            identity: z.ZodObject<{
+                managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+                vaultAgentId: z.ZodOptional<z.ZodNumber>;
+            }, z.core.$strip>;
+            personRef: z.ZodOptional<z.ZodString>;
+            issuer: z.ZodEnum<{
+                x9: "x9";
+                forge: "forge";
+                paperclip: "paperclip";
+            }>;
+            issuedAt: z.ZodISODateTime;
+            expiresAt: z.ZodISODateTime;
+        }, z.core.$strict>;
+        projectId: z.ZodString;
+        key: z.ZodString;
+        reason: z.ZodOptional<z.ZodString>;
+        version: z.ZodNumber;
+        buSlug: z.ZodString;
+        verdict: z.ZodEnum<{
+            ok: "ok";
+            redo: "redo";
+        }>;
+    }, z.core.$strict>;
     readonly responseSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         outcome: z.ZodLiteral<"recorded">;
         review: z.ZodObject<{

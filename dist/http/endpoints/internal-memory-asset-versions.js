@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { AssetVersionLeadReviewSchema, AssetVersionProvenanceSchema, AssetVersionRecordSchema, AssetVersionStateSchema, } from "../../organization/asset-version.js";
+import { ASSET_VERSION_REDO_REASON_MESSAGE, assetVersionRedoHasReason, AssetVersionLeadReviewSchema, AssetVersionProvenanceSchema, AssetVersionRecordSchema, AssetVersionStateSchema, } from "../../organization/asset-version.js";
 import { DecisionRequestIdSchema, DecisionRequestSchema } from "../../organization/decision-request.js";
 import { OrganizationRunContextSchema } from "../../organization/run-context.js";
 export const INTERNAL_MEMORY_ASSET_VERSIONS_PATH = '/internal/memory/asset-versions';
@@ -67,14 +67,13 @@ export const InternalMemoryAssetVersionLatestResponseSchema = z.strictObject({
     }).nullable(),
 });
 /** Reviewer identity and timestamp come from the service; the existing redo/reason check is preserved. */
-export const InternalMemoryAssetVersionReviewRequestSchema = new z.ZodObject({
-    ...AssetVersionLeadReviewSchema.def,
-    shape: z.strictObject(AssetVersionLeadReviewSchema.shape)
-        .omit({ reviewedBy: true, reviewedAt: true })
-        .extend({
-        context: OrganizationRunContextSchema,
-        projectId: AssetVersionRecordSchema.shape.projectId,
-    }).shape,
+export const InternalMemoryAssetVersionReviewRequestSchema = z.strictObject({
+    ...z.strictObject(AssetVersionLeadReviewSchema.shape)
+        .omit({ reviewedBy: true, reviewedAt: true }).shape,
+    context: OrganizationRunContextSchema,
+    projectId: AssetVersionRecordSchema.shape.projectId,
+}).refine(assetVersionRedoHasReason, {
+    path: ['reason'], message: ASSET_VERSION_REDO_REASON_MESSAGE,
 });
 export const InternalMemoryAssetVersionReviewResponseSchema = z.discriminatedUnion('outcome', [
     z.strictObject({ outcome: z.literal('recorded'), review: AssetVersionLeadReviewSchema }),

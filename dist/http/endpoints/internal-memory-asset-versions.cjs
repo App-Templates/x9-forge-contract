@@ -70,14 +70,13 @@ exports.InternalMemoryAssetVersionLatestResponseSchema = zod_1.z.strictObject({
     }).nullable(),
 });
 /** Reviewer identity and timestamp come from the service; the existing redo/reason check is preserved. */
-exports.InternalMemoryAssetVersionReviewRequestSchema = new zod_1.z.ZodObject({
-    ...asset_version_js_1.AssetVersionLeadReviewSchema.def,
-    shape: zod_1.z.strictObject(asset_version_js_1.AssetVersionLeadReviewSchema.shape)
-        .omit({ reviewedBy: true, reviewedAt: true })
-        .extend({
-        context: run_context_js_1.OrganizationRunContextSchema,
-        projectId: asset_version_js_1.AssetVersionRecordSchema.shape.projectId,
-    }).shape,
+exports.InternalMemoryAssetVersionReviewRequestSchema = zod_1.z.strictObject({
+    ...zod_1.z.strictObject(asset_version_js_1.AssetVersionLeadReviewSchema.shape)
+        .omit({ reviewedBy: true, reviewedAt: true }).shape,
+    context: run_context_js_1.OrganizationRunContextSchema,
+    projectId: asset_version_js_1.AssetVersionRecordSchema.shape.projectId,
+}).refine(asset_version_js_1.assetVersionRedoHasReason, {
+    path: ['reason'], message: asset_version_js_1.ASSET_VERSION_REDO_REASON_MESSAGE,
 });
 exports.InternalMemoryAssetVersionReviewResponseSchema = zod_1.z.discriminatedUnion('outcome', [
     zod_1.z.strictObject({ outcome: zod_1.z.literal('recorded'), review: asset_version_js_1.AssetVersionLeadReviewSchema }),

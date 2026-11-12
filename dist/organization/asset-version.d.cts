@@ -57,6 +57,11 @@ export declare const AssetVersionRecordSchema: z.ZodObject<{
     recordedAt: z.ZodISODateTime;
 }, z.core.$strict>;
 export type AssetVersionRecord = z.infer<typeof AssetVersionRecordSchema>;
+export declare const ASSET_VERSION_REDO_REASON_MESSAGE = "A redo review requires a reason";
+export declare function assetVersionRedoHasReason(review: {
+    verdict: string;
+    reason?: string | undefined;
+}): boolean;
 export declare const AssetVersionLeadReviewSchema: z.ZodObject<{
     buSlug: z.ZodString;
     key: z.ZodString;

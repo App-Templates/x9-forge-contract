@@ -35,6 +35,10 @@ export const AssetVersionRecordSchema = z.strictObject({
     provenance: AssetVersionProvenanceSchema,
     recordedAt: AssetRefSchema.shape.createdAt,
 });
+export const ASSET_VERSION_REDO_REASON_MESSAGE = 'A redo review requires a reason';
+export function assetVersionRedoHasReason(review) {
+    return review.verdict !== 'redo' || review.reason !== undefined;
+}
 export const AssetVersionLeadReviewSchema = z.strictObject({
     buSlug: AssetVersionRecordSchema.shape.buSlug,
     key: AssetKeySchema,
@@ -43,8 +47,8 @@ export const AssetVersionLeadReviewSchema = z.strictObject({
     reason: z.string().min(3).max(2000).optional(),
     reviewedBy: ParticipantAgentIdentitySchema,
     reviewedAt: AssetRefSchema.shape.createdAt,
-}).refine((review) => review.verdict !== 'redo' || review.reason !== undefined, {
-    path: ['reason'], message: 'A redo review requires a reason',
+}).refine(assetVersionRedoHasReason, {
+    path: ['reason'], message: ASSET_VERSION_REDO_REASON_MESSAGE,
 });
 export const ASSET_VERSION_STATES = [
     'delivered', 'rejected_by_lead', 'awaiting_decision', 'changes_requested', 'approved', 'superseded',
