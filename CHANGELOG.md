@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.203.0 — light tool error module and import budgets re-measured (tasks 6711, 6718)
+
+- New module `capability/tool-error-disposition` holds the fixed tool-error schemas; same names, still exported from `capability/tool-call`. In `dist/narrow-imports.json` the three tool-error schema names now point to `capability/tool-error-disposition` (old import paths keep working).
+- Import-heap budgets re-measured after 6711 (rule: measure × 1.05), each raised budget naming the contracts that made it grow: `./capability/dev` 22.5 MB, `./http` 111 MB / 320 modules, `./organization` 40 MB / 82 modules, `./http/*` 107.5 MB, `./organization/*` 28 MB.
+- New budget for `./capability/email-tools` (1 MB, 1 module).
+- Consumers: none.
+
 ## v1.202.0 — stack decision tag recognised by its generated id shape (task 6709)
 
 - New constants `GENERATED_DECISION_REQUEST_ID_PREFIX` (`'dec_'`) and `GeneratedDecisionRequestIdSchema` (`dec_` + lowercase UUID, built from the prefix).

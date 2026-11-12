@@ -1,5 +1,5 @@
 {
-  "misurato": "09/11/2026, node 24.14.1, darwin arm64, dist di 81d4ab07 (1.121.0) · chiavi «/*» misurate il 09/11/2026 sul dist di 1.122.0 (tetto = misura × 1.05, un tetto vale per il file peggiore del dominio)",
+  "misurato": "12/11/2026, node 24.14.1, darwin arm64, dist di 1.203.0 dopo 6711 (tetto = misura × 1.05; voci cambiate solo dove la misura superava il tetto di 1.121.0/1.122.0; un tetto «/*» vale per il file peggiore del dominio)",
   "voci": {
     ".": {
       "heap_mb": 32,
@@ -21,10 +21,15 @@
       "moduli": 147,
       "motivo": "barile delle capacità: manifest, chiamate agli strumenti, schema dell’ambiente e contratti di ogni capacità"
     },
+    "./capability/email-tools": {
+      "heap_mb": 1,
+      "moduli": 1,
+      "motivo": "solo il nome dello strumento di invio email (6102): un solo modulo, nessun import"
+    },
     "./capability/dev": {
-      "heap_mb": 21,
+      "heap_mb": 22.5,
       "moduli": 56,
-      "motivo": "contratti della capacità di sviluppo"
+      "motivo": "contratti della capacità di sviluppo; misura 21.2 MB, 56 moduli dopo 6711: + `dev/session-outcome` (6342) e il modulo leggero `tool-error-disposition` (6711) dopo 1.122.0"
     },
     "./voice": {
       "heap_mb": 18.5,
@@ -62,9 +67,9 @@
       "motivo": "contratti della capacità video"
     },
     "./http": {
-      "heap_mb": 104.5,
-      "moduli": 300,
-      "motivo": "barile intero: tutti gli endpoint interni e i loro domini"
+      "heap_mb": 111,
+      "moduli": 320,
+      "motivo": "barile intero: tutti gli endpoint interni e i loro domini; misura 105.3 MB, 305 moduli: +7 moduli dopo 1.122.0: `internal-memory-asset-versions`, `capability/email-tools`, `paperclip/inbound-event`, `messaging/message-code`, `organization/agent-request`, `organization/asset-version`, `tool-error-disposition`"
     },
     "./memory": {
       "heap_mb": 4,
@@ -72,9 +77,9 @@
       "motivo": "tipi condivisi con il servizio di memoria"
     },
     "./organization": {
-      "heap_mb": 33,
-      "moduli": 73,
-      "motivo": "barile dell’organizzazione: unità di business, tipi e mandati"
+      "heap_mb": 40,
+      "moduli": 82,
+      "motivo": "barile dell’organizzazione: unità di business, tipi e mandati; misura 37.7 MB, 79 moduli: +8 moduli dopo 1.122.0: `agent-request`, `asset-version`, `business-unit-state`, `organization-access`, `project-delivery`, `dev/session-assignment`, `dev/session-outcome`, `tool-error-disposition`"
     },
     "./organization/business-unit-lead": {
       "heap_mb": 14.5,
@@ -137,9 +142,9 @@
       "motivo": "ogni modulo di capability/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/capability/portable-contracts.js (35.5 MB, 94 moduli)"
     },
     "./http/*": {
-      "heap_mb": 101.0,
+      "heap_mb": 107.5,
       "moduli": 297,
-      "motivo": "ogni modulo di http/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/http/endpoints/index.js (96.1 MB, 282 moduli)"
+      "motivo": "ogni modulo di http/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/http/endpoints/index.js (102 MB, 289 moduli dopo 6711): moduli entro il tetto e schemi più grandi (contratti nuovi dopo 1.122.0)"
     },
     "./memory/*": {
       "heap_mb": 1.5,
@@ -157,9 +162,9 @@
       "motivo": "ogni modulo di model-router/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/model-router/model-consumer-execution.js (26 MB, 67 moduli)"
     },
     "./organization/*": {
-      "heap_mb": 25.5,
+      "heap_mb": 28,
       "moduli": 55,
-      "motivo": "ogni modulo di organization/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/organization/vertical-plan-observation.js (24.1 MB, 52 moduli)"
+      "motivo": "ogni modulo di organization/ ha il suo sotto-percorso stretto; il tetto vale per il peggiore, dist/organization/vertical-plan-observation.js (26.5 MB, 52 moduli dopo 6711): moduli entro il tetto e schemi più grandi (contratti nuovi dopo 1.122.0)"
     },
     "./rag/*": {
       "heap_mb": 18.5,
