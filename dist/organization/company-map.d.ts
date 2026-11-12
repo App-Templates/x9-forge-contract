@@ -428,4 +428,34 @@ export declare function companyMapEntryKey(entry: {
     kind: 'access';
     accessRef: string;
 }): string;
+/** Refusal codes of the referent lookup. */
+export declare const REFERENT_FOR_UNIT_REFUSALS: readonly ["referent_not_in_map", "referent_superseded"];
+export type ReferentForUnitRefusal = (typeof REFERENT_FOR_UNIT_REFUSALS)[number];
+export type ReferentForUnitResult = {
+    ok: true;
+    entry: CompanyMapEntry;
+    level: CompanyMapLevel;
+} | {
+    ok: false;
+    code: ReferentForUnitRefusal;
+};
+/**
+ * One rule to find the referent of a unit: business unit level, then project, then client.
+ * The first level with a matching entry wins; within it the highest version. Never crosses
+ * tenant, organization, client or project.
+ */
+export declare function referentForUnit(input: {
+    entries: readonly CompanyMapEntry[];
+    scope: {
+        tenantId: string;
+        organizationId: string;
+        clientId: string;
+        projectId: string;
+        buSlug: string;
+    };
+    referent: {
+        personRef: string;
+        entryVersion?: number | undefined;
+    };
+}): ReferentForUnitResult;
 //# sourceMappingURL=company-map.d.ts.map

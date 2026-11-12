@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.174.0",
+  "versione": "1.175.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2557,6 +2557,7 @@
       "PublishMaterialErrorCodeSchema": "@x9-forge/contracts/organization/publication-operations",
       "PublishMaterialRequestSchema": "@x9-forge/contracts/organization/publication-operations",
       "PublishMaterialResponseSchema": "@x9-forge/contracts/organization/publication-operations",
+      "REFERENT_FOR_UNIT_REFUSALS": "@x9-forge/contracts/organization/company-map",
       "RICERCA_ROLE": "@x9-forge/contracts/organization/agent-role",
       "ReadMaterialRequestSchema": "@x9-forge/contracts/organization/publication-operations",
       "ReadMaterialResponseSchema": "@x9-forge/contracts/organization/publication-operations",
@@ -2645,6 +2646,7 @@
       "projectDeliveryRecordName": "@x9-forge/contracts/organization/project-delivery",
       "projectDeliveryUnitDigest": "@x9-forge/contracts/organization/project-delivery",
       "reconcileProjectDelivery": "@x9-forge/contracts/organization/project-delivery",
+      "referentForUnit": "@x9-forge/contracts/organization/company-map",
       "roleCapabilities": "@x9-forge/contracts/organization/agent-role",
       "routeSharedMailboxMessage": "@x9-forge/contracts/organization/shared-mailbox",
       "summarizeEvaluationItems": "@x9-forge/contracts/organization/simulation-evaluation",

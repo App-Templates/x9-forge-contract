@@ -195,6 +195,7 @@ export declare const PaperclipCreateBusinessUnitInputSchema: z.ZodObject<{
     tenantId: z.ZodString;
     ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
     organizationId: z.ZodOptional<z.ZodString>;
+    projectId: z.ZodOptional<z.ZodString>;
     company: z.ZodObject<{
         companyId: z.ZodString;
         name: z.ZodString;

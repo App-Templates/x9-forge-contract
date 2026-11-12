@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.175.0 — one rule to find the referent of a unit, and the project in the birth request; additive (task 6347)
+
+- `organization/company-map` adds `referentForUnit({ entries, scope, referent })` and `REFERENT_FOR_UNIT_REFUSALS` (`referent_not_in_map`, `referent_superseded`): business unit level, then project, then client; the first level with an entry wins, highest version inside it; never crosses tenant, organization, client or project.
+- `BusinessUnitLeadBirthRequestSchema` (and so `PaperclipCreateBusinessUnitInputSchema`) gains optional `projectId`; absent = client level as before.
+- Consumers: cap-paperclip replaces its hand-written lookup; Forge factory (which reads only the client level today) must adopt 1.175.0 before X9 sends `projectId`, because the request is a strict schema.
+
 ## v1.174.0 — the plan and the mandate carry the gap rule, sign-off points, keyed exchanges, addressed questions and source coverage; additive (task 6346)
 
 - `organization/action-plan` adds `ActionPlanGapRuleSchema` (`mark_and_proceed` | `stop_and_ask`) and `ActionPlanSignOffSchema` (key, signer `referent` | `director` | `owner`, form `decision_request` only), optional on each business unit as `gapRule` and `signOffs` (1-20, unique keys). The inline exchange and question shapes are now exported as `ActionPlanExchangeSchema` (new optional `key`) and `ActionPlanQuestionSchema` (new optional `askTo`: referent, owner, director or business unit), and the plan gains optional `sourceCoverage` (`ActionPlanSourceCoverageSchema`: topic, covered | partial | missing, dossier pages). `ActionPlanSubmissionSchema` checks, only when present, that sign-off keys belong to the unit (its section or an owned work breakdown item), exchange keys exist, `askTo.buSlug` is a plan unit and coverage pages are in the dossier.

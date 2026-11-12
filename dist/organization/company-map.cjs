@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.COMPANY_MAP_CONFIRM_OPTIONS = exports.CompanyMapAnyEntrySchema = exports.CompanyMapAccessEntrySchema = exports.CompanyMapAssetEntrySchema = exports.CompanyMapResponsibilityEntrySchema = exports.CompanyMapPersonEntrySchema = exports.CompanyMapEntrySchema = exports.CompanyMapAccessFieldsSchema = exports.CompanyMapAssetFieldsSchema = exports.CompanyMapResponsibilityFieldsSchema = exports.CompanyMapPersonFieldsSchema = exports.CompanyMapReferentFieldsSchema = exports.CompanyMapConfirmTargetSchema = exports.CompanyMapVersionFieldsSchema = exports.CompanyMapScopeFieldsSchema = exports.CompanyMapSourceSchema = exports.CompanyMapEntryKindSchema = exports.COMPANY_MAP_ENTRY_KINDS = exports.CompanyMapLevelSchema = exports.COMPANY_MAP_LEVELS = void 0;
+exports.REFERENT_FOR_UNIT_REFUSALS = exports.COMPANY_MAP_CONFIRM_OPTIONS = exports.CompanyMapAnyEntrySchema = exports.CompanyMapAccessEntrySchema = exports.CompanyMapAssetEntrySchema = exports.CompanyMapResponsibilityEntrySchema = exports.CompanyMapPersonEntrySchema = exports.CompanyMapEntrySchema = exports.CompanyMapAccessFieldsSchema = exports.CompanyMapAssetFieldsSchema = exports.CompanyMapResponsibilityFieldsSchema = exports.CompanyMapPersonFieldsSchema = exports.CompanyMapReferentFieldsSchema = exports.CompanyMapConfirmTargetSchema = exports.CompanyMapVersionFieldsSchema = exports.CompanyMapScopeFieldsSchema = exports.CompanyMapSourceSchema = exports.CompanyMapEntryKindSchema = exports.COMPANY_MAP_ENTRY_KINDS = exports.CompanyMapLevelSchema = exports.COMPANY_MAP_LEVELS = void 0;
 exports.checkCompanyMapLevelScope = checkCompanyMapLevelScope;
 exports.companyMapConfirmationSubject = companyMapConfirmationSubject;
 exports.companyMapConfirmationSetSubject = companyMapConfirmationSetSubject;
 exports.companyMapEntryKey = companyMapEntryKey;
+exports.referentForUnit = referentForUnit;
 const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const asset_js_1 = require("./asset.cjs");
@@ -205,5 +206,35 @@ function companyMapEntryKey(entry) {
         default:
             return entry.personRef;
     }
+}
+/** Refusal codes of the referent lookup. */
+exports.REFERENT_FOR_UNIT_REFUSALS = ['referent_not_in_map', 'referent_superseded'];
+/**
+ * One rule to find the referent of a unit: business unit level, then project, then client.
+ * The first level with a matching entry wins; within it the highest version. Never crosses
+ * tenant, organization, client or project.
+ */
+function referentForUnit(input) {
+    const { entries, scope, referent } = input;
+    const sameReferent = entries.filter((entry) => entry.tenantId === scope.tenantId &&
+        entry.organizationId === scope.organizationId &&
+        entry.clientId === scope.clientId &&
+        entry.personRef === referent.personRef);
+    const levels = [
+        ['business_unit', (e) => e.level === 'business_unit' && e.projectId === scope.projectId && e.buSlug === scope.buSlug],
+        ['project', (e) => e.level === 'project' && e.projectId === scope.projectId],
+        ['client', (e) => e.level === 'client'],
+    ];
+    for (const [level, matches] of levels) {
+        const found = sameReferent.filter(matches);
+        if (found.length === 0)
+            continue;
+        const entry = found.reduce((best, candidate) => (candidate.version > best.version ? candidate : best));
+        if (referent.entryVersion !== undefined && referent.entryVersion !== entry.version) {
+            return { ok: false, code: 'referent_superseded' };
+        }
+        return { ok: true, entry, level };
+    }
+    return { ok: false, code: 'referent_not_in_map' };
 }
 //# sourceMappingURL=company-map.js.map

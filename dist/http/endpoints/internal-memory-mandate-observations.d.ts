@@ -240,8 +240,8 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
         kind: z.ZodLiteral<"blocked">;
         reason: z.ZodEnum<{
             conflict: "conflict";
-            missing: "missing";
             referent_superseded: "referent_superseded";
+            missing: "missing";
         }>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;
@@ -508,8 +508,8 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
             kind: z.ZodLiteral<"blocked">;
             reason: z.ZodEnum<{
                 conflict: "conflict";
-                missing: "missing";
                 referent_superseded: "referent_superseded";
+                missing: "missing";
             }>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -777,8 +777,8 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
             kind: z.ZodLiteral<"blocked">;
             reason: z.ZodEnum<{
                 conflict: "conflict";
-                missing: "missing";
                 referent_superseded: "referent_superseded";
+                missing: "missing";
             }>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -1079,8 +1079,8 @@ export declare const internalMemoryMandateObservationReadContract: {
                 kind: z.ZodLiteral<"blocked">;
                 reason: z.ZodEnum<{
                     conflict: "conflict";
-                    missing: "missing";
                     referent_superseded: "referent_superseded";
+                    missing: "missing";
                 }>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;
@@ -1360,8 +1360,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
             kind: z.ZodLiteral<"blocked">;
             reason: z.ZodEnum<{
                 conflict: "conflict";
-                missing: "missing";
                 referent_superseded: "referent_superseded";
+                missing: "missing";
             }>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -1627,8 +1627,8 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                 kind: z.ZodLiteral<"blocked">;
                 reason: z.ZodEnum<{
                     conflict: "conflict";
-                    missing: "missing";
                     referent_superseded: "referent_superseded";
+                    missing: "missing";
                 }>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;

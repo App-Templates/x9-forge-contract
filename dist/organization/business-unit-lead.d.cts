@@ -18,6 +18,8 @@ export declare const BusinessUnitLeadBirthRequestSchema: z.ZodObject<{
     ownerId: z.core.$ZodBranded<z.ZodString, "OwnerId", "out">;
     /** Organization of the Director whose company map holds the referents; absent = the client company (as before). */
     organizationId: z.ZodOptional<z.ZodString>;
+    /** Project of the unit, so the receiver can apply `referentForUnit`; absent = client level, as before 1.175.0. */
+    projectId: z.ZodOptional<z.ZodString>;
     company: z.ZodObject<{
         companyId: z.ZodString;
         name: z.ZodString;

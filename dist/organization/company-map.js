@@ -199,4 +199,34 @@ export function companyMapEntryKey(entry) {
             return entry.personRef;
     }
 }
+/** Refusal codes of the referent lookup. */
+export const REFERENT_FOR_UNIT_REFUSALS = ['referent_not_in_map', 'referent_superseded'];
+/**
+ * One rule to find the referent of a unit: business unit level, then project, then client.
+ * The first level with a matching entry wins; within it the highest version. Never crosses
+ * tenant, organization, client or project.
+ */
+export function referentForUnit(input) {
+    const { entries, scope, referent } = input;
+    const sameReferent = entries.filter((entry) => entry.tenantId === scope.tenantId &&
+        entry.organizationId === scope.organizationId &&
+        entry.clientId === scope.clientId &&
+        entry.personRef === referent.personRef);
+    const levels = [
+        ['business_unit', (e) => e.level === 'business_unit' && e.projectId === scope.projectId && e.buSlug === scope.buSlug],
+        ['project', (e) => e.level === 'project' && e.projectId === scope.projectId],
+        ['client', (e) => e.level === 'client'],
+    ];
+    for (const [level, matches] of levels) {
+        const found = sameReferent.filter(matches);
+        if (found.length === 0)
+            continue;
+        const entry = found.reduce((best, candidate) => (candidate.version > best.version ? candidate : best));
+        if (referent.entryVersion !== undefined && referent.entryVersion !== entry.version) {
+            return { ok: false, code: 'referent_superseded' };
+        }
+        return { ok: true, entry, level };
+    }
+    return { ok: false, code: 'referent_not_in_map' };
+}
 //# sourceMappingURL=company-map.js.map

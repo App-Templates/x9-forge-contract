@@ -526,8 +526,8 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
     kind: z.ZodLiteral<"blocked">;
     reason: z.ZodEnum<{
         conflict: "conflict";
-        missing: "missing";
         referent_superseded: "referent_superseded";
+        missing: "missing";
     }>;
     eventId: z.ZodString;
     at: z.ZodISODateTime;
@@ -801,8 +801,8 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
         kind: z.ZodLiteral<"blocked">;
         reason: z.ZodEnum<{
             conflict: "conflict";
-            missing: "missing";
             referent_superseded: "referent_superseded";
+            missing: "missing";
         }>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;

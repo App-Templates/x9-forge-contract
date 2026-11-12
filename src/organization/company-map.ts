@@ -252,3 +252,46 @@ export function companyMapEntryKey(
       return entry.personRef;
   }
 }
+
+/** Refusal codes of the referent lookup. */
+export const REFERENT_FOR_UNIT_REFUSALS = ['referent_not_in_map', 'referent_superseded'] as const;
+export type ReferentForUnitRefusal = (typeof REFERENT_FOR_UNIT_REFUSALS)[number];
+
+export type ReferentForUnitResult =
+  | { ok: true; entry: CompanyMapEntry; level: CompanyMapLevel }
+  | { ok: false; code: ReferentForUnitRefusal };
+
+/**
+ * One rule to find the referent of a unit: business unit level, then project, then client.
+ * The first level with a matching entry wins; within it the highest version. Never crosses
+ * tenant, organization, client or project.
+ */
+export function referentForUnit(input: {
+  entries: readonly CompanyMapEntry[];
+  scope: { tenantId: string; organizationId: string; clientId: string; projectId: string; buSlug: string };
+  referent: { personRef: string; entryVersion?: number | undefined };
+}): ReferentForUnitResult {
+  const { entries, scope, referent } = input;
+  const sameReferent = entries.filter(
+    (entry) =>
+      entry.tenantId === scope.tenantId &&
+      entry.organizationId === scope.organizationId &&
+      entry.clientId === scope.clientId &&
+      entry.personRef === referent.personRef,
+  );
+  const levels: Array<[CompanyMapLevel, (entry: CompanyMapEntry) => boolean]> = [
+    ['business_unit', (e) => e.level === 'business_unit' && e.projectId === scope.projectId && e.buSlug === scope.buSlug],
+    ['project', (e) => e.level === 'project' && e.projectId === scope.projectId],
+    ['client', (e) => e.level === 'client'],
+  ];
+  for (const [level, matches] of levels) {
+    const found = sameReferent.filter(matches);
+    if (found.length === 0) continue;
+    const entry = found.reduce((best, candidate) => (candidate.version > best.version ? candidate : best));
+    if (referent.entryVersion !== undefined && referent.entryVersion !== entry.version) {
+      return { ok: false, code: 'referent_superseded' };
+    }
+    return { ok: true, entry, level };
+  }
+  return { ok: false, code: 'referent_not_in_map' };
+}
