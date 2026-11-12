@@ -89,9 +89,10 @@ export declare const DevSessionMaterialSchema: z.ZodDiscriminatedUnion<[z.ZodObj
 export type DevSessionMaterial = z.infer<typeof DevSessionMaterialSchema>;
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
- * cap-dev dall'identità verificata della chiamata, mai dal modello. I materiali devono essere della stessa azienda,
- * dello stesso progetto e dello stesso tenant dell'incarico, e di nessun'altra business unit: se non lo sono,
- * l'incarico non è valido, sia in apertura sia in lettura.
+ * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
+ * and project as the assignment; any business unit of that project may supply them, because who may read a file is
+ * decided where its bytes are copied, with the organization rule of the bridge, and only the owning unit writes.
+ * If they do not, the assignment is not valid, both when opened and when read.
  */
 export declare const DevSessionAssignmentSchema: z.ZodObject<{
     version: z.ZodLiteral<1>;

@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.190.0 — an assignment accepts materials from another business unit of the same project (task 6533)
+
+- `DevSessionAssignmentSchema` no longer refuses an asset whose `buSlug` differs from the assignment's business unit (`material_foreign_business_unit` is gone); tenant, company and project are still checked in that order.
+- The service that copies the bytes decides who may read them, with `organizationAccess` (level `read`); only the owning unit writes (memory `asset_foreign_business_unit`, unchanged).
+- Widening only: no saved assignment becomes invalid. Consumers: X9 adoption (ec-x9/6535) and cap-dev (ec-x9/6536); this version alone does not enable the consumer behaviour.
+
 ## v1.189.0 — the native wake knows the lifted spend cap (task 6526)
 
 - `http/endpoints/internal-paperclip-seats` adds the native-wake event `limit_lifted` (`limit: company_spend`, `revision`, `liftedAt`; requires `organizationId` and `identity`). No new result: `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS` stays at 11 entries; for this event `deferred` means the check was requested from Paperclip and `no_task` that no issue waits on the cap.

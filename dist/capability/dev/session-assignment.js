@@ -65,9 +65,10 @@ export const DevSessionMaterialSchema = z.discriminatedUnion('kind', [
 ]);
 /**
  * L'incarico. Tutto ciò che identifica chi lo apre (tenant, owner, organizzazione, agente, business unit) è messo da
- * cap-dev dall'identità verificata della chiamata, mai dal modello. I materiali devono essere della stessa azienda,
- * dello stesso progetto e dello stesso tenant dell'incarico, e di nessun'altra business unit: se non lo sono,
- * l'incarico non è valido, sia in apertura sia in lettura.
+ * cap-dev dall'identità verificata della chiamata, mai dal modello. Materials must come from the same tenant, company
+ * and project as the assignment; any business unit of that project may supply them, because who may read a file is
+ * decided where its bytes are copied, with the organization rule of the bridge, and only the owning unit writes.
+ * If they do not, the assignment is not valid, both when opened and when read.
  */
 export const DevSessionAssignmentSchema = z.strictObject({
     version: z.literal(1),
@@ -108,8 +109,6 @@ export const DevSessionAssignmentSchema = z.strictObject({
             mismatch('material_foreign_company');
         else if (asset.projectId !== assignment.projectId)
             mismatch('material_foreign_project');
-        else if (asset.buSlug !== undefined && asset.buSlug !== assignment.businessUnit.slug)
-            mismatch('material_foreign_business_unit');
     });
 });
 /**
