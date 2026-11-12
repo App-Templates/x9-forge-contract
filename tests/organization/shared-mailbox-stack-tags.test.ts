@@ -1,5 +1,9 @@
+import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
+import { DecisionRequestIdSchema } from '../../src/organization/decision-request.js';
 import {
+  GENERATED_DECISION_REQUEST_ID_PREFIX,
+  GeneratedDecisionRequestIdSchema,
   SharedMailboxSchema,
   SharedMailboxThreadSchema,
   decideSharedMailboxRoute,
@@ -80,8 +84,8 @@ describe('s6728 etichetta-di-sistema: a stack decision tag is never a holder lab
     }
     expect(isStackSubjectTag(`decisione ${requestId}`)).toBe(true);
     expect(isStackSubjectTag(` DECISIONE  ${requestId} `)).toBe(true);
-    // "Finale" is a valid request id shape, so the group is a tag by shape: the holder label must win in routing.
-    expect(isStackSubjectTag('Decisione Finale')).toBe(true);
+    // only a generated id makes a tag: "Finale" is a plain word, so the holder label wins in routing anyway.
+    expect(isStackSubjectTag('Decisione Finale')).toBe(false);
     const finalDecisionMailbox = SharedMailboxSchema.parse({
       ...directors,
       holders: [...directors.holders, {
@@ -101,5 +105,39 @@ describe('s6728 etichetta-di-sistema: a stack decision tag is never a holder lab
       mailbox: chiefs, threads: [], subject: `[decisione ${requestId}] [Dati GC] x`,
     })).toEqual({ agentId: 'bu-dati-good-choice', via: 'label' });
     expect(parseSharedMailboxSubjectLabel(`[decisione ${requestId}] x`)).toBeNull();
+  });
+});
+
+describe('s6709 forma-vera-del-tag: only the id shape the stack generates makes a decision tag', () => {
+  it('(a) refuses holder-like groups as unknown labels on the directors mailbox', () => {
+    const groups = [
+      'Decisione urgente', 'decisione Cantina-Facile', 'Decisione Rapide', 'decisione dec_12345',
+      `decisione ${requestId.toUpperCase()}`,
+    ];
+    for (const group of groups) {
+      expect(isStackSubjectTag(group)).toBe(false);
+      expect(decideSharedMailboxRoute({ mailbox: directors, threads: [], subject: `[${group}] x` }))
+        .toEqual({ via: 'refused', reason: 'label_unknown', label: group });
+      expect(decideSharedMailboxRoute({ mailbox: chiefs, threads: [], subject: `[${group}] x` }))
+        .toEqual({ agentId: 'capo-dati', via: 'default' });
+    }
+  });
+
+  it('(b) keeps real generated tags going by default or thread, and the wide schema reading saved ids', () => {
+    const id = `${GENERATED_DECISION_REQUEST_ID_PREFIX}${randomUUID()}`;
+    const subject = `Re: [decisione ${id}] Piano`;
+    expect(isStackSubjectTag(`decisione ${id}`)).toBe(true);
+    expect(decideSharedMailboxRoute({ mailbox: directors, threads: [], subject }))
+      .toEqual({ agentId: 'director-good-choice', via: 'default' });
+    expect(decideSharedMailboxRoute({
+      mailbox: directors, threads: [directorThread], providerThreadId: 'th-1', subject,
+    })).toEqual({ agentId: 'director-cantina-facile', via: 'thread' });
+    expect(GeneratedDecisionRequestIdSchema.safeParse(id).success).toBe(true);
+    expect(isStackSubjectTag(`decisione ${randomUUID()}`)).toBe(false);
+    expect(GeneratedDecisionRequestIdSchema.safeParse(randomUUID()).success).toBe(false);
+    for (const saved of ['Finale', 'req-1311', 'abc123']) {
+      expect(DecisionRequestIdSchema.safeParse(saved).success).toBe(true);
+      expect(GeneratedDecisionRequestIdSchema.safeParse(saved).success).toBe(false);
+    }
   });
 });

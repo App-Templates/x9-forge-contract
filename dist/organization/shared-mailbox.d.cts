@@ -114,6 +114,10 @@ type SharedMailboxRouteInput = {
     providerThreadId?: string | null;
     subject: string;
 };
+/** prefix of the request id the stack generates for a decision (X9 email-request-decision) */
+export declare const GENERATED_DECISION_REQUEST_ID_PREFIX = "dec_";
+/** shape of the request id the stack generates for a decision, `dec_` + lowercase UUID; stored ids are read with the wider DecisionRequestIdSchema */
+export declare const GeneratedDecisionRequestIdSchema: z.ZodString;
 /** a bracket group written by the stack itself (decision request tag): never a holder label */
 export declare function isStackSubjectTag(group: string): boolean;
 /** Thread first, then leading holders or stack tags; directors refuse an unknown group. */

@@ -104,12 +104,16 @@ export function parseSharedMailboxSubjectLabel(subject) {
 }
 export const SHARED_MAILBOX_REFUSAL_REASONS = ['label_unknown'];
 const REFUSED_LABEL_MAX_LENGTH = 80;
+/** prefix of the request id the stack generates for a decision (X9 email-request-decision) */
+export const GENERATED_DECISION_REQUEST_ID_PREFIX = 'dec_';
+/** shape of the request id the stack generates for a decision, `dec_` + lowercase UUID; stored ids are read with the wider DecisionRequestIdSchema */
+export const GeneratedDecisionRequestIdSchema = DecisionRequestIdSchema.regex(new RegExp(`^${GENERATED_DECISION_REQUEST_ID_PREFIX}[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`));
 /** a bracket group written by the stack itself (decision request tag): never a holder label */
 export function isStackSubjectTag(group) {
     const match = /^(\S+)\s+(\S+)$/u.exec(group.trim());
     return match !== null
         && match[1].toLowerCase() === DECISION_REQUEST_SUBJECT_LABEL.toLowerCase()
-        && DecisionRequestIdSchema.safeParse(match[2]).success;
+        && GeneratedDecisionRequestIdSchema.safeParse(match[2]).success;
 }
 /** Thread first, then leading holders or stack tags; directors refuse an unknown group. */
 export function decideSharedMailboxRoute(input) {

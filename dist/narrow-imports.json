@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.201.0",
+  "versione": "1.202.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2512,6 +2512,8 @@
       "ExperienceReceiptSchema": "@x9-forge/contracts/organization/experience",
       "ExperimentSchema": "@x9-forge/contracts/organization/experiment",
       "ExperimentStatusSchema": "@x9-forge/contracts/organization/experiment",
+      "GENERATED_DECISION_REQUEST_ID_PREFIX": "@x9-forge/contracts/organization/shared-mailbox",
+      "GeneratedDecisionRequestIdSchema": "@x9-forge/contracts/organization/shared-mailbox",
       "KnowledgeContradictionSchema": "@x9-forge/contracts/organization/knowledge-publication",
       "KnowledgeContradictionTargetSchema": "@x9-forge/contracts/organization/knowledge-publication",
       "KnowledgeEvidenceRefSchema": "@x9-forge/contracts/organization/knowledge-publication",

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SHARED_MAILBOX_REFUSAL_REASONS = exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxAudienceSchema = exports.SHARED_MAILBOX_AUDIENCES = exports.DIRECTORS_MAILBOX_AUDIENCE = exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
+exports.GeneratedDecisionRequestIdSchema = exports.GENERATED_DECISION_REQUEST_ID_PREFIX = exports.SHARED_MAILBOX_REFUSAL_REASONS = exports.SHARED_MAILBOX_ROUTE_VIAS = exports.SharedMailboxThreadSchema = exports.SharedMailboxesFileSchema = exports.SharedMailboxFileEntrySchema = exports.SHARED_MAILBOXES_FILE = exports.SharedMailboxSchema = exports.SharedMailboxAudienceSchema = exports.SHARED_MAILBOX_AUDIENCES = exports.DIRECTORS_MAILBOX_AUDIENCE = exports.BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE = exports.SharedMailboxHolderSchema = exports.SharedMailboxLabelSchema = void 0;
 exports.sharedMailboxAudience = sharedMailboxAudience;
 exports.parseSharedMailboxesFile = parseSharedMailboxesFile;
 exports.parseSharedMailboxSubjectLabel = parseSharedMailboxSubjectLabel;
@@ -115,12 +115,16 @@ function parseSharedMailboxSubjectLabel(subject) {
 }
 exports.SHARED_MAILBOX_REFUSAL_REASONS = ['label_unknown'];
 const REFUSED_LABEL_MAX_LENGTH = 80;
+/** prefix of the request id the stack generates for a decision (X9 email-request-decision) */
+exports.GENERATED_DECISION_REQUEST_ID_PREFIX = 'dec_';
+/** shape of the request id the stack generates for a decision, `dec_` + lowercase UUID; stored ids are read with the wider DecisionRequestIdSchema */
+exports.GeneratedDecisionRequestIdSchema = decision_request_js_1.DecisionRequestIdSchema.regex(new RegExp(`^${exports.GENERATED_DECISION_REQUEST_ID_PREFIX}[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`));
 /** a bracket group written by the stack itself (decision request tag): never a holder label */
 function isStackSubjectTag(group) {
     const match = /^(\S+)\s+(\S+)$/u.exec(group.trim());
     return match !== null
         && match[1].toLowerCase() === decision_request_js_1.DECISION_REQUEST_SUBJECT_LABEL.toLowerCase()
-        && decision_request_js_1.DecisionRequestIdSchema.safeParse(match[2]).success;
+        && exports.GeneratedDecisionRequestIdSchema.safeParse(match[2]).success;
 }
 /** Thread first, then leading holders or stack tags; directors refuse an unknown group. */
 function decideSharedMailboxRoute(input) {

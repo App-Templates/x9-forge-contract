@@ -2,6 +2,13 @@
 
 ## Non rilasciato
 
+## v1.202.0 — stack decision tag recognised by its generated id shape (task 6709)
+
+- New constants `GENERATED_DECISION_REQUEST_ID_PREFIX` (`'dec_'`) and `GeneratedDecisionRequestIdSchema` (`dec_` + lowercase UUID, built from the prefix).
+- A bracket group is a stack tag only with a `dec_` + UUID id; any other word is a label (unknown on the Directors mailbox, so `[Decisione Rapide]` is refused, not sent to the default Director).
+- `DecisionRequestIdSchema` unchanged (stored ids and planIds).
+- Consumers: X9 (6729: tests with real ids), Forge none.
+
 ## v1.201.0 — named audiences of the shared mailbox (task 6732)
 
 - New constants `BUSINESS_UNIT_LEADS_MAILBOX_AUDIENCE` (`'business_unit_leads'`, also what an absent `audience` means) and `DIRECTORS_MAILBOX_AUDIENCE` (`'directors'`).
