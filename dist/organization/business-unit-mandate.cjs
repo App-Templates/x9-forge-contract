@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MandateAttemptObservationSchema = exports.MandateAttemptEventSchema = exports.MANDATE_ATTEMPT_EVENT_KINDS = exports.MandateAttemptScopeSchema = exports.MandateAttemptObservationIdSchema = exports.ReconciledMandateSchema = exports.MandateReconciliationSchema = exports.MandateSourceSchema = exports.MANDATE_SOURCES = exports.MandateReconciliationOutcomeSchema = exports.MANDATE_RECONCILIATION_OUTCOMES = void 0;
+exports.MandateAttemptObservationSchema = exports.MandateAttemptEventSchema = exports.MANDATE_ATTEMPT_EVENT_KINDS = exports.MandateAttemptScopeSchema = exports.MandateAttemptObservationIdSchema = exports.ReconciledMandateSchema = exports.MandateWorkModeSchema = exports.MandateWorkplaceSchema = exports.MandateReconciliationSchema = exports.MandateSourceSchema = exports.MANDATE_SOURCES = exports.MandateReconciliationOutcomeSchema = exports.MANDATE_RECONCILIATION_OUTCOMES = void 0;
 const zod_1 = require("zod");
 const wiki_js_1 = require("../capability/lab/wiki.cjs");
 const action_plan_js_1 = require("./action-plan.cjs");
@@ -31,6 +31,33 @@ exports.MandateReconciliationSchema = zod_1.z.discriminatedUnion('outcome', [
         })).min(1).max(50),
     }),
 ]);
+/** Repository, relative working folder and GitHub session board configured for the unit. */
+exports.MandateWorkplaceSchema = zod_1.z.strictObject({
+    repository: zod_1.z.strictObject({
+        host: zod_1.z.enum(['github', 'bitbucket']),
+        repo: asset_js_1.AssetOriginSchema.options[2].shape.repo.unwrap(),
+    }),
+    folder: zod_1.z.string().min(1).max(512).refine((folder) => !folder.startsWith('/') && !/^[A-Za-z]:/.test(folder) && !folder.includes('\\') &&
+        !folder.split('/').some((segment) => segment === '' || segment === '..'), { message: 'Working folder must be relative and contain no backslashes, empty or parent segments' }).optional(),
+    sessionBoard: zod_1.z.strictObject({
+        repo: asset_js_1.AssetOriginSchema.options[2].shape.repo.unwrap(),
+    }).optional(),
+});
+const MandateToolNamesSchema = zod_1.z.array(zod_1.z.string().regex(/^[a-z][a-z0-9_]{2,63}$/)).max(40).refine((tools) => new Set(tools).size === tools.length, { message: 'Tool names must be unique' });
+/** Execution mode and tool permissions configured for the unit. */
+exports.MandateWorkModeSchema = zod_1.z.strictObject({
+    executor: action_plan_js_1.ActionPlanBuExecutorSchema,
+    allowedTools: MandateToolNamesSchema.min(1),
+    excludedTools: MandateToolNamesSchema.optional(),
+}).superRefine((mode, ctx) => {
+    if (mode.excludedTools?.some((tool) => mode.allowedTools.includes(tool))) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Allowed and excluded tools must be disjoint',
+            path: ['excludedTools'],
+        });
+    }
+});
 /** Versioned sources and their reconciliation, embedded in a business unit brief. */
 exports.ReconciledMandateSchema = zod_1.z.strictObject({
     tenantId: asset_js_1.AssetRefSchema.shape.tenantId,
@@ -64,7 +91,34 @@ exports.ReconciledMandateSchema = zod_1.z.strictObject({
     })).max(100),
     reconciliation: exports.MandateReconciliationSchema,
     reconciledAt: zod_1.z.iso.datetime({ offset: true }),
+    /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+    workplace: exports.MandateWorkplaceSchema.optional(),
+    /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+    workMode: exports.MandateWorkModeSchema.optional(),
 }).superRefine((mandate, ctx) => {
+    if (mandate.workMode !== undefined && mandate.workMode.executor !== mandate.planSection.businessUnit.executor) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Work mode executor must match the plan business unit executor',
+            path: ['workMode', 'executor'],
+        });
+    }
+    if (mandate.workMode?.executor === 'dev_session') {
+        if (mandate.workplace?.sessionBoard === undefined) {
+            ctx.addIssue({
+                code: 'custom',
+                message: 'Development sessions require a session board',
+                path: ['workplace', 'sessionBoard'],
+            });
+        }
+        if (mandate.workplace?.repository.host !== 'github') {
+            ctx.addIssue({
+                code: 'custom',
+                message: 'Development sessions require a GitHub repository',
+                path: ['workplace', 'repository', 'host'],
+            });
+        }
+    }
     if (mandate.decision.planVersion !== mandate.planSection.planVersion) {
         ctx.addIssue({
             code: 'custom',

@@ -167,6 +167,28 @@ export declare const InternalMemoryMandateObservationEventWriteRequestSchema: z.
                 }, z.core.$strict>>;
             }, z.core.$strict>], "outcome">;
             reconciledAt: z.ZodISODateTime;
+            workplace: z.ZodOptional<z.ZodObject<{
+                repository: z.ZodObject<{
+                    host: z.ZodEnum<{
+                        bitbucket: "bitbucket";
+                        github: "github";
+                    }>;
+                    repo: z.ZodString;
+                }, z.core.$strict>;
+                folder: z.ZodOptional<z.ZodString>;
+                sessionBoard: z.ZodOptional<z.ZodObject<{
+                    repo: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+            workMode: z.ZodOptional<z.ZodObject<{
+                executor: z.ZodEnum<{
+                    agent: "agent";
+                    night: "night";
+                    dev_session: "dev_session";
+                }>;
+                allowedTools: z.ZodArray<z.ZodString>;
+                excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>>;
         }, z.core.$strict>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;
@@ -369,6 +391,28 @@ export declare const InternalMemoryMandateObservationReadResponseSchema: z.ZodOb
                     }, z.core.$strict>>;
                 }, z.core.$strict>], "outcome">;
                 reconciledAt: z.ZodISODateTime;
+                workplace: z.ZodOptional<z.ZodObject<{
+                    repository: z.ZodObject<{
+                        host: z.ZodEnum<{
+                            bitbucket: "bitbucket";
+                            github: "github";
+                        }>;
+                        repo: z.ZodString;
+                    }, z.core.$strict>;
+                    folder: z.ZodOptional<z.ZodString>;
+                    sessionBoard: z.ZodOptional<z.ZodObject<{
+                        repo: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                workMode: z.ZodOptional<z.ZodObject<{
+                    executor: z.ZodEnum<{
+                        agent: "agent";
+                        night: "night";
+                        dev_session: "dev_session";
+                    }>;
+                    allowedTools: z.ZodArray<z.ZodString>;
+                    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -572,6 +616,28 @@ export declare const InternalMemoryMandateObservationEventWriteResponseSchema: z
                     }, z.core.$strict>>;
                 }, z.core.$strict>], "outcome">;
                 reconciledAt: z.ZodISODateTime;
+                workplace: z.ZodOptional<z.ZodObject<{
+                    repository: z.ZodObject<{
+                        host: z.ZodEnum<{
+                            bitbucket: "bitbucket";
+                            github: "github";
+                        }>;
+                        repo: z.ZodString;
+                    }, z.core.$strict>;
+                    folder: z.ZodOptional<z.ZodString>;
+                    sessionBoard: z.ZodOptional<z.ZodObject<{
+                        repo: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                workMode: z.ZodOptional<z.ZodObject<{
+                    executor: z.ZodEnum<{
+                        agent: "agent";
+                        night: "night";
+                        dev_session: "dev_session";
+                    }>;
+                    allowedTools: z.ZodArray<z.ZodString>;
+                    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -808,6 +874,28 @@ export declare const internalMemoryMandateObservationReadContract: {
                         }, z.core.$strict>>;
                     }, z.core.$strict>], "outcome">;
                     reconciledAt: z.ZodISODateTime;
+                    workplace: z.ZodOptional<z.ZodObject<{
+                        repository: z.ZodObject<{
+                            host: z.ZodEnum<{
+                                bitbucket: "bitbucket";
+                                github: "github";
+                            }>;
+                            repo: z.ZodString;
+                        }, z.core.$strict>;
+                        folder: z.ZodOptional<z.ZodString>;
+                        sessionBoard: z.ZodOptional<z.ZodObject<{
+                            repo: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
+                    workMode: z.ZodOptional<z.ZodObject<{
+                        executor: z.ZodEnum<{
+                            agent: "agent";
+                            night: "night";
+                            dev_session: "dev_session";
+                        }>;
+                        allowedTools: z.ZodArray<z.ZodString>;
+                        excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;
@@ -1023,6 +1111,28 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                     }, z.core.$strict>>;
                 }, z.core.$strict>], "outcome">;
                 reconciledAt: z.ZodISODateTime;
+                workplace: z.ZodOptional<z.ZodObject<{
+                    repository: z.ZodObject<{
+                        host: z.ZodEnum<{
+                            bitbucket: "bitbucket";
+                            github: "github";
+                        }>;
+                        repo: z.ZodString;
+                    }, z.core.$strict>;
+                    folder: z.ZodOptional<z.ZodString>;
+                    sessionBoard: z.ZodOptional<z.ZodObject<{
+                        repo: z.ZodString;
+                    }, z.core.$strict>>;
+                }, z.core.$strict>>;
+                workMode: z.ZodOptional<z.ZodObject<{
+                    executor: z.ZodEnum<{
+                        agent: "agent";
+                        night: "night";
+                        dev_session: "dev_session";
+                    }>;
+                    allowedTools: z.ZodArray<z.ZodString>;
+                    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                }, z.core.$strict>>;
             }, z.core.$strict>;
             eventId: z.ZodString;
             at: z.ZodISODateTime;
@@ -1224,6 +1334,28 @@ export declare const internalMemoryMandateObservationEventWriteContract: {
                         }, z.core.$strict>>;
                     }, z.core.$strict>], "outcome">;
                     reconciledAt: z.ZodISODateTime;
+                    workplace: z.ZodOptional<z.ZodObject<{
+                        repository: z.ZodObject<{
+                            host: z.ZodEnum<{
+                                bitbucket: "bitbucket";
+                                github: "github";
+                            }>;
+                            repo: z.ZodString;
+                        }, z.core.$strict>;
+                        folder: z.ZodOptional<z.ZodString>;
+                        sessionBoard: z.ZodOptional<z.ZodObject<{
+                            repo: z.ZodString;
+                        }, z.core.$strict>>;
+                    }, z.core.$strict>>;
+                    workMode: z.ZodOptional<z.ZodObject<{
+                        executor: z.ZodEnum<{
+                            agent: "agent";
+                            night: "night";
+                            dev_session: "dev_session";
+                        }>;
+                        allowedTools: z.ZodArray<z.ZodString>;
+                        excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+                    }, z.core.$strict>>;
                 }, z.core.$strict>;
                 eventId: z.ZodString;
                 at: z.ZodISODateTime;

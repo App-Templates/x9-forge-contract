@@ -42,6 +42,32 @@ export declare const MandateReconciliationSchema: z.ZodDiscriminatedUnion<[z.Zod
     }, z.core.$strict>>;
 }, z.core.$strict>], "outcome">;
 export type MandateReconciliation = z.infer<typeof MandateReconciliationSchema>;
+/** Repository, relative working folder and GitHub session board configured for the unit. */
+export declare const MandateWorkplaceSchema: z.ZodObject<{
+    repository: z.ZodObject<{
+        host: z.ZodEnum<{
+            bitbucket: "bitbucket";
+            github: "github";
+        }>;
+        repo: z.ZodString;
+    }, z.core.$strict>;
+    folder: z.ZodOptional<z.ZodString>;
+    sessionBoard: z.ZodOptional<z.ZodObject<{
+        repo: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type MandateWorkplace = z.infer<typeof MandateWorkplaceSchema>;
+/** Execution mode and tool permissions configured for the unit. */
+export declare const MandateWorkModeSchema: z.ZodObject<{
+    executor: z.ZodEnum<{
+        agent: "agent";
+        night: "night";
+        dev_session: "dev_session";
+    }>;
+    allowedTools: z.ZodArray<z.ZodString>;
+    excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+}, z.core.$strict>;
+export type MandateWorkMode = z.infer<typeof MandateWorkModeSchema>;
 /** Versioned sources and their reconciliation, embedded in a business unit brief. */
 export declare const ReconciledMandateSchema: z.ZodObject<{
     tenantId: z.ZodString;
@@ -187,6 +213,30 @@ export declare const ReconciledMandateSchema: z.ZodObject<{
         }, z.core.$strict>>;
     }, z.core.$strict>], "outcome">;
     reconciledAt: z.ZodISODateTime;
+    /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+    workplace: z.ZodOptional<z.ZodObject<{
+        repository: z.ZodObject<{
+            host: z.ZodEnum<{
+                bitbucket: "bitbucket";
+                github: "github";
+            }>;
+            repo: z.ZodString;
+        }, z.core.$strict>;
+        folder: z.ZodOptional<z.ZodString>;
+        sessionBoard: z.ZodOptional<z.ZodObject<{
+            repo: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+    workMode: z.ZodOptional<z.ZodObject<{
+        executor: z.ZodEnum<{
+            agent: "agent";
+            night: "night";
+            dev_session: "dev_session";
+        }>;
+        allowedTools: z.ZodArray<z.ZodString>;
+        excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type ReconciledMandate = z.infer<typeof ReconciledMandateSchema>;
 export declare const MandateAttemptObservationIdSchema: z.ZodString;
@@ -351,6 +401,30 @@ export declare const MandateAttemptEventSchema: z.ZodDiscriminatedUnion<[z.ZodOb
             }, z.core.$strict>>;
         }, z.core.$strict>], "outcome">;
         reconciledAt: z.ZodISODateTime;
+        /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+        workplace: z.ZodOptional<z.ZodObject<{
+            repository: z.ZodObject<{
+                host: z.ZodEnum<{
+                    bitbucket: "bitbucket";
+                    github: "github";
+                }>;
+                repo: z.ZodString;
+            }, z.core.$strict>;
+            folder: z.ZodOptional<z.ZodString>;
+            sessionBoard: z.ZodOptional<z.ZodObject<{
+                repo: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+        /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+        workMode: z.ZodOptional<z.ZodObject<{
+            executor: z.ZodEnum<{
+                agent: "agent";
+                night: "night";
+                dev_session: "dev_session";
+            }>;
+            allowedTools: z.ZodArray<z.ZodString>;
+            excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        }, z.core.$strict>>;
     }, z.core.$strict>;
     eventId: z.ZodString;
     at: z.ZodISODateTime;
@@ -555,6 +629,30 @@ export declare const MandateAttemptObservationSchema: z.ZodObject<{
                 }, z.core.$strict>>;
             }, z.core.$strict>], "outcome">;
             reconciledAt: z.ZodISODateTime;
+            /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+            workplace: z.ZodOptional<z.ZodObject<{
+                repository: z.ZodObject<{
+                    host: z.ZodEnum<{
+                        bitbucket: "bitbucket";
+                        github: "github";
+                    }>;
+                    repo: z.ZodString;
+                }, z.core.$strict>;
+                folder: z.ZodOptional<z.ZodString>;
+                sessionBoard: z.ZodOptional<z.ZodObject<{
+                    repo: z.ZodString;
+                }, z.core.$strict>>;
+            }, z.core.$strict>>;
+            /** Service-owned: filled from the unit configuration, never from model input; absent in mandates saved before 1.173.0. */
+            workMode: z.ZodOptional<z.ZodObject<{
+                executor: z.ZodEnum<{
+                    agent: "agent";
+                    night: "night";
+                    dev_session: "dev_session";
+                }>;
+                allowedTools: z.ZodArray<z.ZodString>;
+                excludedTools: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            }, z.core.$strict>>;
         }, z.core.$strict>;
         eventId: z.ZodString;
         at: z.ZodISODateTime;

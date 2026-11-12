@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.173.0 — mandate workplace and execution tools; additive (task 6345)
+
+- `organization/business-unit-mandate` adds `MandateWorkplaceSchema` / `MandateWorkplace` and `MandateWorkModeSchema` / `MandateWorkMode`. The reconciled mandate optionally carries the repository, relative folder, GitHub session board, plan executor and unique, disjoint allowed/excluded tool lists. Development sessions require a GitHub repository and a session board. These fields are service-owned and filled from unit configuration. Mandates and reconciled observations saved before this version remain valid with both fields absent.
+- Consumers are cap-paperclip (composes the mandate), Memoria (saves observations), cap-dev and agent-core (read it), and Forge (panel). Strict readers must adopt 1.173.0 before writers populate these fields. Consumer tasks provide runtime availability.
+
 ## v1.172.0 — one decision per delivery and version; the referent reply handover carries text; additive (task 6344)
 
 - `organization/decision-request` adds `DELIVERY_DECISION_DUPLICATE_CODES`, `deliveryDecisionDuplicate` (pure, no clock: names `decision_already_pending` or `decision_already_approved` with the oldest request on the same piece, same asset version or, when not declared on both, same delivery file; a rejected request lets a new one through), `ReferentReplyHandoverSchema` (text plus a message id readable from `receivedBy`) and `decisionOutcomeFromHandover`. Nothing saved changes.

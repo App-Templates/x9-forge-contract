@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.172.0",
+  "versione": "1.173.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2493,6 +2493,8 @@
       "MandateReconciliationOutcomeSchema": "@x9-forge/contracts/organization/business-unit-mandate",
       "MandateReconciliationSchema": "@x9-forge/contracts/organization/business-unit-mandate",
       "MandateSourceSchema": "@x9-forge/contracts/organization/business-unit-mandate",
+      "MandateWorkModeSchema": "@x9-forge/contracts/organization/business-unit-mandate",
+      "MandateWorkplaceSchema": "@x9-forge/contracts/organization/business-unit-mandate",
       "ORGANIZATION_ACCESS_NEEDS": "@x9-forge/contracts/organization/organization-access",
       "ORGANIZATION_ACCESS_REFUSALS": "@x9-forge/contracts/organization/organization-access",
       "OrganizationAccessDecisionSchema": "@x9-forge/contracts/organization/organization-access",
