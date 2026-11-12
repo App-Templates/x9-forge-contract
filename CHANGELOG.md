@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.200.0 — stack decision tag is not a holder label (task 6728)
+
+- New `isStackSubjectTag(group: string): boolean` recognizes the decision request tag using the shared subject label and request ID schema.
+- `decideSharedMailboxRoute` keeps thread ownership first, then reads consecutive leading bracket groups: holder label first, then a stack tag is skipped, then an unknown group is refused only for `directors`.
+- A reply to a decision opened before a mailbox became a Directors mailbox is no longer refused.
+- On the business unit leads mailbox a stack tag followed by a holder label reaches the holder.
+- No schema changes. Consumers: X9 (6729), before the mailbox seed (6717).
+
 ## v1.199.0 — project name check before the Director birth (task 6720)
 
 - New `http/endpoints/internal-project-name-check`: `internalProjectNameCheckContract` (POST `/internal/paperclip/project-name-check`, secret, read only) asks whether the short name of a project is free in Paperclip for a company: `free` | `taken` with `existing_project` | `archived_project`; five named errors (`invalid_request`, `organization_unknown`, `not_configured`, `reader_unavailable`, `paperclip_unavailable`) each with its HTTP status.

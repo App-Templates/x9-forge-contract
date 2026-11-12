@@ -4,6 +4,7 @@ exports.SHARED_MAILBOX_REFUSAL_REASONS = exports.SHARED_MAILBOX_ROUTE_VIAS = exp
 exports.sharedMailboxAudience = sharedMailboxAudience;
 exports.parseSharedMailboxesFile = parseSharedMailboxesFile;
 exports.parseSharedMailboxSubjectLabel = parseSharedMailboxSubjectLabel;
+exports.isStackSubjectTag = isStackSubjectTag;
 exports.decideSharedMailboxRoute = decideSharedMailboxRoute;
 exports.routeSharedMailboxMessage = routeSharedMailboxMessage;
 exports.formatSharedMailboxSubjectLabel = formatSharedMailboxSubjectLabel;
@@ -12,6 +13,7 @@ const zod_1 = require("zod");
 const agent_identity_js_1 = require("../agent/agent-identity.cjs");
 const agent_email_inbox_js_1 = require("../messaging/agent-email-inbox.cjs");
 const business_unit_lead_js_1 = require("./business-unit-lead.cjs");
+const decision_request_js_1 = require("./decision-request.cjs");
 exports.SharedMailboxLabelSchema = zod_1.z.string().min(1).max(40)
     .regex(/^[\p{L}\p{N}][\p{L}\p{N} -]*$/u);
 exports.SharedMailboxHolderSchema = zod_1.z.strictObject({
@@ -109,7 +111,14 @@ function parseSharedMailboxSubjectLabel(subject) {
 }
 exports.SHARED_MAILBOX_REFUSAL_REASONS = ['label_unknown'];
 const REFUSED_LABEL_MAX_LENGTH = 80;
-/** Thread first, then subject label; a directors mailbox refuses an unknown leading label. */
+/** a bracket group written by the stack itself (decision request tag): never a holder label */
+function isStackSubjectTag(group) {
+    const match = /^(\S+)\s+(\S+)$/u.exec(group.trim());
+    return match !== null
+        && match[1].toLowerCase() === decision_request_js_1.DECISION_REQUEST_SUBJECT_LABEL.toLowerCase()
+        && decision_request_js_1.DecisionRequestIdSchema.safeParse(match[2]).success;
+}
+/** Thread first, then leading holders or stack tags; directors refuse an unknown group. */
 function decideSharedMailboxRoute(input) {
     const { mailbox, threads, providerThreadId, subject } = input;
     const thread = threads.find((candidate) => candidate.mailboxId === mailbox.mailboxId
@@ -117,16 +126,21 @@ function decideSharedMailboxRoute(input) {
         && mailbox.holders.some((holder) => holder.agentId === candidate.agentId));
     if (thread)
         return { agentId: thread.agentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[0] };
-    const label = parseSharedMailboxSubjectLabel(subject);
-    const holder = label === null ? undefined : mailbox.holders.find((candidate) => candidate.label.toLowerCase() === label.toLowerCase());
-    if (holder)
-        return { agentId: holder.agentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[1] };
-    if (sharedMailboxAudience(mailbox) === 'directors') {
-        const unprefixed = subject.replace(/^(?:\s*(?:re|r|fwd|i):\s*)*/i, '').trimStart();
-        const group = /^\[([^\]]*)\]/u.exec(unprefixed);
-        if (group) {
-            return { via: 'refused', reason: exports.SHARED_MAILBOX_REFUSAL_REASONS[0], label: group[1].slice(0, REFUSED_LABEL_MAX_LENGTH) };
+    let remaining = subject.replace(/^(?:\s*(?:re|r|fwd|i):\s*)*/i, '').trimStart();
+    for (let group = /^\[([^\]]*)\]/u.exec(remaining); group; group = /^\[([^\]]*)\]/u.exec(remaining)) {
+        const text = group[1];
+        const label = exports.SharedMailboxLabelSchema.safeParse(text);
+        const holder = label.success ? mailbox.holders.find((candidate) => candidate.label.toLowerCase() === label.data.toLowerCase()) : undefined;
+        if (holder)
+            return { agentId: holder.agentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[1] };
+        if (isStackSubjectTag(text)) {
+            remaining = remaining.slice(group[0].length).trimStart();
+            continue;
         }
+        if (sharedMailboxAudience(mailbox) === 'directors') {
+            return { via: 'refused', reason: exports.SHARED_MAILBOX_REFUSAL_REASONS[0], label: text.slice(0, REFUSED_LABEL_MAX_LENGTH) };
+        }
+        break;
     }
     return { agentId: mailbox.defaultAgentId, via: exports.SHARED_MAILBOX_ROUTE_VIAS[2] };
 }

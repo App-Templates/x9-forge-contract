@@ -110,7 +110,9 @@ type SharedMailboxRouteInput = {
     providerThreadId?: string | null;
     subject: string;
 };
-/** Thread first, then subject label; a directors mailbox refuses an unknown leading label. */
+/** a bracket group written by the stack itself (decision request tag): never a holder label */
+export declare function isStackSubjectTag(group: string): boolean;
+/** Thread first, then leading holders or stack tags; directors refuse an unknown group. */
 export declare function decideSharedMailboxRoute(input: SharedMailboxRouteInput): SharedMailboxRoute | SharedMailboxRouteRefusal;
 /** Same shape as ever; throws on a refusal so a caller that ignores refusals never delivers to the default. */
 export declare function routeSharedMailboxMessage(input: SharedMailboxRouteInput): SharedMailboxRoute;
