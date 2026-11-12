@@ -36,12 +36,14 @@ export const ProjectDirectorEnrollmentRequestSchema = z
   });
 export type ProjectDirectorEnrollmentRequest = z.infer<typeof ProjectDirectorEnrollmentRequestSchema>;
 
+// Order of cap-paperclip: the binding is written before the seat, the key last, by the seat
+// round (it needs the seat). `agent_key` = seat written and still without a key.
 export const PROJECT_DIRECTOR_ENROLLMENT_STEPS = [
   'paperclip_agent',
   'paperclip_project',
-  'agent_key',
-  'seat',
   'binding',
+  'seat',
+  'agent_key',
 ] as const;
 export const ProjectDirectorEnrollmentStepSchema = z.enum(PROJECT_DIRECTOR_ENROLLMENT_STEPS);
 export type ProjectDirectorEnrollmentStep = z.infer<typeof ProjectDirectorEnrollmentStepSchema>;

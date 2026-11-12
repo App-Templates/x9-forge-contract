@@ -35,12 +35,14 @@ exports.ProjectDirectorEnrollmentRequestSchema = zod_1.z
         }
     }
 });
+// Order of cap-paperclip: the binding is written before the seat, the key last, by the seat
+// round (it needs the seat). `agent_key` = seat written and still without a key.
 exports.PROJECT_DIRECTOR_ENROLLMENT_STEPS = [
     'paperclip_agent',
     'paperclip_project',
-    'agent_key',
-    'seat',
     'binding',
+    'seat',
+    'agent_key',
 ];
 exports.ProjectDirectorEnrollmentStepSchema = zod_1.z.enum(exports.PROJECT_DIRECTOR_ENROLLMENT_STEPS);
 /** `enrolled` carries both Paperclip ids and no step; `in_corso` names the step it is at. */

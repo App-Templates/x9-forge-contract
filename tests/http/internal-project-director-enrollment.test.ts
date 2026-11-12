@@ -66,6 +66,19 @@ describe('s6668 iscrivi-director: Forge asks cap-paperclip to enroll the Directo
     }
   });
 
+  it('s6716 ordine-iscrizione: the project Director enrollment steps are listed in the order cap-paperclip does them, Paperclip agent, Paperclip project, binding, seat and agent key last, because the key is written by the seat round and needs the seat already registered', () => {
+    expect(PROJECT_DIRECTOR_ENROLLMENT_STEPS).toEqual([
+      'paperclip_agent',
+      'paperclip_project',
+      'binding',
+      'seat',
+      'agent_key',
+    ]);
+    expect(
+      ProjectDirectorEnrollmentResponseSchema.safeParse({ state: 'in_corso', step: 'agent_key' }).success,
+    ).toBe(true);
+  });
+
   it('knows seven fixed errors and no other', () => {
     expect(PROJECT_DIRECTOR_ENROLLMENT_ERRORS).toHaveLength(7);
     for (const error of PROJECT_DIRECTOR_ENROLLMENT_ERRORS) {

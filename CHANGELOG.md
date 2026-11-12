@@ -2,6 +2,14 @@
 
 ## Non rilasciato
 
+## v1.198.0 — project id within the Director slug, project referent step and write contract, enrollment step order (tasks 6715-6716)
+
+- `ProjectIdSchema` allows at most 21 characters (`director-` + 21 = 30, the slug length of Forge agents); it tightens 1.196.0, which no consumer has adopted.
+- New creation step `project_referent` after `project_group`.
+- New `http/endpoints/internal-project-referent`: `internalProjectReferentWriteContract` (POST `/internal/company-map/project-referent`, secret) writes the `seed` referent entry at project level, with six named errors.
+- `PROJECT_DIRECTOR_ENROLLMENT_STEPS` is now in the order cap-paperclip does them: `paperclip_agent`, `paperclip_project`, `binding`, `seat`, `agent_key` (the key is written by the seat round, which needs the seat). No shape accepts or refuses anything different.
+- Consumers: X9 (6669, 6714), Forge (6686, 6700).
+
 ## v1.197.0 — directors audience of the shared mailbox (task 6703)
 
 - `SharedMailboxSchema` gets an optional `audience` (`business_unit_leads` | `directors`, absent means the first); `sharedMailboxAudience` reads it. Holders are counted per audience: at least 2 for business unit leads, at least 1 for directors.
@@ -12,7 +20,7 @@
 ## v1.196.0 — project Director rule, project create and project Director enrollment contracts (tasks 6666-6668)
 
 - `organization/project-director`: `projectDirector` decides who is the Director of a project, with four fixed refusals.
-- `http/endpoints/internal-project-create`: `internalProjectCreateContract` (create a project and its Director), `ProjectIdSchema` (at most 55 characters), `projectDirectorAgentId`, `contact.mailboxKind` (`own` | `shared`) and the optional `routingKey`.
+- `http/endpoints/internal-project-create`: `internalProjectCreateContract` (create a project and its Director), `ProjectIdSchema` (at most 55 characters), `projectDirectorAgentId`, `contact`: `{ mailboxKind: 'own', address }` or `{ mailboxKind: 'shared', address, subjectLabel }`.
 - `http/endpoints/internal-project-director-enrollment`: `internalProjectDirectorEnrollmentContract` posts the project and the Director (named after the project) to `/internal/paperclip/project-director-enrollment`; the answer is `enrolled` with both Paperclip ids or `in_corso` with the step, and failures are one of seven fixed errors.
 - Additive: no existing schema changes. Consumers: X9 (adoption X0), Forge (F0).
 

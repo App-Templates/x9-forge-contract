@@ -9,8 +9,11 @@ const company_map_js_1 = require("../../organization/company-map.cjs");
 const participant_binding_js_1 = require("../../organization/participant-binding.cjs");
 const shared_mailbox_js_1 = require("../../organization/shared-mailbox.cjs");
 exports.INTERNAL_PROJECT_CREATE_PATH = '/api/internal/factory/projects';
-/** Forge slugs are at most 64 characters; with the `director-` prefix the project id fits in 55. */
-exports.PROJECT_ID_MAX_LENGTH = 55;
+/**
+ * Forge agent slugs are at most 30 characters (`InternalFactoryDeployRequestSchema.slug`, Forge factory create request);
+ * `director-` + 21 = 30.
+ */
+exports.PROJECT_ID_MAX_LENGTH = 21;
 exports.ProjectIdSchema = zod_1.z.string().min(1).max(exports.PROJECT_ID_MAX_LENGTH).regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 /** Forge names the agent of a project Director `director-<projectId>` (management and runtime id alike). */
 exports.PROJECT_DIRECTOR_AGENT_ID_PREFIX = 'director-';
@@ -48,6 +51,7 @@ exports.ProjectCreateRequestSchema = zod_1.z.strictObject({
 exports.PROJECT_CREATE_STEPS = [
     'company_group',
     'project_group',
+    'project_referent',
     'director_birth',
     'director_mailbox',
     'paperclip_enrollment',
@@ -103,6 +107,7 @@ exports.PROJECT_CREATE_ERRORS = [
     'project_taken',
     'requester_not_allowed',
     'request_conflict',
+    /** Covers every creation step, including `project_referent`. */
     'birth_failed',
     'enrollment_failed',
 ];

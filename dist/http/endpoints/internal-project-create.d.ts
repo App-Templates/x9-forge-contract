@@ -1,7 +1,10 @@
 import { z } from 'zod';
 export declare const INTERNAL_PROJECT_CREATE_PATH: "/api/internal/factory/projects";
-/** Forge slugs are at most 64 characters; with the `director-` prefix the project id fits in 55. */
-export declare const PROJECT_ID_MAX_LENGTH: 55;
+/**
+ * Forge agent slugs are at most 30 characters (`InternalFactoryDeployRequestSchema.slug`, Forge factory create request);
+ * `director-` + 21 = 30.
+ */
+export declare const PROJECT_ID_MAX_LENGTH: 21;
 export declare const ProjectIdSchema: z.ZodString;
 /** Forge names the agent of a project Director `director-<projectId>` (management and runtime id alike). */
 export declare const PROJECT_DIRECTOR_AGENT_ID_PREFIX: "director-";
@@ -46,10 +49,11 @@ export declare const ProjectCreateRequestSchema: z.ZodObject<{
 }, z.core.$strict>;
 export type ProjectCreateRequest = z.infer<typeof ProjectCreateRequestSchema>;
 /** Steps of the creation, in order. */
-export declare const PROJECT_CREATE_STEPS: readonly ["company_group", "project_group", "director_birth", "director_mailbox", "paperclip_enrollment", "director_profile"];
+export declare const PROJECT_CREATE_STEPS: readonly ["company_group", "project_group", "project_referent", "director_birth", "director_mailbox", "paperclip_enrollment", "director_profile"];
 export declare const ProjectCreateStepSchema: z.ZodEnum<{
     company_group: "company_group";
     project_group: "project_group";
+    project_referent: "project_referent";
     director_birth: "director_birth";
     director_mailbox: "director_mailbox";
     paperclip_enrollment: "paperclip_enrollment";
@@ -104,6 +108,7 @@ export declare const ProjectCreateResponseSchema: z.ZodDiscriminatedUnion<[z.Zod
     step: z.ZodEnum<{
         company_group: "company_group";
         project_group: "project_group";
+        project_referent: "project_referent";
         director_birth: "director_birth";
         director_mailbox: "director_mailbox";
         paperclip_enrollment: "paperclip_enrollment";
@@ -149,6 +154,7 @@ export declare const ProjectCreateErrorResponseSchema: z.ZodObject<{
     step: z.ZodOptional<z.ZodEnum<{
         company_group: "company_group";
         project_group: "project_group";
+        project_referent: "project_referent";
         director_birth: "director_birth";
         director_mailbox: "director_mailbox";
         paperclip_enrollment: "paperclip_enrollment";

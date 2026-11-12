@@ -23,7 +23,7 @@ export declare const ProjectDirectorEnrollmentRequestSchema: z.ZodObject<{
     }, z.core.$strict>;
 }, z.core.$strict>;
 export type ProjectDirectorEnrollmentRequest = z.infer<typeof ProjectDirectorEnrollmentRequestSchema>;
-export declare const PROJECT_DIRECTOR_ENROLLMENT_STEPS: readonly ["paperclip_agent", "paperclip_project", "agent_key", "seat", "binding"];
+export declare const PROJECT_DIRECTOR_ENROLLMENT_STEPS: readonly ["paperclip_agent", "paperclip_project", "binding", "seat", "agent_key"];
 export declare const ProjectDirectorEnrollmentStepSchema: z.ZodEnum<{
     binding: "binding";
     seat: "seat";
