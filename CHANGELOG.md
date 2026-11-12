@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.177.0 — one fixed shape and sentence for a limit notice; additive (task 6349)
+
+- New `capability/paperclip/limit-notice`: strict `LimitNoticeSchema` (which cap, its value, the observed value, the threshold, what happened, when it resets, who is told) with six coherence rules, `nextUtcMidnight(iso)` and `renderLimitNotice(notice)`, one fixed Italian line. No cap value lives in the bridge; the barrel is untouched and no existing shape changes.
+- Consumers: cap-paperclip when it reads a wake skipped by a daily cap; agent-core for the 80% threshold and the spend refusal; whoever sends it delivers to Director and owner and deduplicates. The Paperclip cap behaviour (`heartbeat.daily_run_limit`, `heartbeat.daily_cost_limit`, UTC day) is read in its code, not proven live.
+
 ## v1.176.0 — fixed inbound event disposition; additive (task 6348)
 
 - `capability/paperclip/inbound-event` adds strict `InboundEventDispositionSchema`, outcome and not-woken reason constants, and `inboundEmailDedupeKey(messageId: string): string` using the shared email message code. A comment requires an author distinct from the assignee and either a wake or a fixed not-woken reason; duplicates carry their deduplication key and refusals carry `ToolErrorDispositionSchema`.
