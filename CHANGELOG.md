@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.192.0 — cap-dev answers with the outcomes and open sessions of the requested departments (task 6564)
+
+- New narrow subpath `http/endpoints/internal-dev-session-outcomes`: `devSessionOutcomesContract` posts the agent scope, the organization and 1–20 departments (project and unit), never a session number. The answer pairs every `DevSessionOutcome` and every open session (`queued` or `working`) with the scope of its own assignment, and reports `unreadable` (closed or discarded sessions without a valid block) and `omitted` (older sessions not read because of the service cap). Limits: 200 outcomes and 200 open sessions; nothing is cut silently.
+- Additive: no existing schema changes (`DevSessionOutcomeSchema` and `BusinessUnitStateScopeSchema` untouched), no endpoint barrel export. Consumers: X9 adoption (ec-x9/6565), cap-dev (ec-x9/6566) and agent-core (ec-x9/6567); this version alone enables no runtime behaviour.
+
 ## v1.191.0 — department state facts come from one Memory contract (task 6530)
 
 - New narrow subpath `http/endpoints/internal-memory-business-unit-state`: `internalMemoryBusinessUnitStateContract` posts only the verified organization run context to Memory. Memory determines the role and visible department scopes; a caller with role `other` receives no departments.
