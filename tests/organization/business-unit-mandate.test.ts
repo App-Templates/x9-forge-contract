@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
+import type * as BusinessUnitMandateModule from '../../src/organization/business-unit-mandate.js';
 import {
   MANDATE_RECONCILIATION_OUTCOMES,
   MANDATE_SOURCES,
@@ -180,7 +181,7 @@ describe('ReconciledMandateSchema planSection objectives and breakdown (1.129.0)
   it('keeps old mandates without the new fields valid in source and CommonJS', () => {
     const value = mandate();
     const require = createRequire(import.meta.url);
-    const commonJs: typeof import('../../src/organization/business-unit-mandate.js') =
+    const commonJs: typeof BusinessUnitMandateModule =
       require('../../dist/organization/business-unit-mandate.cjs');
     expect(ReconciledMandateSchema.parse(value)).toEqual(value);
     expect(commonJs.ReconciledMandateSchema.parse(value)).toEqual(value);

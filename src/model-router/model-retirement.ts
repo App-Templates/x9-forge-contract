@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { INTERNAL_SECRET_HEADER, INTERNAL_TOKEN_HEADER } from '../auth/index.js';
+import { INTERNAL_TOKEN_HEADER } from '../auth/index.js';
 import { CapabilityAgentScopeSchema } from '../capability/capability-call-identity.js';
 import { CapabilityModelIdSchema } from '../capability/ricerca/agent-config.js';
 import { EffectiveModelsParamsSchema, EffectiveSlotRetirementReasonSchema } from './effective-models.js';
