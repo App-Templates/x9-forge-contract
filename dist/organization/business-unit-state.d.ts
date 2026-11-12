@@ -107,18 +107,28 @@ type DeliveryDecision = {
     request: DecisionRequest;
     outcome: DecisionOutcome | null;
 };
+/** A lead review carries no scope of its own: it arrives paired with the scope it was recorded in. */
+export type BusinessUnitStateLeadReview = {
+    scope: BusinessUnitStateScope;
+    review: AssetVersionLeadReview;
+};
+/** A session outcome carries no scope of its own: it arrives paired with the scope of the session's assignment. */
+export type BusinessUnitStateSessionOutcome = {
+    scope: BusinessUnitStateScope;
+    outcome: DevSessionOutcome;
+};
 /**
  * One department's state, read from recorded facts only: no clock, no second state rule. Version states come
- * from `deriveAssetVersionStates`; callers pass the facts already limited to their own history where the
- * record carries no scope (lead reviews, session outcomes).
+ * from `deriveAssetVersionStates`. Every fact outside the requested scope is ignored; facts whose record
+ * carries no scope (lead reviews, session outcomes) arrive paired with the scope they were recorded in.
  */
 export declare function deriveBusinessUnitStateSummary(input: {
     scope: BusinessUnitStateScope;
     versions: readonly AssetVersionRecord[];
     decisions: readonly DeliveryDecision[];
-    leadReviews: readonly AssetVersionLeadReview[];
+    leadReviews: readonly BusinessUnitStateLeadReview[];
     assets: readonly AssetRef[];
-    sessionOutcomes: readonly DevSessionOutcome[];
+    sessionOutcomes: readonly BusinessUnitStateSessionOutcome[];
 }): BusinessUnitStateSummary;
 export {};
 //# sourceMappingURL=business-unit-state.d.ts.map

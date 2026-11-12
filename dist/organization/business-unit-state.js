@@ -50,22 +50,25 @@ export const BusinessUnitStateSummarySchema = z.strictObject({
         createdAt: DevSessionOutcomeSchema.shape.createdAt,
     })),
 });
+const sameScope = (a, b) => a.tenantId === b.tenantId
+    && a.organizationId === b.organizationId && a.projectId === b.projectId && a.buSlug === b.buSlug;
 const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 const byInstant = (a, b) => Date.parse(a) - Date.parse(b);
 /**
  * One department's state, read from recorded facts only: no clock, no second state rule. Version states come
- * from `deriveAssetVersionStates`; callers pass the facts already limited to their own history where the
- * record carries no scope (lead reviews, session outcomes).
+ * from `deriveAssetVersionStates`. Every fact outside the requested scope is ignored; facts whose record
+ * carries no scope (lead reviews, session outcomes) arrive paired with the scope they were recorded in.
  */
 export function deriveBusinessUnitStateSummary(input) {
     const { scope } = input;
-    const versions = input.versions.filter((record) => record.tenantId === scope.tenantId
-        && record.organizationId === scope.organizationId && record.projectId === scope.projectId
-        && record.buSlug === scope.buSlug);
+    const versions = input.versions.filter((record) => sameScope(record, scope));
     const decisions = input.decisions.filter(({ request }) => request.tenantId === scope.tenantId
         && request.organizationId === scope.organizationId && request.projectId === scope.projectId
         && request.subject?.kind === 'delivery' && request.subject.buSlug === scope.buSlug);
-    const states = deriveAssetVersionStates({ versions, decisions, leadReviews: input.leadReviews });
+    const leadReviews = input.leadReviews
+        .filter((entry) => sameScope(entry.scope, scope) && entry.review.buSlug === scope.buSlug)
+        .map((entry) => entry.review);
+    const states = deriveAssetVersionStates({ versions, decisions, leadReviews });
     const keys = new Map();
     for (const state of states)
         keys.set(state.key, [...(keys.get(state.key) ?? []), state]);
@@ -105,7 +108,9 @@ export function deriveBusinessUnitStateSummary(input) {
     }).map(({ assetId, sha256, name, createdAt }) => ({ assetId, sha256, name, createdAt }))
         .sort((a, b) => byInstant(a.createdAt, b.createdAt) || byText(a.assetId, b.assetId));
     const lastBySession = new Map();
-    for (const outcome of input.sessionOutcomes) {
+    for (const { scope: outcomeScope, outcome } of input.sessionOutcomes) {
+        if (!sameScope(outcomeScope, scope))
+            continue;
         const previous = lastBySession.get(outcome.sessionId);
         if (previous === undefined || outcome.attempt > previous.attempt
             || (outcome.attempt === previous.attempt && byInstant(outcome.createdAt, previous.createdAt) > 0)) {

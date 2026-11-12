@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.183.0 — the department summary takes lead reviews and session outcomes paired with their scope and ignores other departments' (task 6355)
+
+- `organization/business-unit-state` adds `BusinessUnitStateLeadReview` (`{ scope, review }`) and `BusinessUnitStateSessionOutcome` (`{ scope, outcome }`); `deriveBusinessUnitStateSummary` now takes `leadReviews` and `sessionOutcomes` in those forms and ignores every entry whose tenant, organization, project or business unit differs from the requested scope (a review whose own `buSlug` differs is ignored too). The input change is incompatible for callers; no service calls the function today. No saved schema changes.
+- Consumers: agent-core (ec-x9/6389) passes, for each review, the scope of the request Memoria recorded it with (`http/endpoints/internal-memory-asset-versions.ts`: `context` and `projectId`) and, for each outcome, the scope of the session's assignment (`capability/dev/session-assignment.ts`).
+
 ## v1.182.0 — mismatched delivery outcomes keep the existing decision pending (task 6354)
 
 - `organization/decision-request` tightens `deliveryDecisionDuplicate` so a missing outcome, an outcome for another request, or an approval by someone other than a referent or for a different subject keeps the existing request pending and returns `decision_already_pending`. A matching rejection permits another request, and a sound approval returns `decision_already_approved`, following the twin rule in `assetVersionDecisionState`.
