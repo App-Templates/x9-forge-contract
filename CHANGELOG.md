@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.187.0 — the Paperclip board key stays internal to the platform (task 6525)
+
+- `vault` adds `PAPERCLIP_ADMIN_TOKEN` to `PLATFORM_INTERNAL_CREDENTIAL_KEYS`: it is stripped from credential maps, rejected when writing agent contexts and forbidden in capability credential requirements. `PAPERCLIP_API_KEY` remains an ordinary agent credential.
+- Additive; no saved schema changes. Consumer: cap-paperclip (ec-x9/6362), whose event comment signer reads the board key by file (`PAPERCLIP_ADMIN_TOKEN_FILE`), as does the enroll process. Runtime behaviour requires that consumer and the ec-x9/6362–6366 release chain; X9 receives this version through its next ordinary bridge adoption.
+
 ## v1.186.0 — the native wake knows the sent project delivery, and a fixed result for an email whose twin waits on others' blockers (task 6513)
 
 - `http/endpoints/internal-paperclip-seats` adds the native-wake event `project_delivered` (`projectId`, `messageId`, `sentAt`, `digest`; requires `organizationId` and `identity`) and the result `waiting_on_blockers` (requires `issueId`, no run or comment). `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS` goes from 10 to 11 entries.
