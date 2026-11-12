@@ -50,4 +50,5 @@ __exportStar(require("./vertical-plan-observation.cjs"), exports);
 __exportStar(require("./delivery-package.cjs"), exports);
 __exportStar(require("./agent-request.cjs"), exports);
 __exportStar(require("./project-delivery.cjs"), exports);
+__exportStar(require("./organization-access.cjs"), exports);
 //# sourceMappingURL=index.js.map

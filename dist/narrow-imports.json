@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.165.0",
+  "versione": "1.166.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2457,6 +2457,11 @@
       "MandateReconciliationOutcomeSchema": "@x9-forge/contracts/organization/business-unit-mandate",
       "MandateReconciliationSchema": "@x9-forge/contracts/organization/business-unit-mandate",
       "MandateSourceSchema": "@x9-forge/contracts/organization/business-unit-mandate",
+      "ORGANIZATION_ACCESS_NEEDS": "@x9-forge/contracts/organization/organization-access",
+      "ORGANIZATION_ACCESS_REFUSALS": "@x9-forge/contracts/organization/organization-access",
+      "OrganizationAccessDecisionSchema": "@x9-forge/contracts/organization/organization-access",
+      "OrganizationAccessNeedSchema": "@x9-forge/contracts/organization/organization-access",
+      "OrganizationAccessRefusalSchema": "@x9-forge/contracts/organization/organization-access",
       "OrganizationExperienceEventSchema": "@x9-forge/contracts/organization/experience",
       "OrganizationOperationSchema": "@x9-forge/contracts/organization/operations",
       "OrganizationRecallContextSchema": "@x9-forge/contracts/organization/recall",
@@ -2580,6 +2585,7 @@
       "isPublishMaterialResponseForRequest": "@x9-forge/contracts/organization/publication-operations",
       "isResolveMaterialResponseForRequest": "@x9-forge/contracts/organization/publication-operations",
       "latestApprovedAssetVersion": "@x9-forge/contracts/organization/asset-version",
+      "organizationAccess": "@x9-forge/contracts/organization/organization-access",
       "parseSharedMailboxSubjectLabel": "@x9-forge/contracts/organization/shared-mailbox",
       "parseSharedMailboxesFile": "@x9-forge/contracts/organization/shared-mailbox",
       "projectDeliveryDigest": "@x9-forge/contracts/organization/project-delivery",

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.166.0 — una sola regola di accesso all'organizzazione, a due livelli; additivo (scheda 6324)
+
+- `organization/organization-access` aggiunge `organizationAccess({ actor, resource, need, bindings })`, funzione pura: `read` per ogni membro attivo dell'organizzazione della risorsa (livello 1, come `allow_company_agent` di Paperclip), `manage` solo se tutti i legami attivi sono `director` (livello 2). Rifiuti: `foreign_tenant`, `foreign_owner`, `foreign_organization`, `not_member`, `role_unknown`, `role_ambiguous`, `director_only`. Più `ORGANIZATION_ACCESS_NEEDS`, `ORGANIZATION_ACCESS_REFUSALS` e `OrganizationAccessDecisionSchema`. Nessuna forma salvata, nessun contratto HTTP cambia.
+- Consumatori (adozione nelle schede successive): cap-dev, Memoria, cap-email, cap-paperclip via `@x9/capability-sdk`.
+
 ## v1.165.0 — rotte del registro delle versioni degli asset di progetto; additivo (scheda 6306)
 
 - `http/endpoints/internal-memory-asset-versions` aggiunge quattro contratti POST con autenticazione `secret` e contesto organizzativo firmato: registrazione con versione precedente attesa e codici di rifiuto, elenco con stato derivato, ultima versione approvata (o `null`) e verifica del capo. Identità del creatore e del revisore risolte dal servizio; nessuna rotta o forma salvata esistente cambia.

@@ -37,6 +37,7 @@ import * as verticalPlanObservation from '../../src/organization/vertical-plan-o
 import * as deliveryPackage from '../../src/organization/delivery-package.js';
 import * as agentRequest from '../../src/organization/agent-request.js';
 import * as projectDelivery from '../../src/organization/project-delivery.js';
+import * as organizationAccess from '../../src/organization/organization-access.js';
 
 const allSymbols = {
   ...runContext,
@@ -75,6 +76,7 @@ const allSymbols = {
   ...deliveryPackage,
   ...agentRequest,
   ...projectDelivery,
+  ...organizationAccess,
 };
 
 describe('organization subpath', () => {

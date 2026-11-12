@@ -34,4 +34,5 @@ export * from "./vertical-plan-observation.js";
 export * from "./delivery-package.js";
 export * from "./agent-request.js";
 export * from "./project-delivery.js";
+export * from "./organization-access.js";
 //# sourceMappingURL=index.js.map
