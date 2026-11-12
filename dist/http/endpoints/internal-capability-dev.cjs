@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.devBusinessUnitProjectEnableContract = exports.DevBusinessUnitProjectEnableResponseSchema = exports.DevBusinessUnitProjectEnableRequestSchema = exports.devStateGetContract = exports.devConfigPutContract = exports.devConfigGetContract = void 0;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- intentional: in-scope `z` is required for TS to emit portable .d.ts (see scripts/check-portable-dts.mjs).
 const zod_1 = require("zod");
 const internal_capability_agent_js_1 = require("./internal-capability-agent.cjs");
 const config_state_js_1 = require("../../capability/dev/config-state.cjs");
