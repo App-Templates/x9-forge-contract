@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.171.0",
+  "versione": "1.172.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -2442,6 +2442,7 @@
       "DECISION_REQUEST_HEADER": "@x9-forge/contracts/organization/decision-request",
       "DECISION_REQUEST_SUBJECT_LABEL": "@x9-forge/contracts/organization/decision-request",
       "DECISION_SUBJECT_KINDS": "@x9-forge/contracts/organization/decision-request",
+      "DELIVERY_DECISION_DUPLICATE_CODES": "@x9-forge/contracts/organization/decision-request",
       "DELIVERY_PACKAGE_DOCUMENT_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_FILE_NAME": "@x9-forge/contracts/organization/delivery-package",
       "DELIVERY_PACKAGE_IMAGE_EXTENSIONS": "@x9-forge/contracts/organization/delivery-package",
@@ -2548,6 +2549,7 @@
       "ReadMaterialRequestSchema": "@x9-forge/contracts/organization/publication-operations",
       "ReadMaterialResponseSchema": "@x9-forge/contracts/organization/publication-operations",
       "ReconciledMandateSchema": "@x9-forge/contracts/organization/business-unit-mandate",
+      "ReferentReplyHandoverSchema": "@x9-forge/contracts/organization/decision-request",
       "ReportOutcomeOperationSchema": "@x9-forge/contracts/organization/operations",
       "RequestStopOperationSchema": "@x9-forge/contracts/organization/operations",
       "RequestStopResultSchema": "@x9-forge/contracts/organization/run-receipt",
@@ -2608,9 +2610,11 @@
       "companyMapEntryKey": "@x9-forge/contracts/organization/company-map",
       "confirmationSetDigest": "@x9-forge/contracts/organization/decision-request",
       "decisionOutcomeFromEmailReply": "@x9-forge/contracts/organization/decision-request",
+      "decisionOutcomeFromHandover": "@x9-forge/contracts/organization/decision-request",
       "decisionOutcomeMatchesSubject": "@x9-forge/contracts/organization/decision-request",
       "decisionRequestHeaderMatches": "@x9-forge/contracts/organization/decision-request",
       "decisionRequestSubjectLabel": "@x9-forge/contracts/organization/decision-request",
+      "deliveryDecisionDuplicate": "@x9-forge/contracts/organization/decision-request",
       "deliveryPackageMeets": "@x9-forge/contracts/organization/business-unit-type",
       "deliveryPackagePaths": "@x9-forge/contracts/organization/delivery-package",
       "deliveryPackageProblems": "@x9-forge/contracts/organization/delivery-package",

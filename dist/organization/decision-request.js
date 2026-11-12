@@ -290,4 +290,73 @@ export function decisionOutcomeFromEmailReply(input) {
             ...(reply.referentChanges !== undefined ? { referentChanges: reply.referentChanges } : {}),
         }) };
 }
+/** Why a new delivery decision request is refused: the same piece already has one open or approved. */
+export const DELIVERY_DECISION_DUPLICATE_CODES = ['decision_already_pending', 'decision_already_approved'];
+// Same ordering as `isLaterDecisionRequest` (asset-version imports this module, so it cannot be imported here).
+function isOlderRequest(a, b) {
+    const delta = Date.parse(a.createdAt) - Date.parse(b.createdAt);
+    return delta !== 0 ? delta < 0 : a.requestId < b.requestId;
+}
+function sameDeliveryPiece(a, b) {
+    if (a.assetVersion !== undefined && b.assetVersion !== undefined) {
+        return a.assetVersion.key === b.assetVersion.key && a.assetVersion.version === b.assetVersion.version;
+    }
+    return a.deliveryRef.assetId === b.deliveryRef.assetId && a.deliveryRef.sha256 === b.deliveryRef.sha256;
+}
+/**
+ * Names the oldest existing request that makes `candidate` a duplicate, or null. A rejected request
+ * does not block a new one; plans and confirmation sets never pass through here.
+ */
+export function deliveryDecisionDuplicate(candidate, existing) {
+    const wanted = candidate.subject;
+    if (wanted?.kind !== 'delivery')
+        return null;
+    let found;
+    for (const { request, outcome } of existing) {
+        const subject = request.subject;
+        if (subject?.kind !== 'delivery' || request.requestId === candidate.requestId)
+            continue;
+        if (request.tenantId !== candidate.tenantId || request.organizationId !== candidate.organizationId
+            || request.projectId !== candidate.projectId || subject.buSlug !== wanted.buSlug)
+            continue;
+        if (!sameDeliveryPiece(wanted, subject))
+            continue;
+        if (outcome !== null && outcome.requestId !== request.requestId)
+            continue;
+        if (outcome?.outcome === 'rejected')
+            continue;
+        const code = outcome === null ? 'decision_already_pending' : 'decision_already_approved';
+        if (found === undefined || isOlderRequest(request, found.request))
+            found = { request, code };
+    }
+    return found === undefined ? null : { code: found.code, requestId: found.request.requestId };
+}
+/** The referent's reply as handed to the unit: carries the text and a message the service can re-read from `receivedBy`. */
+export const ReferentReplyHandoverSchema = z.strictObject({
+    tenantId: z.string().min(1),
+    organizationId: z.string().min(1).max(64),
+    projectId: z.string().min(1).max(64),
+    toBuSlug: AssetRefSchema.shape.buSlug.unwrap(),
+    receivedBy: ParticipantAgentIdentitySchema,
+    referent: ReferentSchema,
+    messageId: z.string().min(1).max(998),
+    receivedAt: z.iso.datetime({ offset: true }),
+    text: z.string().min(1).max(4000),
+    requestId: DecisionRequestIdSchema.optional(),
+});
+/** Records an interpreted reply from a handover; scope and request must match, the rest is `decisionOutcomeFromEmailReply`. */
+export function decisionOutcomeFromHandover(input) {
+    const { request, reply, handover } = input;
+    const subject = request.subject;
+    if (handover.requestId === undefined || handover.requestId !== request.requestId
+        || handover.tenantId !== request.tenantId || handover.organizationId !== request.organizationId
+        || handover.projectId !== request.projectId
+        || subject?.kind !== 'delivery' || handover.toBuSlug !== subject.buSlug) {
+        return { ok: false, code: 'mismatch' };
+    }
+    return decisionOutcomeFromEmailReply({
+        request, reply, from: { email: handover.referent.email },
+        receivedAt: handover.receivedAt, messageId: handover.messageId,
+    });
+}
 //# sourceMappingURL=decision-request.js.map

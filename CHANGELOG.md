@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.172.0 — one decision per delivery and version; the referent reply handover carries text; additive (task 6344)
+
+- `organization/decision-request` adds `DELIVERY_DECISION_DUPLICATE_CODES`, `deliveryDecisionDuplicate` (pure, no clock: names `decision_already_pending` or `decision_already_approved` with the oldest request on the same piece, same asset version or, when not declared on both, same delivery file; a rejected request lets a new one through), `ReferentReplyHandoverSchema` (text plus a message id readable from `receivedBy`) and `decisionOutcomeFromHandover`. Nothing saved changes.
+- Consumers: Memoria refuses before opening a request; cap-email writes the handover.
+
 ## v1.171.0 — il riepilogo di reparto è derivato dai fatti registrati; additivo (scheda 6343)
 
 - `organization/business-unit-state` aggiunge `BusinessUnitStateScopeSchema`, `BusinessUnitStateSummarySchema` e `deriveBusinessUnitStateSummary`, funzione pura senza orologio: per un reparto, ultima versione e stato di ogni chiave (solo via `deriveAssetVersionStates`), ultima approvata, decisioni di consegna aperte (anche doppie), materiali ricevuti (asset non nati da una sessione) ed esito dell'ultimo tentativo di ogni sessione. I fatti di altri perimetri sono ignorati. Nessuna forma salvata cambia.

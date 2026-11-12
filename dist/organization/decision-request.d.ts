@@ -461,5 +461,46 @@ export declare function decisionOutcomeFromEmailReply(input: {
     receivedAt: string;
     messageId: string;
 }): DecisionOutcomeFromEmailReply;
+/** Why a new delivery decision request is refused: the same piece already has one open or approved. */
+export declare const DELIVERY_DECISION_DUPLICATE_CODES: readonly ["decision_already_pending", "decision_already_approved"];
+export type DeliveryDecisionDuplicateCode = (typeof DELIVERY_DECISION_DUPLICATE_CODES)[number];
+/**
+ * Names the oldest existing request that makes `candidate` a duplicate, or null. A rejected request
+ * does not block a new one; plans and confirmation sets never pass through here.
+ */
+export declare function deliveryDecisionDuplicate(candidate: DecisionRequest, existing: readonly {
+    request: DecisionRequest;
+    outcome: DecisionOutcome | null;
+}[]): {
+    code: DeliveryDecisionDuplicateCode;
+    requestId: DecisionRequestId;
+} | null;
+/** The referent's reply as handed to the unit: carries the text and a message the service can re-read from `receivedBy`. */
+export declare const ReferentReplyHandoverSchema: z.ZodObject<{
+    tenantId: z.ZodString;
+    organizationId: z.ZodString;
+    projectId: z.ZodString;
+    toBuSlug: z.ZodString;
+    receivedBy: z.ZodObject<{
+        managementAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        runtimeAgentId: z.core.$ZodBranded<z.ZodString, "AgentId", "out">;
+        vaultAgentId: z.ZodNumber;
+    }, z.core.$strict>;
+    referent: z.ZodObject<{
+        kind: z.ZodLiteral<"referent">;
+        email: z.ZodEmail;
+    }, z.core.$strict>;
+    messageId: z.ZodString;
+    receivedAt: z.ZodISODateTime;
+    text: z.ZodString;
+    requestId: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export type ReferentReplyHandover = z.infer<typeof ReferentReplyHandoverSchema>;
+/** Records an interpreted reply from a handover; scope and request must match, the rest is `decisionOutcomeFromEmailReply`. */
+export declare function decisionOutcomeFromHandover(input: {
+    request: DecisionRequest;
+    reply: DecisionEmailReply;
+    handover: ReferentReplyHandover;
+}): DecisionOutcomeFromEmailReply;
 export {};
 //# sourceMappingURL=decision-request.d.ts.map
