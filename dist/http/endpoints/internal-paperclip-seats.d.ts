@@ -519,6 +519,12 @@ export declare const PaperclipSeatNativeWakeEventSchema: z.ZodDiscriminatedUnion
         }, z.core.$strict>>;
         requestedAt: z.ZodISODateTime;
     }, z.core.$strict>;
+}, z.core.$strict>, z.ZodObject<{
+    kind: z.ZodLiteral<"project_delivered">;
+    projectId: z.ZodString;
+    messageId: z.ZodString;
+    sentAt: z.ZodISODateTime;
+    digest: z.ZodString;
 }, z.core.$strict>], "kind">;
 export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
     scope: z.ZodObject<{
@@ -642,9 +648,15 @@ export declare const InternalPaperclipSeatNativeWakeRequestSchema: z.ZodObject<{
             }, z.core.$strict>>;
             requestedAt: z.ZodISODateTime;
         }, z.core.$strict>;
+    }, z.core.$strict>, z.ZodObject<{
+        kind: z.ZodLiteral<"project_delivered">;
+        projectId: z.ZodString;
+        messageId: z.ZodString;
+        sentAt: z.ZodISODateTime;
+        digest: z.ZodString;
     }, z.core.$strict>], "kind">;
 }, z.core.$strict>;
-export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited"];
+export declare const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS: readonly ["opened", "woken", "deferred", "duplicate", "already_open", "not_waiting", "no_task", "ambiguous", "not_enabled", "rate_limited", "waiting_on_blockers"];
 export declare const PaperclipSeatNativeWakeResultSchema: z.ZodEnum<{
     duplicate: "duplicate";
     ambiguous: "ambiguous";
@@ -656,6 +668,7 @@ export declare const PaperclipSeatNativeWakeResultSchema: z.ZodEnum<{
     no_task: "no_task";
     not_enabled: "not_enabled";
     rate_limited: "rate_limited";
+    waiting_on_blockers: "waiting_on_blockers";
 }>;
 export declare const InternalPaperclipSeatNativeWakeResponseSchema: z.ZodObject<{
     result: z.ZodEnum<{
@@ -669,6 +682,7 @@ export declare const InternalPaperclipSeatNativeWakeResponseSchema: z.ZodObject<
         no_task: "no_task";
         not_enabled: "not_enabled";
         rate_limited: "rate_limited";
+        waiting_on_blockers: "waiting_on_blockers";
     }>;
     issueId: z.ZodOptional<z.ZodUUID>;
     commentId: z.ZodOptional<z.ZodUUID>;
@@ -848,6 +862,12 @@ export declare const internalPaperclipSeatNativeWakeContract: {
                 }, z.core.$strict>>;
                 requestedAt: z.ZodISODateTime;
             }, z.core.$strict>;
+        }, z.core.$strict>, z.ZodObject<{
+            kind: z.ZodLiteral<"project_delivered">;
+            projectId: z.ZodString;
+            messageId: z.ZodString;
+            sentAt: z.ZodISODateTime;
+            digest: z.ZodString;
         }, z.core.$strict>], "kind">;
     }, z.core.$strict>;
     readonly responseSchema: z.ZodObject<{
@@ -862,6 +882,7 @@ export declare const internalPaperclipSeatNativeWakeContract: {
             no_task: "no_task";
             not_enabled: "not_enabled";
             rate_limited: "rate_limited";
+            waiting_on_blockers: "waiting_on_blockers";
         }>;
         issueId: z.ZodOptional<z.ZodUUID>;
         commentId: z.ZodOptional<z.ZodUUID>;

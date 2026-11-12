@@ -93,6 +93,32 @@ describe('internal Paperclip seat native-wake contract', () => {
     expect(internalPaperclipSeatNativeWakeContract.authType).toBe('secret');
     expect(internalPaperclipSeatNativeWakeContract.path).toBe('/internal/paperclip/seats/native-wake');
     expect(INTERNAL_PAPERCLIP_SEAT_NATIVE_WAKE_PATH).not.toBe(INTERNAL_PAPERCLIP_SEAT_REPLY_WAKE_PATH);
-    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(10);
+    expect(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS).toHaveLength(11);
+  });
+
+  it('s6513 consegna-inviata-e-gemello-in-attesa: the native wake request accepts a project_delivered event with project, message, time and digest only with organization and identity, and the response accepts waiting_on_blockers only with the waiting issue and without run or comment', () => {
+    const delivered = {
+      kind: 'project_delivered',
+      projectId: 'orto-facile',
+      messageId: '<final@example.invalid>',
+      sentAt: '2026-11-12T10:00:00.000Z',
+      digest: 'a'.repeat(64),
+    };
+    const request = { ...base, organizationId: 'good-choice', eventId: 'evt-6513', event: delivered };
+    expect(parse(request)).toBe(true);
+    const { organizationId: _o, ...noOrg } = request;
+    expect(parse(noOrg)).toBe(false);
+    const { identity: _i, ...noIdentity } = request;
+    expect(parse(noIdentity)).toBe(false);
+    const { projectId: _p, ...noProject } = delivered;
+    expect(parse({ ...request, event: noProject })).toBe(false);
+    expect(parse({ ...request, event: { ...delivered, digest: 'z'.repeat(64) } })).toBe(false);
+    expect(parse({ ...request, event: { ...delivered, digest: 'A'.repeat(64) } })).toBe(false);
+    expect(parse({ ...request, event: { ...delivered, extra: 1 } })).toBe(false);
+
+    expect(parseRes({ result: 'waiting_on_blockers', issueId })).toBe(true);
+    expect(parseRes({ result: 'waiting_on_blockers' })).toBe(false);
+    expect(parseRes({ result: 'waiting_on_blockers', issueId, runId })).toBe(false);
+    expect(parseRes({ result: 'waiting_on_blockers', issueId, commentId })).toBe(false);
   });
 });

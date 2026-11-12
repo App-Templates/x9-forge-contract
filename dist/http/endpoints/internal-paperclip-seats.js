@@ -3,6 +3,7 @@ import { InboundEventDispositionSchema } from "../../capability/paperclip/inboun
 import { ParticipantAgentIdentitySchema } from "../../organization/participant-binding.js";
 import { CapabilityAgentScopeSchema } from "../../capability/capability-call-identity.js";
 import { AgentRequestSchema } from "../../organization/agent-request.js";
+import { AssetRefSchema, AssetSha256Schema } from "../../organization/asset.js";
 import { DecisionOutcomeSchema, DecisionRequestIdSchema, DecisionRequestSchema } from "../../organization/decision-request.js";
 import { ResearchIdSchema, ResearchStateSchema } from "../../capability/ricerca/research.js";
 import { DevSessionAssignmentSchema, DevSessionCommitSchema, DevSessionResultSchema, } from "../../capability/dev/session-assignment.js";
@@ -224,6 +225,15 @@ export const PaperclipSeatNativeWakeEventSchema = z.discriminatedUnion('kind', [
         maxAttempts: z.int().min(1).max(10),
     }).refine(e => e.attempt <= e.maxAttempts, { path: ['attempt'], message: 'attempt must not exceed maxAttempts' }),
     z.strictObject({ kind: z.literal('agent_request'), request: AgentRequestSchema }),
+    // The final project delivery was sent and recorded (`ProjectDeliveryRecord` stage `sent`, kind `final`); `digest` is the
+    // reconciliation digest and makes the event idempotent; sent by cap-email, never by the model.
+    z.strictObject({
+        kind: z.literal('project_delivered'),
+        projectId: AssetRefSchema.shape.projectId,
+        messageId: z.string().min(1).max(512),
+        sentAt: z.iso.datetime({ offset: true }),
+        digest: AssetSha256Schema,
+    }),
 ]);
 // Un evento del prodotto (email ammessa, ricerca finita, consegna verificata) apre o risveglia l'incarico Paperclip
 // dell'agente, come il canale email di Paperclip: incarico assegnato a sé (sveglia d'assegnazione) oppure commento
@@ -268,6 +278,9 @@ export const InternalPaperclipSeatNativeWakeRequestSchema = z.strictObject({
 });
 export const PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS = [
     'opened', 'woken', 'deferred', 'duplicate', 'already_open', 'not_waiting', 'no_task', 'ambiguous', 'not_enabled', 'rate_limited',
+    // The event belongs to an existing open incarico of the seat that waits on open blockers held by other agents;
+    // Paperclip resumes it when they are done (`issue_blockers_resolved`), nothing was written and no run was started.
+    'waiting_on_blockers',
 ];
 export const PaperclipSeatNativeWakeResultSchema = z.enum(PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS);
 export const InternalPaperclipSeatNativeWakeResponseSchema = z.strictObject({
@@ -286,7 +299,8 @@ export const InternalPaperclipSeatNativeWakeResponseSchema = z.strictObject({
     if (value.result !== 'woken' && value.commentId !== undefined) {
         ctx.addIssue({ code: 'custom', message: 'commentId is only allowed with woken', path: ['commentId'] });
     }
-    if ((value.result === 'opened' || value.result === 'deferred' || value.result === 'already_open' || value.result === 'not_waiting')
+    if ((value.result === 'opened' || value.result === 'deferred' || value.result === 'already_open' || value.result === 'not_waiting'
+        || value.result === 'waiting_on_blockers')
         && value.issueId === undefined) {
         ctx.addIssue({ code: 'custom', message: `${value.result} requires issueId`, path: ['issueId'] });
     }

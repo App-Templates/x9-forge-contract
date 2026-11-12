@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.186.0 — the native wake knows the sent project delivery, and a fixed result for an email whose twin waits on others' blockers (task 6513)
+
+- `http/endpoints/internal-paperclip-seats` adds the native-wake event `project_delivered` (`projectId`, `messageId`, `sentAt`, `digest`; requires `organizationId` and `identity`) and the result `waiting_on_blockers` (requires `issueId`, no run or comment). `PAPERCLIP_SEAT_NATIVE_WAKE_RESULTS` goes from 10 to 11 entries.
+- Additive; no existing event, result or saved shape is tightened. Consumers: cap-paperclip (ec-x9/6515, 6516) and cap-email (ec-x9/6517), after the adoption 6514.
+
 ## v1.185.0 — recall tool error codes and one rule for refused organization recall (task 6464)
 
 - `http/endpoints/internal-memory-recall-bundle` adds `MEMORY_RECALL_TOOL_ERROR_CODES`, `MemoryRecallToolErrorCodeSchema` / `MemoryRecallToolErrorCode`, `MEMORY_RECALL_REFUSED_HTTP_STATUSES` (`[403]`), `MEMORY_RECALL_ORGANIZATION_NOT_CONFIGURED_ERROR` (`organization recall not configured`) and pure `memoryRecallToolErrorCodeOf({ status?, organizationRecallNotConfigured? })`. A 403 gives `richiamo_rifiutato` (never retry the same call); a 503 with organization recall not configured keeps `richiamo_aziendale_non_attivo` (not retried); other failures or no answer give `richiamo_non_riuscito` (retry later). A 2xx answer throws `RangeError`.
