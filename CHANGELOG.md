@@ -2,6 +2,12 @@
 
 ## Non rilasciato
 
+## v1.195.0 — daily run limit notice delivery to the owner (task 6592)
+
+- New narrow subpath `http/endpoints/internal-limit-notice`: `internalLimitNoticeContract` posts `{ tenantId, ownerId, notice }` to `/internal/limit-notice`. The notice must be a `daily_runs` or `daily_cost` one, name its agent and include `owner` among its recipients; spend notices keep their own path and are refused.
+- The answer is `{ ok: true, outcome: sent | already_sent }` or `{ ok: false, error }` with one of five fixed errors (`invalid_request`, `unauthorized`, `organization_unknown`, `email_unavailable`, `not_sent`).
+- Additive: no existing schema changes. Consumers: X9 adoption (6593), agent-core serves it (6594), cap-paperclip calls it (6595).
+
 ## v1.194.0 — decision request state filter, recall limits, company spend error codes and typed lead review request (tasks 6576-6579)
 
 - `state` (`open` | `decided`) is an optional field of the chief's decision request list query; the project list for the Director stays unfiltered.
