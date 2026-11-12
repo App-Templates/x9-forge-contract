@@ -1,4 +1,133 @@
 import { z } from 'zod';
+export declare const VIDEO_SERIES_CREATE_TOOL = "video_series_create";
+export declare const VIDEO_SERIES_GET_TOOL = "video_series_get";
+export declare const VIDEO_EPISODE_CREATE_TOOL = "video_episode_create";
+/** Identity comes only from the admitted tool envelope (R-33). */
+export declare const VideoSeriesCreateToolInputSchema: z.ZodObject<{
+    title: z.ZodString;
+    logline: z.ZodString;
+    language: z.ZodOptional<z.ZodEnum<{
+        it: "it";
+        en: "en";
+    }>>;
+    totalEpisodes: z.ZodNumber;
+    paywallEpisode: z.ZodOptional<z.ZodNumber>;
+    mainSecret: z.ZodOptional<z.ZodString>;
+    characters: z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        name: z.ZodString;
+        description: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type VideoSeriesCreateToolInput = z.infer<typeof VideoSeriesCreateToolInputSchema>;
+export declare const VideoSeriesGetToolInputSchema: z.ZodObject<{
+    seriesId: z.ZodString;
+}, z.core.$strict>;
+export type VideoSeriesGetToolInput = z.infer<typeof VideoSeriesGetToolInputSchema>;
+export declare const VideoSeriesResponseSchema: z.ZodObject<{
+    seriesId: z.ZodString;
+    title: z.ZodString;
+    logline: z.ZodString;
+    language: z.ZodEnum<{
+        it: "it";
+        en: "en";
+    }>;
+    totalEpisodes: z.ZodNumber;
+    paywallEpisode: z.ZodNumber;
+    nextEpisode: z.ZodNumber;
+    nextPhase: z.ZodNullable<z.ZodEnum<{
+        golden_three: "golden_three";
+        free_escalation: "free_escalation";
+        paywall_cliffhanger: "paywall_cliffhanger";
+        central_loop: "central_loop";
+        mid_twist: "mid_twist";
+        climax: "climax";
+        finale: "finale";
+    }>>;
+    characters: z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        name: z.ZodString;
+        description: z.ZodString;
+        portrait: z.ZodNullable<z.ZodObject<{
+            engineProjectId: z.ZodString;
+            fileName: z.ZodString;
+            sha256: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+    hooks: z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        description: z.ZodString;
+        plantedEpisode: z.ZodNumber;
+        lastTouchedEpisode: z.ZodNumber;
+        status: z.ZodEnum<{
+            open: "open";
+            paid: "paid";
+        }>;
+        isMain: z.ZodBoolean;
+        paidEpisode: z.ZodNullable<z.ZodNumber>;
+    }, z.core.$strict>>;
+    episodes: z.ZodArray<z.ZodObject<{
+        number: z.ZodNumber;
+        projectId: z.ZodString;
+        state: z.ZodEnum<{
+            failed: "failed";
+            created: "created";
+            delivered: "delivered";
+            planning: "planning";
+            awaiting_approval: "awaiting_approval";
+            producing: "producing";
+        }>;
+        ending: z.ZodNullable<z.ZodObject<{
+            type: z.ZodEnum<{
+                "interrupted-reveal": "interrupted-reveal";
+                "incoming-threat": "incoming-threat";
+                "unexpected-arrival": "unexpected-arrival";
+                "impossible-choice": "impossible-choice";
+                "identity-flash": "identity-flash";
+                "public-humiliation-pending": "public-humiliation-pending";
+                "betrayal-glimpse": "betrayal-glimpse";
+            }>;
+            text: z.ZodString;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type VideoSeriesResponse = z.infer<typeof VideoSeriesResponseSchema>;
+/** Identity comes only from the admitted tool envelope (R-33). */
+export declare const VideoEpisodeCreateToolInputSchema: z.ZodObject<{
+    seriesId: z.ZodString;
+    brief: z.ZodOptional<z.ZodString>;
+    approverEmail: z.ZodEmail;
+    mode: z.ZodEnum<{
+        approval: "approval";
+        autonomous: "autonomous";
+    }>;
+    budgetUsd: z.ZodNumber;
+    durationSeconds: z.ZodOptional<z.ZodNumber>;
+}, z.core.$strict>;
+export type VideoEpisodeCreateToolInput = z.infer<typeof VideoEpisodeCreateToolInputSchema>;
+export declare const VideoEpisodeCreateResponseSchema: z.ZodObject<{
+    seriesId: z.ZodString;
+    episodeNumber: z.ZodNumber;
+    phase: z.ZodEnum<{
+        golden_three: "golden_three";
+        free_escalation: "free_escalation";
+        paywall_cliffhanger: "paywall_cliffhanger";
+        central_loop: "central_loop";
+        mid_twist: "mid_twist";
+        climax: "climax";
+        finale: "finale";
+    }>;
+    projectId: z.ZodString;
+    state: z.ZodEnum<{
+        failed: "failed";
+        created: "created";
+        delivered: "delivered";
+        planning: "planning";
+        awaiting_approval: "awaiting_approval";
+        producing: "producing";
+    }>;
+}, z.core.$strict>;
+export type VideoEpisodeCreateResponse = z.infer<typeof VideoEpisodeCreateResponseSchema>;
 /**
  * What the model writes when an agent calls `video_brief_create`: the brief without identity.
  * Tenant, owner and agent come only from the tool envelope agent-core admitted (R-33), never from the model.

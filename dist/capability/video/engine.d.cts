@@ -106,6 +106,52 @@ export declare const VideoEngineJobSchema: z.ZodObject<{
     name: z.ZodString;
     brief: z.ZodString;
     externalRef: z.ZodOptional<z.ZodString>;
+    episode: z.ZodOptional<z.ZodObject<{
+        seriesId: z.ZodString;
+        seriesTitle: z.ZodString;
+        logline: z.ZodString;
+        language: z.ZodEnum<{
+            it: "it";
+            en: "en";
+        }>;
+        episodeNumber: z.ZodNumber;
+        totalEpisodes: z.ZodNumber;
+        paywallEpisode: z.ZodNumber;
+        previousEnding: z.ZodNullable<z.ZodObject<{
+            type: z.ZodEnum<{
+                "interrupted-reveal": "interrupted-reveal";
+                "incoming-threat": "incoming-threat";
+                "unexpected-arrival": "unexpected-arrival";
+                "impossible-choice": "impossible-choice";
+                "identity-flash": "identity-flash";
+                "public-humiliation-pending": "public-humiliation-pending";
+                "betrayal-glimpse": "betrayal-glimpse";
+            }>;
+            text: z.ZodString;
+        }, z.core.$strict>>;
+        hooks: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            description: z.ZodString;
+            plantedEpisode: z.ZodNumber;
+            lastTouchedEpisode: z.ZodNumber;
+            status: z.ZodEnum<{
+                open: "open";
+                paid: "paid";
+            }>;
+            isMain: z.ZodBoolean;
+            paidEpisode: z.ZodNullable<z.ZodNumber>;
+        }, z.core.$strict>>;
+        characters: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            name: z.ZodString;
+            description: z.ZodString;
+            portrait: z.ZodNullable<z.ZodObject<{
+                engineProjectId: z.ZodString;
+                fileName: z.ZodString;
+                sha256: z.ZodString;
+            }, z.core.$strict>>;
+        }, z.core.$strict>>;
+    }, z.core.$strict>>;
 }, z.core.$strict>;
 export type VideoEngineJob = z.infer<typeof VideoEngineJobSchema>;
 export declare const VideoEngineJobResponseSchema: z.ZodObject<{
@@ -273,6 +319,57 @@ export declare const VideoEngineProjectSchema: z.ZodObject<{
         subtitles_url: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         error: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     }, z.core.$loose>>>;
+    episode_outcome: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        phase: z.ZodEnum<{
+            golden_three: "golden_three";
+            free_escalation: "free_escalation";
+            paywall_cliffhanger: "paywall_cliffhanger";
+            central_loop: "central_loop";
+            mid_twist: "mid_twist";
+            climax: "climax";
+            finale: "finale";
+        }>;
+        cycleBeat: z.ZodNullable<z.ZodEnum<{
+            provocation: "provocation";
+            humiliation_peak: "humiliation_peak";
+            false_confirmation: "false_confirmation";
+            face_slap: "face_slap";
+        }>>;
+        ending: z.ZodObject<{
+            type: z.ZodEnum<{
+                "interrupted-reveal": "interrupted-reveal";
+                "incoming-threat": "incoming-threat";
+                "unexpected-arrival": "unexpected-arrival";
+                "impossible-choice": "impossible-choice";
+                "identity-flash": "identity-flash";
+                "public-humiliation-pending": "public-humiliation-pending";
+                "betrayal-glimpse": "betrayal-glimpse";
+            }>;
+            text: z.ZodString;
+        }, z.core.$strict>;
+        hooksOpened: z.ZodArray<z.ZodObject<{
+            id: z.ZodString;
+            description: z.ZodString;
+        }, z.core.$strict>>;
+        hooksTouched: z.ZodArray<z.ZodString>;
+        hooksClosed: z.ZodArray<z.ZodString>;
+    }, z.core.$strict>>>;
+    episode_estimate: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        framesUsd: z.ZodNumber;
+        clipsUsd: z.ZodNumber;
+        totalUsd: z.ZodNumber;
+        availableUsd: z.ZodNumber;
+        fitsBudget: z.ZodBoolean;
+        source: z.ZodString;
+    }, z.core.$strict>>>;
+    episode_portraits: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodObject<{
+        characterId: z.ZodString;
+        portrait: z.ZodObject<{
+            engineProjectId: z.ZodString;
+            fileName: z.ZodString;
+            sha256: z.ZodString;
+        }, z.core.$strict>;
+    }, z.core.$strict>>>>;
 }, z.core.$loose>;
 export type VideoEngineProject = z.infer<typeof VideoEngineProjectSchema>;
 //# sourceMappingURL=engine.d.ts.map
