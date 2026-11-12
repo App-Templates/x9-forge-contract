@@ -69,14 +69,40 @@ export const LabIngestStatusOutputSchema = z.object({
 }).strict().refine(result => result.state === 'completed'
     ? result.sourcesStored !== undefined && result.pagesTouched !== undefined && result.claimsAdded !== undefined
     : result.sourcesStored === undefined && result.pagesTouched === undefined && result.claimsAdded === undefined, { message: 'counts are present only for completed ingests' });
+/** How a page was found: by its page name, with all the words, or with at least one word. */
+export const LAB_PAGE_MATCH_KINDS = ['slug', 'all_words', 'any_word'];
+export const LabPageMatchSchema = z.strictObject({
+    slug: WikiPageSchema.shape.slug,
+    matchedBy: z.enum(LAB_PAGE_MATCH_KINDS),
+});
+/** Why an answer has no pages. */
+export const LAB_EMPTY_REASONS = ['no_match', 'slug_not_found', 'notebook_empty'];
+export const LabEmptyReasonSchema = z.enum(LAB_EMPTY_REASONS);
+const LabSlugsSchema = z.array(WikiPageSchema.shape.slug).min(1).max(50).refine(slugs => new Set(slugs).size === slugs.length, { message: 'Page names must be unique' });
+/** `matches`, when present, has exactly one entry per returned page, same slugs, no repeats. */
+function matchesCoverPages(output) {
+    if (output.matches === undefined)
+        return true;
+    const matched = new Set(output.matches.map(match => match.slug));
+    const paged = new Set(output.pages.map(page => page.slug));
+    return matched.size === output.matches.length
+        && paged.size === output.pages.length
+        && matched.size === paged.size
+        && [...paged].every(slug => matched.has(slug));
+}
 export const LabQueryInputSchema = z.object({
     question: z.string().trim().min(1).max(2000),
     limit: z.number().int().min(1).max(50).optional(),
+    slugs: LabSlugsSchema.optional(),
 }).strict();
 export const LabQueryOutputSchema = z.object({
     pages: z.array(WikiPageSchema).max(50),
     claims: z.array(WikiClaimSchema).max(200),
-}).strict();
+    matches: z.array(LabPageMatchSchema).max(50).optional(),
+    emptyReason: LabEmptyReasonSchema.optional(),
+}).strict()
+    .refine(output => matchesCoverPages(output), { message: 'matches must have exactly one entry per page' })
+    .refine(output => output.emptyReason === undefined || output.pages.length === 0, { message: 'emptyReason is only for an answer without pages' });
 export const LabGapsInputSchema = z.object({ limit: z.number().int().min(1).max(50).optional() }).strict();
 export const LabGapsOutputSchema = z.object({ gaps: z.array(CompetenceGapSchema).max(50) }).strict();
 export const LabCompetenceInputSchema = z.object({}).strict();
@@ -107,6 +133,7 @@ export const LabReadPublishedInputSchema = z.strictObject({
     recipient: LabPublicationRecipientSchema,
     query: LabQueryInputSchema.shape.question.optional(),
     limit: LabQueryInputSchema.shape.limit,
+    slugs: LabQueryInputSchema.shape.slugs,
 });
 export const LabReadPublishedOutputSchema = z.strictObject({
     pages: z.array(z.strictObject({
@@ -117,7 +144,11 @@ export const LabReadPublishedOutputSchema = z.strictObject({
         content: WikiPageSchema.shape.body,
         contradicts: KnowledgePublicationSchema.shape.contradicts,
     })).max(50),
-});
+    matches: z.array(LabPageMatchSchema).max(50).optional(),
+    emptyReason: LabEmptyReasonSchema.optional(),
+})
+    .refine(output => matchesCoverPages(output), { message: 'matches must have exactly one entry per page' })
+    .refine(output => output.emptyReason === undefined || output.pages.length === 0, { message: 'emptyReason is only for an answer without pages' });
 export const LabBriefGapsInputSchema = z.strictObject({
     topics: z.array(LabQueryInputSchema.shape.question).min(1).max(20).refine(topics => new Set(topics).size === topics.length, { message: 'Brief topics must be unique' }),
     clientId: AssetRefSchema.shape.companyId,

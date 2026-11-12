@@ -192,9 +192,30 @@ export declare const LabIngestStatusOutputSchema: z.ZodObject<{
     pagesTouched: z.ZodOptional<z.ZodNumber>;
     claimsAdded: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strict>;
+/** How a page was found: by its page name, with all the words, or with at least one word. */
+export declare const LAB_PAGE_MATCH_KINDS: readonly ["slug", "all_words", "any_word"];
+export declare const LabPageMatchSchema: z.ZodObject<{
+    slug: z.ZodString;
+    matchedBy: z.ZodEnum<{
+        slug: "slug";
+        all_words: "all_words";
+        any_word: "any_word";
+    }>;
+}, z.core.$strict>;
+/** Why an answer has no pages. */
+export declare const LAB_EMPTY_REASONS: readonly ["no_match", "slug_not_found", "notebook_empty"];
+export declare const LabEmptyReasonSchema: z.ZodEnum<{
+    no_match: "no_match";
+    slug_not_found: "slug_not_found";
+    notebook_empty: "notebook_empty";
+}>;
+export type LabPageMatchKind = (typeof LAB_PAGE_MATCH_KINDS)[number];
+export type LabPageMatch = z.infer<typeof LabPageMatchSchema>;
+export type LabEmptyReason = z.infer<typeof LabEmptyReasonSchema>;
 export declare const LabQueryInputSchema: z.ZodObject<{
     question: z.ZodString;
     limit: z.ZodOptional<z.ZodNumber>;
+    slugs: z.ZodOptional<z.ZodArray<z.ZodString>>;
 }, z.core.$strict>;
 export declare const LabQueryOutputSchema: z.ZodObject<{
     pages: z.ZodArray<z.ZodObject<{
@@ -228,6 +249,19 @@ export declare const LabQueryOutputSchema: z.ZodObject<{
             text: z.ZodString;
         }, z.core.$strict>>>;
     }, z.core.$strict>>;
+    matches: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        matchedBy: z.ZodEnum<{
+            slug: "slug";
+            all_words: "all_words";
+            any_word: "any_word";
+        }>;
+    }, z.core.$strict>>>;
+    emptyReason: z.ZodOptional<z.ZodEnum<{
+        no_match: "no_match";
+        slug_not_found: "slug_not_found";
+        notebook_empty: "notebook_empty";
+    }>>;
 }, z.core.$strict>;
 export declare const LabGapsInputSchema: z.ZodObject<{
     limit: z.ZodOptional<z.ZodNumber>;
@@ -318,6 +352,7 @@ export declare const LabReadPublishedInputSchema: z.ZodObject<{
     }, z.core.$strict>], "kind">;
     query: z.ZodOptional<z.ZodString>;
     limit: z.ZodOptional<z.ZodNumber>;
+    slugs: z.ZodOptional<z.ZodArray<z.ZodString>>;
 }, z.core.$strict>;
 export declare const LabReadPublishedOutputSchema: z.ZodObject<{
     pages: z.ZodArray<z.ZodObject<{
@@ -343,6 +378,19 @@ export declare const LabReadPublishedOutputSchema: z.ZodObject<{
             version: z.ZodNumber;
         }, z.core.$strict>], "target">]>>>;
     }, z.core.$strict>>;
+    matches: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
+        matchedBy: z.ZodEnum<{
+            slug: "slug";
+            all_words: "all_words";
+            any_word: "any_word";
+        }>;
+    }, z.core.$strict>>>;
+    emptyReason: z.ZodOptional<z.ZodEnum<{
+        no_match: "no_match";
+        slug_not_found: "slug_not_found";
+        notebook_empty: "notebook_empty";
+    }>>;
 }, z.core.$strict>;
 export declare const LabBriefGapsInputSchema: z.ZodObject<{
     topics: z.ZodArray<z.ZodString>;

@@ -2,6 +2,11 @@
 
 ## Non rilasciato
 
+## v1.180.0 — the Lab notebook is read by page name too, and the answer says how each page was found or why it is empty; additive (task 6352)
+
+- `capability/lab` adds `slugs` (1-50 unique page names, optional) to `LabQueryInputSchema` and `LabReadPublishedInputSchema`; `matches` (`LabPageMatchSchema`, `matchedBy` from `LAB_PAGE_MATCH_KINDS`: `slug`, `all_words`, `any_word`) and `emptyReason` (`LAB_EMPTY_REASONS`: `no_match`, `slug_not_found`, `notebook_empty`) to both outputs. `matches`, when present, has exactly one entry per returned page; `emptyReason` only with no pages. `question` stays required; today's inputs and outputs still parse.
+- Consumers: cap-lab searches and fills the new fields (task D1-X); agent-core for the manifest. Readers of the output with the strict schema (for example cap-paperclip `approved-business-units-sources.ts`) need 1.180.0 before cap-lab writes the new fields.
+
 ## v1.179.0 — seat wake errors have a body in the bridge and tell `wake_timeout` from `paperclip_unavailable`; additive (task 6351)
 
 - `http/endpoints/internal-paperclip-seats` adds `PAPERCLIP_SEAT_WAKE_ERROR_CODES` (`paperclip_unavailable`, `wake_timeout`), `PaperclipSeatWakeErrorCodeSchema` / `PaperclipSeatWakeErrorCode` and the strict `InternalPaperclipSeatWakeErrorResponseSchema` (`{ ok: false, error }`). The reply-wake and native-wake contracts gain `errorResponseSchema`; method, path, auth, body and success responses are unchanged, and the 502 body written today still parses.

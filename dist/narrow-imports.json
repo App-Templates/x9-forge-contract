@@ -1,6 +1,6 @@
 {
   "formato": "x9-narrow-imports-v1",
-  "versione": "1.179.0",
+  "versione": "1.180.0",
   "barili": {
     "@x9-forge/contracts": {
       "AGENT_CHAT_MODEL_SLOT_ID": "@x9-forge/contracts/model-router/model-slot",
@@ -1253,7 +1253,9 @@
       "CompetenceNodeIdSchema": "@x9-forge/contracts/capability/lab/competence",
       "CompetenceNodeViewSchema": "@x9-forge/contracts/capability/lab/competence",
       "KindSlugSchema": "@x9-forge/contracts/capability/lab/agent-config",
+      "LAB_EMPTY_REASONS": "@x9-forge/contracts/capability/lab/tools",
       "LAB_INTERNAL_TOOLS": "@x9-forge/contracts/capability/lab/tools",
+      "LAB_PAGE_MATCH_KINDS": "@x9-forge/contracts/capability/lab/tools",
       "LAB_TOOLS": "@x9-forge/contracts/capability/lab/tools",
       "LabAgentConfigSchema": "@x9-forge/contracts/capability/lab/agent-config",
       "LabBriefGapsInputSchema": "@x9-forge/contracts/capability/lab/tools",
@@ -1262,6 +1264,7 @@
       "LabBudgetSchema": "@x9-forge/contracts/capability/lab/agent-config",
       "LabCompetenceInputSchema": "@x9-forge/contracts/capability/lab/tools",
       "LabCompetenceOutputSchema": "@x9-forge/contracts/capability/lab/tools",
+      "LabEmptyReasonSchema": "@x9-forge/contracts/capability/lab/tools",
       "LabExecuteInputSchema": "@x9-forge/contracts/capability/lab/tools",
       "LabExecuteOutputSchema": "@x9-forge/contracts/capability/lab/tools",
       "LabExportFormatSchema": "@x9-forge/contracts/capability/lab/browse",
@@ -1285,6 +1288,7 @@
       "LabPageListEntrySchema": "@x9-forge/contracts/capability/lab/browse",
       "LabPageListInputSchema": "@x9-forge/contracts/capability/lab/browse",
       "LabPageListOutputSchema": "@x9-forge/contracts/capability/lab/browse",
+      "LabPageMatchSchema": "@x9-forge/contracts/capability/lab/tools",
       "LabPublicationRecipientSchema": "@x9-forge/contracts/capability/lab/tools",
       "LabPublishInputSchema": "@x9-forge/contracts/capability/lab/tools",
       "LabPublishOutputSchema": "@x9-forge/contracts/capability/lab/tools",
